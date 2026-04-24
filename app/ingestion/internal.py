@@ -26,16 +26,25 @@ class InternalAuthProvider:
 class EpicInternalCrawler(WebsiteCrawler):
     source_name = "epic_internal"
     source_type = "internal_website"
-    visibility = "internal"
 
     def __init__(self, settings: Settings) -> None:
+        # Only mark content "internal" when we are actually using an auth
+        # cookie/header to fetch it. If neither is configured, the crawler
+        # is pulling the same pages an unauthenticated visitor would see,
+        # so tagging them private would just hide public content from the
+        # public scope=public widget. This matters e.g. for
+        # www.epic-eic.org/sc/learning.html which is an internal-facing
+        # page that still serves over HTTPS without auth.
+        has_auth = bool(settings.EPIC_INTERNAL_COOKIE or settings.EPIC_INTERNAL_AUTH_HEADER)
+        visibility = "internal" if has_auth else "public"
         super().__init__(
             settings,
             source_name="epic_internal",
             start_url=settings.EPIC_INTERNAL_START_URL,
             max_pages=settings.EPIC_INTERNAL_MAX_PAGES,
-            visibility="internal",
+            visibility=visibility,
         )
+        self.visibility = visibility
         self.source_type = "internal_website"  # override the parent's "website" after super().__init__
         self.auth_provider = InternalAuthProvider(settings)
         self.allowed_netloc = urlparse(settings.EPIC_INTERNAL_START_URL).netloc
@@ -74,14 +83,14 @@ class EpicInternalCrawler(WebsiteCrawler):
                         title=extracted.title,
                         url=str(response.url),
                         content=extracted.content,
-                        visibility="internal",
+                        visibility=self.visibility,
                         section_path=extracted.breadcrumbs or self._section_from_url(str(response.url)),
                         last_updated=extracted.last_updated,
                         metadata={
                             "headings": extracted.headings[:30],
                             "breadcrumbs": extracted.breadcrumbs,
                             "crawler": "epic_internal",
-                            "permission_sensitive": True,
+                            "permission_sensitive": self.visibility == "internal",
                         },
                     )
                 )

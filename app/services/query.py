@@ -45,7 +45,15 @@ class QueryService:
                 return self._hit(db, request, filters_payload, cached, started)
 
         filters = self._filters(request.scope, request.filters)
-        variants, rewrite_debug = self.query_rewriter.rewrite(request.query)
+        # Only pay the rewriter hop on submit (generate_answer=true). Preview
+        # fires on every keystroke, and burning one OpenAI call per character
+        # turns typing latency into 1-2s per stroke with no win: the extra
+        # paraphrases only really matter when the LLM is about to read the
+        # sources anyway.
+        if request.generate_answer:
+            variants, rewrite_debug = self.query_rewriter.rewrite(request.query)
+        else:
+            variants, rewrite_debug = [], {"skipped": "preview"}
         # When generating an answer, fetch a broader pool (LLM_CONTEXT_TOP_K)
         # so the model sees more supporting context, then we truncate the
         # returned citations to request.top_k after generation.

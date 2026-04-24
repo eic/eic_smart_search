@@ -179,6 +179,12 @@ class HybridRetriever:
     def _reduce_duplicates(self, chunks: list[RetrievedChunk]) -> list[RetrievedChunk]:
         seen_hashes: set[str] = set()
         seen_titles: set[str] = set()
+        # Diversify: a single repo or document shouldn't flood the top
+        # results. After the Nth chunk sharing a cluster key, decay the
+        # score so chunks from other sources get a fair shot.
+        cluster_counts: dict[str, int] = {}
+        DIVERSITY_CAP = 2
+        DIVERSITY_DECAY = 0.55
         output: list[RetrievedChunk] = []
         for chunk in chunks:
             key_hash = chunk.content_hash or ""
@@ -187,10 +193,25 @@ class HybridRetriever:
                 continue
             if title_key in seen_titles and chunk.source_type == "github_repo":
                 chunk.score *= 0.82
+            cluster_key = self._cluster_key(chunk)
+            count = cluster_counts.get(cluster_key, 0)
+            if count >= DIVERSITY_CAP:
+                chunk.score *= DIVERSITY_DECAY ** (count - DIVERSITY_CAP + 1)
+            cluster_counts[cluster_key] = count + 1
             if key_hash:
                 seen_hashes.add(key_hash)
             seen_titles.add(title_key)
             output.append(chunk)
         output.sort(key=lambda item: item.score, reverse=True)
         return output
+
+    @staticmethod
+    def _cluster_key(chunk: RetrievedChunk) -> str:
+        # GitHub repos share a metadata.repo (e.g. "eic/zenodo-mcp-server");
+        # use that so 5 README-like chunks from one repo don't crowd out
+        # everything else. Fall back to document_id for other sources.
+        repo = (chunk.metadata or {}).get("repo") if chunk.metadata else None
+        if repo:
+            return f"repo::{repo}"
+        return f"doc::{chunk.document_id}"
 

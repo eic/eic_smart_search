@@ -27,12 +27,19 @@ class PostgresLexicalRetriever:
             c.content_hash,
             d.doc_metadata,
             c.chunk_metadata,
-            ts_rank_cd(to_tsvector('english', c.content), plainto_tsquery('english', :query)) AS lexical_score
+            ts_rank_cd(
+                setweight(to_tsvector('english', coalesce(d.title, '')), 'A') ||
+                setweight(to_tsvector('english', c.content), 'B'),
+                plainto_tsquery('english', :query)
+            ) AS lexical_score
         FROM chunks c
         JOIN documents d ON d.id = c.document_id
         WHERE
             c.visibility IN :visibilities
-            AND to_tsvector('english', c.content) @@ plainto_tsquery('english', :query)
+            AND (
+                to_tsvector('english', c.content) @@ plainto_tsquery('english', :query)
+                OR to_tsvector('english', coalesce(d.title, '')) @@ plainto_tsquery('english', :query)
+            )
         """
         params: dict[str, Any] = {
             "query": query,

@@ -186,5 +186,6 @@ class QueryLog(Base):
     cost_usd: Mapped[float | None] = mapped_column(Float)
     confidence: Mapped[str | None] = mapped_column(String(16))
     top_score: Mapped[float | None] = mapped_column(Float)
+    answer: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False, index=True)
 

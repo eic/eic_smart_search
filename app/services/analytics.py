@@ -212,16 +212,31 @@ def build_popular_queries(
     window_days: int = 7,
     limit: int = 5,
     min_results: int = 1,
+    min_words: int = 3,
 ) -> PopularQueriesResponse:
     """Public, low-PII list of the most frequent successful queries.
 
-    Only includes queries where at least `min_results` documents were
-    returned, so failed / zero-result phrasings never surface on the
-    public site. Query text is capped at 120 chars defensively.
+    Two layers of filtering keep half-typed preview fragments out:
+      - `answer_generated = true` — only count queries where the user
+        actually submitted (or the speculative prefetch paired with one),
+        never the retrieval-only preview fires from each keystroke.
+      - `min_words` — drop 1-2 word stubs like "what", "how", "give me"
+        that still sneak through via speculative pre-fires.
+    Also requires at least `min_results` citations were returned, so
+    failed / zero-result phrasings never surface. Query text is capped
+    at 120 chars defensively.
     """
     window_days = max(1, min(window_days, 90))
     limit = max(1, min(limit, 20))
+    min_words = max(1, min_words)
     since = datetime.now(timezone.utc) - timedelta(days=window_days)
+
+    # cardinality(regexp_split_to_array(...)) gives the word count of a
+    # whitespace-normalized query inside Postgres so we never tally the
+    # short preview stubs.
+    word_count_expr = func.cardinality(
+        func.regexp_split_to_array(func.trim(QueryLog.query), r"\s+")
+    )
 
     rows = db.execute(
         select(
@@ -232,6 +247,8 @@ def build_popular_queries(
             QueryLog.created_at >= since,
             QueryLog.result_count >= min_results,
             QueryLog.scope == "public",
+            QueryLog.answer_generated.is_(True),
+            word_count_expr >= min_words,
         )
         .group_by(QueryLog.query)
         .order_by(desc(func.count(QueryLog.id)))

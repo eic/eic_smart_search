@@ -46,8 +46,17 @@ class QueryService:
 
         filters = self._filters(request.scope, request.filters)
         variants, rewrite_debug = self.query_rewriter.rewrite(request.query)
+        # When generating an answer, fetch a broader pool (LLM_CONTEXT_TOP_K)
+        # so the model sees more supporting context, then we truncate the
+        # returned citations to request.top_k after generation.
+        llm_context_k = int(getattr(self.settings, "LLM_CONTEXT_TOP_K", 0) or 0)
+        retrieval_k = (
+            max(request.top_k, llm_context_k)
+            if request.generate_answer and llm_context_k > 0
+            else request.top_k
+        )
         chunks, retrieval_debug = self.retriever.search(
-            db, request.query, filters, request.top_k, extra_queries=variants
+            db, request.query, filters, retrieval_k, extra_queries=variants
         )
         retrieval_debug["query_rewrite"] = rewrite_debug
         chunks, parent_debug = expand_parents(db, chunks, self.parent_expansion)
@@ -60,10 +69,23 @@ class QueryService:
                 chunks,
                 min_support_score=self.settings.MIN_SUPPORT_SCORE,
             )
+            # Reorder chunks so LLM-cited ones come first (in citation order),
+            # then pad with top-scored non-cited chunks to request.top_k. The
+            # answer's [N] markers are remapped so they still resolve against
+            # the trimmed citation list.
+            answer, chunks = self._align_citations(answer, chunks, request.top_k)
+            retrieval_debug["llm_context_sent"] = generation_debug.get("contexts_sent", len(chunks))
+            retrieval_debug["citations_returned"] = len(chunks)
+        else:
+            chunks = chunks[: request.top_k]
         citations = [self._citation(request.query, chunk) for chunk in chunks]
         latency_ms = int((time.perf_counter() - started) * 1000)
         debug = {**retrieval_debug, "generation": generation_debug, "latency_ms": latency_ms, "cache_hit": False}
         top_score = chunks[0].score if chunks else None
+        # Don't persist retrieval-only preview calls (generate_answer=false):
+        # the typing-debounced prefires from the widget would otherwise flood
+        # analytics with partial-word rows ("wha", "what ar", …) that carry
+        # no user intent beyond telemetry.
         query_log = QueryLog(
             query=request.query,
             scope=request.scope,
@@ -83,9 +105,14 @@ class QueryService:
             cost_usd=generation_debug.get("cost_usd"),
             confidence=self._confidence(top_score),
             top_score=top_score,
+            answer=(answer or None) if request.generate_answer else None,
         )
-        db.add(query_log)
-        db.commit()
+        if request.generate_answer:
+            db.add(query_log)
+            db.commit()
+            log_id = query_log.id
+        else:
+            log_id = None
 
         # Only cache substantive, successful responses — don't cache insufficient-support
         # refusals or zero-result queries (those are cheap to re-run anyway).
@@ -107,7 +134,7 @@ class QueryService:
                 },
             )
 
-        return QueryResponse(answer=answer, citations=citations, retrieval_debug=debug, query_log_id=query_log.id)
+        return QueryResponse(answer=answer, citations=citations, retrieval_debug=debug, query_log_id=log_id)
 
     def _hit(
         self,
@@ -149,10 +176,14 @@ class QueryService:
             cost_usd=0.0,
             confidence=self._confidence(top_score),
             top_score=top_score,
+            answer=(answer or None) if request.generate_answer else None,
         )
-        db.add(query_log)
-        db.commit()
-        return QueryResponse(answer=answer, citations=citations, retrieval_debug=debug, query_log_id=query_log.id)
+        log_id = None
+        if request.generate_answer:
+            db.add(query_log)
+            db.commit()
+            log_id = query_log.id
+        return QueryResponse(answer=answer, citations=citations, retrieval_debug=debug, query_log_id=log_id)
 
     def _confidence(self, top_score: float | None) -> str:
         if top_score is None:
@@ -196,6 +227,46 @@ class QueryService:
                 "last_updated": chunk.last_updated.isoformat() if chunk.last_updated else None,
             },
         )
+
+    @staticmethod
+    def _align_citations(
+        answer: str, chunks: list[RetrievedChunk], display_k: int
+    ) -> tuple[str, list[RetrievedChunk]]:
+        """Reorder `chunks` so cited ones lead, cap to `display_k`, remap [N] markers.
+
+        The LLM saw a larger pool than the user will see. We take the chunks
+        it actually cited (in citation order, deduped) first, then fill up to
+        `display_k` with the highest-scored non-cited chunks so every widget
+        slot still has content. The answer's bracketed references are
+        rewritten to match the new positions; any reference pointing outside
+        the trimmed list is dropped.
+        """
+        if not chunks:
+            return answer, chunks
+        cited_order: list[int] = []
+        seen: set[int] = set()
+        for match in re.finditer(r"\[(\d+)\]", answer or ""):
+            idx = int(match.group(1))
+            if 1 <= idx <= len(chunks) and idx not in seen:
+                seen.add(idx)
+                cited_order.append(idx)
+        new_chunks: list[RetrievedChunk] = [chunks[i - 1] for i in cited_order[:display_k]]
+        if len(new_chunks) < display_k:
+            for i, chunk in enumerate(chunks, start=1):
+                if i in seen:
+                    continue
+                new_chunks.append(chunk)
+                if len(new_chunks) >= display_k:
+                    break
+        old_to_new: dict[int, int] = {old: new + 1 for new, old in enumerate(cited_order[:display_k])}
+
+        def _remap(match: re.Match[str]) -> str:
+            old = int(match.group(1))
+            new = old_to_new.get(old)
+            return f"[{new}]" if new else ""
+
+        remapped = re.sub(r"\[(\d+)\]", _remap, answer or "")
+        return remapped, new_chunks
 
     def _snippet(self, query: str, content: str, max_chars: int = 520) -> str:
         terms = [term.lower() for term in re.findall(r"[A-Za-z0-9_+-]+", query) if len(term) > 2]

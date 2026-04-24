@@ -1,6 +1,8 @@
-from typing import Annotated
+from pathlib import Path
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi.responses import HTMLResponse, JSONResponse
 from sqlalchemy import desc, select, text
 from sqlalchemy.orm import Session, selectinload
 
@@ -25,6 +27,7 @@ from app.schemas.api import (
 from app.services.analytics import build_analytics, build_popular_queries
 from app.services.factory import build_ingestion_orchestrator, build_query_service, build_vector_store
 from app.services.query import QueryService
+from app.services.query_cache import reset_query_cache
 
 router = APIRouter()
 
@@ -189,6 +192,81 @@ def admin_reindex(
 @router.get("/admin/analytics", response_model=AnalyticsResponse)
 def admin_analytics(db: DbSession, window_days: int = 7, limit: int = 20) -> AnalyticsResponse:
     return build_analytics(db, window_days=window_days, limit=limit)
+
+
+@router.get("/admin/recent")
+def admin_recent_queries(
+    db: DbSession,
+    window_days: int = 7,
+    limit: int = 50,
+    search: str | None = None,
+    answered_only: bool = False,
+) -> JSONResponse:
+    """Recent query logs with answer text, for the analytics dashboard."""
+    from datetime import datetime, timedelta, timezone
+    from app.models.entities import QueryLog
+
+    window_days = max(1, min(window_days, 90))
+    limit = max(1, min(limit, 500))
+    since = datetime.now(timezone.utc) - timedelta(days=window_days)
+    stmt = (
+        select(QueryLog)
+        .where(QueryLog.created_at >= since)
+        .order_by(desc(QueryLog.created_at))
+        .limit(limit)
+    )
+    if answered_only:
+        stmt = stmt.where(
+            QueryLog.answer_generated.is_(True),
+            QueryLog.answer.isnot(None),
+            QueryLog.answer != "",
+        )
+    if search:
+        stmt = stmt.where(QueryLog.query.ilike(f"%{search}%"))
+    rows = db.execute(stmt).scalars().all()
+    payload: list[dict[str, Any]] = []
+    for row in rows:
+        payload.append(
+            {
+                "id": row.id,
+                "query": row.query,
+                "scope": row.scope,
+                "top_k": row.top_k,
+                "answer_generated": row.answer_generated,
+                "answer": row.answer,
+                "result_count": row.result_count,
+                "latency_ms": row.latency_ms,
+                "generation_provider": row.generation_provider,
+                "generation_model": row.generation_model,
+                "prompt_tokens": row.prompt_tokens,
+                "completion_tokens": row.completion_tokens,
+                "cost_usd": row.cost_usd,
+                "confidence": row.confidence,
+                "top_score": row.top_score,
+                "cache_hit": (row.retrieval_debug or {}).get("cache_hit"),
+                "created_at": row.created_at.isoformat() if row.created_at else None,
+            }
+        )
+    return JSONResponse({"window_days": window_days, "count": len(payload), "items": payload})
+
+
+@router.get("/admin/dashboard", response_class=HTMLResponse)
+def admin_dashboard() -> HTMLResponse:
+    """Human-readable analytics dashboard. Reads /admin/analytics + /admin/recent."""
+    html_path = Path(__file__).resolve().parent / "static" / "dashboard.html"
+    return HTMLResponse(html_path.read_text(encoding="utf-8"))
+
+
+@router.post("/admin/reset_cache")
+def admin_reset_cache() -> dict[str, str]:
+    """Drop every entry in the in-process query response cache.
+
+    Useful when retrieval / prompt / generation logic has changed and we
+    want popular-query clicks to stop replaying the pre-change answer
+    that still sits inside the 1h TTL.
+    """
+    reset_query_cache()
+    return {"status": "reset"}
 
 
 @router.get("/popular", response_model=PopularQueriesResponse)

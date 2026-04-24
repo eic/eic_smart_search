@@ -61,6 +61,50 @@ def test_query_service_public_scope_never_includes_internal_visibility() -> None
     assert retriever.allowed_visibilities == ["public"]
 
 
+def test_align_citations_reorders_and_remaps() -> None:
+    chunks = [
+        RetrievedChunk(
+            chunk_id=f"c{i}",
+            document_id=f"d{i}",
+            source_name="eic_website",
+            source_type="website",
+            title=f"T{i}",
+            url=f"https://example/{i}",
+            content="...",
+            score=1.0 - i * 0.01,
+        )
+        for i in range(1, 11)
+    ]
+    # LLM cited sources 7 and 3 in that order out of 10 candidates.
+    answer = "Foo [7] bar [3]. More [7]."
+    remapped, new_chunks = QueryService._align_citations(answer, chunks, display_k=5)
+    assert [c.chunk_id for c in new_chunks[:2]] == ["c7", "c3"]
+    # Remaining slots filled with highest-scored non-cited chunks (c1, c2, c4).
+    assert [c.chunk_id for c in new_chunks[2:5]] == ["c1", "c2", "c4"]
+    assert remapped == "Foo [1] bar [2]. More [1]."
+
+
+def test_align_citations_drops_out_of_range_references() -> None:
+    chunks = [
+        RetrievedChunk(
+            chunk_id=f"c{i}",
+            document_id=f"d{i}",
+            source_name="eic_website",
+            source_type="website",
+            title=f"T{i}",
+            url=f"https://example/{i}",
+            content="...",
+            score=1.0 - i * 0.01,
+        )
+        for i in range(1, 4)
+    ]
+    # LLM cited source 99 — doesn't exist. Must be stripped.
+    answer = "Claim [99]."
+    remapped, new_chunks = QueryService._align_citations(answer, chunks, display_k=1)
+    assert [c.chunk_id for c in new_chunks] == ["c1"]
+    assert remapped == "Claim ."
+
+
 def test_query_service_cache_hit_skips_retriever_and_generator() -> None:
     """On a second call with the same query/scope/top_k/generate_answer/filters,
     the cached payload is served without re-hitting the retriever, rewriter,

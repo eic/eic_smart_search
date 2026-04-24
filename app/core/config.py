@@ -45,6 +45,9 @@ class Settings(BaseSettings):
     GENERATION_HTTP_URL: AnyHttpUrl | None = None
     GENERATION_HTTP_MODEL: str | None = None
     MIN_SUPPORT_SCORE: float = 0.16
+    # Number of chunks fetched and passed to the LLM when generate_answer=True.
+    # The user-facing citation list is still capped at request.top_k.
+    LLM_CONTEXT_TOP_K: int = 50
 
     RERANK_PROVIDER: Literal["none", "cross_encoder"] = "none"
     RERANK_MODEL: str = "BAAI/bge-reranker-base"

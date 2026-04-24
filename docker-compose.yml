@@ -1,0 +1,62 @@
+services:
+  api:
+    build: .
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://smartsearch:smartsearch@postgres:5432/smartsearch
+      QDRANT_URL: http://qdrant:6333
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - .:/app
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: smartsearch
+      POSTGRES_PASSWORD: smartsearch
+      POSTGRES_DB: smartsearch
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smartsearch -d smartsearch"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.5
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant_data:/qdrant/storage
+
+  embedding:
+    image: ghcr.io/huggingface/text-embeddings-inference:1.7.2
+    profiles:
+      - gpu
+    gpus: all
+    ports:
+      - "8080:80"
+    command:
+      - --model-id
+      - Qwen/Qwen3-Embedding-8B
+      - --dtype
+      - float16
+    volumes:
+      - hf_cache:/data
+
+volumes:
+  hf_cache:

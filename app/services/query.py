@@ -1,0 +1,216 @@
+import re
+import time
+from typing import Any
+
+from sqlalchemy.orm import Session
+
+from app.core.config import Settings
+from app.llm.generation import AnswerGenerator
+from app.models.entities import QueryLog
+from app.retrieval.hybrid import HybridRetriever
+from app.retrieval.parent_expand import ParentExpansionConfig, expand_parents
+from app.retrieval.query_rewrite import NullQueryRewriter, QueryRewriter
+from app.retrieval.types import RetrievedChunk, RetrievalFilters
+from app.schemas.api import Citation, Filters, QueryRequest, QueryResponse
+from app.services.query_cache import QueryCache
+
+
+class QueryService:
+    def __init__(
+        self,
+        settings: Settings,
+        retriever: HybridRetriever,
+        answer_generator: AnswerGenerator,
+        query_rewriter: QueryRewriter | None = None,
+        query_cache: QueryCache | None = None,
+    ) -> None:
+        self.settings = settings
+        self.retriever = retriever
+        self.answer_generator = answer_generator
+        self.parent_expansion = ParentExpansionConfig.from_settings(settings)
+        self.query_rewriter: QueryRewriter = query_rewriter or NullQueryRewriter()
+        self.query_cache: QueryCache | None = query_cache
+
+    def query(self, db: Session, request: QueryRequest) -> QueryResponse:
+        started = time.perf_counter()
+        filters_payload = request.filters.model_dump()
+
+        # Cache probe. On hit we skip retrieval / rewrite / generation entirely
+        # and just record a query log for analytics.
+        if self.query_cache is not None:
+            cached = self.query_cache.get(
+                request.query, request.scope, request.top_k, request.generate_answer, filters_payload
+            )
+            if cached is not None:
+                return self._hit(db, request, filters_payload, cached, started)
+
+        filters = self._filters(request.scope, request.filters)
+        variants, rewrite_debug = self.query_rewriter.rewrite(request.query)
+        chunks, retrieval_debug = self.retriever.search(
+            db, request.query, filters, request.top_k, extra_queries=variants
+        )
+        retrieval_debug["query_rewrite"] = rewrite_debug
+        chunks, parent_debug = expand_parents(db, chunks, self.parent_expansion)
+        retrieval_debug["parent_expansion"] = parent_debug
+        answer = ""
+        generation_debug: dict[str, Any] = {"enabled": request.generate_answer}
+        if request.generate_answer:
+            answer, generation_debug = self.answer_generator.generate(
+                request.query,
+                chunks,
+                min_support_score=self.settings.MIN_SUPPORT_SCORE,
+            )
+        citations = [self._citation(request.query, chunk) for chunk in chunks]
+        latency_ms = int((time.perf_counter() - started) * 1000)
+        debug = {**retrieval_debug, "generation": generation_debug, "latency_ms": latency_ms, "cache_hit": False}
+        top_score = chunks[0].score if chunks else None
+        query_log = QueryLog(
+            query=request.query,
+            scope=request.scope,
+            filters=filters_payload,
+            top_k=request.top_k,
+            answer_generated=request.generate_answer,
+            result_count=len(citations),
+            latency_ms=latency_ms,
+            retrieval_debug=debug,
+            embedding_provider=getattr(self.settings, "EMBEDDING_PROVIDER", None),
+            embedding_model=getattr(self.settings, "EMBEDDING_MODEL", None),
+            generation_provider=getattr(self.settings, "GENERATION_PROVIDER", None) if request.generate_answer else None,
+            generation_model=generation_debug.get("model") if request.generate_answer else None,
+            prompt_tokens=generation_debug.get("prompt_tokens"),
+            completion_tokens=generation_debug.get("completion_tokens"),
+            total_tokens=generation_debug.get("total_tokens"),
+            cost_usd=generation_debug.get("cost_usd"),
+            confidence=self._confidence(top_score),
+            top_score=top_score,
+        )
+        db.add(query_log)
+        db.commit()
+
+        # Only cache substantive, successful responses — don't cache insufficient-support
+        # refusals or zero-result queries (those are cheap to re-run anyway).
+        if (
+            self.query_cache is not None
+            and citations
+            and (not request.generate_answer or generation_debug.get("mode") not in ("openai", "http", "extractive") or generation_debug.get("support") != "insufficient")
+        ):
+            self.query_cache.set(
+                request.query,
+                request.scope,
+                request.top_k,
+                request.generate_answer,
+                filters_payload,
+                payload={
+                    "answer": answer,
+                    "citations": [c.model_dump() for c in citations],
+                    "top_score": top_score,
+                },
+            )
+
+        return QueryResponse(answer=answer, citations=citations, retrieval_debug=debug, query_log_id=query_log.id)
+
+    def _hit(
+        self,
+        db: Session,
+        request: QueryRequest,
+        filters_payload: dict[str, Any],
+        cached: dict[str, Any],
+        started: float,
+    ) -> QueryResponse:
+        payload = cached["payload"]
+        age_s = cached["age_s"]
+        answer = payload.get("answer", "")
+        citations = [Citation(**c) for c in payload.get("citations", [])]
+        top_score = payload.get("top_score")
+        latency_ms = int((time.perf_counter() - started) * 1000)
+        debug = {
+            "cache_hit": True,
+            "cache_age_s": round(age_s, 3),
+            "latency_ms": latency_ms,
+            "generation": {"enabled": request.generate_answer, "mode": "cached"},
+            "returned_count": len(citations),
+        }
+        query_log = QueryLog(
+            query=request.query,
+            scope=request.scope,
+            filters=filters_payload,
+            top_k=request.top_k,
+            answer_generated=request.generate_answer,
+            result_count=len(citations),
+            latency_ms=latency_ms,
+            retrieval_debug=debug,
+            embedding_provider=getattr(self.settings, "EMBEDDING_PROVIDER", None),
+            embedding_model=getattr(self.settings, "EMBEDDING_MODEL", None),
+            generation_provider="cache" if request.generate_answer else None,
+            generation_model=None,
+            prompt_tokens=0,
+            completion_tokens=0,
+            total_tokens=0,
+            cost_usd=0.0,
+            confidence=self._confidence(top_score),
+            top_score=top_score,
+        )
+        db.add(query_log)
+        db.commit()
+        return QueryResponse(answer=answer, citations=citations, retrieval_debug=debug, query_log_id=query_log.id)
+
+    def _confidence(self, top_score: float | None) -> str:
+        if top_score is None:
+            return "none"
+        min_support = self.settings.MIN_SUPPORT_SCORE
+        if top_score < min_support:
+            return "low"
+        if top_score < min_support * 2.5:
+            return "medium"
+        return "high"
+
+    def _filters(self, scope: str, filters: Filters) -> RetrievalFilters:
+        return RetrievalFilters(
+            scope=scope,
+            source_names=filters.source_names,
+            source_types=filters.source_types,
+            section=filters.section,
+            repo_path_prefix=filters.repo_path_prefix,
+            filetypes=filters.filetypes,
+        )
+
+    def _citation(self, query: str, chunk: RetrievedChunk) -> Citation:
+        return Citation(
+            chunk_id=chunk.chunk_id,
+            document_id=chunk.document_id,
+            title=chunk.title,
+            url=chunk.url,
+            snippet=self._snippet(query, chunk.content),
+            source_name=chunk.source_name,
+            source_type=chunk.source_type,
+            score=round(chunk.score, 6),
+            metadata={
+                **chunk.metadata,
+                "visibility": chunk.visibility,
+                "repo_path": chunk.repo_path,
+                "filetype": chunk.filetype,
+                "section_path": chunk.section_path,
+                "heading_path": chunk.heading_path,
+                "vector_score": chunk.vector_score,
+                "lexical_score": chunk.lexical_score,
+                "last_updated": chunk.last_updated.isoformat() if chunk.last_updated else None,
+            },
+        )
+
+    def _snippet(self, query: str, content: str, max_chars: int = 520) -> str:
+        terms = [term.lower() for term in re.findall(r"[A-Za-z0-9_+-]+", query) if len(term) > 2]
+        lowered = content.lower()
+        positions = [lowered.find(term) for term in terms if lowered.find(term) >= 0]
+        if positions:
+            center = min(positions)
+            start = max(0, center - max_chars // 3)
+        else:
+            start = 0
+        end = min(len(content), start + max_chars)
+        snippet = content[start:end].strip()
+        if start > 0:
+            snippet = "... " + snippet
+        if end < len(content):
+            snippet = snippet.rstrip() + " ..."
+        return snippet
+

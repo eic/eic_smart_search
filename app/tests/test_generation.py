@@ -78,6 +78,7 @@ def _build_generator(client: _FakeClient, **overrides: Any) -> OpenAIAnswerGener
     generator.input_cost_per_1m = overrides.get("input_cost_per_1m", 0.40)
     generator.output_cost_per_1m = overrides.get("output_cost_per_1m", 1.60)
     generator._fallback = overrides.get("fallback", ExtractiveAnswerGenerator())  # type: ignore[attr-defined]
+    generator._indico = overrides.get("indico_client", None)  # type: ignore[attr-defined]
     return generator
 
 

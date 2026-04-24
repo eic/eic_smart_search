@@ -208,15 +208,33 @@ def test_epic_internal_keeps_its_source_name(monkeypatch) -> None:
     from app.ingestion.internal import EpicInternalCrawler
 
     # Build a Settings instance with only the fields the crawler touches.
+    # Include an auth header so visibility stays 'internal' — the crawler
+    # now derives visibility from whether auth is configured.
+    settings = Settings(
+        _env_file=None,
+        EPIC_INTERNAL_START_URL="https://www.epic-eic.org/index-internal.html",
+        EPIC_INTERNAL_MAX_PAGES=100,
+        EPIC_INTERNAL_AUTH_HEADER="Authorization: Bearer test-token",
+    )
+    crawler = EpicInternalCrawler(settings)
+    assert crawler.source_name == "epic_internal"
+    assert crawler.source_type == "internal_website"
+    assert crawler.visibility == "internal"
+
+
+def test_epic_internal_marks_public_when_no_auth_configured(monkeypatch) -> None:
+    """Without any cookie or auth header the crawler is really fetching public
+    pages; mark them public so scope=public queries can retrieve them."""
+    from app.core.config import Settings
+    from app.ingestion.internal import EpicInternalCrawler
+
     settings = Settings(
         _env_file=None,
         EPIC_INTERNAL_START_URL="https://www.epic-eic.org/index-internal.html",
         EPIC_INTERNAL_MAX_PAGES=100,
     )
     crawler = EpicInternalCrawler(settings)
-    assert crawler.source_name == "epic_internal"
-    assert crawler.source_type == "internal_website"
-    assert crawler.visibility == "internal"
+    assert crawler.visibility == "public"
 
 
 # ---------------------------------------------------------------------------

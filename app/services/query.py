@@ -36,8 +36,13 @@ class QueryService:
         filters_payload = request.filters.model_dump()
 
         # Cache probe. On hit we skip retrieval / rewrite / generation entirely
-        # and just record a query log for analytics.
-        if self.query_cache is not None:
+        # and just record a query log for analytics. Meeting / schedule queries
+        # bypass both the probe and the write below — Indico data moves in
+        # real time, so an hour-old cached "next meeting" answer is worse than
+        # no answer. The IndicoClient's own 5-minute cache still deduplicates
+        # rapid repeat calls at the HTTP layer.
+        looks_time_sensitive = self._is_time_sensitive_query(request.query)
+        if self.query_cache is not None and not looks_time_sensitive:
             cached = self.query_cache.get(
                 request.query, request.scope, request.top_k, request.generate_answer, filters_payload
             )
@@ -77,11 +82,21 @@ class QueryService:
                 chunks,
                 min_support_score=self.settings.MIN_SUPPORT_SCORE,
             )
-            # Reorder chunks so LLM-cited ones come first (in citation order),
-            # then pad with top-scored non-cited chunks to request.top_k. The
-            # answer's [N] markers are remapped so they still resolve against
-            # the trimmed citation list.
-            answer, chunks = self._align_citations(answer, chunks, request.top_k)
+            # If the LLM invoked the Indico tool and the answer actually
+            # references those event URLs, show the events as citations
+            # instead of the (irrelevant) static retrieval cards. Detect by
+            # scanning the answer for event URLs that appear in the tool's
+            # returned events.
+            indico_chunks = self._indico_citations(answer, generation_debug.get("indico_events") or [])
+            if indico_chunks:
+                answer, chunks = self._align_citations(answer, indico_chunks, request.top_k)
+                retrieval_debug["indico_citations"] = len(chunks)
+            else:
+                # Reorder chunks so LLM-cited ones come first (in citation
+                # order), then pad with top-scored non-cited chunks to
+                # request.top_k. The answer's [N] markers are remapped so
+                # they still resolve against the trimmed citation list.
+                answer, chunks = self._align_citations(answer, chunks, request.top_k)
             retrieval_debug["llm_context_sent"] = generation_debug.get("contexts_sent", len(chunks))
             retrieval_debug["citations_returned"] = len(chunks)
         else:
@@ -124,9 +139,16 @@ class QueryService:
 
         # Only cache substantive, successful responses — don't cache insufficient-support
         # refusals or zero-result queries (those are cheap to re-run anyway).
+        # Also bypass the cache whenever the Indico live tool was invoked:
+        # meeting schedules change (new events, rescheduled times, cancelled
+        # slots) and we do not want to replay a 1h-old answer as "next". The
+        # IndicoClient has its own short in-process cache (~5 min) that still
+        # de-duplicates the HTTP call within a rapid burst.
+        tool_was_used = bool(generation_debug.get("tool_rounds"))
         if (
             self.query_cache is not None
             and citations
+            and not tool_was_used
             and (not request.generate_answer or generation_debug.get("mode") not in ("openai", "http", "extractive") or generation_debug.get("support") != "insufficient")
         ):
             self.query_cache.set(
@@ -235,6 +257,84 @@ class QueryService:
                 "last_updated": chunk.last_updated.isoformat() if chunk.last_updated else None,
             },
         )
+
+    # Keywords that should always hit a live lookup, never the response cache.
+    # Kept in sync with OpenAIAnswerGenerator._FORCE_INDICO_KEYWORDS — this
+    # is the query-side mirror so the cache doesn't short-circuit the call
+    # before the generator ever runs.
+    _TIME_SENSITIVE_KEYWORDS: tuple[str, ...] = (
+        " meeting", "meetings", "agenda", "agendas", "schedule", "scheduled",
+        "when is", "when's", "when are", "when will", "what's next", "what is next",
+        "upcoming", "next week", "this week", "next month", "today's",
+    )
+
+    @classmethod
+    def _is_time_sensitive_query(cls, query: str) -> bool:
+        q = f" {query.lower()} "
+        return any(k in q for k in cls._TIME_SENSITIVE_KEYWORDS)
+
+    @staticmethod
+    def _indico_citations(answer: str, events: list[dict[str, Any]]) -> list[RetrievedChunk]:
+        """Build virtual RetrievedChunks for the Indico events the LLM cited.
+
+        Returns [] when the answer doesn't reference any of the tool's events
+        — in that case the caller keeps the normal static citation flow. When
+        non-empty, the list preserves the order the events first appear in
+        the answer text, so [1] in the answer maps to the first-mentioned
+        event after `_align_citations` runs.
+        """
+        if not events:
+            return []
+        by_id: dict[str, dict[str, Any]] = {}
+        for ev in events:
+            ev_id = str(ev.get("id") or "")
+            if ev_id and ev_id not in by_id:
+                by_id[ev_id] = ev
+        if not by_id:
+            return []
+        # Indico event URLs look like https://<host>/event/<id>/
+        cited_ids: list[str] = []
+        seen: set[str] = set()
+        for match in re.finditer(r"https?://[^\s)\"']*indico[^\s)\"']*/event/(\d+)", answer or ""):
+            ev_id = match.group(1)
+            if ev_id in by_id and ev_id not in seen:
+                seen.add(ev_id)
+                cited_ids.append(ev_id)
+        if not cited_ids:
+            return []
+        chunks: list[RetrievedChunk] = []
+        for ev_id in cited_ids:
+            ev = by_id[ev_id]
+            title = str(ev.get("title") or "")
+            category = str(ev.get("category") or "")
+            display_title = f"{title} — {category}" if category and category not in title else title
+            content_parts = [
+                ev.get("start") and f"Start: {ev['start']}",
+                ev.get("end") and f"End: {ev['end']}",
+                ev.get("location") and f"Location: {ev['location']}",
+                ev.get("description"),
+            ]
+            content = "\n".join([p for p in content_parts if p])
+            chunks.append(
+                RetrievedChunk(
+                    chunk_id=f"indico-{ev_id}",
+                    document_id=f"indico-{ev_id}",
+                    source_name="indico_live",
+                    source_type="indico_event",
+                    title=display_title or f"Indico event {ev_id}",
+                    url=str(ev.get("url") or f"https://indico.bnl.gov/event/{ev_id}/"),
+                    content=content,
+                    score=1.0,
+                    metadata={
+                        "category": category,
+                        "start": ev.get("start"),
+                        "end": ev.get("end"),
+                        "location": ev.get("location"),
+                        "live": True,
+                    },
+                )
+            )
+        return chunks
 
     @staticmethod
     def _align_citations(

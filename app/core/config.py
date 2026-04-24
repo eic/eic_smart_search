@@ -117,6 +117,11 @@ class Settings(BaseSettings):
     GITHUB_TOKEN: str | None = None
     GITHUB_MAX_FILES: int = 600
 
+    INDICO_ENABLED: bool = False
+    INDICO_CATEGORY_URL: str = "https://indico.bnl.gov/category/402/"
+    INDICO_CACHE_TTL_S: float = 300.0
+    INDICO_TIMEOUT_S: float = 10.0
+
     EPIC_INTERNAL_START_URL: str = "https://www.epic-eic.org/index-internal.html"
     EPIC_INTERNAL_MAX_PAGES: int = 100
     EPIC_INTERNAL_COOKIE: str | None = None

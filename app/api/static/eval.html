@@ -1,0 +1,2473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EIC Search — Evaluation</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --baseline: #c3c2b7; --ring: rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
+    --good: #006300; --critical: #d03b3b; --warning-ink: #8a5a00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --baseline: #383835; --ring: rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70;
+      --good: #0ca30c; --critical: #e66767; --warning-ink: #fab219;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 48px; }
+  header { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+  h1 { font-size: 18px; margin: 0; font-weight: 650; }
+  header nav { margin-left: auto; }
+  header a { color: var(--s1); text-decoration: none; }
+  header a:hover { text-decoration: underline; }
+  .card { background: var(--surface); border: 1px solid var(--ring); border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+  .card h2 { font-size: 13px; font-weight: 650; color: var(--ink-2); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .kpi { background: var(--surface); border: 1px solid var(--ring); border-radius: 8px; padding: 10px 12px; }
+  .kpi .v { font-size: 22px; font-weight: 650; }
+  .kpi .l { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .runbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .runbar input[type=text], .runbar input[type=password] {
+    background: var(--page); color: var(--ink); border: 1px solid var(--ring);
+    border-radius: 6px; padding: 5px 8px; font: inherit; }
+  .runbar label { color: var(--ink-2); font-size: 13px; display: flex; gap: 4px; align-items: center; }
+  button {
+    background: var(--s1); color: #fff; border: none; border-radius: 6px;
+    padding: 6px 14px; font: inherit; font-weight: 600; cursor: pointer; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #runStatus { color: var(--ink-2); font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; color: var(--muted); font-weight: 500; padding: 4px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  td { padding: 5px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr.clickable { cursor: pointer; }
+  tbody tr.clickable:hover td { background: color-mix(in srgb, var(--s1) 7%, transparent); }
+  tbody tr.selected td { background: color-mix(in srgb, var(--s1) 13%, transparent); }
+  .pass { color: var(--good); font-weight: 600; }
+  .fail { color: var(--critical); font-weight: 600; }
+  .warn { color: var(--warning-ink); font-weight: 600; }
+  .dim { color: var(--muted); }
+  .q { max-width: 340px; overflow-wrap: anywhere; }
+  #trend { width: 100%; height: 170px; display: block; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-top: 6px; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  .legend .l1::before { background: var(--s1); } .legend .l2::before { background: var(--s2); } .legend .l3::before { background: var(--s3); }
+  .tip { position: fixed; pointer-events: none; z-index: 10; display: none;
+    background: var(--surface); border: 1px solid var(--ring); border-radius: 6px;
+    padding: 6px 9px; font-size: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .empty { color: var(--muted); padding: 8px; }
+  details p { color: var(--ink-2); margin: 4px 0 0; white-space: pre-wrap; }
+
+  /* Tables scroll inside their card instead of widening the page. */
+  .tscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* Live "changes vs production" chips + highlight for modified controls. */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12px;
+    border: 1px solid var(--ring); border-radius: 12px; padding: 2px 9px;
+    background: color-mix(in srgb, var(--s2) 12%, transparent); }
+  .chip .from { color: var(--muted); }
+  .pg-chg { color: var(--s2); font-weight: 600; }
+  .pg-chg select, .pg-chg input { outline: 2px solid var(--s2); outline-offset: 1px; }
+  .pgrun { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline;
+    border-top: 1px solid var(--grid); padding: 7px 2px; font-size: 12px; }
+  .pgrun label { display: flex; align-items: center; gap: 5px; cursor: pointer;
+    min-height: 24px; color: var(--ink); }
+  .pgrun .sw { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+  .pgrun .cfg { color: var(--ink-2); flex: 1 1 200px; overflow-wrap: anywhere; }
+  .pgrun .met { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+  /* ---- what-if playground: the pipeline picture IS the control surface ----
+     Every stage is a clickable <g data-node>; state classes (.on/.off/.lit/
+     .changed/.hollow) are the ONLY thing pgSync() writes, so all visual
+     transitions live here rather than in JS. */
+  .pg-presets { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 10px; }
+  .pgpre { background: var(--surface); color: var(--ink-2); border: 1px solid var(--ring);
+    border-radius: 13px; padding: 3px 12px; font-size: 12px; font-weight: 500; }
+  .pgpre:hover { border-color: var(--s1); color: var(--ink); }
+  .pg-diagram { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 2px 0 6px; }
+  .pgd { display: block; width: 100%; margin: 0 auto; touch-action: manipulation; }
+  /* Below ~860px the horizontal layout's 12px labels would scale under 10px;
+     scroll the card instead of shrinking further (phones get .narrow). */
+  .pgd.wide { min-width: 860px; }
+  .pg-ah { fill: var(--baseline); }
+  .pg-edge { fill: none; stroke: var(--baseline); stroke-width: 2;
+    transition: stroke .25s, stroke-width .25s, opacity .25s; }
+  .pg-edge.off { stroke-width: 1; stroke-dasharray: 3 4; opacity: .5; }
+  .pg-box { fill: var(--surface); stroke: var(--ring); stroke-width: 1.5;
+    transition: fill .25s, stroke .25s, stroke-width .2s, x .3s, width .3s; }
+  .pg-fill { fill: color-mix(in srgb, var(--s1) 45%, transparent); transition: width .3s, fill .25s; }
+  .pg-node .pg-t { font-size: 12px; font-weight: 600; fill: var(--ink); }
+  .pg-node .pg-s { font-size: 10.5px; fill: var(--muted); }
+  .pg-node[data-toggle], .pg-chip, .pg-sw { cursor: pointer; }
+  .pg-node.on .pg-box { fill: color-mix(in srgb, var(--s1) 10%, var(--surface));
+    stroke: color-mix(in srgb, var(--s1) 65%, var(--ring)); }
+  .pg-node.off .pg-box { fill: color-mix(in srgb, var(--muted) 9%, var(--surface)); stroke: var(--ring); }
+  .pg-node.off .pg-t, .pg-node.off .pg-s { fill: var(--muted); }
+  .pg-node.off .pg-fill { fill: color-mix(in srgb, var(--muted) 35%, transparent); }
+  .pg-node.lit .pg-box { stroke: var(--s1); stroke-width: 2.5; }
+  .pg-node:focus { outline: none; }
+  .pg-node:focus-visible .pg-box, .pg-chip:focus-visible rect { stroke: var(--s2); stroke-width: 2.5; }
+  .pg-dot { fill: none; stroke: var(--muted); stroke-width: 1.6; transition: fill .25s, stroke .25s; }
+  .pg-node.on .pg-dot { fill: var(--s1); stroke: var(--s1); }
+  .pg-check { stroke: var(--surface); stroke-width: 1.8; fill: none; opacity: 0; transition: opacity .2s; }
+  .pg-node.on .pg-check { opacity: 1; }
+  .pg-term .pg-box { fill: color-mix(in srgb, var(--s1) 15%, var(--surface)); stroke: var(--s1); }
+  .pg-term.hollow .pg-box { fill: none; stroke: var(--muted); stroke-dasharray: 5 4; }
+  .pg-lane .pg-box { fill: color-mix(in srgb, var(--s3) 11%, var(--surface));
+    stroke: color-mix(in srgb, var(--s3) 45%, var(--ring)); }
+  /* "differs from production" outranks every other border treatment — it is
+     the one thing the user must not miss before hitting Run. */
+  .pg-node.changed .pg-box { stroke: var(--s2); stroke-dasharray: 5 3; }
+  .pg-chip rect { fill: var(--page); stroke: var(--ring); transition: fill .2s, stroke .2s; }
+  .pg-chip text { font-size: 10.5px; fill: var(--ink-2); }
+  .pg-chip.sel rect { fill: var(--s1); stroke: var(--s1); }
+  .pg-chip.sel text { fill: #fff; }
+  .pg-swtrack { fill: var(--grid); transition: fill .25s; }
+  .pg-sw.on .pg-swtrack { fill: var(--s1); }
+  .pg-swknob { fill: var(--surface); stroke: var(--ring); transition: cx .25s; }
+  .pg-hint { font-size: 9.5px; fill: var(--muted); }
+  .pg-pulse { fill: none; stroke: var(--s1); stroke-width: 4; stroke-linecap: round;
+    opacity: 0; pointer-events: none; }
+  .pgd.running .pg-pulse { opacity: .95; animation: pgflow 2.6s linear infinite; }
+  @keyframes pgflow { to { stroke-dashoffset: calc(-1 * var(--pgL, 2400px)); } }
+  .pgctl { display: flex; align-items: center; gap: 7px; height: 100%;
+    font: 11px/1.2 system-ui, -apple-system, sans-serif; color: var(--ink-2); }
+  .pgctl.col { flex-direction: column; align-items: stretch; justify-content: center; gap: 5px; }
+  .pgctl label { display: flex; align-items: center; gap: 7px; flex: 1 1 auto; min-width: 0; }
+  .pgctl input[type=range] { flex: 1 1 auto; width: 100%; min-width: 0; margin: 0;
+    accent-color: var(--s1); background: transparent; }
+  .pgctl select { flex: 1 1 auto; min-width: 0; background: var(--page); color: var(--ink);
+    border: 1px solid var(--ring); border-radius: 5px; padding: 2px 4px; font: inherit; }
+  .pgctl.dimmed { opacity: .42; }
+  .pg-compare { display: flex; gap: 18px; flex-wrap: wrap; align-items: flex-start; margin-top: 4px; }
+  #pgRadar { flex: 0 1 420px; min-width: 280px; }
+  #pgRunHistory { flex: 1 1 300px; min-width: 250px; }
+  .pg-poly { stroke-width: 2; stroke-linejoin: round; }
+  /* ---- drafts (precomputed grid) + LLM sample --------------------------------
+     Drafts are NOT measured runs, so they never borrow a run's visual language:
+     amber, dotted, always carrying the word "draft". */
+  .pg-draftbox { margin: 2px 0 10px; }
+  .pg-draftbox .kpis { margin: 6px 0 4px; }
+  .pg-draftbox .kpi { border: 1px dashed color-mix(in srgb, var(--warning-ink) 45%, var(--ring));
+    background: transparent; }
+  .pg-drafth { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; font-size: 12px; }
+  .pg-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px;
+    border: 1px dashed var(--warning-ink); color: var(--warning-ink);
+    border-radius: 11px; padding: 1px 9px; font-weight: 600; white-space: nowrap; }
+  .pg-badge.solid { border-style: solid; }
+  .pg-mini { background: var(--surface); color: var(--ink-2); border: 1px solid var(--ring);
+    border-radius: 12px; padding: 2px 10px; font-size: 11px; font-weight: 500; }
+  .pg-mini:hover { border-color: var(--s1); color: var(--ink); }
+  #pgSample { background: var(--surface); color: var(--ink-2); border: 1px solid var(--ring); }
+  #pgSample:not(:disabled) { border-color: color-mix(in srgb, var(--s2) 55%, var(--ring)); color: var(--s2); }
+  @media (prefers-reduced-motion: reduce) {
+    .pg-box, .pg-edge, .pg-dot, .pg-swknob, .pg-fill, .pg-check { transition: none; }
+    .pgd.running .pg-pulse { animation: none; opacity: .55; }
+  }
+
+  @media (max-width: 768px) {
+    .wrap { padding: 16px 12px 40px; }
+    h1 { flex: 1 1 100%; }
+    header nav { margin-left: 0; }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .card select, .card input, button { min-height: 40px; }
+    .card input[type=checkbox] { min-height: 0; width: 18px; height: 18px; }
+    .tscroll > table { min-width: 560px; }
+    .q { max-width: 220px; }
+    /* Playground → single column; the pipeline itself flips to top→bottom
+       (see pgLayoutNarrow), and its in-diagram sliders get 44px tap targets. */
+    #playgroundCard .runbar { flex-direction: column; align-items: stretch; }
+    #playgroundCard .runbar > label { width: 100%; justify-content: flex-start; }
+    #playgroundCard .runbar > label select { margin-left: auto; }
+    #playgroundCard .runbar > button { width: 100%; }
+    .pgd.narrow .pg-t { font-size: 14px; }
+    .pgd.narrow .pg-s { font-size: 12px; }
+    .pgd.narrow .pg-chip text { font-size: 12px; }
+    .pgctl { font-size: 12.5px; }
+    .pgctl input[type=range] { min-height: 44px; }
+    .pgctl select { min-height: 40px; }
+    .pg-compare { gap: 8px; }
+    #pgRadar, #pgRunHistory { flex: 1 1 100%; min-width: 0; }
+  }
+  @media (max-width: 480px) {
+    .kpis { grid-template-columns: 1fr; }
+    .kpi .v { font-size: 20px; }
+    .q { max-width: 190px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>EIC Search — Evaluation</h1>
+    <nav><a href="/admin/dashboard">Analytics</a></nav>
+  </header>
+  <div class="dim" style="margin:-8px 0 6px; font-size:13px">
+    Automated quality report: real user questions are replayed through the search engine,
+    and each result is checked for the right source and the correct answer.
+  </div>
+  <div class="dim" style="font-size:12px; margin-bottom:14px; display:flex; gap:6px; flex-wrap:wrap; align-items:center">
+    <span style="border:1px solid var(--ring); border-radius:12px; padding:2px 9px">question</span>→
+    <span style="border:1px solid var(--ring); border-radius:12px; padding:2px 9px">search the index</span>→
+    <span style="border:1px solid var(--ring); border-radius:12px; padding:2px 9px">ranked sources</span>→
+    <span style="border:1px solid var(--ring); border-radius:12px; padding:2px 9px">LLM writes cited answer</span>→
+    <span style="border:1px solid var(--ring); border-radius:12px; padding:2px 9px">checks &amp; judge grade</span>
+  </div>
+
+  <div class="card" id="scorecardCard">
+    <h2>Scorecard</h2>
+    <div id="verdict"></div>
+    <div id="scorecard" class="empty">No completed runs yet — press “Run benchmark” below (takes 1–3 min).</div>
+    <div id="byTag" class="tscroll" style="margin-top:10px"></div>
+    <details style="margin-top:10px"><summary class="dim">What the metrics mean</summary>
+      <ul class="dim" style="margin:6px 0 0 18px; font-size:13px; line-height:1.6">
+        <li><b>Right source found</b> (hit rate): the benchmark defines, for every question, which page/record a correct answer must come from — this counts how often it appears in the top results. Deterministic, no AI judging involved.</li>
+        <li><b>Answer contains the expected fact</b>: for questions with a known factual answer (a number, a name, a link), the generated answer must literally contain it.</li>
+        <li><b>Rank of right source (MRR)</b>: how high the right source ranks (1.0 = always first).</li>
+        <li><b>Judge scores</b> (1–5): a separate LLM grades each answer for relevance, faithfulness to the cited sources, and completeness.</li>
+        <li><b>Benchmark</b>: real user questions with manually verified expectations (see Benchmark questions below). A question is added whenever a real query fails — the benchmark grows harder over time.</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="card">
+    <h2>Trend across runs</h2>
+    <svg id="trend" role="img" aria-label="Metric trend across eval runs"></svg>
+    <div id="trendEmpty" class="empty" style="display:none">Need at least two completed runs for a trend.</div>
+    <div class="legend">
+      <span class="l1">right source found (hit rate)</span>
+      <span class="l2">rank of right source (MRR)</span>
+      <span class="l3">judge: faithfulness (scaled /5)</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Failing cases</h2>
+    <div class="runbar" style="margin-bottom:8px">
+      <button id="rerunFailed" disabled>Re-run failing cases</button>
+      <span class="dim" id="failNote">Cases drop off automatically once a newer run passes them.</span>
+    </div>
+    <div id="failures" class="tscroll"></div>
+  </div>
+
+  <div class="card">
+    <h2>Benchmark questions <span style="text-transform:none; font-weight:400">(the “golden set”)</span></h2>
+    <div class="dim" style="margin-bottom:8px">
+      Real user questions with manually verified expectations, defined in
+      <code>profiles/&lt;profile&gt;/golden.yaml</code> — a case is added whenever a real query fails.
+      Each square below is one question in its latest run.
+    </div>
+    <div id="datasetStrip" style="margin-bottom:8px"></div>
+    <details><summary class="dim">Show all questions</summary><div id="dataset" class="tscroll" style="margin-top:8px"></div></details>
+  </div>
+
+  <div class="card" id="studyCard">
+    <h2>Configuration study</h2>
+    <div class="dim" style="margin-bottom:8px">
+      Every bar below is the <b>same benchmark questions</b> replayed through a different
+      pipeline against the live index. “Baseline (v0)” is the system this project started
+      with; each later row adds exactly one change. ± is a 95% confidence interval;
+      stars mark differences unlikely to be chance
+      (paired bootstrap: <b>*</b> p&lt;0.05, <b>**</b> p&lt;0.01, <b>***</b> p&lt;0.001).
+    </div>
+    <div class="runbar" style="margin-bottom:10px">
+      <label><input type="checkbox" class="grp" value="pipeline" checked> cumulative upgrades</label>
+      <label><input type="checkbox" class="grp" value="top_k" checked> number of sources</label>
+      <label><input type="checkbox" class="grp" value="rerank" checked> reranker</label>
+      <label><input type="checkbox" class="grp" value="embedding" checked> embedding model</label>
+      <label><input type="checkbox" class="grp" value="speed"> latency levers</label>
+      <label><input type="checkbox" class="grp" value="generation"> answer model (uses LLM credits)</label>
+      <button id="runSweep">Run study</button>
+      <span id="sweepStatus" class="dim"></span>
+    </div>
+    <div id="studyBody" class="tscroll empty">No configuration study yet — hit “Run study”.</div>
+    <details style="margin-top:10px"><summary class="dim">How this is measured</summary>
+      <ul class="dim" style="margin:6px 0 0 18px; font-size:13px; line-height:1.6">
+        <li><b>nDCG@5</b> — rank-aware quality of the top 5 sources, scored against an ideal
+          top-5 that is entirely on-target: finding the right page first beats finding it
+          fifth, and padding the list with off-topic chunks costs points. Headline number.</li>
+        <li><b>Hit rate</b> — the right page appeared anywhere in the returned sources.</li>
+        <li><b>precision@5</b> — share of the top 5 sources that are on-target. A benchmark
+          question can have several acceptable sources, so this, not recall, is the
+          coverage measure.</li>
+        <li><b>Confidence interval</b> — 2 000-sample bootstrap over the questions. With a
+          benchmark this size, differences smaller than the interval are noise.</li>
+        <li><b>p-value</b> — paired bootstrap against the first row of each block (the same
+          questions, both configurations), the standard IR significance test.</li>
+        <li>Answer generation is disabled for retrieval arms, so no LLM randomness enters
+          these numbers; the LLM block is opt-in and judged separately.</li>
+        <li>In the LLM block, trust “expected fact in answer” first — it is a literal string
+          check. The judge is itself an LLM from the same family as one of the candidates,
+          so its grades can mildly favour that candidate.</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="card" id="playgroundCard">
+    <h2>What-if playground</h2>
+    <div class="dim" style="margin-bottom:10px">
+      This is the live search pipeline. Click a stage to switch it off, drag a slider to
+      resize it, then replay the benchmark through your version. Nothing is saved or
+      deployed — every stage starts at the current production setting, and stages you
+      changed are outlined in orange.
+    </div>
+    <div class="pg-presets" id="pgPresets">
+      <span class="dim" style="font-size:12px">presets</span>
+      <button type="button" class="pgpre" data-preset="production">production</button>
+      <button type="button" class="pgpre" data-preset="fastest">fastest</button>
+      <button type="button" class="pgpre" data-preset="norerank">no reranker</button>
+      <button type="button" class="pgpre" data-preset="quality">max quality</button>
+    </div>
+    <div id="pgDiagram" class="pg-diagram"></div>
+    <div id="pgDiff" class="chips" style="margin:2px 0 10px"></div>
+    <div class="runbar" style="margin-bottom:8px">
+      <label>questions
+        <select id="pgCases">
+          <option value="25">25%</option>
+          <option value="50">50%</option>
+          <option value="100" selected>100%</option>
+        </select>
+      </label>
+      <span id="pgEstimate" class="dim" style="font-size:12px"></span>
+      <button id="pgReset" style="background:var(--surface); color:var(--ink); border:1px solid var(--ring)">Reset to production</button>
+      <button id="pgRun">Run with these settings</button>
+      <button id="pgSample" title="Generate answers for a handful of questions — indicative only" disabled>✦ LLM sample</button>
+      <span id="pgStatus" class="dim"></span>
+      <span id="pgModelNote" class="dim" style="font-size:12px"></span>
+    </div>
+    <div id="pgDraftBox" class="pg-draftbox"></div>
+    <div class="pg-compare">
+      <div id="pgRadar"></div>
+      <div id="pgRunHistory"></div>
+    </div>
+    <div id="pgResult" class="tscroll"></div>
+  </div>
+
+  <div class="card">
+    <h2>Benchmark runs</h2>
+    <div class="runbar" style="margin-bottom:8px">
+      <input type="text" id="label" placeholder="label for this run (to identify it later)" size="26" title="A note to identify this run later">
+      <label title="Also grade each answer with an LLM judge (adds ~1 min and a little cost)"><input type="checkbox" id="judge" checked> LLM judge</label>
+      <input type="password" id="token" placeholder="admin token (if auth on)" size="20">
+      <button id="run">Run benchmark</button>
+      <span id="runStatus"></span>
+    </div>
+    <div id="runs" class="tscroll"></div>
+  </div>
+
+  <div class="card">
+    <h2 id="detailTitle">Cases — latest run</h2>
+    <div id="cases" class="tscroll"></div>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const pct = (x) => (x == null ? "—" : Math.round(x * 100) + "%");
+  const n2 = (x) => (x == null ? "—" : Number(x).toFixed(2));
+  const fmt = (x) => (x == null ? "—" : Number(x).toLocaleString("en-US", { maximumFractionDigits: 0 }));
+  const when = (iso) => iso ? new Date(iso).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "—";
+  let runsCache = [];
+  let selectedRunId = null;
+
+  $("token").value = localStorage.getItem("evalAdminToken") || "";
+  $("token").addEventListener("change", () => localStorage.setItem("evalAdminToken", $("token").value));
+
+  async function getJson(url) {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error(url + " → HTTP " + r.status);
+    return r.json();
+  }
+
+  function kpi(value, label, sub) {
+    return '<div class="kpi"><div class="v">' + value + '</div>' +
+      (sub ? '<div class="dim" style="font-size:12px">' + sub + "</div>" : "") +
+      '<div class="l">' + label + "</div></div>";
+  }
+
+  // Big colored verdict: one number a first-time visitor reads in 5 seconds.
+  function renderVerdict(run, runsAll) {
+    if (!run || !run.metrics || run.metrics.hit_rate == null) return;
+    const genRun = (runsAll || []).find((r) => r.status === "completed" && r.metrics && r.metrics.answer_expected_rate != null);
+    const hit = run.metrics.hit_rate;
+    const cases = run.metrics.cases || run.cases_total || 0;
+    const color = hit >= 0.9 ? "var(--good)" : hit >= 0.75 ? "var(--warning-ink)" : "var(--critical)";
+    let sub = "the search finds the right source for " + Math.round(hit * cases) + " of " + cases + " benchmark questions";
+    if (genRun) sub += " — and answers contain the expected fact " + pct(genRun.metrics.answer_expected_rate) + " of the time";
+    $("verdict").innerHTML =
+      '<div style="display:flex; align-items:center; gap:14px; padding:10px 4px 12px">' +
+      '<div style="font-size:44px; font-weight:700; color:' + color + '">' + pct(hit) + "</div>" +
+      '<div style="font-size:15px">' + sub + ".</div></div>";
+  }
+
+  function renderScorecard(run, prev, runsAll) {
+    if (!run || !run.metrics) return;
+    // Retrieval stats from the latest run; generation stats (answer/judge/
+    // speed) from the latest run that actually generated answers —
+    // retrieval-only CI-gate runs would otherwise blank or zero them.
+    const genRun = (runsAll || []).find((r) => r.status === "completed" && r.metrics && r.metrics.answer_latency_ms_p50 != null) || run;
+    const m = Object.assign({}, genRun.metrics, {
+      hit_rate: run.metrics.hit_rate,
+      mrr: run.metrics.mrr,
+      cases: run.metrics.cases,
+      by_tag: run.metrics.by_tag || genRun.metrics.by_tag,
+      retrieval_latency_ms_p50: run.metrics.retrieval_latency_ms_p50,
+    });
+    const cases = m.cases || run.cases_total || 0;
+    const hits = m.hit_rate != null ? Math.round(m.hit_rate * cases) : null;
+    const parts = [];
+    if (m.hit_rate != null)
+      parts.push("Out of <b>" + cases + "</b> benchmark questions (drawn from real user queries), the assistant retrieved the correct source for <b>" +
+        (hits != null ? hits + " (" + pct(m.hit_rate) + ")" : pct(m.hit_rate)) + "</b>.");
+    if (m.answer_expected_rate != null)
+      parts.push("Where a specific fact was required, the generated answer contained it <b>" + pct(m.answer_expected_rate) + "</b> of the time.");
+    if (m.judge_faithfulness_avg != null)
+      parts.push("An independent LLM judge rates answers <b>" + n2(m.judge_relevance_avg) + "/5</b> for relevance and <b>" + n2(m.judge_faithfulness_avg) + "/5</b> for staying faithful to the cited sources.");
+    if (m.retrieval_latency_ms_p50 != null) {
+      let speed = "Typical speed: sources in <b>" + fmt(m.retrieval_latency_ms_p50) + " ms</b>";
+      if (m.answer_latency_ms_p50 != null)
+        speed += ", full answer in <b>" + (m.answer_latency_ms_p50 / 1000).toFixed(1) + " s</b>";
+      parts.push(speed + " (median).");
+    }
+    if (prev && prev.metrics && prev.metrics.hit_rate != null && m.hit_rate != null) {
+      const d = m.hit_rate - prev.metrics.hit_rate;
+      if (Math.abs(d) >= 0.005)
+        parts.push("Versus the previous run (<i>" + esc(prev.label || "unlabeled") + "</i>): source-finding " + (d > 0 ? "improved" : "declined") + " by <b>" + Math.round(Math.abs(d) * 100) + " points</b>.");
+    }
+    $("scorecard").className = "";
+    $("scorecard").innerHTML = parts.join(" ");
+    const byTag = m.by_tag || {};
+    const tags = Object.keys(byTag);
+    if (tags.length) {
+      $("byTag").innerHTML = "<table><thead><tr><th>category</th><th class=num>questions</th>" +
+        "<th class=num>right source found</th><th class=num>expected fact in answer</th></tr></thead><tbody>" +
+        tags.map((t) => {
+          const b = byTag[t];
+          return "<tr><td>" + esc(t) + "</td><td class=num>" + b.cases + "</td>" +
+            "<td class=num>" + (b.hit_rate != null ? pct(b.hit_rate) : "—") + "</td>" +
+            "<td class=num>" + (b.answer_rate != null ? pct(b.answer_rate) : "—") + "</td></tr>";
+        }).join("") + "</tbody></table>";
+    }
+  }
+
+  function renderKpis(run) {
+    if (!run) { $("kpis").innerHTML = '<div class="empty">No runs yet — press “Run benchmark” below.</div>'; return; }
+    const m = run.metrics || {};
+    $("kpis").innerHTML =
+      kpiT(pct(m.hit_rate), "right source found", "", "share of questions where the correct page appeared in the results") +
+      kpiT(n2(m.mrr), "rank of right source (MRR)", "", "1.0 = the correct source is always ranked first") +
+      kpiT(n2(m.judge_faithfulness_avg), "faithfulness /5", "", "LLM judge: are claims supported by the cited sources?") +
+      kpiT(n2(m.judge_relevance_avg), "relevance /5", "", "LLM judge: does the answer address the question?") +
+      kpiT(fmt(m.retrieval_latency_ms_p50 ?? m.retrieval_latency_ms_avg) + '<span class="dim"> ms</span>', "time to sources (median)",
+        m.retrieval_latency_ms_p95 != null ? "p95 " + fmt(m.retrieval_latency_ms_p95) + " ms" : "",
+        "how quickly the ranked sources come back") +
+      kpiT(fmt(m.answer_latency_ms_p50 ?? m.answer_latency_ms_avg) + '<span class="dim"> ms</span>', "time to answer (median)",
+        m.answer_latency_ms_p95 != null ? "p95 " + fmt(m.answer_latency_ms_p95) + " ms" : "",
+        "how quickly the full written answer is done") +
+      kpiT(m.total_cost_usd != null ? "$" + Number(m.total_cost_usd).toFixed(4) : "—", "run cost", "", "LLM cost of this benchmark run");
+  }
+
+  function kpiT(value, label, sub, tooltip) {
+    return '<div class="kpi" title="' + esc(tooltip || "") + '"><div class="v">' + value + '</div>' +
+      (sub ? '<div class="dim" style="font-size:12px">' + sub + "</div>" : "") +
+      '<div class="l">' + label + "</div></div>";
+  }
+
+  // Up to 3 series on one 0-1 axis. Lines, 2px, ≥8px hover targets via
+  // invisible per-point circles feeding a shared tooltip.
+  function renderTrend(runs) {
+    const svg = $("trend"), emptyBox = $("trendEmpty");
+    svg.innerHTML = "";
+    const done = runs.filter((r) => r.status === "completed").slice().reverse(); // oldest → newest
+    if (done.length < 2) {
+      // Hide, never replace: the <svg> must survive for the next render.
+      svg.style.display = "none";
+      if (emptyBox) emptyBox.style.display = "";
+      return;
+    }
+    svg.style.display = "";
+    if (emptyBox) emptyBox.style.display = "none";
+    const W = Math.max(240, Math.round(svg.clientWidth || 720)), H = 170, padB = 20, padT = 8, padX = 8;
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    const ns = "http://www.w3.org/2000/svg";
+    const css = getComputedStyle(document.documentElement);
+    const x = (i) => padX + (W - 2 * padX) * (done.length === 1 ? 0.5 : i / (done.length - 1));
+    const y = (v) => padT + (H - padB - padT) * (1 - Math.max(0, Math.min(1, v)));
+    [0, 0.5, 1].forEach((g) => {
+      const line = document.createElementNS(ns, "line");
+      line.setAttribute("x1", padX); line.setAttribute("x2", W - padX);
+      line.setAttribute("y1", y(g) + 0.5); line.setAttribute("y2", y(g) + 0.5);
+      line.setAttribute("stroke", css.getPropertyValue(g === 0 ? "--baseline" : "--grid"));
+      svg.appendChild(line);
+      const tick = document.createElementNS(ns, "text");
+      tick.setAttribute("x", padX + 2); tick.setAttribute("y", y(g) - 3);
+      tick.setAttribute("font-size", "10");
+      tick.setAttribute("fill", css.getPropertyValue("--muted"));
+      tick.textContent = g === 0 ? "0" : Math.round(g * 100) + "%";
+      svg.appendChild(tick);
+    });
+    // First and last run dates anchor the x-axis.
+    [[0, "start"], [done.length - 1, "end"]].forEach(([i, anchor]) => {
+      const t = document.createElementNS(ns, "text");
+      t.setAttribute("x", x(i)); t.setAttribute("y", H - 4);
+      t.setAttribute("font-size", "10"); t.setAttribute("text-anchor", anchor);
+      t.setAttribute("fill", css.getPropertyValue("--muted"));
+      t.textContent = when(done[i].created_at);
+      svg.appendChild(t);
+    });
+    const series = [
+      { key: "hit_rate", color: "--s1", name: "hit rate", get: (m) => m.hit_rate },
+      { key: "mrr", color: "--s2", name: "MRR", get: (m) => m.mrr },
+      { key: "faith", color: "--s3", name: "faithfulness/5", get: (m) => m.judge_faithfulness_avg != null ? m.judge_faithfulness_avg / 5 : null },
+    ];
+    const tip = $("tip");
+    series.forEach((s) => {
+      const pts = done.map((r, i) => ({ i, v: s.get(r.metrics || {}), run: r })).filter((p) => p.v != null);
+      if (!pts.length) return;
+      const path = document.createElementNS(ns, "path");
+      path.setAttribute("d", pts.map((p, k) => (k ? "L" : "M") + x(p.i) + " " + y(p.v)).join(" "));
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", css.getPropertyValue(s.color));
+      path.setAttribute("stroke-width", "2");
+      path.setAttribute("stroke-linecap", "round");
+      svg.appendChild(path);
+      pts.forEach((p) => {
+        const dot = document.createElementNS(ns, "circle");
+        dot.setAttribute("cx", x(p.i)); dot.setAttribute("cy", y(p.v)); dot.setAttribute("r", 8);
+        dot.setAttribute("fill", "transparent");
+        dot.addEventListener("mousemove", (ev) => {
+          tip.style.display = "block";
+          tip.style.left = Math.min(ev.clientX + 12, window.innerWidth - 200) + "px";
+          tip.style.top = (ev.clientY + 12) + "px";
+          tip.innerHTML = "<b>" + esc(p.run.label || when(p.run.created_at)) + "</b><br>" +
+            esc(s.name) + ": " + n2(p.v * (s.key === "faith" ? 5 : 1)) +
+            (s.key !== "faith" ? " (" + pct(p.v) + ")" : " /5");
+        });
+        dot.addEventListener("mouseleave", () => { tip.style.display = "none"; });
+        svg.appendChild(dot);
+      });
+    });
+  }
+
+  function renderRuns(runs) {
+    if (!runs.length) { $("runs").innerHTML = '<div class="empty">No runs recorded.</div>'; return; }
+    $("runs").innerHTML = "<table><thead><tr>" +
+      "<th>when</th><th>label</th><th class=num>cases</th><th class=num>hit</th><th class=num>MRR</th>" +
+      "<th class=num>faith</th><th class=num>ans ms</th><th class=num>cost</th><th>status</th>" +
+      "</tr></thead><tbody>" +
+      runs.map((r) => {
+        const m = r.metrics || {};
+        return '<tr class="clickable' + (r.id === selectedRunId ? " selected" : "") + '" data-id="' + esc(r.id) + '">' +
+          '<td class="dim" style="white-space:nowrap">' + when(r.created_at) + "</td>" +
+          "<td>" + esc(r.label || "—") + "</td>" +
+          '<td class="num">' + fmt(r.cases_total) + "</td>" +
+          '<td class="num">' + pct(m.hit_rate) + "</td>" +
+          '<td class="num">' + n2(m.mrr) + "</td>" +
+          '<td class="num">' + n2(m.judge_faithfulness_avg) + "</td>" +
+          '<td class="num">' + fmt(m.answer_latency_ms_avg) + "</td>" +
+          '<td class="num">' + (m.total_cost_usd != null ? "$" + Number(m.total_cost_usd).toFixed(3) : "—") + "</td>" +
+          "<td" + (r.status !== "completed" ? ' class="warn"' : "") + ">" + esc(r.status) + "</td>" +
+          "</tr>";
+      }).join("") + "</tbody></table>";
+    $("runs").querySelectorAll("tr.clickable").forEach((tr) => {
+      tr.addEventListener("click", () => showDetail(tr.dataset.id));
+    });
+  }
+
+  async function showDetail(runId) {
+    selectedRunId = runId;
+    renderRuns(runsCache);
+    let run;
+    try { run = await getJson("/eval/runs/" + runId); }
+    catch (err) { $("cases").innerHTML = '<div class="fail">' + esc(err.message) + "</div>"; return; }
+    // KPI chips stay scoped to the LATEST run — this table shows the clicked one.
+    $("detailTitle").textContent = "Cases — " + (run.label || when(run.created_at));
+    const results = run.results || [];
+    if (!results.length) { $("cases").innerHTML = '<div class="empty">No case results.</div>'; return; }
+    $("cases").innerHTML = "<table><thead><tr>" +
+      '<th>case</th><th title="did the correct source appear in the results?">retrieval</th>' +
+      '<th class=num title="position of the correct source (1 = first)">rank</th>' +
+      '<th class=num title="top vector similarity score">vec</th>' +
+      '<th class=num title="time to sources, ms">retr ms</th><th class=num title="time to full answer, ms">ans ms</th>' +
+      '<th title="does the answer literally contain the expected fact?">answer check</th>' +
+      '<th class=num title="LLM judge: relevance / faithfulness / completeness, each out of 5">R/F/C</th><th>judge comment</th>' +
+      "</tr></thead><tbody>" +
+      results.map((c) => {
+        const r = c.retrieval || {}, a = c.answer || {}, j = c.judge || null;
+        const hitCell = c.error
+          ? '<td class="fail">ERROR</td>'
+          : r.hit === null || r.hit === undefined
+            ? '<td class="dim">n/a</td>'
+            : r.hit ? '<td class="pass">HIT</td>' : '<td class="fail">MISS</td>';
+        const ansCheck = a.insufficient
+          ? '<span class="fail">insufficient</span>'
+          : a.expected_ok === false
+            ? '<span class="fail">missing: ' + esc((a.missing_terms || []).join(", ")) + "</span>"
+            : a.expected_ok === true ? '<span class="pass">ok</span>' : '<span class="dim">—</span>';
+        const markers = a.citation_markers_valid === false ? ' <span class="warn" title="the answer cites a source number that does not exist">broken citation</span>' : "";
+        return "<tr>" +
+          '<td class="q"><b>' + esc(c.id) + "</b><br><span class='dim'>" + esc(c.query) + "</span>" +
+          (a.text ? "<details><summary class='dim'>answer</summary><p>" + esc(a.text) + "</p></details>" : "") + "</td>" +
+          hitCell +
+          '<td class="num">' + (r.rank ?? "—") + "</td>" +
+          '<td class="num">' + n2(r.top_vector_score) + "</td>" +
+          '<td class="num">' + fmt(r.latency_ms) + "</td>" +
+          '<td class="num">' + fmt(a.latency_ms) + "</td>" +
+          "<td>" + ansCheck + markers + "</td>" +
+          '<td class="num">' + (j ? j.relevance + "/" + j.faithfulness + "/" + j.completeness : "—") + "</td>" +
+          '<td class="dim q">' + esc(j ? j.comment : (c.error || "")) + "</td>" +
+          "</tr>";
+      }).join("") + "</tbody></table>";
+  }
+
+  function renderDataset(data) {
+    const cases = data.cases || [];
+    if (!cases.length) { $("dataset").innerHTML = '<div class="empty">golden.yaml is empty.</div>'; return; }
+    // Pass/fail strip: one square per question, green/red/grey at a glance.
+    const passN = cases.filter((c) => c.latest && c.latest.status === "pass").length;
+    const failN = cases.filter((c) => c.latest && c.latest.status === "fail").length;
+    $("datasetStrip").innerHTML =
+      '<div style="display:flex; flex-wrap:wrap; gap:3px; margin-bottom:6px">' +
+      cases.map((c) => {
+        const st = c.latest ? c.latest.status : "none";
+        const bg = st === "pass" ? "var(--good)" : st === "fail" ? "var(--critical)" : "var(--grid)";
+        return '<span title="' + esc(c.id + ": " + c.query) + '" style="width:14px; height:14px; border-radius:3px; background:' + bg + '"></span>';
+      }).join("") + "</div>" +
+      '<span class="pass">' + passN + " pass</span> · " +
+      (failN ? '<span class="fail">' + failN + " fail</span>" : '<span class="dim">0 fail</span>') +
+      (cases.length - passN - failN ? ' · <span class="dim">' + (cases.length - passN - failN) + " never run</span>" : "");
+    $("dataset").innerHTML = "<table><thead><tr>" +
+      "<th>case</th><th>query</th><th>expects (URL)</th><th>expects (answer)</th><th>tags</th><th>status</th>" +
+      "</tr></thead><tbody>" +
+      cases.map((c) => {
+        const l = c.latest;
+        const statusCell = !l
+          ? '<span class="dim">never run</span>'
+          : l.status === "pass"
+            ? '<span class="pass">PASS</span>'
+            : '<span class="fail">FAIL</span><br><span class="dim">' + l.reasons.map(esc).join(", ") + "</span>";
+        return "<tr>" +
+          "<td><b>" + esc(c.id) + "</b></td>" +
+          '<td class="q">' + esc(c.query) + "</td>" +
+          '<td class="dim q">' + c.expect_url_contains.map(esc).join("<br>") + "</td>" +
+          '<td class="dim">' + (c.expect_answer_contains.map(esc).join(", ") || "—") + "</td>" +
+          '<td class="dim">' + c.tags.map(esc).join(", ") + "</td>" +
+          "<td>" + statusCell + "</td>" +
+          "</tr>";
+      }).join("") + "</tbody></table>";
+  }
+
+  let failingCaseIds = [];
+
+  function renderFailures(data) {
+    const failures = data.failures || [];
+    failingCaseIds = failures.map((f) => f.case_id);
+    $("rerunFailed").disabled = !failures.length;
+    if (!failures.length) {
+      $("failures").innerHTML = '<div class="empty">No failing cases — all green.</div>';
+      return;
+    }
+    $("failures").innerHTML = "<table><thead><tr>" +
+      "<th>case</th><th>reasons</th><th>from run</th><th>bad answer</th>" +
+      "</tr></thead><tbody>" +
+      failures.map((f) => "<tr>" +
+        '<td class="q"><b>' + esc(f.case_id) + "</b><br><span class='dim'>" + esc(f.query) + "</span></td>" +
+        '<td class="fail">' + f.reasons.map(esc).join("<br>") +
+          (f.missing_terms.length ? '<br><span class="dim">missing: ' + esc(f.missing_terms.join(", ")) + "</span>" : "") + "</td>" +
+        '<td class="dim">' + esc(f.run_label || "") + "<br>" + when(f.run_created_at) + "</td>" +
+        '<td class="q">' + (f.answer_text
+          ? "<details><summary class='dim'>show</summary><p>" + esc(f.answer_text) + "</p></details>"
+          : '<span class="dim">—</span>') +
+          (f.judge && f.judge.comment ? '<div class="dim">judge: ' + esc(f.judge.comment) + "</div>" : "") + "</td>" +
+        "</tr>").join("") + "</tbody></table>";
+  }
+
+  async function rerunFailed() {
+    if (!failingCaseIds.length) return;
+    const btn = $("rerunFailed");
+    btn.disabled = true;
+    $("failNote").textContent = "Re-running " + failingCaseIds.length + " case(s)…";
+    const headers = { "Content-Type": "application/json" };
+    if ($("token").value) headers["Authorization"] = "Bearer " + $("token").value;
+    try {
+      const r = await fetch("/eval/run", {
+        method: "POST", headers,
+        body: JSON.stringify({ label: "failures-rerun", judge: $("judge").checked, case_ids: failingCaseIds }),
+      });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      $("failNote").textContent = "Done.";
+      await load();
+    } catch (err) {
+      $("failNote").textContent = "Failed: " + err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  // Poll the newest run's per-case progress while it executes (the runner
+  // commits results case by case), so the button shows "case 12/64" instead
+  // of a frozen label — and a reloaded page picks the progress back up.
+  let runPollTimer = null;
+  async function pollRun() {
+    clearTimeout(runPollTimer);
+    try {
+      const runs = await getJson("/eval/runs?limit=1");
+      const top = runs[0];
+      if (top && top.status === "running") {
+        $("run").disabled = true;
+        // The list endpoint omits results; the detail endpoint carries the
+        // per-case progress the runner commits as it goes.
+        const detail = await getJson("/eval/runs/" + top.id);
+        const done = (detail.results || []).length || "…";
+        $("runStatus").textContent = "running — case " + done + "/" + (top.cases_total || "?");
+        runPollTimer = setTimeout(pollRun, 5000);
+        return;
+      }
+    } catch (e) { /* keep last status text */ }
+    $("run").disabled = false;
+    $("runStatus").textContent = "Done.";
+    load();
+  }
+
+  async function runEval() {
+    const btn = $("run");
+    btn.disabled = true;
+    $("runStatus").textContent = "starting…";
+    const headers = { "Content-Type": "application/json" };
+    if ($("token").value) headers["Authorization"] = "Bearer " + $("token").value;
+    try {
+      // Fire the run and poll progress in parallel — the POST returns only
+      // when the whole run finishes.
+      const req = fetch("/eval/run", {
+        method: "POST", headers,
+        body: JSON.stringify({ label: $("label").value || null, judge: $("judge").checked }),
+      });
+      setTimeout(pollRun, 3000);
+      const r = await req;
+      if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 200));
+      clearTimeout(runPollTimer);
+      $("runStatus").textContent = "Done.";
+      await load();
+    } catch (err) {
+      clearTimeout(runPollTimer);
+      $("runStatus").textContent = "Failed: " + err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  async function loadAuth() {
+    // Show SSO state when the API runs with ADMIN_AUTH_MODE=github_sso.
+    try {
+      const me = await getJson("/auth/me");
+      if (me.mode !== "github_sso") return;
+      $("token").style.display = "none";
+      const bar = $("run").parentElement;
+      const span = document.createElement("span");
+      span.style.fontSize = "13px";
+      span.innerHTML = me.login
+        ? 'signed in as <b>' + esc(me.login) + '</b> · <a href="/auth/logout">sign out</a>'
+        : '<a href="/auth/login?next=/admin/eval">Sign in with GitHub</a> to run evals';
+      bar.appendChild(span);
+    } catch (e) { /* auth endpoint unavailable — ignore */ }
+  }
+
+  // ---- configuration study (ablation sweep) -------------------------------
+
+  const GROUP_TITLES = {
+    pipeline: "Cumulative upgrades",
+    top_k: "Number of returned sources (top_k)",
+    rerank: "Reranker",
+    embedding: "Embedding model",
+    speed: "Latency levers",
+    generation: "Answer model",
+  };
+  const css = () => getComputedStyle(document.documentElement);
+
+  // Horizontal bars with a 95% CI whisker and a delta-vs-control label.
+  function barChart(rows, opts) {
+    opts = opts || {};
+    const W = 720, padL = 232, padR = 96, rowH = 30, H = rows.length * rowH + 10;
+    const max = Math.max.apply(null, rows.map((r) => (r.hi != null ? r.hi : r.value) || 0).concat([0.05])) * 1.06;
+    const x = (v) => padL + (W - padL - padR) * Math.max(0, Math.min(1, v / max));
+    const c = css();
+    let out = '<svg viewBox="0 0 ' + W + " " + H + '" style="width:100%;height:' + H + 'px" role="img">';
+    rows.forEach((r, i) => {
+      const y = i * rowH + 6;
+      const w = Math.max(1, x(r.value) - padL);
+      out += '<text x="0" y="' + (y + 13) + '" font-size="12" fill="' + c.getPropertyValue("--ink") + '">' +
+        esc(r.label.length > 38 ? r.label.slice(0, 37) + "…" : r.label) + "</text>";
+      out += '<rect x="' + padL + '" y="' + y + '" width="' + w + '" height="18" rx="3" fill="' +
+        c.getPropertyValue(r.color || "--s1") + '" opacity="' + (r.dim ? 0.45 : 0.9) + '"/>';
+      if (r.lo != null && r.hi != null && r.hi > r.lo) {
+        const x1 = x(r.lo), x2 = x(r.hi), ym = y + 9;
+        out += '<line x1="' + x1 + '" x2="' + x2 + '" y1="' + ym + '" y2="' + ym + '" stroke="' +
+          c.getPropertyValue("--ink") + '" stroke-width="1" opacity="0.55"/>' +
+          '<line x1="' + x1 + '" x2="' + x1 + '" y1="' + (ym - 4) + '" y2="' + (ym + 4) + '" stroke="' + c.getPropertyValue("--ink") + '" opacity="0.55"/>' +
+          '<line x1="' + x2 + '" x2="' + x2 + '" y1="' + (ym - 4) + '" y2="' + (ym + 4) + '" stroke="' + c.getPropertyValue("--ink") + '" opacity="0.55"/>';
+      }
+      const label = (opts.fmt || ((v) => n2(v)))(r.value);
+      out += '<text x="' + (x(r.value) + 6) + '" y="' + (y + 13) + '" font-size="12" fill="' +
+        c.getPropertyValue("--ink-2") + '">' + esc(label) + "</text>";
+      if (r.delta != null && r.delta !== 0) {
+        const good = r.delta > 0;
+        out += '<text x="' + (W - 2) + '" y="' + (y + 13) + '" font-size="12" text-anchor="end" fill="' +
+          c.getPropertyValue(good ? "--good" : "--critical") + '">' +
+          (good ? "+" : "") + (opts.fmt || n2)(r.delta) + esc(r.stars || "") + "</text>";
+      }
+    });
+    return out + "</svg>";
+  }
+
+  // Quality vs. cost as top_k grows: nDCG line on the left axis, median
+  // retrieval latency bars behind it on the right axis.
+  function topKChart(arms) {
+    const W = 720, H = 210, padL = 42, padR = 52, padT = 12, padB = 28;
+    const c = css();
+    const ks = arms.map((a) => a.top_k);
+    const q = arms.map((a) => (a.metrics || {})["ndcg@5"] || 0);
+    const lat = arms.map((a) => (a.metrics || {}).retrieval_latency_ms_p50 || 0);
+    const maxLat = Math.max.apply(null, lat.concat([1])) * 1.15;
+    const x = (i) => padL + (W - padL - padR) * (arms.length === 1 ? 0.5 : i / (arms.length - 1));
+    const yq = (v) => padT + (H - padT - padB) * (1 - Math.max(0, Math.min(1, v)));
+    const yl = (v) => padT + (H - padT - padB) * (1 - v / maxLat);
+    let out = '<svg viewBox="0 0 ' + W + " " + H + '" style="width:100%;height:' + H + 'px" role="img">';
+    [0, 0.5, 1].forEach((g) => {
+      out += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + yq(g) + '" y2="' + yq(g) +
+        '" stroke="' + c.getPropertyValue(g === 0 ? "--baseline" : "--grid") + '"/>' +
+        '<text x="0" y="' + (yq(g) + 4) + '" font-size="11" fill="' + c.getPropertyValue("--muted") + '">' + g.toFixed(1) + "</text>";
+    });
+    arms.forEach((a, i) => {
+      const bw = 16;
+      out += '<rect x="' + (x(i) - bw / 2) + '" y="' + yl(lat[i]) + '" width="' + bw + '" height="' +
+        Math.max(1, yq(0) - yl(lat[i])) + '" fill="' + c.getPropertyValue("--s2") + '" opacity="0.28"/>';
+      out += '<text x="' + x(i) + '" y="' + (H - 8) + '" font-size="11" text-anchor="middle" fill="' +
+        c.getPropertyValue("--ink-2") + '">' + esc(String(ks[i])) + "</text>";
+      out += '<text x="' + x(i) + '" y="' + (yl(lat[i]) - 4) + '" font-size="10" text-anchor="middle" fill="' +
+        c.getPropertyValue("--muted") + '">' + fmt(lat[i]) + "</text>";
+    });
+    out += '<path d="' + q.map((v, i) => (i ? "L" : "M") + x(i) + " " + yq(v)).join(" ") +
+      '" fill="none" stroke="' + c.getPropertyValue("--s1") + '" stroke-width="2"/>';
+    q.forEach((v, i) => {
+      out += '<circle cx="' + x(i) + '" cy="' + yq(v) + '" r="3" fill="' + c.getPropertyValue("--s1") + '"/>' +
+        '<text x="' + x(i) + '" y="' + (yq(v) - 8) + '" font-size="10" text-anchor="middle" fill="' +
+        c.getPropertyValue("--ink-2") + '">' + n2(v) + "</text>";
+    });
+    return out + "</svg>" +
+      '<div class="legend"><span class="l1">nDCG@5, ranking quality 0–1 (line)</span><span class="l2">median retrieval latency, ms (bars)</span></div>' +
+      '<div class="dim" style="font-size:12px; margin-top:2px">x-axis: top_k — how many sources are returned per question.</div>';
+  }
+
+  // Auto-generated plain-language takeaway for the top_k block.
+  function topKTakeaway(arms) {
+    const scored = arms.filter((a) => (a.metrics || {})["ndcg@5"] != null);
+    if (scored.length < 3) return "";
+    const best = scored.reduce((x, y) => ((y.metrics["ndcg@5"] || 0) > (x.metrics["ndcg@5"] || 0) ? y : x));
+    const plateau = scored.find((a) => (a.metrics["ndcg@5"] || 0) >= (best.metrics["ndcg@5"] || 0) - 0.02);
+    if (!plateau) return "";
+    return '<div style="margin:6px 0 0">Quality plateaus at <b>top_k = ' + plateau.top_k +
+      "</b> while latency keeps growing with k — returning more sources past that buys nothing.</div>";
+  }
+
+  // Answer-model Pareto: x = median full-answer latency, y = deterministic
+  // expected-fact rate, bubble area ∝ cost of one full benchmark run.
+  // The winner is whatever sits top-left with a small bubble.
+  function paretoChart(arms) {
+    const pts = arms
+      .map((a) => {
+        const m = a.metrics || {};
+        return {
+          label: a.label, x: m.answer_latency_ms_p50, y: m.answer_expected_rate,
+          cost: m.total_cost_usd || 0, faith: m.judge_faithfulness_avg,
+        };
+      })
+      .filter((p) => p.x != null && p.y != null);
+    if (!pts.length) return "";
+    const W = 720, H = 260, padL = 46, padR = 20, padT = 14, padB = 34;
+    const c = css();
+    const maxX = Math.max.apply(null, pts.map((p) => p.x)) * 1.18;
+    const maxCost = Math.max.apply(null, pts.map((p) => p.cost).concat([0.0001]));
+    const x = (v) => padL + (W - padL - padR) * (v / maxX);
+    const y = (v) => padT + (H - padT - padB) * (1 - Math.max(0, Math.min(1, v)));
+    let out = '<svg viewBox="0 0 ' + W + " " + H + '" style="width:100%;height:' + H + 'px" role="img">';
+    [0, 0.25, 0.5, 0.75, 1].forEach((g) => {
+      out += '<line x1="' + padL + '" x2="' + (W - padR) + '" y1="' + y(g) + '" y2="' + y(g) +
+        '" stroke="' + c.getPropertyValue(g === 0 ? "--baseline" : "--grid") + '"/>' +
+        '<text x="4" y="' + (y(g) + 4) + '" font-size="11" fill="' + c.getPropertyValue("--muted") + '">' + Math.round(g * 100) + "%</text>";
+    });
+    [0.25, 0.5, 0.75, 1].forEach((f) => {
+      const v = maxX * f;
+      out += '<text x="' + x(v) + '" y="' + (H - 12) + '" font-size="11" text-anchor="middle" fill="' +
+        c.getPropertyValue("--muted") + '">' + (v / 1000).toFixed(1) + " s</text>";
+    });
+    out += '<text x="' + (W - padR) + '" y="' + (H - 1) + '" font-size="11" text-anchor="end" fill="' +
+      c.getPropertyValue("--muted") + '">median time to full answer → (bubble = cost per benchmark run)</text>';
+    // Reading instruction + y-axis meaning, on the chart itself.
+    out += '<text x="' + (padL + 4) + '" y="' + (padT + 12) + '" font-size="11" fill="' +
+      c.getPropertyValue("--good") + '">↖ better: accurate and fast (smaller bubble = cheaper)</text>';
+    out += '<text x="' + (padL + 4) + '" y="' + (padT + 26) + '" font-size="10" fill="' +
+      c.getPropertyValue("--muted") + '">↑ % of answers containing the expected fact</text>';
+    // Neutral categorical hues only — red/amber would read as "bad".
+    const palette = ["--s1", "--s2", "--s3", "--ink-2", "--baseline"];
+    // Bubbles first, then all labels on top (so no bubble covers a label).
+    pts.forEach((p, i) => {
+      const r = 5 + 13 * Math.sqrt(p.cost / maxCost);
+      const color = c.getPropertyValue(palette[i % palette.length]);
+      out += '<circle cx="' + x(p.x) + '" cy="' + y(p.y) + '" r="' + r.toFixed(1) +
+        '" fill="' + color + '" opacity="0.55" stroke="' + color + '"/>';
+    });
+    // Stagger labels that would overlap vertically, clamp into the viewBox,
+    // and draw them with a surface-colored halo so they stay readable over
+    // grid lines and neighbouring bubbles in both themes.
+    const placed = [];
+    const halo = c.getPropertyValue("--surface").trim() || "#fff";
+    pts.slice().sort((a, b) => y(a.y) - y(b.y)).forEach((p) => {
+      const r = 5 + 13 * Math.sqrt(p.cost / maxCost);
+      const anchor = x(p.x) > W - 190 ? "end" : "start";
+      const dx = anchor === "end" ? -(r + 5) : (r + 5);
+      let ly = Math.max(padT + 10, Math.min(H - padB - 4, y(p.y) + 4));
+      while (placed.some((v) => Math.abs(v - ly) < 14)) ly += 14;
+      placed.push(ly);
+      out += '<text x="' + (x(p.x) + dx) + '" y="' + ly + '" font-size="12" text-anchor="' + anchor +
+        '" fill="' + c.getPropertyValue("--ink") + '" stroke="' + halo +
+        '" stroke-width="3" paint-order="stroke" stroke-linejoin="round">' + esc(p.label) +
+        ' <tspan fill="' + c.getPropertyValue("--ink-2") + '">' + pct(p.y) +
+        (p.cost ? " · $" + p.cost.toFixed(2) : "") + "</tspan></text>";
+    });
+    return out + "</svg>";
+  }
+
+  function armTable(arms, generation) {
+    const head = generation
+      ? "<tr><th>configuration</th><th class=num>expected fact in answer</th><th class=num>faithfulness /5</th>" +
+        "<th class=num>relevance /5</th><th class=num>answer p50</th><th class=num>cost / run</th></tr>"
+      : "<tr><th>configuration</th><th class=num>nDCG@5</th><th class=num>hit rate</th><th class=num>MRR</th>" +
+        "<th class=num>precision@5</th><th class=num>retrieval p50</th><th class=num>Δ nDCG vs control</th></tr>";
+    const body = arms.map((a) => {
+      const m = a.metrics || {};
+      if (a.error) return "<tr><td>" + esc(a.label) + '</td><td class="fail" colspan="6">' + esc(a.error) + "</td></tr>";
+      const ci = m["ndcg@5_ci"];
+      if (generation) {
+        return "<tr><td><b>" + esc(a.label) + "</b><br><span class='dim'>" + esc(a.note || "") + "</span></td>" +
+          '<td class="num">' + pct(m.answer_expected_rate) + "</td>" +
+          '<td class="num">' + n2(m.judge_faithfulness_avg) + "</td>" +
+          '<td class="num">' + n2(m.judge_relevance_avg) + "</td>" +
+          '<td class="num">' + fmt(m.answer_latency_ms_p50) + " ms</td>" +
+          '<td class="num">' + (m.total_cost_usd != null ? "$" + Number(m.total_cost_usd).toFixed(4) : "—") + "</td></tr>";
+      }
+      const delta = a["delta_ndcg@5"];
+      const cls = delta == null ? "dim" : delta > 0 ? "pass" : delta < 0 ? "fail" : "dim";
+      return "<tr><td><b>" + esc(a.label) + "</b><br><span class='dim'>" + esc(a.note || "") + "</span></td>" +
+        '<td class="num">' + n2(m["ndcg@5"]) + (ci ? '<br><span class="dim" style="font-size:11px">' +
+          n2(ci.lo) + "–" + n2(ci.hi) + "</span>" : "") + "</td>" +
+        '<td class="num">' + pct(m.hit_rate) + "</td>" +
+        '<td class="num">' + n2(m.mrr) + "</td>" +
+        '<td class="num">' + n2(m["precision@5"]) + "</td>" +
+        '<td class="num">' + fmt(m.retrieval_latency_ms_p50) + " ms</td>" +
+        '<td class="num ' + cls + '">' + (delta == null ? "—" : (delta > 0 ? "+" : "") + n2(delta) + starsFor(a.p_value)) + "</td></tr>";
+    }).join("");
+    return "<table><thead>" + head + "</thead><tbody>" + body + "</tbody></table>";
+  }
+
+  function starsFor(p) {
+    if (p == null) return "";
+    if (p < 0.001) return "***";
+    if (p < 0.01) return "**";
+    if (p < 0.05) return "*";
+    return "";
+  }
+
+  // Sweeps can rerun a single block (e.g. just the answer-model group), so
+  // the section shows, per group, the arms from the NEWEST sweep that ran
+  // that group — a focused rerun never blanks the rest of the study.
+  function renderSweep(sweeps) {
+    const body = $("studyBody");
+    const list = (sweeps || []).filter(Boolean);
+    if (!list.length) { body.className = "tscroll empty"; body.textContent = "No configuration study yet — hit “Run study”."; return; }
+    const arms = [];
+    const groupMeta = {};
+    const seen = new Set();
+    list.forEach((sweep) => {
+      (((sweep.metrics || {}).arms) || []).filter((a) => a.metrics || a.error).forEach((a) => {
+        if (seen.has(a.group)) {
+          if (groupMeta[a.group].id === sweep.id) arms.push(a);
+          return;
+        }
+        seen.add(a.group);
+        groupMeta[a.group] = { id: sweep.id, when: sweep.created_at, label: sweep.label };
+        arms.push(a);
+      });
+    });
+    const latest = list[0];
+    if (!arms.length) {
+      body.className = "tscroll empty";
+      body.textContent = latest.status === "running" ? "Study running… arms appear as they finish." : "No arms recorded.";
+      return;
+    }
+    body.className = "tscroll";
+    const groups = [];
+    arms.forEach((a) => { if (!groups.includes(a.group)) groups.push(a.group); });
+    let html = '<div class="dim" style="margin-bottom:10px">' +
+      ((latest.metrics || {}).cases || latest.cases_total || "?") + " benchmark questions · " +
+      arms.length + " configurations" +
+      ((latest.config || {}).judge_model ? " · judge: " + esc(latest.config.judge_model) : "") +
+      (latest.status !== "completed" ? ' · <span class="warn">' + esc(latest.status) + "</span>" : "") + "</div>";
+
+    groups.forEach((g) => {
+      const all = arms.filter((a) => a.group === g);
+      const groupArms = all.filter((a) => a.metrics);   // charts need numbers
+      if (!all.length) return;
+      const gm = groupMeta[g] || {};
+      html += '<h3 style="font-size:13px;margin:14px 0 6px">' + esc(GROUP_TITLES[g] || g) +
+        ' <span class="dim" style="font-weight:400">· ' + when(gm.when) + "</span></h3>";
+      if (!groupArms.length) {
+        html += armTable(all, g === "generation");
+        return;
+      }
+      if (g === "top_k") {
+        html += topKChart(groupArms);
+        html += topKTakeaway(groupArms);
+      } else if (g === "generation" || g === "speed") {
+        // Three-way trade (accuracy, latency, cost): scatter with best
+        // configurations top-left, bubble area = cost per benchmark run.
+        html += paretoChart(groupArms);
+      } else {
+        html += '<div class="dim" style="font-size:12px; margin-bottom:4px">Bars = nDCG@5, a 0–1 ranking-quality score (higher is better). Whiskers = 95% confidence interval.</div>';
+        const control = groupArms[0];
+        html += barChart(groupArms.map((a) => {
+          const m = a.metrics || {}, ci = m["ndcg@5_ci"];
+          return {
+            label: a.label + (a === control ? " (baseline)" : ""),
+            value: m["ndcg@5"] || 0,
+            lo: ci ? ci.lo : null,
+            hi: ci ? ci.hi : null,
+            delta: a === control ? null : a["delta_ndcg@5"],
+            stars: starsFor(a.p_value),
+            dim: a === control,
+          };
+        }), {});
+        if (g === "pipeline") {
+          const first = control.metrics || {}, last = (groupArms[groupArms.length - 1].metrics || {});
+          if (first["ndcg@5"] != null && last["ndcg@5"] != null) {
+            html += '<div style="margin:6px 0 0">Ranking quality went from <b>' + n2(first["ndcg@5"]) +
+              "</b> to <b>" + n2(last["ndcg@5"]) + "</b> nDCG@5 (" +
+              (first["ndcg@5"] > 0 ? "×" + (last["ndcg@5"] / first["ndcg@5"]).toFixed(1) : "—") +
+              "), and the right source is now found for <b>" + pct(last.hit_rate) +
+              "</b> of questions versus <b>" + pct(first.hit_rate) + "</b> at baseline.</div>";
+          }
+        }
+      }
+      html += armTable(all, g === "generation" || g === "speed");
+    });
+    body.innerHTML = html;
+  }
+
+  async function runSweep() {
+    const groups = Array.from(document.querySelectorAll(".grp")).filter((c) => c.checked).map((c) => c.value);
+    if (!groups.length) { $("sweepStatus").textContent = "pick at least one block"; return; }
+    const btn = $("runSweep");
+    btn.disabled = true;
+    $("sweepStatus").textContent = "starting…";
+    const headers = { "Content-Type": "application/json" };
+    if ($("token").value) headers["Authorization"] = "Bearer " + $("token").value;
+    try {
+      const r = await fetch("/eval/sweep", { method: "POST", headers, body: JSON.stringify({ groups }) });
+      if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 200));
+      $("sweepStatus").textContent = "running — this takes several minutes; results fill in below.";
+      pollSweep();
+    } catch (err) {
+      $("sweepStatus").textContent = "Failed: " + err.message;
+      btn.disabled = false;
+    }
+  }
+
+  async function pollSweep() {
+    try {
+      const sweeps = await getJson("/eval/sweeps?limit=5");
+      renderSweep(sweeps);
+      if (sweeps[0] && sweeps[0].status === "running") {
+        const done = ((sweeps[0].metrics || {}).arms || []).length;
+        $("sweepStatus").textContent = "running — " + done + " configuration(s) done";
+        setTimeout(pollSweep, 8000);
+        return;
+      }
+      $("sweepStatus").textContent = sweeps[0] ? "Done." : "";
+    } catch (e) {
+      $("sweepStatus").textContent = "poll failed: " + e.message;
+    }
+    $("runSweep").disabled = false;
+  }
+
+  // ---- what-if playground ---------------------------------------------------
+  // The pipeline picture IS the form. `pgS` is the single source of truth: the
+  // SVG is painted from it (pgSync), and every click/drag writes back into it.
+  // No control state lives in the DOM, so the same state survives the layout
+  // rebuild that happens when the diagram flips desktop ⇄ mobile.
+
+  let pgMeta = null;       // {models, golden_cases, defaults} from the server
+  let pgTimer = null;      // elapsed-time ticker while a run is in flight
+  let pgRunning = false;
+  let pgMode = "";         // which layout ("wide" | "narrow") is currently built
+  let pgLay = null;        // geometry of the built layout (used by pgSync)
+  let pgLitTimer = null;   // sequential stage lighting while a run executes
+
+  const pgS = {
+    fusion: "rrf", expand: true, dedupe: true, boosts: true,
+    rerankOn: true, rerank: 20, topK: 8,
+    generate: false, model: "", ctxK: 20, maxTok: 0,
+  };
+
+  // Deltas applied on top of the production defaults, never absolute configs —
+  // a preset must never silently pin a value production has since moved.
+  const PG_PRESETS = {
+    production: {},
+    fastest: { expand: false, rerankOn: false, topK: 5, ctxK: 8 },
+    norerank: { rerankOn: false },
+    quality: { expand: true, dedupe: true, boosts: true, rerankOn: true, rerank: 60, topK: 12, ctxK: 30 },
+  };
+
+  // ---- pg-geometry (pure layout math; exercised by the geometry smoke test) --
+
+  const PG_CTX_MIN = 1, PG_CTX_MAX = 50;
+
+  function pgFrac(v, lo, hi) {
+    const f = (Number(v) - lo) / (hi - lo);
+    return Math.max(0, Math.min(1, isFinite(f) ? f : 0));
+  }
+
+  // The context node's WIDTH is the metaphor: a wider box = the LLM reads more.
+  function pgCtxWidth(k, min, max) {
+    return Math.round(min + (max - min) * pgFrac(k, PG_CTX_MIN, PG_CTX_MAX));
+  }
+
+  function pgPoly(pts) {
+    return pts.map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1]).join(" ");
+  }
+
+  // Desktop: left→right, retrieval on the top row, answer on the bottom row,
+  // joined by a wrap elbow on the right. Coordinates are viewBox units.
+  function pgLayoutWide(ctxK) {
+    const W = 1000, CY1 = 104, CY2 = 268;
+    const n = {
+      query:   { x: 6,   y: 80,  w: 92,  h: 48,  kind: "term" },
+      expand:  { x: 126, y: 74,  w: 132, h: 60,  kind: "toggle" },
+      lexical: { x: 286, y: 55,  w: 148, h: 38,  kind: "lane" },
+      vector:  { x: 286, y: 115, w: 148, h: 38,  kind: "lane" },
+      fusion:  { x: 462, y: 74,  w: 128, h: 60,  kind: "fusion" },
+      dedupe:  { x: 606, y: 74,  w: 70,  h: 60,  kind: "toggle" },
+      boosts:  { x: 698, y: 74,  w: 70,  h: 60,  kind: "toggle" },
+      rerank:  { x: 796, y: 74,  w: 156, h: 60,  kind: "toggle" },
+      context: { x: 6,   y: 238, w: pgCtxWidth(ctxK, 92, 262), h: 60, kind: "ctx" },
+      llm:     { x: 316, y: 216, w: 340, h: 104, kind: "llm" },
+      answer:  { x: 700, y: 238, w: 290, h: 60,  kind: "term" },
+    };
+    const fo = {
+      rerank:  { x: 796, y: 142, w: 156, h: 28 },
+      context: { x: 6,   y: 306, w: 256, h: 28 },
+      topk:    { x: 700, y: 306, w: 290, h: 28 },
+      llm:     { x: 328, y: 258, w: 316, h: 54 },
+    };
+    const edges = [
+      { to: "expand",  d: "M98 104 H120" },
+      { to: "lexical", d: "M258 104 C272 104 268 74 280 74" },
+      { to: "vector",  d: "M258 104 C272 104 268 134 280 134" },
+      { to: "fusion",  d: "M434 74 C448 74 444 104 456 104" },
+      { to: "fusion",  d: "M434 134 C448 134 444 104 456 104" },
+      { to: "dedupe",  d: "M590 104 H600" },
+      { to: "boosts",  d: "M676 104 H692" },
+      { to: "rerank",  d: "M768 104 H790" },
+      { to: "context", d: "M952 104 H976 V196 H24 V232" },
+      { to: "llm",     d: "M" + (n.context.x + n.context.w) + " " + CY2 + " H310" },
+      { to: "answer",  d: "M656 268 H694" },
+    ];
+    return {
+      mode: "wide", W: W, H: 344, n: n, fo: fo, edges: edges,
+      llmEdge: (w) => "M" + (n.context.x + w) + " " + CY2 + " H310",
+      spine: pgPoly([[20, 104], [192, 104], [360, 74], [526, 104], [641, 104], [733, 104],
+        [874, 104], [976, 104], [976, 196], [24, 196], [24, CY2], [100, CY2], [486, CY2], [845, CY2]]),
+    };
+  }
+
+  // Mobile: the same pipeline flows top→bottom, one full-width node per row,
+  // with the sliders as native range inputs directly under their node.
+  function pgLayoutNarrow(ctxK) {
+    const W = 360, X = 10, NW = 340, CX = 180, GAP = 20, STRIP = 48;
+    const n = {}, fo = {}, edges = [], spine = [];
+    let y = 6;
+    function block(id, h, kind) {
+      n[id] = { x: X, y: y, w: NW, h: h, kind: kind };
+      spine.push([CX, y + h / 2]);
+      y += h;
+    }
+    function strip(id, w) {
+      fo[id] = { x: X, y: y + 4, w: w == null ? NW : w, h: STRIP };
+      y += STRIP + 6;
+    }
+    function link(to) {
+      edges.push({ to: to, d: "M" + CX + " " + y + " V" + (y + GAP - 6) });
+      y += GAP;
+    }
+    block("query", 44, "term");
+    link("expand");
+    block("expand", 48, "toggle");
+    // Parallel lanes: split out of expansion, rejoin at fusion.
+    const splitY = y, laneY = y + GAP;
+    n.lexical = { x: X, y: laneY, w: 164, h: 46, kind: "lane" };
+    n.vector = { x: X + 176, y: laneY, w: 164, h: 46, kind: "lane" };
+    edges.push({ to: "lexical", d: "M" + CX + " " + splitY + " C" + CX + " " + (splitY + 12) +
+      " 92 " + (splitY + 6) + " 92 " + (laneY - 6) });
+    edges.push({ to: "vector", d: "M" + CX + " " + splitY + " C" + CX + " " + (splitY + 12) +
+      " 268 " + (splitY + 6) + " 268 " + (laneY - 6) });
+    spine.push([92, laneY + 23]);
+    y = laneY + 46;
+    const joinY = y + GAP;
+    edges.push({ to: "fusion", d: "M92 " + y + " C92 " + (y + 12) + " " + CX + " " + (y + 6) +
+      " " + CX + " " + (joinY - 6) });
+    edges.push({ to: "fusion", d: "M268 " + y + " C268 " + (y + 12) + " " + CX + " " + (y + 6) +
+      " " + CX + " " + (joinY - 6) });
+    y = joinY;
+    block("fusion", 56, "fusion");
+    link("dedupe"); block("dedupe", 46, "toggle");
+    link("boosts"); block("boosts", 46, "toggle");
+    link("rerank"); block("rerank", 50, "toggle"); strip("rerank");
+    link("context"); block("context", 50, "ctx"); strip("context");
+    link("llm"); block("llm", 146, "llm");
+    fo.llm = { x: X + 12, y: n.llm.y + 44, w: NW - 24, h: 96 };
+    link("answer"); block("answer", 50, "term"); strip("topk");
+    return {
+      mode: "narrow", W: W, H: y + 6, n: n, fo: fo, edges: edges,
+      llmEdge: null, spine: pgPoly(spine),
+    };
+  }
+
+  function pgLayout(mode, ctxK) {
+    return mode === "narrow" ? pgLayoutNarrow(ctxK) : pgLayoutWide(ctxK);
+  }
+
+  // Radar geometry. `at(i, f)` = point on spoke i at fraction f of the radius,
+  // first spoke straight up, going clockwise.
+  function pgRadarGeom(n, narrow) {
+    const W = narrow ? 340 : 420, H = 330;
+    const cx = W / 2, cy = 164, R = narrow ? 80 : 96;
+    const at = (i, f) => {
+      const a = -Math.PI / 2 + (i * 2 * Math.PI) / Math.max(1, n);
+      return [+(cx + Math.cos(a) * R * f).toFixed(1), +(cy + Math.sin(a) * R * f).toFixed(1)];
+    };
+    return { W: W, H: H, cx: cx, cy: cy, R: R, n: n, at: at,
+      labelF: (R + (narrow ? 18 : 22)) / R };
+  }
+
+  // ---- end pg-geometry ------------------------------------------------------
+
+  function pgIsNarrow() { return window.innerWidth <= 768; }
+
+  function pgRerankMax() { return Math.max(60, Number(pgS.rerank) || 0); }
+
+  function pgCaseCount() {
+    const total = pgMeta ? pgMeta.golden_cases : 64;
+    const percent = Number($("pgCases").value) || 100;
+    return Math.max(1, Math.round(total * percent / 100));
+  }
+
+  // The LLM sample is deliberately tiny: 8 questions, or 15% of a larger
+  // benchmark, hard-capped at 12 so a "quick look" can never turn into a
+  // long, expensive run by accident.
+  function pgSampleN() {
+    const total = pgMeta ? Number(pgMeta.golden_cases) : 0;
+    if (!total || !isFinite(total)) return 8;
+    return Math.max(1, Math.min(12, total, Math.max(8, Math.ceil(total * 0.15))));
+  }
+
+  function pgModels() { return (pgMeta && pgMeta.models) || []; }
+
+  function pgUpdateEstimate() {
+    const n = pgCaseCount();
+    const total = pgMeta ? pgMeta.golden_cases : "?";
+    $("pgEstimate").textContent = pgS.generate
+      ? n + " of " + total + " questions · ~" + Math.max(1, Math.ceil(n / 12)) + " min · small LLM cost"
+      : n + " of " + total + " questions · ~1 min · free (no LLM)";
+    const sb = $("pgSample");
+    if (sb) {
+      const models = pgModels();
+      const sn = pgSampleN();
+      // Honest label: the real number of questions, never a rounded promise.
+      sb.textContent = "✦ LLM sample (" + sn + " case" + (sn === 1 ? "" : "s") + ")";
+      sb.disabled = pgRunning || !models.length;
+      sb.title = models.length
+        ? "Generate answers for " + sn + " of " + total + " questions with " +
+          (pgS.model || models[0]) + ", using the configuration in the diagram. Indicative only — not a benchmark."
+        : "No answer model is configured on the server.";
+    }
+  }
+
+  // ---- precomputed draft grid ------------------------------------------------
+  // GET /eval/playground/grid returns one row of retrieval metrics per discrete
+  // retrieval configuration. Looking the current knobs up in it costs nothing,
+  // so a *draft* profile can appear the instant a stage is flipped — while the
+  // real, measured run stays a deliberate click away.
+
+  const PG_RERANK_LEVELS = [10, 20, 40, 60];
+  const PG_DRAFT_COLOR = "--warning-ink";
+
+  let pgGrid = null;        // {grid, cases, produced_at, computing?} or null
+  let pgGridLoaded = false; // false until the first GET settles either way
+  let pgGridMsg = "";       // transient status for the recompute affordance
+  let pgGridTimer = null;
+  let pgDraft = null;       // the draft series currently on the radar, or null
+  let pgDraftSig = "";      // last (key, has-draft) pair actually drawn
+
+  // The grid only holds discrete rerank depths, so a slider anywhere in between
+  // is looked up at the NEAREST level (ties snap down) and labelled as such.
+  function pgSnapRerank(v) {
+    const n = Number(v);
+    return PG_RERANK_LEVELS.reduce(
+      (best, lv) => (Math.abs(lv - n) < Math.abs(best - n) ? lv : best),
+      PG_RERANK_LEVELS[0]);
+  }
+
+  // Must match app/eval/grid.py:grid_key exactly.
+  function pgGridKey(s) {
+    const rr = s.rerankOn ? String(pgSnapRerank(s.rerank)) : "off";
+    return s.fusion + "|e" + (s.expand ? 1 : 0) + "|d" + (s.dedupe ? 1 : 0) +
+      "|b" + (s.boosts ? 1 : 0) + "|r" + rr;
+  }
+
+  function pgGridLookup() {
+    const key = pgGridKey(pgS);
+    const exact = pgS.rerankOn ? pgSnapRerank(pgS.rerank) === Number(pgS.rerank) : true;
+    const g = (pgGrid && pgGrid.grid) || null;
+    return {
+      key: key,
+      snapped: exact ? null : pgSnapRerank(pgS.rerank),
+      entry: (g && g[key]) || null,
+      known: !!g && Object.keys(g).length > 0,
+    };
+  }
+
+  // A measured run always beats a draft for the same configuration.
+  function pgLiveFor(key) {
+    return pgHistory.filter((h) => h.gridKey === key && !h.sample && h.selected).slice(-1)[0] || null;
+  }
+
+  // Returns true when the radar has to be redrawn (draft appeared, vanished, or
+  // switched configuration) — dragging a slider inside one snap level does not.
+  function pgUpdateDraft() {
+    const look = pgGridLookup();
+    const live = pgLiveFor(look.key);
+    pgDraft = look.entry && !live
+      ? { key: look.key, snapped: look.snapped, metrics: look.entry,
+          cases: (pgGrid && pgGrid.cases) || 0 }
+      : null;
+    const sig = look.key + "|" + (pgDraft ? "draft" : live ? "live" : "none");
+    const changed = sig !== pgDraftSig;
+    pgDraftSig = sig;
+    pgRenderDraftBox(look, live);
+    return changed;
+  }
+
+  function pgGridCaption() {
+    const bits = [];
+    if (pgGrid && pgGrid.produced_at)
+      bits.push("drafts from " + when(pgGrid.produced_at) +
+        (pgGrid.cases ? " · " + pgGrid.cases + " cases" : ""));
+    const c = pgGrid && pgGrid.computing;
+    if (c && c.total) bits.push("recomputing: " + c.done + " of " + c.total + " configurations");
+    return bits.join(" · ");
+  }
+
+  function pgRenderDraftBox(look, live) {
+    const box = $("pgDraftBox");
+    if (!box) return;
+    const c = (pgGrid && pgGrid.computing) || null;
+    let head = "";
+    let chips = "";
+    if (pgDraft) {
+      const m = pgDraft.metrics || {};
+      const base = ((pgBaseline() || {}).metrics) || {};
+      const d = (a, b) => (a != null && b != null ? a - b : null);
+      head = '<span class="pg-badge">draft · precomputed</span>' +
+        (pgDraft.snapped != null
+          ? '<span class="dim">draft @ rerank ' + pgDraft.snapped +
+            " (nearest precomputed depth to " + pgS.rerank + ")</span>"
+          : '<span class="dim">no run needed — this configuration was measured in advance</span>') +
+        (Number(pgS.topK) !== 8
+          ? ' <span class="warn">drafts are computed at top_k 8; yours is ' + esc(String(pgS.topK)) + "</span>"
+          : "");
+      chips = '<div class="kpis">' +
+        pgChip("nDCG@5 (draft)", n2(m["ndcg@5"]), d(m["ndcg@5"], base["ndcg@5"])) +
+        pgChip("right source found (draft)", pct(m.hit_rate), d(m.hit_rate, base.hit_rate)) +
+        pgChip("rank of right source (draft)", n2(m.mrr), d(m.mrr, base.mrr)) +
+        pgChip("first result right (draft)", pct(m["success@1"]), d(m["success@1"], base["success@1"])) +
+        pgChip("time to sources p50 (draft)", fmt(m.retrieval_latency_ms_p50) + " ms",
+          d(m.retrieval_latency_ms_p50, base.retrieval_latency_ms_p50), true) +
+        "</div>" +
+        '<div class="dim" style="font-size:12px">Retrieval only — a draft never contains answers, ' +
+        "so facts and cost stay blank until you run it. Press “Run with these settings” to measure it for real.</div>";
+    } else if (live) {
+      head = '<span class="pg-badge solid">measured</span><span class="dim">run #' + live.n +
+        " measured this exact configuration — the draft is hidden while its live result is on the profile.</span>";
+    } else if (c && c.total) {
+      head = '<span class="pg-badge">draft pending</span><span class="dim">(' + esc(String(c.done)) +
+        "/" + esc(String(c.total)) + " computed) — the precomputed grid is still filling in.</span>";
+    } else if (look.known) {
+      head = '<span class="pg-badge">no draft</span><span class="dim">this configuration is not in the precomputed grid.</span>';
+    } else if (pgGrid) {
+      head = '<span class="pg-badge">no drafts yet</span><span class="dim">nothing precomputed — recompute the grid to get instant results.</span>';
+    } else if (!pgGridLoaded) {
+      head = '<span class="dim">loading precomputed drafts…</span>';
+    } else {
+      head = '<span class="dim">Precomputed drafts unavailable — paste the admin token to load them.</span>';
+    }
+    const cap = pgGridCaption();
+    box.innerHTML = '<div class="pg-drafth">' + head + "</div>" + chips +
+      '<div class="pg-drafth dim" style="margin-top:6px">' +
+      (cap ? "<span>" + esc(cap) + "</span>" : "") +
+      '<button type="button" class="pg-mini" data-act="regrid">recompute grid</button>' +
+      (pgGridMsg ? "<span>" + esc(pgGridMsg) + "</span>" : "") + "</div>";
+  }
+
+  async function loadPgGrid() {
+    clearTimeout(pgGridTimer);
+    try {
+      const headers = {};
+      if ($("token").value) headers["Authorization"] = "Bearer " + $("token").value;
+      const r = await fetch("/eval/playground/grid", { headers: headers });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      pgGrid = await r.json();
+    } catch (e) {
+      // Never invent drafts: no grid simply means no draft polygon.
+      pgGrid = null;
+    }
+    pgGridLoaded = true;
+    pgDraftSig = "";                     // force a redraw against the new data
+    if (pgUpdateDraft()) { renderPgRadar(); renderPgHistory(); }
+    // Lazy refetch: only while the server says a computation is in flight.
+    if (pgGrid && pgGrid.computing) pgGridTimer = setTimeout(loadPgGrid, 20000);
+  }
+
+  async function pgRecomputeGrid() {
+    pgGridMsg = "starting…";
+    pgRenderDraftBox(pgGridLookup(), pgLiveFor(pgGridKey(pgS)));
+    const headers = { "Content-Type": "application/json" };
+    if ($("token").value) headers["Authorization"] = "Bearer " + $("token").value;
+    try {
+      const r = await fetch("/eval/playground/grid", { method: "POST", headers: headers });
+      if (!r.ok) throw new Error(pgFriendlyError(r.status, await r.text()));
+      pgGridMsg = "recomputing 80 configurations in the background — this takes about an hour.";
+      clearTimeout(pgGridTimer);
+      pgGridTimer = setTimeout(loadPgGrid, 4000);
+    } catch (err) {
+      pgGridMsg = "Failed: " + err.message;
+    }
+    pgRenderDraftBox(pgGridLookup(), pgLiveFor(pgGridKey(pgS)));
+  }
+
+  // ---- diagram construction -------------------------------------------------
+
+  function pgBox(id, b) {
+    const rx = b.kind === "term" ? Math.min(16, b.h / 2) : 8;
+    return '<rect class="pg-box" data-box="' + id + '" x="' + b.x + '" y="' + b.y +
+      '" width="' + b.w + '" height="' + b.h + '" rx="' + rx + '"/>';
+  }
+
+  function pgMark(cx, cy) {
+    return '<circle class="pg-dot" cx="' + cx + '" cy="' + cy + '" r="7"/>' +
+      '<path class="pg-check" d="M' + (cx - 3.4) + " " + cy + " l2.6 2.8 l4.4 -5.4" + '"/>';
+  }
+
+  function pgText(cls, x, y, anchor, sub, text) {
+    return "<text " + (sub ? 'data-sub="' + sub + '" ' : "") + 'class="' + cls + '" x="' + x +
+      '" y="' + y + '" text-anchor="' + anchor + '">' + esc(text) + "</text>";
+  }
+
+  function pgToggleNode(id, b, title, sub, tip) {
+    const stack = b.w < 110;                       // narrow column → stacked text
+    const tx = stack ? b.x + b.w / 2 : b.x + 12;
+    const anchor = stack ? "middle" : "start";
+    return '<g class="pg-node" data-node="' + id + '" data-toggle="' + id +
+      '" tabindex="0" role="button" aria-pressed="true"><title>' + esc(tip) + "</title>" +
+      pgBox(id, b) +
+      pgText("pg-t", tx, b.y + 22, anchor, null, title) +
+      pgText("pg-s", tx, b.y + (stack ? 38 : 39), anchor, id, sub) +
+      pgMark(stack ? b.x + b.w / 2 : b.x + b.w - 18, stack ? b.y + b.h - 12 : b.y + 20) +
+      "</g>";
+  }
+
+  function pgTermNode(id, b, title, sub, tip) {
+    return '<g class="pg-node pg-term" data-node="' + id + '"><title>' + esc(tip) + "</title>" +
+      pgBox(id, b) +
+      pgText("pg-t", b.x + b.w / 2, b.y + (sub ? 22 : b.h / 2 + 5), "middle", null, title) +
+      (sub ? pgText("pg-s", b.x + b.w / 2, b.y + 40, "middle", id, sub) : "") +
+      "</g>";
+  }
+
+  function pgLaneNode(id, b, title, sub) {
+    return '<g class="pg-node pg-lane" data-node="' + id + '">' + pgBox(id, b) +
+      pgText("pg-t", b.x + 11, b.y + 17, "start", null, title) +
+      pgText("pg-s", b.x + 11, b.y + 31, "start", null, sub) + "</g>";
+  }
+
+  function pgChipSvg(kind, x, y, w, h, label) {
+    return '<g class="pg-chip" data-fusion="' + kind + '" tabindex="0" role="button" aria-pressed="false">' +
+      '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + (h / 2) + '"/>' +
+      '<text x="' + (x + w / 2) + '" y="' + (y + h / 2 + 3.6) + '" text-anchor="middle">' +
+      esc(label) + "</text></g>";
+  }
+
+  function pgFusionNode(b) {
+    const cw = b.w > 200 ? 110 : 54, gap = 6, ch = 22;
+    const x1 = b.x + 12, x2 = x1 + cw + gap, chy = b.y + (b.w > 200 ? 28 : 30);
+    return '<g class="pg-node" data-node="fusion"><title>' +
+      esc("How the lexical and vector result lists are merged") + "</title>" +
+      pgBox("fusion", b) +
+      pgText("pg-t", b.x + 12, b.y + 20, "start", null, "fusion") +
+      pgChipSvg("rrf", x1, chy, cw, ch, b.w > 200 ? "RRF (rank)" : "RRF") +
+      pgChipSvg("weighted", x2, chy, cw, ch, b.w > 200 ? "weighted (score)" : "weighted") +
+      "</g>";
+  }
+
+  function pgCtxNode(b) {
+    return '<g class="pg-node" data-node="context"><title>' +
+      esc("How many retrieved passages the LLM reads before writing — the box width is that amount") +
+      "</title>" + pgBox("context", b) +
+      '<rect class="pg-fill" data-fill="context" x="' + (b.x + 6) + '" y="' + (b.y + b.h - 15) +
+      '" width="10" height="8" rx="4"/>' +
+      pgText("pg-t", b.x + 11, b.y + 22, "start", null, "context") +
+      pgText("pg-s", b.x + 11, b.y + 39, "start", "context", "20 chunks") + "</g>";
+  }
+
+  function pgLlmNode(b) {
+    const sx = b.x + 12, sy = b.y + 11;
+    return '<g class="pg-node" data-node="llm">' + pgBox("llm", b) +
+      '<g class="pg-sw" data-toggle="generate" tabindex="0" role="switch" aria-checked="false">' +
+      "<title>" + esc("Write an answer with an LLM (uses tokens). Off = sources only.") + "</title>" +
+      '<rect class="pg-swtrack" x="' + sx + '" y="' + sy + '" width="34" height="18" rx="9"/>' +
+      '<circle class="pg-swknob" data-knob="generate" cx="' + (sx + 9) + '" cy="' + (sy + 9) + '" r="6.6"/>' +
+      pgText("pg-t", sx + 43, sy + 14, "start", null, "LLM · generate answers") + "</g>" +
+      pgText("pg-s", b.x + b.w - 12, sy + 14, "end", "llm", "default length") + "</g>";
+  }
+
+  function pgFo(fo, inner) {
+    return '<foreignObject x="' + fo.x + '" y="' + fo.y + '" width="' + fo.w + '" height="' + fo.h + '">' +
+      '<div xmlns="http://www.w3.org/1999/xhtml" class="pgctl">' + inner + "</div></foreignObject>";
+  }
+
+  function pgBuild() {
+    const box = $("pgDiagram");
+    if (!box) return;
+    pgMode = pgIsNarrow() ? "narrow" : "wide";
+    const L = pgLayout(pgMode, pgS.ctxK);
+    pgLay = L;
+    const n = L.n, fo = L.fo;
+    let s = '<svg id="pgSvg" class="pgd ' + pgMode + '" viewBox="0 0 ' + L.W + " " + L.H +
+      '" style="max-width:' + (pgMode === "narrow" ? 440 : 1010) + 'px" role="group" ' +
+      'aria-label="search pipeline configuration">' +
+      '<defs><marker id="pgArrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" ' +
+      'markerHeight="5" orient="auto-start-reverse"><path class="pg-ah" d="M0 0 L8 4 L0 8 Z"/></marker></defs>';
+    L.edges.forEach((e) => {
+      s += '<path class="pg-edge" data-edge="' + e.to + '" d="' + e.d + '" marker-end="url(#pgArrow)"/>';
+    });
+    s += pgTermNode("query", n.query, "QUERY", null, "A benchmark question enters here");
+    s += pgToggleNode("expand", n.expand, "expansion", "acronym variants",
+      "Expand domain acronyms (TDR, SVT, …) into a second query variant");
+    s += pgLaneNode("lexical", n.lexical, "lexical", "Postgres full-text");
+    s += pgLaneNode("vector", n.vector, "vector", "Qdrant embeddings");
+    if (pgMode === "wide")
+      s += '<text class="pg-hint" x="360" y="107" text-anchor="middle">in parallel</text>';
+    s += pgFusionNode(n.fusion);
+    s += pgToggleNode("dedupe", n.dedupe, "dedupe", "near-dups",
+      "Collapse near-duplicate results from different sources");
+    s += pgToggleNode("boosts", n.boosts, "boosts", "intent",
+      "Heuristic score bumps for how-to pages, freshness, document requests");
+    s += pgToggleNode("rerank", n.rerank, "rerank", "top 20 rescored",
+      "Re-score the top N fused results with a slower cross-encoder");
+    s += pgCtxNode(n.context);
+    s += pgLlmNode(n.llm);
+    s += pgTermNode("answer", n.answer, "ANSWER", "top_k 8 sources",
+      "What the user gets back — top_k sets how many sources are returned");
+    // Pulse above the node fills (it would be invisible behind them) but below
+    // the foreignObject controls; pointer-events:none keeps clicks flowing.
+    s += '<path id="pgSpine" class="pg-pulse" d="' + L.spine + '"/>';
+    s += pgFo(fo.rerank, '<input type="range" id="pgRerankRange" min="10" max="' + pgRerankMax() +
+      '" step="5" aria-label="rerank candidates"/>');
+    s += pgFo(fo.context, '<input type="range" id="pgCtxRange" min="' + PG_CTX_MIN + '" max="' +
+      PG_CTX_MAX + '" step="1" aria-label="context chunks given to the LLM"/>');
+    s += pgFo(fo.topk, '<input type="range" id="pgTopKRange" min="1" max="30" step="1" ' +
+      'aria-label="number of sources returned (top_k)"/>');
+    s += pgFo(fo.llm, '<label>model <select id="pgModel" aria-label="answer model"></select></label>' +
+      '<label>length <input type="range" id="pgMaxTokRange" min="0" max="2000" step="100" ' +
+      'aria-label="max answer tokens (0 = server default)"/></label>');
+    box.innerHTML = s + "</svg>";
+    // The .pgctl wrapper is shared by the two LLM controls; stack it there only.
+    const llmCtl = $("pgModel") && $("pgModel").closest(".pgctl");
+    if (llmCtl) llmCtl.classList.add("col");
+    pgWire();
+    pgRefresh();
+  }
+
+  function pgRange(id, apply) {
+    const el = $(id);
+    if (!el) return;
+    const handler = () => { apply(Number(el.value)); pgRefresh(); };
+    el.addEventListener("input", handler);
+    el.addEventListener("change", handler);
+  }
+
+  function pgWire() {
+    const svg = $("pgSvg");
+    if (!svg) return;
+    const activate = (fn) => (ev) => {
+      if (ev.type === "keydown" && ev.key !== "Enter" && ev.key !== " ") return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      fn();
+    };
+    svg.querySelectorAll("[data-toggle]").forEach((g) => {
+      const h = activate(() => pgToggleKey(g.getAttribute("data-toggle")));
+      g.addEventListener("click", h);
+      g.addEventListener("keydown", h);
+    });
+    svg.querySelectorAll("[data-fusion]").forEach((g) => {
+      const h = activate(() => { pgS.fusion = g.getAttribute("data-fusion"); pgRefresh(); });
+      g.addEventListener("click", h);
+      g.addEventListener("keydown", h);
+    });
+    // Dragging the rerank slider implies wanting the reranker on.
+    pgRange("pgRerankRange", (v) => { pgS.rerank = v; pgS.rerankOn = true; });
+    pgRange("pgCtxRange", (v) => { pgS.ctxK = v; });
+    pgRange("pgTopKRange", (v) => { pgS.topK = v; });
+    pgRange("pgMaxTokRange", (v) => { pgS.maxTok = v; });
+    const sel = $("pgModel");
+    if (sel) {
+      const models = (pgMeta && pgMeta.models) || [];
+      sel.innerHTML = models.map((m) => '<option value="' + esc(m) + '">' + esc(m) + "</option>").join("");
+      if (pgS.model && models.indexOf(pgS.model) >= 0) sel.value = pgS.model;
+      else if (models.length) pgS.model = sel.value = models[0];
+      sel.addEventListener("change", () => { pgS.model = sel.value; pgRefresh(); });
+    }
+    // Path length → a seamless one-dot loop for the in-flight pulse.
+    const spine = $("pgSpine");
+    if (spine) {
+      let len = 0;
+      try { len = spine.getTotalLength ? spine.getTotalLength() : 0; } catch (e) { len = 0; }
+      if (!isFinite(len) || len <= 0) len = 2400;
+      spine.style.setProperty("--pgL", len + "px");
+      spine.setAttribute("stroke-dasharray", "22 " + Math.max(1, Math.round(len - 22)));
+    }
+  }
+
+  function pgToggleKey(key) {
+    if (key === "rerank") pgS.rerankOn = !pgS.rerankOn;
+    else if (key === "generate") {
+      // Never offer answers the server has no model for.
+      if (!pgS.generate && !((pgMeta && pgMeta.models) || []).length) return;
+      pgS.generate = !pgS.generate;
+    } else pgS[key] = !pgS[key];
+    pgRefresh();
+  }
+
+  // Every state change funnels through here, so this is where the precomputed
+  // draft is looked up — the radar only redraws when the draft actually changes.
+  function pgRefresh() {
+    pgSync();
+    pgRenderDiff();
+    pgUpdateEstimate();
+    if (pgUpdateDraft()) { renderPgRadar(); renderPgHistory(); }
+  }
+
+  // The ONLY function that writes to the diagram after it is built: state in,
+  // classes + labels + geometry out.
+  function pgSync() {
+    const svg = $("pgSvg");
+    if (!svg) return;
+    const changed = new Set(pgMeta ? pgDiffList().map((c) => c.field.node) : []);
+    const on = {
+      expand: pgS.expand, dedupe: pgS.dedupe, boosts: pgS.boosts, rerank: pgS.rerankOn,
+      generate: pgS.generate, context: pgS.generate, llm: pgS.generate,
+    };
+    Object.keys(on).forEach((id) => {
+      svg.querySelectorAll('[data-node="' + id + '"], [data-toggle="' + id + '"]').forEach((g) => {
+        g.classList.toggle("on", !!on[id]);
+        g.classList.toggle("off", !on[id]);
+        if (g.hasAttribute("aria-pressed")) g.setAttribute("aria-pressed", on[id] ? "true" : "false");
+        if (g.hasAttribute("aria-checked")) g.setAttribute("aria-checked", on[id] ? "true" : "false");
+      });
+      svg.querySelectorAll('[data-edge="' + id + '"]').forEach((e) => e.classList.toggle("off", !on[id]));
+    });
+    // top_k is a retrieval setting, so the ANSWER node never goes "off" — it
+    // goes hollow to show nothing is written into it.
+    svg.querySelectorAll('[data-node="answer"]').forEach((g) => g.classList.toggle("hollow", !pgS.generate));
+    svg.querySelectorAll('[data-edge="answer"]').forEach((e) => e.classList.toggle("off", !pgS.generate));
+    svg.querySelectorAll(".pg-node").forEach((g) => {
+      g.classList.toggle("changed", changed.has(g.getAttribute("data-node")));
+    });
+    svg.querySelectorAll("[data-fusion]").forEach((g) => {
+      const sel = g.getAttribute("data-fusion") === pgS.fusion;
+      g.classList.toggle("sel", sel);
+      g.setAttribute("aria-pressed", sel ? "true" : "false");
+    });
+
+    const setSub = (id, text) => {
+      svg.querySelectorAll('[data-sub="' + id + '"]').forEach((t) => { t.textContent = text; });
+    };
+    setSub("expand", pgS.expand ? "acronym variants" : "query as typed");
+    setSub("dedupe", pgS.dedupe ? "near-dups" : "skipped");
+    setSub("boosts", pgS.boosts ? "intent" : "skipped");
+    setSub("rerank", pgS.rerankOn ? "top " + pgS.rerank + " rescored" : "off — fusion order");
+    setSub("context", pgS.ctxK + (pgS.ctxK === 1 ? " chunk" : " chunks"));
+    setSub("llm", pgS.maxTok ? "max " + pgS.maxTok + " tokens" : "default length");
+    setSub("answer", "top_k " + pgS.topK + (pgS.generate ? " cited" : " · sources only"));
+
+    // Switch knob slides; cx is set as attribute (correctness) AND as a style
+    // (so browsers supporting geometry properties animate the move).
+    const knob = svg.querySelector('[data-knob="generate"]');
+    const track = svg.querySelector(".pg-swtrack");
+    if (knob && track) {
+      const x0 = Number(track.getAttribute("x")), tw = Number(track.getAttribute("width"));
+      const cx = pgS.generate ? x0 + tw - 9 : x0 + 9;
+      knob.setAttribute("cx", cx);
+      knob.style.cx = cx + "px";
+    }
+
+    // Context window: node width on desktop, fill bar in both orientations.
+    const cbox = svg.querySelector('[data-box="context"]');
+    const cfill = svg.querySelector('[data-fill="context"]');
+    if (cbox && pgLay) {
+      const full = pgLay.mode === "narrow" ? pgLay.n.context.w : pgCtxWidth(pgS.ctxK, 92, 262);
+      if (pgLay.mode !== "narrow") {
+        cbox.setAttribute("width", full);
+        cbox.style.width = full + "px";
+        const e = svg.querySelector('[data-edge="llm"]');
+        if (e && pgLay.llmEdge) e.setAttribute("d", pgLay.llmEdge(full));
+      }
+      if (cfill) {
+        const fw = Math.max(8, (full - 12) * pgFrac(pgS.ctxK, PG_CTX_MIN, PG_CTX_MAX));
+        cfill.setAttribute("width", fw.toFixed(1));
+        cfill.style.width = fw.toFixed(1) + "px";
+      }
+    }
+
+    const set = (id, v) => { const el = $(id); if (el && String(el.value) !== String(v)) el.value = v; };
+    set("pgRerankRange", pgS.rerank);
+    set("pgCtxRange", pgS.ctxK);
+    set("pgTopKRange", pgS.topK);
+    set("pgMaxTokRange", pgS.maxTok);
+    if ($("pgModel") && pgS.model) set("pgModel", pgS.model);
+    // Answer-side controls are dead weight until answers are generated.
+    ["pgCtxRange", "pgMaxTokRange", "pgModel"].forEach((id) => {
+      const el = $(id);
+      if (!el) return;
+      el.disabled = !pgS.generate;
+      const p = el.closest(".pgctl");
+      if (p) p.classList.toggle("dimmed", !pgS.generate);
+    });
+  }
+
+  // Stages light up in order while a run is in flight, and a dot travels the
+  // spine (CSS animation on the dashed pulse path).
+  function pgAnimateRun(running, forceGen) {
+    const svg = $("pgSvg");
+    clearInterval(pgLitTimer);
+    if (!svg) return;
+    svg.classList.toggle("running", running);
+    if (!running) {
+      svg.querySelectorAll(".pg-node.lit").forEach((g) => g.classList.remove("lit"));
+      return;
+    }
+    // Only stages that are actually part of this run light up. An LLM sample
+    // generates answers even when the master switch is off, so it says so.
+    const gen = forceGen ? true : pgS.generate;
+    const live = {
+      expand: pgS.expand, dedupe: pgS.dedupe, boosts: pgS.boosts, rerank: pgS.rerankOn,
+      context: gen, llm: gen,
+    };
+    const order = ["query", "expand", "lexical", "vector", "fusion", "dedupe", "boosts",
+      "rerank", "context", "llm", "answer"].filter((id) => live[id] !== false);
+    let i = 0;
+    pgLitTimer = setInterval(() => {
+      svg.querySelectorAll(".pg-node.lit").forEach((g) => g.classList.remove("lit"));
+      const id = order[i % order.length];
+      svg.querySelectorAll('[data-node="' + id + '"]').forEach((g) => g.classList.add("lit"));
+      i += 1;
+    }, 400);
+  }
+
+  function pgSetDefaults() {
+    const d = (pgMeta && pgMeta.defaults) || {};
+    pgS.fusion = d.fusion || "rrf";
+    const rr = d.rerank == null ? "20" : String(d.rerank);
+    pgS.rerankOn = rr !== "off";
+    if (pgS.rerankOn) pgS.rerank = Math.max(10, Number(rr) || 20);
+    pgS.expand = d.expand_queries !== false;
+    pgS.dedupe = d.dedupe !== false;
+    pgS.boosts = d.boosts !== false;
+    pgS.topK = Number(d.top_k) || 8;
+    pgS.generate = false;
+    pgS.model = d.model || pgS.model || "";
+    pgS.ctxK = Math.max(PG_CTX_MIN, Math.min(PG_CTX_MAX, Number(d.llm_context_top_k) || 20));
+    pgS.maxTok = Number(d.max_output_tokens) || 0;
+  }
+
+  function pgApplyDefaults() {
+    pgSetDefaults();
+    if ($("pgCases")) $("pgCases").value = "100";
+    pgBuild();   // rebuild: the rerank slider's range and the model list come from meta
+  }
+
+  function pgApplyPreset(name) {
+    const p = PG_PRESETS[name];
+    if (!p) return;
+    pgSetDefaults();
+    Object.keys(p).forEach((k) => { pgS[k] = p[k]; });
+    if (name === "quality" && ((pgMeta && pgMeta.models) || []).length) pgS.generate = true;
+    pgBuild();
+  }
+
+  // ---- live config diff: "what am I changing vs production?" ----------------
+  // Everything here is local — no network call while the user flips stages.
+
+  const PG_FIELDS = [
+    { key: "fusion", node: "fusion", label: "fusion" },
+    { key: "rerank", node: "rerank", label: "rerank" },
+    { key: "expand_queries", node: "expand", label: "acronym expansion", bool: true },
+    { key: "dedupe", node: "dedupe", label: "dedupe", bool: true },
+    { key: "boosts", node: "boosts", label: "intent boosts", bool: true },
+    { key: "top_k", node: "answer", label: "top_k" },
+    { key: "generate", node: "llm", label: "answers", bool: true },
+    { key: "model", node: "llm", label: "model", genOnly: true },
+    { key: "llm_context_top_k", node: "context", label: "context", genOnly: true },
+    { key: "max_output_tokens", node: "llm", label: "max answer tokens", genOnly: true },
+  ];
+
+  function pgReadConfig() {
+    return {
+      fusion: pgS.fusion,
+      rerank: pgS.rerankOn ? String(pgS.rerank) : "off",
+      expand_queries: pgS.expand,
+      dedupe: pgS.dedupe,
+      boosts: pgS.boosts,
+      top_k: Number(pgS.topK) || 8,
+      generate: pgS.generate,
+      model: pgS.model || null,
+      llm_context_top_k: Number(pgS.ctxK) || null,
+      max_output_tokens: Number(pgS.maxTok) || null,
+    };
+  }
+
+  // The production side of the diff — the same values pgSetDefaults() writes
+  // into the state, so "Reset to production" always clears the chip list.
+  // `generate` is a playground-only switch (benchmarks default to
+  // retrieval-only), so its reference state is "off".
+  function pgProdConfig() {
+    const d = (pgMeta && pgMeta.defaults) || {};
+    return {
+      fusion: d.fusion || "rrf",
+      rerank: d.rerank == null ? "20" : String(d.rerank),
+      expand_queries: d.expand_queries !== false,
+      dedupe: d.dedupe !== false,
+      boosts: d.boosts !== false,
+      top_k: Number(d.top_k) || 8,
+      generate: false,
+      model: d.model || null,
+      llm_context_top_k: d.llm_context_top_k != null ? Number(d.llm_context_top_k) : null,
+      max_output_tokens: d.max_output_tokens != null ? Number(d.max_output_tokens) : null,
+    };
+  }
+
+  function pgFmtVal(v, f) {
+    if (f && f.bool) return v ? "on" : "off";
+    if (v == null || v === "") return "default";
+    return String(v);
+  }
+
+  function pgDiffList() {
+    const cur = pgReadConfig(), prod = pgProdConfig();
+    const out = [];
+    PG_FIELDS.forEach((f) => {
+      // Answer-side settings only matter when answers are actually generated.
+      if (f.genOnly && !cur.generate) return;
+      if (String(cur[f.key]) === String(prod[f.key])) return;
+      out.push({ field: f, from: pgFmtVal(prod[f.key], f), to: pgFmtVal(cur[f.key], f) });
+    });
+    return out;
+  }
+
+  function pgRenderDiff() {
+    const box = $("pgDiff");
+    if (!box) return;
+    if (!pgMeta) {
+      // Production config not known yet (still loading, or no admin access):
+      // never guess what "production" is.
+      box.innerHTML = '<span class="dim" style="font-size:12px">Production configuration unavailable — paste the admin token to compare.</span>';
+      return;
+    }
+    const changes = pgDiffList();
+    box.innerHTML = changes.length
+      ? '<span class="dim" style="font-size:12px">changes vs production:</span>' +
+        changes.map((c) => '<span class="chip">' + esc(c.field.label) +
+          ' <span class="from">' + esc(c.from) + "</span> → <b>" + esc(c.to) + "</b></span>").join("")
+      : '<span class="dim" style="font-size:12px">Settings match the production configuration.</span>';
+  }
+
+  function pgDiffSummary() {
+    if (!pgMeta) return "custom configuration";
+    const changes = pgDiffList();
+    return changes.length
+      ? changes.map((c) => c.field.label + " " + c.to).join(" · ")
+      : "production configuration";
+  }
+
+  async function loadPlaygroundMeta() {
+    try {
+      pgMeta = await getJson("/eval/playground/meta");
+      $("pgModelNote").textContent = "";
+    } catch (e) {
+      // Never fabricate a model list: disable answer generation instead.
+      pgMeta = null;
+      pgS.generate = false;
+      $("pgModelNote").textContent = "answer models unavailable — check admin token";
+    }
+    pgApplyDefaults();
+  }
+
+  function pgFriendlyError(status, text) {
+    if (status === 401 || status === 403) return "Admin token required — paste it in the Benchmark runs card below.";
+    if (status === 400 && /unknown model/.test(text)) return "That model is not configured on the server.";
+    return "HTTP " + status + " " + text.slice(0, 160);
+  }
+
+  // One executor for both buttons. `opts.sample` = number of cases for the
+  // LLM sample; when set, answers are generated regardless of the master
+  // switch (which keeps governing full runs exactly as before).
+  async function pgExecuteRun(opts) {
+    opts = opts || {};
+    const sample = opts.sample || null;
+    const cfg = pgReadConfig();
+    const generate = sample ? true : cfg.generate;
+    const body = {
+      fusion: cfg.fusion,
+      rerank: cfg.rerank,
+      expand_queries: cfg.expand_queries,
+      dedupe: cfg.dedupe,
+      boosts: cfg.boosts,
+      top_k: cfg.top_k,
+      generate: generate,
+    };
+    const total = pgMeta ? pgMeta.golden_cases : null;
+    const n = sample || pgCaseCount();
+    if (sample) body.case_limit = sample;
+    else if (!total || n < total) body.case_limit = n;
+    let model = cfg.model;
+    if (generate) {
+      if (!model) model = pgModels()[0] || null;
+      body.model = model;
+      if (cfg.llm_context_top_k) body.llm_context_top_k = cfg.llm_context_top_k;
+      if (cfg.max_output_tokens) body.max_output_tokens = cfg.max_output_tokens;
+    }
+    // The grid key of the configuration that is being measured: a completed
+    // run takes over the draft's slot on the radar.
+    const gridKey = pgGridKey(pgS);
+    const runSummary = pgDiffSummary() + (sample && !cfg.generate && model ? " · answers via " + model : "");
+    $("pgRun").disabled = true;
+    $("pgSample").disabled = true;
+    pgRunning = true;
+    pgAnimateRun(true, !!sample);
+    const t0 = Date.now();
+    const tick = () => {
+      const s = Math.round((Date.now() - t0) / 1000);
+      $("pgStatus").textContent = (sample ? "sampling " : "running ") + n + " question(s)" +
+        (generate ? " with answers" : "") +
+        "… " + Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0") + " elapsed";
+    };
+    tick();
+    pgTimer = setInterval(tick, 1000);
+    const headers = { "Content-Type": "application/json" };
+    if ($("token").value) headers["Authorization"] = "Bearer " + $("token").value;
+    try {
+      const r = await fetch("/eval/playground", { method: "POST", headers, body: JSON.stringify(body) });
+      if (!r.ok) throw new Error(pgFriendlyError(r.status, await r.text()));
+      renderPlayground(await r.json(), runSummary, { sample: sample, gridKey: gridKey });
+      $("pgStatus").textContent = "";
+    } catch (err) {
+      $("pgStatus").textContent = "Failed: " + err.message;
+    } finally {
+      clearInterval(pgTimer);
+      pgAnimateRun(false);
+      pgRunning = false;
+      $("pgRun").disabled = false;
+      pgUpdateEstimate();   // re-enables the sample button only if a model exists
+    }
+  }
+
+  function runPlayground() { return pgExecuteRun({}); }
+
+  function runPlaygroundSample() {
+    if (!pgModels().length) return Promise.resolve();
+    return pgExecuteRun({ sample: pgSampleN() });
+  }
+
+  // Delta chips against the latest completed full benchmark run. Deltas are
+  // shown only for full-set runs — a 25% subset against a full-set baseline
+  // would be apples-to-oranges.
+  function pgBaseline() {
+    return runsCache.find((r) => r.status === "completed" && r.metrics && r.metrics.hit_rate != null) || null;
+  }
+
+  function pgChip(label, value, delta, lowerIsBetter) {
+    let deltaHtml = "";
+    if (delta != null && isFinite(delta)) {
+      const good = lowerIsBetter ? delta < 0 : delta > 0;
+      const cls = Math.abs(delta) < 1e-9 ? "dim" : good ? "pass" : "fail";
+      const shown = Math.abs(delta) < 1e-9 ? "±0" : (delta > 0 ? "+" : "") +
+        (Math.abs(delta) >= 1 ? fmt(delta) : n2(delta));
+      deltaHtml = '<div class="' + cls + '" style="font-size:12px">' + shown + " vs production</div>";
+    }
+    return '<div class="kpi"><div class="v">' + value + "</div>" + deltaHtml +
+      '<div class="l">' + esc(label) + "</div></div>";
+  }
+
+  // ---- results radar + in-session run history --------------------------------
+  // History lives only in this tab: no storage, no server round-trip.
+
+  let pgHistory = [];
+  let pgSeq = 0;
+  const PG_SERIES_COLORS = ["--s1", "--s3", "--s2"];
+
+  // Every spoke is normalised to 0–1 with "outer = better". Latency and cost
+  // are log-scaled between a "great" and a "bad" anchor; the raw number is
+  // always printed on the axis so the scale never hides the real value.
+  function pgLogScore(v, best, worst) {
+    if (v == null || !isFinite(v)) return null;
+    if (v <= 0) return 1;
+    return Math.max(0, Math.min(1, 1 - Math.log(v / best) / Math.log(worst / best)));
+  }
+
+  function pgTotalMs(m) {
+    if (!m || m.retrieval_latency_ms_p50 == null) return null;
+    return Number(m.retrieval_latency_ms_p50) + Number(m.answer_latency_ms_p50 || 0);
+  }
+
+  function pgCostPerCase(s) {
+    const c = (s.metrics || {}).total_cost_usd;
+    if (c == null || !s.cases) return null;
+    return Number(c) / s.cases;
+  }
+
+  function pgMs(t) {
+    if (t == null) return "—";
+    return t >= 1000 ? (t / 1000).toFixed(1) + " s" : Math.round(t) + " ms";
+  }
+
+  const PG_AXES = [
+    { key: "hit", label: "source found",
+      score: (s) => s.metrics.hit_rate, text: (s) => pct(s.metrics.hit_rate) },
+    { key: "ndcg", label: "ranking",
+      score: (s) => s.metrics["ndcg@5"], text: (s) => n2(s.metrics["ndcg@5"]) },
+    { key: "mrr", label: "rank (MRR)",
+      score: (s) => s.metrics.mrr, text: (s) => n2(s.metrics.mrr) },
+    { key: "fact", label: "facts in answer",
+      score: (s) => s.metrics.answer_expected_rate, text: (s) => pct(s.metrics.answer_expected_rate) },
+    { key: "speed", label: "speed",
+      score: (s) => pgLogScore(pgTotalMs(s.metrics), 150, 8000), text: (s) => pgMs(pgTotalMs(s.metrics)) },
+    { key: "cost", label: "cost efficiency",
+      score: (s) => { const c = pgCostPerCase(s); return c == null ? null : pgLogScore(c, 0.0002, 0.02); },
+      text: (s) => { const c = pgCostPerCase(s); return c == null ? "—" : "$" + c.toFixed(4) + "/q"; } },
+  ];
+
+  function pgAxisScore(ax, s) {
+    let v = null;
+    try { v = ax.score(s); } catch (e) { v = null; }
+    if (v == null || !isFinite(Number(v))) return null;
+    return Math.max(0, Math.min(1, Number(v)));
+  }
+
+  function pgSelectedRuns() {
+    return pgHistory.filter((h) => h.selected).slice(-3);
+  }
+
+  function pgSeries() {
+    const out = [];
+    const base = pgBaseline();
+    if (base && base.metrics)
+      out.push({ name: "production", color: "--ink-2", metrics: base.metrics,
+        cases: base.metrics.cases || base.cases_total || 0, baseline: true });
+    // The draft sits between production and the measured runs so that a real
+    // run always owns the axis captions.
+    if (pgDraft)
+      out.push({ name: "draft · precomputed", color: PG_DRAFT_COLOR, draft: true,
+        metrics: pgDraft.metrics || {}, cases: pgDraft.cases || 0 });
+    pgSelectedRuns().forEach((h, i) => out.push({
+      name: "#" + h.n + (h.sample ? " (sample n=" + h.sample + ")" : ""),
+      color: PG_SERIES_COLORS[i % PG_SERIES_COLORS.length],
+      metrics: h.metrics || {}, cases: h.cases || 0, sample: h.sample || null,
+    }));
+    return out;
+  }
+
+  // Hand-rolled radar: rings + spokes + one polygon per series. A series only
+  // gets a vertex on axes it actually measured — a missing metric is never
+  // drawn as a zero.
+  function renderPgRadar() {
+    const box = $("pgRadar");
+    if (!box) return;
+    if (!pgSelectedRuns().length && !pgDraft) { box.innerHTML = ""; return; }
+    const series = pgSeries();
+    const axes = PG_AXES.filter((ax) => series.some((s) => pgAxisScore(ax, s) != null));
+    if (axes.length < 3) {
+      box.innerHTML = '<div class="dim" style="font-size:12px">Not enough measurements yet to draw the profile.</div>';
+      return;
+    }
+    const g = pgRadarGeom(axes.length, pgIsNarrow());
+    const c = css();
+    const grid = c.getPropertyValue("--grid"), baseline = c.getPropertyValue("--baseline");
+    const muted = c.getPropertyValue("--muted"), ink = c.getPropertyValue("--ink");
+    const ring = (f) => axes.map((ax, i) => g.at(i, f)).map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1]).join(" ") + " Z";
+    let out = '<svg viewBox="0 0 ' + g.W + " " + g.H + '" style="width:100%;max-width:' + g.W +
+      'px;height:auto;display:block" role="img" aria-label="Quality profile of the compared runs">';
+    [0.25, 0.5, 0.75, 1].forEach((f) => {
+      out += '<path d="' + ring(f) + '" fill="none" stroke="' + (f === 1 ? baseline : grid) + '"/>';
+    });
+    axes.forEach((ax, i) => {
+      const p = g.at(i, 1);
+      out += '<line x1="' + g.cx + '" y1="' + g.cy + '" x2="' + p[0] + '" y2="' + p[1] +
+        '" stroke="' + grid + '"/>';
+    });
+    // Axis captions carry the newest MEASURED run's raw value, in that run's
+    // colour; a draft only gets the captions when nothing was measured yet.
+    const lead = series.filter((s) => !s.baseline && !s.draft).slice(-1)[0] ||
+      series.filter((s) => !s.baseline).slice(-1)[0] || series[0];
+    axes.forEach((ax, i) => {
+      const p = g.at(i, g.labelF);
+      const dxc = p[0] - g.cx;
+      const anchor = dxc > 6 ? "start" : dxc < -6 ? "end" : "middle";
+      const dy = p[1] < g.cy - 4 ? -4 : p[1] > g.cy + 4 ? 12 : 4;
+      out += '<text x="' + p[0] + '" y="' + (p[1] + dy) + '" text-anchor="' + anchor +
+        '" font-size="11" fill="' + muted + '">' + esc(ax.label) + "</text>";
+      out += '<text x="' + p[0] + '" y="' + (p[1] + dy + 13) + '" text-anchor="' + anchor +
+        '" font-size="11.5" font-weight="600" fill="' + c.getPropertyValue(lead.color) + '">' +
+        esc(pgAxisScore(ax, lead) == null ? "—" : ax.text(lead)) + "</text>";
+    });
+    const tipData = [];
+    series.forEach((s, si) => {
+      const pts = [];
+      axes.forEach((ax, i) => {
+        const v = pgAxisScore(ax, s);
+        if (v == null) return;
+        const p = g.at(i, Math.max(0.02, v));
+        pts.push(p);
+        tipData.push({ x: p[0], y: p[1], name: s.name, axis: ax.label, text: ax.text(s), color: s.color });
+      });
+      if (pts.length < 3) return;
+      const col = c.getPropertyValue(s.color);
+      // Three visual registers, never interchangeable: measured run (solid),
+      // production baseline (long dash), draft (fine dots, hollow vertices).
+      const fo = s.draft ? 0.07 : s.baseline ? 0.18 : 0.13;
+      const dash = s.draft ? "2 4" : s.baseline ? "5 4" : "none";
+      const so = s.draft ? 0.9 : s.baseline ? 0.6 : 1;
+      out += '<path class="pg-poly"' + (s.draft ? ' data-draft="1"' : "") + ' data-fo="' + fo +
+        '" d="' + pts.map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1]).join(" ") +
+        ' Z" fill="' + col + '" fill-opacity="' + fo + '" stroke="' + col + '" stroke-opacity="' +
+        so + '" stroke-dasharray="' + dash + '"/>';
+      pts.forEach((p) => {
+        out += s.draft
+          ? '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3" fill="none" stroke="' + col +
+            '" stroke-width="1.4" stroke-opacity="0.9"/>'
+          : '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3.2" fill="' + col + '" opacity="' +
+            (s.baseline ? 0.6 : 1) + '"/>';
+      });
+    });
+    // In-chart key for the draft shape — the polygon must never be readable as
+    // "we measured this".
+    if (pgDraft) {
+      const dcol = c.getPropertyValue(PG_DRAFT_COLOR);
+      out += '<line x1="6" y1="10" x2="26" y2="10" stroke="' + dcol +
+        '" stroke-width="2" stroke-dasharray="2 4"/>' +
+        '<text x="31" y="13.5" font-size="11" fill="' + dcol + '">draft · precomputed' +
+        (pgDraft.snapped != null ? " @ rerank " + pgDraft.snapped : "") + "</text>";
+    }
+    // Invisible fat hover targets on top of everything.
+    tipData.forEach((t, i) => {
+      out += '<circle class="pg-hot" data-i="' + i + '" cx="' + t.x + '" cy="' + t.y +
+        '" r="10" fill="transparent"/>';
+    });
+    out += "</svg>";
+    box.innerHTML = out +
+      '<div class="dim" style="font-size:12px; margin-top:2px">Outer edge = better on every spoke. ' +
+      (series.some((s) => s.baseline)
+        ? "The dashed grey shape is the latest production benchmark run. "
+        : "No completed benchmark run yet, so there is no production shape to compare against. ") +
+      "Spokes a run did not measure are skipped, never drawn as zero." +
+      (pgDraft
+        ? ' <span style="color:var(' + PG_DRAFT_COLOR + ')">The dotted amber shape is a <b>draft</b>: ' +
+          "a precomputed retrieval-only result for these settings, not a run you started" +
+          (pgDraft.snapped != null ? " (looked up at the nearest precomputed rerank depth, " + pgDraft.snapped + ")" : "") +
+          ". Facts and cost are blank for drafts.</span>"
+        : "") +
+      (series.some((s) => s.sample)
+        ? ' <span class="warn">Sampled runs cover only a handful of questions — indicative only.</span>'
+        : "") +
+      (axes.some((ax) => ax.key === "cost") && series.some((s) => s.baseline && s.metrics.total_cost_usd)
+        ? " Note: the production run’s cost also covers its LLM judge, which the playground never runs."
+        : "") + "</div>";
+    pgRadarEffects(box, tipData);
+  }
+
+  // Draw-in animation + shared tooltip, applied after the SVG is in the DOM.
+  function pgRadarEffects(box, tipData) {
+    box.querySelectorAll("path.pg-poly").forEach((p) => {
+      // The draft's dotted stroke IS its identity — the draw-in animation would
+      // overwrite stroke-dasharray, so drafts appear without it.
+      if (p.getAttribute("data-draft")) return;
+      let len = 0;
+      try { len = p.getTotalLength ? p.getTotalLength() : 0; } catch (e) { len = 0; }
+      if (!isFinite(len) || len <= 0 || !window.requestAnimationFrame) return;
+      const fo = p.getAttribute("data-fo");
+      p.style.transition = "none";
+      p.style.strokeDasharray = len;
+      p.style.strokeDashoffset = len;
+      p.style.fillOpacity = "0";
+      window.requestAnimationFrame(() => {
+        p.style.transition = "stroke-dashoffset .7s ease-out, fill-opacity .7s ease-out";
+        p.style.strokeDashoffset = "0";
+        p.style.fillOpacity = fo;
+      });
+    });
+    const tip = $("tip");
+    box.querySelectorAll("circle.pg-hot").forEach((el) => {
+      const t = tipData[Number(el.getAttribute("data-i"))];
+      if (!t) return;
+      el.addEventListener("mousemove", (ev) => {
+        tip.style.display = "block";
+        tip.style.left = Math.min(ev.clientX + 12, window.innerWidth - 200) + "px";
+        tip.style.top = (ev.clientY + 12) + "px";
+        tip.innerHTML = "<b>" + esc(t.name) + "</b><br>" + esc(t.axis) + ": " + esc(t.text);
+      });
+      el.addEventListener("mouseleave", () => { tip.style.display = "none"; });
+    });
+  }
+
+  function pgRunMetricLine(m) {
+    return [
+      "hit " + pct(m.hit_rate),
+      "nDCG " + n2(m["ndcg@5"]),
+      m.answer_expected_rate != null ? "fact " + pct(m.answer_expected_rate) : null,
+      fmt(m.retrieval_latency_ms_p50) + " ms",
+    ].filter(Boolean).join(" · ");
+  }
+
+  // The history rows double as the radar's legend.
+  function renderPgHistory() {
+    const box = $("pgRunHistory");
+    if (!box) return;
+    if (!pgHistory.length && !pgDraft) { box.innerHTML = ""; return; }
+    const picked = pgSelectedRuns();
+    const colorOf = (h) => {
+      const idx = picked.indexOf(h);
+      return idx < 0 ? "var(--grid)" : "var(" + PG_SERIES_COLORS[idx % PG_SERIES_COLORS.length] + ")";
+    };
+    box.innerHTML =
+      '<div class="dim" style="font-size:12px; margin:0 0 2px">This session’s runs — tick up to 3 to overlay them on the profile (nothing is saved).</div>' +
+      (pgBaseline() ? '<div class="pgrun"><label><span class="sw" style="background:var(--ink-2)"></span>' +
+        "<b>production</b></label><span class=\"cfg\">latest completed benchmark run</span>" +
+        '<span class="met">' + pgRunMetricLine(pgBaseline().metrics || {}) + "</span></div>" : "") +
+      // The draft is a legend row, never a run row: no checkbox, no number.
+      (pgDraft ? '<div class="pgrun"><label><span class="sw" style="border:1px dashed var(' + PG_DRAFT_COLOR +
+        '); background:transparent"></span><b style="color:var(' + PG_DRAFT_COLOR + ')">draft</b></label>' +
+        '<span class="cfg">precomputed, not run' +
+        (pgDraft.snapped != null ? " · @ rerank " + pgDraft.snapped : "") + "</span>" +
+        '<span class="met">' + pgRunMetricLine(pgDraft.metrics || {}) + "</span></div>" : "") +
+      pgHistory.slice().reverse().map((h) =>
+        '<div class="pgrun">' +
+        '<label><input type="checkbox" class="pgcmp" data-id="' + h.id + '"' + (h.selected ? " checked" : "") + ">" +
+        '<span class="sw" style="background:' + colorOf(h) + '"></span><b>#' + h.n + "</b></label>" +
+        '<span class="dim">' + esc(h.at) + " · " + h.cases + "q</span>" +
+        (h.sample ? '<span class="pg-badge">sample n=' + h.sample + "</span>" : "") +
+        '<span class="cfg">' + esc(h.summary) + "</span>" +
+        '<span class="met">' + pgRunMetricLine(h.metrics) + "</span></div>").join("") +
+      '<div class="dim" id="pgHistNote" style="font-size:12px; margin-top:4px"></div>';
+    box.querySelectorAll(".pgcmp").forEach((cb) => {
+      cb.addEventListener("change", () => {
+        const h = pgHistory.find((x) => x.id === cb.dataset.id);
+        if (!h) return;
+        if (cb.checked && pgHistory.filter((x) => x.selected).length >= 3) {
+          cb.checked = false;
+          const note = $("pgHistNote");
+          if (note) note.textContent = "Compare up to 3 runs at a time — untick one first.";
+          return;
+        }
+        h.selected = cb.checked;
+        // Un-ticking the live run for this configuration brings its draft back.
+        pgUpdateDraft();
+        renderPgRadar();
+        renderPgHistory();
+      });
+    });
+  }
+
+  function pgRecordRun(res, summary, opts) {
+    opts = opts || {};
+    pgSeq += 1;
+    const entry = {
+      id: "pg" + pgSeq, n: pgSeq, at: when(new Date().toISOString()),
+      cases: res.cases, metrics: res.metrics || {}, config: res.config || {},
+      summary: summary || "production configuration", selected: true,
+      sample: opts.sample || null, gridKey: opts.gridKey || null,
+    };
+    // Newest run is always one of the compared three.
+    const on = pgHistory.filter((h) => h.selected);
+    if (on.length >= 3) on.slice(0, on.length - 2).forEach((h) => { h.selected = false; });
+    pgHistory.push(entry);
+    // A measured full run supersedes the draft for the same configuration.
+    pgUpdateDraft();
+    renderPgRadar();
+    renderPgHistory();
+  }
+
+  // Below 768px the diagram switches to the vertical layout and the radar to a
+  // smaller viewBox, so both are rebuilt when the breakpoint is crossed.
+  let pgResizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(pgResizeTimer);
+    pgResizeTimer = setTimeout(() => {
+      if ((pgIsNarrow() ? "narrow" : "wide") !== pgMode) pgBuild();
+      renderPgRadar();
+    }, 150);
+  });
+
+  function renderPlayground(res, summary, opts) {
+    opts = opts || {};
+    const sample = opts.sample || null;
+    const m = res.metrics || {};
+    const total = pgMeta ? pgMeta.golden_cases : null;
+    const fullRun = !sample && total != null && res.cases >= total;
+    const base = fullRun ? (pgBaseline() || {}).metrics || {} : {};
+    const d = (a, b) => (a != null && b != null ? a - b : null);
+    // Every chip of a sampled run carries its own sample size — the warning
+    // must survive being read out of context.
+    const lb = (t) => (sample ? t + " · small sample n=" + res.cases : t);
+    let html = "";
+    if (sample)
+      html += '<div class="warn" style="margin:12px 0 0; font-size:13px">Small sample — indicative only: ' +
+        res.cases + " of " + (total || "?") + " questions, answers generated with <b>" +
+        esc(res.config && res.config.model ? res.config.model : "the selected model") +
+        "</b>, no LLM judge. Good for eyeballing answer quality, not for deciding between configurations.</div>";
+    html += '<div class="kpis" style="margin:12px 0 8px">' +
+      pgChip(lb("nDCG@5"), n2(m["ndcg@5"]), d(m["ndcg@5"], base["ndcg@5"])) +
+      pgChip(lb("right source found"), pct(m.hit_rate), d(m.hit_rate, base.hit_rate)) +
+      pgChip(lb("rank of right source"), n2(m.mrr), d(m.mrr, base.mrr)) +
+      pgChip(lb("precision@5"), n2(m["precision@5"]), d(m["precision@5"], base["precision@5"])) +
+      pgChip(lb("time to sources p50"), fmt(m.retrieval_latency_ms_p50) + " ms",
+        d(m.retrieval_latency_ms_p50, base.retrieval_latency_ms_p50), true);
+    if (m.answer_expected_rate != null) {
+      html += pgChip(lb("fact in answer"), pct(m.answer_expected_rate), d(m.answer_expected_rate, base.answer_expected_rate)) +
+        pgChip(lb("time to answer p50"), fmt(m.answer_latency_ms_p50) + " ms",
+          d(m.answer_latency_ms_p50, base.answer_latency_ms_p50), true) +
+        pgChip(lb("cost"), m.total_cost_usd ? "$" + Number(m.total_cost_usd).toFixed(4) : "$0", null);
+    }
+    html += "</div>";
+    if (sample)
+      html += '<div class="dim" style="font-size:12px; margin-bottom:4px">Sampled run — comparisons with production are hidden (different question sets).</div>';
+    else if (!fullRun)
+      html += '<div class="dim" style="font-size:12px; margin-bottom:4px">Subset run — comparisons with production are hidden (different question sets).</div>';
+    else if (!pgBaseline())
+      html += '<div class="dim" style="font-size:12px; margin-bottom:4px">No baseline benchmark run yet — run the benchmark once to get comparisons.</div>';
+    html += '<div class="dim" style="font-size:12px; margin-bottom:6px">' + res.cases + " questions · " +
+      Object.entries(res.config).filter(([, v]) => v != null)
+        .map(([k, v]) => esc(k) + "=" + esc(String(v))).join(" · ") + "</div>";
+    const fails = res.failures || [];
+    html += fails.length
+      ? "<table><thead><tr><th>failing case</th><th>reasons</th></tr></thead><tbody>" +
+        fails.map((f) => "<tr><td class='q'><b>" + esc(f.id) + "</b><br><span class='dim'>" + esc(f.query) + "</span></td>" +
+          '<td class="fail">' + f.reasons.map(esc).join(", ") +
+          (f.missing_terms.length ? '<br><span class="dim">missing: ' + esc(f.missing_terms.join(", ")) + "</span>" : "") +
+          "</td></tr>").join("") + "</tbody></table>"
+      : '<div class="pass">All ' + res.cases + (fullRun ? "" : " sampled") + " cases passed.</div>";
+    $("pgResult").innerHTML = html;
+    pgRecordRun(res, summary, opts);
+  }
+
+  async function load() {
+    try {
+      runsCache = await getJson("/eval/runs?limit=30");
+    } catch (err) {
+      $("runs").innerHTML = '<div class="fail">' + esc(err.message) + "</div>";
+      return;
+    }
+    renderRuns(runsCache);
+    renderTrend(runsCache);
+    const completed = runsCache.filter((r) => r.status === "completed");
+    const latest = completed[0] || runsCache[0];
+    renderKpis(latest);
+    renderVerdict(completed[0], completed);
+    renderScorecard(latest, completed[1], completed);
+    // A run started in another tab / before a reload: resume progress display.
+    if (runsCache[0] && runsCache[0].status === "running" && !(runsCache[0].config || {}).kind) pollRun();
+    if (latest) showDetail(latest.id);
+    try { renderFailures(await getJson("/eval/failures?runs=5")); }
+    catch (e) { $("failures").innerHTML = '<div class="empty">failures unavailable</div>'; }
+    try { renderDataset(await getJson("/eval/cases")); }
+    catch (e) { $("dataset").innerHTML = '<div class="empty">dataset unavailable</div>'; }
+    try {
+      const sweeps = await getJson("/eval/sweeps?limit=5");
+      renderSweep(sweeps);
+      if (sweeps[0] && sweeps[0].status === "running") { $("runSweep").disabled = true; pollSweep(); }
+    } catch (e) { /* sweep endpoint unavailable — section stays empty */ }
+    // The production baseline has only just arrived: the draft's delta chips and
+    // the radar's production shape both depend on it, so force a repaint.
+    pgDraftSig = "";
+    if (pgUpdateDraft()) { renderPgRadar(); renderPgHistory(); }
+  }
+
+  $("run").addEventListener("click", runEval);
+  $("runSweep").addEventListener("click", runSweep);
+  $("pgRun").addEventListener("click", runPlayground);
+  $("pgSample").addEventListener("click", runPlaygroundSample);
+  $("rerunFailed").addEventListener("click", rerunFailed);
+  $("pgReset").addEventListener("click", pgApplyDefaults);
+  $("pgCases").addEventListener("change", pgUpdateEstimate);
+  $("pgPresets").addEventListener("click", (ev) => {
+    const b = ev.target.closest("[data-preset]");
+    if (b) pgApplyPreset(b.getAttribute("data-preset"));
+  });
+  // Delegated: the draft box's contents are re-rendered on every state change.
+  $("pgDraftBox").addEventListener("click", (ev) => {
+    if (ev.target.closest('[data-act="regrid"]')) pgRecomputeGrid();
+  });
+  // Draw the pipeline immediately with fallback defaults; loadPlaygroundMeta()
+  // rebuilds it once the real production configuration arrives.
+  pgBuild();
+  // Retry meta + drafts after the admin token changes (401 on first load
+  // without it).
+  $("token").addEventListener("change", loadPlaygroundMeta);
+  $("token").addEventListener("change", loadPgGrid);
+  window.addEventListener("beforeunload", (e) => {
+    if (pgRunning) { e.preventDefault(); e.returnValue = ""; }
+  });
+  loadPlaygroundMeta();
+  loadPgGrid();
+  loadAuth();
+  load();
+})();
+</script>
+</body>
+</html>

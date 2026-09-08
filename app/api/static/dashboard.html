@@ -1,323 +1,556 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EIC Smart Search — Analytics</title>
-  <style>
-    :root {
-      --fg: #1f2937;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --bg: #f8fafc;
-      --accent: #0ea5e9;
-      --good: #10b981;
-      --warn: #f59e0b;
-      --bad: #ef4444;
-      --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EIC Search — Analytics</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --baseline: #c3c2b7; --ring: rgba(11,11,11,0.10);
+    --accent: #2a78d6; --accent-strong: #1c5cab;
+    --good: #006300; --critical: #d03b3b; --warning-ink: #8a5a00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --baseline: #383835; --ring: rgba(255,255,255,0.10);
+      --accent: #3987e5; --accent-strong: #6da7ec;
+      --good: #0ca30c; --critical: #e66767; --warning-ink: #fab219;
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: var(--fg);
-      background: var(--bg);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    header {
-      padding: 1rem 1.5rem;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    header h1 { margin: 0; font-size: 1.1rem; font-weight: 600; }
-    header .controls { margin-left: auto; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-    header select, header input {
-      padding: 0.35rem 0.55rem;
-      border: 1px solid var(--border);
-      border-radius: 0.35rem;
-      font: inherit;
-      background: #fff;
-    }
-    main { padding: 1.25rem 1.5rem 3rem; max-width: 1400px; margin: 0 auto; }
-    h2 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin: 2rem 0 0.75rem; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.6rem; }
-    .card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 0.75rem 0.9rem;
-    }
-    .card .label { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
-    .card .value { font-size: 1.3rem; font-weight: 600; margin-top: 0.15rem; }
-    .card .sub { color: var(--muted); font-size: 0.72rem; margin-top: 0.1rem; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; }
-    thead th {
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      text-align: left;
-      color: var(--muted);
-      padding: 0.55rem 0.7rem;
-      background: #f9fafb;
-      border-bottom: 1px solid var(--border);
-    }
-    tbody td {
-      padding: 0.5rem 0.7rem;
-      border-bottom: 1px solid #f1f5f9;
-      vertical-align: top;
-    }
-    tbody tr:last-child td { border-bottom: 0; }
-    tbody tr:hover td { background: #f9fafb; }
-    .pill {
-      display: inline-block;
-      padding: 0.05rem 0.45rem;
-      border-radius: 999px;
-      font-size: 0.68rem;
-      font-weight: 500;
-      background: #f1f5f9;
-      color: #334155;
-    }
-    .pill.high { background: #d1fae5; color: #065f46; }
-    .pill.medium { background: #fef3c7; color: #92400e; }
-    .pill.low { background: #fee2e2; color: #991b1b; }
-    .pill.none { background: #f1f5f9; color: #475569; }
-    .pill.cache { background: #e0e7ff; color: #3730a3; }
-    .mono { font-family: var(--mono); font-size: 0.85em; }
-    .query { font-weight: 500; color: #111827; }
-    .answer {
-      color: #374151;
-      white-space: pre-wrap;
-      max-height: 5rem;
-      overflow: hidden;
-      position: relative;
-      font-size: 0.85rem;
-    }
-    .answer.expanded { max-height: none; }
-    .answer-toggle { color: var(--accent); cursor: pointer; font-size: 0.75rem; border: 0; background: none; padding: 0; margin-top: 0.25rem; }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
-    .bar-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; padding: 0.2rem 0; }
-    .bar-row .query-text { flex: 0 1 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #111827; }
-    .bar-row .bar-track { flex: 1; height: 6px; background: #f1f5f9; border-radius: 999px; overflow: hidden; }
-    .bar-row .bar-fill { height: 100%; background: var(--accent); }
-    .bar-row .count { flex: 0 0 auto; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 1.5rem; text-align: right; }
-    .chart { background: #fff; border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.8rem 1rem; }
-    .chart-bars { display: flex; align-items: flex-end; gap: 4px; height: 120px; margin: 0.5rem 0; }
-    .chart-bars .col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
-    .chart-bars .col .bar { width: 100%; background: var(--accent); border-radius: 3px 3px 0 0; min-height: 1px; }
-    .chart-bars .col .lbl { font-size: 0.6rem; color: var(--muted); margin-top: 0.2rem; transform: rotate(-30deg); transform-origin: top left; white-space: nowrap; }
-    .loading { padding: 2rem; text-align: center; color: var(--muted); }
-    .empty { padding: 1rem; text-align: center; color: var(--muted); font-size: 0.85rem; }
-    .num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
-    code { font-family: var(--mono); font-size: 0.88em; background: #f3f4f6; padding: 0.05em 0.25em; border-radius: 3px; }
-  </style>
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--page); color: var(--ink);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 48px; }
+  header { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+  h1 { font-size: 18px; margin: 0; font-weight: 650; }
+  header nav { margin-left: auto; display: flex; gap: 12px; align-items: baseline; }
+  header a { color: var(--accent); text-decoration: none; }
+  header a:hover { text-decoration: underline; }
+  select {
+    background: var(--surface); color: var(--ink); border: 1px solid var(--ring);
+    border-radius: 6px; padding: 3px 6px; font: inherit;
+  }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .kpi { background: var(--surface); border: 1px solid var(--ring); border-radius: 8px; padding: 10px 12px; }
+  .kpi .v { font-size: 24px; font-weight: 650; }
+  .kpi .l { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .kpi .s { color: var(--ink-2); font-size: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--ring); border-radius: 8px; padding: 12px 14px; margin-bottom: 14px; }
+  .card h2 { font-size: 13px; font-weight: 650; color: var(--ink-2); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; color: var(--muted); font-weight: 500; padding: 4px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  td { padding: 5px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .q { max-width: 420px; overflow-wrap: anywhere; }
+  .dim { color: var(--muted); }
+  .conf-high { color: var(--good); }
+  .conf-low { color: var(--critical); }
+  .conf-medium { color: var(--warning-ink); }
+  .err { color: var(--critical); }
+  details summary { cursor: pointer; color: var(--accent); }
+  details p { color: var(--ink-2); margin: 6px 0 0; white-space: pre-wrap; }
+  #chart { width: 100%; height: 150px; display: block; }
+  .tip {
+    position: fixed; pointer-events: none; z-index: 10; display: none;
+    background: var(--surface); border: 1px solid var(--ring); border-radius: 6px;
+    padding: 6px 9px; font-size: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .empty { color: var(--muted); padding: 8px; }
+.fb-del { background: transparent; border: 1px solid var(--ring); color: var(--ink);
+  border-radius: 6px; cursor: pointer; padding: 1px 7px; opacity: .6; }
+.fb-del:hover { opacity: 1; border-color: #d33; color: #d33; }
+
+  /* Tables scroll inside their card instead of widening the page. */
+  .tscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* Trace stage legend + funnel: inline on wide screens, stacked on phones. */
+  .trace-legend, .trace-funnel { display: flex; flex-wrap: wrap; gap: 3px 10px; align-items: baseline; }
+  .trace-funnel .sep { color: var(--muted); }
+
+  @media (max-width: 768px) {
+    .wrap { padding: 16px 12px 40px; }
+    h1 { flex: 1 1 100%; }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    header select, header input, .card select, .card input { min-height: 40px; }
+    .tscroll > table { min-width: 520px; }
+    #recent > table { min-width: 620px; }
+    /* ≥40px tap targets for sorting, row expansion and deletion. */
+    #recent th[data-k] { padding: 12px 8px; }
+    tr.qrow td { padding: 11px 8px; }
+    tr.qrow td:last-child { text-align: center; min-width: 34px; }
+    .fb-del { min-width: 40px; min-height: 40px; padding: 4px 10px; opacity: 1; }
+    .q { max-width: 260px; }
+    /* Keep the trace panel in view while its (wider) table scrolls. */
+    .tracewrap { position: sticky; left: 0; width: calc(100vw - 56px); }
+    #chart { height: 130px; }
+  }
+  @media (max-width: 480px) {
+    .kpis { grid-template-columns: 1fr; }
+    header { gap: 8px 10px; }
+    header #window { flex: 1 1 46%; }
+    header #token { flex: 1 1 46%; min-width: 0; }
+    header nav { flex: 1 1 100%; margin-left: 0; gap: 18px; }
+    header nav a, header nav span { display: inline-flex; align-items: center; min-height: 40px; }
+    .kpi .v { font-size: 20px; }
+    .trace-legend, .trace-funnel { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .trace-funnel .sep { display: none; }
+    .q { max-width: 220px; }
+  }
+</style>
 </head>
 <body>
+<div class="wrap">
   <header>
-    <h1>EIC Smart Search — Analytics</h1>
-    <div class="controls">
-      <label>
-        Window
-        <select id="windowDays">
-          <option value="1">Last day</option>
-          <option value="7" selected>Last 7 days</option>
-          <option value="14">Last 14 days</option>
-          <option value="30">Last 30 days</option>
-          <option value="90">Last 90 days</option>
-        </select>
-      </label>
-      <label>
-        Search
-        <input id="searchBox" type="text" placeholder="filter queries…" style="min-width: 12rem;" />
-      </label>
-      <label style="display:flex; align-items:center; gap: 0.3rem;">
-        <input type="checkbox" id="answeredOnly" />
-        Answered only
-      </label>
-      <button id="refreshBtn" style="padding: 0.4rem 0.8rem; border: 1px solid var(--border); background: #fff; border-radius: 0.35rem; cursor: pointer;">Refresh</button>
-    </div>
+    <h1>EIC Search — Analytics</h1>
+    <select id="window">
+      <option value="7">last 7 days</option>
+      <option value="30">last 30 days</option>
+      <option value="90">last 90 days</option>
+      <option value="365">last year</option>
+      <option value="3650">all time</option>
+    </select>
+    <input type="password" id="token" placeholder="admin token" style="background:var(--surface);color:var(--ink);border:1px solid var(--ring);border-radius:6px;padding:3px 6px;font:inherit">
+    <nav>
+      <a href="/admin/eval">Evaluation</a>
+      <a href="/docs">API</a>
+    </nav>
   </header>
 
-  <main>
-    <div id="summary" class="cards"><div class="loading">Loading…</div></div>
+  <div class="kpis" id="kpis"></div>
 
-    <div class="two-col" style="margin-top: 2rem;">
-      <div>
-        <h2>Daily volume</h2>
-        <div id="daily" class="chart"><div class="loading">Loading…</div></div>
-      </div>
-      <div>
-        <h2>Top queries</h2>
-        <div id="topQueries" class="chart"><div class="loading">Loading…</div></div>
-      </div>
+  <div class="card">
+    <h2>Queries per day</h2>
+    <svg id="chart" role="img" aria-label="Queries per day"></svg>
+    <div id="chartEmpty" class="empty" style="display:none">No data in window.</div>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <h2>Top queries</h2>
+      <div id="topQueries" class="tscroll"></div>
     </div>
-
-    <div class="two-col" style="margin-top: 1.25rem;">
-      <div>
-        <h2>Zero-result queries</h2>
-        <div id="zeroResult" class="chart"><div class="loading">Loading…</div></div>
-      </div>
-      <div>
-        <h2>Low-confidence queries</h2>
-        <div id="lowConfidence" class="chart"><div class="loading">Loading…</div></div>
-      </div>
+    <div class="card">
+      <h2>Needs attention — zero results / low confidence</h2>
+      <div id="badQueries" class="tscroll"></div>
     </div>
+  </div>
 
-    <h2>Recent queries + LLM answers</h2>
-    <div id="recent"><div class="loading">Loading…</div></div>
-  </main>
+  <div class="card">
+    <h2>Query history</h2>
+    <div style="display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap">
+      <input type="search" id="qsearch" placeholder="search queries…"
+        style="flex:1; min-width:180px; background:var(--page); color:var(--ink); border:1px solid var(--ring); border-radius:6px; padding:5px 8px; font:inherit">
+      <select id="qlimit">
+        <option value="50">50</option>
+        <option value="200">200</option>
+        <option value="500">500</option>
+      </select>
+    </div>
+    <div class="dim" style="font-size:12px; margin-bottom:6px">Click a column to sort · click a row for the trace</div>
+    <div id="recent" class="tscroll"></div>
+  </div>
 
-  <script>
-    const fmtInt = (n) => (n == null ? "—" : Number(n).toLocaleString());
-    const fmtMs = (n) => (n == null ? "—" : `${Math.round(n)} ms`);
-    const fmtCost = (n) => (n == null ? "—" : `$${Number(n).toFixed(4)}`);
-    const fmtTime = (iso) => {
-      if (!iso) return "—";
-      const d = new Date(iso);
-      return d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
-    };
-    const escape = (s) =>
-      String(s).replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+  <div class="card">
+    <h2>User feedback</h2>
+    <div id="feedback" class="tscroll"></div>
+  </div>
 
-    async function fetchJson(url) {
-      const r = await fetch(url);
-      if (!r.ok) throw new Error(url + " — HTTP " + r.status);
-      return r.json();
+  <div class="card">
+    <h2>Ingestion jobs</h2>
+    <div id="jobs" class="tscroll"></div>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const fmt = (n, d) => (n == null ? "—" : Number(n).toLocaleString("en-US", { maximumFractionDigits: d ?? 0 }));
+  const money = (n) => (n == null ? "—" : "$" + Number(n).toFixed(4));
+  const when = (iso) => iso ? new Date(iso).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "—";
+
+  const $token = document.getElementById("token");
+  $token.value = localStorage.getItem("adminToken") || "";
+  $token.addEventListener("change", () => { localStorage.setItem("adminToken", $token.value); load(); });
+  async function getJson(url) {
+    const headers = {};
+    // Under github_sso the session cookie authorizes automatically; token
+    // mode needs this header.
+    if ($token.value) headers["Authorization"] = "Bearer " + $token.value;
+    const r = await fetch(url, { headers });
+    if (r.status === 401 || r.status === 403) throw new Error("auth required — paste the admin token");
+    if (!r.ok) throw new Error(url + " → HTTP " + r.status);
+    return r.json();
+  }
+
+  function kpi(value, label, sub) {
+    return '<div class="kpi"><div class="v">' + value + '</div>' +
+      (sub ? '<div class="s">' + sub + "</div>" : "") +
+      '<div class="l">' + label + "</div></div>";
+  }
+
+  function renderKpis(s) {
+    const answeredPct = s.total_queries ? Math.round(100 * s.answered_queries / s.total_queries) + "%" : "—";
+    $("kpis").innerHTML =
+      kpi(fmt(s.total_queries), "queries", "unique " + fmt(s.unique_queries)) +
+      kpi(answeredPct, "answered", fmt(s.answered_queries) + " of " + fmt(s.total_queries)) +
+      kpi(fmt(s.p50_latency_ms) + '<span class="dim"> ms</span>', "p50 latency", "p95 " + fmt(s.p95_latency_ms) + " ms") +
+      kpi(money(s.total_cost_usd), "LLM cost", fmt(s.total_prompt_tokens) + " in / " + fmt(s.total_completion_tokens) + " out tok");
+  }
+
+  // Single-series column chart, sequential accent hue, hover tooltip per bar.
+  // The viewBox is rebuilt from the element's own box, so the chart always
+  // fills its card and stays legible from phone to desktop.
+  let dailyCache = [];
+
+  function showTip(clientX, clientY, html) {
+    const tip = $("tip");
+    tip.style.display = "block";
+    tip.style.left = Math.min(clientX + 12, window.innerWidth - 180) + "px";
+    tip.style.top = Math.min(clientY + 12, window.innerHeight - 90) + "px";
+    tip.innerHTML = html;
+  }
+  function hideTip() { $("tip").style.display = "none"; }
+
+  function renderChart(daily) {
+    dailyCache = daily || [];
+    const svg = $("chart"), emptyBox = $("chartEmpty");
+    if (!svg) return;
+    svg.innerHTML = "";
+    if (!dailyCache.length) {
+      svg.style.display = "none";
+      if (emptyBox) emptyBox.style.display = "";
+      return;
     }
-
-    function renderSummary(s) {
-      const avgCost = s.answered_queries ? s.total_cost_usd / s.answered_queries : 0;
-      const el = document.getElementById("summary");
-      el.innerHTML = `
-        <div class="card"><div class="label">Total queries</div><div class="value">${fmtInt(s.total_queries)}</div><div class="sub">${fmtInt(s.unique_queries)} unique</div></div>
-        <div class="card"><div class="label">Answered</div><div class="value">${fmtInt(s.answered_queries)}</div><div class="sub">${fmtInt(s.zero_result_queries)} zero-result</div></div>
-        <div class="card"><div class="label">Latency (p50)</div><div class="value">${fmtMs(s.p50_latency_ms)}</div><div class="sub">p95 ${fmtMs(s.p95_latency_ms)}</div></div>
-        <div class="card"><div class="label">Avg latency</div><div class="value">${fmtMs(s.avg_latency_ms)}</div></div>
-        <div class="card"><div class="label">LLM spend</div><div class="value">${fmtCost(s.total_cost_usd)}</div><div class="sub">${fmtCost(avgCost)}/answer</div></div>
-        <div class="card"><div class="label">Tokens (in / out)</div><div class="value">${fmtInt(s.total_prompt_tokens)}</div><div class="sub">${fmtInt(s.total_completion_tokens)} completion</div></div>
-      `;
-    }
-
-    function renderDaily(daily) {
-      const el = document.getElementById("daily");
-      if (!daily || !daily.length) { el.innerHTML = '<div class="empty">No data in this window.</div>'; return; }
-      const max = Math.max(...daily.map((d) => d.queries || 0), 1);
-      const cols = daily
-        .map((d) => {
-          const h = Math.max(2, (d.queries / max) * 100);
-          const label = d.day ? d.day.slice(5) : "";
-          return `<div class="col" title="${escape(d.day)} — ${d.queries} queries (avg ${fmtMs(d.avg_latency_ms)}, p95 ${fmtMs(d.p95_latency_ms)}, ${fmtCost(d.total_cost_usd)})"><div class="bar" style="height:${h}%"></div><div class="lbl">${label}</div></div>`;
-        })
-        .join("");
-      el.innerHTML = `<div class="chart-bars">${cols}</div>`;
-    }
-
-    function renderBars(containerId, rows, metric) {
-      const el = document.getElementById(containerId);
-      if (!rows || !rows.length) { el.innerHTML = '<div class="empty">None in this window.</div>'; return; }
-      const max = Math.max(...rows.map((r) => r[metric] || 0), 1);
-      el.innerHTML = rows.map((r) => {
-        const pct = Math.round(((r[metric] || 0) / max) * 100);
-        return `<div class="bar-row"><span class="query-text" title="${escape(r.query)}">${escape(r.query)}</span><span class="bar-track"><span class="bar-fill" style="width:${pct}%"></span></span><span class="count">${r[metric]}</span></div>`;
-      }).join("");
-    }
-
-    function renderRecent(items) {
-      const el = document.getElementById("recent");
-      if (!items || !items.length) { el.innerHTML = '<div class="empty">No queries in this window.</div>'; return; }
-      const rows = items.map((it, idx) => {
-        const conf = String(it.confidence || "none");
-        const cacheBadge = it.cache_hit ? '<span class="pill cache">cache</span>' : "";
-        const answered = it.answer_generated ? "" : '<span class="pill">preview</span>';
-        const answerBlock = it.answer
-          ? `<div class="answer" data-idx="${idx}">${escape(it.answer)}</div>${it.answer.length > 240 ? `<button class="answer-toggle" data-toggle="${idx}">Expand</button>` : ""}`
-          : '<span class="pill none">no answer</span>';
-        return `
-          <tr>
-            <td class="mono" style="white-space:nowrap">${escape(fmtTime(it.created_at))}</td>
-            <td><div class="query">${escape(it.query)}</div>${cacheBadge} ${answered}</td>
-            <td style="max-width: 520px;">${answerBlock}</td>
-            <td class="num">${fmtMs(it.latency_ms)}</td>
-            <td class="num"><span class="pill ${conf}">${conf}</span></td>
-            <td class="num mono">${it.result_count}</td>
-            <td class="num mono">${it.top_score != null ? it.top_score.toFixed(3) : "—"}</td>
-            <td class="num mono">${it.prompt_tokens != null ? fmtInt(it.prompt_tokens) + " / " + fmtInt(it.completion_tokens) : "—"}</td>
-            <td class="num mono">${fmtCost(it.cost_usd)}</td>
-            <td class="mono" style="white-space:nowrap">${escape(it.generation_model || "")}</td>
-          </tr>
-        `;
-      }).join("");
-      el.innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th>Query</th>
-              <th>Answer</th>
-              <th>Latency</th>
-              <th>Conf.</th>
-              <th>Hits</th>
-              <th>Top</th>
-              <th>Tokens (in/out)</th>
-              <th>Cost</th>
-              <th>Model</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      `;
-      // Expand/collapse on answers
-      el.querySelectorAll(".answer-toggle").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const idx = btn.dataset.toggle;
-          const a = el.querySelector(`.answer[data-idx="${idx}"]`);
-          a.classList.toggle("expanded");
-          btn.textContent = a.classList.contains("expanded") ? "Collapse" : "Expand";
-        });
-      });
-    }
-
-    async function load() {
-      const wd = document.getElementById("windowDays").value;
-      const search = document.getElementById("searchBox").value.trim();
-      const answeredOnly = document.getElementById("answeredOnly").checked;
-
-      for (const id of ["summary", "daily", "topQueries", "zeroResult", "lowConfidence", "recent"]) {
-        document.getElementById(id).innerHTML = '<div class="loading">Loading…</div>';
+    svg.style.display = "";
+    if (emptyBox) emptyBox.style.display = "none";
+    const W = Math.max(240, Math.round(svg.clientWidth || 720));
+    const H = Math.round(svg.clientHeight || 150), padB = 18, padT = 6;
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    const max = Math.max(1, ...dailyCache.map((d) => d.queries));
+    const n = dailyCache.length;
+    // Slot-based widths: bars always tile the full width, never overflow it.
+    const slot = W / n;
+    const gap = slot > 7 ? 2 : slot > 3 ? 1 : 0;
+    const bw = Math.max(1, slot - gap);
+    const ns = "http://www.w3.org/2000/svg";
+    const css = getComputedStyle(document.documentElement);
+    const base = document.createElementNS(ns, "line");
+    base.setAttribute("x1", 0); base.setAttribute("x2", W);
+    base.setAttribute("y1", H - padB + 0.5); base.setAttribute("y2", H - padB + 0.5);
+    base.setAttribute("stroke", css.getPropertyValue("--baseline"));
+    svg.appendChild(base);
+    const accent = css.getPropertyValue("--accent").trim();
+    const muted = css.getPropertyValue("--muted");
+    // One label per ~56px of width, so phones get 3–5 dates instead of a smear.
+    const step = Math.max(1, Math.ceil(n / Math.max(1, Math.floor(W / 56))));
+    dailyCache.forEach((d, i) => {
+      const h = Math.max(2, Math.round((H - padB - padT) * d.queries / max));
+      const x = i * slot + gap / 2, y = H - padB - h;
+      const r = document.createElementNS(ns, "rect");
+      r.setAttribute("x", x.toFixed(2)); r.setAttribute("y", y);
+      r.setAttribute("width", bw.toFixed(2)); r.setAttribute("height", h);
+      r.setAttribute("rx", Math.min(4, bw / 2).toFixed(2)); r.setAttribute("fill", accent);
+      const label = "<b>" + esc(d.day) + "</b><br>" + fmt(d.queries) + " queries" +
+        (d.p95_latency_ms ? "<br>p95 " + fmt(d.p95_latency_ms) + " ms" : "") +
+        (d.total_cost_usd ? "<br>" + money(d.total_cost_usd) : "");
+      r.addEventListener("mousemove", (ev) => showTip(ev.clientX, ev.clientY, label));
+      r.addEventListener("mouseleave", hideTip);
+      // Touch: tap a bar for the same tooltip, tap-away dismisses it.
+      r.addEventListener("touchstart", (ev) => {
+        const t = ev.touches[0];
+        if (t) showTip(t.clientX, t.clientY, label);
+      }, { passive: true });
+      svg.appendChild(r);
+      // Sparse day labels: first, last, and every step-th where there is room.
+      const isEdge = i === 0 || i === n - 1;
+      const crowded = !isEdge && (i < step * 0.6 || n - 1 - i < step * 0.6);
+      if ((isEdge || i % step === 0) && !crowded) {
+        const t = document.createElementNS(ns, "text");
+        t.setAttribute("x", (x + bw / 2).toFixed(2)); t.setAttribute("y", H - 4);
+        t.setAttribute("text-anchor", i === 0 ? "start" : i === n - 1 ? "end" : "middle");
+        t.setAttribute("font-size", "10");
+        t.setAttribute("fill", muted);
+        t.textContent = d.day.slice(5);
+        svg.appendChild(t);
       }
-
-      try {
-        const [analytics, recent] = await Promise.all([
-          fetchJson(`/admin/analytics?window_days=${wd}&limit=15`),
-          fetchJson(`/admin/recent?window_days=${wd}&limit=100${search ? `&search=${encodeURIComponent(search)}` : ""}${answeredOnly ? "&answered_only=true" : ""}`),
-        ]);
-
-        renderSummary(analytics.summary);
-        renderDaily(analytics.daily);
-        renderBars("topQueries", analytics.top_queries, "count");
-        renderBars("zeroResult", analytics.zero_result_queries, "count");
-        renderBars("lowConfidence", analytics.low_confidence_queries, "count");
-        renderRecent(recent.items);
-      } catch (err) {
-        document.getElementById("summary").innerHTML = `<div class="card" style="grid-column: 1 / -1; color: var(--bad);">Load failed: ${escape(err.message || err)}</div>`;
-      }
-    }
-
-    document.getElementById("windowDays").addEventListener("change", load);
-    document.getElementById("answeredOnly").addEventListener("change", load);
-    document.getElementById("refreshBtn").addEventListener("click", load);
-    let searchTimer = null;
-    document.getElementById("searchBox").addEventListener("input", () => {
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(load, 300);
     });
+  }
 
-    load();
-  </script>
+  // Re-lay the chart when the viewport changes (rotation, resize): the SVG
+  // geometry is pixel-based, so it must be recomputed rather than stretched.
+  let chartResizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(chartResizeTimer);
+    chartResizeTimer = setTimeout(() => renderChart(dailyCache), 150);
+  });
+  document.addEventListener("touchstart", (ev) => {
+    if (!(ev.target instanceof Element) || !ev.target.closest("#chart")) hideTip();
+  }, { passive: true });
+
+  function table(headers, rows) {
+    if (!rows.length) return '<div class="empty">Nothing here.</div>';
+    return "<table><thead><tr>" +
+      headers.map((h) => "<th" + (h.num ? ' class="num"' : "") + ">" + h.t + "</th>").join("") +
+      "</tr></thead><tbody>" +
+      rows.map((r) => "<tr>" + r.join("") + "</tr>").join("") +
+      "</tbody></table>";
+  }
+
+  function renderTop(items) {
+    $("topQueries").innerHTML = table(
+      [{ t: "query" }, { t: "count", num: 1 }, { t: "top score", num: 1 }],
+      items.slice(0, 10).map((q) => [
+        '<td class="q">' + esc(q.query) + "</td>",
+        '<td class="num">' + fmt(q.count) + "</td>",
+        '<td class="num">' + (q.avg_top_score != null ? Number(q.avg_top_score).toFixed(2) : "—") + "</td>",
+      ]));
+  }
+
+  function renderBad(zero, low) {
+    const rows = zero.slice(0, 6).map((q) => [
+      '<td class="q">' + esc(q.query) + "</td>",
+      '<td class="err">zero results</td>',
+      '<td class="num">' + fmt(q.count) + "</td>",
+    ]).concat(low.slice(0, 6).map((q) => [
+      '<td class="q">' + esc(q.query) + "</td>",
+      '<td class="conf-medium">low confidence</td>',
+      '<td class="num">' + fmt(q.count) + "</td>",
+    ]));
+    $("badQueries").innerHTML = table([{ t: "query" }, { t: "issue" }, { t: "count", num: 1 }], rows);
+  }
+
+  // ---- query history: sortable columns + per-row trace ---------------------
+
+  let recentItems = [];
+  let sortKey = "created_at", sortDir = -1; // newest first by default
+
+  const SORT_COLS = [
+    { t: "when", k: "created_at" },
+    { t: "query", k: "query" },
+    { t: "conf", k: "confidence" },
+    { t: "ms", k: "latency_ms", num: 1 },
+    { t: "tokens", k: "total_tokens", num: 1 },
+    { t: "cost", k: "cost_usd", num: 1 },
+    { t: "", k: null },
+  ];
+  const CONF_ORDER = { high: 3, medium: 2, low: 1 };
+
+  function sortValue(it, key) {
+    if (key === "confidence") return CONF_ORDER[it.confidence] || 0;
+    if (key === "total_tokens") return (it.prompt_tokens || 0) + (it.completion_tokens || 0);
+    const v = it[key];
+    return v == null ? (typeof v === "string" ? "" : -Infinity) : v;
+  }
+
+  // One horizontal bar per stage; widths proportional to the total.
+  function traceBar(stages, total) {
+    const parts = [
+      ["retrieval", stages.retrieval_ms],
+      ["rerank", stages.rerank_ms],
+      ["llm", stages.llm_ms],
+    ].filter((p) => p[1] > 0);
+    if (!parts.length || !total) return "";
+    let html = '<div style="display:flex; height:10px; border-radius:5px; overflow:hidden; max-width:min(420px, 100%); margin:4px 0">';
+    const colors = ["#2a78d6", "#d98a26", "#1baf7a"];
+    parts.forEach((p, i) => {
+      const w = Math.max(2, Math.round(100 * p[1] / total));
+      html += '<div style="width:' + w + '%; background:' + colors[i % colors.length] + '" title="' + p[0] + " " + fmt(p[1]) + ' ms"></div>';
+    });
+    html += "</div><div class='dim trace-legend' style='font-size:12px'>" +
+      parts.map((p, i) => '<span><span style="color:' + colors[i % colors.length] + '">■</span> ' + p[0] + " " + fmt(p[1]) + " ms</span>").join("") +
+      "<span>total " + fmt(total) + " ms</span></div>";
+    return html;
+  }
+
+  function traceDetail(it) {
+    const tr = it.trace;
+    if (!tr) return '<div class="dim">No trace recorded (cache hit or pre-trace log).</div>';
+    let html = "";
+    if (it.cache_hit) html += '<div class="dim">Served from cache.</div>';
+    html += traceBar(tr.stages || {}, it.latency_ms);
+    const f = tr.funnel || {};
+    const funnel = [
+      ["lexical", f.lexical], ["vector", f.vector], ["fused", f.fused],
+      ["reranked", f.reranked], ["to LLM", f.llm_context], ["returned", f.returned], ["cited", f.cited],
+    ].filter((x) => x[1] != null);
+    if (funnel.length)
+      html += '<div class="trace-funnel" style="margin-top:6px; font-size:12px">' +
+        funnel.map((x) => "<span>" + x[0] + " <b>" + fmt(x[1]) + "</b></span>")
+          .join('<span class="sep">→</span>') + "</div>";
+    const bits = [];
+    if (tr.queries > 1) bits.push(tr.queries + " query variants" + (tr.extra_queries.length ? " (" + tr.extra_queries.map(esc).join("; ") + ")" : ""));
+    if (it.generation_model) bits.push(esc(it.generation_model));
+    if (it.prompt_tokens != null) bits.push(fmt(it.prompt_tokens) + " in / " + fmt(it.completion_tokens) + " out tok");
+    if (tr.finish_reason && tr.finish_reason !== "stop") bits.push("finish: " + esc(tr.finish_reason));
+    if (tr.vector_errors.length) bits.push('<span class="err">vector errors: ' + tr.vector_errors.map(esc).join("; ") + "</span>");
+    if (bits.length) html += '<div class="dim" style="margin-top:4px; font-size:12px">' + bits.join(" · ") + "</div>";
+    if ((tr.tools || []).length)
+      html += '<div style="margin-top:4px; font-size:12px">tools: ' +
+        tr.tools.map((t) => esc(t.name) + " (" + fmt(t.ms) + " ms, " + fmt(t.items) + " items)").join(" · ") + "</div>";
+    if (it.answer)
+      html += "<details style='margin-top:6px'><summary class='dim'>answer</summary><p style='white-space:pre-wrap'>" + esc(it.answer) + "</p></details>";
+    return html;
+  }
+
+  function renderRecent() {
+    const items = recentItems.slice().sort((a, b) => {
+      const va = sortValue(a, sortKey), vb = sortValue(b, sortKey);
+      return (va < vb ? -1 : va > vb ? 1 : 0) * sortDir;
+    });
+    if (!items.length) { $("recent").innerHTML = '<div class="empty">Nothing here.</div>'; return; }
+    let html = "<table><thead><tr>" + SORT_COLS.map((h) =>
+      "<th" + (h.num ? ' class="num"' : "") + (h.k ? ' data-k="' + h.k + '" style="cursor:pointer"' : "") + ">" +
+      h.t + (h.k === sortKey ? (sortDir < 0 ? " ▾" : " ▴") : "") + "</th>").join("") +
+      "</tr></thead><tbody>";
+    items.forEach((it, i) => {
+      const tokens = (it.prompt_tokens || 0) + (it.completion_tokens || 0);
+      html += '<tr class="qrow" data-i="' + i + '" style="cursor:pointer">' +
+        '<td class="dim" style="white-space:nowrap">' + when(it.created_at) + (it.cache_hit ? ' <span title="cache hit">·c</span>' : "") + "</td>" +
+        '<td class="q">' + esc(it.query) + "</td>" +
+        '<td class="conf-' + esc(it.confidence || "none") + '">' + esc(it.confidence || "—") + "</td>" +
+        '<td class="num">' + fmt(it.latency_ms) + "</td>" +
+        '<td class="num">' + (tokens ? fmt(tokens) : "—") + "</td>" +
+        '<td class="num">' + (it.cost_usd ? money(it.cost_usd) : "—") + "</td>" +
+        "<td class='dim'>▸</td></tr>" +
+        '<tr class="tracerow" data-i="' + i + '" style="display:none"><td colspan="7" style="background:color-mix(in srgb, var(--accent) 4%, transparent)">' +
+        '<div class="tracewrap">' + traceDetail(it) + "</div></td></tr>";
+    });
+    $("recent").innerHTML = html + "</tbody></table>";
+    $("recent").querySelectorAll("th[data-k]").forEach((th) => {
+      th.addEventListener("click", () => {
+        const k = th.dataset.k;
+        if (sortKey === k) sortDir = -sortDir; else { sortKey = k; sortDir = k === "query" ? 1 : -1; }
+        renderRecent();
+      });
+    });
+    $("recent").querySelectorAll("tr.qrow").forEach((tr) => {
+      tr.addEventListener("click", () => {
+        const detail = $("recent").querySelector('tr.tracerow[data-i="' + tr.dataset.i + '"]');
+        const open = detail.style.display !== "none";
+        detail.style.display = open ? "none" : "";
+        tr.lastElementChild.textContent = open ? "▸" : "▾";
+      });
+    });
+  }
+
+  function renderJobs(jobs) {
+    $("jobs").innerHTML = table(
+      [{ t: "when" }, { t: "connector" }, { t: "status" }, { t: "stats / error" }],
+      jobs.slice(0, 12).map((j) => [
+        '<td class="dim" style="white-space:nowrap">' + when(j.created_at) + "</td>",
+        "<td>" + esc(j.connector) + "</td>",
+        "<td" + (j.status === "failed" ? ' class="err"' : "") + ">" + esc(j.status) + "</td>",
+        '<td class="dim q">' + (j.error ? esc(j.error).slice(0, 160) : esc(JSON.stringify(j.stats || {}))) + "</td>",
+      ]));
+  }
+
+  async function loadRecent() {
+    const days = $("window").value;
+    const params = new URLSearchParams({ window_days: days, limit: $("qlimit").value });
+    if ($("qsearch").value.trim()) params.set("search", $("qsearch").value.trim());
+    try {
+      const recent = await getJson("/admin/recent?" + params);
+      recentItems = recent.items || [];
+      renderRecent();
+    } catch (err) {
+      $("recent").innerHTML = '<div class="err">' + esc(err.message) + "</div>";
+    }
+  }
+
+  async function load() {
+    const days = $("window").value;
+    try {
+      const [analytics, jobs] = await Promise.all([
+        getJson("/admin/analytics?window_days=" + days),
+        getJson("/admin/jobs?limit=12"),
+      ]);
+      renderKpis(analytics.summary);
+      renderChart(analytics.daily || []);
+      renderTop(analytics.top_queries || []);
+      renderBad(analytics.zero_result_queries || [], analytics.low_confidence_queries || []);
+      renderFeedback(analytics.recent_feedback || []);
+      renderJobs(jobs || []);
+    } catch (err) {
+      $("kpis").innerHTML = '<div class="err">Failed to load: ' + esc(err.message) + "</div>";
+    }
+    loadRecent();
+  }
+
+  function renderFeedback(items) {
+    if (!items.length) {
+      $("feedback").innerHTML = '<div class="dim">No feedback in this window.</div>';
+      return;
+    }
+    const rows = items.map((f) =>
+      "<tr data-fid='" + esc(f.id || "") + "'>" +
+      "<td>" + (f.rating >= 4 ? "👍" : f.rating <= 2 ? "👎" : "😐") + "</td>" +
+      "<td>" + esc(f.query || "—") + "</td>" +
+      "<td>" + esc(f.comment || "") + "</td>" +
+      "<td class='dim'>" + when(f.created_at) + "</td>" +
+      "<td>" + (f.id ? "<button class='fb-del' data-fid='" + esc(f.id) + "' title='Delete this feedback entry'>✕</button>" : "") + "</td>" +
+      "</tr>").join("");
+    $("feedback").innerHTML =
+      "<table><thead><tr><th></th><th>query</th><th>comment</th><th>when</th><th></th></tr></thead><tbody>" +
+      rows + "</tbody></table>";
+    $("feedback").querySelectorAll(".fb-del").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        btn.disabled = true;
+        try {
+          const headers = {};
+          if ($token.value) headers["Authorization"] = "Bearer " + $token.value;
+          const r = await fetch("/admin/feedback/" + btn.dataset.fid, { method: "DELETE", headers });
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          btn.closest("tr").remove();
+        } catch (err) {
+          btn.disabled = false;
+          alert("Delete failed: " + err.message);
+        }
+      });
+    });
+  }
+
+  let searchDebounce = null;
+  $("qsearch").addEventListener("input", () => {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(loadRecent, 250);
+  });
+  $("qlimit").addEventListener("change", loadRecent);
+  $("window").addEventListener("change", load);
+
+  async function loadAuth() {
+    // Under github_sso, show sign-in state and hide the token box for humans
+    // (the session cookie authorizes automatically once signed in).
+    try {
+      const r = await fetch("/auth/me");
+      const me = await r.json();
+      if (me.mode !== "github_sso") return;
+      $token.style.display = "none";
+      const span = document.createElement("span");
+      span.style.fontSize = "13px";
+      span.innerHTML = me.login
+        ? "signed in as <b>" + esc(me.login) + '</b> · <a href="/auth/logout">sign out</a>'
+        : '<a href="/auth/login?next=/admin/dashboard">Sign in with GitHub</a>';
+      document.querySelector("header nav").appendChild(span);
+    } catch (e) { /* auth endpoint unavailable */ }
+  }
+
+  loadAuth();
+  load();
+})();
+</script>
 </body>
 </html>

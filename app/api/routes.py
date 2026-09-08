@@ -217,6 +217,11 @@ def _enforce_public_limits(request: QueryRequest, req: Request, settings: Settin
     request.force_rerank = False
 
 
+def _tag_client(request: QueryRequest, req: Request) -> None:
+    if req.headers.get("user-agent", "").startswith("eic-ask/"):
+        request.client = "cli"
+
+
 @router.post("/query", response_model=QueryResponse)
 def query(
     request: QueryRequest,
@@ -227,6 +232,7 @@ def query(
     _rl: RateLimited,
 ) -> QueryResponse:
     _enforce_public_limits(request, req, settings)
+    _tag_client(request, req)
     return service.query(db, request)
 
 
@@ -242,6 +248,7 @@ def query_stream(
     """SSE version of /query: `citations` event first (fast), then `delta`
     answer fragments, then `done` with the final aligned payload."""
     _enforce_public_limits(request, req, settings)
+    _tag_client(request, req)
     return StreamingResponse(
         service.query_stream(db, request),
         media_type="text/event-stream",

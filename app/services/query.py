@@ -288,6 +288,8 @@ class QueryService:
         debug = {**retrieval_debug, "generation": generation_debug, "latency_ms": latency_ms, "cache_hit": False}
         if request.history:
             debug["history_turns"] = len(request.history)
+        if request.client:
+            debug["client"] = request.client
         top_score = chunks[0].score if chunks else None
         top_vector_score = chunks[0].vector_score if chunks else None
         # Low-confidence answers get a human referral instead of a bare
@@ -500,6 +502,8 @@ class QueryService:
             "generation": {"enabled": request.generate_answer, "mode": "cached"},
             "returned_count": len(citations),
         }
+        if request.client:
+            debug["client"] = request.client
         log_id = self._log_query(
             db,
             request,

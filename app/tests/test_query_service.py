@@ -433,6 +433,20 @@ def test_history_bypasses_cache_and_reaches_generator() -> None:
     assert resp2.answer == "answer"
 
 
+def test_client_tag_is_logged_in_debug() -> None:
+    from app.services.query_cache import QueryCache
+
+    service = QueryService(
+        FakeSettings(), FakeRetriever(), FakeGenerator(), query_cache=QueryCache(max_size=10, ttl_s=60)
+    )
+    request = QueryRequest(query="what is EICrecon", top_k=3, client="cli")
+    resp = service.query(FakeDb(), request)
+    assert resp.retrieval_debug["client"] == "cli"
+    resp2 = service.query(FakeDb(), request)  # cache hit path keeps the tag
+    assert resp2.retrieval_debug["cache_hit"] is True
+    assert resp2.retrieval_debug["client"] == "cli"
+
+
 def test_history_adds_previous_user_turn_as_extra_query() -> None:
     """Retrieval for an anaphoric follow-up fuses in the previous user
     question so the topic's chunks stay in the pool."""

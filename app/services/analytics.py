@@ -123,7 +123,11 @@ def build_analytics(db: Session, window_days: int = 7, limit: int = 20) -> Analy
             func.avg(QueryLog.top_score),
             func.sum(func.cast(QueryLog.answer_generated, Integer)),
         )
-        .where(QueryLog.created_at >= since)
+        .where(
+            QueryLog.created_at >= since,
+            # CLI traffic (eic-ask) is logged but kept out of "popular".
+            func.coalesce(QueryLog.retrieval_debug["client"].as_string(), "") != "cli",
+        )
         .group_by(QueryLog.query)
         .order_by(desc(func.count(QueryLog.id)))
         .limit(limit)

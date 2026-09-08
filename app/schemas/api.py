@@ -29,6 +29,9 @@ class QueryRequest(BaseModel):
     # Eval-only: apply the cross-encoder even on retrieval-only calls so
     # the measured ranking matches what answer generation actually sees.
     force_rerank: bool = False
+    # Caller kind, set by the route from the User-Agent ("cli" for eic-ask)
+    # and logged so the dashboard can keep CLI traffic out of popular queries.
+    client: str | None = Field(default=None, max_length=32)
 
 
 class Citation(BaseModel):

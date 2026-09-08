@@ -11,8 +11,9 @@ import logging
 import re
 import threading
 import time
-from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
+from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
 import httpx
@@ -143,8 +144,15 @@ class IndicoClient:
         """
         attempts: list[tuple[str, str]] = [(from_date, to_date)]
         for fallback in self._FALLBACK_WINDOWS:
-            if fallback not in attempts:
-                attempts.append(fallback)
+            fb = fallback
+            # Preserve future-only intent: if the caller asked from "today"
+            # (or later), the fallback must not silently re-introduce past
+            # events — "when is the NEXT meeting" answered with July is
+            # worse than "nothing scheduled yet".
+            if not str(from_date).startswith("-"):
+                fb = (from_date, fallback[1])
+            if fb not in attempts:
+                attempts.append(fb)
         events: list[IndicoEvent] = []
         for attempt_from, attempt_to in attempts:
             window_events = self._fetch_window((attempt_from, attempt_to))
@@ -169,16 +177,178 @@ class IndicoClient:
                 self._cache[cache_key] = _CacheEntry(events=events, expires_at=now + self.cache_ttl_s)
         return events
 
+    def _fetch_categories_parallel(self, fetch_one) -> list[list]:
+        """Run ``fetch_one(export_url)`` for every category concurrently.
+
+        A tool call sits directly on the user's answer latency; with 2+
+        categories the sequential fetch doubled it. Order of results
+        matches ``self._export_urls`` so dedup stays deterministic.
+        """
+        if len(self._export_urls) == 1:
+            return [fetch_one(self._export_urls[0])]
+        with ThreadPoolExecutor(max_workers=len(self._export_urls)) as pool:
+            return list(pool.map(fetch_one, self._export_urls))
+
     def _fetch_remote(self, from_date: str, to_date: str) -> list[IndicoEvent]:
         """Fetch all configured categories and dedupe the union by event id."""
         seen: set[str] = set()
         merged: list[IndicoEvent] = []
-        for export_url in self._export_urls:
-            for ev in self._fetch_single(export_url, from_date, to_date):
+        per_category = self._fetch_categories_parallel(
+            lambda url: self._fetch_single(url, from_date, to_date)
+        )
+        for events in per_category:
+            for ev in events:
                 if ev.id and ev.id not in seen:
                     seen.add(ev.id)
                     merged.append(ev)
         return merged
+
+    # indico.bnl.gov 504s when a detail=contributions export spans much
+    # more than a few months (the payload is generated synchronously).
+    # Wide requests are sliced into windows of this many days and merged.
+    RAW_FETCH_WINDOW_DAYS = 60
+
+    def fetch_raw_events(
+        self,
+        from_date: str,
+        to_date: str,
+        *,
+        detail: str = "contributions",
+    ) -> list[dict]:
+        """Return the raw event dicts (with chairs/contributions populated).
+
+        Used by the people-graph builder and the indico_events connector.
+        ``detail=contributions`` includes speakers per talk; the heavier
+        ``subcontributions`` is rarely worth the bytes for ePIC events.
+        """
+        seen: set[str] = set()
+        out: list[dict] = []
+        for span_from, span_to in self._split_window(from_date, to_date):
+            per_category = self._fetch_categories_parallel(
+                lambda url, f=span_from, t=span_to: self._fetch_raw_single(url, f, t, detail)
+            )
+            for results in per_category:
+                for raw in results:
+                    ev_id = str(raw.get("id") or "")
+                    if ev_id and ev_id not in seen:
+                        seen.add(ev_id)
+                        out.append(raw)
+        return out
+
+    _REL_DATE_RE = re.compile(r"^(-?\d+)d$")
+
+    @classmethod
+    def _parse_window_date(cls, raw: str) -> "date | None":
+        raw = (raw or "").strip()
+        match = cls._REL_DATE_RE.match(raw)
+        if match:
+            return date.today() + timedelta(days=int(match.group(1)))
+        if raw == "today":
+            return date.today()
+        try:
+            return date.fromisoformat(raw)
+        except ValueError:
+            return None
+
+    @classmethod
+    def _split_window(cls, from_date: str, to_date: str) -> list[tuple[str, str]]:
+        """Slice [from_date, to_date] into RAW_FETCH_WINDOW_DAYS spans.
+
+        Falls back to the single original window when either bound uses a
+        format we can't parse (Indico accepts more variants than we slice).
+        Boundary days overlap by design — the caller dedupes by event id.
+        """
+        start = cls._parse_window_date(from_date)
+        end = cls._parse_window_date(to_date)
+        if start is None or end is None or start >= end:
+            return [(from_date, to_date)]
+        spans: list[tuple[str, str]] = []
+        cursor = start
+        step = timedelta(days=cls.RAW_FETCH_WINDOW_DAYS)
+        while cursor < end:
+            span_end = min(cursor + step, end)
+            spans.append((cursor.isoformat(), span_end.isoformat()))
+            cursor = span_end
+        return spans
+
+    def fetch_timetable(self, event_id: str) -> list[dict]:
+        """Flat timetable of one event: sessions + contributions with rooms.
+
+        Backs the get_indico_event_timetable tool — room/time-slot detail
+        ("what room is the tracking workfest?") lives only here; the
+        category export carries event-level location at best.
+        """
+        event_id = re.sub(r"[^0-9]", "", str(event_id))
+        if not event_id:
+            return []
+        host = self._export_urls[0].split("/export/")[0]
+        url = f"{host}/export/timetable/{event_id}.json"
+        try:
+            response = httpx.get(
+                url,
+                params={"pretty": "no"},
+                headers={"User-Agent": self.user_agent, "Accept": "application/json"},
+                timeout=self.timeout_s,
+            )
+            response.raise_for_status()
+            payload = response.json()
+        except Exception as exc:
+            logger.warning("indico_timetable_fetch_failed", extra={"event": event_id, "error": str(exc)[:200]})
+            return []
+        days = (payload.get("results") or {}).get(event_id) or {}
+        entries: list[dict] = []
+
+        def _add(entry: dict) -> None:
+            title = str(entry.get("title") or "").strip()
+            if not title:
+                return
+            start = entry.get("startDate") or {}
+            entries.append(
+                {
+                    "title": title,
+                    "type": str(entry.get("entryType") or entry.get("_type") or ""),
+                    "date": start.get("date") or "",
+                    "time": (start.get("time") or "")[:5],
+                    "room": str(entry.get("room") or entry.get("roomFullname") or "").strip(),
+                    "location": str(entry.get("location") or "").strip(),
+                }
+            )
+
+        for _day, day_entries in sorted(days.items()):
+            if not isinstance(day_entries, dict):
+                continue
+            for _k, entry in sorted(day_entries.items()):
+                if not isinstance(entry, dict):
+                    continue
+                _add(entry)
+                for _k2, nested in sorted((entry.get("entries") or {}).items()):
+                    if isinstance(nested, dict):
+                        _add(nested)
+        return entries
+
+    def _fetch_raw_single(
+        self,
+        export_url: str,
+        from_date: str,
+        to_date: str,
+        detail: str,
+    ) -> list[dict]:
+        params = {"from": from_date, "to": to_date, "detail": detail, "pretty": "no"}
+        headers = {"User-Agent": self.user_agent, "Accept": "application/json"}
+        try:
+            response = httpx.get(export_url, params=params, headers=headers, timeout=self.timeout_s)
+            response.raise_for_status()
+        except Exception as exc:
+            logger.warning("indico_raw_fetch_failed", extra={"url": export_url, "error": str(exc)})
+            return []
+        try:
+            payload = response.json()
+        except ValueError:
+            return []
+        results = payload.get("results") if isinstance(payload, dict) else None
+        if not isinstance(results, list):
+            return []
+        return [r for r in results if isinstance(r, dict)]
 
     def _fetch_single(self, export_url: str, from_date: str, to_date: str) -> list[IndicoEvent]:
         params = {"from": from_date, "to": to_date, "detail": "events", "pretty": "no"}
@@ -319,3 +489,31 @@ INDICO_TOOL_SCHEMA: dict[str, Any] = {
 
 
 __all__ = ["IndicoClient", "IndicoEvent", "INDICO_TOOL_SCHEMA"]
+
+
+INDICO_TIMETABLE_TOOL_SCHEMA: dict = {
+    "type": "function",
+    "function": {
+        "name": "get_indico_event_timetable",
+        "description": (
+            "Fetch the detailed timetable of ONE specific Indico event: every "
+            "session and talk with its date, start time, ROOM and building. "
+            "Call this for questions about where/when a specific session, "
+            "workfest, or talk happens inside a known meeting (e.g. 'what "
+            "room is the tracking workfest at the Glasgow collaboration "
+            "meeting?'). First identify the event id — from a source URL "
+            "like indico.bnl.gov/event/31808/ the id is 31808 — then call "
+            "this tool with it."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "event_id": {
+                    "type": "string",
+                    "description": "Numeric Indico event id (digits only, e.g. '31808').",
+                }
+            },
+            "required": ["event_id"],
+        },
+    },
+}

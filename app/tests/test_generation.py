@@ -74,11 +74,17 @@ def _build_generator(client: _FakeClient, **overrides: Any) -> OpenAIAnswerGener
     generator.model = overrides.get("model", "gpt-5.4-nano")
     generator.max_output_tokens = overrides.get("max_output_tokens", 600)
     generator.temperature = overrides.get("temperature", None)
+    generator.reasoning_effort = overrides.get("reasoning_effort", None)
+    generator.stream_enabled = overrides.get("stream_enabled", True)
     generator.max_context_chars = overrides.get("max_context_chars", 1800)
     generator.input_cost_per_1m = overrides.get("input_cost_per_1m", 0.40)
     generator.output_cost_per_1m = overrides.get("output_cost_per_1m", 1.60)
     generator._fallback = overrides.get("fallback", ExtractiveAnswerGenerator())  # type: ignore[attr-defined]
     generator._indico = overrides.get("indico_client", None)  # type: ignore[attr-defined]
+    generator._people = overrides.get("people_client", None)  # type: ignore[attr-defined]
+    generator._index_search = overrides.get("index_search_client", None)  # type: ignore[attr-defined]
+    generator._zenodo_search = overrides.get("zenodo_search_client", None)  # type: ignore[attr-defined]
+    generator._code_search = overrides.get("code_search_client", None)  # type: ignore[attr-defined]
     return generator
 
 

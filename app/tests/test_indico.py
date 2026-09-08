@@ -108,3 +108,28 @@ def test_search_network_error_returns_empty():
     client = IndicoClient("https://indico.bnl.gov/category/402/", cache_ttl_s=0)
     with patch("app.integrations.indico.httpx.get", side_effect=ConnectionError("boom")):
         assert client.search() == []
+
+
+def test_split_window_slices_wide_ranges():
+    from datetime import date, timedelta
+
+    from app.integrations.indico import IndicoClient
+
+    spans = IndicoClient._split_window("-180d", "60d")
+    # 240 days at 60-day slices -> 4 spans
+    assert len(spans) == 4
+    first_from = date.fromisoformat(spans[0][0])
+    last_to = date.fromisoformat(spans[-1][1])
+    assert first_from == date.today() + timedelta(days=-180)
+    assert last_to == date.today() + timedelta(days=60)
+    # Contiguous: each span starts where the previous ended.
+    for (_, prev_to), (next_from, _) in zip(spans, spans[1:]):
+        assert prev_to == next_from
+
+
+def test_split_window_passthrough_on_unparseable():
+    from app.integrations.indico import IndicoClient
+
+    assert IndicoClient._split_window("yesterday", "30d") == [("yesterday", "30d")]
+    # Narrow windows stay single-span.
+    assert len(IndicoClient._split_window("-10d", "10d")) == 1

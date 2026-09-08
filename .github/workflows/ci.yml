@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # Tier 1 — every push/PR: offline unit tests + lint. No services needed.
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies (CPU torch)
+        run: |
+          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install -r requirements.txt
+      - run: ruff check app
+      - run: pytest -q
+
+  # Tier 2 — dispatch / nightly: retrieval quality gate against the LIVE
+  # deployment (the corpus lives there; CI can't rebuild it). Requires
+  # secrets: EVAL_API_URL (e.g. https://api.aprozo.space) and, if admin
+  # auth is enabled, EVAL_ADMIN_TOKEN.
+  eval-gate:
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run retrieval quality gate
+        env:
+          EVAL_API_URL: ${{ secrets.EVAL_API_URL }}
+          EVAL_ADMIN_TOKEN: ${{ secrets.EVAL_ADMIN_TOKEN }}
+        run: |
+          python scripts/eval_gate.py --api "$EVAL_API_URL" \
+            --token "$EVAL_ADMIN_TOKEN" --label "ci-${GITHUB_SHA::7}"
+
+  # Uncomment to run the gate nightly:
+  # (add under `on:`)
+  #   schedule:
+  #     - cron: "0 6 * * *"

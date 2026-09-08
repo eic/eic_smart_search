@@ -1,0 +1,16 @@
+# Development overlay: hot-reload + live source mount.
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+# or: make dev
+#
+# Never use in production — a file touch restarts the worker (drops the
+# in-process cache, kills SSE streams, reloads the GPU model).
+services:
+  api:
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - .:/app
+    healthcheck:
+      disable: true
+    restart: "no"

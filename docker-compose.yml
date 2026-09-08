@@ -1,13 +1,21 @@
 services:
   api:
     build: .
+    image: eic-smart-search:latest
     env_file:
       - .env
     environment:
       DATABASE_URL: postgresql+psycopg://smartsearch:smartsearch@postgres:5432/smartsearch
       QDRANT_URL: http://qdrant:6333
+      # Cap glibc malloc arenas: long-running worker with numpy/torch churn
+      # fragments badly under the default (8*cores) and reads as a leak.
+      MALLOC_ARENA_MAX: "2"
+    # GPU access is optional — see docker-compose.gpu.yml (make up-gpu).
+    # NOTE: production-safe defaults (no --reload, no source bind-mount).
+    # For hot-reload development use: make dev  (adds docker-compose.dev.yml).
     ports:
       - "8000:8000"
+    restart: unless-stopped
     depends_on:
       postgres:
         condition: service_healthy
@@ -15,9 +23,13 @@ services:
         condition: service_started
     command: >
       sh -c "alembic upgrade head &&
-             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
-    volumes:
-      - .:/app
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health', timeout=5).status==200 else 1)\""]
+      interval: 30s
+      timeout: 8s
+      retries: 3
+      start_period: 90s
 
   postgres:
     image: postgres:16-alpine
@@ -27,6 +39,7 @@ services:
       POSTGRES_DB: smartsearch
     ports:
       - "5432:5432"
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U smartsearch -d smartsearch"]
       interval: 5s
@@ -40,23 +53,6 @@ services:
     ports:
       - "6333:6333"
       - "6334:6334"
+    restart: unless-stopped
     volumes:
       - ./qdrant_data:/qdrant/storage
-
-  embedding:
-    image: ghcr.io/huggingface/text-embeddings-inference:1.7.2
-    profiles:
-      - gpu
-    gpus: all
-    ports:
-      - "8080:80"
-    command:
-      - --model-id
-      - Qwen/Qwen3-Embedding-8B
-      - --dtype
-      - float16
-    volumes:
-      - hf_cache:/data
-
-volumes:
-  hf_cache:

@@ -1,0 +1,12 @@
+# Optional GPU override. Requires the NVIDIA container runtime.
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d --build
+# or simply:
+#   make up-gpu
+#
+# Without this file the api service runs CPU-only (EMBEDDING_DEVICE=auto
+# then resolves to cpu inside the container), which works on any host.
+services:
+  api:
+    gpus: all

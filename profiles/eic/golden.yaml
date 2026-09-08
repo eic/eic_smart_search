@@ -1,0 +1,425 @@
+# Golden evaluation set for the EIC smart-search stack.
+#
+# Each case:
+#   id                     stable identifier (shown in the eval dashboard)
+#   query                  what a real user would type
+#   expect_url_contains    retrieval passes when ANY top-k citation URL
+#                          contains ANY of these substrings
+#   expect_answer_contains (optional) generated answer must contain ALL of
+#                          these substrings (case-insensitive)
+#   tags                   free-form grouping for the dashboard
+#
+# Add cases when a real query fails — that failure becomes the regression test.
+
+- id: tutorials-run
+  query: "How do I run simulation tutorials?"
+  expect_url_contains: ["eic.github.io/tutorial", "eic.github.io/documentation"]
+  expect_answer_contains: ["tutorial"]
+  tags: [docs, howto]
+
+- id: eic-shell-what
+  query: "What is eic-shell and how do I install it?"
+  expect_url_contains: ["eic-shell", "eic.github.io"]
+  expect_answer_contains: ["container"]
+  tags: [docs, howto]
+
+- id: eic-shell-wsl
+  query: "eic-shell fails on Windows WSL2, what can I do?"
+  expect_url_contains: ["eic-shell", "eic.github.io"]
+  tags: [issues, howto]
+
+- id: drich-design
+  query: "dual radiator RICH detector design"
+  expect_url_contains: ["zenodo.org", "inspirehep.net", "arxiv.org", "indico"]
+  tags: [papers, detector]
+
+- id: svt-mechanical
+  query: "ePIC silicon vertex tracker mechanical design"
+  expect_url_contains: ["zenodo.org", "inspirehep.net", "arxiv.org"]
+  tags: [papers, detector]
+
+- id: epic-magnet
+  query: "What magnetic field does the ePIC solenoid provide?"
+  expect_url_contains: ["eic.github.io", "epic-eic.org", "wiki.bnl.gov", "zenodo.org", "inspirehep.net"]
+  expect_answer_contains: ["1.7"]
+  tags: [detector, facts]
+
+- id: eicrecon-changes
+  query: "what changed in the latest EICrecon release"
+  expect_url_contains: ["github.com/eic/EICrecon"]
+  tags: [github, releases]
+
+- id: epic-geometry-repo
+  query: "where is the ePIC detector geometry repository"
+  expect_url_contains: ["github.com/eic/epic", "eic.github.io"]
+  tags: [github, docs]
+
+- id: dis-kinematics
+  query: "deep inelastic scattering kinematics at the EIC"
+  expect_url_contains: ["arxiv.org", "inspirehep.net", "zenodo.org", "eic.github.io", "eicug"]
+  tags: [physics]
+
+- id: file-access-rucio
+  query: "how to access simulation campaign files with rucio"
+  expect_url_contains: ["tutorial-file-access", "eic.github.io"]
+  expect_answer_contains: ["rucio"]
+  tags: [docs, howto]
+
+- id: yellow-report
+  query: "EIC Yellow Report physics case"
+  expect_url_contains: ["arxiv.org", "inspirehep.net", "zenodo.org", "eicug"]
+  tags: [papers, physics]
+
+- id: dd4hep-simulation
+  query: "how to run DD4hep simulation for ePIC"
+  expect_url_contains: ["eic.github.io", "github.com/eic"]
+  tags: [docs, howto]
+
+- id: drich-meeting-content
+  query: "what was discussed in recent dRICH working group meetings"
+  expect_url_contains: ["indico"]
+  tags: [indico]
+
+- id: luminosity-detector
+  query: "luminosity measurement detector far backward region"
+  expect_url_contains: ["zenodo.org", "inspirehep.net", "arxiv.org", "eic.github.io", "wiki.bnl.gov"]
+  tags: [detector, physics]
+
+- id: eicrecon-contribute
+  query: "how to contribute code to EICrecon"
+  expect_url_contains: ["eic.github.io", "github.com/eic/EICrecon"]
+  tags: [github, docs]
+
+# Regression, two bugs at once: (a) plainto_tsquery AND semantics zeroed
+# out lexical search ("many" -> 'mani' is not a stopword), so the design
+# chunk never reached the LLM; (b) the model then presented the 32-layer
+# TEST-BEAM prototype as the design. Design truth: 60 layers (Forward_Hcal
+# wiki page). Keep the exact filler-word phrasing — it is the trigger.
+- id: lfhcal-layers
+  query: "how many layers in lfhcal?"
+  expect_url_contains: ["Forward_Hcal", "wiki.bnl.gov"]
+  expect_answer_contains: ["60"]
+  tags: [detector, facts]
+
+# ---------------------------------------------------------------------------
+# Agent-mined cases (grounded in the indexed corpus, 2026-08-10):
+# tutorials/software, detector wiki, publications, meetings/issues.
+# ---------------------------------------------------------------------------
+
+- id: tut-install-eic-shell
+  query: "how do i install eic-shell on my laptop"
+  expect_url_contains: ["tutorial-setting-up-environment"]
+  expect_answer_contains: ["get.epic-eic.org"]
+  tags: [docs, howto]
+
+- id: tut-view-detector-geometry
+  query: "how can I view the epic detector geometry"
+  expect_url_contains: ["tutorial-geometry-development-using-dd4hep"]
+  expect_answer_contains: ["dd_web_display"]
+  tags: [docs, howto]
+
+- id: tut-eicrecon-custom-plugin
+  query: "how do i create a plugin for eicrecon to make my own histograms"
+  expect_url_contains: ["tutorial-jana2/03-end-user-plugin"]
+  expect_answer_contains: ["eicmkplugin.py"]
+  tags: [docs, howto, software]
+
+- id: sw-what-is-eicrecon
+  query: "what is EICrecon and what framework is it based on"
+  expect_url_contains: ["EICrecon/blob/main/README.md", "tutorial-jana2"]
+  expect_answer_contains: ["JANA"]
+  tags: [software, github]
+
+- id: sw-what-is-juggler
+  query: "what is juggler in the eic software stack"
+  expect_url_contains: ["juggler/blob/main/README.md"]
+  expect_answer_contains: ["Gaudi"]
+  tags: [software, github]
+
+- id: sw-npsim-repo-tools
+  query: "what is in the npsim repository"
+  expect_url_contains: ["npsim/blob/main/README.md"]
+  expect_answer_contains: ["DD4hep"]
+  tags: [github, software]
+
+- id: sw-firebird-event-display
+  query: "is there an event display for the eic? which repo is it"
+  expect_url_contains: ["firebird/blob/main/README.md", "firebird/blob/main/docs"]
+  expect_answer_contains: ["Firebird"]
+  tags: [github, software]
+
+- id: sw-eicrecon-v139-release
+  query: "what changed in eicrecon v1.39.0"
+  expect_url_contains: ["EICrecon/releases/tag/v1.39.0"]
+  expect_answer_contains: ["Track-Cluster Subtraction"]
+  tags: [releases, software]
+
+- id: det-svt-sensor-technology
+  query: "What sensor technology does the ePIC silicon vertex tracker use?"
+  expect_url_contains: ["Si_Vertex_Tracker", "zenodo.org", "inspirehep.net"]
+  expect_answer_contains: ["MAPS"]
+  tags: [detector, facts]
+
+- id: det-svt-barrel-layers
+  query: "How many barrel layers does the ePIC silicon vertex tracker have?"
+  expect_url_contains: ["Si_Vertex_Tracker"]
+  expect_answer_contains: ["barrel layers"]
+  tags: [detector, facts]
+
+- id: det-tof-sensor
+  query: "Which sensors does the ePIC time-of-flight detector use and what timing resolution do they give?"
+  expect_url_contains: ["TOFPID", "zenodo.org", "inspirehep.net"]
+  expect_answer_contains: ["AC-LGAD"]
+  tags: [detector, facts]
+
+- id: det-fecal-material
+  query: "What is the forward ECal made of?"
+  expect_url_contains: ["Forward_Ecal", "Forward_ECal", "zenodo.org"]
+  expect_answer_contains: ["Tungsten"]
+  tags: [detector, facts]
+
+- id: det-zdc-composition
+  query: "What does the Zero-Degree Calorimeter in ePIC consist of?"
+  expect_url_contains: ["FarForward"]
+  expect_answer_contains: ["PWO"]
+  tags: [detector, facts]
+
+- id: det-nhcal-name
+  query: "What is the official name of the backward hadronic calorimeter in ePIC?"
+  expect_url_contains: ["Backward_Hcal"]
+  expect_answer_contains: ["nHCal"]
+  tags: [detector, facts]
+
+- id: det-physics-working-groups
+  query: "What physics working groups exist in the ePIC collaboration?"
+  expect_url_contains: ["physics/pwgs"]
+  expect_answer_contains: ["Inclusive"]
+  tags: [collaboration, facts]
+
+- id: pub-find-epic-tdr
+  query: "where can I find the ePIC preliminary Technical Design Report"
+  expect_url_contains: ["zenodo.org", "epic-eic.org/documents"]
+  expect_answer_contains: ["Technical Design Report"]
+  tags: [papers]
+
+- id: pub-find-early-science-report
+  query: "link to the ePIC Early Science Report"
+  expect_url_contains: ["zenodo.org"]
+  expect_answer_contains: ["Early Science"]
+  tags: [papers]
+
+- id: pub-nhcal-backward-calorimeter
+  query: "backward hadronic calorimeter nHCal for diffractive physics at the EIC"
+  expect_url_contains: ["zenodo.org", "inspirehep.net"]
+  tags: [papers, physics]
+
+- id: pub-aclgad-eicroc-readout
+  query: "EICROC ASIC readout of pixelated AC-LGAD sensors performance"
+  expect_url_contains: ["zenodo.org"]
+  expect_answer_contains: ["AC-LGAD"]
+  tags: [papers, physics]
+
+- id: pub-recent-jpsi-photoproduction
+  query: "recent papers about exclusive J/psi photoproduction in photon-proton scattering"
+  expect_url_contains: ["arxiv.org"]
+  tags: [papers, physics]
+
+- id: pub-eicroc0-channels-fact
+  query: "how many channels does the first EICROC0 ASIC prototype have?"
+  expect_url_contains: ["zenodo.org"]
+  expect_answer_contains: ["16 channels"]
+  tags: [facts]
+
+- id: mtg-drich-gas-c2f6
+  query: "What was presented about dRICH radiator gas activities, like the C2F6 scintillation and transparency measurements?"
+  expect_url_contains: ["indico.bnl.gov"]
+  expect_answer_contains: ["C2F6"]
+  tags: [indico, slides]
+
+- id: mtg-beampipe-dd4hep
+  query: "What was discussed about updating the beam pipe modeling in Geant4/DD4hep for ePIC?"
+  expect_url_contains: ["indico.bnl.gov"]
+  expect_answer_contains: ["beam pipe"]
+  tags: [indico, slides]
+
+- id: mtg-sim-campaign-2510
+  query: "What was presented about the status and plans of the October 2025 simulation campaign for the preTDR?"
+  expect_url_contains: ["indico.bnl.gov"]
+  tags: [indico, slides]
+
+- id: iss-drich-stuck-track
+  query: "During simulation Geant4 keeps printing GeomNav1002 warnings about a stuck track in the DRICH gas volume, likely geometry overlap - is this a known problem?"
+  expect_url_contains: ["github.com/eic/epic/issues"]
+  expect_answer_contains: ["GeomNav1002"]
+  tags: [issues]
+
+- id: iss-eic-shell-install-registry
+  query: "I ran the eic-shell install.sh but it fails trying to download the container from singularity.opensciencegrid.org, even though my CVMFS only mounts eic.opensciencegrid.org - is there a workaround?"
+  expect_url_contains: ["github.com/eic/eic-shell/issues"]
+  tags: [issues, howto]
+
+- id: iss-ecal-insert-voxel-slices
+  query: "Every time the geometry is loaded I get a TGeoVoxelFinder error saying EcalEndcapPInsert cannot make slices on any axis - does this actually affect the simulation?"
+  expect_url_contains: ["github.com/eic/epic/issues"]
+  expect_answer_contains: ["EcalEndcapPInsert"]
+  tags: [issues]
+
+# User-reported: the flagship collaboration-status deck is a .pptx —
+# was invisible until PPTX extraction landed (also raised the per-event
+# material cap that truncated the July 2026 joint meeting's attachments).
+- id: mtg-epic-status-priorities
+  query: "Give me most recent status on epic presentation indico"
+  expect_url_contains: ["indico.bnl.gov", "ePIC%20Collaboration%20Status"]
+  tags: [indico, slides]
+
+# User-reported: "who is X convener" role questions used to force the
+# name-keyed people tool (name="Jet convener" -> canned refusal) while the
+# convener listing sat at retrieval rank 1. Force now requires a real name;
+# role-holder questions answer from static listings.
+- id: ppl-jet-convener
+  query: "who is jet convener now?"
+  expect_url_contains: ["JetsHF", "jets_hf"]
+  expect_answer_contains: ["Ma"]
+  tags: [collaboration, facts]
+
+# Service-directory: tool/service questions must lead with the DIRECT
+# link to the live service (curated in app/ingestion/services.yaml).
+- id: svc-hydra-monitoring
+  query: "hydra monitoring"
+  expect_url_contains: ["epsciweb.jlab.org/epic_hydra"]
+  expect_answer_contains: ["epsciweb.jlab.org"]
+  tags: [services]
+
+- id: svc-event-display
+  query: "event display"
+  expect_url_contains: ["seeeic.org"]
+  expect_answer_contains: ["seeeic.org/display"]
+  tags: [services]
+
+- id: svc-production-campaigns
+  query: "where are the simulation production campaigns"
+  expect_url_contains: ["epic-prod"]
+  expect_answer_contains: ["epic-prod"]
+  tags: [services]
+
+# Real-query regressions from the history rerun (2026-08-11):
+- id: doc-give-me-tdr
+  query: "give me TDR"
+  expect_url_contains: ["zenodo.org/records/18271601"]
+  expect_answer_contains: ["18271601"]
+  tags: [papers, services]
+
+- id: svc-rucio-metadata-tags
+  query: "give all metadata tags rucio uses?"
+  expect_url_contains: ["rucio", "tutorial-file-access"]
+  expect_answer_contains: ["software_release"]
+  tags: [docs, facts]
+
+- id: mtg-indico-page-nhcal
+  query: "indico page of nhcal meetings"
+  expect_url_contains: ["indico.bnl.gov", "Backward_Hcal", "backward_hcal"]
+  expect_answer_contains: ["category/549"]
+  tags: [indico, services]
+
+# Verified real-user queries from the query-history rerun (2026-08-11) —
+# each answer was manually checked against the cited source before adding.
+- id: gen-exclusive-processes
+  query: "Do we have event generators for exclusive processes"
+  expect_url_contains: ["DVMPdataset", "eic.github.io", "zenodo.org"]
+  expect_answer_contains: ["EpIC"]
+  tags: [software, physics]
+
+- id: sw-edm4hep-vs-edm4eic
+  query: "Edm4hep vs edm4eic"
+  expect_url_contains: ["edm4eic", "zenodo.org", "eic.github.io"]
+  expect_answer_contains: ["edm4eic"]
+  tags: [software, facts]
+
+- id: svc-epic-logo
+  query: "give me logo of EPIC"
+  expect_url_contains: ["zenodo.org/records/14058463"]
+  expect_answer_contains: ["zenodo"]
+  tags: [services]
+
+- id: mtg-jan-2026-collab-indico
+  query: "give me indico of january 2026 meeting collaboration"
+  expect_url_contains: ["indico.bnl.gov/event/30532"]
+  expect_answer_contains: ["30532"]
+  tags: [indico]
+
+- id: data-pythia-dis-datasets
+  query: "how do i find a dataset like pythia DIS events?"
+  expect_url_contains: ["wiki.bnl.gov", "tutorial-file-access", "epic-prod"]
+  expect_answer_contains: ["rucio"]
+  tags: [docs, howto]
+
+- id: gen-beagle-cross-sections
+  query: "how do I get the cross sections from beagle?"
+  expect_url_contains: ["beagle", "eic.github.io"]
+  expect_answer_contains: ["BeAGLE"]
+  tags: [software, physics]
+
+- id: sw-jomnifactory
+  query: "how to make JOmniFactory?"
+  expect_url_contains: ["tutorial-reconstruction-algorithms"]
+  expect_answer_contains: ["JOmniFactory"]
+  tags: [software, howto]
+
+- id: res-computing-account
+  query: "computing account"
+  expect_url_contains: ["eic.github.io", "_resources"]
+  expect_answer_contains: ["BNL"]
+  tags: [docs, howto]
+
+- id: tut-update-eic-shell
+  query: "how to update eic-shell?"
+  expect_url_contains: ["tutorial-setting-up-environment", "eic-shell"]
+  expect_answer_contains: ["--upgrade"]
+  tags: [docs, howto]
+
+- id: doc-give-me-pretdr
+  query: "give me pretdr"
+  expect_url_contains: ["zenodo.org/records/18271601"]
+  tags: [papers, services]
+
+# Negative cases (abstention): out-of-domain questions MUST refuse, not
+# fabricate. Guards the RRF-normalization bug where the top fused score is
+# always ~1.0 so MIN_SUPPORT_SCORE could never fire.
+- id: neg-sourdough
+  query: "how do I bake sourdough bread at home"
+  expect_answer_contains: ["couldn't find enough support"]
+  tags: [negative, abstention]
+
+- id: neg-pizza
+  query: "what is the best pizza in Brooklyn"
+  expect_answer_contains: ["find enough support"]
+  tags: [negative, abstention]
+
+- id: neg-weather
+  query: "what is the weather forecast for tomorrow"
+  expect_answer_contains: ["find enough support"]
+  tags: [negative, abstention]
+
+- id: dm-track-members
+  query: "what members does edm4eic::Track have?"
+  expect_url_contains: ["EDM4eic"]
+  expect_answer_contains: ["chi2"]
+  tags: [datamodel, tool]
+
+- id: dm-recoparticle-relations
+  query: "which relations does ReconstructedParticle have in EDM4eic?"
+  expect_url_contains: ["EDM4eic"]
+  expect_answer_contains: ["clusters"]
+  tags: [datamodel]
+
+- id: dm-cherenkov-pid-collection
+  query: "which collection stores Cherenkov PID information?"
+  expect_url_contains: ["EDM4eic", "eicrecon"]
+  expect_answer_contains: ["CherenkovParticleID"]
+  tags: [datamodel]
+
+- id: dm-pid-type-90
+  query: "what is PID type 90 in getType()?"
+  expect_url_contains: ["epic", "EDM4eic"]
+  expect_answer_contains: ["DIRC"]
+  tags: [datamodel, geometry]

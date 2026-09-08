@@ -6,14 +6,23 @@ from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
+from app.ingestion.arxiv import ArxivConnector
 from app.ingestion.base import Connector, DocumentPayload
 from app.ingestion.chunking import HeadingAwareChunker
 from app.ingestion.github import GitHubRepoConnector
+from app.ingestion.github_discussions import GitHubDiscussionsConnector
+from app.ingestion.github_issues import GitHubIssuesConnector
 from app.ingestion.github_org import GitHubOrgConnector
+from app.ingestion.github_releases import GitHubReleasesConnector
+from app.ingestion.indico_events import IndicoEventsConnector
+from app.ingestion.inspire import InspireHepConnector
+from app.ingestion.epic_definitions import EpicDefinitionsConnector
 from app.ingestion.internal import EpicInternalCrawler
+from app.ingestion.podio_datamodel import PodioDatamodelConnector
+from app.ingestion.services_registry import ServicesRegistryConnector
 from app.ingestion.web import WebsiteCrawler
 from app.ingestion.zenodo import ZenodoConnector
-from app.models.entities import Chunk, CrawlJob, Document, IngestionState, PermissionMetadata, Source, new_id
+from app.models.entities import Chunk, CrawlJob, Document, Source, new_id
 from app.retrieval.qdrant_store import QdrantVectorStore
 from app.services.query_cache import reset_query_cache
 
@@ -56,6 +65,66 @@ SOURCE_CONFIGS: dict[str, dict[str, Any]] = {
         "base_url": "https://zenodo.org/communities/epic/",
         "visibility": "public",
     },
+    "inspire_hep": {
+        "source_type": "inspire_literature",
+        "base_url": "https://inspirehep.net/",
+        "visibility": "public",
+    },
+    "arxiv_eic": {
+        "source_type": "arxiv",
+        "base_url": "https://arxiv.org/",
+        "visibility": "public",
+    },
+    "indico_events": {
+        "source_type": "indico",
+        "base_url": "https://indico.bnl.gov/",
+        "visibility": "public",
+    },
+    "eic_github_issues": {
+        "source_type": "github_issues",
+        "base_url": "https://github.com/eic",
+        "visibility": "public",
+    },
+    "eic_github_releases": {
+        "source_type": "github_releases",
+        "base_url": "https://github.com/eic",
+        "visibility": "public",
+    },
+    "eic_github_discussions": {
+        "source_type": "github_discussions",
+        "base_url": "https://github.com/eic",
+        "visibility": "public",
+    },
+    "eic_services": {
+        "source_type": "service_directory",
+        "base_url": "https://eic.github.io/",
+        "visibility": "public",
+    },
+    "edm4eic_datamodel": {
+        "source_type": "podio_datamodel",
+        "base_url": "https://github.com/eic/EDM4eic",
+        "visibility": "public",
+    },
+    "epic_definitions": {
+        "source_type": "dd4hep_constants",
+        "base_url": "https://github.com/eic/epic",
+        "visibility": "public",
+    },
+    "eicrecon_docs": {
+        "source_type": "github_repo",
+        "base_url": "https://github.com/eic/EICrecon",
+        "visibility": "public",
+    },
+    "eic_knowledge_guide": {
+        "source_type": "github_repo",
+        "base_url": "https://github.com/aprozo/eic",
+        "visibility": "public",
+    },
+    "epic_prod": {
+        "source_type": "website",
+        "base_url": "https://eic.github.io/epic-prod/",
+        "visibility": "public",
+    },
 }
 
 
@@ -95,7 +164,6 @@ class IngestionOrchestrator:
                     self._clear_source(db, source)
                 documents = connector.iter_documents(max_items=max_pages)
                 source_stats = self._ingest_documents(db, source, documents, full_reindex=full_reindex)
-                self._record_state(db, source, source_stats)
                 job.status = "completed"
                 job.finished_at = datetime.now(timezone.utc)
                 job.stats = source_stats
@@ -125,6 +193,7 @@ class IngestionOrchestrator:
                 start_url=self.settings.EIC_SITE_URL,
                 max_pages=self.settings.EIC_SITE_MAX_PAGES,
                 exclude_prefixes=self.settings.EIC_SITE_EXCLUDE_PREFIXES,
+                exclude_path_contains=self.settings.EIC_SITE_EXCLUDE_PATH_CONTAINS,
             )
         if source_name == "eicug_website":
             return WebsiteCrawler(
@@ -133,6 +202,7 @@ class IngestionOrchestrator:
                 start_url=self.settings.EICUG_SITE_URL,
                 max_pages=self.settings.EICUG_SITE_MAX_PAGES,
                 exclude_prefixes=self.settings.EICUG_SITE_EXCLUDE_PREFIXES,
+                exclude_path_contains="",
             )
         if source_name == "bnl_wiki_epic":
             return WebsiteCrawler(
@@ -141,6 +211,7 @@ class IngestionOrchestrator:
                 start_url=self.settings.BNL_WIKI_URL,
                 max_pages=self.settings.BNL_WIKI_MAX_PAGES,
                 exclude_prefixes=self.settings.BNL_WIKI_EXCLUDE_PREFIXES,
+                exclude_path_contains="",
                 allowed_path_prefix="/EPIC/",
             )
         if source_name == "eic_github_repo":
@@ -151,6 +222,52 @@ class IngestionOrchestrator:
             return EpicInternalCrawler(self.settings)
         if source_name == "zenodo_epic":
             return ZenodoConnector(self.settings)
+        if source_name == "inspire_hep":
+            return InspireHepConnector(self.settings)
+        if source_name == "arxiv_eic":
+            return ArxivConnector(self.settings)
+        if source_name == "indico_events":
+            return IndicoEventsConnector(self.settings)
+        if source_name == "eic_github_issues":
+            return GitHubIssuesConnector(self.settings)
+        if source_name == "eic_github_releases":
+            return GitHubReleasesConnector(self.settings)
+        if source_name == "eic_github_discussions":
+            return GitHubDiscussionsConnector(self.settings)
+        if source_name == "eic_services":
+            return ServicesRegistryConnector(self.settings)
+        if source_name == "edm4eic_datamodel":
+            return PodioDatamodelConnector(self.settings)
+        if source_name == "epic_definitions":
+            return EpicDefinitionsConnector(self.settings)
+        if source_name == "eicrecon_docs":
+            return GitHubRepoConnector(
+                self.settings,
+                source_name="eicrecon_docs",
+                owner="eic",
+                repo="EICrecon",
+                ref="main",
+                path_prefix="docs/",
+            )
+        if source_name == "eic_knowledge_guide":
+            return GitHubRepoConnector(
+                self.settings,
+                source_name="eic_knowledge_guide",
+                owner="aprozo",
+                repo="eic",
+                ref="main",
+                path_prefix="docs/",
+            )
+        if source_name == "epic_prod":
+            return WebsiteCrawler(
+                self.settings,
+                source_name="epic_prod",
+                start_url="https://eic.github.io/epic-prod/",
+                max_pages=300,
+                exclude_prefixes=self.settings.EIC_SITE_EXCLUDE_PREFIXES,
+                exclude_path_contains="",
+                allowed_path_prefix="/epic-prod/",
+            )
         raise ValueError(f"Unknown source_name: {source_name}")
 
     def _ensure_source(self, db: Session, connector: Connector) -> Source:
@@ -160,7 +277,6 @@ class IngestionOrchestrator:
             source.source_type = connector.source_type
             source.base_url = config["base_url"]
             source.visibility = connector.visibility
-            source.enabled = True
             source.config = config
         else:
             source = Source(
@@ -202,7 +318,6 @@ class IngestionOrchestrator:
             if existing:
                 self.vector_store.delete_by_document_ids([existing.id])
                 db.execute(delete(Chunk).where(Chunk.document_id == existing.id))
-                db.execute(delete(PermissionMetadata).where(PermissionMetadata.document_id == existing.id))
                 document = existing
                 stats["updated"] += 1
             else:
@@ -222,18 +337,6 @@ class IngestionOrchestrator:
             document.doc_metadata = payload.metadata
             db.flush()
 
-            db.add(
-                PermissionMetadata(
-                    document_id=document.id,
-                    visibility=payload.visibility,
-                    allowed_groups=payload.metadata.get("allowed_groups", []),
-                    denied_groups=payload.metadata.get("denied_groups", []),
-                    policy_metadata={
-                        "source_visibility": source.visibility,
-                        "permission_sensitive": payload.metadata.get("permission_sensitive", False),
-                    },
-                )
-            )
             chunks = self.chunker.chunk(payload)
             qdrant_items = []
             for chunk_payload in chunks:
@@ -247,7 +350,6 @@ class IngestionOrchestrator:
                     content_hash=chunk_payload.content_hash,
                     heading_path=chunk_payload.heading_path,
                     token_count=chunk_payload.token_count,
-                    qdrant_point_id=chunk_id,
                     visibility=payload.visibility,
                     chunk_metadata=chunk_payload.metadata,
                 )
@@ -290,12 +392,4 @@ class IngestionOrchestrator:
             "last_updated": document.last_updated.isoformat() if document.last_updated else None,
             "content_hash": content_hash,
         }
-
-    def _record_state(self, db: Session, source: Source, stats: dict[str, Any]) -> None:
-        state = db.scalar(select(IngestionState).where(IngestionState.source_id == source.id, IngestionState.state_key == "latest"))
-        value = {"stats": stats, "completed_at": datetime.now(timezone.utc).isoformat()}
-        if state:
-            state.state_value = value
-        else:
-            db.add(IngestionState(source_id=source.id, state_key="latest", state_value=value))
 

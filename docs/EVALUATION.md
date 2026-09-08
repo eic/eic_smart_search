@@ -1,7 +1,7 @@
 # How good is EIC Smart Search? — Evaluation methodology and results
 
 *A plain-language description of how this product is measured, written for
-readers outside the project. Live numbers: [/admin/eval](https://api.aprozo.space/admin/eval).*
+readers outside the project. Live numbers: [/admin/eval](https://api.aprozo.com/admin/eval).*
 
 Methodology influences: execution-style deterministic pass/fail and
 per-category reporting as used in ROOTER (CodeGraph RAG for ROOT,

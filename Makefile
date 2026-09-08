@@ -1,8 +1,4 @@
-.PHONY: dev up up-gpu up-all down logs migrate ingest ingest-full ingest-papers ingest-indico ingest-issues refresh-all reindex query eval eval-retrieval eval-ci sweep backup tunnel tunnel-bg tunnel-stop tunnel-logs test lint format clean-data people-refresh
-
-# Cloudflare tunnel name (from ~/.cloudflared/config.yml). Used to clear
-# stale edge connectors before (re)starting.
-CF_TUNNEL := eic_ai_search
+.PHONY: dev up up-gpu down logs migrate ingest ingest-full ingest-papers ingest-indico ingest-issues refresh-all reindex query eval eval-retrieval eval-ci sweep backup tunnel-status test lint format clean-data people-refresh
 
 dev:
 	docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
@@ -14,45 +10,17 @@ up:
 up-gpu:
 	docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d --build
 
-# Start the stack (background) AND the Cloudflare tunnel (background).
-# Both survive closing the terminal. Stop everything with `make down`.
-up-all: up tunnel-bg
-
 down:
 	docker compose down
-	-pkill -x cloudflared
-
-# Expose http://localhost:8000 publicly via the cloudflared tunnel
-# configured in ~/.cloudflared/config.yml (api.aprozo.space → :8000).
-# Foreground process — run in a dedicated terminal, Ctrl-C to stop.
-tunnel:
-	cloudflared tunnel cleanup $(CF_TUNNEL) || true
-	cloudflared tunnel run
-
-# Background tunnel (used by up-all). Clears stale edge connectors first,
-# then runs fully detached (setsid = own session, survives make/terminal exit).
-# Logs: /tmp/cloudflared.log. Stop with `make tunnel-stop`.
-tunnel-bg:
-	-pkill -x cloudflared
-	cloudflared tunnel cleanup $(CF_TUNNEL) || true
-	setsid cloudflared tunnel run >/tmp/cloudflared.log 2>&1 </dev/null &
-	@echo "cloudflared starting, waiting for edge registration..."
-	@for i in $$(seq 1 12); do \
-		if grep -q "Registered tunnel connection" /tmp/cloudflared.log; then \
-			echo "cloudflared up (log: /tmp/cloudflared.log)"; exit 0; fi; \
-		sleep 3; \
-	done; \
-	echo "cloudflared FAILED to register in 36s — see /tmp/cloudflared.log"; \
-	tail -5 /tmp/cloudflared.log
-
-tunnel-stop:
-	-pkill -x cloudflared
-
-tunnel-logs:
-	tail -f /tmp/cloudflared.log
 
 logs:
 	docker compose logs -f api
+
+# The public hostnames (api.aprozo.com -> :8000, star-api.aprozo.com -> :8001)
+# are served by a dashboard-managed Cloudflare tunnel running as a systemd
+# service; routes are edited in Cloudflare Zero Trust, not in a local file.
+tunnel-status:
+	systemctl status cloudflared --no-pager | head -5
 
 migrate:
 	docker compose run --rm api alembic upgrade head

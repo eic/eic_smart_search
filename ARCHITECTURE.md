@@ -2,49 +2,99 @@
 
 ## Goal
 
-This service indexes public EIC collaboration knowledge and permission-sensitive internal ePIC content, then serves grounded search answers with citations. The backend is intentionally independent of the current `eic.github.io` frontend search implementation so the site can adopt it in a later phase.
+Index the EIC/ePIC knowledge ecosystem (docs, wikis, GitHub, literature,
+meetings) and serve grounded, cited, streamed answers — with a live tool
+layer for the things an index can't know (upcoming meetings, people,
+fresh publications) and a built-in evaluation harness so every retrieval
+or prompt change is measured, not guessed.
 
-## Runtime Components
+## Runtime components
 
-- **FastAPI API** exposes query, ingestion, source, document, job, health, readiness, reindex, and feedback endpoints.
-- **PostgreSQL** stores source metadata, documents, chunks, crawl jobs, ingestion state, permission metadata, query logs, and feedback. It also provides the lexical retrieval leg through full-text search.
-- **Qdrant** stores one vector point per chunk with metadata payloads used for filtering and source attribution.
-- **Embedding provider adapter** defaults to local `sentence-transformers/all-MiniLM-L6-v2` embeddings and can be replaced by HTTP, TEI, or hashing providers.
-- **Answer provider adapter** defaults to extractive grounded answers and can be replaced by any HTTP generation service.
+- **FastAPI API** — query (JSON + SSE), ingestion, admin/analytics,
+  evaluation, people graph, GitHub SSO auth. Single container.
+- **PostgreSQL 16** — sources, documents, chunks (+ full-text GIN
+  indexes = the lexical retrieval leg), crawl jobs, ingestion state,
+  query logs, feedback, persons, eval runs.
+- **Qdrant** — one vector point per chunk with payload filters
+  (visibility, source).
+- **Embedding provider** — local sentence-transformers (bge-m3 on GPU in
+  production, fp16; MiniLM anywhere; automatic CPU fallback).
+- **Answer provider** — OpenAI-protocol client (any compatible server:
+  OpenAI, vLLM, Ollama) with tool calling and token streaming; falls
+  back to the extractive generator on any error.
+- **Reranker** — local cross-encoder over the fused candidate pool.
 
 ## Ingestion
 
-Connectors emit normalized `DocumentPayload` records:
-
-- `eic_website`: crawls HTML from `https://eic.github.io/`, extracts main content, title, headings, breadcrumbs, links, and HTTP last-modified metadata.
-- `eic_github_repo`: reads docs-like files from `eic/eic.github.io`, preserving path, ref, commit hash, front matter, and raw/blob URLs.
-- `epic_internal`: crawls `https://www.epic-eic.org/index-internal.html` with optional cookie/header auth. All records from this connector are labeled `internal`.
-
-Documents are split with heading-aware chunking. Each chunk stores hierarchy, content hash, source metadata, visibility, and Qdrant point ID.
+Thirteen connectors emit normalized `DocumentPayload` records (see
+README for the table): website crawlers (trafilatura extraction with a
+heading-aware bs4 fallback), GitHub repo/org/issues/releases/discussions,
+Zenodo (+PDF text), INSPIRE-HEP, arXiv, and Indico events with attached
+slide/minutes PDFs (PyMuPDF, pypdf fallback). Heading-aware chunking;
+per-chunk content hashes give idempotent re-ingestion; any content
+change resets the response cache. Wide Indico windows are fetched in
+60-day slices (the export endpoint 504s beyond that).
 
 ## Retrieval
 
-The query flow is:
-
-1. Build a visibility-safe filter from request scope.
-2. Run PostgreSQL full-text search against chunk content.
-3. Run Qdrant vector search using the same visibility and metadata filters.
-4. Fuse normalized lexical and vector scores.
-5. Boost instructional/tutorial-like documents for "how do I" queries.
-6. Add small freshness boosts when dates are known.
-7. Reduce duplicated mirrored content, especially site page plus repo markdown.
-8. Return citations with exact snippets and retrieval metadata.
-
-Public queries only allow `visibility = public`. Internal/all scopes include `public` and `internal` labels. The separation is enforced in both PostgreSQL and Qdrant filters.
+1. Visibility-safe filters from request scope (enforced in both engines).
+2. **Lexical**: Postgres FTS, strict-AND first, automatic OR fallback
+   when AND matches nothing (Postgres' stopword list is small — filler
+   words like "many" otherwise zero out good questions).
+3. **Vector**: Qdrant + embedded query, run concurrently with lexical.
+4. **RRF fusion** (rank-based, K=60) — no hand-tuned weights; a chunk
+   one engine ranks well stays visible regardless of the other engine's
+   score scale. Instructional + freshness boosts on top.
+5. **Cross-encoder rerank** of the top candidates (submit path only —
+   previews skip it to keep typing fast).
+6. **Dedup + diversity**: content-hash dedup; cross-source *work*
+   identity (DOI / arXiv id / normalized title for paper sources) so the
+   same paper via Zenodo+INSPIRE+arXiv appears once; per-document
+   diversity decay; test-beam/prototype pages demoted for queries that
+   aren't about test beams.
+7. Citations with query-focused snippets.
 
 ## Answering
 
-The default answer generator is extractive. If retrieved support is weak, it returns:
+OpenAI-protocol generation with a citation-anchored prompt (`[1][2]`),
+LaTeX-aware formatting, and design-vs-prototype guardrails. Live tools
+the model may call: `search_indico_events`, `lookup_person`,
+`search_zenodo` (forced on round 1 for obviously time-sensitive /
+person queries; static context withheld in those cases). Tool rounds are
+capped; per-tool latency is recorded. `/query/stream` emits SSE:
+`citations` (at retrieval speed) → `delta` per token → `done` with the
+final aligned answer + citations. After generation, cited sources are
+reordered to the front and `[N]` markers remapped. Answers, tokens,
+cost, latency and confidence (raw top cosine) land in `query_logs`; an
+in-memory LRU+TTL cache serves repeats and is bypassed for
+time-sensitive queries and eval traffic.
 
-> I couldn't find enough support in the indexed sources.
+## Evaluation
 
-It still returns best matching citations so users can inspect the nearest evidence.
+`app/eval/golden.yaml` → runner (`eval_mode` bypasses cache + logs) →
+per-case retrieval metrics (nDCG@k, precision@k, hit@k, MRR, latency),
+answer checks (expected substrings, citation-marker validity),
+LLM-as-a-judge (relevance / faithfulness / completeness) → `eval_runs`
+table → `/admin/eval` dashboard (trends, per-case detail, golden dataset
+view, failing-cases worklist with one-click re-run).
 
-## Deployment Shape
+`app/eval/sweep.py` adds the configuration study: the same benchmark
+replayed through alternative pipelines (v0 baseline, each upgrade, top_k,
+reranker, embedding model, generation model) built by copying `Settings`
+and flipping `HybridRetriever` ablation switches. One `eval_runs` row per
+sweep (`config.kind="sweep"`), charted on the same dashboard, with
+bootstrap CIs and paired-bootstrap significance from `app/eval/metrics.py`.
 
-The local stack is Docker Compose with `api`, `postgres`, and `qdrant`. The same containers can be deployed cheaply on a VM or container platform. Scheduled reindexing can be done by calling `/admin/reindex` from cron or GitHub Actions.
+## Access control
+
+`require_admin` guards all mutating endpoints. Modes: open (dev), shared
+token, GitHub PAT org-membership check, or full GitHub OAuth SSO with
+HMAC-signed session cookies — org membership is the ACL in both GitHub
+modes. Public query endpoints are rate-limited per client IP.
+
+## Deployment shape
+
+Docker Compose: `api` + `postgres` + `qdrant`; `docker-compose.gpu.yml`
+overlays CUDA. Scheduled freshness via cron hitting the Make targets
+(see README). The public widget on eic.github.io talks to `/query/stream`
+with a plain-`/query` fallback; CORS pins the allowed origins.

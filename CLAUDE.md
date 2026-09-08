@@ -52,7 +52,7 @@ Python 3.12 FastAPI application for EIC-ecosystem semantic search with hybrid re
 ```
 API Layer        app/api/routes.py          FastAPI endpoints
 Service Layer    app/services/              QueryService, QueryCache, analytics, factory
-Retrieval        app/retrieval/             HybridRetriever, rerank, query_rewrite, parent_expand
+Retrieval        app/retrieval/             HybridRetriever, rerank, lexical, qdrant_store
 Ingestion        app/ingestion/             Per-source connectors + orchestrator
 LLM Providers    app/llm/                   Embedding + generation (pluggable)
 Data Access      app/db/session.py          SQLAlchemy sessions
@@ -66,24 +66,31 @@ Config           app/core/config.py         Pydantic settings from env
 `POST /query` → `QueryService.query()`:
 
 1. **Cache probe**: if the (query, scope, top_k, generate_answer, filters) tuple is cached within TTL, return immediately.
-2. **Query rewrite** (optional): mini-LLM produces paraphrase variants for short queries; LRU-cached.
+2. **Acronym expansion**: domain acronyms (TDR, SVT, …) add an expanded query variant.
 3. **Hybrid retrieve**: `HybridRetriever.search()` runs lexical (Postgres FTS) and vector (Qdrant + MiniLM) **in parallel**, fuses with 0.62·vec + 0.38·lex, applies freshness + instructional boosts, dedupes.
 4. **Rerank** (optional): local cross-encoder, thread-pool with timeout fallback.
-5. **Parent expansion** (optional, md-scoped): replaces hits with their heading-section parent.
 6. **Answer generation**: OpenAI chat completions with citation-anchored prompt (`[1][2]`). Falls back to extractive generator on error.
 7. **QueryLog + cache insert** for analytics.
+
+`POST /query/stream` is the SSE variant (used for perceived speed): emits a `citations` event as soon as retrieval returns, `delta` events per answer fragment, then `done` with the final aligned answer + citations. Same cache/log semantics via the shared `QueryService._finalize`.
 
 ### Ingestion flow
 
 `POST /ingest/run` → `IngestionOrchestrator.run()` → connector yields `DocumentPayload` items → `HeadingAwareChunker` splits → chunks saved to PostgreSQL → embedded and stored in Qdrant → job/state tables updated. Content-hash idempotency: unchanged documents skip re-embedding. `reset_query_cache()` fires on any content change.
 
-**Six connectors** (`source_name` → class):
+**Connectors** (`source_name` → class):
 
-- `eic_website` / `eicug_website` / `bnl_wiki_epic` → `WebsiteCrawler` (same class, per-source config)
+- `eic_website` / `eicug_website` / `bnl_wiki_epic` → `WebsiteCrawler` (same class, per-source config; trafilatura extraction with bs4 fallback)
 - `epic_internal` → `EpicInternalCrawler` (auth-aware subclass)
 - `eic_github_repo` → `GitHubRepoConnector` (single repo)
 - `eic_github_org` → `GitHubOrgConnector` (all public repos in an org, markdown only)
-- `zenodo_epic` → `ZenodoConnector` (metadata + PDF text extraction via pypdf)
+- `zenodo_epic` → `ZenodoConnector` (metadata + PDF text via PyMuPDF/pypdf)
+- `inspire_hep` → `InspireHepConnector` (INSPIRE-HEP literature; authors + ORCID feed the people graph)
+- `arxiv_eic` → `ArxivConnector` (arXiv preprints, metadata + abstract)
+- `indico_events` → `IndicoEventsConnector` (event agendas + attached slide/minutes PDFs)
+- `eic_github_issues` → `GitHubIssuesConnector` (issue threads incl. comments; needs `GITHUB_TOKEN`)
+- `eic_github_releases` → `GitHubReleasesConnector` (release notes / changelogs)
+- `eic_github_discussions` → `GitHubDiscussionsConnector` (Q&A threads via GraphQL; `GITHUB_TOKEN` required)
 
 ### Pluggable providers
 
@@ -91,10 +98,19 @@ Built in `app/services/factory.py`:
 
 | Provider | Env var | Default | Alternatives |
 |---|---|---|---|
-| Embedding | `EMBEDDING_PROVIDER` | `sentence_transformers` (free, 384-d MiniLM) | `hashing`, `http`, `tei` |
-| Generation | `GENERATION_PROVIDER` | `extractive` | `openai`, `http` |
+| Embedding | `EMBEDDING_PROVIDER` | `sentence_transformers` (MiniLM or bge-m3) | — |
+| Generation | `GENERATION_PROVIDER` | `extractive` | `openai` (incl. any OpenAI-compatible server) |
 | Reranker | `RERANK_PROVIDER` | `none` | `cross_encoder` |
-| Query rewrite | `QUERY_REWRITE_PROVIDER` | `none` | `openai` |
+
+### Evaluation harness
+
+`make eval` (or `make eval-retrieval` for the free 10-second variant) runs the golden set in [profiles/eic/golden.yaml](profiles/eic/golden.yaml) through the live stack with `eval_mode=true` (bypasses cache + analytics log). Per-case retrieval metrics (hit@k, MRR, vector score, latency) + answer checks + LLM-as-a-judge scores (relevance/faithfulness/completeness) land in the `eval_runs` table; dashboard at `/admin/eval`. **Run it after any retrieval/prompt/model change** and add a golden case whenever a real query fails.
+
+`make sweep` runs the **configuration study** ([app/eval/sweep.py](app/eval/sweep.py)): the same golden set replayed through alternative pipelines — the reconstructed v0 baseline (MiniLM-384 index, weighted fusion, no reranker), each upgrade added one at a time, several `top_k` values, reranker settings, embedding models, and (opt-in) generation models. Arms are built by copying `Settings` and flipping the `HybridRetriever` ablation switches (`fusion`, `expand_queries`, `dedupe`, `boosts`), so no restart or re-index is needed; the 384-d MiniLM collection is kept in Qdrant precisely to keep that arm runnable. Results land in one `eval_runs` row with `config.kind="sweep"` (filtered out of the normal runs list) and render as charts on `/admin/eval`. Metrics live in [app/eval/metrics.py](app/eval/metrics.py): nDCG@k / precision@k / success@k, bootstrap 95% CIs, and paired-bootstrap p-values against each block's control.
+
+### Admin auth
+
+Mutating endpoints (`/ingest/run`, `/admin/reindex`, `/people/refresh`, `/eval/run`) are guarded by `require_admin` ([app/api/auth.py](app/api/auth.py)). `ADMIN_AUTH_MODE`: `none` (dev), `token` (shared `ADMIN_TOKEN`), or `github_org` — callers authenticate with their own GitHub PAT and must be an active member of `ADMIN_GITHUB_ORG` (default `eic`).
 
 ### Visibility / permission model
 

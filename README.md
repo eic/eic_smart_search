@@ -1,129 +1,167 @@
 # EIC Smart Search
 
-AI-powered search across the EIC documentation ecosystem. Fuses lexical +
-vector retrieval over 1500+ documents from 6 sources, generates grounded
-LLM answers with inline citations, ships a drop-in widget for
-[eic.github.io](https://eic.github.io).
+AI search for the EIC / ePIC ecosystem. Hybrid retrieval (Postgres FTS +
+Qdrant vectors, RRF fusion, GPU cross-encoder rerank) over 11 sources,
+streamed LLM answers with inline citations, a live meeting / people /
+publication tool layer, a built-in evaluation harness, and a drop-in
+widget for [eic.github.io](https://eic.github.io).
 
 ## What's indexed
 
 | Source | Connector | Scope |
 | --- | --- | --- |
-| `eic_website` | `WebsiteCrawler` | [eic.github.io](https://eic.github.io) |
+| `eic_website` | `WebsiteCrawler` | [eic.github.io](https://eic.github.io) (trafilatura extraction) |
 | `eicug_website` | `WebsiteCrawler` | [www.eicug.org](https://www.eicug.org) |
 | `bnl_wiki_epic` | `WebsiteCrawler` | [wiki.bnl.gov/EPIC/](https://wiki.bnl.gov/EPIC/), MediaWiki-aware |
 | `epic_internal` | `EpicInternalCrawler` | [www.epic-eic.org](https://www.epic-eic.org/index-internal.html) |
-| `eic_github_org` | `GitHubOrgConnector` | All public repos under [github.com/eic](https://github.com/orgs/eic/repositories), markdown only |
-| `zenodo_epic` | `ZenodoConnector` | [Zenodo ePIC community](https://zenodo.org/communities/epic), includes PDF text extraction |
+| `eic_github_repo` | `GitHubRepoConnector` | Single repo (eic.github.io sources) |
+| `eic_github_org` | `GitHubOrgConnector` | All public repos under [github.com/eic](https://github.com/orgs/eic/repositories), markdown |
+| `eic_github_issues` | `GitHubIssuesConnector` | Issue threads incl. comments (real user Q&A) |
+| `eic_github_releases` | `GitHubReleasesConnector` | Release notes / changelogs |
+| `eic_github_discussions` | `GitHubDiscussionsConnector` | Discussions Q&A (GraphQL; activates when repos enable it) |
+| `zenodo_epic` | `ZenodoConnector` | [Zenodo ePIC community](https://zenodo.org/communities/epic) + PDF text (PyMuPDF) |
+| `inspire_hep` | `InspireHepConnector` | INSPIRE-HEP literature; authors + ORCID feed the people graph |
+| `arxiv_eic` | `ArxivConnector` | arXiv preprints (metadata + abstract, freshness source) |
+| `indico_events` | `IndicoEventsConnector` | Meeting agendas + attached slide/minutes **PDFs** |
 
-## Architecture
-
-```text
-             ┌──────────────┐     ┌───────────┐
-             │  Ingestion   │────▶│ Postgres  │ (full-text, chunks, docs, analytics)
-             │ Orchestrator │     └───────────┘
-             └──────┬───────┘     ┌───────────┐
-                    │             │  Qdrant   │ (vectors)
-                    └────────────▶└───────────┘
-                                       │
-┌────────────────┐     ┌───────────┐   │
-│  Smart-search  │────▶│  /query   │───┴──▶  Hybrid retriever:
-│  widget (JS)   │     │  endpoint │         lexical || vector → fuse
-│  on            │     └─────┬─────┘                  │
-│  eic.github.io │           │                        ▼
-└────────────────┘           ▼                  Rerank (optional)
-                      QueryService:                   │
-                      cache hit? ──▶ return           ▼
-                         │  miss                Parent-expand (md)
-                         ▼                            │
-                      rewriter ──── mini LLM          ▼
-                         │                       AnswerGenerator
-                         ▼                       (gpt-5.4-nano)
-                      retrieve + rerank ──────────────┤
-                                                      ▼
-                                       QueryResponse  (answer + citations + debug)
-```
-
-### Key components
-
-- [`app/retrieval/hybrid.py`](app/retrieval/hybrid.py) — weighted fusion (vector 0.62 + lexical 0.38), parallel lexical|vector via thread pool, boosts for freshness + instructional intent, dedup
-- [`app/retrieval/rerank.py`](app/retrieval/rerank.py) — optional local cross-encoder with timeout fallback
-- [`app/retrieval/query_rewrite.py`](app/retrieval/query_rewrite.py) — LLM-based paraphrase expansion (short queries only), LRU-cached
-- [`app/retrieval/parent_expand.py`](app/retrieval/parent_expand.py) — markdown-scoped heading-tree expansion
-- [`app/llm/generation.py`](app/llm/generation.py) — OpenAI chat completions with citation-anchored prompt, cost tracking, fallback to extractive on error
-- [`app/services/query_cache.py`](app/services/query_cache.py) — LRU + TTL cache, auto-invalidated on ingest
-- [`app/services/analytics.py`](app/services/analytics.py) — `/admin/analytics` + public `/popular` endpoints
+Live LLM tools (no index round-trip): `search_indico_events` (upcoming
+meetings), `lookup_person` (people graph: affiliations, ORCID, recent
+talks/papers), `search_zenodo` (fresh records beyond the snapshot).
 
 ## Quick start
 
 ```bash
-cp .env.example .env
-# Fill in OPENAI_API_KEY if you want LLM answers; otherwise leave
-# GENERATION_PROVIDER=extractive for local-only mode.
-make up            # brings up postgres, qdrant, api
-make migrate       # alembic upgrade head
-curl -X POST http://localhost:8000/ingest/run \
-     -H 'content-type: application/json' \
-     -d '{"source_names":["eic_website","eicug_website","bnl_wiki_epic","epic_internal","zenodo_epic","eic_github_org"]}'
+cp .env.example .env      # set OPENAI_API_KEY, or keep extractive local mode
+make up                   # CPU-only; make up-gpu for CUDA embeddings + rerank
+make migrate
+curl http://localhost:8000/ready
+make ingest               # sample crawl; see "Keeping the index fresh" below
+make query
 ```
 
-Then query:
+API at `http://localhost:8000`. Dashboards: `/admin/dashboard`
+(analytics), `/admin/eval` (evaluation).
+
+## Query API
 
 ```bash
-curl -X POST http://localhost:8000/query \
-     -H 'content-type: application/json' \
-     -d '{"query":"what are Rucio metadata tags?","top_k":5,"generate_answer":true}' | jq
+# JSON, single response
+curl -X POST localhost:8000/query -H 'Content-Type: application/json' \
+  -d '{"query":"How do I run simulation tutorials?","scope":"public","top_k":8,"generate_answer":true}'
+
+# Server-Sent Events: citations arrive at retrieval speed (~0.5 s),
+# answer streams token by token, final event carries aligned citations.
+curl -N -X POST localhost:8000/query/stream -H 'Content-Type: application/json' -d '{...}'
 ```
 
-## Frontend integration
+Flow: cache probe → hybrid retrieve (lexical FTS with AND→OR fallback ∥
+vector, acronym expansion, RRF fusion, freshness/instructional boosts,
+test-beam demotion, cross-source dedup by DOI/arXiv/title) →
+cross-encoder rerank → answer generation with tool calls → citation
+alignment → query log + cache.
 
-A production patch for `eic.github.io` is maintained separately (not in this
-repo). It replaces the navbar Lunr search with this backend while keeping
-the static index as fallback.
+## Evaluation — run after every change
 
-## Providers & config
+```bash
+make eval LABEL=after-my-change   # golden set + retrieval metrics + LLM judge (~2 min)
+make eval-retrieval               # retrieval-only, free, ~10 s
+make sweep                        # configuration study (ablation), background, ~20 min
+```
 
-All pluggable, set via `.env` (see `.env.example` for the full list).
+Golden set lives in `profiles/<profile>/golden.yaml` — **add a case whenever a
+real query fails**. Results land in the `eval_runs` table; `/admin/eval`
+shows metric trends, per-case detail, the golden dataset, and a standing
+**failing-cases worklist** with one-click re-run (e.g. after switching
+generation model). Eval traffic runs with `eval_mode=true` — it never
+touches the response cache or analytics.
 
-| Concern | Default | Alternatives |
-| --- | --- | --- |
-| Embeddings | `sentence_transformers` (free, CPU, 384-d MiniLM) | `http`, `tei`, `hashing` |
-| Generation | `openai` (gpt-5.4-nano) | `extractive` (free, no LLM), `http` (generic POST adapter) |
-| Reranker | `none` | `cross_encoder` (BAAI/bge-reranker-base, local, free) |
-| Query rewrite | `openai` (2 paraphrase variants for short queries) | `none` |
-| Cache | in-memory LRU, 500 entries, 1h TTL | `QUERY_CACHE_ENABLED=false` to disable |
+`make sweep` answers the other question — *which decision bought which
+point*. It replays the same benchmark through the reconstructed v0
+baseline (MiniLM-384 index, weighted fusion, no reranker), then each
+upgrade one at a time, plus `top_k`, reranker, embedding-model and
+(opt-in) generation-model variants. Every arm reports nDCG@5 with a
+bootstrap 95% CI and a paired-bootstrap p-value against its control, so
+improvements are separated from noise. Charts render on `/admin/eval`;
+method notes in [docs/EVALUATION.md](docs/EVALUATION.md).
 
-## Observability
+## Access control
 
-- `GET /admin/analytics?window_days=7` — top queries, zero-result queries,
-  low-confidence queries, recent low-rated feedback, cost + p50/p95 latency
-- `GET /popular?window_days=7&limit=5` — public sanitized popular list,
-  consumed by the frontend widget for empty-state suggestions
-- `POST /feedback` — user ratings, joined with `query_logs` for eval
+`ADMIN_AUTH_MODE` guards mutating endpoints (`/ingest/run`,
+`/admin/reindex`, `/people/refresh`, `/eval/run`):
+
+- `none` — open (local dev default)
+- `token` — shared `ADMIN_TOKEN` bearer secret
+- `github_org` — callers use their own GitHub PAT (`read:org`); active
+  membership in `ADMIN_GITHUB_ORG` is the ACL
+- `github_sso` — **"Sign in with GitHub"** browser flow (register an
+  OAuth App, set `GITHUB_OAUTH_CLIENT_ID/SECRET` + `ADMIN_SESSION_SECRET`);
+  7-day signed session cookie; PATs still work for curl/Make
+
+Public endpoints (`/query`, `/query/stream`, `/popular`) are rate-limited
+per client IP (`QUERY_RATE_LIMIT_PER_MINUTE`).
+
+## Keeping the index fresh
+
+```bash
+make refresh-all          # every source + people graph, sequentially
+```
+
+Cron example (host with the stack running):
+
+```cron
+# crawl websites + github nightly, papers + indico + people weekly, eval weekly
+15 3 * * *  cd /path/to/eic_smart_search && make ingest-full ingest-issues >/dev/null
+30 4 * * 0  cd /path/to/eic_smart_search && make ingest-papers ingest-indico people-refresh >/dev/null
+0  6 * * 0  cd /path/to/eic_smart_search && make eval LABEL=weekly >/dev/null
+# monthly FULL website reindex: incremental crawls never delete pages that
+# vanished from the site (e.g. tutorial URL-format changes leave dead links)
+0  5 1 * *  cd /path/to/eic_smart_search && make reindex >/dev/null
+```
+
+Content-hash idempotency makes re-runs cheap: unchanged documents skip
+re-embedding, and the response cache resets automatically when content
+changes.
+
+## Local / private LLM
+
+Any OpenAI-compatible server works — no code changes:
+
+```bash
+# e.g. vLLM on the same GPU box
+vllm serve Qwen/Qwen3-32B-AWQ --port 8001
+# .env
+GENERATION_PROVIDER=openai
+OPENAI_BASE_URL=http://host.docker.internal:8001/v1
+OPENAI_GENERATION_MODEL=Qwen/Qwen3-32B-AWQ
+```
+
+Then `make eval LABEL=qwen3-32b` and compare runs on `/admin/eval` —
+the judge scores answer the "is local good enough?" question with data.
 
 ## Development
 
 ```bash
-make test         # pytest — 55 tests as of this commit
-make lint         # ruff
-make format       # ruff format
+make test        # pytest inside the api container
+make lint        # ruff
+make format
+docker compose run --rm api pytest app/tests/test_query_service.py -v
 ```
 
-Key tests:
+See `CLAUDE.md` for the layer map and `ARCHITECTURE.md` for the data
+flow. Migrations: `docker compose run --rm api alembic revision
+--autogenerate -m "..."` after model changes.
 
-- [`test_query_service.py`](app/tests/test_query_service.py) — scope isolation + cache-hit end-to-end
-- [`test_query_cache.py`](app/tests/test_query_cache.py) — LRU, TTL, singleton
-- [`test_rerank.py`](app/tests/test_rerank.py) — promotion, timeout, error fallback
-- [`test_ingestion_regressions.py`](app/tests/test_ingestion_regressions.py) — regression suite for the bugs we hit during multi-source rollout (NUL bytes, YAML dates, MediaWiki URL filters, short-content link extraction, epic_internal source_name)
-- [`test_query_rewrite.py`](app/tests/test_query_rewrite.py) — paraphrase parsing, caching, error fallback
-- [`test_parent_expand.py`](app/tests/test_parent_expand.py) — markdown scope, dedup, token budget
+## Deployment notes
 
-## Known limitations
-
-- **`sentence-transformers` meta-tensor issue on some PyTorch 2.6 hosts** — reranker `bge-reranker-base` can fail to load on first call; the timeout fallback (3s) catches it and returns unreranked. Workaround: bump `RERANK_TIMEOUT_S` or disable rerank entirely.
-- **PDF extraction is best-effort** — `pypdf` copes with most Zenodo uploads but occasionally returns partial text on heavily-encoded/scanned PDFs.
-- **Cache is in-memory, not shared across workers** — run a single uvicorn worker or accept cache misses across worker boundaries.
-
-## License
-
-Apache 2.0 — see [LICENSE](LICENSE).
+- Single API container + PostgreSQL 16 + Qdrant. `docker-compose.gpu.yml`
+  adds CUDA (embeddings + rerank ~10× faster).
+- The public widget (`assets/js/smart-search.js` in the eic.github.io
+  repo) needs only `search.backend_url` in `_config.yml` pointed at this
+  API; CORS origins via `CORS_ALLOW_ORIGINS`.
+- Behind a proxy/tunnel set `PUBLIC_BASE_URL` so OAuth redirects and
+  cookie security resolve correctly.
+- **Memory**: keep `/ready` probes pointed at the singleton (never build a
+  fresh embedding provider per request — a 2 GB model per probe reads as a
+  memory leak). Heavy full reindexes run inside the API worker and briefly
+  saturate it; prefer running them off-peak (cron) and treat multi-GB RSS
+  during ingest as transient, not a leak.

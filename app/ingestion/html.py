@@ -34,7 +34,12 @@ NOISE_SELECTORS = [
 ]
 
 
-def extract_html(html: str, url: str, last_modified_header: str | None = None) -> ExtractedHtml:
+def extract_html(
+    html: str,
+    url: str,
+    last_modified_header: str | None = None,
+    prefer_trafilatura: bool = True,
+) -> ExtractedHtml:
     soup = BeautifulSoup(html, "html.parser")
     title = _title(soup, url)
     breadcrumbs = _breadcrumbs(soup)
@@ -63,6 +68,17 @@ def extract_html(html: str, url: str, last_modified_header: str | None = None) -
         else:
             blocks.append(text)
     content = "\n\n".join(_dedupe_adjacent(blocks))
+    # trafilatura is markedly better at boilerplate removal on generic
+    # pages. Its markdown output keeps `#` headings, which the
+    # HeadingAwareChunker relies on. Feed it the already noise-stripped
+    # soup so NOISE_SELECTORS removal applies on both paths. The bs4 walk
+    # above stays as the fallback (and the headings/links/breadcrumbs
+    # source of truth): trafilatura sometimes drops code-heavy tutorial
+    # bodies, so only prefer it when it kept a comparable amount of content.
+    if prefer_trafilatura:
+        traf_content = _trafilatura_markdown(str(soup), url)
+        if traf_content and len(traf_content) >= 0.5 * len(content):
+            content = traf_content
     return ExtractedHtml(
         title=title,
         content=content,
@@ -71,6 +87,26 @@ def extract_html(html: str, url: str, last_modified_header: str | None = None) -
         links=links,
         last_updated=_parse_http_date(last_modified_header),
     )
+
+
+def _trafilatura_markdown(html: str, url: str) -> str:
+    try:
+        import trafilatura  # type: ignore[import-not-found]
+    except ImportError:
+        return ""
+    try:
+        out = trafilatura.extract(
+            html,
+            url=url,
+            output_format="markdown",
+            include_tables=True,
+            include_formatting=True,
+            include_links=False,
+            favor_recall=True,
+        )
+    except Exception:
+        return ""
+    return (out or "").strip()
 
 
 def _title(soup: BeautifulSoup, url: str) -> str:

@@ -22,6 +22,16 @@ def _parse_prefixes(raw: str | list[str] | None) -> tuple[str, ...]:
     return tuple(item.rstrip("/") + "/" for item in items if item)
 
 
+def _parse_substrings(raw: str | list[str] | None) -> tuple[str, ...]:
+    if not raw:
+        return ()
+    if isinstance(raw, list):
+        items = raw
+    else:
+        items = [item.strip() for item in str(raw).split(",") if item.strip()]
+    return tuple(items)
+
+
 class WebsiteCrawler:
     """BFS crawler for a single-origin HTML site.
 
@@ -40,6 +50,7 @@ class WebsiteCrawler:
         start_url: str | None = None,
         max_pages: int | None = None,
         exclude_prefixes: str | list[str] | None = None,
+        exclude_path_contains: str | list[str] | None = None,
         allowed_path_prefix: str | None = None,
         visibility: str = "public",
     ) -> None:
@@ -60,6 +71,13 @@ class WebsiteCrawler:
             exclude_prefixes
             if exclude_prefixes is not None
             else getattr(settings, "EIC_SITE_EXCLUDE_PREFIXES", "")
+        )
+        # Substring matches anywhere in the path. Prefix-only matching can't
+        # catch patterns like /tutorial-*/aio/ that repeat under each tutorial.
+        self.exclude_path_contains = _parse_substrings(
+            exclude_path_contains
+            if exclude_path_contains is not None
+            else getattr(settings, "EIC_SITE_EXCLUDE_PATH_CONTAINS", "")
         )
 
     def iter_documents(self, max_items: int | None = None) -> list[DocumentPayload]:
@@ -91,6 +109,9 @@ class WebsiteCrawler:
                     response.text,
                     str(response.url),
                     response.headers.get("last-modified"),
+                    prefer_trafilatura=bool(
+                        getattr(self.settings, "WEB_EXTRACT_TRAFILATURA", True)
+                    ),
                 )
                 for link in extracted.links:
                     next_url = self._canonicalize(link)
@@ -137,6 +158,8 @@ class WebsiteCrawler:
         if self.allowed_path_prefix and not normalized_path.startswith(self.allowed_path_prefix):
             return None
         if self.exclude_prefixes and any(normalized_path.startswith(prefix) for prefix in self.exclude_prefixes):
+            return None
+        if self.exclude_path_contains and any(needle in normalized_path for needle in self.exclude_path_contains):
             return None
         # MediaWiki produces many non-content URL variants of the same page
         # (?action=edit, ?action=history, &oldid=, etc.) — skip those. Also

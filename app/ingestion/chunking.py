@@ -37,6 +37,17 @@ class HeadingAwareChunker:
             if not text:
                 buffer = []
                 return
+            # Contextual prefix: without it, a mid-document chunk (e.g. a
+            # parameter table) carries no hint of WHICH document it belongs
+            # to — embeddings, FTS and the cross-encoder then confuse
+            # identically-shaped chunks across sibling pages (real failure:
+            # an nHCal clustering question answered with the ZDC's values).
+            title = " ".join((document.title or "").split())
+            if title and title.lower() not in text[:160].lower():
+                headings = [h for h in buffer_heading_path if h and h != title]
+                tail = " › ".join(headings[-2:])
+                context = f"[{title}" + (f" § {tail}" if tail else "") + "]"
+                text = f"{context}\n{text}"
             chunks.append(
                 ChunkPayload(
                     chunk_index=len(chunks),

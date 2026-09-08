@@ -1,9 +1,8 @@
-"""Crawl every public repo in a GitHub org for Markdown/RST docs only.
+"""Crawl every public repo in a GitHub org for entry-point docs only.
 
-Intentionally excludes source code: we use the same file-name filter as
-`GitHubRepoConnector` (TEXT_EXTENSIONS + SKIP rules) but scoped to `.md`,
-`.markdown`, `.rst`, and `CHANGELOG`/`CONTRIBUTING` files. Per-repo budget
-keeps one large repo from starving the others.
+Intentionally excludes source code: only the root README and docs
+index pages are indexed (see `_should_index`). Per-repo budget keeps
+one large repo from starving the others.
 """
 from __future__ import annotations
 
@@ -24,18 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 ORG_TEXT_EXTENSIONS = {".md", ".markdown", ".mdown", ".rst"}
-ORG_SKIP_PATH_PARTS = {
-    ".git",
-    ".github",
-    "_site",
-    "vendor",
-    "node_modules",
-    "__pycache__",
-    "third_party",
-    "external",
-}
-ORG_SKIP_SUFFIXES = (".lock",)
-# Per-repo cap so one mega-repo with 500 mardown pages can't blow the budget.
+# Per-repo cap so one mega-repo with 500 markdown pages can't blow the budget.
 MAX_DOCS_PER_REPO = 60
 
 
@@ -215,16 +203,19 @@ class GitHubOrgConnector:
         return base64.b64decode(encoded).decode("utf-8", errors="replace")
 
     def _should_index(self, path: str) -> bool:
-        lowered = path.lower()
-        if lowered.endswith(ORG_SKIP_SUFFIXES):
-            return False
-        if any(part in lowered for part in ORG_SKIP_PATH_PARTS):
-            return False
-        name = PurePosixPath(path).name.lower()
-        if name in {"license", "license.md", "license.txt", "code_of_conduct.md"}:
-            return False
+        # Only the canonical project description: root README + the top-level
+        # docs landing page. Everything else (CHANGELOG, CONTRIBUTING, tutorial
+        # _episodes, boilerplate, nested docs) is excluded.
         suffix = PurePosixPath(path).suffix.lower()
-        return suffix in ORG_TEXT_EXTENSIONS
+        if suffix not in ORG_TEXT_EXTENSIONS:
+            return False
+        parts = PurePosixPath(path).parts
+        stem = PurePosixPath(path).stem.lower()
+        if len(parts) == 1 and stem == "readme":
+            return True
+        if len(parts) == 2 and parts[0].lower() == "docs" and stem in {"index", "readme"}:
+            return True
+        return False
 
     def _normalize_content(self, path: str, content: str) -> tuple[str, dict[str, Any]]:
         front_matter: dict[str, Any] = {}

@@ -8,6 +8,9 @@ from typing import Any
 import httpx
 import yaml
 
+from app.core.config import Settings
+from app.ingestion.base import DocumentPayload
+
 
 def _json_safe(value: Any) -> Any:
     if isinstance(value, dict):
@@ -17,9 +20,6 @@ def _json_safe(value: Any) -> Any:
     if isinstance(value, (dt.datetime, dt.date)):
         return value.isoformat()
     return value
-
-from app.core.config import Settings
-from app.ingestion.base import DocumentPayload
 
 logger = logging.getLogger(__name__)
 
@@ -44,11 +44,27 @@ class GitHubRepoConnector:
     source_type = "github_repo"
     visibility = "public"
 
-    def __init__(self, settings: Settings) -> None:
+    def __init__(
+        self,
+        settings: Settings,
+        *,
+        source_name: str | None = None,
+        owner: str | None = None,
+        repo: str | None = None,
+        ref: str | None = None,
+        path_prefix: str = "",
+    ) -> None:
+        """Defaults index the settings-configured docs repo; keyword overrides
+        let the orchestrator point extra sources at other repos (EICrecon
+        docs/, the knowledge-guide repo, ...) without new connector classes.
+        ``path_prefix`` restricts indexing to one subtree (e.g. "docs/")."""
         self.settings = settings
-        self.owner = settings.GITHUB_REPO_OWNER
-        self.repo = settings.GITHUB_REPO_NAME
-        self.ref = settings.GITHUB_REPO_REF
+        if source_name:
+            self.source_name = source_name
+        self.owner = owner or settings.GITHUB_REPO_OWNER
+        self.repo = repo or settings.GITHUB_REPO_NAME
+        self.ref = ref or settings.GITHUB_REPO_REF
+        self.path_prefix = path_prefix
         self.api_base = f"https://api.github.com/repos/{self.owner}/{self.repo}"
 
     def iter_documents(self, max_items: int | None = None) -> list[DocumentPayload]:
@@ -135,6 +151,8 @@ class GitHubRepoConnector:
 
     def _should_index(self, path: str) -> bool:
         lowered = path.lower()
+        if self.path_prefix and not path.startswith(self.path_prefix):
+            return False
         if lowered.endswith(SKIP_SUFFIXES):
             return False
         if any(part in lowered for part in SKIP_PATH_PARTS):

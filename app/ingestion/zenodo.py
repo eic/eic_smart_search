@@ -6,13 +6,13 @@ one document per record. Each document contains:
   - Authors, publication date, keywords, resource type, DOI
   - Extracted PDF text (capped) when the record has a PDF file
 
-PDF text extraction uses ``pypdf`` — pure Python, no native deps. PDFs above
-``ZENODO_PDF_MAX_BYTES`` are skipped (metadata still indexed). Extracted text
-is truncated to ``ZENODO_PDF_MAX_CHARS`` characters to keep chunks sane.
+PDF text extraction uses PyMuPDF with a pypdf fallback (see
+``app.ingestion.pdf_text``). PDFs above ``ZENODO_PDF_MAX_BYTES`` are skipped
+(metadata still indexed). Extracted text is truncated to
+``ZENODO_PDF_MAX_CHARS`` characters to keep chunks sane.
 """
 from __future__ import annotations
 
-import io
 import logging
 import re
 from datetime import datetime
@@ -23,6 +23,8 @@ import httpx
 
 from app.core.config import Settings
 from app.ingestion.base import DocumentPayload
+from app.ingestion.pdf_text import extract_pdf_text
+from app.ingestion.safe_fetch import BlockedURLError, safe_get
 
 logger = logging.getLogger(__name__)
 
@@ -249,46 +251,12 @@ class ZenodoConnector:
         if size and size > self.pdf_max_bytes:
             return "", {"key": key, "size": size, "skipped": "too-large", "max_bytes": self.pdf_max_bytes}
         try:
-            response = client.get(download_url, follow_redirects=True, timeout=60)
+            response = safe_get(client, download_url, timeout=60)
             response.raise_for_status()
+        except BlockedURLError as exc:
+            return "", {"key": key, "size": size, "skipped": "blocked-url", "error": str(exc)[:200]}
         except httpx.HTTPError as exc:
             return "", {"key": key, "size": size, "skipped": "download-failed", "error": str(exc)[:200]}
 
-        try:
-            from pypdf import PdfReader  # type: ignore[import-not-found]
-        except ImportError:
-            return "", {"key": key, "size": size, "skipped": "pypdf-missing"}
-
-        try:
-            reader = PdfReader(io.BytesIO(response.content))
-        except Exception as exc:
-            return "", {"key": key, "size": size, "skipped": "pdf-parse-failed", "error": str(exc)[:200]}
-
-        chunks: list[str] = []
-        char_budget = self.pdf_max_chars
-        pages_read = 0
-        for page in reader.pages:
-            if char_budget <= 0:
-                break
-            try:
-                text = page.extract_text() or ""
-            except Exception:
-                text = ""
-            if not text:
-                continue
-            pages_read += 1
-            if len(text) > char_budget:
-                chunks.append(text[:char_budget])
-                char_budget = 0
-            else:
-                chunks.append(text)
-                char_budget -= len(text)
-        full = _sanitize_text("\n\n".join(chunks))
-        return full, {
-            "key": key,
-            "size": size,
-            "total_pages": len(reader.pages),
-            "pages_extracted": pages_read,
-            "chars_extracted": len(full),
-            "truncated": char_budget <= 0 and len(full) >= self.pdf_max_chars,
-        }
+        text, meta = extract_pdf_text(response.content, max_chars=self.pdf_max_chars)
+        return text, {"key": key, "size": size, **meta}

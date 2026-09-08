@@ -26,7 +26,7 @@ def _percentile(db: Session, column, since: datetime, percentile: float) -> int 
 
 
 def build_analytics(db: Session, window_days: int = 7, limit: int = 20) -> AnalyticsResponse:
-    window_days = max(1, min(window_days, 90))
+    window_days = max(1, min(window_days, 3650))
     limit = max(1, min(limit, 100))
     since = datetime.now(timezone.utc) - timedelta(days=window_days)
 
@@ -181,21 +181,32 @@ def build_analytics(db: Session, window_days: int = 7, limit: int = 20) -> Analy
         for row in low_conf_rows
     ]
 
+    # The widget's thumbs beacon sends only query_log_id + rating, so the
+    # query text usually lives on the joined QueryLog row, not the feedback.
     feedback_rows = db.execute(
-        select(Feedback.query, Feedback.rating, Feedback.comment, Feedback.created_at)
-        .where(Feedback.created_at >= since, Feedback.rating.isnot(None), Feedback.rating <= 2)
+        select(
+            Feedback.id,
+            func.coalesce(Feedback.query, QueryLog.query),
+            Feedback.rating,
+            Feedback.comment,
+            Feedback.created_at,
+        )
+        .join(QueryLog, QueryLog.id == Feedback.query_log_id, isouter=True)
+        .where(Feedback.created_at >= since, Feedback.rating.isnot(None))
         .order_by(desc(Feedback.created_at))
         .limit(limit)
     ).all()
-    recent_low_rated = [
+    recent_feedback = [
         AnalyticsFeedbackStat(
-            query=row[0] or "",
-            rating=int(row[1]),
-            comment=row[2],
-            created_at=row[3],
+            id=row[0],
+            query=row[1] or "",
+            rating=int(row[2]),
+            comment=row[3],
+            created_at=row[4],
         )
         for row in feedback_rows
     ]
+    recent_low_rated = [f for f in recent_feedback if f.rating <= 2]
 
     return AnalyticsResponse(
         summary=summary,
@@ -204,6 +215,7 @@ def build_analytics(db: Session, window_days: int = 7, limit: int = 20) -> Analy
         zero_result_queries=zero_result,
         low_confidence_queries=low_confidence,
         recent_low_rated=recent_low_rated,
+        recent_feedback=recent_feedback,
     )
 
 
@@ -226,7 +238,7 @@ def build_popular_queries(
     failed / zero-result phrasings never surface. Query text is capped
     at 120 chars defensively.
     """
-    window_days = max(1, min(window_days, 90))
+    window_days = max(1, min(window_days, 3650))
     limit = max(1, min(limit, 20))
     min_words = max(1, min_words)
     since = datetime.now(timezone.utc) - timedelta(days=window_days)

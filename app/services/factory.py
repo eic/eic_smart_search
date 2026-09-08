@@ -1,11 +1,11 @@
 from app.core.config import Settings, get_settings
 from app.ingestion.orchestrator import IngestionOrchestrator
 from app.llm.embeddings import build_embedding_provider
+from app.integrations.index_search import IndexSearchClient
 from app.llm.generation import build_answer_generator
 from app.retrieval.hybrid import HybridRetriever
 from app.retrieval.lexical import PostgresLexicalRetriever
 from app.retrieval.qdrant_store import QdrantVectorStore
-from app.retrieval.query_rewrite import build_query_rewriter
 from app.retrieval.rerank import build_reranker
 from app.services.query import QueryService
 from app.services.query_cache import get_query_cache
@@ -20,6 +20,12 @@ def build_vector_store(settings: Settings | None = None) -> QdrantVectorStore:
 def build_query_service(settings: Settings | None = None) -> QueryService:
     settings = settings or get_settings()
     vector_store = build_vector_store(settings)
+    try:
+        # Warm the embedding model (first encode pays CUDA kernel/init cost,
+        # ~1.5 s) at service build instead of on the first user query.
+        vector_store.embeddings.embed_query("warm up")
+    except Exception:  # pragma: no cover - warm-up must never block startup
+        pass
     retriever = HybridRetriever(
         vector_store,
         lexical=PostgresLexicalRetriever(),
@@ -30,11 +36,15 @@ def build_query_service(settings: Settings | None = None) -> QueryService:
         if getattr(settings, "QUERY_CACHE_ENABLED", True)
         else None
     )
+    index_search = (
+        IndexSearchClient(retriever, top_k=int(getattr(settings, "AGENTIC_SEARCH_TOP_K", 6)))
+        if getattr(settings, "AGENTIC_SEARCH_ENABLED", True)
+        else None
+    )
     return QueryService(
         settings,
         retriever,
-        build_answer_generator(settings),
-        query_rewriter=build_query_rewriter(settings),
+        build_answer_generator(settings, index_search_client=index_search),
         query_cache=cache,
     )
 

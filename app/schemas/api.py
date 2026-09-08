@@ -7,20 +7,28 @@ from pydantic import BaseModel, Field
 Scope = Literal["public", "internal", "all"]
 
 
-class Filters(BaseModel):
-    source_names: list[str] = Field(default_factory=list)
-    source_types: list[str] = Field(default_factory=list)
-    section: str | None = None
-    repo_path_prefix: str | None = None
-    filetypes: list[str] = Field(default_factory=list)
+class HistoryTurn(BaseModel):
+    role: Literal["user", "assistant"]
+    content: str = Field(min_length=1, max_length=4000)
 
 
 class QueryRequest(BaseModel):
     query: str = Field(min_length=1, max_length=2000)
     scope: Scope = "public"
-    filters: Filters = Field(default_factory=Filters)
+    # Previous turns of this conversation (oldest first), so follow-up
+    # questions ("what about the other one?") carry their context. Capped
+    # at 3 exchanges; history-bearing requests bypass the response cache.
+    history: list[HistoryTurn] = Field(default_factory=list, max_length=6)
     top_k: int = Field(default=8, ge=1, le=30)
     generate_answer: bool = True
+    # Evaluation harness flag: bypass the response cache (probe AND write)
+    # and skip the QueryLog so eval traffic never pollutes analytics or
+    # serves stale answers to real users. Stripped for non-admin callers
+    # (see routes._enforce_public_limits).
+    eval_mode: bool = False
+    # Eval-only: apply the cross-encoder even on retrieval-only calls so
+    # the measured ranking matches what answer generation actually sees.
+    force_rerank: bool = False
 
 
 class Citation(BaseModel):
@@ -40,48 +48,10 @@ class QueryResponse(BaseModel):
     citations: list[Citation]
     retrieval_debug: dict[str, Any] = Field(default_factory=dict)
     query_log_id: str | None = None
-
-
-class SourceRead(BaseModel):
-    id: str
-    name: str
-    source_type: str
-    base_url: str | None = None
-    visibility: str
-    enabled: bool
-    config: dict[str, Any] = Field(default_factory=dict)
-    created_at: datetime
-    updated_at: datetime
-
-    model_config = {"from_attributes": True}
-
-
-class ChunkRead(BaseModel):
-    id: str
-    chunk_index: int
-    content: str
-    heading_path: list[str] = Field(default_factory=list)
-    token_count: int
-    visibility: str
-    metadata: dict[str, Any] = Field(default_factory=dict)
-
-
-class DocumentRead(BaseModel):
-    id: str
-    source_id: str
-    external_id: str
-    source_type: str
-    source_name: str
-    title: str
-    url: str
-    repo_path: str | None = None
-    filetype: str | None = None
-    visibility: str
-    section_path: list[str] = Field(default_factory=list)
-    content_hash: str
-    last_updated: datetime | None = None
-    metadata: dict[str, Any] = Field(default_factory=dict)
-    chunks: list[ChunkRead] = Field(default_factory=list)
+    # "Who to ask" referral, set when answer confidence is low: the person
+    # most associated with the top sources (from the people graph), so a
+    # weak answer still routes the user to a human expert.
+    expert_hint: str | None = None
 
 
 class IngestRunRequest(BaseModel):
@@ -97,12 +67,12 @@ class IngestRunResponse(BaseModel):
 
 
 class FeedbackCreate(BaseModel):
+    # Older widget builds also send selected_citation_ids / metadata —
+    # pydantic ignores unknown fields, so they are simply dropped.
     query_log_id: str | None = None
     query: str | None = None
     rating: int | None = Field(default=None, ge=1, le=5)
     comment: str | None = Field(default=None, max_length=4000)
-    selected_citation_ids: list[str] = Field(default_factory=list)
-    metadata: dict[str, Any] = Field(default_factory=dict)
 
 
 class FeedbackRead(BaseModel):
@@ -150,6 +120,7 @@ class AnalyticsSummary(BaseModel):
 
 
 class AnalyticsFeedbackStat(BaseModel):
+    id: str | None = None
     query: str
     rating: int
     comment: str | None = None
@@ -163,6 +134,7 @@ class AnalyticsResponse(BaseModel):
     zero_result_queries: list[AnalyticsQueryCount] = Field(default_factory=list)
     low_confidence_queries: list[AnalyticsQueryCount] = Field(default_factory=list)
     recent_low_rated: list[AnalyticsFeedbackStat] = Field(default_factory=list)
+    recent_feedback: list[AnalyticsFeedbackStat] = Field(default_factory=list)
 
 
 class PopularQuery(BaseModel):
@@ -173,4 +145,47 @@ class PopularQuery(BaseModel):
 class PopularQueriesResponse(BaseModel):
     window_days: int
     queries: list[PopularQuery] = Field(default_factory=list)
+
+
+class PersonRefreshResponse(BaseModel):
+    counts: dict[str, int]
+
+
+class EvalRunRequest(BaseModel):
+    label: str | None = Field(default=None, max_length=200)
+    generate: bool = True
+    judge: bool = True
+    top_k: int = Field(default=8, ge=1, le=30)
+    case_ids: list[str] = Field(default_factory=list)
+
+
+class EvalPlaygroundRequest(BaseModel):
+    """One ad-hoc configuration run over the golden set (see /admin/eval).
+
+    Results are returned directly and NOT stored — the playground is for
+    trying parameter combinations before committing them to a sweep or prod.
+    """
+
+    fusion: str = Field(default="rrf", pattern="^(rrf|weighted)$")
+    expand_queries: bool = True
+    dedupe: bool = True
+    boosts: bool = True
+    rerank: str = Field(default="20", pattern=r"^(off|\d{1,3})$")
+    top_k: int = Field(default=8, ge=1, le=30)
+    generate: bool = False
+    model: str | None = Field(default=None, max_length=120)
+    llm_context_top_k: int | None = Field(default=None, ge=1, le=50)
+    max_output_tokens: int | None = Field(default=None, ge=100, le=2000)
+    case_limit: int | None = Field(default=None, ge=1, le=200)
+    case_ids: list[str] = Field(default_factory=list)
+
+
+class EvalSweepRequest(BaseModel):
+    """Configuration study: replay the golden set through alternative
+    pipelines (see app/eval/sweep.py). Runs in the background — poll
+    GET /eval/sweeps."""
+
+    label: str | None = Field(default=None, max_length=200)
+    groups: list[str] = Field(default_factory=list)
+    case_ids: list[str] = Field(default_factory=list)
 

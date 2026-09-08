@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import datetime as dt
 
-import pytest
 
 
 # ---------------------------------------------------------------------------
@@ -78,9 +77,10 @@ def _make_crawler(**kwargs):
     crawler.allowed_path_prefix = kwargs.get("allowed_path_prefix")
     if crawler.allowed_path_prefix and not crawler.allowed_path_prefix.endswith("/"):
         crawler.allowed_path_prefix = crawler.allowed_path_prefix.rstrip("/") + "/"
-    from app.ingestion.web import _parse_prefixes
+    from app.ingestion.web import _parse_prefixes, _parse_substrings
 
     crawler.exclude_prefixes = _parse_prefixes(kwargs.get("exclude_prefixes"))
+    crawler.exclude_path_contains = _parse_substrings(kwargs.get("exclude_path_contains"))
     return crawler
 
 
@@ -247,7 +247,6 @@ def test_short_content_page_still_queues_links(monkeypatch) -> None:
     queue. This broke BFS through thin index pages like
     documentation/tutorials.html which had few words but many outbound links.
     """
-    from unittest.mock import MagicMock
 
     from app.core.config import Settings
     from app.ingestion.html import ExtractedHtml
@@ -260,7 +259,7 @@ def test_short_content_page_still_queues_links(monkeypatch) -> None:
         EIC_SITE_EXCLUDE_PREFIXES="",
     )
 
-    def fake_extract(body, url, last_modified):
+    def fake_extract(body, url, last_modified, prefer_trafilatura=True):
         if url.endswith("/index"):
             # Short content, many outbound links.
             return ExtractedHtml(

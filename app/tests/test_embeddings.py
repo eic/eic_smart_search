@@ -1,4 +1,3 @@
-from app.llm.embeddings import TeiEmbeddingProvider
 
 
 class FakeResponse:
@@ -12,28 +11,44 @@ class FakeResponse:
         return self.payload
 
 
-def test_tei_embedding_provider_uses_tei_payload_and_query_instruction(monkeypatch) -> None:
-    calls = []
 
-    def fake_post(url, json, timeout):
-        calls.append({"url": url, "json": json, "timeout": timeout})
-        return FakeResponse([[0.1, 0.2]])
+class _FlakyCudaST:
+    """Fake SentenceTransformer: cuda load raises the WSL2 meta-tensor error."""
 
-    monkeypatch.setattr("app.llm.embeddings.httpx.post", fake_post)
-    provider = TeiEmbeddingProvider(
-        url="http://embedding:80",
-        dimension=2,
-        query_instruction="Given a web search query, retrieve relevant passages that answer the query",
+    def __init__(self, model_name, device=None, **kwargs):
+        if device == "cuda":
+            raise NotImplementedError("Cannot copy out of meta tensor; no data!")
+        self.model_name = model_name
+        self.device = device
+
+    def get_sentence_embedding_dimension(self):
+        return 384
+
+
+def test_sentence_transformers_provider_falls_back_to_cpu(monkeypatch) -> None:
+    import sentence_transformers
+
+    from app.llm.embeddings import SentenceTransformersEmbeddingProvider
+
+    monkeypatch.setattr(sentence_transformers, "SentenceTransformer", _FlakyCudaST)
+    provider = SentenceTransformersEmbeddingProvider(
+        model_name="fake-model", dimension=384, device="cuda"
     )
+    assert provider.model.device == "cpu"
 
-    assert provider.embed_texts(["plain document"]) == [[0.1, 0.2]]
-    assert provider.embed_query("How do I run tutorials?") == [0.1, 0.2]
 
-    assert calls[0]["url"] == "http://embedding:80/embed"
-    assert calls[0]["json"] == {"inputs": ["plain document"]}
-    assert calls[1]["json"] == {
-        "inputs": [
-            "Instruct: Given a web search query, retrieve relevant passages that answer the query\n"
-            "Query: How do I run tutorials?"
-        ]
-    }
+def test_sentence_transformers_provider_cpu_failure_raises(monkeypatch) -> None:
+    import pytest
+    import sentence_transformers
+
+    from app.llm.embeddings import SentenceTransformersEmbeddingProvider
+
+    class _AlwaysBroken:
+        def __init__(self, *args, **kwargs):
+            raise NotImplementedError("meta tensor")
+
+    monkeypatch.setattr(sentence_transformers, "SentenceTransformer", _AlwaysBroken)
+    with pytest.raises(NotImplementedError):
+        SentenceTransformersEmbeddingProvider(
+            model_name="fake-model", dimension=384, device="cpu"
+        )

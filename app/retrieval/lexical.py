@@ -6,22 +6,9 @@ from sqlalchemy.orm import Session
 
 from app.retrieval.types import RetrievedChunk, RetrievalFilters
 
-
-class PostgresLexicalRetriever:
-    def search(self, db: Session, query: str, filters: RetrievalFilters, limit: int) -> list[RetrievedChunk]:
-        # Two candidate sets joined with UNION so each branch can use its own
-        # GIN index (ix_chunks_content_fts and ix_documents_title_fts). The
-        # earlier single OR-query defeated the planner and forced a seq scan
-        # over all chunks — ~1.3s per call. UNION keeps it at a few ms.
-        sql = """
-        WITH matched AS (
-            SELECT id FROM chunks
-            WHERE to_tsvector('english', content) @@ plainto_tsquery('english', :query)
-            UNION
-            SELECT c.id FROM chunks c JOIN documents d ON d.id = c.document_id
-            WHERE to_tsvector('english', coalesce(d.title, '')) @@ plainto_tsquery('english', :query)
-        )
-        SELECT
+# Shared projection for both query paths — kept identical so _row_to_chunk
+# can consume rows from either.
+_CHUNK_COLUMNS = """
             c.id AS chunk_id,
             c.document_id,
             d.source_name,
@@ -37,11 +24,54 @@ class PostgresLexicalRetriever:
             d.last_updated,
             c.content_hash,
             d.doc_metadata,
-            c.chunk_metadata,
+            c.chunk_metadata"""
+
+
+class PostgresLexicalRetriever:
+    def search(self, db: Session, query: str, filters: RetrievalFilters, limit: int) -> list[RetrievedChunk]:
+        # plainto_tsquery ANDs every lexeme, and Postgres' english stopword
+        # list is small: "how many layers in lfhcal" becomes
+        # 'mani' & 'layer' & 'lfhcal' — the filler word "many" survives and
+        # zeroes out the whole result set for perfectly good questions.
+        # Strategy: try strict AND first (best precision, uses the GIN
+        # index), and when it matches nothing fall back to OR over the same
+        # lexemes so rare terms like the detector name still surface rows.
+        rows = self._run_search(db, query, filters, limit, or_fallback=False)
+        if not rows and " " in query.strip():
+            rows = self._run_search(db, query, filters, limit, or_fallback=True)
+        return rows
+
+    def _run_search(
+        self,
+        db: Session,
+        query: str,
+        filters: RetrievalFilters,
+        limit: int,
+        *,
+        or_fallback: bool,
+    ) -> list[RetrievedChunk]:
+        # Two candidate sets joined with UNION so each branch can use its own
+        # GIN index (ix_chunks_content_fts and ix_documents_title_fts). The
+        # earlier single OR-query defeated the planner and forced a seq scan
+        # over all chunks — ~1.3s per call. UNION keeps it at a few ms.
+        if or_fallback:
+            # Same lexemes, OR semantics: 'a & b & c' -> 'a | b | c'.
+            tsq = "replace(plainto_tsquery('english', :query)::text, ' & ', ' | ')::tsquery"
+        else:
+            tsq = "plainto_tsquery('english', :query)"
+        sql = f"""
+        WITH matched AS (
+            SELECT id FROM chunks
+            WHERE to_tsvector('english', content) @@ {tsq}
+            UNION
+            SELECT c.id FROM chunks c JOIN documents d ON d.id = c.document_id
+            WHERE to_tsvector('english', coalesce(d.title, '')) @@ {tsq}
+        )
+        SELECT {_CHUNK_COLUMNS},
             ts_rank_cd(
                 setweight(to_tsvector('english', coalesce(d.title, '')), 'A') ||
                 setweight(to_tsvector('english', c.content), 'B'),
-                plainto_tsquery('english', :query)
+                {tsq}
             ) AS lexical_score
         FROM chunks c
         JOIN documents d ON d.id = c.document_id
@@ -83,24 +113,8 @@ class PostgresLexicalRetriever:
         if not chunk_scores:
             return []
         sql = text(
-            """
-            SELECT
-                c.id AS chunk_id,
-                c.document_id,
-                d.source_name,
-                d.source_type,
-                d.title,
-                d.url,
-                c.content,
-                c.visibility,
-                d.repo_path,
-                d.filetype,
-                d.section_path,
-                c.heading_path,
-                d.last_updated,
-                c.content_hash,
-                d.doc_metadata,
-                c.chunk_metadata
+            f"""
+            SELECT {_CHUNK_COLUMNS}
             FROM chunks c
             JOIN documents d ON d.id = c.document_id
             WHERE c.id IN :chunk_ids

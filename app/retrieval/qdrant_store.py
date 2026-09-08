@@ -19,12 +19,22 @@ class QdrantVectorStore:
         self.settings = settings
         self.embeddings = embeddings
         self.collection_name = settings.QDRANT_COLLECTION
-        self.client = QdrantClient(url=settings.QDRANT_URL, api_key=settings.QDRANT_API_KEY)
+        self.client = QdrantClient(url=settings.QDRANT_URL, api_key=settings.QDRANT_API_KEY, timeout=60)
+        self._collection_checked = False
 
     def ensure_collection(self) -> None:
+        """Create/validate the collection once per process.
+
+        Called from the hot search path, so after the first success it is a
+        no-op — the extra get_collections round-trip per query was measurable
+        latency for zero benefit.
+        """
+        if self._collection_checked:
+            return
         collections = self.client.get_collections().collections
         if any(collection.name == self.collection_name for collection in collections):
             self._validate_collection_dimension()
+            self._collection_checked = True
             return
         self.client.create_collection(
             collection_name=self.collection_name,
@@ -33,6 +43,7 @@ class QdrantVectorStore:
                 distance=qmodels.Distance.COSINE,
             ),
         )
+        self._collection_checked = True
         logger.info("created_qdrant_collection", extra={"collection": self.collection_name})
 
     def _validate_collection_dimension(self) -> None:

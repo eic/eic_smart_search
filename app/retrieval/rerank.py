@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import concurrent.futures
+import threading
 import logging
 import time
 from typing import Protocol
@@ -43,7 +44,13 @@ class LocalCrossEncoderReranker:
     ) -> None:
         from sentence_transformers import CrossEncoder
 
-        self._model = CrossEncoder(model)
+        try:
+            import torch
+
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+        except Exception:
+            device = "cpu"
+        self._model = CrossEncoder(model, device=device)
         self.name = f"cross_encoder:{model}"
         self.max_candidates = max_candidates
         self.score_weight = score_weight
@@ -54,11 +61,25 @@ class LocalCrossEncoderReranker:
             if timeout_s
             else None
         )
+        # One cross-encoder, one GPU: serialize access and FAIL FAST when the
+        # model is busy rather than queueing every concurrent request behind
+        # the timeout (which made all of them silently lose reranking under
+        # load). On contention we return the RRF order untouched.
+        self._gpu_lock = threading.Lock()
 
     def rerank(self, query: str, chunks: list[RetrievedChunk]) -> tuple[list[RetrievedChunk], dict]:
         if not chunks:
             return chunks, {"provider": self.name, "reranked": 0}
 
+        if not self._gpu_lock.acquire(timeout=0.25):
+            logger.info("rerank_skipped_busy", extra={"provider": self.name})
+            return chunks, {"provider": self.name, "reranked": 0, "skipped": "busy"}
+        try:
+            return self._rerank_locked(query, chunks)
+        finally:
+            self._gpu_lock.release()
+
+    def _rerank_locked(self, query: str, chunks: list[RetrievedChunk]) -> tuple[list[RetrievedChunk], dict]:
         head = chunks[: self.max_candidates]
         tail = chunks[self.max_candidates :]
         pairs = [[query, self._prepare_passage(chunk)] for chunk in head]

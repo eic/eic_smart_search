@@ -1,15 +1,11 @@
-import hashlib
-import math
-import re
+import logging
 from collections.abc import Sequence
 from typing import Protocol
 
-import httpx
 
 from app.core.config import Settings
 
-
-TOKEN_RE = re.compile(r"[A-Za-z0-9_./+-]+")
+logger = logging.getLogger(__name__)
 
 
 class EmbeddingProvider(Protocol):
@@ -21,42 +17,6 @@ class EmbeddingProvider(Protocol):
     def embed_query(self, text: str) -> list[float]: ...
 
 
-class HashingEmbeddingProvider:
-    """Zero-credential deterministic embeddings for local development.
-
-    This is intentionally simple. It gives Qdrant a stable vector signal for
-    smoke tests and cheap deployments, while the provider interface lets teams
-    swap in a higher quality embedding service without changing retrieval code.
-    """
-
-    def __init__(self, dimension: int = 384) -> None:
-        self._dimension = dimension
-
-    @property
-    def dimension(self) -> int:
-        return self._dimension
-
-    def embed_texts(self, texts: Sequence[str]) -> list[list[float]]:
-        return [self._embed(text) for text in texts]
-
-    def embed_query(self, text: str) -> list[float]:
-        return self._embed(text)
-
-    def _embed(self, text: str) -> list[float]:
-        vector = [0.0] * self._dimension
-        tokens = TOKEN_RE.findall(text.lower())
-        if not tokens:
-            return vector
-        for token in tokens:
-            digest = hashlib.blake2b(token.encode("utf-8"), digest_size=8).digest()
-            bucket = int.from_bytes(digest[:4], "big") % self._dimension
-            sign = 1.0 if digest[4] & 1 else -1.0
-            vector[bucket] += sign
-        norm = math.sqrt(sum(value * value for value in vector))
-        if norm == 0:
-            return vector
-        return [value / norm for value in vector]
-
 
 class SentenceTransformersEmbeddingProvider:
     """Local sentence-transformers adapter.
@@ -65,7 +25,14 @@ class SentenceTransformersEmbeddingProvider:
     384-dimensional normalized sentence embeddings and runs comfortably on CPU.
     """
 
-    def __init__(self, model_name: str, dimension: int, batch_size: int = 64) -> None:
+    def __init__(
+        self,
+        model_name: str,
+        dimension: int,
+        batch_size: int = 64,
+        device: str = "auto",
+        max_seq_length: int | None = None,
+    ) -> None:
         try:
             from sentence_transformers import SentenceTransformer
         except ImportError as exc:  # pragma: no cover - dependency guard
@@ -76,8 +43,38 @@ class SentenceTransformersEmbeddingProvider:
 
         self.model_name = model_name
         self.batch_size = batch_size
-        self.model = SentenceTransformer(model_name)
+        if device == "auto":
+            import torch
+
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+        # Explicit device avoids the sentence-transformers>=5 meta-tensor load bug.
+        # CUDA init is flaky under WSL2 (intermittent "Cannot copy out of meta
+        # tensor" during model load) — fall back to CPU instead of crashing.
+        model_kwargs = {}
+        if device == "cuda":
+            # fp16 halves VRAM (bge-m3: 2.3 GB -> 1.2 GB) so the embedding
+            # model and the cross-encoder reranker fit a 6 GB GPU together;
+            # embedding quality impact is negligible.
+            import torch
+
+            model_kwargs = {"torch_dtype": torch.float16}
+        try:
+            self.model = SentenceTransformer(model_name, device=device, model_kwargs=model_kwargs)
+        except (NotImplementedError, RuntimeError, TypeError):
+            if device == "cpu":
+                raise
+            logger.warning(
+                "Failed to load %s on %s; falling back to CPU.", model_name, device
+            )
+            self.model = SentenceTransformer(model_name, device="cpu")
+        if max_seq_length:
+            self.model.max_seq_length = int(max_seq_length)
         self._dimension = dimension
+        # Tiny query-embedding cache: acronym expansion embeds two variants
+        # per query, and popular queries repeat — an encode is ~10-30 ms on
+        # GPU, worse on CPU, for a byte-identical result.
+        self._query_cache: dict[str, list[float]] = {}
+        self._query_cache_max = 256
 
         actual_dimension = int(self.model.get_sentence_embedding_dimension() or 0)
         if actual_dimension and actual_dimension != dimension:
@@ -100,106 +97,24 @@ class SentenceTransformersEmbeddingProvider:
         return embeddings.tolist()
 
     def embed_query(self, text: str) -> list[float]:
-        return self.embed_texts([text])[0]
+        cached = self._query_cache.get(text)
+        if cached is not None:
+            return cached
+        vector = self.embed_texts([text])[0]
+        if len(self._query_cache) >= self._query_cache_max:
+            # FIFO eviction is fine at this size; no LRU bookkeeping needed.
+            self._query_cache.pop(next(iter(self._query_cache)))
+        self._query_cache[text] = vector
+        return vector
 
 
-class HttpEmbeddingProvider:
-    """Generic HTTP embedding adapter.
-
-    Expected request:
-        {"texts": ["..."], "model": "optional-model"}
-
-    Expected response:
-        {"embeddings": [[...], [...]]}
-    """
-
-    def __init__(self, url: str, dimension: int, model: str | None = None, timeout: float = 30.0) -> None:
-        self.url = url
-        self.model = model
-        self.timeout = timeout
-        self._dimension = dimension
-
-    @property
-    def dimension(self) -> int:
-        return self._dimension
-
-    def embed_texts(self, texts: Sequence[str]) -> list[list[float]]:
-        payload: dict[str, object] = {"texts": list(texts)}
-        if self.model:
-            payload["model"] = self.model
-        response = httpx.post(self.url, json=payload, timeout=self.timeout)
-        response.raise_for_status()
-        data = response.json()
-        embeddings = data.get("embeddings")
-        if not isinstance(embeddings, list):
-            raise ValueError("Embedding HTTP provider did not return an embeddings list")
-        return embeddings
-
-    def embed_query(self, text: str) -> list[float]:
-        return self.embed_texts([text])[0]
-
-
-class TeiEmbeddingProvider:
-    """Hugging Face Text Embeddings Inference adapter.
-
-    TEI expects {"inputs": [...]} at /embed and returns the raw embeddings list.
-    Qwen3 embedding models benefit from an instruction on query text only.
-    """
-
-    def __init__(
-        self,
-        url: str,
-        dimension: int,
-        query_instruction: str | None = None,
-        timeout: float = 30.0,
-    ) -> None:
-        self.url = url.rstrip("/")
-        self.timeout = timeout
-        self.query_instruction = query_instruction
-        self._dimension = dimension
-
-    @property
-    def dimension(self) -> int:
-        return self._dimension
-
-    def embed_texts(self, texts: Sequence[str]) -> list[list[float]]:
-        return self._embed_inputs(list(texts))
-
-    def embed_query(self, text: str) -> list[float]:
-        if self.query_instruction:
-            text = f"Instruct: {self.query_instruction}\nQuery: {text}"
-        return self._embed_inputs([text])[0]
-
-    def _embed_inputs(self, inputs: list[str]) -> list[list[float]]:
-        response = httpx.post(f"{self.url}/embed", json={"inputs": inputs}, timeout=self.timeout)
-        response.raise_for_status()
-        data = response.json()
-        if not isinstance(data, list):
-            raise ValueError("TEI embedding provider did not return an embeddings list")
-        return data
 
 
 def build_embedding_provider(settings: Settings) -> EmbeddingProvider:
-    if settings.EMBEDDING_PROVIDER == "sentence_transformers":
-        return SentenceTransformersEmbeddingProvider(
-            model_name=settings.EMBEDDING_MODEL,
-            dimension=settings.VECTOR_SIZE,
-            batch_size=settings.EMBEDDING_BATCH_SIZE,
-        )
-    if settings.EMBEDDING_PROVIDER == "http":
-        if not settings.EMBEDDING_HTTP_URL:
-            raise ValueError("EMBEDDING_HTTP_URL is required when EMBEDDING_PROVIDER=http")
-        return HttpEmbeddingProvider(
-            url=str(settings.EMBEDDING_HTTP_URL),
-            dimension=settings.VECTOR_SIZE,
-            model=settings.EMBEDDING_HTTP_MODEL,
-        )
-    if settings.EMBEDDING_PROVIDER == "tei":
-        if not settings.EMBEDDING_HTTP_URL:
-            raise ValueError("EMBEDDING_HTTP_URL is required when EMBEDDING_PROVIDER=tei")
-        return TeiEmbeddingProvider(
-            url=str(settings.EMBEDDING_HTTP_URL),
-            dimension=settings.VECTOR_SIZE,
-            query_instruction=settings.EMBEDDING_QUERY_INSTRUCTION,
-        )
-    return HashingEmbeddingProvider(dimension=settings.VECTOR_SIZE)
+    return SentenceTransformersEmbeddingProvider(
+        model_name=settings.EMBEDDING_MODEL,
+        dimension=settings.VECTOR_SIZE,
+        batch_size=settings.EMBEDDING_BATCH_SIZE,
+        device=settings.EMBEDDING_DEVICE,
+        max_seq_length=getattr(settings, "EMBEDDING_MAX_SEQ_LENGTH", None),
+    )

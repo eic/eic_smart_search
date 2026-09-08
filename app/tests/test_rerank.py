@@ -36,6 +36,9 @@ def _build(model: _StubModel, **overrides) -> LocalCrossEncoderReranker:
     reranker.max_passage_chars = overrides.get("max_passage_chars", 1500)
     reranker.timeout_s = overrides.get("timeout_s", None)
     reranker._executor = overrides.get("_executor", None)  # type: ignore[attr-defined]
+    import threading
+
+    reranker._gpu_lock = threading.Lock()  # type: ignore[attr-defined]
     return reranker
 
 
@@ -116,3 +119,23 @@ def test_cross_encoder_falls_back_on_timeout() -> None:
         assert debug["reranked"] == 0
     finally:
         executor.shutdown(wait=False)
+
+
+def test_cross_encoder_skips_when_busy() -> None:
+    """Under contention the reranker returns RRF order untouched instead of
+    queueing every caller behind the timeout."""
+    import threading
+
+    from app.retrieval.types import RetrievedChunk
+
+    reranker = _build(_StubModel({}))
+    reranker._gpu_lock = threading.Lock()
+    reranker._gpu_lock.acquire()  # simulate another request holding the GPU
+    chunks = [
+        RetrievedChunk(chunk_id="c1", document_id="d1", source_name="s", source_type="t",
+                       title="T", url="u", content="body", score=0.9),
+    ]
+    out, dbg = reranker.rerank("q", chunks)
+    assert dbg.get("skipped") == "busy"
+    assert out == chunks
+    reranker._gpu_lock.release()

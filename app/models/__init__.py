@@ -3,8 +3,6 @@ from app.models.entities import (
     CrawlJob,
     Document,
     Feedback,
-    IngestionState,
-    PermissionMetadata,
     QueryLog,
     Source,
 )
@@ -14,9 +12,6 @@ __all__ = [
     "CrawlJob",
     "Document",
     "Feedback",
-    "IngestionState",
-    "PermissionMetadata",
     "QueryLog",
     "Source",
 ]
-

@@ -34,6 +34,7 @@ from app.schemas.api import (
     EvalSweepRequest,
     FeedbackCreate,
     FeedbackRead,
+    FeedbackUpdate,
     IngestRunRequest,
     IngestRunResponse,
     PersonRefreshResponse,
@@ -42,7 +43,7 @@ from app.schemas.api import (
     QueryResponse,
     ReindexRequest,
 )
-from app.services.analytics import build_analytics, build_popular_queries
+from app.services.analytics import build_analytics, build_popular_queries, human_traffic
 from app.services.factory import build_query_service
 from app.services.query import QueryService
 
@@ -346,7 +347,7 @@ def admin_recent_queries(
     since = datetime.now(timezone.utc) - timedelta(days=window_days)
     stmt = (
         select(QueryLog)
-        .where(QueryLog.created_at >= since)
+        .where(QueryLog.created_at >= since, human_traffic())
         .order_by(desc(QueryLog.created_at))
         .limit(limit)
     )
@@ -893,6 +894,23 @@ def feedback(payload: FeedbackCreate, db: DbSession, _rl: RateLimited) -> Feedba
     )
     db.add(record)
     db.commit()
+    logger.info("feedback %s rating=%s comment=%s", record.id, record.rating, bool(record.comment))
+    return FeedbackRead(id=record.id, created_at=record.created_at)
+
+
+@router.patch("/feedback/{feedback_id}", response_model=FeedbackRead)
+def feedback_comment(
+    feedback_id: str, payload: FeedbackUpdate, db: DbSession, _rl: RateLimited
+) -> FeedbackRead:
+    """Attach the optional report text to a rating row the widget created a
+    moment earlier: the rating goes out on the click, the comment follows.
+    The id is a random UUID known only to the submitting page."""
+    record = db.get(Feedback, feedback_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail="feedback not found")
+    record.comment = payload.comment
+    db.commit()
+    logger.info("feedback %s comment attached", record.id)
     return FeedbackRead(id=record.id, created_at=record.created_at)
 
 

@@ -78,6 +78,10 @@ class FeedbackCreate(BaseModel):
     comment: str | None = Field(default=None, max_length=4000)
 
 
+class FeedbackUpdate(BaseModel):
+    comment: str = Field(min_length=1, max_length=4000)
+
+
 class FeedbackRead(BaseModel):
     id: str
     created_at: datetime

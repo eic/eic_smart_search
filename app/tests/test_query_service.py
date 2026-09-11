@@ -470,3 +470,28 @@ def test_history_adds_previous_user_turn_as_extra_query() -> None:
         ),
     )
     assert retriever.extra_queries == ["what is a picoDst?"]
+
+
+def test_probe_requests_skip_generation_and_cache() -> None:
+    from app.services.query_cache import QueryCache
+
+    class CountingGenerator(FakeGenerator):
+        calls = 0
+
+        def generate(self, *args, **kwargs):
+            CountingGenerator.calls += 1
+            return super().generate(*args, **kwargs)
+
+    service = QueryService(
+        FakeSettings(), FakeRetriever(), CountingGenerator(), query_cache=QueryCache(max_size=10, ttl_s=60)
+    )
+    resp = service.query(FakeDb(), QueryRequest(query="init", top_k=3, client="cli"))
+    assert CountingGenerator.calls == 0
+    assert resp.answer == ""
+    assert resp.retrieval_debug["client"] == "probe"
+    assert resp.retrieval_debug["generation"]["skipped"] == "short-cli"
+    # A person typing the same word in the widget must not get the empty
+    # probe answer replayed from the cache.
+    resp2 = service.query(FakeDb(), QueryRequest(query="init", top_k=3))
+    assert resp2.retrieval_debug["cache_hit"] is False
+    assert CountingGenerator.calls == 1

@@ -14,6 +14,7 @@ from app.retrieval.types import RetrievedChunk, RetrievalFilters
 from app.schemas.api import Citation, QueryRequest, QueryResponse
 from app.retrieval.intent import is_time_sensitive
 from app.services.query_cache import QueryCache
+from app.services.probes import classify_probe
 
 
 def _sse(event: str, data: dict[str, Any]) -> str:
@@ -45,6 +46,7 @@ class QueryService:
 
     def query(self, db: Session, request: QueryRequest) -> QueryResponse:
         started = time.perf_counter()
+        probe = self._screen(request)
 
         # Cache probe. On hit we skip retrieval / rewrite / generation entirely
         # and just record a query log for analytics. Meeting / schedule queries
@@ -52,14 +54,14 @@ class QueryService:
         # real time, so an hour-old cached "next meeting" answer is worse than
         # no answer. The IndicoClient's own 5-minute cache still deduplicates
         # rapid repeat calls at the HTTP layer.
-        cached = self._cache_probe(request)
+        cached = None if probe else self._cache_probe(request)
         if cached is not None:
             return self._hit(db, request, cached, started)
 
         chunks, retrieval_debug = self._retrieve(db, request)
         answer = ""
-        generation_debug: dict[str, Any] = {"enabled": request.generate_answer}
-        if request.generate_answer:
+        generation_debug = self._generation_debug(request, probe)
+        if request.generate_answer and not probe:
             answer, generation_debug = self.answer_generator.generate(
                 request.query,
                 chunks,
@@ -84,8 +86,9 @@ class QueryService:
         the LLM-cited sources are reordered to the front, same as query().
         """
         started = time.perf_counter()
+        probe = self._screen(request)
 
-        cached = self._cache_probe(request)
+        cached = None if probe else self._cache_probe(request)
         if cached is not None:
             response = self._hit(db, request, cached, started)
             yield _sse("citations", {"citations": [c.model_dump() for c in response.citations]})
@@ -103,8 +106,8 @@ class QueryService:
         )
 
         answer = ""
-        generation_debug: dict[str, Any] = {"enabled": request.generate_answer}
-        if request.generate_answer:
+        generation_debug = self._generation_debug(request, probe)
+        if request.generate_answer and not probe:
             history = self._history_messages(request)
             stream_fn = getattr(self.answer_generator, "generate_stream", None)
             if stream_fn is not None:
@@ -245,6 +248,22 @@ class QueryService:
 
         return cls._MD_LINK_RE.sub(_link, cleaned)
 
+    @staticmethod
+    def _screen(request: QueryRequest) -> str | None:
+        """Tag automated non-questions (see probes.py) as client="probe":
+        they are retrieved and logged, never generated, never cached."""
+        probe = classify_probe(request.query, request.client)
+        if probe:
+            request.client = "probe"
+        return probe
+
+    @staticmethod
+    def _generation_debug(request: QueryRequest, probe: str | None) -> dict[str, Any]:
+        debug: dict[str, Any] = {"enabled": request.generate_answer}
+        if probe:
+            debug["skipped"] = probe
+        return debug
+
     def _finalize(
         self,
         db: Session,
@@ -340,6 +359,7 @@ class QueryService:
             and not tool_was_used
             and not refused
             and not degraded
+            and request.client != "probe"
         ):
             self.query_cache.set(
                 request.query,

@@ -17,6 +17,16 @@ from app.schemas.api import (
 )
 
 
+# Rows tagged by the query service as not coming from a person at the
+# widget: eic-ask CLI traffic ("cli") and automated probes ("probe"). They
+# stay in the raw log and the summary totals but never in a ranked list.
+NON_HUMAN_CLIENTS = ("cli", "probe")
+
+
+def human_traffic():
+    return func.coalesce(QueryLog.retrieval_debug["client"].as_string(), "").notin_(NON_HUMAN_CLIENTS)
+
+
 def _percentile(db: Session, column, since: datetime, percentile: float) -> int | None:
     stmt = select(
         func.percentile_disc(percentile).within_group(column.asc())
@@ -123,11 +133,7 @@ def build_analytics(db: Session, window_days: int = 7, limit: int = 20) -> Analy
             func.avg(QueryLog.top_score),
             func.sum(func.cast(QueryLog.answer_generated, Integer)),
         )
-        .where(
-            QueryLog.created_at >= since,
-            # CLI traffic (eic-ask) is logged but kept out of "popular".
-            func.coalesce(QueryLog.retrieval_debug["client"].as_string(), "") != "cli",
-        )
+        .where(QueryLog.created_at >= since, human_traffic())
         .group_by(QueryLog.query)
         .order_by(desc(func.count(QueryLog.id)))
         .limit(limit)
@@ -149,7 +155,7 @@ def build_analytics(db: Session, window_days: int = 7, limit: int = 20) -> Analy
             func.count(QueryLog.id),
             func.max(QueryLog.created_at),
         )
-        .where(QueryLog.created_at >= since, QueryLog.result_count == 0)
+        .where(QueryLog.created_at >= since, QueryLog.result_count == 0, human_traffic())
         .group_by(QueryLog.query)
         .order_by(desc(func.count(QueryLog.id)))
         .limit(limit)
@@ -170,7 +176,7 @@ def build_analytics(db: Session, window_days: int = 7, limit: int = 20) -> Analy
             func.max(QueryLog.created_at),
             func.avg(QueryLog.top_score),
         )
-        .where(QueryLog.created_at >= since, QueryLog.confidence == "low")
+        .where(QueryLog.created_at >= since, QueryLog.confidence == "low", human_traffic())
         .group_by(QueryLog.query)
         .order_by(desc(func.count(QueryLog.id)))
         .limit(limit)
@@ -265,6 +271,7 @@ def build_popular_queries(
             QueryLog.scope == "public",
             QueryLog.answer_generated.is_(True),
             word_count_expr >= min_words,
+            human_traffic(),
         )
         .group_by(QueryLog.query)
         .order_by(desc(func.count(QueryLog.id)))

@@ -65,6 +65,7 @@ Config           app/core/config.py         Pydantic settings from env
 
 `POST /query` → `QueryService.query()`:
 
+0. **Probe screen** (`app/services/probes.py`): automated non-questions (CLI subcommand guesses from package sandboxes, GraphQL fuzz, letterless strings) are tagged `client="probe"` — retrieved and logged, but no LLM call, no cache, and `analytics.human_traffic()` hides them (and `client="cli"`) from every ranked list.
 1. **Cache probe**: if the (query, scope, top_k, generate_answer, filters) tuple is cached within TTL, return immediately.
 2. **Acronym expansion**: domain acronyms (TDR, SVT, …) add an expanded query variant.
 3. **Hybrid retrieve**: `HybridRetriever.search()` runs lexical (Postgres FTS) and vector (Qdrant + MiniLM) **in parallel**, fuses with 0.62·vec + 0.38·lex, applies freshness + instructional boosts, dedupes.
@@ -118,7 +119,7 @@ Chunks carry `visibility` metadata (`public` / `internal`). Enforced at both Pos
 
 ### Database schema key tables
 
-`sources`, `documents`, `chunks` (core content + hashes), `crawl_jobs` (job tracking), `ingestion_state` (cursor per connector), `query_logs` (telemetry + tokens + cost + confidence), `feedback` (user ratings).
+`sources`, `documents`, `chunks` (core content + hashes), `crawl_jobs` (job tracking), `ingestion_state` (cursor per connector), `query_logs` (telemetry + tokens + cost + confidence), `feedback` (user ratings; the widget POSTs the rating on click and PATCHes the optional report text onto the same row).
 
 ### Local stack (docker-compose.yml)
 

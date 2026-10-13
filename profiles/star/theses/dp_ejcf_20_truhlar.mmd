@@ -1,0 +1,866 @@
+CZECH TECHICAL UNIVERSITY IN
+
+PRAGUE
+
+Faculty of Nuclear Sciences and Physical
+
+Engineering
+
+Department of Physics
+
+**Master's THESIS**
+
+**Study of pi+pi-, K+K-, ppbar and pi+pi+pi-pi- production in central exclusive processes with the STAR detector at RHIC**
+
+Author: Bc. Tomas Truhlar
+
+Supervisor: Wlodzimierz Guryn, Ph.D.
+
+Consultant: doc. Mgr. Jaroslav Bielcik, Ph.D.
+
+Year: 2020
+
+[MISSING_PAGE_EMPTY:2]
+
+CESKE VYSOKE UUENI TECHNICKE
+
+V PRAZE
+
+Fakulta jaderna a fyzikalne inzenyrska
+
+**Katedra Fyziky**
+
+**Obor: Experimentalni jaderna a casticova fyzika**
+
+**Studie produkce pi+pi-, K+K-, ppbar a pi+pi-pi- v centralnich exkluzirnich procesech s detektorem STAR na RHIC**
+
+DIPLOMOVA PRACE
+
+Vypracoval: Bc. Tomas Truhlar
+
+Vedouci prace: Wlodzimierz Guryn, Ph.D.
+
+Konzultant: doc. Mgr. Jaroslav Bielcik, Ph.D.
+
+Rok: 2020
+
+[MISSING_PAGE_EMPTY:4]
+
+CeskEVysokEUCENITECHNICKEWPRAZE
+
+Fakulta JadernaA FYZIKALNEINZENYRSKA
+
+PRAHA 1 - STARE MESTO, BREHOVA 7 - PSC 115 19
+
+Katedra: fyziky Akademicky rok: 2019/2020
+
+ZADANI DIPLOMOVE PRACE
+
+Bc. Tomas Truhlar
+
+Studjin program: Aplikace prirodnich ved
+
+Obor: Experimentalni jadema a casticova fyzika
+
+Nazev prace: Studie produkce pi+pi-, K+K-, ppbar a pi+pi+pi-pi- v centralnich
+
+(cesky) exkluzivnich procesech s detektorem STAR na RHIC
+
+Nazev prace: Study of pi+pi-, K+K-, ppbar and pi+pi+pi-pi- production in central
+
+(anglicky) exclusive processes with the STAR detector at RHIC
+
+Pokpny pro vypracovani:
+
+1) Fyzika pomeronu a centralni exkluzivni produkce
+
+2) Nedavne vysledky ve fyzice doprednych protonu
+
+3) Detektor STAR a urychlovac RHIC
+
+4) Analyza centralnich exkluzivnich procesu v proton-protonovych srazkach
+
+5) Diskuze a zavr
+
+[MISSING_PAGE_FAIL:6]
+
+**Prohlasen**
+
+Prohlasuji, ze jsem svou diplomovou praci vypracoval samostatne a pouzil jsem pouze podklady (literaturu, projekty, SW atd.) uvedenou v prilozenem seznamu.
+
+Nemam zavazny duvod proti uziti tohoto skolniho dila ve smyslu SS 60 Zakona c. 121/2000 Sb., o pravu autorskem, o pravech souvisejicich s pravem autorskym a o zmene nekterych zakonu (autorsky zakon).
+
+V Proze dne................................................................
+
+Bc. Tomas Truhlar
+
+[MISSING_PAGE_EMPTY:8]
+
+## Acknowledgments
+
+I would like to thank my supervisor Wlodek Guryn, Ph.D for his guidance, his patience and valuable advice. I would also like to thank my consultant doc. Mgr. Jaroslav Bielcik, Ph.D. for his constructive comments. Furthermore, I would like to thank Ing. Jaroslav Adam, Ph.D. and Rafal Sikora, M.Sc. for their important help with the analysis.
+
+Bc. Tomas Truhlar
+
+[MISSING_PAGE_EMPTY:10]
+
+_Nazev prace:_ **Studie produkce pi+pi-, K+K-, ppbar a pi+pi+pi-pi-vi-v centralnich exkluzivnich procesech s detektorem STAR na RHIC**
+
+_Autor:_ **Bc. Tomas Truhlar**
+
+_Studijni program:_ **Aplikace prirodnich ved**
+
+_Obor:_ **Experimentalni jaderna a casticova fyzika**
+
+_Druh prace:_ **Diplomova prace**
+
+_Vedouci prace:_ **Wlodzimierz Guryn, Ph.D., Brookhavenska narodni laborator**
+
+_Konzultant:_ **doc. Mgr. Jaroslav Bielcik, Ph.D., Katedra Fyziky, Fakulta jaderna a fyzikalne inzenyrska, Ceske vysoke ueni technicke v Praze**
+
+_Abstrakt:_ **Tato prace se zabyva prvnim merenim centralni exkluzivni produkce v proton-protonovych srazkach pri energii \(\sqrt{s}=510\) GeV namerenych na experimentu STAR. Pri teto energie dominuje dvojita vymena pomeronu. Z toho duvodu jsou tyto srazky velmi slibne pro hledani vazanych stavu gluonu, glueballu. Experimentalni potvrzeni jejich existence by silne podporilo platnost kvantove chromodynamiky. Difrakcne rozptylene protony pohybujici se neporuseny uvnitr svazkove trubice byly zmereny pomoci detektoru Roman Pot, coz umoznilo plhou kontrolu nad kinematikou interakce a tedov overeni exkluzivity. Prvni vysledky ve forme distributee invariantni hmotnosti centralne produkovanych \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) a \(p\bar{p}\) paru jsou prezentovany v teto praci.
+
+_Klicova slova:_ **Pomeron, Glueball, RHIC, STAR, Roman Pot**
+
+_Title:_ **Study of pi+pi-, K+K-, ppbar and pi+pi+pi-production in central exclusive processes with the STAR detector at RHIC**
+
+_Author:_ **Bc. Tomas Truhlar**
+
+_Abstract:_ **This thesis is dedicated to the first measurement of the central exclusive production process in proton-proton collisions at RHIC with the STAR detector at \(\sqrt{s}=510\) GeV. At this energy, this process is dominated by a Double Pomeron Exchange mechanism. Therefore, it is very promising for the search of gluon bound states, glueballs. The experimental confirmation of their existence would be yet another strong support for the validity of the quantum chromodynamics theory. The diffractively scattered protons, moving intact inside the RHIC beam pipe after the collision, were measured in the Roman Pots system allowing full control of the interaction's kinematics, and thus verification of the exclusivity. The preliminary results on the invariant mass distributions of centrally exclusively produced \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs measured within the STAR acceptance are presented in this thesis.
+
+_Key words:_ **Pomeron, Glueball, RHIC, STAR, Roman Pot**
+
+[MISSING_PAGE_EMPTY:12]
+
+###### Contents
+
+* 1 Central exclusive production
+	* 1.1 Kinematics and cross-section
+	* 1.2 Hadronic diffraction
+	* 1.3 Regge theory and Pomeron
+		* 1.3.1 Pomeron
+		* 1.3.2 Glueball
+	* 1.4 Central exclusive production
+* 2 Status of central exclusive production
+* 3 STAR experiment at RHIC
+	* 3.1 Relativistic Heavy Ion Collider
+	* 3.2 Solenoidal Tracker at RHIC
+		* 3.2.1 Time Projection Chamber
+		* 3.2.2 Time of Flight detector
+		* 3.2.3 Beam-Beam Counter
+	* 3.3 Roman Pots
+* 4 Analysis of CEP in collisions at  GeV
+	* 4.1 Data preparation and quality assurance
+	* 4.2 Two hadron production
+		* 4.2.1 Data sample and event selection
+		* 4.2.2 Particle identification
+* 5 Simulations and acceptance corrections
+* 6 Results in two hadron channel
+* 7 production
+* 8 Comparison with Graniitti Monte Carlo model
+* Summary
+* Bibliography
+* Appendices
+
+* A Variable distributions for two hadrons events
+* B Variable distributions for \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) events
+* C List of public postersList of Figures
+	* 1.1 Illustration of two-to-two particle scattering
+	* 1.2 Schematic view of diffractive processes
+	* 1.3 Chew-Frautschi plot
+	* 1.4 World data of \(p,\ p\) and \(p,\ \overline{p}\) elastic and total scattering cross-section
+	* 1.5 Pomeron trajectory with glueball candidate
+	* 1.6 Central exclusive production and elastic scattering
+	* 2.1 Invariant mass distribution of \(\pi^{+}\pi^{-}\)
+	* 2.2 Effective mass spectrum of \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\)
+	* 2.3 Measured differential cross-sections for 5.02 and 13 TeV data sets
+	* 2.4 Differential cross-section as function of invariant mass of \(\pi^{+}\pi^{-}\)
+	* 2.5 Differential cross-sections as function of invariant mass of \(K^{+}K^{-}\) and \(p\overline{p}\)
+	* 2.6 Differential cross-sections as function of \(\Delta\varphi\) and pair rapidity
+	* 2.7 Differential cross-sections for CEP of charged particle pairs in two \(\Delta\varphi\) regions
+	* 3.1 Summary of RHIC energies, species combinations and luminosities
+	* 3.2 BNL accelerator complex
+	* 3.3 Schematic view of STAR experiment
+	* 3.4 Schematic view of TPC
+	* 3.5 Measured energy loss of charged particles in TPC
+	* 3.6 STAR TOF MRPC detector model
+	* 3.7 Inverse velocity of charged particles as function of their momentum
+	* 3.8 STAR BBC detector schematic view
+	* 3.9 Roman Pot Phase II
+* 3.10 Roman pot vessels and SSD package
+* 3.11 Plane with SVXIIE readout chips
+* 3.12 Trigger counter of single detector package
+	* 4.1 Illustration of (in)elastic combination
+	* 4.2 Distributions of reconstructed protons momenta and illustration of forward proton reconstruction
+	* 4.3 Distributions of \(p_{\rm T}^{miss}\) and \(z-\)position of vertex
+	* 4.4 Distributions of \(N_{hits}^{fit}\) and \(N_{hits}^{dE/dx}\)
+	* 4.5 Distributions of \(DCA(z)\) and \(DCA(xy)\)
+	* 4.6 Distributions of \(\eta\) and TOF inefficiency example
+	* 4.7 Distributions of \(t\)
+Event selection for two hadron production
+* 4.9 Scheme of two central tracks, produced in same vertex
+* 4.10 Energy loss of charged particles and \(m_{\rm TOF}^{2}\) distribution
+* 5.1 \(z-\)position of vertex and \(\delta^{2}\) for \(\pi^{+}\)
+* 5.2 Comparison of corrected invariant mass of \(\pi^{+}\pi^{-}\) pairs
+* 6.1 Invariant mass spectrum of exclusively produced \(\pi^{+}\pi^{-}\) pairs
+* 6.2 Invariant mass spectrum of exclusively produced \(K^{+}K^{-}\) pairs
+* 6.3 Invariant mass spectrum of exclusively produced \(p\bar{p}\) pairs
+* 6.4 Distributions of \(\Delta\varphi\) and pair rapidity for \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) events
+* 6.5 Invariant mass spectra of \(\pi^{+}\pi^{-}\) pairs in two \(\Delta\varphi\) regions
+* 6.6 Invariant mass spectra of \(K^{+}K^{-}\) and \(p\bar{p}\) pairs in two \(\Delta\varphi\) regions
+* 7.1 Event selection for \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) channel
+* 7.2 Distributions of \(p_{\rm T}^{miss}\) and \(z-\)position of vertex for \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) events
+* 7.3 Invariant mass spectrum of exclusively produced \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\)
+* 8.1 Invariant mass spectra of exclusively produced \(\pi^{+}\pi^{-}\) and \(K^{+}K^{-}\) compared to Graniitti
+* 8.2 Invariant mass spectra of exclusively produced \(p\bar{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) compared to Graniitti
+* 8.3 Distributions of \(\Delta\varphi\) for \(\pi^{+}\pi^{-}\) and \(K^{+}K^{-}\) events compared to Graniitti
+* 8.4 Distributions of \(\Delta\varphi\) for \(p\bar{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) events compared to Graniitti
+* 8.5 Distributions of \(y\) for \(\pi^{+}\pi^{-}\) and \(K^{+}K^{-}\) events compared to Graniitti
+* 8.6 Distributions of \(y\) for \(p\bar{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) events compared to Graniitti
+* 8.7 Acceptance corrected invariant mass spectra of \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) events differentiated into two \(\Delta\varphi\) regions and compared to Graniitti
+* A.1 Distributions of \(y\) for \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) events in two \(\Delta\varphi\) regions
+* A.2 Distributions of \(\Delta\varphi\) and for \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) events in two \(\Delta\varphi\) regions
+* B.1 Distributions of \(N_{hits}^{fit}\) and \(N_{hits}^{dE/dx}\) for \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\)
+* B.2 Distributions of \(DCA(z)\) and \(DCA(xy)\) for \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\)
+* B.3 Distributions of \(\eta\) and \(t\) for \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\)List of Tables
+	* 2.1 DIPE cross-sections
+	* 2.1 Central production trigger description
+
+[MISSING_PAGE_EMPTY:18]
+
+## Introduction
+
+Everything around us is composed of elementary particles such as quarks, leptons and bosons. The standard model of particle physics describes how the elementary particles form the matter around us using three of the four fundamental forces: electromagnetic, weak and strong. The strong interaction is described by the quantum chromodynamics (QCD), a theory using gluons as the exchange particles. Together gluons and quarks are forming bound states e.g. proton or neutron which are a part of each atom. Among them are particles that are predicted by the QCD but not yet fully experimentally confirmed, like the gluon bound states called glueballs or exotic mesons. The experimentally measured glueball candidates like the \(f_{0}(1500)\) and the \(f_{0}(1710)\) are expected to decay into \(\pi\pi\), \(\pi\pi\pi\pi\) and \(KK\) states, respectively. Hence, it is interesting and important to perform a search for all these final states at every new opportunity. Such is for example, the STAR experiment at the Relativistic Heavy Ion Collider (RHIC) at the Brookhaven National Laboratory in the USA.
+
+High energy proton-proton (\(pp\)) colliders like RHIC and the Large Hadron Collider (LHC) in the European Organization for Nuclear Research (CERN) complex provide a unique opportunity to study diffractive processes such as central exclusive production (CEP). In CEP, the protons stay intact and central state is produced with quantum numbers of vacuum. It is believed that the Double Pomeron Exchange (DPE) is a dominant CEP mechanism at high energies. Since the Pomeron is in the lowest order in QCD described as a pair of gluons, the DIPE process provides a gluon-rich environment, which is considered to be a potential source of glueballs. The experimental confirmation of the existence of the glueball would be yet another strong support for the validity of the QCD theory. Despite its theoretical predictions, the existence of a glueball has not been unambiguously confirmed yet.
+
+The first chapter of this thesis is a brief theoretical introduction to the hadronic diffraction physics, Regge framework and CEP. The second chapter provides an up to date overview of results in the CEP process. The following chapter describes the RHIC accelerator complex and the STAR experiment with its sub-detectors: the Time Projection Chamber, the Time of Flight detector, Beam-Beam Counters and Roman Pots. The main goal of this thesis was to analyse the data from \(pp\) collisions at \(\sqrt{s}=510\) GeV collected by the STAR experiment in 2017. Since the data contain triggers from DIPE in CEP, they are very promising for a glueball search. The current state of the analysis is described in chapters 4 - 7. In particular, distributions of invariant mass of centrally exclusively produced \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\), \(p\overline{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) are presented. Finally, in the eighth and last chapter of this thesis the results are compared to Graniitti Monte Carlo event generator.
+
+[MISSING_PAGE_EMPTY:20]
+
+## Chapter 1 Central exclusive production
+
+Before central exclusive production process is described, it is necessary to define the common kinematic variables and introduce theoretical framework of diffraction processes in proton-proton collisions.
+
+### 1.1 Kinematics and cross-section
+
+Mandelstam variables are commonly used to describe two-body scattering processes of two particles to two particles which can be seen in Fig. 1.1. There are three Mandelstam variables defined as:
+
+\[\begin{split} s&=(p_{1}+p_{2})^{2}=(p_{3}+p_{4})^{2 },\\ t&=(p_{1}-p_{3})^{2}=(p_{2}-p_{4})^{2},\\ u&=(p_{1}-p_{4})^{2}=(p_{2}-p_{3})^{2},\end{split} \tag{1.1}\]
+
+where \(p_{1},\ p_{2}\) are the four-momenta of incoming particles and \(p_{3},\ p_{4}\) are the four-momenta of outgoing particles. Furthermore, the letters \(s,\ t,\ u\) stand for the channels corresponding to Feynman diagrams [1]. In the reaction \(1+2\to 3+4\) the Mandelstam variable \(s\) is square of the total center of mass energy and the variable \(t\) is the four momentum transfer squared [2].
+
+In high energy physics, the Cartesian coordinate system is used, where \(z\) coordinate is parallel to the beam direction and \(x,\ y\) are in the plane perpendicular to the beam direction. A very often used kinematical variable is rapidity \(y\), which is related to the longitudinal momentum of final-state particle \(p_{z}\) and is defined as:
+
+\[y=\frac{1}{2}\ln\frac{E+p_{z}c}{E-p_{z}c}, \tag{1.2}\]
+
+where \(E\) is the energy of particle and \(c\) denotes the speed of light. The useful feature of rapidity is that it transforms additively under a Lorentz boost along \(z\) coordinate. The rapidity \(y\) is often replaced by the pseudorapidity \(\eta\) since it is hard to measure the rapidity \(y\) for highly relativistic particles. The pseudorapidity is defined as:
+
+\[\eta=-\ln\tan\frac{\theta}{2}, \tag{1.3}\]where the angle \(\theta\) is a polar angle and specifies the direction of particle motion with respect to the \(z\) coordinate. The pseudorapidity is identically equal to rapidity for massless particles and its is approximately equal to rapidity for highly relativistic particles [2].
+
+A useful variable used in description of particle scattering is \(x_{F}\)[2], called \(x\)-Feynman's, defined as:
+
+\[x_{F}=\frac{|p^{\prime}_{z}|}{p_{z}}. \tag{4}\]
+
+In the center-of-mass frame at high \(\sqrt{s}\), the magnitude of the longitudinal momentum of each initial particle is almost equal to \(\frac{1}{2}\sqrt{s}\). The longitudinal momentum \(p_{z}\) of a final-state particle can be then written as:
+
+\[p_{z}=\frac{1}{2}\frac{x_{F}}{c}\sqrt{s}. \tag{5}\]
+
+Another useful variables used to describe particle scattering is a fractional momentum loss \(\xi=\Delta p/p\) and the invariant mass of the centrally produced system \(M_{X}\). In CEP \(\xi\) is equal to the momentum fraction carried off by the Pomeron.
+
+A cross-section \(\sigma\) denotes a probability that a specific process will appear. The cross-section is expressed in terms of a transverse area within which an incident particle must hit a target particle in order for the given process to occur. The cross-section expressed as a function of some final-state variables (particle energy or scattering angle) is called a differential cross-section. In relativistic particle physics the cross-section of resonances, bound states decaying by the strong force, can be described by the relativistic Breit-Wigner distribution [4, 5]:
+
+\[\sigma=\frac{\mu\Gamma}{\pi}\frac{1}{(E^{2}-\mu^{2})^{2}+\mu^{2}\Gamma^{2}}, \tag{6}\]
+
+where \(E\) is an energy of the resonance, \(\mu\) is the mass of resonance and \(\Gamma\) is the resonance width or decay width. The Eq. (6) is expressed in natural units, where \(c=\hbar=1\).
+
+Figure 1: The illustration of the two-to-two particle scattering process. Two incoming particles with momenta \(p_{1}\) and \(p_{2}\) are scattered to two outgoing particles with momenta \(p_{3}\) and \(p_{4}\). Taken from Ref. [3].
+
+Hadronic diffraction
+
+High-energy particle diffractive processes are interactions between hadrons showing strong analogy with the same optical phenomenon. They were first introduced by Landau in the 1950's. For many of them the outgoing system of particles at a given vertex has the same quantum numbers as the incoming one, hence no quantum numbers are exchanged between the colliding particles at high energies. Thus, they can be divided into three cases [2].
+
+1. Elastic scattering is a process, when two incident particles emerge intact. See Fig. 1.2 (a).
+2. Single diffraction dissociation is a process, when one of the incoming particles emerges intact and the other creates a number of final particles with the same quantum numbers as the initial particle. See Fig. 1.2 (b).
+3. Double diffraction dissociation is a process, when each incident particle creates a number of final particles with the same quantum numbers as the two initial particles. See Fig. 1.2 (c).
+
+The definition above is quite unpractical, since it is difficult to fully reconstruct the final state and determine if the outgoing particles have the same quantum numbers as the incoming ones. Therefore, diffractive processes are redefined as non exponentially suppressed processes characterized by a large rapidity gap in the final state. The rapidity gap is an interval in rapidity, where no particles are produced. This definition is equivalent to the first one and it is more practical since it is easier to measure rapidity gap than quantum numbers of particles. Although the request of rapidity gap is practical, it is not a sufficient condition. There are non-diffractive processes with large rapidity gap, however the number of these events is exponentially suppressed with increasing center-of-mass energy [2].
+
+The diffractive processes can be divided based on the four momentum transfer squared \(t\) in two classes [2]:
+
+1. The hard processes are processes with \(|t|>1\) GeV\({}^{2}\) and therefore they can be described by perturbative QCD.
+
+Figure 1.2: The schematic view of diffractive processes: Elastic scattering (a), Single diffraction dissociation (b), Double diffraction dissociation (c). The incoming particles are labelled as \(1,2\) and the intact outgoing particles are labelled as \(1^{\prime},2^{\prime}\). The \(X_{1}\) and \(X_{2}\) denote a number of final particles created by the incoming particle. Taken from Ref. [2].
+
+2. The soft processes are processes with \(|t|<1\) GeV\({}^{2}\) and with an energy scale of the order of the hadron size \(\sim 1\) fm. Since they have large length scale, the perturbative QCD is not suitable for description of these processes and Regge theory is used.
+
+The exciting feature of diffractive processes is presence of soft and hard properties at the same time. The hard diffractive processes allow to study diffraction in a perturbative QCD and open the way to translate Regge theory into language of QCD [2].
+
+### 1.3 Regge theory and Pomeron
+
+The traditional theoretical framework for diffraction is Regge theory, developed in late 1960s. Regge theory describes hadronic reactions at high energies in terms of the exchange of objects called reggeons or Regge trajectories. Each family of bound states or resonances corresponds to a single Regge trajectory.
+
+Regge theory is based on analytical properties of scattering amplitudes \({\cal A}\) and thus on properties of the S-matrix. S-matrix, scattering matrix, is a unitary linear operator transforming the initial state \(|i>\) of a scattering process into the final state \(|f>\):
+
+\[S|i>=|f>. \tag{1.7}\]
+
+The S-matrix elements can be written as:
+
+\[S_{if}\equiv<f|S|i>=\delta_{if}+i(2\pi)^{4}\delta^{4}(p_{f}-p_{i})A_{if}(s,t), \tag{1.8}\]
+
+where \(A_{if}(s,t)\) is the relativistic scattering amplitude and \(p_{i,f}\) are the four-momenta of initial and final states [2].
+
+One of the main Regge ideas was to parametrize \(A_{if}\) as a function of the orbital angular momentum \(l\), \({\cal A}(l,t)\), where \(l\) is a continuous complex variable. The \({\cal A}(l,t)\) in the complex \(l\)-plane has singularities, poles, whose locations vary with \(t\):
+
+\[l=\alpha(t). \tag{1.9}\]
+
+These poles are known as Regge poles, or reggeons. The functions \(\alpha(t)\) are called Regge trajectories and are usually approximated by the Taylor series around \(t=0\) as:
+
+\[\alpha(t)=\alpha(0)+\alpha^{\prime}\cdot t, \tag{1.10}\]
+
+where \(\alpha(0)\) is intercept and \(\alpha^{\prime}\) is a slope of the trajectory.
+
+Values of \(t\) such that \(\alpha(t)\) is a non-negative integer correspond to the squared mass of a bound state or resonance having that spin. Chew and Frautschi plotted the spins of low lying mesons against their squared masses and noticed that the mesons lie in a straight line as show in Fig. 1.3. A Regge trajectory \(\alpha(t)=0.5+0.9\)\(t\) [GeV\({}^{2}\)], the \(\rho\)-trajectory, was obtained by fit. From the intercept and the optical theorem [2], one can obtain the asymptotic behaviour of the total cross-section of simple reggeon exchange [6]:
+
+\[\sigma_{\rm tot}\propto s^{(\alpha(0)-1)}. \tag{1.11}\]For the \(\rho\)-trajectory, the cross-section for a process with isospin exchange falls as \(s\) increases, since \(\alpha_{\rho}(0)<1\). In 1956, Pomeranchuk and Okun proved that the cross-section vanishes asymptotically for any scattering process with charge exchange, the Pomeranchuk theorem. However it was observed experimentally that the total cross-sections for \(pp\) and \(p\overline{p}\) did not fall as \(s\) increases for \(\sqrt{s}>10\) GeV, see Fig. 1.4. Thus, the process must be dominated by the exchange of reggeon with vacuum quantum numbers lying on a new trajectory, whose intercept is greater than one. The new trajectory was called the Pomeron [2, 6, 7].
+
+#### Pomeron
+
+The Pomeron was named after Soviet theoretical physicist I. Ya. Pomeranchuk. Its existence was postulated by Chew, Frautschi and Gribov in 1961. However the exact nature of the Pomeron still remains elusive. It is known that it is a colour singlet
+
+Figure 1.4: The world data of \(p,\ p\) and \(p,\ \overline{p}\) elastic and total scattering cross-section. Taken from Ref. [8].
+
+Figure 1.3: The Chew-Frautschi plot. Particle spins \(\alpha(t)\) plotted against their squared masses \(t\). The straight line is \(\alpha(t)=0.5+0.9\ t\) [GeV\({}^{2}\)]. Taken from Ref. [7].
+
+object with internal quantum numbers of the vacuum \(0^{++1}\) and intercept \(\alpha_{I\!P}(0)\simeq 1\). The Pomeron trajectory does not correspond to any known particle. In perturbative QCD, in the leading order the Pomeron is represented by a pair of gluons since two gluons is the minimal number of gluons needed to reproduce the Pomeron quantum numbers. This representation was proposed by Low and Nussinow [2, 7].
+
+It is believed that diffractive processes at high energies are occurring via the exchange of the Pomeron and the exchange of other reggeons with vacuum quantum numbers is suppressed at high energy. Thus in Regge theory the diffractive reactions are those dominated by Pomeron exchange. The Pomeron trajectory:
+
+\[\alpha_{I\!P}(t)=1.08+0.25\ t\ [\mbox{GeV}^{2}] \tag{1.12}\]
+
+with a \(2^{++}\) glueball candidate, measured by the WA91 Collaboration [9], can be seen in Fig. 1.5. The Pomeron trajectory \(\alpha_{I\!P}(t)\) was obtained by fitting the elastic scattering data [2, 7].
+
+#### Glueball
+
+QCD predicts the existence of meson-like objects which contain only gluons as a consequence of their self-interaction [10]. These mesons, gluon bound states, are called glueballs. Despite its theoretical predictions, the glueball has not yet been observed. As a potential source of glueballs has been regarded the production of mesons in the central region of proton-proton scattering. The experimental confirmation of its existence would be yet another strong support for the validity of the QCD theory [11, 7, 12].
+
+Lattice QCD calculations, well-established non-perturbative approach to solving the QCD theory of quarks and gluons, have predicted the lowest-lying scalar
+
+Figure 1.5: The Pomeron trajectory \(\alpha_{I\!P}(t)=1.08+0.25\ t\ [\mbox{GeV}^{2}]\) with a \(2^{++}\) glueball candidate. Taken from Ref. [7].
+
+glueball state in the mass range of \(1500-1700\) MeV/\(c^{2}\) and tensor and pseudo-scalar glueballs in \(2000-2500\) MeV/\(c^{2}\). Experimentally measured glueball candidates for the scalar glueball states are the \(f_{0}(1500)\) and the \(f_{0}(1710)\)[7, 11, 12]. The experimental results are discussed in the chapter 2.
+
+### 1.4 Central exclusive production
+
+Central exclusive particle production is a process \(A+B\to A+X+B\), where the colliding particles A and B emerge intact, and for which all particles in the final state are fully measured. A process is called central when the produced state \(X\) is produced at central (small) rapidity and is well separated from outgoing particles by rapidity gap \(\Delta y>3\). The diagram of central exclusive production through double Pomeron exchange (DPE) compare to the diagram of elastic scattering in proton-proton collisions with \(\eta-\phi\) representations can be seen in Fig. 1.6[11].
+
+CEP does not involve valance quarks and the properties of the produced state \(X\) should be independent of the colliding hadrons. Furthermore, the produced state \(X\) must have positive parity and charge parity, total charge equal to zero and even spin. As Robson first suggested in 1977 [13], the DPE is expected to be the dominant CEP mechanism at high \(\sqrt{s}\). The first hadron collider, with sufficiently high enough \(\sqrt{s}\), was the CERN Intersecting Storage Rings [14], where DPE was first observed. Since then, DPE has been studied at numerous colliders such as the Super Proton-Antiproton Synchrotron at CERN, the Tevatron at Fermilab, the Relativistic Heavy Ion Collider at Brookhaven National Laboratory and last but not least at the Large Hadron Collider at CERN [15].
+
+Figure 1.6: The diagram of central exclusive production through double Pomeron exchange with \(\eta-\phi\) representation (left). The diagram of elastic scattering with \(\eta-\phi\) representation (right). Taken from Ref. [12].
+
+[MISSING_PAGE_EMPTY:28]
+
+## Chapter 2 Status of central exclusive production
+
+Before the CERN Intersecting Storage Rings (ISR), the world's first hadron collider, there were searches for D\(\mathrm{\bar{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{}}}}}}}}}}}}}}}\) in fixed target experiments. One of them was carried by the France-Soviet Union Collaboration at Serpukov [16]. In 1970s, they investigated the exclusive reaction \(p+p\to p+\pi^{+}\pi^{-}+p\) at \(\sqrt{s}=11.5\) GeV using a bubble chamber. They were only able to measure upper limits of the D\(\mathrm{\bar{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{ \mathrm{ \mathrm{ }}}}}}}}}}}}}}}\) cross-section. The ISR was the first to measure the D\(\mathrm{\bar{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{ \mathrm{ }}}}}}}}}}}}}}}}}\) in central exclusive production [17] since it had enough central mass energy for the D\(\mathrm{\bar{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{ \mathrm{ \mathrm{   }}}}}}}}}}}}}}}}}}\) signal to appear. At the ISR, there were many collaboration searching for D\(\mathrm{\bar{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{{ \mathrm{    \mathrm{    }}}}}}}}}}}}}}}}}}\) in the ARCGM Collaboration, the CCHK Collaboration, the CHM Collaboration and the Axial Field Spectrometer (AFS) Collaboration. The ARCGM Collaboration was first which presented the experimental evidence of D\(\mathrm{\bar{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{ \mathrm{ \mathrm{    \mathrm{    \mathrm{     }}}}}}}}}}}}}}}}\) in central exclusive production [17]. The forward protons were tracked by all collaborations and only some collaborations measured their momenta. All collaborations, except the ARCGM, measured momenta of central particles, however only the AFS Collaboration identified them, otherwise pions were assumed. The D\(\mathrm{\bar{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{ \mathrm{ \mathrm{ \mathrm{   \mathrm{ }}}}}}}}}}}}}}}}}}\) (\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{ \mathrm{ \mathrm{ \mathrm{    \mathrm{      \mathrm{     }}}}}}}}}}}}}})\) (\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{ \mathrm{\mathrm{ \mathrm{ \mathrm{ \mathrm{ \mathrm{    \mathrm{     \mathrm{     }}}}}}}}}}}}})\) (\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{ \mathrm{ \mathrm{ \mathrm{ \mathrm{    \mathrm{ }}}}}}}}}}}}}}}} })\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{ \mathrm{ \mathrm{ \mathrm{     \mathrm{ }}}}}}}}}}}}}})\) (\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{ \mathrm{ \mathrm{ \mathrm{ \mathrm{ }}}}}}}}}}}}}}})\ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{ \mathrm{ \mathrm{ \mathrm{ \mathrm{ }}}}}}}}}}}}}}})\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrmmathrmmathrm}}}}}}}}}}}}}}}}} }\). The measured invariant mass spectrum of \(\pi^{+}\pi^{-}\) is shown in Fig. 2.1. The measured invariant mass spectrum of \(\pi^{+}\pi^{-}\) shows several interesting features. There is an rapid increase followed by a sharp drop at 1 GeV/\(c^{2}\) and a bump between 1100 and 1500 MeV/\(c^{2}\). There is no sign of \(\rho^{0}\) decaying to \(\pi^{+}\pi^{-}\) at 770 MeV/\(c^{2}\), which is forbidden in D\(\mathrm{\bar{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm\mathrm{    \mathrm{    \mathrm{   \mathrm{     \mathrm{     }}}}}}}}}}}}}}\) in \(\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm\mathrm{\mathrm\mathrm{\mathrm\mathrm{          \mathrm{     \mathrm{     \mathrm{      \mathrm{      \mathrm{      \mathrm{      \mathrm{      }}}}}}}}\). The interpretation of these features is not clear. It was believed that the rapid increase with sharp drop at 1 GeV/\(c^{2}\) could be due to \(f_{0}(600)\) and \(f_{0}(980)\) resonances. However these scalar resonances cannot lie on the Pomeron trajectory Eq. (1.12). The bump between 1100 and 1500 MeV/\(c^{2}\) is considered to be \(f_{2}(1270)\) resonance. According to Minkowski and Ochs, there is a single very broad state extending from 400 MeV/\(c^{2}\) to about 1700 MeV/\(c^{2}\). They call it red dragon and considering to be the lightest scalar glueball.
+
+Besides \(\pi^{+}\pi^{-}\) CEP processes, the AFS Collaboration also measured CEP processes with \(K^{+}K^{-},\ p\overline{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) at different center-of-mass energy (\(\sqrt{s}=45,\ 63,\ 126\) GeV) and different incident particle type (\(p,\ \alpha\)). The mass spectra seemed to be independent of center-of-mass energy and incident particle type [18, 19].
+
+Fixed target experiments continued searching for glueballs even after the ISR. Namely, the CERN fixed target experiments WA76, WA91 and WA102 performed at the Omega spectrometer. They studied CEP in the reactions \(pp\to pXp\) at \(\sqrt{s}=12.7,\ 23.8\) and \(29\) GeV. Because of high luminosities they were capable to collect large statistics data samples [11, 20]. At those small \(\sqrt{s}\), t
+
+Figure 2.1: The \(\pi^{+}\pi^{-}\) invariant mass distribution measured by the AFS Collaboration at the Intersecting Storage Rings. Taken from Ref. [19].
+
+background was performed by comparing the \(\pi^{+}\pi^{-}\) mass spectrum from different experiment with different center-of-mass energies and same trigger conditions. Results are in agreement with theoretical predictions [21] suggesting that DIPE is dominant at high energies. In Regge theory the dependence on \(s\) of the the cross-sections for various reggeon exchanges can be described as::
+
+\[\sigma(R\ R) \sim s^{-1}, \tag{1}\] \[\sigma(R\ I\!P) \sim s^{-0.5},\] (2) \[\sigma(I\!P\ I\!P) \sim\ \mbox{constant}, \tag{3}\]
+
+where \(RR\) denotes reggeon-reggeon exchange, \(R\ I\!P\) refers to reggeon-Pomeron exchange and \(I\!P\ I\!P\) stands for DPE [22].
+
+The WA76, WA91 and WA102 experiments searched for the scalar and tensor glueball in the reactions with \(X=\pi^{+}\pi^{-},\ K^{+}K^{-},\ p\overline{p},\ \pi^{+}\pi^{-}\pi^{+}\pi^{-},\ \eta \eta,\ \eta\eta^{\prime}\) and \(\omega\omega\). One of the most interesting studies for this thesis is \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) study performed by the WA76 [23, 24] that was enhanced by WA91 [9] and was finalized by the WA102 [25]. The effective mass spectrum of \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) with a fit using three Breit-Wigner functions can be seen in Fig. 2. The Breit-Wigner functions are associated with the \(f_{1}(1285)\), the \(f_{0}(1450)\) and the \(f_{2}(1900)\) resonances. However, the \(f_{1}(1285)\) shows strong dependence on glueball-\(q\overline{q}\) filter \(dP_{\rm T}\), where \(dP_{\rm T}\) is the difference in the transverse momentum vectors of the two exchange particles. The studies show that resonant structures at 1.45 and 1.9 GeV/\(c^{2}\) are more complex. Furthermore, the \(f_{1}(1285)\) resonance is not allowed in CEP via DIPE, since the central system \(X\) must have even spin. Because of the rather low \(\sqrt{s}=12.7,\ 23.8\) and 29 GeV, the interpretation of these measurement in terms of DIPE may not be fully justified [11, 22].
+
+Figure 2: The effective mass spectrum of \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) with fit using three Breit-Wigner functions. Taken from Ref. [25].
+
+At present, the CEP processes are studied at the STAR experiment [26] and at CERN experiments: COMPASS [27], LHCb [28], ALICE [29], CMS [30] and ATLAS [31]. Nevertheless experiment such as LHCb, ALICE and CMS do not measure the outgoing protons and therefore they are not able to measure the exclusivity of the process. One of the newest measurements of these experiments was done by the CMS collaboration. They investigated CEP of \(\pi^{+}\pi^{-}\) pairs in \(pp\) collisions at the LHC at the \(\sqrt{s}=5.02\) and 13 TeV [30]. They measured differential cross-sections as a function of invariant mass, transverse momentum and rapidity of \(\pi^{+}\pi^{-}\) pairs which can be seen in Fig. 2.3.
+
+The results were compared to the generator-level predictions from STARLIGHT [32] and DiMe [33] Monte Carlo (MC) generators. The DiMe is a phenomenological model based on Regge theory describing the direct, non-resonant production of pion pairs via DPE. The STARLIGHT was use to predict the \(\rho_{0}(770)\) production. Although the \(\rho_{0}(770)\) production is forbidden in DPE, it can give a non negligible contribution via the vector meson photoproduction (process, when Pomeron interacts with photon), since vector meson photoproduction have comparable cross-section as DPE at the LHC energies.
+
+The invariant mass spectra show similar features as the spectra measured by the AFS Collaboration, especially the peak at 900 MeV/\(c^{2}\) followed by the sharp drop at 1000 MeV/\(c^{2}\) and the peak at \(1200-1300\) MeV/\(c^{2}\) corresponding to the \(f_{2}(1270)\) resonance. Furthermore, a peak at about 500 MeV/\(c^{2}\) and a peak at 800 MeV/\(c^{2}\) are seen. The first peak at 500 MeV/\(c^{2}\) is not described by any of the MC generators and is assigned to \(f_{0}(500)\) resonance. The following peak at 800 MeV/\(c^{2}\) is attributed to \(\rho_{0}(770)\) production via vector meson photoproduction, since it is predicted by STARLIGHT. The sharp drop at 1000 MeV/\(c^{2}\) is explained as the quantum mechanical interference of \(f_{0}(980)\) with the continuum contribution [30].
+
+The measured total exclusive \(\pi^{+}\pi^{-}\) production cross-sections reported by CMS are \(19.6\pm 0.4\)(stat.) \(\pm 3.5\)(syst.) \(\pm 0.01\)(lumi.) \(\mu\)b for 5.02 TeV and \(19.0\pm 0.6\)(stat.) \(\pm 3.4\)(syst.) \(\pm 0.01\)(lumi.) \(\mu\)b for 13 TeV data sets. These results represent the first measurement of CEP process at the LHC collision energies of 5.02 and 13 TeV [30].
+
+The most recent results in CEP with \(\pi^{+}\pi^{-},\ K^{+}K^{-},\ p\overline{p}\) final states was obtained by the STAR experiment at RHIC [34]. The sample of 15.8 pb\({}^{-1}\) data collected in \(pp\) collisions at \(\sqrt{s}=200\) GeV was used. The DPE is expected to be dominant at that \(\sqrt{s}\), since the contribution from vector meson photoproduction and photon-photon processes are not significant and additionally suppressed at \(-t>0.04\) GeV\({}^{2}/c^{2}\). Unlike the CMS Collaboration, the STAR experiment uses Roman Pot detectors, allowing efficient measurement of diffractively scattered protons. This enables full control of collision kinematics and verification of the exclusivity by measuring the momenta of all final state particles.
+
+Differential cross-sections for CEP of charged particle pairs \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\overline{p}\) as functions of the invariant mass of the pair with small squared four momentum transfers \(0.04<-t_{1},-t_{2}<0.2\) GeV\({}^{2}/c^{2}\) of the forward protons were measured and they can be seen in Fig. 2.4 and in Fig. 2.5, respectively. The results were compared to MC model predictions, namely: DiMe, GenEx [35] and PYTHIA8 [36] MBR [37].
+
+Figure 3: The measured differential cross-sections as a function of invariant mass (upper row), transverse momentum (middle row) and rapidity (bottom row) of \(\pi^{+}\pi^{-}\) for the 5.02 (left) and 13 (right) TeV data sets. Taken from Ref. [30].
+
+The MC models predict only a continuum production under the resonances, therefore only a roughly comparison of shape of non-resonant production and overall normalization can be made. The GenEx is event generator based on a phenomenological models of continuum production mechanism of \(\pi^{+}\pi^{-}\) or \(K^{+}K^{-}\) pairs as is the DiMe model. The differences between the DiMe and GenEx model predictions are attributed to the absorption effects, since the GenEx does not take the absorption corrections explicitly as DiMe. The MBR model implemented in PYTHIA8 generates exclusive charged particle pairs through fragmentation and hadronization of the central state.
+
+Figure 2.4: Differential cross-section as a function of invariant mass of \(\pi^{+}\pi^{-}\) compared to predictions from MC models. Taken from Ref. [34].
+
+Figure 2.5: Differential cross-sections as a function of invariant mass of \(K^{+}K^{-}\) (left) and \(p\overline{p}\) (right) compared to predictions from MC models. Taken from Ref. [34].
+
+The results are restricted to the fiducial region for the forward protons defined as:
+
+\[\begin{array}{c}(p_{x}+0.3\ {\rm GeV}/c)^{2}+p_{y}^{2}<0.25\ {\rm GeV}^{2}/c^{2},\\ 0.2\ {\rm GeV}/c\ <|p_{y}|<0.4\ {\rm GeV}/c,\\ p_{x}>-0.2\ {\rm GeV}/c,\end{array} \tag{2.4}\]
+
+where \(p_{x},\ p_{y}\) are momenta of the forward protons measured in the Roman Pots. The selection of this fiducial region ensures high geometrical acceptance and track reconstruction efficiency.
+
+In general, the differential cross-section as a function of invariant mass of \(\pi^{+}\pi^{-}\) shows the main features as the spectrum measured by the AFS Collaboration, the drop at 1 GeV/\(c^{2}\) and the peak about 1.3 GeV/\(c^{2}\). These features are attributed to \(f_{0}(980)\) and \(f_{2}(1270)\) resonances discussed above. Furthermore, another resonance is observed at higher invariant masses about 2.2 GeV/\(c^{2}\). The DiMe model roughly describes the shape of the non-resonant production and it gives better prediction for normalization compare to GenEx or MBR model.
+
+The cross-section for the \(K^{+}K^{-}\) shows a peak at 1.3 GeV/\(c^{2}\) and very pronounced peak at 1.55 GeV/\(c^{2}\). The peaks are attributed to \(f_{2}(1270)\) and \(f_{2}^{{}^{\prime}}(1525)\) resonances that are expected in the DPE. Since the \(f_{2}(1270)\) resonance was measured in the \(\pi^{+}\pi^{-}\) and \(K^{+}K^{-}\) production, a ratio of cross-sections in this mass region was measured. The ratio is equal to 18 and it is in good agreement to the branching fractions for decays into \(\pi^{+}\pi^{-}\) and \(K^{+}K^{-}\) pairs from the Particle Data Group [38]. The cross-section for the \(p\overline{p}\) does not show any resonances. Its shape is reasonably well described by the MBR model, the only available one, through the MBR model overestimate the data by a factor of eight.
+
+The differential cross-sections for CEP of charged particle pairs \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\overline{p}\) as a function of the pair rapidity and the difference in the azimuthal angles of the forward protons \(\Delta\varphi\) can be seen in Fig. 2.6. The model predictions describe the shapes of measured distributions quite well. The differential cross-sections show a strong suppression about \(90^{\circ}\) due to fiducial cuts applied to the forward protons. The fiducial cuts are also mainly responsible for a hole at 0.5 GeV/\(c^{2}\) in the cross-section for the \(\pi^{+}\pi^{-}\) shown in Fig. 2.4, since the cross-section were measured in two \(\Delta\varphi\) regions: \(\Delta\varphi<90^{\circ}\) and \(\Delta\varphi>90^{\circ}\). The scattered protons with \(\Delta\varphi<90^{\circ}\) create a recoil to the central system allowing measurement at low invariant mass region. Figure 2.7 shows the differential cross-sections for CEP of charged particle pairs of \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\overline{p}\) as functions of the invariant mass of pairs in two regions of the \(\Delta\varphi\). The enhancement of cross-sections at low invariant mass in the \(\Delta\varphi<90^{\circ}\) compared to \(\Delta\varphi>90^{\circ}\) region is clearly visible. Another differences can be seen: the \(f_{2}(1270)\) resonance in the \(\pi^{+}\pi^{-}\) cross-section in \(\Delta\varphi<90^{\circ}\) is significantly suppressed and the \(f_{0}(980)\) resonance is enhanced compared to Figure 2.6: Differential cross-sections for CEP of charged particle pairs \(\pi^{+}\pi^{-}\) (left), \(K^{+}K^{-}\) (middle) and \(p\overline{p}\) (right) as a function of the difference of azimuthal angles of the forward scattered protons \(\Delta\varphi\) (upper row) and the pair rapidity (bottom row) compared to predictions from MC models. Taken from Ref. [34].
+
+Figure 2.7: Differential cross-sections for CEP of charged particle pairs of \(\pi^{+}\pi^{-}\) (upper row), \(K^{+}K^{-}\) (middle row) and \(p\overline{p}\) (bottom row) as a function of the invariant mass of the pair in two regions of the difference of azimuthal angles of the forward scattered protons: \(\Delta\varphi<90^{\circ}\) (left) and \(\Delta\varphi>90^{\circ}\) (right) compared to predictions from MC models. Taken from Ref. [34].
+
+made significant contributions to physics of CEP and they are worth mentioning: the Crystal Barrel spectrometer at LEAR at CERN [20], the experiment NA22 at the European Hybrid Spectrometer [39], the experiment E690 [40] and the CDF2 Collaboration at the Fermilab Tevatron [41], the UA1 experiment [42] and the UA2 experiment [43] combined with the UA8 experiment [44] including forward Roman pots on both beam pipes at the S\(p\overline{p}\)S collider.
+
+Footnote 2: The Collider Detector at Fermilab
+
+## Chapter 3 STAR experiment at RHIC
+
+### 3.1 Relativistic Heavy Ion Collider
+
+In 2000, the Relativistic Heavy Ion Collider started operations at Brookhaven National Laboratory (BNL). RHIC in one of the biggest scientific facilities in the U.S. It was the first machine in the world capable of colliding heavy ions at very high energies, thus allowing the studies of the Quark-Gluon Plasma. Furthermore, it is the only major accelerator capable of colliding polarized proton beams, which allows measurements aimed at studying the spin structure of the proton [45, 46, 47].
+
+Physics program at RHIC is very rich since RHIC is capable of colliding protons or different pairs of ions as U\({}^{92+}\), Au\({}^{79+}\), Ru\({}^{44+}\) Zr\({}^{40+}\) and Cu\({}^{29+}\). Furthermore, it is able to produce asymmetrical collisions, for example protons or deuterons with the gold ions. A summary of RHIC operating modes from 2000 to 2019 is shown in Fig. 3.1. In addition, RHIC also has operated in a fixed target mode. The first STAR fixed-target data from Au-Au collisions at \(\sqrt{s_{\rm NN}}=3.0\) and 7.2 GeV were taken in 2018 as a part of the Beam Energy Scan I program. In 2020, RHIC continued with the Beam Energy Scan II program with Au-Au collisions. Also, in 2020 BNL was selected for eRHIC upgrade, the high energy electron-ion collider (EIC). The EIC will be a particle accelerator that collides polarized electrons with protons or nuclei and it will allow to study the strong force in a great detail. The EIC will be the first accelerator of its kind in the world. The first data taking is planned in 2030 [48].
+
+RHIC consists of two rings with circumference of 3834 m where particles are accelerated in opposite directions, clockwise (blue) or anticlockwise (yellow). The rings intersect in 6 points called interaction points (IP), where experiments can be located. In 2000, there were four experiments: STAR, PHENIX, PHOBOS and BRAHMS. In 2002, the PP2PP experiment was added. The PP2PP was designed to study \(pp\) elastic scattering from \(\sqrt{s}=60\) GeV to \(\sqrt{s}=510\) GeV using Roman Pot systems to detect scattered protons. In 2009 the Roman Pots of the PP2PP experiment were incorporated into the STAR experiment, which is the only active experiment at present. Nevertheless, a new experiment sPHENIX [50] is being prepared with planned launch in 2022 [45, 46, 47].
+
+Before particles can be accelerated at RHIC they have to be pre-accelerated in the pre-accelerator complex. The entire accelerator complex can be seen in Fig. 3.2. The protons are supplied by the Brookhaven Linear Accelerator (Linac). They continue to the Booster Synchrotron where they are accelerated to 2 GeV. Then, they are send to the Alternating Gradient Synchrotron (AGS) where they are accelerated further to 23 GeV. Finally, they are injected into RHIC where they are accelerated up to 255 GeV[45, 46].
+
+The ions start at the Laser Ion Source (LION) where they are transfered to the Electron Beam Ion Source (EBIS). Then, the ions are accelerated to 95 MeV/(nucleon) in the Booster Synchrotron. In the AGS they are further accelerated to 9 GeV/(nucleon). Finally, they are injected into RHIC where they are accelerated up to 100 GeV/(nucleon)[45, 46].
+
+### 3.2 Solenoidal Tracker at RHIC
+
+The Solenoidal Tracker at RHIC (STAR) is a large-acceptance multi-purpose particle detector designed to study the strongly interacting matter at high temperature and high energy density. It is massive detector weighing 1200 tons consisting of many sub-detectors, such as the Time Projection Chamber (TPC), the Time of Flight detector (TOF), the Beam-Beam Counter (BBC), the Vertex Position Detector (VPD), and the Barrel Electromagnetic Calorimeter (BEMC). Another important part of the experiment is a large solenoidal magnet covering full azimuthal
+
+Figure 3.1: The summary of RHIC energies, species combinations and luminosities from 2000 to 2019. Taken from Ref. [49].
+
+angle and \(|\eta|<1\) in longitudinal direction and generating 0.5 T solenoidal magnetic field parallel to the beam axis. The STAR experiment with its main sub-detectors is shown in Fig. 3.3[51].
+
+The STAR experiment is very suitable for measuring CEP processes, because of its unique capabilities such as:
+
+Figure 3.3: The schematic view of the STAR experiment. Main sub-detectors, including the TPC, the TOF, the BBC, the VPD and the BEMC are highlighted. Taken from Ref. [52].
+
+Figure 3.2: The BNL accelerator complex consisting of multiple pre-accelerators and the main accelerator RHIC. Taken from Ref. [47].
+
+1. high-resolution tracking of centrally produced charged particles in the TPC,
+2. precise particle identification through the measurement of dE/dx and time of flight,
+3. forward rapidity \(2.1<|\eta|<5.0\) covered by the BBC detectors to ensure rapidity gaps,
+4. Silicon Strip Detectors in Roman Pots for measurement of forward protons.
+
+#### Time Projection Chamber
+
+The TPC is the heart of the STAR experiment. Its main purpose is precise particle identification and particle tracking. The schematic view of the TPC can be seen in Fig. 3.4. It is a large gas-filled cylindrical detector with inner diameter 1.0 m, outer diameter 4.0 m and is 4.2 m long. It covers full azimuthal angle and pseudorapidity \(|\eta|<1.0\). The fill gas is a P10 gas consisting of 90% argon and 10% methane. The P10 gas is kept at 200 Pa above the atmospheric pressure. The P10 is very convenient for the TPC since a drift velocity of electrons is insensitive to small fluctuation in temperature and pressure [51, 53, 54, 55].
+
+TPC is divided into two parts by high voltage conductive membrane, which is typically set to value of \(-28\) kV. The membrane creates uniform electric field \(E=135\) V/cm, which allows for the drift of electrons with a constant drift velocity. At both ends of the TPC, there are 48 Multi-Wire-Proportional-Chamber (MWPC) read-out sectors. A charged particle passing through the TPC creates electron-ion
+
+Figure 3.4: The schematic view of the TPC. A person is shown for comparison. Taken from Ref. [53].
+
+pairs and loose its energy. Then, the ions are moved towards the membrane and the electrons towards the MWPC sectors. Inside the MWPC sectors, the electrons are amplified by a factor of \(1000-3000\). The detectable signal is collected and their drift time is measured. The typical electrons drift velocity is about \(5.45\) cm/\(\mu\)s and the drift time is approximately \(40\)\(\mu\)s [51, 53].
+
+The STAR magnet provides magnetic field which curves the tracks of charged particles. Since the radius of track's curvature is proportional to the momentum of the particle, particle momentum can be measured over a range of \(100\) MeV/\(c\) to \(30\) GeV/\(c\) with the resolution about \(2\%\).
+
+Another important measurement obtained from the TPC is ionization energy loss (dE/dx), which is used for particle identification (PID). The variable used for the PID is \(n_{\sigma}\) defined as:
+
+\[n_{\sigma}=\frac{\ln\frac{\mathrm{d}E/\mathrm{d}x}{\langle\mathrm{d}E/ \mathrm{d}x\rangle}}{R_{\mathrm{d}E/\mathrm{d}x}}, \tag{3.1}\]
+
+where \(\mathrm{d}E/\mathrm{d}x\) is an energy loss per unit length measured by the TPC, \(\langle\mathrm{d}E/\mathrm{d}x\rangle\) is a mean energy loss per unit length for different particle species calculated using the Bichsel functions [56] and \(R_{\mathrm{d}E/\mathrm{d}x}\) is the TPC resolution. Hence, the value of \(n_{\sigma}\) corresponds to the number of standard deviations between the measured and the theoretical energy loss for a given particle at a given momentum. The typical \(\mathrm{d}E/\mathrm{d}x\) resolution of the TPC of the STAR is \(7\%\). In general, the TPC is able to identify particle with momenta from \(100\) MeV/\(c\) to \(-\)\(1\) GeV/\(c\). An example of measured and calculated energy loss of charged particles as a function of their momentum is shown in Fig. 3.5[57].
+
+#### Time of Flight detector
+
+The main purpose of the TOF is to extend the PID capabilities of the TPC for particles with higher \(p_{\mathrm{T}}\). Furthermore, the TOF system is used in the trigger of the STAR experiment to select charged particle multiplicity in the central rapidity for various physics processes. For the CEP events it helps triggering on low multiplicity events in the TPC [59].
+
+The TOF is a cylindrical shell around the TPC consisting of 120 trays and covering full azimuthal angle and the pseudorapidity \(|\eta|<1.0\). Each tray consists of 32 Multi-gap Resistive Plate Chamber (MRPC) modules, which can be seen in Fig. 3.6. The gas gaps are filled with a mixture of 90% Freon (R134a), 5% Isobutane and 5% SF6. Admixtures of Isobutane and SF6 allow suppression of very large avalanches which can be caused by streamers. When a charged particle passes through the MRPC module, a signal is generated and time of flight \(t\) is determined with a resolution about 100 ps. The PID is based on measuring the inverse particle velocity:
+
+\[\frac{1}{\beta}=\frac{t-t_{0}}{\Delta s}\ c, \tag{3.2}\]
+
+where \(c\) is the speed of light, \(\Delta s\) is the particle path length measured by the TPC and \(t_{0}\) is the initial time of collision given by the Vertex Position Detector. Then,the particle mass can be calculated using:
+
+\[m=\frac{p}{c}\sqrt{\left(\frac{1}{\beta}\right)^{2}-1}, \tag{3.3}\]
+
+where \(p\) is the particle momentum measured by the TPC. An example of measured and calculated inverse velocity of charged particles as a function of their momentum is shown in Fig. 3.7, where the PID capabilities of the TOF can be seen [59, 60].
+
+Figure 3.5: The energy loss of charged particles as a function of their momentum in 0-5% most central U+U collisions. Expected values for electrons \(e\), pions \(\pi\), kaons \(K\) and protons \(p\) obtained from Bichsel functions [56] are shown as coloured curves. Taken from Ref. [58].
+
+Figure 3.6: A STAR Time of Flight detector Multi-gap Resistive Plate Chamber model with the dimensions shown. Taken from Ref. [59].
+
+#### Beam-Beam Counter
+
+The BBC is designed to detected charged particles with high pseudorapidity produced in \(p+p\) and ion+ion collisions. In the \(p+p\) collisions, it is used as the Min-Bias trigger. The BBC detector at the STAR experiment has two identical detectors located on the east and west sides of the IP at the distance about 3.75 m. A schematic view of the BBC is shown in Fig. 3.8. Each detector consists of two rings of hexagonal scintillator tiles 1 cm thick. The inner ring has six tiles, while the outer ring is composed of 12 tiles. The inner and outer rings covers a pseudorapidity range of \(2.1<|\eta|<3.3\) and \(3.3<|\eta|<5.0\), respectively. When a charged particle passes through a scintillator tile, an average input signal of 15 photoelectrons is generated. Then, the scintillation signals are transmitted by four optical fibres to magnetically shielded photomultiplier. The BBC timing resolution is \(\sim 900\) ps [61].
+
+### 3.3 Roman Pots
+
+The Roman Pot (RP) technology was first used at the CERN's Intersecting Storage Rings in the early 1970s. It is used to detect and measure forward protons from elastic or inelastic collisions, scattered at small angles and moving inside the accelerator beam pipe. Since then the technology has been successfully used in other colliders like the SPS, Tevatron, RHIC, DESY and the LHC. Its main advantage
+
+Figure 3.7: The inverse velocity of charged particles as a function of their momentum. Expected values for electrons e, pions \(\pi\), kaons \(K\), protons \(p\) and deuterons \(d\) are shown as colored curves. Taken from Ref. [58].
+
+is capability to measure scattered particles close to the beam at a distance of few millimetres from the beam with precision about 30 \(\mu\)m [62, 63].
+
+The RPs at the STAR experiment is system of forward detectors located on each side of the IP. There are two RP stations at a distance of 15.8 m and 17.6 m. Each station consists of two RP vessels, one below and one above the beam axis. The current layout of the RP system, called Phase II*, is shown in Fig. 3.9. Each vessel houses a detector package made of a Silicon Strip Detector (SSD) package, which measures position of the scattered proton and a scintillation counter for trigger. The RP vessel and SSD package are shown in Fig. 3.10. The RP detectors are located between DX and D0 dipole magnets and they enable the reconstruction of the particle momentum by measuring the track angle and its position since the constant and uniform magnetic field of the DX magnet works as a spectrometer [63, 64].
+
+At STAR, the Roman Pots technology was developed by the PP2PP experiment. The SSD were designed at BNL and manufactured by Hamamatsu Photonics. The detector is mounted inside RP steel vessel, which separates vacuum of the beam pipe from the RP interior, which is at atmospheric pressure. The RP vessel has pot, window and support frame, see Fig. 3.10. The window is made of 300 \(\mu\)m thick stainless steel (SS). This thin window minimizes the amount of material that the scattered proton traverses before it is detected in the detector package. A profile is designed to enable the closest approach of the pot to the beam [62].
+
+The detector package is made of four planes of SSD with the trigger scintillation counter. The SSD package is shown in Fig. 3.10. The SSDs are read out by SVXIIE chips1. There are two types of detectors, with vertically oriented strips, readout by six SVXIIE chips, and with horizontally oriented strips, readout by four SVXIIE chips. For redundancy and detection efficiency, there are two planes of each type in the detector package. The silicon plane with vertical strips is shown in Fig. 3.11. In the SSD package, the first and the third plane are horizontal ones and the second and the fourth plane are vertical ones. This ordering enables measuring of both coordinates of particle in the plane perpendicular to the beam direction. When
+
+Figure 3.8: The STAR BBC detector schematic view. The BBC is divided into two identical detectors on the east and west sides of the interaction point. Taken from Ref. [61].
+
+Figure 3.10: The Roman pot vessels and the SSD package. Left: a photo of the two Roman Pots vessels, taken from Ref. [62]. Main parts are indicated. Right: a photo of the Silicon Strip Detector package, taken by myself.
+
+Figure 3.9: The Roman Pot Phase II* layout. Top view with highlighted Roman Pot stations E1, E2, W1, W2 and dipole magnets DX, D0. Side view with depicted Roman Pots. Taken from Ref. [8].
+
+charged particle passes through the SSD, electron-hole pairs are produced. Since a positive voltage is applied at the bottom layer of silicon, the holes drift to the closest strip, where they create a signal [62].
+
+The strips cover active area of roughly 79 mm \(\times\) 49 mm. Each SVXIIE readout chip reads individually 126 strips. The strip width is approximately 70 \(\mu\)m and the strip pitch is about 100 \(\mu\)m allowing resolution of 30 \(\mu\)m. A scintillator counter is installed at the back of SSD package. It is 8 mm thick and have area of 8 \(\times\) 5 cm\({}^{2}\) so it covers the active area of the detector. When ionizing particle passes through the scintillator, the light is generated and is direct through two lightguides to the photomultiplier tubes. Figure 3.12 shows the trigger counter of single detector package. The scintillator with two glued lightguides, each connected to photomultiplier tubes at the end, can be seen as well. The scintillator is used as the trigger and it also provides the timing information. The average Roman Pot reconstruction efficiency is very high about 99.98% [62].
+
+Each RP has own name denoting its location. The first letter indicate the side of the STAR detector where RP is mounted, E for "east", the "yellow" RHIC ring and W for "west", the "blue" RHIC ring. The second letter describes detector orientation, U means "up", RP is located above the beam line and D stands for "down", the RP is located below the beam line. Finally, there is a number 1 or 2
+
+Figure 3.11: A photo of the plane. Detector and SVXIIE readout chips are highlighted. Taken from Ref. [62].
+
+Figure 3.12: A photo of the trigger counter of single detector package. Taken from Ref. [65].
+
+which denotes if it is the first one located in the distance of 15.8 m from the IP or the second one located in the distance of 17.6 m from the IP. For example the first RP located at the east side above the beam line is called E1U and it can be seen in Fig. 3.9[62, 64].
+
+[MISSING_PAGE_EMPTY:50]
+
+## Chapter 4 Analysis of CEP in \(pp\) collisions at \(\sqrt{s}=510\) GeV
+
+In the following chapters, the analysis of the first measurement of CEP in \(pp\) collisions at \(\sqrt{s}=510\) GeV obtained by the STAR experiment is described. The analysis is focused on CEP in \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\), \(p\overline{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) channels. The analysis is still in progress and the results presented in this work marked with "THIS THESIS" label have not yet been approved by the STAR collaboration for public presentation. Results with a "STAR preliminary" label were approved by the STAR collaboration and were presented at the 40\({}^{\rm th}\) International (virtual) Conference on High Energy Physics [66], see Appendix C.
+
+The analysis was done using the ROOT framework and it was calculated on the STAR farm. In this and following chapters, the natural units are used.
+
+### 4.1 Data preparation and quality assurance
+
+In 2017, the STAR experiment collected data of \(pp\) collisions at \(\sqrt{s}=510\) GeV. The data were processed and stored in MuDst files, which are produced from the raw data collected during the data taking. The MuDst files contain all information about trajectories of centrally produced particles and outgoing protons. Since the MuDst files are greater than 622 TB, they are quite unpractical for the analysis. For this reason, in STAR the picoDst files, containing only the most important information about the events and individual tracks, are produced, reducing the size by a factor of 100. However, the standard picoDst format is not suitable for this analysis, since it does not contain the information about outgoing protons from the Roman Pot detectors. Thus, a _star-upcDst_ framework was developed to simplify analyses that are related to forward and ultra peripheral collisions (UPC) physics. My contributions were an implementation of all parts related to Roman Pot detectors and the testing the framework. Finally, I produced picoDst files, called UPC picoDst, using the developed _star-upcDst_ framework. Furthermore, I validated the UPC picoDst production by comparing it with another version of picoDst files whichwas made by our colleagues from the AGH University of Science and Technology, Cracow, Poland.
+
+Although, I have done the data quality assurance, the data sample that was used for this analysis does not contain all corrections, e.g. improved space charge calibration in the TPC, which was not implemented in the MuDst files. Hence, a new data reproduction is planned.
+
+### 4.2 Two hadron production
+
+In this section, the analysis on CEP of charged hadrons pairs, namely \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\overline{p}\), is described.
+
+#### Data sample and event selection
+
+More than \(622\times 10^{6}\) CEP triggers from \(pp\) collisions at \(\sqrt{s}=510\) GeV were analysed. The CPT2noBBCL trigger, described in Tab. 4.1, was used to ensure signals in the inelastic or in the elastic combinations in RP stations. They are shown in Fig. 4.1. Furthermore, at least two hits in the TOF were required to ensure at least two in-time tracks in the TPC and a veto on signal in the BBC was required to ensure the rapidity gaps typical of CEP events.
+
+First, information from RP stations was checked in the offline analysis. Since I am looking for process, where two hadrons are produced and the colliding protons
+
+Figure 4.1: An illustration of the inelastic and the elastic combinations of reconstructed tracks in RP stations.
+
+stay intact, only events with one proton on each side of the interaction point were selected. Thus, only the elastic or the inelastic combinations of reconstructed tracks in RP stations were allowed. Furthermore, all eight silicon planes were required to be used in the proton reconstruction, see Fig. 4.2 (left), to ensure good quality of the proton track. In addition, the reconstructed proton is required to have transverse momenta (\(p_{x},\ p_{y}\)) inside a fiducial region to ensure high geometrical acceptance. The fiducial region is defined as:
+
+\[\begin{split}\left(p_{x}+0.6\ \text{GeV}\right)^{2}+p_{y}^{2}<1.25 \ \text{GeV}^{2},\\ 0.4\ \text{GeV}\ <|p_{y}|<0.8\ \text{GeV},\\ p_{x}>-0.27\ \text{GeV},\end{split} \tag{4.1}\]
+
+and it can be seen in Fig. 4.2 (right) with distributions of reconstructed protons momenta.
+
+Second, since I am looking for two hadron production, only events with exactly two TPC tracks matched with two TOF hits originating from the same vertex were selected. Events satisfying this selection criterium plus the proton selection criteria are marked as "2 TPC-TOF tracks". Then, the opposite sign of two central tracks was required. Such events are marked as "Total charge 0". Finally, a cut on \(p_{\text{T}}^{miss}\) was applied to ensure exclusivity of the event, where the \(p_{\text{T}}^{miss}\) is a sum of the transverse momentum of the measured particles. For CEP processes the \(p_{\text{T}}^{miss}\) should be equal to zero because of the conservation of momentum. Thus, events with \(p_{\text{T}}^{miss}\) less then 100 MeV are called exclusive events. A comparison of three distributions of the \(p_{\text{T}}^{miss}\) with different selection criteria applied with indicated exclusivity cut is shown in Fig. 4.3 (left). A peak from the exclusive events can be seen in low \(p_{\text{T}}^{miss}\) region.
+
+Furthermore, a cut on the \(z-\)position of the vertex was applied to ensure high geometrical acceptance for the central tracks in the entire fiducial phase space. The \(z-\)position of the vertex was required to be within the distance of 80 cm from the interaction point. The distribution of the \(z-\)position of the vertex for exclusive
+
+Figure 4.2: Left: an illustration of forward proton reconstruction on the west upper branch of RP stations. Right: distributions of reconstructed protons momenta with fiducial region indicated by black lines.
+
+events with applied cuts indicated by black dot-dash lines can be seen in Fig. 4.3 (right). The distribution shows the typical shape. Moreover, standard STAR good quality track criteria were applied on central tracks. Namely, a minimum of 25 hits in the TPC used for track reconstruction (\(N_{hits}^{fit}\)) to achieve good momentum resolution and a minimum of 15 hits in the TPC used to calculate \(dE/dx\) (\(N_{hits}^{dE/dx}\)) to ensure good \(dE/dx\) resolution, hence good PID.
+
+Figure 4.4 shows distributions of \(N_{hits}^{fit}\) and \(N_{hits}^{dE/dx}\) of central tracks for exclusive events with the additional cut on \(z-\)position of the vertex and the cut on \(N_{hits}^{dE/dx}\), respectively. Distributions of \(N_{hits}^{fit}\) and \(N_{hits}^{dE/dx}\) show expected shapes, although they are more symmetrical compare to another data sets measured at the STAR experiment. This discrepancy, which could be due to the space charge calibration, is a subject of further studies.
+
+Next, cuts to ensure good match between tracks and the vertex were applied. Especially, the distance of closest approach (_DCA_) between the central track and primary vertex in the \(z-\)direction (\(DCA(z)\)) had to be smaller in absolute value than 1 cm and in the transverse plane (\(DCA(xy)\)) smaller than 1.5 cm. Distributions of \(DCA(z)\) and \(DCA(xy)\) of central tracks for exclusive events with additional cuts described above can be seen in Fig. 4.5 and show the expected behaviour. Then, cut on the tracks pseudorapidity \(|\eta|<0.7\) was applied to ensure that the particles were within the TOF acceptance. The distribution of pseudorapidity of central tracks for exclusive events with additional cuts described above shows an asymmetric shape, see Fig. 4.6 (left). The discrepancy was studied and it comes from runs with TPC and TOF inefficiencies. Such inefficiency can be seen in Fig. 4.6 (right), where an averaged distributions of azimuthal angle vs. pseudorapidity of central TPC track matched with TOF for day 137 is shown.
+
+Finally, the last selection cut was applied on the four momentum transfer squared at the proton vertices \(t\) to ensure a comparable \(t\) distribution with Graniitti
+
+Figure 4.3: Distributions of the sum of the transverse momentum of the measured particles \(p_{\rm T}^{miss}\) for events with different selection cuts applied, described in the text (left) and the \(z-\)position of the vertex (right) for exclusive events. Black dot-dash lines indicate the applied cut. Error bars represent the statistical uncertainties.
+
+Figure 4.5: Distributions of the distance of closest approach between the central track and primary vertex in the \(z-\)direction \(DCA(z)\) (left) and in the transverse plane \(DCA(xy)\) (right) for exclusive events with additional cuts described in the text. Black dot-dash lines indicate the applied cut. Error bars represent the statistical uncertainties.
+
+Figure 4.4: Distributions of the number of hits in the TPC used for track reconstruction \(N_{hits}^{fit}\) (left) and the number of hits in the TPC used to calculate ionization energy loss \(N_{hits}^{dE/dx}\) (right) of central tracks for exclusive events with additional cuts described in the text. Black dot-dash lines indicate the applied cut. Error bars represent the statistical uncertainties.
+
+model that is discussed in the chapter 8. The cut was selected in such a way to minimize data loss. The cuts indicated by black dot-dash lines with the distribution for exclusive events with additional cuts described above is shown in Fig. 4.7
+
+After all the above selection criteria and PID cuts, described in the subsection 4.2.2, there are 62077 \(\pi^{+}\pi^{-}\), 1697 \(K^{+}K^{-}\) and 125 \(p\bar{p}\) CEP event candidates. The event selection is summarized in Fig. 4.8, where numbers of CEP event candidates remaining after the application of each event cut can be seen, and in the following list:
+
+1. exactly two tracks in Roman Pots inside the \(p_{x},\ p_{y}\) fiducial region with all eight silicon planes used in reconstruction,
+
+Figure 4.7: Distributions of the four momentum transfer squared \(t\) at the proton vertices for exclusive events with additional cuts described in the text. Black dot-dash lines indicate the applied cut. Error bars represent the statistical uncertainties.
+
+Figure 4.6: Left: the distribution of the pseudorapidity \(\eta\) of central tracks for exclusive events with additional cuts described in the text. Black dot-dash lines indicate the applied cut. Error bars represent the statistical uncertainties. Right: An averaged distributions of azimuthal angle \(\varphi\) vs. pseudorapidity \(\eta\) of central TPC track matched with TOF for day 137.
+
+2. exactly two primary TPC tracks matched with two TOF hits and originating from the same vertex,
+3. total charge of central tracks equals to zero,
+4. \(|z\)-position of vertex\(|<80\) cm,
+5. \(N_{hits}^{fit}\geq 25\),
+6. \(N_{hits}^{dE/dx}\geq 15\),
+7. \(|DCA(z)|<1\) cm,
+8. \(DCA(xy)<1.5\) cm,
+9. \(|\eta|<0.7\),
+10. \(0.12\) GeV\({}^{2}<-t<1.0\) GeV\({}^{2}\),
+11. \(p_{\rm T}^{miss}<100\) MeV,
+12. particle identification criteria.
+
+#### Particle identification
+
+Particle identification is based on the measurement of the ionization energy loss, especially \(n_{\sigma}\), introduced in subsection 3.2.1, Eq. (3.1), and the time of flight information. Since I am trying to distinguish \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs, the combined information from the TPC (\(\chi^{2}_{dE/dx}\)) is introduced and defined as:
+
+\[\chi^{2}_{dE/dx}(XX)=\left(n\sigma_{X}^{\rm track1}\right)^{2}+\left(n\sigma_{ X}^{\rm track2}\right)^{2}, \tag{4.2}\]
+
+Figure 4.8: Numbers of CEP event candidates remaining after the application of each event selection cut. The event selection cuts are described in the text.
+
+where \(X\) represents a particle type \((\pi,K,p)\) and superscripts track1 and track2 stand for the first and the second track in the pair.
+
+In the CEP events, we are not able to reconstruct the time of the collision \(t_{0}\) due to lack of produced forward particles. Therefore the PID method using inverse particle velocity, described in subsection 3.2.1, Eq. (3.1), cannot be used. Instead, \(m_{\rm TOF}^{2}\) method is used. The method is based on the simple algebra described below and on the assumption that two central particles, produced in the same vertex, have the same mass. Thus, their masses squared are equal, \(m_{1}^{2}=m_{2}^{2}=m_{\rm TOF}^{2}\). A scheme of two central tracks of lengths \(L_{1}\) and \(L_{2}\), produced in the same vertex in time \(t_{0}\), and detected in the TOF detector in time \(t_{1}\) and \(t_{2}\) is shown in Fig. 4.9.
+
+We can write following equations based on the Fig. 4.9:
+
+\[t_{1}-t_{0}=L_{1}\sqrt{1+\frac{m_{1}^{2}}{p_{1}^{2}}}, \tag{4.3}\]
+
+\[t_{2}-t_{0}=L_{2}\sqrt{1+\frac{m_{2}^{2}}{p_{2}^{2}}}, \tag{4.4}\]
+
+where \(p_{1}\) and \(p_{2}\) are momenta of the first and the second central track. Since we do not know the time \(t_{0}\), when the central particles were produced, we want to eliminate it by subtracting the two equation above:
+
+\[\Delta t=t_{1}-t_{2}=L_{1}\sqrt{1+\frac{m_{1}^{2}}{p_{1}^{2}}}-L_{2}\sqrt{1+ \frac{m_{2}^{2}}{p_{2}^{2}}}. \tag{4.5}\]
+
+In two hadron central exclusive production, the hadrons are always of the same particle type with opposite sign, therefore the assumption above is valid and we can write \(m_{1}^{2}=m_{2}^{2}=m_{\rm TOF}^{2}\). Then, Eq. (4.5) can be transformed to a quadratic equation in following form:
+
+\[A\cdot(m_{\rm TOF}^{2})^{2}+B\cdot m_{\rm TOF}^{2}+C=0, \tag{4.6}\]
+
+Figure 4.9: A scheme of two central tracks of lengths \(L_{1}\) and \(L_{2}\), produced in the same vertex in time \(t_{0}\), and detected in the TOF detector in time \(t_{1}\) and \(t_{2}\).
+
+where parameters can be written as:
+
+\[A=-2\frac{L_{1}^{2}L_{2}^{2}}{p_{1}^{2}p_{2}^{2}}+\frac{L_{1}^{4}}{p_{1}^{4}}+ \frac{L_{2}^{4}}{p_{2}^{4}}, \tag{4.7}\]
+
+\[B=-2L_{1}^{2}L_{2}^{2}\left(\frac{1}{p_{1}^{2}}+\frac{1}{p_{2}^{2}}\right)+2 \frac{L_{1}^{4}}{p_{1}^{4}}+2\frac{L_{2}^{4}}{p_{2}^{2}}-2(\Delta t)^{2}\left( \frac{L_{1}^{2}}{p_{1}^{2}}+\frac{L_{2}^{2}}{p_{2}^{2}}\right), \tag{4.8}\]
+
+\[C=(\Delta t)^{4}-2(\Delta t)^{2}(L_{1}^{2}+L_{2}^{2})+L_{1}^{4}+L_{2}^{4}-2L_{1 }^{2}L_{2}^{2}. \tag{4.9}\]
+
+Finally, the formula \(m_{\rm TOF}^{2}\) can be written as:
+
+\[m_{\rm TOF}^{2}=\frac{-B+\sqrt{B^{2}-4AC}}{2A}. \tag{4.10}\]
+
+The energy loss of charged particles as a function of their momentum with expected values for pions, kaons, protons and deuterons is shown in Fig. 4.10 (left). Pions are dominant, as is expected in \(pp\) inelastic collisions and at RHIC energies with D\(\rm I\!P\!E\). The distributions of \(m_{\rm TOF}^{2}\) for \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs from exclusive events is shown in Fig. 4.10 (right). The pairs were determined only from the \(dE/dx\) information. First, the protons hypothesis was verified:
+
+\[\chi_{dE/dx}^{2}(pp)<9\ \&\ \chi_{dE/dx}^{2}(KK)>9\ \&\ \chi_{dE/dx}^{2}(\pi\pi)>9. \tag{4.11}\]
+
+If a pair satisfied the hypothesis above, the pair was determined as \(p\bar{p}\) pair. Otherwise, the kaons hypothesis was checked:
+
+\[\chi_{dE/dx}^{2}(KK)<9\ \&\ \chi_{dE/dx}^{2}(pp)>9\ \&\ \chi_{dE/dx}^{2}(\pi\pi)>9. \tag{4.12}\]
+
+If pair was not recognized as \(K^{+}K^{-}\) or \(p\bar{p}\) pair, then it was determined as \(\pi^{+}\pi^{-}\) pair if:
+
+\[\chi_{dE/dx}^{2}(\pi\pi)<12. \tag{4.13}\]
+
+Such selective PID technique was used to minimize possible misidentification. As it can be seen in Fig. 4.10, the number of \(\pi^{+}\pi^{-}\) pairs is much larger than \(K^{+}K^{-}\) or \(p\bar{p}\) pairs. Therefore, if a small sample of \(\pi^{+}\pi^{-}\) pairs is identified as \(K^{+}K^{-}\) or \(p\bar{p}\) pairs then it can produce significant false contribution to invariant mass distributions of \(K^{+}K^{-}\) or \(p\bar{p}\) pairs.
+
+Furthermore, the \(m_{\rm TOF}^{2}\) cut was added to kaons and protons hypothesis. Kaons were required to have \(m_{\rm TOF}^{2}>0.15\) GeV\({}^{2}\) and protons \(m_{\rm TOF}^{2}>0.6\) GeV\({}^{2}\). These cuts are illustrated as colour dot-dash lines in Fig. 4.10 (right) and the values correspond to real mass squared for kaons \(m_{\rm Kaons}^{2}\approx 0.24\) GeV\({}^{2}\) and for protons \(m_{\rm Protons}^{2}\approx 0.88\) GeV\({}^{2}\) taking into account the detector resolution. In Fig. 4.10 (right), the peaks of kaons and protons about their real mass squared can be seen. Pions misidentified as kaons, using only he \(dE/dx\) information, can be seen as well.
+
+In addition, cuts on transverse momenta \(p_{\rm T}\) of identified central tracks were imposed: \(p_{\rm T}>0.2\) GeV for pions, \(p_{\rm T}>0.3\) GeV for kaons and \(p_{\rm T}>0.4\) GeV for protons to ensure high track reconstruction efficiency. Furthermore, it was required that the lower \(p_{\rm T}\) of the track in the identified pair was below 0.7 GeV for kaonsand 1.1 GeV for protons to ensure high pair identification efficiency. These cuts were taken from the CEP analysis in \(pp\) collisions at \(\sqrt{s}=200\) GeV [34], discussed in chapter 2. An optimization of these values in \(pp\) collisions at \(\sqrt{s}=510\) GeV is subject of further studies.
+
+Figure 4.10: Left: the energy loss of charged particles as a function of their momentum for exclusive events with indicated expected values for pions, kaons, protons and deuterons by coloured curves. Right: the distribution of \(m_{\rm TOF}^{2}\) for exclusive events. Distributions of \(m_{\rm TOF}^{2}\) for \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs determined just from the energy loss is shown as well. Dot-dash lines indicate \(m_{\rm TOF}^{2}\) PID cuts.
+
+[MISSING_PAGE_FAIL:61]
+
+corrections, described above, averaged over \(z-\)position of the vertex and pseudorapidity. The comparison is shown in Fig. 5.2. All distributions were normalized so the area under histogram is equal to one. Some differences can be seen, however overall shape of the distributions are the same. The efficiency corrections from \(pp\) collisions at \(\sqrt{s}=200\) GeV were not used, since there are differences between \(\sqrt{s}=200\) GeV and 510 GeV data taking, mainly bigger pile-up in 510 GeV and different tracking algorithm in the TPC.
+
+Figure 5.1: Left: the distribution of \(z-\)position of the vertex with a Gaussian fit. Right: the distribution of \(\delta^{2}\), defined in the text, for \(\pi^{+}\) MC events. Error bars represent the statistical uncertainties.
+
+Figure 5.2: The comparison of normalized uncorrected and corrected invariant mass of \(\pi^{+}\pi^{-}\) pairs distributions for three different acceptance corrections. Error bars represent the statistical uncertainties.
+
+## Chapter 6 Results in two hadron channel
+
+In this chapter, the results for \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs shall be shown. They include invariant mass spectra, both uncorrected and acceptance corrected, and distributions of various kinematical variables, namely the difference of azimuthal angles of the forward protons \(\Delta\varphi\) and the pair rapidity \(y\), and dependence of the invariant mass spectra on the kinematics of the forward protons. Those results shall be helpful in distinguishing between various phenomenological models.
+
+The acceptance uncorrected and corrected invariant mass spectra of centrally exclusively produced \(\pi^{+}\pi^{-}\) pairs are shown in Fig. 6.1. Both spectra show the expected features, discussed in chapter 2, a drop at about 1 GeV and a peak consistent with the \(f_{2}(1270)\). A broad structure at about 0.6 GeV can be seen in spectra of both unlike-sign pairs and like-sign pairs, some background from a non-exclusive background based on like-sign pairs is seen. An estimate of the non-exclusive background based on the \(p_{\rm T}^{miss}\) cut is subject of further studies. A more detailed analysis of the observed structures in the spectra, based on the difference of azimuthal angles of the forward protons \(\Delta\varphi\) will be discussed later.
+
+Figure 6.1: Left: the uncorrected invariant mass spectrum of exclusively produced \(\pi^{+}\pi^{-}\) pairs. Right: the acceptance corrected invariant mass spectrum of exclusively produced \(\pi^{+}\pi^{-}\) pairs. Error bars represent the statistical uncertainties.
+
+Figure 6.2 shows the acceptance uncorrected and corrected invariant mass spectra of centrally exclusively produced \(K^{+}K^{-}\) pairs. Both spectra show a very pronounced peak at above 1 GeV, a possible structure at 1.3 GeV and a peak at about 1.5 GeV consistent with the \(f_{2}^{\prime}(1525)\). The peak at 1.3 GeV could be due to the \(f_{2}(1270)\) and the peak at 1 GeV could be due to the \(\phi(1020)\). Because the latter is close to the \(K^{+}K^{-}\) mass threshold it needs more studies to make any conclusions. The peaks at 1.3 GeV and 1.5 GeV are consistent with the results from \(pp\) collisions at \(\sqrt{s}=200\) GeV, see Fig. 2.5. Because a different \(t\)-range was covered at \(\sqrt{s}=200\) GeV, a different physics might be observed at \(\sqrt{s}=510\) GeV.
+
+The invariant mass spectrum of centrally exclusively produced \(p\bar{p}\) pairs for selected events can be seen in Fig. 6.3 (left). The acceptance corrected spectrum of \(p\bar{p}\) pairs is shown Fig. 6.3 (right). Both spectra do not show any resonances. This observation is consistent with the measurement at \(\sqrt{s}=200\) GeV [34].
+
+Next, we shall examine the dependence of the mass spectra on the forward proton kinematics. A commonly used variable is a difference between the azimuthal angle of the forward protons \(\Delta\varphi\). Acceptance corrected distributions of \(\Delta\varphi\) for selected events with exclusively produced \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs is shown in Fig. 6.4 (left). The \(\Delta\varphi\) distributions show a strong suppression about \(90^{\circ}\) and peak at \(0^{\circ}\) and \(180^{\circ}\), favouring parallel and anti parallel proton momenta. Another kinematical variable of interest is the rapidity \(y\) of the produced pair, see Fig. 6.4 (right). The \(y\) distributions show wide peaks at zero rapidity. All distributions show similar shape as measured at \(\sqrt{s}=200\) GeV, see Fig. 2.6.
+
+As shown in chapter 2, the invariant mass distributions at \(\sqrt{s}=200\) GeV were strongly affected by the choice of the \(\Delta\varphi\) region. Hence, the acceptance corrected invariant mass distributions of centrally exclusively produced \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs were differentiated into two \(\Delta\varphi\) regions: \(\Delta\varphi<90^{\circ}\) and \(\Delta\varphi>90^{\circ}\) and are shown in Figs.
+
+different Pomeron dynamics and due to a recoil, created by forward protons with \(\Delta\varphi<90^{\circ}\), to the central system allowing measurement at low invariant mass region.
+
+The invariant mass spectrum of \(\pi^{+}\pi^{-}\) pairs within \(\Delta\varphi<90^{\circ}\) shows a suppressed peak consistent with the \(f_{2}(1270)\) compared to the \(\Delta\varphi>90^{\circ}\). The suppression is consistent with the results discussed in chapter 2, see Fig. 2.7. Furthermore, there is no resonances at about 0.6 GeV for \(\Delta\varphi<90^{\circ}\), thus the broad structure seen in Fig. 6.1 at about 0.6 GeV could be due to superposition of two shifted continuum production.
+
+In the invariant mass spectrum of \(K^{+}K^{-}\) pairs, the peaks at 1.3 GeV and at about 1.5 GeV consistent with the \(f_{2}(1270)\) and the \(f_{2}^{{}^{\prime}}(1525)\), respectively, can be seen only in the \(\Delta\varphi>90^{\circ}\). In addition the peak at about 1 GeV is totally suppressed in the \(\Delta\varphi>90^{\circ}\). The results show much stronger dependence of the invariant mass of \(K^{+}K^{-}\) pairs on the choice of the \(\Delta\varphi\) region compared to the results at \(\sqrt{s}=200\) GeV, see Fig. 2.7.
+
+Acceptance corrected distributions of the pair rapidity and \(\Delta\varphi\) for events with exclusively produced \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs differentiated into two \(\Delta\varphi\) regions can be seen in Appendix A. The distributions do not show any dependence on the choice of the \(\Delta\varphi\) region.
+
+Figure 6.3: Left: the uncorrected invariant mass spectrum of exclusively produced \(p\bar{p}\) pairs. Right: the acceptance corrected invariant mass spectrum of exclusively produced \(p\bar{p}\) pairs. Error bars represent the statistical uncertainties.
+
+Figure 6.4: Acceptance corrected distributions of the difference of azimuthal angles of the forward protons \(\Delta\varphi\) (left) and the pair rapidity (right) for events with exclusively produced \(\pi^{+}\pi^{-}\) (upper row), \(K^{+}K^{-}\) (middle row) and \(p\bar{p}\) (bottom row) pairs. Error bars represent the statistical uncertainties.
+
+Figure 6.6: Acceptance corrected invariant mass spectra of exclusively produced \(K^{+}K^{-}\) (left) and \(p\bar{p}\) (right) pairs in two regions of the difference of azimuthal angles of the forward protons: \(\Delta\varphi<90^{\circ}\) and \(\Delta\varphi>90^{\circ}\). Error bars represent the statistical uncertainties.
+
+Figure 6.5: Acceptance corrected invariant mass spectra of exclusively produced \(\pi^{+}\pi^{-}\) pairs in two regions of the difference of azimuthal angles of the forward protons: \(\Delta\varphi<90^{\circ}\) and \(\Delta\varphi>90^{\circ}\). Error bars represent the statistical uncertainties.
+
+[MISSING_PAGE_EMPTY:68]
+
+## Chapter 7 \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) production
+
+The same data sample was used to examine the four-pion channel, the \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) production. More than \(622\times 10^{6}\) CEP triggers from \(pp\) collisions at \(\sqrt{s}=510\) GeV were analysed. The same event selection as in the two hadron production was applied, except four primary TPC tracks matched with four TOF hits were required instead of two, since I am looking for the \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) channel. The requirement of four TOF hits was used to ensure four in-time tracks in the TPC, therefore to eliminate pile-up tracks, since the TOF is a much faster detector than the TPC.
+
+The summary of the event selection is shown in Fig. 7.1, where numbers of CEP event candidates remaining after the application of each event cut can be seen. In the four-hadron channel, the production of \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) is expected to be dominant and in addition pions are dominant in two hadron production. Therefore, only a \(n\sigma_{\pi}<3\) cut for PID was used for each track. Thus, \(p_{\rm T}>0.2\) GeV cut was imposed for all four particles to ensure high track reconstruction efficiency. After all the above selection cuts, there are 758 \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) CEP event candidates.
+
+Figure 7.2 (left) shows three distributions of \(p_{\rm T}^{miss}\) for \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) event candidates with different selection cuts applied. The first distribution marked as "4 TPC-TOF" tracks satisfies following criteria:
+
+1. exactly two tracks in Roman Pots inside the \(p_{x},\ p_{y}\) fiducial region with all eight silicon planes used in reconstruction,
+2. exactly four primary TPC tracks matched with four TOF hits and originating from the same vertex.
+
+The second distribution marked as "Total charge 0" satisfies the two criteria above and in addition a total charge of central particles is required to equal to zero. Finally, the last distribution marked as "Exclusive" has to meet the three criteria above plus the exclusivity cut \(p_{\rm T}^{miss}<100\) MeV. The distribution shows a sign of a peak from exclusive events, although it is very suppressed compared to the two hadron production. The requirement of 4 hits in TOF reduces a phase space, where particles can be produced and so it suppresses the statistic.
+
+Distributions of selection quantities with applied cuts indicated by black dot-dash lines can be seen in Fig. 7.2 (right) and in Appendix B. They show the sameFigure 7.2: Distributions of the sum of the transverse momentum of the measured particles \(p_{\rm T}^{miss}\) for events with different selection cuts applied, described in the text (left) and \(z-\)position of the vertex (right) for exclusive \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) events. Black dot-dash lines indicate the applied cut. Error bars represent the statistical uncertainties.
+
+[MISSING_PAGE_FAIL:71]
+
+[MISSING_PAGE_EMPTY:72]
+
+## Chapter 8 Comparison with Graniitti Monte Carlo model
+
+I compare results with Graniitti Monte Carlo event generator [67], which is a MC generator designed for high energy diffraction physics. Unlike the MC generator discussed in chapter 2, Graniitti combines a parametrized resonance production with a continuum production. Furthermore, it combines forward and central spin correlations together with event-by-event eikonal screening loop and forward proton excitation kinematics.
+
+Graniitti is focused on the low-mass domain of CEP processes using the \(S\)-matrix and where the glueballs are expected. In addition to the Pomeron-Pomeron interaction, Graniitti also includes the photon-photon and the photon-Pomeron interactions.
+
+I simulated \(10^{5}\) CEP events for each channel presented in this thesis. Namely, I simulated \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\), \(p\overline{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) using Graniitti with continuum and resonances production in \(pp\) collisions at \(\sqrt{s}=510\) GeV. The following resonances were used in the model: the \(f_{0}(980)\), the \(\phi(1020)\), the \(f_{2}(1270)\), the \(f_{0}(1500)\), the \(f_{2}^{{}^{\prime}}(1525)\) and the \(f_{0}(1710)\). The same kinematic cuts to the MC events were applied as in the analysis. Since Graniitti predicts pure signal, the background in the data was estimated from like-sign pairs distributions. Then, it was subtracted from unlike-sign distributions. Obtained distributions were normalized so the area under the histogram was equal to one and compared with the Graniitti normalized distributions.
+
+The acceptance corrected invariant mass spectrum of exclusively produced \(\pi^{+}\pi^{-}\) with subtracted like-sign background compared to the Graniitti output can be seen in Fig. 8.1 (left). Although differences can be seen, the main features are described, the drop at about 1 GeV and peak consistent with the \(f_{2}(1270)\). Figure 8.1 (right) shows a comparison for \(K^{+}K^{-}\) channel. Graniitti describes all three peaks, that can be assigned to \(\phi(1020),\ f_{2}(1270)\) and \(f_{2}^{{}^{\prime}}(1525)\).
+
+The Graniitti output compared to the invariant mass spectrum of exclusively produced \(p\bar{p}\) pairs with like-sign background subtracted is shown in Fig. 8.2 (left). Differences are seen, however overall shape of the distribuComparison for \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) channel can be seen in Fig. 8.2 (right). A discrepancy at the low mass can be seen, nevertheless the data shows large statistical errors and more studies need to be done to make any conclusions.
+
+Comparisons of the difference of azimuthal angles of the forward protons \(\Delta\varphi\) for \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\), \(p\overline{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) channels is shown in Figs. 8.3 and 8.4. The overall shape of the distributions is described quite well. Acceptance corrected distributions of the pair rapidity compared to Graniitti can be seen in Figs. 8.5 and 8.6. Discrepancies can be seen and they are subject of further studies.
+
+As we discussed earlier, the choice of \(\Delta\varphi\) region can strongly affect the invariant mass distribution. Therefore acceptance corrected invariant mass spectra of exclusively produced \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\overline{p}\) pairs compared to Graniitti predictions were examined in two \(\Delta\varphi\) regions. The comparison can be seen in Fig. 8.7.
+
+Figure 8.1: The acceptance corrected invariant mass spectra of exclusively produced \(\pi^{+}\pi^{-}\) (left) and \(K^{+}K^{-}\) (right) compared to Graniitti. The like-sign background was subtracted. Error bars represent the statistical uncertainties.
+
+Figure 8.2: The acceptance corrected invariant mass spectra of exclusively produced \(p\bar{p}\) (left) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) (right) compared to Graniitti. The like-sign background was subtracted. Error bars represent the statistical uncertainties.
+
+Figure 8.3: Acceptance corrected distributions of the difference of azimuthal angles of the forward protons \(\Delta\varphi\) for events with exclusively produced \(\pi^{+}\pi^{-}\) (left) and \(K^{+}K^{-}\) (right) events compared to Graniitti. The like-sign background was subtracted. Error bars represent the statistical uncertainties.
+
+Figure 8.4: Acceptance corrected distributions of the difference of azimuthal angles of the forward protons \(\Delta\varphi\) for events with exclusively produced \(p\bar{p}\) (left) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) (right) events compared to Graniitti. The like-sign background was subtracted. Error bars represent the statistical uncertainties.
+
+Figure 8.6: Acceptance corrected distributions of the pair rapidity for events with exclusively produced \(p\bar{p}\) (left) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) (right) events compared to Graniitti. The like-sign background was subtracted. Error bars represent the statistical uncertainties.
+
+Figure 8.5: Acceptance corrected distributions of the pair rapidity for events with exclusively produced \(\pi^{+}\pi^{-}\) (left) and \(K^{+}K^{-}\) (right) events compared to Graniitti. The like-sign was background subtracted. Error bars represent the statistical uncertainties.
+
+The invariant mass spectrum of \(\pi^{+}\pi^{-}\) pairs in \(\Delta\varphi>90^{\circ}\) is described well by the Graniitti prediction up to 1.5 GeV, especially the rise at above 0.5 GeV followed by the drop at 0.7 GeV with the peak and sharp drop at about 0.9 GeV and the peak consistent with the \(f_{2}(1270)\). In \(\Delta\varphi<90^{\circ}\), Graniitti is able to predict overall shape of the invariant mass spectrum, in particular the rise in the beginning of the spectra followed by the sharp drop at 0.4 GeV. Furthermore, the peak at 0.9 GeV followed by the rapid drop and the peak about 1.2 GeV can be seen as well. However, Graniitti predicts also peaks at 0.6 and 1.6 GeV, which are not seen in the data. Those need to be examined further, as they can be due to interference effects and fiducial volume cuts effects.
+
+The invariant mass distribution of \(K^{+}K^{-}\) pairs in \(\Delta\varphi>90^{\circ}\) is really well described by the Graniitti prediction. First, the rise at 1.1 GeV followed by the broad structure at about 1.3 GeV is seen. Then, the peak consistent with the \(f_{2}^{\prime}(1525)\) is clearly visible, although it should be noted that Graniitti predicts more pronounced peak than it is observed in the data. For \(\Delta\varphi<90^{\circ}\), Graniitti is able to describe the data up to 1.4 GeV, especially the peak at about 1 GeV followed by the broad structure at 1.2 GeV. Nevertheless Graniitti predicts the peak at about 1.5 GeV, which is not seen in the data. The invariant mass spectra of \(p\overline{p}\) pairs are roughly described by Graniitti in both \(\Delta\varphi\) regions.
+
+Graniitti is the first MC model that includes both the continuum and the resonance production. Although it was tuned to LHC energies, it is able to described the data from \(pp\) collisions at \(\sqrt{s}=510\) GeV quite well. Some discrepancies between Graniitti predictions and the data are seen. Therefore, I hope and believe that Graniitti will be tuned to the newest results measured at the STAR experiment [34], since Graniitti predictions are very promising.
+
+Figure 8.7: Acceptance corrected invariant mass spectra of exclusively produced \(\pi^{+}\pi^{-}\) (upper row), \(K^{+}K^{-}\) (middle row) and \(p\bar{p}\) (bottom row) pairs compared to Graniitti and differentiated in two regions of the difference of azimuthal angles of the forward protons: \(\Delta\varphi>90^{\circ}\) (left) and \(\Delta\varphi<90^{\circ}\) (right). The like-sign background was subtracted. Error bars represent the statistical uncertainties.
+
+## Summary
+
+In this thesis I studied the CEP of \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\), \(p\overline{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) with the STAR detector at RHIC. The data from \(pp\) collisions at \(\sqrt{s}=510\) GeV collected by the STAR experiment in 2017 were analysed. Since the data contain triggers from DPE in CEP, they are very promising for glueball search. The experimental confirmation of the existence of the glueball would be yet another strong support for the validity of the QCD theory.
+
+The first chapter of this work was an introduction to the high-energy diffractive physics. First, the kinematic variables were introduced, then the hadronic diffraction physics were discussed. Furthermore, the short summary of Regge theory was presented, including the introduction of the Pomeron and of the glueball. The CEP as the potential source of glueball production was described as well. In the following chapter an overview of up to date CEP results was given. First, the results from the ISR were described, then, the results from fixed target experiments WA76, WA91 and WA102 performed at the Omega spectrometer were presented. Finally, the newest measurements achieved by major collaborations at RHIC (STAR) and LHC (CMS) were discussed together with features in distributions of invariant mass of \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\overline{p}\) channels. The recent results indicate significant role of resonance production, however the exact nature of the features still remains elusive and requires further studies.
+
+The third chapter presented RHIC, the only major high energy collider capable of colliding polarized protons, and the STAR experiment with its sub-detectors. The STAR experiment has unique capabilities such as: high-resolution tracking of charged particles in the TPC, precise PID through the measurement of \({\rm d}E/{\rm d}x\) and time of flight, BBC covering forward rapidity \(2.1<|\eta|<5.0\) to ensure rapidity gaps and the Roman Pots allowing measurement of forward protons, made STAR a suitable detector for studying the CEP processes.
+
+In the following chapters, the analysis of the data from \(pp\) collisions at \(\sqrt{s}=510\) GeV collected by the STAR experiment was presented. Especially, acceptance corrected invariant mass spectra of centrally exclusively produced \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\), \(p\overline{p}\) and \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) were shown and discussed. The new MC event generator, Graniitti, was compared to the results and it gave promising predictions.
+
+The invariant mass spectra of the CEP \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\overline{p}\) pairs confirmed features seen in previous measurements, however an interesting feature as the peak at about 1 GeV is also seen and requires more investigation. The results are encouraging and there are further ongoing studies as: an efficiency study of Roman Pot detectors,new data reproduction with the improved space charge calibration in the TPC, using embedding to calculate efficiencies which will include the pile-up effects, and an estimate of the non-exclusive background based on the \(p_{\rm T}^{miss}\) cut.
+
+Some of the results of this work has been presented by the author at the 40\({}^{\rm th}\) International (virtual) Conference on High Energy Physics in July 2020. Namely, the acceptance corrected invariant mass spectra of centrally exclusively produced \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\overline{p}\) pairs and the acceptance corrected invariant mass spectra of exclusively produced \(\pi^{+}\pi^{-}\) pairs in two regions of the difference of azimuthal angles of the forward protons: \(\Delta\varphi<90^{\circ}\) and \(\Delta\varphi>90^{\circ}\).
+
+## Bibliography
+
+* [1] S. M. Bilenky, _Introduction to Feynman diagrams_, 1st ed. New York: Pergamon Press, [1974].
+* [2] V. Barone and E. Predazzi, _High-energy particle diffraction_. New York: Springer, 2002.
+* [3] M. Pimenta and A. De Angelis, _Introduction to particle and astroparticle physics_. New York, NY: Springer Berlin Heidelberg, 2018.
+* [4] G. Breit and E. Wigner, "Capture of Slow Neutrons," _Physical Review_, vol. 49, no. 7, pp. 519-531, 1936. [Online]. Available: [https://link.aps.org/doi/10.1103/PhysRev.49.519](https://link.aps.org/doi/10.1103/PhysRev.49.519)
+* [5] R. A. Kycia and S. Jadach, "Relativistic Voigt profile for unstable particles in high energy physics," _Journal of Mathematical Analysis and Applications_, vol. 463, no. 2, pp. 1040-1051, 2018. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/S0022247X18302774](https://linkinghub.elsevier.com/retrieve/pii/S0022247X18302774)
+* [6] J. R. Forshaw and D. A. Ross, _Quantum chromodynamics and the pomeron_, 1st ed. New York: Cambridge University Press, 1997.
+* [7] S. Donnachie, _Pomeron physics and QCD_. New York: Cambridge University Press, 2002.
+* [8] W. Guryn and B. Pawlik (for the STAR Collaboration), "Results on Total and Elastic Cross Sections in Proton-Proton Collisions at \(\sqrt{s}=200\) GeV Obtained with the STAR Detector at RHIC," _The 18th Conference on Elastic and Diffractive Scattering_, vol. 2019, p. 4.
+* [9] S. Abatzis, et al. (WA91 Collaboration), "Observation of a narrow scalar meson at 1450 MeV in the reaction \(pp\to p_{\rm f}(\pi^{+}\pi^{-}\pi^{+}\pi^{-})p_{\rm s}\) at 450 GeV/c using the CERN Omega spectrometer," _Physics Letters B_, vol. 324, no. 3-4, pp. 509-514, 1994. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/0370269394902313](https://linkinghub.elsevier.com/retrieve/pii/0370269394902313)
+* [10] H. Fritzsch and P. Minkowski, "\(\Psi\)-resonances, gluons and the Zweig rule," _Il Nuovo Cimento A_, vol. 30, no. 3, pp. 393-429, 1975. [Online]. Available: [http://link.springer.com/10.1007/BF02730295](http://link.springer.com/10.1007/BF02730295)
+* [11] M. G. Albrow, et al., "Central Exclusive Particle Production at High Energy Hadron Colliders," _Progress in Particle and Nuclear Physics_, vol. 65, no. 2, pp. 149-184, 2010.
+
+* [12] W. Guryn (STAR Collaboration), "Central Exclusive Production in Proton-Proton Collisions with the STAR Experiment at RHIC," _EPJ Web of Conferences_, vol. 120, no. 1, p. 5, 2016. [Online]. Available: [http://www.epj-conferences.org/10.1051/epjconf/201612002008](http://www.epj-conferences.org/10.1051/epjconf/201612002008)
+* [13] D. Robson, "A basic guide for the glueball spotter," _Nuclear Physics B_, vol. 130, no. 2, pp. 328-348, 1977. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/0550321377901109](https://linkinghub.elsevier.com/retrieve/pii/0550321377901109)
+* [14] K. Hubner, "The CERN intersecting storage rings (ISR)," _The European Physical Journal H_, vol. 36, no. 4, pp. 509-522, 2012. [Online]. Available: [http://link.springer.com/10.1140/epjh/e2011-20058-8](http://link.springer.com/10.1140/epjh/e2011-20058-8)
+* [15] M. Albrow, "Double Pomeron Exchange: from the ISR to the LHC: from the ISR to the LHC," _AIP Conference Proceedings_, vol. 1350, no. 1, pp. 119-123, 2011/07/15. [Online]. Available: [https://aip.scitation.org/doi/abs/10.1063/1.3601389](https://aip.scitation.org/doi/abs/10.1063/1.3601389)
+* [16] D. Denegri, et al. (FSU Collaboration), "Double pomeron exchange and diffractive dissociation in the reaction \(pp\to pp\pi^{+}\pi^{-}\) at 69 GeV/\(c\)," _Nuclear Physics B_, vol. 98, no. 2, pp. 189-203, 1975. [Online]. Available: [http://www.sciencedirect.com/science/article/pii/0550321375904289](http://www.sciencedirect.com/science/article/pii/0550321375904289)
+* [17] L. Baksay, et al., "Evidence for double Pomeron exchange at the CERN ISR," _Physics Letters B_, vol. 61, no. 1, pp. 89-92, 1976. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/0370269376905700](https://linkinghub.elsevier.com/retrieve/pii/0370269376905700)
+* [18] T. Akesson, et al. (AFS Collaboration), "A study of exclusive central hadron production at the ISR as a search for gluonium states," _Physics Letters B_, vol. 133, no. 3-4, pp. 268-274, 1983. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/0370269383905762](https://linkinghub.elsevier.com/retrieve/pii/0370269383905762)
+* [19] T. Akesson, et al. (AFS Collaboration), "A search for glueballs and a study of double pomeron exchange at the CERN intersecting storage rings," _Nuclear Physics B_, vol. 1986, no. 264, pp. 154-184, 1986. [Online]. Available: [http://www.sciencedirect.com/science/article/pii/0550321386904773](http://www.sciencedirect.com/science/article/pii/0550321386904773)
+* [20] M. Jacob and E. Quercigh, _The CERN omega spectrometer: 25 years of physics_, 1st ed. Geneva: CERN, 1997.
+* [21] S. Ganguli and D. Roy, "Regge phenomenology of inclusive reactions," _Physics Reports_, vol. 67, no. 2, pp. 201-395, 1980. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/0370157380900678](https://linkinghub.elsevier.com/retrieve/pii/0370157380900678)
+* [22] A. Kirk, "A review of central production experiments at the CERN Omega spectrometer," _International Journal of Modern Physics A_, vol. 29, no. 28, p. 14, 2014-11-11. [Online]. Available: [https://www.worldscientific.com/doi/abs/10.1142/S0217751X14460014](https://www.worldscientific.com/doi/abs/10.1142/S0217751X14460014)
+* [23] T. A. Armstrong, et al. (WA76 Collaboration), "Evidence for new states produced in the central region in the reaction \(pp\to p_{\rm f}(\pi^{+}\pi^{-}\pi^{+}\pi^{-})p_{\rm s}\) at 300 GeV/c," _Physics Letters B_, vol. 228, no. 4, pp. 536-542, 1989.
+
+* [24] T. A. Armstrong, et al. (WA76 Collaboration), "Study of the \(\pi^{+}\pi^{+}\pi^{-}\pi^{-}\) system centrally produced by incident \(\pi^{+}\) and \(p\) beams at 85 GeV/c," _Zeitschrift fur Physik C: Particles and Fields_, vol. 43, no. 1, pp. 55-61, 1989. [Online]. Available: [http://link.springer.com/10.1007/BF02430610](http://link.springer.com/10.1007/BF02430610)
+* [25] D. Barberis, et al. (WA102 Collaboration), "A study of the centrally produced \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) channel in \(pp\) interactions at 450 GeV/c," _Physics Letters B_, vol. 413, no. 1-2, pp. 217-224, 1997. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/S0370269397011404](https://linkinghub.elsevier.com/retrieve/pii/S0370269397011404)
+* [26] R. Sikora (STAR Collaboration), "Recent results on Central Exclusive Production with the STAR detector at RHIC," _Acta Physica Polonica B Proceeding Supplement_, vol. 2018, no. 1, p. 6, 2018.
+* [27] A. Austregesilo, et al. (COMPASS Collaboration), "Light scalar mesons in central production at COMPASS," _AIP Conference Proceedings_, vol. 1735, no. 1, p. 030012, 2016/05/25. [Online]. Available: [https://aip.scitation.org/doi/abs/10.1063/1.4949395](https://aip.scitation.org/doi/abs/10.1063/1.4949395)
+* [28] R. McNulty, et al. (LHCb Collaboration), "Central Exclusive Production at LHCb," _ArXiv:1711.06668_, p. 7, 2017.
+* [29] R. Schicker, et al. (ALICE Collaboration), "Central exclusive production in the ALICE experiment at the LHC," _International Journal of Modern Physics A_, vol. 29, no. 28, p. 5, 2014. [Online]. Available: [https://www.worldscientific.com/doi/abs/10.1142/S0217751X14460154](https://www.worldscientific.com/doi/abs/10.1142/S0217751X14460154)
+* [30] A.M. Sirunyan, et al. (CMS Collaboration), "Study of central exclusive \(\pi^{+}\pi^{-}\) production in proton-proton collisions at \(\sqrt{s}=5.02\) and 13 TeV," CERN, Geneva, Tech. Rep. arXiv:2003.02811. CMS-FSQ-16-006-003, Mar 2020. [Online]. Available: [http://cds.cern.ch/record/2712335](http://cds.cern.ch/record/2712335)
+* [31] M. Tasevksy, et al. (ATLAS Collaboration), "Diffraction and central exclusive production at ATLAS," _AIP Conference Proceedings_, vol. 1350, no. 1, pp. 164-167, 2011. [Online]. Available: [http://aip.scitation.org/doi/abs/10.1063/1.3601399](http://aip.scitation.org/doi/abs/10.1063/1.3601399)
+* [32] S. R. Klein, et al., "STARlight: a Monte Carlo simulation program for ultra-peripheral collisions of relativistic ions," _Computer Physics Communications_, vol. 212, pp. 258-268, 2017. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/S0010465516303356](https://linkinghub.elsevier.com/retrieve/pii/S0010465516303356)
+* [33] L. A. Harland-Lang, et al., "Modelling exclusive meson pair production at hadron colliders," _The European Physical Journal C_, vol. 74, no. 4, p. 26, 2014. [Online]. Available: [http://link.springer.com/10.1140/epjc/s10052-014-2848-9](http://link.springer.com/10.1140/epjc/s10052-014-2848-9)
+* [34] R. Sikora, et al. (STAR Collaboration), "Measurement of the central exclusive production of charged particle pairs in proton-proton collisions at \(\sqrt{s}=200\) GeV with the STAR detector at RHIC," _Journal of High Energy Physics_, vol. 2020, no. 7, p. 46, 2020. [Online]. Available: [http://link.springer.com/10.1007/JHEP07](http://link.springer.com/10.1007/JHEP07)(2020)178* [35] R. A. Kycia, et al., "GenEx: a simple generator structure for exclusive processes in high energy collisions," _Communications in Computational Physics_, vol. 24, no. 3, pp. 860-884, 2018. [Online]. Available: [http://www.global-sci.com/intro/article_detail/cicp/12284.html](http://www.global-sci.com/intro/article_detail/cicp/12284.html)
+* [36] T. Sjostrand, et al., "An introduction to PYTHIA 8.2," _Computer Physics Communications_, vol. 191, pp. 159-177, 2015. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/S0010465515000442](https://linkinghub.elsevier.com/retrieve/pii/S0010465515000442)
+* [37] R. Ciesielski, "MBR Monte Carlo Simulation in PYTHIA8," _Proceedings of 36th International Conference on High Energy Physics -- PoS(ICHEP2012)_, pp. 301-311, 2013. [Online]. Available: [https://pos.sissa.it/174/301](https://pos.sissa.it/174/301)
+* [38] M. Tanabashi, et al. (Particle Data Group), "Review of Particle Physics," _Physical Review D_, vol. 98, no. 3, 2018. [Online]. Available: [https://link.aps.org/doi/10.1103/PhysRevD.98.030001](https://link.aps.org/doi/10.1103/PhysRevD.98.030001)
+* a facility to study multihadron events produced in high energy interactions," _Nuclear Instruments and Methods in Physics Research_, vol. 205, no. 1-2, pp. 79-97, 1983. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/016750878390176X](https://linkinghub.elsevier.com/retrieve/pii/016750878390176X)
+* [40] G. Gutierrez and M. A. Reyes, "Fixed target experiments at the Fermilab Tevatron," _International Journal of Modern Physics A_, vol. 29, no. 28, p. 12, 2014-11-11. [Online]. Available: [https://www.worldscientific.com/doi/abs/10.1142/S0217751X14460087](https://www.worldscientific.com/doi/abs/10.1142/S0217751X14460087)
+* [41] T. Aaltonen, et al. (CDF Collaboration), "Measurement of central exclusive \(\pi^{+}\pi^{-}\) production in \(p\overline{p}\) collisions at \(\sqrt{s}=0.9\) and 1.96 TeV at CDF," _Physical Review D_, vol. 91, no. 9, p. 8, 2015. [Online]. Available: [https://link.aps.org/doi/10.1103/PhysRevD.91.091101](https://link.aps.org/doi/10.1103/PhysRevD.91.091101)
+* [42] Ch. Tao, et al. (UA1 Collaboration), "The UA1 experiment," _International Journal of Modern Physics A_, vol. 01, no. 04, pp. 749-880, 2012-01-25. [Online]. Available: [https://www.worldscientific.com/doi/abs/10.1142/S0217751X86000307](https://www.worldscientific.com/doi/abs/10.1142/S0217751X86000307)
+* [43] A. Beer, et al. (UA2 Collaboration), "The central calorimeter of the UA2 experiment at the CERN pp collider," _Nuclear Instruments and Methods in Physics Research_, vol. 224, no. 3, pp. 360-395, 1984. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/0167508784900292](https://linkinghub.elsevier.com/retrieve/pii/0167508784900292)
+* [44] A. Brandt, et al. (UA8 Collaboration), "The small angle spectrometer of experiment UA8 at the SppS-collider," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 327, no. 2-3, pp. 412-426, 1993. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/016890029390707O](https://linkinghub.elsevier.com/retrieve/pii/016890029390707O)
+* [45] H. Hahn, et al., "The RHIC design overview," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 499, no. 2-3, pp. 245-263, 2003.
+
+* [46] M. Harrison, et al., "RHIC project overview," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 499, no. 2, pp. 235-244, 2003. [Online]. Available: [http://www.sciencedirect.com/science/article/pii/S016890020201937X](http://www.sciencedirect.com/science/article/pii/S016890020201937X)
+* [47] M. J. Tannenbaum, "Highlights from BNL and RHIC 2015," _The Future of Our Physics Including New Frontiers_, vol. 2016, no. 1, pp. 393-412, 2017-04-28. [Online]. Available: [http://www.worldscientific.com/doi/abs/10.1142/9789813208292_0016](http://www.worldscientific.com/doi/abs/10.1142/9789813208292_0016)
+* [48] M. Rayner. (2020) Brookhaven to host Electron-Ion Collider. CERN. [Online]. Available: [https://cernourier.com/a/brookhaven-to-host-electron-ion-collider/](https://cernourier.com/a/brookhaven-to-host-electron-ion-collider/)
+* [49] W. Fischer. (2020) Run Overview of the Relativistic Heavy Ion Collider. [Online]. Available: [https://www.agsrhichome.bnl.gov//RHIC/Runs/index.html#Run-20](https://www.agsrhichome.bnl.gov//RHIC/Runs/index.html#Run-20)
+* [50] Adare, A. and others, "An Upgrade Proposal from the PHENIX Collaboration," _ArXiv:1501.06197_, p. 237, 2019.
+* [51] K.H. Ackermann, et al. (STAR Collaboration), "STAR detector overview," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 499, no. 2-3, pp. 624-632, 2003. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/S0168900202019605](https://linkinghub.elsevier.com/retrieve/pii/S0168900202019605)
+* [52] T. Sugiura, "Exploring the QCD phase diagram measured by cumulants of net-charge distributions in Au+Au collisions at the STAR experiment," PhD. thesis, University of Tsukuba, University of Tsukuba, 2019.
+* [53] M. Anderson, et al. (STAR Collaboration), "The STAR time projection chamber: a unique tool for studying high multiplicity events at RHIC," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 499, no. 2-3, p. 20, 2003.
+* [54] H. Wieman, et al. (STAR Collaboration), "STAR TPC at RHIC," _IEEE Transactions on Nuclear Science_, vol. 44, no. 3, pp. 671-678, 1997. [Online]. Available: [http://ieeexplore.ieee.org/document/603731/](http://ieeexplore.ieee.org/document/603731/)
+* [55] L. Kotchenda, et al. (STAR Collaboration), "STAR TPC gas system," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 499, no. 2-3, pp. 703-712, 2003. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/S0168900202019678](https://linkinghub.elsevier.com/retrieve/pii/S0168900202019678)
+* [56] H. Bichsel, "A method to improve tracking and particle identification in TPCs and silicon detectors," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 562, no. 1, pp. 154-197, 2006. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/S0168900206005353](https://linkinghub.elsevier.com/retrieve/pii/S0168900206005353)* [57] Y. Xu, et al. (STAR Collaboration), "Improving the calibration of the STAR TPC for the high-hadron identification," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 614, no. 1, pp. 28-33, 2010. [Online]. Available: [https://linkinghub.elsevier.com/retrieve/pii/S0168900209023067](https://linkinghub.elsevier.com/retrieve/pii/S0168900209023067)
+* [58] J. Fodorova, "Production of \(J/\Psi\) meson in central U+U collisions at the STAR experiment," Master's thesis, Czech Technical University in Prague, Czech Technical University in Prague, 2016.
+* [59] J. Schambach, et al. (STAR Collaboration), "Proposed STAR Time of Flight Readout Electronics and DAQ," _Computing in High Energy and Nuclear Physics, LaJolla, California_, vol. 2003, no. 1, p. 10, 2003.
+* [60] K. Kajimoto, "A large area time of flight detector for the STAR experiment at RHIC," PhD. thesis, The University of Texas at Austin, The University of Texas at Austin, 2019.
+* [61] C. A. Whitten (STAR Collaboration), "The Beam-Beam Counter: a local polarimeter at STAR," _AIP Conference Proceedings_, vol. 2008, no. 1, pp. 390-396, 2008. [Online]. Available: [http://aip.scitation.org/doi/abs/10.1063/1.2888113](http://aip.scitation.org/doi/abs/10.1063/1.2888113)
+* [62] S. Bultmann, et al. (PP2PP Collaboration), "The PP2PP experiment at RHIC: silicon detectors installed in Roman Pots for forward proton detection close to the beam," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 535, no. 1-2, p. 6, 2004.
+* [63] M. Oriunno, et al. (TOTEM Collaboration), "The Roman Pot for the LHC," _Proceedings of EPAC_, vol. 2006, no. MOPLS013, p. 3, 2006.
+* [64] R. Sikora (STAR Collaboration), "Central exclusive production in the STAR experiment at RHIC," _AIP Conference Proceedings_, vol. 2017, no. 1819, 040012, p. 4, 2017. [Online]. Available: [http://aip.scitation.org/doi/abs/10.1063/1.4977142](http://aip.scitation.org/doi/abs/10.1063/1.4977142)
+* [65] R. Sikora, "Study of elastic proton-proton scattering with the STAR detector at RHIC," Master's thesis, AGH University of Science and Technology, AGH University of Science and Technology, 2014.
+* [66] T. Truhlar (for the STAR Collaboration), "Study of the central exclusive production of \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs in proton-proton collisions at \(\sqrt{s=510}\) GeV with the STAR detector at RHIC," _The 40th International Conference on High Energy Physics_, vol. 2020. [Online]. Available: [https://indico.cern.ch/event/868940/contributions/3814553/attachments/2082918/3498768/Truhlar_ICHEP2020_poster.pdf](https://indico.cern.ch/event/868940/contributions/3814553/attachments/2082918/3498768/Truhlar_ICHEP2020_poster.pdf)
+* [67] M. Mieskolainen, "GRANIITTI: A Monte Carlo Event Generator for High Energy Diffraction," 2019.
+
+## Appendix A
+
+[MISSING_PAGE_EMPTY:88]
+
+## Appendix A Variable distributions for two hadrons events
+
+Acceptance corrected distributions of the pair rapidity \(y\) and the difference of azimuthal angles of the forward protons \(\Delta\varphi\) for events with exclusively produced \(\pi^{+}\pi^{-}\), \(K^{+}K^{-}\) and \(p\bar{p}\) pairs differentiated into two \(\Delta\varphi\) regions can be seen in Figs. A.1 and A.2.
+
+Figure A.1: Acceptance corrected distributions of the pair rapidity for events with exclusively produced \(\pi^{+}\pi^{-}\) (upper row), \(K^{+}K^{-}\) (middle row) and \(p\bar{p}\) (bottom row) pairs differentiated into two regions of the difference of azimuthal angles of the forward protons: \(\Delta\varphi>90^{\circ}\) (left) and \(\Delta\varphi<90^{\circ}\) (right). Error bars represent the statistical uncertainties.
+
+Figure 2: Acceptance corrected distributions of the difference of azimuthal angles of the forward scattered protons \(\Delta\varphi\) for events with exclusively produced \(\pi^{+}\pi^{-}\) (upper row), \(K^{+}K^{-}\) (middle row) and \(p\bar{p}\) (bottom row) pairs differentiated into two \(\Delta\varphi\) regions: \(\Delta\varphi>90^{\circ}\) (left) and \(\Delta\varphi<90^{\circ}\) (right). Error bars represent the statistical uncertainties.
+
+[MISSING_PAGE_EMPTY:92]
+
+[MISSING_PAGE_EMPTY:93]
+
+Figure B.2: Distributions of the distance of closest approach between the central track and primary vertex in the \(z-\)direction \(DCA(z)\) (left) and in the transverse plane \(DCA(xy)\) (right) for exclusive \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) events. Black dot-dash lines indicate the applied cut. Error bars represent the statistical uncertainties.
+
+Figure B.3: Distributions of the pseudorapidity \(\eta\) of central tracks (left) and the four momentum transfer squared \(t\) at the proton vertices (right) for exclusive \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) events. Black dot-dash lines indicate the applied cut. Error bars represent the statistical uncertainties.
+
+## Appendix C List of public posters
+
+1. Poster from the 40\({}^{\text{th}}\) International Conference on High Energy Physics (virtual), Prague, Czech Republic, July 2020.
+
+[MISSING_PAGE_FAIL:96]

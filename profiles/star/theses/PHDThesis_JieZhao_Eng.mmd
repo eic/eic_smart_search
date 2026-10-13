@@ -1,0 +1,495 @@
+[MISSING_PAGE_EMPTY:1]
+
+[MISSING_PAGE_EMPTY:2]
+
+**Important Note**
+
+This is an English translation of part of Dr. Jie Zhao's Ph.D thesis. The full version can be found at:([https://drupal.star.bnl.gov/STAR/theses/phd-32](https://drupal.star.bnl.gov/STAR/theses/phd-32)). The current translation only includes the part(section: Analysis Technique) related to Au + Au \(\sqrt{s_{NN}}\) = 200 GeV dielectron analysis based on the STAR data. If you have any concern please contact Jie Zhao (jiezhao1119@gmail.com).
+
+[MISSING_PAGE_EMPTY:4]
+
+Dielectron production at RHIC
+
+**Jie Zhao**
+
+Supervisor:
+
+Prof. Yu-Gang Ma and Prof. Nu Xu
+
+Shanghai Institute of Applied Physics
+
+Chinese Academy of Sciences
+
+April, 2014
+
+_Submitted in total fulfilment of the requirements for the degree of Ph.D._
+
+_in Particle Physics and Nuclear Physics_
+
+[MISSING_PAGE_EMPTY:6]
+
+[MISSING_PAGE_EMPTY:7]
+
+[MISSING_PAGE_EMPTY:8]
+
+[MISSING_PAGE_EMPTY:10]
+
+## Chapter 5 RHIC-STAR experiment
+
+[MISSING_PAGE_EMPTY:12]
+
+Analysis Technique
+
+In this section i will discuss the detail of the dielectron analysis in 200GeV Au + Au collisions at RHIC-STAR. This chapter includes the following sections: Event selection, Electron identification, Background reconstruction, Efficiency and acceptance correction, Cocktail simulation, and systematic uncertainty.
+
+### Event selection
+
+The data used in this analysis were collected by the Solenoidal Tracker At RHIC(STAR) detector in 2010, which contain two kinds of 200GeV Au + Au collision datasets: Minimum Bias trigger(MinBias) and Central trigger (Central) datasets. The MinBias trigger was defined as a coincidence in the east and west VPD(vertex position) detectors, and an online vertex cut to select collisions happening in the center of the detector. The Central triggered events were selected by requiring a small signal in the DC detectors as well as a large multiplicity from the barrel TOF, which corresponds to 0-10% of the total hadronic cross section.
+
+We require the primary Vz to be centered within \(30cm\) of the PC center to ensure the detector has a uniform acceptance. We also require the difference between primary vertexZ and the vertexZ from VPD(which is a fast trigger detector) to be less then \(3cm\), in order to remove the pile-up background events(Fig. 3.1).
+
+The centrality in Au+Au 200GeV collisions was defined using the uncorrected charged particle multiplicity (\(dN/d\eta\)) within \(|\eta|<0.5\). The \(dN/d\eta\) distribution was then compared to a Monte Carlo(MC) Glauber calculation to define centrality bins. The dependence of \(dN/d\eta\) on the collision vertex position Vz and the luminosity has been included to take the acceptance and efficiency change on the measured \(dN/d\eta\) into account. Fig. 3.2 shows the measured uncorrected \(dN/d\eta\) distribution in the region of \(-5<Vz<5\) cm and extrapolated to zero ZDC coincidence rate for VPD triggered minimum bias events collected in year2010 Au+Au 200GeV in comparison to the MC Glauber calculation.
+
+These selection criteria yield 240M 0-80% minimum bias triggered and 220M central triggered (0-10%) Au+Au events at \(\sqrt{s_{\rm NN}}\) = 200GeV. Table.3.1 show the \(\langle N_{\rm part}\rangle\) and \(\langle N_{\rm coll}\rangle\) from Glauber calculation.
+
+### Electron identification
+
+In order to ensure good electron identification capability, in our analysis the electron tracks were required to satisfy the following selection cuts:
+
+* number of fit points (out of 45) in the TPC greater than 20 to ensure good momentum resolution (\(nHitsfit>20\));
+* the ratio of number of fit points over number of possible points greater than 0.52 to avoid split tracks in the TPC (\(nHitsfit/nHitsposs>0.52\));* distance of closest approach (dca) to the primary vertex less than 1 cm to select tracks from primary collisions (\(dca<1cm\));
+* number of dE/dx points used for calculating \(dE/dx\) greater than 15 to ensure good dE/dx resolution (\(ndEdxhits>15\));
+* with a valid matching to a TOF hit;
+* projected position on the TOF module within the sensitive readout volume. (\(|yLocal|<1.8cm\)).
+
+#### Electron selection
+
+Electrons (including positions if not specified) were identified with a combination of the TPC and TOF detectors. In low multiplicity collisions, by requiring a TOF velocity cut, electrons can be cleanly separated from hadrons in the TPC \(dE/dx\) vs. momentum (\(p\)) plot. However, the situation becomes a bit complicated in high multiplicity Au+Au collisions. Figure 3.3 shows the normalized \(dE/dx\) - \(n\sigma_{e}\) vs. \(p\) distributions from Au+Au 200 GeV collisions for all charged particles (upper panel) and for charged particles after implementing a TOF velocity cut \(|1/\beta-1|<0.025\) (lower panel, and this cut will accept about 95% of electron based on the TOF timing resolution). The \(n\sigma_{e}\) is defined as:
+
+\[n\sigma_{e} = \frac{\ln\frac{\langle dE/dx\rangle^{\rm{mea}}}{\langle dE/dx \rangle_{e}^{\rm{th}}}}{R_{dE/dx}} \tag{3.1}\]
+
+where the subscripts of'mea' and 'th' are measured and theoretical values, respectively. \(R_{dE/dx}\) is the experimental \(dE/dx\) resolution. One can see after the TOF velocity selection, there are still some slow hadrons contributing to the electron band in this distribution.
+
+Figure 3.3 is plotted for each association between TOF hits and TPC charged
+
+tracks. For most cases that TOF hits are correctly associated with the originated charged particles, then one would have a meaningful particle velocity measurement that can be used for further particle identification. There are also many TOF hits that are fired by photon conversion electrons generated from the material between TPC and TOF sensitive detector volumes. Photons don't leave trajectories in the TPC. However, these hits can be randomly associated with charged particle tracks in the TPC in high multiplicity event. Figure 3.4 upper panel shows the inverted particle velocity (\(1/\beta\)) measured by the TOF vs. the particle momentum (\(p\)) measured by the TPC for all TPC-TOF associations in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. The band below 1 depicts those associations between conversion electron TOF hits and random TPC charged tracks. Figure 3.4 bottom panel shows the \(1/\beta\) distributions in the momentum range \(0.2<p<0.25\) GeV/\(c\) for three centrality classes. Three distributions are normalized at the pion peak. One can see with increasing multiplicity, the fake association fraction increases dramatically.
+
+The consequence of this effect is that when requiring a particle velocity cut to be close to the speed of light, one can still include some of these random associated charge hadron tracks, mostly at \(\sim 400\) MeV/\(c\) above. These hadrons remain in the \(dE/dx\) vs. \(p\) distribution in Fig. 3.3 lower panel, which introduces additional hadron background in the selected electron candidates in the region where electron \(dE/dx\) band crosses with hadrons (mostly kaons and protons). In Fig. 3.3 lower panel, solid black lines depict the \(dE/dx\) cuts to select single electron candidates in this analysis.
+
+#### Electron purity and hadron contamination
+
+The \(n\sigma_{e}\) vs. \(p\) distribution after the TOF velocity cut has been shown in Fig. 3.3. We performed a multi-component fit to the \(n\sigma_{e}\) distribution in each momentum slice to decompose yields of each particle species, and thus to derive the electron purity and hadron contamination under a certain \(n\sigma_{e}\) cut. The \(n\sigma_{e}\) distribution for electrons is assumed to be gaussian, and its position and shape was determined by selecting \(\pi^{0}\) Dalitz decay electrons and conversion electrons using invariant mass reconstruction(Fig. 3.5left). The positions and shapesof \(n\sigma_{e}\) distributions for pions, kaons and protons were determined by selecting pure samples of these particles with the particle mass calculated from TOF(Fig. 3.5right). We fixed the positions and shapes of all components, leaving only the yields of each as free parameter to fit the \(n\sigma_{e}\) distribution in Fig. 3.3.
+
+We fit the \(n\sigma_{e}\) distribution in each momentum region to estimate the electron purity. The \(n\sigma_{e}\) shapes of \(\pi\), \(K\), \(p\) and \(e\) are from the selected high purity sample. Only the particle yield are the free parameters. This makes the fitting much easier to control compare to the multi-gaussian fit with open free parameters. Fig. 3.6 upper left plots show the \(n\sigma_{e}\) distribution for each components, and the left bottom panel is the fitting to the total \(n\sigma_{e}\) distribution. Fig. 3.6 right plot shows the estimated electron purity vs momentum, and the total electron purity can be found in Table. 3.2.
+
+\begin{tabular}{c|l} \hline \hline
+**MinBias:** & \(0.946+/-0.023\) \\
+**Central:** & \(0.921+/-0.025\) \\ \hline \hline \end{tabular}
+
+* 3.2: electron purity 
+
+### Background reconstruction
+
+All electron and position candidates with \(p_{T}>0.2GeV/c\) and \(|\eta|<1\) from the same event are combined to generate the foreground unlike-sign pair \(N_{+-}\) invariant mass distribution. The \(N_{+-}\) contain the signal and background, the signal means particle decayed dielectrons and the pair production from QGP/medium. the background includes:
+
+* Combinatorial background pairs from randomly combining two uncorrelated electrons.
+* Correlated background pairs. For instance, in the case of Dalitz decays followed by a conversion of the decay photon(e.g., \(\pi^{0}\to e^{+}e^{-}\gamma\), then \(\gamma Z\to e^{+}e^{-}Z^{*}\)), the electron from the Dalitz decay and the positron from the conversion are not completely uncorrelated as they are originated from the same source. Another significant contribution is the electron pairs from the same jet fragmentation or back-to-back di-jet fragmentation. This source may become more significant at high mass or \(p_{\rm T}\).
+
+To calculate contributions of uncorrelated and correlated background, we constructed like-sign pairs \(N_{++}\), \(N_{--}\) from the same event. It has been demonstrated when the \(e^{+}\) and \(e^{-}\) are produced in statistically independent pairs, the
+
+[MISSING_PAGE_EMPTY:20]
+
+the correlated background. We combined these two methods in our background reconstruction, detail will be discussed in the following parts.
+
+Figure 3.7 show the two-dimensional (\(M_{ee}\)\(vs\)\(p_{ee}^{T}\)) \(e^{+}e^{-}\) signal in 200 GeV Au + Au minimum bias (0-80%) collisions, which clearly show vector meson(\(\omega,\phi,J/\psi\)) signals.
+
+#### Photon conversion
+
+There are \(e^{+}e^{-}\) background from the photon conversions, which are the contribution from the photons interacting with the detector material and converted into electron pairs. we use two method to remove the photon conversion: \(\phi_{V}\) cut and pair mass cut methods.
+
+In our analysis, the \(\phi_{V}\) cut method used to remove the photon conversion is similar as that used by the PHENIX collaboration [45]. The idea is the opening angle between the two conversion electrons should be zero, and the electron tracks are bent only in the plane perpendicular to the magnetic field direction, which is parallel to the beam axis \(z\) in STAR. We inherited the same definition for the following unit vectors and defined the angle \(\phi_{\rm V}\) as:\[\begin{split}\hat{u}=\frac{\vec{p}_{+}+\vec{p}_{-}}{|\vec{p}_{+}+\vec{ p}_{-}|},\hat{v}=\vec{p}_{+}\times\vec{p}_{-}\\ \hat{w}=\hat{u}\times\hat{v},\hat{w}_{c}=\hat{u}\times\hat{z}\\ \cos\phi_{\rm V}=\hat{w}\cdot\hat{w}_{c}\end{split} \tag{3.2}\]
+
+where \(\vec{p}_{+}\), \(\vec{p}_{-}\) are momentum vectors of \(e^{\pm}\) tracks, and \(\hat{z}\) is the magnetic field direction.
+
+For pairs originated from photon conversions \(\phi_{\rm V}\) should be zero. It has no preferred orientation for combinatorial pairs, and very weak dependence for \(e^{+}e^{-}\) pairs from hadron decays. Figure 3.8 left panel shows the electron pair mass vs. \(\phi_{\rm V}\) for conversion electron pairs from the full GEANT simulation with the appropriate STAR detector geometry [59]. The populated bands at different mass positions depict the conversion electron pairs from different detector materials. Their masses are shifted a bit from zero because in the tracking algorithm we forced these tracks whose \(dc\)as are close to the primary collision vertex to originate from the primary vertex exactly. The three main bands from low to high massescorrespond to the conversions from the beam pipe (at a radius \(r\) of \(\sim\) 4 cm), inner cone support structure (\(r\sim\) 20 cm) and TPC inner filed cage (IFC) (\(r\sim\) 46 cm). We define a mass dependent \(\phi_{\rm V}\) cut shown as the red line in order to remove these conversions. We estimated that more than 95% conversion pairs can be removed by the cut from the simulation.
+
+Figure 3.8 right panel shows the signal pair invariant mass spectra before (blue dots) and after (red histogram) this photon conversion rejection cut and the difference is shown as the filled histogram. Like-sign background subtraction was used to obtain these distributions. We can see that almost all conversions appear in the mass region below 0.1 GeV/\(c^{2}\). We consider another method to remove the photon conversion contribution - pair mass cut method, which remove all of the electron pairs with the pair mass less then 0.1 GeV/\(c^{2}\), in this way both the conversion and the \(\pi^{0}\) Dalitz decay contribution are removed.
+
+In the dielectron analysis, most of electrons are coming from the photon conversion or the \(\pi^{0}\) Dalitz decay, the removal of the conversion/Dalitz decay electrons will reduce the combinatorial background, and increase the S/B, but it also has some effect on the dielectron reconstruction efficiency(Fig. 3.9), so we compare the results from different method, and took the difference into the systematic uncertainty.
+
+#### Event mixing
+
+The event mixing technique is used to reproduce the combinatorial background, which combine tracks from different events with definitely no correlation. As the general property of the tracks from different event are not the same, in order to make it much more comparable to the same event. We divide the dataset in several event pools by some general event level property, like reference multiplicity, primary vertexZ, eventplane and the magnetic field direction, and combine the tracks from the same event pool to do the event mixing.
+
+The technique used to divide the event pool with different vertex, reference multiplicity has been widely used in the STAR analysis [69], which is to ensure the detector has a uniform acceptance, and similar efficiency.
+
+From the previous RHIC flow measurements, we know there is a large asymmetry in the final particle momentum space, so we need to consider the eventplane direction effect to ensure the events mixed have similar momentum space(Fig 3.10).
+
+The event plane was reconstructed with the conventional event plane method with tracks in the TPC (\(0.1<p_{\rm T}<2\,\mathrm{GeV}/c\) and \(|\eta|<1\)) to obtain the second order event plane angle \(\Psi\)[70]. Figure 3.11 shows a study of comparing mixed-event unlike-sign and like-sign distributions using different number of event pools in event plane angle in minimum bias Au + Au collisions. The figure shows several different scenarios from 1 up to 24 event pools. The dashed lines show\(\pm 0.5\%\) difference, or in another expression 100% change in the signal yield when signal-to-background ratio is 1/200. This study shows that if we don't do the division in event plane angle, the mixed-event distributions will be distorted. The distortion is quite clear in the low mass region (\(<1\,\mathrm{GeV}/c^{2}\) ), and not negligible in the intermediate mass region (\(1{-}3\,\mathrm{GeV}/c^{2}\)). When the number of event pools is above 12, the differences become negligible. The number is also reasonably consistent with our TPC 2nd order event plane resolution, which is about 0.8 in 200 GeV Au + Au minimum bias collisions. We further studied its centrality dependence. To ensure the minimal difference in all centrality bins we will report, we choose 24 event pools in the event plane angle in our analysis.
+
+The data sample used in this analysis were taken under two different magnetic field configurations (same magnitude but opposite directions) due to the TPC calibration reasons. Acceptance of opposite charged tracks in two opposite magnetic fields is not exactly the same due to the slight offset of the beam line w.r.t. to the center of STAR detector system. We then only mixed those events with the same magnetic field configuration when constructing total mixed-event distributions.
+
+Finally, the number of event pools used in multiplicity, vertex position, event plane angle and magnetic field configuration in this analysis is \(16\times 10\times 24\times 2\)for 200 GeV minimum bias Au + Au collisions.
+
+The statistics in the mixed-event distributions depends on the number of events chosen for the calculation. Typically one would like to have this number as large as possible to minimize the statistical uncertainty in the mixed-event distributions. However, given a finite data sample, with sizable number of event pools, one need to make sure that the mixed-event calculation is done sufficiently in every event pool. Figure 3.13 shows the differences between mixed-event distributions with different number of events in buffer for mixed event calculation. We can see up to 50 number of events in buffer, there is no distortion in the measured mixed-event distributions beyond statistics. We chose 50 events in buffer in our calculation, and the statistical uncertainties in mixed-event are negligible compared to the same event distributions.
+
+Every events are included in the event mixing to avoid bias when combine the spectra from different event pools, as both the signal and background shape may be different in each event pool. e.g. centrality dependence.In this way the mixed event will follow the same possibility of the same event in each event pool Fig. 3.13.
+
+#### Mixed-event normalization
+
+We constructed the unlike-sign and like-sign pair distributions in the same event - \(N_{+-}\), \(N_{\pm\pm}\) and in the mixed-event - \(B_{+-}\), \(B_{\pm\pm}\) distributions in the two dimension (\(M_{ee}\), \(p_{\rm T}\)) plane. The mixed-event unlike sign distribution \(B_{+-}\) will provide the uncorrelated combinatorial background shape. However, the overall normalization factor for this distribution need to be properly calculated. We used the same technique as described in Ref. [45] which used the like-sign pair distributions (with no signal) to determine the normalization factor. One important factor is that the same-event like-sign pairs also have the contributions from correlated pairs. A proper kinematic region ought to be carefully selected where the correlated background is negligible.
+
+The procedure to obtain the normalized combinatorial background \(B_{+-}^{\rm comb}\) is described in Ref. [45] and also shown in the following Eq. 3.3:
+
+\[A_{+}=\frac{\int_{\rm N.R.}N_{++}(M,p_{T})dMdp_{T}}{\int_{\rm N.R. }B_{++}(M,p_{T})dMdp_{T}}\] \[A_{-}=\frac{\int_{\rm N.R.}N_{--}(M,p_{T})dMdp_{T}}{\int_{\rm N.R. }B_{--}(M,p_{T})dMdp_{T}}\] \[B_{++}^{\rm norm}=\int_{0}^{\infty}A_{+}B_{++}(M,p_{T})dMdp_{T} \tag{3.3}\] \[B_{--}^{\rm norm}=\int_{0}^{\infty}A_{-}B_{--}(M,p_{T})dMdp_{T}\] \[B_{+-}^{\rm comb}(M,p_{T})=\frac{2\sqrt{B_{++}^{\rm norm}\cdot B _{--}^{\rm norm}}}{\int_{0}^{\infty}B_{+-}dMdp_{T}}B_{+-}(M,p_{T})\]
+
+Figure 3.14 upper panel shows the residual difference between same event like-sign \(N_{\pm\pm}\) and the normalized mixed-event \(B_{\pm\pm}^{\rm norm}\) as a function of \(M_{ee}\) and \(p_{\rm T}\).
+
+The difference is normalized by the expected statistical error in each kinematic bin. The bottom panel shows the residual difference distributions for all entries in different mass regions. One can see in the black box area the normalized residuals follow the statistical fluctuation. We then chose this area \(1<M_{ee}<2\,\mathrm{GeV}/c^{2}\) as the normalization region in our analysis. As one of the systematic uncertainty source on the normalization factor, we used different normalization regions for calculation and details will be discussed in the following part.
+
+Table 3.3 lists the total like-sign pairs in the normalization region (N.R.) in each centrality class and the corresponding relative statistical uncertainties.
+
+The raw mass distributions of mixed-event like-sign and unlike-sign pairsin the full \(p_{T}\) region are plotted in Fig. 3.15(left) together with the same event distributions. To further investigate any residual difference between these distributions, ratios between them are plotted in Fig.3.15(right). In the low mass region we can see the contribution from the cross pairs. Panel (a-c) show in the normalization region, the residual is negligible. The potential increasing trend at high mass region can be attributed to the possible jet correlated background [45]. This will be discussed further in systematic uncertainty part.
+
+#### 3.3.4 Like-sign background
+
+The like-sign distribution is taken as the right description for the background in the unlike-sign foreground distribution. However, there is some acceptance difference between the like-sign and the unlike-sign pairs in our detector system sitting inside a magnetic field. Figure 3.16 shows our observed candidate \(e^{+}\) and \(e^{-}\) tracks \(\phi\) vs. \(p_{\rm T}\). The empty strips along the \(\phi\) direction are due to the TPC read-out sector boundaries. In the active detecting area, small local inefficiencies or acceptance holes will result in different acceptance for like-sign and unlike-sign pairs. We used the mixed-event technique to calculate this acceptance difference.
+
+The ratio obtained with mixed-event distributions was used to correct for the acceptance difference in the same event like-sign distribution to account for the unlike-sign background. The ratio was calculated in each (\(M\), \(p_{\rm T}\)) bin, and applied in this 2D plane. The geometric mean from two like-sign charge combinations \(++\), \(--\) describes exactly the background in \(+-\) in total pairs in spite of any detecting efficiency. When calculating the combined like-sign pair in each
+
+\begin{table}
+\begin{tabular}{c|c|c} \hline \hline Centrality & Like-sign pairs in N.R. & Statistical uncertainty \\ \hline
+0-80\% & \(3.70\times 10^{7}\) & \(1.6\times 10^{-4}\) \\ \hline
+0-10\% & \(8.05\times 10^{7}\) & \(1.1\times 10^{-4}\) \\ \hline
+10-40\% & \(2.10\times 10^{7}\) & \(2.2\times 10^{-4}\) \\ \hline
+40-80\% & \(2.67\times 10^{6}\) & \(6.1\times 10^{-4}\) \\ \hline \hline \end{tabular}
+\end{table}
+Table 3.3: Total Like-sign pairs in the normalization region (N.R.) in each centrality class and the corresponding relative statistical uncertainties.
+
+kinematic bin, we used both geometric mean and the direct sum of \(++\) and \(--\) in the calculation to estimate the impact of potential asymmetric detecting efficiencies for positive and negative tracks, shown in Eq. 3.4.
+
+\[\begin{split}& N_{\pm\pm}^{\rm corr}(M,p_{T})=2\sqrt{N_{++}(M,p_{T}) \cdot N_{--}(M,p_{T})}\;\cdot\boxed{\frac{B_{+-}(M,p_{T})}{2\cdot\sqrt{B_{++}(M,p_{T})\cdot B_{--}(M,p_{T})}}}\\ & N_{\pm\pm}^{\rm corr}(M,p_{T})=a[N_{++}(M,p_{T})+N_{--}(M,p_{T} )]\;\cdot\boxed{\frac{B_{+-}(M,p_{T})}{b\cdot[B_{++}(M,p_{T})+B_{--}(M,p_{T})]}} \\ & a=\frac{\int_{0}^{\infty}2\cdot\sqrt{N_{++}(M,p_{T})\cdot N_{-- }(M,p_{T})}dMdp_{T}}{\int_{0}^{\infty}[N_{++}(M,p_{T})+N_{--}(M,p_{T})]dMdp_{T }}\\ & b=\frac{\int_{0}^{\infty}2\cdot\sqrt{B_{++}(M,p_{T})\cdot B_{-- }(M,p_{T})}dMdp_{T}}{\int_{0}^{\infty}[B_{++}(M,p_{T})+B_{--}(M,p_{T})]dMdp_{T }}\\ \end{split} \tag{3.4}\]
+
+Figure 3.17 shows the ratio of mixed-event unlike-sign and like-sign distri
+
+butions vs the pair mass integrated over all \(p_{T}\) region. The like-sign pairs were calculated using the geometric mean of two charge sign combinations. The structure at low mass region was understood to be caused by local inefficiencies and acceptance holes. This ratio has a dependence on the pair \(p_{T}\) and eventually the correction was applied to the like-sign distributions in the 2D (\(M\), \(p_{\rm T}\)) plane.
+
+Both like and unlike sign are effected by the acceptance, so the unlike sign 
+
+[MISSING_PAGE_EMPTY:32]
+
+remove any TPC-TOF association in this situation since it cannot resolve the timing of two close hits. We also artificially removed pairs with TOF hits in the neighboring cells (thus the acceptance hole is increased by about a factor of 9). We found the impact on the final acceptance correction factor is \(<\)0.2%, and only in some particular mass region(Fig. 3.21).
+
+#### Correlated background
+
+In this analysis, we always took the like-sign distribution as a full description of the background in the foreground unlike-sign distribution. The mixed-event unlike-sign distribution after properly normalization produced the combinatorial background contribution. We then took the difference between the like-sign and the mixed-event unlike-sign to understand the correlated background contributions.
+
+Figure 3.22 shows the ratio of the acceptance corrected like-sign to the mixed-event unlike-sign distributions. In the low mass region (\(<1\,\mathrm{GeV}/c^{2}\)), the difference is due to the cross pair contributions like \(\pi^{0}\to e^{+}e^{-}\gamma\), then \(\gamma Z\to e^{+}e^{-}Z^{*}\) etc. In the intermediate and high mass regions, the like-sign and mixed-event distributions generally agree within our current precision, but also shows a trend of increasing excess vs. mass. This is mostly due to the back-to-back jet correlation.
+
+We then used a data-driven method to estimate the correlated background contribution. We fit the ratio in Fig. 3.22 in the mass region above \(1\,\mathrm{GeV}/c^{2}\) with a few different empirical functions: 2nd order polynomial and exponential etc. We counted this difference, although small, as the residual correlated background contribution. We used the 95% confidence limits from the fit (indicated by the dashed lines in the figure) as the systematic uncertainty on the correlated background. The lower limit of this uncertainty is consistent with unity, where the like-sign background is consistent with the mixed-event unlike-sign background.
+
+This residual background has been studied in different \(p_{T}\) and different centrality bins. Figure 3.23 shows the \(p_{T}\) and centrality dependence of the unlike-sign foreground and mixed-event mass distributions. And Fig. 3.24 shows the acceptance correction ratio, which was estimated via the ratio between unlike-sign and like-sign mixed-event distributions, and the ratio of acceptance corrected like-sign background to mixed-event unlike-sign distributions in various \(p_{T}\) and centrality selections. The acceptance correction factor shows a slight centrality dependence as the number of electron candidates is different in each centrality. It has a strong \(p_{T}\) dependence due to different track curvatures in different \(p_{T}\) in the magnetic field. At sufficient high \(p_{\mathrm{T}}\), tracks almost go as straight lines, therefore the acceptance for like-sign and unlike-sign pairs should be similar. The similar data-driven procedure has been pursued to estimate the correlated background in each \(p_{T}\) and centrality bin.
+
+#### Signal extraction
+
+In our analysis, we directly subtracted the like-sign from the foreground unlike-sign distribution in the mass region of \(M_{ee}<0.75\,\mathrm{GeV}/c^{2}\). While at higher mass region, we firstly subtracted the combinatorial background using the mixed-event unlike-sign pairs for the better statistics. For the residual correlated background, we used the data-driven method described in previous sub-section and subtracted it in addition to the combinatorial background. The full calculation is described in Eq. 3.5.
+
+\[S_{+-}(M,p_{T})=\begin{cases}N_{+-}(M,p_{T})-N_{\pm\pm}^{\mathrm{corr}}(M,p_{ T})&\text{if $M<M_{\mathrm{th}}$}\\ N_{+-}(M,p_{T})-B_{+-}^{\mathrm{comb}}(M,p_{T})\times[1+r(M,p_{T})]&\text{if $M \geq M_{\mathrm{th}}$}\end{cases} \tag{3.5}\]
+
+where \(r(M,p_{\mathrm{T}})\) is the correlated background contribution normalized to the mixed-event combinatorial background. \(M_{\mathrm{th}}\) is \(0.75\,\mathrm{GeV}/c^{2}\) in our default calculation.
+
+With the background pairs subtracted from the foreground distribution, we were able to obtain the raw signal invariant mass spectrum \(S_{+-}(M,p_{\mathrm{T}})\). In the upper panel of Fig. 3.25, we show the \(e^{+}e^{-}\) invariant mass distributions of the same event foreground \(e^{+}e^{-}\) pairs, the reconstructed background pairs as well as the signal pairs in 200 GeV Au + Au minimum bias collisions. The bottom panel shows the signal-to-background (S/B) ratio in \(p+p\)[71] and Au + Au collisions. In Au + Au collisions, the S/B at \(M_{ee}\) = 0.5 GeV/\(c^{2}\) is about 1/200 in minimum bias and 1/250 in 0-10% central collisions.
+
+### Efficiency and acceptance correction
+
+The obtained raw dielectron signal yields need to correct for the detector efficiency and acceptance loss. In this section, we will discuss the single electron efficiency and electron pair efficiency separately.
+
+##### 3.4.0.1 Single electron efficiency
+
+The single electron efficiency is decomposed into the following terms in this analysis:
+
+\[\varepsilon_{e}=\varepsilon_{\rm TPC}\times\varepsilon_{\rm TOF}\times \varepsilon_{\rm eID} \tag{3.6}\]The TPC tracking efficiency (\(\varepsilon_{\rm TPC}\)) was evaluated via the standard STAR embedding technique. In the embedding process, MC electron tracks with a certain phase space definition were generated. They were passed into the STAR detector geometry with the year 2010 configuration in the GEANT model [59]. The simulated detector signals were then mixed into the real data with raw signals to have a realistic detector occupancy environment. The mixed signals were processed with the same offline reconstruction software as used for the real data production. The tracking efficiency was studied by comparing the reconstructed tracks with the MC input tracks. The input number of MC tracks were constrained to not to have a sizable impact on the final single tracking efficiency.
+
+The electron track TOF matching efficiency (\(\varepsilon_{\rm TOF}\)) was obtained from the real data samples. Due to limited pure electron statistics, we firstly used the pure pion sample to deduce the TOF matching efficiency. Pure pions sampleswere selected by the TPC \(dE/dx\) selection and we assume the TOF matching efficiencies for different particle species are the same at the \(p_{T}\) region where \(dE/dx\) cannot distinguish different particle species. Pure electron samples were selected to check the efficiency scale difference between electrons and pions due to decay loss of pions between the TPC and the TOF or other effects. Pure conversion electrons were picked up by using the invariant mass reconstruction and also making sure the conversion happened before the track entered into the TPC.
+
+The TPC tracking and TOF matching efficiencies were calculated differentially in three dimensions (\(p_{\rm T}\), \(\eta\), \(\phi\)). The pion TOF matching efficiency has been calculated as well in \(p_{\rm T}\), \(\eta\), \(\phi\), while we used the same scaling factor for all \(\eta,\phi\) bins due to limited statistics. The choice of the binning in \(\eta,\phi\) dimensions show almost a negligible effect in the final dielectron pair efficiency. The upper left panel of Fig. 3.26 shows \(\varepsilon_{\rm TPC}\), \(\varepsilon_{\rm TOF}\) and their product vs. \(p_{T}\) for \(e^{\pm}\) tracks in minimum bias collisions. These efficiency is averaged over \(|\eta|<1\) and \(2\pi\) in azimuth. The efficiency \(\varepsilon_{\rm TPC}\times\varepsilon_{\rm TOF}\) at different centralities (ratios to that in minimum bias collisions) are shown in the bottom left panel of Fig. 3.26.
+
+The electron identification cut efficiency (\(\varepsilon_{\rm eID}\)) includes two components:
+
+[MISSING_PAGE_EMPTY:39]
+
+right panel.
+
+#### Electron pair efficiency and acceptance
+
+Based on the single electron efficiency, we evaluated the dielectron pair efficiency in the following two ways.
+
+* Toy Monte Carlo simulation, which used the virtual photons as the input and let them decay into dielectrons isotropically.
+* Cocktail simulation, which used the hadronic cocktail (section: Hadron Cocktail) as input including the correlated heavy flavor decay electrons from PYTHIA simulations [80].
+
+Experimentally we have ambiguities in the final dielectron spectra in determining heavy flavor decayed dielectron yields and medium (including both hadronic and partonic) produced dielectron yields. Furthermore, the heavy flavor decayed dielectron production is not known in heavy ion collisions due to the possible medium modification on the heavy flavor correlations produced in \(p+p\) collisions. We used these two methods to estimate our dielectron pair efficiency, as well as the acceptance extrapolation to full phase space for transverse mass distribution. The single electron efficiency obtained from previous section were folded in for each daughter track in full 3D momentum space. The pair efficiency and acceptance was finally calculated in \((M_{ee},p_{\rm T})\).
+
+From the 3D\((p_{T},\eta,\phi)\) single electron efficiency, we calculated the electron pair efficiency with the two different methods, Fig. 3.27 shows the comparison in different momentum regions within STAR acceptance(\(p_{T}^{e}>0.2\) GeV/\(c\), \(|\eta^{e}|<1\), \(|y|<1.0\)). We can see there are about 3% difference in the low \(p_{T}\) region, and about 1% difference in the higher \(p_{T}\) region, we took the 3% difference in our systematic uncertainty. Considering the statistics, we used the virtual photon method as the final one.
+
+[FIGURE:S3.F3][ENDFIGURFig. 3.28 shows the electron pair efficiency in different momentum regions, we can see in the high momentum region, the pair efficiency are almost flat(as the single electron efficiency is almost flat at high \(p_{T}\)), and in the very low \(p_{T}\) and low mass region the efficiency are almost 0(as the STAR detector acceptance limit). Fig. 3.29 shows the mass dependence of the pair efficiency.
+
+The results reported here, except for the dielectron transverse mass spectra, are within the STAR acceptance (\(p_{T}^{e}>0.2\,\mathrm{GeV}/c\), \(|\eta^{e}|<1\)) and \(|y_{ee}|<1\). To corrected for the STAR acceptance, the dielectron yields within the STAR detector acceptance were further corrected for the acceptance loss for single electrons. The acceptance correction factor \(\varepsilon_{pair}^{acc}\) is defined as:
+
+\[\varepsilon_{pair}^{acc}=\frac{dN/dM_{ee}dy(p_{T}(e)>0.2\mathrm{GeV}/c,|\eta(e)| <1)}{dN/dM_{ee}dy} \tag{3.7}\]
+
+The dielectron yields are always averaged over \(|y_{ee}|<1\). Figure 3.30 shows the acceptance correction factor from above two methods. The difference in the correlation between decayed daughters in these two methods results in quite different \(\varepsilon^{acc}_{pair}\), particularly in the intermediate mass region where the correlated charm contribution becomes a significant factor. Since both the correlation between charm hadron decayed electrons in Au + Au collisions and thermal radiation contribution are unknown, we used the averaged \(\varepsilon^{acc}_{pair}\) from two methods as our correction factor, and difference between two methods is included in systematic uncertainties. This difference appears to be the largest systematic uncertainty in determining the slope parameter (\(T_{\rm eff}\)) in the transverse mass spectra.
+
+### Hadronic cocktails
+
+Final state dielectron pairs observed by the detector come from the full time-space evolution of the medium created from collisions. Dielectrons from the decays of long lived particles after they freeze out from the medium will appear in our final extracted signal spectrum. These contributions in the final dielectron spectrum, usually called hadronic cocktails are under control as long as their yields at freeze-out are known.
+
+We performed the similar simulation process for hadronic cocktails in Au + Au collisions as we did in \(p+p\) collisions [71]. The cocktail simulation only contains the hadron form-factor decays in the vacuum at freeze-out. Cocktails included in our calculation contain contributions from decays or Dalitz decays of \(\pi^{0}\), \(\eta\), \(\eta^{\prime}\), \(\omega\), \(\phi\), \(J/\psi\), \(c\bar{c}\), \(b\bar{b}\) as well as the Drell-Yan (DY) production. We also included a vacuum \(\rho\) calculation only when discussing the data compared to cocktails including the vacuum \(\rho\). For hadron decay calculation, the input rapidity distributions were assumed to be flat within \(|y|<1\). The input yields \(dN/dy\) within this rapidity window as well as the \(p_{T}\) distributions are discussed below.
+
+The charged pion production yields at 200 GeV Au + Au collisions have been well measured [72, 73]. We took the averaged yield between \(\pi^{+}\) and \(\pi^{-}\) as the input \(\pi^{0}\) spectrum. Other available data on input light hadron yields are \(\eta\) from PHENIX but only at \(p_{\rm T}>2\,\)GeV\(/c\) and \(\phi\) from STAR [77]. These hadron spectra together with other hadron spectra (\(K^{\pm}\), \(K^{0}_{S}\), \(\Lambda\)) measured by STAR and PHENIX were simultaneously fit to a core-corona based Tsallis Blast-Wave (TBW) model [74] where the core describes the Au + Au bulk production and the corona describes the hard scattering contribution from \(p+p\) collisions.
+
+Figure 3.31 shows the simultaneous fit results for all input hadron spectra. The TBW functions provide good parametrization to these measured spectra.
+
+For light hadron cocktail components that don't have measurements (e.g. low \(p_{T}\)\(\eta\), \(\eta^{\prime}\), \(\omega\)), we used the same core TBW parameters obtained from the fit and pre diced the spectra shapes for each of these missing component, shown as dashed curves in Fig. 3.31. The magnitude of the low \(p_{T}\)\(\eta\) spectrum at low \(p_{T}\) was fixed by requiring the match with the measured data points at \(p_{T}>2\,\mathrm{GeV}/c\), while the \(dN/dy\) of \(\eta^{\prime}\) and \(\omega\) mesons were taken the same values as used in the PHENIX publication [45].
+
+Some additional corrections were applied to take into account the differences in centrality and rapidity windows between input hadron spectra and dielectron in this analysis. For instance, the measured pion yields were calculated in the rapidity window of \(|y|<0.1\) in Ref. [72] and \(|y|<0.5\) in Ref. [73]. We used the pion rapidity distribution from the Hijing calculation and scaled the measured pion yields down by 3% to obtain the \(p_{T}\) spectrum in the rapidity window of \(|y|<1\). And this correction factor was also absorbed in the uncertainty of input \(\pi^{0}\)\(dN/dy\). Centrality window difference only matters when we take the minimum bias data from PHENIX measurements which were done in 0-92% centrality.
+
+The correlated charm, bottom and Drell-Yan contributions were obtained from PYTHIA calculations [80] and scaled by the number of binary collisions in Au + Au collisions in the default cocktail calculations. We used the PYTHIA version 6.419 with parameter settings: MSEL=1, PARP(91) (\(\langle k_{\perp}\rangle\)) = 1.0 GeV/\(c\) and PARP(67) (parton shower level) = 1.0. This setting was tuned to match our measured charmed meson spectrum in \(p+p\) collisions [79]. The input charm production cross section in \(p+p\) collisions was also taken from the charmed meson measurement:
+
+\[d\sigma^{c\bar{c}}/dy=170\pm 45(\text{stat.})^{+38}_{-59}(\text{sys.})\mu b\]
+
+We used the same PYTHIA setting to calculate the dielectron yields from correlated bottom decays and from the Drell-Yan production. The input bottom and Drell-Yan production cross sections are listed in Table. 3.4.
+
+The \(\rho\) meson contribution is expected to be modified and considered part of the medium due to the hot QCD medium created in the heavy ion collisions. The \(\rho\) meson was not included in our default cocktail calculations. In the comparison between our measured dielectron spectrum to the cocktail calculation including the vacuum \(\rho\), we used the \(\rho\) meson measurement in peripheral collisions by STAR[81] and assumed the same \(\rho/\pi\) ratio to extrapolate to other centrality selections. The mass spectrum of the vacuum \(\rho\to e^{+}e^{-}\) is chosen as the following function:
+
+\[\begin{split}&\frac{dN}{dm_{ee}dp_{T}}\propto\frac{m_{ee}M_{\rho} \Gamma_{ee}}{(M_{\rho}^{2}-m_{ee}^{2})^{2}+M_{\rho}^{2}(\Gamma_{\pi\pi}+\Gamma_ {ee}\Gamma_{2})^{2}}\times PS\\ &\Gamma_{\pi\pi}=\Gamma_{0}\frac{M_{\rho}}{m_{\pi\pi}}(\frac{m_{ \pi\pi}^{2}-4m_{\pi}^{2}}{M_{\rho}^{2}-4m_{\pi}^{2}})^{3/2}\\ &\Gamma_{ee}=\Gamma_{0}\frac{M_{\rho}}{m_{ee}}(\frac{m_{ee}^{2}-4 m_{e}^{2}}{M_{\rho}^{2}-4m_{e}^{2}})^{1/2}\\ & PS=\frac{m_{ee}}{\sqrt{m_{ee}^{2}+p_{T}^{2}}}e^{-\frac{\sqrt{m_ {ee}^{2}+p_{T}^{2}}}{T}}\end{split} \tag{3.8}\]
+
+In which \(M_{\rho}\) is \(776\)MeV**,** \(M_{\pi}\) is mass of \(\pi\)**,** \(\Gamma_{0}\) is \(149\)MeV**,** \(\Gamma_{2}\) is \(\rho\to e+e\) branch ratio**,** PS is the Boltzmann phase space factor**,** T \(\sim 160MeV\).
+
+Table 3.4 summarize all the possible sources of the hadron cocktails and their decay branching ratios. In the cocktail simulation, we use the Tsallis Blast-Wave [74] or \(m_{T}\) scaling [45] to describe the measured hadron \(p_{T}\) distributions as inputs, shown in Fig.3.31. The products, \(e^{+}e^{-}\) pair mass distributions from the sources, are normalized by decay branching ratios and the measured \(dN/dy\).
+
+All the following reported mass spectra are not corrected for the STAR detector resolution. It is very challenging to precisely reproduce the momentum resolution in the STAR TPC simulation package under the high luminosity RHIC environment due to various distortion effect in the TPC detector. We used a data-driven method to obtain the dielectron mass line shape in this measurement.
+
+Based the full detector simulation, the reconstructed electron \(p_{\rm T}^{\rm rec}\) probability distribution at a given input \(p_{\rm T}^{\rm MC}\) was parameterized with a double-Crystal-Ball function, defined in Eq. 3.9:
+
+\[P(p_{\rm T}^{\rm rec},p_{\rm T}^{\rm MC})\propto\left\{\begin{array}{ll}A \times(B-R)^{-n},&R<-\alpha\\ e^{\frac{-R^{2}}{2}},&-\alpha<R<\beta\\ C\times(D+R)^{-m},&R>\beta\end{array}\right. \tag{3.9}\]
+
+and\[A =(\frac{n}{|\alpha|})^{n}\times e^{\frac{-\alpha^{2}}{2}}\] \[B =\frac{n}{|\alpha|}-|\alpha|\] \[C =(\frac{m}{|\beta|})^{m}\times e^{\frac{-\beta^{2}}{2}} \tag{3.10}\] \[D =\frac{m}{|\beta|}-|\beta|\] \[R =\left(\frac{p_{\rm T}^{\rm rec}-p_{\rm T}^{\rm MC}}{p_{\rm T}^{ \rm MC}}-\mu\right)/\frac{\sigma_{p_{\rm T}}}{p_{\rm T}}\]
+
+where \(n=1.29\), \(\alpha=1.75\), \(m=2.92\), \(\beta=1.84\).
+
+\(\mu=-0.001\) which is slightly shifted due to the electron energy loss in the detector material while the STAR tracking only accounted for the energy loss assuming pion tracks.
+
+\(\sigma_{p_{\rm T}}/p_{\rm T}\) was used as a measure of the \(p_{T}\) resolution. We fixed all other parameters from the simulation while the \(p_{T}\) resolution was assumed to follow:
+
+\[(\frac{\sigma_{p_{T}}}{p_{T}})^{2}=(a\times p_{T})^{2}+(\frac{b}{\beta})^{2}; \ \beta=\frac{p}{E}\sim\frac{p_{T}}{\sqrt{p_{T}^{2}+m^{2}}}. \tag{3.11}\]
+
+for electrons \(\beta\sim 1\).
+
+We then used the \(J/\psi\) signal which has the most statistics and tuned the above parameters \(a\) and \(b\) in the Eq. 3.11 to get the best match to the \(J/\psi\) signal distribution. The two parameters were chosen to be \(a=0.0060\)\(c/\)GeV and \(b=0.0083\).
+
+### Systematic uncertainty
+
+The major systematic uncertainty sources that contributed to the final result in this analysis include:
+
+1. Conversion electron removal
+2. Normalization factor for mixed-event distributions
+
+[MISSING_PAGE_EMPTY:49]
+
+The normalization of the combinatorial background, the mixed-event unlike-sign distribution is determined by comparing the like-sign same event and mixed-event distributions. The statistics of the total like-sign pair in the normalization region becomes one of the dominate systematic uncertainty. We also chose different normalization ranges varying between the mass range of 1.2 - 2.2 GeV/\(c^{2}\). Other sources we considered are the normalization method (we chose to normalize the mixed-event unlike-sign directly to the acceptance corrected same event like-sign distribution) and the slight asymmetry between total number of mixed-event unlike-sign and like-sign pairs. Table 3.5 summarizes the contribution of each individual component in Au + Au 200 GeV collisions in minimum bias collisions as well as various centralities. The total systematic uncertainty of the normalization factor was calculated as a direct sum of each individual ones assuming full correlation. The uncertainty in the residual correlated background was already mentioned in pervious section. In the data-driven approach, we counted the statistical uncertainty in determining the ratio of like-sign and mixed-event unlike-sign \(r(M,p_{\rm T})\) as the systematic uncertainty. The contribution to the final dielectron mass spectrum in minimum bias collisions is about 10% from 1 GeV/\(c\) to 3 GeV/\(c\).
+
+The electron candidates contain a small amount of contaminated hadrons. If these hadrons were produced with correlation (e.g. resonance decays), they may contribute into the final signal spectrum. To estimate this contribution, we firstly selected the pure pion, kaon and proton samples with stringent TOF\(mass^{2}\) cuts. We randomly select hadrons from these pure samples according to the estimated hadron contamination levels in both the total amount and the \(p_{T}\) differential yields. Thus we created a hadron candidate pool and performed the same analysis procedure as the dielectron analysis. We estimated the \(e-h\) and \(h-h\) contribution and compared to the dielectron signal spectrum, shown in Fig. 3.32(left). Overall, the relative contribution to the final spectrum is \(<5\%\) from \(1\,\mathrm{GeV}/c\) to \(3\,\mathrm{GeV}/c\).
+
+Figure. 3.32(right) summarizes the systematic uncertainties in obtaining the raw dielectron invariant mass spectra for the minimum bias collisions. As a conservative estimation, we took the sum of each individual component as the total systematic uncertainty.
+
+For the reported dielectron yields in the STAR acceptance, the systematic uncertainty due to the efficiency and acceptance correction includes uncertainties on the single track efficiency, the pair efficiency evaluation method and the pair cut (\(\phi_{V}\)) efficiency. Table 3.6 summarizes each individual component and their contributions to the total uncertainty of the single track efficiency.
+
+[MISSING_PAGE_EMPTY:52]
+
+[MISSING_PAGE_EMPTY:54]
+
+[MISSING_PAGE_EMPTY:56]
+
+## Appendix A Appendix
+
+### PHENIX acceptance
+
+The STAR mid-rapidity detectors cover full azimuth (\(0\)\(<\)\(\phi\)\(<\)\(2\pi\)) at \(|\eta|\)\(<\)\(1\) while the PHENIX central arms (used for the dielectron analysis) cover about \(2\times\pi/2\) at \(|\eta|\)\(<\)\(0.35\).(Fig. 1, and Table. 1). So in principle, STAR can simulate the PHENIX acceptance to study the detector acceptance effect to the dielectron measurements.
+
+To investigate the impact of the detector acceptance effect on the final dielectron mass spectrum, we tried to narrow down the single track acceptance cut to match the PHENIX's one as best as we can. We have to acknowledge that there is no way to fully reproduce other experiment's acceptance due to differentdetector structures and performances. What we did is to select the STAR data with the PHENIX azimuthal angle acceptance cut. Due to the limited statistics, we cannot further reduce the pseudorapidity window to match the PHENIX's cut. We also considered the physics is not so significantly different between \(|\eta|<0.35\) and \(|\eta|<1\) at 200 GeV collisions.
+
+Due to the existing magnetic field, the signal track \(\phi\) acceptance varies with \(p_{\rm T}\). We used the kinematic acceptance cut presented in the PHENIX publication [45] shown in Eq. A.1:
+
+\[\begin{split}\phi_{min}&\leq\phi+q\frac{k_{\,DC}}{p _{T}}\ \ \leq\phi_{max}\\ \phi_{min}&\leq\phi+q\frac{k_{RIHC}}{p_{T}}\leq\phi_{ max}\end{split}\] (A.1)
+
+where \(k_{DC}\) and \(k_{RICH}\) represent the effective azimuthal bend to DC and RICH (\(k_{DC}=0.206\) rad GeV/\(c\) and \(k_{RICH}=0.309\) rad GeV/\(c\) ). One arm covers the region from \(\phi_{min}=\) -\(\frac{3}{16}\pi\) to \(\phi_{max}=\frac{5}{16}\pi\), the other arm from \(\phi_{min}=\frac{11}{16}\pi\) to \(\phi_{max}=\frac{19}{16}\pi\).
+
+Figure A.2(left) shows the electron candidate occupancy distributions for our data selected with the PHENIX \(\phi\) acceptance cut. The upper panel shows the regular \(\phi\) vs. \(p_{T}\) for negative charged particles, while the bottom panel shows \(1/p_{T}\) vs. \(\phi\) for both charges. The plot indicates we can capture the basic acceptance structure, while the inner fine structure within this azimuthal angle acceptance may be slightly different due to the detector structure at different experiments.
+
+With the electron candidates selected, we then carried out the same analysis procedure as described before. Figure A.3(right) panel (a), (b), (c) show the ratio of like-sign distributions between same event and mixed-event from which we determined the normalization factor of mixed-event unlike-sign distribution for combinatorial background. Panel (d) shows the acceptance difference correction factor between like-sign and unlike-sign dielectron pairs.
+
+We compared the acceptance difference correction factor between the result with and without the PHENIX \(\phi\) acceptance, shown in Figure A.3. One can clearly see that the \(\phi\) acceptance cut changes the pair acceptance between like-sign and unlike-sign pairs significantly in the low mass region, and the maximum of this ratio happens around \(M\sim 0.5\,\mathrm{GeV}/c^{2}\).
+
+We finished the background subtraction and corrected for the detector efficiency. Finally we obtained the signal dielectron pair invariant mass spectrum from \(200\,\mathrm{GeV}\) minimum bias Au + Au collisions and compared to hadronic cocktail simulations, shown as the left plot in Fig. 4. Similarly we observed an enhancement in the low mass region. The enhancement factor is comparable to what we observed with the full azimuthal acceptance.
+
+We further added in the medium dielectron contributions from theoretical model calculations. The right plot of Fig. 4 shows the data compared with the cocktail plus the broaden \(\rho\) spectrum in the hadronic medium and QGP thermal radiation. This particular calculation included here is only valid at \(M<0.5\,\mathrm{GeV}/c^{2}\).
+
+Figure 4: (Left)Single electron/positron track density distributions using the STAR data selected with the PHENIX azimuthal angle acceptance. (Right)the electron pair mass distribution
+
+\(1.5\,{\rm GeV}/c^{2}\). We can see that the medium contribution from this model (hadronic \(\rho\) and QGP radiation) describes the observed low mass excess very well.
+
+Selecting our data with the PHENIX \(\phi\) acceptance doesn't seem to be able to reproduce the large enhancement factor in the low mass region observed by the PHENIX collaboration [45].
+
+## Appendix A Appendix
+
+###.4.1 Left: Efficiency corrected invariant mass spectra (blue solid dots) calculated using the STAR data filtered with the PHENIX azimuthal angle acceptance. The data points are compared to cocktail simulations shown as curves and the bottom panel shows the ratio of data to the cocktail sum. Right: The same data points compared to theoretical model calculations of medium vector meson and QGP contributions from Ref. [86]. The bottom panel shows the ratio of data to the sum of the cocktail and the theory calculations of medium contributions.
+
+[MISSING_PAGE_EMPTY:62]
+
+## References
+
+* [1] E. V. Shuryak, Phys. Lett. B **78**, 150 (1978).
+* [2] C. Adler _et al._ Phys. Rev. Lett. **89**, 202301 (2002).
+* [3] C.-Y. Wong. Introduction to High-Energy Heavy-Ion Collisions. World Scientific Publishing Co. Pte. Ltd., 1994.
+* [4] F. Wang _et al._ J. Phys. G **30**, S1299 (2004).
+* [5] John Adams _et al._ Phys. Rev. Lett. **95**, 152301 (2005).
+* [6] P.F. Kolb and U. Heinz. arXiv: nucl-th/0305084, 2003.
+* [7] J. Adams et al. **"**STAR white paper."** arXiv: nucl-ex/0501009, 2005.
+* [8] S.S. Adler _et al._ Phys. Rev. Lett. **91**, 182301 (2003).
+* [9] J. Adams _et al._ Phys. Rev. Lett. **92**, 052302 (2004).
+* [10] Z. Lin and C.M. Ko. Phys. Rev. Lett. **89**, 202302 (2002).
+* [11] D. Molnar and S.A. Voloshin. Phys. Rev. Lett. **91**, 092301 (2003).
+* [12] J. Adams _et al._ Phys. Rev. Lett. **92**, 052302 (2004).
+* [13] S. Eidelman _et al._ **"**Review of Particle Physics."** Phys. Lett. B **592**, 1+ (2004).
+* [14] D. J. Gross and F. Wilczek, Ultraviolet Behavior of Non-Abelian Gauge Theories, Phys. Rev. Lett. **30**, 1343 (1973).
+* [15] H. D. Politzer, Reliable Perturbative Results for Strong Interactions?, Phys. Rev. Lett. **30**, 1346 (1973).
+* [16] D. J. Gross and F. Wilczek, Asymptotically Free Gauge Theories. I, Phys. Rev. D **8**, 3633 (1973).
+
+[MISSING_PAGE_EMPTY:64]
+
+* [32] D.Adamova et al. (CERES/NA45 Collaboration) Phys. Rev. Lett 94, 042301
+* [33] R. Arnaldi, et al. (NA60 Collaboration) Phys. Rev. Lett 96,162302
+* [34] R. Arnaldi, et al. (NA60 Collaboration) Phys. Rev. Lett 100,022302
+* [35] R. Arnaldi, et al. (NA60 Collaboration) Phys. Rev. Lett 102,222301
+* [36] M. M. Aggarwal et al. (WA98 Collaboration) Phys. Rev. Lett 85, 3595
+* [37] M. M. Aggarwal et al. (WA98 Collaboration) Phys. Rev. Lett 93, 022301
+* [38] M. Masera for the HELIOS/3 collaboration,Nuclear Physics A590 (1995)
+* [39] M. Naruki et al. (KEK-PS E235) Phys. Rev. Lett 96, 092301
+* [40] G. J. Lolos, et al. (TAGX Collaboration) Phys. Rev. Lett 80, 241
+* [41] G. J. Lolos, et al. (TAGX Collaboration) PHYSICAL REVIEW C 68, 065202
+* [42] M. H. Wood et al. (CLAS collaboration) PHYSICAL REVIEW C 78, 015201
+* [43] M. H. Wood et al. (CLAS collaboration) Phys. Rev. Lett 105, 112301
+* [44] D. Trnka et al. (CBELSA/TAPS Collaboration) Phys. Rev. Lett 94, 192303
+* [45] S. S. Adler et al.(PHENIX Collaboration)PHYSICAL REVIEW C 81, 034911
+* [46] S. S. Adler et al.(PHENIX Collaboration), Centrality Dependence of Direct Photon Production in 200 GeV Au + Au Collisions, Phys. Rev. Lett. 94, 232301
+* [47] J. Zhao (STAR Collaboration), J. Phys. G 38, 124134 (2011).
+* [48] M. K. Kohler for the ALICE Collaboration at Hot Quarks2012* [49] A.URAS et al. (ALICE Collaboration) Phys. Lett. B 710 (2012)
+* [50] Special Issue on RHIC and Its Detectors, edited by M. Harrison, T. Ludlam, and S. Ozaki, Nucl. Instr. Meth. A **499**, No. 2-3 (2003).
+* [51] M. Anderson, _et al._, Nucl. Instr. Meth. A **499**, 659 (2003).
+* [52] S. Eidelman et al. **"**Review of Particle Physics."** Phys. Lett. B **592**, 1+ (2004).
+* [53] STAR TOF proposal, [http://drupal.star.bnl.gov/STAR/files/future/proposals/tof-5-24-2004.pdf](http://drupal.star.bnl.gov/STAR/files/future/proposals/tof-5-24-2004.pdf).
+* [54] W.J. Llope, _et al._, Nucl. Instr. Meth. A **522**, 252 (2004).
+* [55] M. Beddo, _et al._, Nucl. Instr. Meth. A **499**, 725 (2003).
+* [56] C.E. Allgower, _et al._, Nucl. Instr. Meth. A **499**, 740 (2003).
+* [57] J. Kyriluk, AIP Conf. Proc. **675**, 424 (2003).
+* [58] M. Shao _et al._, Nucl. Instr. Meth. A **614**, 28 (2010).
+* [59] GEANT 3.21, CERN program library. [http://wwwasdoc.web.cern.ch/wwwasdoc/22geanthtm13/geantall.html](http://wwwasdoc.web.cern.ch/wwwasdoc/22geanthtm13/geantall.html).
+* [60] J. Adams _et al._ [STAR Collaboration], Nucl. Phys. A **757**, 102 (2005).
+* [61] E. Shuryak, Phys. Rep. **61**, 71 (1980).
+* [62] R. Rapp and J. Wambach, Adv. Nucl. Phys. **25**, 1 (2000).
+* [63] G.E. Brown and M. Rho, Phys. Rep. **269**, 333 (1996).
+* [64] R. Rapp and J. Wambach, Eur. Phys. J. A **6**, 415 (1999).
+* [65] H. van Hees and R. Rapp, Phys. Rev. Lett. **97**, 102301 (2006); H. van Hees and R. Rapp, Nucl. Phys. A **806**, 339 (2008);* [66] J. Ruppert, C. Gale, T. Renk, P. Litchard and J. Kapusta, Phys. Rev. Lett. **100**, 162301 (2008); T. Renk and J. Ruppert, Phys. Rev. C **77**, 024907 (2008);
+* [67] K. Dusling, D. Teaney and I. Zahed, Phys. Rev. C **75**, 024908 (2007).
+* [68] O. Linnyk _et al._, Phys. Rev. C **84**, 054917 (2011).
+* [69] J. Adams _et al._, Phys. Lett. B **612**, 181 (2005); J. Adams _et al._, Phys. Rev. C **71**, 064902 (2005); J. Adams _et al._, Phys. Rev. Lett. **94**, 062301 (2005).
+* [70] A.M. Poskanzer and S.A. Voloshin, Phys. Rev. C **58**, 1671 (1998); J. Adams _et al._, Phys. Rev. C **72**, 014904 (2005).
+* [71] L. Adamczyk _et al._ [STAR Collaboration], Phys. Rev. C **86**, 024906 (2012).
+* [72] J. Adams _et al._ [STAR Collaboration], Phys. Rev. Lett. **92**, 112301 (2004).
+* [73] B.I. Abelev _et al._ [STAR Collaboration], Phys. Rev. Lett. **97**, 152301 (2006).
+* [74] Z. Tang _et al._, Phys. Rev. C **79**, 051901 (2009).
+* [75] S.S. Alder _et al._ [PHENIX Collaboration], Phys. Rev. Lett. **91**, 072301 (2003); S.S. Alder _et al._, Phys. Rev. C **69**, 034909 (2004).
+* [76] S.S. Adler _et al._ [PHENIX Collaboration], Phys. Rev. C **75**, 024909 (2007).
+* [77] J. Adams _et al._ [STAR Collaboration], Phys. Lett. B **612**, 181 (2005).
+* [78] A. Adare _et al._ [PHENIX Collaboration], Phys. Rev. Lett. **98**, 232301 (2007).
+* [79] L. Adamczyk _et al._ [STAR Collaboration], Phys. Rev. C **86**, 072013 (2012).
+* [80] T. Sjostrand _et al._, Comput. Phys. Commun. **135**, 238 (2001).
+* [81] J. Adams _et al._ [STAR Collaboration], Phys. Rev. Lett. **92**, 092301 (2004).
+* [82] C. Amsler _et al._, Phys. Lett. B **667**, 1 (2008).
+
+* [83] V.L. Eletssky _et al._, Phys. Rev. C **64**, 035202 (2001).
+* [84] E. Braaten, R.D. Pisarski and T.C. Yuan, Phys. Rev. Lett. **64**, 2242 (1990).
+* [85] R. Rapp, J. Wambach and H. van Hees, arXiv: 0901.3289.
+* [86] R. Rapp, private communications.
+* [87] H.J. Xu _et al._, Phys. Rev. C **85**, 024906 (2012).
+* [88] G. Gujanovic _et al._, arXiv: 1211.0022.
+* [89] W. Cassing and E.L. Bratkovskaya, Nucl. Phys. A **831**, 215 (2009); E.L. Bratkovskaya, W. Cassing, V.P. Konchakovski, and O. Linnyk, Nucl. Phys. A **856**, 162 (2011).
+* [90] W. Cassing and E.L. Bratkovskaya, Phys. Rep. **308**, 65 (1999); E.L. Bratkovskaya and W. Cassing, Nucl. Phys. A **619**, 413 (1997); W. Ehehalt and W. Cassing, Nucl. Phys. A **602**, 449 (1996).
+* [91] O. Linnyk _et al._, Phys. Rev. C **85**, 024910 (2012).
+* [92] G. Agakishiev _et al._ [ STAR Collaboration], Phys. Rev. Lett. **108**, 072301 (2012).
+* [93] H. Agakishiev _et al._ [STAR Collaboration], Phys. Rev. D **83**, 052006 (2011).
+* [94] A. Adare _et al._ [PHENIX Collaboration], Phys. Rev. Lett. **98**, 172301 (2007).
+* [95] M. He, R.J. Fries and R. Rapp, arXiv: 1204.4442; P.B. Gossiaux _et al._, arXiv: 1207.5445.
+* [96] X. Zhu, P. Zhuang, and N. Xu, Phys. Rev. Lett. **100**, 152301 (2008); X. Zhu _et al._, Phys. Lett. B **647**, 366 (2007).
+* [97] R. Rapp, Phys. Rev. C **63**, 054907 (2001).
+* [98] J. Deng, Q. Wang, N. Xu and P. Zhuang, Phys. Lett. B **701**, 581 (2011).
+
+* [99] R. Chatterjee, D.K. Srivastava, U. Heinz and C. Gale, Phys. Rev. C **75**, 054909 (2007).
+* [100] E. Shuryak, arXiv: 1203.1012.
+
+[MISSING_PAGE_EMPTY:70]
+
+**Publication and presentations list**
+
+* Publication list: 1. Dielectron continuum production from \(\sqrt{s_{NN}}\) = 200 GeV p + p and Au + Au collisions at STAR Jie Zhao (for the STAR Collaboration) _J. Phys. G 38 (2011) 124134_
+* 2. Dielectron production from \(\sqrt{s_{NN}}\) = 200 GeV Au + Au collisions at STAR Jie Zhao (for the STAR Collaboration) _Nuclear. Physics. A, DOI:10.1016/j.nuclphysa.2012.12.114_
+* 3. Elliptic flow of identified hadrons in Au+Au collisions at \(\sqrt{s_{NN}}\)=7.7-62.4 GeV H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (1301.2348)_
+* 4. Observation of an energy-dependent difference in elliptic flow between particles and antiparticles in relativistic heavy ion collisions H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. Lett. 110 (2013) 142301_
+* 5. Inclusive charged hadron elliptic flow in Au + Au collisions at \(\sqrt{s_{NN}}\)=7.7-39 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. C 86 (2012) 54908_
+* 6. Observation of the antimatter helium-4 nucleus H. Agakishiev et al., (STAR Collaboration) _Nature. 473 (2011) 353_
+* 7. Presentations:* [1] Dielectron continuum production from \(\sqrt{s_{NN}}\) = 200 GeV p + p and Au + Au collisions at STAR XXII International Conference on Ultrarelativistic Nucleus-Nucleus Collisions(Quark Matter 2011), May 23-28, 2011, Annecy, France.
+* [2] Dielectron production from \(\sqrt{s_{NN}}\) = 200 GeV Au + Au collisions at STAR 5th international Conference on Hard and Electromagnetic Probes of High-Energy Nuclear Collisions(Hard Probes 2012), May 27- Jun 1, 2012, Cagliari, Italy.
+* [3] Dielectron production at RHIC The second International conference on QCD and Hadron Physics(QCD2013), Mar 29- Apr 2, 2013, Lanzhou, China.
+* [4] Publication list 1: 1. Measurement of Charge Multiplicity Asymmetry Correlations 1 in High Energy Nucleus-Nucleus Collisions at 200 GeV H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (1303.0901)_
+* [5] Fluctuations of charge separation perpendicular to the event plane and local parity violation in \(\sqrt{s_{NN}}\)=200 GeV Au+Au collisions at RHIC H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (1302.3802)_
+* [6] Freeze-out Dynamics via Charged Kaon Femtoscopy in \(\sqrt{(}sNN)\)=200 GeV Central Au+Au Collisions H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (1302.3168)_
+* [7] System Size Dependence of Transverse Momentum Correlations at RHIC H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (1301.6633)_* 5. Third Harmonic Flow of Charged Particles in Au+Au Collisions at \(\sqrt{s_{NN}}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (1301.2187)_
+* 6. Measurement of J/\(\psi\) Azimuthal Anisotropy in Au+Au Collisions at \(\sqrt{s_{N}N}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (arXiv:1212.3304)_
+* 7. Studies of di-jets in Au+Au collisions using angular correlations with respect to back-to-back leading hadrons H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (arXiv:1212.1653)_
+* 8. J/\(\psi\) production at high transverse momenta in p+p and Au+Au collisions at \(\sqrt{s_{NN}}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (1208.2736)_
+* 9. Single Spin Asymmetry \(A_{N}\) in Polarized Proton-Proton Elastic Scattering at \(\sqrt{s_{NN}}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Lett. B 719 (2013) 62_
+* 10. Transverse Single-Spin Asymmetry and Cross-Section for \(\pi^{0}\) and \(\eta\) Mesons at Large Feynman-\(x\) in Polarized p+p Collisions at \(\sqrt{s}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. D 86 (2012) 51101_
+* 11. Longitudinal and transverse spin asymmetries for inclusive jet production at mid-rapidity in polarized p+p collisions at \(\sqrt{s_{NN}}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. D 86 (2012) 32006_
+* 12. Measurements of \(D^{0}\) and \(D^{*}\) Production in \(p+p\) Collisions at \(\sqrt{s}\)=200 GeVH. Agakishiev et al., (STAR Collaboration)
+* [13] Di-electron spectrum at mid-rapidity in \(p+p\) collisions at \(\sqrt{s}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. C 86 (2012) 24906_
+* [14] Hadronic Trigger using electromagnetic calorimeter and particle identification at high-pT with STAR Detector H. Agakishiev et al., (STAR Collaboration) _e-Print Archives (1112.2946)_
+* [15] Directed Flow of Identified Particles in Au + Au Collisions at \(\sqrt{s_{NN}}\)=200 GeV at RHIC H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. Lett. 108 (2012) 202301_
+* [16] Measurement of the \(\boldsymbol{W\to e\nu}\) and \(\boldsymbol{Z/\gamma^{*}\to e^{+}e^{-}}\) Production Cross Sections at Mid-rapidity in Proton-Proton Collisions at \(\boldsymbol{\sqrt{s}}\)=500 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. D 85 (2012) 92010_
+* [17] Energy and system-size dependence of two- and four-particle \(v_{2}\) measurements in heavy-ion collisions at 62.4 and 200 GeV and their implications on flow fluctuations and nonflow H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. C 86 (2012) 0_
+* [18] Energy and system-size dependence of two- and four-particle \(v_{2}\) measurements in heavy-ion collisions at 62.4 and 200 GeV and their implications on flow fluctuations and nonflow H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. C 86 (2012) 0_
+* [19] System size and energy dependence of near-side dihadron correlations H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. C 85 (2012) 14903_* 20. Identified Hadron Compositions in p+p and Au+Au Collisions at High Transverse Momenta at \(\sqrt{s_{NN}}\)= 200 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. Lett. 108 (2012) 72302_
+* 21. Directed and elliptic flow of charged particles in Cu+Cu collisions at \(\sqrt{s_{NN}}\)=22.4 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. C 85 (2012) 14901_
+* 22. \(\rho^{0}\) photoproduction in Au+Au collisions at \(\sqrt{s_{NN}}\)=62.4 GeV measured with the STAR detector H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. C 85 (2012) 14910_
+* 23. Strangeness Enhancement in Cu+Cu and Au+Au Collisions at \(\sqrt{s_{NN}}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. Lett. 108 (2012) 72301_
+* 24. Evolution of the differential transverse momentum correlation function with centrality in Au + Au collisions at \(\sqrt{s_{NN}}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Lett. B 704 (2011) 467_
+* 25. Experimental studies of di-jet survival and surface emission bias in Au+Au collisions via angular correlations with respect to back-to-back leading hadrons H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. C 83 (2011) 061901_
+* 26. High pT nonphotonic electron production in p+p collisions at \(\sqrt{s_{NN}}\)=200 GeV H. Agakishiev et al., (STAR Collaboration) _Phys. Rev. D 83 (2011) 052006_
+* 27. Strange and multistrange particle production in Au + Au collisions at \(\sqrt{s_{NN}}\)=62.4 GeV* [28] Measurement of the Parity-Violating Longitudinal Single-Spin Asymmetry for \(W^{\pm}\) Boson Production in Polarized Proton-Proton Collisions at \(\sqrt{s_{NN}}\)=500 GeV  M. M. Aggarwal et al., (STAR Collaboration) _Phys. Rev. Lett. 106 (2011) 062002_
+* [29] Scaling properties at freeze-out in relativistic heavy-ion collisions M. M. Aggarwal et al., (STAR Collaboration) _Phys. Rev. C 83 (2011) 034910_
+* [30] Measurement of the Bottom Quark Contribution to Nonphotonic Electron Production in p+p Collisions at \(\sqrt{s_{NN}}\)=200 GeV  M. M. Aggarwal et al., (STAR Collaboration) _Phys. Rev. Lett. 105 (2010) 202301_
+* [31]\(K^{*0}\) production in Cu+Cu and Au+Au collisions at \(\sqrt{s_{NN}}\)=62.4 GeV and \(\sqrt{s_{NN}}\)=200 GeV  M. M. Aggarwal et al., (STAR Collaboration) _Phys. Rev. C 84 (2011) 34909_
+* [32] Balance functions from Au+Au, d+Au, and p+p collisions at \(\sqrt{s_{NN}}\)=200 GeV  M. M. Aggarwal et al., (STAR Collaboration) _Phys. Rev. C 82 (2010) 024905_
+* [33] Higher Moments of Net Proton Multiplicity Distributions at RHIC M. M. Aggarwal et al., (STAR Collaboration) _Phys. Rev. Lett. 105 (2010) 022302_
+* [34] Azimuthal di-hadron correlations in d+ Au and Au + Au collisions at \(\sqrt{s_{NN}}\)=200 GeV measured at the STAR detector M. M. Aggarwal et al., (STAR Collaboration) _Phys. Rev. C 82 (2010) 024912_
+* [35] Pion femtoscopy in p+p collisions at \(\sqrt{s_{NN}}\)=200 GeV M. M. Aggarwalet al., (STAR Collaboration)
+* [36] Longitudinal scaling property of the charge balance function in Au+Au collisions at \(\sqrt{s_{NN}}\)=200 GeV B.I. Abelev et al., (STAR Collaboration) _Physics Letters B. Vol 690 (2010) 239_
+* [37] Charged and strange hadron elliptic flow in Cu+Cu collisions at \(\sqrt{s_{NN}}\)= 62.4 and 200 GeV B.I. Abelev et al., (STAR Collaboration) _Phys. Rev. C 81 (2010) 44902_
+* [38] Upsilon cross section in p+p collisions at \(\sqrt{s_{NN}}\)=200 GeV B.I. Abelev et al., (STAR Collaboration) _Phys. Rev. D 82 (2010) 12004_
+* [39] Three-Particle Coincidence of the Long Range Pseudorapidity Correlation in High Energy Nucleus-Nucleus Collisions B.I. Abelev et al., (STAR Collaboration) _Phys. Rev. Lett. 105 (2010) 22301_
+* [40] Inclusive \(pi^{0}\), \(\eta\), and direct photon production at high transverse momentum in p+p and d+Au collisions at \(\sqrt{s_{NN}}\)=200 GeV B.I. Abelev et al., (STAR Collaboration) _Phys. Rev. C 81 (2010) 64904_
+* [41] Observation of \(\pi^{+}\pi^{-}\pi^{+}\pi^{-}\) photoproduction in ultraperipheral heavy-ion collisions at \(\sqrt{s_{NN}}\)=200 GeV at the STAR detector B.I. Abelev et al., (STAR Collaboration) _Phys. Rev. C 81 (2010) 44901_
+* [42] Spectra of identified high-\(p_{T}\)\(\pi^{\pm}\) and \(\bar{p}\) in Cu + Cu collisions at \(\sqrt{s_{NN}}\)=200 GeV B.I. Abelev et al., (STAR Collaboration) _Phys. Rev. C 81 (2010) 54907_
+* [43] Longitudinal double-spin asymmetry and cross section for inclusive neutral pion production at midrapidity in polarized proton collisions at \(\sqrt{s_{NN}}\)=200 GeV B.I. Abelev et al., (STAR Collaboration) _Phys. Rev. D 80 (2009) 111108_
+* 44 Observation of an Antimatter Hypernucleus B.I. Abelev et al., (STAR Collaboration) _Science 328, 58-62 (2010)_
+* 45 Longitudinal spin transfer to Lambda and Lambda hyperons in polarized p+p collisions at \(\sqrt{s_{NN}}\)=200 GeV B.I. Abelev et al., (STAR Collaboration) _Phys. Rev. D 80 (2009) 111102_
+* 46 Identified particle production, azimuthal anisotropy, and interferometry measurements in Au+Au collisions at \(\sqrt{s_{NN}}\)=9.2 GeV B.I. Abelev et al., (STAR Collaboration) _Phys. Rev. C 81 (2010) 24911_

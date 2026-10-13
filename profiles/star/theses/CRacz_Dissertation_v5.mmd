@@ -1,0 +1,1121 @@
+UNIVERSITY OF CALIFORNIA
+
+RIVERSIDE
+
+Description of Reaction Plane Correlated Triangular Flow in Au+Au Collisions with the STAR Detector at RHIC
+
+A Dissertation submitted in partial satisfaction
+
+of the requirements for the degree of
+
+Doctor of Philosophy
+
+in
+
+Physics
+
+by
+
+Cameron Thomas Lee Racz
+
+June 2024
+
+Dissertation Committee:
+
+Dr. Richard Seto, Chairperson
+
+Dr. Kenneth Barish
+
+Dr. Miguel Arratia
+
+## Copyright by
+
+Cameron Thomas Lee Racz
+
+2024The Dissertation of Cameron Thomas Lee Racz is approved:
+
+Committee Chairperson
+
+University of California, Riverside
+
+**Acknowledgments**
+
+The work and results described in this dissertation could not have been completed without the assistance and guidance of many people and institutions. The author would like to thank Prof. Richard Seto for accepting him as a graduate student and introducing him to the field of heavy-ion physics. He provided crucial technical help and expert advice which cultivated a very successful research project and taught the author valuable lessons in how to be a professional scientific researcher. Even outside of scientific work, Prof. Seto provided fantastic mentorship throughout the years of work that went into this project. His openness and understanding have undoubtedly left a long-lasting and positive impact on the author.
+
+The author would like to thank Yang Wu, who worked as a postdoctorate researcher during this project and provided critical help in finding the research topic described as well as help in starting the work. For their valuable advice and editing provided to help improve the author's analysis, presentations, and papers, the author would like to thank his fellow students at the time of writing: Erik Loyd, Ding Chen, and Michael Gordon. The author also thanks Prof. Ken Barish and the UCR spin physics group for their advice and technical help during weekly meetings.
+
+The author would like to thank the STAR collaboration for their years of work which made this study possible. In particular, the author thanks the convenors and members of the Flow, Chirality, and Vorticity working group for their professional advice and physics discussions during weekly meetings and conferences which wentinto shaping this study and the proper interpretation of results. For their private physics discussions which introduced valuable insights, and their involvement in the published article formed from this study, the author thanks Prof. ShinIchi Esumi from the University of Tsukuba, Prof. Michael Lisa from The Ohio State University, Prof. Daniel Cebra from the University of California, Davis. The author also thanks the committee members for the published article for efficiently managing the review and publication process and ensuring a high quality of the paper. The author is extremely grateful to the physics groups from Panjab University, Shandong University, the University of California, Los Angeles, and Wayne State University for reviewing the paper and providing valuable feedback before publication. Additionally, for technical help in the proper use and interpretation of simulations, the author thanks Prof. Yasushi Nara from Akita International University and Prof. Hannah Elfner (Petersen) from Goethe University.
+
+The author would also like to thank Prof. Joseph Haley from Oklahoma State University for introducing him to particle physics research and being a great mentor through the final stages of his bachelor's degree. His help and guidance was pivotal in placing the author onto the path which led to successfully entering graduate school, completing this dissertation, and future possibilities beyond.
+
+Finally, the author would like to thank his family for encouraging and supporting him throughout his life and his academic and extracurricular endeavors.
+
+_To my wife, without whose encouragement, understanding, friendship, and love, this long and incredible journey could not have been traveled._ABSTRACT OF THE DISSERTATION
+
+Description of Reaction Plane Correlated Triangular Flow in Au+Au Collisions with the STAR Detector at RHIC
+
+by
+
+Cameron Thomas Lee Racz
+
+Doctor of Philosophy, Graduate Program in Physics
+
+University of California, Riverside, June 2024
+
+Dr. Richard Seto, Chairperson
+
+Anisotropic flow in heavy-ion collisions describes the collective motion of participants and products of the collisions, most commonly in the plane transverse to the axis of the colliding beams. Mathematically, flow is decomposed into a Fourier series of simple shapes which contribute to the overall motion, with the coefficients (\(v_{n}\)) describing the magnitude each shape contributes on average. The third harmonic in the series is known as triangular flow (\(v_{3}\)) and has previously been shown to develop due to event-by-event fluctuations that randomly produce triangular shapes in the initial collision geometry. This dissertation describes the first study of \(v_{3}\) using the STAR detector at the five lowest center of mass collision energies of gold nuclei in the second stage Beam Energy Scan program at the Relativistic Heavy Ion Collider. A form of \(v_{3}\) which does not develop from fluctuations (\(v_{3}\{\Psi_{1}\}\)) was found and measured at the lowest energy of \(\sqrt{s_{NN}}=3.0\) GeV. The source of this \(v_{3}\{\Psi_{1}\}\) was investigated for the first time using simulated collisions and was found to arise due to two crucial components: geometry and stopping of nucleons in the collision producing initial triangular shapes, and a potential within the equation of state of the medium produced in the collisions. The strength of \(v_{3}\{\Psi_{1}\}\) was found to decrease with increasing energy, becoming consistent with zero in the region of 3.9 - 4.5 GeV. A comparison to simulation currently suggests that the initial triangular shape does not vanish and cannot solely explain the disappearance of \(v_{3}\{\Psi_{1}\}\). This work provides a multitude of new measurements to improve both heavy-ion simulations and our understanding of the equation of state for dense nuclear matter.
+
+###### Contents
+
+* List of Figures
+* List of Tables
+* 1 Introduction
+	* 1.1 Milestones in Atomic Science
+	* 1.2 The Strong Force
+	* 1.3 The QCD Phase Diagram
+	* 1.4 Relativistic Heavy-Ion Collisions
+		* 1.4.1 Definitions of Important Quantities
+	* 1.5 Anisotropic Flow
+		* 1.5.1 Triangular Flow
+* 2 The STAR Experiment
+	* 2.1 Relativistic Heavy-Ion Collider
+	* 2.2 Solenoidal Tracker at RHIC
+		* 2.2.1 Vertex Position Detector
+		* 2.2.2 Time Projection Chamber
+		* 2.2.3 Time-of-Flight Detector
+		* 2.2.4 Endcap Time-of-Flight Detector
+		* 2.2.5 Event Plane Detector
+		* 2.2.6 Beam-Beam Counters
+	* 2.3 Fixed-Target Experiment
+* 3 Initial Observation of Triangular Flow at \(\sqrt{s_{\rm NN}}=3.0\) GeV
+	* 3.1 Dataset
+		* 3.1.1 Sign Convention of Rapidity
+		* 3.1.2 Event Selection
+		* 3.1.3 Centrality Definition
+		* 3.1.4 TPC Track Selection
+		* 3.1.5 EPD Hit Selection
+	* 3.2 Analysis Methods
+		* 3.2.1 Particle Identification
+		* 3.2.2 Event Planes
+		* 3.2.3 Event Plane Resolution
+		* 3.2.4 TPC and TOF Efficiencies
+* 43.2.5 Systematic Uncertainties
+	* 3.3 Results
+		* 3.3.1 \(v_{3}\{\Psi_{1}\}\) vs Centrality
+		* 3.3.2 \(v_{3}\{\Psi_{1}\}\) vs Rapidity
+		* 3.3.3 \(v_{3}\{\Psi_{1}\}\) vs \(p_{\rm T}\)
+* 4 Energy Dependence of Reaction Plane Correlated Triangular Flow
+	* 4.1 Dataset
+		* 4.1.1 Sign Convention of Rapidity
+		* 4.1.2 Event Selection
+		* 4.1.3 Centrality Definition
+		* 4.1.4 TPC Track Selection
+		* 4.1.5 EPD Hit Selection
+	* 4.2 Analysis Methods
+		* 4.2.1 Particle Identification
+		* 4.2.2 Event Planes
+		* 4.2.3 TPC Tracking Efficiencies
+		* 4.2.4 Systematic Uncertainties
+	* 4.3 Results
+		* 4.3.1 Raw results of \(v_{3}\{\Psi_{1}\}\)
+		* 4.3.2 Separation of even and odd flow
+		* 4.3.3 Results of \(v_{3}^{\rm odd}\{\Psi_{1}\}\) and \(v_{3}^{\rm even}\{\Psi_{1}\}\)
+* 5 Model Comparisons and Conclusions
+	* 5.1 Source of \(v_{3}\{\Psi_{1}\}\)
+		* 5.1.1 Role of Collision Geometry
+		* 5.1.2 Role of Mean Field Potentials
+	* 5.2 Disappearance of \(v_{3}\{\Psi_{1}\}\)
+	* 5.3 Summary and Outlook
+
+List of Figures
+* 1.1 Screening of an electron's charge and qualitative graph of the resulting charge (left). Screening of a bare color charge and qualitative graph of the resulting color charge (right) [6].
+* 1.2 Example of a generic phase diagram that exemplifies the various possible characteristics of the substance [8].
+* 1.3 A conjectured picture of the QCD phase diagram [9].
+* 1.4 Illustration of a relativistic heavy-ion collision that produces a QGP and then cools back into hadronic particles [15].
+* 1.5 Top: Example image of a heavy-ion collision seen from a side view [16]. Bottom: Diagram of three general classes of collision centralities as seen from a head-on view along with corresponding approximate relations between the impact parameter \(b\) and the nuclear radius \(r\).
+* 1.6 An illustrative example of a possible measured charged particle multiplicity and its correlation with \(b\) and \(N_{part}\) which can both be calculated with the Glauber model [17].
+* 1.7 Diagram of the correspondence between \(\eta\) and \(\theta\).
+* 1.8 View of a heavy-ion collision in the transverse plane that shows the azimuthal angle and reaction plane angle.
+* 1.9 Images of flow harmonics in position space for \(n=2{-}6\). For the cases shown here, \(\Psi_{r}\) is horizontal through the center of each shape.
+* 1.10 Example of a heavy-ion collision seen in the transverse plane with strong triangularity in the participants [20].
+* 2.1 Aerial view of the section of Brookhaven National Laboratory that houses the Relativistic Heavy-Ion Collider.
+* 2.2 3D graphic of the STAR detector and a majority of the constituent subsystems. Parts on the ends are pulled back to show the inner components.
+* 2.3 Cross-section of STAR seen from a side view [23].
+* 2.4 Basic diagram of the STAR TPC [25].
+* 2.5 Diagram of one STAR TPC pad plane. The center axis of STAR is noted by the small dot on the right; the inner subsection is on the right and the outer subsection on the left [25].
+
+Example of \(\langle dE/dx\rangle\) measurements vs rigidity for negatively charged particles (a) and positively charged particles (b). Note the log-scale of the \(x\) axis and that the charge symbol shown as \(Z\) is the same as \(q\) that used in this text [28].
+* 2.7 Measurements of \(1/\beta\) made by a tray of the TOF with Au+Au collisions in 2001. The solid lines show expected values for each particle type, and the inset plots show projections of the highlighted regions onto the vertical axis [29].
+* 2.8 Expanded view of one tray of the TOF which illustrates the detector assemblies and the angle at which they sit on each supporting wedge [29].
+* 2.9 Diagram of one wheel of the EPD with one supersector highlighted in yellow [32].
+* 2.10 Diagram of one of the BBC detectors. The central spot marked "B" represents the beam pipe [34].
+* 2.11 Conjectured QCD phase diagram with the location of various collision energies measured by STAR in the BES-I and BES-II/FXT programs [35].
+* 2.12 Picture of the gold target on its support and within the beam pipe [35].
+* 2.13 Cross-section of STAR during Run 14 showing the location of the target and direction of incident beam [35].
+* 3.1 Vertex z position (left) and x-y position (right) of accepted events after bad run, minbias, vertex-z and transverse vertex position cuts.
+* 3.2 Number of events after each set of cuts.
+* 3.3 Number of events for each centrality in 3.0 GeV collisions.
+* 3.4 Number of tracks after each set of cuts in 3.0 GeV collisions.
+* 3.5 Average TnMIP for each EPD supersector w.r.t. track \(\eta\) (top) and EPD \(\phi\) vs \(\eta\) distribution (bottom). The angled and curved distributions are due to the target being off-center and causing a larger concentration of hits in and around supersectors 6 and 7 than around 1 and 12.
+* 3.6 Total number of EPD hits per nMIP value.
+* 3.7 Flow chart describing the PID process at 3.0 GeV.
+* 3.8 \(dE/dx\) vs total momentum for all good tracks in the TPC (top) and \(1/\beta\) vs total momentum for all good tracks in the TPC with TOF information (bottom).
+* 3.9 \(p_{\rm T}\) vs. \(y_{\rm CM}\) density plots for \(\pi^{\pm}\), \(K^{\pm}\), and \(p\) measured by STAR in Au+Au collisions at \(\sqrt{s_{NN}}=3.0\) GeV. The red dashed line represents the target rapidity and the solid red line represents mid-rapidity. The solid and dashed black boxes mark acceptance regions used for flow calculations in various cases explained in the text.
+* 3.13.10\(\eta\) distribution of all good tracks/hits in the EPD and TPC. All EPD hits shown in the \(\eta>0\) region are omitted from this analysis.
+3.11\(\eta\) coverage diagram of sub-event regions in the EPD and TPC.
+3.12 Distribution of event planes from each subevent in the \(\sqrt{s_{\rm NN}}=3.0\) GeV dataset.
+3.13 Event plane resolutions for \(v_{3}\) correlated with \(\Psi_{1}\) for each subevent. Note that the blue points are not the actual \(R_{31}\) values used to produce the final results of \(v_{3}\), check Section 3.2.5 for the final values.
+3.14 Correlations between subevents EPD A, EPD B, and TPC B vs centrality at 3.0 GeV.
+3.15 TPC reconstruction efficiencies for \(\pi^{+}\) (left) and \(\pi^{-}\) (right).
+3.16 TPC reconstruction efficiencies for \(K^{+}\) (left) and \(K^{-}\) (right).
+3.17 TPC reconstruction efficiency values for protons.
+3.18 TOF matching efficiencies.
+3.19 Correlations between each subevent event plane angle vs centrality for different sizes of EPD B. The curves are drawn to help guide the eye.
+3.20 Resolutions \(R_{31}\) calculated using different sizes of EPD B.
+3.21\(R_{31}\) in the normal setup (black), with EPD B made from rings 13 - 16 (green), and with the normal setup scaled down uniformly (blue) so that \(\langle R_{31}\rangle\) between 20 - 45% matches the same average when EPD B is made from rings 13 - 16.
+3.22 All three distributions of \(R_{31}\) used for calculation of systematic uncertainties.
+3.23 Main event plane resolutions used in this analysis (average of those in Fig. 3.22) where the uncertainties show the full combination of statistical and systematic uncertainties. The systematic uncertainties are the spread shown in Fig. 3.22.
+3.24\(v_{3}\) from \(\Psi_{1}\) vs centrality for \(\pi^{+}\), \(\pi^{-}\), and protons using the event plane method. Protons show a clear negative \(v_{3}\) while pions remain near zero. Statistical uncertainties are shown as lines while systematic uncertainties are open square brackets.
+3.25\(v_{3}\) from \(\Psi_{1}\) vs centrality for \(K^{+}\) and \(K^{-}\) using the event plane method. This method requires more statistics to fully understand if this signal is present for kaons. Statistical uncertainties are shown as lines while systematic uncertainties are open square brackets.
+3.26\(v_{3}\) from \(\Psi_{1}\) vs rapidity for protons in three large centrality bins from a symmetric acceptance across midrapidity. Protons gain an increasingly negative slope as the centrality increases. Statistical uncertainties are shown as lines while systematic uncertainties are open square brackets.
+
+[MISSING_PAGE_EMPTY:14]
+
+* 4.11\(v_{3}\) from \(\Psi_{1}\) vs \(y_{\rm CM}\) for protons at \(\sqrt{s_{\rm NN}}=3-4.5\) GeV. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+* 4.12\(v_{3}\) from \(\Psi_{1}\) vs \(y_{\rm CM}\) for protons at \(\sqrt{s_{\rm NN}}=3-4.5\) GeV. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+* 4.13\(v_{3}\) from \(\Psi_{1}\) vs \(p_{\rm T}\) for protons at \(\sqrt{s_{\rm NN}}=3-4.5\) GeV. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+* \(4.5\) GeV. Note the factor of 2 difference in the scale of the vertical axis. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+* \(4.5\) GeV. Note the factor of 2 difference in the scale of the vertical axis. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+* 4.16 Results of fitting \(y=ax+bx^{3}\) to each set of \(v_{3}^{\rm odd}\{\Psi_{1}\}\) measurements in the same acceptance as the HADES measurements [43].
+* 5.1 Illustration of the proposed triangular geometry of participants as discussed in the text. Side (a) shows a side view, with the eye indicating the beam view as shown in (b). The horizontal dotted line represents the axis by which the two triangles separate, and the vertical dashed line in (b) is the reaction plane. The lines in the red triangle portray the pressure gradients along the directions of the red arrows.
+* 5.2 Snapshot of the x vs. y position of protons from JAM at \(t=50\) fm/\(c\) for particles with rapidity \(0.6<y<0.85\) and \(0<p_{\rm T}<2\) GeV/\(c\) (avoiding spectators) illustrating the half-moon, "triangular" shape. Note that the high density region is centered at x \(\approx 7\) fm. The arrows depict the average momentum obtained by dividing the collision region into cells. The length of each arrow represents the magnitude of the average momentum in each cell. The white dot indicates the \(x=0\), \(y=0\) position.
+* 5.3\(v_{3}\{\Psi_{1}\}\) for protons in three centrality regions in the JAM model (left) and SMASH model (right) as compared to the data. Cuts used in the model are identical to the data, but centrality in the models is defined by cuts in impact parameter.
+* 5.4
+
+[MISSING_PAGE_FAIL:16]
+
+List of Tables
+* 3.1 Centrality definition used for the STAR 3.0 GeV FXT dataset from 2018.
+* 3.2 3.0 GeV TPC track acceptance cuts.
+* 3.3 Track PID cuts at 3.0 GeV using the TPC and TOF. These criteria represent the qualities required of a track to be identified as each particle in the analysis. The specific values used for \(d\) and \(t\) are described in the text.
+* 3.4 Table of analysis cuts/acceptance windows and the 20% variations made for the estimation of systematic uncertainties.
+* 3.5 Table of analysis cuts/acceptance windows and the 30% variations made for the estimation of systematic uncertainties.
+* 3.6 Average contribution of each varied cut to systematic uncertainties in \(v_{3}\{\Psi_{1}\}\) as a percentage of the \(v_{3}\{\Psi_{1}\}\) value for three centrality ranges.
+* 4.1 Table of vertex \(z\) and transverse radius cuts for each energy listed in cm. Columns 2 and 3 represent the qualities required of an event to be _accepted_ in the analysis.
+* 4.2 Table of energies with number of events before and after all event cuts.
+* 4.3 Table of centrality definitions for \(\sqrt{s_{\rm NN}}=3.2\), 3.5, 3.9, and 4.5 GeV datasets.
+* 4.4 Track PID cuts using the TPC and TOF. These criteria represent the qualities required of a track to be _accepted_ as each particle in the analysis.
+* 4.5 Momentum dependent cuts on \(n\sigma_{p}\) used for proton identification at each energy.
+* 4.6 Table of subevent regions used to determine the main subevent EPD A.10
+* 4.7 Table of variations on the size of the EPD B subevent above 3.0 GeV.
+* 4.8 Table of analysis cuts/acceptance windows and the 20% variations made for the estimation of systematic uncertainties.
+* 4.9 Table of analysis cuts/acceptance windows and the 30% variations made for the estimation of systematic uncertainties.
+* 4.11 3.5 GeV Average contributions to systematic uncertainties as a percentage of the \(v_{3}\) value for three centrality ranges. The average for each cut is over all bins of the results figures (not even/odd \(v_{3}\) plots) where that cut's variations were deemed significant enough to be included in the systematic uncertainties.
+* 4.12* 4.12 3.9 Average contributions to systematic uncertainties as a percentage of the \(v_{3}\) value for three centrality ranges. The average for each cut is over all bins of the results figures (not even/odd \(v_{3}\) plots) where that cut's variations were deemed significant enough to be included in the systematic uncertainties.
+* 4.10 3.2 Average contributions to systematic uncertainties as a percentage of the \(v_{3}\) value for three centrality ranges. The average for each cut is over all bins of the results figures (not even/odd \(v_{3}\) plots) where that cut's variations were deemed significant enough to be included in the systematic uncertainties.
+* 4.13 4.5 Average contributions to systematic uncertainties as a percentage of the \(v_{3}\) value for three centrality ranges. The average for each cut is over all bins of the results figures (not even/odd \(v_{3}\) plots) where that cut's variations were deemed significant enough to be included in the systematic uncertainties.
+* 4.14 4.5 Average contributions to systematic uncertainties as a percentage of the \(v_{3}\) value for three centrality ranges. The average for each cut is over all bins of the results figures (not even/odd \(v_{3}\) plots) where that cut's variations were deemed significant enough to be included in the systematic uncertainties.
+
+## Chapter 1 Introduction
+
+### 1.1 Milestones in Atomic Science
+
+Since the discovery of atoms, the subsequent study of those atoms have led to a multitude of influential findings that have shaped and molded the fields of science, and even changed the fundamental view of the entire universe held by society. Some of the largest discoveries have come from pushing the frontier of observations toward smaller and smaller scales. From the advent of electrons that exist around atoms by J. J. Thomson [1], to the introduction of the central nucleus and the constituent protons by Ernest Rutherford [2], to the more recent state of atomic science, where it has been found that the protons and neutrons are themselves not fundamental particles [3, 4, 5]. Protons and neutrons have now been categorized as "hadrons" - subatomic particles that are made up of smaller fundamental particles called "quarks". Furthermore, the species of a hadron is defined by the number and species of its constituent quarks. Hadrons that are made up of three quarks are called "baryons", and those made up of two quarks are called "mesons".
+
+Finding new particles has always proven to be a great success for improving collective understanding of the universe, but the discovery of quarks was even more influential than that; it revealed a previously unknown natural force. The electromagnetic force has been well understood for a very long time; some particles have an electromagnetic charge, which gives rise to an associated field, and thus exerts an force on other charged entities. The models that constructed the idea of quarks came to a point where they required that there must be another type of "charge" separate from the usual electromagnetic type [3, 4]. This has since been named "color charge" (just terminology and not literal colors) and the associated force called the "strong force" [6]. The possible values of individual color charges were chosen to be red (R), green (G), blue (B), antired (\(\bar{\rm R}\)), antigreen (\(\bar{\rm G}\)), and antiblue (\(\bar{\rm B}\)).
+
+### 1.2 The Strong Force
+
+Presently, there are four known fundamental interaction types in the universe: gravitational, electromagnetic, weak, and strong. The main type relevant to this dissertation is the strong. The strong interaction, named so because it is typically \(\sim 137\) times stronger than the electromagnetic interaction, is an attractive force that binds quarks together to form hadrons and binds those hadrons together to form nuclei. Analogously to the electromagnetic interaction, the strong interaction between particles results from a fundamental charge they carry (the color mentioned above), and the force between them is mediated by the exchange of a vector boson. Gluons (\(g\)) are the bosons that carry the strong force between interacting quarks, and the significant difference between the strong interaction and the electromagnetic interaction is the fact that gluons themselves are colored, whereas photons do not have any charge. This results in the presence of \(g\) to \(g{-}g\) splitting as shown in Fig. 1.1. The theory that mathematically describes the strong interaction with quarks, gluons, and their color charge is called Quantum Chromodynamics (QCD).
+
+According to quantum field theory, it is known that an electron will randomly emit and reabsorb photons. Between those points in time, the photons can produce electron-positron pairs that annihilate back into photons (within the length of time \(\Delta t\leq\hbar/\Delta E\) allowed by the uncertainty principle). Effectively, the individual electron's charge is "screened" by \(e^{-}{-}e^{+}\) pairs around it, and the \(e^{+}\) will be preferentially closer to the true electron. The overall magnitude of the electron's charge that can be measured depends on the distance from it and is shown in the plot on the left of Fig. 1.1. If the charge is measured closer than the cloud of \(e^{-}{-}e^{+}\) pairs, the magnitude measured increases drastically, but far from it, the magnitude levels out with a coupling strength (\(\alpha\)) \(\sim\) 1/137. Similarly, for color charges, there will be a color charge screening; but there is now an additional \(g{-}g\) coupling that must be taken into account. As with the example on the right of Fig. 1.1, this causes a red color charge to be preferentially surrounded by more red charges. In the end, there is an "anti-screening" effect where the total magnitude of the red charge is larger at farther distances and levels out inside the cloud of quark-antiquark (\(q{-}\bar{q}\)) and \(g{-}g\) pairs.
+
+Color charges are pulled together with an incredibly strong force, but once they are within a small distance called the "confinement barrier," the attractive force is much smaller and they can essentially behave as free particles. The barrier is roughly 1 fm (\(10^{-15}\) m, A.K.A a "fermi") from the charge, and within that distance the charges experience "asymptotic freedom" since they are less constrained [6].
+
+Color confinement is the phenomenon where, due to the anti-screening effects described above, quarks are unable to exist as single particles. Quarks only exist bound together as hadrons, and these hadrons can only be formed if the colors of the constituent quarks form a colorless state. A colorless (white) combination would be either RGB, \(\bar{\rm R}\bar{\rm G}\bar{\rm B}\), \({\rm R}\bar{\rm R}\), \({\rm G}\bar{\rm G}\), or \({\rm B}\bar{\rm B}\). Therefore hadrons can be separated into two classes: baryons that have 3 \(q\) or \(\bar{q}\) and mesons that are a \(q\)\(-\)\(\bar{q}\) pair.
+
+### 1.3 The QCD Phase Diagram
+
+QCD shows that, if normal hadronic matter becomes hot and dense enough, the color confinement barrier can be overcome. The constituent quarks and gluons are then free to move on their own, but since they are all still strongly interacting, the net result is a medium that behaves collectively as a single near-ideal fluid called the Quark-Gluon Plasma (QGP). This is the state of matter that existed in the first fractions of a second after the Big Bang, and it can be recreated if nuclei of heavy atoms are smashed together in colliders at high enough energy. The existence of the QGP implies that there must be a region in temperature and density at which normal nuclear matter undergoes a phase transition from hadronic to the QGP, or vice-versa.
+
+Figure 1.2 is an example of a general phase diagram for a substance, and it shows the regions in pressure-temperature space where that substance is in a liquid, solid, or gaseous phase. The solid lines show the values of pressure and temperature where adjacent phases will undergo a transition from one to the other. Phase transitions are usually classified as a "first-order" or "second-order" transition depending on the manner in which the material changes phases. A first-order transition is named so
+
+Figure 1.1: Screening of an electron’s charge and qualitative graph of the resulting charge (left). Screening of a bare color charge and qualitative graph of the resulting color charge (right) [6].
+
+because the first derivatives of the Gibbs free energy are discontinuous. Physically, this produces an abrupt transition that involves a latent heat during the process (the temperature is a constant while the material changes phases). Second-order transitions mean the second derivatives of the Gibbs free energy are discontinuous, but in modern days these are usually called "continuous" transitions. These are less abrupt, and do not involve a latent heat. Another important quality for materials is something called a "critical point" which is shown as one of the red dots in Fig. 1.2. At the critical point there is no longer a discontinuous change between materials, and small random fluctuations can make the material quickly change back and forth between the different bordering states (such as a liquid or a gas like in the figure) [7].
+
+Figure 1.2: Example of a generic phase diagram that exemplifies the various possible characteristics of the substance [8].
+
+Similar to these diagrams, nuclear matter itself has its own phase diagram like the one shown in Fig. 3 that theorists and experimentalists are trying to calculate and probe with QCD and heavy-ion collision data. The axes of this diagram have the temperature of the matter on the y-axis (\(T\)), and the baryon chemical potential (usually denoted as \(\mu_{B}\)) on the x-axis. \(\mu_{B}\) is the energy associated with a change in the baryon number for the material, whether gained or released. A simpler way of describing this quantity is that it is the imbalance of baryons and anti-baryons in the system. A high \(\mu_{B}\) means there are many more standard baryons than anti-baryons. Hence the diagram shows a dot for "Nuclear Matter" at the point \((\mu_{B},T)\sim\) (938 MeV, 0 MeV). This is where all of the average matter on Earth exists; right around the rest mass of protons and neutrons that make up the nuclei in that matter.
+
+The "Hadron Gas" region around that point where regular matter exists is the region of color confinement where all color charges are bound together into colorless states by the strong force. The diagram shows that this state and the QGP are separated by a first-order transition like that mentioned above, but this line ends at a critical point with a "crossover" transition at the gap around \(T\sim\) 170 MeV. A crossover transition means that, while two phases are qualitatively different, there is not a well defined point of the transition between the two. Instead, there is a smooth and continuous change as the material evolves from one phase to the other [10].
+
+Due to the limitations of calculations in QCD at high densities, this diagram is not exact. Currently, this QCD phase diagram is more of a rough sketch of where the phase transition line could be located, but the search for this transition and the critical point is an important and ongoing endeavor. While theorists work to predict the locations of these phenomena using QCD calculations, experimentalists have been performing similar searches around the phase diagram using real data from heavy-ion collisions. Experiments such as the Large Hadron Collider (LHC) and the Relativistic Heavy-Ion Collider (RHIC) can produce a QGP by colliding heavy-ions at energies such that the resulting matter is within the QGP region of \(T\) and \(\mu_{B}\). An example of such collisions by RHIC are shown in Fig. 1.3 by orange and yellow spots, with the orange and yellow arrows describing the path that the produced medium takes as it cools and diffuses back toward the nuclear matter point.
+
+Figure 1.3: A conjectured picture of the QCD phase diagram [9].
+
+Understanding how hadronic matter transitions into a QGP is an extremely important goal, but in order to do that, there must be a complete understanding of the initial hadronic matter itself. Currently, there are various theoretical models that can be used to describe matter below the phase transition [11, 12, 13, 14], but the exact nature of the dominant interactions in this region are still not fully understood. The various forces that govern hadronic matter would be present in the equation of state (EOS) that describes the full relation between \(T\) and \(\mu_{B}\), but the full form of this equation is unknown. Advancing the ongoing search for the proper EOS below the phase transition is an important goal for the analysis described in this dissertation. Part of this analysis compares observables measured at low energies that are likely below the transition with predictions from possible models to show what kind of EOS supports the measurements from real data.
+
+### 1.4 Relativistic Heavy-Ion Collisions
+
+Heavy-ion collisions involve stripping the electrons from large atoms and colliding the nuclei at speeds close to the speed of light. At sufficiently high collision energies, the nucleons that overlap and collide (the "participants") can melt into a QGP. A basic diagram of the resulting process of the medium cooling and expanding is shown in Fig. 1.4. It includes two important stages shown as hadronization (often called chemical freeze-out) and kinetic freeze-out. At the point of chemical freeze-out the medium has cooled and passed the phase transition so that all deconfined quarks and gluons have fully recombined into hadrons. Then, at the point of kinetic freeze-out, the expansion of the medium has reached the point where all of the final particles only move outward and no longer collide with each other. This brings the evolution of the collision to the "final state" consisting mainly of stable particles, with some heavier, unstable particles which will quickly decay into stable particles. When collisions are not at an energy which produces a QGP, the main differences are in the created medium and chemical freeze-out. In this case hadrons do not fully melt into free quarks and gluons, but exchanges of quarks could happen up until chemical freeze-out.
+
+Figure 1.4: Illustration of a relativistic heavy-ion collision that produces a QGP and then cools back into hadronic particles [15].
+
+#### Definitions of Important Quantities
+
+This section defines various quantities that are used to describe heavy-ion collisions and the final state particles that are detected.
+
+##### Multiplicity
+
+The multiplicity of a collision refers to the number of resulting particles in the final state. If paired with a specific type of particle it just refers to the number of those particles produced and/or transported outward from the collision, such as proton multiplicity, for example. Experimentally, not all final state particles are able to be detected. Whether due to the particles missing the detector, or them simply passing through the detector without interacting (e.g. neutrons which do not interact electromagnetically), only a subset of final state particles are recorded in each collision. Therefore experimentalists commonly refer to the "charged particle multiplicity," (denoted as \(N_{ch}\)) which refers to the total number of charged particles that were detected in a collision.
+
+##### Collision Centrality
+
+The centrality of a collision describes the size of the overlap region between the two colliding nuclei. The top portion of Fig. 1.5 illustrates various important parts of a collision. First, the coordinate system necessary for a mathematical description of the collision must be set. The common axis on which two nuclei approach each otheris always defined as the \(z\) axis. In the center-of-mass frame of a single collision the \(x\) axis is usually set along the direction of the impact parameter denoted as \(b\). \(b\) is defined as a vector that is perpendicular to \(z\) and which originates at the center of one nucleus and points to the center of the other nucleus.
+
+As previously mentioned, the nucleons in the overlap region are called participants, while those from either nucleus that don't collide are known as spectators. Spectators will usually continue in their original directions or will at least have the smallest amount of deflection from the \(z\) axis as compared to the participants.
+
+Depending on the size of \(b\), the size of the overlap region will change, and thus the centrality will change. The bottom portion of Fig. 1.5 shows a head-on view of collisions in three commonly mentioned centrality classes. A central collision refers to one which has a very small impact parameter and nearly complete overlap region. On the opposite end, a peripheral collision is one with a very large impact parameter and a very small overlap. The intermediate scenario is known as a mid-central collision. The quantitative convention for centrality is referred to as a percentage; 0% centrality means \(b=0\) and the nuclei collide perfectly head-on, and 100% centrality means the nuclei are just far enough apart that they pass by each other with no overlap.
+
+Experimentally, the centrality percentage is estimated by the distribution of \(N_{ch}\) measured over many collisions of the same type. This distribution will look similar to the blue line shown in Fig. 1.6. For the estimation of the centrality percentages, the Glauber model will often be used to estimate various centrality-related quantitiessuch as \(b\), the number of participants (\(N_{part}\)), and the centrality percentages based on the \(N_{ch}\) distribution [17]. The general idea behind this process is that more central events are expected to have a larger \(N_{part}\) than less central events, and thus with more interactions, more central events will also produce more particles in the final state than less central events. Electromagnetically neutral particles are usually undetectable without very specific types of detectors so only the charged particles are used in this process.
+
+Figure 1.5: Top: Example image of a heavy-ion collision seen from a side view [16]. Bottom: Diagram of three general classes of collision centralities as seen from a head-on view along with corresponding approximate relations between the impact parameter \(b\) and the nuclear radius \(r\).
+
+Figure 1.6: An illustrative example of a possible measured charged particle multiplicity and its correlation with \(b\) and \(N_{part}\) which can both be calculated with the Glauber model [17].
+
+#### Center-of-Mass Collision Energy
+
+Collisions of particles or heavy-ions are always defined in terms of one of the Mandelstam variables, \(\sqrt{s}\), which is the total energy of a collision in the center-of-mass frame. In the particular case of heavy-ion collisions, this is written \(\sqrt{s_{\rm NN}}\) representing a nucleon-nucleon collision. Using the four-momenta \(p_{A}\) and \(p_{B}\) of two colliding nucleons, \(\sqrt{s_{\rm NN}}\) is defined by the following (in natural units where \(c=1\)):
+
+\[p_{A} = (E_{A},\,p_{Ax},\,p_{Ay},\,p_{Az})\] \[p_{B} = (E_{B},\,p_{Bx},\,p_{By},\,p_{Bz})\] \[s_{\rm NN} = (p_{A}+p_{B})^{2}.\]
+
+It can be assumed that each nucleon has no motion in \(x\) or \(y\) directions. In the usual case where the colliding nuclei are of the same elements with the same energy, \(p_{Ax}=p_{Bx}=p_{Ay}=p_{By}=0\) and \(E_{A}=E_{B}\). Also, since they are moving in opposite directions along the \(z\) axis, \(p_{Bz}=-p_{Az}\). The above expression reduces to\[s_{\rm NN}= \left(p_{A}+p_{B}\right)^{2}\] \[= \left(E_{A}+E_{B},\,p_{Ax}+p_{Bx},\,p_{Ay}+p_{By},\,p_{Az}+p_{Bz} \right)^{2}\] \[= \left(2E_{A},\,0,\,0,\,0\right)^{2}\] \[= \,4E_{A}.\]
+
+Therefore, in the case of two identical nuclei colliding head-on with energy \(E\) per nucleon, \(\sqrt{s_{\rm NN}}=2E\).
+
+In a fixed target scenario, one target nucleus is stationary and struck by an identical projectile nucleus that is in motion. If \(A\) denotes the target and \(B\) the projectile, then the energy of a target nucleon reduces to its rest mass (\(E_{A}=m_{A}\)) with no momentum. The above expression would then read
+
+\[s_{\rm NN}= \left(p_{A}+p_{B}\right)^{2}\] \[= \left(E_{A}+E_{B},\,p_{Ax}+p_{Bx},\,p_{Ay}+p_{By},\,p_{Az}+p_{Bz }\right)^{2}\] \[= \left(m_{A}+E_{B},\,0,\,0,\,-p_{Bz}\right)^{2}\] \[= \,m_{A}^{2}+E_{B}^{2}+2m_{A}E_{B}-p_{Bz}^{2}\] \[= \,2m^{2}+2mE.\]In the last step the identity \(p_{Bz}^{2}=|p_{B}|^{2}\equiv E_{B}^{2}-m_{B}^{2}\) was used and the subscripts were dropped since each nucleon has roughly the same mass. Therefore, in a fixed target experiment with identical elements, \(\sqrt{s_{\rm NN}}=\sqrt{2m^{2}+2mE}\), with \(m\) being the proton or neutron mass.
+
+The fixed target situation in particular is important for the analysis described in this dissertation. The present studies were aimed at relatively low energies that were likely below the phase transition, but those energies become difficult to reach with a collider experiment since the beams of nuclei become very unstable and uncontrollable. However, as shown by comparing the two expressions above for \(\sqrt{s_{\rm NN}}\), low energies become much easier to access with a fixed target experiment without dropping the energy of the single beam too low. For example, if two beams of nuclei collide with \(E=5\) GeV per nucleon in a collider experiment, the collision energy would be \(\sqrt{s_{\rm NN}}=10\) GeV. But with a fixed target experiment, the same beam energy would yield a much lower collision energy; \(\sqrt{s_{\rm NN}}=\sqrt{2(0.938)^{2}+2(0.938)(5)}=3.34\) GeV.
+
+#### Transverse Momentum
+
+Transverse momentum, denoted as \(p_{\rm T}\), is defined as the component of a particle's momentum vector that is perpendicular to the \(z\) axis: \(p_{\rm T}=\sqrt{p_{x}^{2}+p_{y}^{2}}\). Since the heavy-ions are moving at relativistic speeds along the \(z\) axis, \(p_{\rm T}\) is a very important quantity since it is Lorentz invariant and thus not affected by boosts along the \(z\) axis.
+
+**Rapidity**
+
+Rapidity is a dimensionless variable related to speed along the \(z\) axis and denoted as \(y\). Instead of using velocity, rapidity is always used since it is invariant under boosts along the \(z\) axis of motion and it is always additive, even at relativistic speeds. In three dimensions it is defined as
+
+\[y=\tanh^{-1}\beta_{z}=\frac{1}{2}\ln\left(\frac{1+\beta_{z}}{1-\beta_{z}} \right)=\frac{1}{2}\ln\left(\frac{E+p_{z}}{E-p_{z}}\right),\]
+
+where \(\beta_{z}=v_{z}/c\) with \(v_{z}\) being the velocity component in the \(z\) direction, \(E\) is the total energy of the particle, and \(p_{z}\) is the momentum component in the \(z\) direction. Rapidity is also related to the angle at which it travels away from the \(z\) axis and can be related to the the polar angle \(\theta\) as
+
+\[y=\frac{1}{2}\ln\left(\frac{1+\beta\cos\theta}{1-\beta\cos\theta}\right),\]
+
+where \(\theta=0\) is along the \(z\) axis and \(\theta=\pi/2\) is perpendicular to the \(z\) axis. Since \(y\) also depends on the mass of the particle, two different types of particles emitted at the same angle will not necessarily have the same value of rapidity.
+
+### Pseudorapidity
+
+Pseudorapidity, \(\eta\), is essentially the same as rapidity except it does not include the mass dependence. For massless particles such as photons which travel at \(v=c\), \(y\) and \(\eta\) become equivalent. This is also approximately true for light, ultrarelativistic particles, but it is not an exact equivalence. The definition is given by
+
+\[\eta=\tanh^{-1}\left(\frac{p_{z}}{p}\right)=\frac{1}{2}\ln\left(\frac{1+\cos \theta}{1-\cos\theta}\right).\]
+
+The similarity to rapidity, along with the fact that pseudorapidity depends only on the polar angle of particles, has made \(\eta\) an ideal quantity to use for measuring the angle of emission of particles from collision experiments. When describing the location of final state particles, \(\eta\) is used rather than \(\theta\). If necessary, \(\eta\) could be converted back to the usual polar angle, and the correspondence is illustrated in Fig. 1.7. Angles between 90 and 180 degrees would correspond to negative values of \(\eta\) all the way to \(-\infty\).
+
+### 1.5 Anisotropic Flow
+
+Flow is a term used in heavy-ion collisions that refers to the motion of the medium created as it expands collectively in directions transverse to the beam. For the QGP in particular, comparisons for many measured observables have shown that they matchwell with theoretical predictions that treat the medium hydrodynamically as a near-ideal fluid [18]. In essence, this strongly supports the picture that the QGP created in collisions behaves as a single collective fluid. To visualize this simply, it is useful to imagine that the fluid "flows" outward in various directions as it cools and dissipates. However, this does not mean there is no sense of flow at lower energies where a QGP is not present. The medium produced in collisions below the QCD phase transition still exhibits an expansion in various directions and that flow is measured in the same way as with the QGP case. The distinction to be made between these situations is that the flow measured below the phase transition will not match model predictions that utilize hydrodynamics while the flow measured above the transition does.
+
+The more specific term that refers to the measured observable is anisotropic flow, or anisotropic transverse flow since there are also possibilities of longitudinal flow (along the beam direction) or radial flow (uniform expansion transverse to the beam). Anisotropic flow is a measurement of the non-uniformity of the angular distribution
+
+Figure 1.7: Diagram of the correspondence between \(\eta\) and \(\theta\).
+
+of final state particles in the transverse plane around the beam. This is done by measuring the azimuthal angle \(\phi\) of all detected particles of interest with respect to the reaction plane angle \(\Psi_{r}\) and averaging over all recorded collisions. The reaction plane itself is defined by the product \(\hat{b}\times\hat{z}\), and in the lab frame, the angle that this plane makes with the \(x\) axis is \(\Psi_{r}\) (see Fig. 1.8).
+
+Mathematically, the measurement of flow starts with the following equation; a triple differential distribution expanded as a Fourier series that describes the distribution of final state particles in \(\phi{-}y{-}p_{\mathrm{T}}\) space [19].
+
+\[E\frac{d^{3}N}{d^{3}p}=\frac{d^{3}N}{p_{\mathrm{T}}dp_{\mathrm{T}}dyd\phi}= \frac{1}{2\pi}\frac{d^{2}N}{p_{\mathrm{T}}dp_{\mathrm{T}}dy}\left(1+\sum_{n=1} ^{\infty}2v_{n}\cos(n(\phi-\Psi_{r}))\right) \tag{1.1}\]
+
+Figure 1.8: View of a heavy-ion collision in the transverse plane that shows the azimuthal angle and reaction plane angle.
+
+In this series the sine terms all vanish due to symmetry with respect to \(\Psi_{r}\). The coefficients \(v_{n}\) are are exactly the values that need to be calculated from collision data in order to measure the strength of each term in the overall flow. These are defined as
+
+\[v_{n}=\langle\cos(n(\phi-\Psi_{r}))\rangle;\;n\in\mathbb{N}^{1}, \tag{1.2}\]
+
+where the angle brackets \(\langle\rangle\) indicate an average. In this particular case, the average is over all particles in all events.
+
+Since the \(v_{n}\) values come from a Fourier series with an infinite number of possible values for the order \(n\), they are also called flow harmonics. While the medium can expand in any complicated manner, Eqn. 1.1 essentially breaks down the shape of that expansion into a series of simple shapes that, when added together, reproduce the true overall expansion. The flow harmonics tell you the magnitude that each simple shape contributes to that sum. It is important to note that this process depends not only on the initial shape of participant region at the time of the collision, but also the quantum mechanical forces within the medium (depending on the equation of state). However, a majority of the flow will be determined by the initial shape and the pressure gradients produced from that shape (i.e. steeper gradients of pressure produce stronger flow in that direction). Figure 1.9 shows a visual example of the initial collision geometry in position space that produces corresponding flow harmonics from second to sixth order. As an example, for \(n=2\), the pressure gradients in the horizontal directions will have steeper pressure gradients than the vertical directions, due to the shorter distance from the center of mass to the outside. Therefore, the momentum of the resulting expansion will be primarily in the horizontal directions, less so in the vertical directions, and the final state distribution of \(\phi-\Psi_{r}\) will be anisotropic.
+
+Like any Fourier series, the coefficients quickly become smaller as the order of harmonics increases. Much of the core information can be found within the first few harmonics, and experimentally, the higher orders become much more difficult to measure. For these reasons, most past flow analyses have focused on \(v_{1}\), \(v_{2}\), and \(v_{3}\).
+
+#### Triangular Flow
+
+\(v_{3}\), or triangular flow, has been understood to develop from event-by-event fluctuations in the initial collision geometry from heavy-ion collisions [20]. In other words, when looking through many collisions, there may be some where the participants happen to arrange into a triangular shape like in Fig. 1.10. \(v_{3}\) is an important probe for
+
+Figure 1.9: Images of flow harmonics in position space for \(n=2{-}6\). For the cases shown here, \(\Psi_{r}\) is horizontal through the center of each shape.
+
+studying the initial geometry of heavy-ion collisions, and it was also found to be very sensitive to the hydrodynamical viscosity of the produced medium [21]. When testing theoretical models that predict different values of viscosity, one could use the models to predict \(v_{3}\) and compare those to measured \(v_{3}\) values from experiments to see what model is better supported. Due to this close connection to the hydrodynamics of the medium, it has also been proposed that \(v_{3}\) is only nonzero above the phase transition when a QGP is produced [22].
+
+A core goal of the present study was to make a measurement at a low energy that is very likely to be below the transition. With this kind of measurement, the idea that \(v_{3}\) does not exist for a hadronic medium could be tested with more certainty. Furthermore, if this study verified that \(v_{3}\) only exists alongside a QGP, it would
+
+Figure 1.10: Example of a heavy-ion collision seen in the transverse plane with strong triangularity in the participants [20].
+
+support the idea that \(v_{3}\) could be used as a new, and very clear, signal that a QGP was produced.
+
+## Chapter 2 The STAR Experiment
+
+This section explains the details of the experiment used to collect the heavy-ion collision data presented in this dissertation.
+
+### 2.1 Relativistic Heavy-Ion Collider
+
+RHIC is a collider facility located at Brookhaven National Laboratory in Upton, New York. It is comprised of two circular beamlines with a 2.4 mile circumference housed underground with multiple above ground interaction points. This collider is designed to facilitate collisions of ions from various elements, as well as polarized protons, but the most frequent element used is gold (Au). Figure 2.1 shows an aerial view of RHIC along with the connecting facilities that produce the ion beams. During a run of heavy-ion collisions, the ions of the element of interest are produced at the Electron Beam Ion Source (EBIS) where they are accelerated through the circular Booster. From there, the ion beam is transferred to the Alternating Gradient Synchrotron (AGS) where the beam is further accelerated. Finally, the beam is injected into RHIC as two separate beams that travel in opposite directions. These two beams,called the blue and yellow beams, consist of discrete bunches of ions that are made to collide at particular interaction points where the detectors are located.
+
+### 2.2 Solenoidal Tracker at RHIC
+
+The Solenoidal Tracker at RHIC, or STAR, is the detector used in the present analysis. STAR is a large cylindrical detector that measures 4 m long and covers the full azimuthal angle around the beamline (\(\Delta\phi=2\pi\)). Figures 2.2 and 2.3 show diagrams of STAR and most of its components. Those shown here include the Time Projection Chamber (TPC), Time-of-Flight detector (TOF), Barrel Electromagnetic Calorimeter (BEMC), 0.5 T solenoidal magnet, Muon Tracking Detector (MTD), Endcap Electro
+
+Figure 2.1: Aerial view of the section of Brookhaven National Laboratory that houses the Relativistic Heavy-Ion Collider.
+
+magnetic Calorimeter (EEMC), Event Plane Detectors (EPD), Beam-Beam Counters (BBC), and the Upgraded Pseudo Vertex Position Detectors (upVPD, or just VPD). For conciseness, this section will focus on only the components used: the VPD, BBC, TPC, TOF, and EPD.
+
+#### Vertex Position Detector
+
+The VPD consists of two rings of 19 small detectors positioned immediately outside the beam pipe on the East and West sides of STAR. This system is designed to detect
+
+Figure 2.2: 3D graphic of the STAR detector and a majority of the constituent subsystems. Parts on the ends are pulled back to show the inner components.
+
+the photons from \(\pi^{0}\) decays very close to the beampipes emanating from primary2 heavy-ion collisions. By recording the times on either side that these photons are detected (\(T_{East}\) and \(T_{West}\)), and knowing that they travel at speed \(c\), the VPD provides a measurement of the \(z\) position of a primary vertex via the equation
+
+Footnote 2: A non-primary collision would be anything other than a single collision between the ions of interest, such as an ion hitting the beam pipe, an ion or particle striking another particle again after the initial collision, etc.
+
+\[Z_{vtx}=c(T_{East}-T_{West})/2. \tag{2.1}\]
+
+Figure 2.3: Cross-section of STAR seen from a side view [23].
+
+Furthermore, the VPD provides the start time of the collision for the TOF with
+
+\[T_{start}=(T_{East}+T_{West})/2-L/c, \tag{2.2}\]
+
+where \(L\) is the distance from the center of STAR to either VPD assembly [24].
+
+#### Time Projection Chamber
+
+The TPC is a large cylindrical detector that provides the primary means of tracking particles as they move outward from the collision. It measures 4.2 m long, 4 m in diameter, and covers a radial distance of 50 to 200 cm around the beam. When operating in a normal collider configuration the TPC has good resolution of tracks for analysis within \(|\eta|<1\) (see Fig. 2.3), although its coverage more specifically extends out to \(|\eta|<1.8\)[25].
+
+On a basic level, this detector consists of a gas filled chamber, a thin conductive membrane in the center, concentric field cage cylinders, and readout end caps as shown in Figure 2.4. The central membrane is maintained at a potential of 28 kV and serves as the cathode of the two chambers it separates, with the two ends being anodes at ground potential. This way, an electric field is produced that is parallel to the beam axis. The gas used is a mixture of 10% methane and 90% Argon, commonly known as P10, held at a pressure of 2 mbar above atmospheric pressure. As particles stream through the TPC, they create a trail of ionized gas and freed electrons. The tracks of electrons in the gas will then drift toward the readouts due to the electric field, and that path of signals is recorded as the path of particles. P10 specifically is used since it has a fast drift velocity that stays uniform and stable at a relatively low electric potential [25].
+
+Each anode side of the TPC is made up of 12 sectors like that shown in Figure 2.5. These sectors consist of three wire layers and one readout pad plane. Closest to the pads are the anode wires, then the next layer is made of ground wires, and finally a gating grid. The gating grid acts as a shutter to control the entry of electrons coming near the pad plane and also prevents positive ions from escaping into the main drift volume. The ground grid terminates the field from the anode wires. The anode grid
+
+Figure 2.4: Basic diagram of the STAR TPC [25].
+
+causes incoming electrons from a particle track to accelerate and ionize the TPC gas, causing a signal amplification of 1000 to 3000 times. The resulting positive ions induce an image charge on the pad plane which is recorded by the readout electronics. Each sector is also divided into an inner subsection of pad planes and an outer subsection. Since the inner subsection involves reading a high density of tracks, it is made up of 13 rows of many small pads for a better position resolution of tracks. For the outer subsection where track densities are lower, it has 32 rows of slightly larger pads to improve measurement of the energy lost by tracks as they traveled through the gas. Therefore any particle recorded by the TPC can have up to a total of 45 hit points that are used to trace its path [25]. The number of hit points for each track is a variable denoted as nHits, with the maximum number of 45 called nHitsPossible. nHitsFit is also used, which is the number of hits used to trace out the path of a track. When this trace is followed back toward the collision point, a value is measured for each track called the distance of closest approach (DCA). This value is useful for ensuring that any tracks not originating from the primary collision are filtered out by imposing a maximum allowed DCA value.
+
+In each event recorded by the TPC, all tracks measured are considered and traced backward to measure the \(x\)-\(y\) position of the collision vertex. The main measurements of particles that are provided by the TPC for analysis are the position, charge, momentum, and rate of energy loss as they travel through the gas. The rigidity of each particle (momentum over charge \(p/q\)) is calculated by measuring the radius of curvature of its path, since the magnetic field provided by the solenoidal magnet induces charged particles to move in helical paths [25]. The sign of this quantity reflects whether the particle has a positive or negative charge, and for particles with a charge of \(\pm 1\), this provides the measurement of total momentum. For particles with \(|q|>1\) the rigidity can be corrected into total momentum after positively identifying the particle species.
+
+The ionization energy loss per unit length (\(dE/dx\)) of each particle is measured by the TPC to provide identification information. Instead of calculating an average \(dE/dx\) (since this would include many problematic ionization fluctuations) the most probable value is measured. 30% of the largest clusters of image charges measured in
+
+Figure 2.5: Diagram of one STAR TPC pad plane. The center axis of STAR is noted by the small dot on the right; the inner subsection is on the right and the outer subsection on the left [25].
+
+the pads are ignored, and then a mean is taken on the remaining 70% of the signal. This is referred to as a 70% truncated mean and is used as the most probable \(dE/dx\) measurement for each track [25]. The number of hits of a track in the TPC which are used to calculate \(dE/dx\) is called nHitsDex. This energy loss information is used to provide crucial values called \(n\sigma\) associated with each track that are defined as
+
+\[n\sigma_{X}=\frac{1}{\sigma_{X}}\ln\left(\frac{\langle dE/dx\rangle_{measured}}{ \langle dE/dx\rangle_{Bichsel,X}}\right), \tag{2.3}\]
+
+where \(\langle dE/dx\rangle_{measured}\) is the 70% truncated mean of a track, \(\sigma_{X}\) is the \(dE/dx\) resolution of the TPC for that track assuming it is some particle species \(X\), and \(\langle dE/dx\rangle_{Bichsel,X}\) is the mean dE/dx that would be expected of a particle of type \(X\) at the measured momentum as described by the Bichsel function [26, 27]. Once all tracks are recorded, they are each assigned values of \(n\sigma\) corresponding to the assumption that they are an \(e\), \(\pi\), \(K\), and proton (\(n\sigma_{e}\), \(n\sigma_{\pi}\), \(n\sigma_{K}\), and \(n\sigma_{p}\)). \(n\sigma\) values corresponding to a species that properly represents the true particles will most closely represent a Gaussian distribution; i.e. the distribution of \(n\sigma_{\pi}\) for actual pions will resemble a Gaussian and center at \(n\sigma_{\pi}=0\), while the \(n\sigma_{\pi}\) for protons will be skewed and likely farther from 0 [26]. Therefore one can make a simple cut on \(n\sigma\) to isolate this Gaussian peak and remove a majority of tracks that are less likely to be that particle of interest. What remains is a sample of tracks that are most likely to be the particle of interest, and particle identification has been completed using the TPC.
+
+In the case of light nuclei such as deuterons, tritons, helium-3, etc., there are no corresponding values of \(n\sigma\). The identification using \(\langle dE/dx\rangle\) can still be done with these species, but there is no longer a known resolution term \(\sigma_{X}\) as shown above. Instead, the identifying quantity is denoted as \(z\), which is essentially \(n\sigma\) without the resolution term;
+
+\[z_{X}=\ln\left(\frac{\langle dE/dx\rangle_{measured}}{\langle dE/dx\rangle_{ Bichsel,X}}\right). \tag{2.4}\]
+
+Particle identification using only the TPC does have its limitations, however. As the momenta of the tracks grow it becomes more difficult to distinguish different species because their \(\langle dE/dx\rangle\) values start to overlap. An example image of these measurements as a function of rigidity are shown in Fig. 2.6. This clearly shows how separating particle species by \(\langle dE/dx\rangle\) is best performed at relatively low momenta. The STAR TPC was designed to distinguish protons and pions up to 1.2 GeV/\(c\)[25].
+
+#### Time-of-Flight Detector
+
+The TOF system is another component of STAR that is used for particle identification (PID) by providing the speed of particles flying out from primary collisions. The TOF specifically measures the time at which it is hit by each track. The VPD provides the start time at which a collision happens (Eqn. 2.2), so with the stop times from the TOF, the relativistic velocity parameter \(\beta\) can be calculated for each track that hitsthe TOF with the equation
+
+\[\beta=\frac{v}{c}=\frac{L}{c(T_{stop}-T_{start})}. \tag{2.5}\]
+
+Here, \(L\) is the measured path length of each track. Figure 2.7 demonstrates the improved PID capabilities of the TOF with a separation between \(\pi\) and \(K\) up to \(p\sim 1.8\) GeV/\(c\) and between \(\pi\) (or \(K\)) and protons up to \(p\sim 3.0\) GeV/\(c\).
+
+Knowing \(\beta\) holds very important identification information since it provides a direct measurement of particle mass with the equation
+
+\[m^{2}=p^{2}\left(\frac{1}{\beta^{2}}-1\right), \tag{2.6}\]
+
+Figure 2.6: Example of \(\langle dE/dx\rangle\) measurements vs rigidity for negatively charged particles (a) and positively charged particles (b). Note the log-scale of the \(x\) axis and that the charge symbol shown as \(Z\) is the same as \(q\) that used in this text [28].
+
+which is derived from combining the two known equalities \(\beta=p/E\) and \(E^{2}=p^{2}+m^{2}\). Analogous to \(n\sigma\) provided for TPC tracks, TOF hits are identified by enforcing cuts on \(m^{2}\) for each hit.
+
+Using the TPC and TOF for PID simultaneously provides the best purity of particle samples, but this does come with a trade-off in how many particles can be recorded. Figure 2.8 shows an example of one section of the TOF and how it is made up of many discrete detector assemblies. These assemblies are also tilted in order to better face the center of STAR and cover regions in \(\eta\) more efficiently. Trays like these are aligned along the beam direction and placed outside the TPC all around the full \(2\pi\) azimuthal angle. Although the full curve of the cylinder is covered, the TOF has
+
+Figure 2.7: Measurements of \(1/\beta\) made by a tray of the TOF with Au+Au collisions in 2001. The solid lines show expected values for each particle type, and the inset plots show projections of the highlighted regions onto the vertical axis [29].
+
+slightly less \(\eta\) coverage than the TPC with an acceptance of \(|\eta|<0.9\) in collider mode. Also, the discrete nature of the TOF means there are still many particles within its \(\eta\) coverage that will pass between the components unseen. Regardless, the TOF is an extremely useful component for PID that is used or not used based on the necessities of each particular analysis.
+
+#### Endcap Time-of-Flight Detector
+
+The endcap Time-of-Flight, or eTOF, was an upgrade for the TOF system which was installed in 2019. This component consists of 36 modules arranged in a circle around the beam pipe and placed on the West end of STAR. These modules serve the same
+
+Figure 2.8: Expanded view of one tray of the TOF which illustrates the detector assemblies and the angle at which they sit on each supporting wedge [29].
+
+purpose as those in the barrel TOF and provide the values for \(L\) and \(T_{stop}\) in Equ. 2.5. Since the eTOF is positioned on the endcap, it provides a significant extension to the rapidity range covered by the entire TOF system and therefore a greater region of high purity PID [30, 31].
+
+#### Event Plane Detector
+
+The EPD consists of two circular components like that shown in Fig. 2.9 which are positioned around the beam pipe on both ends of STAR (see Fig. 2.2). This places each detector 3.75 m from the center of the STAR TPC. Each wheel is made up of 12 supersectors of 31 scintillating tiles that emit photons when struck by charged particles. Photons from each tile are transported via optical fibers to silicon photomultipliers (SiPM) to amplify them, and then the final signal is recorded in the data acquisition system (DAQ). This signal gives a measurement of the energy deposited into the detector by charged particles, and this energy is recorded as a multiple of the energy that would be deposited by one minimum ionizing particle, or MIP. Therefore, in each event, any tile which was struck records a value called nMIP that shows that the total energy deposited is equivalent to 'n' number of MIPs hitting that tile.
+
+This system is referred to as a "hit detector", so it has no PID capabilities aside from the fact that all hits are known to be charged particles and not neutral. The main focus of this detector is to measure the azimuthal distribution of outgoing particles in the high \(\eta\) regime. In collider operation, the EPD covers \(2.14<|\eta|<5.09\)[32].
+
+While each tile measures the total energy deposited, the \(\phi\) and \(\eta\) positions of each tile with respect to each collision vertex give the positions of each hit detected.
+
+The regions close to the beam on either side of the collision are very important for measuring event plane angles, which are empirical estimations of the reaction plane angles. This is exactly what the EPD was designed to do. Event planes are calculated based on the azimuthal distribution of particles in some region of the event, but the high \(\eta\) regions will be more likely to consist of, or be similar to, the spectators. Since spectators do not interact or flow like the participants, it is likely that an event plane reconstructed from spectators will be more similar to the true reaction plane than an event plane reconstructed from participants.
+
+Figure 2.9: Diagram of one wheel of the EPD with one supersector highlighted in yellow [32].
+
+#### Beam-Beam Counters
+
+The BBC detectors, similar to the EPD, involve two identical hexagonal arrangements of scintillating tiles positioned around the beam pipe on both ends of STAR. Each detector consists of 18 large tiles and 18 small tiles as shown in Fig. 2.10, where the beam pipe passes through the center into and out of the page [33, 34]. The BBC was the original system used for measuring event plane angles, but has since been replaced by the more precise EPD system in that capacity [32]. The BBC is still an important component that is used as a trigger detector which determines what events should be recorded or not. Registering a hit in one side or both sides of the BBC simultaneously can be used to determine when an important collision event has occurred, and thus trigger data collection.
+
+### 2.3 Fixed-Target Experiment
+
+In order to fully explore the QCD phase diagram in the region of the first order phase transition, STAR constructed a Beam Energy Scan (BES) program with the goal of recording data at many energies ranging from the hadronic phase to the QGP phase (Fig. 2.11). The first stage of this program, BES-I, recorded collisions at \(\sqrt{s_{\rm NN}}=39\), 27, 19.6, 11.5, and 7.7 GeV and was completed in 2011 [36]. After multiple upgrades to STAR, the second phase (BES-II) began in 2019. This includedenergies at \(\sqrt{s_{\rm NN}}=\) 19.6, 14.5, 11.5, 9.1, and 7.7 GeV, where the repeated energies gained new information from the new components installed as well as larger amounts of events recorded compared to BES-I [37]. Furthermore, BES-II included a new fixed target (FXT) program that would produce even lower energies at \(\sqrt{s_{\rm NN}}=\) 7.7, 6.2, 5.2, 4.5, 3.9, 3.5, 3.2, and 3.0 GeV. A sheet of gold foil 0.25 mm thick was placed on the support structure shown in Fig. 2.12 and positioned inside the beam pipe within STAR at 211 cm from the center of STAR as shown in Fig. 2.13. After some testing runs, this foil was moved to 200.7 cm from the center of STAR. With the target right on the West edge of the TPC, one gold beam moving in the East direction was
+
+Figure 2.10: Diagram of one of the BBC detectors. The central spot marked “B” represents the beam pipe [34].
+
+circulated to strike the target [35]. In this way, many of the main components of STAR could still capture a large portion of the products coming from the collisions. The components that could not be used in FXT runs were those on the West end cap, such as the EEMC and the West side of the EPD.
+
+The plan for the project described in this dissertation was to make a measurement of \(v_{3}\) in Au+Au collisions specifically at FXT energies starting at \(\sqrt{s_{\rm NN}}=3.0\) GeV followed by an energy scan upward to uncover the energy dependence of \(v_{3}\). In total, these measurements were performed at 3.0, 3.2, 3.5, 3.9, and 4.5 GeV.
+
+Figure 2.11: Conjectured QCD phase diagram with the location of various collision energies measured by STAR in the BES-I and BES-II/FXT programs [35].
+
+Figure 2.12: Picture of the gold target on its support and within the beam pipe [35].
+
+Figure 2.13: Cross-section of STAR during Run 14 showing the location of the target and direction of incident beam [35].
+
+## Chapter 3 Initial Observation of Triangular Flow at \(\sqrt{s_{\rm NN}}=3.0\) GeV
+
+### 3.1 Dataset
+
+This analysis was performed on Au+Au collisions at \(\sqrt{s_{\rm NN}}=3.0\) GeV from 2018 as part of the Fixed-Target (FXT) program. This corresponded to a single Au beam, with energy \(E_{\rm beam}=3.85\) GeV per nucleon and rapidity \(y_{\rm beam}=-2.09\) striking the gold foil within STAR. This system also had a center of mass rapidity value of \(y_{\rm CM}=-1.05\).
+
+#### Sign Convention of Rapidity
+
+In order to maintain the same conventions established with STAR collider mode datasets, and reduce the chances of sign errors, the sign of rapidities as measured by the detectors was not changed. Mid-rapidity was \(y_{\rm mid}=-1.045\), and when shiftingto the center-of-mass (CM) frame, the usual equation
+
+\[y_{\text{CM}}=y_{lab}-y_{mid} \tag{3.1}\]
+
+was used. In the lab frame, the FXT setup means that all recorded products of the collisions would be in a similar direction. Therefore all tracks had \(y_{lab}<0\), and when producing results in the CM frame, the "forward" direction corresponded to \(y_{\text{CM}}<0\) and "backward" was \(y_{\text{CM}}>0\).
+
+#### Event Selection
+
+This analysis only used minimum bias events which were triggered to be recorded when there was a hit in the East BBC detector and at least one track recorded by the TOF in the same event. These events were then also required to pass through cuts on the vertex position. With the fixed target, it was known that the vertices should be positioned near the point \((x,y,z)=(0,-2\text{ cm},\,200\text{ cm})\), which was indeed what was seen, as shown in Fig. 3.1. Only events with vertices that had a \(z\)-component of \(198\text{ cm}<V_{z}<202\text{ cm}\) were accepted, and then a circular \(1.5\text{ cm}\) radius cut in the transverse direction was made to accept events with \(\sqrt{V_{x}^{2}+(V_{y}^{2}+2\text{ cm})^{2}}<1.5\text{ cm}\). Figure 3.2 shows how many events were left after each cut; the minimum number of hits cut will be described later. Not all data-taking sessions (called "runs") produced usable data, and any which suffered from detector issues, power outages, operator errors, etc. were marked as bad runs. After a STAR internal study identified all bad runs in this dataset, the first step was to omit any of these runs from the data sample as shown in Fig. 3.2.
+
+Figure 3.1: Vertex z position (left) and x-y position (right) of accepted events after bad run, minbias, vertex-z and transverse vertex position cuts.
+
+#### Centrality Definition
+
+The accepted events were categorized based on their centrality. The official definition established for this energy was determined by an internal STAR study. Table 3.1 shows this determination and the correspondence between each centrality bin and the number of primary tracks in an event, while Fig. 3.3 shows the number of good events found in each centrality bin. Due to a low trigger efficiency for events with centrality \(>\) 60%, this analysis only examined collisions to a maximum of 60% centrality. At this energy it was established that "mid-centrality" events referred to those within 10 - 40%, with central and peripheral collisions covering 0 - 10% and 40 - 60%, respectively.
+
+Figure 3.2: Number of events after each set of cuts.
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline
+**Centrality** & **Multiplicity** \\ \hline
+0 - 5\% & 142 - 195 \\
+5 - 10\% & 119 - 141 \\
+10 - 15\% & 101 - 118 \\
+15 - 20\% & 86 - 100 \\
+20 - 25\% & 72 - 85 \\
+25 - 30\% & 60 - 71 \\
+30 - 35\% & 50 - 59 \\
+35 - 40\% & 41 - 49 \\
+40 - 45\% & 33 - 40 \\
+45 - 50\% & 26 - 32 \\
+50 - 55\% & 21 - 25 \\
+55 - 60\% & 16 - 20 \\
+60 - 65\% & 12 - 15 \\
+65 - 70\% & 9 - 11 \\
+70 - 75\% & 7 - 8 \\
+75 - 80\% & 5 - 6 \\ \hline \end{tabular}
+\end{table}
+Table 3.1: Centrality definition used for the STAR 3.0 GeV FXT dataset from 2018.
+
+Figure 3.3: Number of events for each centrality in 3.0 GeV collisions.
+
+#### TPC Track Selection
+
+Once an event was accepted, the tracks detected by the TPC needed to go through a series of quality assurance (QA) cuts to filter out any with unreliable tracking or energy measurements. First, only tracks from the primary collision were accepted, and these tracks needed to pass the cuts shown in Table 3.2. Depending on the \(\eta\) of the particle, the total number of layers it could pass through could vary, making a cut on the ratio nHitsFit/nHitsPossible important to ensure that track splitting from particle decays does not introduce extra tracks into the analysis. Only tracks that had over 52% of the possible number of hits were accepted. Finally, the DCA values needed to be within 3 cm to further ensure that they were particles coming from the primary Au+Au collision only.
+
+#### EPD Hit Selection
+
+The selection for the EPD hits dealt solely with the nMIP values from each tile. Values less than a threshold set as 0.3 are taken as 0 and omitted while values above
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline
+**Variable** & **Acceptance** \\ \hline \hline nHits & \(\geq 15\) \\ \hline nHitsDedx & \(>5\) \\ \hline nHitsFit/nHitsPoss & \(>0.52\) \\ \hline DCA & \(<3\) cm \\ \hline \end{tabular}
+\end{table}
+Table 3.2: 3.0 GeV TPC track acceptance cuts.
+
+2.0 are replaced with a value of 2.0. The values after this operation are known as the truncated nMIP (TnMIP) values. This was done to filter out detector noise and large fluctuations in the measurements which are unreliable. The average TnMIP can be seen in Fig. 3.5 and the total number of hits per nMIP value is shown in Fig. 3.6.
+
+### 3.2 Analysis Methods
+
+#### Particle Identification
+
+In this analysis, \(\pi^{\pm}\), \(K^{\pm}\), and \(p\) were identified using the TPC and TOF. The \(m^{2}\) information was required from the TOF for \(\pi\) and \(K\), but \(p\) only used \(n\sigma\) from the \(dE/dx\) information supplied by the TPC. The specific acceptance criteria used are
+
+Figure 3.4: Number of tracks after each set of cuts in 3.0 GeV collisions.
+
+shown in Table 3.3 and a flow chart of the PID process is shown in Fig. 3.7. The protons' \(dE/dx\) curves are well defined at this energy, and they have relatively high multiplicity, so using a slightly tighter \(n\sigma\) cut and omitting the TOF requirement was
+
+Figure 3.5: Average TnMIP for each EPD supersector w.r.t. track \(\eta\) (top) and EPD \(\phi\) vs \(\eta\) distribution (bottom). The angled and curved distributions are due to the target being off-center and causing a larger concentration of hits in and around supersectors 6 and 7 than around 1 and 12.
+
+[MISSING_PAGE_FAIL:71]
+
+GeV/\(c\), and \(p\) within \(0.4<p_{\rm T}<2.0\) GeV/\(c\). Each particle type was selected with a center-of-mass rapidity range of \(0<y_{\rm CM}<0.5\). These acceptance regions, which are noted as solid black boxes in the plots shown in Fig. 3.9, are used for calculating the acceptance regions.
+
+Figure 3.7: Flow chart describing the PID process at 3.0 GeV.
+
+anisotropic flow vs. centrality. For flow measurements vs. \(y_{\rm CM}\), the acceptance in \(y_{\rm CM}\) was extended for protons out to 1.0. In this region, a measurement of the slope \(dv_{3}/dy|_{y=0}\) for protons was extracted by fitting the 10-40% centrality results with the function \(y=ax+bx^{3}\) since it resembles the behavior of the data points.
+
+Figure 3.8: \(dE/dx\) vs total momentum for all good tracks in the TPC (top) and \(1/\beta\) vs total momentum for all good tracks in the TPC with TOF information (bottom).
+
+[MISSING_PAGE_FAIL:74]
+
+can be calculated using any order of event plane angle \(m\) as long as \(n>=m\) and \(n\) is a multiple of \(m\). When \(n>m\), the sign of \(v_{n}\) will be relative to \(v_{m}\)[19]. Because of this criteria, event plane angles in this work are denoted as \(\Psi_{m}\), where \(m\in\mathbb{N}\), since it is not always true that the harmonic of flow is equivalent to the order of event plane angle. Since the target order of flow for this study was \(v_{3}\), the use \(\Psi_{3}\) was attempted first. Due to the low energy, and perhaps a lack of a large enough dataset, a reliable measurement of \(\Psi_{3}\) was not possible. The only other order of \(\Psi_{m}\) that could have been used was \(\Psi_{1}\), so this became the focus. \(\Psi_{1}\) is usually associated with measurements of \(v_{1}\), and geometrically it could be interpreted as an estimate of \(\Psi_{r}\). \(\Psi_{1}\) proved to be much easier to measure, and since it was still a valid event plane to evaluate \(v_{3}\), the study shifted to make measurements of \(v_{3}\) using \(\Psi_{1}\).
+
+Figure 3.9: \(p_{\rm T}\) vs. \(y_{\rm CM}\) density plots for \(\pi^{\pm}\), \(K^{\pm}\), and \(p\) measured by STAR in Au+Au collisions at \(\sqrt{s_{NN}}=3.0\) GeV. The red dashed line represents the target rapidity and the solid red line represents mid-rapidity. The solid and dashed black boxes mark acceptance regions used for flow calculations in various cases explained in the text.
+
+Another aspect of the event plane method is that event planes have an associated event plane resolution that is denoted here as \(R_{nm}\). It is important to note that multiple measurements of \(\Psi_{m}\) are needed in each event to calculate \(R_{nm}\). \(R_{nm}\) values can be found by comparing multiple copies of the same event planes constructed from separate subsets of tracks in the same event. These smaller sections of the events are known as subevents. In collider mode it is possible to use two symmetric subevents with equal numbers of tracks on either side of the collision to calculate \(R_{nm}\), and this equal multiplicity means that the resolution is the same in each subevent [19]. Due to the FXT setup at \(\sqrt{s_{\rm NN}}=3.0\) GeV, the multiplicity of tracks was very non-uniform, as shown in Fig. 3.10. This required the use of three subevents with unequal multiplicity instead. More details about \(R_{nm}\) will be explained in the next section.
+
+Figure 3.11 shows a simple diagram of the ways the EPD and TPC were divided into smaller regions in this analysis. The EPD was separated into two regions based on the number of rings; EPD A contains rings 1 - 8 and EPD B has rings 9 - 16. The TPC was divided in half around \(\eta=-1.045\) with a 0.1 gap, so TPC A covers \(-2.0<\eta<-1.1\), and TPC B covers \(-1.0<\eta<0\).
+
+The actual reconstruction of \(\Psi_{m}\) starts with the flow vectors \(\vec{Q}\) in each subevent defined in the following way:\[\vec{Q_{m}} =(Q_{m,x},Q_{m,y}) \tag{3.2}\] \[=\left(\sum_{i}w_{i}\cos(m\phi_{i}),\sum_{i}w_{i}\sin(m\phi_{i})\right)\] (3.3) \[\Psi_{m} =\frac{1}{m}\tan^{-1}\left(\frac{Q_{y,m}}{Q_{x,m}}\right), \tag{3.4}\]
+
+where \(\phi_{i}\) is the azimuthal angle of the \(i\)-th track in a subevent, and \(w_{i}\) is the weight applied to that track. The summations are performed over all good tracks in the relevant region of that subevent. The weights for TPC tracks used in this analysis are \(\eta=0.001\) and \(\eta=0.002\) respectively.
+
+were the \(p_{\rm T}\) of each track, and the EPD weights were the TnMIP values mentioned in section 3.1.5.
+
+The main region used for the event plane angle in flow calculations was EPD A, with the two reference regions being EPD B and TPC B. These regions were consistent with previous STAR flow analyses at 3 GeV [38, 39]. In order to ensure that each subevent had enough points to reliably reconstruct \(\Psi_{1}\), it was required that the TPC A region had at least 5 hits, the EPD B region had at least 9 hits, and the TPC B region had at least 5 tracks. If an event did not meet this requirement then it was be rejected. This cut corresponds to the last bin in Fig. 3.2. Before calculating the resolutions of the event plane angles, re-centering and Fourier shifting processes were used to correct for non-uniform detector acceptance issues. The following formulae describing these processes are written in their general form, but substituting \(m=1\) will recreate the process for this study.
+
+Re-centering is a process that takes raw flow vector components, \(Q_{x}\) and \(Q_{y}\), and shifts them by their averages over all events. This moves the average values back to zero where they were expected to be had there been perfectly uniform azimuthal
+
+Figure 3.11: \(\eta\) coverage diagram of sub-event regions in the EPD and TPC.
+
+coverage and perfect detector efficiency. The event plane angles are then recalculated using the components of \(\vec{Q_{RC}}\) as follows [19]. Before and after re-centering in the present work, any events that had no flow, \(\vec{Q}=(0,0)\), were omitted.
+
+\[Q_{x,RC}=Q_{x}-\langle Q_{x}\rangle \tag{3.5}\]
+
+\[Q_{y,RC}=Q_{y}-\langle Q_{y}\rangle \tag{3.6}\]
+
+\[\Psi_{m,RC}=\frac{1}{m}\arctan\left(\frac{Q_{y,RC}}{Q_{x,RC}}\right) \tag{3.7}\]
+
+The Fourier shifting method involves adding a correction term to every event plane angle to shift the observed distribution of angles into an isotropic one. This term, \(\Delta\Psi_{m}\), is derived in theory by fitting observed distributions of event plane angles to a Fourier expansion in order to find the terms required to remove and flatten the distribution. This involves a sum of \(i_{max}\) terms and this limit can be chosen by the analyzer to be as many terms as they deem necessary to flatten the distribution; for this analysis \(i_{max}=10\) was used. Since this was only performed after re-centering, it was the re-centered angles that were used as follows:
+
+\[\Psi_{m,shifted}=\Psi_{m,RC}+\Delta\Psi_{m,RC} \tag{3.8}\]\[\Delta\Psi_{m,RC}=\sum_{i=1}^{i_{max}}\frac{2}{im}(-\langle\sin(in\Psi _{m,RC})\rangle\cos(im\Psi_{m,RC})\\ +\langle\cos(im\Psi_{m,RC})\rangle\sin(im\Psi_{m,RC})), \tag{3.9}\]
+
+where the averages were over all events [19]. After these corrections, the original \(\Psi_{m}\) distributions measured in each subevent became isotropic from \(-\pi\) to \(\pi\) as expected. The distributions at each step can be seen in Fig. 3.12.
+
+#### Event Plane Resolution
+
+\(R_{nm}\) is a value from 0 to 1 for each centrality bin and corresponds to the effectiveness of calculating \(v_{n}\) using a particular reconstructed \(\Psi_{m}\), where 1 is 100% effectiveness. These quantities are used as corrections to the initially observed flow values from each
+
+Figure 3.12: Distribution of event planes from each subevent in the \(\sqrt{s_{\rm NN}}=3.0\) GeV dataset.
+
+track, \(v_{n}^{\rm obs}\), so that the final corrected flow is
+
+\[\left\langle\frac{\cos(n(\phi-\Psi_{m}))}{R_{nm}}\right\rangle=\left\langle\frac {v_{n}^{obs}}{R_{nm}}\right\rangle=\langle v_{n}\rangle, \tag{3.10}\]
+
+Where the average spans across all tracks of interest, which contribute separate \(\phi\) values, and all events of interest, which have associated \(\Psi_{m}\) and \(R_{nm}\) values. Other sources may represent event plane resolution corrections as \(\langle\cos(n(\phi-\Psi_{m}))\rangle/R_{nm}\) where the resolutions are applied after the average, but the method shown above has been shown to produce an accurate calculation of flow averaged over wide centrality bins weighted by event multiplicity, while the other method could produce an overestimation of flow [40]. The method used here did not include the statistical uncertainty of \(R_{nm}\) into the calculation of \(\langle v_{n}\rangle\), but that was incorporated later along with the systematic uncertainties in \(R_{nm}\).
+
+In the three subevent method, regions \(A\), \(B\), and \(C\) are chosen within an event, and the tracks they each contain are used to reconstruct subevent plane angles \(\Psi_{m}^{A}\), \(\Psi_{m}^{B}\), and \(\Psi_{m}^{C}\). This is essentially trying to reconstruct the same \(\Psi_{m}\) each time, but each subevent may produce a slightly different value. Comparing how well the three versions agree with each other shows how definitively any of them can produce accurate flow calculations. The resolution associated with \(\Psi_{m}^{A}\) is calculated from correlationsof the three angles as
+
+\[R_{nm}^{A}=\sqrt{\frac{\langle\cos(n(\Psi_{m}^{A}-\Psi_{m}^{B}))\rangle\langle\cos (n(\Psi_{m}^{A}-\Psi_{m}^{C}))\rangle}{\langle\cos(n(\Psi_{m}^{B}-\Psi_{m}^{C})) \rangle}}. \tag{3.11}\]
+
+The resolutions of regions \(B\) and \(C\) can be found by cycling the indices \(A\), \(B\), and \(C\), but whichever region produces the best \(R_{nm}\) values can be chosen as the main region to obtain \(\Psi_{m}\). The other two regions are simply reference regions utilized to get the resolution of the main region.
+
+The resolution values for EPD A are shown in Fig. 3.13 along with the other two regions. The resolution values for TPC B are very large but this region was not used as the main subevent because these resolution values are unreliable. From Fig. 3.14 it is shown that the TPC B resolutions will be greatly inflated because the correlations between EPD A and EPD B are the smallest. When calculating the TPC B resolution the EPD A-EPD B correlations are in the denominator and artificially inflate the resolution. The three subevent method essentially uses two reference regions to get a baseline measurement of the event plane that the main subevent can then be compared against. A good selection of subevents would have two reference regions that agree very well (strong correlations) so that the main subevent can make a reliable comparison. However, if the two reference subevents don't agree well, then a strong baseline is never established and a comparison with a third subevent cannot be trusted. This was exactly what was seen with TPC B,so the best choice for a main subevent became EPD A. Additionally, the centrality region which is usually the most crucial is the mid-central region. This was where EPD A peaked in resolution, so it was again deemed the best region to use.
+
+The results from Fig. 3.13 showed which region would be best, but the particular values of \(R_{31}\) given by EPD A needed further corrections before calculating flow. One more issue was that there was no gap in \(\eta\) between regions EPD A and EPD B. It is important for all subevents in a flow study to be adequately separated so that there are less chances that two subevents are well correlated simply because they are close together. Some tracks may travel in a similar region due to conservation of momentum in the collision. If two subevents \(X\) and \(Y\) are touching, it increases the chances of those regions being influenced by this effect around their shared boundary. Tracks around the boundary could have similar \(\phi\) values, which could reconstruct similar \(\Psi_{m}^{X}\) and \(\Psi_{m}^{Y}\), and thus an inflated correlation \(\cos(n(\Psi_{m}^{X}-\Psi_{m}^{Y}))\). For this reason, amendments were made to take this \(\eta\) gap effect into account before calculating \(v_{3}\). These details are explained in section 3.2.5.
+
+#### TPC and TOF Efficiencies
+
+TPC reconstruction efficiencies, \(\epsilon_{TPC}\), were calculated from samples of Monte Carlo (MC) simulated particles embedded into real data. For the MC particles, their species and multiplicity was exactly known. This data sample was then evaluated using the specifications of the STAR detectors, and then analyzers identified as many of the tracks as if the data were real and taken from the detectors. The efficiency values were calculated by dividing the number of MC tracks matched to the proper particle type by the total number of MC tracks generated for that particle type in 2D bins of \(p_{\mathrm{T}}\) and \(y_{\mathrm{CM}}\). The values of \(\epsilon_{TPC}\) can be seen in each bin of Figs. 3.15, 3.16, and 3.17. The \(p_{\mathrm{T}}\) and \(y_{\mathrm{CM}}\) of each identified track in the real data was used to match the tracks to their corresponding \(\epsilon_{\mathrm{TPC}}\). TOF matching efficiencies, \(\epsilon_{\mathrm{TOF}}\), were calculated from only the real data by dividing the total number of TOF tracks by the total number of TPC tracks. The \(\epsilon_{\mathrm{TOF}}\) values in bins of \(p_{\mathrm{T}}\) and \(y_{\mathrm{CM}}\) are shown in Fig. 3.18.
+
+Figure 3.13: Event plane resolutions for \(v_{3}\) correlated with \(\Psi_{1}\) for each subevent. Note that the blue points are not the actual \(R_{31}\) values used to produce the final results of \(v_{3}\), check Section 3.2.5 for the final values.
+
+The application of these efficiencies was done by weighting every term in the average of Equ. 3.10 by the inverse of that track's efficiency. Protons were weighted by \(1/\epsilon_{\rm TPC}\) while pions and kaons were weighted by \(1/(\epsilon_{\rm TPC}\times\epsilon_{\rm TOF})\).
+
+Figure 3.14: Correlations between subevents EPD A, EPD B, and TPC B vs centrality at 3.0 GeV.
+
+Figure 3.16: TPC reconstruction efficiencies for \(K^{+}\) (left) and \(K^{-}\) (right).
+
+Figure 3.15: TPC reconstruction efficiencies for \(\pi^{+}\) (left) and \(\pi^{-}\) (right).
+
+Figure 3.17: TPC reconstruction efficiency values for protons.
+
+Figure 3.18: TOF matching efficiencies.
+
+#### Systematic Uncertainties
+
+In order to estimate the systematic uncertainties of \(v_{3}\) results, all results were reproduced with 20% and 30% variations higher and lower on all event cuts, track quality cuts, and particle identification cuts. Two variations in the event plane resolution were also included by enforcing an \(\eta\) gap between regions EPD A and EPD B. When there was an acceptance window with a higher and lower bound, it was treated as one window and the total width was varied by 20% or 30% instead of each bound. Along with the normal results, this produces 3 sets of \(v_{3}\) measurements with different event plane resolutions, and 5 sets of \(v_{3}\) measurements related to variations on all other cuts except for nHitsDedx. The nHitsDedx cut can only be varied higher since it is normally at the lowest point, so this cut also has 3 variations. The size of the variations on nHitsDedx were chosen based on the change in statistics they would create, so they were not 20% and 30%.
+
+The variations in the final \(v_{3}\) measurements were used to calculate the systematic uncertainties related to each cut. For a specific cut \(i\), the contribution to the systematic uncertainties, \(\sigma_{\mathrm{sys},i}\), was calculated as a usual standard deviation:
+
+\[\sigma_{\mathrm{sys},i}=\sqrt{\frac{1}{N}\sum_{j=1}^{N}(x_{j}-\mu)^{2}}, \hskip 28.452756pt\mu=\frac{1}{N}\sum_{i=1}^{N}x_{i}.\]
+
+Here, \(x_{j}\) are the same \(v_{3}\) measurements for different variations of the cut \(i\), and \(N\) is the number of variations made for that cut. The final systematic uncertainty for any\(v_{3}\) measurement would then be \(\sqrt{\sum_{i}\sigma_{\text{sys},i}^{2}}\), where only the cuts with variations deemed significant for that measurement would be included in the sum. If a cut with all of its variations produces a maximum value of \(v_{3}\) with statistical uncertainty \(x_{2}\pm\delta x_{2}\) and a minimum value \(x_{1}\pm\delta x_{1}\), then that cut's contribution to the systematics would be significant if \((x_{2}-x_{1})/\sqrt{[(\delta x_{2})^{2}-(\delta x_{1})^{2}]}>1\)[41]. The only variation that did not go through this check, and was included in the systematic uncertainties of every measurement, was the event plane resolution variation. This is because the check for significance is only relevant when a variation alters the statistics of the data sample. When changing the \(R_{31}\) values, the number of events and tracks is unchanged.
+
+For one variation of the event plane resolution, the reference region EPD B, made from rings 9 - 16, was changed to rings 10 - 16, placing an \(\eta\) gap of roughly 0.1 between the two EPD regions. The second variation was similar, but made EPD B into rings 13 - 16 to put a much larger gap between the EPD regions and also shrink the size of EPD B as much as possible without completely losing the subevent correlations. These variations were made in an attempt to account for possible effects of momentum conservation on our calculation of \(R_{31}\) and include them into the systematic uncertainties. Due to the large gap between EPD B and TPC B, no variations to TPC B were made.
+
+Figure 3.19 shows how the event plane correlations change as EPD B shrinks one ring at a time. The left and right plots show that the shape of the correlations stay consistent while the only major change was that the magnitude of the correlations are
+
+reduced (simply from the fact that EPD B was getting smaller). The peak position in the left figure stays the same for all variations and the peak in the right figure only shifts a small amount toward more central collisions. Since these correlations, and the resulting resolutions in Fig. 3.20, behaved similarly for different sizes of the reference region EPD B, this again showed that EPD A was a consistent and reliable region to use as the main source of \(\Psi_{1}\) in flow calculations.
+
+Figure 3.19 also shows that, once EPD B was reduced down to rings 12 - 16 and 13 - 16, fluctuations in the correlation values became significant enough to cause them to become negative in some bins. These fluctuations were likely due to the small size of EPD B making it more difficult to calculate very accurate reconstructions of \(\Psi_{1}\). This prevented the calculation of the true value of \(R_{31}\) at these points, and in Fig. 3.20 real values are only obtained out to 40 - 45% centrality (green points). The resolutions for EPD B rings 13 - 16 were also affected by the fluctuations in the correlations so the trend is less smooth. Knowing that the correlations stay consistent in their shape, the resolutions from the normal setup (EPD B made of rings 9 - 16) were taken and scaled down so that \(\langle R_{31}\rangle\) between 20 - 45% matches the same average when EPD B made from rings 13 - 16. In this way, the empty bins of the 13 - 16 setup were filled, and the distribution was smoothed to get an estimation of what the real resolutions would likely be (Fig. 3.21). For the second event plane resolution variation in practice, the analysis was run using EPD B as rings 13 - 16 to get the event statistics correct for this setup, but the estimated event plane resolutions were
+
+[MISSING_PAGE_FAIL:91]
+
+Figure 3.19: Correlations between each subevent event plane angle vs centrality for different sizes of EPD B. The curves are drawn to help guide the eye.
+
+Figure 3.21: \(R_{31}\) in the normal setup (black), with EPD B made from rings 13 - 16 (green), and with the normal setup scaled down uniformly (blue) so that \(\langle R_{31}\rangle\) between 20 - 45% matches the same average when EPD B is made from rings 13 - 16.
+
+Figure 3.20: Resolutions \(R_{31}\) calculated using different sizes of EPD B.
+
+Figure 3.22: All three distributions of \(R_{31}\) used for calculation of systematic uncertainties.
+
+Figure 3.23: Main event plane resolutions used in this analysis (average of those in Fig. 3.22) where the uncertainties show the full combination of statistical and systematic uncertainties. The systematic uncertainties are the spread shown in Fig. 3.22.
+
+[MISSING_PAGE_FAIL:95]
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline
+**Systematic source** & \multicolumn{3}{|c|}{**Uncertainties in percent**} \\ \hline Centrality interval & 0-10\% & 10-40\% & 40-60\% \\ \hline \hline Track quality & 13.5 & 3.0 & 3.9 \\ \hline Event quality & 2.8 & 0.3 & 0.7 \\ \hline \(\pi\ \langle dE/dx\rangle\) & 6.0 & 2.8 & 3.4 \\ \hline \(K\ \langle dE/dx\rangle\) & 5.7 & 4.1 & 11.3 \\ \hline Proton \(\langle dE/dx\rangle\) & 53.8 & 3.1 & 3.2 \\ \hline TOF \(m_{\pi}^{2}\) & 3.1 & 1.0 & 1.4 \\ \hline TOF \(m_{K}^{2}\) & 13.1 & 13.5 & 7.4 \\ \hline Event plane resolution & 7.7 & 4.9 & 9.9 \\ \hline \end{tabular}
+\end{table}
+Table 3.6: Average contribution of each varied cut to systematic uncertainties in \(v_{3}\{\Psi_{1}\}\) as a percentage of the \(v_{3}\{\Psi_{1}\}\) value for three centrality ranges.
+
+### 3.3 Results
+
+This section shows the results of \(v_{3}\) correlated with \(\Psi_{1}\) (\(v_{3}\{\Psi_{1}\}\)) at \(\sqrt{s_{NN}}=3.0\) GeV for identified \(\pi^{\pm}\), \(K^{\pm}\), and \(p\). \(v_{3}\{\Psi_{1}\}\) and its dependence on centrality, rapidity, and \(p_{\rm T}\) are shown. For rapidity and \(p_{\rm T}\), these results are shown with wide centrality bins of 0-10% (central), 10-40% (mid-central), and 40-60% (peripheral). The systematic uncertainties are shown as square brackets on all plots.
+
+#### \(v_{3}\{\Psi_{1}\}\) vs Centrality
+
+\(v_{3}\{\Psi_{1}\}\) is shown against centrality in Figs. 3.24 and 3.25. Figure 3.24 in particular shows that, while pions are very near zero, the protons develop a significant \(v_{3}\) signal as centrality increases. The conclusion for kaons in Fig. 3.25 is less certain since their production is relatively low at this collision energy.
+
+Figure 3.24: \(v_{3}\) from \(\Psi_{1}\) vs centrality for \(\pi^{+}\), \(\pi^{-}\), and protons using the event plane method. Protons show a clear negative \(v_{3}\) while pions remain near zero. Statistical uncertainties are shown as lines while systematic uncertainties are open square brackets.
+
+Figure 3.25: \(v_{3}\) from \(\Psi_{1}\) vs centrality for \(K^{+}\) and \(K^{-}\) using the event plane method. This method requires more statistics to fully understand if this signal is present for kaons. Statistical uncertainties are shown as lines while systematic uncertainties are open square brackets.
+
+[MISSING_PAGE_EMPTY:100]
+
+Figure 3.26: \(v_{3}\) from \(\Psi_{1}\) vs rapidity for protons in three large centrality bins from a symmetric acceptance across midrapidity. Protons gain an increasingly negative slope as the centrality increases. Statistical uncertainties are shown as lines while systematic uncertainties are open square brackets.
+
+Figure 3.27: \(v_{3}\) from \(\Psi_{1}\) vs rapidity for protons in three large centrality bins from only the backward region (solid markers) along with mirrored points across midrapidity (open markers). Note that the \(p_{\rm T}\) acceptance here is slightly lower than in Fig. 3.26. Statistical uncertainties are shown as lines while systematic uncertainties are open square brackets.
+
+#### 3.3.3 \(v_{3}\{\Psi_{1}\}\) vs \(p_{\rm T}\)
+
+In Fig. 3.28\(v_{3}\{\Psi_{1}\}\) from protons vs. \(p_{\rm T}\) is shown in the same three centrality regions.
+
+### 3.4 Conclusion
+
+As mentioned in section 1.5.1, \(v_{3}\) has been previously understood to come from random fluctuations in the initial geometry of collisions; this is what is measured when calculating \(v_{3}\) from \(\Psi_{3}\). These fluctuations of course should have no correlation to \(\Psi_{r}\). The expectation once this analysis shifted to using \(\Psi_{1}\) was that there would be no signal of \(v_{3}\). The results presented for this study at 3.0 GeV proved contrary to
+
+Figure 3.28: \(v_{3}\) from \(\Psi_{1}\) vs \(p_{\rm T}\) for protons in three large centrality bins. \(v_{3}\) is increasingly negative as \(p_{\rm T}\) and centrality increase. Statistical uncertainties are shown as lines while systematic uncertainties are open square brackets.
+
+this hypothesis. There was no significant signal for pions and kaons, but protons did have a strong signal. The fact that there was any particle with a nonzero \(v_{3}\{\Psi_{1}\}\) was an interesting result that brings into question the generating source of this triangular flow. Since this type of \(v_{3}\) has a correlation to \(\Psi_{1}\), this means that it must have a consistent connection to the geometry of the collision rather than arising from a random triangular shape. As will be discussed in Chapter 5, simulated collisions were used to reveal more information about the source of \(v_{3}\{\Psi_{1}\}\). These studies confirmed that the source is not initial geometry fluctuations, and they showed a previously unknown connection to the EOS of the produced medium.
+
+These measurements of \(v_{3}\{\Psi_{1}\}\) at \(\sqrt{s_{\rm NN}}=3.0\) GeV marked only the second time that this observable had been measured. After making these observations and searching previous publications for relevant information, it was found that the HADES experiment had recently produced measurements of \(v_{1}\) through \(v_{6}\) using \(\Psi_{1}\) at \(\sqrt{s_{\rm NN}}=2.4\) GeV [43]. Their measurements of \(v_{3}\{\Psi_{1}\}\) for protons were significantly larger than those shown here, even though the collision energies were relatively close. Since 3.0 GeV is the lower limit to the capabilities of RHIC, finding an experiment at lower energies that produced the same type of measurement was an exciting connection. Combining the data from the two collaborations showed the first glimpse of how \(v_{3}\{\Psi_{1}\}\) depends on collision energy, but more energies needed to be studied for a more complete picture. The FXT program of BES-II was the perfect avenue which allowed this study to be repeated at successively higher energies to achieve this goal.
+
+## Chapter 4 Energy Dependence of Reaction Plane Correlated Triangular Flow
+
+### 4.1 Dataset
+
+This analysis was performed on Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 3.2, 3.5, 3.9, and 4.5 GeV as part of the STAR Fixed-Target (FXT) program. This corresponded to single Au beam energies \(E_{\rm beam}\) = 4.59, 5.75, 7.3, and 9.8 GeV per nucleon, respectively, and beam rapidities \(y_{\rm beam}\) = \(-\)2.29, \(-\)2.51, \(-\)2.75, and \(-\)3.04, respectively. The important detectors for this study consisted of the TPC, East side EPD, and TOF. Since PID becomes more difficult as the collision energy increases and more particles are produced, the eTOF was also included at \(\sqrt{s_{\rm NN}}\) = 4.5 GeV in order to reduce the misidentification of protons. The dataset for \(\sqrt{s_{\rm NN}}\) = 3.9 GeV consisted of two sets that were taken separately in 2019 and 2020. The 3.2 GeV dataset was taken in 2019 while 3.5 and 4.5 GeV were taken in 2020.
+
+#### Sign Convention of Rapidity
+
+This study, like the 3.0 GeV study in the previous chapter, also did not change the sign of rapidities as measured. Mid-rapidity at \(\sqrt{s_{NN}}=\) 3.2, 3.5, 3.9, and 4.5 GeV was \(y_{mid}=-1.14\), \(-1.25\), \(-1.38\), and \(-1.52\) respectively, and when shifting to the center-of-mass (CM) frame, the usual equation
+
+\[y_{\rm CM}=y_{lab}-y_{mid} \tag{4.1}\]
+
+was used. In the lab frame, the FXT setup means that all recorded products of the collisions were in a similar direction. Therefore all \(y_{\rm lab}<0\), and when producing results in the CM frame the "forward" direction corresponded to \(y_{\rm CM}<0\) and "backward" was \(y_{\rm CM}>0\).
+
+#### Event Selection
+
+All energies underwent the same sequence of cuts as shown in Fig. 3.2 for 3.0 GeV, although the particular cuts themselves were slightly different in some cases. Any bad runs for each energy determined by the STAR collaboration were removed. This analysis used minimum bias events which were triggered by at least one hit in the TOF along with a hit in either the East EPD, East BBC, or East VPD. The vertex selection of events for each energy is shown in Table 4.1. The upper bound of the vertex \(z\)-component is lower than 202 cm for 3.2, 3.9, and 4.5 GeV in order to cut
+
+[MISSING_PAGE_FAIL:107]
+
+#### Centrality Definition
+
+Events at each energy were again categorized into centralities from 0 to 60%, with central, mid-central, and peripheral events corresponding to 0-10%, 10-40%, and 40-60%, respectively. Each centrality bin with the corresponding number of primary tracks for every energy is shown in Table 4.3. The two datasets at 3.9 GeV were treated separately when determining the centrality definitions, so these definitions were employed separately to ensure accuracy of event numbers in each bin.
+
+[MISSING_PAGE_EMPTY:109]
+
+#### EPD Hit Selection
+
+The selection for the hits in the EPD was also unchanged from the analysis at \(\sqrt{s_{\rm NN}}=3.0\) GeV in order to maintain consistency and accurate comparisons of results across datasets. Each tile's TnMIP value was used as its weight in the event planes from the EPD, with a threshold of 0.3 and a maximum of 2. Any tiles with an nMIP \(<0.3\) is set to 0 and anything above 2 is set back to 2.
+
+### 4.2 Analysis Methods
+
+#### Particle Identification
+
+Due to the lack of definitive results found for \(\pi\) and \(K\) at \(\sqrt{s_{\rm NN}}=3.0\) GeV, and the fact that the datasets above 3.0 GeV were smaller, this portion of the analysis focused only on protons. However, the proton identification relied on the identification of \(\pi^{\pm}\), \(K^{\pm}\), deuterons (\(d\)), and tritons (\(t\)) to remove them from the proton sample when possible. These identifications were performed using the \(n\sigma\) and \(z\) values from the TPC as well as the \(m^{2}\) information from the TOF (and eTOF at 4.5 GeV). The acceptance criteria for each particle type can be seen in Table 4.4 as well as a flow chart describing the PID process in Fig. 4.2. The \(m^{2}\) cuts for \(d\) and \(t\) were chosen as \(2\sigma\) from the means extracted by a Gaussian fit on \(m^{2}\) for all tracks with \(|z_{d}|<1\)and \(|z_{t}|<1\) found at \(\sqrt{s_{NN}}=3.0\) GeV as shown in Fig. 4.1.
+
+Before using the PID process described above, the proton \(n\sigma\) values needed to be corrected since the calibrations for the TPC were less than ideal at these FXT energies. In this analysis, only the proton \(n\sigma\) values were corrected since all other identified particles had the assistance of TOF requirements to ensure high purity and/or wider \(n\sigma\) cuts than the protons. The code and process for correcting the values of \(n\sigma\) were developed and
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline
+**Particle** & \(dE/dx\) & \(m^{2}\) & Other \\ \hline \hline \(\pi\) & \(|n\sigma_{\pi}|<3.0\) & \(-0.1<m^{2}<0.1\) & \\ \hline \(K\) & \(|n\sigma_{K}|<3.0\) & \(0.15<m^{2}<0.34\) & \\ \hline \(d\) & \(|z_{d}|<0.2\) & \(3.1518<m^{2}<3.8842\) & Not \(\pi\) or \(K\) \\ \hline \(t\) & \(|z_{t}|<0.2\) & \(7.0142<m^{2}<8.7578\) & Not \(\pi\) or \(K\) \\ \hline \(p\) & \(|\vec{p}|\) dependent & & Not \(\pi\), \(K\), \(d\) or \(t\) \\ \hline \end{tabular}
+\end{table}
+Table 4.4: Track PID cuts using the TPC and TOF. These criteria represent the qualities required of a track to be _accepted_ as each particle in the analysis.
+
+Figure 4.1: Distribution of \(m^{2}\) for all tracks at \(\sqrt{s_{NN}}=3.0\) GeV with \(|z_{d}|<1\) (left) and \(|z_{t}|<1\) (right). Gaussian fits are shown around the expected masses to extract the mean values.
+
+provided to me by other STAR members. Essentially, the process involved shifting the provided \(n\sigma\) values into the proper region depending on the momentum of the track since lower momentum tracks were skewed farther than high momentum tracks.
+
+The exact cuts on \(n\sigma_{p}\) used to select protons varied with the total momentum of the tracks in order to avoid contamination and maintain the highest purity of protons
+
+Figure 4.2: Flow chart describing the PID process at all energies above 3.0 GeV.
+
+Figure 4.3: Distributions of \(n\sigma_{p}\) vs total momentum for all TPC tracks that pass QA cuts at 3.2 GeV (top left), 3.5 GeV (top right), 3.9 GeV (bottom left), and 4.5 GeV (bottom right).
+
+Figure 4.4: _Corrected_ distributions of \(n\sigma_{p}\) vs total momentum for all TPC tracks that pass QA cuts at 3.2 GeV (top left), 3.5 GeV (top right), 3.9 GeV (bottom left), and 4.5 GeV (bottom right).
+
+Figure 4.5: _Corrected_ distributions of \(n\sigma_{p}\) vs total momentum for only TPC tracks that are part of the possible proton sample. Final accepted protons are all entries shown that pass the momentum dependent \(n\sigma_{p}\) cuts shown in Table 4.5. Plots shown correspond to 3.2 GeV (top left), 3.5 GeV (top right), 3.9 GeV (bottom left), and 4.5 GeV (bottom right).
+
+as possible. The cuts chosen are shown in Table 4.5 and the resulting density plots in \(p_{\rm T}\) and \(y_{CM}\) are shown in Fig. 4.6.
+
+#### Event Planes
+
+This analysis used the same event plane methods as the study at 3.0 GeV to calculate \(v_{3}\{\Psi_{1}\}\). The inner sections of the EPD were used as the main subevent for the reconstruction of \(\Psi_{1}\) with two reference subevents to calculate \(R_{31}\). Various subevent arrangements were tested until the choice of EPD A was found such that it was as large as possible while also correlating well with two reference regions. The arrangements which determined the best EPD A region are shown in Table 4.6. At each energy, the TPC was divided in half around midrapidity with a 0.1 gap for consistency with the method used at 3.0 GeV. The half section of the TPC closest to the target (TPC
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline
+**Total Momentum (GeV/\(c\))** & \(n\sigma_{p}\) **Acceptance** \\ \hline \hline \(|\vec{p}|<1.2\) & \((-2,2)\) \\ \hline \(1.2\leq|\vec{p}|<1.3\) & \((-1.5,2)\) \\ \hline \(1.3\leq|\vec{p}|<1.4\) & \((-1,2)\) \\ \hline \(1.4\leq|\vec{p}|<1.5\) & \((-0.5,2)\) \\ \hline \(1.5\leq|\vec{p}|<1.6\) & \((0,3)\) \\ \hline \(1.6\leq|\vec{p}|<1.7\) & \((0,3)\) \\ \hline \(1.7\leq|\vec{p}|<1.8\) & \((-2,2)\) \\ \hline \(1.8\leq|\vec{p}|<1.9\) & \((-3,0.25)\) \\ \hline \(1.9\leq|\vec{p}|\) & \((-3,1)\) \\ \hline \end{tabular}
+\end{table}
+Table 4.5: Momentum dependent cuts on \(n\sigma_{p}\) used for proton identification at each energy.
+
+B) was used as the one subevent from the TPC while the other half (TPC A) was not used for event planes. The event plane resolutions obtained from the regions in Table 4.6 were not used to calculate flow. Instead, just like at 3.0 GeV, variations of EPD B were used to get 3 resolutions at each centrality and the average resolution was used to calculate flow. This process is described in more detail in Section 4.2.4.
+
+Figure 4.6: \(p_{\mathrm{T}}\) vs. \(y_{\mathrm{CM}}\) density plots for identified protons at each energy from 0% to 80% events. The red dashed line represents the target rapidity and the solid red line is mid-rapidity. The solid black boxes show acceptance regions for flow calculations against centrality and the dashed black boxes show one acceptance region used for flow vs rapidity that is symmetric across midrapidity.
+
+All \(\Psi_{1}\) distributions underwent the same process of detector bias corrections as described in section 3.2.2. Events with \(\vec{Q}=(0,0)\) were removed, re-centering was performed, events with \(\vec{Q}=(0,0)\) were checked for again and removed, and then the Fourier shifting correction was performed. This resulted in isotropic distributions of \(\Psi_{1}\) for every subevent at every energy, and the resolutions were then calculated. The values of \(R_{31}\) at each energy were again calculated according to equation 3.11 with EPD A as the main subevent.
+
+#### TPC Tracking Efficiencies
+
+TPC reconstruction efficiencies for protons were calculated from an embedding sample produced for \(\sqrt{s_{\rm NN}}=3.2\) GeV and applied to the flow calculations at every energy. The sample was not changed between energies since it was determined within STAR that the efficiencies would likely not change by any perceptible amount within this relatively small change in collision energies. The efficiency distribution is shown in Fig. 4.7. In order to match up tracks from multiple energies to the efficiencies from only one energy, the proton tracks' values of \(y-(-1.14)\) were matched to the x-axis
+
+\begin{table}
+\begin{tabular}{||c c c c||} \hline \(\sqrt{s_{\rm NN}}\) & EPD A & EPD B & TPC B \\ \hline \hline
+3.2 & Rings 1-6 & Rings 7-13 & \(-1.1<\eta<0\) \\ \hline
+3.5 & Rings 1-6 & Rings 7-11 & \(-1.2<\eta<0\) \\ \hline
+3.9 & Rings 1-5 & Rings 6-10 & \(-1.32<\eta<0\) \\ \hline
+4.5 & Rings 1-3 & Rings 4-9 & \(-1.47<\eta<0\) \\ \hline \end{tabular}
+\end{table}
+Table 4.6: Table of subevent regions used to determine the main subevent EPD A.
+
+of Fig. 4.7 rather than \(y-y_{mid}\) since \(y_{mid}\) changes at each energy. \(v_{3}\{\Psi_{1}\}\) for protons was again calculated using equation 3.10, and the terms in the average were weighted by \(1/\epsilon_{\rm TPC}\).
+
+#### Systematic Uncertainties
+
+The systematic uncertainties for all \(v_{3}\{\Psi_{1}\}\) measurements were calculated in the same manner as described in section 3.2.5. All track QA and PID cuts were varied higher and lower by both 20% and 30% at each energy, but this time there were no variations of the vertex position for events. STAR collaborators had determined that the vertex position was measured precisely enough that it did not need to be incorporated into systematic uncertainties. This judgement was also corroborated with the analysis at
+
+Figure 4.7: Proton TPC tracking efficiencies from 3.2 GeV.
+
+3.0 GeV since the "Event Quality" row of Table 3.6 shows very small contributions compared to other variations. Also, the normal cut of nHitsdEdx \(>5\) is the minimum, so the only variations that could be made were higher than 5. The size of these variations were also a judgement call to adequately change the statistics rather than 20% and 30%.
+
+At each energy, the \(R_{31}\) values were varied by altering the size of the reference region EPD B. These variations worked to incorporate the contribution of momentum conservation into the systematic uncertainties since they control the size of the gap between regions EPD A and EPD B. The variations in the size of EPD B can be seen in Table 4.7.
+
+Each energy includes one variation with no gap between the two EPD regions, one variation with one ring removed between the two, and finally one variation with two rings removed between the two. Due to the large gap between EPD B and TPC B, no variations were made to TPC B.
+
+The resolutions found with all variations shown in Table 4.7 are shown in Fig. 4.8. The resolutions were found to be very unstable above 40% centrality for energies 3.5
+
+\begin{table}
+\begin{tabular}{||c c c c||} \hline \(\sqrt{s_{\rm NN}}\) & Variation 1 & Variation 2 & Variation 3 \\ \hline \hline
+3.2 & Rings 7-13 & Rings 8-13 & Rings 9-13 \\ \hline
+3.5 & Rings 7-11 & Rings 8-11 & Rings 9-11 \\ \hline
+3.9 & Rings 6-10 & Rings 7-10 & Rings 8-10 \\ \hline
+4.5 & Rings 4-9 & Rings 5-9 & Rings 6-9 \\ \hline \end{tabular}
+\end{table}
+Table 4.7: Table of variations on the size of the EPD B subevent above 3.0 GeV.
+
+[MISSING_PAGE_EMPTY:121]
+
+To incorporate the uncertainties in \(R_{31}\) into the systematic uncertainties of \(v_{3}\{\Psi_{1}\}\), the main resolution values were increased and decreased by the total uncertainty in \(R_{31}\). Then \(v_{3}\{\Psi_{1}\}\) was calculated using the normal subevent setup shown in Table 4.6. This produced 3 sets of \(v_{3}\) measurements with different event plane resolutions; one with the averaged resolution and two with increased and decreased resolutions based on the uncertainties. At 3.9 GeV, the statistical and systematic uncertainties in \(R_{31}\) added in quadrature for the 0-5% centrality point did cross below zero. In that
+
+Figure 4.9: Final \(R_{31}\) values used at 3.2 GeV, 3.5 GeV, 3.9 GeV, and 4.5 GeV. Statistical uncertainties are shown as vertical lines and systematic uncertainties as square brackets.
+
+[MISSING_PAGE_FAIL:123]
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline
+**Value** & **Normal** & **30\% of** & **Low** & **High** \\  & **Acceptance** & **Normal** & **Settings** & **Settings** \\ \hline nHits & \(>=15\) & \(4.5\) & \(>=10\) & \(>=20\) \\ \hline nHitsdLdx & \(>5\) & & & \(>12\) \\ \hline nHitsFit / & \(>0.52\) & \(0.156\) & \(>0.364\) & \(>0.676\) \\ nHitsPoss & & & & \\ \hline DCA & \(<3\) cm & \(0.9\) cm & \(<2.1\) cm & \(<3.9\) cm \\ \hline \(n\sigma\)\(\pi\) & \((-3,3)\) & \(1.8\) & \((-2.1,2.1)\) & \((-3.9,3.9)\) \\ \hline \(n\sigma\)\(K\) & \((-3,3)\) & \(1.8\) & \((-2.1,2.1)\) & \((-3.9,3.9)\) \\ \hline \(n\sigma\)\(p\) & \((-2,2)\) & \(1.2\) & \((-1.4,1.4)\) & \((-2.6,2.6)\) \\ \hline \(z\)\(d\) & \((-0.2,0.2)\) & \(0.12\) & \((-0.14,0.14)\) & \((-0.26,0.26)\) \\ \hline \(z\)\(t\) & \((-0.2,0.2)\) & \(0.12\) & \((-0.14,0.14)\) & \((-0.26,0.26)\) \\ \hline \(m^{2}\)\(\pi\) & \((-0.1,0.1)\) & \(0.06\) & \((-0.07,0.07)\) & \((-0.13,0.13)\) \\ \hline \(m^{2}\)\(K\) & \((0.15,0.34)\) & \(0.057\) & \((0.1785,0.3115)\) & \((0.1215,0.3685)\) \\ \hline \(m^{2}\)\(d\) & \((3.1518,3.8842)\) & \(0.21972\) & \((3.2617,3.7743)\) & \((3.0419,3.9941)\) \\ \hline \(m^{2}\)\(t\) & \((7.0142,8.7578)\) & \(0.52308\) & \((7.2757,8.4963)\) & \((6.7527,9.0193)\) \\ \hline \end{tabular}
+\end{table}
+Table 4.9: Table of analysis cuts/acceptance windows and the 30% variations made for the estimation of systematic uncertainties.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline
+**Systematic Source** & \multicolumn{2}{|c|}{\(\langle\sigma_{sys,i}/v_{3}\rangle*100\)} \\ \hline  & 0-10\% & 10-40\% \\ \hline Track Quality & 1896.0 & 9.8 \\ \hline \(n\sigma_{\pi}\) & 0.6 & 1.4 \\ \hline \(n\sigma_{K}\) & 0.5 & 0.6 \\ \hline \(n\sigma_{proton}\) & 6748.4 & 45.8 \\ \hline \(z_{d}\) & 64.6 & 1.0 \\ \hline \(z_{t}\) & 15.1 & 0.2 \\ \hline \(m_{\pi}^{2}\) & 218.3 & 1.7 \\ \hline \(m_{K}^{2}\) & 278.8 & 2.0 \\ \hline \(m_{d}^{2}\) & 363.3 & 1.7 \\ \hline \(m_{t}^{2}\) & 0.0 & 0.1 \\ \hline EP Resolution & 23.1 & 14.1 \\ \hline \end{tabular}
+\end{table}
+Table 4.12: 3.9 GeV Average contributions to systematic uncertainties as a percentage of the \(v_{3}\) value for three centrality ranges. The average for each cut is over all bins of the results figures (not even/odd \(v_{3}\) plots) where that cut’s variations were deemed significant enough to be included in the systematic uncertainties.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline
+**Systematic Source** & \multicolumn{2}{|c|}{\(\langle\sigma_{sys,i}/v_{3}\rangle*100\)} \\ \hline  & 0-10\% & 10-40\% \\ \hline Track Quality & 1896.0 & 9.8 \\ \hline \(n\sigma_{\pi}\) & 0.6 & 1.4 \\ \hline \(n\sigma_{K}\) & 0.5 & 0.6 \\ \hline \(n\sigma_{proton}\) & 6748.4 & 45.8 \\ \hline \(z_{d}\) & 64.6 & 1.0 \\ \hline \(z_{t}\) & 15.1 & 0.2 \\ \hline \(m_{\pi}^{2}\) & 218.3 & 1.7 \\ \hline \(m_{K}^{2}\) & 278.8 & 2.0 \\ \hline \(m_{d}^{2}\) & 363.3 & 1.7 \\ \hline \(m_{t}^{2}\) & 0.0 & 0.1 \\ \hline EP Resolution & 23.1 & 14.1 \\ \hline \end{tabular}
+\end{table}
+Table 4.11: 3.5 GeV Average contributions to systematic uncertainties as a percentage of the \(v_{3}\) value for three centrality ranges. The average for each cut is over all bins of the results figures (not even/odd \(v_{3}\) plots) where that cut’s variations were deemed significant enough to be included in the systematic uncertainties.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline
+**Systematic Source** & \(\langle\sigma_{sys,i}/v_{3}\rangle*100\) \\ \hline  & 0-10\% & 10-40\% \\ \hline Track Quality & 24.8 & 312.8 \\ \hline \(n\sigma_{\pi}\) & 4.8 & 57.6 \\ \hline \(n\sigma_{K}\) & 3.5 & 37.2 \\ \hline \(n\sigma_{p}\) & 81.3 & 938.09 \\ \hline \(z_{d}\) & 6.2 & 146.0 \\ \hline \(z_{t}\) & 4.2 & 45.1 \\ \hline \(m_{\pi}^{2}\) & 8.1 & 8.6 \\ \hline \(m_{K}^{2}\) & 7.5 & 11.5 \\ \hline \(m_{d}^{2}\) & 4.8 & 74.5 \\ \hline \(m_{t}^{2}\) & 4.3 & 51.6 \\ \hline EP Resolution & 33.4 & 208.1 \\ \hline \end{tabular}
+\end{table}
+Table 4.13: 4.5 GeV Average contributions to systematic uncertainties as a percentage of the \(v_{3}\) value for three centrality ranges. The average for each cut is over all bins of the results figures (not even/odd \(v_{3}\) plots) where that cut’s variations were deemed significant enough to be included in the systematic uncertainties.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline
+**Systematic Source** & \multicolumn{3}{c|}{\(\langle\sigma_{sys,i}/v_{3}\rangle*100\)} \\ \hline  & 0-10\% & 10-40\% & 40-60\% \\ \hline Track Quality & 31.2 & 3.2 & 1.1 \\ \hline \(n\sigma_{\pi}\) & 5.2 & 0.3 & 0.3 \\ \hline \(n\sigma_{K}\) & 3.0 & 0.2 & 0.1 \\ \hline \(n\sigma_{proton}\) & 32.8 & 9.1 & 3.8 \\ \hline \(z_{d}\) & 0.6 & 0.5 & 0.1 \\ \hline \(z_{t}\) & 0.03 & 0.1 & 0.1 \\ \hline \(m_{\pi}^{2}\) & 2.5 & 0.3 & 0.1 \\ \hline \(m_{K}^{2}\) & 1.4 & 0.3 & 0.2 \\ \hline \(m_{d}^{2}\) & 0.2 & 1.9 & 0.1 \\ \hline \(m_{t}^{2}\) & 0.0 & 0.3 & 0.1 \\ \hline EP Resolution & 11.2 & 4.9 & 16.7 \\ \hline \end{tabular}
+\end{table}
+Table 4.10: 3.2 GeV Average contributions to systematic uncertainties as a percentage of the \(v_{3}\) value for three centrality ranges. The average for each cut is over all bins of the results figures (not even/odd \(v_{3}\) plots) where that cut’s variations were deemed significant enough to be included in the systematic uncertainties.
+
+[MISSING_PAGE_EMPTY:127]
+
+Figure 4.11: \(v_{3}\) from \(\Psi_{1}\) vs \(y_{\rm CM}\) for protons at \(\sqrt{s_{\rm NN}}=3-4.5\) GeV. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+
+Figure 4.10: \(v_{3}\) from \(\Psi_{1}\) vs centrality for protons at \(\sqrt{s_{\rm NN}}=3-4.5\) GeV. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+
+Figure 4.12: \(v_{3}\) from \(\Psi_{1}\) vs \(y_{\rm CM}\) for protons at \(\sqrt{s_{\rm NN}}=3-4.5\) GeV. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+
+Figure 4.13: \(v_{3}\) from \(\Psi_{1}\) vs \(p_{\rm T}\) for protons at \(\sqrt{s_{\rm NN}}=3-4.5\) GeV. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+
+#### Separation of even and odd flow
+
+Directed flow is known to be rapidity-odd since it is defined as the "bounce-off" that participants from either nuclei experience during the collision. Participants in the forward direction will bounce-off toward one side within the reaction plane while those in the backward direction will then move in the opposite direction within the plane. \(v_{1}\) has also been shown to include a rapidity-even component when measured [44]. Ref. [44] by the ALICE collaboration has shown a way to completely separate \(v_{1}^{\text{even}}\) and \(v_{1}^{\text{odd}}\) my making identical measurements of \(v_{1}\) using two symmetric spectator event planes on either side of the collision point. To illustrate the process mathematically, let \(\Psi_{SP}^{+}\) represent the spectator event plane from the \(\eta>0\) region of the collision and let \(\Psi_{SP}^{-}\) be the symmetric version from \(\eta<0\). The odd part is extracted by averaging the measurements from the two event planes, and the remaining even part can be seen by the subtraction of the measurements:
+
+\[v_{1}^{\text{odd}}\{\Psi_{SP}\}=\frac{1}{2}\left[v_{1}\{\Psi_{SP}^{+}\}+v_{1} \{\Psi_{SP}^{-}\}\right] \tag{4.2}\]
+
+\[v_{1}^{\text{even}}\{\Psi_{SP}\}=\frac{1}{2}\left[v_{1}\{\Psi_{SP}^{+}\}-v_{1 }\{\Psi_{SP}^{-}\}\right]. \tag{4.3}\]
+
+In this study, a similar process was adopted to separate \(v_{3}^{\text{odd}}\) and \(v_{3}^{\text{even}}\), but it was necessary to first verify that it was valid to do so without two symmetric event planes. \(v_{1}\) is used here as an example to explore what equations 4.2 and 4.3 do when thereare 2 event planes, as well as what assumptions are required. Next, the same was done considering only one event plane was available on one side of the collision to see how the situation becomes different.
+
+##### Thought Experiment: 2 symmetric event planes
+
+For a simpler notation, let \(v_{1}^{+}\equiv v_{1}\{\Psi_{SP}^{+}\}\) and \(v_{1}^{-}\equiv v_{1}\{\Psi_{SP}^{-}\}\). The first assumption is that the spectator event planes are accurate and contain no contamination by participants (or at least very minimal). From the observations of \(v_{3}\{\Psi_{1}\}\) shown in this dissertation, and \(v_{1}\) in Ref. [44], it appears that each measurement of flow as a function of rapidity includes a contamination (which will be denoted \(g\)) from something that could be a constant as a function of rapidity. The assumption that the contamination is a constant will be abandoned to allow it to be a function of rapidity. The form of the measured \(v_{1}\) with respect to either side of the collision may be something like
+
+\[v^{+}(y) =v_{1}^{\textit{true}}(y)+g^{+}(y)\] \[v^{-}(y) =v_{1}^{\textit{true}}(y)+g^{-}(y)\]
+
+where \(g^{\pm}\) are the measurements of the contamination with respect to the event planes on either side, \(g^{\pm}=g^{\pm}(y,p_{\mathrm{T}},c)\), \(c\) is centrality, and \(g^{\pm}(y)=\iint dp_{\mathrm{T}}dc\left[g^{\pm}(y,p_{\mathrm{T}},c)\right]\).
+
+Following equations 4.2 and 4.3,
+
+\[v_{1}^{\text{odd}} =\frac{1}{2}[v_{1}^{+}(y)+v_{1}^{-}(y)]\] \[=\frac{1}{2}[v_{1}^{true}(y)+g^{+}(y)+v_{1}^{true}(y)+g^{-}(y)]\] \[=\frac{1}{2}[2v_{1}^{true}(y)+g^{+}(y)+g^{-}(y)]\] \[=v_{1}^{true}(y)+\frac{g^{+}(y)+g^{-}(y)}{2}\]
+
+\[v_{1}^{\text{even}} =\frac{1}{2}[v_{1}^{+}(y)-v_{1}^{-}(y)]\] \[=\frac{1}{2}[v_{1}^{true}(y)+g^{+}(y)-v_{1}^{true}(y)-g^{-}(y)]\] \[=\frac{g^{+}(y)-g^{-}(y)}{2}.\]
+
+At this point more information on \(g\) is necessary. Since \(\Psi^{+}\) and \(\Psi^{-}\) are exact opposites of each other, and \(v_{1}\) is evaluated with the same tracks in both cases, it should be safe to predict that \(g^{+}\) and \(g^{-}\) are equal and opposite; \(g^{+}=-g^{-}\). However, no assumptions are made about the rapidity dependence of \(g\). The above quantities then reduce to
+
+\[v_{1}^{\text{odd}} =v_{1}^{true}(y)+\frac{g^{+}(y)+g^{-}(y)}{2}\] \[=v_{1}^{true}(y)\]\[v_{1}^{\text{even}} =\frac{g^{+}(y)-g^{-}(y)}{2}\] \[=g^{+}(y)\] \[=-g^{-}(y).\]
+
+Therefore, in the case where two symmetric spectator event planes are used to make identical measurements of \(v_{1}(y)\), and assuming the measurements are a superposition of \(v_{1}^{\text{\it true}}(y)\) and some contamination \(g^{\pm}(y)\), equation 4.2 will completely isolate \(v_{1}^{\text{\it true}}(y)\), and equation 4.3 will isolate the contamination. It also seems that the sign of the contamination values will be determined by which event plane is considered. If equation 4.3 produces some function \(g^{+}(y)\) that should be associated with the use of \(\Psi^{+}\), then \(g^{-}(y)\) will be the same but with opposite signs and should only be considered with respect to \(\Psi^{-}\). In order to determine if \(g^{+}(y)\) or \(g^{-}(y)\) was found, one can just add it with \(v_{1}^{\text{\it true}}(y)\) and see if \(v^{+}(y)\) or \(v^{-}(y)\) is recreated.
+
+##### Thought Experiment: 1 asymmetric event plane
+
+Next, the same measurements are explored in the case that only one spectator event plane on one side of the collision can be found. With this restriction, only one set of measurements can be made. The case where \(\Psi^{+}\) is used is considered here so that the measurements are
+
+\[v^{+}(y)=v_{1}^{\text{\it true}}(y)+g^{+}(y).\]Two sets of measurements are still necessary, so the \(v^{+}(y)\) measurements would only be useful if they could be made in a symmetric region around midrapidity. If that requirement can be met by the experiment, a second set of measurements can be simulated by rotating the data points by 180 degrees (reflect across \(y=0\), and flip the sign). This makes the transformed quantities
+
+\[v^{+t}(y)\equiv-v^{+}(-y)=-v_{1}^{true}(-y)-g^{+}(-y).\]
+
+The true directed flow is a rapidity-odd quantity, so \(v_{1}^{true}(-y)=-v_{1}^{true}(y)\) and \(v^{+t}(y)\) reduces to
+
+\[v^{+t}(y)=v_{1}^{true}(y)-g^{+}(-y).\]
+
+Then, using \(v_{1}^{+}(y)\) and \(v_{1}^{+t}(y)\) with equations 4.2 and 4.3:
+
+\[v_{1}^{\text{odd}} =\frac{1}{2}[v_{1}^{+}(y)+v_{1}^{+t}(y)]\] \[=\frac{1}{2}[v_{1}^{true}(y)+g^{+}(y)+v_{1}^{true}(y)-g^{+}(-y)]\] \[=v_{1}^{true}(y)+\frac{g^{+}(y)-g^{+}(-y)}{2}\]
+
+\[v_{1}^{\text{even}} =\frac{1}{2}[v_{1}^{+}(y)-v_{1}^{+t}(y)]\] \[=\frac{1}{2}[v_{1}^{true}(y)+g^{+}(y)-v_{1}^{true}(y)+g^{+}(-y)]\] \[=\frac{g^{+}(y)+g^{+}(-y)}{2}.\]At this point, assumptions about the rapidity dependence of \(g^{+}(y)\) were necessary; this requirement was not present in the case with two symmetric event planes before. First, it was assumed that \(g^{+}(y)\) was an odd function of rapidity, where \(g^{+}(-y)=-g^{+}(y)\). This results in
+
+\[v_{1}^{\text{odd}} =v_{1}^{true}(y)+g^{+}(y)=v^{+}(y)\] \[v_{1}^{\text{even}} =0.\]
+
+If the contamination is purely rapidity-odd, then equation 4.2 will do nothing and equation 4.3 will be zero. While this would be unfortunate to see when the goal is to separate the two, this result would still reveal that the contamination is something which is a rapidity-odd effect.
+
+In the second case, it was assumed that \(g^{+}(y)\) is an even function of rapidity, where \(g^{+}(-y)=g^{+}(y)\). Equations 4.2 and 4.3 reduced to
+
+\[v_{1}^{\text{odd}} =v_{1}^{true}(y)\] \[v_{1}^{\text{even}} =g^{+}(y).\]
+
+In this situation the operations worked properly to completely separate the true \(v_{1}\) from the contamination. Of course in practice this would require a secondary source of information or argument to justify the assumption that \(g^{+}(y)\) was something which was rapidity-even.
+
+[MISSING_PAGE_EMPTY:136]
+
+[MISSING_PAGE_EMPTY:137]
+
+4.2 and 4.3 for each bin, and then finding the average value in each odd and even plot. For the odd distributions, the average was calculated by flipping the sign of half of the data points before averaging (otherwise the average would be zero every time).
+
+Figure 4.15 shows the separate components of \(v_{3}\{\Psi_{1}\}\) vs rapidity.
+
+The left plot is now fully rapidity-odd, and again the slope is close to zero when the energy reaches 3.9 GeV with 4.5 GeV fluctuating around zero. It is difficult to extract precise information about the even component in the right plot due to the large uncertainties and statistical fluctuations, but future studies into \(v_{3}\{\Psi_{1}\}\), or perhaps \(v_{1}\), which require a similar odd and even separation with larger amounts of data could help distinguish what is happening.
+
+Figure 4.14: Odd (left) and even (right) components of \(v_{3}\{\Psi_{1}\}\) as a function of centrality for collision energies \(\sqrt{s_{\rm NN}}=3\) - 4.5 GeV. Note the factor of 2 difference in the scale of the vertical axis. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+
+In order to connect the present analysis to the first measurements of \(v_{3}\{\Psi_{1}\}\) made by the HADES experiment [43], another version of measurements like Fig. 4.11 were made using the same acceptance of protons as HADES. All measurements were then separated into odd and even parts, and the odd distributions were fitted with the function \(y=ax+bx^{3}\). This equation was chosen since it reflects the behavior of the HADES measurements where \(v_{3}\{\Psi_{1}\}\) is strongest. The value of \(a\) is the slope \(dv_{3}/dy|_{y=0}\), and these can be seen in Fig. 4.16. These fits again show that the strength of \(v_{3}\{\Psi_{1}\}\) reaches zero at 3.9 GeV with 4.5 GeV remaining consistent with zero within uncertainties.
+
+Figure 4.15: Odd (left) and even (right) components of \(v_{3}\{\Psi_{1}\}\) as a function of rapidity for collision energies \(\sqrt{s_{\rm NN}}=3\) - 4.5 GeV. Note the factor of 2 difference in the scale of the vertical axis. Statistical uncertainties are shown as vertical lines while systematic uncertainties are shown as colored vertical rectangles.
+
+Figure 4.16: Results of fitting \(y=ax+bx^{3}\) to each set of \(v_{3}^{\rm odd}\{\Psi_{1}\}\) measurements in the same acceptance as the HADES measurements [43].
+
+## Chapter 5 Model Comparisons and Conclusions
+
+### 5.1 Source of \(v_{3}\{\Psi_{1}\}\)
+
+The initial study of \(v_{3}\{\Psi_{1}\}\) at \(\sqrt{s_{\rm NN}}=3\) GeV produced exciting results that showed the first measurement for mesons, corroborated the existence of a signal for protons as first seen by HADES, and added a new energy of proton measurements to show the first look at an energy dependence. However, more information was necessary in order to truly understand how \(v_{3}\{\Psi_{1}\}\) develops. This was achieved by using simulations of Au+Au collisions at 3 GeV where all participants could be tracked through the collision, and the identities of all particles were known exactly. There are multiple simulation packages to choose from, but the two chosen for this task were those that have previously been published with comparisons to STAR data: JAM1 [14] and SMASH [13]. These choices were also ideal since they offered options for the EOS to include mean field potentials, which produce an approximate description of the forces between participants, or to have no potentials in a "cascade" mode, where particles are essentially treated as colliding balls with finite radii and no long range interactions.
+
+#### Role of Collision Geometry
+
+When examining the geometry of the collisions, it was important to take into account the relatively slow passing time of the nuclei. At high energies, above \(\sqrt{s_{\rm NN}}\approx 30\) GeV, the timescale of the collision is very short (typically about 1 fm/\(c\)) and geometric effects are essentially two-dimensional in the x-y plane. However, at \(\sqrt{s_{\rm NN}}=3\) GeV the passing time is about 10 fm/\(c\), so the geometry effects of the collision should not be considered only in the transverse plane.
+
+The proposed geometric source of \(v_{3}\{\Psi_{1}\}\) can be seen in Fig. 5.1.
+
+When consid
+
+Figure 5.1: Illustration of the proposed triangular geometry of participants as discussed in the text. Side (a) shows a side view, with the eye indicating the beam view as shown in (b). The horizontal dotted line represents the axis by which the two triangles separate, and the vertical dashed line in (b) is the reaction plane. The lines in the red triangle portray the pressure gradients along the directions of the red arrows.
+
+ering the longitudinal direction within mid-central or peripheral collisions, it is clear that the tip of each nucleus will collide with the thicker central region of the opposing nucleus. This is portrayed in Fig. 5.1a. The net motion of the participant region after the collision above and below the dotted line is most likely to be in the same direction as the nucleus which was thicker. This leads to a shearing effect along the dotted line so that the participant region begins to split in half. It is important to note that this does not mean there is a clean break for the entire participant region. This splitting must be considered with respect to a particular rapidity of the participants. For example, if a portion of the participants above the dotted line with high positive rapidity in Fig. 5.1a are moving toward the right, one should compare these particles to those with an equal and opposite value of rapidity. This would be participants with high negative rapidity moving left, and in this proposed picture, those would only be found below the dotted line with essentially none moving left above the line. This is an important distinction because, if there was a clean slicing of participants for all rapidities, this would severely disrupt or eliminate the development of \(v_{2}\) at midrapidity, which is known to be nonzero at 3 GeV [38]. This proposed geometry for \(v_{3}\{\Psi_{1}\}\) preserves the development of \(v_{2}\) as shown by the usual almond shape in Fig. 5.1b. If the participants with positive rapidity are picked out, they would resemble the red triangle with pressure gradients mainly pointing in the directions perpendicular to the sides. Since this triangularity is essentially half of the almond shape, which is always present at nonzero centrality, the correlation between \(v_{3}\) and \(\Psi_{1}\) is ensured. \(\Psi_{1}\) (and \(\Psi_{r}\)) is shown in Fig. 5.1b by the vertical dashed line, with positive x pointing up. Since the gradients are arranged opposite to positive x, this means that \(\cos(3(\phi-\Psi_{1}))\) will be negative in the direction of the red nucleus where \(v_{1}\) is positive. This ensures that there will also be opposite signs to \(v_{1}\) and \(v_{3}\{\Psi_{1}\}\) as shown by the data.
+
+Fig. 5.2 shows the number of protons in JAM 50 fm/\(c\) after the collision when flow has had time to develop. The protons are also selected with \(0.6<y_{\rm CM}<0.85\)
+
+Figure 5.2: Snapshot of the x vs. y position of protons from JAM at \(t=50\) fm/\(c\) for particles with rapidity \(0.6<y<0.85\) and \(0<p_{\rm T}<2\) GeV/\(c\) (avoiding spectators) illustrating the half-moon, “triangular” shape. Note that the high density region is centered at x \(\approx 7\) fm. The arrows depict the average momentum obtained by dividing the collision region into cells. The length of each arrow represents the magnitude of the average momentum in each cell. The white dot indicates the \(x=0\), \(y=0\) position.
+
+and \(0<p_{\rm T}<2\) GeV/\(c\) in order to avoid spectators around \(y_{\rm CM}=1.05\). All collisions are arranged such that \(\Psi_{r}=0\). Since the white dot in Fig. 5.2 shows the center of the collision, and the only concentration of the protons is on one side of the collision with the same half-moon shape as predicted, this strongly supports the proposed geometric source necessary to seed \(v_{3}\{\Psi_{1}\}\).
+
+#### Role of Mean Field Potentials
+
+The geometric source of \(v_{3}\{\Psi_{1}\}\) has been presented, but this is not necessarily enough to fully explain the signal. If that were the case, mesons such as \(\pi\) and \(K\) would likely have shown a similar signal to that of baryons presented here. This was also checked by running JAM and SMASH in cascade mode with no potential and comparing the results to the data at 3 GeV. Figure 5.3 shows the results of this comparison as a function of rapidity. This test revealed that the geometry alone is not enough to produce any signal at all since the models produce effectively no triangular flow for any rapidity or centrality. This result was particularly interesting as it is known that \(v_{1}\) and \(v_{2}\) signals can still be produced by these models in cascade mode as shown by the examples in Fig. 5.4 calculated using JAM. These calculations of \(v_{1}\) and \(v_{2}\) do not match current data, but the fact that any signal can be produced without any \(v_{3}\{\Psi_{1}\}\) shows that there must be another force that drives the development of \(v_{3}\{\Psi_{1}\}\) aside from just geometry.
+
+The next step was to add potentials in the models which could produce forces that drive \(v_{3}\{\Psi_{1}\}\). Since this observable had not been studied to this detail before, the only potentials used were those that have previously been shown to perform well at reproducing recent results. In the SMASH model, which has been primarily aimed at low energy collisions below \(\sqrt{s_{\rm NN}}=3\) GeV, a Skyrme+Symmetry potential was
+
+Figure 5.4: \(v_{1}\) vs. rapidity (left) and \(v_{2}\) vs. \(p_{\rm T}\) (right) for protons and \(\pi^{+}\) in 3 GeV center of mass “minimum bias” Au+Au collisions as given by the JAM model in cascade mode.
+
+Figure 5.3: \(v_{3}\{\Psi_{1}\}\) for protons in three centrality regions in the JAM model (left) and SMASH model (right) as compared to the data. Cuts used in the model are identical to the data, but centrality in the models is defined by cuts in impact parameter.
+
+used. Fermi motion and Pauli blocking were incorporated. The potential in SMASH was taken as
+
+\[U=A(\rho/\rho_{0})+B(\rho/\rho_{0})^{\tau}\pm 2S_{\rm pot}\frac{\rho_{I_{3}}}{ \rho_{0}} \tag{5.1}\]
+
+where \(\rho\) is the baryon density and \(\rho_{I_{3}}\) is the baryon isospin density of the relative isospin projection \(I_{3}\)/I. \(\rho_{0}\) = 0.1681/fm\({}^{3}\) is the nuclear ground state density. Parameters for the Skyrme potential were \(A=-124.0\) MeV, \(B=71\) MeV, and \(\tau=2\). For the Symmetry potential, \(S_{pot}=18\) MeV and the positive and negative signs refer to neutrons and protons, respectively. This model also reproduces an incompressibility of \(K=380\) MeV. These values are taken from values used by URQMD, which gave reasonable fits to the recent HADES data on \(v_{1}\), \(v_{2}\) and \(v_{3}\{\Psi_{1}\}\)[46].
+
+A relativistic mean field in the JAM1 model (RQMD.RMF) was employed. The potential invokes a relativistic mean field theory incorporating \(\sigma\)- and \(\omega\)-meson-baryon interactions and momentum-dependent potentials as described in [47]. The parameter set MD2, described in the reference, has the same incompressibility as the SMASH model used here (\(K=380\) MeV). The parameter set yields results that are consistent with numerous data sets on sidewards flow \(\langle p_{x}\rangle\) from mid-central Au+Au collisions from E895 and E877 at \(\sqrt{s_{\rm NN}}=2.7\)-4.86 GeV. STAR and NA49 \(v_{1}\) measurements from mid-central Au+Au collisions at \(\sqrt{s_{\rm NN}}<8.87\) GeV are also consistent with JAM using the MD2 parameter set. It is also consistent with the recent \(\sqrt{s_{\rm NN}}=3\) GeV proton directed and elliptic flow results [38]. However, above \(\sqrt{s_{\rm NN}}=8.87\) GeV, an additional attractive orbit is required, consistent with a softening of the EOS. Figure5.5 depicts the energy per nucleon vs. \(\rho/\rho_{0}\) used in the two models in this work. Note that higher baryon density regions are to the right and the force will be towards lower baryon density regions. This will naturally produce a pressure away from regions of high baryon density, typically outwards in a collision.
+
+Note that centrality for the models uses cuts on the impact parameter \(b\), where it is assumed that the nucleus is a spherical ball with radius 6.64 fm. While this is not an exact comparison to the centrality determination of the data, this avoids issues that could arise if the models fail to reproduce the proper particle yields and number of spectators as seen in real data. Before the empirical centrality definition used in the data can be repeated with models, a dedicated study of the particle multiplicities, rapidity, and \(p_{\rm T}\) distributions between models and data should be performed. For all
+
+Figure 5.5: Total energy per nucleon for the potential used in both models. The relatively hard Skyrme potential used in the SMASH model is shown as the blue-solid line. The relativistic mean field potential with parameter set MD2 used in the JAM model is shown as the dashed red line [47].
+
+comparisons between data and models in this study, all other cuts within the data are reproduced exactly in the models.
+
+Figures 5.6(a-c) and Figs. 5.6(d-f) show comparisons of the data with JAM and SMASH simulations, respectively, where potentials were been included in the models. JAM and SMASH values are shown vs. rapidity, \(p_{\mathrm{T}}\), and centrality. For JAM and SMASH vs. centrality, values for \(\pi^{+}\), \(\pi^{-}\) and protons are shown. The introduction of potentials reproduced the trends of the \(v_{3}\{\Psi_{1}\}\) observed in the data as a function of rapidity, \(p_{\mathrm{T}}\), and centrality. Both models appeared to have a weaker response for peripheral collisions than the data, although JAM is slightly better; this is reflected in the rapidity and \(p_{\mathrm{T}}\) distributions as well as the centrality distributions for peripheral events (Figs. 5.6(e-f)). JAM had a slightly weaker response, i.e. smaller \(v_{3}\{\Psi_{1}\}\), than SMASH at higher \(p_{\mathrm{T}}\) for mid-central collisions (compare Figs. 5.6(b) and 5.6(e)). In analogy to the eccentricity (or ellipticity) used to quantify the strength of the almond shape which produces \(v_{2}\), the triangularity \(\epsilon_{3}\) was defined as follows [48]:
+
+\[\epsilon_{3}=-\frac{\left\langle r^{2}\cos(3(\phi-\Psi_{r}))\right\rangle}{ \left\langle r^{2}\right\rangle}. \tag{5.2}\]
+
+Here, \(\phi\) represents the angle between the particle and the reaction plane, which was set to \(\Psi_{r}=0\) in both SMASH and JAM for all events. In these calculations, the origin was reset to the center of the distribution in the particular rapidity slice of interest. For example, this would be the position near \((7\mathrm{fm},0\mathrm{fm})\) in Fig. 5.2. Figures 5.6(g-i)Figure 5.6: The top two rows show fits of JAM (top row, Figs. (a-c)) and SMASH(2nd row, Figs. (d-f)) to the \(v_{3}\{\Psi_{1}\}\) data vs. rapidity (first column), \(p_{\rm T}\) (2nd column) and centrality (3rd column). The fits to distributions vs. rapidity and \(p_{\rm T}\) (a,b,d,e) are fits to protons, for three centrality bins. Hollow points in Figs. (a,d) are reflected around the mid-rapidity as explained in the text. Fits to centrality (c,f) show protons, \(\pi^{+}\), and \(\pi^{-}\). The bottom row (Figs. (g-i)) depicts \(\epsilon_{3}\) in the JAM simulation for protons at \(t=20\) fm/\(c\) vs rapidity, \(p_{\rm T}\) and centrality.
+
+display the results for \(\epsilon_{3}\) using the JAM model at \(t=20\) fm/\(c\), considering particles sorted by rapidity or \(p_{\rm T}\). The time \(t=20\) fm/\(c\) was chosen to allow spectators to distinguish themselves from the participants while also ensuring that the passing time of the nuclei had elapsed; the flow, which would dilute the spacial shape, was not yet fully developed. These plots show that the there was a real and quantifiable triangular component that was producing the \(v_{3}\{\Psi_{1}\}\) signal.
+
+In total, the two essential ingredients required to generate \(v_{3}\{\Psi_{1}\}\) were identified in this study: (1) the initial condition supplied by the triangular shape resulting from a combination of the centrality and stopping, and (2) the force within the medium supplied by the potential. Figures 3.24 and 3.25 indicate that \(v_{3}\{\Psi_{1}\}\) for \(\pi^{+}\), \(\pi^{-}\), and \(K^{+}\) are essentially zero. \(v_{3}\{\Psi_{1}\}\) for \(K^{-}\) may be negative, but that is at most a \(1\sigma\) effect. The potentials used in the models are currently developed to only act on baryons. Any flow effect from these potentials on pions or kaons, such as on \(v_{1}\), stem from secondary interactions resulting from the multiple scattering off baryons or from decays [49]. The models do not generate any \(v_{3}\{\Psi_{1}\}\) for pions or kaons, hence \(v_{3}\{\Psi_{1}\}\) appears to be a uniquely sensitive probe for a baryon density dependent mean-field potential. It appears that the potential affects only baryons, and the presence of \(v_{3}\{\Psi_{1}\}\) produced by a mean field potential acting only on baryons lends support to the conclusions of Ref. [38]; the collisions studied here are in the hadronic phase where protons and neutrons are the dominant degrees of freedom and not the partonic phase (like in the QGP).
+
+### 5.2 Disappearance of \(v_{3}\{\Psi_{1}\}\)
+
+After uncovering the source of \(v_{3}\{\Psi_{1}\}\) and completing the energy scan of measurements, the next question to answer was why \(v_{3}\{\Psi_{1}\}\) seems to disappear. Since there are two elements necessary to develop the signal, the possibilities were already narrowed down. Either the initial triangularity is no longer present to start \(v_{3}\{\Psi_{1}\}\), or there are no longer any hadrons to experience the force from the mean field potential.
+
+Since the potential is part of the EOS associated with nuclear matter, it is not likely that the potential itself would change. Rather, it could be that the hadrons themselves are melting into partonic degrees of freedom; and as has been shown in this work, the forces involved in developing \(v_{3}\{\Psi_{1}\}\) may only act on hadrons. This implies that, if \(v_{3}\{\Psi_{1}\}\) is disappearing, it could be a signal that the collision energy is nearing the QCD phase transition. Thorough investigations will be necessary to definitively make this conclusion, such as testing how well models can predict basic kinematics of particles in the collisions (multiplicity, \(p_{\rm T}\), \(y\), etc.), tuning models to describe the results presented here better, and including different models to support the idea that a specifically baryon-density dependent potential is required. However, it is worth noting that recent developments in theory have predicted the location of the phase transition to be near \(\sqrt{s_{NN}}\) = 4 - 4.8 GeV [50]. An in-depth study into this possible connection between \(v_{3}\{\Psi_{1}\}\) and the phase transition is certainly warranted and should be pursued in the future.
+
+In order to develop initial plausible solutions to the disappearance of \(v_{3}\{\Psi_{1}\}\), the JAM1 model was used once again. Comparisons to the data were made to test if JAM could model the energy dependence, and calculations of \(\epsilon_{3}\) were made to estimate the initial triangularity in collisions at each energy. Predictions of \(v_{3}\{\Psi_{1}\}\) at 3.0 GeV using the cascade mode are also included to further showcase the importance of a mean field potential.
+
+Figure 5.7 shows the JAM1 model calculations compared to \(v_{3}\{\Psi_{1}\}\) results at each energy. The energy trend does seem to be replicated fairly well with respect to centrality. Figure 5.8 shows the same comparison using the selection of \(v_{3}\{\Psi_{1}\}\) vs rapidity in the backward region. The JAM results in this case agree well with the data in the midrapidity region out to approximately \(\pm 0.5\), but higher rapidities show that JAM1 systematically overestimates \(v_{3}\{\Psi_{1}\}\) for all energies except perhaps 4.5 GeV. Figure 5.9 shows the \(p_{\rm T}\) distributions, and it is apparent that JAM1 significantly underestimates \(v_{3}\{\Psi_{1}\}\) for all energies except 3.9 GeV and 4.5 GeV where the signal is near zero in both data and simulation. These comparisons illustrate that JAM1 could be an effective model choice for future studies, but there is certainly more work to be done in adapting the model to more closely reproduce the \(p_{\rm T}\) and rapidity dependence of \(v_{3}\{\Psi_{1}\}\) regardless of collision energy.
+
+Figures 5.10, 5.11, and 5.12 show JAM1 calculations of \(\epsilon_{3}\) vs centrality, rapidity, and \(p_{\rm T}\), respectively, at \(t=20\) fm/\(c\). The conclusion drawn from each of these plots
+
+Figure 5.7: \(v_{3}\) from \(\Psi_{1}\) vs centrality for protons at \(\sqrt{s_{\rm NN}}=3\) – 4.5 GeV along with model calculations using JAM1. All model lines use the mean field potential described in the text except for one at 3.0 GeV which shows the cascade mode.
+
+Figure 5.8: \(v_{3}\) from \(\Psi_{1}\) vs rapidity for protons at \(\sqrt{s_{\rm NN}}=3\) – 4.5 GeV along with model calculations using JAM1. All model lines use the mean field potential described in the text except for one at 3.0 GeV which shows the cascade mode.
+
+is that the triangularity soon after the collision is essentially the same at each energy. Only Fig. 5.11 shows a slight ordering by energy, but \(\epsilon_{3}\) at 4.5 GeV still shows a rapidity dependence similar to the other energies and an apparent nonzero slope at midrapidity. It can be clearly separated from the behavior of the cascade results, whereas \(v_{3}\{\Psi_{1}\}\) between 4.5 GeV and the 3.0 GeV cascade mode cannot be so easily distinguished. According to the JAM model, the disappearance of \(v_{3}\{\Psi_{1}\}\) cannot be explained solely due to a disappearance of the initial triangular shape. The model calculations showed that the shape remained at approximately the same magnitude for every energy, even as the final results of \(v_{3}\{\Psi_{1}\}\) were shrinking down to zero.
+
+Figure 5.9: \(v_{3}\) from \(\Psi_{1}\) vs \(p_{\rm T}\) for protons at \(\sqrt{s_{\rm NN}}=3\) – 4.5 GeV along with model calculations using JAM1. All model lines use the mean field potential described in the text except for one at 3.0 GeV which shows the cascade mode.
+
+Figure 5.11: \(\epsilon_{3}\) vs rapidity for protons at \(t=20\) fm/\(c\) in Au+Au collisions at \(\sqrt{s_{\rm NN}}=3\) – 4.5 GeV from JAM1.
+
+Figure 5.10: \(\epsilon_{3}\) vs centrality for protons at \(t=20\) fm/\(c\) in Au+Au collisions at \(\sqrt{s_{\rm NN}}=3\) – 4.5 GeV from JAM1.
+
+### 5.3 Summary and Outlook
+
+This dissertation has presented the experimental methods and results of a study of triangular flow in Au+Au collisions at the five lowest collision energies in the BES-II FXT program at RHIC: \(\sqrt{s_{NN}}=\) 3.0, 3.2, 3.5, 3.9, and 4.5 GeV. A signal of triangular flow which is correlated to the first-order event plane, \(v_{3}\{\Psi_{1}\}\), was found at 3.0 GeV to be nonzero for protons and likely zero for the charged \(\pi\) and \(K\) mesons. This effect was nearly rapidity-odd, and grew with increasing centrality, \(y\), and \(p_{\rm T}\). The slope at midrapidity, \(dv_{3}/dy|_{y=0}\), for protons also had an overall sign which was opposite to the same slope for directed flow, \(v_{1}\). An explanation for how \(v_{3}\{\Psi_{1}\}\) could arise and exhibit these behaviors was presented based on simulated Au+Au collisions at
+
+Figure 5.12: \(\epsilon_{3}\) vs \(p_{\rm T}\) for protons at \(t=20\) fm/\(c\) in Au+Au collisions at \(\sqrt{s_{\rm NN}}=3\) – 4.5 GeV from JAM1.
+
+3.0 GeV from the JAM1 and SMASH models. It was found that \(v_{3}\{\Psi_{1}\}\) requires two main components in order to develop: an initial triangular shape in participants after the collision, and a potential in the equation of state which governs the interactions between the participants.
+
+Investigations into the participants in simulations showed that the initial triangularity at 3.0 GeV can form due to the relatively long passing time of the nuclei and the varied amount of stopping experienced by the colliding nucleons. The net motion of the participants on either side of the reaction plane tends to be in the same direction as the spectators on the same side. The usual almond shape of the participants essentially divides into half-moon shapes which possess the necessary triangularity. This happens for higher values of \(y\) and \(p_{\rm T}\) and is not seen near midrapidity, preserving the usual almond shape which develops elliptic flow \(v_{2}\). By running JAM and SMASH simulations without any potential, and then again with two baryon density dependent potentials, it was shown that \(v_{3}\{\Psi_{1}\}\) cannot be developed without the inclusion of a potential. Both baryon density dependent potentials tested performed fairly well at reproducing the trends of the data, suggesting this type of potential could be effective in modeling the behaviors of \(v_{3}\{\Psi_{1}\}\). Furthermore, the meson results lend themselves nicely to this idea since they showed no appreciable \(v_{3}\{\Psi_{1}\}\) effect. The stark contrast between the presence or absence of a potential distinguishes \(v_{3}\{\Psi_{1}\}\) as an extremely effective discriminator to use in the study of the nuclear equation of state and baryon/meson dynamics in heavy-ion collisions.
+
+Following the study at \(\sqrt{s_{NN}}=3.0\) GeV, the results at each collision energy were presented. The data showed that \(v_{3}\{\Psi_{1}\}\) decreased as the collision energy increased, effectively reaching zero at 3.9 and 4.5 GeV. Based on the results in the symmetric region around midrapidity, it was clear that the measurements were influenced by an effect skewing the rapidity dependence away from the expected rapidity-odd behavior. A known procedure to separate the odd and even portions of flow measurements was adapted for FXT experiments and presented. Future studies into the efficacy of this method in FXT experiments should be carried out, but when applied to each energy of this study, the energy dependence of \(v_{3}\{\Psi_{1}\}\) became more clear. The results of \(v_{3}^{\rm odd}\{\Psi_{1}\}\) suggested that the signal becomes consistent with zero around 3.9 GeV, with the same behavior continued at 4.5 GeV. This was shown in particular for the same proton selection as HADES, providing the largest energy dependence of \(v_{3}\{\Psi_{1}\}\) currently possible from 2.4 - 4.5 GeV.
+
+To provide the first steps into deeper studies of \(v_{3}\{\Psi_{1}\}\), JAM predictions were presented for each energy. Overall, the ordering of energies and the reduction of \(v_{3}\{\Psi_{1}\}\) is also seen in the model results. This supports that the model is on the right track to describe this observable, but there are obvious deficiencies in reproducing the detailed behaviors in centrality, \(y\), and \(p_{\rm T}\). These comparisons to new data will provide valuable information to start these improvements and better model heavy-ion collisions. With the model as it stands currently, the first test into a reason for the disappearance of \(v_{3}\{\Psi_{1}\}\) was presented. The triangularity \(\epsilon_{3}\) was presented at each energy to describe the strength of the initial triangular shape after the collisions (the first necessary component to develop \(v_{3}\{\Psi_{1}\}\) as described above). JAM showed that the magnitude of \(\epsilon_{3}\) was roughly the same at each energy and did not reduce to zero. This suggests that the disappearance of \(v_{3}\{\Psi_{1}\}\) is not due to changes in the initial shape after the collision.
+
+All measurements of \(v_{3}\{\Psi_{1}\}\) from data presented here represent a substantial success in the field of heavy-ion physics. A multitude of data has been produced that can be used to further constrain theoretical representations of heavy-ion collisions as well as predictions of the EOS for dense nuclear matter. The initial tests of modern simulations to reproduce \(v_{3}\{\Psi_{1}\}\) have proven useful in understanding the signal itself, and they should conversely be useful to begin the process of improving those simulations further. This work has also opened multiple avenues of continued research around \(v_{3}\{\Psi_{1}\}\), such as looking at the signal produced by larger baryons (\(d\), \(t\), \({}^{3}\)He, etc.), further testing of the signal from mesons with larger datasets, verification of the source of \(v_{3}^{\rm even}\{\Psi_{1}\}\) and its isolation in FXT experiments, and narrowing down the true reason why \(v_{3}\{\Psi_{1}\}\) disappears. Further study of this observable should be carried out in the future, and will undoubtedly produce significant and exciting results.
+
+## Bibliography
+
+* [1] J. J. Thomson F.R.S. "The relation between the atom and the charge of electricity carried by it". In: _The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science_ 40.247 (1895), pp. 511-544. doi: 10.1080/14786449508620801. url: [https://doi.org/10.1080/14786449508620801](https://doi.org/10.1080/14786449508620801).
+* [2] E. Rutherford F.R.S. "The scattering of \(\alpha\) and \(\beta\) particles by matter and the structure of the atom". In: _The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science_ 21.125 (1911), pp. 669-688. doi: 10.1080/14786440508637080. url: [https://doi.org/10.1080/14786440508637080](https://doi.org/10.1080/14786440508637080).
+* [3] Murray Gell-Mann. "The Eightfold Way: A Theory of strong interaction symmetry". In: (Mar. 1961). doi: 10.2172/4008239. url: [https://doi.org/10.2172/4008239](https://doi.org/10.2172/4008239).
+* 1978_. Ed. by D. B. Lichtenberg and Simon Peter Rosen. Feb. 1964, pp. 22-101.
+* [5] E. D. Bloom et al. "High-Energy Inelastic \(e-p\) Scattering at \(6^{\circ}\) and \(10^{\circ}\)". In: _Phys. Rev. Lett._ 23 (16 Oct. 1969), pp. 930-934. doi: 10.1103/PhysRevLett.23.930. url: [https://link.aps.org/doi/10.1103/PhysRevLett.23.930](https://link.aps.org/doi/10.1103/PhysRevLett.23.930).
+* [6] F. Halzen and Alan D. Martin. In: _QUARKS AND LEPTONS: An Introductory Course In Modern Particle Physics_. John Wiley & Sons, Inc., 1984, pp. 4-12. isbn: 978-0-471-88741-6.
+* [7] Daniel V. Schroeder. In: _An Introduction to Thermal Physics_. Addison Wesley Longman, 2000, pp. 166-169. isbn: 0-201-38027-7.
+* [8][https://en.wikipedia.org/wiki/Phase_diagram](https://en.wikipedia.org/wiki/Phase_diagram).
+* [9] The STAR Collaboration and The CBM Collaboration eTOF Group. _Physics Program for the STAR/CBM eTOF Upgrade_. 2016. arXiv: 1609.05102 [nucl-ex].
+* [10] S. Gluzman and V. I. Yukalov. "Unified approach to crossover phenomena". In: _Phys. Rev. E_ 58 (4 Oct. 1998), pp. 4197-4209. doi: 10.1103/PhysRevE.58.4197. url: [https://link.aps.org/doi/10.1103/PhysRevE.58.4197](https://link.aps.org/doi/10.1103/PhysRevE.58.4197).
+
+* [11] Zi-Wei Lin et al. "Multiphase transport model for relativistic heavy ion collisions". In: _Phys. Rev. C_ 72 (6 Dec. 2005), p. 064901. doi: 10.1103/PhysRevC.72.064901. url: [https://link.aps.org/doi/10.1103/PhysRevC.72.064901](https://link.aps.org/doi/10.1103/PhysRevC.72.064901).
+* [12] S. A. Bass et al. "Microscopic models for ultrarelativistic heavy ion collisions". In: _Prog. Part. Nucl. Phys._ 41 (1998), pp. 255-369. doi: 10.1016/S0146-6410(98)00058-1. arXiv: nucl-th/9803035.
+* [13] J. Weil et al. "Particle production and equilibrium properties within a new hadron transport approach for heavy-ion collisions". In: _Phys. Rev. C_ 94.5 (2016), p. 054905. doi: 10.1103/PhysRevC.94.054905. arXiv: 1606.06642 [nucl-th].
+* [14] Yasushi Nara and Horst Stoecker. "Sensitivity of the excitation functions of collective flow to relativistic scalar and vector meson interactions in the relativistic quantum molecular dynamics model RQMD.RMF". In: _Phys. Rev. C_ 100.5 (2019), p. 054902. doi: 10.1103/PhysRevC.100.054902. arXiv: 1906.03537 [nucl-th].
+* [15] Chun Shen and Ulrich Heinz. "The Road to Precision: Extraction of the Specific Shear Viscosity of the Quark-Gluon Plasma". In: _Nuclear Physics News_ 25.2 (2015), pp. 6-11. doi: 10.1080/10619127.2015.1006502. url: [https://doi.org/10.1080/10619127.2015.1006502](https://doi.org/10.1080/10619127.2015.1006502).
+* [16] The LHCb collaboration. "Centrality determination in heavy-ion collisions with the LHCb detector". In: _Journal of Instrumentation_ 17.05 (May 2022), P05009. doi: 10.1088/1748-0221/17/05/P05009. url: [https://dx.doi.org/10.1088/1748-0221/17/05/P05009](https://dx.doi.org/10.1088/1748-0221/17/05/P05009).
+* [17] Michael L. Miller et al. "Glauber Modeling in High-Energy Nuclear Collisions". In: _Annual Review of Nuclear and Particle Science_ 57.1 (2007), pp. 205-243. doi: 10.1146/annurev.nucl.57.090506.123020. url: [https://doi.org/10.1146/annurev.nucl.57.090506.123020](https://doi.org/10.1146/annurev.nucl.57.090506.123020).
+* [18] Peter F. Kolb and Ulrich W. Heinz. "Hydrodynamic description of ultrarelativistic heavy ion collisions". In: (May 2003). Ed. by Rudolph C. Hwa and Xin-Nian Wang, pp. 634-714. arXiv: nucl-th/0305084.
+* [19] A. M. Poskanzer and S. A. Voloshin. "Methods for analyzing anisotropic flow in relativistic nuclear collisions". In: _Phys. Rev. C_ 58 (3 Sept. 1998), pp. 1671-1678. doi: 10.1103/PhysRevC.58.1671. url: [https://link.aps.org/doi/10.1103/PhysRevC.58.1671](https://link.aps.org/doi/10.1103/PhysRevC.58.1671).
+
+* [20] B. Alver and G. Roland. "Collision-geometry fluctuations and triangular flow in heavy-ion collisions". In: _Phys. Rev. C_ 81 (5 May 2010), p. 054905. doi:10.1103/PhysRevC.81.054905. url: [https://link.aps.org/doi/10.1103/PhysRevC.81.054905](https://link.aps.org/doi/10.1103/PhysRevC.81.054905).
+* [21] Burak Han Alver et al. "Triangular flow in hydrodynamics and transport theory". In: _Phys. Rev. C_ 82 (3 Sept. 2010), p. 034913. doi:10.1103/PhysRevC.82.034913. url: [https://link.aps.org/doi/10.1103/PhysRevC.82.034913](https://link.aps.org/doi/10.1103/PhysRevC.82.034913).
+* [22] Jussi Auvinen and Hannah Petersen. "Evolution of elliptic and triangular flow as a function of \(\sqrt{s_{NN}}\) in a hybrid model". In: _Phys. Rev. C_ 88 (6 Dec. 2013), p. 064908. doi:10.1103/PhysRevC.88.064908. url: [https://link.aps.org/doi/10.1103/PhysRevC.88.064908](https://link.aps.org/doi/10.1103/PhysRevC.88.064908).
+* [23] L. Adamczyk et al. _Longitudinal and transverse spin asymmetries for inclusive jet production at mid-rapidity in polarized p+p collisions at sqrts=200 GeV_. 2012. arXiv: 1205.2735 [nucl-ex].
+* [24] W.J. Llope et al. "The STAR Vertex Position Detector". In: _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_ 759 (2014), pp. 23-28. issn:0168-9002. doi:[https://doi.org/10.1016/j.nima.2014.04.080](https://doi.org/10.1016/j.nima.2014.04.080). url: [https://www.sciencedirect.com/science/article/pii/S0168900214004938](https://www.sciencedirect.com/science/article/pii/S0168900214004938).
+* [25] M. Anderson et al. "The STAR time projection chamber: a unique tool for studying high multiplicity events at RHIC". In: _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_ 499.2 (2003). The Relativistic Heavy Ion Collider Project: RHIC and its Detectors, pp. 659-678. issn:0168-9002. doi:[https://doi.org/10.1016/S0168-9002](https://doi.org/10.1016/S0168-9002)(02)01964-2. url: [https://www.sciencedirect.com/science/article/pii/S0168900202019642](https://www.sciencedirect.com/science/article/pii/S0168900202019642).
+* [26] Ming Shao et al. "Extensive particle identification with TPC and TOF at the STAR experiment". In: _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_ 558.2 (2006), pp. 419-429. issn: 0168-9002. doi:[https://doi.org/10.1016/j.nima.2005.11.251](https://doi.org/10.1016/j.nima.2005.11.251). url: [https://www.sciencedirect.com/science/article/pii/S0168900205024411](https://www.sciencedirect.com/science/article/pii/S0168900205024411).
+* [27] Hans Bichsel. "A method to improve tracking and particle identification in TPCs and silicon detectors". In: _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_562.1 (2006), pp. 154-197. issn: 0168-9002. doi: [https://doi.org/10.1016/j.nima.2006.03.009](https://doi.org/10.1016/j.nima.2006.03.009). url: [https://www.sciencedirect.com/science/article/pii/S0168900206005353](https://www.sciencedirect.com/science/article/pii/S0168900206005353).
+* [28] H. Agakishiev et al. "Observation of the antimatter helium-4 nucleus". In: _Nature_ 473.7347 (2011), pp. 353-356. doi: 10.1038/nature10079. url: [https://doi.org/10.1038/nature10079](https://doi.org/10.1038/nature10079).
+* [29] W. J. Llope et al. "The TOFp/pVPD time-of-flight system for STAR". In: _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_ 522.3 (2004), pp. 252-273. issn: 0168-9002. doi: [https://doi.org/10.1016/j.nima.2003.11.414](https://doi.org/10.1016/j.nima.2003.11.414). url: [https://www.sciencedirect.com/science/article/pii/S016890020303393X](https://www.sciencedirect.com/science/article/pii/S016890020303393X).
+* [30] The STAR Collaboration and The CBM Collaboration eTOF Group. _Physics Program for the STAR/CBM eTOF Upgrade_. 2016. arXiv: 1609.05102 [nucl-ex].
+* [31] F. Guerts. _The STAR eTOF Upgrade_. [https://indi.to/L8jZq](https://indi.to/L8jZq), 2017.
+* [32] J. Adams et al. "The STAR event plane detector". In: _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_ 968 (2020), p. 163970. issn: 0168-9002. doi: [https://doi.org/10.1016/j.nima.2020.163970](https://doi.org/10.1016/j.nima.2020.163970). url: [https://www.sciencedirect.com/science/article/pii/S0168900220304344](https://www.sciencedirect.com/science/article/pii/S0168900220304344).
+* [33] J. Kiryluk. "LOCAL POLARIMETRY FOR PROTON BEAMS WITH THE STAR BEAM BEAM COUNTERS". In: _Spin 2004_. WORLD SCIENTIFIC, Aug. 2005. doi: 10.1142/9789812701909_0152. url: [http://dx.doi.org/10.1142/9789812701909_0152](http://dx.doi.org/10.1142/9789812701909_0152).
+* [34] STAR Collaboration. _STAR Beam-Beam Counter (BBC) Front View_. [https://www.star.bnl.gov/public/bbc/geom/front_view.html](https://www.star.bnl.gov/public/bbc/geom/front_view.html), 2018.
+* [35] K. C. Meehan. "The fixed-target experiment at STAR". In: _Journal of Physics: Conference Series_ 742 (2016), p. 012022. doi: [https://doi.org/10.1088/1742-6596/742/1/012022](https://doi.org/10.1088/1742-6596/742/1/012022). url: [https://iopscience.iop.org/article/10.1088/1742-6596/742/1/012022](https://iopscience.iop.org/article/10.1088/1742-6596/742/1/012022).
+* [36] G. Odyniec. "The RHIC Beam Energy Scan program in STAR and what's next..." In: _Journal of Physics: Conference Series_ 455 (2013), p. 012037. doi: [https://doi.org/10.1088/1742-6596/455/1/012037](https://doi.org/10.1088/1742-6596/455/1/012037). url: [https://iopscience.iop.org/article/10.1088/1742-6596/455/1/012037](https://iopscience.iop.org/article/10.1088/1742-6596/455/1/012037).
+
+* [37] Qian Yang. "The STAR BES-II and Forward Rapidity Physics and Upgrades". In: _Nuclear Physics A_ 982 (2019). The 27th International Conference on Ultrarelativistic Nucleus-Nucleus Collisions: Quark Matter 2018, pp. 951-954. issn: 0375-9474. doi: [https://doi.org/10.1016/j.nuclphysa.2018.10.029](https://doi.org/10.1016/j.nuclphysa.2018.10.029). url: [https://www.sciencedirect.com/science/article/pii/S0375947418303105](https://www.sciencedirect.com/science/article/pii/S0375947418303105).
+* [38] M. S. Abdallah et al. "Disappearance of partonic collectivity in sNN=3GeV Au+Au collisions at RHIC". In: _Phys. Lett. B_ 827 (2022), p. 137003. doi: 10.1016/j.physletb.2022.137003. arXiv: 2108.00908 [nucl-ex].
+* [39] M. S. Abdallah et al. "Light nuclei collectivity from \(\sqrt{s_{NN}}\) = 3 GeV Au+Au collisions at RHIC". In: _Phys. Lett. B_ 827 (2022), p. 136941. doi: 10.1016/j.physletb.2022.136941. arXiv: 2112.04066 [nucl-ex].
+* [40] Hiroshi Masui, Alexander Schmah, and A.M. Poskanzer. "Event plane resolution correction for azimuthal anisotropy in wide centrality bins". In: _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_ 833 (2016), pp. 181-185. issn: 0168-9002. doi: [https://doi.org/10.1016/j.nima.2016.07.037](https://doi.org/10.1016/j.nima.2016.07.037). url: [https://www.sciencedirect.com/science/article/pii/S0168900216307781](https://www.sciencedirect.com/science/article/pii/S0168900216307781).
+* [41] Roger Barlow. "Systematic errors: Facts and fictions". In: _Conference on Advanced Statistical Techniques in Particle Physics_. July 2002, pp. 134-144. arXiv: hep-ex/0207026.
+* [42] Hannah Petersen et al. "Triangular flow in event-by-event ideal hydrodynamics in Au+Au collisions at \(\sqrt{s_{NN}}=200A\) GeV". In: _Phys. Rev. C_ 82 (4 Oct. 2010), p. 041901. doi: 10.1103/PhysRevC.82.041901. url: [https://link.aps.org/doi/10.1103/PhysRevC.82.041901](https://link.aps.org/doi/10.1103/PhysRevC.82.041901).
+* [43] Adamczewski-Musch et al. "Directed, Elliptic, and Higher Order Flow Harmonics of Protons, Deuterons, and Tritons in \(\mathrm{Au}+\mathrm{Au}\) Collisions at \(\sqrt{s_{NN}}=2.4\) GeV". In: _Phys. Rev. Lett._ 125 (26 Dec. 2020), p. 262301. doi: 10.1103/PhysRevLett.125.262301. url: [https://link.aps.org/doi/10.1103/PhysRevLett.125.262301](https://link.aps.org/doi/10.1103/PhysRevLett.125.262301).
+* [44] Betty Abelev et al. "Directed Flow of Charged Particles at Midrapidity Relative to the Spectator Plane in Pb-Pb Collisions at \(\sqrt{s_{NN}}\)=2.76 TeV". In: _Phys. Rev. Lett._ 111.23 (2013), p. 232302. doi: 10.1103/PhysRevLett.111.232302. arXiv: 1306.4145 [nucl-ex].
+
+* [45] M. I. Abdulhamid et al. "Reaction plane correlated triangular flow in \(\mathrm{Au}+\mathrm{Au}\) collisions at \(\sqrt{s_{NN}}=3\) GeV". In: _Phys. Rev. C_ 109 (4 Apr. 2024), p. 044914. doi: 10.1103/PhysRevC.109.044914. url: [https://link.aps.org/doi/10.1103/PhysRevC.109.044914](https://link.aps.org/doi/10.1103/PhysRevC.109.044914).
+* [46] Paula Hillmann, Jan Steinheimer, and Marcus Bleicher. "Directed, elliptic and triangular flow of protons in Au+Au reactions at 1.23 A GeV: a theoretical analysis of the recent HADES data". In: _J. Phys. G_ 45.8 (2018), p. 085101. doi: 10.1088/1361-6471/aac96f. arXiv: 1802.01951 [nucl-th].
+* [47] Yasushi Nara, Tomoyuki Maruyama, and Horst Stoecker. "Momentum-dependent potential and collective flows within the relativistic quantum molecular dynamics approach based on relativistic mean-field theory". In: _Phys. Rev. C_ 102.2 (2020), p. 024913. doi: 10.1103/PhysRevC.102.024913. arXiv: 2004.05550 [nucl-th].
+* [48] Derek Teaney and Li Yan. "Triangularity and Dipole Asymmetry in Heavy Ion Collisions". In: _Phys. Rev. C_ 83 (2011), p. 064904. doi: 10.1103/PhysRevC.83.064904. arXiv: 1010.1876 [nucl-th].
+* [49] Agneiszka Sorensen. _Private communication_. 2023.
+* [50] Mauricio Hippert et al. _Location of the QCD critical point predicted by holographic Bayesian analysis_. 2023. arXiv: 2312.09689 [nucl-th].

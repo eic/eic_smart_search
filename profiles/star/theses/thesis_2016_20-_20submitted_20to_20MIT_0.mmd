@@ -1,0 +1,1258 @@
+**W Boson Cross Sections and Single Spin**
+
+**Asymmetries in Polarized Proton-Proton**
+
+**Collisions at \(\sqrt{s}=\)500 GeV at STAR**
+
+by
+
+Ross Corliss
+
+B.S., Physics and Mathematics, Valparaiso University (2005)
+
+Submitted to the Department of Physics
+
+in partial fulfillment of the requirements for the degree of
+
+Doctor of Philosophy
+
+at the
+
+MASSACHUSETTS INSTITUTE OF TECHNOLOGY
+
+September 2012
+
+C Massachusetts Institute of Technology 2012. All rights reserved.
+
+Author................................................................................
+
+Department of Physics
+
+August 2, 2012
+
+Certified by................................................
+
+Bernd Surrow
+
+Associate Professor
+
+Thesis Supervisor
+
+Accepted by................................................................
+
+John Belcher
+
+Associate Department Head for Education
+
+[MISSING_PAGE_EMPTY:2]
+
+**W Boson Cross Sections and Single Spin Asymmetries in Polarized Proton-Proton Collisions at \(\sqrt{s}=\)500 GeV at STAR**
+
+by
+
+Ross Corliss
+
+Submitted to the Department of Physics
+
+on August 2, 2012, in partial fulfillment of the
+
+requirements for the degree of
+
+Doctor of Philosophy
+
+### Abstract
+
+Understanding the structure of the proton is an ongoing effort in the particle physics community. Existing in the region of nonperturbative QCD, the various models for proton structure must be informed and constrained by experimental data. In 2009, the STAR experiment at Brookhaven National Lab recorded over 12 pb\({}^{-1}\) of data from polarized \(\vec{\rm p}\)+\(\vec{\rm p}\) collisions at 500 GeV center-of-mass energy provided by the RHIC accelerator. This has offered a first look at the spin-dependent production of W\({}^{+(-)}\) bosons, and hence at the spin-flavor structure of the proton, where the main production mode is through \(\bar{\rm d}\)+u (\(\bar{\rm u}\)+d) annihilation. Using STAR's large Time Projection Chamber and its wide-acceptance electromagnetic calorimeters, it is possible to identify the \(e^{+}+\nu\) (\(e^{-}+\bar{\nu}\)) decay mode of the W bosons produced. This thesis presents the first STAR measurement of charge-separated W production, both the pseudorapidity-dependent ratio and the longitudinal single-spin asymmetry. These results show good agreement with theoretical expectations, validating the methods used and paving the way for the analysis of larger datasets that will be available soon.
+
+In the near future the range of this measurement will be augmented with the Forward GEM Tracker. A discussion of the design and implementation of this upgrade is also included, along with projections for its impact.
+
+Thesis Supervisor: Bernd Surrow
+
+Title: Associate Professor
+
+[MISSING_PAGE_EMPTY:4]
+
+## Acknowledgments
+
+I'd like to acknowledge those members of the MIT group who provided guidance, encouragement, and instruction, including my advisor, Bernd Surrow, post-docs Renee Fatemi (equally as a professor at Kentucky) and Joe Seele, and indispensible staff researcher Jan Balewski.
+
+Many thanks, too, to the various graduate students who shared the 26-402 suite over the years: Julie Millane, Tai Sakuma, Alan Hoffman, Adam Kocoloski, Chris Jones, Matt Walker, Mike Betancourt, Will Leight, and Jim Hays-Wehle. In their way, each helped refine not only my methods but my views and understanding of the greater world of physics. To Will and Jim, a special thanks for their presence and support in these final, hectic months.
+
+I'd also like to extend a particular thanks to Sarah, Josh, and Irina, whose friendship and perspectives on the grad school experience have helped me navigate my time at MIT.
+
+To all my friends who put up with my mounting stress and offered a sympathetic ear, and as often a warm meal, Nam, Jill, Sarah, and wider crowds both in Boston and Parts North, my sincere thanks.
+
+To my sister, my parents, and my grandparents, thank you for your encouragement, your support, and your pride. I hope that I can someday earn all that you have given me.
+
+## This Page Internationally Left BLANK
+
+###### Contents
+
+* 1 Introduction
+	* 1.1 Proton Substructure
+		* 1.1.1 Parton Distribution Functions
+		* 1.1.2 Polarized Parton Distribution Functions
+	* 1.2 W Production as a Clean Probe
+	* 1.3 \(\bar{d}/\bar{u}\)
+		* 1.3.1 Theory
+		* 1.3.2 Measuring with W production
+	* 1.4 \(\Delta\bar{u}\) and \(\Delta\bar{d}\)
+		* 1.4.1 Theory
+		* 1.4.2 Measuring with W production
+	* 1.5 Summary
+* 2 RHIC and Polarized Beams
+	* 2.1 Generating Polarized Protons
+	* 2.2 Maintaining and Accelerating Polarized Protons
+	* 2.3 Measuring Polarization
+* 3 The STAR Detector
+	* 3.1 The Time Projection Chamber
+		* 3.1.1 Pile-Up
+		* 3.1.2 Calibrating the TPC
+		* 3.1.3 Space Charge and Grid Leak
+* 4Barrel Electromagnetic Calorimeter 3.2.1 Calibrating the Barrel 3.3 Endcap Electromagnetic Calorimeter 3.3.1 Calibrating the Endcap
+4 Data 4.1 Triggering and Data Streams 4.2 Absolute Luminosity 4.3 Simulation 4.3.1 Simulation Weighting 4.3.2 High \(E_{T}\) Calibration
+5 Identifying W Events 5.0.3 Vertex 5.0.4 Selecting Lepton Candidates 5.0.5 Selecting W candidates 5.0.6 Charge Reconstruction 5.1 Irreducible Backgrounds 5.1.1 Missing Endcap 5.1.2 Electroweak Backgrounds 5.1.3 QCD Backgrounds 5.1.4 Background-Subtracted Yields 5.2 Reconstruction Efficiency 5.2.1 Trigger 5.2.2 Vertex 5.2.3 Tracking 5.2.4 Cuts 5.2.5 Total Efficiency 5.3 Cross Sections and Ratio 5.3.1 Charge Ratio 5.4 Single-Spin Asymmetry
+
+#### 5.4.1 Behavior of the Asymmetry
+
+* 6 Interpretation and Discussion
+	* 6.1 Cross Sections and Charge Ratio
+	* 6.2 Spin Asymmetry
+	* 6.3 Discussion
+		* 6.3.1 Future Improvements
+* A BHT3+coincidence Cross Section
+* A.1 Collider Luminosity
+* A.2 Deriving trigger cross section from vernier scan
+* A.3 Selecting a trigger condition
+* A.4 Determining the BHT3+coin cross section
+* A.5 Systematic uncertainty
+* A.6 Stability of away-side condition
+* A.7 Comparison to luminosity estimates during the 2009 run
+* A.8 Study of flatness of background with vernier scan step
+* B Forward GEM Tracker
+* B.1 GEM Detectors
+* B.2 Disk Design
+* B.2.1 Readout Plane
+* B.2.2 GEM Foils
+* B.3 Assembly and Testing
+* B.4 Status
+* C Alternate Computation of Efficiencies
+
+## This Page Internationally Left BlankList of Figures
+* 1-1 Feynman diagram for p+p\(\rightarrow\)W\({}^{\pm}\)+X\(\to e^{\pm}+\nu(\bar{\nu})\)+X
+* 1-2 Example Jacobian Peak
+* 1-3 E866 Measurement of \(\bar{d}/\bar{u}\)
+* 1-4 Predictions for \(R(x_{F})\) and \(R(y_{e})\)
+* 1-5 EMC Spin Result
+* 1-6 Various models for \(x(\Delta\bar{u}-\Delta\bar{d})\)
+* 1-7 Predictions for \(A_{L}(y_{e})\)
+* 2-1 Overhead View of the RHIC Complex
+* 2-2 Side View of OPPIS
+* 2-3 Beam Path Through a Siberian Snake
+* 3-1 STAR Overview
+* 3-2 TPC Design
+* 3-3 Gating Grid States
+* 3-4 BEMC Design
+* 3-5 EEMC Design
+* 4-1 Integrated Luminosity by day
+* 4-2 Simulation reweighting by luminosity and vertex distribution
+* 5-1 Sample W-Like event from data
+* 5-2 Sample Jet-Like event from data
+* 5-3 PPV vertex rank in MC and data
+* 5-4 Vertex multiplicity in MC and Data* 5-5 Track Parameters and Quality Cuts
+* 5-6 Schematic of Track-Cluster Matching with cuts
+* 5-7 Distance from track to cluster centroid
+* 5-8 Shower Narrowness Cut
+* 5-9 Nearside Jet Energy Cut
+* 5-10 Cartoon of \(P_{T}\) Balance
+* 5-11 \(P_{T}\) Balance Cut
+* 5-12 Cuts and W Yield
+* 5-13 Charge Separation in Data
+* 5-14 Charge Separated Yields
+* 5-15 Effect of Endcap on W Yield
+* 5-16 \(E_{T}\) Spectrum of Electroweak Backgrounds
+* 5-17 Electroweak Backgrounds with Missing Endcap
+* 5-18 Yield with Flipped \(P_{T}\) Balance Cut
+* 5-19 Data-Driven Background Spectra
+* 5-20 Background-Subtracted W Yields
+* 5-21 Trigger Efficiency
+* 5-22 Vertex-Finding Efficiency
+* 5-23 Track Reconstruction Efficiency
+* 5-24 Tracking QA Systematic
+* 5-25 Cut Efficiency
+* 5-26 Charge-Separated Cross Sections
+* 5-27 Measured Asymmetries
+* 6-1 Cross Section Theory Comparison
+* 6-2 Ratio Theory Comparison
+* 6-3 Measured \(A_{L}\) for \(W^{+}\) and \(W^{-}\)
+* A-1 Geometry of the away side coincidence trigger requirement
+* A-2 Fits to the Vernier Scan runs
+* A-3 Example of vernier scan fit to the first 3 steps of the scan.
+* 6* 4 BHT3+coin Background vs Opening Angle
+* 5 BHT3+coin Background vs Threshold
+* 6 \(\sigma\)(BHT3+coin) vs Threshold
+* 7 Integrates Luminosity vs Opening Angle
+* 8 BHT3+coin compared to other stable triggers
+* 9 Abort Gap Events during Vernier Scan
+* 10 FGT in STAR
+* 11 Charge Reconstruction in \(1<\eta<2\)
+* 12 GEM foil detail
+* 13 Triple-GEM illustration
+* 14 FGT Quadrant Design
+* 15 Readout Design
+
+## This Page intentionally Left BLANKList of Tables
+	* 4.1 Integrated luminosities of simulation samples
+	* 5.1 Background Luminosity Dependence
+	* 5.2 \(\eta\)-Dependent Trigger Efficiencies
+	* 5.3 \(\eta\)-Dependent Vertex Efficiencies
+	* 5.4 \(\eta\)-Dependent Tracking Efficiencies
+	* 5.5 \(\eta\)-Dependent Total Efficiencies
+	* 5.6 Relative Luminosities
+	* 5.7 \(A_{L}\) terms
+	* 5.8 \(A_{L}\) Systematic Uncertainties
+* A.1 K-values in the vernier scan runs.
+* A.2 Definition of vernier scan steps
+* A.3 BHT3+coin cross section measured in vernier scan.
+* A.4 Example of BHT3 cross section dependence on number of included vernier scan steps for run 10097097)
+* A.5 \(\sigma\)(BHT3+coin) Dependence on Background
+* A.6 Systematic uncertainties for \(\sigma\)(BHT3+coin)
+* C.1 Efficiencies for W\({}^{+}\)\(E_{T}>25\)GeV
+* C.2 Efficiencies for W\({}^{-}\)\(E_{T}>25\)GeV
+* C.3 Acceptance Corrections for W\({}^{\pm}\)\(E_{T}>25\)GeV
+* C.4 Acceptance Corrections for W\({}^{\pm}\)\(E_{T}>25\)GeV
+* C.5 Alternate Total Efficiencies *
+
+## This Page Internationally Left Blank
+
+## Chapter 1 Introduction
+
+Historically, it has long been known that the proton is not a fundamental particle, so it is natural to ask how its observed qualities arise out of its constituents. Although the concept of three relatively-static quarks provides a way to predict the mass, charge, and even decays of hadrons, that picture turns out to be too simple to understand how momentum and spin are carried within the proton. This question falls into the realm of Quantum Chromodynamics (QCD), frequently into regions where traditional perturbative approaches do not apply, and has been the subject of experimental research since the latter half of the twentieth century. Measurements of the spin and momentum structure of the proton provide guidance to help us better understand the strong force at the energy scale most common in the universe.
+
+The Relativistic Heavy Ion Collider fills a unique role in this area, as the only accelerator capable of colliding high-energy, polarized proton beams. In 2009 the collider provided beams at 500 GeV center-of-mass for the first time, making available a new channel for probing the structure of the proton. Using data recorded at the STAR experiment during this first 500 GeV run, this thesis presents measurements of both the polarized and unpolarized production of W-bosons, which can help to constrain the polarization and momentum distribution of the up- and down- antiquarks within the proton. The remainder of this chapter describes the theoretical background of spin physics and the W production channel, along with unpolarized measurements that can be made with the same signal. Chapters two and three discuss the designof the RHIC accelerator and the STAR experiment itself. Chapter four describes the data and their collection, as well as the simulations used in the analysis. Chapter five describes the analysis of the data: the cuts used to extract the W signal, the treatment of irreducible backgrounds, determination of efficiencies, and the assembly of the physics observables from those components. Finally, chapter six compares the unpolarized and polarized measurements to theoretical models and also discusses the future prospects of these measurements.
+
+### 1.1 Proton Substructure
+
+In 1928, the formulation of the Dirac equation allowed theorists to describe the magnetic dipole moment of fundamental particles as a fixed coefficient times their spin. Although this theoretical value, even without higher-order corrections, is fantastically close to the measured magnetic moment of the electron, the proton's is vastly different. It was the observation of this anomalous magnetic moment that focused the theoretical and experimental quest for proton substructure. Murray Gell-Mann's early success was the Eightfold Way, arranging the known hadrons by the numbers of each constituent "quark".1 This new tableau accurately described most decay paths, and an unfilled position correctly predicted the existence of a previously undiscovered hadron. That free quarks were never observed required only that the force binding them together was very strong.
+
+Footnote 1: “quark” is borrowed from James Joyce’s“three quarks for Muster Mark” (Finnegan’s Wake) and stuck quite well, while George Zweig’s “aces”[1] never caught on.
+
+Although this model continued to be successful (winning Gell-Mann the Nobel Prize in Physics in 1969), Deep Inelastic Scattering (DIS) experiments taking place in the latter half of the 1960s were revealing a different picture of electrons scattering off of light, free, point-like particles within the proton2 much as Rutherford scattering showed electrons scattering off point-like, free objects within the atom to identify the nucleus. Based on this, Richard Feynman developed his own theory of proton substructure, with the proton (and all hadrons) made up of effectively free particles he called "partons".
+
+Bound quarks didn't match the scattering results, but free quarks didn't match the simple fact that they were never observed outside of bound states. This disagreement was resolved by quantum chromodynamics (QCD), identifying Feynman's partons as Gell-Mann's quarks and their force mediators the gluons. QCD is in essence a copy of QED, the theory covering photons and electrons, with a triplet of "colors"3 replacing the single electric charge and the added feature that, while photons are electrically neutral, gluons carry color charge and hence can interact directly with one another. This turns out to have dramatic consequences. In QED the strength of the interaction is defined by the coupling constant, \(\alpha\), which gets larger at higher energies (and hence smaller distances). In contrast, QCD's coupling constant, \(\alpha_{s}\), does the opposite. At low energies it is quite large, explaining the existence of strongly-bound states and hence the fact that no free quarks had been observed. At high energies, like those in DIS experiments, the constant becomes very small, explaining the seemingly-free particles seen there.4
+
+Footnote 3: The name was chosen in analogy to light. Stable hadrons are required to be color neutral just as atoms are electrically neutral, meaning either three quarks together (red, green, and blue, making white) or a quark and an antiquark (e.g. red and anti-red, making white)
+
+Footnote 4: This phenomenon of bond strength decreasing at smaller distances is called Asymptotic Freedom, and was discovered by David Gross, Frank Wilczek, and David Politzer in 1973. They received the Nobel Prize for this work in 2004.
+
+#### Parton Distribution Functions
+
+In light of QCD, the proton is a complicated place, where quarks and gluons are constantly interacting, emitting gluons or splitting into quark-antiquark pairs that can radiate further gluons before annihilating again. Despite this chaotic image, the basic conservation of momentum must still hold,
+
+\[p_{\rm proton}=\sum_{i}p_{i} \tag{1.1}\]with \(p_{i}\) corresponding to the momentum of the \(i^{\rm th}\) parton, but rather than the trivial sharing of three static quarks
+
+\[p_{\rm proton}=p_{d}+2p_{u} \tag{1.2}\]
+
+the quarks have a probability distribution for carrying various momenta, and there are more than just three partons. It becomes more natural to refer to the parton distribution function (PDF), the population density of a given type of parton with a fraction, \(x\), of the proton momentum.5 In the infinite momentum frame, where there are no partons with momentum less than zero or greater than the proton momentum, the simple sum rule (eqn. 1.1) becomes
+
+Footnote 5: This is Bjorken \(x\), defined in DIS as \(x=\frac{Q^{2}}{2M\nu}=\frac{-q^{2}}{2q\cdot P}\)
+
+\[1=\int_{0}^{1}dx(\sum_{i}(xq_{\rm i}(x)+x\bar{q}_{i}(x))+xg(x)) \tag{1.3}\]
+
+where \(q_{i}\) and \(\bar{q}_{i}\) terms refer to the quark and antiquark PDFs, and \(g\) is the gluon PDF.6 Quark and antiquark PDFs have been measured in numerous DIS experiments, where a high-energy probe particle (usually an electron) is scattered off a nuclear target (usually at rest). By knowing the momentum and direction of the probe both before and after the collision, it is possible to determine the charge and momentum fraction of the struck quark. Using the data from various targets and beams, the flavor-dependent PDFs can be extracted.7
+
+Footnote 6: A dependency on \({\rm Q}^{2}\), the square of the momentum transfer in an interaction, is suppressed. In its full form, this equation shows that the amount of momentum apparently carried by various partons depends on the resolving power of the probe. Theory predicts, and experiment confirms, a logarithmic \(Q^{2}\) scaling, well described by the DGLAP evolution equations.[2] Still, sanity prevails and, no matter what \(Q^{2}\) is chosen, the sum must always be exactly one.
+
+Footnote 7: Some regions of \(x\), in particular very small \(x\), are difficult to measure experimentally, due to the limitations in electron beam energies and the difficulty in detecting electrons that have scattered at a small angle in respect to the incident beam.
+
+#### Polarized Parton Distribution Functions
+
+In addition to these PDFs, we can write spin-dependent versions, separating the population of each parton into spin-aligned (\(\uparrow\)) and spin-anti-aligned (\(\downarrow\)) with respect 
+
+[MISSING_PAGE_FAIL:21]
+
+\[+x_{1}\leftrightarrow x_{2} \tag{1.7}\]
+
+where \(x_{F}\equiv x_{1}-x_{2}\), \(G_{F}\) is the Fermi coupling constant, and \(\theta_{C}\approx 0.22\) is the Cabibbo angle.9 The \(u+\bar{s}\) contribution is suppressed by \(sin^{2}\theta_{C}/cos^{2}\theta_{C}\approx 0.05\) and is neglected, leaving only two distinct pairings: \(u+\bar{d}\) for W\({}^{+}\) or \(\bar{u}+d\) for W\({}^{-}\):
+
+Footnote 9: An integral \(\int\int dx_{1}dx_{2}\delta(x_{F}-(x_{1}-x_{2}))\) is implied by ‘\(\otimes\)’.
+
+\[\frac{d\sigma}{dx_{F}}(pp\to W^{+}+X)=\frac{\sqrt{2}\pi}{3}G_{F}\frac{x_{1}x_{ 2}}{x_{1}+x_{2}}\otimes\left(cos^{2}\theta_{C}u(x_{1})\bar{d}(x_{2})+x_{1} \leftrightarrow x_{2}\right) \tag{1.8}\]
+
+The equation for W\({}^{-}\) production is the same if we exchange u\(\leftrightarrow\)d.
+
+At RHIC energies the W bosons are produced with very little momentum, and so decay rapidly into various modes. In this paper we select the \(W^{\pm}\to e^{\pm}+\nu(\bar{\nu})\) decay10 (the resulting \(p+p\to W\to e+\nu\) is shown in figure 1-1). Although it has a small branching ratio (BR(\(W\to e\nu\))= 10.8%), and a neutrino that will not be observed, it allows us to take advantage of another feature of the W boson: Maximal parity violation in the weak interaction11 requires that the neutrino in this decay always be
+
+Figure 1-1: The Feynman diagram for p+p\(\rightarrow\)W\({}^{\pm}\)+X\(\to e^{\pm}+\nu(\bar{\nu})\)+X. Unlike most proton-proton interactions, the W channel is only sensitive to \(u+\bar{d}\) and \(d+\bar{u}\) partonic collisions.
+
+generated in a left-handed helicity state12 (right-handed for antineutrinos) and hence imposes the same constraint on the electron. The direction in which the electron is emitted is thus correlated with the W polarization:
+
+Footnote 12: There is an infinitesimal exception that depends on the \(\nu_{e}\) mass and hence couples the left- and right- handed states in different frames.
+
+\[\frac{d\sigma}{d\cos\theta}(W^{\pm}\to e^{\pm}\nu)\propto(1\pm\cos \theta)^{2} \tag{1.9}\]
+
+where \(\theta\) is the angle between the lepton direction and the polarization of the W in its rest frame. Without the neutrino the W itself cannot be reconstructed, but we can see a signature of its mass in the transverse momentum (\(P_{T}\)) of the lepton, which will show a characteristic Jacobian peak (figure 1-2). This peak is a trivial consequence of the change of variables: Neglecting the momentum of the \(W\) itself, the lab-frame \(P_{T}\) is
+
+\[P_{T}=\frac{M_{W}}{2}\sin\theta \tag{1.10}\]
+
+\[\frac{d\cos\theta}{dP_{T}}=\frac{P_{T}}{M_{W}\sqrt{(M_{W}/2)^{2}-P_{T}^{2}}} \tag{1.11}\]
+
+Where \(M_{W}\) is the mass of the \(W\) and \(\theta\) is the angle with respect to the beam (and hence the W polarization vector as well). The cross section can be recast in terms of \(P_{T}\) dependence,
+
+\[\frac{d\sigma}{dP_{T}}=\frac{d\sigma}{d\cos\theta}\frac{d\cos\theta}{dP_{T}} \propto(1\pm\frac{2}{M_{W}}\sqrt{(M_{W}/2)^{2}-P_{T}^{2}})^{2}\times\frac{P_{ T}}{M_{W}\sqrt{(M_{W}/2)^{2}-P_{T}^{2}}} \tag{1.12}\]
+
+The shape of the curve differs depending on charge sign, but it shows a clear rise and peak at \(P_{T}=M_{W}/2\), which is the extremum of the \(P_{T}\) range.
+
+### 1.3 \(\bar{d}/\bar{u}\)
+
+One of the interesting measurements available through W production is the ratio of the PDFs for \(\bar{u}\) and \(\bar{d}\). A cursory glance might suggest that these two should be roughly equal, since they are both produced from the sea through the same QCDprocesses, but this is not the case. The E866 (NuSea) experiment[5] at Fermilab (providing a much clearer picture than the NMC[6] and NA51[7] measurements) measured the ratio by colliding an 800 GeV proton beam on fixed proton or deuterium targets13 and recording Drell-Yan production of muon pairs. By reconstructing the invariant mass of the muon pair they reconstructed the Bjorken-x of each participant quark. Through comparison of the proton and deuterium target results they extracted both \(\bar{d}/\bar{u}\) and \(\bar{d}-\bar{u}\), showing a vastly different behavior (figure 1-3) than expected for a flavor-symmetric sea.
+
+Footnote 13: This corresponds to \(\sqrt{s}\approx 40\), far below the threshold for W production.
+
+#### Theory
+
+There are several ideas that can explain the behavior of this ratio.[8] One of the earliest was proposed by Field and Feynman, who suggested it could be a result of Pauli blocking.[9] Two fermions cannot occupy the same state and, since there are more valence up quarks than down quarks, we should expect that the production of \(u+\bar{u}\) pairs is suppressed where the u would conflict with an existing valence quark. There are multiple arguments that Pauli blocking is too small an effect to account
+
+Figure 1-2: An example of a Jacobian peak in W production, shown with different detector resolutions. In the W rest frame the electron has momentum \(p=M_{W}/2\), which corresponds to a transverse energy spectrum that shows a distinctive peak. (Borrowed from [4]). Detector resolution effects smear out the effect above the endpoint \(P_{T}=M_{W}/2\).
+
+for the large deviation of this ratio from 1.0, but the general idea that the behavior of the ratio is driven by the valence quark asymmetry is used by modern models as well.
+
+Pion-Cloud models are based on the fluctuation of the physical proton into pion-nucleon pairs,14\(p\to\pi^{+}n_{0}\to p\) and other charge states, where the subscript '0' denotes a nucleon with a flavor-symmetric quark sea. Tuning the relative contributions of the various pion fluctuations can bring these theories into good agreement with some integral features of the E866 results, but quantitative agreement is difficult.[10]
+
+Footnote 14: Other mesons also contribute, but the largest contributions to the effect come from pions.
+
+Chiral models are conceptually similar. In these models the valence quarks fluctuate into pions (\(u\to\pi^{+}+d\) or \(d\to\pi^{-}+u\)), producing a quark-antiquark pair of the necessary flavor. Again, since there are more valence up quarks, we expect to see more down and anti-down quarks generated through this process.[11] On its own, the simple chiral model predicts a constant value for the ratio \(\bar{d}/\bar{u}\), needing additional parameters in order to reach decent agreement with the E866 result.
+
+Figure 1-3: E866 Measurement of \(\bar{d}/\bar{u}\), shown with a contemporary model prediction and the NA51 result for comparison, taken from [5]. The disagreement with the earlier result is partially explained by the different \(Q^{2}\) of the two experiments. The E866 data show clear shape at low x, with a distinct enhancement of \(\bar{d}(x)\) over its \(\bar{u}\) counterpart. The uncertainty grows at higher x as a consequence of the small antiquark PDFs in that region.
+
+Instanton models have a different mechanism. The name of the model refers to theoretical quasi-particles in QCD that represent discrete rather than perturbative fluctuations in gauge fields. Quark collisions with instantons produce new \(q\bar{q}\) pairs of a different flavor. Once again, the extra valence up quark drives the \(\bar{d}/\bar{u}\) ratio above unity.[12] Unfortunately this model also predicts that the ratio should continue to increase at large \(x\), which is strongly disfavored by the data.
+
+#### Measuring with W production
+
+None of these theories on its own completely describes the existing data. Here, additional experimental input will provide guidance to the next generation of models. Since W production couples to these quarks directly and exclusively, it has direct access to the ratio, and at very high \(Q^{2}\) compared to fixed target experiments. In terms of \(x_{F}\), we can write the ratio of W\({}^{+}\) and W\({}^{-}\) production as
+
+\[R(x_{F})\equiv\frac{\sigma_{W^{+}}}{\sigma_{W^{-}}}(x_{F})=\frac{d\sigma/dx_{F }\ (pp\to W^{+}+X)}{d\sigma/dx_{F}\ (pp\to W^{+}-X)}=\frac{u(x_{1})\bar{d}(x_{2})+\bar{d}(x_{1})u(x_{2})}{\bar{u} (x_{1})d(x_{2})+d(x_{1})\bar{u}(x_{2})} \tag{1.13}\]
+
+In the forward region, \(x_{F}>>0\) (\(x_{1}>>x_{2}\)), the antiquark PDFs become small, so we can neglect those terms:
+
+\[R(x_{F}>>0)=\frac{u(x_{1})\bar{d}(x_{2})}{\bar{u}(x_{1})d(x_{2})} \tag{1.14}\]
+
+While in the central region, \(|x_{F}|<<1\) (\(x_{1}\approx x_{2}\)), we can make the rather blunt approximation that \(x_{1}=x_{2}\):
+
+\[R(x_{F}=0)=\frac{u(x)\bar{d}(x)+\bar{d}(x)u(x)}{\bar{u}(x)d(x)+d(x)\bar{u}(x)}= \frac{u(x)\bar{d}(x)}{\bar{u}(x)d(x)} \tag{1.15}\]
+
+Various model predictions for \(R(x_{F})\) at RHIC and LHC energies are shown in figure 1-4.[13] Unfortunately, since we cannot measure the neutrino in the W\(\to e\nu\) decay, we cannot uniquely reconstruct \(x_{F}\). The pseudorapidity of the decay lepton, \(\eta_{e}=-\ln\tan(\theta/2)\) is an imperfect proxy, convolving the cross sections above with the angular dependence of the decay. In this case, \(x_{F}\), and hence \(\bar{d}(x)/\bar{u}(x)\) cannot be directly extracted. The resulting \(R(y_{e})\)15 still contains information on the ratio. In particular, a measurement of \(R\) at central rapidities will reduce uncertainty in a region where competing models have large variation.
+
+Footnote 15: \(\eta\) is used for pseudorapidity while \(y\) is the symbol for rapidity. At high energies the two converge, and \(\eta\) is more convenient for discussion of experimental measurement.
+
+### 1.4 \(\Delta\bar{u}\) and \(\Delta\bar{d}\)
+
+Access to up and down quarks and antiquarks in a polarized collider also allows us to measure polarized PDFs, in particular giving more direct access to the antiquark polarizations than is available to other channels. This allows W production to weigh in on the open question on the magnitude of antiquark polarized PDFs: By assuming the sea quarks were approximately unpolarized, Ellis and Jaffe showed that it was
+
+Figure 1.4: Various model predictions for \(R(x_{F})\) and the associated \(R(y_{e})\), shown at \(\sqrt{s}\) of 500 GeV (left) and 14 TeV (right). It is interesting to note that the disagreement between the models at low \(x_{F}\) is dramatically reduced at the higher energy (the scales for \(R(y)\) are shifted to show shape more clearly).
+
+natural to expect that the quarks would carry around 70% of the proton spin.[14] This prediction was soon checked by the EMC experiment, which used polarized muon beams derived from CERN's Sp\(\bar{\rm p}\)S to probe unpolarized and polarized targets. Their measurement (figure 1-5) corresponded to a \(\Delta\Sigma=0.126\pm 0.010\pm 0.015\), significantly smaller than expected, and in more reasonable agreement with the idea that the quarks carry no net spin at all.[15] This result was often called the'spin crisis'16, and there was a corresponding theoretical and experimental rush to find the'missing' spin. Independent methods of measuring \(\Delta\Sigma\) and its components, as well as gluon and orbital angular momentum contributions were needed. A natural question in light of the \(\bar{d}/\bar{u}\) behavior is how the polarized PDFs for these quarks behave.
+
+Footnote 16: “There is a widespread impression in the particle physics community that something is wrong with the spin of the proton”[16]; “The EMC result (if it is true) poses problems for our understanding of proton structure... if [it] had been available in the 1960s we might have abandoned the quark model altogether!”[15], etc.
+
+Figure 1-5: The EMC Spin result for g(1), which stands in stark contrast to the Ellis-Jaffe prediction. This measurement sparked a series of other experimental attempts to find the ‘missing’ spin.
+
+#### Theory
+
+The same models that are used to explain the behavior of \(\bar{d}(x)/\bar{u}(x)\) can also naturally generate various levels of polarization in \(\bar{u}\) and \(\bar{d}\)[17]: Valence \(u\) quarks are known to have a primarily positive polarization, so the Pauli-blocking mechanism will tend to cause \(u\bar{u}\) pairs produced in the sea to have the \(u\) quark polarized opposite this. If such pairs are spin singlets, this will cause \(\Delta\bar{u}>0\), and \(\Delta\bar{d}<0\) by the same reasoning.[18]
+
+For chiral quark soliton and meson cloud models [19] it is possible to generate flavor asymmetries of similar size.17 Various global fits to the available data are shown in figure 1-6.
+
+Footnote 17: In this sense, theoretical efforts have already reduced the ‘crisis’ to a ‘puzzle’, which is the term used more recently to describe research in this area.
+
+#### Measuring with W production
+
+The STAR experiment's standard approach to measuring polarized PDFs is the use of the double spin asymmetry of semi-inclusive final states from QCD interactions,
+
+\[A_{LL}\equiv\frac{\sigma^{++}+\sigma^{--}-\sigma^{+-}-\sigma^{-+}}{\sigma^{++} +\sigma^{--}+\sigma^{+-}+\sigma^{-+}} \tag{1.16}\]
+
+where the superscripts refer to the helicity states of the two protons. For a semi-inclusive hadronic final state Y, from a theoretical perspective this can be factored18 into the convolution of the polarized and unpolarized PDFs (\(\Delta f\),\(f\)), the polarized and unpolarized partonic cross sections (\(\Delta\hat{\sigma}\), \(\hat{\sigma}\)) to various partonic final states, and the fragmentation functions \(D_{f}^{Y}\) describing the probability of that partonic final state producing the chosen hadronic final state Y:
+
+Footnote 18: Despite the heuristic sensibility of this, it is by no means guaranteed that QCD will allow such factorization in general.
+
+\[A_{LL}=\frac{\sum_{f=q,\bar{q},g}\Delta f_{a}\,\otimes\,\Delta f_{b}\,\otimes \,d\Delta\hat{\sigma}^{f_{a}f_{b}\to fX}\,\otimes\,D_{f}^{Y}}{\sum_{f=q,\bar{q },g}f_{a}\,\otimes\,f_{b}\,\otimes\,d\hat{\sigma}^{f_{a}f_{b}\to fX}\, \otimes\,D_{f}^{Y}} \tag{1.17}\]
+
+The relative influence of the various initial states can be tuned by careful choice of final hadronic state but, due to the ambiguous fragmentation functions and wealthFigure 1-6: Various models of the relative polarizations of \(\bar{u}\) and \(\bar{d}\), shown as their difference. The trend toward a \(\Delta\bar{u}\) larger than \(\Delta\bar{d}\) is in qualitative agreement with the phenomenon of Pauli Blocking, and with other mechanisms where sea quark flavor asymmetries are driven by the presence of a second valence \(u\). The red dotted line is the spin-averaged \(x(\bar{d}-\bar{u})\), which shares the same arguments for its shape.
+
+of production mechanisms for partonic final states, in general \(A_{LL}\) measurements are uncertain combinations of all quark and gluon polarized and unpolarized PDFs.
+
+The double asymmetry is required because QCD respects parity (\(\sigma^{++}=\sigma^{--}\), \(\sigma^{+-}=\sigma^{-+}\)). In contrast, W production maximally violates parity, and hence produces nonzero single-spin asymmetries:
+
+\[A_{L}\equiv\frac{\sigma^{++}-\sigma^{--}+\sigma^{+-}-\sigma^{-+}}{\sigma^{++} +\sigma^{--}+\sigma^{+-}+\sigma^{-+}}=\frac{\sigma^{+}-\sigma^{-}}{\sigma^{+} +\sigma^{-}} \tag{1.18}\]
+
+In the second equivalence, the spin of one proton is implicitly summed over. Writing this out in terms of polarized PDFs,
+
+\[A_{L}=\frac{\left(\Delta u(x_{1})\bar{d}(x_{2})-\Delta\bar{d}(x_{1})u(x_{2}) \right)\,\otimes\,\hat{\sigma}\,\otimes\,D_{W}^{Y}}{\left(u(x_{1})\bar{d}(x_{2} )+\bar{d}(x_{1})u(x_{2})\right)\,\otimes\,\hat{\sigma}\,\otimes\,D_{W}^{Y}} \tag{1.19}\]
+
+where \(\hat{\sigma}\) is the production cross section with its dependence on \(x_{1}x_{2}/(x_{1}+x_{2})\), and \(D_{W}^{Y}\) is the function describing the relation between the final observable, Y, and the W properties. For illustrative purposes we consider the case where the W itself is reconstructed (\(D_{W}^{W}=1\)). In analogy to the treatment of \(\bar{d}/\bar{u}\), we look at \(x_{F}\) in various regions and make the same simplifications: for \(x_{F}>>0\), we have \(x_{1}>>x_{2}\), and similar for the reverse. The results are dramatically simple:
+
+\[A_{L}(x_{F}>>0)=\frac{\Delta u(x_{1})}{u(x_{1})}\] \[A_{L}(x_{F}<<0)=\frac{-\Delta\bar{d}(x_{1})}{\bar{d}(x_{1})} \tag{1.20}\]
+
+and for \(|x_{F}|<<0\) we set \(x_{1}=x_{2}\),
+
+\[A_{L}(x_{F}=0)=\frac{\Delta u(x)\bar{d}(x)-\Delta\bar{d}(x)u(x)}{2u(x)\bar{d}( x)} \tag{1.21}\]
+
+The results for \(W^{-}\) simply exchange \(u\leftrightarrow d\).
+
+Once again, without being able to see the neutrino, we cannot reconstruct the W entirely and must use the decay lepton as its proxy:
+
+\[A_{L}^{e^{+}}=\frac{\left(\Delta u(x_{1})\bar{d}(x_{2})-\Delta\bar{d}(x_{1})u(x_{2 })\right)\,\otimes\,\frac{x_{1}x_{2}}{x_{1}+x_{2}}\,\otimes\,(1+\cos\theta)^{2} }{\left(u(x_{1})\bar{d}(x_{2})+\bar{d}(x_{1})u(x_{2})\right)\,\otimes\,\frac{x _{1}x_{2}}{x_{1}+x_{2}}\,\otimes\,(1+\cos\theta)^{2}} \tag{1.22}\]
+
+where \(x_{1}x_{2}/(x_{1}+x_{2})\) is the only portion of \(\hat{\sigma}\) that doesn't directly cancel out, and \((1+\cos\theta)^{2}\) is the equivalent of the fragmentation function. The result is once more smeared out, though the underlying dependence on the polarized PDFs remains, with the heuristic that at forward and backward rapidities the asymmetry is sensitive to the quark and antiquark polarizations individually,19 and at central rapidities the asymmetry samples a combination of the two. Model predictions for the asymmetry as a function of \(x_{F}\) and \(\eta_{e}\) are shown in figure 1-7. In contrast to the ratio measurement, here the more powerful discrimination between theories occurs in the forward and backward directions with respect to the polarized beam.
+
+Footnote 19: The \((1\pm\cos\theta)^{2}\) dependence for \(e^{\pm}\) means that while the sign of \(x_{F}\) correlates with the sign of \(\eta_{e^{-}}\), the relationship is flipped for the positron case.
+
+### 1.5 Summary
+
+The W production mechanism in a polarized collider setting allows us to explore two currently open questions about antiquarks within the proton. Measuring \(\sigma_{W^{+}}/\sigma_{W^{-}}\) will help constrain \(\bar{d}(x)/\bar{u}(x)\), while measuring \(A_{L}\) for \(W^{+}\) and \(W^{-}\) will constrain the polarizations of those antiquarks, in both cases helping guide theoretical understanding of the proton's internal dynamics.
+
+Figure 1-7: DSSV model predictions for \(A_{L}(y_{e})\), shown at \(\sqrt{s}=500\) GeV. These are shown as the solid line with green bands representing uncertainties from the PDFs. For comparison, the asymmetries from the GRSV standard and GRSV valence scenarios are also shown. The light-dotted lines represent the predictions if \(\Delta d/d\) is forced to be \(+1\) at \(x=1\) (the \(x_{0}\) refers to the point where the \(d\) polarization is assumed to cross the x axis).
+
+## This Page Internationally Left BLANK
+
+## Chapter 2 RHIC and Polarized Beams
+
+In order to measure spin asymmetries a polarized beam is needed. In addition to its namesake purpose of colliding heavy ions, the Relativistic Heavy Ion Collider (RHIC) is currently the only accelerator capable of producing high energy beams of polarized protons, and so is currently the only place where the measurements proposed in earlier sections can take place. The accelerator complex (figure 2-1) includes a polarized source, as well as a series of linear and ring accelerators and transition lines before finally feeding into the RHIC ring itself. RHIC has six experimental halls, one at each equally-spaced crossing point of the two beamlines. Located at one of these collision points is the Solenoidal Tracker At RHIC (STAR), where the data for this work were collected.
+
+### 2.1 Generating Polarized Protons
+
+The first stage in the production of RHIC's polarized proton beams is the Optically Pumped Polarized Ion Source (OPPIS), shown in figure 2-2.[20] Gaseous hydrogen is ionized in an Electron Cyclotron Resonance (ECR) cavity and extracted as a few-keV beam. This beam passes through an optically pumped rubidium cell1 where some fraction of the hydrogen ions will pick up electrons. After the cell, charged particles are swept from the beam with electrostatic plates, leaving a neutral H beam with veryFigure 2-1: An overhead view of the RHIC complex layout. The beam is generated at the Polarized H\({}^{-}\) source then accelerated through the LINAC, Booster, and AGS before being transferred to the RHIC ring itself. Throughout this process the spin is maintained by Siberian Snakes and measured by polarimeters. The STAR experiment lies at the 6 o’clock position, flanked by spin rotators that can shift the beam from transversely to longitudinally polarized and back in order to supply the beam orientation needed for longitudinal spin measurements.
+
+high electron polarization. This beam passes through a magnetic field reversal region to transfer the spin from the electron to the proton, and then through a sodium jet vapor cell to produce polarized H\({}^{-}\) ions. Starting with the 99% polarization in the rubidium cell, each stage of OPPIS is designed and tuned to preserve as much polarization as possible. A radio frequency quadrupole accelerates the polarized beam into a 200 MeV LINAC, where the electrons are stripped, leaving the final, transversely polarized proton beam to be fed into the Alternating Gradient Synchrotron (AGS). The OPPIS and LINAC fire at roughly 1 Hz, significantly faster than the 3 second cycle in the AGS. Pulses not sent to the AGS are instead directed to the 200 MeV polarimeter2 for spin monitoring. During the 2009 running, this showed a polarization of about 80%.[21]
+
+Footnote 2: This is a CNI p-Carbon polarimeter similar to those discussed in section 2.3.
+
+### 2.2 Maintaining and Accelerating Polarized Protons
+
+Acceleration to the final energy of 250GeV per beam takes place in two main stages, the first in the Alternating-Gradient Synchrotron (AGS) and the latter in the RHIC ring itself. As a polarized proton travels through the various accelerator stages, it precesses in the magnetic field it experiences. This is described by the Thomas-BMT equation:
+
+\[\frac{d\vec{S}}{dt}=\frac{e}{\gamma m}\vec{S}\times(G\gamma\vec{B}_{\perp}+(1+G )\vec{B}_{\parallel}) \tag{2.1}\]
+
+\(\vec{S}\) is the spin vector of the particle in its rest frame, \(\vec{B}_{\perp}\) is the lab-frame magnetic field perpendicular to the particle's velocity and \(\vec{B}_{\parallel}\) is the corresponding parallel component. \(G\) is the gyromagnetic anomaly of the proton, \((g-2)/2\).
+
+In a collider like RHIC there are imperfections as well as necessary \(\vec{B}_{\parallel}\) terms that will kick the spin vector away from the vertical axis. If the frequency with which a proton encounters that kick matches the spin precession frequency, then the kicks over many thousands of turns will add coherently and the polarization will be lost.
+
+Figure 2-2: A side view of the Optically Pumped Polarized Ion Source (OPPIS)[20]. Traveling left-to-right, protons are generated in the ECR, then passed through the pumped rubidium cell where a portion of the beam will pick up polarized electrons. A spin-spin interaction induced in the Sona field exchanges the polarization of the proton for that of the electron, after which the neutral beam acquires a second electron in a sodium jet. The resulting H\({}^{-}\) beam will be accelerated in the LINAC, stripped of its electrons, and then accelerated across the same potential again.
+
+At higher energies the spread in the spin tune grows larger, making it more likely that some portion of a proton bunch will pass through a depolarizing resonance. It is critical to avoid these resonant conditions, which will be constantly changing during the acceleration of the beam, as much as possible.
+
+The main tool for this is a special magnet called a Siberian Snake.[22] The magnetic field of a 'type-1' Siberian Snake smoothly rotates the transverse component of the proton spin \(180^{\circ}\) (figure 2-3). This flips the transverse spin orientation of the proton, so that on consecutive passes through a storage ring any spin kicks will be the opposite of the kick from the previous pass, averaging to zero. The longitudinal component of the proton spin remains unstable, but this is solved by a 'type-2' Siberian Snake, which flips the spin in the plane of the ring. In the ideal case where the rotation is energy independent, the combination of these two snake types yields a beam that is stable in the \(\vec{B}_{\perp}\) direction.
+
+The Siberian Snakes in the AGS are only partial snakes (a 5% and a 20% "strong" snake), so in that ring the spin rotation is less than \(180^{\circ}\) on each pass. The beam is hence not stable as for the two-snake set up, but the partial rotation is still enough to prevent depolarizing resonances resulting from imperfections, and enough to undergo a complete spin-flip while passing through energy-dependent resonant conditions. The AGS also uses a pulsed RF dipole magnet to mitigate the depolarizing resonances
+
+Figure 2-3: The calculated beam path through a Siberian snake, noting precession about the vertical. (Taken from [23]).
+
+caused by horizontal focusing magnets.
+
+RHIC itself employs two full Siberian Snakes in each ring. Even so, avoiding depolarizing resonances resulting from energy-dependent terms requires careful tuning.
+
+### 2.3 Measuring Polarization
+
+For all polarized physics goals (as well as to verify the behavior of the accelerator) it is important to monitor the polarization of the RHIC beams in situ. The method for this is Coulomb-nuclear interference (CNI), which produces a left-right asymmetry at small values of \(t\) (corresponding to small recoil energy of a stationary target). By measuring the scattering from such a target, the average polarization of the proton beam can be determined.
+
+RHIC uses this effect in two types of polarimeters. The first, called the CNI polarimeter[24], consists of a thin carbon ribbon that can be moved transversely through the proton beam, along with a set of compact detectors to measure the recoil energy of the carbon nuclei. Although the density of the carbon target means a large total cross section, and hence allows a relatively fast (a few minutes) measurement, it also slows the recoiling nuclei and prevents the CNI polarimeter from supplying an absolute measurement of beam polarization. RHIC has a total of four such polarimeters, two in each beam, with some horizontal and some vertical targets in order to measure the beam polarization on multiple axes.[25]
+
+To properly calibrate the analyzing power of the CNI polarimeters, a polarized hydrogen-jet polarimeter is used. The physics behind the measurement is the same but, with a polarized (and very rarified) target, the asymmetry can more easily be related to an absolute polarization. Unfortunately, it takes a great deal longer (several hours) to generate sufficient statistics. A polarization measurement was made at the beginning and end of each fill using the CNI polarimeters. Periodically over the course of the run a fill was dedicated to the h-jet polarimeter so that the CNI could be calibrated. At 500 GeV, the average polarization was roughly 40% in each beam, with a systematic uncertainty of 9.2% for the sum of the two polarizations.[26]
+
+## Chapter 3 The STAR Detector
+
+The STAR experiment itself is a suite of detectors assembled around the 6 o'clock collision point on the RHIC ring. A full description of all these components is beyond the scope of this paper, but pertinent components for the W analysis are the Time Projection Chamber, Barrel Electromagnetic Calorimeter, and Endcap Electromagnetic Calorimeter (figure 3-1). An upgrade to the tracking, the Forward GEM Tracker (appendix B), will also play a role in future measurements.
+
+### 3.1 The Time Projection Chamber
+
+The centerpiece of the experiment and of most physics programs at STAR is the Time Projection Chamber (TPC), which provides charged particle tracking and particle identification at central rapidities up to \(|\eta|\approx 1.4\). It consists of a 4.2 m long, 4 m diameter cylindrical volume filled with P10 gas (90% argon, 10% methane) divided in half by a Central Membrane and instrumented at each end (figure 3-2). The entire device is inside a 0.5 T magnet. As charged particles pass through the chamber they ionize the gas and bend in the magnetic field, producing a curved track.1 A large voltage is maintained between the central membrane and the instrumented ends of the cylinder so that the electrons from the track drift toward the endcaps (and ionstoward the central membrane). The uniformity of the electric field inside the TPC is maintained by electrically separated metal bands in the outer field cage which are kept at a constant voltage by a resistive chain, providing a uniform drift velocity of 5.5 cm/\(\mu\)s for the electrons (and a significantly slower one for the ions). The readout planes themselves are similar in design to multiwire proportional chambers (MWPCs). Each endcap is divided into twelve azimuthal sections each, corresponding to hours on a clock face. These sections consist of a pad plane and several wire planes.
+
+The first layer is the Gating Grid. These wires are either all at the same voltage (open) or alternating voltages (closed) (the resulting electric fields are shown in figure 3-3). To take data the gating grid is opened, and electrons drift through undeflected.
+
+The middle wire layer serves as the ground plane of the TPC drift volume, with the closest wire plane having a voltage large enough to create an amplification region. When the gating grid is open, electron clouds from the original track pass the ground plane and avalanche in the large \(\Delta V\) between these two wire layers. The gating grid is kept open for 40 \(\mu\)s, long enough to allow the electrons from near the central
+
+Figure 3-1: A cut-away view of the STAR detector. The central volume is the TPC, divided into two tracking regions by its central membrane. Around this (darker gray) is the barrel calorimeter (BEMC), matched by the endcap calorimeter (EEMC), the disk on the right side of the image. Outside of the calorimeters are the poletips and the yoke of the solenoidal magnet.
+
+Figure 3.2: The TPC, shown without any other detectors. Charged particles passing through will ionize the P10 gas. The volume is divided in two by the central membrane, which also serves as the cathode for the electric field along which the freed electrons will travel. When they reach one of the endcaps, these electron clouds encounter a much stronger electric field, avalanching and producing a measurable response on sense pads.
+
+membrane to reach the anode plane, and is then closed to minimize the number of ions drifting back across the length of the detector. This timing is the strictest limit on how rapidly events can be recorded.
+
+The signal is read out from the sense pads, which see an induced image current as the electrons from the avalanche are captures on the wires. This signal is divided into time buckets which, using the known drift speed and the position of the pad, measure the three dimensional position through which the original charged particle passed. In reality, translating these position measurements into a picture of the event is somewhat more complicated, for reasons described below.
+
+#### Pile-Up
+
+While the gating grid is open, the collider continues to provide collisions. Ionization from these collisions, as well as from collisions that began drifting before the gate was opened, will all pass through the grid and be recorded. These tracks, not associated with the event for which the gating grid was opened, are referred to as pile-up tracks
+
+Figure 3-3: The Gating Grid states, showing the ‘open’ electric field configuration on the left, ‘closed’ on the right. While open, the grid is nearly electrically transparent. When closed, the majority of charged particles will be unable to pass, though ions very close to the grid when it switches states may leak through.
+
+and are a considerable concern. Since the start time for them is incorrect, these TPC hits will appear offset in z from their true, original positions.
+
+#### Calibrating the TPC
+
+Beyond simply detecting the presence of charged particles, the TPC measures both the energy deposited per unit length (dE/dx) and the momentum of the particles passing through it. The latter measurement hinges upon the ability to accurately reconstruct the direction and the curvature of the tracks. To do this the TPC must be calibrated to account for variations in local fields as well as in the composition of the gas, all of which affect the drift speed and direction. The calibration uses a sample of known-straight tracks provided by illuminating aluminum strips on the central membrane with a laser. Electrons are freed from the strips, resulting in straight lines of charge (matching the aluminum strip geometry) that drift through the TPC like normal tracks. These laser events can be reconstructed to account for the time-dependent variations expected. At low luminosities it might suffice to reconstruct the tracks in time with laser events and correct their curvature to the expected straight lines, but in the 2009 dataset the high luminosity poses several additional challenges to reconstructing tracks in the TPC: Space Charge and Grid Leak.
+
+#### Space Charge and Grid Leak
+
+Both Space Charge and Grid Leak are effects that affect the paths traveled by electron clouds in the TPC. Space Charge is the distortion due to the sum of all the charge drifting toward the cathode and anode, while Grid Leak refers specifically to the charge sheets that escape from the edges of the Gating Grid. In an empty detector, the ionization trail of a single track will drift essentially in a straight line parallel to the beam, but with more and more ionization from other tracks, the electric field in the TPC develops more shape, and the resulting track at the readout plane is altered from the ideal.
+
+In this dataset the combined effects of these two sources of spatially-dependentcharge were large enough that if they are not included in the tracking algorithms, the majority of real tracks will be too distorted to be reconstructed at all. In particular, the field distortions are very large near the radial midpoint of the TPC, where the gating grid geometry has a slight gap in order to preserve the spacing between the grid and the readout plane. Here it is possible for ions from the acceleration region to escape and drift back across the entirety of the TPC, resulting in a cylindrical sheet of charge that at high luminosities is not negligible, along with other features associated with other edges and corners where significant charge can leak out.
+
+Space Charge and Grid Leak are dealt with in an iterative fashion, focusing on sensible physical goals, like minimization of the average distance between the outermost point of tracks in the inner pad rows and the innermost point of tracks in the outer, in combination with agreement of the curvature (and hence measured momentum) of the two segments. In 2009 improvements to this methodology were very successful and, despite the much higher luminosities associated with the 500GeV running, the TPC tracks provided high-fidelity curvature information.
+
+### 3.2 Barrel Electromagnetic Calorimeter
+
+After particles pass through the TPC, they reach the Barrel Electromagnetic Calorimeter (BEMC, or frequently 'Barrel'), a sampling Pb-plastic calorimeter arranged in a cylinder around the tracking volume (figure 3-4) and inside STAR's namesake solenoid. It is divided into 4800 projective towers, 0.05x0.05 in \(\eta-\phi\), covering full azimuth and \(-1<\eta<1\) for the nominal vertex. Each tower is composed of 21 layers of scintillating plastic alternated with 20 layers of Pb, each 5 mm thick, for roughly 20 radiation lengths of material.2
+
+Footnote 2: This is interrupted at a depth of approximately 5 radiation lengths by the Barrel Shower Maximum Detector (BSMD) which provides significantly improved spatial resolution for electromagnetic showers at the cost of energy resolution, and is not used in this analysis.
+
+Particles passing through the BEMC will shed energy through a variety of processes depending on their momentum, with the vast majority of this energy loss taking place in the denser Pb layers. Until charged particles are very low energy the dom Figure 3-4: The BEMC Design, with a schematic view of one of the modules. Each module contains 2x20 towers, two of which are exposed in this view. The alternating layers of Pb and scintillator can be seen, as can the shower maximum detector (BSMD) located roughly 5 radiation lengths in from the front face.
+
+inant mechanism will be bremsstrahlung, the emission of photons as the particles deflect in the atomic electric fields. While the average energy of such photons is very small for heavy particles (\(E_{\gamma}\propto 1/m^{4}\)), for electrons and positrons bremsstrahlung photons carry off a significant portion of the particle's momentum. Photons with more than about 100MeV of energy will pair-produce, dividing their energy into a new electron-positron pair.
+
+The result is an electromagnetic shower where each particle splits its energy between two new particles at each stage until the average energy per particle is below some critical threshold \(E_{C}\approx 7\) MeV, at which point absorptive processes begin to dominate. The development of this shower is characterized by the radiation length, \(X_{0}\), which is the length over which a particle loses 1/e of its energy, and the Moliere radius \(R_{M}\), defined as the radius of the cylinder in which 90% of the shower will fall. For a sampling calorimeter, both of these terms are dominated by the contribution of the Pb layers, which have a \(X_{0}\approx 2\) cm and a \(R_{M}\approx 1.6\) cm (significantly smaller than the tower size).
+
+While the Pb layers drive the formation of the shower, the energy of the particles is sampled by the scintillating layers of the calorimeter. This scintillation light is routed through wavelength shifting fibers to photomultiplier tubes (PMTs) located outside of the STAR solenoid. These sum the light from each layer and produce a proportional current pulse. The ADC value read out is the digitized integral of the peak region of this pulse. From prototype testing, the expected resolution at nominal gain is \(\delta E/E\approx 14\%/\sqrt{E}\oplus 1.5\%\), corresponding to \(\sim\) 3% at the energy scales of W decay leptons.[27]
+
+#### Calibrating the Barrel
+
+Ideally, the BEMC is set so that the highest possible ADC response corresponds to a transverse energy, \(E_{T}\), of 60 GeV. Differences in the individual PMTs or their voltages, however, can dramatically alter the gain of a tower. Normalizing the towers for use in analysis proceeds in two steps, starting with a relative calibration to normalize the responses of each tower to the others, followed by an absolute calibration to determine the actual energy corresponding to a given ADC value.
+
+The relative calibration takes a large sample of events in data with isolated tracks that enter and exit through the same tower. By further requiring that the tower contain the entire shower3, the resulting sample is predominantly minimum-ionizing particles (MIPs).4 The energy spectrum of such showers defines the MIP peak, which should be uniform for a given pseudorapidity, hence each tower in each \(\eta\) ring is scaled so that the MIP peak occurs at the average position for that ring. With the towers normalized with respect to each other, the absolute calibration is done using electrons and positrons. At low energies, these particles can be identified with high confidence using the dE/dx value of their TPC tracks, providing a pure sample of particles with known momentum that will produce purely electromagnetic showers. The E/p distribution of these showers is calculated for each \(\eta\) ring using the nominal gain value and the corrections from the relative calibrations. The reciprocal of this value, modified by a term to account for energy leakage between towers and energy loss between the TPC and the BEMC, will correct each tower so that the E/p ratio is 1.0, as expected for the selected particles. This absolute calibration predominantly samples energies in the \(\sim\)1 GeV range, well below the energies of interest for the W program. A discussion of high-energy corrections can be found in section 4.3.2.
+
+Footnote 3: _i.e._, all neighboring towers show no significant energy above pedestal
+
+Footnote 4: MIP’ refers to the minimum of the Bethe-Bloch equation. Most charged particles (other than electrons and positrons) at STAR will have energies that put them in this range.
+
+The result of the calibration is a table containing the corrected gains for each tower. In 2009 the systematic uncertainty associated with these gains was 1.9%.[28]
+
+### 3.3 Endcap Electromagnetic Calorimeter
+
+The Endcap Electromagnetic Calorimeter (EEMC, or frequently 'Endcap') extends the calorimeter coverage in the forward direction, from \(1.086<\eta<2.0\).[29] Like the BEMC, this detector is projective in \(\eta-\phi\), divided into 60 segments in \(\phi\) and 12 in \(\eta\).5 Since the shape is a disk instead of a barrel, the cartesian size of towers in each subsequent \(\eta\) ring is smaller than the previous, but beyond this difference the overall design is similar (figure 3-5). Each tower consists of 24 layers of plastic scintillator and 23 layers of Pb, interrupted by an SMD at a depth of several radiation lengths. Light from the scintillator layers is routed to the back of the STAR solenoid's poletip where it is mixed and fed to PMTs, with the resulting current pulse integrated to form the ADC response of that tower.6 The design energy resolution for the endcap is comparable to the barrel, \(\delta E/E\approx 16\%/\sqrt{E}\oplus 2\%\).
+
+Footnote 6: In addition to the sum of all layers in a tower, the energy deposited in each of the first two scintillator layers is measured separately, as is the last layer of scintillator. This allows some additional discrimination between photons, electrons, and hadrons based on where their showers begin and end.
+
+Figure 3-5: The EEMC Design, with a schematic view of one of the modules. The endcap is divided into sixty \(\phi\) slices (half as many as the barrel), with twelve \(\eta\) divisions. The layered construction is similar to the barrel, though the SMD is based on plastic scintillators rather than the barrel’s wire chambers.
+
+#### Calibrating the Endcap
+
+Unlike the BEMC, a significant portion of the EEMC lies beyond the useful range of the TPC tracking. Without being able to extrapolate tracks out to the endcap, it is impossible to isolate a MIP sample for calibration. Instead, a broader sample is used for the EEMC tower spectra. As with the relative calibration for the BEMC, it is assumed that the shapes of these spectra above pedestal should be the same for each \(\eta\) ring, so the scaling procedure is analogous. An absolute calibration is more complicated, since without tracking no other measure of momentum is available. This limits the accuracy of the Endcap energy response, which can only be scaled to the assumed nominal gain. It was possible to verify the stability of the absolute gain over time by comparing the previously mentioned slopes in different portions of the 2009 500GeV run. Discrepancies in the slopes were tracked to improper timing settings, resulting in the ADCs integrating over the wrong portion of the PMT current pulses. The EEMC gains for these were corrected back to the slopes during the correctly- timed part of the run.[30] The use of the EEMC data in this analysis is not strongly energy dependent, limiting the impact of the choice of absolute gain.
+
+[MISSING_PAGE_EMPTY:52]
+
+## Chapter 4 Data
+
+STAR took its first 500 GeV physics data from mid-March to mid-April in 2009, with an average polarization per beam of 38% and 40%. During this, as is the case with all modern collider experiments, a wealth of interesting collisions is buried under an overwhelming number of uninteresting ones. Since data bandwidth is finite, a triggering mechanism is always needed to rapidly filter out clearly uninteresting events from the datastream, effectively enriching the stream in a particular class of interesting events. For the W program at STAR, this was accomplished in two stages, referred to as L0 and L2.
+
+### 4.1 Triggering and Data Streams
+
+Pelled after every bunch crossing, a series of FPGAs collect the ADC of every BEMC tower and forward the largest response onward. The L0 trigger (called "Barrel High Tower 3", or BHT3) fires when the most energetic single tower has an \(E_{T}\geq 7.3\) GeV.1 Events that pass this requirement will be recorded, meaning the TPC will be read out.
+
+Footnote 1: Since this is done during the data collection, it predates the calibration of the barrel and hence is computed with nominal gains. In terms of the properly-calibrated gains this threshold will have a small spread around the nominal value.
+
+At this point, the bottleneck for recording has already been committed to, and data from the detectors can be assembled into a more complete picture of the event.
+
+The BHT3 trigger will be predominantly QCD events with energies around the threshold energy. W decay events will be included, but vastly outnumbered. In order to maintain a nimble dataset, a second requirement ("Level 2 Barrel W" or L2W) is applied by searching the BEMC towers for 2x2 patches,2 with one tower \(E_{T}>5\) GeV and the sum of all four towers having \(E_{T}\) greater than 13 GeV. This is well below the expected energy distribution for W decays, but reduces the amount of QCD background. Events that pass this additional requirement are sent to a special data stream, allowing the W analysis to focus on a relatively small sample compared to the total data recorded during the run.
+
+Footnote 2: A 2x2 patch of towers is the smallest cluster that will necessarily contain the vast majority of an electron’s energy even in the worst case.
+
+### 4.2 Absolute Luminosity
+
+For the cross section measurement,3 the total integrated luminosity of the overall dataset is needed This is determined by an analysis of the random-accept L2W triggers, which are an unbiased sample of BHT3 triggers. By imposing the BHT3+coincidence condition (see appendix A) on these events, we can count the populations in three categories: Events that occur when two filled bunches collide, events that occur when the yellow beam is absent, and events that occur when the blue beam is absent. The abort gaps give a measure of how many single-beam background events we expect, so we can remove that from the number of good BHT3+coincidence events:
+
+Footnote 3: and also to normalize certain background contributions
+
+\[N_{\rm BHT+coin}=\left(N_{\rm BHT+coin}^{\rm raw}-\frac{110}{8}(N_{\rm Gap1}+N _{\rm Gap2})\right)\times\frac{P_{\rm BHT3}}{f_{\rm det}} \tag{4.1}\]
+
+where \(N_{\rm BHT+coin}\) is the corrected number of BHT3+coincidence events, \(N_{\rm BHT+coin}^{\rm raw}\) is the number found in the data, \(N_{\rm Gap1}\) is the number that occurred during the first abort gap (and similar for the second), \(P_{\rm BHT3}=50\) is the prescale factor on random accepts (the L2W trigger automatically accepted every 50th BHT3 trigger), and \(f_{\rm det}\) is the fraction of the BEMC working during that run. The 110/8 factor scales the number of abort gap events found in the abort gaps to the number of _non_abort gap bunches. The total integrated luminosity is
+
+\[\int\mathcal{L}=\sum N_{\text{BHT+coin}}/\sigma_{\text{BHT3+coin}}=11.41\pm 0.037 \pm 13\% \tag{4.2}\]
+
+which is shown as a function of day in figure 4-1.
+
+### 4.3 Simulation
+
+Although simple kinematic arguments give a heuristic way to separate W-like events from QCD-like ones, in order to develop quantitative cuts to select these events we need a sample of known Ws. Since the decay is well understood, it is reasonable to use simulated W decays from the Pythia Monte Carlo package, with a geant simulation of STAR mocking up the detector response.4 Such events can be used to tune the initial algorithm and get rough estimates of the efficiency of each step. They
+
+Figure 4-1: The running integrated luminosity by day. The integral for each individual day is the difference between consecutive bins.
+
+[MISSING_PAGE_FAIL:56]
+
+model the primary sources of non-QCD contamination in the signal region. There is an additional weighting term that applies to the \(W\rightarrow\tau\nu\) sample. Due to limitations of the PYTHIA generator, \(\tau\to e\nu\nu\) decays were treated as unpolarized,5 which underestimates the background by a factor of \(1.5\pm 0.15\) for both charge states.[31]
+
+Footnote 5: Versions of PYTHIA more recently available have a more sophisticated treatment of \(\tau\) decay but here a correction must be put in by hand.
+
+#### High \(E_{t}\) Calibration
+
+Although the electron calibration of the BEMC provides an absolute reference point at the \(\sim 1\) GeV scale, this provides little guidance on the behavior of the towers' higher-energy response. At W-scale energies the electron selection criteria used for that study no longer discriminate against other charged particles. Additionally, the uncertainty from the TPC tracking grows with transverse momentum, making that
+
+Figure 4-2: Reweighting of Monte Carlo data by instantaneous luminosity and vertex-z distribution. On the right is the histogram of instantaneous luminosity for data (black), uncorrected \(W^{-}\to e^{-}+\bar{\nu}\) simulation (red) and corrected (blue). The left shows the second normalization stage, comparing the distribution of the z-position of the reconstructed vertex for data (black), simulation with luminosity correction (red) and simulation with both corrections (blue). The same procedure is repeated for all simulation samples. Note that the absolute normalization is not fixed at this stage; only the change in shape is important.
+
+[MISSING_PAGE_FAIL:58]
+
+## Chapter 5 Identifying W Events
+
+The L2W data are enriched in W\(\rightarrow\)e+\(\nu\) events compared to the entire dataset, but they are by no means dominated by them. Through cuts, we exploit the kinematical and topological differences between these decays and the predominantly QCD-generated background. Schematically, W\(\rightarrow\)e\({}^{+}\nu\) will produce a high-energy electron track, and opposite that in \(\phi\) a high-energy neutrino that will escape the detector undetected. In these events the beam remnant is unlikely to have enough transverse momentum to deposit energy in the calorimeters and so we can characterize this as an isolated electron-like track with a large amount of missing transverse energy due to the neutrino (figure 5-1). Although QCD events will occasionally produce electrons (or high-\(P_{T}\) particles that cannot be distinguished from them), the vast majority of these will be embedded in a jet. Similarly, the majority of QCD interactions will result in reasonably balanced total \(P_{T}\) (figure 5-2). Exceptions to these generalizations are dealt with in the background section. The following sections describe the steps involved in building potential W candidates and are divided into three steps: Identifying the Primary Vertex, selecting isolated electron candidates emanating from that vertex, and selecting W-like events from those containing isolated electrons.
+
+Figure 5-1: A sample W-Like event taken from data. The TPC shows a single high-\(P_{T}\) track that emanates from the beamline and reaches the BEMC, matching a large energy deposition in the towers there (tower height corresponds to energy deposited). The event is distinctly unbalanced, suggesting the presence of a neutrino, though it is possible that the missing transverse energy was emitted at a pseudorapidity outside the TPC and BEMC coverage.
+
+Figure 5-2: A sample Jet-Like event taken from data. In contrast to the W-like event in figure 5-1, this shows multiple tracks leading to energy depositions in the BEMC, with a similar cluster of jets and tracks opposite the candidate in azimuth. Neither shower is compact or isolated enough to suggest a single energetic electron, nor is there an indication of missing transverse energy.
+
+#### Vertex
+
+Starting with the L2W sample, the first step in the reconstruction of an event is locating the position in the detector where the collision (and hence W decay) occurred, the Primary Vertex. The algorithm that does this work is called the Pile-up Proof Vertex finder (PPV).[32] Although the full workings of the algorithm are beyond the scope of this thesis, some basic methods can be described: Recall that the TPC volume is populated with tracks from events occurring within roughly 200 crossings before and after the event that fired the trigger. In order to determine which of these tracks correspond to particles in the current event, PPV performs numerous checks: Tracks that cross the Central Membrane are given high confidence since only in-time tracks can do this. Similarly, tracks that are matched to energy depositions in the barrel or endcap calorimeters are given high confidence, since they can be read out for individual bunch crossings.
+
+The primary vertex is defined by a beamline constraint that defines the x(z) and y(z) positions of the beams as they pass through STAR1 and a likelihood function that takes the weighted Z positions of all global tracks extrapolated back through this line (with a tolerance of 3cm). The weights depend on the number and distribution of TPC hits associated with the track and a multiplier for the high confidence tracks listed above. The likelihood as a function of z will peak sharply where multiple tracks cross, indicating a possible vertex.
+
+Footnote 1: The beamline constraint is determined by a less-constrained fit to the entire dataset, since the beam paths are fixed features of the collider.
+
+The likelihood of these vertices being associated with the triggered event is characterized by a 'rank' value. Primary vertices with a negative rank are likely from pile-up events and are rejected from the analysis at this point. The remainder of events have either single tracks emanating from the vertex, or more than that, these populations distinct in figure 5-3. Additionally, to keep the events reasonably contained in STAR, the Z position of the reconstructed primary vertex is required to be within one meter of the center of the detector. For the majority of triggered events, only one such vertex will exist.(The distributions for simulation and data can be seenin figure 5-4)
+
+#### Selecting Lepton Candidates
+
+Each primary vertex (usually just one per event) is associated with a set of tracks that emanate from it. For a W\(\rightarrow\)e\(\nu\) event, we expect one of the resulting particles to have two features: It is high-energy, and thus will have a high-momentum track, and it's an electron (or positron) and thus will have a compact, energetic shower where it strikes the calorimeter. In order to have high confidence in the track, we look only at successful track fits that use the primary vertex position as well as TPC hits, and impose several additional requirements2:
+
+Footnote 2: These requirements are modified for TPC sectors where inner or outer padrows were not active for some portion of data taking, sectors 4, 11, and 15 had modified inner radii requirements and sectors 5 and 6 had modified outer radii.
+
+* The number of TPC hits associated with the track must be greater than 15 (\(N_{\rm TPC~{}hits}>15\))
+* More than half of the possible TPC hits must be associated with the track (\(N_{\rm TPC~{}hits}/N_{\rm possible}\geq 0.51\))
+
+Figure 5-3: The distribution of PPV vertex ranks found in W\({}^{-}\) MC and data. On the left is the initial distributions, and the right the distributions for events that pass all W selection criteria.
+
+* The innermost TPC hit associated with the track must occur in the inner half of an inner TPC sector (\(R_{\rm first}\leq 90.0\)cm)
+* The outermost TPC hit associated with the track must occur in the outer half of an outer TPC sector (\(R_{\rm last}\geq 160.0\)cm)
+* The track must not be in sector 20 of the TPC, due to a bad calibration in that sector.
+
+These requirements discard very few events (as seen in figure 5-5), though they limit the range of pseudorapidity of the candidates, since events too far forward or backward (missing the barrel in either case) will exit through the ends of the TPC before they've reached its outer radius, and hence will not leave signals in enough pad rows to survive.
+
+An addition to these track quality requirements, we also impose the first cut, discarding tracks that have \(P_{T}<10\) GeV. This is well below the momentum expected for a W decay, but is chosen to remove low-\(P_{T}\) background without approaching the momenta at which the resolution of the TPC is diminished. The remaining tracks are extrapolated to the barrel to identify where the associated shower should be, with cuts on the energy depositions in the barrel to ensure it's consistent with an isolated, energetic electron (figure 5-6).
+
+Figure 5-4: The number of good vertices per event in W\({}^{-}\) MC and data.
+
+Figure 5-5: The distribution of various track parameters in data, and the quality cuts imposed on them. In all cases, the cuts remove small numbers of events.
+
+For an electromagnetic shower, the expected Molire radius in the BEMC is approximately 1.6 cm, much smaller than the size of a barrel tower. Even in the event that a particle strikes a corner of a tower, this would still put the entirety of the shower in a 2x2 cluster of towers. To cover this worst-case scenario, we locate the most energetic such cluster, with the caveat that the log-\(E_{T}\)-weighted centroid of the cluster must lie within 7 cm of the extrapolated track. This requirement balances the desire to have precise matching with the limited spatial resolution of the towers: Showers contained in a single tower will have a centroid at the exact center of that tower regardless of where it strikes, so long as it is sufficiently far from the edges. The logarithmic weighting emphasizes smaller energies with the realization that there is an exponential fall-off in energy transverse to the shower. Figure 5-7 shows a histogram of the distance between cluster and track for W candidates.
+
+We require that the summed transverse energy of this tower cluster is greater than 15 GeV, in line with the expectation of a highly-energetic electron. We also require that this be a narrow shower, and hence that the amount of energy in this 2x2 cluster be at least 95% of the energy in the 4x4 cluster centered on it (figure 5-8). This cut also discriminates against electron candidates that are part of hadronic jets.
+
+To further remove electrons associated with jets the sample is also required to pass a nearside jet energy cut. We construct the total nearside \(E_{T}\) as the sum of all transverse energy depositions in barrel or endcap towers within a cone of radius 0.7 in \(\eta,\phi\) space, centered on the candidate track, adding the transverse momentum from tracks3 (with the exception of the candidate track itself) inside that same radius.4 The \(E_{T}\) in the 2x2 candidate cluster must be more than 88% of the total nearside \(E_{T}\), corresponding to candidates not surrounded by a jet. The placement of the cut Figure 5-6: A schematic view of track-cluster matching with the various cut features. The candidate track is the red line, struck towers are marked green (small \(E_{T}\)) or yellow (large \(E_{T}\)) for illustration. The candidate track is extrapolated out to the front face of the BEMC and matched to the tower it should have struck. The most energetic 2x2 cluster of towers including this struck tower is selected (smaller black square), with the shower centroid required to be within 7 cm of the track. The energy in the 2x2 must be at least 95% of the energy in the 4x4 cluster (larger black square) centered on that. Additionally, the candidate 2x2 energy must be at least 88% of the total energy from all towers and all other tracks inside a cone of radius 0.7 (blue circle and lines). In reality, the radius is roughly 14 towers. Note that this radius can include endcap as well as barrel towers. For this event, the large deposition in the 4x4 will likely cause it to fail the cuts.
+
+Figure 5-8: The shower narrowness (ratio of 2x2 to 4x4 cluster energy) spectrum in data (left) and simulation (right). The cut requires that 95% of the 4x4 energy be within the 2x2 tower cluster belonging to the candidate, corresponding to a narrow electromagnetic shower.
+
+Figure 5-7: The distance from track to cluster centroid, for clusters with summed \(E_{T}\) of at least 15GeV. The distribution for data is on the left, and the \(W^{-}\) embedded simulation distribution is on the right, with the algorithm’s 7cm limit drawn in red. Very few W events are expected to be lost in this cut.
+
+can be seen in figure 5-9.
+
+#### Selecting W candidates
+
+At this point the only events that remain in our sample have isolated charged tracks leading to electron-like showers in the barrel. In a hermetic detector the remaining cut would be to look at missing energy as the signature of an escaping neutrino. Since STAR is not hermetic, we cannot strictly apply a cut on missing energy. The proxy for a minimum missing energy in this analysis is the Signed \(P_{T}\) Balance cut5.
+
+Footnote 5: The variable might be more aptly named \(P_{T}\)_Im_balance since larger values correspond to less-balanced events.
+
+Schematically, we wish to sum the transverse momentum of every particle emanating from the primary vertex and compare this to the direction of the lepton candidate from the previous section. For jet events a significant amount of energy may be in the form of neutral particles, so tracks alone will not suffice. Here we use a jet-finding algorithm to assemble tracks and struck towers into jets. The transverse momentum vectors of each jet are summed together with the electron candidate to
+
+Figure 5-9: The spectrum of nearside Jet Energy in data (left) and simulation (right), after earlier cuts have been applied. This cut requires that more than 88% of the jet energy be within the 2x2 tower cluster belonging to the candidate, strongly discriminating against candidates that seem to be part of a larger jet structure. The simulation distribution shows that we expect very little extra jet energy for W-like events.
+
+[MISSING_PAGE_FAIL:70]
+
+Figure 5-10: The construction of the \(P_{T}\) balance variable for an imagined event. The jet-finder collects all tracks and \(E_{T}\) depositions in towers into some number of jets, shown as the orange circles. All resulting \(P_{T}\) vectors (orange arrows) outside the nearside cone defined earlier (blue circle) are summed and added to the candidate \(P_{T}\). The resulting vector is projected onto the candidate direction to produce the \(P_{T}^{\rm balance}\) variable, a measure of how lopsided the event is.
+
+Figure 5-11: The spectrum of \(P_{T}\) balance vs candidate \(E_{T}\) in data (left) and simulation (right). We reject any events with \(P_{T}\) Balance \(<\) 15 GeV, strongly discriminating against events with visible away-side components. Events with no away-side appear at the \(P_{T}\) Balance = \(E_{T}\) line. In these plots all earlier cuts have already been applied.
+
+Figure 5-12: The yield of W candidates after each step of the algorithm, without separating \(W^{+}\) and \(W^{-}\). The left shows the number of events surviving preliminary cuts, while the right shows the \(E_{T}\) spectrum for the W selection cuts, with the growing prominence of the Jacobian peak clearly visible.
+
+Figure 5-13: Charge separation in data. The left plot shows \(Q/P_{T}\) for all good primary tracks. The right shows the same distribution as a function of the reconstructed cluster \(E_{T}\) for events that survive all cuts, in both cases demonstrating good charge separation. The red lines show an additional cut imposed on this value in the asymmetry analysis, which is more sensitive to misidentified charge.
+
+Figure 5-14: The charge separated yield of the W algorithm, shown for \(W^{+}\) on the left and \(W^{-}\) on the right. The yields from the two simulation samples are normalized to the integrated luminosity in the data and shown with their respective signals for comparison.
+
+### 5.1 Irreducible Backgrounds
+
+Although the cuts described in the previous section heavily favor W events, the identified signal region still has background contamination. This contamination can be grouped into two categories, electroweak decays and QCD processes. The former types will contain actual high-energy electrons, with either an inherent missing energy, or an effective missing energy due to the limited coverage of STAR calorimetry. The latter will contain electron-like (though not necessarily electron) objects, with an away-side jet that escapes the detector sufficiently to pass the \(p_{T}\) balance cut. The raw yield of the W algorithm contains: Good W events, other electroweak decays where disqualifying energy is outside of \(-1<\eta<2\) or not present, and QCD events where disqualifying energy is outside of \(-1<\eta<2\) or otherwise lost.6
+
+Footnote 6: Neutrons, for instance, will have no TPC track and do not usually shower in the electromagnetic calorimeter, so can look like ’missing energy’
+
+#### Missing Endcap
+
+Perhaps the most obvious way to estimate and remove some of this background is to exploit the symmetric nature of the collision. As described in chapter 3, the STAR detector is not symmetric in pseudorapidity, its endcap calorimeter covering only roughly \(1<\eta<2\) on the _positive_ side of the barrel. Background events where away-side jet energy in the endcap causes them to be rejected by the W algorithm should occur in equal number in the other direction in \(\eta\), where the lack of calorimetry allows them to survive. Dividing into four segments in the \(\eta\) of the candidate lepton, we compare the nominal W yield to the same yield calculated without using the endcap (figure 5.15). The difference between these two yields is the number of events in each \(\eta\) bin that fail because of the endcap. By flipping this distribution (\(\eta\rightarrow-\eta\)) we produce the approximate number of events that would have failed in a fictional second endcap, which can be subtracted from the raw yield, extending the \(\eta\) range for background exclusion to \(-2<\eta<2\).
+
+Figure 5-15: The effect of the Endcap on W Yield, shown for W+. The yield vs \(E_{T}\) in each \(\eta\) bin is computed twice, once with the endcap excluded (left), and again with it included (middle). The difference (right) in the yield shows the number of events that were vetoed because of energy deposited in the endcap. The effect of the endcap is unsurprisingly stronger in the positive \(\eta\) bins, which are close enough that their nearside cones (as in figure 5-9) will extend into it.
+
+#### Electroweak Backgrounds
+
+The two main contributions to electroweak backgrounds have been identified as W\({}^{\pm}\rightarrow\tau\) (BR(\(W\rightarrow\tau\nu\))\(\approx\)11% and, e.g. BR(\(\tau\to e\nu\))\(\approx\)18%) and \(Z\to e^{+}e^{-}\) (BR(\(Z\to e^{+}e^{-}\))\(\approx\)3.4%) with an escaping electron. In both cases we expect surviving lepton candidates to have some structure of their own (figure 5-16).
+
+The embedded samples of these events are passed through the W analysis cuts, after which each is corrected for its own Missing Endcap term, then scaled to the total integrated luminosity of the data. For \(W^{+}\), this yields an expected \(5\pm 1\) events from \(W\rightarrow\tau\) and \(13\pm 1.5\) events from Z decays (for \(W^{-}\) this is \(0.2\pm 0.1\) and \(14\pm 1.6\), respectively). The sum is shown vs lepton \(\eta\) in figure 5-17. The uncertainties on these terms are taken to be statistical, with an additional systematic factor from the Michel spectrum correction (section 4.3.1). After subtracting this from the W yield, the only significant type of background events expected are QCD interactions where the energy that would make it fail to survive the W algorithm falls outside of \(-2<\eta<2\).
+
+Because these are scaled to the integrated luminosity measured above, the expected W yields inherit a systematic uncertainty equal to the luminosity uncertainty
+
+Figure 5-16: The \(E_{T}\) spectrum of electroweak backgrounds. Both show signs of structure, rather than the falling background expected in QCD, though the peaks are skewed from the expected \(W\to e\nu\) Jacobian peak.
+
+of 14%. The handling of this is described below (section 5.1.4), and due to cancelation between two effects, the resulting systematic is relatively small.
+
+#### QCD Backgrounds
+
+It is possible to simulate the QCD jet spectrum and subtract the result from the W yield as was done for the electroweak backgrounds above, but this would introduce many new dependencies on uncertain values (jet energy scale, functional forms). In order to avoid this the QCD background is determined by analyzing the data. Inverting the \(P_{T}\) balance cut described earlier (section 5.0.5) but maintaining the rest of the W algorithm cuts, we produce a sample of QCD events with isolated, energetic, electron-like jets that have a balancing away-side jet (figure 5-18). We expect that the \(P_{T}\) spectrum of these candidates is roughly the same regardless of the \(\eta\) of the away-side deposition, so that they can be used as a proxy for background events where the second jet falls outside of the eta range described by the calorimeters. Once again we repeat the procedure to correct for the missing endcap.
+
+To normalize this background contribution, we isolate the low \(P_{T}\) range (15-19 GeV, inclusive), subtract away the (small) number of expected W and Z events in this range drawn from W simulation, and scale the data-driven \(P_{T}\) spectrum so that it matches the remainder in that bin. To gauge the uncertainty in this shape the level of the cut is varied across a wide range (\(\pm\)10 GeV in 1 GeV steps from the nominal value of 15), and a series of normalization windows are used ([15,17],[15,19],[15,21]) for a total of sixty different background shapes. The extrema in each \(P_{T}\) bin are taken to be the systematic uncertainty bounds. (figure 5-19)
+
+#### Background-Subtracted Yields
+
+After removing these background estimations from the algorithm yield, we're left with the yield from W decays alone. Figure 5-20 shows these in comparison to the yields from the simulated \(W^{+}\) and \(W^{-}\) samples scaled to the measured integrated luminosity. The dependence on the integrated luminosity that is introduced into Figure 5-17: The \(E_{T}\) spectra of electroweak backgrounds for the different \(\eta\) bins. The process for correcting for the ‘Missing Endcap’ is identical to the data yield. The distributions have been scaled to the integrated luminosity of the data.
+
+the yields by the W and Z simulation samples is dealt with by repeating the entire procedure with the yield shifted up and down by 14%, the results of which can be seen in table 5.1.4, which shows a relatively small effect.
+
+### 5.2 Reconstruction Efficiency
+
+In order to go from the background subtracted yield in data to the number of W events that are represented by that yield, the efficiency of the various reconstruction steps must be known. We can estimate this by comparing the yield from the simulated W sample to the initial generated quantities in a single expression, \(\epsilon_{\rm reco}\), but in order to understand the systematic uncertainties that are involved it is more convenient to factor the overall reconstruction efficiency into pieces:
+
+\[\epsilon_{\rm reco}=\epsilon_{\rm trigger}\times\epsilon_{\rm vertex} \times\epsilon_{\rm track}\times\epsilon_{\rm cuts} \tag{5.1}\]
+
+Figure 5.18: The algorithm yield for a flipped \(P_{T}\) balance cut. On the left is the familiar spectrum of \(P_{T}\) balance vs candidate \(E_{T}\) in data, while on the right is the \(E_{T}\) yield of the events kept in this new flipped version. We reject any events with \(P_{T}\) Balance \(>15\)GeV, removing all \(W\to e\nu\) events and leaving only events where an isolated electron candidate
+
+Figure 5-19: The data-driven background spectra for the nominal normalization (thicker line) as well as the maximal and minimal. These bounds are taken to be the largest and smallest values found in the set of 60 normalization schemes.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|c|} \hline  & \multicolumn{3}{|c|}{\(W^{+}\) shift} & \multicolumn{3}{|c|}{\(W^{-}\) shift} \\ \(\eta\) & (nom.) & \(-14\%\) & \(+14\%\) & (nom.) & \(-14\%\) & \(+14\%\) \\ \hline \(-1.0<\eta<-0.5\) & 70.3 & -0.051 & 0.051 & 20.9 & -0.053 & 0.053 \\ \(-0.5<\eta<0.0\) & 100.7 & -0.046 & 0.046 & 23.3 & -0.186 & 0.186 \\ \(0.0<\eta<0.5\) & 121.0 & -0.451 & 0.451 & 14.7 & -0.010 & 0.010 \\ \(0.5<\eta<1.0\) & 80.8 & -0.279 & 0.279 & 26.7 & -0.049 & 0.049 \\ \hline \end{tabular}
+\end{table}
+Table 5.1: The dependence of the background-corrected yields on the assumed integrated luminosity. The numbers shown are the number of events gained or lost by shifting the luminosity by the labeled value. This shift occurs in two parts, first in the subtraction of electroweak backgrounds from the signal region, then again because of the subtraction in the region used to normalize the QCD data-driven term. The ‘nom.’ column shows the total background-subtracted yield in that bin for comparison.
+
+Figure 5.20: The W yields vs \(\eta\) after subtracting the Missing Endcap, Electroweak, and Data-driven QCD backgrounds, shown with the scaled MC. The error bars do not contain the statistical uncertainty from the \(W\to\tau\) corrections.
+
+Each term in this expression, from left to right, is a conditional efficiency on events that have survived the previous's requirements, and is treated individually.7 In this analysis, we calculate the total efficiency for \(W\to e\nu\) without imposing a cut on the lepton's true \(P_{T}\).8 An alternate efficiency calculation for \(W\to e\nu\) with \(P_{T}^{e}>25\) GeV (and associated acceptance correction) is found in appendix C.
+
+Footnote 7: Although individual statistical uncertainties are shown for illustration, the final statistical uncertainty will not be the result of these in quadrature, since the terms are highly correlated.
+
+Footnote 8: For the plots shown, we also require the lepton be within \(-1<\eta<1\), in agreement with the four \(\eta\) bins used.
+
+#### Trigger
+
+The trivial zeroth step of the W reconstruction is to select only events that pass the L2W trigger. For the simulation this was done by simulating the L0 and L2 triggers in software. From the embedding sample we see an average efficiency of \(0.85\pm 0.017\) for \(W^{-}\) decays and \(0.86\pm 0.014\) for \(W^{+}\). Both stages of the trigger are essentially energy thresholds, hence the efficiency is expected to be dependent on the \(E_{T}\) of the candidate (as seen in figure 5-21).
+
+The systematic uncertainty in the trigger efficiency was determined by shifting the gains in the simulation up and down by the gain uncertainties described previously (section 3.2.1), while also shifting the nonlinear term by its own uncertainty (both in the same direction to create the largest shift in energies). This results in a shift of \(\pm 0.01\) in the lower \(P_{T}\) ranges that unsurprisingly drops to zero at higher \(P_{T}\). Conservatively, we apply this as a \(\pm 0.01\) systematic uncertainty to all bins. The efficiency values are listed in table 5.2.1.
+
+#### Vertex
+
+The next component of the efficiency calculation is the vertex-finding efficiency for events that pass the trigger. The requirement is loose, counting any found vertex within the vertex cut described earlier (section 5.0.3) as a successful reconstruction 
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline \(\eta\) range & \(W^{+}\)\(\epsilon_{\rm trig}\)\(\pm\) stat. & \(W^{-}\)\(\epsilon_{\rm trig}\)\(\pm\) stat. \\ \hline \(-1.0<\eta<-0.5\) & \(0.81\pm 0.030\) & \(0.82\pm 0.033\) \\ \hline \(-0.5<\eta<0.0\) & \(0.89\pm 0.027\) & \(0.91\pm 0.036\) \\ \hline \(0.0<\eta<0.5\) & \(0.87\pm 0.026\) & \(0.86\pm 0.034\) \\ \hline \(0.5<\eta<1.0\) & \(0.81\pm 0.029\) & \(0.79\pm 0.031\) \\ \hline \(-1.0<\eta<1.0\) & \(0.86\pm 0.014\) & \(0.85\pm 0.017\) \\ \hline \end{tabular}
+\end{table}
+Table 5.2: Efficiency of the L0+L2W trigger for simulated \(W\) events as a function of lepton \(\eta\). A 1% systematic uncertainty is applied to all bins.
+
+Figure 5.21: Trigger efficiency as a function of \(\eta\) and generated lepton \(P_{T}\) in simulated \(W^{+}\) and \(W^{-}\) decays. The difference in shapes is caused primarily by differences in the thrown spectra for the two decay types.
+
+for that event.9 The average efficiency across all \(-1.0<\eta<1.0\) is \(0.92\pm 0.019\) for \(W^{-}\) decays and \(0.92\pm 0.016\) for \(W^{+}\). Here we expect the largest contribution to be from luminosity dependence, which is already accounted for by the reweighting applied to the simulation samples.
+
+Footnote 9: This is countered by a stricter tracking requirement that matches the track to the known direction of the decay in simulation.
+
+#### Tracking
+
+For events with primary vertices, the tracking efficiency is defined as the fraction of events where the reconstructed track is within 0.1 in \(\eta-\phi\) of the simulated decay, and where that also can be successfully extended into the barrel. The average efficiencies here are \(0.77\pm 0.018\) for \(W^{-}\) decays and \(0.77\pm 0.014\) for \(W^{+}\). As seen in figure 5-23, there is no significant \(\eta\) or \(E_{T}\) dependence (as measured by the candidate's 2x2 tower sum), which is appropriate for tracks that are effectively straight. For the quality requirements imposed on the track, there is a drop off in efficiency at high track \(P_{T}\), which sensibly suggests that tracks with measured \(P_{T}>100\) GeV are likely to have problems with their fit (figure 5-24).
+
+As seen in that figure, the reconstructed track \(P_{T}\) distributions in simulation and data (in both cases for events that pass all algorithm cuts) don't match the data particularly well outside of the peak region. These discrepancies may be due to QCD contamination in the data, but a conservative approach is to treat this as a systematic bias in the simulation. Reweighting so that the \(1/P_{T}\) distributions match
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline \(\eta\) range & \(W^{+}\)\(\epsilon_{\rm vert}\pm\) stat. & \(W^{-}\)\(\epsilon_{\rm vert}\pm\) stat. \\ \hline \(-1.0<\eta<-0.5\) & \(0.94\pm 0.037\) & \(0.94\pm 0.040\) \\ \hline \(-0.5<\eta<0.0\) & \(0.91\pm 0.029\) & \(0.92\pm 0.038\) \\ \hline \(0.0<\eta<0.5\) & \(0.92\pm 0.029\) & \(0.91\pm 0.038\) \\ \hline \(0.5<\eta<1.0\) & \(0.91\pm 0.034\) & \(0.92\pm 0.039\) \\ \hline \(-1.0<\eta<1.0\) & \(0.92\pm 0.016\) & \(0.92\pm 0.019\) \\ \hline \end{tabular}
+\end{table}
+Table 5.3: Vertex-finding efficiency for simulated \(W\) events as a function of lepton \(\eta\). Vertices outside of the \(|Z|<100\)cm range are discarded as in the analysis of the data.
+
+Figure 5-22: Vertex-finding efficiencies for simulated \(W^{+}\)(left) and \(W^{-}\)(right) shown as a function of \(\eta\), \(P_{T}\), and z of the simulated vertex.
+
+lowers the overall tracking efficiency by 3%, which is taken as the dominant systematic uncertainty for this term.
+
+#### Cuts
+
+The remainder efficiency from the series of cuts10 is collected as a single term, \(0.83\pm 0.021\) for \(W^{-}\) decays and \(0.76\pm 0.016\) for \(W^{+}\) The energy fraction cuts should be relatively independent of the total shower energy for electrons in the Jacobian peak. We do, however, expect to see energy dependence in the \(P_{T}\) balance cut and especially in the 25 GeV threshold. The cumulative efficiency of these cuts can be seen in figure 5-25. Once again, the energy dependence suggests that the largest systematic effect will be from variation in the BEMC gains. Varying the gains and the nonlinear term up and down by their respective uncertainties shifts the efficiency by about 3%, which is taken as the systematic associated with this value.
+
+Footnote 10: These are: 1) track matches to cluster centroid, 2) 4x4 cluster energy is mostly in the 2x2 center, 3) most of the jet energy in a cone of 0.7 around the candidate is in the candidate itself, 4)\(P_{T}\) balance \(>15\) GeV in the direction of the candidate, and 5) \(P_{T}>25\) GeV.
+
+#### Total Efficiency
+
+The systematic uncertainties from the preceding sections are added in two groups. The trigger and cuts uncertainties are added linearly, since both stem from uncertainties in the gains. This term and the systematic uncertainty from the tracking efficiency are added in quadrature, since they are independent. The total efficiency
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline \(\eta\) range & \(W^{+}\)\(\epsilon_{\rm track}\pm\) stat. & \(W^{-}\)\(\epsilon_{\rm track}\pm\) stat. \\ \hline \(-1.0<\eta<-0.5\) & \(0.74\pm 0.032\) & \(0.75\pm 0.035\) \\ \hline \(-0.5<\eta<0.0\) & \(0.74\pm 0.025\) & \(0.75\pm 0.034\) \\ \hline \(0.0<\eta<0.5\) & \(0.77\pm 0.027\) & \(0.77\pm 0.036\) \\ \hline \(0.5<\eta<1.0\) & \(0.72\pm 0.0Figure 5-23: Track reconstruction efficiencies for simulated \(W^{+}\)(left) and \(W^{-}\)(right) shown as a function of \(\eta\), \(P_{T}\), and z of the simulated vertex.
+
+Figure 5-24: The treatment of the tracking QA systematic. Since the QA requirements are designed to exclude events with poor fit conditions, it is natural to expect the efficiency of these requirements (left) to be low at small \(1/P_{T}\) (corresponding to \(P_{T}\sim 100\)GeV). The concern is that the track \(1/P_{T}\) distributions (center) for events that pass all algorithm cuts in data (black) and simulation (red) do not agree. Since background types found in the data may have a different \(P_{T}\) distribution than the simulated pure \(W^{-}\) decays, this may not indicate any bias. However, the background events cannot be separated from the W signal, so the conservative approach is to treat the discrepancy as a source of systematic uncertainty. Reweighting by the ratio of data/simulation (right) shifts the efficiency of the QA component of the tracking from 0.93% to 0.90%. This \(\sim 3\%\) shift is taken as the systematic uncertainty on the overall tracking efficiency.
+
+Figure 5-25: The total efficiency of all cuts beyond the tracking requirements for simulated events that have passed to that point. \(W^{+}\) simulation is on the left and \(W^{-}\) is on the right, shown as a function of \(\eta\), \(P_{T}\), and \(z\) of the simulated vertex.
+
+for the W algorithm, with associated uncertainties, is shown in table 5.2.5.
+
+### 5.3 Cross Sections and Ratio
+
+The preceeding sections are arranged to roughly follow the form the final W cross section is written in:
+
+\[\sigma_{pp\to W^{\pm}\to e^{\pm}\nu}(\eta)=\frac{1}{L_{\rm tot}}\frac{1}{ \epsilon_{\eta}^{\rm tot}}(N_{\eta}^{\rm data}-N_{\eta}^{\rm background}) \tag{5.2}\]
+
+Using the measurements described in this chapter, we can write the charge-separated cross sections, (shown in \(\eta\) bins in figure 5-26). The systematic error is calculated by summing the systematics linearly into two terms, \(\sigma_{\rm bg}\) for the contributions from electroweak and QCD background, and \(\sigma_{\rm eff}\) for the contribution from the efficiencies. These two terms are added in quadrature to produce the final uncertainties. The scale uncertainty of 14% from the integrated luminosity itself is kept separate.
+
+#### Charge Ratio
+
+In addition, we can form the ratio of these values, which is directly sensitive to the \(\bar{d}/\bar{u}\) ratio described in section 1.3. This has the advantage of eliminating the sizable normalization uncertainty from the measurement of the integrated luminosity.
+
+\[\frac{\sigma_{W^{+}}}{\sigma_{W^{-}}}(\eta)=\frac{(\epsilon_{W^{+},\eta}^{\rm tot })^{-1}(N_{W^{+},\eta}^{\rm data}-N_{W^{+},\eta}^{\rm background})}{(\epsilon_{ W^{-},\eta}^{\rm tot})^{-1}(N_{W^{-},\eta}^{\rm data}-N_{W^{-},\eta}^{\rm background})} \tag{5.3}\]
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline \(\eta\) range & \(W^{+}\)\(\epsilon_{\rm tot}\)\(\pm\) stat. \(\pm\) syst. & \(W^{-}\)\(\epsilon_{\rm tot}\)\(\pm\) stat. \(\pm\) syst. \\ \hline \(-1.0<\eta<-0.5\) & \(0.39\pm 0.018\pm 0.026\) & \(0.47\pm 0.022\pm 0.031\) \\ \(-0.5<\eta<0.0\) & \(0.45\pm 0.018\pm 0.030\) & \(0.56\pm 0.025\pm 0.037\) \\ \(0.0<\eta<0.5\) & \(0.49\pm 0.018\pm 0.032\) & \(0.51\pm 0.024\pm 0.034\) \\ \
+
+### 5.4 Single-Spin Asymmetry
+
+The remaining physics observable is \(A_{L}\), the single-spin asymmetry that scales with various combinations of polarized and unpolarized PDFs. Using equation 5.2, for each charge state we can write:
+
+\[A_{L}\equiv\frac{\sigma_{+}-\sigma_{-}}{\sigma_{+}+\sigma_{-}}=\frac{1}{P}\frac {N_{+}^{\rm data}/(L_{\rm tot,+}\epsilon^{\rm tot})-N_{-}^{\rm data}/(L_{\rm tot,-}\epsilon^{\rm tot})}{N_{+}^{\rm data}/(L_{\rm tot,+}\epsilon^{\rm tot})+N_{ -}^{\rm data}/(L_{\rm tot,-}\epsilon^{\rm tot})} \tag{5.4}\]
+
+where \(P=40\%\) is the average polarization across the data, and '\(+\)' and '\(-\)' refer to the helicity state of the polarized proton.11 Instead of dividing the data into \(\eta\) bins, it is grouped into the four possible orientations of the two proton helicites (++,+\(-\),\(-\)+,\(-\)\(-\)), with the same algorithm applied to cut away background.
+
+Footnote 11: At RHIC, both protons are polarized, allowing us to perform this measurement twice, in effect. In each case, one beam is taken to be polarized and the polarization states of the other are summed together.
+
+The efficiencies are independent of the spin orientation of the protons, but since the intensity of each proton bunch in the collider differs, we may have subtle shifts in integrated luminosity by spin state that must be corrected to prevent a false asymmetry. The BHT3+coincidence trigger defined and quantified in appendix A does not have the statistical power necessary for this task. However, since the absolute
+
+Figure 5.26: The measured cross sections for W boson production. \(W^{+}\) simulation is on the left and \(W^{-}\) is on the right, shown as a function of \(\eta\). The 14% systematic uncertainty from luminosity is not shown.
+
+normalization will cancel out of the asymmetry, we can select any spin-independent12 final state. The relative luminosity monitor chosen is a set of events disjoint with the W signal:
+
+Footnote 12: We will sum over one of the spin states, and so are actually free to select any interaction that depends on both spins, since these will average out.
+
+* The event must pass the L2W trigger.
+* The ratio of 2x2 to 4x4 tower \(E_{T}\) must be _below_ 0.95, the opposite of the W requirement.
+* The 2x2 tower \(E_{T}\) must be _below_ 20GeV, again disjoint from the W analysis.
+
+The yields, and hence relative luminosities, are shown in table 5.4.
+
+Using the relative luminosities for each state, we define the relative cross section for each charge state, \(M_{+-}=N_{+-}^{\rm data}/L_{+-}^{\rm rel.}\) (and similar for the other three helicity states), and simplify:
+
+\[A_{L}^{\rm blue}=\frac{\sigma_{++}+\sigma_{+-}-\sigma_{-+}-\sigma_{--}}{\sigma _{++}+\sigma_{+-}+\sigma_{-+}+\sigma_{--}}=\frac{1}{P_{\rm blue}}\frac{M_{++}+ M_{+-}-M_{-+}-M_{--}}{M_{++}+M_{+-}+M_{--}} \tag{5.5}\]
+
+The asymmetry taking the yellow beam as polarized is similar:
+
+\[A_{L}^{\rm yellow}=\frac{\sigma_{++}-\sigma_{+-}+\sigma_{-+}-\sigma_{--}}{ \sigma_{++}+\sigma_{+-}+\sigma_{-+}+\sigma_{--}}=\frac{1}{P_{\rm yellow}} \frac{M_{++}-M_{+-}+M_{-+}-M_{--}}{M_{++}+M_{+-}+M_{--}} \tag{5.6}\]
+
+In the limit where the polarizations of each beam are the same, we can define the
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline blue beam & yellow beam & \# of & rel. lumi \\ helicity & helicity & QCD events & error=\(1/\sqrt{N}\) \\ \hline + & + & 2467 & \(1.022\pm 0.020\) \\ \hline + & - & 2357 & \(0.976\pm 0.020\) \\ \hline - & + & 2383 & \(0.987\pm 0.020\) \\ \hline - & - & 2450 & \(1.015\pm 0.020\) \\ \hline \end{tabular}
+\end{table}
+Table 5.6: Relative Luminosities for the different spin states, taken from QCD events.
+
+average polarization:
+
+\[A_{L}^{\rm ave}=\frac{\sigma_{++}-\sigma_{--}}{\sigma_{++}+\sigma_{+-}+\sigma_{-+ }+\sigma_{--}}\approx\frac{2}{P_{\rm blue}+P_{\rm yellow}}\frac{M_{++}-M_{--}}{M _{++}+M_{+-}+M_{-+}+M_{--}} \tag{5.7}\]
+
+Rather than define this in terms of the background-subtracted yields (which would introduce the uncertainty from the QCD background from multiple disjoint samples), we decompose this into the various signal and background contributions to the asymmetry in the unsubtracted algorithm yields, \(A_{L}^{\rm raw}\) :
+
+\[A_{L}^{\rm raw}=f_{W\to\tau}A_{L}^{W\to\tau}+f_{\rm endcap}A_{L}^{\rm endcap }+f_{Z}A_{L}^{Z}+f_{\rm QCD}A_{L}^{\rm QCD}+f_{W\to e}A_{L}^{W\to e} \tag{5.8}\]
+
+where \(A_{L}^{X}\) is the single spin asymmetry for the events from the various components of the yield, as described in section 5.1, and \(f_{X}\) is the estimation of the fraction of the total events from that component.
+
+* \(A_{L}^{W\to\tau}\) is taken to be equal to \(A_{L}^{W\to e}\), since they have the same production mechanism.13 Footnote 13: The \(\tau\) decay gives this term a different \(\eta_{e}\) distribution, and so it samples a different Bjorken x distribution than \(W\to e\), but this is treated as a negligible effect.
+* \(A_{L}^{Z}\) will sample different PDFs and may be large. From Rhicbos simulations, with phase-space cuts resembling the algorithm's requirements, this was computed to be \(A_{L}^{Z}=-0.06\). The sensitivity to this is limited since \(f_{Z}\) is not very large.
+* \(A_{L}^{\rm QCD}\) is taken to be zero both because QCD parity-violating terms are small and because the use of QCD events as relative luminosity will tend to cancel their contribution.
+* \(A^{\rm endcap}\) contains contributions from QCD backgrounds, but also some number of Z events. From the embedding samples the populations of W and Z events that contribute to the'missing endcap' background can be computed. This results in an estimation of 30% of the endcap yield from Z events, and \(<10\%\) from W decays. The effective \(A_{L}\) for this term is \(A^{\rm endcap}=0.3\times A_{L}^{Z}=-0.02\)The background subtraction procedure is used to determine the size, \(f\), of each of these contributions as a fraction of the total signal sample, and equation 5.8 is inverted.
+
+\[A_{L}^{W}=\frac{A_{L}^{\rm raw}-(f_{\rm endcap}A^{\rm endcap}+f_{Z}A_{L}^{Z}+f _{\rm QCD}A_{L}^{\rm QCD})}{1-f_{\rm endcap}-f_{Z}-f_{\rm QCD}} \tag{5.9}\]
+
+Due to limited statistics, the terms used in the above are summed across \(-1<\eta_{e}<1\), with the resulting luminosity-corrected yields and background fractions shown in table 5.4.
+
+#### Behavior of the Asymmetry
+
+To verify the behavior of \(A_{L}\), three additional constructions are made from these terms.
+
+\[A_{LL}=\frac{1}{P_{\rm blue}P_{\rm yellow}}\frac{M_{++}-M_{+-}- M_{-+}+M_{--}}{M_{++}+M_{+-}+M_{-+}+M_{--}} \tag{5.10}\] \[\epsilon_{5}=\frac{M_{+-}-M_{-+}}{M_{+-}+M_{-+}}=\frac{A_{L}^{ \rm ave}(P_{\rm blue}-P_{\rm yellow})}{1-A_{LL}P_{\rm blue}P_{\rm yellow}}\] (5.11) \[\epsilon_{6}=\frac{1}{P_{\rm blue}+P_{\rm yellow}}\frac{M_{++}- M_{--}}{M_{++}+M_{--}}=\frac{A_{L}^{\rm ave}}{1+A_{LL}P_{\rm blue}P_{\rm yellow}} \tag{5.12}\]
+
+Removing the \(A_{LL}\) terms from the others, they reduce to \(\epsilon_{5}^{\prime}=A_{L}^{\rm ave}(P_{\rm blue}-P_{\rm yellow})=0\) and \(\epsilon_{6}^{\prime}=A_{L}^{\rm ave}\), providing three orthogonal checks on the sensibility of the asymmetry terms. These, in addition to the single-spin asymmetries listed above (equations 5.5 - 5.7) are shown for the two charge states in figure 5-27, corrected for contamination
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline term & \(W^{+}\) value & \(W^{-}\) value \\ \hline \(M_{++}\) & 76\(\pm\)8.7 & 24\(\pm\)4.8 \\ \(M_{+-}\) & 94\(\pm\)9.8 & 23\(\pm\)4.8 \\ \(M_{-+}\) & 89\(\pm\)9.5 & 31\(\pm\)5.6 \\ \(M_{--}\) & 103\(\pm\)10.1 & 24\(\pm\)4.8 \\ \hline \(f_{\rm endcap}\) & 0.027\(\pm\)0.008 & 0.068\(\pm\)0.022 \\ \(f_{Z}\) & 0.013\(\pm\)0.004 & 0.046\(\pm\)0.014 \\ \(f_{\rm QCD}\) & 0.028\(\pm\)0.008 & 0.066\(\pm\)0.021 \\ \hline \end{tabular}
+\end{table}
+Table 5.7: Summary of terms used to compute \(A_{L}\). Uncertainties shown are statistical only.
+
+from background sources of asymmetry in the same fashion as equation 5.9.
+
+The dominant systematics come from uncertainties in the unpolarized background fraction, and the \(A_{L}\) seen from polarized background. The unpolarized systematic is taken from the systematic uncertainty on the data-driven background propagated to the final \(A_{L}\) value, while the polarized systematic is gauged by selecting a new signal region with the following cuts:
+
+* \(E_{T}\) in the 2x2 tower cluster must be greater than 95% of the \(E_{T}\) in the 4x4 surrounding it. (Disjoint from the relative luminosity monitor events)
+
+Figure 5-27: The measured asymmetries W boson production. The first three columns show the asymmetry when taking the blue beam or yellow beam as polarized, as well as the average of those two. The remaining three measure the double-spin asymmetry (expected to be zero), a consistency check, and a value that should be approximately the average of the two beam \(A_{L}\) values. The details of the various measurements are discussed in the text. \(W^{+}\) is on the left and \(W^{-}\) is on the right.
+
+* The candidate must fail the nearside or \(P_{T}\) balance cuts. (Disjoint from the signal events)
+* The 2x2 cluster \(E_{T}\) must be 13GeV\(<E_{T}<\)20GeV. (Disjoint from the signal events)
+
+The \(A_{L}^{\rm{ave}}\) term from this set is taken to be the systematic uncertainty from polarized background contributions to each charge sign. These contributions are summarized in table 5.4.1. The resulting \(W^{\pm}\) single-spin asymmetries are:
+
+\[A_{L}^{W^{+}}=-0.207\pm 0.102({\rm stat.})\pm 0.030({\rm syst.}) \tag{5.13}\]
+
+\[A_{L}^{W^{-}}=0.03\pm 0.21({\rm stat.})\pm 0.027({\rm syst.}) \tag{5.14}\]
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline source & \(W^{+}\) value & \(W^{-}\) value \\ \hline CNI polarization & 0.25 & 0.13 \\ Unpolarized background & 0.020 & 0.008 \\ Polarized background & 0.023 & 0.026 \\ \hline
+**all backgrounds** & **0.030** & **0.027** \\ \hline \end{tabular}
+\end{table}
+Table 5.8: Summary of systematic uncertainties for \(A_{L}\), written as the absolute shift in that variable.
+
+## Chapter 6 Interpretation and Discussion
+
+Although both relate to the breaking of the flavor symmetry in the quark sea of the proton, the polarized and unpolarized results described in the previous chapter probe different aspects of proton models.
+
+### 6.1 Cross Sections and Charge Ratio
+
+The first measurements considered in this analysis were the spin-independent cross sections and their ratio, presented as a function of the \(\eta\) of the decay lepton. Figure 6-1 shows the cross sections compared to several model predictions. The measured values and theoretical predictions are in good agreement overall, with the statistical uncertainties too large to discriminate between individual theory curves beyond the hint that the GRV model may predict antiquark PDFs that are too large1 in \(x\sim 0.15\). In order to improve this result and constrain these models, a larger dataset would be needed, but as the figure shows, the uncertainty stemming from the absolute normalization of the luminosity is already the limiting factor for the \(W^{+}\) measurement. This emphasizes the need for more precise vernier scan measurements in order to continue to reduce overall uncertainties. The ratio of these two cross sections (figure 6-2) conveniently removes the dependence on this absolute scale, so the systematic uncertainties are much smaller. Again, the current dataset shows good coarse agreement with the models, not yet at the precision necessary to provide significant constraints.
+
+### 6.2 Spin Asymmetry
+
+Like the ratio measurement, the single spin asymmetries are freed from the luminosity systematic uncertainties, but these inherit instead a similarly-sized uncertainty from the measurement of the polarization. The results (figure 6-3) show good agreement with the various model predictions, but also display a slight decrease in the absolute value of the measured asymmetry. Indeed, compared to the STAR result published in Physical Review Letters [33],
+
+\(A_{L}^{W^{+}}=-0.273\pm 0.097(\mathrm{stat.})\pm 0.025(\mathrm{syst.})\)
+
+\(A_{L}^{W^{-}}=0.14\pm 0.19(\mathrm{stat.})\pm 0.023(\mathrm{syst.})\),
+
+we see a large apparent shift of \(\sim 0.6\times\sigma\) in both cases. The dataset used in this thesis is a subset of the PRL dataset, approximately 10% smaller. Since it is not
+
+Figure 6-1: The measured values of the cross section for \(W^{+}\) and \(W^{-}\) shown alongside various theoretical predictions. Here the error bars reflect the systematic and statistical uncertainties in quadrature, with the grey bars showing the 14% scale uncertainty from the luminosity calculation.
+
+Figure 6-2: The measured values of the ratio for \(\sigma_{W^{+}}/\sigma_{W^{-}}\) shown with various theoretical predictions. The overall agreement is very good, though significantly more data will be needed in order to discriminate between various models.
+
+possible to impose a spin-dependent loss of data without invoking conspiracy, we must take this as a statistical fluctuation (born out by the fact that the cross sections above are in agreement with the data), further highlighting the need for larger datasets.
+
+### 6.3 Discussion
+
+Overall, the measurements laid out in this section show good agreement with the various theoretical predictions and do not, themselves, significantly impact the various global fits whose current uncertainties encourage STAR's W program. Nevertheless,
+
+Figure 6.3: The measured values of \(A_{L}\) for \(W^{+}\) an \(W^{-}\) shown alongside various theoretical predictions. With the total sampled luminosity the measurement cannot distinguish between the models, though the overall agreement supports the validity of the method.
+
+the analysis presented here shows the ability to calibrate the STAR detector reliably in the high-luminosity, high-pileup environment of 500 GeV collisions, and also to reconstruct a charge-separated W signal reliably at central rapidities.
+
+The dataset used represents a small fraction of the total integrated luminosity envisioned for this measurement. Indeed, STAR has recently taken an additional 80 pb\({}^{-1}\) of 500 GeV data with higher average polarization (50% per beam) that can be expected to reduce the statistical uncertainties for these measurements by more than a factor of two, even in the absence of further algorithm improvements.
+
+#### Future Improvements
+
+Clearly, a main future prospect is the collection and analysis of a significantly larger dataset. That sample will open up the Z channel (very sparsely populated with the current integrated luminosity) both for polarized and unpolarized measurements. Additionally, with a larger sample, Z production will become a way of verifying the high-\(P_{T}\) response of the calorimeters through reconstruction of its peak (similar to the W calibration used here) or through direct reconstruction of the two electrons. In addition to the improvement in statistical power, the W selection criteria could be improved by using the Barrel Shower Maximum Detector (BSMD) to reduce the significant irreducible background in the form of highly-collimated hadron jets.
+
+More tantalizing, for the purposes of the two asymmetries presented here, is to expand the measurement's reach in pseudorapidity. To this end, an upgrade to the STAR detector, the Forward Gem Tracker (FGT) has been proposed and is under construction.2 It is discussed in greater detail in appendix B.
+
+Footnote 2: The ATLAS Collaboration is a collaboration with the ATLAS detector at the LHC, with the ATLAS detector at the LHC, with the ATLAS detector at the LHC.
+
+[MISSING_PAGE_EMPTY:102]
+
+## Appendix A BHT3+coincidence Cross Section
+
+For cross section measurements, two terms are needed: the yield of the chosen events, and the integrated absolute luminosity of the collisions. In a beamline, Wall Charge Monitors (WCMs) can measure the number of protons in each bunch, but their transverse distribution must also be known to establish the absolute luminosity. For fixed target experiments, this is usually accomplished by sweeping a narrow target across the beam at the interaction point. For collider experiments, it is not practical to move a target into the interaction region. Instead, the vernier1 method [35] is used. This allows us to determine the absolute cross section for a modified version of the BHT3 trigger that feeds the W analysis, which in turn is used to measure the integrated luminosity of the dataset.
+
+Footnote 1: The method was devised originally by Simon van der Meer in 1968.[34] The exact evolution from “van der Meer” method to “vernier” is open to interpretation.
+
+### A.1 Collider Luminosity
+
+The luminosity for colliding beams is defined to be the overlap integral of the transverse particle density of each beam. For bunched beams we perform the the z-integral over the length of a bunch and leave two two-dimensional gaussians representing the
+
+[MISSING_PAGE_FAIL:104]
+
+with \(\mathcal{L}_{0}\) defined as before (A.3).
+
+### A.2 Deriving trigger cross section from vernier scan
+
+In a vernier scan, the position of one of the beams is deliberately altered while data is being taken. The rate at which a given trigger fires is the luminosity multiplied by the cross section for that trigger, so (if the assumption of gaussian beams holds) it will have the shape described in eqn. A.6:
+
+\[R(\Delta x,\Delta y)=\sigma_{event}\,\frac{Kf_{rev}}{2\pi\sigma_{x}\sigma_{y }}\,\times e^{-\Delta x^{2}/2\sigma_{x}^{2}}\;e^{-\Delta y^{2}/2\sigma_{y}^{2 }}+C_{0}\] (A.7)
+
+where
+
+\[\sigma_{x(y)}^{2}\equiv\sigma_{1,x(y)}^{2}+\sigma_{2,x(y)}^{2}\] (A.8)
+
+The fit deals with the gaussian widths only as the sum of squares without loss of generality, since they always appear in that form. \(C_{0}\) is a constant background rate representing all effects that do not come from the interaction of the two beams. In the absence of other luminosity-dependent effects (e.g. trigger deadtime), fitting this function to the rates observed is sufficient to extract the widths and the cross section, \(\sigma_{trig}\).
+
+### A.3 Selecting a trigger condition
+
+A trigger must be defined in order to apply the equations developed above. Although they can be applied to any uniformly-defined trigger, it is important to note that the procedure does not take into account background rates that differ as a function of beam position, and requires that deadtime in the trigger be uniform during the runs used to measure the trigger cross section. Hence, a good trigger to use as a luminosity should have a demonstrably position- and rate-independent background, or low background rates overall. It should also have minimal intrinsic deadtime.
+
+To fulfill these requirements a coincidence requirement was imposed on top of the bare Barrel High Tower 3 (BHT3) trigger, resulting in significant reduction of the \(C_{0}\) term in the fit, as well as improvement of the presumed gaussian shape (discussed later) of the measured rate. The "BHT3+coin" trigger locates the trigger patch with the highest ADC in the event, then adds the ADCs from all trigger patches 10 or more patches away in azimuth (fig. A-1). The summed away-side ADC must be greater than or equal to 98. The selection of both the opening angle and the threshold is described in section A.6.
+
+### 4 Determining the BHT3+coin cross section
+
+Two vernier scans were taken at STAR during \(p+p\) collisions at \(\sqrt{s}\) of 500GeV in 2009. To minimize effects from STAR deadtime during these, only fast detectors were read out. The total event rate was approximately 30 Hz. For each scan, the value of K (eqn. A.4) is computed by summing the products of the total charge of each RF bucket in the RHIC ring. There are two ways to measure the beam currents at RHIC. The first is the Direct Current-Current Transformer (DCCT), which provides a precise measurement of the total current in the beam, but cannot distinguish individual buckets. The second is the Wall Charge Monitor (WCM), which provides total charge measurements for individual buckets. The latter drifts slowly over time, but can be corrected by comparing the sum of all buckets from the WCM with the DCCT measurement at the beginning of a store, when the amount of unbunched current is negligible. The K factors results using the WCM values corrected by DCCT are shown in Table A.1. The format from the RHIC database uses the native indices of each beam. Since the \(i\)th yellow bunch does not collide with the \(i\)th blue bunch at the STAR interaction point in this indexing, the correct offset must be applied. Explicitly, the formula for K at STAR becomes:
+
+\[K_{STAR}=\sum_{i=0}^{i<120}N_{blue,i}\times N_{yellow,(i+80)\%120}\] (A.9)
+
+The value of \(f_{rev}\) is 78.2kHz, computed either as the the speed of light divided by the circumference of the RHIC ring or the RHIC clock frequency divided by the number of possible bunches, 120.
+
+The BHT3+coin event rate is extracted from the data by histogramming the timestamps of the BHT3 events that fulfill the additional coincidence requirement.
+
+The position of the beam as a function of time in each scan is reported by the Collider-Accelerator Department C-AD) in the form of positions and timestamps. The pattern can be broken up into four sections (table A.2 lists positions for all steps):
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline run & \(K\) \\ number & ions\({}^{2}\)\(\times 10^{21}\) \\ \hline
+10097097 & 1010 \\
+10103044 & 908 \\ \hline \end{tabular}
+\end{table}
+Table A.1: K-values in the vernier scan runs.
+
+1. beam is swept from (0,0) in the +x direction (steps 1-7).
+2. from (0,0) in the -x direction, then returned to zero (steps 8-15).
+3. from (0,0) in the +y direction (steps 16-22).
+4. from (0,0) in the -y direction, then returned to zero (steps 23-30).
+
+Consecutive timestamps are roughly 35 seconds apart, or slightly longer for the returns to zero. The beam is in motion for the first few seconds, and then is stationary for the remainder.
+
+Since the times of these steps are recorded by a different clock than the STAR DAQ, the two sets must be aligned. This is done by trying all reasonable offsets between the two3 and selecting the one that maximizes the change in event rates across each return to (0,0).
+
+Footnote 3: ‘Reasonable’ is defined to be any offset that still leaves the first and last steps of the scan within the limits of the run
+
+Once the two sets are aligned, the BHT3+coin event rate is integrated over a 28 second window avoiding the first and last seconds of each step to ensure it is not integrating over a region where the beams are in motion. Instead of fitting the rate directly, the rate is integrated to compute a yield in each step. Equation A.7 becomes:
+
+\[N(i)=(\epsilon_{BEMC}\,\sigma_{BHT3coin}\frac{Kf_{rev}}{2\pi\sigma_{x}\sigma_{ y}}\,\times e^{-\Delta x_{i}^{2}/2\sigma_{x}^{2}}\,\,e^{-\Delta y_{i}^{2}/2 \sigma_{y}^{2}}+C_{0})\times\,t\] (A.10)
+
+where \(i\) corresponds to the vernier scan step,
+
+\(\Delta x_{i}\) and \(\Delta y_{i}\) are the beam offsets in x and y in the \(i\)th step (table A.2),
+
+\(t\) is the width of the integration window, 28 seconds,
+
+\(\epsilon_{BEMC}\) denotes the fraction of BEMC towers that have 'good' status and hence contribute to the BHT3+coin trigger,
+
+\(\sigma_{BHT3+coin}\) is the effective cross section for events that satisfy the BHT3+coin trigger assuming all BEMC towers have 'good' status, and
+
+\(C_{0}\) is a constant background term.
+
+The data are fitted using equation A.10.
+
+The two vernier scan runs were analyzed independently, producing two sets of values for the cross section, \(\sigma_{BHT3coin}\) and beam widths, \(\sigma_{x}^{2}\) and \(\sigma_{y}^{2}\) (Table A.3). The individual fits are shown in figure A-2.
+
+The current single-gaussian model of the beam shape describes the measured \(N_{BHT3coin}\) as a function of scan step well. The summary of results is shown in Table A.3. The final value of the BHT3+coin cross section for a 100% working BEMC is 434 \(\pm\)8 (stat) nb \(\pm\)13% (syst).
+
+In order to cross-check the fitting algorithm, it was repeated for the ZDC scaler data provided to C-AD. The resulting cross section of 2.36 mb agrees well with the 2.3 mb from that independent analysis.
+
+Systematic uncertainty
+
+The accumulated systematic uncertainty in \(\sigma_{BHT3+coin}\) is estimated to be 13%, computed in two blocks, one for shape assumptions in the fit, and one for the constants used in the fit (the terms in the numerator in eqn. A.3).
+
+Shape assumptions are characterized by two main potential biases:
+
+* A 10% uncertainty is attributed to possible non-gaussian components of the beam profile. This is measured through a partial fit of the vernier scan profile, including the \(\Delta x\),\(\Delta y\)=0 peaks themselves, and the three points after each one, so that the fitter doesn't see the tails of the curve. If the choice of a gaussian fit function is not a good match, the fit to this subset will differ from the fit to the whole dataset. The ratio of the cross section from the full profile to the cross section from the partial fit is taken to be an upper bound on the extent to which the gaussian assumption fails.
+* A \(<\)1% uncertainty is attributed to a possible non-flat background rate, encompassing both the possibility that the background rate varied as a function of beam position during the vernier scan (which was the case for the non-coincidence BHT3 trigger), and the possibility that the background rate varied as a function of time over the course of the 500GeV data set. It is taken to be the difference between the cross section when the background is at its optimum value from the fit and the cross section when the background has been increased or decreased by 25% (see Table A.5). Those bounds correspond to the difference in the background rates during the two vernier scans, and are also on the same level as variations in the background rate over the course of a single scan when the coincidence requirement is not applied (With coincidence in place, the background is too small to make a meaningful estimate of its step-to-step variation).
+* A \(<\)1% uncertainty is assigned to the effects of detector dead time during the vernier scans. These scans intentionally read out only the fast detectors, and had a minimal deadtime. Any residual effect, however, would affect the peaks of the vernier scan shape more then the tails, and hence alter the measured cross section.
+
+Since the smaller terms here would affect the shape of the vernier scan, they are likely correlated and are added linearly to the non-gaussian uncertainty.
+
+The remaining errors are uncorrelated at their current magnitudes:
+
+* A 5% uncertainty is assigned to possible drift of the gain of the trigger patches over the course of the run. This is taken to be the difference between the cross section at the nominal threshold and the cross section at \(\pm 1\) ADC from that (fig. A-6). This is essentially equivalent to adding a systematic uncertainty to the number of BHT3+coin counts in each run.
+* A 4% uncertainty is assigned to WCM calibration drift, which affects the measured number of ions per bunch. The WCM undergoes periodic corrections to its calibration. The WCM and Direct Current-Current Transformer measurements drifts are estimated as 2% per beam, which are added linearly for a total of 4% of \(\sigma_{BHT3}\).
+* A 1% uncertainty is assigned for uncertainties from the L0 BHT3 trigger. There are roughly 50 towers in the barrel that seem to have problems with the fibers that connect them to their PMTs. These may or may not be masked out of the L0 trigger that feeds BHT3. Their gains aren't so high that the towers fire abnormally frequently, so they are assumed to be \(\pm 100\%\) of the normal count rate for a tower. This means the real L0 rate should be 50/4800 higher or lower, roughly 1%.
+* A 1% uncertainty comes from uncertainty in the beam position. A model of the effect of the '4-bump' that offsets the beam matches the measurements by the Beam Position Monitors to within 2%. These latter have a \(\sim 20\)\(\mu\)m accuracy. A potential offset on this scale during the vernier scan (relative to their positions during normal running) would result in a change of \(\sigma_{BHT3}\) of 1%.
+
+* A \(<\)1% uncertainty is assigned to potential misalignment of the clock at STAR and C-AD. Timestamps at STAR have to be synchronized to the clock that indicates when a vernier scan step has ended. The algorithm used protects a buffer of several seconds between the beginning and end of each step and the region over which the code integrates so that it is insensitive to small shifts of the windows in either direction.
+
+These terms are added in quadrature with the combined uncertainty stemming from the fit, for a final fractional uncertainty of 13%.
+
+Figure A-3: Example of vernier scan fit to the first 3 steps of the scan.
+
+### A.6 Stability of away-side condition
+
+The coincidence requirement has two parameters: the opening angle of the away side and the threshold required in that region. Both these values were selected to operate in a region where the background rate is small and only slowly changing, so that fluctuations of the trigger patch gains would not affect the background rate (figs. A-4, A-5). Additionally, the values correspond to a minimum in the statistical uncertainty of the trigger cross section.
+
+Regardless of the choice of opening angle, the BHT3+coin trigger yields a luminosity that is in good agreement with the BHT3 value (fig. A-7). Additionally, the BHT3+coin trigger was compared to both the ZDC coincidence trigger and the dijet subset of the L2jet trigger to verify the long-term stability (fig. A-8). The largest daq file in every run including both BHT3 and L2jet triggers was processed, with the jet trigger unpacked to select only events that passed the dijet sub-trigger. This process showed very good agreement between the event rate of various triggers, and identified a small minority of runs (corresponding to less than 1% of the total integrated luminosity) where the BHT3+coin trigger seemed to behave abnormally. These runsFigure A-5: The background rate \(C_{0}\) as a function of the threshold ADC value using an opening angle of 5 trigger patches (left), with the fractional uncertainty (right). The strong rejection of background rates can be seen in the slope on the left of the plot. The threshold used for the luminosity monitor is an ADC of 98. If the trigger gain changed by 1 ADC over the course of the run, no significant change would be expected. Although a slightly improved uncertainty can be achieved at an ADC of 97, insensitivity to background at higher thresholds drove the choice used in the luminosity monitor.
+
+(10096139, 10096140, 10097086, 10097088, and 10097090) were removed from the run list. Other ranges where the behavior of BHT3+coin and the dijet trigger disagree show continued agreement between the ZDC and the BHT+coin trigger, suggesting that the dijet is at fault in those runs.
+
+### 10 Comparison to luminosity estimates during the 2009 run
+
+In addition to checking the self-consistency of the various away-side requirements, the BHT3+coin luminosity monitor can be compared to independent measurements from C-AD. During the run, C-AD processed the vernier scan data for the ZDC scaler trigger and provided the estimated instantaneous luminosity for several fills. Immediately following the first vernier scan, the instantaneous luminosity for run 10097098 was reported to be \(5.3\times 10^{31}\)cm\({}^{-2}\)s\({}^{-1}\). Using the uncorrected BHT3 cross section of
+
+Figure A-7: The integrated luminosity of a large sample of L2W runs as a function of opening angle. The error bars show approximate uncertainties, using an average systematic uncertainty across all angles, as well as ignoring small weighting issues due to differing numbers of functioning barrel towers in different runs. The monotonic shape is expected, since any events that pass a narrow angle requirement will also pass all wider angles. (With the exception of the zero bin, which represents the BHT3 trigger without an away side coincidence requirement.)
+
+Figure A-8: A comparison of various trigger ratios over the course of 500GeV running. The runs are ordered chronologically, but the horizontal axis is otherwise arbitrary. Vertical black lines mark the beginning of each new fill. The black histogram shows the ratio of BHT3+coin events to dijet events, and is expected to be roughly flat. Where it deviates near run 250 we use comparison to a ZDC coincidence trigger to determine which of the triggers has changed. The blue line shows the ratio of BHT3+coin events to ZDC events, and the red the equivalent for dijets. Runs in which the BHT3+coin/dijet ratio and BHT3+coin/ZDC ratio shift are removed from all L2W analysis.
+
+399 nb from the analysis of the first vernier scan, the number of BHT3coin events in that run (2339 before correcting for the single-beam background), and the length of the run T=108 sec, the STAR instantaneous luminosity can be computed:
+
+\[N_{BHT3}=2339\]
+
+\[{\cal L}=\frac{N_{BHT3}}{T\,\sigma_{BHT3}}=5.4\times 10^{-31}cm^{-2}s^{-1}\] (A.11)
+
+This value is in good agreement the C-AD value of 5.2, derived from the ZDC scaler information. Note that the number of towers not working in run 10097097 (the vernier scan run) and 10097098 are the same, and so the \(\epsilon_{BEMC}\) factors cancel.
+
+## A.8 Study of flatness of background with vernier scan step
+
+The model (Eqn. A.10) used to fit the vernier scan data assumes that the background rate has no dependence on the position of the moving beam. In order to test this assumption, the BHT3 events (without coincidence requirement) from each vernier scan were further divided by bunch crossing. In each step only the events falling in one of the abort gaps (so that a bunch from only one beam was present) were kept. This yields very few counts. To make any background shape easier to see, it was assumed that any non-flat background rate would have the same behavior to all sides. This allowed the four sections of the vernier scan to be added together, resulting in single, 7-step histograms (fig A.9).
+
+Figure A.9: The number of events in the two abort gaps as a function of vernier scan step for run 10090097 (left) and 10103044 (right). The four sections of the vernier scan are added together, meaning bin 0 corresponds to the sum of steps 0,8,16, and 23, 1 corresponds to 1,9,17,24, etc. The resulting shape is consistent with a constant (black line). It is also in good agreement with the value expected from the vernier scan fit (red line). This latter is the background rate scaled by 10/110 corresponding to the fraction of background events expected to fall into one of the abort gaps
+
+\begin{table}
+\begin{tabular}{|c|r|r|r|r|} \hline step & \multicolumn{2}{|c|}{run 10097097} & \multicolumn{2}{|c|}{run 10103044} \\  & \(\Delta x\) & \(\Delta y\) & \(\Delta x\) & \(\Delta y\) \\  & (mm) & (mm) & (mm) & (mm) \\ \hline
+
+[MISSING_PAGE_POST]
+
+ & 0 & 0 \\ \hline \end{tabular}
+\end{table}
+Table A.2: Definition of vernier scan steps. Offsets are in mm.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline \begin{tabular}{c} Background \\ Rate \\ \end{tabular} & \begin{tabular}{c} \(\sigma_{BHT3}\) \\ (nb) \\ \end{tabular} & \begin{tabular}{c} stat. err. \\ (nb) \\ \end{tabular} & 
+\begin{tabular}{c} remarks \\ \end{tabular} \\ \hline x1.50 & 396 & 5 & \\ x1.25 & 397 & 5 & factor seen in flatness check \\
+**x1.0** & **399** & **5** & free fit result \\ x0.75 & 401 & 5 & \\ x0.50 & 403 & 5 & \\ \hline \end{tabular}
+\end{table}
+Table A.3: BHT3+coin cross section measured in vernier scan.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline \begin{tabular}{c} Number \\ run \\ \end{tabular} & \begin{tabular}{c} BHT3+coin \\ \# working \\ towers \({}^{a)}\) \\ \end{tabular} & \begin{tabular}{c} single beam \({}^{b)}\) \\ x-section \\ (nb) \\ \end{tabular} & \begin{tabular}{c} single beam \({}^{b)}\) \\ \(\sigma_{1,x}\) \\ (mm) \\ \end{tabular} \\ \hline \begin{tabular}{c} 10097097 \\ 10103034 \\ \end{tabular} & 4579 & 418 \(\pm\) 12 & 0.13 & 0.15 \\ \hline \begin{tabular}{c} **average**\({}^{c)}\) \\ \end{tabular} & 4800 & **434 \(\pm\) 8** & - & - \\ \hline 
+\begin{tabular}{c} a) out of 4800 existing BTOW towers \\ b) computed from fit parameter: \(\sigma_{1,x}=\sqrt{\sigma_{X}^{2}/2}\) \\ c) scaled to 100\% working BTOW \\ \end{tabular} \\ \hline \end{tabular}
+\end{table}
+Table A.4: Example of BHT3 cross section dependence on number of included vernier scan steps for run 10097097)
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline \begin{tabular}{c} Steps \\ \end{tabular} & \begin{tabular}{c} \(\sigma_{BHT3}\) \\ (nb) \\ \end{tabular} & \begin{tabular}{c} stat. err. \\ (nb) \\ \end{tabular} & 
+\begin{tabular}{c} remarks \\ \end{tabular} \\ \hline
+3 & 325.6 & 56.8 & \\
+4 & 439.0 & 24.2 & maximal, still reasonable \\
+5 & 448.9 & 16.8 & \\
+6 & 464.6 & 15.2 & \\
+**7** & **500.6** & **14.8** & chosen as result \\ \hline \end{tabular}
+\end{table}
+Table A.5: Example of BHT3+coin cross section dependence on the assumed magnitude of the background term \(C_{bckg}\). (run 10097097)
+
+\begin{table}
+\begin{tabular}{|l c|} \hline Source & Magnitude \\ \hline Clock misalignment & \(<\)1\% \\ Offset of beam center & 1\% \\ WCM calibration & 4\% \\ Trigger gain drift & 5\% \\ \hline Detector dead time & \(<\)1\% \\ Background shape & \(<\)1\% \\ Profile non-gaussianity & 10\% \\ \hline
+**Total** & **13\%** \\ \hline \end{tabular}
+\end{table}
+Table A.6: Sources of systematic uncertainties for \(\sigma{BHT3}+coin\). The lower block is added linearly. This is then added to the remaining terms in quadrature.
+
+[MISSING_PAGE_EMPTY:122]
+
+## Appendix B Forward GEM Tracker
+
+As described in chapter 1, measurements of \(R_{\pm}(\eta_{e})\) and \(A_{L}(\eta_{e})\) at higher pseudorapidity would have different sensitivity to \(\bar{u}\) and \(\bar{d}\) polarized and unpolarized PDFs, both in terms of the linear combination of those PDFs that appears, and the \(x\) range sampled. For the \(A_{L}\) measurement in particular, the forward region for \(W^{+}\) (backward for \(W^{-}\)) exposes the polarization of the sea quark \(\Delta\bar{d}/\bar{d}\) (\(\Delta\bar{u}/\bar{u}\) for \(W^{-}\)) at low \(x\). This is where the different models diverge and hence where measurement will provide stronger constraints. STAR's calorimetry extends out to \(\eta=2\), but the TPC tracking efficiency begins to drop rapidly after \(\eta\approx 1.1\). In order to efficiently access W production in this region, it is mandatory to extend tracking into the forward direction both to determine the charge of the W decay lepton as well as to allow rejection of collimated jets and neutral backgrounds.1 This tracking must have high resolution in azimuth in order to determine charge, and must also coexist with other STAR physics interests, meaning it must fit within the inner field cage of the TPC and add minimally to the amount of material between the nominal vertex and downstream detectors. The detector designed to fulfill these requirements is the Forward GEM Tracker (FGT), a series of six low-density disks placed inside the inner field cage of the TPC that register the radial and azimuthal (\(r-\phi\)) positions of charged particles passing through them (figure B). With these additional tracking points, the chargereconstruction in the forward region will be vastly improved, with simulations showing efficiency above 80% over \(1<\eta<2\) for events reasonably close to the nominal vertex (figure B).
+
+### B.1 GEM Detectors
+
+The building block of the FGT is the Gas Electron Multiplier (GEM) foil, a lightweight, copper-clad Kapton[36] sheet through which a pattern of small holes has been chemically etched (figure B-3). A voltage difference across the two copper surfaces creates an electric field that, due to the high polarizability of the Kapton, is funneled through these holes, resulting in strengths in that region that are high enough to cause electrons passing through them to avalanche2 with a typical amplification factor of \(\sim 50\) depending on applied voltage. The FGT uses these in a typical design, the Triple-GEM, which uses a stack of three such foils, separated by small gaps, at the end of a gas volume. Through an overall voltage, electrons freed from the gas by a high-energy particle will drift toward the GEM foil, the field guiding them through the holes of each layer in turn (illustrated in figure B-4). The amplifications from each layer multiply, leading to a total amplification \(\sim 10^{3}\). The resulting cloud can be measured by any of a variety of readout designs.
+
+Footnote 2: In a suitable gas.
+
+### B.2 Disk Design
+
+Each of the six disks of the FGT consists of a low-mass honeycomb support structure and four FGT quandrant modules mounted to that. These, in turn, consist of a high voltage foil, an active gas volume (ArCO\({}_{2}\)), a triple-GEM stack, and a readout plane (figure B-5). The HV foil is a solid sheet held at high voltage serving as the cathode. Each subsequent foil has a different voltage on each face so that there is a constant drift field from HV to ground plane, punctuated by very large fields in the GEM foil holes. The active gas volume is the 3 mm gap between the HV foil and the first Figure B-1: Positioning of the FGT inside STAR. The TPC provides tracking to \(\eta\sim 1\), covering the BEMC but not the EEMC. The six FGT disks placed within the TPC’s inner field cage in the forward direction provide additional track points as the number from the TPC decreases, extending tracking over the entire coverage of the endcap. The outermost disks provide little advantage for events at the nominal vertex, but are needed to maintain tracking coverage for vertices displaced toward the endcap.
+
+Figure B-2: Charge reconstruction efficiencies in the forward region. The three scenarios shown are TPC-only (a), TPC with the endcap SMD and primary vertex included (b), and the same with FGT also included. This demonstrates the need for the FGT, since the first two show the efficiency dropping off rapidly after \(\eta=1\), while the FGT version maintains a reconstruction efficiency greater than 80% across the entire endcap range \(1<\eta<2\).
+
+Figure B-3: A close-up of GEM foil detail, showing the copper surface and the holes chemically etched through it and the Kapton layer beneath. The hole diameters are roughly 70 \(\mu\)m, with the center-to-center hole spacing of \(\sim\)150 \(\mu\)m. This pattern can be reliably produced through standard photolithographic chemical etching.
+
+Figure B.4: An illustration of a Triple-GEM, showing the successive amplification of an initial electron cloud before reaching the readout plane. The active region is the larger “Drift Gap” at the top. Although a traversing particle will continue to ionize in the subsequent Transfer Gaps, the electrons freed there will miss at least one of the amplification regions and hence be significantly suppressed.
+
+GEM foil. After this, each GEM is followed by a 2 mm gap, with the readout plane following the third. The uniformity of these gaps (and hence of the drift field) is maintained through thin plastic spacer grids resting between each pair of foils.
+
+#### Readout Plane
+
+For W-like events, the decay electrons will have a transverse signed sagitta on the order of a millimeter, setting an upper bound on the \(\phi\) resolution of the FGT. The natural choice is a two-dimensional readout in \(\phi\) and \(r\), the first giving the azimuthal resolution needed for charge sign reconstruction and the second providing the remaining information in order to construct a complete track. The design chosen is a dual-sided board. On the GEM-facing side, strips along \(r\) (thus measuring \(\phi\)) alternate with rows of individual pads. Vias connecting them to traces on the backside, where the pads are chained into strips along \(\phi\) (measuring \(r\)). Additional traces connect all of these to readout boards mounted to the back, where the signal on each strip is digitized.3. It is impractical to produce boards with radial strips that become increasingly narrow at small radii, so a two-staged approach is used, with 300\(\mu\)m pitch strips on the inner portion of the board, with a second set of strips interleaved when the strip width and spacing permits. An illustration of this design is shown in figure B-6.
+
+Footnote 3: This design has the advantage of making the charge sharing between \(\phi\) and \(r\) strips trivial to compute compared to earlier multi-layer board proposals.
+
+#### GEM Foils
+
+The GEM foil design itself divides the micropatterned region of the quadrant into nine electrically separate sectors, which limit the stored energy released if the foil discharges. These sparks, and the general stability of the foil while under high voltage, are of critical concern for the FGT, since tracks through the FGT can only be reconstructed if the gain is well understood. The GEM foils used in the FGT are produced by two suppliers, CERN in Switzerland and Tech-Etch, a photoetching company in Figure B-5: An FGT Quadrant exploded to show the various layers. In this orientation, the primary vertex is to the right. The outermost layer on each side is an aluminized mylar sheet to enclose the gas volume. Inside this, from right to left, is a high voltage foil (without micropattern holes) with a 3 mm space before the next foil. This gap is the active volume of the detector. The next three layers are GEM foils with 2 mm spacers between them, followed by a two-dimensional readout plane. There is an overall voltage stepping from the HV foil to each subsequent foil, and between the top and bottom of each GEM. The readout plane doubles as the ground of the resulting drift field. On the side facing away from the primary vertex, two long cards digitize the signals from the readout plane (sides) while a third card (top) distributes the high voltage to the foils.
+
+Massachusetts. This latter began making foils through an SBIR4 grant in cooperation with MIT.
+
+Footnote 4: “Small Business Innovation Research”, referring to a Department of Energy program that provides incentive to small businesses to engage in research and development that has the potential for commercialization.
+
+### B.3 Assembly and Testing
+
+Foils are first checked for the uniformity of the holes by taking a photomosaic5 of the surface three times, once with backlighting to expose the inner diameter of the holes, once with normal lighting to expose the outer diameter, and once with both lights to verify the alignment of outer and inner openings. Typical problems here are variations in inner and outer diameters, both of which are exceedingly rare occurrences.
+
+Footnote 5: Producing a complete scan of the surface is a very time consuming process. In general, one or two foils from each set will be fully scanned, and the rest will be represented by taking several hundred images at random positions on the foil.
+
+The next step is high voltage testing. The foils are placed in a test rig and flushedwith nitrogen, then slowly ramped up to a bias of 600 V (this number is higher than the intended operating voltage of \(\sim\) 400 V). The leakage current for each sector is recorded and is required to be under 10 nA to ensure voltage stability. Problems here are either unacceptably high currents at full voltage or repeated sparking while holding voltage. Such damage is typically confined to a single sector with sparks occurring in isolated regions (damage to individual holes or small patches of missing copper), or occurring broadly across the sector (which is tentatively attributed to chemical residue from one of the production steps). There has been some success in cleaning foils to remove either debris causing localized sparks or residues affecting larger areas.
+
+Foils that pass these two testing stages are stretched and glued to frames. Stretched foils are stacked and joined by gluing along the frames, resulting in finished quadrants. At each stage of assembly the leakage currents are checked to verify that no glue or trapped debris has damaged one of the foils. After assembly, the finished quadrants are once against measured for leakage currents, then checked for gas-tightness and iteratively sealed where leaks are found.
+
+These completed sections are shipped to the STAR assembly hall at BNL where they undergo cosmic ray tests and are mounted onto their Nomex supports for insertion into STAR.
+
+### 11 Status
+
+During the summer of 2011 14 out of 24 quadrants were completed and delivered, populating over half of the FGT disks. These were present and running during the 2011-2012 run, providing data that allowed us to tune the voltage and gas settings for optimum gain. Tracking studies are currently being performed on this data.
+
+We expect to complete the remaining 10 quadrants (and several spares) in the coming months so the FGT can be completed during the summer access period in 2012, providing full azimuthal coverage for future runs.
+
+[MISSING_PAGE_EMPTY:132]
+
+## Appendix C Alternate Computation of Efficiencies
+
+In the analysis chapter we chose to compute the efficiencies using the entire simulated dataset, including events with the generated \(E_{T}\) of the lepton below the thresholds applied in the W algorithm. This had the advantage of making the analysis essentially scale-agnostic. We applied corrections to bring the data and simulation into agreement, but made no judgment about whether the corrections should be applied to the real or simulated energy spectra. This choice did, however, make the efficiencies dependent on the shape of the \(E_{T}\) spectrum below the cut-off.
+
+An alternative approach is to treat the cut-off as a fiducial cut, in which case we add an acceptance correction to the \(\eta\)-dependent cross section:
+
+\[\sigma_{pp\to W^{\pm}\to e^{\pm}\nu}(\eta)=\sum_{i}\frac{1}{L_{\rm tot}} \frac{1}{\epsilon_{i,\eta}^{\rm tot,25}\times A_{25}}(N_{i,\eta}^{\rm data}-N _{i,\eta}^{\rm background})\] (C.1)
+
+In this form, all efficiencies are calculated using only the simulated events with the _generated_ (not reconstructed) lepton \(E_{T}>25\)GeV, and \(A_{25}\) is the fraction of W decay events in theoretical calculations that will have \(E_{T}\leq 25\)GeV for the lepton candidate. This new term enters as a product with the original efficiency, so we can define theeffective efficiency \(\epsilon^{\prime}\):
+
+\[\epsilon^{\prime}\equiv\epsilon_{\rm trigger}^{25}\times\epsilon_{\rm vertex}^{25 }\times\epsilon_{\rm track}^{25}\times\epsilon_{\rm cuts}^{25}\times A_{25}\] (C.2)
+
+The efficiencies are shown in tables C.1 and C.2; their acceptance corrections are shown in C.3 and C.4.
+
+The resulting efficiencies (table C.5) differ from those used in this analysis by a factor only slightly larger than the statistical uncertainties of those terms. Given the statistical uncertainties of the data itself, and the ambiguity of the energy corrections applied to the simulation, it was decided to use the original efficiencies.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \(\eta\) range & \(\epsilon_{\rm trig}^{25}\) & \(\epsilon_{\rm vert}^{25}\) & \(\epsilon_{\rm track}^{25}\) & \(\epsilon_{\rm algo}^{25}\) & \(\epsilon_{\rm total}^{25}\pm\) stat. \\ \hline \(-1.0<\eta<-0.5\) & 0.83 & 0.94 & 0.74 & 0.82 & \(0.48\pm 0.024\) \\ \(-0.5<\eta<0.0\) & 0.92 & 0.92 & 0.75 & 0.84 & \(0.54\pm 0.026\) \\ \(0.0<\eta<0.5\) & 0.87 & 0.90 & 0.77 & 0.82 & \(0.49\pm 0.024\) \\ \(0.5<\eta<1.0\) & 0.80 & 0.93 & 0.80 & 0.81 & \(0.48\pm 0.023\) \\ \hline \(-1.0<\eta<1.0\) & 0.86 & 0.92 & 0.76 & 0.82 & \(0.50\pm 0.012\) \\ \hline \end{tabular}
+\end{table}
+Table C.2: Efficiencies of the W analysis for simulated \(W^{-}\) events with the true lepton \(E_{T}>25\), shown as a function of lepton \(\eta\)
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \(\eta\) range & \(\epsilon_{\rm trig}^{25}\) & \(\epsilon_{\rm vert}^{25}\) & \(\epsilon_{\rm track}^{25}\) & \(\epsilon_{\rm algo}^{25}\) & \(\epsilon_{\rm total}^{25}\pm\) stat. \\ \hline \(-1.0<\eta<-0.5\) & 0.84 & 0.95 & 0.74 & 0.88 & \(0.52\pm 0.025\) \\ \(-0.5<\eta<0.0\) & 0.90 & 0.91 & 0.74 & 0.88 & \(0.54\pm 0.021\) \\ \(0.0<\eta<0.5\) & 0.89 & 0.91 & 0.78 & 0.89 & \(0.56\pm 0.021\) \\ \(0.5<\eta<1.0\) & 0.85 & 0.90 & 0.82 & 0.89 & \(0.56\pm 0.026\) \\ \hline \(-1.0<\eta<1.0\) & 0.88 & 0.92 & 0.77 & 0.88 & \(0.55\pm 0.011\) \\ \hline \end{tabular}
+\end{table}
+Table C.1: Efficiencies of the W analysis for simulated \(W^{+}\) events with the true lepton \(E_{T}>25\), shown as a function of lepton \(\eta\)
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline \(\eta\) range & cteq6m & grv98 & mrst2002 & mrst2004 & ave \\ \hline \(-1.0<\eta<-0.5\) & 0.867 & 0.879 & 0.867 & 0.864 & 0.869 \\ \(-0.5<\eta<0.0\) & 0.952 & 0.963 & 0.953 & 0.949 & 0.954 \\ \(0.0<\eta<0.5\) & 0.948 & 0.962 & 0.950 & 0.946 & 0.954 \\ \(0.5<\eta<1.0\) & 0.872 & 0.886 & 0.867 & 0.863 & 0.872 \\ \hline \end{tabular}
+\end{table}
+Table C.4: Acceptance corrections from \(E_{T}>25\) to the full cross section, shown as a function of lepton \(\eta\) for the theories discussed in the unpolarized analysis, as well as their means.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline \(\eta\) range & cteq6m & grv98 & mrst2002 & mrst2004 & ave \\ \hline \(-1.0<\eta<-0.5\) & 0.867 & 0.879 & 0.867 & 0.864 & 0.869 \\ \(-0.5<\eta<0.0\) & 0.952 & 0.963 & 0.953 & 0.949 & 0.954 \\ \(0.0<\eta<0.5\) & 0.948 & 0.962 & 0.950 & 0.946 & 0.954 \\ \(0.5<\eta<1.0\) & 0.872 & 0.886 & 0.867 & 0.863 & 0.872 \\ \hline \end{tabular}
+\end{table}
+Table C.3: Acceptance corrections from \(E_{T}>25\) to the full cross section, shown as a function of lepton \(\eta\) for the theories discussed in the unpolarized analysis, as well as their means.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline \(\eta\) range & \(W^{+}\to e^{+}\) & \(W^{-}\to e^{-}\) \\ \hline \(-1.0<\eta<-0.5\) & 0.37 & 0.42 \\ \(-0.5<\eta<0.0\) & 0.47 & 0.52 \\ \(0.0<\eta<0.5\) & 0.49 & 0.47 \\ \(0.5<\eta<1.0\) & 0.41 & 0.42 \\ \hline \end{tabular}
+\end{table}
+Table C.5: The Alternate Total Efficiencies calculated using \(E_{T}>25\) and acceptance corrections. Due to the ambiguity in the energy corrections applied to the simulation, these values are not used in the main analysis.
+
+[MISSING_PAGE_EMPTY:136]
+
+## Bibliography
+
+* [1] G Zweig. An SU\({}_{3}\) model for strong interaction symmetry and its breaking. (CERN-TH-401):24, Jan 1964.
+* 318, 1977.
+* [3] J.C. Peng and D.M. Jansen. Probing \(\bar{u}/\bar{d}\) asymmetry in the proton via \(W\) and \(Z\) production. _Phys.Lett._, B354:460-464, 1995.
+* [4] U. Baur. Measuring the \(W\) boson mass at hadron colliders. pages 47-59, 2003.
+* [5] E. A. Hawker et al. Measurement of the light anti-quark flavor asymmetry in the nucleon sea. _Phys.Rev.Lett._, 80:3715-3718, 1998.
+* [6] P. Amaudruz et al. Gottfried sum from the ratio \(f_{2}^{n}/f_{2}^{p}\). _Phys. Rev. Lett._, 66:2712-2715, May 1991.
+
+- 250, 1994.
+* [8] Jen-Chieh Peng and Gerald T. Garvey. Flavor asymmetry of the sea quark distributions. 1999.
+* [9] R. D. Field and R. P. Feynman. Quark elastic scattering as a source of high-transverse-momentum mesons. _Phys. Rev. D_, 15:2590-2616, May 1977.
+* [10] J. C. Peng et al. Anti-d / anti-u asymmetry and the origin of the nucleon sea. _Phys.Rev._, D58:092004, 1998.
+* [11] Aneesh Manohar and Howard Georgi. Chiral Quarks and the Nonrelativistic Quark Model. _Nucl.Phys._, B234:189, 1984.
+* 339, 1991.
+* [13] Ruizhe Yang, Jen-Chieh Peng, and Matthias Grosse-Perdekamp. Flavor Asymmetry of the Nucleon Sea and W Boson Production. _Phys.Lett._, B680:231-234, 2009.
+
+* [14] John Ellis and Robert Jaffe. Sum rule for deep-inelastic electroproduction from polarized protons. _Phys. Rev. D_, 9:1444-1446, Mar 1974.
+* [15] S. D. Bass and A. W. Thomas. The EMC spin effect. _Journal of Physics G: Nuclear and Particle Physics_, 19(7):925, 1993.
+* 546, 1990.
+* [17] Daniel de Florian, Rodolfo Sassot, Marco Stratmann, and Werner Vogelsang. Extraction of Spin-Dependent Parton Densities and Their Uncertainties. _Phys.Rev._, D80:034030, 2009.
+* [18] M. Gluck, E. Reya, M. Stratmann, and W. Vogelsang. Models for the polarized parton distributions of the nucleon. _Phys.Rev._, D63:094005, 2001.
+* [19] M. Wakamatsu. Light-flavor sea-quark distributions in the nucleon in the su(3) chiral quark soliton model. i. phenomenological predictions. _Phys. Rev. D_, 67:034005, Feb 2003.
+* [20] A. Zelenski et al. Towards 100% polarization in the optically-pumped polarized ion source. In _Proc. Particle Accelerator Conference_, pages 3771 -3773, june 2007.
+* [21] H. Huang et al. RHIC Polarized Proton Operation. In _Proc. Particle Accelerator Conference_, 2011.
+* 96, 1984.
+
+- 414, 2003. The Relativistic Heavy Ion Collider Project: RHIC and its Detectors.
+* [24] H. Huang et al. A p-Carbon CNI polarimeter for RHIC. In _Proc. Particle Accelerator Conference_, 1999.
+* [25] A Bazilevsky et al. p-Carbon CNI Polarimetry in the AGS and RHIC. In _Proc. European Particle Accelerator Conference_, 2008.
+* [26] "C-AD". 2009 Polarizations at RHIC, 2009.
+* [27] M. Beddo et al. The STAR barrel electromagnetic calorimeter. _Nucl.Instrum.Meth._, A499:725-739, 2003.
+* [28] M. Walker and M. Betancourt. 2009 BEMC Tower Calibration Report, 2010.
+* [29] C.E. Allgower et al. The STAR endcap electromagnetic calorimeter. _Nucl.Instrum.Meth._, A499:740-750, 2003.
+
+* [30] J. Stevens. EEMC TCD PHase and Effective Gains, 2010.
+* [31] C. Gagliardi. Private correspondence, 2010.
+* [32] R. Reed et al. Vertex finding in pile-up rich events for p+p and d+Au collisions at STAR. _Journal of Physics: Conference Series_, 219(3):032020, 2010.
+* [33] STAR Collaboration. Measurement of the Parity-Violating Longitudinal Single-Spin Asymmetry for \(W^{\pm}\) Boson Production in Polarized Proton-Proton Collisions at \(\sqrt{s}=500\mathrm{GeV}\). _Phys. Rev. Lett._, 106:062002, Feb 2011.
+* [34] S van der Meer. Calibration of the effective beam height in the ISR. Technical Report CERN-ISR-PO-68-31. ISR-PO-68-31, CERN, Geneva, 1968.
+* positron collider ring LEP. 1996.
+* [36] DuPont. Kapton Summary of Properties, 2012.

@@ -1,0 +1,1085 @@
+Zusammenfassung
+
+Zur Untersuchung von Kollisionen schwerer Kerne am Relativistic Heavy Ion Collider (RHIC) in Brookhaven wurden am Max-Planck-Institut fur Physik in Munchen die Vorwarts-Spurendriftkammern fur das STAR-Experiment entwickelt. Gegenstand der Arbeit waren die Entwicklung von Detektorkomponenten und Teilen der Datenanalyse sowie die Untersuchung der voraussichtlichen Leistungsfahigkeit des Detektors. Nach verschiedenen Modellen simulierte Vorhersagen wurden miteinander verglichen, und es wurde untersucht, inwieweit sich die Fluktuationen verschiedener Observabler von Kollision zu Kollision mit dem Detektor rekonstruieren lassen.
+
+Abstract
+
+To investigate collisions of heavy nuclei at the Relativistic Heavy Ion Collider (RHIC) in Brookhaven, the Forward Time Projection Chambers for the STAR Experiment were developed at the Max-Planck-Institut fur Physik in Munich. Topic of the thesis were the developments of detector components and of parts of the data analysis as well as the investigation of the estimated performance of the detector. Predictions simulated using different models were compared, and it was investigated to which extent fluctuations of different observables from collision to collision can be reconstructed with the detector.
+
+[MISSING_PAGE_EMPTY:2]
+
+**MAX-PLANCK-INSTUT FU PRYSIK**
+
+WERNER-HEISENBERG-INSTITUT
+
+Development of a Detector
+
+and Data Analysis for Particles
+
+in the Rapidity Range \(2.5<|y|<4\)
+
+at the Relativistic Heavy Ion Collider
+
+in Brookhaven
+
+Holm Hummler
+
+Dissertation
+
+July 2000
+
+[MISSING_PAGE_EMPTY:4]
+
+###### Contents
+
+* 1 Ultrarelativistic Nuclear Collisions
+	* 1.1 Motivation and Theoretical Basis
+	* 1.2 Theoretical Modelling
+		* 1.2.1 Collective Models
+		* 1.2.2 Microscopic Models
+	* 1.3 Observables
+* 2 The STAR Experiment
+	* 2.1 Experimental Setup
+	* 2.2 Time Projection Chambers
+* 3 Construction of the FTPCs
+	* 3.1 Design of the Forward Time Projection Chambers
+	* 3.2 Problems of a Radial Drift TPC
+	* 3.3 The Electric Field in the Readout Region
+		* 3.3.1 Transparency of the Wire Grids
+		* 3.3.2 Distortions at the Sector Boundary
+	* 3.4 Calculations for the Construction of the Field Cage
+* 4 Simulation and Reconstruction of Data
+	* 4.1 Reconstruction of Track Points
+		* 4.1.1 The Charge Distribution in the Raw Data Format
+		* 4.1.2 Finding Clusters in the Charge Distribution
+		* 4.1.3 Cluster Deconvolution and Fitting of Track Points
+		* 4.1.4 Calibration of Electronics Effects
+		* 4.1.5 Distortion Correction and Transformation to Cartesian Coordinates
+		* 4.1.6 Performance of the Point Reconstruction
+	* 4.2 Reconstruction of Tracks and Particle Momenta
+		* 4.2.1 Finding the Main Interaction Point
+		* 4.2.2 Track Reconstruction
+		* 4.2.3 Momentum Reconstruction
+		* 4.2.4 Performance of the Track and Momentum Reconstruction Software
+	* 4.3 Determining Reconstruction Efficiency and Resolution
+		* 4.3.1 Simulation at the Raw Data Level
+		* 4.3.2 Simulation at the Space Point Level
+		* 4.3.3 Analysis of Simulated Data
+* 5 Expected Performance of the STAR FTPC
+	* 5.1 Expected Position Resolution
+	* 5.2 Limiting Factors of the Momentum Resolution
+	* 5.3 Expected Detector Acceptance
+	* 5.4 Efficiency, Contamination and Correction Factors
+* 6 Predictions from Different Simulation Models
+	* 6.1 Pion Spectra
+	* 6.2 Kaon Spectra
+	* 6.3 Antinucleon Spectra
+	* 6.4 Net Nucleon Spectra
+	* 6.5 Net Positive Charge Spectra
+* 7 Event-by-Event Analysis in the FTPCs
+	* 7.1 Determining the Correction Factors
+	* 7.2 Reconstruction of Multiplicity Fluctuations
+	* 7.3 Reconstruction of Transverse Momentum Fluctuations
+	* 7.4 Reconstruction of Net Charge Fluctuations
+* 8 Summary and Outlook
+
+List of Figures
+
+## Chapter 1 Ultrarelativistic Nuclear Collisions
+
+The study of collisions of heavy atomic nuclei at relativistic energies began in the 1970s in Berkeley. There, at the BEVALAC, nuclear collisions at energies around one GeV per nucleon were studied to probe the equation of state of nuclear matter. Since then, the field commonly referred to as heavy ion physics for historical reasons has evolved to higher energies and new measured observables, and new theoretical concepts have been developed.
+
+The Relativistic Heavy Ion Collider (RHIC), which is currently entering service at the Brookhaven National Laboratory (BNL), offers the first opportunity to study nuclear collisions at collider energies. Colliding beams of gold nuclei at 200 GeV per nucleon pair, RHIC exceeds the available energy of previous, fixed target experiments by a factor of ten.
+
+### 1.1 Motivation and Theoretical Basis
+
+The currently most widely accepted theories about the structure of matter are summarized in the Standard Model. Supported by experimental evidence to a high degree of precision, the Standard Model is a basis for theories ranging from the description of the infinitely small to the origin of the universe. With a number of theories and some first experimental indications for physics beyond the Standard Model, testing its predictions for conditions that are not yet experimentally explored remains one of the primary tasks in experimental physics.
+
+The heart of the Standard Model are two gauge theories: the Elektroweak Theory, describing the weak nuclear and electromagnetic interactions, and Quantum Chromo Dynamics (QCD), the gauge theory of the strong interaction. QCD has been the more difficult theory for experimental testing, partly because of the mathematical complexity of its predictions and partly because of the complex structure of the strongly interacting particles.
+
+QCD treats the strong interaction as the exchange of gauge bosons between point-like fermions, the quarks. The quarks carry a charge, and the interaction works in the direction of combining them to charge-neutral objects, called hadrons. In QCD, there are three different charges, symbolized by the colors red, green and blue, so neutrality can be achieved by combining either quarks of all three colors (forming a baryon qqq) or aquark with the antiquark carrying the corresponding anticolor (forming a meson \(\overline{\mathbf{-}}\,\mathrm{q}\bar{\mathrm{q}}\)). Besides color, quarks have a second property called flavor, which determines their mass and their behavior unter the electroweak interaction. Within the energy range accessible to today's physics are six quark flavors, forming a symmetry with the six known leptons. The possible combinations of quark flavors in a hadron accounts for the multitude of known hadron types.
+
+QCD is a non-abelian gauge theory: exchanging color between the quarks, the gluons are not neutral like photons but each carry a charge consisting of a color and an anticolor. Therefore, they can interact with themselves, creating additional virtual gluons or quark-antiquark pairs. This makes the strength of the interaction increase (rather than decrease like the electromagnetic interaction) with distance, so the energy needed to separate the color charges from a color-neutral state farther and farther would, in principle, approach infinity. However, once a threshold is passed, a new quark-antiquark pair appears, creating two independent, color-neutral states that can move on without interacting. This can be modeled by identifying the color forces with strings or bags, as sketched in figure 1.1.
+
+Figure 1.1: _A hadron collision in the string model. Different shades of dots signify different quark colors; hatched dots signify antiquarks. From the momentum transfer in the collision, one quark is accelerated away from its partners. The string is stretched until the energy stored is sufficient to form a new quark-antiquark pair and the string breaks into two separate hadrons._
+
+This effect, described as confinement of the quarks within hadrons, is supported by experimental evidence: No free color charges have ever been found in experiments.
+
+The quarks that define a hadron (called valence quarks) are surrounded with a strong color field, which creates a multitude of virtual gluons and quark-antiquark pairs (quark condensate), defining the non-zero size of the hadron and increasing its total mass well beyond the QCD masses of the constituent quarks. In deep inelastic scattering of electrons on hadrons, it has been found that a quark and an energy-dependent fraction of the surrounding field behave in interactions like a finite-sized massive part of the hadron, called a parton. Within the color field, the strong force is screened, so the quarks can move about freely, an effect called asymptotic freedom. The dimensions of the color field determine the size of the hadron.
+
+The mathematical description of hadron interactions depends on the momentum transfer. Collisions with high momentum transfers (called hard interactions) can be described as scattering of the point-like quarks, which can be calculated as gluon exchange in perturbative QCD. For smaller momentum transfers (soft interactions), however, the influence of the gluons' self-interactions, and thus the higher order contributions in perturbative calculations, become more and more important. This is modelled by an increase of the strong coupling constant for decreasing momentum transfers, until perturbation theory is no longer applicable. Possible approaches for this energy domain include string fragmen
+
+Figure 1.2: Equation of state of nuclear matter as calculated in lattice QCD, from [37]. The plot shows the energy density \(\varepsilon\) (\(\triangle\)) and the pressure p (\(\diamond\)) normalized to the fourth power of the temperature. The remarks at the top indicate the expected onset of certain observables some of which will be discussed in section 1.3.
+
+tation models or the exchange of pseudoparticles called pomerons, which are composed of gluons and quark-antiquark pairs at different energies and levels of virtuality.
+
+These calculations achieve a high level of accuracy when applied to interactions of single hadrons in free space. However, they can not trivially be generalized to large ensembles of hadrons interacting at high energy densities. The behavior of such ensembles is relevant for cosmology, especially for the development of the first seconds of the early universe, the core of neutron stars and the evolution of supernova explosions.
+
+For an infinitely extended system of interacting hadrons consisting of massless quarks at homogeneous density and with randomly distributed kinetic energies, calculations can be done by restricting the phase space to discrete points on a periodic lattice. For high average kinetic energies (identified with temperatures, defining the Boltzmann constant as 1) these lattice-QCD calculations indicate a steep increase in the energy density (see figure 1.2). This effect is explained by the appearance of additional degrees of freedom on the quark level. The QCD confinement breaks down and quarks and gluons can move freely within the hot medium. Under the idealized conditions of the lattice calculations, this deconfinement has the form of a phase transition, leading to an equilibrated new state called quark gluon plasma (QGP). The appearance of a QGP is predicted both for high temperatures and for high densities of matter, leading to the phase diagram sketched in
+
+Figure 1.3: _The phase diagram of strongly interacting matter as predicted by QCD. The arrows describe the supposed evolution of physical phenomena involving high energy densities (from [10])._
+
+figure 3.1.1.1 Linked with the appearance of the QGP, although not necessarily visible at the same threshold, is the so-called restoration of chiral symmetry, meaning that the quark condensate disappears and the hadron mass is replaced with the much lower QCD mass of the constituent quarks.
+
+Probing large interacting hadron ensembles experimentally could be a meaningful test for our understanding of the strong interaction and for the validity of lattice QCD calculations. Studying nuclear collisions is the only currently conceivable way of doing such experiments for sufficiently extended systems. Nuclear collision experiments at the European Organization for Nuclear Research (CERN) in Geneva have produced some first evidence for deconfinement and chiral symmetry restoration, and the observed signals are expected to be clearer at the higher energies of RHIC [16].
+
+### 3 Theoretical Modelling
+
+Whereas lattice QCD can be used to study the behavior of hadron ensembles in general, it is of little use to predict the experimental results from ultrarelativistic nuclear collisions directly. Nuclear collisions are extended systems, but they are far from being infinite in space, and because of the fast evolution, they can never be in a global equilibrium -- both assumptions that are crucial to lattice QDC. Lattice calculations do not take into account that in nuclear collisions, the input energy comes completely from longitudinal momentum, which is never completely transformed to other forms of energy. Furthermore, a model for a nuclear collision has to account for all phases of the interaction, from the initial stage, when the participating nucleons first collide, to the so-called freeze-out, when the system breaks up into individual non-interacting hadrons.
+
+Because the effects to be studied involve mostly soft interactions, models also have to extend beyond the scope of perturbative QCD. The two basic approaches to dealing with the complexity of nuclear collisions are to model the whole collision as one interaction described by collective phenomena or to treat it as a composition of single interactions of constituent particles calculated individually.
+
+#### Collective Models
+
+Collective models try to describe a nuclear collision as a single interaction described by statistical quantities. Their origins are close to the models used in low energy nuclear physics to describe nuclear reactions. The basic theories employed in collective models are thermodynamics and hydrodynamics.
+
+Because the collective quantities derived are relatively easy to compare between different models and can be calculated from experimental data, statistical concepts are often used in the interpretation of measurements and even of the results of microscopic models.
+
+Typical concepts used in collective models for nuclear collisions are:
+
+* The interactions in the collision can be described by a pressure, which is then used to predict or interpret the collective motion of the produced particles in a plane perpendicular to the direction of the colliding nuclei [17].
+
+* Kinetic energy in the interaction zone can be described by a temperature. The temperature at the time of the last inelastic collisions (chemical freezeout) is linked to the population of different particle states and thus to the ratios of multiplicities (number of particles per collision event) of different particle species [11].
+* The temperature at the time of the last elastic collisions (thermal freezeout) is connected to the transverse momentum spectra of the produced particles [12][11].
+
+#### Microscopic Models
+
+Microscopic models treat the colliding nuclei as complex systems of individual constituents. These models have been developed from theories used to describe hadron interactions or jet production in elementary particle physics. The interactions of all constituents are traced through the collision using monte-carlo techniques. Statistical quantities can be derived by analyzing large samples of simulated events, similar to experimental data.
+
+In principle, constituents on which the calculation is based can be hadrons, partons or even quarks and gluons, depending on the model. Models also differ in the treatment of soft interactions and in the level of detail used for different stages of the collision, for example if the space-time evolution of the collision is simulated and if reinteractions of the produced particles are included.
+
+Producing stochastic results for single events, microscopic models are often used as event generators to produce realistic input for detector simulations. Models used for the simulations in this thesis are:
+
+* **HIJING.** HIJING focuses on the detailed simulation of the early stages of the collision, especially of hard scattering processes, to get the best possible estimate for the production of particles with high transverse momentum (minijets). Colliding nucleons are excited to strings, which are then fragmented using jet production code from elementary particle physics. Soft processes are treated as diffractive scattering or resonance excitation. The space-time development of the collision and reinteractions between the produced particles are not included. As a deconfinement signature, a phenomenological treatment of the suppression of high transverse momentum particles (jet quenching) can be added [13].
+* **NEXUS.** NEXUS focuses on the treatment of soft interactions, also using string theory and thus assuming that there is no deconfinement. Each nucleon is modeled as a composition of partons of varying levels of virtuality, according to the nucleon structure functions measured in deep inelastic electron-nucleon scattering. The hard part of the structure function is treated by perturbative QCD, the soft part as a pseudoparticle called pomeron. All interactions of all structure functions have to add up to the total cross section while at the same time satisfying conservation laws, a problem solved using methods from statistical physics. String fragmentation into hadrons is again done by a mechanism used in jet production. In a second step, the produced hadrons can then perform hadron interactions in vacuum [14].
+* **VNI.** VNI treats the nuclear collision completely on the level of quarks and gluons. A parton cascade that includes quantum mechanical features like uncertainty relation smearing traces the development in both space-time and momentum space, treating hard interactions by perturbative QCD and soft interactions by a phenomenological approach. Confinement and deconfinement are done locally by parton coalescence, depending on the space-time evolution. The resulting hadrons and parton clusters are passed on to a hadron-cascade to calculate the development after hadronization [10].
+
+### 1.3 Observables
+
+The particles measured in detectors after a nuclear collision provide only indirect evidence of the physical processes in the collision. There is, for example no single, unambiguous signal for deconfinement. Rather, models based on very different theoretical assumptions can yield similar predictions for certain observables and their distributions. Different observables even indicate the onset of deconfinement at different thresholds. Therefore, to understand the behavior of nuclear matter in the collision for comparison to QCD predictions, a number of observables have to be taken into account and their distributions compared to the different models. Also, different observables can include information from different phases of the collision.
+
+Typical observables that are of interest in the study of high energy nuclear collisions include the following:
+
+* **Pion Multiplicity.** The number (multiplicity) of the light mesons (pions) produced in a collision is used as a measure for the created entropy. It is significant because a deconfined system with its additional degrees of freedom can produce more entropy in the same reaction time than a hadronic system. In detectors without particle identification the pion multiplicity can be approximated by the number of negatively charged particles produced, because pions are the dominant contribution to the particle production.
+* **Strange Particle Multiplicity.** As the production threshold for the heavier strange quark flavor in a deconfined system is lower than for hadrons carrying strange quarks in a hadron gas, an enhancement of strange and especially multi-strange hadrons is considered a potential sign of deconfinement. In the case of neutral strange particles or if the detector has no particle identification, they can be identified by their weak decays.
+* **Hadron Multiplicity Ratios.** As mentioned in section 1.2.1, the population ratio of different hadron states is used to draw conclusions on the temperature at the time of the last inelastic collisions.
+* **Transverse Momentum Spectra.** Particle spectra are differential multiplicities as functions of momentum. The momentum component transverse to the beam direction (\(p_{t}\)) is often expressed as the transverse mass, the relativistic mass in a longitudinally comoving reference frame: \[m_{t}=\sqrt{p_{t}^{2}+m_{0}^{2}},\] (1.1)where \(m_{0}\) is the rest mass of the particle. Transverse momentum spectra include information on the temperature and the collective expansion dynamics of the hadrons at the time of their last elastic interactions.
+* **Rapidity Spectra.** For simpler conversion between different reference frames, the longitudinal momentum is usually expressed in terms of the rapidity: \[y=\frac{1}{2}\ln\frac{E+cp_{t}}{E-cp_{t}}\] (1.2) Lorentz transformations correspond to the addition of constant terms to the rapidity. If the particles are not identified, the pseudorapidity \(\eta\) can be used instead. The pseudorapidity is the limit of the rapidity for vanishing rest mass and depends only on the angle \(\Theta\) between the particle momentum and the beam direction: \[\eta=\frac{1}{2}\ln\frac{\left|\vec{p}\right|+cp_{t}}{\left|\vec{p}\right|- cp_{t}}=-\ln\left[\tan\left(\frac{\Theta}{2}\right)\right]\] (1.3) Rapidity spectra of baryons minus antibaryons or of positive minus negative charges yield information about the stopping power of the colliding nuclei and about the baryon density in the hot and dense matter created.
+* **Hadron Correlations.** Bose-Einstein correlations of pions can be used to gain information on the size and time evolution of the pion source around the thermal freezeout. In principle, the same is possible for kaon correlations and for proton anticorrelations, making it possible to compare the emission of different particles from the interaction zone. The analysis is complicated by other correlations, for example from attraction and repulsion of charged particles.
+* **Event Anisotropies.** If the colliding nuclei have a non-zero impact parameter, the particles in the interaction region (participants) and in the surrounding non-interacting matter (spectators) are asymmetrically distributed. This can lead to anisotropic emission of particles, which is usually identified with collective motion (flow) in the source. The study of anisotropic emission allows conclusions about the compressibility and, thus, the equation of state of the interacting matter.
+* **Event Fluctuations.** If the acceptance of a detector and thus the observed particle multiplicity is sufficiently large, the observables quoted above can be determined for each single event. This allows to study fluctuations in these observables from event to event. This is interesting because for a fully thermalized deconfined fireball, transverse momentum fluctuations are predicted to be much smaller than for pure hadron scattering [Gaz97]. On the other hand, additional fluctuations in several variables could be caused by a phase transition. For example, returning from a state of restored chiral symmetry, the system may not return to the usual ratio of charged to uncharged pions, creating a so-called disoriented chiral condensate. The ratio can be changed in the whole event or locally in certain volumes of the phase space. Finally, if only a certain percentage of collisions go through a deconfined state, different event classes should be distinguishable.
+
+* **Heavy Quarkonium Production.** Heavy quarkonia like J/\(\Psi\) and \(\Upsilon\) can be reconstructed via their leptonic decays. Theory predicts them to be produced in hard interactions in the early phase of the collision. As they are extremely tightly bound, the impact parameter for their dissociation in collisions with hadrons is expected to be small. In deconfined matter, however, they are predicted to dissociate and later form D- and B-mesons, so their anomalous suppression is considered a deconfinement signature.
+* **Jet Production.** Hadron jets are also produced in hard processes in the initial phase of the nuclear collision and should be sensitive to the medium they traverse along their way out of the interaction zone. Their energy loss in deconfined matter should be higher than in hadronic matter, leading to a broadening of their momentum distribution (jet quenching). Since jets are difficult to isolate in the densely populated phase space of a nuclear collision, the distribution of single particles with high transverse momentum (minijets) can be used instead.
+* **Photon and Dilepton Production.** A deconfined state should contribute direct photons from quark and gluon annihilation and scattering processes to the spectra of photons and consequently also of dileptons. In the case of disoriented chiral condensates, the number of photons from the decay of neutral pions (\(\pi_{0}\rightarrow\gamma\gamma\)) should be negatively correlated to the number of charged pions. Dileptons created by resonance decay within the interaction zone could carry information about in-medium mass shifts, which could hint at the appearance of chiral restoration.
+
+## Chapter 1 Ultrarelativistic Nuclear Collisions
+
+## Chapter 2 The STAR Experiment
+
+The STAR experiment is one of four experiments operating at the Relativistic Heavy Ion Collider (RHIC) in Brookhaven. They are the first experiments which can investigate collisions of heavy nuclei at collider energies. Compared to fixed-target experiments, the collider offers higher energies, but it limits the achievable luminosity and complicates measurements at small angles to the beam axis. Besides heavy nuclei, RHIC can be used to collide polarized protons and after a possible upgrade also polarized electrons to study spin physics.
+
+The basic idea of the STAR experiment, which is located on the southern side of the RHIC collider ring, is to analyze a multitude of primarily hadronic observables and their correlations from event to event [1]. The main condition for event-by-event measurements is a sufficiently large acceptance. Large acceptance at low cost and particle identification from energy loss are the reasons for the important role of time projection chambers in the STAR experiment, where the event rates are small enough to permit the use of large gas detectors.
+
+### 2.1 Experimental Setup
+
+The setup of the basic components of the STAR detector is shown in figure 2.1. The detector follows the onion-shell design used by many other large-acceptance collider detectors.
+
+The whole detector is located inside a large solenoid magnet. The standard magnetic field is 0.5 T and can be reduced to 0.25 T for low-momentum studies. To reduce the investment cost, the magnet is not superconducting, made from aluminum and is operated at room temperature.
+
+The main tracking detector is the central Time Projection Chamber (TPC). With a sensitive volume of 48 m\({}^{3}\) and 140000 electronics channels, the TPC can resolve tracks in a pseudorapidity range of \(|\eta|<2\). The maximum number of track samples and the best measurement precision is achieved for \(|\eta|<1\). In this pseudorapidity range, particle identification by energy loss is possible up to a total momentum of 1 GeV/c. Figure 2.2 shows one of the first events recorded by the STAR TPC and gives an impression of the number of particles produced even at only 1/3 of the full beam energy.
+
+The Silicon Vertex Tracker (SVT) with an outer radius of 23 cm surrounds the interaction region, covering a pseudorapidity range of \(|\eta|<1\). Its main purpose is to improve the reconstruction of weakly decaying particles close to the main interaction point. The SVT has three layers of silicon drift detectors supplemented with a fourth layer using silicon strip detectors.
+
+The Forward TPC, a tracking detector for \(2.5<|\eta|<4\), will be described in detail in chapter 3. It is a cylindrical tracking detector which was in large parts designed and built at the Max-Planck-Institut fur Physik in Munich. The present thesis is a contribution to the development of the Forward TPC and its data analysis.
+
+The Electro Magnetic Calorimeter (EMC) is a sampling calorimeter consisting of alternating layers of lead and plastic scintillator material. Besides its use in the polarized
+
+Figure 2.1: _STAR detector setup. The human figure is included to give an impression of the size of the detector._
+
+proton studies, where the TPC is too slow to distinguish individual collisions, the EMC will be used to study direct photons, jets and high \(p_{t}\) particle spectra in Au-Au collisions. The barrel calorimeter covers an area of \(|\eta|<1\), and additional calorimeter elements on the magnet endcaps could extend the coverage to \(|\eta|<2\).
+
+The primary event selection criterion used in the trigger is the impact parameter, which describes the collision centrality. As the centrality can not be measured directly, the total charged particle multiplicity is used instead. To measure the total multiplicity, a layer of scintillator slats is mounted on the inside of the barrel calorimeter, and the TPC readout chambers are used as multi-wire proportional chambers. To search for rare phenomena, a further event selection can be done based on information from the calorimeter and from fast TPC tracking. For better particle identification, a part of the trigger scintillators can be replaced with smaller scintillation counters for time of flight measurements.
+
+While not all parts of the barrel calorimeter are installed, a part of the unused space is occupied by a small Ring Imaging Cherenkov (RICH) detector, which allows particle identification for high momentum particles.
+
+Figure 2.2: _One of the first events recorded in the STAR TPC on June 12, 2000. The figure shows a projection, on a plane perpendicular to the beamline, of all reconstructed hits in a collision of two gold nuclei at an energy of 30 GeV per nucleon._
+
+The STAR coordinate system, which will be used in the following chapters, is defined with the z-axis along the beamline, with positive z pointing to the west. Positive y points upward, and the x-axis is defined accordingly, to form a right-handed coordinate system. The radius of a point in the STAR coordinate system is defined as its distance to the z-axis (\(r=\sqrt{x^{2}+y^{2}}\)). The azimuth \(\phi\) is defined as the angle around the z-axis, with \(\phi=0\) for \(x=0\) and \(y>0\), leading to
+
+\(\phi=\arctan\left(\frac{y}{x}\right)\) for \(x>0\)
+
+\(\phi=\pi+\arctan\left(\frac{y}{x}\right)\) for \(x<0\)
+
+### 2.2 Time Projection Chambers
+
+Time Projection Chambers (TPCs) are large volume tracking devices using the ionization in a gas to detect particle trajectories.
+
+A charged particle traversing matter loses kinetic energy mostly by electromagnetic interactions. This energy is converted to excitation of atoms or molecules, ionization, Bremsstrahlung and, in some cases, Cherenkov or transition radiation. For hadrons from nuclear collisions traversing a gas, the dominant part of the energy loss will ionize the gas molecules, either directly or through electrons from ionization processes that have enough energy to ionize other molecules (called delta-electrons). Therefore, a charged hadron leaves a track of ionization in the gas, and the ionization charge can be used to measure the hadron's energy loss.
+
+Figure 2.3: _Specific energy loss for the most common charged particles seen in nuclear collisions._
+
+Under these conditions, the particle's most probable energy loss per unit of path length (\(dE/dx\)) is linked with its relativistic velocity \(\beta\) by the Bethe-Bloch equation:
+
+\[-\frac{dE}{dx}=\frac{4\pi e^{4}\,z^{2}\,NZ}{m_{e}\beta^{2}c^{2}}\cdot(ln\frac{2m _{e}\beta^{2}c^{2}}{I_{eff}(1-\beta^{2})}-\beta^{2}-\delta(\beta)-K) \tag{1}\]
+
+where the variables are defined as:
+
+\(z\) = particle charge
+
+\(N\) = number of atoms per unit of gas volume
+
+\(Z\) = atomic number of the chamber gas
+
+\(I_{eff}\) = effective ionization potential of the chamber gas
+
+\(K\) = correction term for relativistic electron screening
+
+\(\delta(\beta)\) = relativistic medium polarization term
+
+This specific energy loss at different momenta is plotted for electrons, pions, kaons and protons in figure 3. If the momentum is known, for example from the track curvature in a magnetic field, an additional measurement of energy loss can be used for particle identification. However, because of the contribution from delta electrons adding to high energy loss values, the statistical fluctuations of the measured ionization around the most probable value are not symmetric. They can be described by a Landau distribution function (equation 2), with the parameter \(\lambda\) standing for the energy deposition along a given trajectory segment.
+
+\[f(\lambda)=\frac{1}{\sqrt{2\pi}}e^{-\frac{i}{2}(\lambda+e^{-\lambda})} \tag{2}\]
+
+To measure the ionization, the ionization electrons have to be separated from the positive ions and their electromagnetic signals amplified to measurable values. In a TPC, a high voltage \(\vec{E}\) is applied to accelerate the electrons towards the readout plane. Together with the Lorentz force caused by the magnetic field \(\vec{B}\) and with friction in the gas parametrized using Stokes' law of friction with a friction constant \(k_{friction}\); the equation of motion of the electrons is the Langevin equation:
+
+\[m\frac{d\vec{v}}{dt}=e\vec{E}+e(\vec{v}\times\vec{B})-k_{friction}\mid\vec{v}\mid \tag{3}\]
+
+After a distance which is generally short compared to the distance from the ionization track to the readout plane, the electrons reach an equilibrium at a constant drift velocity. In the limit of a magnetic field that is zero or parallel to the electric field, the drift velocity is:
+
+\[\vec{v}_{drift}=\frac{e}{k_{friction}}\vec{E} \tag{4}\]
+
+To get a signal that can be measured directly, a TPC uses gas amplification of the electrons arriving at the readout plane. Usually, this amplification is done in the form of a multi-wire proportional chamber: thin anode wires at high positive potential attract the electrons in an exponentially increasing electric field. They are accelerated until they can ionize gas molecules, and the ionization electrons are again accelerated, creating an electron avalanche which can reach amplification factors of several thousand while remaining proportional to the original number of electrons.
+
+As can be seen in figure 2.4, besides the anode wires, there are two additional wire grids close to the readout plane of a TPC. The Frisch grid separates the drift field, which should be as homogeneous as possible, from the strongly inhomogeneous amplification field surrounding the anode wires. The gating grid is intended to keep the large number of positive ions produced in the amplification region from slowly moving back through the drift field. Therefore, while the TPC is not being read out, the gating grid wires are set at alternating positive and negative voltages (relative to the surrounding potential), so that all field lines from both sides end at either the positive or the negative wire. When the TPC is read out, all wires are set to the surrounding potential to make the grid transparent.
+
+To get a two-dimensional image of the arriving electrons, the signal from the gas amplification is sampled on pads located below the grid of anode wires. Usually, these pads are grouped in rows that are perpendicular to the expected particle track direction. From the arrival position of the electrons on the padrow and the arrival time, one point of the track can be measured with high precision in two dimensions, with the third dimension corresponding to the z-position of the padrow. Reconstructed points from all padrows can then be used to reconstruct the full, three-dimensional track.
+
+To get a good position resolution, each track should create a signal on at least three adjacent pads in each crossed padrow. In that case, the track position can be measured by comparing the amplitudes on the different pads. The distribution function of the signal on the pads caused by a point-like charge entering the amplification volume is called the pad response function (PRF). The sigma of the pad response function is on the order of the distance between the anode wires and the pads. A measurable signal on at least three pads can be expected if the PRF sigma is on the order of the distance between the centers of adjacent pads.
+
+### 2.2 Time projection chambers
+
+Figure 2.4: _Principles of electron drift and amplification in a time projection chamber._
+
+## Chapter 2 The Star Experiment
+
+## Chapter 3 Construction of the Forward Time Projection Chambers
+
+This chapter will give an overview of certain principal hardware matters that were of some concern in the course of this thesis and that did not evolve into parts of the data reconstruction software. After a short introduction into the design basics of the FTPC, section 3.2 will briefly summarize the studies on special problems of a radial drift TPC done by Marstaller [14]. The following sections describe special calculations on the distortions in the detector's electric field configuration, which were done to verify the design of certain FTPC components before the start of production.
+
+### 3.1 Design of the Forward Time Projection Chambers
+
+The main part of the STAR detector was designed for optimum performance around midrapidity, in a rapidity range from \(-1.5\) to \(+1.5\). However, this acceptance covers only about 50% of the particles expected to be produced in a heavy ion collision at RHIC. With slight variations depending on the model, about 30% of the particles produced are expected in a pseudorapidity range of \(2.5<\mid\eta\mid<4.0\)[1]. A tracking detector in this region can offer important data for the analysis of several observables, like baryon stopping, flow and the search for disoriented chiral condensates.
+
+The cylindrical Forward Time Projection Chambers (FTPCs) were built for this role in the STAR experiment. Besides physics specifications and financial limits, their design was strongly influenced by spatial constraints:
+
+* The cylindrical free space inside the central TPC, where the FTPCs are located, limits their outer radius to 35 centimeters including the front-end electronics and cooling.
+* Sufficient thermal and electromagnetic decoupling from the aluminum pipe surrounding the circulating ion beam demands an inner radius of at least 7.5 centimeters.
+
+* To limit the radiation background in the central TPC, no solid matter could be introduced within 150 cm in beam direction from the main interaction point.
+* Because of the divergence of the magnetic field beyond a distance of 270 cm in beam direction from the interaction point, extending the sensitive area beyond this distance would not have significantly improved the momentum resolution.
+* There is only one stable structure for suspension available: the central TPC support frame, which is about 220 cm in beam direction from the main interaction point.
+
+On the physics side, the primary task of the FTPC, to determine the charge and momentum of charged hadrons emitted within its acceptance, faces a number of challenges. They mostly result from the fact that the particles studied are emitted at small angles to the beamline:
+
+* The particle trajectories have small angles to the beam direction. Therefore, to achieve a reasonable position resolution, the drift direction of the FTPC could not be parallel to the beam (as in the case of the central TPC), but radial onto the outer surface of the cylinder.
+* As the detector is located in a solenoid magnet, the particle trajectories are almost parallel to the magnetic field lines. Therefore, the Lorentz force \[\vec{F}=q(\vec{v}\times\vec{B})\] (3.1) is small compared to the total momentum. A transverse momentum of 1 GeV/c corresponds to a radius of 7 m in the x/y-projection, in which the track is only about
+
+Figure 3.1: Components of the FTPC design.
+
+20 cm long. To get reasonable accuracy in determining the charge and momentum of the particles, the position resolution of the detector at the individual track points has to be: \[\sigma\leq 150\,\mu m\] (2)
+* Between the main interaction point and the sensitive volume of the detector, the particles have to pass through the material of the beampipe, beampipe support and the inner parts of the FTPC. Processes relevant for the measurement of hadrons include electromagnetic multiple scattering as well as hard interactions with the nuclei in the traversed matter. Also, conversion of gamma rays to electron-positron pairs is one of the major sources of background in the measurement.
+* The density of charged particle tracks in the acceptance of the FTPC is extremely high. The sensitive cross-section of one FTPC of only 0.25 m\({}^{2}\) is traversed by more than 500 charged hadrons in each interaction. This track density even increases for small radii, as can be seen in figure 2. Therefore, the detector must have a good capability to discern parallel tracks at small distances (two-track separation).
+
+The relative contributions of these influences to the momentum resolution achievable with the detector are discussed in section 5.2.
+
+The design of the FTPCs is shown in figure 3. They are designed as TPCs with a radial drift field, with readout chambers located on the cylindrical outer surface, at a radius of 31 cm. The high voltage electrode of each FTPC is a thin tube surrounding the beampipe, made of plastic material which has been galvanically coated with metal to define a cylindrical surface of constant negative potential, at a radius of 8 cm. The field cage to close the field at both ends of the cylinder consists of concentric rings made from aluminum pipes with a wall thickness of only 300 \(\mu\)m. The main support structure for each FTPC has been milled out of one single tube of aluminum, to provide the necessary precision and stability. The support frame and the installed readout chambers form a gas tight cylindrical surface. At both ends of the cylinder, the gas volume is closed off by a double window made of aluminized mylar foil.
+
+The frontend electronics, which preamplifies, shapes and digitizes the signals is installed on the back of the readout chambers. To limit the number of electronics channels without increasing the pad pitch, the number of padrows was limited to ten per FTPC. Therefore, the padrows are not adjacent, and the particle tracks are only sampled about once in ten centimeters. Each circular padrow has 960 pads.
+
+The readout plane of one FTPC is segmented into 30 readout chambers, which can be individually disconnected from the support frame for maintenance. Each readout chamber holds two padrows on 1/6 of the circumference of the FTPC. The pads are parallel to the axis of the cylinder (z-direction) and therefore almost parallel to the majority of the produced tracks. The anode wires are mounted on the readout chambers and fixed around each single padrow with conductive glue. The gating and Frisch grid wires, however, are mounted on the main support structure and fixed at both ends of the cylinder.
+
+To achieve a high position accuracy and good two-track separation, the structures in the readout chambers are kept relatively small. The pads are 20 mm long and only 1.6 mm wide, with a pitch of 1.9 mm, and the anode wires are 1.5 mm above the pads. Prototypemeasurements are consistent with what could be expected from these numbers, indicating a pad response function width of slightly less than 1.5 mm and a two-track separation down to track distances of 1.0 mm at small radii [10].
+
+A more detailed description of the FTPC design can be found in the FTPC proposal [11].
+
+### 3.2 Problems of a Radial Drift TPC
+
+To achieve a reasonable position resolution, a TPC needs a large angle between particle tracks and drift direction. This, in connection with the cylindrical space available, neces
+
+Figure 3.2: _Tests done to find the minimum angle between anode wires and pads by scanning a TPC with laser tracks. The plots show the reconstructed position from the TPC versus the initial laser position. Plot a), with the anode wires parallel to the tracks, shows a quantization structure with the pitch of the anode wires. Plot b), with an angle of 9\({}^{\circ}\), has no such structure. The reconstruction has similar quality as in plot c), with 10\({}^{\circ}\) and plot d) with 90\({}^{\circ}\)._
+
+sitated a design with a radial drift field. As a further advantage, the radial drift improves the separation of the charge clouds from different tracks, especially for small radii, where the track density is highest [15].
+
+A technical problem posed by the radial drift is the installation of the anode wires. The simple way of installing wires in a cylindrical detector would be in z-direction along the sides of the cylinder, parallel to the pads. If, however, the anode wires are parallel to the pads and, therefore, parallel to the tracks, the charge resulting from each track will be focused to a single anode wire, leading to a quantization of the measured positions and to distortions in the position resolution. Consequently, in conventional TPCs, the anode wires are orthogonal to the pads. In a TPC with a cylindrical readout surface, this is hardly feasible.
+
+One solution, used by the CERES/NA45 experiment, is to split the outer surface of the cylindrical TPC volume into planar segments. This allows simple, planar readout sectors and wires orthogonal to the pads, at the expense of severe distortions in the radial drift field [1].
+
+Figure 3.3: _Selection of a favorable angle between the pad direction and the anode wires. Part a) defines the distance a in relation to the pad length \(d\) and the angle \(\alpha\) between pad direction and anode wires (thin lines). The angle is chosen so that the distance a divided by the pitch of the anode wires is an integer number. Part b) shows that under these conditions the integrated wire length over each pad is identical, as the wire length \(y_{1}\) added by moving the pad is identical to the subtracted wire length \(y_{2}\). In the FTPC readout chambers d=20 mm and distance a is three times the wire pitch of 2 mm, so \(\alpha\) was set to 17.4\({}^{o}\)._
+
+A different possible solution, intended in early stages of the FTPC planning, is to use micro strip gas chambers (MSGCs) as readout for the TPC. Since their anodes are not wires but metal strips on a glass substrate, they could be bent with the supporting glass and thus be arranged in the ideal direction, orthogonal to the pads. However, test measurements for other experiments have shown stability problems with MSGCs. In hadronic radiation, the small structures were vulnerable to high voltage discharges, which damaged the metal strips. Because development time was short and a robust detector system was needed, the MSGCs were abandoned in favor of a more conventional wire design.
+
+The FTPC readout chamber design uses the fact that the tracks to be measured are almost parallel to the pads and that there is enough space to fix the wires between padrows. If the wires cross the pads at small angles, the plane defined by the wires is still sufficiently parallel to the pad plane. It could be shown that the quantization effect disappears when each pad is crossed by more than one wire, to be seen in figure 3.2 (from [13]). In the FTPC readout chambers, the angle was chosen so that the length of each pad is crossed by exactly three wires, additionally insuring an equal integrated length of anode wire over each pad, as can be seen in figure 3.3.
+
+A further complication caused by the radial drift is that the electric field strength and therefore the velocity of the drifting electrons are not constant. Also, the electric field is not parallel to the magnetic field, but would be perpendicular to the field of a perfect, infinite solenoid. This is complicated even more since the STAR magnet field has some significant inhomogeneities in the volume of the FTPCs. This has to be taken into account and compensated for in the reconstruction of the FTPC data. The resulting code will be discussed in section 4.1.5.
+
+### 3.3 The Electric Field in the Readout Region
+
+Ideally, the drift field of a TPC is perfectly homogeneous or radial up to the Frisch grid which separates it from the strongly inhomogeneous but periodic field in the gas amplification volume. In reality, the Frisch grid is never completely intransparent; the gating grid is never completely transparent, and both the drift field and the amplification field are distorted by edge effects of the detector. Distortions in the drift field are usually small, but their effects integrate over the whole path of the drifting electrons. In and around the amplification region, field distortions are usually local but can be of substantial magnitude.
+
+To calculate the distortions close to the amplification region in the FTPCs, as a part of the present thesis, a simplified, planar model of a small FTPC segment was calculated using the MAFIA (_Solution of MAwell's equations using a Finite Integration Algorithm_) electromagnetic simulation package [10]. The effects to be studied were the transparency of the wire grids and the field distortions at the sector edges.
+
+The geometry of the model is shown in figure 3.4. It reflects the principles of a TPC readout chamber demonstrated in figure 2.4. The calculation is done in two dimensions and neglects the cylindrical structure of the FTPC. This approximation is possible because the segment is small compared to the radius of the chamber. The two cartesian coordinates are called R and X because one of them corresponds to the radius in cylindrical FTPC coordinates, the other to the azimuth or to the x-coordinate at the sector boundary around 
+
+[MISSING_PAGE_FAIL:31]
+
+#### Transparency of the Wire Grids
+
+Figure 3.6 shows the main component of the drift field along a cut in R between the gating grid wires. Ideally, the field should be constant with the calculated magnitude of \(-253\) V/cm. The curve shows that the field magnitude is slightly larger in the free drift volume, has a step around the gating grid (at R = 29.75 cm) and then increases to \(-360\) V/cm between the gating grid and the Frisch grid. This is caused by incomplete screening of the amplification field at the Frisch grid. The field of the anode wires reaches through the Frisch grid and the gating grid into the drift volume.
+
+The usual way of trying to compensate for this problem is to introduce a bias voltage on the gating grid. This can be done in two possible ways:
+
+* The gating grid can be adjusted for the best possible transparency, in this case by decreasing the absolute value of its negative voltage by about 30 V. In this case, local disturbances around the gating grid are minimized, but the outer voltage defining the radial field is shifted. Because the field cage is adjusted for the original field configuration, a large-scale three-dimensional distortion of the drift field will result.
+* The gating grid can be adjusted to screen the drift field against field leakage through the Frisch grid, in this case by increasing the absolute value of its voltage by about 10 V. In this case, the drift field will be undistorted up to the gating grid, followed by an even larger step and a much higher field strength between the gating grid and the Frisch grid. While this can be interpreted as a gradual transition to the
+
+Figure 3.5: _Electric potential distribution in the model. The figure indicates lines of identical potential. High potential gradients indicate the amplification region around the anode wires. The Frisch grid separates the amplification region from the drift field, while the open gating grid should not influence the surrounding potential._amplification region, it can also lead to systematic distortions in the reconstructed points if it is not properly taken into account in the reconstruction.
+
+The more fundamental approach of compensating for the transparency of the Frisch grid is to apply a bias voltage to the Frisch grid itself. Instead of defining the Frisch grid as made of wires at ground potential, it should be redefined as a plane which is effectively at ground potential, with local disturbances resulting from the wires and the spaces between them. For the voltage configuration described above, the appropriate Frisch grid voltage to get a field without large scale distortions is \(-43\,\)V.
+
+#### Distortions at the Sector Boundary
+
+The second source of errors to analyze is the sector boundary with the mountings for the sense wires. The conductive glue runs around each padrow, but in the central part of the padrow, each pad is affected equally from both glue lines running along the padrow. At the sector boundaries, however, azimuthal field components from the wire mounting can introduce errors in the azimuthal position resolution. The azimuthal component is the most important for the FTPCs' momentum resolution.
+
+The azimuthal coordinate in the FTPC corresponds to the X coordinate in the MAFIA calculation. Figure 3.7 shows the X component of the electric field in the amplification volume, approximately in the middle between the Frisch grid and the anode wires. On the
+
+Figure 3.6: _Radial (R) component of the electric field in the drift volume around the gating grid. The cut is at \(X=2.0\,\)cm, between the wires of the gating grid and ranges from the free drift volume, below 29.6 cm, to the area where local effects from the Frisch grid wires set in, around 29.9 cm._
+
+[MISSING_PAGE_FAIL:34]
+
+### 3.4 Calculations for the Construction of the Field Cage
+
+To estimate possible distortions of the main drift field caused by the field cage ring structure, a large-scale three-dimensional model of a complete FTPC was calculated using MAFIA. A visualization of the material distribution in the model can be seen in figure 3.10. All details of the readout sector structure have been neglected. The readout plane is modeled by a smooth surface on ground potential at the radius of the Frisch grid. The high voltage electrode is at a radius of 7.73 cm. The field cage rings at the two ends of the cylinder are modeled by solid, concentric structures at their actual positions. To test the separation of the drift field from possible disturbances outside the FTPC, two surfaces at ground potential were introduced. On one end of the FTPC, there is a narrow ring at small radius and a distance of 7 cm from the field cage, corresponding to the beam pipe connection of the inner FTPC insulation; on the other end, there is a solid plate at a distance of 10 cm from the field cage as a worst case for a possible disturbance. The field inside the sensitive volume of the chamber turned out to be almost completely insensitive against these disturbances.
+
+Calculations were done using first the idealized radii and ring voltages. In further calculations, the voltages were set to the voltages actually achievable with the used divider chain, and the radii of individual field cage rings were varied according to realistic mechanical precision.
+
+Field distortions were analyzed within the sensitive volume of the FTPC, the volume from where electrons can drift onto the pads and lead to a signal. This sensitive volume ends
+
+Figure 3.8: _Horizontal (X) component of the electric field between the gating grid and the Frisch grid in the readout region model. The cut is at R = 29.9 cm._at a distance of more than 10 cm in z direction from the field cage. Therefore, the field in the sensitive volume is only weakly influenced by the field cage.
+
+In the original FTPC design, the major source of distortions was the innermost field cage ring, which is mechanically and electrically connected to the high voltage electrode, as can be seen in figure 3.11. Therefore, its potential is several hundred Volts different from the ideal value, causing local distortions on the per mille level in the sensitive volume at small radii. The potential of the second field cage ring was adjusted for the best possible compensation, reducing the distortion by an order of magnitude. In the final FTPC design, the resistors in the divider chain defining the field cage potentials were changed accordingly.
+
+The remaining distortions were calculated to be locally limited and smaller than one per mille of the drift field strength. They affect only the z component of the field (to which the detector resolution is mostly insensitive) and the radial component. The most critical coordinate for the performance of the detector is azimuthal. Significant azimuthal components in the drift field should only exist if the high voltage electrode or the field cage rings are not sufficiently circular or mounted off-center. Calculations were done assuming field cage rings that are off-center by reasonably pessimistic values, and the resulting azimuthal components were found to be negligible.
+
+Figure 3.9: _Horizontal (X) component of the electric field in the drift volume below the gating grid. The cut is at R = 29.6 cm, 1.5 mm below the gating grid. The drop on the right results from the boundary conditions in the finite model._
+
+## Chapter 3 The _Ftpc_
+
+### 3.4 Calculations for the construction of the Ftpc
+
+Figure 3.10: _Three dimensional view of the material distribution in the model to calculate the electrical drift field. Cylindrical coordinates are used to limit the complexity of the model, with the Z coordinate corresponding to z in the STAR coordinate system. The lightly shaded surfaces are the high voltage electrode, readout plane and field cage of the FTPC. Test surfaces at ground potential outside the FTPC are in a darker shade._
+
+## Chapter 3 Construction of the Ftpcs
+
+Figure 3.11: _Cut through the aluminum ring structure of the field cage, which separates the radial drift field from disturbances outside the chamber. The potential of the individual rings is defined by a resistor chain. The innermost ring touches the high voltage electrode and is therefore not at the potential corresponding to its radius. All lengths are in mm._
+
+## Chapter 4 Simulation and Reconstruction of Experimental Data
+
+The STAR Forward TPCs allow to determine the momentum of charged particles passing through their volume by measuring the curvature of their trajectories in a known magnetic field. To reconstruct a particle's trajectory, the position of its ionization track is measured in two dimensions (pad position and drift time) at each of the padrows it passes, with the position of the padrow providing the third dimension. The number of the padrows in which the track passes through the sensitive volume depends on the track's angle to the beam axis.
+
+The first step in the reconstruction (cluster finding) is to calculate these track points from the charge distribution measured by the readout electronics. In a second step (track finding), these hit points are grouped to tracks. Using the magnet field map, the up to ten position measurements per track are then used to fit the momentum.
+
+To determine the efficiency of the detector and the reconstruction chain, the response of the detector to passing particles at given momenta is simulated. This can be done by either simulating the detector response to entire events or by embedding single simulated tracks in the raw data measured in a real nuclear collision event.
+
+Usually, the results of the simulation are analyzed in a number of intervals (bins) in kinematic variables describing longitudinal and transverse momentum. The comparison of the tracks reconstructed to the tracks put into the simulation yields information about the following three properties of the detector and the reconstruction chain:
+
+* **Acceptance:** The acceptance of the detector is defined to comprise all the bins in longitudinal and transverse momentum in which the number and quality of reconstructed tracks is sufficient to do an analysis. This definition of the acceptance from reconstructed tracks is different from the geometrical acceptance, which includes all the particles that traverse enough of the sensitive volume of the detector to produce a potential track. Especially, it is dependent on the quality criteria a properly reconstructed track has to meet and on the magnitude of the correction factors that is considered acceptable in the analysis.
+* **Efficiency:** The efficiency is defined as the percentage of the tracks within the acceptance that is actually reconstructed properly. It is defined for each bin within theacceptance and is dependent on the quality criteria imposed on the reconstructed tracks. The efficiency can be determined by analyzing the reconstruction of simulated tracks embedded in real data.
+
+* A reconstructed track sample can include a certain number of tracks that are not adequate reconstructions of any real particle track from the original event. Possible sources of unwanted tracks are:
+* The reconstructed track contains points that should not be on this track.
+* One original track has been fragmented into several reconstructed tracks.
+* A track is attributed to a track sample to which it should not belong (for example an electron track from gamma conversion is counted as a primary hadron). In accordance with Konrad [18], the contamination is here used in the sense of the percentage of all found tracks that are not correctly reconstructed original tracks. It can only be determined from completely simulated events. Therefore, the precision is worse than for measuring the efficiency, because not only the track but also the background, which has a strong influence on the contamination, has to be simulated. Contamination can only be corrected for if there is sufficient confidence that the simulated background adds the same contamination as the real one and
+
+Figure 4.1: _Overview of the STAR FTPC simulation and analysis chain._
+
+if the calibration is done in intervals of every variable the analysis is done for. Consequently, it is useful to limit the accepted track quality and the acceptance in such a way that the error introduced by contamination is small.
+
+If the contamination can be neglected, the reconstruction efficiency can be accounted for by scaling measured particle abundancies in each bin with the inverse efficiency for that bin.
+
+Figure 4.1 gives an overview of the reconstruction chain for measured data from the data aquisition system as well as simulation on the track point level (fast simulation) and on the level of electronics signals (slow simulation).
+
+Some components of the reconstruction chain have been newly developed as a part of this thesis, some have been adjusted to the needs of the FTPC, and smaller contributions have been made to others. In the following description of the chain, the authors of key components are identified where possible, without the claim of being exhaustive.
+
+### 4.1 Reconstruction of Track Points
+
+The reconstruction of track points is done by the Forward-TPC Cluster Finding module (StFtpcClusterMaker/fcl), which was developed as a part of this thesis. It is optimized to deal with high track densities while minimizing the use of computing time. The module reads in the electronics signal data from the data acquisition or from the simulation, looks for coherent areas of nonzero charge (clusters), deconvolutes merged clusters and fits the point coordinates. Calibration constants for electronics effects can be taken into account in the fitting process. The transformation from pad and time to cartesian coordinates includes the correction of distortions introduced by the magnetic field.
+
+#### The Charge Distribution in the Raw Data Format
+
+For one trigger taken in both Forward-TPCs, the charge deposited on each of the 19200 pads is sampled 256 times over a time of 51.2 microseconds, generating a total of almost five million digitized amplitude values to be stored. The analog to digital converters in the front end electronics digitize each value in ten bits, but to save storage space and transfer bandwidth, the data is compressed to eight bits (one byte) in the data aquisition system. For TPC data, where energy loss measurements of low-momentum particles depend on a large dynamic range, this compression is done logarithmically. As in the acceptance of the FTPCs almost all hadrons have a small energy loss, a linear compression by truncation of two bits is sufficient. Therefore, 8 bit data from the FTPC can directly be used for fitting without prior decompression.
+
+Figure 4.2 shows the charge distribution measured in one padrow of the FTPC in a central collision. As the charge after diffusion and smearing in the gas amplification fills only about 3% of the sensitive volume in the outer parts and up to 30% in the inner parts of the chamber, a significant reduction of the data volume can be achieved by zero-suppression. Only values exceeding a certain threshold in more than one consecutive time sample are stored. Choosing the threshold is a problem of optimization: It should be well above the average level of the electronics noise (to keep the noise from being stored),
+
+## Chapter 4 Simulation and reconstruction of data
+
+Figure 4.2: _Distribution of the raw data in one FTPC padrow plotted in cartesian coordinates. The beampipe is in the center of the plot, around the origin of the coordinate system, parallel to the z-axis, which points out of the plot. The plot shows simulated data from the Venus event generator, which is generally seen as an upper limit for the particle densities to be expected in the experiment. The track density and thus the number of clusters including charge from more than one track is visibly higher at low radii._but for good position resolution it should be low enough to allow a signal on at least three adjacent pads for every track over every padrow. The laboratory measurements by Marstaller [13] were done with a threshold corresponding to a digitized value of five channels after 8 bit compression and showed satisfactory position resolution.
+
+The zero-suppressed data is stored in two simple vectors: The ADC vector contains only the non-zero digitized values, while the sequence vector contains, for each time sequence of consecutive non-zero values on a pad, the position of the pad in the chamber, the position in time and the number of values in the sequence, packed into 16 bits.
+
+Additional index tables can be set up to point to the beginning of individual pads or sectors or of the second FTPC in the raw data, but they are not used in the point reconstruction process, which always runs over all the available data, accessing through a specialized interface class.
+
+#### Finding Clusters in the Charge Distribution
+
+Each track crossing a padrow creates a signal in several consecutive time samples on several adjacent pads. In a pad-time plane, corresponding to a cut perpendicular to the beam line (figure 4.3), these signals form a coherent area of charge, called a cluster. As can be seen in the figure, the radial drift stretches the clusters in the radial direction and focuses them in azimuthal direction for small radii, corresponding to long drift lengths. A cluster can include charge from more than one track if their signals overlap, which is common in the area of high track densities at low radii in the FTPC.
+
+The first step in the point reconstruction is to identify these clusters of charge in the raw data distribution and to prepare them for further processing. This is done with an algorithm developed by Dirk Schmischke to reconstruct events online while the data is being taken, with a minimum use of computing time.
+
+The basic idea is to limit the number of accesses to the large sequence and ADC vectors, which reside in the computer's relatively slow main memory or may even be swapped out to disk. Therefore, the sequence vector is read and unpacked only once, sequentially, by the cluster finding routine, and the ADC vector is only accessed in the process of cluster fitting. The data which is currently being processed is kept in a small, self-managed piece of memory for fast and efficient access.
+
+As the clusterfinder iterates over all the pads in one sector, only the sequences on the current pad and on the last pad are kept in memory and checked for adjacent sequences. Adjacent sequences are stored as a cluster under construction (CUC) in a special memory block reserved for quick access. If the sequence on the last pad already belongs to a CUC, the sequence on the current pad is added, otherwise a new CUC is created. Each CUC that has not had any additions on the current pad or includes the last pad in the sector is considered a finished cluster and is passed on to the fit routine. CUCs can also be fused or contain more than one sequence per pad, which makes the code somewhat slower but guarantees proper handling of more complicated clusters from overlapping signals. Figure 4.4 illustrates the principles of CUC generation and buildup.
+
+#### Cluster Deconvolution and Fitting of Track Points
+
+Ideally, each track produces exactly one cluster of charge in each padrow it crosses. However, especially in the case of high track densities, a cluster can contain charge deposited by more than one track (merged clusters). The aim of the cluster finding software is to identify these merged clusters and to reconstruct the single track points contributing to them.
+
+Merged clusters can be identified by either using information from already partially reconstructed tracks or by studying the charge distribution within the clusters. Although sophisticated measures of the cluster shapes are imaginable [15], the STAR FTPC
+
+Figure 4.3: _Distribution of the raw data in one FTPC sector and reconstructed hit positions plotted in cartesian coordinates. The contours show the outlines of the deposited charge; the black dots signify reconstructed cluster positions. The beampipe is to the left of the plot, around the origin of the coordinate system, parallel to the z-axis, which points out of the plot. The plot shows simulated data from the Venus event generator._cluster finder uses a simpler approach: Clusters are only treated as merged if their charge distribution has more than one local maximum. In this case, the single maxima also provide starting points for the deconvolution of the single charge distributions in the cluster. Therefore, the cluster fit routine starts by finding local maxima in all the sequences the cluster is made up of. The sequence maxima are then matched and tested if they are 2-dimensional maxima in the charge distribution.
+
+If a cluster has only one maximum, it is processed to one track point. The charge in the cluster is summed up, and the centroid and width of the charge distribution are calculated, independently in padrow and time direction by either calculating the weighted mean and the mean squared deviation of the charge distribution or by assuming a Gaussian shape and fitting it to the maximum and its two neighboring values.
+
+Figure 4.4: _Possible steps in the generation and buildup of clusters under construction (CUCs) in the cluster finding process. The shaded areas signify time samples in which charge has been recorded; the dashed boxes signify existing clusters under construction, and the dotted boxes visualize changes or new clusters under construction._
+
+If a cluster has more than one local maximum, each of the maxima is processed to one track point. In this deconvolution process, a distribution function for the charge measured around one track point has to be assumed. The most precise method of cluster deconvolution is to describe the whole charge distribution in the cluster by a sum of two-dimensional Gaussians and minimize the errors using a Levenberg-Marquardt algorithm [11]. If a large number of track hits contribute to one charge cluster, this can be extremely time consuming, the computing time rising with the square of the number of fit parameters times the number of charge values times the number of iterations needed. The fastest method, on the other hand, is to do simple Gaussian fits in the immediate vicinity of the local maxima, neglecting the influence the different track points have on each other, as it is done in the STAR TPC cluster finder [15]. The STAR FTPC cluster finder uses an intermediate method, taking the noniterative local Gaussian fits only as a first guess and then iteratively subtracting the influence of one track point on the other before recalculating the fits. The calculation time is proportional to the square of the number of local maxima times the number of iterations, the latter usually being smaller than five for reasonably shaped clusters.
+
+#### Calibration of Electronics Effects
+
+The readout electronics records a charge amplitude sampled for a series of timebins. Consequently, calibrations for electronics effects can in general be transformations of the recorded amplitude and of the timing of the sample for each single electronics channel. As all analog components are tested and selected for good linearity, a linear transformation is sufficient for the amplitude calibration. The time is defined by a common clock for all channels, so only a constant, additive calibration term for each channel is needed for the timing, to compensate for potentially different signal run times in the connections to the single channels.
+
+The amplitude calibration can in principle be done at any step in the raw data chain without losing precision, but the time offsets can not be applied to the raw data before processing, because the shifts introduced by the calibration are smaller than one timebin.
+
+The STAR FTPC cluster finder incorporates both calibrations in the cluster fitting process. All charge values are calibrated during the peak finding process, the first point in the analysis when every single amplitude value is accessed. Time values are calibrated at the moment when they are used in the position fit.
+
+#### Distortion Correction and Transformation of Pad / Time Information to Cartesian Coordinates
+
+In the STAR Forward TPCs, the coordinate transformation from pad position and drift time to points in cartesian space is much more complicated than in the TPCs used in other experiments, where the drift is linear and the drift time is proportional to the drift distance. In the FTPCs, the drift velocity is not only a non-linear function of the radial electric field; the drift is also influenced by the magnetic field, which is almost perpendicular to the electric field lines and not constant over the volume of the chamber, as shown in figures 4.5 and 4.6. Neither of these influences is small enough to be treatedas a correction, as it was done in the NA49 experiment [17][19]. Therefore, the coordinate transformation can not be separated from the distortion correction.
+
+The drift parameters at every given point in the chamber have to be calculated from the local electric and magnetic field using the gas parameters. An advantage which can be used is that both the electric and magnetic field in the volume of the FTPCs are with a good precision azimuthally symmetric around the same axis. Therefore, only a two-dimensional map of drift parameters has to be calculated.
+
+To determine these drift properties, the FTPC software makes use of the MAGBOLTZ code, developed at CERN and implemented as part of the Garfield gas detector simulation package [20]. MAGBOLTZ can statistically calculate drift parameters from microscopic properties for a wide selection of gases under a variety of conditions. Comparisons with other calculation methods and measurements done by Bittl et al. ([1], more detailed in [15]) show that for the gas and field configuration of the FTPCs, MAGBOLTZ is in good agreement with experimental data.
+
+The main parts of the MAGBOLTZ code have been translated from the original FORTRAN version to C/C++ and implemented in the STAR software environment, so they can be used to automatically recalculate the drift parameter map if the gas composition or field configurations in the FTPCs are changed. Since the resulting parameters show in a good approximation linear dependence on the density of the surrounding gas, linear approximation is used to account for changes in the air pressure or the temperature around the detector. A normalized drift velocity as a measure for the gas density can be obtained from the drift monitors implemented in the FTPC gas system.
+
+Figure 4.5: _The longitudinal component of the magnetic field in one Forward-TPC plotted against the position in z-direction. Circles show the field at a radius of 8 cm, the inner boundary of the FTPC sensitive volume, squares at 18 cm, and stars signify the field at r = 28 cm, in the outer part of the FTPC._
+
+The cluster finder uses the drift parameter map and pressure measurements from the database to generate, by numerical integration, a look-up table to convert drift time information to a point radius and angular displacement during the electron drift, for each padrow. A schematic drawing explaining the angular displacement can be seen in figure 4.7. Radius, angular displacement and the arrival point of the cluster on the pads can easily be transformed into 2-dimensional cartesian coordinates. The third coordinate is simply the position of the padrow in beam direction.
+
+#### Performance of the Point Reconstruction
+
+Figure 4.3 gives a visual impression of the performance of the point reconstruction. The reconstruction code can deconvolute even the very complex clusters in the high density region close to the beampipe, in the left part of the figure. Cluster finding, fitting and unfolding of a full event in both FTPCs for this event needed about five seconds on a 400 MHz Intel Pentium II processor.
+
+Elongated clusters, which are caused by low-energy electrons spiraling in the magnetic field, are properly recognized and fitted as single hits if their charge distribution is sufficiently homogeneous. Otherwise, the code can mistake charge fluctuations in the cluster as individual hits and try to unfold the hit positions. Appropriate rejection cuts will have to be developed when raw data from real collisions is available for verification and when the density of electron spirals in the chamber is known. An example of a properly reconstructed electron spiral cluster can be seen in the lower right hand corner of figure 4.3.
+
+Figure 4.6: _The radial component of the magnetic field in one Forward- TPC plotted against the position in z-direction. Circles show the field at a radius of 8 cm, the inner boundary of the FTPC sensitive volume, squares at 18 cm, and stars signify the field at r = 28 cm, in the outer part of the FTPC._
+
+### 4.2 Reconstruction of tracks and particle momenta
+
+The reconstruction of tracks and particle momenta is the reconstruction of particle tracks and their momenta. The reconstruction of tracks (tracking) in this case means only to identify the points belonging to one track and to group them together in a data structure. The reconstruction of momenta (fitting) then uses the positions of these points and the magnetic field to determine the momentum a particle must have had to pass these points. Tracking routines often use momentum calculations to distinguish particle tracks from random combinations of close-by points, but in general a separate fitting pass after the track reconstruction is necessary to achieve the best possible momentum resolution.
+
+Figure 4.7: _Schematic drawing of the electron drift in the FTPC. The ionization electrons produced at the radial position \(r_{0}\) and the azimuthal position \(\Phi_{0}\) arrive at the readout plane (with radius \(R_{a}\)) at the azimuthal position \(\Phi_{1}\), displaced by the displacement angle \(\Psi_{D}\)._
+
+#### Finding the Main Interaction Point
+
+The main interaction point of the collision from which all initially produced particles originate (primary vertex) is used as input for the track and momentum reconstruction. For the track reconstruction, it helps to form track hypotheses from groups of hits and to distinguish real particle trajectories from background. For the momentum reconstruction, it provides an additional point on the trajectory with a long lever arm to the points reconstructed in the chamber.
+
+In a collider, the beams in the interaction zone are highly focused and almost parallel while they intersect to achieve the highest possible number of collisions per time interval. Therefore, the radial position of the interaction vertex is defined by the beam position, which is relatively stable during one run of datataking. Along the beamline (z direction), the vertex can fluctuate over the whole area where the two beam bunches can overlap, which extends over several ten centimeters in RHIC. Therefore, the important coordinate of the vertex position is the z coordinate, whereas the radial position can safely be assumed to agree with the beam position for the current run to less than 200\(\mu\)m.
+
+Because of their higher track multiplicities, shorter lever arms and larger angles to the beam axis, the silicon vertex tracker and the central TPC are in a better position to measure the primary vertex position than the FTPC. However, to be able to run without data from the other detectors present, the FTPC analysis software has to be able to derive at least the z position of the primary vertex from its own data.
+
+Since the vertex finding is done before the track reconstruction, random point combinations have to be used to find the vertex. To limit the number of computer operations, all
+
+Figure 4.8: _Histogram used by the vertex finder to determine the z position of the main interaction point. Straight lines through all pairs of hit points in a radius-z plane are extrapolated to zero radius. The main interaction point put into the simulation of -16.37 cm was reconstructed as -16.35 cm._points are first projected onto a radius-z plane. Then, all possible pairs of points in the same z-hemisphere and the same azimuthal sector are used to define straight lines. If the intersect point of a line with the z-axis is within a realistic range for the vertex position, an entry is made in the bin of an array (histogram) corresponding to its z position. Pairs of points on the same track will extrapolate back to the primary vertex, forming a pileup of entries above the combinatorial background, as can be seen in figure 4.8. Entries from strongly curved tracks, scattered or decaying particles widen the peak. The bin with the highest number of entries and its two neighbours are then used to fit the vertex position.
+
+#### Track Reconstruction
+
+The STAR FTPC track reconstruction code was designed by Markus Oldenburg and Andreas Schuttauf [12], based on an algorithm developed by Pablo Yepes for fast online reconstruction [13]. It is a conventional track-following algorithm optimized for minimum use of computing power in the high track densities expected in the FTPCs (see figure 4.9).
+
+To speed up the process of finding points belonging to the same tracks, all available points are first sorted into bins by padrows as well as azimuthal and polar angles from the main interaction point. Then, track seeds are generated by grouping together three close points in adjacent padrows. These track seeds are then extrapolated to other padrows by a momentum hypothesis, and the appropriate bins are searched for potential further
+
+Figure 4.9: _3d-visualization of tracks reconstructed in the FTPCs in one event simulated with the event generator HIJING._
+
+track points. All position caculations are done in a transformed coordinate system in which points appear on a straight line if they form a helix in cartesian coordinates. This processing step, known as conformal mapping, saves calculation time in the fitting of track hypotheses, because all fits can be done by linear regression. If certain quality criteria are met, the group of points is stored as a track.
+
+In a first pass this is done under the assumption that the tracks originate from the main interaction point. In a second pass, the remaining points are used to reconstruct tracks from other origins, which may result from scattering processes or particle decays.
+
+#### Momentum Reconstruction
+
+When a charged particle traverses a magnetic field, it is exposed to a Lorentz force, which influences its equations of motion. In the case of a homogeneous magnetic field and negligible other influences (like multiple scattering off the atoms in the traversed medium), this will lead to a trajectory in the shape of a helix. In this case, the momentum can easily be determined by a least squares minimization of the helix parameters with respect to the points on the reconstructed track.
+
+If the magnetic field is not homogeneous, however, the momentum reconstruction becomes much more complicated (see [10]). As in this case the acceleration of the particle depends on both its velocity and its position in the field,
+
+\[u^{\prime\prime}=f(u^{\prime},B(u)) \tag{4.1}\]
+
+all three parameters (position, velocity and acceleration) can only be calculated recursively for each single point along the path. In the commonly used Runge-Kutta method [1][21], such a recursive formula is used to calculate the errors to be minimized in a Levenberg-Marquardt fit (as in section 4.1.3).
+
+The momentum fit routines for the STAR FTPC, developed in the course of this thesis, avoid these time-consuming calculations by making use of the near-homogeneity of the magnetic field within the FTPC acceptance.
+
+As can be seen in figures 4.5 and 4.6, a particle originating from the main interaction point will be moving in a field that is in good agreement with homogeneity until it reaches the center of the FTPC. In the outer half of the FTPC, beyond 2.1 m in z from the main interaction point, field inhomogeneities of up to five percent occur: as a radial field component appears, the main component of the field is slightly reduced.
+
+To obtain a first momentum hypothesis, full homogeneity of the field is assumed. Helix parameters are calculated by a fast circle fit in the x-y-plane and a linear regression to the r-z-projections of the track points. In general, the momentum hypothesis resulting from this helix will be too high, because the diverging magnetic field in the outer part of the chamber tends to make tracks straighter. Starting at the first reconstructed fit point, this first guess is then extrapolated through the measured field by iterating over a series of short helix segments. That procedure is efficient in this case because the spatial derivatives of the field are very small compared to its total magnitude. The momentum reconstruction routine then shifts all points on the track by the distance between the initial helix fit and the extrapolated momentum hypothesis. These point shifts are smaller than \(200\,\mu\)m for the outermost points in the FTPC and much smaller for all others. Another helix fit to the shifted pseudo-points yields the final particle momentum vector for any point along the track.
+
+As a cross-check, this procedure has been iterated to convergence, and all changes after the first iteration were negligible.
+
+For particles originating from the main interaction point, including this point in the fit significantly improves the momentum resolution. The tracking code already returns some information about the origin of the track, but for the later analysis of the reconstructed data it is useful to have a quantitative criterion. Therefore, all tracks are first fit without the main interaction point. The reconstructed momentum is then extrapolated back and the radial distance of the track extrapolation (impact parameter) to the main interaction point is calculated. If the impact parameter is smaller than a defined limit, the fit is redone using the main interaction point as the first track point.
+
+#### Performance of the Track and Momentum Reconstruction Software
+
+Depending on the particle multiplicity, the track and momentum reconstruction software uses around ten seconds of computing time on a \(400\,\)MHz Intel Pentium II processor. This time consumption is about evenly distributed between the vertex finding, point sorting, actual tracking and momentum fitting.
+
+Aspects of reconstructed track reliability and momentum reconstruction quality will be discussed in chapter 5.
+
+### 4.3 Determining Reconstruction Efficiency and Momentum Resolution Using Simulated Data
+
+To determine the acceptance of the detector and to estimate the efficiency and contamination of the data, reconstructed tracks can be compared to simulated data from known trajectories. To generate simulated data as input for the reconstruction chain, the simulation has to go through three stages:
+
+* **Event generation.** In the first stage the input for the simulation chain is defined by setting a particle type, start point and start momentum for each particle in the event. The input can range from individually defined single particles through standardized particle ensembles to full-scale microscopic simulations of heavy-ion collisions using approaches like string theory or parton cascades. Microscopic event generators used in STAR include HIJING and VENUS for standardized testing as well as RQMD and VNI to test the search for special physics signals.
+* **Particle evolvement simulation.** The path of a particle to and through the detector is simulated using the GEANT package [14]. Based on geometry files that include a three-dimensional description of relevant material, fields and sensitive areas, GEANT reads the start points and momenta of the input particles and iteratesover their time evolution. Whenever a charged particle passes through a volume that has been declared a sensitive layer of the detector, the energy loss in this volume is stored as a particle hit.
+* **Detector response simulation.** The last step of the simulation is to calculate the detector response from the energy deposited in a certain sensitive volume. This can be done either by converting the particle hits directly to space points or by calculating the full detector response and creating simulated raw data.
+
+#### Simulation at the Raw Data Level
+
+Simulation at the raw data level is done in the slow simulation chain. Here, the focus is on the best possible, detailed simulation of the detector's single components. The energy deposited in a sensitive volume is converted to an electron cloud. The drift of this electron cloud through the chamber gas is then simulated including diffusion, magnetic field effects and electron loss in the gas. Finally, the gas amplification is simulated and the generated charge is distributed on the appropriate electronics channels. Calibrations and other electronics effects can be included in the code but were not used in this thesis. The data stored by the slow simulator is equivalent to raw data from the experiment and can be read by the clusterfinder.
+
+The basis of the FTPC slow simulator (fss) is code developed by Wen Gong for the detailed simulation of single charge clusters. The current version has been expanded to handle whole simulated collisions, but the calculation of electron drift and electronics response needs a significantly longer computing time than simulations at the space point level. Also, the connection of reconstructed space points and the particles they originate from is lost in this process.
+
+#### Simulation at the Space Point Level
+
+Simulation at the space point level, done with the fast simulation chain, is used for high statistics analysis in the search for certain physics signals. The focus is not on the precise simulation of every single track point but on the physics results that can be extracted from a large number of events given the known performance of the detector and the data reconstruction. Therefore, simple parametrizations are used instead of detailed calculations to limit the use of computing time.
+
+Each particle hit stored by GEANT is converted to one track point as it would be reconstructed by the cluster finder. According to the given parameters, the hit positions are dithered to account for the limited position resolution of the detector, and the energy loss is converted into a reconstructed cluster charge. The fast simulator also removes all points that would not be reconstructed due to the blind areas at the boundaries between two FTPC sectors. Finally, all pairs of points that are too close to be separated by the cluster unfolding algorithm are merged. Distortions by magnetic field effects are not calculated explicitly, but the errors in their compensation are included in the error parameters. The output data can be fed directly into the track reconstruction software. The cluster finder is not needed in the fast simulation chain.
+
+As in this case a direct connection between GEANT hits and track points is maintained, the fast simulator can also store information about the generating particle with each point. This can be used as a simple way of matching reconstructed tracks to the simulation.
+
+The FTPC fast simulator (ffs) was developed from code written by Michael Konrad for his thesis [12].
+
+#### Analysis of Simulated Data
+
+To determine the quality of the reconstruction including the reconstruction efficiency, contamination and momentum resolution, the reconstructed tracks have to be compared to the particle momenta entered into the simulation. In principle this could be done by matching tracks according to their momenta. However, that would not allow to disentangle the errors in track reconstruction and momentum measurement.
+
+Therefore, in the FTPC analysis, track matching was done by first matching the constituent points and then asking for a minimum number or minimum ratio of correct points on a track to consider the track correctly reconstructed. This was done by either using the information stored by the fast simulator as mentioned in 4.3.2 or with the help of the StAssociator program developed by Manuel Calderon [10]. StAssociator matches reconstructed points to hits stored by GEANT based on local proximity.
+
+## Chapter 4 Simulation and reconstruction of data
+
+## Chapter 5 Expected Performance of the STAR FTPC
+
+### 5.1 Expected Position Resolution
+
+In any detector using the principle of a magnetic spectrometer, the precision of the position measurements along the path of the particles has an impact on the precision of the momentum measurement.
+
+Measuring the position resolution of a detector in the absolute reference frame of the main coordinate system of an experiment is usually difficult. Reconstructed point coordinates would have to be compared to the real trajectory of a passing particle, which in most cases is unknown. Sometimes, independent calibration systems, like a second detector or a laser, can provide well-measured trajectories for calibration, but even then, the questions of alignment between the detector, the calibration system and the main coordinate system remain to be solved.
+
+As a simple way of obtaining information about the position resolution, single measured points can be compared to their position as predicted from trajectories reconstructed in the detector itself. The resulting deviations, called residuals, yield informations about the internal position errors of the detector. Ideally, each point for which the residual is calculated should be excluded from the reconstruction of the trajectory it is compared to, but for a sufficiently high number of used points, the bias introduced is small and is usually neglected.
+
+Applying a residual analysis to simulated data can serve for two purposes. First, it helps to estimate the errors introduced by all effects that are included in the simulation, usually a lower limit for the errors in the actual measurement. This gives an impression of the magnitude of the position errors to be expected in the detector. Systematically excluding effects from the simulation can then serve to disentangle the errors introduced by different sources. Second, residuals from a simpler type of simulation can be compared to those from measurement or from a more detailed simulation to calibrate the error parametrization.
+
+To find the best possible error parameters for the fast simulator to be used in the large scale production of simulated events, fast simulator residuals were compared to those found when using the slow simulator. To isolate the effect of the errors introduced in thesimulation of the detector resolution as much as possible from particle scattering or track density effects, all particle interactions except energy loss were neglected in the simulation, and only 100 tracks per event were used.
+
+Figure 5.1 shows the residual distribution in azimuthal direction for the same data processed with different simulators. The residuals resulting from slow simulation, shown at the top, were used as a reference to calibrate the error parameters in the fast simulator. The fast simulator version 1 with errors following a box shaped probability distribution and with error parameters used for earlier simulations (as in [12], [13]) is shown in the center of the figure.
+
+On all padrows and in both azimuthal and radial direction, the residuals from the old fast simulator were significantly narrower than the more realistic ones from the slow simula
+
+Figure 5.1: Azimuthal residuals in the padrow closest to the interaction point from simulation. The top plot shows the residuals from the slow simulator. The central plot was done with fast simulator version 1 using the error parametrization by Konrad, the bottom plot using version 2 with new error handling. Nent is the number of reconstructed tracks used. Mean is the mean value and RMS the standard deviation of the distribution.
+
+tor. Therefore, the box shaped error distribution in the fast simulator was replaced with a Gaussian error parametrization in the revised fast simulator, called version 2. The width of the error probability distributions was adjusted to yield similar mean square errors of the overall distributions for both simulators. Thus, the \(\chi^{2}\)-values from the momentum fits will be comparable. The residuals for the fast simulator with adjusted error parametrization can be seen at the bottom of figure 5.1. The agreement with the slow simulator distribution is still not perfect, since the errors from the slow simulator have some non-Gaussian components. These higher moments of the distribution result for example from unfolding imperfections, boundary and threshold effects and are hard to implement in the fast simulation, so they have been neglected.
+
+In all cases, there were no significant systematic shifts of the mean value of residuals between simulators.
+
+The data from fast simulator version 1 consistently had about 6% more reconstructed tracks than slow simulator data. This has been traced back to an error in the handling of sector boundaries in the fast simulator. Some track points that in reality would have been in the blind area between sectors had been accepted in the simulation. The fast simulator version 2, which has a corrected sector boundary handling, shows a satisfactory agreement with the slow simulator.
+
+### 5.2 Limiting Factors of the Momentum Resolution
+
+The position resolution of every tracking detector is affected by a number of factors ranging from mechanical deformation to electronics noise. Besides statistical fluctuations of
+
+Figure 5.2: _Relative error of the total momentum reconstructed in the FTPCs, after full simulation of scattering effects and detector response. The dashed line is a Gaussian best approximation, which has a sigma of 12.5%._
+
+the measured hit around the real particle track point, systematic distortions of the position reconstruction can have a significant impact on the quality of the data. Most of these problems are hard to quantify in the planning and construction stage of the detector. Even careful studies after installation (using for example survey data, particle tracks without magnetic field or laser calibration as in [12] or in [13]) sometimes do not allow their detailed simulation. In many cases, they are at best treated in the form of effective corrections in the data analysis, never fully eliminating their consequences from the physics results.
+
+In the case of the FTPC, the greatest known potential sources of position measurement distortions are imperfections of the magnetic field corrections and mechanical deformations of the detector caused by its own weight.
+
+To estimate the impact these uncertainties have on the quality of the results, it is useful to understand the limiting factors of the momentum reconstruction. If the position error is the dominant cause of errors in the reconstructed momenta, great care must be taken to reduce or at least understand and correct all significant systematic distortions. On the other hand, the major source of momentum error may also be interactions of the particles in or on the way to the detector. In this case, the analysis should aim at the best possible simulation of the effect and include the results in the efficiency calculation and the interpretation of the data. For example, large random errors on the momentum reconstruction make particle interferometry studies almost impossible while only imposing a minor bias on inclusive particle spectra.
+
+To study the impact of different factors on the momentum resolution, reconstructed particle momenta from simulation were compared to the input momenta of the simulated
+
+Figure 5.3: _Relative error of the total momentum reconstructed in the FTPCs, after full simulation of the detector response, but neglecting all effects of particle scattering. The dashed line is a Gaussian best approximation, which has a sigma of 3.3%._
+
+particles. Fast simulation was used for easy matching of input and reconstructed tracks. To limit the influence of hit merging and of tracking code inefficiencies, not more than 100 particles were simulated in each event. The simulated particles were pions, randomly distributed over the acceptance of the FTPC, with rapidities of \(2.5<|y|<4\) and transverse momenta between 0.1 GeV/c and 1 GeV/c. Only reconstructed tracks with at least eight hits all originating from the same input particle were included in the analysis. For each track, the relative error of the momentum reconstruction was calculated:
+
+\[\frac{\Delta p}{p}=\frac{p_{reconstructed}-p_{input}}{p_{input}} \tag{5.1}\]
+
+Figure 5.2 shows the relative error of the reconstruction of total moment a with the full simulation of all interactions and the detector response. Figure 5.3 represents the same data with all particle interactions (except energy loss) suppressed in the GEANT stage of the simulation. In both cases, the error distributions are not exactly Gaussian. However, tracks with a reconstructed momentum that deviates strongly from the real particle momentum are of no use to the analysis and have to be treated as background. Therefore, the width of a Gaussian approximation to the error distribution is a good measure for the momentum deviation of the usable part of the data.
+
+The standard deviation of the fit is 12.5% for the full simulation and only 3.3% for the simulation without scattering. Also, in the simulation with scattering about an order of magnitude more tracks has been reconstructed with totally wrong momenta, probably
+
+Figure 5.4: _Relative error of the total momentum reconstructed in the FTPCs, after full simulation of scattering effects and detector response, with additional distortions as expected from gravitational deformation of the detector. The dashed line is a Gaussian best approximation, which has a sigma of 14.9%._
+
+due to nuclear interactions with high momentum transfer. Consequently, averaged over the FTPC acceptance, particle interactions must be the limiting factor for the momentum resolution. Obviously, their relative influence decreases with increasing particle momenta, but is, for example, still dominant for pions at \(y=3.5\) and a transverse momentum of \(500\,\mathrm{MeV/c}\).
+
+The simulation presented above includes only the statistical position errors introduced in the fast simulator as derived from the slow simulator data presented in section 5.1. To predict if possible systematic uncertainties would have a more severe impact on the position resolution, their magnitude first has to be estimated.
+
+Distortions caused by errors in the calculation of the electron drift of the detector are difficult to predict. Although the program used for the calculation, MAGBOLTZ, shows good agreement with experimental data, it is not certain that the prediction will be precise to the \(100\,\mathrm{\mu m}\) level. However, the quality of this correction can be studied by comparing reconstructed laser tracks with and without magnetic field. Since the laser system was designed not to move when the magnet is turned on, the results should be useful in testing and possibly improving the drift calculation.
+
+For the analysis of mechanical deformations, the laser system will be less helpful because there are no measurements on the detector before deformations occur and because laser system mirrors may move with the structure they are attached to. Precision measurements with external optical instruments will also be difficult once the FTPCs are installed in the STAR detector.
+
+Therefore, it is improbable that detailed correction routines will be available soon. However, finite element model analyses and test measurements on the aluminum frame with weights applied can give a first impression of the magnitude of deformations that are to be expected [10]:
+
+* Gravitation deforms the aluminum support structure of the chamber from a cylinder to an elliptical cylinder. Model calculations and measurements are not in agreement, but the most pessimistic prediction is a deformation of about \(150\,\mathrm{\mu m}\).
+* As the FTPC is not suspended in the center of the support structure, the end of the chamber facing the interaction point hangs down by \(50\,\mathrm{to}\,70\,\mathrm{\mu m}\).
+* The tensions of the wires running along the chamber to form the Frisch grid and the gating grid apply a total force of about \(3000\,\mathrm{N}\) to the chamber. Calculations predict a longitudinal contraction of the chamber by about \(150\,\mathrm{\mu m}\).
+
+Changes corresponding to upper limits of the distortions caused by these deformations have been artificially applied to simulated data processed with the full simulation including particle interactions. The distribution of the resulting momentum reconstruction errors can be seen in figure 5.4. The changes compared to the reconstruction of undistorted data in figure 5.2 include a worsening of the momentum error from \(12.5\%\) to \(14.9\%\).
+
+Since these results represent a worst-case scenario, it can be said that the detector deformation is expected to have a non-negligible but limited impact on the analysis. A careful study of the distortions and possible correction methods should be done once calibration data from the installed detector is available.
+
+### 5.3 Expected Detector Acceptance
+
+The acceptance of the FTPC depends on the quality criteria applied to the tracks included in the analysis. The design acceptance of the FTPC, covering pseudorapidities (corresponding to rapidities at high transverse momenta) from 2.5 to 4, is achieved if all tracks with at least five hits are used. This can be seen in figure 5.5, which shows the acceptance in rapidity and transverse momentum for pions. Accepting tracks with less than five hits would not be useful, because of their deteriorating momentum resolution and increasing contamination.
+
+If in actual events the contamination increases or if the position resolution turns out to be worse than expected, it may be necessary to limit the analysis to longer tracks. In this case, particles entering the FTPC through the high voltage electrode or leaving it through the readout plane would increasingly be eliminated from the analysis, reducing the FTPC acceptance for high and low rapidities, respectively. If only tracks leaving charge in all ten padrows are accepted, the acceptance drops to the area in figure 5.6.
+
+An extension of the FTPCs' acceptance results from the fluctuation of the collision point in the interaction region. A collision point that is strongly off-center shifts the acceptance of one FTPC to smaller, of the other FTPC to larger absolute values in rapidity. This effect can cover about 0.5 units in rapidity and can be useful to extend the analysis if sufficient statistics is available.
+
+Figure 5.5: _FTPC acceptance in rapidity and transverse momentum for pion tracks with at least five hits in the FTPC. The size of the boxes corresponds to the probability of reconstructing a pion of the given momentum. The acceptance is symmetric for positive and negative rapidities._
+
+### 5.4 Efficiency, Contamination and Correction Factors
+
+To calculate the reconstruction efficiency and the contamination (as defined in chapter 4) of the track reconstruction on the basis of completely simulated events, the fast simulation chain was used. Thus, each point on a reconstructed track could be traced back to the simulated track it was generated from.
+
+To get meaningful values for efficiency and contamination, it is necessary to define which simulated tracks should be reconstructed and under which circumstances a reconstructed track is considered correct.
+
+For the following analysis, a simulated track that should be reconstructed ("good simulated track") was defined as follows:
+
+* The track can geometrically leave at least five hits in the FTPCs. This corresponds to a fixed range in pseudorapidity for each possible position of the main interaction point. As the pseudorapidity of a primary particle is defined at the interaction point, single particles may be scattered into or out of this geometrical acceptance, leading to a smearing of the accepted pseudorapidity range.
+* The track originates from the main interaction point.
+
+Figure 5.6: _FTPC acceptance in rapidity and transverse momentum for pion tracks with the maximum number of ten hits in the FTPC. The size of the boxes corresponds to the probability of reconstructing a pion of the given momentum. The acceptance is symmetric for positive and negative rapidities._* The particle producing the track is not an electron or a positron.
+
+In principle, a reconstructed track can be considered correct if its reconstructed momentum agrees with sufficient accuracy with the momentum of the simulated track that is assigned to it. However, this procedure would not allow to separate weaknesses in the track reconstruction from those in the momentum reconstruction. Therefore, the criteria for a correctly reconstructed track were defined based on the points the track consists of:
+
+* All points on the track were traced back to the same simulated (parent) track.
+* The parent track belonged to the sample that should be reconstructed.
+* If two reconstructed tracks have the same parent (track splitting), only one is considered correct.
+
+Only reconstructed tracks with at least five points were included in the analysis. Also, tracks that could not successfully be extrapolated to the main interaction point in the momentum fit were excluded. A separate analysis will have to be done for tracks not originating from the main interaction point when strange particle decays are to be studied. Based on these definitions, efficiency (\(eff\)) and contamination (\(cont\)) can be calculated as follows:
+
+\[eff=\frac{\#correctly\;reconstructed\;tracks}{\#good\;simulated\;tracks} \tag{5.2}\]
+
+Figure 5.7: _Tracking efficiency versus pseudorapidity determined from 70 events simulated with HIJING._
+
+\[cont = \frac{\#incorrectly\ reconstructed\ tracks}{\#reconstructed\ tracks} \tag{5.3}\]
+
+These numbers can be calculated for the whole detector or for intervals in different kinematic variables. To evaluate the tracker, the kinematic variables chosen were transverse momentum and pseudorapidity. Whereas the rapidity is generally used in the analysis of particle spectra, the pseudorapidity was preferred here because it corresponds directly to a parameter measured in the detector, the angle between a track and the beam axis. The analysis was done in two dimensions, but as both variables show no strong correlations between the two dimensions, only the one-dimensional dependencies of efficiency and contamination are shown here. The efficiency and contamination analysis was done with 70 events, corresponding to about 42000 good simulated tracks, simulated with the HIJING event generator and processed through the fast simulation chain. Using other event generators, the results vary by less than 5%.
+
+The reconstruction efficiency as a function of the pseudorapidity \(\eta\) in figure 5.7 shows efficiencies around 80% at the center of the acceptance. Significantly lower values appear in the areas where tracks get shorter and single missing points can already lead to a loss of the whole track. This dropoff is different for high and low values of \(\eta\) because of the different geometrical limitations and because of the high track density in the forward (high \(\eta\)) region.
+
+Figure 5.8 shows that the tracking efficiency does not depend on transverse momentum except for a significant dropoff at small transverse momenta, corresponding to strongly curved tracks. For these tracks, the contamination (figure 5.9) shows a strong increase.
+
+Figure 5.8: _Tracking efficiency versus transverse momentum determined from 70 events simulated with HIJING._
+
+Therefore, any studies of particles at transverse momenta of less than 100 MeV/c in the FTPC appear problematic.
+
+The contamination shows a weak dependence on the pseudorapidity (figure 5.10), slowly increasing from 10% in the low \(\eta\) region to 20% at high pseudorapidities. This is in contradiction with the results by Konrad [12], but the differences may be explained by the different track reconstruction algorithms used, different selection criteria for correct tracks and additional matter, like the beampipe supports, included in the present simulation.
+
+To analyze the sources of the contamination, table 5.1 shows the average numbers per event of reconstructed tracks, contamination tracks and the different sources of the contamination. The numbers of the sources do not add up to the number of contamination tracks, as for example most electrons also do not originate from the main interaction point. As can be seen, the dominant part of the contamination are tracks not originating from the main interaction point. Besides electrons and positrons from gamma conversion, this also includes particles created in weak decays. As most of these decays happen close to the main interaction point, they are extremely difficult to exclude from the analysis.
+
+To clarify where contamination tracks are produced, figure 5.11 shows the z-position of the production point (vertex) of particles leaving tracks in the FTPC. The data was produced from the already mentioned 70 events simulated with HIJING. The top plot shows all particles leaving more than five hits in the FTPC. The central plot includes only particles which are reconstructed as contamination tracks, and the bottom plot is limited to those contamination tracks caused by electrons.
+
+Figure 5.9: _Contamination versus transverse momentum determined from 70 events simulated with HIJING._
+
+The plots reflect the geometry of the experiment. The primary interactions all take place at \(\mid z\mid\)\(<40\)cm. The silicon tracker ends at \(\mid z\mid\)\(=50\) cm; a support structure for the beampipe is located at \(\mid z\mid\)\(=55\) cm; the transition of the beampipe material from beryllium to aluminum is at \(\mid z\mid\)\(=75\) cm, and the FTPC begins at \(\mid z\mid\)\(=150\) cm. Most of the particles created close to the FTPC are suppressed by the reconstruction algorithm or the track extrapolation to the main interaction point. The hadron contamination is mostly produced in the vicinity of the main interaction point and will be very difficult to suppress further. A large part of the electron contamination is produced by gamma ray conversion in the beampipe support.
+
+The reconstruction efficiencies quoted above are calculated assuming that the acceptance does not depend on the azimuth. The "good simulated tracks" include tracks that pass through the blind areas at the sector boundaries of the FTPC. As their points are not found, these tracks can never be reconstructed, which imposes an upper limit of about 92% on the reconstruction efficiency. This problem could in principle be avoided by limiting the acceptance to certain areas in azimuth, avoiding the sector boundaries.
+
+Figure 5.10: _Contamination versus pseudorapidity determined from 70 events simulated with HIJING._
+
+[MISSING_PAGE_EMPTY:69]
+
+## Chapter 5 Expected performance of the star FPC
+
+Figure 5.11: _Distribution of the z-coordinate (along the beamline) of the production vertices of particles leaving at least five hits in the Forward TPCs from 70 events simulated using HIJING. The systematics of the distribution are symmetric around z = 0. The top plot shows all tracks, the central plot only those that are falsely reconstructed as coming from the main interaction point. The bottom plot shows only those falsely reconstructed tracks produced by electrons or positrons._
+
+## Chapter 6 Predictions from Different Simulation Models
+
+To study the capability of the detector to distinguish the signals from different physics scenarios, the detector response to simulated events from different models was calculated. Special focus was put on the study of event-wise quantities and their fluctuations. The results of this analysis will follow in chapter 7.
+
+First, the different models will be characterized by the spectra of different particles across the whole phase-space, averaged over a large sample of events. The emphasis is on hadronic signals, as these are the main observables which are accessible to the STAR experiment. Decay products from particle decays within the STAR detector (feeddown) are included in the spectra, so that all particles produced by the model which can, directly or indirectly, cause signals in any part of the detector are counted. On the other hand, this procedure can lead to double-counting. For example, the pionic decay of a charged kaon,
+
+\[K^{+}\mathrel{\hbox to 0.0pt{\lower 4.0pt\hbox{ $\sim$}}\raise 1.0pt\hbox{$>$}} \pi^{+}\pi^{0} \tag{6.1}\]
+
+within the detector will be counted both as a charged pion and as a charged kaon. In spite of this drawback, this method avoids the dilemma of having to set a limit up to which point decay daughters, rather than parents, are counted. As the study focuses on the analysis of model properties, not on any detector performance, the model output is analyzed directly, without the simulation of any detector effects.
+
+To get sufficient statistics, all temperature parameter distributions in the present chapter are mirrored at midrapidity. In the rapidity spectra, this symmetry has not been used. As the spectra should be completely symmetrical, deviations in the presented data can give an impression of the size of the errors.
+
+The basic features of the models used, HIJING, NEXUS and VNI, are described in section 1.2.2. This selection of models allows the comparison of predictions from string models without and with rescattering to those of a model with partonic degrees of freedom.
+
+### 6.1 Pion Spectra
+
+Figure 6.1 shows the number of pions per unit in rapidity per event averaged over a large event sample in intervals of rapidity. Whereas the differences in pion multiplicity within the acceptance of the FTPC (\(2.5<\mid y\mid<4.0\)) are relatively small, there are significant differences around midrapidity, in the acceptance of the TPC. Between HIJING and VNI, the predicted pion production at central rapidities varies by more than a factor of two.
+
+The shapes of the distributions also show differences. In both string models, the pion production extends to the rapidity of the colliding nuclei (at approximately \(+/-6\)), whereas in VNI, there is no significant pion production beyond a rapidity of \(\mid y\mid=4.5\). Unfortunately, particles in this rapidity region have extremely small angles to the beam pipe, so they are not accessible to any component of the STAR detector. At central rapidities, VNI and NEXUS have a maximum, compared to a plateau, with even slight indications of a minimum, in HIJING. This difference may disappear if medium effects in the form of jet quenching are included in HIJING. The energy loss of high transverse momentum particles in deconfined matter should lead to increased particle production around midrapidity.
+
+The rapidity dependence of the temperature parameters derived from the transverse momentum distributions is shown in figure 6.2. These temperature parameters are calcu
+
+Figure 6.1: Rapidity distribution of charged pions from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI.
+
+lated by a method first suggested by Hagedorn [Hag65]. In the case of thermodynamically populated energy states in transverse direction, the transverse mass distribution of the produced particles will have the form
+
+\[\frac{dN}{dm_{t}^{2}}\propto const\cdot\exp\left(-\frac{m_{t}}{T}\right) \tag{6.2}\]
+
+with \(T\) having the dimension of a mass or energy. This energy is proportional to the mean kinetic energy (temperature) of the respective particles at the thermal freezeout. An example of a similar distribution can be seen in chapter 7, figure 7.6.
+
+In the present analysis, the temperature parameter was determined by fitting function 6.2 to the experimentally observed particle distribution in a range of \(m_{t}\) corresponding to transverse momenta from \(p_{t}=300\,\mathrm{MeV/c}\) to \(p_{t}=1000\,\mathrm{MeV/c}\). Below this range, an enhancement from resonance decay is expected to cause deviations from the exponential spectrum, whereas very high transverse moment a are enhanced by hard parton scattering.
+
+In figure 6.2, both string models show pion temperatures below \(200\,\mathrm{MeV}\) close to midrapidity and a drop-off at higher rapidities. This behaviour can be explained by energy and momentum conservation in scattering processes, where a particle will usually gain transverse momentum by losing longitudinal momentum.
+
+Figure 6.2: _Temperature parameters as functions of rapidity of charged pions from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI. The error bars show only the statistical error from the temperature fit._
+
+VNI, on the other hand, yields a much higher pion temperature, which is constant over almost the complete range of rapidity. This is consistent with the thermodynamical model of a longitudinally expanding fireball. In this model, the thermal emission of pions in transverse direction is completely independent of their longitudinal momentum, which is determined by the (ideally boost-invariant) longitudinal expansion of the pion source.
+
+### 6.2 Kaon Spectra
+
+The kaon rapidity distributions in figure 6.3 show similar shapes as the pions, with a slightly wider distribution from VNI and a slightly narrower one from HIJING. Furthermore, the kaon rapidity distribution generated by HIJING shows a much clearer minimum at midrapidity. Remarkably, around midrapidity, all three models with their significantly different physics assumptions generate only limited differences in the charged kaon to charged pion ratios of 0.12 for HIJING, 0.15 for NEXUS and 0.16 for VNI. At \(y=3\), however, in the acceptance of the FTPCs, these ratios are 0.11 for HIJING, 0.18 for NEXUS and 0.28 for VNI. Without particle identification, this signal would not be accessible to the FTPC, but the abundance of neutral kaons (which can in principle be reconstructed from the weak decays of \(K_{s}^{0}\)) should be equal to that of the charged kaons,
+
+Figure 6.3: _Rapidity distribution of charged kaons from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI._
+
+and the abundance of charged pions can be approximated from the multiplicity of negatively charged particles, so that some information on the \(K/\pi\) ratio can be obtained from FTPC data.
+
+The rapidity dependence of kaon temperature parameters in figure 6.4 shows similar systematics as the pion temperatures, at higher levels. In collective models, this increase of average transverse momenta and, thus, measured temperature parameters, is attributed to a collective expansion velocity (radial flow). If the expansion velocity is the same for all particles, its contribution to the momentum will be larger for particles with a higher rest mass. String models should not have flow, but other processes like rescattering or resonance decays may cause different transverse momentum distributions for particles with different mass. This is consistent with the fact that only in VNI the increase in temperature parameters is large enough to be explained by a substantial collective motion.
+
+### 6.3 Antinucleon Spectra
+
+To eliminate the double-counting of decaying particles, only nucleons (protons and neutrons) and antinucleons are included in the following baryon and antibaryon spectra. This
+
+Figure 6.4: _Temperature parameters as functions of rapidity of charged kaons from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI. The error bars show only the statistical error from the temperature fit._
+
+is justified as almost all baryons decay to nucleons within the range of the detector and are counted in this analysis after their decay, avoiding double-counting. This procedure also allows to use the nucleon rest mass to calculate the transverse mass in temperature parameter fits, rather than the mass of every single baryon.
+
+The antinucleon rapidity distributions in figure 6.5 are generally narrower than the distributions of the lighter particles, probably due to a depletion of antibaryons in the baryon-rich parts of phase-space, at large rapidities. In HIJING, the number of produced antinucleons relative to the number of produced kaons and pions is significantly higher than in the two other models, a fact which may be linked to the small excess of nucleons around midrapidity (see section 6.4). In VNI, on the other hand, the number of antinucleons is relatively small.
+
+The temperature parameters of antinucleons (figure 6.6) in HIJING show only a small increase compared to those of the kaons and pions, a behavior which is to be expected from a string model without rescattering. In both NEXUS and VNI they are significantly higher. In VNI, this is consistent with the kaon data and, thus, with the interpretation as radial flow.
+
+Figure 6.5: _Rapidity distribution of all produced antinucleons from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI._
+
+### 6.4 Net Nucleon Spectra
+
+Because of the conservation of baryon number, the final state of a nuclear collision contains more baryons than antibaryons. This excess of baryons
+
+\[\#net\ baryons=\#baryons-\#antibaryons \tag{6.3}\]
+
+corresponds to the number of nucleons from the incident nuclei which participate in the interaction. Therefore, the phase-space distribution of this baryon excess can be used to study the structure of the collision.
+
+In a scenario in which the nuclei are mostly intransparent to each other, the baryons will be stopped and then reaccelerated by the energy stored in the collision region, losing most of the information about the initial state (Landau picture). In this case, the rapidity distribution of the net baryons will be peaked at mid-rapidity, similar to the distributions of the produced particles, a phenomenon observed in nuclear collisions around 1 GeV per nucleon.
+
+In a scenario where the nuclei are more transparent, the baryons will only lose a small part of their kinetic energy. The remnants of the two nuclei will fly apart rapidly, retaining much of the information about their initial state and creating a meson-rich area with few
+
+Figure 6.6: _Temperature parameters as functions of rapidity of antinucleons from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI. The error bars show only the statistical error from the temperature fit._net baryons in the middle (Bjorken picture). In this case, the net baryon distribution will show two maxima close to the rapidity of the incident nuclei and very few net baryons around midrapidity.
+
+None of the net nucleon spectra of the models in the comparison shows complete stopping of the net nucleons at midrapidity (see figure 6.7). Not very surprising, VNI, the parton cascade, shows the most stopping, whereas the pure string model HIJING is close to the picture of transparent nuclei with a baryon-free zone in the middle.
+
+Remarkably, the integral over the net nucleon distribution in VNI is quite obviously smaller than in the two other models and also smaller than the number of nucleons in the initial state (394), which should be conserved in the collision (neglecting a very small number of heavier baryons decaying after leaving the detector). Although VNI does its calculation on the parton level and therefore does not conserve baryon number explicitly in the cascade, the difference between quarks and antiquarks should be kept constant, implying baryon conservation. One possible factor contributing to the lack of nucleons in the final state in VNI is that it is the only one of the three models that includes the formation of deuterons and other light nuclei, which were not counted in the present analysis. Furthermore, the sharp cutoff in all VNI spectra at \(\mid y\mid=4.5\) indicates that spectators (nuclei which do not take part in the interaction because of the finite impact parameter) are not included in the model output and, therefore, in this analysis.
+
+Figure 6.7: _Rapidity distribution of net nucleons (excess of nucleons over antinucleons, corresponding to the remainder of nucleons from the colliding nuclei) from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI._
+
+Comparing the temperature parameters of the net nucleons (figure 6.8) to those of the produced antinucleons (figure 6.6) can test the hypothesis of mass-dependent temperature parameters by radial flow. In the case of radial flow, all nucleons and antinucleons, having the same mass, should show the same temperature parameters. If the net nucleons retain information on the initial state, however, their transverse momenta and temperatures may be smaller than those of the antinucleons, which were all produced in the collision. In the models studied, no such effect was observed. The data from NEXUS, which should not have radial flow, is consistent with a flow picture, at least for the nucleons and antinucleons. The net nucleons from VNI, on the other hand, show an unexpected temperature minimum at midrapidity, but the deviations from the antinucleon data in figure 6.6 are within the size of the error bars.
+
+### 6.5 Net Positive Charge Spectra
+
+In a detector without particle identification, the baryon and antibaryon spectra discussed in sections 6.3 and 6.4 can not be measured directly. The net baryon measurement is further complicated by the fact that in the final state, a significant part of the baryons are neutrons, which are experimentally extremely difficult to discern from antineutrons,
+
+Figure 6.8: _Temperature parameters as functions of rapidity of net nucleons (number of nucleons minus number of antinucleons) from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS an d the dotted line from VNI. The error bars show only the statistical error from the temperature fit._
+
+if they can be measured at all. Only the weak lambda decays allow the separation of baryons from antibaryons purely from charge and momentum measurements, but lambda decay reconstruction is only possible with large errors and covers only a small part of all produced baryons and antibaryons.
+
+However, even if protons can not be separated from charged mesons and no lambda reconstruction is possible, the remnants of the incident nuclei can be studied from the charge spectra. Because the incident nuclei contain protons and charge is also a conserved quantum number, there is an excess of positive over negative charges in the final state of a nuclear collision. This excess of positive charges can be used to measure the transparency of the nuclei in a similar way as the baryon excess. However, it is not obvious that the results will be identical, as the transport mechanisms for charge and baryon number may be different.
+
+It should also be noted that at high collision energies, the excess of positive over negative charges is a small difference of large numbers and therefore extremely sensitive to measurement biases.
+
+Figure 6.9 shows that the rapidity distribution of the net positive charges resembles that of the net baryon number (figure 6.7), scaled down by the ratio of charge divided by mass of the incident nuclei. For all event generators, the distributions have similar shapes and
+
+Figure 6.9: _Rapidity distribution of net positive charges (excess of positively charged over negatively charged particles, corresponding to the initial proton charge from the colliding nuclei) from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI._
+
+are peaked at the same rapidity as the net baryon distributions. Merely the ratios of maximum to minimum values indicate that the stopping may be slightly overestimated when charge is used as a measure of baryon number.
+
+This comparison, however, does not determine whether the observed excess of positive charges actually results from an excess of positive baryons (which could only be protons) in the final state, or if the charge has been transferred to other particles. In the first case, also the temperature parameters of the net positive charges should be similar to those of the net baryons. As a comparison of figure 6.10 with figure 6.8 shows, this is the case to a certain degree with respect to the shapes of the \(y\)-dependencies, but shifted to lower temperatures in VNI and NEXUS and to higher ones in HIJING.
+
+Calculating transverse mass spectra of net positive charges suffers from the systematic problem that to calculate the transverse mass without particle identification, a rest mass has to be assumed. This mass assumption will have a significant impact on the reconstructed temperatures and the quality of the fit. The most probable rest mass for an unidentified particle is the pion mass, but if the net positive charge signal can be linked to protons, the spectra should better be fitted with the proton mass. This indicates that without other information about the distribution of baryon number it is problematic to use transverse spectra of net positive charge to measure baryon temperatures.
+
+Figure 6.10: _Temperature parameters, calculated assuming the proton mass, as functions of rapidity of net positive charges (number of positive minus number of negative charges) from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI. The error bars show only the statistical error from the temperature fit._
+
+To better understand the combination of particles contributing to the excess of positive charges, net charge rapidity distributions were analyzed for different particle species separately. The rapidity distribution of the proton excess over antiprotons in figure 6.11 and a comparison with figure 6.9 indicate that a significant part of the net positive charges are actually stored in the protons. Only in VNI, a significant part of the net positive charge spectra obviously does not result from protons, whereas in HIJING, the excess of protons over antiprotons is even larger than that of positive over negative charges.
+
+A further potential carrier of the positive charge excess are the kaons, shown in figure 6.12. In VNI, the kaons carry almost as much positive charge as the protons and even dominate at midrapidity. In the string models, their contribution is smaller. Remarkably, the shapes of the net positive kaon spectra from the three models look completely different.
+
+In principle, the net positive charge could also be included in the pions. As seen in figure 6.13, this is not observed, and there is even a small excess of negative over positive pions at least in the string models.
+
+A simple explanation for this result is that in the final state, all baryons must have decayed either to protons or to neutrons. For each net baryon in the final state, there is a certain probability for it to be positive, whereas it can not be negative, so an excess of baryons over antibaryons will automatically lead to an excess of positive over negative charges.
+
+Figure 6.11: _Rapidity distribution of net protons (excess of protons over antiprotons) from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI._
+
+In a hadronic scenario, there can of course be intermediate baryonic states of negative charge, like the N and resonances or the, the and the. When they decay, ultimately to neutrons or protons, their negative charge will most probably be deposited in.
+
+It can be concluded that even without particle identification, the FTPCs will be able to provide significant information on stopping through the study of net charge distributions.
+
+Figure 6.12: _Rapidity distribution of net positive kaons (excess of positive over negative kaons) from three different simulation models. The solid line shows data from HIJING, the dashed line from NEXUS and the dotted line from VNI._
+
+[MISSING_PAGE_EMPTY:84]
+
+## Chapter 7 Event-by-Event Analysis in the FTPCs
+
+Discussions on the possibilities offered by the FTPCs in the measurement of particle spectra integrated over large numbers of events can be found in [12] and [13]. Therefore, the present chapter will focus on the reconstruction of properties of single events. This, of course, limits the study to observables that can be reconstructed with sufficient accuracy in every single event (unlike, for example, the number of strange particle decays).
+
+To compare the detector response to different physics scenarios, the data used was taken from the three event generator packages studied in chapter 6. The available data included between 1500 and 2000 events for each package. All distributions of event properties in the following sections correspond to 1500 events for each event generator.
+
+### 7.1 Determining the Correction Factors
+
+Because of the relatively low reconstruction efficiency over large parts of the acceptance, the corrections which are necessary to derive the experimental spectra from the reconstructed tracks are relatively large. As these corrections determine the size of the systematic errors in the results, their reliability is vital to the quality of the final data, especially when the magnitude of the corrections is large. In the FTPC, this is further complicated by the non-negligible contamination of the reconstructed track sample with unwanted tracks and by the limited momentum resolution.
+
+If the efficiency and contamination are known with sufficient precision, they can in principle be used for the correction directly, by subtracting the contamination from the reconstructed tracks and scaling the result with the inverse reconstruction efficiency. This approach, however, has two important drawbacks:
+
+* The contamination can only be determined for fully simulated events, and only in simulations where the reconstructed tracks can be directly matched to the simulation input. This complicates the use of very detailed simulations at the electronics level and makes it impossible to use measured data as background. Therefore, the
+
+[MISSING_PAGE_EMPTY:86]
+
+calculation of both the reconstruction efficiency and the contamination suffer from the problem that the simulation input will never completely agree with the physics in the real collision and that the detector response simulation can never include all the details that might affect the detector's performance.
+* The effects of the momentum resolution have to be taken into account separately. A finite momentum resolution will generally shift more track momenta from densely populated regions of phase-space to less densely populated regions than vice-versa. Although it is in principle possible to correct for this effect, this task is complicated by the fact that the momentum resolution itself varies across the phase-space covered by the detector.
+
+Therefore, for this analysis, a much simpler correction method was used. For a large set of simulated events, in each segment of phase-space, the number of simulated tracks within the geometric acceptance of the FTPC was divided by the number of tracks reconstructed in the same segment of phase-space. The resulting correction factors can directly be multiplied with the number of measured tracks in the corresponding segment of phase-space to account for efficiency and contamination as well as for the effects of momentum resolution. Moreover, this procedure permits the use of the more realistic slow simulation chain.
+
+For real data, correction factors can also be determined by embedding simulated tracks in the data of a measured event and analyzing the reconstructed tracks added by this embedding procedure. However, correction factors determined from embedding alone may give an overly optimistic view of the contamination. Furthermore, the number of tracks embedded should be small compared to the number of tracks in the event; otherwise the embedded tracks will affect each other instead of just being affected by the background event. Therefore, it may be advisable to at least compare the correction factors derived from embedding to those derived from a full simulation which has similar track densities as the observed event.
+
+To determine the correction factors, the phase-space should be segmented in the same intervals used in the subsequent physics analysis. Therefore, the correction factors were calculated for intervals in transverse momentum and rapidity (instead of the pseusorapidity used in the calculation of efficiency and contamination), with the rapidity being calculated assuming the pion mass.
+
+Figure 7.1 shows the correction factors for negative and positive charges in the geometrical acceptance of the FTPC, calculated with the described procedure using the slow simulation chain on events from the NEXUS event generator. Separate correction tables for both charges are necessary because the blind areas at the sector boundary extrapolate inward in radius along the drift of the negatively charged electrons. Therefore, the probability of reconstructing a track from a negative particle close to a sector boundary is slightly larger than for a positive particle. This effect could be eliminated by introducing azimuthal cuts in the geometrical acceptance. For very forward rapidities and small transverse momenta, the correction factors are large, because few particles in this rapidity region leave a track in the FTPC that is long enough to be reconstructed. Therefore, it may be useful to eliminate this region of phase-space from an analysis to minimize the errors.
+
+[MISSING_PAGE_FAIL:88]
+
+distributions allow to distinguish between different scenarios at all. Second, the presence of a phase transition may lead to dynamical fluctuations, which may range from a widening of the multiplicity distribution a distribution showing to two distinct event classes with and without the phase transition.
+
+Because of the limited reconstruction efficiency and non-zero contamination, the number of tracks reconstructed in the FTPC will generally not be identical to the actual charged particle multiplicity in the FTPC acceptance. Ideally, the correction factors presented in section 7.1 should correct for this effect, with the exception of statistical errors. However, both tracking efficiency and contamination can depend on the track density and, therefore, on the charged particle multiplicity. In this case, the linear correction factors would not allow to derive the charged particle multiplicity from the number of reconstructed tracks. To test this, the known charged particle multiplicity within the geometrical acceptance of the FTPC from simulations was compared to the multiplicity reconstructed in the FTPC (after the application of correction factors). The resulting figure 7.2 shows within which range of values the actual track multiplicity fluctuates for each reconstructed multiplicity value. The figure indicates that, in spite of significant fluctuations of the single values, the multiplicity is on average reconstructed correctly, even in the case of very high or very low multiplicities. Global effects of track density, which would lead to a nonlinear dependence, are not observed.
+
+Figure 7.3 shows the distributions of the reconstructed charged particle multiplicity in the acceptance of the FTPC from the three event generators. The multiplicity distributions differ significantly in their mean values, but all three have similar shapes, which are in
+
+Figure 7.3: _Distributions of the reconstructed charged particle multiplicity in the FTPCs for three different event generators. The solid line shows events from the HIJING event generator, the dashed line from NEXUS and the dotted line from VNI._
+
+good agreement with Gaussian functions. Fitting Gaussian curves to the distributions yields a mean value of 766.9 with a sigma of 44.4 for HIJING, a mean value of 878.2 with a sigma of 56.9 for NEXUS and a mean value of 938.2 with a sigma of 55.1 for VNI. The widths of the distributions can be fully explained by statistical fluctuations, variations of the impact parameter, acceptance shifts from the fluctuation of the collision point in the interaction region of the beams and the fluctuations introduced by the reconstruction, which can be estimated from figure 7.2. Dynamical fluctuations are not present at a scale that could be observed in this analysis.
+
+Transferring this analysis to actual experimental conditions shows a problem of event selection. Whereas in the simulation, the event generators simulated collisions with impact parameters between the colliding nuclei ranging up to 3fm, the impact parameter can not be directly measured in the experiment. The selection of events with small impact parameter can be done independently from the measured particle production if the energy of the spectators (nucleons not affected by the collision) can be measured. As this is extremely difficult in a collider geometry, the STAR trigger system estimates the impact parameter by measuring the charged particle multiplicity in a pseudorapidity range of \(\eta<2\). If dynamical fluctuations affect the event as a whole, this event selection may introduce a bias in multiplicity fluctuations measured in other regions of phase-space.
+
+An interesting way of studying multiplicity correlations between different regions of phase-space is to compare the charged particle multiplicities measured in the two FTPCs. In this case, possible efficiency problems should compensate each other, because both FTPCs
+
+Figure 7.4: _Correlation of charged particle multiplicities in the two FTPCs. The figure shows the multiplicity in the backward (East) FTPC versus the multiplicity in the same event in the forward (West) FTPC in events simulated with the NEXUS event generator._
+
+are identical in construction and symmetrical in position. However, the acceptance shift of the two FTPCs when the interaction point shifts in z introduces an anticorrelation between the multiplicities measured in the two chambers. To eliminate this effect, for this study, only events with a main interaction point close to the center of the STAR detector were accepted.
+
+In figure 7.4, the distribution of charged particle multiplicities in the two FTPC is plotted for events from the NEXUS event generator. The correlation is clearly visible. Calculating the correlation coefficient according to Pearson
+
+\[r=\frac{\sigma_{xy}}{\sigma_{x}\sigma_{y}} \tag{7.1}\]
+
+returns a value of \(r=0.33\). In HIJING (\(r=0.12\)) and VNI (\(r=0.23\)), the correlation is less pronounced. A different way of visualizing the correlation is to plot the mean values of the multiplicity in one detector as a function of the multiplicity in the other detector (see figure 7.5). The correlation is visible in NEXUS and VNI, but not in HIJING.
+
+These results indicate that the multiplicity fluctuations are at least in part caused by fluctuations of a property of the whole event. Besides dynamical fluctuations in the event generator, a possible candidate for this property is the impact parameter, which determines the number of nucleons participating in the interaction and, thus, the number of initial nucleon collisions. Naively, one would expect a model without any reinteractions
+
+Figure 7.5: _Correlation profile of charged particle multiplicities in the two FTPCs. The figure shows the multiplicity mean and error in the backward (East) FTPC versus the multiplicity in the same event in the forward (West) FTPC for the three tested event generators (HIJING = solid line, NEXUS = dashed line, VNI = dotted line)._
+
+to yield multiplicities that are linear in the number of initial collisions, whereas in a model with rescattering, a densely populated phase space would lead to additional collisions and additional particle production. On the other hand, this effect should not be as pronounced as it appears in this data, as the total multiplicities differ only on the order of 20%, and the authors of all three models claim to also describe proton-proton collisions correctly. If all models yield the same multiplicity for two participating nucleons and differ by about 20% for almost 400 participating nucleons, the small variation resulting from the finite impact parameters should not be that significant.
+
+### 7.3 Reconstruction of Transverse Momentum Fluctuations
+
+Given the different model predictions for the rapidity dependence of the temperature parameters (figures 6.2, 6.4, 6.6, 6.8 and 6.10), the measurements of transverse momentum spectra in the FTPCs can have special relevance when seen together with the results from the TPC. As there is no particle identification available in the FTPC, pion spectra can only be approximated with negative particle spectra. The track sample from negatively
+
+Figure 7.6: _Reconstructed distributions of the square of the transverse mass of negatively charged particles in the FTPCs averaged over large event samples for three different event generators. The solid line shows data from the HIJING event generator, the dashed line from NEXUS and the dotted line from VNI. The curved lines are exponential fits in the transverse mass corresponding to temperatures of 166 MeV for HIJING, 181 MeV for NEXUS and 258 MeV for VNI._
+
+charged particles does not contain any baryons but only the smaller antibaryon contamination and a smaller number of kaons because of the positive charge excess in the kaons shown in figure 6.12.
+
+Spectra of transverse momentum of negatively charged particles, transformed into the square of the transverse mass and averaged over many events, can be seen in figure 7.6. In the fitted region, the spectra are all well described by exponential fits in the transverse mass (equation 6.2), with a small excess in the region of high transverse mass values, where hard scattering processes become more and more relevant.
+
+The temperature parameters from the exponential fits show a remarkably good agreement with the temperature parameters of pions produced by the event generators in the rapidity region accessible to the FTPC, shown in figure 6.2. As this is the case for all three event generators, it can be assumed that the correction factors are sufficient to correct for the errors in tracking and momentum reconstruction, at least for the purpose of determining temperature parameters. Also, the kaon and antibaryon contaminations do not seem to have a significant impact on the negative particle temperature parameters.
+
+The corresponding net positive particle spectra are shown in figure 7.7. Being calculated as the difference of two large numbers, they suffer from the obvious problem of large sta
+
+Figure 7.7: _Reconstructed distributions of the square of the transverse mass of net positive particles (excess of positive over negative charges) in the FTPCs averaged over large event samples and calculated under the assumption of the proton mass for three different event generators. The solid line shows data from the HIJING event generator, the dashed line from NEXUS and the dotted line from VNI. The curved lines are exponential fits in the transverse mass corresponding to temperatures of 335MeV for HIJING, 270 MeV for NEXUS and 389 MeV for VNI._
+
+[MISSING_PAGE_EMPTY:94]
+
+ture, whereas the more extreme reconstructed values are not appropriate representations of the input data. A possible reason is that this figure was generated using the correction factors derived from NEXUS, which were then applied to a mixed sample of events from different generators. In the range of temperatures covered by the NEXUS data, the reconstruction is correct. In the other figures, the data from each event generator was corrected with its appropriate correction factors. This shows that while the correction factors are not very sensitive to multiplicity, they are affected by the spectral shape of the data. Consequently, the correction factors applied to measured data should be derived from a simulation which reproduces the spectral shape of the measured data as well as possible, and they should be crosschecked using the embedding technique.
+
+The distributions of reconstructed event-by-event temperature parameters (figure 7.10) show a significant overlap between the distributions from the different models. The temperature distributions have a mean value of 155.1 MeV with a standard deviation of 15.56 MeV for HIJING, a mean value of 169.2 MeV with a standard deviation of 16.9 MeV for NEXUS and a mean value of 233.2 MeV with a standard deviation of 26.6 MeV for VNI. This corresponds to a relative width of the distributions of slightly over 10% for all three event generators. The mean value of the event-by-event temperature parameters is in all three cases smaller than the temperature parameter of the average transverse mass
+
+Figure 7.9: _Reconstruction capability for the temperature parameter describing the charged particle transverse momentum distribution in the acceptance of the FTPCs in single events. The figure shows the temperature parameter simulated with geant versus the value reconstructed in the FTPC analysis chain. Error bars correspond to the width of the distribution of input values for the respective reconstructed value. The figure is based upon the simulation of approximately 800 events from different event generators. A diagonal line is included to guide the eye._
+
+distribution. This is understandable, as the temperature fits do not respond in a linear way to rare hard processes with high momentum transfer in a small number of events.
+
+As event-by-event temperature parameters can be calculated individually for both FTPCs, the correlation between the two measured values can be studied. A strong correlation of the transverse momentum spectra in different regions of rapidity may indicate that a temperature exists as a global variable characterizing the collision as a whole. On the other hand, forward-backward correlations in the momentum distributions may also appear in string fragmentation mechanisms.
+
+To give an impression on the magnitude of possible temperature correlations between the FTPCs, figure 7.11 shows the mean values of temperature parameters in one FTPC as functions of the temperature parameters in the other FTPC. By eye, correlations are not obvious. Calculating the correlation coefficient returns a value of 0.14 for NEXUS, 0.05 for VNI and -0.02 for HIJING. The temperature correlations are in all cases much weaker than the multiplicity correlations in figure 7.5, but in both observables, the correlation value is largest for NEXUS and smallest for HIJING. This may again result from the different models responding differently to small variations in the impact parameter.
+
+Figure 7.10: _Reconstructed distribution of temperature parameters per event in the FTPCs for three different event generators. The temperature parameters describe the transverse momentum distribution of negatively charged particles originating at the main interaction point. The solid line shows 1500 events from the HIJING event generator, the dashed line from NEXUS and the dotted line from VNI._
+
+### 7.4 Reconstruction of Net Charge Fluctuations
+
+As shown in chapter 6, the excess of positive over negative charges in different regions of phase-space can serve to study the net baryon distribution and, thus, the dynamics of the collision. The experimental challenge in measuring this positive charge excess results from the sensitivity of the signal to possible reconstruction biases. In the acceptance of the FTPC, the net positive charge signal is on the order of 20 tracks in a total of about 500 charged particle tracks per unit of rapidity. Therefore, if only 1% of the reconstructed tracks of one charge are systematically assigned to the other charge, the systematic error introduced is already 25% of the signal.
+
+In the study of the FTPC simulation and analysis software, no indication of systematic biases in the determination of the charge of a reconstructed particle could be found. They are, however, imaginable, especially if the distortion correction for the reconstructed track points has significant errors. The charge assigned to a track is determined from the sign of its curvature in the magnetic field. The magnetic field, however, also influences the electron drift in the FTPC, shifting all points in the same sense in angular direction. The magnitude of this shift is larger for the inner track points than for the outer ones. Therefore, an underestimation of the magnetic field would lead to negative particles being falsely identified as positive, whereas an overestimation of the magnetic field would bias the reconstruction in favor of negative charges. The quality of the distortion correction
+
+Figure 7.11: _Correlation profile of the charged particle temperature parameters in the two FTPCs. The figure shows the temperature parameter mean and error in the backward (East) FTPC versus the temperature parameter in the same event in the forward (West) FTPC for the three tested event generators (HIJING = solid line, NEXUS = dashed line, VNI = dotted line)._not being known at this point, potential biases from this effect were not included in the present study.
+
+A different source of possible biases in the charge excess measurement are different reconstruction efficiencies for positive and negative charges. The effects of the sector boundaries on the reconstruction of different charges were already mentioned in section 7.1. Another potential bias in the reconstruction efficiency that could be identified and eliminated in the course of this study was linked to the order in which the track finding algorithm searches through the chamber. One angular direction was preferred, so particles of one charge had a higher probability of being reconstructed than particles of the other charge. The problem is now avoided by selecting the angular segments for search in alternating direction.
+
+The above problems will be very difficult to eliminate from measured data for lack of an independent cross-check, which complicates the task of measuring absolute numbers or even spectra of the net positive charge to a reasonable level of certainty. For the measurement of the fluctuations of net positive charge, however, these biases merely shift the center of the distribution, leaving its shape and width nearly unchanged. Consequently, net charge fluctuations are relatively robust against possible biases in either the reconstruction efficiency or the charge measurement.
+
+Figure 7.12: _Reconstruction capability for net positive charge per event in the acceptance of the FTPCs. The figure shows the net positive charge per event simulated with GEANT versus the value reconstructed in the FTPC analysis chain. Error bars correspond to the width of the distribution of input values for the respective reconstructed value. The analysis is based upon the reconstruction of approximately 1700 events from the VNI event generator. A diagonal line is included to guide the eye._
+
+Fluctuations of the net positive charge have become a matter of interest because two recent theoretical publications ([11] and [12]) suggest a reduction of these fluctuations as a "smoking gun" for quark deconfinement.
+
+Figure 7.12 shows that the reconstructed net positive charge in the FTPCs is linearly connected to the input value of the simulation over a large range of values. Furthermore, the absolute values are reconstructed correctly at least at the present level of simulation, without errors in the distortion correction and with charge-dependent correction parameters derived from simulations of the same event generator. To reduce the contamination from electrons at small transverse momenta and to avoid the very straight tracks at high transverse momenta, where charge identification might have larger uncertainties, the analysis was restricted to measured transverse momenta between 200 MeV/c and 1000 MeV/c.
+
+The net charge distributions (figure 7.13) have a mean value of 11.9 with a standard deviation of 25.3 for HIJING, a mean value of 30.5 with a standard deviation of 28.7 for NEXUS and a mean value of 23.9 with a standard deviation of 47.1 for VNI. The high mean values from NEXUS and VNI and the lower mean value from HIJING are in agreement with what could be expected from figure 6.9. The values are smaller than what might be expected from extrapolating the dN/dy from that figure over the FTPC acceptance because of the restrictive track selection in this analysis. What is more surprising is the large width of fluctuations in VNI, given the fact that both [11] and [12] suggest a reduction of charge fluctuations in the presence of partonic degrees of freedom. Pure hadron statistics would have suggested similar fluctuations from VNI and NEXUS, as both models have rather similar multiplicities.
+
+Figure 7.13: _Reconstructed distribution of net positive charges per event in the FTPCs for three different event generators. The solid line shows events from the HIJING event generator, the dashed line from NEXUS and the dotted line from VNI._
+
+This study shows one of the strengths of the large acceptance of the FTPCs in a region of phase space that is expected to contain a large number of baryons. Together with their robustness against reconstruction errors, these results suggest that net charge fluctuations may be one of the most exciting results from the STAR FTPCs that may be available at a very early time in the analysis.
+
+## Chapter 8 Summary and Outlook
+
+The STAR FTPCs extend the acceptance of the STAR experiment to a pseudorapidity region of \(2.5<\eta<4.0\). Because of the radial electron drift in a solenoidal magnetic field, special precision is required in the distortion correction. It has been shown that with a good distortion correction, correction for detector deformations and correct settings of the field voltages, the achieved position resolution can be better than the 150 \(\mu\)m aimed for in the FTPC design. Together with the momentum smearing due to scattering of the particles before they enter the detector, momentum resolutions better than 15% can be achieved.
+
+The FTPC analysis software is implemented in an object-oriented framework. Cluster, track and momentum reconstruction use less than 15seconds of computing time per event on a current desktop computer. Reconstruction efficiencies around 70% and contaminations around 10% can be achieved.
+
+Rapidity and transverse momentum spectra of different particles from three different simulation algorithms have been compared. Signals which should be accessible to the FTPCs and which should be interesting especially in comparison to the measurements of the TPC at midrapidity include rapidity and transverse momentum spectra of negatively charged hadrons as well as measurements of the excess of positive over negative charges.
+
+Because of their large acceptance, the FTPCs can be used to measure event fluctuations, either independently or in correlation with the TPC. The symmetric detector design also permits the study of forward-backward correlations.
+
+Charged particle multiplicity predictions from different nuclear collision models differ in their mean values but not in the width of their fluctuations. Interesting differences could also be found in the forward-backward correlations of the charged particle multiplicity.
+
+Transverse momentum distributions and their fluctuations can be studied if the correction factors are known to a reasonable level of precision. Model predictions differ more significantly in the mean value than in the fluctuations. Forward-backward correlations in transverse momentum were found to be extremely small.
+
+Net charge fluctuations can be measured even if reconstruction biases can not be ruled out, rendering the mean values unusable. Theoretical publications as well as model predictions let these fluctuations appear to be an especially promising observable.
+
+The STAR FTPCs will be installed in the experiment and ready to take data early in the year 2001. At the planned data taking rate of one event per second, an amount ofdata comparable to the present study should be available within hours. Without particle identification, rare signals will hardly be accessible to the FTPC. Therefore, most analyses will be possible with relatively modest event numbers. However, except for very robust signals like the charged particle multiplicity or net charge fluctuations, careful studies of the detector performance will have to be done before useful results will be available.
+
+List of Figures
+	* 1.1 Hadron collision in the string model.
+	* 1.2 Phase transition in lattice QCD
+	* 1.3 QCD phase diagram
+	* 2.1 STAR setup
+	* 2.2 First event in STAR TPC
+	* 2.3 Specific energy loss
+	* 2.4 Electron drift and amplification in a TPC
+	* 3.1 FTPC design components
+	* 3.2 Laser scan with different anode wire angles
+	* 3.3 Determination of the angle between wires and pads
+	* 3.4 Material distribution in the readout region model
+	* 3.5 Electric potential distribution in the readout region model
+	* 3.6 Electric field around the gating grid
+	* 3.7 Electric field between Frisch grid and anode grid
+	* 3.8 Electric field between gating grid and Frisch grid
+	* 3.9 Electric field in the drift volume
+* 3.10 Material distribution in the drift field model
+* 3.11 Field cage structure
+	* 4.1 Simulation and analysis chain
+	* 4.2 Raw data in one FTPC padrow (simulated)
+	* 4.3 Raw data and points in one FTPC sector (simulated)
+	* 4.4 Cluster generation and buildup
+	* 4.5 Longitudinal B-field along the FTPC
+	* 4.6 Radial B-field along the FTPC
+	* 4.7 Schematic drawing of electron drift
+	* 4.8 Vertex finder histogram
+* 4.9 Reconstructed tracks in one FTPC event
+* 5.1 Residuals with slow and fast simulator
+* 5.2 Momentum resolution with full simulation
+* 5.3 Momentum resolution without scattering
+* 5.4 Momentum resolution with distortions
+* 5.5 Acceptance for tracks with at least 5 hits
+* 5.6 Acceptance for tracks with 10 hits
+* 5.7 Efficiency versus pseudorapidity
+* 5.8 Efficiency versus transverse momentum
+* 5.9 Contamination versus transverse momentum
+* 5.10 Contamination versus pseudorapidity
+* 5.11 Production vertices of FTPC contamination tracks
+* 6.1 Charged pion rapidity distribution
+* 6.2 Charged pion temperature distribution
+* 6.3 Charged kaon rapidity distribution
+* 6.4 Charged kaon temperature distribution
+* 6.5 Antinucleon rapidity distribution
+* 6.6 Antinucleon temperature distribution
+* 6.7 Net nucleon rapidity distribution
+* 6.8 Net nucleon temperature distribution
+* 6.9 Net positive charge rapidity distribution
+* 6.10 Net positive charge temperature distribution
+* 6.11 Net proton rapidity distribution
+* 6.12 Net positive kaon rapidity distribution
+* 6.13 Net positive pion rapidity distribution
+* 7.1 Correction factors
+* 7.2 Multiplicity reconstruction capability
+* 7.3 Reconstructed multiplicity distribution
+* 7.4 Multiplicity correlation between FTPCs
+* 7.5 Multiplicity correlation profile between FTPCs
+* 7.6 Transverse momentum distribution of negative particles
+* 7.7 Transverse momentum distribution of net positive particles
+* 7.8 Transverse momentum distribution in a single event 	* 7.9 Temperature reconstruction capability
+* 7.10 Reconstructed temperature parameter distribution
+* 7.11 Temperature correlation profile between FTPCs
+* 7.12 Net charge reconstruction capability
+* 7.13 Reconstructed net charge distribution
+
+## Bibliography
+
+* [Abr70] M. Abramowitz and I.A. Stegun, "Handbook of Mathematical Functions", Dover Publication Inc., New York (1970)
+* [Ack00] K. Ackermann, private communication
+* [App93] H. Appelshauser, "Systematische Untersuchungen zur Rekonstruktionseffizienz und -genauigkeit einer Spurendriftkammer", GSI-93-09, diploma thesis, Universitat Frankfurt (1993)
+* [Asa00] M. Asakawa, U. Heinz and B. Muller, "Fluctuation Probes of Quark deconfinement", hep-ph/0003169, CERN, Geneva (2000)
+* [Bar92] M. Bartsch _et al._, "Solution of Maxwell's Equations", Computer Physics Communications 73 22-39 (1992)
+* [Bea97] X. Bittl _et al._, Nuclear Instruments and Methods in Physics Research A 398 249-264 (1997)
+* [Bed92] M.E. Beddo _et al._, "STAR Conceptual Design Report", PUB-5347, Lawrence Berkeley Laboratory, Berkeley (1992)
+* [Bel99] R. Bell, "Kalibration einer Driftkammer mit Myonenstrahl", diploma thesis, Ruprecht-Karls-Universitat Heidelberg (1999)
+* [Bie98] F. Bieser _et al._, "The Forward Time Projection Chamber for the STAR Detector", MPI-Ph E/98-3, Max-Planck-Institut fur Physik, Munchen (1998)
+* [Bit97] X. Bittl, "Untersuchung einer Gas-Mikrostreifenkammer fur das Auslesen einer hochauflosenden Spurendriftkammer (TPC)", diploma thesis, Technische Universitat Munchen (1997)
+* [Blu93] W. Blum and L. Rolandi, "Particle Detection with Drift Chambers", Springer Verlag, Berlin (1993)
+* [Boc90] R.K. Bock _et al._, "Data analysis techniques for high-energy physics experiments", Cambridge University Press, Cambridge, UK (1990)
+* [Bra99] P. Braun-Munzinger, I. Heppe and J. Stachel, "Chemical Equilibration in Pb+Pb Collisions at the SPS", Phys. Lett. B465 15-20 (1999)
+* [Cal01] M. Calderon de la Barca Sanchez, dissertation, Yale University (in preparation)* [Car98] L. Carr, I. Sakrejda and T. Trainor, "Will Cluster Morphology Measures Work at STAR?", STAR Note 357, 27 July 1998
+* [Dre99] H.J. Drescher _et al._, "A Unified Treatment of High Energy Interactions", hep-ph/9903296, 9 March 1999
+* [Gaz97] M. Gazdzicki, A. Leonidov and G. Roland, "On Event-by-Event Fluctuations in Nuclear Collisions", hep-ph/9711422, CERN, Geneva (1997)
+* Version 4.1
+- Simulation of High-Energy Particle Collisions in QCD", Computer Physics Communications 104, 70 (1997)
+* [Gyu94] M. Gyulassy and X. Wang, "Hijing 1.0: A Monte Carlo Program for Parton and Particle Production in High Energy Hadronic and Nuclear Collisions", Computer Physics Communications 83, 307-331 (1994)
+* [Hag65] R. Hagedorn, "Statistical Thermodynamics of Strong Interactions at High Energies", Supplemento al Nuovo Cimento III, 2, 147-186 (1965)
+* [Hei00] U. Heinz and M. Jacob, "Evidence for a New State of Matter : An Assessment of the Results from the CERN Lead Beam Programme", nucl-th/0002042, CERN, Geneva (2000)
+* [Hum97] H. Hummler, "Untersuchung des elektrischen und magnetischen Feldes in den NA 49 TPCs mit Hilfe von Laserspuren", diploma thesis, Universitat Frankfurt (1997)
+* [Jeo00] S. Jeon and V. Koch, "Charged Particle Ratio Fluctuation as a Signal for QGP", hep-ph/0003168, Lawrence Berkeley Laboratory, Berkeley (2000)
+* [Kol99] P.F. Kolb _et al._, "Hydrodynamic simulation of elliptic flow", Nuclear Physics A 661 349c-352c (1999)
+* [Kon95] M. Konrad, "Two Track Resolution in Longitudinal Direction in a TPC with Radial Drift Field", STAR Note 214, 15 June 1995
+* [Kon97] M. Konrad, "Entwicklung einer hochauflosenden Spurendriftkammer fur den Bereich grosser Rapiditat in Schwerionen-Kollisionen im STAR-Experiment", dissertation, Technische Universitat Munchen (1997)
+* [Kro95] M. Krocker, "Korrektur der durch ein inhomogenes Magnetfeld verursachten Verzerrungen in einer Spurendriftkammer", diploma thesis, Universitat Frankfurt (1995)
+* [Lis96] M. Lisa, "The STAR TPC Clusterfinder/Hitfinder", STAR Note 238, 7 February 1996
+* [Mar98] R. Marstaller, "Bau und Test einer hochauflosenden, gebogenen Proportionalakammer zum Auslesen einer Spurendriftkammer (TPC) mit radialem Driftfeld", diploma thesis, Technische Universitat Munchen (1998)* [Mue99] B. Muller, "Quark Matter '99 -- Theoretical Summary: What Next?", Nuclear Physics A661 272c-281c (1999)
+* [Myr79] J. Myrheim and L. Bugge, "A Fast Runge-Kutta Method for Fitting Tracks in a Magnetic Field", Nuclear Instruments and Methods 160, 43-8 (1979)
+* [Old01] M. Oldenburg, dissertation, Technische Universitat Munchen (in preparation)
+* [Pre92] W.H. Press _et al._, "Numerical Recipes: The Art of Scientific Computing, Second Edition", Cambridge University Press, Cambridge, UK (1992)
+* [Rol99] C. Roland, "Flavor Fluctuations in Central Pb+Pb Collisions at 158 GeV/Nucleon", dissertation, Universitat Frankfurt (1999)
+* Detector Description and Simulation Tool", CERN program library long writeup W5013 (1995)
+* 2475 (1993)
+* [Sch99] A. Schutt auf _et al._, "A Forward TPC for STAR", Nuclear Physics A661 677c-680c (1999)
+* [Vee98] R. Veenhof, "Simulation of gaseous detectors", CERN program library writeup (1998)
+* [Yep96] P. Yepes, "A Fast Track Pattern Recognition", STAR Note 248, 9 May 1996
+
+[MISSING_PAGE_EMPTY:110]
+
+## Acknowledgements
+
+I thank everyone in the heavy ion group at the Max-Planck-Institut fur Physik in Munich for all their support for this thesis. Excellent working conditions, creative discussions, team spirit and humor made the three years a pleasant and fruitful experience. With the commissioning of the FTPCs getting closer, I wish for all those I leave behind working on the project that their dedicated work will be rewarded by spectacular results.
+
+Thanks to the MPI computing center for the help and determination and for the patience with my impatience. I also greatly appreciate the precise and skillful work from the MPI technical department. It was an important lesson to learn how much precise experimental data is the result of expert engineering and craftship.
+
+My apologies to the STAR infrastructure group for many complaints and little appreciation in times when we were all submerged in hard work. To all the people I worked with during my stay at BNL I wish good luck in the coming run seasons and a successful data analysis. I would also like to thank the UC Davis group for adopting me and making sure I did not starve in Brookhaven.
+
+Finally, many thanks and all the best to all those back home who have believed in me and supported me throughout my Bavarian adventure.

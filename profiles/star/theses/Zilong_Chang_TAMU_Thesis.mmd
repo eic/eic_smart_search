@@ -1,0 +1,1167 @@
+INCLUSIVE JET LONGITUDINAL DOUBLE-SPIN ASYMMETRY \(A_{LL}\) MEASUREMENTS IN 510 GeV POLARIZED _pp_ COLLISIONS AT STAR
+
+A Dissertation
+
+by
+
+ZILONG CHANG
+
+Submitted to the Office of Graduate and Professional Studies of
+
+Texas A&M University
+
+in partial fulfillment of the requirements for the degree of
+
+DOCTOR OF PHILOSOPHY
+
+\begin{tabular}{l l} Chair of Committee, & Carl A. Gagliardi \\ Committee Members, & Rainer J. Fries \\  & Saskia Mioduszewski \\  & Joseph B. Natowitz \\  & Robert E. Tribble \\ Head of Department, & Peter M. McIntyre \\ \end{tabular}
+
+December 2016
+
+Major Subject: Physics
+
+Copyright 2016 Zilong Chang 
+
+###### Abstract
+
+With the early \(e-p\) deep inelastic scattering (DIS) measurements and the development of Quantum Chromo-dynamics (QCD), the proton is revealed to be not just composed of the three quarks, \(u\), \(u\), and \(d\), that give its quantum numbers, but also thousands of quark and anti-quark pairs and gluons that mediate the strong forces among quarks. The densities of partons - quarks, anti-quarks, and gluons - inside the proton are given by the parton distribution functions (PDFs). The PDFs are functions of the momentum fraction, \(x\), carried by the partons within the proton and the scale, \(Q^{2}\), at which the densities are probed.
+
+In the longitudinally polarized lepton-nucleon and nucleon-nucleon scatterings, the polarized PDFs also depend on the spin orientation of the parton relative to the proton, like and unlike the proton spin, in addition to \(x\) and \(Q^{2}\). The early polarized DIS experiments carried out by the EMC collaboration and later experiments at HERMES and COMPASS showed that the quarks inside the proton only contribute approximately 30% of the total proton spin. As proposed by the Jaffe-Manohar sum rule, the proton spin receives contributions not only from the quarks, but also from the gluons and from the orbital angular momentum of the quarks and gluons. This leaves an open question to further explore the gluon and orbital momentum contributions.
+
+The Relativistic Heavy Ion Collider (RHIC) at Brookhaven National Laboratory is a facility that collides protons polarized in both longitudinal and transverse directions at energies up to \(\sqrt{s}=\) 510 GeV. The STAR and PHENIX detectors, located at two separate locations on the RHIC ring, can both provide useful constraints on the gluon distributions for \(x\) as low as 0.02. In particular, over the last decadeSTAR has constrained the gluon polarization with measurements of the longitudinal double-spin asymmetry, \(A_{LL}\), for inclusive jet production in \(\sqrt{s}=200\) GeV \(pp\) collisions. The results provide the first evidence, at the level of \(\sim 3\sigma\), that the gluons in the proton with \(x>0.05\) are polarized.
+
+In this analysis, I perform the first ever measurement of \(A_{LL}\) for inclusive jet production in \(pp\) collisions at the higher beam energy of \(\sqrt{s}=510\) GeV, based on data that STAR recorded during 2012. The higher beam energy extends the sensitivity to gluon polarization down to \(x\sim 0.02\). The high statistics of the data set and the small size of the physics asymmetries, compared to the previous measurements at 200 GeV, required the development of several new or improved analysis procedures in order to minimize the systematic uncertainties. These include: the first implementation by STAR of an underlying event subtraction during jet reconstruction, a much improved technique to estimate the trigger and reconstruction bias effects, a detailed optimization of the PYTHIA tune that provides a much better match between the experimental data and simulated Monte Carlo events, and a new procedure to estimate the uncertainties associated with the PYTHIA tune parameters.
+
+The results for inclusive jet \(A_{LL}\)_vs._ jet \(p_{T}\) in 510 GeV \(pp\) collisions are presented. They are found to be consistent with predictions from recent global analyses of the polarized PDFs that included prior RHIC data in the fit. They are also consistent with the previous STAR inclusive jet \(A_{LL}\) measurements at \(\sqrt{s}=200\) GeV in the region where the kinematics for the two beam energies overlap. These results will provide important new constraints on the gluon polarization in the proton in the \(x\) region below that sampled in 200 GeV \(pp\) collisions.
+
+## Dedication
+
+This dissertation is dedicated to my parents, Huirong Li and Cunbao Chang, and my younger brother, Ziqing Chang, for their unconditional love and unwavering support.
+
+ACKNOWLEDGEMENTS
+
+I would like to thank my advisor, Dr. Carl Gagliardi, for his continuous guidance and support. I have made steady progress over the past six years under his advice, and now I am well equipped with knowledge and skills. Thank you for the support from all my committee members, Dr. Rainer Fries, Dr. Saskia Mioduszewski, Dr. Joseph Natowitz and Dr. Robert Tribble.
+
+I am grateful for the help from former group members, Dr. Pibero Djawotho, especially for his help at the early stage of my analysis and establishing the data analysis framework, Dr. James Drachenberg, Dr. Mriganka Mondal, and Liaoyuan Huo. I would also like to thank members of the STAR Spin Physics Working Group, Dr. Renee Fatemi and her group at University of Kentucky, including Kevin Adkins and Suvarna Ramachandran, Dr. Elke Aschenauer, Dr. Bernd Surrow, Dr. Scott Wissink, Dr. Stephen Trentalange, Dr. Ernst Sichtermann, Dr. Anselm Vossen, Dr. Brian Page, Dr. Grant Webb, Dr. Yuxi Pan, Dr. Jinlong Zhang, Chris Dilks, Danny Olvitt, the members of STAR Software Computing Group headed by Dr. Jerome Lauret, and Dr. Eleanor Judd from the STAR Trigger Group.
+
+In addition, I would like to thank faculty, staff and fellow graduate students at the Cyclotron Institute, Dr. Che-Ming Ko, Dr. Yiu-Wing Lui, Dr. Feng Li, Ms. Paula Barton. I am thankful for all the friendship that I have made over the past six years. I'm lucky enough to be able to finish my physics graduate study at Texas A&M University and spend four college years at University of Science and Technology of China.
+
+This material is based upon work supported in part by the United States Department of Energy, under grant number DE-FG02-93ER40765.
+
+TABLE OF CONTENTS
+
+ABSTRACT
+
+ii
+
+EDICATION
+
+iv
+
+ACKNOWLEDGEMENTS
+
+v
+
+TABLE OF CONTENTS
+
+LIST OF FIGUREES
+
+LIST OF TABLES
+
+1. INTRODUCTION: THE PROTON INTERNAL STRUCTUREURE
+
+1.1 Parton Model of the Proton
+
+1.2 Notable Experiments
+
+1.3 Global QCD Analysis
+
+1.4 Exploring Polarized Proton PDFs
+
+1.5 The NLO Global Polarized PDF Analysis
+
+2. INCLUSIVE JET MEASUREMENTS AT HADRONIC COLLIDER
+
+2.1 Inclusive Jet and Its Asymmetry
+
+2.2 Jet Finding Algorithm
+
+2.3 Inclusive Jet Measurements at STAR
+
+3. RHIC AND STAR DETECTORS
+
+3.1 RHIC Facility
+
+3.2 STAR Detectors
+
+3.2.1 TPC
+
+3.2.2 BEMC
+
+3.2.3 EEMC
+
+3.2.4 BBC
+
+3.2.5 ZDC
+
+3.2.6 VPD
+
+[MISSING_PAGE_EMPTY:7]
+
+List of Figures
+* 1 The NLO HERAPDF 2.0 fits where \(xS=2x(\bar{u}+\bar{d}+\bar{s})\) at \(Q^{2}=10\) GeV\({}^{2}\)
+	* 1.2 The NLO MSTW fits at \(Q^{2}=10\) GeV\({}^{2}\)
+	* 1.3 \(x\Delta G(x)\) predicted by BB model with other global models at \(Q^{2}=4\) GeV\({}^{2}\)
+	* 1.4 \(x\Delta G(x)\) predicted by LSS model with at \(Q^{2}=2.5\) GeV\({}^{2}\)
+	* 1.5 \(x\Delta G(x)\) predicted by DSSV with (red) and without (blue) 2009 RHIC data and an earlier version of its fit (dashed) at \(Q^{2}=10\) GeV\({}^{2}\)
+	* 1.6 \(x\Delta G(x)\) predicted by NNPDF1.1 and NNPDF1.0 at \(Q^{2}=10\) GeV\({}^{2}\)
+	* 2.1 Feynman diagram for the \(gg\) (red), \(qg\) (blue) and \(qq\) (green) sub processes.
+	* 2.2 Comparison of jet yields vs. jet \(p_{T}\) from \(pp\) collisions at \(\sqrt{s}=200\) GeV
+	* 2.3 Comparison of jet transverse energy fraction within a cone radius of \(\Delta R\) centered on the reconstructed jet thrust axis from \(pp\) collisions at \(\sqrt{s}=200\) GeV
+	* 2.4 STAR 2006 inclusive jet cross-section from \(pp\) collisions at \(\sqrt{s}=200\) GeV
+	* 2.5 STAR 2006 inclusive jet cross-section from \(pp\) collisions at \(\sqrt{s}=200GeV\) compared with theory
+	* 2.6 STAR 2009 inclusive jet cross-section from \(pp\) collisions at \(\sqrt{s}=200\) GeV
+	* 2.7 Inclusive jet cross-section fractions due to subprocesses \(gg\), \(qg\), and \(qq\) from NLO calculations at \(\sqrt{s}=200\) and 500 GeV.
+STAR 2006 inclusive jet \(A_{LL}\) from longitudinally polarized \(pp\) collisions at \(\sqrt{s}=200\) GeV
+* 2.9 STAR 2009 inclusive jet longitudinal \(A_{LL}\) at \(\sqrt{s}=200\) GeV
+* 3.1 The layout of RHIC facility for polarized proton operation
+* 3.2 \(H\)-jet polarimeter layout
+* 3.3 Cross sectional view of STAR detectors.
+* 3.4 The layout of the STAR TPC
+* 3.5 The design of a TPC readout sector at both endcaps
+* 3.6 The side view of the BEMC module
+* 3.7 The side view of the BEMC module and layout of the 21st scintillator layer mega-tile
+* 3.8 STAR EEMC with the schematic tower structure on the left and the cut view of the EEMC at constant \(\phi\) on the right
+* 3.9 Front view of STAR BBC annuli
+* 3.10 The STAR VPD detector
+* 4.1 Beam polarization vs. run number where runs in this plot are those runs selected in this analysis. Patterns follow time dependence within a fill.
+* 4.2 Probabilities to find the various hit combinations from the VPD.
+* 4.3 Probabilities to find the various hit combinations from the BBC.
+* 4.4 Probabilities to find the various hit combinations from the ZDC.
+* 4.5 Bunch crossing distributions for the defined VPD east, west and coincidence hits.
+* 4.6 Bunch crossing distributions for the defined VPD east, west and coincidence hits after accidental corrections.
+* 4.7 Bunch crossing distributions for the defined VPD east, west and coincidence hits after accidental and multiple corrections.
+
+\(\Delta R_{1,2,3}\) calculated by ZDC east hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+* 4.9 \(\Delta R_{1,2,3}\) calculated by ZDC west hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+* 4.10 \(\Delta R_{1,2,3}\) calculated by ZDC coincidence hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+* 4.11 \(\Delta R_{1,2,3}\) calculated by VPD east hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+* 4.12 \(\Delta R_{1,2,3}\) calculated by VPD west hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+* 4.13 \(R_{3}\) vs. run number where runs in this plot are those run selected in this analysis.
+* 4.14 BEMC DSM \(\eta-\phi\) scheme.
+* 4.15 EEMC DSM \(\eta-\phi\) scheme, seen from the West looking towards the center of STAR.
+* 4.16 The ratio of number of tracks with the \(p_{T}\) dependent three-dimensiona cut over these with the \(p_{T}\) dependent two-dimensional cut for a low luminosity run at \(\sqrt{s}=\) 500 GeV.
+* 4.17 The ratio of number of tracks with the \(p_{T}\) dependent three-dimensional cut over these with the \(p_{T}\) dependent two-dimensional cut for a high luminosity run at \(\sqrt{s}=\) 500 GeV.
+* 4.18 The averaged number of jets per event vs. accidental and multiple corrected BBC rate for JP2 events.
+* 4.19 Jet \(p_{T}\) vs. accidental and multiple corrected BBC rate for JP2 events.
+* 4.20 Jet neutral fraction \(R_{t}\) vs. accidental and multiple corrected BBC rate for JP2 events.
+* 4.21 The illustration of two off-axis cones relative to a jet.
+* 4.22 The 2-D distribution of the summed track and tower \(p_{T}\) from the two cones.
+* 4.23
+
+[MISSING_PAGE_FAIL:11]
+
+* 5.13 JP0, JP1 and JP2 jet tower multiplicity distribution comparisons between data and embedding.
+* 5.14 JP0, JP1 and JP2 jet track multiplicity distribution comparisons between data and embedding.
+* 5.15 JP0, JP1 and JP2 jet \(R_{t}\) distribution comparisons between data and embedding.
+* 5.16 JP0, JP1 and JP2 jet tower \(p_{T}\) distribution comparisons between data and embedding.
+* 5.17 JP0, JP1 and JP2 jet track \(p_{T}\) distribution comparisons between data and embedding.
+* 5.18 JP0, JP1 and JP2 jet off-axis correction \(dp_{T}\) profile vs. jet \(p_{T}\) comparisons between data and embedding.
+* 5.19 The distributions of tower \(p_{T}\) inside the two off-axis cones are compared between data and embedding for JP0, JP1 and JP2 jets.
+* 5.20 The distributions of track \(p_{T}\) inside the two off-axis cones are compared between data and embedding for JP0, JP1 and JP2 jets.
+* 5.21 The sum of tower multiplicities from the two off-axis cones profile vs. jet \(p_{T}\) comparisons between data and embedding for JP0, JP1 and JP2 jets.
+* 5.22 The sum of track multiplicities from the two off-axis cones profile vs. jet \(p_{T}\) comparisons between data and embedding for JP0, JP1 and JP2 jets.
+* 6.1 Falses asymmetries measured in the data before (black) and after (red) the underlying event correction.
+* 6.2 Underlying event \(dp_{T}\) in each jet \(p_{T}\) bin before and after the underlying event correction.
+* 6.3 Underlying event \(dp_{T}\) asymmetry measured in the data with a \(p0\) fit in each jet \(p_{T}\) bin after the jet \(p_{T}\) corrected from the underlying events.130
+* 6.4 Underlying event systematic (red), relative luminosity systematic (green) and their quadrature sum (blue).
+* 6.5 Jet \(p_{T}\) shift from the detector level to the parton level.
+* 6.6Inclusive jet \(A_{LL}\) from embedding for JP0, JP1, JP2 triggered jets at the detector level and all the jets at the parton level.
+* 6.7 Jet yields a function of jet \(p_{T}\) and bunch crossing numbers from zero-bias events.
+* 6.8 Fractions of good vertex found vs. bunch crossings (left) and track multiplicity vs. bunch crossings (right) from zero-bias events. Note the offset vertical axes in each case.
+* 6.9 Jet \(p_{T}\) shift for 7% track loss (blue) and no track loss (red).
+* 6.10 Jet \(p_{T}\) shift vs. particle jet \(p_{T}\) from the default Perugia 2012 tune and its variants.
+* 6.11 Jet \(p_{T}\) shift vs. particle jet \(p_{T}\) from the default Perugia 2012 tune and its variants.
+* 7.1 The distribution of the number of jets triggered by the three triggers, JP0, JP1, and JP2 found in this analysis, together with the summed number of jets distribution from the three triggers, labeled as combined.
+* 7.2 STAR 2012 inclusive jet \(A_{LL}\) with its statistical and systematical uncertainties. The results are compared with DSSV'14 and NNPDF predictions
+* 7.3 Gluon momentum fraction \(x_{g}\) sampled by the inclusive jet with detector jet \(p_{T}\) between 7.0 and 8.2 GeV and by the parton jets with the same \(p_{T}\) range.
+* 7.4 STAR 2012 inclusive jet \(A_{LL}\) vs. \(x_{T}\) compared with STAR 2009 inclusive jet \(A_{LL}\) results
+* 7.5 STAR 2012 inclusive jet \(A_{LL}\) vs. \(p_{T}\) compared with the predictions from the 100 NNPDFpol1.1 replicasList of tables
+
+* 4.1 Spin bit maps to the spin configurations at the 12 o'clock intersection point.
+* 4.2 The nominal TAC and ADC thresholds in the trigger system for the east and west side of BBC, ZDC and VPD. The fact that the BBC east PMT ADC and ADC sum thresholds differed was a configuration error that was found during this analysis.
+* 4.3 Mean and RMS of \(\Delta\)R among the ZDC and VPD and the weighted average of the linear averages.
+* 4.4 Jet patch trigger thresholds.
+* 4.5 Track cuts used for jet reconstruction.
+* 4.6 BEMC and EEMC tower cuts used for jet reconstruction.
+* 4.7 Jet candidate cuts used in this analysis.
+* 5.1 QCD jet processes generated by PYTHIA by setting \(MSEL=1\).
+* 5.2 Partonic \(p_{T}\) bins and the number of events requested, the number of events simulated, total cross-section from PYTHIA and fudge factor.
+* 6.1 Underlying event and relative luminoity systematics.
+* 6.2 Matching ratios from the detector jets to the parton jets in the embedding sample. Note the detector jet \(p_{T}\) is after the underlying event correction.
+* 6.3 Un-polarized and polarized partonic cross-sections for various subprocesses at the leading order, \(\frac{d\sigma}{d\hat{t}}=\frac{\pi\alpha^{2}}{s^{2}}\times|M|^{2}\), where \(M\) is the corresponding matrix element.
+* 6.4 Trigger bias and reconstruction uncertainty.
+* 6.5 Vertex matching fraction in each jet \(p_{T}\) after the underlying event correction from the embedding sample.
+
+[MISSING_PAGE_EMPTY:15]
+
+Introduction: The Proton Internal Structure
+
+### Parton Model of the Proton
+
+The picture of a proton which is composed by two up quarks (\(u\)) with charge \(\frac{2}{3}\)e and spin \(\frac{1}{2}\) and one down quark (\(d\)) with charge \(-\frac{1}{3}\)e and spin \(\frac{1}{2}\), the so called quark model, seems to depict the proton quantum numbers perfectly [1, 2, 3]. The charge sum matches with the proton charge +e. From the Pauli principle, the three quarks exactly make up the total proton spin \(\frac{1}{2}\). However, a series of experiments in the past three decades has shown the proton internal structure is far more abundant and intriguing than the simple three quark model.
+
+Deep inelastic scattering (DIS) experiments in the late 1960s at Stanford Linear Accelerator Center (SLAC) confirmed that quarks are the constituents of the proton as suggested by the proton quark model [4, 5, 6, 7]. The development of Quantum-chromo-dynamics (QCD) in the 1970s demonstrated that quarks are confined inside the proton and the interactions among quarks are intermediated by gluons [8, 9]. Gluons can also split into quark and anti-quark or gluon-gluon pairs. Therefore inside the proton, beside the three quarks mentioned above that contribute proton's quantum numbers, known as valence quarks, there are gluons and quark and anti-quark pairs, the so called sea quarks. This picture is generally accepted as the parton model of the proton.
+
+The partons - valence quarks, sea quarks and gluons - are distributed by certain forms of functions called parton distribution functions (PDFs). Since partons cannot break free from each other, the parton distribution function is probed at a certain energy scale, for example the momentum transfer \(k\) between two partons. In general the PDFs are expressed as a function of the momentum fraction carried by the parton, often denoted as Bjorken \(x\), at the energy scale \(Q^{2}=k^{2}\). At a fixed energy scale \(Q^{2}\), the \(u\) and \(d\) quarks obey the following equations:
+
+\[\int[u(x)-\bar{u}(x)]dx=2,\int[d(x)-\bar{d}(x)]dx=1, \tag{1.1}\]
+
+where \(u(x)\) and \(d(x)\) are the \(u\) and \(d\) quark distributions and \(\bar{u}(x)\) and \(\bar{d}(x)\) are the anti-\(u\) and anti-\(d\) quark distributions at fixed \(Q^{2}\). Also the momentum sum rule needs to be satisfied.
+
+\[\int x[\sum_{q}((q(x)+\bar{q}(x))+g(x)]dx=1, \tag{1.2}\]
+
+where \(q\) represents the possible flavors of quarks and \(g(x)\) is the gluon distribution at fixed \(Q^{2}\).
+
+At high energy, perturbative quantum-chromo-dynamics (pQCD) is able to calculate the two-parton cross-sections at certain precision and the lepton-hadron and hadron-hadron scattering cross-sections can be approximately expressed as the convolution of hadron PDFs and partonic cross-sections. The proton PDFs have been explored through various experiments, for example DIS experiments and hadron collider experiments, by measuring scattered products in particle detectors. One common method is to compare the cross-section of measured scattered products with theoretical calculations to un-convolute the PDFs. One common technique is to assume certain function forms with several undetermined variables for PDFs at initial momentum transfer, \(Q_{0}^{2}\), then use DGLAP evolution equations[10, 11, 12] to evolve the PDFs to the \(Q^{2}\) of the experiment data, convolute the proper PDFs with the pQCD partonic cross-sections to get the theoretical cross-sections, and then fit the data with the theoretical cross-sections to determine the free parameters in order to obtain the PDFs.
+
+### Notable Experiments
+
+Several recent DIS experiments at the Hadron Electron Ring Accelerator (HERA) during the past two decades provided precise measurements on the proton PDFs covering a wide \(x-Q^{2}\) range where \(0.045<Q^{2}<30000\) GeV\({}^{2}\) and \(6\times 10^{-5}<x<0.65\). HERA had the capability to collide electrons or positrons up to 30 GeV with high energy protons up to 920 GeV. The neutral current cross-section, \(ep\to eX\) via a photon or \(Z\) boson exchange, charge current cross-section, \(ep\rightarrow\nu X\) via a \(W^{\pm}\) boson exchange, inclusive jet production and open charm production were studied by the H1 and ZEUS collaborations to determine proton PDFs [13].
+
+The Tevatron, a hadronic collider, also gives extra constraints on the proton PDFs. Protons and anti-protons with center of mass energy 1.96 TeV collided with each other at Tevatron. Inclusive jet measurements have been done by the CDF and D0 collaborations, which are noteworthy to provide constraints on the high-\(x\) gluon distribution inside the proton [14, 15]. In addition the lepton charge asymmetry from \(W\) decay and \(Z\) boson rapidity distribution are sensitive to the quark distributions inside the proton [16, 17, 18, 19]. The Drell-Yan dimuon production from E866/NuSea at Fermilab is another measurement to access the anti-quark distribution in the proton. The experiment measured the ratio of muon pairs from an 800 GeV proton beam incident on liquid hydrogen and deuterium targets. The ratio directly unfolds the ratio of \(\bar{d}\) to \(\bar{u}\) distributions inside the proton, and showed \(\bar{d}>\bar{u}\) at \(0.015<x<0.35\)[20].
+
+### Global QCD Analysis
+
+A Global analysis is a theoretical framework to predict the PDF from the global experimental data. The global analysis assumes certain functional-form dependenceson \(x\) at its initial \(Q_{0}^{2}\) for the quarks and anti-quarks with flavor \(u\), \(d\) and \(s\) and the gluons. The parameters of those functions are fitted to the experimental data by using the PDF evolution techniques and the leading order (LO), the next-to-leading (NLO) or the next-to-next-to-leading order (NNLO) theoretical cross-sections. The results of PDFs are often called the LO PDF, the NLO PDF or the NNLO PDF based on the choice of the LO, NLO, or NNLO theoretical calculations. Nowadays most global analyses provide NNLO PDFs for unpolarized protons. But in this document, only NLO PDF will be discussed because that is the state of the art for polarized protons. The results of a global analysis give the PDF as a function of \(x\) and \(Q^{2}\) and its uncertainties for the quarks and anti-quarks with flavor \(u\), \(d\), \(s\) and the gluons.
+
+One NLO analysis is HERAPDF, which uses the datasets from the H1 and ZEUS collaborations at HERA. The newest NLO HERAPDF2.0 analysis uses various combined datasets from the two collaborations with minimal \(Q^{2}\) of 3.5 GeV, which includes charged and neutral current cross-sections and inclusive jet production [21]. The charged and neutral current cross-sections sufficiently extract the valence and sea quark distributions and the gluon distribution from scaling violation. Though the gluon distribution extracted from scaling violation correlates strongly with the coupling constant \(\alpha_{s}\), the jet cross-section data provide an independent measurement of the gluon distribution. The NLO fit gives a \(\chi^{2}\) per degree of freedom of 1.2 and agrees well with the measured HERA data. Figure 1.1 shows the valence quark, sea quark and gluon distribution from the recent HERAPDF2.0 at \(Q^{2}=10\) GeV\({}^{2}\).
+
+The NLO CT14 fit is another global QCD analysis from the CTEQ collaboration, based upon its several previous versions such as CT10, CTEQ6, and so on [22, 23, 24]. Not only does it have the DIS data from HERA, the lepton asymmetry from W boson and inclusive jet data from the Tevatron, Drell-Yan measurements from E866, but it also includes data from the LHC. It gives the best fit by minimizing the global \(\chi^{2}\) among experiment data. The non-perturbative effects such as higher-twist effects or nuclear corrections are reduced by putting certain kinematic cuts on the experimental data. The new PDF gives a good description for the inclusive jet cross-sections at the LHC, which helps to constrain the gluon distribution.
+
+The NLO MSTW global analysis provides another useful set of PDFs [25]. A variety of data were selected but with a cut to reduce higher-twist effects. The dimuon production from neutrino-nucleon scattering experiments at NuTeV provide
+
+Figure 1.1: The NLO HERAPDF 2.0 fits where \(xS=2x(\bar{u}+\bar{d}+\bar{s})\) at \(Q^{2}=10\) GeV\({}^{2}\)[21].
+
+constraints on the strange quark and anti-quark distributions. The lepton charge asymmetry from \(W\) boson decay and \(Z\) boson rapidity distribution measurements at Tevatron constrain the \(d\) quark distribution. The inclusive jet data at the Tevatron prefer a small gluon distribution at high \(x\). Figure 1.2 shows the quark and anti-quark and the gluon distribution from the MSTW NLO predictions.
+
+The neural network technique is also applied to determine the PDFs, such as the NNPDF model [26]. The NNPDF group has produced its most recent version NNPDF3.0 with LHC data. However in this document, the older version NNPDF2.3 is chosen as the reference for the un-polarized proton PDF. The NNPDF2.3 uses DIS data from HERA and fixed-target experiments, Drell-Yan data from FermiLab,
+
+Figure 1.2: The NLO MSTW fits at \(Q^{2}=10\) GeV\({}^{2}\)[25].
+
+and boson and inclusive jet production at Tevatron. The techniques can be summed up into two stages, first produce a replicate set of data by Monte Carlo (MC) sampling of the probability distribution of the input dataset; second construct PDFs for every replica by using a neural network fit. The parameterization is made flexible and unbiased with 37 free parameters per flavor. The group also developed a new algorithm to speed the DGLAP evolution. A thousand replicas are produced and the PDFs are determined from the best fit of each replica. The final result PDF is the average of the best fits from 1000 replicas and the standard deviation is taken as the uncertainty on the PDF. The model gives compatible results with the MSTW and CTEQ6 models except larger uncertainties on quark distributions, larger gluon uncertainties at small-\(x\), and smaller uncertainties on the difference between \(\bar{u}+u\) and \(\bar{d}+d\).
+
+### Exploring Polarized Proton PDFs
+
+Though it is interesting enough to understand how partons are distributed inside the proton, it is not yet complete without understanding how partons make up the proton spin \(\frac{1}{2}\). The simple static quark model with two \(u\) quarks and one \(d\) quark explains the \(\frac{1}{2}\) spin quantum number well. However based on the parton model, it's straightforward to imagine inside the proton some partons have their spin directions along the proton spin, the others have their spin directions opposite to the proton spin and all the partons revolving around. The net effect of the parton spin and their orbital motions is the 1/2 proton spin, the so-called proton sum rule [27],
+
+\[\frac{1}{2}=\frac{1}{2}\Delta\Sigma+\Delta G+L_{q,\bar{q},g}, \tag{1.3}\]
+
+where \(\Delta\Sigma=\int\sum_{q}[(q(x)^{+}-q(x)^{-})+(\bar{q}(x)^{+}-\bar{q}(x)^{-}]dx\), \(\Delta G=\int[g(x)^{+}-g(x)^{-}]dx\), and \(L_{q,\bar{q},g}\) is the orbital angular momentum of quarks, anti-quarks, and gluons. The \(q(x)^{+(-)}\), \(\bar{q}(x)^{+(-)}\), and \(g(x)^{+(-)}\) are the spin-dependent or polarized PDFs of quarks, anti-quarks and gluons, where \(+\) means the parton spin direction is along the proton spin direction and \(-\) means the parton spin direction is opposite to the proton spin direction. Several important experiments show the proton spin is far more complex than the simple three quark model could explain.
+
+At European Muon Collaboration (EMC), high energy longitudinally polarized muon beams impinging on longitudinally polarized proton targets were used to study the spin-dependent parton distributions. The muons beams ranging from 50 GeV to 300 GeV were produced from pion decay and the polarization could be up to 82% at 200 GeV. Irradiated ammonia was used as the target material because of abundant free protons and high resistance to radiation damage. The target polarization was about 75% to 80% [28]. The spin-asymmetry\(A=\frac{(\sigma^{\uparrow\uparrow}-\sigma^{\uparrow\downarrow})}{(\sigma^{ \uparrow\uparrow}+\sigma^{\uparrow\downarrow})}\), was measured where \(\sigma^{\uparrow\uparrow(\uparrow\downarrow)}\) is the cross-section when the polarization of muons and protons are along(opposite) with each other.
+
+The spin-asymmetry is related to the virtual photon-nucleon spin asymmetry \(A_{1}=\frac{\sigma^{1/2}-\sigma^{3/2}}{\sigma^{1/2}+\sigma^{3/2}}\), where \(\sigma^{1/2(3/2)}\) is the photo-absorption cross-section when the projection of the total angular momentum of the virtual photon-nucleon system along the virtual photon direction is \(\frac{1}{2}(\frac{3}{2})\). \(A_{1}\) is directly related to the spin-dependent structure function \(g_{1}^{p}(x)=\frac{1}{2}\sum e_{q}^{2}[q(x)^{+}-q(x)^{-}]\) in the scaling limit. \(A_{1}\) was measured at different incident muon beam energies, at 100, 120 and 200 GeV, which covers the \(x\) range from 0.01 and 0.7 and the \(Q^{2}\) range from 1.5 to 70 GeV\({}^{2}\). The integral of \(g_{1}^{p}(x)\) over \(x\) from 0.01 to 0.7 is calculated as \(0.114\pm 0.012\) (stat.) \(\pm 0.026\) (syst.). Also the integral of neutron \(g_{1}^{n}(x)\) can be calculated assuming the validity of Bjorken sum rule [29]. Based on the integral of \(g_{1}^{p}(x)\) and \(g_{1}^{n}(x)\) and ignoring the strange sea quark contribution, the total contribution from \(u\) and \(d\) quarks is \(14\pm 9\) (stat.) \(\pm 21\) (syst.) percent of the proton spin. The calculated integral of \(g_{1}^{p}(x)\) is smaller than the Ellis-Jaffe sum rule prediction [30]. Assuming the difference is contributed by strange sea quark polarization, then the total contribution from \(u\), \(d\) and \(s\) is \(1\pm 12\) (stat.) \(\pm 24\) (syst.) percent of the proton spin. In summary quarks and anti-quarks in the proton carry a small fraction of the total proton spin, and the other larger part should be carried by gluons and the orbital angular moment [31].
+
+The COMPASS experiment at CERN is also using longitudinally polarized high energy muon beams and longitudinally polarized fixed targets to study spin-dependent proton structure. The incident muon beam energy varies between 140 and 180 GeV with polarization about 80%. The target is a solid state target. The irradiated ammonia (\(NH_{3}\)) provides the polarized protons with polarization about 85%. The \({}^{6}LiD\) is used to provide polarized deuterons with polarization about 50%, because \({}^{6}Li\) is regarded as a system of a deuteron and a helium-4 (\({}^{4}He\)) and has essentially the same magnetic moment as the deuteron. The targets are placed in two or three separate cells around the beam line and the polarization (\(\rightarrow\) or \(\leftarrow\) ) in the cells can be different from each other, so the beam can hit the targets with both polarizations simultaneously. The polarization of the targets can be flipped from longitudinal to transverse. The scattered muons and hadrons are captured in its detector system [32].
+
+The inclusive measurements of the spin asymmetry \(A_{1}^{p}\) and \(A_{1}^{n}\) by using proton and deuteron targets respectively have been performed in the kinematic region \(0.004<x<0.7\) and \(Q^{2}>1\) GeV\({}^{2}\)[33, 34]. In order to allow flavor separation in exploring quark distribution functions, the semi-inclusive measurements of \(A_{1}^{p}\) and \(A_{1}^{n}\) with charged pions (\(\pi^{+,-}\)) and kaons (\(K^{+,-}\)) have also been performed in the same kinematic region, except the \(x\) of \(A_{1}^{n}\) extend from 0.004 to 0.3 [35, 36]. The spin-dependent structure function \(g_{1}^{p(n)}(x)\) is then calculated from \(A_{1}^{p(n)}\), which is used to extract the spin dependent PDFs in the further analysis, for example the 
+
+[MISSING_PAGE_FAIL:25]
+
+Relativistic Heavy Ion Collider (RHIC) is capable to colliding high energy polarized proton beams to access the polarized proton structure. The STAR and PHENIX experiments at RHIC are equipped to serve this purpose. The W boson asymmetry of both experiments allows to measure flavor-separated spin-dependent distribution of \(u\) and \(d\) quarks, especially the \(u\) and \(d\) sea quark distributions. The inclusive jet measurements at STAR which will be discussed intensively in the following sections, and the \(\pi^{0}\) measurements at PHENIX are designed to extract the \(\Delta g\) inside the proton.
+
+### 1.5 The NLO Global Polarized PDF Analysis
+
+One NLO analysis developed by Blumlein and Bottcher, the BB model, used inclusive DIS experimental data to study the polarized PDF in the proton [46]. The analysis is based on the spin-dependent structure functions \(g_{1}^{(p,n)}(x)\) which are extracted from the longitudinal spin asymmetry in the DIS experiments, for example the EMC proton data, the proton and deuteron data from HERMES, and the proton and deuteron data from COMPASS. The PDFs are parameterized with a common certain functional form for \(\Delta u_{v}\), \(\Delta d_{v}\), \(\Delta\bar{S}\) and \(\Delta g\) at the initial \(Q_{0}^{2}=4\ {\rm GeV}^{2}\) with seven free parameters. The free parameters and the QCD scale constant \(\Lambda_{QCD}\) are determined from a fit to the experimental data. The statistical uncertainties from the data are propagated to the calculated PDFs. The systematic uncertainties due to data and theory are evaluated. Its results show that at \(0.005<x<0.75\) and \(Q_{0}^{2}=4\) GeV\({}^{2}\), the quark and anti-quark contribution and gluon contribution to proton spin are \(\Delta\Sigma=0.193\pm 0.075\) and \(\Delta G=0.462\pm 0.430\), which indicates the inclusive DIS data constrain the quark and anti-quark contribution well but provides loose constraints on gluon contribution. Figure 1.3 shows the \(x\Delta G(x)\) compared with other global fits at \(Q^{2}=4\ {\rm GeV}^{2}\).
+
+The LSS model named after its authors, Leader, Sidorov and Stamenov, is another global analysis by including polarized DIS experimental data to extract the polarized PDF inside the proton [47]. It takes inclusive DIS and semi-inclusive data as its input, for example data from EMC, HERMES and COMPASS, as well as lower-\(Q^{2}\) data from Jeffereson Lab. It considers the target mass correction and higher twist effects for the inclusive DIS data. Certain functional forms are assumed for \(\Delta u+\Delta\bar{u}\), \(\Delta d+\Delta\bar{d}\), \(\Delta\bar{u}\), \(\Delta\bar{d}\),\(\Delta\bar{s}\) and \(\Delta g\) at the initial \(Q^{2}_{0}=1\) GeV\({}^{2}\) to fit its data. In this analysis, the semi-inclusive data play a role in determining the sea quark distribution without addition assumption. Two different shapes are considered for \(\Delta g\), one with a sign-changing node and one that is positive definite. Both fits find \(\Delta\bar{d}<0\), \(\Delta\bar{u}\) is positive below \(x\sim 0.2\) and negative above \(x\sim 0.2\) and \(\Delta\bar{s}\) changing signs over
+
+Figure 1.3: \(x\Delta G(x)\) predicted by BB model with other global models at \(Q^{2}=4\) GeV\({}^{2}\)[46].
+
+the measured \(x\). The inclusive and semi-inclusive data poorly constrain the gluon distribution \(\Delta g\). The fits to sign-changing and positive \(\Delta g\) give comparable \(\chi^{2}\). At \(Q_{0}^{2}=4\) GeV\({}^{2}\), it gives \(\Delta\Sigma=0.254\pm 0.042\) and \(\Delta G=-0.34\pm 0.46\) for sign-changing \(\Delta g\) and \(\Delta\Sigma=0.207\pm 0.034\) and \(\Delta G=0.32\pm 0.19\) for positive \(\Delta g\). Figure 1.4 shows the \(x\Delta G(x)\) at \(Q^{2}=2.5\) GeV\({}^{2}\).
+
+The global analysis developed by de Florian, Sassot, Stratmann and Vogelsang, known as the DSSV models, uses not only the inclusive DIS and semi-inclusive DIS data but also hadronic collider data from RHIC to extract the polarized PDFs [48, 49, 50]. Data from EMC, HERMES and COMPASS are included in their analysis as well as the inclusive \(\pi^{0}\) data from PHENIX and inclusive jet data from STAR at RHIC. The parameterization functions are chosen for \(\Delta u+\Delta\bar{u}\), \(\Delta d+\Delta\bar{d}\), \(\Delta\bar{u}\), \(\Delta\bar{d}\), \(\Delta\bar{s}\) and \(\Delta g\) with 19 free parameters to be determined by the fitting procedure
+
+Figure 1.4: \(x\Delta G(x)\) predicted by LSS model with at \(Q^{2}=2.5\) GeV\({}^{2}\)[47].
+
+at the initial \(Q_{0}^{2}=1\) GeV\({}^{2}\). The higher twist effects are ignored in calculating the spin dependent structure function \(g_{1}^{p,n}\), but target mass correction is considered. The uncertainties are calculated by the standard Hessian method and Lagrange multiplier method, and both methods give consistent results. The results show that the light sea quark polarization \(\Delta\bar{u}>0\), \(\Delta\bar{d}<0\) and \(\Delta\bar{u}-\Delta\bar{d}>0\). The strange sea quark distribution changes signs from positive to negative as \(x\) approach below 0.02, which implies a large negative strange sea quark contribution to the proton. The \(\Delta\Sigma\) is about 0.37 by allowing the SU(3) flavor asymmetry to be broken at \(Q^{2}=10\) GeV\({}^{2}\). The earlier analysis study without including the recent 2009 STAR 200 GeV inclusive jet data show very small gluon polarization in the accessed \(x\) range at the same \(Q^{2}\). However the newest release of DSSV model with the 2009 data included showed the truncated \(\Delta G\) from 0.05 to 1 to be about three \(\sigma\) above zero. Figure 1.5 shows the \(x\Delta G(x)\) for the current DSSV model at \(Q^{2}=10\) GeV\({}^{2}\) with and without RHIC data compared with an earlier version of DSSV.The \(\Delta G\) below 0.05 is loosely constrained by the current data, however. The higher center mass energy, 510 GeV, data from RHIC will provide constraints at smaller \(x\).
+
+Like the un-polarized PDFs, the NNPDF group also provides their polarized PDFs by using the same techniques [51]. In their earlier version, NNPDF1.0 the inclusive DIS data were only included so it could not separate the parton distributions between quarks and anti-quarks [52]. The \(u\) and \(d\) quark and anti-quark distributions they obtained, \(\Delta u+\Delta\bar{u}\), and \(\Delta d+\Delta\bar{d}\), agree well with DSSV and BB model, but the strange quark and anti-quark distributions \(\Delta s+\Delta\bar{s}\) have larger uncertainties. The gluon distributions have larger uncertainties at small \(x\) compared to the other models. Their latest version, NNPDF1.1 however includes the W boson asymmetry
+
+Figure 1.5: \(x\Delta G(x)\) predicted by DSSV with (red) and without (blue) 2009 RHIC data and an earlier version of its fit (dashed) at \(Q^{2}=10\) GeV\({}^{2}\)[50].
+
+data from RHIC, which allows the quark and anti-quark separation, the inclusive jet measurements from RHIC and the open-charm data from COMPASS, both of which help to constrain gluon distributions. The extracted quark and anti-quark distributions between the two versions are rather similar, at \(Q^{2}=10~{}{\rm GeV}^{2}\) and \(0.001<x<1\), the \(\Delta\Sigma=0.23\pm 0.15\) and \(\Delta\Sigma=0.25\pm 0.10\) for the earlier and later version respectively. The major highlight of the latest version is the constraints placed on \(\Delta G\) when including the inclusive jet data from RHIC, the truncated \(\Delta G\) where \(0.05<x<0.2\) at \(Q^{2}=10~{}{\rm GeV}^{2}\) improved from \(0.05\pm 0.15\) to \(0.17\pm 0.06\). This also suggests the positive gluon polarization at the accessed \(x\) range, which is consistent with what the recent DSSV model finds. Figure 1.6 shows the \(x\Delta G(x)\) for the current NNPDF1.1 and the old NNPDF1.0 at \(Q^{2}=10~{}{\rm GeV}^{2}\).
+
+Another comprehensive global QCD analysis of spin-dependent parton distributions is developed by the Jefferson Lab Angular Momentum Collaboration (JAM) [53]. The analysis uses the latest high-precision DIS data collected from Jefferson Lab (JLab) and others data from EMC, HERMES, COMPASS etc. A generic parametrization for the \(\Delta u+\Delta\bar{u}\), \(\Delta d+\Delta\bar{d}\), \(\Delta s+\Delta\bar{s}\), \(\Delta g\), flavor-separated twist-3 distributions, and \(d_{2}\) moment of the nucleon is assumed at the initial input scale \(Q_{0}^{2}\). An iterative Monte Carlo fitting technique is applied to extract the fitting parameters. The JAM PDF describes the global inclusive DIS data very well overall. It also constrains the quark and anti-quark distributions well, which yields \(\Delta\Sigma=0.28\pm 0.04\) at \(Q^{2}=1~{}{\rm GeV}^{2}\) over the extrapolated full \(x\) range. Like other DIS fits, the JAM PDF found it difficult to constrain gluon polarizations, however it suggests a positive \(\Delta g\) with a small spread over \(x\approx 0.1\) to \(0.5\), as supported by the JLab data. Though JLab data plays an important role in reducing the uncertainty band for the polarized quark and anti-quark distributions and higher twist contributions, a call for polarized \(pp\) data from RHIC to constrain the gluon polarization is pointed out.
+
+Inclusive Jet and Its Asymmetry
+
+In addition to the inclusive jet study in DIS experiments via the quark-gluon fusion process, inclusive jet measurements in the hadronic collider are another effective way to study the internal structure of the proton, especially at wider kinematic range. In the proton-proton (\(pp\)) or proton-anti-proton (\(p\bar{p}\)) collisions, the inclusive production process can be denoted as \(pp(\bar{p})\to jet+X\), where the \(X\) can be any hadronic product. The jets are contributed by the \(2\to 2\) hard scattering, such as quark-quark (anti-quark), \(qq(\bar{q})\), quark-gluon, \(qg\), and gluon-gluon, \(gg\) scattering shown in Figure 2.1.
+
+For un-polarized collisions, the inclusive jet cross-section is measured to extract un-polarized PDFs in the proton. The cross-section of inclusive jet can be expressed
+
+Figure 2.1: Feynman diagram for the \(gg\) (red), \(qg\) (blue) and \(qq\) (green) sub processes.
+
+as,
+
+\[\frac{d\sigma}{dp_{T}}=\sum_{a,b}\int dx_{a}dx_{b}\times f_{a}(x_{a})f_{b}(x_{b}) \frac{d\sigma^{a+b\to jet+X}}{dp_{T}}\]
+
+where \(f_{a(b)}(x_{a(b)})\) is the PDF of parton \(a(b)\) and \(\frac{d\sigma^{a+b\to jet+X}}{dp_{T}}\) is the partonic scattering cross-section for partonic process \(a+b\to jet+X\). Recent inclusive jet cross-section measurements from the CDF and D0 experiments at the Tevatron play an important role in determining the gluon distribution function in the proton by the NLO global analysis [14, 15].
+
+For polarized collisions, the inclusive jet longitudinal double-spin asymmetry \(A_{LL}\) is measured to access the polarized PDFs in the proton. \(A_{LL}\) is defined by
+
+\[A_{LL}=\frac{\sigma^{++}-\sigma^{+-}}{\sigma^{++}+\sigma^{+-}}, \tag{2.1}\]
+
+where \(\sigma^{++(-)}\) is the inclusive jet cross-section when two beams have the same (opposite) helicity. The numerator can be written as the integral of the differential cross-section by jet \(p_{T}\), which is \(d\Delta\sigma/(dp_{T})=\frac{1}{2}(\frac{d\sigma^{++}}{dp_{T}}-\frac{d\sigma^ {+-}}{dp_{T}})\). The \(\frac{d\sigma^{++}}{dp_{T}}\) can be written as,
+
+\[\frac{d\sigma^{++}}{dp_{T}}=\sum_{ab}\int dx_{a}dx_{b}\times\{[ f^{+}_{a}(x_{a})f^{+}_{b}(x_{b})+f^{-}_{a}(x_{a})f^{-}_{b}(x_{b})]\times\frac{d \hat{\sigma}^{++}_{ab\to jet+X}}{dp_{T}}\] \[+[f^{+}_{a}(x_{a})f^{-}_{b}(x_{b})+f^{-}_{a}(x_{a})f^{+}_{b}(x_{ b})]\times\frac{d\hat{\sigma}^{+-}_{ab\to jet+X}}{dp_{T}}\}, \tag{2.2}\]
+
+where \(d\hat{\sigma}^{++(-)}_{ab\to jet+X}dp_{T}\) is the two parton scattering cross-section with the scattering partons having parallel (anti-parallel) spin directions. Likewise for \(\frac{d\sigma^{+-}}{dp_{T}}\), there is \[\frac{d\sigma^{+-}}{dp_{T}}=\sum_{ab}\int dx_{a}dx_{b}\times\{[f_{a}^{+}(x_{a})f_ {b}^{-}(x_{b})+f_{a}^{-}(x_{a})f_{b}^{+}(x_{b})]\times\frac{d\hat{\sigma}_{ab \to jet+X}^{++}}{dp_{T}}\]
+
+\[+[f_{a}^{+}(x_{a})f_{b}^{+}(x_{b})+f_{a}^{-}(x_{a})f_{b}^{-}(x_{b})]\times \frac{d\hat{\sigma}_{ab\to jet+X}^{+-}}{dp_{T}}\}. \tag{2.3}\]
+
+Then \(d\frac{\Delta\sigma}{dp_{T}}\) can be expressed as the following
+
+\[\frac{d\Delta\sigma}{dp_{T}}=\frac{1}{2}\times\sum_{ab}\int dx_{a }dx_{b}\times\frac{1}{2}\times\sum_{ab}\int dx_{a}dx_{b}\times\{\] \[[f_{a}^{+}(x_{a})-f_{a}^{-}(x_{a})][f_{b}^{+}(x_{b})-f_{b}^{-}(x_ {b})]\times\frac{d\hat{\sigma}_{ab\to jet+X}^{++}}{dp_{T}}\] \[-[f_{a}^{+}(x_{a})-f_{a}^{-}(x_{a})][f_{b}^{+}(x_{b})-f_{b}^{-}(x _{b})]\times\frac{d\hat{\sigma}_{ab\to jet+X}^{+-}}{dp_{T}}\}\] \[=\frac{1}{2}\times\sum_{ab}\int dx_{a}dx_{b}\times\{\] \[[f_{a}^{+}(x_{a})-f_{a}^{-}(x_{a})][f_{b}^{+}(x_{b})-f_{b}^{-}(x_{b})]\] \[\times[\frac{d\hat{\sigma}_{ab\to jet+X}^{++}}{dp_{T}}-\frac{d \hat{\sigma}_{ab\to jet+X}^{+-}}{dp_{T}}]\}\] \[=\frac{1}{2}\times\sum_{ab}\int dx_{a}dx_{b}\times\Delta f_{a}(x_ {a})\Delta f_{b}(x_{b})\frac{d\Delta\hat{\sigma}_{ab\to jet+X}}{dp_{T}}, \tag{2.4}\]
+
+where \(\Delta f_{a(b)}(x)=f_{a(b)}^{+}(x)-f_{a(b)}^{-}(x)\) is the polarized parton distribution function for parton \(a\) (\(b\)) and \(\frac{d\Delta\hat{\sigma}^{ab\to jet+X}}{dp_{T}}=\frac{d\hat{\sigma}_{ab \to jet+X}^{++}}{dp_{T}}-\frac{d\hat{\sigma}_{ab\to jet+X}^{+-}}{dp_{T}}\) is the spin dependent two parton scattering cross-section. Therefore \(A_{LL}\) is sensitive to the polarized PDFs in the proton.
+
+### Jet Finding Algorithm
+
+Jets are clusters of final particles after hadron collisions. Jets can be defined at the parton level as well if the combinations are made on the partons produced after the scattering. The jet cross-section calculations depend on the algorithm used to find jets. The algorithm needs to be chosen carefully to avoid divergence in the cross-section calculations. The jet finding algorithm is also necessary to find jets from the detector response collected during experiments. Several jet finding algorithms have been developed during the last two decades, and they can be categorized into two types, cone algorithm and \(k_{T}\) algorithm. The cone algorithm is based on finding stable cones that encapsulate particles within certain area around their centroid. The centroid of a cone which has N particles is defined by,
+
+\[\eta^{c}=\frac{\sum_{i}E_{T}^{i}\eta^{i}}{E_{T}^{c}},\phi^{c}=\frac{\sum_{i}E_ {T}^{i}\phi^{i}}{E_{T}^{c}},E_{T}^{c}=\sum_{i}E_{T}^{i}, \tag{2.5}\]
+
+where \(\eta^{i}\), \(\phi^{i}\), and \(E_{T}^{i}\) are the pseudo-rapidity, azimuthal angle and transverse energy of the \(i\)-th particle of the N particles. There are several versions of cone algorithms trying to find stable cone centroids [54]. One variant of these algorithm is addition of midpoints in the starting seed list. The initial seed list is constructed from individual measured particles such as calorimeter towers with a minimal energy cut. Then the list is expanded by adding mid-points from all the possible combinations of each initial seed for example \(p_{i}+p_{j}\), \(p_{i}+p_{k}\), \(p_{j}+p_{k}\), \(p_{i}+p_{j}+p_{k}\), etc. where \(p_{i,j,k}\) is the momentum of particles deposited in tower \(i\),\(j\), and \(k\) converted by its \(E_{T}\). The algorithm starts with the points in the list as the centroid one by one and tries to compare the particles falling inside the cone radius \(R\) and the particles that construct the point. If they agree, then a candidate jet is found. If they don't, the point is discarded from the list and the algorithm continues to the next point. The process is iterated until the list exhausts.
+
+A splitting and merging procedure is applied to the candidate jets found in the above steps. The candidate jets are sorted from the highest to the lowest by their \(E_{T}\)A nominal fraction of the shared \(E_{T}\) by the neighboring jet \(f\) is assumed. From the highest \(E_{T}\) jet candidate, if the fraction of the shared energy with another candidate is greater than the nominal value, the two jets will be merged, otherwise the sharing towers will be split to the two candidates based on their distance to each candidate. If a candidate shares energy with more than one neighboring candidates, choose the highest \(E_{T}\) neighbor. The merged or split jets re-enter the candidate list and the list is sorted by \(E_{T}\) again. The above procedure is repeated until no jet shares energy with the others in the list.
+
+The \(k_{T}\) algorithm tries to find jets on a list of pre-clusters which could be particles or partons [55, 56]. For each pre-cluster in the list, the energy \(E\) and momentum \(\overrightarrow{p}\) are known. First define the distance,
+
+\[d_{i}=p_{T,i}^{2} \tag{2.6}\]
+
+and
+
+\[d_{ij} =min(p_{T,i}^{2},p_{T,j}^{2})\times\frac{\Delta R_{ij}^{2}}{R^{2}}\] \[=min(p_{T,i}^{2},p_{T,j}^{2})\times\frac{(y_{i}-y_{j})^{2}+(\phi_ {i}-\phi_{j})^{2}}{R^{2}}, \tag{2.7}\]
+
+where \(p_{T,i(j)}\),\(y_{i(j)}\), and \(\phi_{i(j)}\) are transverse momentum, rapidity and azimuthal angle of the \(i\)-th and \(j\)-th pre-cluster and \(R\) is the jet parameter. Then the algorithm calculates all the \(d_{i}\) and \(d_{ij}\), then finds the minimum \(d_{min}\) of all the \(d_{i}\) and \(d_{ij}\). If \(d_{min}\) is one of the \(d_{ij}\), combine the \(i\)-th and \(j\)-th pre-cluster together by \(E_{ij}=E_{i}+E_{j}\) and \(\overrightarrow{p_{ij}}=\overrightarrow{p_{i}}+\overrightarrow{p_{j}}\), replace them with the combined pre-cluster with \(E_{ij}\) and \(\overrightarrow{p_{ij}}\) and re-calculate the \(d_{i}\) and \(d_{ij}\) for the new list. Otherwise, if \(d_{min}\) is one of the \(d_{i}\), remove the \(i\)-th pre-cluster from the list as a jet found. The process continues until the pre-cluster list is empty.
+
+There are two additional variants of the \(k_{T}\) algorithm depending on the definition of the \(d_{i}\) and \(d_{ij}\). The Cambridge/Aachen algorithm defines \(d_{i}=1\) and \(d_{ij}=\frac{\Delta R_{ij}^{2}}{R^{2}}\)[57, 58]. The anti-\(k_{T}\) algorithm defines \(d_{i}=\frac{1}{p_{T,i}^{2}}\) and \(d_{ij}=min(\frac{1}{p_{T,i}^{2}},\frac{1}{p_{T,j}^{2}})\times\frac{\Delta R_{ij }^{2}}{R^{2}}\). When the jets are clustered by some hard particles coming from the hard scattering and some soft particles not coming from the hard scattering, the anti-\(k_{T}\) algorithm is less susceptible to the diffusion of soft radiation and underlying events because those events tend have smaller \(p_{T}\). All the three \(k_{T}\) type algorithms yield the same inclusive jet cross-sections in NLO pQCD calculations.
+
+### 2.3 Inclusive Jet Measurements at STAR
+
+At RHIC, with the capabilities of its detectors STAR has measured inclusive jet production from the longitudinally polarized \(pp\) collisions at the center of mass energy \(\sqrt{s}=200\) GeV and 500 GeV since the 2003 RHIC run. Previous inclusive jet studies demonstrate the jet reconstruction is well understood at RHIC kinematics [59, 60, 61]. For example the comparison between data and simulation agree well for the jet yields vs. jet \(p_{T}\) as in Figure 2.2 and the transverse energy fraction within a cone radius of \(\Delta R\) centered on the reconstructed jet thrust axis as in Figure 2.3.
+
+The recent inclusive jet cross-section measurement at mid-pseudo-rapidity, \(|\eta|<1\), from the 2006 STAR \(pp\) collisions at \(\sqrt{s}=200\) GeV is shown in Figure 2.4[62]. The difference between the measured cross-section and the theoretical prediction is well within the systematic uncertainty, as seen in Figure 2.5. The analysis uses the CDF mid-point cone algorithm with seed energy 0.5 GeV and merge/split fraction 0.5. The inclusive jet cross-sections agree well with the NLO theoretical calculations after hadronization and underlying event corrections.
+
+Figure 2.2: Comparison of jet yields vs. jet \(p_{T}\) from \(pp\) collisions at \(\sqrt{s}=200\) GeV [61].
+
+Figure 2.3: Comparison of jet transverse energy fraction within a cone radius of \(\Delta R\) centered on the reconstructed jet thrust axis from \(pp\) collisions at \(\sqrt{s}=200\) GeV [61].
+
+Figure 2.4: STAR 2006 inclusive jet cross-section from \(pp\) collisions at \(\sqrt{s}=200\) GeV [62].
+
+The inclusive jet cross-section at the mid pseudo-rapidity \(|\eta|<1\) is also measured from the 2009 STAR \(pp\) collisions at \(\sqrt{s}\) = 200 GeV with a larger dataset than the year 2006. The anti-\(k_{T}\) algorithm with jet parameter \(R=0.6\) is used for the jet reconstruction. The results agree well with the NLO theoretical calculations after hadronization and underlying event corrections as shown in Figure 2.6[63]. The inclusive jet cross-section is also divided into two sub pseudo-rapidity ranges \(|\eta|<0.5\) and \(0.5<|\eta|<1.0\) to provide reference for the double spin asymmetry analysis with the same dataset.
+
+Figure 2.5: STAR 2006 inclusive jet cross-section from \(pp\) collisions at \(\sqrt{s}=200GeV\) compared with theory [62].
+
+Di-jet analysis is also performed at STAR to determine the gluon density inside the proton. Di-jet cross-sections at the mid pseudo-rapidity \(|\eta|<0.8\) from the STAR 2009 data at \(\sqrt{s}=200\) and 500 GeV are measured by using the anti-\(k_{T}\) algorithm with jet parameter \(R=0.6\)[64]. The di-jet cross-sections show the excellent agreement with the NLO calculations after hadronization and underlying event corrections.
+
+The inclusive jet \(A_{LL}\) measurements are one of the highlights of the STAR spin physics program. As discussed in Section 2.1, the inclusive jet production is contributed by three partonic scattering processes, \(qq\), \(qg\), and \(gg\). Figure 2.7 shows the fraction of inclusive jet production at \(\sqrt{s}=200\) GeV and 500 GeV due to individual processes over the jet \(x_{T}=\frac{2p_{T}}{\sqrt{s}}\) between 0.02 and 0.5 for jets in the jet mid-pseudo-rapidity range \(|\eta|<1\). The jet cross-sections are calculated at the NLO by using the anti-\(k_{T}\) algorithm with jet parameter \(R=0.6\), using the code from [65]. At the low
+
+Figure 2.6: STAR 2009 inclusive jet cross-section from \(pp\) collisions at \(\sqrt{s}=200\) GeV [63].
+
+\(x_{T}\) region, the \(qg\) and \(gg\) dominate the jet production. The \(gg\) contribution drops down significantly at \(x_{T}\) around 0.15, in contrast the \(qq\) contribution grows steadily as \(x_{T}\) increases. However at the point where \(x_{T}\) near 0.3 the contributions from \(qg\) and \(qq\) are equal, the total jet cross-section has dropped four orders of magnitude relative to that at low \(x_{T}\) around 0.1. The partonic longitudinal double spin asymmetry \(\hat{a}_{LL}\) is relatively large for \(gg\) and \(qg\) processes over the corresponding kinematics. Therefore the inclusive jet \(A_{LL}\) is sensitive to the polarized gluon distributions \(\Delta g\) in the proton.
+
+The STAR inclusive jet \(A_{LL}\) from the 2006 RHIC longitudinally polarized \(pp\) collisions at \(\sqrt{s}\) = 200 GeV is shown in Figure 2.8[61]. The same jet algorithm is used for the \(A_{LL}\) analysis as the cross-section study. The sampled gluon \(x_{gluon}\) by the
+
+Figure 2.7: Inclusive jet cross-section fractions due to subprocesses \(gg\), \(qg\), and \(qq\) from NLO calculations at \(\sqrt{s}\) = 200 and 500 GeV.
+
+\(A_{LL}\) is down to as low as 0.05 in this analysis. The early DSSV model shows relatively small gluon polarization in the covered \(x\) range \(0.05<x<0.2\) with the 2006 data included but with a large uncertainty. The results exclude several theoretical models that predict large gluon polarization.
+
+In the year 2009, STAR collected a large data sample of 200 GeV longitudinally polarized \(pp\) data during the RHIC run. The event statistics used in the inclusive jet \(A_{LL}\) analysis was about 20 times larger than the 2006 analysis. This arose from increases in the trigger rates enabled by improvement to the data acquisition system, combined with increases in the trigger acceptance and efficiency. The trigger improvements also led to reduced trigger bias. The analysis uses the anti-\(k_{T}\) algorithm with jet parameter 0.6, instead of the CDF mid-point cone algorithm with cone
+
+Figure 2.8: STAR 2006 inclusive jet \(A_{LL}\) from longitudinally polarized \(pp\) collisions at \(\sqrt{s}=200\) GeV [61].
+
+radius 0.7. A change in the way the jet reconstruction corrected for hadronic energy deposits in the electro-magnetic calorimeter improved the jet momentum resolution from 23% to 18%.
+
+The results of the STAR 2009 inclusive jet \(A_{LL}\) is shown in Figure 2.9[66]. The \(A_{LL}\) is divided into two sub-\(\eta\) ranges,\(|\eta|<0.5\) and \(0.5<|\eta|<1.0\), since the theory predicts about 20% difference in \(A_{LL}\) at the same jet \(p_{T}\) in those two ranges. The 2009 results are a factor of at least four more precise than the 2006 results at low jet \(p_{T}\) and a factor of three at high jet \(p_{T}\). The measured \(A_{LL}\) fall among the recent model predictions [46, 47, 48, 49, 52]. Noticeably the \(A_{LL}\) is sitting above the DSSV prediction, which includes the STAR 2006 inclusive jet \(A_{LL}\) data, but well within its
+
+Figure 2.9: STAR 2009 inclusive jet longitudinal \(A_{LL}\) at \(\sqrt{s}=200\) GeV [66].
+
+quoted uncertainty. It is easy to image that the more precise STAR 2009 results will push the DSSV prediction up. Fortunately the newly released DSSV model includes them in their new fit and gives \(\Delta G=0.19^{+0.06}_{-0.05}\) for \(x>0.05\) at 90% confidence limit [50]. The NNPDF group also find \(\Delta G=0.23\pm 0.07\) for \(0.05<x<0.5\) and the uncertainty band on \(x\Delta g(x)\) shrinks when including the STAR 2009 results in their analysis [51].
+
+STAR was scheduled to take longitudinally polarized \(pp\) collision at \(\sqrt{s}=510\) GeV during the 2012 RHIC run and has fulfilled its expectation. The inclusive jet \(A_{LL}\) measurements will allow to access the polarized gluon distribution at lower sampled \(x\) gluon. The details of this analysis will be discussed in the following sections.
+
+## Chapter 3 RHIC and STAR Detectors
+
+### 3.1 RHIC Facility
+
+Relativistic Heavy Ion Collider (RHIC) is a world leading facility that has the capability to collide a wide range of ions for example, uranium (\(U\)), gold (\(Au\)), copper (\(Cu\)), helium (\({}^{3}He\)), aluminum (\(Al\)), deuteron (\(d\)) and proton (\(p\)) at high center of mass energy \(\sqrt{s}\). More impressively, it is the only facility that can collide polarized proton beams up to \(\sqrt{s}=\)510 GeV at the present time. It was built inside a 2.4 mile circumference underground tunnel on the site of Brookhaven National Laboratory (BNL). Two beams circulate in opposite directions and are brought to collide at certain intersection points. Detectors are built at each intersection point to detect particles produced in the collisions. The following Figure 3.1 shows the layout of the RHIC facility [67, 68].
+
+Figure 3.1: The layout of RHIC facility for polarized proton operation [67, 68].
+
+The optically pumped polarized ion source (OPPS), produces a 500 \(\mu\)A \(H^{-}\) ion current in a single 300 \(\mu\)s pulse with 80% polarization [69]. The polarized \(H^{-}\) ion pulse is accelerated to 200 MeV with the LINAC, and then strip-injected and captured in a single bunch in the Alternating Gradient Synchrotron (AGS) Booster. The bunch in the Booster contains about \(4\times 10^{11}\) polarized protons with a normalized 95% beam emittance about \(10\pi\)\(\mu m\). The bunch of polarized protons is accelerated to 1.5 GeV in the Booster and then transferred to the AGS.
+
+The polarized proton bunch in the AGS is accelerated to 25 GeV. A partial Siberian Snake and RF dipole are used to keep the proton bunch from depolarizing. When the proton bunch reaches the desired energy, it is injected to RHIC through the AGS-to-RHIC transfer line with better than 50% overall efficiency of the acceleration and beam transfer. There are two rings in RHIC allowing proton beams circulating in the opposite directions, clock-wise and counter-clock-wise, known as the blue and yellow beams respectively. 120 bunches of each ring are repeatedly filled. Since each bunch is accelerated independently, the polarization direction of each bunch can be optional. Both rings are then accelerated to the full energy requested by the physics goal. It takes about 10 minutes together to fill both rings.
+
+Two major detectors are built at the intersection points at 6 o'clock and 8 o'clock, named STAR and PHENIX experiments. A pair of Siberian Snakes located near the 3 and 9 o'clock of each ring keep the beams from depolarizing. Pairs of spin rotators are installed at both ends of the two experiments for each ring. One rotator rotates the proton spin direction from the vertical to the horizontal, and the other rotates it back to the vertical. The spin rotators grant flexibility to both experiments to collide polarized proton beams with transverse or longitudinal polarization at their choice.
+
+The beam polarization is measured by the RHIC \(pC\) and Hydrogen jet (\(H\)-jet)polarimeters located at the 12 o'clock intersection point for both rings. The \(H\)-jet polarimeter [70] is composed of a polarized atomic beam source, two recoil detectors parallel to the beam and a Breit-Rabi polarimeter as shown in Figure 3.2. The recoil detector is an array of silicon detectors. The \(p-C\) detector [71] consists of an ultra-thin carbon ribbon target and six silicon detectors located at \(90^{\circ}\) to the beam direction. The \(pC\) polarimeter is cheap to maintain and can provide fast measurements at full luminosity to allow bunch by bunch measurements. When the transversely polarized proton beam hits polarimeter targets, both polarimeters measure recoiled targets through elastic scattering. The elastic scattering is dominated by the Coulomb-Nuclear Interference (CNI) between the polarized beam and the target at this RHIC kinematics.
+
+### 3.2 STAR Detectors
+
+The Solenoidal Tracker at RHIC (STAR) is a large detector system built at the 6 o'clock intersection point of the two rings [72]. The detectors at STAR are designed
+
+Figure 3.2: \(H\)-jet polarimeter layout [70].
+
+to better understand the fundamental structure of hadronic interactions. Figure 3.3 shows the STAR detector system. The STAR magnet can be operated at full field of 0.5 T and half field of 0.25 T to provide tracking ability for charged particles. The Time Projection Chamber (TPC) is the main part of the system to measure charged particle tracks after collisions. The Barrel and Endcap Electro-magnetic Calorimeter (BEMC and EEMC) allow to measure hadronic and photonic energy deposition in the calorimeter towers. The Beam-Beam Counter (BBC), Vertex Position Detector (VPD) and Zero-degree Calorimeter (ZDC) are used to monitor collision luminosity and beam polarimetry. These detectors will be introduced in the following sections.
+
+#### Tpc
+
+The TPC is the central part of the STAR detector system [73]. It is a cylindrical detector with 4 m in diameter and 4.2 m in length built around the beam-line. Thousands of particles can be produced after high center of mass energy heavy-ion collisions. The charged particles of them are deflected by the STAR magnet in a helical motion. The TPC is able to record those tracks, measure their momenta and
+
+Figure 3.3: Cross sectional view of STAR detectors.
+
+identify particles by their ionization energy loss (\(dE/dx\)). Its acceptance covers \(2\pi\) in azimuthal angle \(\phi\) and from approximately \(-1.3\) and \(+1.3\) in pseudo-rapidity \(\eta\). It is capable to measure particle momentum from 0.1 GeV to 30 GeV and provide particle identification over a wide momentum range.
+
+Figure 3.4 shows the layout of the STAR TPC. It consists of a central membrane, an outer and inner field cage and two end-cap planes. The empty space between the central membrane and two end-caps is filled with gas. When charged particles pass through the TPC gas, the ionized secondary electrons drift toward the two end-caps in the uniform electric field provided by the central membrane and the end-caps. The drifted electrons are collected at the end-caps. The uniform electric field is maintained by the central membrane serving as a cathode, which is operated at 28 kV and the end-caps at ground. The inner and outer field cage confine the TPC gas and define the boundary of the electric field. The TPC gas is P10 gas (10% methane, 90% argon) regulated at constant pressure. It makes the drift velocity stable and insensitive to pressure and temperature changes by operating at the peak drift velocity. The value of the central membrane voltage is optimized for this purpose.
+
+The readout endcaps are based on Multi-Wire Proportional Chambers (MWPC) with readout pads. The drift electrons avalanche in the high fields due to the 20 \(\mu\)m anode wire, then the created positive ions in the avalanche induce image charges on the pads, and the image charges are read out by the digital system. There are 12 read out sectors arranged on a clock on each side of the endcaps with 3 mm small space between them. For each sector, there are two sub-sectors, inner-sectors and outer-sections, due to higher track densities in the inner section and lower track density in the outer section. Figure 3.5 shows the geometry and design of one TPC readout sector. There are in total 45 pad rows, 13 in the inner sector and 32 in outer sector. Each pad has granular size to determine the (\(x\), \(y\)) position of the drifting electrons. The arrival time of the drifting electrons is measured at the endcap. Together with the starting time of the collision, the \(z\) position of the drift origin can be determined. By having the (\(x\), \(y\), \(z\)) coordinates of the drifting electrons, one can reconstruct tracks produced by collisions and determine the track momentum from the track
+
+Figure 3.4: The layout of the STAR TPC [73].
+
+curvature.
+
+#### Bemc
+
+The BEMC is a major upgrade to the STAR baseline detector[74]. It allows to trigger on and study high \(p_{T}\) events like the jet events studied here, leading hadrons, isolated photons (\(\gamma\)), heavy quark production and \(W/Z\) boson decay. Its acceptance is \(|\eta|<1\) in pseudo-rapidity and \(2\pi\) in azimuthal angle \(\phi\). The front face of BEMC is at the radius of about 220 cm from the beam-line outside of the STAR TPC and inside the STAR magnet. The detector is based on the alternating lead and plastic scintillator layers with 20 times radiation length (\(X_{0}\)) at \(\eta=0\). The BEMC includes a shower maximum detector (SMD). The shower maximum detector gives precise spatial information to reconstruct \(\pi^{0}\) and \(\eta\) mesons, isolated photons and single electrons and electron pairs in intense hadron backgrounds.
+
+The design of the BEMC includes 120 calorimeter modules each extending 0.1 in \(\phi\) and 1.0 in \(\eta\), which is about 26 cm wide and 293 cm long. The total depth of a
+
+Figure 3.5: The design of a TPC readout sector at both endcaps [73].
+
+module is about 30 cm. There are 120 modules, 60 in \(\phi\) by 2 in \(\eta\) to comprise the whole detector. Each module is segmented into 40 towers, 2 in \(\phi\) by 20 in \(\eta\), covering 0.05 in \(\phi\) and 0.05 in \(\eta\) for each tower. Figure 3.6 shows the side view of a BEMC module.
+
+The BEMC consist of lead-scintillator stack with 20 layers of 5 mm thick lead and 21 layers of scintillators. The first 2 layers are 6 mm thick and the last 19 layers are 5 mm thick. The lead-scintillator stacks are held together between the front and back plates. The SMD is located between the fifth lead layer and the sixth scintillator layer. It is a gas amplification proportional wire counter with strip readout.
+
+Figure 3.6: The side view of the BEMC module [74].
+
+The material of the scintillator is Kuraray SCSN81. The scintillator is machined in the form of mega-tile sheets with 40 optically isolated tiles in each layer corresponding to the individual towers in the module. The signal from each tile is read out with a wave-length shifting fiber. The signal in the wave-length shifting fiber is then transported from the detector through the STAR magnet to decoder boxes outside the magnet by a multi-fiber optical cable. In the decoder boxes, the signal from 21 scintillator layers composing a single tower are merged onto a single photomultiplier tube (PMT) which is also outside of the magnet. Figure 3.7 shows the layout the 21st mega-tile layer.
+
+The readout of BEMC is used as a part of STAR trigger system to trigger on
+
+Figure 3.7: The side view of the BEMC module and layout of the 21st scintillator layer mega-tile [74].
+
+high-\(p_{T}\) events, for example the jet triggers, because there is no dead-time for the detector at RHIC bunch crossing. For each tower, the BEMC uses a 12-bit flash ADC. The STAR trigger system doesn't use the full BEMC data. Instead it groups BEMC towers into 300 trigger patches covering a region 0.2 in \(\phi\) by 0.2 in \(\eta\) and uses two sets of trigger primitives from those patches. The first set is 300 tower sums digitized to 6 bits each, and the second set is 300 high tower values of 6 bits from the single largest tower within each trigger patch.
+
+#### EEMC
+
+Similar to BEMC, the EEMC extends the pseudo-rapidity coverage for high-\(p_{T}\) events to \(1<\eta<2\) with \(2\pi\) in azimuthal angle \(\phi\)[75]. It is built at the west side of the STAR detector with a toroidal shape around the beam-line and 270 cm from its front face to the collision point. It also includes a shower maximum detector (SMD), together with pre-shower and post-shower detectors to discriminate \(\pi^{0}/\gamma\) and electrons/hadrons.
+
+Figure 3.8 shows the one half of the STAR EEMC with the schematic tower structure and the cut view of the EEMC at a fixed \(\phi\). The EEMC is built in fact at \(\eta\) from 1.086 to 2.000, allowing a small gap between BEMC and EEMC needed for services to exit the solenoid. The detector uses the alternating lead/stainless steel and plastic scintillator layers with 24 4 mm thick scintillator layers and 23 5 mm thick lead and stainless steel laminate layers. The total thickness is roughly equivalent to 21.4 radiation length. The scintillator material is the same as used in the BEMC. The whole detector is divided into 12 30\({}^{\circ}\) modules and each module has 60 towers with each tower spanning 0.1 (6\({}^{\circ}\)) in \(\phi\) and varying size from 0.057 to 0.099 in \(\eta\). Each module is constructed in the mega-tile form with two 12\({}^{\circ}\) mega-tiles at the ends and one 6\({}^{\circ}\) mega-tile in the middle. The 12\({}^{\circ}\) mega-tile has 24 trapezoidal
+
+tiles and the \(6^{\circ}\) mega-tile has 12, corresponding to each tower. The wavelength fiber is attached to each tile to readout the scintillation light. The wavelength fiber is connected to a clear fiber which bundles the signals from the 24 scintillator layers, then the clear fiber runs outside of the STAR magnet and the signal from the 24 layers is combined in an optical mixer and fed into a photo-multiplier tube (PMT).
+
+The SMD is located after the fifth lead/stainless steel layer about 5 radiation lengths deep. It uses the scintillator strips, instead of proportional wire counter with strip readout in the BEMC. The pre-shower detector is the first two scintillator layers behind the front plate and the post-shower is the last scintillator layer. The signals from each of those three layers are read out by two independent wavelength fibers.
+
+Figure 3.8: STAR EEMC with the schematic tower structure on the left and the cut view of the EEMC at constant \(\phi\) on the right [75].
+
+One is for constructing the total tower signal and the other as the output signal of the pre-shower and post-shower detector.
+
+The readout of the 12-bit EEMC tower signal is also sent to STAR trigger system at the level 0. The towers are grouped into trigger patches each of which spanning 0.2 in \(\phi\) and 0.2 or 0.4 in \(\eta\). The summed tower ADC and highest tower ADC within a trigger patch are calculated as inputs to the trigger system. Jet patches can not only be formed inside the EEMC but also can be combined with the BEMC to form a overlap jet patch to define jet patch triggers.
+
+#### Bbc
+
+The BBC is a fast detector to provide signals to the STAR trigger system at the level 0 [76]. It serves the purposes for triggering on minimal bias events, monitoring overall luminosity, measuring relative luminosities due to different spin patterns in bunch crossings and measuring local polarimetry. It is mounted around the beam line outside of the STAR magnet at the east and west side of the collision center about 374 cm from the center.
+
+Figure 3.9 shows the structure of the STAR BBC. There are two annuli of scintillators with each annulus having 18 hexagonal tiles, 6 in the inner ring and 12 in the outer ring. The tiles in the outer annulus are called large tiles and the tiles in the inner annulus are called small tiles. The signals from the large tiles are not used in the following analysis. The coverage of small tiles is \(3.4<|\eta|<5.0\) in pseudo-rapidity and \(0<\phi<2\pi\) in azimuth. The signals from the small tiles are fed into 16 photo-multiplier tubes (PMT). The outputs of those PMTs are transferred to the STAR trigger system.
+
+#### Zdc
+
+The ZDC is intended to detect evaporation neutrons from heavy-ion collisions at small angles close to the beam-line, \(\theta<4\) mrad [77]. ZDCs are located at the east and west sides of the collision center. Each ZDC has three modules with each 10 cm in width and 13.6 cm in length. The ZDC module has multiple alternating quartz and tungsten layers. The tungsten plate is 0.5 cm thick, corresponding to 2 nuclear interaction length and 50 radiation length for each complete ZDC module. The Cherenkov light produced by charged particles in showers while neutrons hitting the detector are transported by wavelength fiber to a single photo-multiplier tube (PMT). The signals from the east and west side ZDC also flow to the STAR trigger system. These signals are used to trigger on minimum bias events, monitoring overall
+
+Figure 3.9: Front view of STAR BBC annuli [76].
+
+luminosity, and measuring relative luminosity due to different spin patterns in bunch crossings.
+
+#### 3.2.6 Vpd
+
+The VPD are also used by the STAR trigger system to serve similar purposes as the BBC and ZDC such as for triggering on minimum bias events and measuring relative luminosity [78]. There are two VPD, one on each side of the collision center about 5.7 m from the center, covering \(4.24<|\eta|<5.1\) and \(0<\phi<2\pi\). On each side, the VPD has 19 individual detectors. Figure 3.10 shows the individual detectors in one of the VPDs. Each individual detector has an aluminum cylinder with front and back caps. There are a 6.4 mm thick lead absorber, a 10 mm thick scintillator right next to the lead absorber, and a photo-multiplier tube attached to the scintillator by optically transparent silicone adhesive. The lead absorber is about 1.13 radiation length thick. Two sets of signals from the VPD are sent out, one to the STAR trigger system and one to the STAR data acquisition system.
+
+Figure 3.10: The STAR VPD detector [78].
+
+## Chapter 4 Inclusive jet longitudinal double spin asymmetry analysis
+
+As shown in Equation 2.1, the inclusive jet double spin asymmetry \(A_{LL}\) is the fractional difference of jet cross-sections between the like and unlike helicity of the two longitudinally polarized beams.
+
+\[A_{LL}=\frac{1}{P_{A}\times P_{B}}\frac{(\sigma^{++}+\sigma^{--})-(\sigma^{+-} +\sigma^{-+})}{(\sigma^{++}+\sigma^{--})+(\sigma^{+-}+\sigma^{-+})}. \tag{4.1}\]
+
+Instead of directly measuring total jet cross-sections for the four spin states, the number of jets for the four spin states and relative luminosities are used since \(N=L\times\sigma\). In addition, the experimentally observed asymmetry needs to be scaled up to account for the incomplete polarization of the two beams. In equation 4.2, the numerator and denominator are the sums from all the runs and scaled both by the beam polarizations,
+
+\[A_{LL}=\frac{\sum_{run}P_{A}P_{B}((N^{++}+N^{--})-R(N^{+-}+N^{-+}))}{\sum_{run} P_{A}^{2}P_{B}^{2}((N^{++}+N^{--})+R(N^{+-}+N^{-+}))}, \tag{4.2}\]
+
+where \(R=\frac{L^{++}+L^{--}}{L^{+-}+L^{-+}}\).
+
+### The Experimental Data Sample
+
+In the year of 2012 RHIC run, STAR has taken longitudinally polarized pp collision data at the center of mass energy \(\sqrt{s}=510\) GeV. The data taking period extended about six weeks, from March 15th, 2012 to April 18th, 2012. The event triggers were set up for physics goals with the trigger configuration, named "\(pp510\_production\_2012\)". There were 744 runs recorded with major detectors, TPC,BEMC and EEMC active and in good running status. A run is a data taking period ranging from a few minutes to an hour.
+
+The relevant events for the inclusive jet measurement are triggered by jet patch triggers with three different thresholds. There are about 177 million, 163 million, and 42 million events collected for the jet patch triggers with the three thresholds from the smallest value to the largest value.
+
+### Spin Patterns for the 2012 RHIC Longitudinally Polarized \(pp\) Run
+
+For each RHIC ring, there are 120 bunches carrying the proton beam. Only 111 of them are filled with nine left empty known as the abort gap. Bunches in each ring are numbered from 0 to 119, referred as the bunch ID. The following definitions are made: a) the beam circulating clockwise is color coded as the blue beam and the beam circulating counter clockwise is color coded as the yellow beam; b) at each intersection point a fixed pair of bunches from the two beams collide; c) at the eight o'clock intersection point the \(n\)-th bunch in the blue beam collides with the \(n\)-th bunch in the yellow beam and d) at STAR, six o'clock intersection point, the blue beam IDs are used as the bunch crossing number. From the above definitions, the bunch ID for the yellow beam at STAR can be deduced from the bunch crossing number.
+
+During the 2012 RHIC run, two additional bunches from each ring were left empty, that is bunch ID 38 and 39 in the blue beam and bunch ID 78 and 79 in the yellow beam. At STAR those bunches meet with the abort gap in the other beam. RHIC beams are injected into the RHIC rings bunch by bunch, usually taking about 10 minutes. The duration from when the beams are fully injected into the rings, to when the beams are dumped is called a RHIC fill. One fill usually lasts about eight hours. Bunches can have different spin orientations. However for a fill, a specific spin orientation is fixed when the bunches are filled, which constitutes a spin pattern. A certain spin pattern is carefully chosen before the fill starts.
+
+There are four intended spin patterns for the two beams. The spin pattern repeats every eight bunches. The four patterns are: \(P1\), \(+-+--+-+\); \(P2\), \(-+-++-+-\); \(P3\)\(++--++--\); and \(P4\)\(--++--++\). \(P2\) is the mirror image of \(P1\) and so does \(P3\) of \(P4\). Beams with one of first two patterns collide with one of the last two patterns, therefore there are eight combinations of colliding spin patterns. This provides all the possible collision spin patterns at every bunch crossing which helps to reduce the systematic uncertainty caused by bunch crossing conditions.
+
+At STAR, the spin configurations are number-coded with the rules shown in table 4.1. The coded number is also known as the spin bit that implies the spin orientation of the two colliding bunches at the 12 o'clock intersection pion. At STAR, due to the Siberian snake on the ring, the spin orientation rotates \(180^{\circ}\) therefore the positive (\(+\)) helicity becomes the negative helicity (\(-\)) and visa versa.
+
+### Beam Polarizations
+
+The proton-Carbon (\(pC\)) [71] polarimeter and \(H\)-jet polarimeter [70] are used to measure the beam polarization. Both polarimeters are located in the vicinity of the 12 o'clock intersection point. They measure recoiled target nuclei produced by very small-angle elastic scattering of the transversely polarized proton beam. The elastic scattering process in this region is dominated by the Coulomb-Nuclear Interference (CNI) which generates asymmetries \(A_{N}\) in the yields of recoiled nuclei relative to the polarization orientation. The measured asymmetry \(\epsilon\) is the product of beam polarization \(P\) and \(A_{N}\), \(\epsilon=P\times A_{N}\). In the \(H\)-jet polarimeter, the atomic hydrogen beam target can be polarized, and its polarization can be precisely measured by its Breit-Rabi polarimeter. The \(A_{N}\) with respect to polarized targets can be measured
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline Spin configuration & Blue beam helicity & Yellow beam helicity \\ \hline
+5 & \(+\) & \(+\) \\ \hline
+6 & \(+\) & \(-\) \\ \hline
+9 & \(-\) & \(+\) \\ \hline
+10 & \(-\) & \(-\) \\ \hline
+1 & empty & \(+\) \\ \hline
+2 & empty & \(-\) \\ \hline
+4 & \(+\) & empty \\ \hline
+8 & \(-\) & empty \\ \hline
+0 & empty & empty \\ \hline \end{tabular}
+\end{table}
+Table 4.1: Spin bit maps to the spin configurations at the 12 o’clock intersection point.
+
+by averaging the polarization of polarized beam. The same way can be done to measure \(A_{N}\) with respect to the polarized beam. Therefore the \(H\)-jet is able to provide an absolute beam polarization measurement. The \(pC\) polarimeter measures a series of intensity averaged polarizations over a period of time. The measured polarizations are fitted to the form \(P(t)=P_{0}-P^{\prime}\times t\), where \(P(t)\) is the polarization measured at time \(t\), \(P_{0}\) is the polarization at the fill starting time \(t_{0}\) and \(P^{\prime}\) is the absolute polarization loss rate [79]. The fitted parameters \(P_{0}\) and \(P^{\prime}\) are given fill by fill as well as the starting time \(t_{0}\). The final beam polarization is taken from the \(pC\) measurement scaled by the \(H\)-jet polarization [80]. For a specific run taken at a certain time, it is easy to calculate the polarization for that run based on the form \(P(t)=P_{0}-P^{\prime}\times t\). Figure 4.1 shows the polarizations of the blue and yellow beams for the final selected runs in this analysis.
+
+Figure 4.1: Beam polarization vs. run number where runs in this plot are those runs selected in this analysis [80]. Patterns follow time dependence within a fill.
+
+### Relative Luminosities for the RHIC 2012 Longitudinally Polarized \(pp\) Run
+
+The relative luminosities account for different numbers of collisions for the four helicity combinations of the two beams, \(++\), \(+-\), \(-+\) and \(--\). Six of them are defined by the following Equations 4.3 - 4.8. \(R_{1}\) and \(R_{2}\) are associated with longitudinal single-spin asymmetry measurements for the yellow and blue beams respectively. \(R_{3}\) is required to measure the inclusive jet \(A_{LL}\).
+
+\[R_{1}=\frac{N^{++}+N^{-+}}{N^{+-}+N^{--}} \tag{4.3}\] \[R_{2}=\frac{N^{++}+N^{+-}}{N^{-+}+N^{--}}\] (4.4) \[R_{3}=\frac{N^{++}+N^{--}}{N^{+-}+N^{-+}}\] (4.5) \[R_{4}=\frac{N^{++}}{N^{--}}\] (4.6) \[R_{5}=\frac{N^{-+}}{N^{--}}\] (4.7) \[R_{6}=\frac{N^{+-}}{N^{--}} \tag{4.8}\]
+
+The relative luminosities are calculated on a run by run basis. The scaler boards are used to record numbers of events that produce signals in the STAR relative luminosity detectors BBC, ZDC and VPD. The scaler board is a VME module with histogramming functionality. It has 24 input bits. These 24 bits make up a 24-bit address which corresponds to one of the \(2^{24}\) memory locations. Each address has a 40 bit content. When the VME module receives a 24 bit input, it finds the memory location based on the 24 bin input address and then increments its content. The scaler board is operated under the RHIC bunch crossing frequency, also called the RHIC strobe. The bunch crossing frequency is about 9.38 MHz. At each RHIC bunchcrossing, the scaler board receives input bits sent from the STAR trigger system that specify hits in the relative luminosity monitoring detectors. Seven of the 24 input bits are assigned to hold the RHIC bunch crossing ID from 0 to 119. During a certain period of run time, one scaler board is designed to collect detector responses for the relative luminosity calculation.
+
+#### 4.4.1 Relative Luminosities
+
+A \(pp\) collision at very high energy produces a large number of final particles. The majority of the produced particles tend to be closer to the beam line. Luminosity detectors are therefore installed near the beam line at both sides of the collision center. Sitting near the beam line they sample a different mix of physics processes rather than the physics that generates the jet in the mid-rapidity region. A single hit detected on one side of the collision center or two simultaneous hits detected on both sides, also known as coincidence hits, can signal a real collision. At STAR, the two sides are defined by their geometrical locations, east and west. Three binary bits are used to flag the east hit, west hit and coincident hits. These bits are a part of the 24 input bits sent to the scaler board at every bunch crossing.
+
+A collision can produce a single hit on one side of the detector, or coincident hits on both sides of the detector. Under perfect conditions a hit implies a real collision. However in reality the two simultaneous hits detected on both sides of the detector can be two individual collisions that produce single hits that hit both sides. These types of hits are classified as random coincidences. As the performance of the accelerator has enhanced over the past decades, collision rates can achieve a very high level such as the collision rates in the 2012 RHIC \(pp\) run at \(\sqrt{s}=510\) GeV. It is possible at each bunch crossing, there are multiple collisions happening at the very short amount of time and the detector only records hits from one of them. In
+
+[MISSING_PAGE_EMPTY:69]
+
+collisions per bunch crossing, \(\mu\), is used to estimate the real number of collisions that happened at a bunch crossing. The probability of \(k\) number of collisions during a bunch crossing is \(P_{k}=\frac{e^{-\mu}\mu^{k}}{k!}\), where \(\mu\) is the average number of collisions. Therefore the probability that at least one collision happened is \(P=1-P_{0}=1-e^{-\mu}\) and \(\mu=-\ln(1-P)\). By plugging the probabilities calculated in equations (4.12) (4.13) and (4.14), the average number of collisions per bunch crossing can be calculated for the single hits and the coincident hits. The total number of collisions at a particular bunch crossing during a period can then be calculated as \(N=N_{BC}\times\mu\), where \(N_{BC}\) is the total number of bunch crossings during the period. The number of collisions that happened for the singles and coincidences \(N_{A}\), \(N_{B}\), and \(N_{C}\), can be expressed as the following equations, where \(N_{E}\), \(N_{W}\), \(N_{EW}\), and \(N_{BC}\) are the number of bunch crossings observed for east single hits, west single hits, coincident hits and the total bunch crossing number.
+
+\[N_{A}=-N_{BC}\times\ln(\frac{N_{E}-N_{EW}}{N_{BC}-N_{W}}) \tag{4.15}\] \[N_{B}=-N_{BC}\times\ln(\frac{N_{W}-N_{EW}}{N_{BC}-N_{E}})\] (4.16) \[N_{C}=-N_{BC}\times\ln(\frac{N_{EW}-\frac{N_{E}N_{W}}{N_{BC}}}{N _{BC}+N_{EW}-N_{E}-N_{W}}) \tag{4.17}\]
+
+#### 4.4.2 Counting East and West Singles Hits and Coincidence Hits
+
+There are three bits, east ADC sum greater than its threshold, west ADC sum greater than its threshold and TAC difference within a certain window, as a part of the 24 scaler input bits for three relative monitoring detectors, BBC, ZDC and VPD. For BBC and VPD, both have 16 PMT channels read out to the trigger system at the east and west sides (where three of 19 VPD tiles are not read out). Each PMThas one 12 bit ADC value and a 12 bit TAC value. Two QT boards hold all 16 PMT ADC and TAC values for the east and west sides. The trigger system receives information from the two boards at level 0 and calculates the sum ADC and maximal TAC value for each board. The maximal TAC is corresponding to the earliest hit to the detector. During the calculation, only PMT channels that have ADC greater than the threshold and TAC within a certain range are considered. The outputs of these two boards, two sets of a 16 bit ADC sum and a 12 bit maximal TAC, are sent to level 1. At level 1 the two ADCs are compared to the ADC sum thresholds. The TAC difference is calculated and checked if the value is within a certain TAC window. The TAC difference is calculated as 4096 + east TAC - west TAC to guarantee its value is positive. If the east ADC sum is greater than its sum ADC threshold, the east ADC sum bit is set to 1 and sent to the scaler system. So does the west ADC sum bit. If the TAC difference is greater than its lower limit and less than its upper limit, then the TAC difference bit is set to 1 and sent to the scaler system.
+
+For the ZDC there are three PMT channels corresponding to three ZDC modules at the east and west sides. Each PMT also has a 12 bit ADC value and a 12 bit TAC value. Different from BBC and VPD, the information from both sides of the detector is sent to one QT board at level 0 in the trigger system. The ADC sums from the front, middle and back module at both sides are calculated and are compared with ADC sum thresholds. If the ADC sum is greater than its threshold, the output bit is set to 1. The leftmost 10 bits of the TAC values from the front module at both sides are sent to the output. During the ADC sum calculation and output of TAC values, only those PMT channels with ADC values greater than a threshold and TAC value within a certain window are included. The output of the QT board is sent to the level 1 to calculate the TAC difference which is defined as 1024 + east TAC \(-\) west TAC. If the TAC difference is within a certain window, the TAC difference is set to 1 and sent to the scaler system. The ADC sum threshold bits are passed through the level 1 straight to the scaler system.
+
+The following table 4.2 shows the nominal thresholds for PMT ADC thresholds and PMT TAC limits, ADC sum thresholds and TAC difference limits for BBC, ZDC and VPD during the 2012 510 GeV run.
+
+To be consistent with what is defined in Equations (4.15), (4.16), and (4.17), the number of observed bunch crossings for the east single hits, the west single hits, and the coincident hits \(N_{E}\), \(N_{W}\) and \(N_{EW}\), are defined in the following way:
+
+\[N_{E} =C(1,0,0)+C(1,1,1)+C(1,0,1)+C(1,1,0), \tag{4.18}\] \[N_{W} =C(0,1,0)+C(1,1,1)+C(0,1,1)+C(1,1,0),\] (4.19) \[N_{EW} =C(1,1,1)+C(1,1,0), \tag{4.20}\]
+
+where \(C(E,W,X)\) is the content of the scaler board corresponding to the east ADC
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline  & \multicolumn{2}{|c|}{BBC} & \multicolumn{2}{|c|}{ZDC} & \multicolumn{2}{|c|}{VPD} \\ \cline{2-6}  & east & west & east & west & east & west \\ \hline PMT ADC & 5 & 20 & 25 & 25 & 10 & 10 \\ \hline PMT TAC & (100, 2300) & (100, 2300) & (100, 3000) & (100, 3000) & (100, 3000) & (100, 3000) \\ \hline ADC Sum & 20 & 20 & 25 & 25 & 10 & 10 \\ \hline TAC Diff & (3267, 4933) & (50, 1300) & & (3883, 4083) \\ \hline \end{tabular}
+\end{table}
+Table 4.2: The nominal TAC and ADC thresholds in the trigger system for the east and west side of BBC, ZDC and VPD. The fact that the BBC east PMT ADC and ADC sum thresholds differed was a configuration error that was found during this analysis.
+
+sum bit (E), the west ADC sum bit (W) and the TAC difference bit (X) of the scaler input. The net effect of this definition is to disregard the TAC difference bit. There are other definitions for \(N_{E}\), \(N_{W}\) and \(N_{EW}\), in the previous relative luminosity studies at STAR [82], however this definition is the most internally consistent with the random correction. It is also worthy to note that the TAC difference bit is discussed only for the purpose to compare with other definitions used in the previous studies.
+
+#### 4.4.3 Bunch Crossing Distributions
+
+The Figure 4.2 shows the bunch crossing distributions for all possible combinations of the three bits from the VPD. The bunch crossing is numbered from 0 to 119. The data used here cover all the good candidate runs from 2012 510 GeV longitudinal \(pp\) collisions.
+
+In Figure 4.2, the two abort gaps can be seen clearly, bunch 31 to 39 is the yellow abort gap and bunch 111 to 119 is the blue abort gap. The two empty bunches in blue beam, 38 and 39, overlap with the yellow abort gap and the two empty bunches in the yellow beam 78 and 79 overlap with the blue abort gaps. Normally each bunch crossing has very similar beam intensity, so all the bunch crossing distributions should be more or less uniform with small fluctuations except the two abort gaps. However a few bunches right after the two abort gaps show a climbing effect and the possible reasons for this effect could be a portion of a previous bunch leaking through to the next bunch, a ringing effect in the detectors and the likes. In this analysis, this effect is corrected by removing the first a few bunches right after the two aborts. Bunches 78 and 79 systematically have higher counts relative to other nearby bunches. The reason for this is that blue beam bunches 78 and 79 and their colliding partners yellow beam bunches 38 and 39 only collide once at STAR not at PHENIX. At PHENIXthe blue beam bunches 78 and 79 meet with the empty yellow beam bunches 78 and 79, and the yellow beam bunches 38 and 39 meet with the empty blue beam bunches 38 and 39. All the other blue beam bunches collide with yellow beam bunches at both STAR and PHENIX. In this analysis, for certain runs bunch crossing 78 and 79 are removed only if they have severely larger counts than the other normal bunches.
+
+In Figures 4.3, the combinations \((0,0,1)\), \((1,0,1)\), or \((0,1,1)\) do not seem logical, however under some circumstances they in fact happen. For the BBC frequencies of illegal combinations \((0,0,1)\), and \((1,0,1)\) is at the level of \(10^{-8}\) or below and therefore they are negligible. For the combination \((0,1,1)\), this is in fact allowed in the scaler system. The BBC individual channel ADC threshold at level 0 is different than the sum ADC threshold at level 1, as seen in Table 4.2. At level 0 only if a good hit requirement is satisfied, where a channel ADC is greater than a threshold and a channel TAC is within a limit, the corresponding TAC value is passed to level 1. At the level 1, the TAC values from both sides could produce a good TAC difference. However if the summed ADC is less than the sum ADC threshold, then in this case the system would produce the illogical combination. In general the sum ADC threshold is set to the same value as the channel threshold, therefore a valid TAC value from level 0 would guarantee a pass to the sum ADC threshold, and there would not be illegal combinations. Since at the level 0 and the level 1, the BBC individual channel thresholds are the same. The combination \((1,0,1)\) happens very rarely.
+
+For the ZDC, all thresholds are set at the identical value at both level 0 and level 1. The three illegal combinations mentioned aove are negligible as seen in Figure 4.4. However the frequency of the combination, \((1,1,1)\), is around three order of magnitude less than that of the other three logical combinations \((1,0,0)\), \((0,1,0)\), and \((1,1,0)\). The cause for this problem is not understood, it could be due to hardware or parameter setting errors during the data taking. In this analysis, the ZDC coincidence event is not used for the relative luminosity calculation.
+
+For the VPD, as seen in Figure 4.2 all three illegal combinations the combinations \((1,0,0)\), \((1,1,0)\), and \((1,0,1)\) happen at less frequencies than the logical combinations.The frequencies are similar, and down around two orders of magnitude. Indications are that the VPD TAC difference bit was not precisely synchronized with the bunch crossing clock. To minimize the side effect of the TAC bit, this bit is dropped while counting the east and west single hits and coincidence hits.
+
+Figure 4.5 shows the bunch crossing distribution for the east single hits, the west single hits, and the coincidence hits. There hits are added up according to equation (4.18) (4.19) and (4.20). Similar features have shown up as the previous bunch crossing distribution for all the possible bit combinations.
+
+#### Application of Accidental and Multiple Corrections
+
+The accidental and multiple corrections are applied to the east single hits, the west single hits, and the coincident hits on a basis of bunch by bunch. Figures 4.6 and 4.7 show the bunch crossing distributions for the east and west singles and coincidences while applying the accidental and multiple correction step by step. It is easy to see that the accidental correction removes the east-west coincident events from the observed single hits to identify the real single events. Also the multiple correction corrects for the under-counting due to the high collision rate and the finite detector response. After accidental and multiple corrections the shape of the distributions become more uniformly distributed except the abort gaps.
+
+Figure 4.2: Probabilities to find the various hit combinations from the VPD.
+
+Figure 4.3: Probabilities to find the various hit combinations from the BBC.
+
+Figure 4.4: Probabilities to find the various hit combinations from the ZDC.
+
+Figure 4.5: Bunch crossing distributions for the defined VPD east, west and coincidence hits.
+
+Figure 4.6: Bunch crossing distributions for the defined VPD east, west and coincidence hits after accidental corrections.
+
+#### 4.4.5 Relative Luminosity Calculations and Their Uncertainties
+
+Given the number of the accidental and multiple corrected single and coincidence hits at each bunch crossing and the spin configuration of bunch crossing, the relative
+
+Figure 4.7: Bunch crossing distributions for the defined VPD east, west and coincidence hits after accidental and multiple corrections.
+
+luminosities can be calculated by using the single and coincidence hits from equations (4.3) - (4.8) on a run-by-run bases.
+
+One way to characterize the quality of relative luminosity calculation is to compare the results calculated by single hits with those by coincidence hits. Since the hits in BBC, ZDC and VPD are minimum biased by physics scattering, the number of hits detected in those detectors has little dependency on the spin orientations of colliding bunches and therefore the difference is expected to be very small, ideally zero. In other words, \(\Delta\) is defined as the difference between \(R_{c}\) and \(R_{s}\), the relative luminosities observed by coincidence and single hits, normalized by the sum. The less spin dependency observed by the detector, the smaller \(\Delta\) and closer between \(R_{c}\) and \(R_{s}\) should be. By comparing among BBC, ZDC and VPD, VPD shows the smallest difference between \(R_{c}\) and \(R_{s}\), so VPD is chosen to be used to calculate the relative luminosities in this analysis. The coincident hits are chosen over the single hits to calculate the relative luminosities, because coincidence hits are less sensitive to backgrounds and more reliable to represent real collisions.
+
+\[\Delta=R_{c}-R_{s} \tag{4.21}\]
+
+As analogous to Equation (4.21), \(\Delta\) can be defined to reflect the relative luminosity difference among detectors such as \(\Delta^{BBC,VPD}\), \(\Delta^{ZDC,VPD}\), and \(\Delta^{BBC,ZDC}\). The three detectors are sensitive to different physics processes in different kinematic regions. In the absence of systematic difference \(\Delta^{BBC,VPD}\),\(\Delta^{ZDC,VPD}\), and \(\Delta^{BBC,ZDC}\) are expected to be small.
+
+\[\Delta^{BBC,VPD} =R^{BBC}-R^{VPD} \tag{4.22}\] \[\Delta^{ZDC,VPD} =R^{ZDC}-R^{VPD}\] (4.23) \[\Delta^{BBC,ZDC} =R^{BBC}-R^{ZDC} \tag{4.24}\]
+
+The difference of relative luminosities calculated by BBC and ZDC compared to those by VPD is also reduced by removing several bad bunches on a fill by fill basis. Bad bunches include the gradually climbing bunches right after the two abort gaps and abnormal counts at certain bunch crossings. The bad bunches are identified by finding bunches that have too large or too small counts than the average bunch counts for all three detectors.
+
+The relative luminosity differences among three detectors on a run-by-run basis are calculated after removing all the bad bunches. Figure 4.8, 4.9 4.10 4.11 and 4.12, show the relative luminosity difference calculated among ZDC and VPD single and coincidence hits. The means and RMSs of the relative luminosity differences are also calculated.Table 4.3 summarizes the means and RMSs of \(R_{1}\) to \(R_{6}\) between ZDC and VPD and between VPD singles and VPD coincidences.
+
+Since single events and coincidence events are triggered by different physics processes, to maximize the usage of all the measurements, the five \(\Delta R\)s are grouped into three category based on the underlying physics processes. They are difference between ZDC singles and VPD coincidences, difference between VPD singles and VPD coincidences, and difference between ZDC coincidences and VPD coincidence. Within each group, the grouped mean and RMS of \(\Delta R\) is the linear average of each measurement. For the final mean and RMS of \(\Delta R\), the weighed averages of the grouped mean and RMS are taken. For \(R_{3}\) the weighed mean RMS, 0.00013, is taken as the systematic uncertainty. Figure 4.13 shows the relative luminosity \(R_{3}\) for the final selected runs. The impact of the relative luminosity uncertainty on the uncertainty of inclusive jet \(A_{LL}\) is discussed in the next section.
+
+Figure 4.8: \(\Delta R_{1,2,3}\) calculated by ZDC east hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+
+Figure 4.9: \(\Delta R_{1,2,3}\) calculated by ZDC west hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+
+Figure 4.10: \(\Delta R_{1,2,3}\) calculated by ZDC coincidence hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+
+Figure 4.11: \(\Delta R_{1,2,3}\) calculated by VPD east hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+
+Figure 4.12: \(\Delta R_{1,2,3}\) calculated by VPD west hits and VPD coincidence hits vs. run index (left) and the associated distributions (right).
+
+[MISSING_PAGE_EMPTY:89]
+
+### 4.5 Jet Patch Trigger Setup
+
+The STAR BEMC and EEMC serve as the trigger detectors for high \(p_{T}\) and jet event studies. A BEMC tower covers \(0.05\times 0.05\) in \(\eta\) and \(\phi\). A trigger patch in the BEMC consists of \(4\times 4\) BEMC towers covering \(0.2\times 0.2\) in \(\eta\) and \(\phi\). A jet patch is a defined \(1.0\times 1.0\)\(\eta\)-\(\phi\) region, which is contributed by \(5\times 5\) trigger patches. In the trigger system, a level 0 Data Storage and Manipulation (DSM) board holds 10 channels, each of which comes from a single trigger patch. Each channel receives a six bit patch sum ADC and a six bit high tower ADC from the trigger patch. Figure 4.14 shows the BEMC trigger scheme in a \(2\times 2\)\(\eta\)-\(\phi\) subset of the full \(2\times 6\)\(\eta\)-\(\phi\) space. There are 15 level 0 DSM boards on each side of detector, the east side corresponding to negative \(\eta\) and the west side corresponding to positive \(\eta\). The patch sum from each channel is summed up into two groups, lower \(\eta\) sum and higher \(\eta\) sum. The
+
+Figure 4.13: \(R_{3}\) vs. run number where runs in this plot are those run selected in this analysis.
+
+sums are passed to six level 1 DSM boards, each of which has six input channels from level 0 DSM boards. The input channels are formed in a way such to cover 2 units in \(\eta\) and 1 unit in \(\phi\). The combinations of lower \(\eta\) and higher \(\eta\) sums form three jet patches covering respectively \(-1.0<\eta<0\), \(-0.6<\eta<0.4\) and \(0<\eta<1.0\). Those sums are compared with three thresholds to form the threshold bits. The threshold bit is set to one if the sum is greater than the threshold and zero otherwise. These threshold bits from each level 1 BEMC DSM boards are passed to a level 2 DSM board for the further manipulation. A partial sum from \(0.4<\eta<1.0\), is also passed to the level 2 to combine with a partial sum from the EEMC.
+
+The jet patch formed in the EEMC is similar to what is formed in the BEMC. The segments of jet patches in a particular \(\phi\) direction are matched with those in
+
+Figure 4.14: BEMC DSM \(\eta-\phi\) scheme.
+
+the BEMC to be able to form boundary jet patches between the BEMC and EEMC. Figure 4.15 shows the EEMC trigger scheme in the full EEMC region. A level 0 EEMC DSM board receives inputs from 10 trigger patches. There are six single output DSM boards in the outer ring and three double output DSM boards in the inner ring. The six single output DSM boards calculate a lower \(\eta\) sum and a higher \(\eta\) sum and send them to a level 1 DSM board. The lower \(\eta\) is the EEMC partial jet patch sum covering \(1.0<\eta<1.4\) to be combined with the BEMC partial jet patch sum. There are two level 1 DSM boards, each covering one half of the EEMC. One level 1 DSM board receives three inputs from single output level 0 DSM boards and three inputs from double output level 0 DSM boards. Three EEMC jet patch sums are calculated in each level 1 DSM board and are compared with three thresholds 0 to 2 from the lowest to the highest. The threshold bits are passed to the level 2 DSM boards. The largest partial jet patch sum is also passed to the level 2 together with its ID used to identify the \(\phi\) position of the partial jet patch.
+
+At the level 2, the DSM board receives six input channels from the BEMC and two channels from the EEMC. Each of the six BEMC input channels has threshold bits for three BEMC jet patches and one jet patch sum. Each of the two EEMC input channels has threshold bits for three jet patches and one largest partial jet patch sum. The largest partial jet patch sums from the EEMC are added to the corresponding partial jet patch sums from the BEMC in order to form the BEMC-EEMC boundary jet patch sums. These sums are also compared with three ordered thresholds 0 to 2 to form threshold bits as shown in Table 4.4. In total three threshold bits for 18 BEMC jet patches, six EEMC jet patches and two BEMC-EEMC boundary jet patches are shown in Figure 4.15.
+
+Figure 4.15: EEMC DSM \(\eta-\phi\) scheme, seen from the West looking towards the center of STAR.
+
+patch are available. The jet patch 0 (JP0) trigger is defined such that at least one of these jet patches passed jet patch threshold 0. The same definitions apply for jet patch 1 (JP1) trigger and jet patch 2 (JP2) trigger.
+
+### Jet Reconstruction at STAR
+
+The STAR software has the capability to run either a jet cone algorithm or a \(k_{T}\) type algorithm to find jets. The STAR 2006 inclusive jet \(A_{LL}\) analysis used the CDF cone algorithm with cone radius 0.7, seed energy 0.5 GeV and split and merging fraction 0.5. For the STAR 2009 inclusive jet \(A_{LL}\) analysis, the FastJet anti-\(k_{T}\) algorithm [83] with jet parameter 0.6 was used because the algorithm proves to be less susceptible to diffuse soft background from pile-up and underlying events. In this analysis, the FastJet anti-\(k_{T}\) algorithm has been chosen and the jet parameter is reduced to 0.5. The reasons for this will be discussed in the following section.
+
+Both charged particle tracks measured from the TPC and tower deposition energy measured from the BEMC and EEMC are fed into the STAR jet finder. The jet finder is run on an event by event basis. For each event the primary tracks are selected, which are emitted from the reconstructed primary vertex. The primary vertex is the vertex where the two protons collide. The pile-up proof vertex (PPV) finder
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline Trigger & Threshold & Nominal \(E_{T}\) in GeV \\ \hline JP0 & 28 & 5.4 \\ \hline JP1 & 36 & 7.3 \\ \hline JP2 & 66 & 14.4 \\ \hline \end{tabular}
+\end{table}
+Table 4.4: Jet patch trigger thresholds.
+
+was used in this analysis. It does not rule out finding several primary vertices in a single event. However the best possible vertex, or in other words the highest ranked vertex is selected in the analysis. The PPV finder assigns vertices that are most likely to belong to pile-up events a negative ranking, therefore the highest ranked vertex chosen is required to have a positive ranking. In addition the highest ranked reconstructed vertex should be within the range of \(\pm\) 90 cm. The table 4.5 lists the track cuts used in this analysis to select good tracks for the jet finding process.
+
+A \(p_{T}\) dependent distance closest to approach (\(Dca\)) cut as shown in Equation (4.25) helps reduce the pile-up effects.
+
+\[Dca_{T}<\begin{cases}2\text{ cm}&\text{ if }p_{T}<0.5\text{ GeV}\\ -1.0\text{ cm}/\text{GeV}\times p_{T}+2.5\text{ cm}&\text{ if }0.5<p_{T}<1.5\text{ GeV}\\ 1\text{ cm}&\text{ if }p_{T}>1.5\text{ GeV}\end{cases} \tag{4.25}\]
+
+The full three dimensional Dca is used here, \(Dca_{T}=\sqrt{Dca_{x}^{2}+Dca_{y}^{2}+Dca_{z}^{2}}\), where
+
+\begin{table}
+\begin{tabular}{|c|} \hline track flag \(>\) 0 (good) \\ \hline number of hit points \(\geq\) 12 \\ \hline \(\frac{N_{fit}}{N_{poss}}>\) 0.51 \\ \hline \(Dca\leq\) 3 cm \\ \hline \(0.2<p_{T}<\) 200 \\ \hline \(-2.5<\eta<\)2.5 \\ \hline Last point distance \(>\) 125 cm \\ \hline \end{tabular}
+\end{table}
+Table 4.5: Track cuts used for jet reconstruction.
+
+\(Dca_{x}\)\(Dca_{y}\), and \(Dca_{z}\) are the \(x\), \(y\) and \(z\) components of the track \(Dca\). In previous analysis at \(\sqrt{s}\) = 200 GeV, a similar \(p_{T}\) dependent two dimensional \(Dca\), \(Dca_{D}=\sqrt{Dca_{x}^{2}+Dca_{y}^{2}}\) was applied. Figures 4.16 and 4.17 show the ratio of the number of jet tracks found after the \(p_{T}\) dependent three-dimensional cut to that after the \(p_{T}\) dependent two-dimensional cut vs. track \(p_{T}\) by different jet finding algorithms for two runs with high and low luminosities, where the ZDC coincidence rates are 200 and 93 kHz respectively. The higher luminosity is more prone to the effects of pile-up tracks. The three-dimensional cut removes a bigger fraction of low \(p_{T}\) tracks in the higher luminosity runs where the pile-up effect is more dominant. Both cuts make only a small difference, less than 5%, when track \(p_{T}\) above 3 GeV between the higher luminosity run and the lower luminosity run. Also the anti-\(k_{T}\) algorithm with a smaller \(R\) parameter is less affected by the pile-up effects than the mid-point code algorithm with a larger \(R\) parameter.
+
+Figure 4.16: The ratio of number of tracks with the \(p_{T}\) dependent three-dimensiona cut over these with the \(p_{T}\) dependent two-dimensional cut for a low luminosity run at \(\sqrt{s}=\) 500 GeV.
+
+Table 4.6 lists the tower cuts for the BEMC and EEMC towers. The tracks are also matched to the BEMC and EEMC towers and the full track momentum is subtracted from the matched tower [66]. Tracks with momentum are converted to Lorentz four-vectors by using the pion default mass 0.1396 GeV, and towers with their deposition energy are converted to Lorentz four-vectors by using the massless photon and assuming the momentum is pointing from the primary vertex to the deposited tower. Those two sets of Lorentz four-vectors are merged and taken as input to the jet finder where the jet algorithm is applied. At the end, only those jets that have transverse momentum \(p_{T}\) between 5 GeV and 200 GeV are passed down to the analysis stream.
+
+Figure 4.17: The ratio of number of tracks with the \(p_{T}\) dependent three-dimensional cut over these with the \(p_{T}\) dependent two-dimensional cut for a high luminosity run at \(\sqrt{s}\) = 500 GeV.
+
+The reconstructed jets are also required to pass certain kinematic cuts to ensure the jets fall well within the detector acceptance and the interested kinematic range and those jets are not apparently coming from non-collision backgrounds. The following table 4.7 lists the jet cuts used in this analysis. The detector \(\eta\) is defined by projecting the thrust of jet axis from the collision vertex to the BEMC detector and taking the \(\eta\) component of the projected vector as expressed in the STAR detector coordinate. The minimum sum track \(p_{T}\) and the neutral energy fraction \(R_{t}\) is to keep jet candidates from the neutral jets that are constituted by neutral particles. At the measured energy scale, the neutral jets are likely coming from non-collision backgrounds such as cosmic rays. In addition, since the track reconstruction by TPC is not reliable at track \(p_{T}>30\) GeV, jets with a track that has \(p_{T}>30\) GeV are skipped. A upper jet \(p_{T}\) cuts are also applied for JP0 and JP1 triggered jets, which are 33.6 GeV and 39.3 GeV. For jets above those \(p_{T}\) limits, the JP2 triggered jets dominate the statistics. For the underlying event corrections, jets are dropped if the underlying event correction \(dp_{T}\) makes the jet \(p_{T}\) shift down more than two jet \(p_{T}\) bins. The jet \(p_{T}\) bin boundaries in GeV are chosen as the bin width is 17% of the lower edge, such as 6.0, 7.0, 8.2, 9.6, 11.2, 13.1, 15.3, 17.9, 20.9, 24.5, 28.7, 33.6, 39.3, 46.0 and 53.8.
+
+\begin{table}
+\begin{tabular}{|c|} \hline tower status = 1 (good) \\ \hline tower \(E_{T}>\) 0.2 \\ \hline tower ADC \(-\) ped \(>\) 4 \& ADC \(-\) ped \(>\) RMS \\ \hline \end{tabular}
+\end{table}
+Table 4.6: BEMC and EEMC tower cuts used for jet reconstruction.
+
+### Run Quality Assurance
+
+The run quality assurance (QA) is to select the good runs from all the runs taken during the 2012 RHIC 510 GeV longitudinally polarized \(pp\) running period. The run quality is to make sure all the data in the final data analysis have physics merit to achieve the inclusive jet \(A_{LL}\) measurements. Therefore the jet quantities such as the jet transverse momentum \(p_{T}\), the jet pseudo-rapidity \(\eta\), the jet azimuthal angle \(\phi\), the jet neutral fraction \(R_{t}\), the number of tracks per jet and the number of towers per jet, are inspected to flag the bad runs that will be discarded in the final analysis.
+
+Several general requirements are applied before the QA process starts. Runs that were running with the TPC, BEMC and EEMC active are selected. The duration of runs should be longer than 180s. Runs that have relative luminosity information are kept. A simple hot tower check in the BEMC and EEMC towers is performed to eliminate a few runs that have abnormally large ADC values in BEMC and EEMC towers. Due to the efficiency of the PPV vertex finder dropping significantly as
+
+\begin{table}
+\begin{tabular}{|r|} \hline \(-0.9<\) jet \(\eta<0.9\) \\ \hline \(-0.7<\) jet detector \(\eta<0.9\) \\ \hline sum track \(p_{T}>0.5\) \\ \hline jet neutral energy fraction \(R_{t}<0.94\) \\ \hline Individual track \(p_{T}<30\) GeV \\ \hline JP0 jet \(p_{T}<33.6\) GeV \\ \hline JP1 jet \(p_{T}<39.3\) GeV \\ \hline Underlying event correction \(dp_{T}\) shifts no more than two bins \\ \hline \end{tabular}
+\end{table}
+Table 4.7: Jet candidate cuts used in this analysis.
+
+the run luminosity increases, the runs with accidental and multiple corrected BBC coincidence rate greater than 5 MHz are dropped.
+
+The jet quantities are inspected on a run-by-run basis. Traditionally the averaged jet quantities are plotted against run index. The run index usually increments from zero and the order of the run index is based on the time when the runs were taken from the earliest to the latest. In other words, the jet quantities are inspected in a time series. At the beginning of a fill the collision rate is high, and at the end of a fill the collision rate is low. The jet quantities vary with the collision rates. So it is easy to spot the fill pattern in the plot of jet quantity against run index. However in 2012 the collision rates averaged a factor of five higher than during the 2009 RHIC run, and the collision rate coverage was much wider in the 2012 RHIC run. Given that jet quantities change dramatically when the collision rates differ largely, it was necessary to inspect jet quantities against the collision rate. This led led to a new QA selecting process.
+
+The collision rate is taken from the calculated BBC coincidence rate after the accidental and multiple correction from the scaler system. A number of jet quantities were plotted against the corrected BBC coincidence rate. Figures 4.18, 4.19 and 4.20 show jet quantities, the averaged number of jets, the jet \(p_{T}\) and the jet neutral fraction \(R_{t}\) vs. the corrected BBC coincidence rate for the JP2 events. The jet quantities dependence on the collision rate can be seen clearly. For example the jet \(p_{T}\) decreases as the collision rate increases, due to reduced tracking efficiency in the higher collision rate cases. In contrast the jet \(R_{t}\) shows the opposite trends.
+
+Figure 4.18: The averaged number of jets per event vs. accidental and multiple corrected BBC rate for JP2 events.
+
+Figure 4.19: Jet \(p_{T}\) vs. accidental and multiple corrected BBC rate for JP2 events.
+
+The final selection criteria are determined by fitting the jet quantities as a function of collision rates with a second or third order polynominal form. The RMSs of the jet quantities relative to the fitted value are calculated. The runs that have at least one of the jet quantities inspected fall outside the fitted value plus or minus three times RMS region are discarded. Different jet quantities may reflect different issues in the run taken period. For example jet \(\eta\) and \(\phi\) may reflect ineffective coverage of the TPC, BEMC and EEMC, jet track \(p_{T}\) may be distorted by pile-up events and so on. Therefore it is useful to remove questionable runs as many ways as possible by tagging on all sorts of jet quantities and requiring the jet quantity following the general trend vs the collision rate. But the cut should not be strict enough to lose event statistics unnecessarily. A total of 21 jet quantities are considered in this process. The total integrated luminosity for the JP0, JP and JP2 triggers is respectively 1.2 \(pb^{-1}\), 5.5 \(pb^{-1}\), and 46 \(pb^{-1}\) accounting for the trigger pre-scaling.
+
+Figure 4.20: Jet neutral fraction \(R_{t}\) vs. accidental and multiple corrected BBC rate for JP2 events.
+
+### Underlying Event Correction and Its Contribution
+
+The underlying event contribution, as one of the background contributions to jet signals measured in this analysis, is also considered. From the picture of the proton parton model, it is easy to imagine the two incident protons as two clusters of partons colliding with each other. The scattering process of most interest is the hardest two partons scattering. The other soft scatterings could also be mixed into the hardest scattering and contribute to the signals that are finally measured. The background generated due to these multiple soft scatterings is classified as underlying events. This background is different from detector pile-up, because these collisions are coming from the same proton-proton collision as the hardest scattering.
+
+There are several methods to measure the underlying event effects in the jet analysis and then make corrections for the jet physical quantities, for example jet cross-section, at LHC. One of these methods developed by the ALICE experiment, called perpendicular cones method [84] is adapted in this analysis. In this analysis it's called the off-axis cone method.
+
+The off-axis cone method is a method to study underlying event on the level of jet by jet, instead of on the level of event. First for a reconstructed jet draw two off-axis cones, each of which is centered at the same \(\eta\) as the jet but \(\pm\frac{\pi}{2}\) away in \(\phi\) from the jet \(\phi\) as shown in Figure 4.21. Then collect particles falling inside the two cones. The particle candidate pool is the exact same input as used for the jet finding algorithm. The off-axis cone radius is chosen to be the same as the jet parameter of the anti-\(k_{T}\) algorithm used in this analysis, 0.5. The \(p_{T}\) of the off-axis cone is defined as the scalar sum of the all the particles inside the cone, denoted as \(p_{T,ue}\). The energy density, \(\sigma_{ue,cone}\) is defined as the off-axis cone \(p_{T}\) divided by the cone area which is \(\pi R^{2}\). The multiplicity of the off-axis cone is the number of particlesinside the cone. Finally the average density of the two cones is taken as the estimate to the underlying event energy density, \(\sigma_{ue}=\frac{1}{2}(\sigma_{ue,1}+\sigma_{ue,2})\). The correction on jet \(p_{T}\), is therefore \(dp_{T}=\sigma_{ue}\times A_{jet}\) where \(A_{jet}\) is the jet area. The jet area is given by the anti-\(k_{T}\) jet finding algorithm, by using the technique of ghost particles [83].
+
+Given that the physics of the underlying event is perceived to be evenly distributed over the \(\eta\)-\(\phi\) space, the observed underlying event energy density in the \(\eta\)-\(\phi\) space is approximately uniform. However detector acceptance and efficiency is usually not uniform in \(\eta\)-\(\phi\) space. For example, at STAR there is a gap between the BEMC and EEMC and the TPC tracking efficiency degrades drastically at \(1.0<|\eta|<1.5\). Fortunately the STAR detector has good symmetry in \(\phi\) and the two off-axis cones are centered at the same \(\eta\) as the jet, therefore it is well applicable here. The underlying event estimation method doesn't require boost-invariance, so it can also be applied in proton and ion collisions.
+
+Figure 4.21: The illustration of two off-axis cones relative to a jet.
+
+It is important to note that particles produced by the beam remnants and pile-up effects are also approximately uniform over the mid-rapidity STAR detectors. Therefore, this procedure also provides a first-order subtraction of those background. Figure 4.22 shows 2-D distribution of the summed track and tower \(p_{T}\) from the two cones in the 2012 data.
+
+### 4.9 Counting the Number of Jets and Its Statistical Uncertainty
+
+To calculate the inclusive jet \(A_{LL}\), the number of inclusive jets for the four spin states \(++\), \(+-\), \(-+\) and \(--\) are counted for each run. While counting inclusive jets, a trigger category algorithm is applied. During the data taking, both JP0 and JP1
+
+Figure 4.22: The 2-D distribution of the summed track and tower \(p_{T}\) from the two cones.
+
+events were pre-scaled heavily to accommodate the band-with of the data acquisition system. JP2 events are not pre-scaled. Obtaining a mutually exclusive sample among triggers will help to understand the effects contributed by the individual trigger. This will play an important role in terms of weighting the individual trigger ensemble in the simulation to compare with the trigger combined measurements in the data. Only the JP0, JP1 and JP2 triggers are used in this analysis.
+
+For each event, the event record provides the information if a trigger was actually fired, "didfire" in the process of data acquisition. If a trigger was fired, the didfire would be one. Otherwise, the didfire is zero. In this analysis, an offline trigger simulator was applied where the trigger decision was simulated by imitating the online trigger system. The same input data was used, the raw ADC of the BEMC and EEMC towers. The same trigger algorithm was implemented. If a trigger was fired in the trigger simulator, likewise to the online system, a "shouldfire" bit is set to one. Otherwise the "shouldfire" is zero. The main purpose of the offline trigger simulator is to select events in the simulation which will be discussed in the following sections. However in the analysis process of the real data, requiring both didfire and shouldfire provides consistent event selection between data and simulation. This is particularly important for calorimeter towers that were included in the on-line trgger, but were found to be bad during off-line QA. Shouldfire provides a mechanism to remove those towers from the trigger during off-line analysis. Also in cases where there was malfunction in the online trigger system, the trigger simulator will provide a second proof to classify the event. Another benefit is for those events skipped by pre-scaling, the offline trigger simulator will be able to tag them, which can be used to promote a more heavily pre-scaled trigger category to a less heavily pre-scaled trigger category. The performance of the offline trigger simulator is well matched with the online trigger system.
+
+The JP2 trigger is not pre-scaled. The JP2 threshold is approximately equivalent to a deposition energy of 14.4 GeV inside the BEMC and EEMC towers covered by a full jet patch. Giving a little room for the track contributions to the jet momentum, as long as a reconstructed jet \(p_{T}\) is greater than 15.3 GeV and both JP2 didfire and shouldfire are one in the event, this jet will be classified as a JP2 jet. For a jet that was not able to be classified as a JP2 jet, if the jet \(p_{T}\) is greater than 8.2 GeV which is a little higher than the corresponding energy deposition of 7.3 GeV in the jet patch for JP1 threshold, and both the didfire and should fire are one, then the jet will be classified as a JP1 jet. In addition, if the jet satisfies the JP1 jet \(p_{T}\) requirement, the didfire for JP0 is one and shouldfire for JP1 is one, then the jet is promoted from JP0 jet to JP1. For a jet not satisfying either of JP2 and JP1 requirements, as long as the jet \(p_{T}\) satisfies the minimum kinematic limit, 6 GeV, and both didfire and shouldfire for JP0 are one, the jet will be classified as a JP0 jet. For each jet patch trigger, a geometric match is imposed to identify the jet candidate is the jet that fires the jet patch. The match requires the jet \(\eta\) and \(\phi\) are both within the range of \(\pm 0.6\) of the \(\eta\) and \(\phi\) of the center of the jet patch, and the jet patch sum ADC should be above the specific jet threshold. The details of this algorithm are described in Algorithm 1. In this analysis, all the candidate jets reconstructed in an event are sorted by their jet \(p_{T}\), then they are fed into this algorithm. The algorithm ends when no more candidate jets left or two triggered jets have been found in the event.
+
+The two jet correlation due to two inclusive jets within the same event falling into one or two jet \(p_{T}\) bins is considered when calculating the uncertainties on the number of inclusive jets found. Events contain two jets that pass all cuts 4.7% of the time. The two jet correlation is made in such way that assuming every event has at most two inclusive jets found, the number of jets found is \(N=N_{1}+2\times N_{2}\) where \(N_{1}\) is 
+
+[MISSING_PAGE_EMPTY:110]
+
+summary, the correlation can be expressed in the following equations 4.27.
+
+\[\rho_{ij}=\frac{\text{cov}(i,j)}{\sqrt{\sigma_{i}^{2}\sigma_{j}^{2}}}=\begin{cases} 1&\text{if }i=j\\ \frac{N_{2}^{ij}}{\sqrt{(N_{1}^{i}+4\times N_{2}^{ii}+\sum_{q\neq i}N_{2}^{qi} )\times(N_{1}^{j}+4\times N_{2}^{jj}+\sum_{q\neq j}N_{2}^{qj})}}&\text{if }i\neq j \end{cases} \tag{4.27}\]
+
+The two jet correlation matrix among all jet \(p_{T}\) bins from the data are calculated as the following matrix.
+
+[MISSING_PAGE_EMPTY:112]
+
+## Chapter 5 Monte Carlo Simulation
+
+To study the systematics due to the hadronization process and the detector response, a Monte Carlo (M/C) sample is necessary to quantify the possible distortion. PYTHIA [85] is used to simulate the proton-proton collisions including parton scatterings, hadronization processes, and decays from unstable particles. The final stable particles are then fed into GEANT [86] to simulate the detector response. The detector responses are then mixed with zero-bias events collected during the run. The mixed responses are then used to compare with what was measured in the data. This process is called the embedding process, and the final produced sample is called the embedding sample. The reason to choose zero-bias events is that those events have no trigger requirement and were randomly taken, therefore they are a good approximation of the collision backgrounds recorded during data-taking.
+
+### 5.1 Event Generator and Tunes
+
+PYTHIA 6.4.28 is the event generator used in the M/C simulation. The \(2\to 2\) hard QCD jet process is turned on along with initial state radiation, final state radiation, beam remnants and underlying event activities.Table 5.1 lists the subprocesses generated by PYTHIA. The PYTHIA QCD jet calculation is different from the NLO jet calculation in a sense that the existence of initial state and final state radiations mimic an all-order QCD calculation of jet production. In this analysis, the subprocesses are grouped only by the incoming hard-scattered partons, therefore it ends up with three subprocesses \(qq\), \(qg\) and \(gg\).
+
+The parameters to control all those processes are chosen from the Perugia 2012 tune [87]. The Perugia 2012 tune parameters are from \(e^{+}e^{-}\) annihilation, DIS, Tevatron and LHC data. The PDF used in this tune is CTEQ6L1 [22]. However by comparing with previous published STAR \(\pi^{\pm}\) data at \(\sqrt{s}=200\) GeV [88, 89], it overestimates the underlying event contribution. Therefore the exponential parameter that controls the underlying event behavior has been further modified to match the published STAR \(\pi^{\pm}\) data as described below.
+
+The final stable particles generated from PYTHIA are reconstructed by the same jet finding algorithm used in the data analysis. These clustered final particles are called particle jets. To study the effects of hadronization, jets are also reconstructed at the parton level. At the parton level, only the hard-scattered partons plus those from initial state radiation and final state radiation, are fed into the jet finder. Partons from beam remnants and underlying events are excluded. This formulation approximates jets in a NLO calculation roughly. However this is certainly not an exact correlation, so some difference between NLO jets and PYTHIA parton jets are
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline PYTHIA ID & subprocess \\ \hline
+11 & \(q_{i}q_{j}\to q_{i}q_{j}\) \\ \hline
+12 & \(q_{i}\bar{q}_{i}\to q_{k}\bar{q}_{k}\) \\ \hline
+13 & \(q_{i}\bar{q}_{i}\to gg\) \\ \hline
+28 & \(q_{i}g\to q_{i}g\) \\ \hline
+53 & \(gg\to q_{k}\bar{q}_{k}\) \\ \hline
+68 & \(gg\to gg\) \\ \hline
+96 & semihard QCD 2 \(\to\) 2 \\ \hline \end{tabular}
+\end{table}
+Table 5.1: QCD jet processes generated by PYTHIA by setting \(MSEL=1\).
+
+expected.
+
+The \(p_{T,0}\) in PYTHIA is introduced to avoid the divergence of the jet cross-section for low-\(p_{T}^{2}\) scatterings, since the jet cross-section is roughly proportional to the \(\frac{1}{p_{T}^{4}}\). PYTHIA makes the jet cross-section proportional to \(\frac{1}{(p_{T}^{2}+p_{T,0}^{2})^{2}}\). Since the underlying event involves a large number of parton scatterings with low \(p_{T}\), the larger the \(p_{T,0}\), the less the partonic cross-section. Ultimately it leads to smaller underlying events. The value of the \(p_{T,0}\) depends on the center-of-mass energy of the collision, as expressed in equation 5.1. For the Perugia 2012 tune, \(\sqrt{s_{ref}}\) is 7000 GeV, \(p_{T,ref}\) is 2.65 GeV and \(P_{90}\) is 0.24. By reducing the exponent \(P_{90}\) from 0.24 to 0.213, the \(p_{T,0}\) is increased to 1.51 GeV from 1.41 GeV at 510 GeV, while leaving the underlying event unchanged at 7000 GeV where Perugia 2012 was tuned.
+
+\[p_{T,0}(s)=p_{T,ref}\times(\frac{\sqrt{s}}{\sqrt{s_{ref}}})^{P_{90}} \tag{5.1}\]
+
+The smaller exponent value generates less underlying event contributions, which also improves the matching probabilities from particle jet to parton jet. A particle jet is matched to a parton jet only if the smallest distance from the particle jet to all the parton jets is less than 0.5, \(\min(\Delta R=\sqrt{\Delta\phi^{2}+\Delta\eta^{2}}\ )<0.5\) where \(\Delta\phi=\phi_{particle}-\phi_{parton}\) and \(\Delta\eta=\eta_{particle}-\eta_{parton}\).
+
+An event weighting technique is also applied in this simulation. Since the parton scattering cross-section decreases approximately exponentially as a function of momentum transfer \(Q\), also known as partonic \(p_{T}\), and jet \(p_{T}\) is proportional to \(Q\), the high \(p_{T}\) jet yields are substantially smaller than the low jet \(p_{T}\) yields. In the data, due to high cross-sections at low jet \(p_{T}\), triggering on the low jet \(p_{T}\) events was highly pre-scaled. In simulation, to guarantee enough statistics in the high jet \(p_{T}\) region,events are generated from various partonic \(p_{T}\), or momentum transfer \(Q\), bins. Then a proper weight is applied to each partonic \(p_{T}\) bin to make up the whole partonic \(p_{T}\) spectrum. The weight is calculated as the partonic cross-section given by PYTHIA divided by the number of events generated for the partonic \(p_{T}\) bin, \(w_{p_{T}}=\frac{\sigma_{p_{T}}}{N_{p_{T}}}\).
+
+Note that PYTHIA tends to report a jet cross-section which is larger than the inelastic, non-diffractive cross-section near a few GeV of the cutoff \(p_{T,0}\)[85]. This is due to when PYTHIA generates both the hard scattering and the multi-parton interactions, if a multi-parton interaction has higher momentum transfer \(Q\) than the hard scattering, the generated event will be rejected. However, this is not factored into the reported cross-section. Therefore PYTHIA over-estimates the parton scattering cross-sections near the multi-parton interaction threshold. At high partonic \(p_{T}\) which is much larger than the multi-parton threshold, PYTHIA reports the parton scattering cross-section quite accurately.
+
+To overcome the over-estimate of the parton scattering cross-section at low partonic \(p_{T}\), the "fudge factors" are introduced to get proper weights from the individual partonic \(p_{T}\) bins. The way to calculate fudge factors is by applying these factors, a smooth partonic \(p_{T}\) spectrum will be obtained while connecting the \(p_{T}\) distribution from all the partonic \(p_{T}\) bins. The partonic \(p_{T}\) spectrum from each partonic \(p_{T}\) bin is fitted by an exponential decay function with a quadratic-polynomial in the exponent. The yields at the two ends of each bin can be calculated from the fitted functions. The fudge factors can be assigned recursively starting from the highest partonic \(p_{T}\) bin, by equating the yields at the boundaries. The reason to start from the highest partonic \(p_{T}\) bin is PYTHIA gives reliable partonic cross-section at high partonic \(p_{T}\) values. As seen from Table 5.2, for the first a few partonic \(p_{T}\) bins, the corresponding fudge factors are less than 1.
+
+To simulate where the real collisions happen and account for the detector acceptance, a Gaussian \(z\) vertex distribution is generated with mean at zero and \(\sigma\) at 45 cm, chosen to match the width of the vertex distribution seen in the data. The \(x\) and \(y\) positions of the collision vertex are obtained using the measured location with a Gaussian smear with \(\sigma\) at 0.015 cm. The partonic \(p_{T}\) bins and their number of events, total cross-section and fudge factor are listed in the following table 5.2.
+
+\begin{tabular}{|c|c|c|c|c|} \hline \(\hat{p}_{T}\) bin (GeV) & \(\sigma(mb^{-1})\) & No. of evts. gen. & No. of evts req. & Fudge factor \\ \hline (2, 3) & 28.7 & 486442 & 490000 & 0.73 \\ \hline (3, 4) & 5.87 & 318342 & 320000 & 0.89 \\ \hline (4, 5) & 1.69 & 297264 & 300000 & 0.95 \\ \hline (5, 7) & 0.859 & 504850 & 510000 & 0.97 \\ \hline (7, 9) & 0.178 & 336350 & 340000 & 1.0 \\ \hline (9, 11) & 0.0509 & 318115 & 320000 & 0.99 \\ \hline (11, 15) & 0.0251 & 523236 & 530000 & 0.99 \\ \hline (15, 20) & 0.00532 & 366573 & 370000 & 0.99 \\ \hline (20, 25) & 0.00106 & 238804 & 250000 & 1.0 \\ \hline (25, 35) & 0.000371 & 269903 & 290000 & 1.0 \\ \hline (35, 45) & 4.58\(\times 10^{-5}\) & 113973 & 120000 & 1.0 \\ \hline (45, 55) & 8.31\(\times 10^{-6}\) & 69696 & 73000 & 0.99 \\ \hline (55, infinity) & 2.59\(\times 10^{-6}\) & 65343 & 69000 & 1.0 \\ \hline \end{tabular}
+
+Table 5.2: Partonic \(p_{T}\) bins and the number of events requested, the number of events simulated, total cross-section from PYTHIA and fudge factor.
+
+[MISSING_PAGE_FAIL:118]
+
+Figure 5.3 shows the particle jet cross-section for the two tunes, the tune chosen in this analysis with reduced underlying event contribution and the default Perugia 2012 tune. Note the particle jet cross-sections here are the raw jet cross-sections without the off-axis cone underlying event correction. The reduced exponent has less particle jet cross-section at low jet \(p_{T}\). This is indeed expected because the reduced exponent reduces the underlying event contributions. The particle jets are also matched to the parton jets and their matching ratios are shown in Figure 5.4. Though the matching ratios are close to each other, the modified Perugia 2012 tune helps the matching probabilities at low jet \(p_{T}\). The off-axis cone underlying event corrections,\(dp_{T}\), vs. the reconstructed particle jet \(p_{T}\) for the two tunes are also compared. The tune of the reduced exponent generates less underlying event activities, which results in less underlying event correction \(dp_{T}\) as shown in Figure 5.5.
+
+Figure 5.2: Sub process ratios from PYTHIA (solid line) are compared to those from the NLO calculations (dashed line).
+
+Figure 5.3: Particle jet cross-section vs. jet \(p_{T}\) for the default Perugia 2012 tune and the Perugia 2012 tune with reduced exponent value at 0.213.
+
+Figure 5.4: Particle jet to parton jet matching ratio vs. jet \(p_{T}\) for the default Perugia 2012 tune and the Perugia 2012 tune with reduced exponent value at 0.213. Note that these matching fractions are before the off-axis cone correction is applied.
+
+The underlying event quantities are also studied for the Perugia 2012 tune with the reduced exponent at 0.213. The sum \(p_{T}\) inside the two off-axis cones are plotted against each other as shown in Figure 5.6. As the asymmetric feature of the sum \(p_{T}\) of the two cones, it is a reasonable estimate of underlying event correction by using the averaged sum \(p_{T}\) of the two cones. The sum cone \(p_{T}\) distributions are also investigated for particle jets that have parton jets matched to them and do not have parton jets matched to them as shown in Figure 5.7. The un-matched particle jets have a harder spectrum compared to the matched particle jets, which implies a larger energy deposition inside the two cones for un-matched particle jets. The averaged cone sum \(p_{T}\) is also inspected inside each particle jet \(p_{T}\) bin for matched particle jets and un-matched particle jets as seen in Figure 5.8. Since the matching probability for jet with \(p_{T}\) above 20 GeV is essentially 1, only the bins with jet \(p_{T}\) less than 100 GeV are used.
+
+Figure 5.5: Off-aixs cone underlying event correction \(dp_{T}\) vs. jet \(p_{T}\) for the default Perugia 2012 tune and the Perugia 2012 tune with reduced exponent value at 0.213.
+
+than 20 GeV are plotted. It is clear that the un-matched particle jets exhibit larger underlying event activities. This is the reason that there could not be a parton jet found matched to these particle jets. This characteristic also implies applying this underlying event correction would help trim the un-matched particle jets more than the matched particle and in consequence improve the matching probabilities at low jet \(p_{T}\) bins, where the un-matched probabilities are significant, as shown in Figure 5.9
+
+Figure 5.6: The 2D distributions of the cone sum \(p_{T}\) from the two off-axis cones \(dp_{T}\) vs. jet \(p_{T}\) for the Perugia 2012 tune with reduced exponent value at 0.213.
+
+Figure 5.7: The distribution of the sum of the two cone sum \(p_{T}\) from the two off-axis cones for the matched and un-matched particle jets by using the Perugia 2012 tune with reduced exponent value at 0.213.
+
+Figure 5.8: The sum of the two cone sum \(p_{T}\) from the two off-axis cones vs. the reconstructed jet \(p_{T}\) for the matched and un-matched particle jets by using the Perugia 2012 tune with reduced exponent value at 0.213.
+
+### 5.3 Embedding and Data Comparison
+
+The following Figures 5.10, 5.11, 5.12, 5.13, 5.14 and 5.15 show the comparison of the jet \(p_{T}\)\(\eta\), \(\phi\), tower multiplicity, and track multiplicity and \(R_{t}\) distribution between the embedding sample and the real data after applying the underlying event correction on the jet \(p_{T}\). The tower multiplicity is somewhat higher in the data. The high multiplicity tail of the track multiplicity is also a bit higher than the data. Otherwise, the matches are quite good. The individual tower and track \(p_{T}\) inside the jet also match well between embedding and data as seen in Figures 5.16 and 5.17. However the underlying event \(dp_{T}\) does not match well with the data at high jet \(p_{T}\) as show in Figure 5.18. There is a good agreement at low jet pt regions for JP0 and JP1 triggered jets. However high \(p_{T}\) jets triggering JP1 and JP2 exhibit about 15%
+
+Figure 5.9: Particle jet to parton jet matching ratio vs. jet \(p_{T}\) without and with the underlying event correction on jet \(p_{T}\) by using the Perugia 2012 tune with reduced exponent value at 0.213.
+
+[MISSING_PAGE_FAIL:127]
+
+Figure 5.11: JP0, JP1 and JP2 jet \(\eta\) distribution comparisons between data and embedding.
+
+Figure 5.12: JP0, JP1 and JP2 jet \(\phi\) distribution comparisons between data and embedding.
+
+Figure 5.13: JP0, JP1 and JP2 jet tower multiplicity distribution comparisons between data and embedding.
+
+Figure 5.14: JP0, JP1 and JP2 jet track multiplicity distribution comparisons between data and embedding.
+
+Figure 5.15: JP0, JP1 and JP2 jet \(R_{t}\) distribution comparisons between data and embedding.
+
+Figure 5.16: JP0, JP1 and JP2 jet tower \(p_{T}\) distribution comparisons between data and embedding.
+
+Figure 5.17: JP0, JP1 and JP2 jet track \(p_{T}\) distribution comparisons between data and embedding.
+
+Figure 5.18: JP0, JP1 and JP2 jet off-axis correction \(dp_{T}\) profile vs. jet \(p_{T}\) comparisons between data and embedding.
+
+Figure 5.19: The distributions of tower \(p_{T}\) inside the two off-axis cones are compared between data and embedding for JP0, JP1 and JP2 jets.
+
+Figure 5.20: The distributions of track \(p_{T}\) inside the two off-axis cones are compared between data and embedding for JP0, JP1 and JP2 jets.
+
+Figure 5.21: The sum of tower multiplicities from the two off-axis cones profile vs. jet \(p_{T}\) comparisons between data and embedding for JP0, JP1 and JP2 jets.
+
+Figure 5.22: The sum of track multiplicities from the two off-axis cones profile vs. jet \(p_{T}\) comparisons between data and embedding for JP0, JP1 and JP2 jets.
+
+[MISSING_PAGE_EMPTY:140]
+
+[MISSING_PAGE_FAIL:141]
+
+\[A_{L}^{Y}=\frac{\sum_{run}P_{Y}((N^{++}+N^{-+})-R_{1}(N^{+-}+N^{--}))}{\sum_{run}P_{ Y}^{2}((N^{++}+N^{-+})+R_{1}(N^{+-}+N^{--}))} \tag{6.8}\]
+
+\[A_{LL}^{l.s.}=\frac{\sum_{run}P_{B}P_{Y}(N^{++}-R_{4}N^{--})}{\sum_{run}P_{B}^{2 }P_{Y}^{2}(N^{++}+R_{4}N^{--})} \tag{6.9}\]
+
+\[A_{LL}^{u.s.}=\frac{\sum_{run}P_{B}P_{Y}(R_{5}N^{+-}-R_{6}N^{-+})}{\sum_{run}P_{ B}^{2}P_{Y}^{2}(R_{5}N^{+-}+R_{6}N^{-+})} \tag{6.10}\]
+
+The blue beam single spin asymmetry, \(A_{L}^{B}\), the yellow beam single spin asymmetry, \(A_{L}^{Y}\), and the like-sign double spin asymmetry \(A_{LL}^{l.s.}\) deviate from zero by the parity-violating interactions. However the current precision is not good enough to observe this effect. The un-like sign double spin asymmetry, \(A_{LL}^{u.l.}\), is expected to be zero because of the geometric symmetry of the two spin orientations. As seen in Figure 6.1, before the making underlying event correction, the false asymmetries are slightly deviated from zero. However after the underlying event correction, all four false asymmetries are consistent with zero. The non-zero false asymmetries may indicate instrumental effects of the collider.
+
+### Underlying Event Correction and Its Contribution
+
+The underlying event contribution to inclusive jet \(A_{LL}\) is considered by measuring the averaged underlying event correction \(dp_{T}\) and the \(dp_{T}\) double spin asymmetry in the data. Figure 6.2 shows the averaged \(dp_{T}\) and its statistical uncertainty for all jet \(p_{T}\) bins before and after the underling event correction, where the corrected jet \(p_{T}\) is the uncorrected jet \(p_{T}\) minus the underlying event correction, \(p_{T,crr}=p_{T,uncrr}-dp_{T}\).
+
+Figure 6.1: Falses asymmetries measured in the data before (black) and after (red) the underlying event correction.
+
+The \(dp_{T}\) double spin asymmetry, \(A_{LL}^{dp_{T}}\) is defined by
+
+\[A_{LL}^{dp_{T}}=\frac{1}{P_{A}P_{B}}\frac{(<dp_{T}>^{++}+<dp_{T}>^{--})-(<dp_{T}>^ {+-}+<dp_{T}>^{-+})}{(<dp_{T}>^{++}+<dp_{T}>^{--})+(<dp_{T}>^{+-}+<dp_{T}>^{-+})}, \tag{6.11}\]
+
+where \(<dp_{T}>^{++}\) is the measured mean underlying event correction \(dp_{T}\) for the spin state \(++\) and similar definition for the other three spin states. Since the beams are not 100% polarized, beam polarizations are included in this calculation. Also the beam polarization varies from run to run, therefore the \(A_{LL}^{dp_{T}}\) is measured run by run individually and so is its statistical uncertainty \(\sigma_{A_{LL}^{dp_{T}}}\). The final measured \(A_{LL}^{dp_{T}}\) is the weighed average of \(A_{LL}^{dp_{T}}\).
+
+Figure 6.3 shows the final measured \(A_{LL,exp}^{dp_{T}}\) for all the jet \(p_{T}\) bins and the results from a zero-th order polynomial fit where the jet \(p_{T}\) is the underlying event corrected jet \(p_{T}\). The measured \(A_{LL,exp}^{dp_{T}}\) comes directly from the data and has not been corrected for effect from finite detector efficiencies etc. The fitted result shows the measured \(A_{LL,exp}^{dp_{T}}\) is consistent with zero across all jet \(p_{T}\) bin.
+
+Figure 6.2: Underlying event \(dp_{T}\) in each jet \(p_{T}\) bin before and after the underlying event correction.
+
+[MISSING_PAGE_EMPTY:145]
+
+and \(dp_{T}^{+-}\) is considered. This can be calculated with the following equation,
+
+\[\delta A_{LL}=\frac{\int\limits_{\begin{subarray}{c}P_{T,max}-<dp_{T}>\times A _{LL}^{dp_{T}}\\ \int\limits_{\begin{subarray}{c}P_{T,min}-<dp_{T}>\times A_{LL}^{dp_{T}}\\ \int\limits_{\begin{subarray}{c}P_{T,min}+<dp_{T}>\times A_{LL}^{dp_{T}}\\ \int\limits_{\begin{subarray}{c}P_{T,max}-<dp_{T}>\times A_{LL}^{dp_{T}}\\ \int\limits_{\begin{subarray}{c}P_{T,min}-<dp_{T}>\times A_{LL}^{dp_{T}}\\ \int\limits_{\begin{subarray}{c}P_{T,min}-<dp_{T}>\times A_{LL}^{dp_{T}}\\ \int\limits_{\begin{subarray}{c}P_{T,min}+<dp_{T}>\times A_{LL}^{dp_{T}}\\ \int\limits_{\begin{subarray}{c}P_{T,min}+<dp_{T}>\times A_{LL}^{dp_{T}}\\ \end{subarray}}\end{subarray}}\end{subarray}}\end{subarray}}\end{subarray}}}}}{\int \limits_{\begin{subarray}{c}P_{T,min}-<dp_{T}>\times A_{LL}^{dp_{T}}}\frac{d \sigma}{dp_{T}}dp_{T}+\int\limits_{\begin{subarray}{c}P_{T,min}+<dp_{T}> \times A_{LL}^{dp_{T}}\\ \int\limits_{\begin{subarray}{c}P_{T,min}+<dp_{T}>\times A_{LL}^{dp_{T}}\\ \end{subarray}}\end{subarray}}\frac{d\sigma}{dp_{T}}dp_{T}dp_{T} \tag{6.12}\]
+
+where \(\frac{d\sigma}{dp_{T}}\) is the un-polarized jet cross-section and \(<dp_{T}>\) is the mean spin independent underlying event correction. Here the NLO pQCD calculation using the MSTW PDF set [25, 65] is used as the un-polarized jet cross-section.
+
+The underlying event and relative luminosity systematics uncertainties are correlated across all the jet \(p_{T}\) bins, so their uncertainty will be added in quadrature to constitute the final relative luminosity and underlying event uncertainty. Figure 6.4 shows the numerical values of relative luminosity and underlying event uncertainties and Table 6.1 gives the numerical values.
+
+Figure 6.4: Underlying event systematic (red), relative luminosity systematic (green) and their quadrature sum (blue).
+
+[MISSING_PAGE_EMPTY:148]
+
+tector responses. Therefore it introduces uncertainties due to the trigger bias. In the experiment, the jets are reconstructed based on the experimental measurement; on contrary, in NLO pQCD calculation the inclusive jet cross-section and double spin asymmetry are calculated at the parton level before the hadronization process. It is easy to imagine that the reconstruction procedure inevitably introduces an uncertainty. Since both sources originate because of the need to trace the experimental measurements back to the theoretical calculations, these two uncertainties are studied together.
+
+The way to estimate this uncertainty uses the PYTHIA simulation and embedding method mentioned in the previous section. The same jet \(p_{T}\) bins are used in this part of analysis as in the analysis of the real data. Jets reconstructed at the detector level are compared with both jets reconstructed at the particle and parton level. Since most of the theoretical calculations use unpolarized and polarized partonic cross-sections to predict the inclusive jet \(A_{LL}\), the systematic uncertainty is estimated mainly by comparing results obtained from the detector level and parton level.
+
+For jet \(p_{T}\), due to the hadronization and underlying events in the process of producing the final particles and the reality of detector system, the measured jet \(p_{T}\) at the detector would not truely represent the real jet \(p_{T}\) after the \(2\to 2\) parton scattering. The difference of the jet \(p_{T}\) between the detector level and parton level is defined as the \(p_{T}\) shift from the parton level. In this analysis, the \(p_{T}\) shift is calculated by taking the difference between the detector jet \(p_{T}\) and the parton jet \(p_{T}\) where the parton is deemed to be matched with the detector jet.
+
+\[p_{T,shift}=p_{T,parton}-p_{T,particle}. \tag{6.13}\]A detector jet is matched to a parton jet only if the minimum distance from the detector jet to all parton jets is less than 0.5,
+
+\[\Delta R_{min}=min(\sqrt{(\eta_{detector}-\eta_{parton})^{2}+(\phi_{detector}- \phi_{parton})^{2}})<0.5.\]
+
+The parton jet that has the minimum \(\Delta R\) is the parton jet that the detector jet is matched to. The 0.5 is chosen because of the \(R\) parameter of the jet finding algorithm used in this analysis is also 0.5. Table 6.2 shows matching ratios from the detector jets to the parton jets vs. jet \(p_{T}\) where the jet \(p_{T}\) has been corrected for underlying the event effect. Figure6.5 shows the averaged \(p_{T}\) shift with its statistical errors.
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline \(p_{T}\) & Matching ratio \\ \hline (6.0, 7.0) & 0.8 \\ \hline (7.0, 8.2) & 0.87 \\ \hline (8.2, 9.6) & 0.96 \\ \hline (9.6, 11.2) & 0.99 \\ \hline (11.2, 13.1) & 1 \\ \hline (13.1, 15.3) & 0.99 \\ \hline (15.3, 17.9) & 0.99 \\ \hline (17.9, 20.9) & 1 \\ \hline (20.9, 24.5) & 1 \\ \hline (24.5, 28.7) & 0.99 \\ \hline (28.7, 33.6) & 1 \\ \hline (33.6, 39.3) & 1 \\ \hline (39.3, 46.0) & 1 \\ \hline (46.0, 53.8) & 1 \\ \hline \end{tabular}
+\end{table}
+Table 6.2: Matching ratios from the detector jets to the parton jets in the embedding sample. Note the detector jet \(p_{T}\) is after the underlying event correction.
+
+The trigger bias and reconstruction uncertainty is estimated by comparing the \(A_{LL}\) found in every detector jet \(p_{T}\) bin with the \(A_{LL}\) found at the parton jet \(p_{T}\) corresponding to the detector jet \(p_{T}\) plus the \(p_{T}\) shift obtained in the previous step. The \(A_{LL}\) is calculated by first extracting the parton scattering kinematics, the Mandelstam variables \(u\),\(s\), and \(t\) of the parton to parton scattering process and the parton flavors of the \(2\to 2\) scattering process in order to calculate the ratio of the polarized partonic cross-section and unpolarized partonic cross-section at the leading order. This is multiplied by the ratio of the polarized PDF to unpolarized PDF of the two incoming partons at their respective \(x_{1}\) and \(x_{2}\) and \(Q^{2}\) as in the following equation
+
+\[A_{LL}=\frac{\Delta\sigma}{\sigma}\times\frac{\Delta f_{1}(x_{1},Q^{2})}{f_{1 }(x_{1},Q^{2})}\frac{\Delta f_{2}(x_{2},Q^{2})}{f_{2}(x_{2},Q^{2})}, \tag{6.14}\]
+
+where \(\Delta\sigma\) is the polarized partonic cross-section, \(\sigma\) is the un-polarized partonic
+
+Figure 6.5: Jet \(p_{T}\) shift from the detector level to the parton level.
+
+cross-section, \(\Delta f(x,Q^{2})\) is the polarized PDF and \(f(x,Q^{2})\) is the un-polarized PDF. The un-polarized and polarized partonic cross-sections due to different processes at leading order are listed in table 6.3[90]. The polarized PDFs used here are the 100 replicas from the NNPDF group for their NNPDFpol1.1 global fit [51]. The unpolarized PDF is the un-polarized PDF from the same group NNPDF2.3 with \(\alpha_{s}=0.119\)[26]. The inclusive jet \(A_{LL}\) predictions from these 100 replicas provide good description of both the previous published STAR 200 GeV inclusive jet \(A_{LL}\) results and the measurements here at the 510 GeV. In addition the \(A_{LL}\) and its statistical uncertainties from the best fit of NNPDFpol 1.1 are calculated. The best fit from NNPDFpol1.1 is approximately the equally weighted average from the 100 replicas. With the 100 calculated \(A_{LL}\)s at both the detector jet level and parton jet level, it's easy to calculate the mean and the error on the mean for the difference in \(A_{LL}\) between the detector level and the parton level. It turns out that the error on the mean from the 100 \(A_{LL}\) replicas is impressively small at the level of \(10^{-5}\). Those values are completely negligible compared to the statistical uncertainties of the best fit, which are fully correlated in the replica companions. Finally, the mean of the difference in the detector \(A_{LL}\) and the parton \(A_{LL}\) is taken as a correction on the \(A_{LL}\) due to trigger bias and reconstruction, and the statistical uncertainties on the detector \(A_{LL}\) from the best fit is taken as the systematic uncertainty due to trigger and reconstruction bias.
+
+[MISSING_PAGE_EMPTY:154]
+
+Figure 6.6: Inclusive jet \(A_{LL}\) from embedding for JP0, JP1, JP2 triggered jets at the detector level and all the jets at the parton level.
+
+[MISSING_PAGE_EMPTY:156]
+
+where \(r\) is the vertex finding efficiency. It is estimated by comparing the reconstructed most probable primary vertex to the vertex thrown at the beginning of the simulation. The \(r\) is calculated as the matching ratio between the reconstructed vertex at the detector level and the true vertex thrown in the simulation, where the matching requirement is that the difference between the two vertices is less than 2 cm. Table 6.5 shows the matching ratio for each of the jet \(p_{T}\) bins. Since the vertex matching ratio is above 90% beyond the first two jet \(p_{T}\) bins, the dilution effect is expected to be tiny for the rest of the larger jet \(p_{T}\) bins.
+
+### 6.6 Transverse Residual Double Spin Asymmetry Uncertainty
+
+The longitudinally polarized beams are not always 100% perfectly polarized along the beam moving direction. The asymmetry measured, \(\varepsilon_{LL}\), therefore has contributions not only from the true double longitudinal double spin asymmetry, \(A_{LL}\), but
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline \(p_{T}\) & Vertex matching ratio \\ \hline (6.0, 7.0) & 0.75 \\ \hline (7.0, 8.2) & 0.80 \\ \hline (8.2, 9.6) & 0.94 \\ \hline (9.6, 11.2) & 0.94 \\ \hline (11.2, 13.1) & 0.96 \\ \hline (13.1, 15.3) & 0.95 \\ \hline (15.3, 17.9) & 0.99 \\ \hline (17.9, 20.9) & 0.99 \\ \hline (20.9, 24.5) & 1 \\ \hline (24.5, 28.7) & 1 \\ \hline (28.7, 33.6) & 0.99 \\ \hline (33.6, 39.3) & 1 \\ \hline (39.3, 46.0) & 1 \\ \hline (46.0, 53.8) & 1 \\ \hline \end{tabular}
+\end{table}
+Table 6.5: Vertex matching fraction in each jet \(p_{T}\) after the underlying event correction from the embedding sample.
+
+also from the residual transverse asymmetry, \(A_{\Sigma}\), such as,
+
+\[\varepsilon_{LL} =P_{b}P_{y}A_{LL}+\vec{P_{bT}}\cdot\vec{P_{yT}}A_{\Sigma}\] \[=P_{b}P_{y}(A_{LL}+\frac{P_{bT}P_{yT}}{P_{b}P_{y}}A_{\Sigma}), \tag{6.16}\]
+
+where \(P_{b(y)}\) is the longitudinal beam polarization for blue (yellow) beam and \(P_{b(y)T}\) is the transverse beam polarization for blue (yellow) beam. The transverse component fraction is estimated from the local transverse asymmetry measured by the ZDC. At the beginning of the 2012 510 GeV running period, the local transverse asymmetry was about 5.5% and 5.0% for the yellow and blue beams before the spin rotators were turned on. After the spin rotators were turned on, the value was 0.3% and 0.3% apiece for both beams. The transverse polarization fractions are \(\frac{P_{bT}}{P_{b}}\sim\frac{0.3\%}{5.5\%}\sim 0.05\) and \(\frac{P_{yT}}{P_{y}}\sim\frac{0.3\%}{5.0\%}\sim 0.06\). Based on the residual transverse asymmetry, \(A_{\Sigma}\), that was found to be less than 0.008 for jet \(p_{T}<15\) GeV in the \(pp\) collisions at \(\sqrt{s}=200\) GeV, \(A_{\Sigma}\) is expected to be less than 0.008 for jet \(p_{T}<38\) GeV at \(\sqrt{s}=510\) GeV by assuming \(x_{T}=\frac{2P_{T}}{\sqrt{s}}\) scaling holds. So the systematic uncertainty caused by the residual transverse asymmetry is at the level of \(0.008\times 0.05\times 0.06<3\times 10^{-5}\) in the jet \(p_{T}\) range measured in this analysis, which is negligible compared to other sources of systematical uncertainty.
+
+### Non-collision Background Uncertainty
+
+The asymmetry from the non-collision background is unknown yet, however it is easy to estimate the fraction of the non-collision background contributions to the real jet signals. It was estimated by utilizing the data from the abort gaps and comparing with the data from the normal filled bunch crossings. Figure 6.7 shows the 2-D histogram of jet \(p_{T}\) and bunch crossing number. It is easy to see that in the two abort gaps, bunch numbers from 31 to 39 and 111 to 119, the jet yields across the entire \(p_{T}\) range of the interest is down an order of \(10^{-4}\) with respect to that in the normal bunch crossings. It was also verified that all the bunching crossings including abort gaps have the same backgrounds by investigating distributions of the fraction of events that are found to have a good collision vertex and the average number of tracks in an event as a function of bunch crossing numbers. Figure 6.8 show these distributions. They both turn out uniformly distributed across the bunch crossing numbers, which implies that all the bunch crossings more or less have the same non-collision backgrounds. The asymmetry for the non-collision background is expected to be small. For example, the asymmetry for the non-collision background was measured at \(\sqrt{s}=200\) GeV during 2009. It was found to be less than 0.02 for jet \(p_{T}<15\) GeV and less than 0.08 for jet \(p_{T}<35\) GeV [66]. However, even if the asymmetry caused by non-collision background is unity, the systematic effect on the inclusive jet \(A_{LL}\) would be small enough to be neglected because of the small contributions from the non-collision background to the inclusive jet production.
+
+Figure 6.7: Jet yields a function of jet \(p_{T}\) and bunch crossing numbers from zero-bias events.
+
+Figure 6.8: Fractions of good vertex found vs. bunch crossings (left) and track multiplicity vs. bunch crossings (right) from zero-bias events. Note the offset vertical axes in each case.
+
+### Statistical Uncertainty on \(p_{T}\) Shift
+
+The statistical uncertainty on the \(p_{T}\) shift as defined in (6.13) is considered and will be folded into the systematic uncertainty on the jet \(p_{T}\).
+
+### Calorimeter Energy Resolution and TPC Tracking Efficiency Uncertainty
+
+The energy deposited in the BEMC has its uncertainty which will contribute the jet \(p_{T}\) measured in this analysis. Since both charged tracks and neutral particles deposit energy into the BEMC towers, the systematic uncertainty on the jet \(p_{T}\) is coming from the BEMC neutral energy uncertainty and the BEMC track uncertainty, as shown in the following equation,
+
+\[\Delta p_{T}=\sqrt{\Delta p_{T,BEMC,neutral}^{2}+\Delta p_{T,BEMC,track}^{2}} \tag{6.17}\]
+
+which can also be expressed in terms of fractional uncertainties,
+
+\[\Delta p_{T}=p_{T}\sqrt{\Delta f_{BEMC,neutral}^{2}+\Delta f_{BEMC,track}^{2}} \tag{6.18}\]
+
+The fractional BEMC neutral energy uncertainty is contributed by the calibration gain uncertainty and its efficiency uncertainty, that is,
+
+\[\Delta f_{BEMC,neutral}=R_{t}\times\sqrt{\Delta gain^{2}+\Delta eff^{2}}, \tag{6.19}\]
+
+where \(R_{t}=\frac{\sum_{tw.}p_{T}}{\sum_{trk}p_{T}+\sum_{tw.}p_{T}}\) is the neutral energy fraction in the BEMC. The average \(R_{t}\) in each jet \(p_{T}\) is shown in Table 6.6. In this analysis, the gain calibration uncertainty is estimated to be 3.8% as a conservative measure. The efficiency uncertainty is 1%.
+
+The fractional track uncertainty is considered to be contributed by the TPC track momentum uncertainty and the BEMC track response uncertainty as in the equation
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline \(p_{T}\) & \(R_{t}\) \\ \hline (6.0, 7.0) & 0.58 \\ \hline (7.0, 8.2) & 0.55 \\ \hline (8.2, 9.6) & 0.58 \\ \hline (9.6, 11.2) & 0.54 \\ \hline (11.2, 13.1) & 0.51 \\ \hline (13.1, 15.3) & 0.47 \\ \hline (15.3, 17.9) & 0.55 \\ \hline (17.9, 20.9) & 0.55 \\ \hline (20.9, 24.5) & 0.53 \\ \hline (24.5, 28.7) & 0.5 \\ \hline (28.7, 33.6) & 0.47 \\ \hline (33.6, 39.3) & 0.45 \\ \hline (39.3, 46.0) & 0.45 \\ \hline (46.0, 53.8) & 0.44 \\ \hline \end{tabular}
+\end{table}
+Table 6.6: Average \(R_{t}\) in each jet \(p_{T}\) bin after the underlying event correction from the data \[\Delta f_{track}=\sqrt{[(1-R_{t})\times\Delta f_{trk,p}]^{2}+(1-R_{t})\times\Delta f _{BEMC,nonph}]^{2}}. \tag{6.20}\]
+
+The TPC track momentum calibration fractional uncertainty \(\Delta f_{trk,p}\) is conservatively estimated as 1% based on the calibration of the TPC. \(\Delta f_{BEMC,nonph}\) is the BEMC fractional uncertainty due to non-photonic hadrons. The non-photonic hadrons include charged hadrons that were either not seen by the TPC or were seen by the TPC but did not project to the a BEMC tower and neutral hadrons that deposit a certain fraction of their energy into the BEMC towers. The total fractional possible non-phonic energy deposited in the BEMC is \(\frac{1}{\epsilon_{trk}}\times S_{hadron}\), where \(\epsilon_{trk}\) is the TPC tracking efficiency and \(S_{hadron}\) is the scale-up factor for neutral hadrons, \(\frac{E_{charged}+E_{neutral}}{E_{charged}}\). The tracking efficiency is taken as 65%.This is estimated from the recent STAR central \(Au+Au\) collisions at \(\sqrt{s}=200\) GeV, which has similar TPC track densities as \(pp\) collisions at \(\sqrt{s}=510\) GeV. The scale up factor for neutral hadrons is 1.16 [91]. The 100% track momentum subtraction from the projected tower is applied in the jet reconstruction, therefore the track energy that was measured from the TPC and projected to a BEMC tower should be subtracted away. Conservatively assuming only 50% of a track's BEMC energy appears in the projected BEMC tower, then \(f_{proj}\), the amount that is removed by the \(p_{T}\) subtraction process, would be 0.5. Taking the BEMC response to non-photonic hadron energy, \(f_{nonph}\) is 30% and the BEMC systematic uncertainty due to non-photonic energy, \(\Delta f_{nonph}\) is 9% [91], then systematic uncertainty on jet \(p_{T}\) can be expressed as,
+
+\[\Delta f_{BEMC,nonph}=(\frac{1}{\epsilon_{trk}}S_{hadron}-f_{proj})\times f_{ nonph}\times\Delta f_{nonph}. \tag{6.21}\]With all these numbers set, the track momentum fractional uncertainty \(\Delta f_{trk,p}\) is estimated to be 3.5%.
+
+### Total Tracking Efficiency Uncertainty
+
+The uncertainty on jet \(p_{T}\) is due to tracking efficiency in TPC is also considered in this analysis. It is estimated by taking the difference the averaged jet \(p_{T}\) shift from the detector jet to parton jet between by using the full set of reconstructed tracks from the TPC and by using a partial set of reconstructed tracks from TPC. The partial set of reconstructed tracks from TPC is usually chosen by randomly rejecting a certain percent of tracks from the full set. Considering the luminosity in the 2012 RHIC 510 GeV \(pp\) run and general performance of the STAR TPC, the rejection fraction was chosen to be 7%, which means rejecting seven tracks in every 100 tracks. The \(p_{T}\) shift for the 7% percent track loss compared with the \(p_{T}\) shift with no track loss is shown in Figure 6.9. The difference of the averaged jet \(p_{T}\) shift for each jet \(p_{T}\) bin is shown in Table 6.8.
+
+### 6.11 Jet \(p_{T}\) Shift Uncertainties due to Tune Variations
+
+The jet \(p_{T}\) shift uncertainties due to the PYTHIA is estimated in the analysis by utilizing the possible variants provided for Perugia 2012 in the PYTHIA version of 6.4.28. There are 13 other variants for Perugia 2012 tunes except the default tune. As shown in the Table 6.7, some variants change the same set of parameters to control common activities for example the pair of tunes, 371 and 372, and the pair of 376 and 377. Some of them are related with underlying events. Since the underlying event systematic on jet \(p_{T}\) is estimated by the disagreement in underlying event correction, \(dp_{T}\), between the data and embedding sample, the tunes 373, 380, 381, and 382 are dropped. Both tunes 374 and 375 are related with color reconnections, so only tune 374 is kept. The tunes 378 and 379 replace the PDF in the default tune with MSTW 2008 and MRST PDFs. The newer MSTW 2008 PDF is kept. In total, 7 tunes, 371, 372, 374, 376, 377, 378 and 383 are chosen to compare with the default tune. Note
+
+Figure 6.9: Jet \(p_{T}\) shift for 7% track loss (blue) and no track loss (red).
+
+that in the M/C simulation used in the embedding sample the exponent \(PARP(90)\) is reduced to 0.213; in this tune study, the \(p_{T,0}\), \(PARP(82)\), is increased by 7.3% which corresponds the same effect as reducing the exponent. The \(p_{T,0}\) is controlled by several parameters beside the exponent parameter. These parameters vary in those variants. In order to avoid the complexity of changing multiple parameters in a tune to achieve the same effect, a constant up scale is applied for each tune to reduce the underlying event effect.
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline Tune number & Description \\ \hline
+370 & Default \\ \hline
+371 & radHi, \(\alpha_{s}(\frac{1}{2}p_{\perp})\) for ISR and FSR \\ \hline
+372 & radLo, \(\alpha_{s}(p_{\perp})\) for ISR and FSR \\ \hline
+373 & mpiHi, \(\lambda_{QCD}=0.26\) GeV for MPI \\ \hline
+374 & loCR, less color reconnections \\ \hline
+375 & noCR, no color reconnections \\ \hline
+376 & FL, more longitudinal fragmentation \\ \hline
+377 & FT, more transverse fragmentation \\ \hline
+378 & MSLO, MSTW 2008 LO PDFs \\ \hline
+379 & LO**, MRST LO** PDFs \\ \hline
+380 & mb2, PARP(87) = 0 \\ \hline
+381 & ueHi, higher UE (lower \(p_{T.0}\)) \\ \hline
+382 & ueLo, lower UE(higher \(p_{T.0}\)) \\ \hline
+383 & IBK, Innsbruck hadronization parameters \\ \hline \end{tabular}
+\end{table}
+Table 6.7: The default Perugia 2012 tune and its variants.
+
+Both particle and parton jets are reconstructed from the various tunes by using the same algorithm as used in this analysis. The particle jets are then matched to the parton jets. The averaged \(p_{T}\) shifts are calculated in each particle jet \(p_{T}\) bin where the bin scheme is the same as used in the data analysis. Figure 6.10 shows the \(p_{T}\) shift vs particle jet \(p_{T}\) among all the tunes. The 371 and 372 are bracketing the default tune. This is reasonable since those tunes differ in the same set of parameters. The same situation applies for tunes 376 and 377.
+
+The systematic uncertainty due to tune variation is estimated by taking the square root of quadrature sum of the difference of \(dp_{T}\) for various tunes relative to the default tune. In exception, for the pair, 371 and 372, and the pair 376 and 377, the half of the absolute difference between the pairs is taken. For the other three
+
+Figure 6.10: Jet \(p_{T}\) shift vs. particle jet \(p_{T}\) from the default Perugia 2012 tune and its variants
+
+tunes, 374, 378 and 383, the difference relative to the default tune is taken. Figure 6.11 shows the total \(p_{T}\) shift uncertainty that are contributed by these tunes.
+
+Table 6.8 summarizes all the contributions to the jet \(p_{T}\) shift systematic uncertainties. Table 6.9 shows the averaged jet \(p_{T}\) in each jet \(p_{T}\) bin and its corresponding \(p_{T}\) shifts.
+
+[MISSING_PAGE_EMPTY:170]
+
+[MISSING_PAGE_EMPTY:171]
+
+## Chapter 7 Summary: Final Results and Their Impact
+
+Jets triggered by the three jet patch triggers, JP0, JP1 and JP2 from the 2012 RHIC run are counted towards the inclusive jet \(A_{LL}\) calculations. Figure 7.1 shows the total number of jets triggered by the jet triggers used in this analysis. The lowest first two jet \(p_{T}\) bins are solely contributed by the JP0 jets. In the intermediate jet \(p_{T}\) range, JP1 trigger jets dominate. At high jet \(p_{T}\) above 20 GeV, the JP2 jets dominate.
+
+Figure 7.1: The distribution of the number of jets triggered by the three triggers, JP0, JP1, and JP2 found in this analysis, together with the summed number of jets distribution from the three triggers, labeled as combined.
+
+In the final results, trigger bias and reconstruction bias uncertainty and dilution are added in quadrature as the total systematic uncertainty on inclusive jet \(A_{LL}\). The jet \(p_{T}\) are plotted at the shifted average jet \(p_{T}\) value, which is equal to the average jet \(p_{T}\) in the jet \(p_{T}\) bin from the data plus the shift from the average detector level jet \(p_{T}\) to the average parton level jet \(p_{T}\) determined from the embedding sample. The uncertainty of the jet \(p_{T}\) is the quadrature sum of the BEMC energy scale uncertainty, total track efficiency uncertainty, \(p_{T}\) shift uncertainty and the PYTHIA tune uncertainties. Figure 7.2 shows the inclusive jet \(A_{LL}\) vs. jet \(p_{T}\) bin with the latest theoretical predictions from those global analysis that include previous RHIC data in their fits [50, 51]. Table 7.1 presents the numerical results from Figure 7.2, It shows than the measured \(A_{LL}\) is consistent with these model predictions.
+
+Figure 7.2: STAR 2012 inclusive jet \(A_{LL}\) with its statistical and systematical uncertainties. The results are compared with DSSV’14 [50] and NNPDF predictions [51].
+
+[MISSING_PAGE_EMPTY:175]
+
+the same \(p_{T}\) range. The difference of the two distributions reflect the \(p_{T}\) shift and trigger bias and reconstruction errors. For jets with \(p_{T}\) between 7.0 and 8.2 GeV, they sample a good fraction of gluons with \(x_{g}\) near 0.025.
+
+The measured inclusive jet \(A_{LL}\) is compared with the STAR 2009 inclusive jet \(A_{LL}\) results. Since the two measurements have different center of mass energy, 510 GeV and 200 GeV respectively, the \(A_{LL}\) is compared on the scale of \(x_{T}=\frac{2p_{T}}{\sqrt{s}}\). The \(x_{T}\) is also an approximate proxy of \(x_{g}\) which is the momentum fraction carried by gluons inside the proton, since the inclusive jet production in the kinematics is dominated by the gluon contribution. The difference of inclusive jet asymmetries at the same
+
+Figure 7.3: Gluon momentum fraction \(x_{g}\) sampled by the inclusive jet with detector jet \(p_{T}\) between 7.0 and 8.2 GeV and by the parton jets with the same \(p_{T}\) range.
+
+\(x_{T}\) due to the \(x_{T}\) scaling violation is not discernible under the current experimental precision. Figure 7.4 shows the inclusive jet \(A_{LL}\) vs. \(x_{T}\) at \(\sqrt{s}=\)200 GeV and 510 GeV. The 510 GeV data extend inclusive \(A_{LL}\) measurements to the lower \(x_{T}\) region \(x_{T}\sim 0.02\) which is mostly dominated by gluon polarizations inside the proton with \(x_{g}\) in the approximately same range \(x_{g}\sim 0.02\). In the overlapping \(x_{T}\), the two sets of data at different center of mass energies are consistent with each other given the experimental precisions.
+
+In conclusion, the STAR 2012 510 GeV inclusive jet \(A_{LL}\) data explore gluon
+
+Figure 7.4: STAR 2012 inclusive jet \(A_{LL}\) vs. \(x_{T}\) compared with STAR 2009 inclusive jet \(A_{LL}\) results [66].
+
+polarizations inside the proton and extend the gluon polarization measurements to lower \(x_{g}\) value in the vicinity of \(x_{g}\) around 0.02 with respect to the inclusive jet \(A_{LL}\) measurements from the STAR 2009 200 GeV data. The two data agree well in the overlapping \(x_{T}\) region by assuming the \(x_{T}\) scaling violation effect to be indiscernible. Figure 7.5 shows the 2012 results with the predictions from the 100 NNPDFpol1.1 equal-probability replicas [51]. Some replicas sit below the data points and some sit above the data points. The replicas that lie far away from the data points will have smaller weights than those that lie close to the data points. Therefore a re-weighting procedure will produce smaller error bands for the \(\Delta g\) at low \(x\) than the current predictions. The results studied in this thesis will place important new constraints on the gluon polarizations in the future global NLO analysis to determine the polarized gluon PDF inside the proton, especially at low \(x_{g}\) range around \(x_{g}\sim 0.02\), where the current global data reach sparsely.
+
+Figure 7.5: STAR 2012 inclusive jet \(A_{LL}\) vs. \(p_{T}\) compared with the predictions from the 100 NNPDFpol1.1 replicas [51].
+
+## References
+
+* [1] G. Zweig, CERN-TH-401 (1964).
+* [2] G. Zweig, CERN-TH-412 (1964).
+* [3] M. Gell-Mann, Phys. Rev. Lett. **8**, 214 (1964).
+* [4] E. D. Bloom, D. H. Coward, H. DeStaebler, J. Drees, G. Miller, L. W. Mo, R. E. Taylor, M. Breidenbach, J. I. Friedman, G. C. Hartmann, and H. W. Kendall, Phys. Rev. Lett **23**, 930 (1969).
+* [5] M. Breidenbach, J. I. Friedman, H. W. Kendall, E. D. Bloom, D. H. Coward, H. DeStaebler, J. Drees, L. W. Mo, and R. E. Taylor, Phys. Rev. Lett **23**, 935 (1969).
+* [6] R. P. Feynman, Phys. Rev. Lett. **23**, 1415 (1969).
+* [7] J. D. Bjorken and E. A. Paschos, Phys. Rev. Lett. **185**, 1975 (1969).
+* [8] D. J. Gross and F. Wilczek, Phys. Rev. Lett. **30**, 1343 (1973).
+* [9] H. D. Politzer, Phys. Rev. Lett. **30**, 1346 (1973).
+* [10] V. N. Gribov and L. N. Lipatov, Sov. J. Nucl. Phys. **15**, 438 (1972).
+* [11] Y. L. Dokshitzer, Sov. Phys. JETP **46**, 641 (1977).
+* [12] G. Altarelli and G. Parisi, Nucl. Phys. B **126**, 298 (1977).
+* [13] F. D. Aaron _et al._ (ZEUS and H1 Collaboration), **01**, 109 (2010), arXiv:0911.0884 [hep-ex].
+* [14] T. Aaltonen _et al._ (CDF Collaboration), Phys. Rev. D **78**, 052006 (2008).
+* [15] V. M. Abazov _et al._ (D0 Collaboration), Phys. Rev. D **85**, 052006 (2012).
+* [16] D. Acosta _et al._ (CDF Collaboration), Phys. Rev. D **71**, 051104 (2005).
+* [17] V. M. Abazov _et al._ (D0 Collaboration), Phys. Rev. Lett. **101**, 211801 (2008).
+* [18] T. Antero _et al._ (CDF Collaboration), Phys. Lett. B **692**, 232 (2010).
+
+* Abazov _et al._ (2007)V. M. Abazov _et al._ (D0 Collaboration), Phys. Rev. D **76**, 012003 (2007).
+* Towell _et al._ (2001)R. S. Towell _et al._ (FNAL E866/NuSea Collaboration), Phys. Rev. D **64**, 052002 (2001).
+* Abramowicz _et al._ (2015)H. Abramowicz _et al._ (H1 and ZEUS Collaboration), Eur. Phys. J. C **75**, 580 (2015).
+* Pumplin _et al._ (2002)J. Pumplin, D. R. Stump, J. Huston, H. L. Lai, P. M. Nadolsky, and W. K. Tung, JHEP **07**, 012 (2002), arXiv:0201195 [hep-ph].
+* Lai _et al._ (2010)H.-L. Lai, M. Guzzi, J. Huston, Z. Li, P. M. Nadolsky, J. Pumplin, and C.-P. Yuan, Phys. Rev. D **82**, 074024 (2010).
+* Dulat _et al._ (2016)S. Dulat, T.-J. Hou, J. Gao, M. Guzzi, J. Huston, P. Nadolsky, J. Pumplin, C. Schmidt, D. Stump, and C.-P. Yuan, Phys. Rev. D **93**, 033006 (2016).
+* Martin _et al._ (2016)A. D. Martin, W. J. Stirling, R. S. Thorne, and G. Watt, arXiv:0901.0002 [hep-th].
+* Ball _et al._ (2015)R. D. Ball _et al._ (NNPDF Collaboration), JHEP **04**, 40 (2015).
+* Jaff and Manohar (2017)R. L. Jaff and A. Manohar, Nucl. Phys. B. **337**, 509.
+* Allkofer _et al._ (2018)O. C. Allkofer _et al._ (EMC Collaboration), Nucl. Instr. and Meth. **179**, 445 (1981).
+* Bjorken (1970)J. D. Bjorken, Phys. Lett. D **1**, 1376 (1970).
+* Ellis and Jaffe (1974)J. Ellis and R. Jaffe, Phys. Lett. D **9**, 1444 (1974).
+* Ashman _et al._ (2006)J. Ashman _et al._ (EMC Collaboration), Phys. Lett. B **206**, 364 (1988).
+* Abbon _et al._ (2007)P. Abbon _et al._ (Compass Collaboration), Nucl. Instr. and Meth. A **577**, 455 (2007).
+* Abbon _et al._ (2010)M. G. Abbon _et al._ (Compass Collaboration), Phys. Lett. B **690**, 466 (2010).
+* Alexakhin _et al._ (2007)V. Y. Alexakhin _et al._ (Compass Collaboration), Phys. Lett. B **647**, 8 (2007).
+* Alexakhin _et al._ (2010)M. Alexakhin _et al._ (Compass Collaboration), Phys. Lett. B **693**, 227 (2010).
+* Alexakhin _et al._ (2009)M. Alexakhin _et al._ (Compass Collaboration), Phys. Lett. B **680**, 217 (2009).
+
+* Ageev _et al._ [2006]E. S. Ageev _et al._ (Compass Collaboration), Phys. Lett. B **633**, 25 (2006).
+* Alekseev _et al._ [2009]M. Alekseev _et al._ (Compass Collaboration), Phys. Lett. B **676**, 31 (2009).
+* Adolph _et al._ [2013]C. Adolph _et al._ (Compass Collaboration), Phys. Rev. D **87**, 052018 (2013).
+* Adolph _et al._ [2013]C. Adolph _et al._ (Compass Collaboration), Phys. Lett. B **718**, 922 (2013).
+* Airapetian _et al._ [2005]A. Airapetian _et al._ (HERMES Collaboration), Nucl. Instr. and Meth. A **540**, 68 (2005).
+* Ackestaff _et al._ [1998]A. Ackestaff _et al._ (HERMES Collaboration), Nucl. Instr. and Meth. A **417**, 230 (1998).
+* Airapetian _et al._ [2007]A. Airapetian _et al._ (HERMES Collaboration), Phys. Rev. D **75**, 012007 (2007).
+* Airapetian _et al._ [2005]A. Airapetian _et al._ (HERMES Collaboration), Phys. Rev. D **71**, 012003 (2005).
+* Airapetian _et al._ [2010]A. Airapetian _et al._ (HERMES Collaboration), JHEP **08**, 130 (2010).
+* Blumlein and Bottcher [2010]J. Blumlein and H. Bottcher, Nucl. Phys. B **841**, 205 (2010).
+* Leader _et al._ [2010]E. Leader, A. V. Sidorov, and D. B. Stamenov, Phys. Rev. D **82**, 1140812 (2010).
+* de Florian _et al._ [2008]D. de Florian, R. Sassot, M. Stratmann, and W. Vogelsang, Phys. Rev. Lett. **101**, 072001 (2008).
+* de Florian _et al._ [2009]D. de Florian, R. Sassot, M. Stratmann, and W. Vogelsang, Phys. Rev. D. **80**, 034030 (2009).
+* de Florian _et al._ [2014]D. de Florian, R. Sassot, M. Stratmann, and W. Vogelsang, Phys. Rev. Lett. **113**, 012001 (2014).
+* Ball _et al._ [2014]R. D. Ball _et al._ (NNPDF Collaboration), Nucl. Phys. B **887**, 276 (2014).
+* Ball _et al._ [2013]R. D. Ball _et al._ (NNPDF Collaboration), Nucl. Phys. B **874**, 36 (2013).
+* Sato _et al._ [2016]N. Sato, W. Melnitchouk, S. E. Kuhn, J. J. Eithier, and A. Accardi (Jefferson Lab Angular Momentum Collaboration), Phys. Rev. D **93**, 074005 (2016).
+* Blazey _et al._ [2010]G. C. Blazey, J. R. Dittmann, S. D. Ellis, V. D. Elvira, K. Frame, S. Grinstein, R. Hirosky, R. Piegaia, H. Schellman, R. Snihur, V.Sorin, and D. Zeppenfeld,arXiv:0005012 [hep-ex].
+* Catani _et al._ (1993)S. Catani, Y. L. Dokshitzer, M. H. Seymour, and B. R. Webber, Nucl. Phys. B **406**, 187 (1993).
+* Ellis and Soper (1993)S. D. Ellis and D. E. Soper, Phys. Rev. D **48**, 3160 (1993).
+* Dokshitzer _et al._ (1997)Y. L. Dokshitzer, G. D. Leder, S. Moretti, and B. R. Webber, JHEP **9708**, 001 (1997).
+* Wobisch and Wengler (2000)M. Wobisch and T. Wengler, arXiv:9907280 [hep-ph].
+* Abelev _et al._ (2006)B. I. Abelev _et al._ (STAR Collaboration), Phys. Rev. Lett. **97**, 252001 (2006).
+* Abelev _et al._ (2008)B. I. Abelev _et al._ (STAR Collaboration), Phys. Rev. Lett. **100**, 232003 (2008).
+* Adamczyk _et al._ (2012)L. Adamczyk _et al._ (STAR Collaboration), Phys. Rev. D. **86**, 032006 (2012).
+* Sakuma (2010)T. Sakuma, _Inclusive Jet and Dijet Production in Polarized proton-proton Collisions at \(\sqrt{s}\) =200 GeV at RHIC_, Ph.D. thesis, Massachusetts Institute of Technology (2010).
+* Li (2015)X. Li, in _PoS(DIS2015)203_ (2015).
+* Webb (2013)G. Webb, in _PoS(DIS2013)215_ (2013).
+* Mukherjee and Vogelsang (2012)A. Mukherjee and W. Vogelsang, Phys. Rev. D **86**, 094009 (2012).
+* Adamczyk _et al._ (2015)L. Adamczyk _et al._ (STAR Collaboration), Phys. Rev. Lett. **115**, 092002 (2015).
+* Harrison _et al._ (2003)M. Harrison, T. Ludlam, and S. Ozaki, Nucl. Instr. and Meth. A **499**, 235 (2003).
+* Hahn _et al._ (2003)H. Hahn, E. Forsyth, H. Foelsche, M. Harrison, J. Kewisch, G. Parzen, S. Peggs, E. Raka, A. Ruggiero, A. Stevens, S. Tepikian, P. Thieberger, D. Trbojevic, J. Wei, E. Willen, S. Ozaki, and S. Lee, Nucl. Instr. and Meth. A **499**, 245 (2003).
+* Alekseev _et al._ (2003)I. Alekseev, C. Allgower, M. Bai, Y. Batygin, L. Bozano, K. Brown, G. Bunce, P. Cameron, E. Courant, S. Erin, _et al._, Nucl. Instr. and Meth. A **499**, 392 (2003).
+
+* Okada _et al._ (2003)H. Okada, I. Alekseev, A. Bravar, G. Bunce, S. Dhawan, R. Gill, W. Haeberli, O. Jinnouchi, A. Khodinov, Y. Makdisi, _et al._, arXiv:0601001 [hep-ex].
+* Jinnouchi _et al._ (2003)O.Jinnouchi, I.G.Alekseev, A.Bravar, G.Bunce, S.Dhawan, H.Huang, G.Igo, V.P.Kanavets, K.Kurita, H.Okada, _et al._, arXiv:0412053 [nucl-ex].
+* Ackermann _et al._ (2003)K. Ackermann, N. Adams, C. Adler, Z. Ahammed, S. Ahmad, C. Allgower, J. Amonett, J. Amsbaugh, B. Anderson, M. Anderson, _et al._, Nucl. Instr. and Meth. A **499**, 624 (2003).
+* Anderson _et al._ (2003)M. Anderson, J. Berkovitz, W. Betts, R. Bossingham, F. Bieser, R. Brown, M. Burks, M. C. de la Barca Sanchez, D. Cebra, M. Cherney, _et al._, Nucl. Instr. and Meth. A **499**, 659 (2003).
+* Beddo _et al._ (2003)M. Beddo, E. Bielick, T. Fornek, V. Guarino, D. Hill, K. Krueger, T. LeCompte, D. Lopiano, H. Spinka, D. Underwood, _et al._, Nucl. Instr. and Meth. A **499**, 725 (2003).
+* Allgower _et al._ (2003)C. Allgower, B. Anderson, A. Baldwin, J. Balewski, M. Belt-Tonjes, L. Bland, R. Brown, R. Cadman, W. Christie, I. Cyliax, _et al._, Nucl. Instr. and Meth. A **499**, 740 (2003).
+* Kiryluk (2005)J. Kiryluk, arXiv:0501072 [hep-ex].
+* Adler _et al._ (2001)C. Adler, A. Denisov, E. Garcia, M. Murray, H. Strobele, and S. White, Nucl. Instr. and Meth. A **470**, 433 (2001).
+* Llope _et al._ (2013)W. Llope, J. Zhou, T. Nussbaum, G. Hoffmann, K. Asselta, J. Brandenburg, J. Butterworth, T. Camarda, W. Christie, H. Crawford, _et al._, arXiv:1403.6855 [physics.ins-det].
+* (79)The RHIC Polarimetry Group, [http://public.bnl.gov/docs/cad/Documents/RHIC](http://public.bnl.gov/docs/cad/Documents/RHIC) polarization for Runs 9-12.pdf (2013).
+* (80)The RHIC Polarimetry Group, [https://wiki.bnl.gov/rhicspin/Run_12_polarization](https://wiki.bnl.gov/rhicspin/Run_12_polarization) (2012).
+
+* Cronin-Hennessy _et al._ (2000)D. Cronin-Hennessy, A. Beretvas, and P. F. Derwent, Nucl. Instr. and Meth. A **A**, 443 (2000).
+* Hayes-Wehle _et al._ (2012)J. Hayes-Wehle, J. Seele and B. Surrow, STAR relative luminosity analysis note [https://drupal.star.bnl.gov/STAR/starnotes/private/psn0570](https://drupal.star.bnl.gov/STAR/starnotes/private/psn0570) (2012).
+* Cacciari _et al._ (2012)M. Cacciari, G. P. Salam, and G. Soyez, Euro. Phys. J. **C72**, 1896 (2012).
+* Abelev _et al._ (2015)B. Abelev _et al._ (ALICE Collaboration), Phys. Rev. D **91**, 112012 (2015).
+* Sjostrand _et al._ (2006)T. Sjostrand, S. Mrenna, and P. Skands, JHEP **0605**, 026 (2006).
+* Agostinelli _et al._ (2003)S. Agostinelli _et al._ (Geant4 Collaboration), Nucl. Instr. and Meth. A **506**, 250 (2003).
+* Skands (2010)P. Skands, Phys. Rev. D **82**, 074018 (2010).
+* Agakishiev _et al._ (2006)G. Agakishiev _et al._ (STAR Collaboration), Phys. Lett. B **637**, 161 (2006).
+* Agakishiev _et al._ (2012)G. Agakishiev _et al._ (STAR Collaboration), Phys. Rev. Lett. **108**, 072302 (2012).
+* Combridge _et al._ (1977)B. L. Combridge, J. Kripfganz, and J. Ranft, Phys. Lett. B **70**, 234 (1977).
+* Adams _et al._ (2004)J. Adams _et al._ (STAR Collaboration), Phys. Rev. C **70**, 054907 (2004).

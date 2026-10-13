@@ -323,3 +323,25 @@ def test_short_content_page_still_queues_links(monkeypatch) -> None:
     # But its outbound links must have been crawled.
     assert "https://example.com/one" in urls
     assert "https://example.com/two" in urls
+
+
+def test_github_repo_cites_rendered_page_when_site_url_set() -> None:
+    from app.core.config import Settings
+    from app.ingestion.github import GitHubRepoConnector
+
+    connector = GitHubRepoConnector(
+        Settings(),
+        owner="eic",
+        repo="knowledge-guide",
+        ref="main",
+        path_prefix="docs/",
+        site_url="https://eic.github.io/knowledge-guide",
+    )
+    assert connector._page_url("docs/eicrecon/pid.md") == "https://eic.github.io/knowledge-guide/docs/eicrecon/pid.html"
+    assert connector._page_url("docs/eicrecon/index.md") == "https://eic.github.io/knowledge-guide/docs/eicrecon/"
+    assert connector._page_url("index.md") == "https://eic.github.io/knowledge-guide/"
+    # non-markdown files have no rendered page; keep the blob link
+    assert connector._page_url("docs/data.yml") == "https://github.com/eic/knowledge-guide/blob/main/docs/data.yml"
+
+    plain = GitHubRepoConnector(Settings(), owner="eic", repo="EICrecon", ref="main")
+    assert plain._page_url("docs/x.md") == "https://github.com/eic/EICrecon/blob/main/docs/x.md"

@@ -1,0 +1,763 @@
+Development Of A Slow Controls Alternate Data Acquisition Interface
+
+For The Solenoidal Tracker At RHIC (STAR)
+
+BY
+
+John Chester Meier
+
+A THESIS
+
+Submitted to the Faculty of the Graduate School of
+
+Creighton University in Partial Fulfillment of
+
+the Requirements for the Degree of Master
+
+of Science in the Department of Physics
+
+Omaba, 1996Thesis Approved
+
+by
+
+Major Advisor
+
+DeanCUL-PHY-NP 96/02
+
+October 1996
+
+DEPARTMENT OF PHYSICS
+
+2500 California Plaza * Omaha, NE 68178 * (402) 280-2835
+
+Development Of A Slow Controls Alternate Data Acquisition Interface For The Solenoidal Tracker At RHIC (STAR)
+
+John Chester Moler
+
+Crelighton University, Department of Physics, Omaha, Nebraska 68178, USA
+
+**A. THESIS**
+
+Submitted to the Faculty of the Graduate School of Creighton University in
+
+Partial Fulfulfment of the Requirements for the Degree of Master of Science in
+
+the Department of Physics, 1986Development Of A Slow Controls Alternate Data Acquisition Interface
+
+For The Solenoidal Tracker At RHIC (STAR)
+
+BY
+
+John Chester Meier
+
+###### Abstract
+
+The Solenoidal Tracker At RHIC (STAR) will search for signatures of a Quark-Gluon Plasma formation. An overview of the capabilities of the STAR detector is presented. The VMB-based Slow Controls system is described. The development of an alternate data acquisition path based on the High-level Data Link Control protocol and the Experimental Physics and Industrial Control System (EPICS) are discussed.
+
+Acknowledgments
+
+I would like to thank the people that have helped me while completing my dedication at Creighton University.
+
+First I would like to thank my family. Without their love and support I would have never made it this far.
+
+I would like to thank Dr. Michael G. Cherney for providing me with the opportunity to work on the STAR project. I am grateful for his support and encouragement; it has been a pleasure working with him. I would also like to thank Dr. Twona Sakreicha for all her help during my stay at LBNL.
+
+During the time I worked on the STAR project I have interacted with many individuals. It has been a privilege to work with such a diverse group of people.
+
+Ultimately, I would like to thank my advisor Fr. Thomas S. McShane SJ.
+
+Without him I would have never pursued an academic career in physics. He has taught me many, many things about life, people, and having fun. The difference he has made in my life is indescribable and I am honored to call him my friend.
+
+This work was supported in part by the United States Department of Energy under contract numbers DE-FG02-91ER40652 and DE-FG03-96ER4099 I. I am also grateful for the assistance of the dean of the Creighton college of Arts and Sciences and the dean of the Graduate School.
+
+There's more than one way to skin a cat.
+
+-J.A. MeierFor DudTable of Contents
+
+List of Figures
+
+List of Tables
+
+List of Tables
+
+Chapter 1Particle Physics
+
+1.1 Theory and History of Particle Physics
+
+1.2 Quark Deconfinement and the Quark Gluon Plasma
+
+1.2.1 Signatures of the Quark Gluon Plasma
+
+1.2.1,1 Photon and Dilepton Formation
+
+1.2.1,2 J/P Suppression
+
+1.2.1,3 Momentum Distribution of Jets
+
+1.2.1,4 Enhancement of Strange Particle Production
+
+1.3 Relativistic Heavy Ion Collider (RHIC)
+
+1.4 Physics of the Solenoidal Tracker Ai RHIC
+
+1.4.1 Particle Spectra
+
+1.4.2 Flavor Composition
+
+1.4.3 Global Observables
+
+1.4.4 Electromagnetic and Hadronic Energy
+
+1.4.5 Parton Physics
+
+## Chapter 2 Solenoidal Tracker At RHIC
+
+### 2.1 Implementation Plan
+
+#### 2.2 Experimental Set-Up
+
+#### 2.2.1 Time Projection Chamber
+
+#### 2.2.1 Introduction
+
+#### 2.2.1.2 Basic Time Projection Chamber Components
+
+#### 2.2.1.3 The STAR Time Projection Chamber
+
+#### 2.2.2 Solenoid
+
+#### 2.2.3 Silicon Vertex Tracker
+
+#### 2.2.4 Electromagnetic Calorimeter
+
+#### 2.2.5 Time-of-Flight
+
+#### 2.2.6 Forward Time Projection Chambers
+
+#### 2.2.7 Trigger
+
+[MISSING_PAGE_FAIL:10]
+
+## References
+
+* [1]
+
+**Chapter 1**
+
+Figure 1.1: Configuration of two colliding nuclei.
+
+Figure 1.2: Configuration of two nuclei after collision.
+
+Figure 1.3: Collision of two nuclei in space-time.
+
+Figure 1.4: Layout of RHIC complex.
+
+Figure 1.5: RHIC acceleration scenario for gold.
+
+Figure 1.6: Simulation of \(p_{\rm t}\) spectrum for one event.
+
+Figure 2.1: Configuration of the baseline STAR detector.
+
+Figure 2.2: Basic constituents of a TPC.
+
+Figure 2.3: Detection process of charges on wire and pad plane.
+
+Figure 2.4: Wire arrangement of a Multi-Proportional Wire Chamber.
+
+Figure 2.5: Time evolution of an avalanche.
+
+Figure 2.6: Electric field configuration of a gated grid.
+
+Figure 2.7: Details of STAR Outer-Field Cage construction.
+
+Figure 2.8: TPC end-cap configuration.
+
+Figure 2.9: STAR iron return yoke.
+
+Figure 2.10: STAR SVT view.
+
+Figure 2.11: End view of STAR EMC.
+
+Figure 2.12: TOF shingle housing.
+
+[MISSING_PAGE_EMPTY:13]
+
+## Chapter 1 Particle Physics
+
+### 1.1 Theory and History of Particle Physics
+
+"Atom", derived from the Greek word atomos, means indivisible, and it was once thought that atoms were the indivisible constituents of matter. "Atom" is a misnomer in light of the achievements of the 20th century. When firing alpha particles at a thin piece of gold foil eleven years after the turn of this century, Ernest Rutherford found that while most of the alpha particles passed right through the foil, a few were deflected at large angles from their original trajectory. The result indicated that there was something very dense in the middle of the gold atoms in the foil. Rutherford had discovered the atomic nucleus.
+
+With the discovery of the neutron by Chadwick in 1932 it was thought that the structure of the nucleus was complete, and that the proton, neutron and the electron were the fundamental constituents of matter. From the time of Chadwick's discovery through the 1960's many new particles were discovered. During this time many attempts were made to come up with new theories that would illustrate the similarities and differences of the escalating numbers of new "fundamental" particles.
+
+Today two classes of particles are studied: leptons and hadrons. Particles classified as leptons are not affected by the strong force and are considered fundamental or elementary particles, that is, they are not observed to have internal structure. Six different types of leptons have been identified (see table 1.1).
+
+[MISSING_PAGE_EMPTY:15]
+
+Even though the quarks have a fraction of the charge of the electron, they combine in such a way that the sum of their charge is integral and have never been observed to combine in such a way to produce a particle with fractional charge.
+
+Experiments during the 1960's and 1970's in which high energy electrons were fired at protons and neutrons supported the quark theory. These experiments found the distribution in energy and angle of scattered electrons suggestive of electrons colliding with point-like, electrically charged objects within the protons and neutrons [CQ 85].
+
+The quark model was not flawless from the start. Nature has shown that no two particles in the same quantum state can have the same quantum numbers (Fermi-Dirac principle), but at the same time nature produces baryons that are the bound state of three of the same quarks (i.e. \(\Omega^{-}\) (sss) and \(\Delta^{-}\) (ddd)). According to the Fermi-Dirac principle, three quarks, all of which are spin-1/2 particles, should not be allowed to combine in the same quantum state to form a baryon. The Fermi-Dirac principle has had success in other scientific areas (i.e. determining an atoms placement in the periodic table), and one would expect this principle to account for the configuration of quarks within a hadron as well.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|l|} \hline
+**FLAVOR** & Up (ii) & Down (d) & Strange (s) & Charm (c) & Bottom (b) & Top (t) \\ \hline
+**MASS** & 7 & 15 & 200 & \(1.3\) GeV/c\({}^{2}\) & 4.8 GeV/e\({}^{2}\) & 180 GeV/c\({}^{2}\) \\ (MeV/c\({}^{2}\)) & & & & & & \\ \hline CHARGE & + 2/3 & - 1/3 & - 1/3 & + 2/3 & - 1/3 & + 2/3 \\ \hline \end{tabular}
+\end{table}
+Table 1.2: Quark mass, charge and flavor.
+
+To reconcile the discontinuity, the quark model was modified by the inclusion of a new quantum number arbitrarily termed color. Each quark can have one of three kinds of color charge: red, green, or blue. An anti-quark could have one of three kinds of color charge: anti-red, anti-green, or anti-blue (color as used here serves as a convenient label and is not connected with ordinary color). With the inclusion of color charge as a quantum number, we can now specify the rules under which quarks combine to form hadrons. In nature, the observed hadrons do not demonstrate color charge which means that the sum of the component quarks in a hadron must be color neutral or white. Therefore the allowable combinations of quarks are: a quark and its anti-quark, yielding the mesons, and a red, a green and a blue quark producing the baryons.
+
+Experiments in the late sixties measuring the momentum of the quarks within a hadron, found another discrepancy between nature and the quark model. It was thought that if a proton moves with a momentum p, by conservation of momentum the constituent quarks as a whole should move with a momentum p. However, it was discovered that the quarks only accounted for about half the total momentum. Again the quark model was modified. A new particle, the gluon, was introduced into the model as the carrier of the strong force -- the exchange particle that governs the interactions between quarks.
+
+There are eight types of gluons each of which is a superposition of color and anti-color states. Therefore, when a quark emits or absorbs a gluon, the quark changes color but not flavor. Within a hadron the quarks are constantly emitting and absorbing gluons and constantly changing color. This process describes the way gluons set up the strong field in which constituent quarks are held together within a hadron. The study of quark-gluon interactions is called Quantum-Chromodynamics (QCD).
+
+The fact that gluons carry color charge accounts for the asymptotic freedom of quarks. Unlike the electromagnetic force, which weakens with distance, the strong force grows stronger with distance. We shall consider two of the effects that influence the behavior of the strong force: screening and camouflage.
+
+Screening in QCD is analogous to screening in Quantum-Electrodynamics (QED). In QED when an electron enters a region of space populated by molecules that have positively and negatively charged ends, it will polarize the molecules. It, in effect, screens itself in positive charge. The result is a reduction of the effective charge of the electron that decreases with distance. One would think that the screening effect would not occur within a vacuum, where there are no molecules to polarize. This, however, is not true. According to the Heisenberg uncertainty principle, a vacuum is never empty: In fact, energy in the vacuum can increase as it is investigated on progressively shorter time scales. Because of this, particles can violate the conservation of energy for brief instants, materializing in and out of existence. These particles are referred to as virtual particles. Therefore, electric charge in a vacuum will be screened by virtual particles and effectively reduced at large distances. A QCD vacuum is populated by virtual quarks and antiquarks, often called sea quarks. When a quark is introduced into the vacuum, the virtual quarks harboring contrasting color charge will be attracted to the quark while those harboring like color charge will be repelled. The result is the same as in QED: the quark's color charge is screened by virtual quarks.
+
+The electromagnetic force between charges in QED is due to the exchange of neutral photons, while in QCD the strong force between colored quarks is due to the exchange of color-charged gluons. Because gluons carry color, it changes the nature of the force. Quarks are constantly changing color by emitting and absorbing gluons. The color-charged gluons spread to considerable distances, spreading the color-charge throughout space. In close proximity, the gluon propagation serves to camouflage the quark that is the source of the color-charge. Consequently the color-charge felt by a quark of another color will diminish as it gets closer to the first quark. In this way quarks are permanently confined and asymptotically free, or in other words, at large distances the force between quarks is great, but at small distances (!1 fm) the force is next to zero.
+
+### Quark Deconfinement and the Quark Gluon Plasma
+
+In nuclear matter under normal conditions, quarks are bound within individual hadrons. These hadrons do not overlap; they occupy a volume to themselves. At higher densities, however, hadrons can be compressed in such a way that they overlap and the constituent quarks of one hadron can not be distinguished from that of another. In such a state the idea of individual hadrons does not apply. This new state of matter is called a quark-gluon plasma (QGP). In this state quarks and gluons, deconfined from their hadronic bounds, may freely move about in a volume that is several hadronic volumes in size. Currently it is believed that the QGP existed in the early stages of the development of the universe and may presently exist in the cores of dense neutron stars. In a high energy particle physics experiment it is estimated that beam energies of 10-100 GeV per nucleon would be needed to recreate this phase of matter under terrestrial conditions.
+
+A head-on collision of two nuclei in a colliding beam experiment appear as two Lorentz contracted disks traveling toward each other (see figure 1).
+
+They meet at position z = 0 and at time t = 0. At this point (z,t) = (0,0), the particles overlap and a region of extremely high-energy density is created. This region of high-energy density is referred to as the interaction region (see figure 2). It is in the interaction region that the formation of a QGP is likely to occur.
+
+Figure 1: Configuration of two colliding nuclei A and B.
+
+The evolution of a nucleus-nucleus collision in space-time is represented in figure 3.
+
+The evolution of a nucleus-nucleus collision in space-time is represented in figure 3.
+
+Figure 3: The evolution of the nucleus-nucleus collision on the space-time axis [WO 94].
+
+Figure 2: The configuration aller collision. Energy is deposited at z = 0.
+
+There are two types of collisions in which a high energy-density region can occur: one in which the initial nuclear matter is stopped, called the "stopping" regime, the other in which the initial nuclear matter is slowed but not stopped, often called the "transparent" regime. In the first situation baryons in the two colliding beams are completely stopped by each other. The result is baryon-rich matter in the middle of the interaction region. If a QGP were to form this type of collision it would be hard to detect because of complicated scattering due to the high baryon content.
+
+If the beams have sufficient energy, the initial baryons will not be completely slowed down, but recede from the interaction region leaving it baryon-free. High energy-density is still deposited in the interaction region and may form a baryon-free QGP. The theoretical model calculations are much more straightforward with this type of QGP, and hence it is of great interest.
+
+The hope is that a QGP will be formed at the Relativistic Heavy Ion Collider (RHIC).
+
+#### Signatures of the Quark Gluon Plasma
+
+Relativistic heavy ion collisions present the possibility of producing the high energy densities needed for the formation of a QGP. However, the detection of this phase of matter is obscured by the number of particles produced in the collisions, about 4000 particles per event. Because of this and the short lifetime (\(\sim 10^{24}s\)) of the QGP, one must look for indirect evidence of the formation.
+
+#### Photon and Dilepton Formation
+
+In a QGP state, quark-gluon interactions can result in the production of real photons, while quark-anti-quark interactions can produce lepton pairs. These particles interact weakly and are expected to escape the plasma without rescattering. Unfortunately, the signals of these two mechanisms can be degraded by high background levels. The photon energy spectrum may provide a signal of the plasma formation, however large background sources (i.e. photons from \(\pi^{0}\) and \(\eta\) decay) make it difficult to quantitatively predict photon energies originating from the interaction region. Likewise, dilepton signals can be obscured by background signals, such as pion annihilation which is followed by lepton pair production.
+
+##### Suppression
+
+A J/\(\Psi\) meson contains a bound charm quark-anti-quark pair (\(\bar{\rm c}\,\bar{\rm c}\)). Theory predicts that in a QGP the quark-anti-quark bound state of the J/\(\Psi\) will dissolve due to Debye screening, resulting in a low density of \(\bar{\rm c}\,\bar{\rm c}\,\) pairs in the plasma. In this scenario, finding a charm quark-anti-quark pair in close proximity would be very unlikely, due to the comparatively large number of lighter quarks. Hence, upon hadronization, the charm would emerge from the QGP in the form of the D-mesons.
+
+#### Momentum Distribution of Jets
+
+The momentum distribution of particle jets in central nucleus-nucleus collisions is another possible indication of the formation of a QGP. In a central collision, a large fraction of the energy (in jets of particles) comes from the interaction region perpendicular to the direction of the initial beam travel. It is felt that quarks and gluons will lose less energy passing though a plasma state. This would result in a larger average transverse momentum of particle jets coming from a QGP compared to those from a hadron gas [DO 91].
+
+##### Enhancement of Strange Particle Production
+
+In a relativistic heavy ion collision the resulting fireball initially contains the up and down quarks of the colliding baryons. The premature fireball is said to contain little strangeness. Strangeness is a quantum number associated with the presence of one or more strange quarks in a system. As the fireball matures, strange quarks have to be created as quark-anti-quark pairs, in order to conserve strangeness. It is much easier to create a s s pair in a collision that produces a QGP than it is in a collision that produces a hadron gas of the same temperature. This is because in a QGP the quarks and gluons are deconfined, and it takes just the rest mass of the two strange quarks (i.e. 2m\({}_{u}\) = 400 MeV) to make a s s pair. In a collision that produces a hadron gas it takes 570 MeV or 2.23.
+
+GeV to produce a strange or anti-strange baryon respectively, and up to 2.64 GeV for theproduction of multi-strange baryons. Strangeness production is also enhanced in a QGP because of the different reaction mechanisms. In a hadron gas, s\({}^{-}\) pairs are produced by the interactions between hadrons. A QGP has gluon interactions as well as quark interactions. In a QGP two real gluons can produce a pair of strange quarks and a quark anti-quark pair can annihilate, making a virtual gluon which converts to a pair of strange quarks. Theoretical calculations have shown that the production rate of s\({}^{-}\) pairs in the QGP should be 10-30 times greater than in a hadron gas.
+
+### 1.3 Relativistic Heavy Ion Collider (RHIC)
+
+The Relativistic Heavy Ion Collider (RHIC), located at Brookhaven National Laboratory (BNL), is designed to accelerate heavy nuclei to an energy of 100 GeV per nucleon. Construction of the collider started in January 1991 and is expected to finish in early 1999. The collider itself consists of two concentric rings of superconducting magnets built in an existing ring tunnel of approximately 3.8 km in circumference located in the northwest section of the BNL site. The existing accelerator complex at BNL is made up of the Tandem Van de Graaff accelerators, the Booster synchrotron, and the Alternating Gradient Synchrotron (ACS), interconnected with beam transfer lines, and will serve as the injector for the RHIC. An aerial view of the RHIC complex is shown in figure 1.4.
+
+Figure 1.4: Layout of the RHIC complex [LU 93].
+
+kinetic energy of the ions to 95 MeV per nucleon. In the Booster-to-AGS transfer line the ions are stripped to the +77 state and then injected into the AGS. The AGS accelerates the ions to 10.8 GeV per nucleon and transfers the ions to the RHIC collider through the AGS-to-RHIC transfer line where the final stripping from +77 to +79 takes place. The RHIC accelerator will perform the final acceleration to 100 GeV per nucleon. The ion acceleration scenario is shown in figure 1.5.
+
+Figure 1.5: RHIC acceleration scenario for gold [LU 93].
+
+### Physics of the Solenoidal Tracker At RHIC
+
+The Solenoidal Tracker At RHIC (STAR) will search for signatures of a quark-gluon plasma formation and investigate the behavior of strongly interacting matter in high energy density collisions. Emphasis will be on the correlation of many observables on an event-by-event basis [ST 92]. Measurement of global observables at an event-by-event level is made possible by the expected high density of charged particles (about \(4000\) particles per event) produced in the nucleus-nucleus collisions at the Relativistic Heavy Ion Collider (RHIC). The global observables -- such as average transverse momentum, temperature, flavor composition, collision geometry, energy- and entropy-density -- are expected to fluctuate from one event to another in the vicinity of the hadron gas-QGP phase transition. Thus the STAR experiment will be sensitive to the behavior of these observables as a function of energy density. In the absence of definitive signatures of a QGP, it is essential that such correlations be used to identify special events and possible signatures. This requires an elaborate and flexible detection system that can simultaneously measure many global observables.
+
+STAR is capable of tracking and identifying several thousand particles in a typical nucleus-nucleus collision at RHIC. Tracking measurements coupled with electromagnetic calorimetry and high-momentum particle measurements, will allow the study of hard QCD processes such as jet, mini-jet and hard photon production.
+
+The experiment plans to directly identify and analyze the momentum of charged particles (\(\pi^{+},\pi^{-},K^{+},K^{+},K^{-}\), \(p_{+},\overline{p}_{-},d_{-},\overline{d}\)), as well as neutral and charged strange particles (\(K^{0}_{-},K^{-}\), \(\varphi_{0},A_{-},\overline{A},\Xi,\Omega\)) via charged-particle decay modes,
+
+#### Particle Spectra
+
+At STAR the transverse momentum (\(p_{i}\)) distribution and the average transverse momentum \(<\)\(p_{>}\) for pions and kaons can be determined on an event-by-event basis. This allows individual events to be characterized by temperature. Events with high temperature may be a signature of QGP formation. Figure 1.6 displays two spectra generated by the Monte Carlo method from Maxwell-Boltzmann distributions with T = 150 and 250 MeV; each containing 1000 pions. The slopes (temperature) of the spectra (also shown) can easily be noticed at the single event level.
+
+#### Flavor Composition
+
+It is believed that at RHIC energies the various stages of the collision, i.e. : thermalization, expansion, and hadronization, will be reflected in the abundance and spectral distribution of particles containing heavy quarks. Measurement of the particle yields and spectra as a function of the reaction volume may lead to a decisive signature for the formation of the QGP [ST 92].
+
+Information on the relative concentration of strange and non-strange quarks in an event will come from the measurement of the K/\(\pi\) (kaon to pion) ratio. This has been
+
+Figure 1.6: Simulation of the \(p_{t}\) spectrum for one event generated using a Boltzmann distribution of 1000 pions. The histograms correspond to single events generated with T = 150 MeV and 250 MeV. The curves are fits to the histogram using a Maxwell-Boltzmann distribution [ST 92].
+
+suggested as a diagnostic tool to identify hot, dense matter [ST 92]. Measurement of the production rate of the phi-meson, an \(s\)\(\overline{s}\) pair, places a more stringent constraint on the origin of the observed flavor composition than the K/\(\pi\) ratio, and is expected to be more sensitive to the presence of a QGP. It is also thought that in the presence of a QGP there may be a shift in the phi-meson invariant mass [ST 92]. The K/\(\pi\) ratio and the phi-meson yield will be measured on an event-by-event basis with enough accuracy to classify events for correlations with other observables.
+
+#### Global Observables
+
+The appearance of any dynamical fluctuations in a narrow range of conditions has always been an indicator of a phase transition. Within the realm of high-energy particle physics however, such fluctuations can be seen in individual events if the statistics are large enough to overcome the uncertainties. The large transverse energies produced at RHIC will allow the STAR detector to do event-by-event measurements of fluctuations in particle ratios, energy-density, and entropy-density as a function of transverse momentum and rapidity. These fluctuations may indicate a phase change, i.e. the hadronization of a QGP [ST 92].
+
+#### Electromagnetic and Hadronic Energy
+
+Correlation and fluctuation analysis are considerably improved by including, electromagnetic (EM) and charged particle data. One third of the energy is EM energy and is measured by calorimetry. The hadronic energy will be measured by charged-particle tracking. What is more important, a change in the amount of EM energy versus charged-particle energy is one of the signatures of the QGP and other new physics [ST'92].
+
+##### Parton Physics
+
+The study of hard QCD processes uses the propagation of quarks and gluons as a probe of nuclear matter, hot hadronic matter, and quark matter. The RHIC collider will be the first facility to provide un environment with sufficient energy to accurately measure the rates of detectable parton debris (jets, high \(\rho_{c}\) particles, and direct photons) from hard scattering and parton-parton interactions. Calculations have shown that the propagation of quarks and gluons through matter depends on the properties of the medium. For example, it has been suggested that there is a noticeable energy loss associated with propagating partons as the energy-density of the medium increases, particularly if the medium passes into a QGP.
+
+## Chapter 2 Solenoidal Tracker At RHIC
+
+### 2.1 Implementation Plan
+
+The initial phase of the STAR detector will include the following subsystems:
+
+\(\bullet\) Solenoidal magnet
+
+\(\bullet\) Time Projection Chamber (TPC)
+
+\(\bullet\) Silicon Vertex Tracker (SVT)
+
+\(\bullet\) Electromagnetic Calorimeter (EMC)
+
+\(\bullet\) Trigger
+
+\(\bullet\) Data Acquisition System (DAQ)
+
+and the associated electronics for each of these subsystems. These subsystems are anticipated to be on-line at RHIC start-up in mid 1999. Upgrades, such as Time-of-Flight Detectors (TOF), Forward Time Projection Chambers (FTPC), and more sophisticated triggers, will take place as funds become available. The detector subsystems will be implemented as shown in figure 2.1:
+
+Figure 2.1: Configuration of the baseline STAR detector.
+
+### 2.2 Experimental Setup
+
+#### Time Projection Chamber
+
+#### 2.2.1 Introduction
+
+Over the past twenty years the Time Projection Chamber (TPC) has become one of the most effective tracking devices. It has a large variety of possible applications ranging from searches for rare or exotic processes at very low energies to the study of strangeness production in the high multiplicity environment of high energy heavy ion collisions and to charged-particle tracking at the highest energy electron-positron colliders [12].
+
+As shown schematically in figure 2.2, the basic constituents of a TPC are a large gas drift space and a high voltage plane which sets up a uniform electric field terminating at Multi-Wire Proportional Chambers (MWPC).
+
+Figure 2.2: In both a rectangular (a) and a cylindrical (b) TPC the basic constituents are: a large drift space - a high voltage plane - and a Multi-Wire Proportional Chamber [12].
+
+The shape and size of a TPC is application-specific. A rectangular TPC is most likely to be used in a fixed target experiment, placed downstream of the target. A cylindrical TPC enclosing the interaction region is best suited for beam-on-beam collisions.
+
+When a charged particle passes through the gas drift space it leaves behind a string of electrons and ions formed by the ionization process. The electrons are accelerated by the electric field to the wire chambers where they produce a signal on the sense wires. The position of the signal is induced on a cathode pad plane which is positioned in back of the sense wires. Combining the position signals with the drift-time of an electron in the TPC gas, the TPC provides three-dimensional coordinate measurements of the particle as it traverses the drift volume (figure 2.3). The wire signals can also be used to measure the specific energy loss, dE/dx, of the ionizing particles, thus adding particle identification capabilities [LO 92].
+
+Figure 2.3: Schematic of the detection process of charges on the wires and pad plane of a TPC end-plate [LO 92].
+
+The TPC is usually placed inside a uniform magnetic field which is directed parallel to the electric field. This allows measurement of particle momenta from track curvatures and improves the spatial resolution of the track signals by decreasing the transverse diffusion of the electrons during the drift process.
+
+The TPC has many advantages over other types of tracking devices. The device can cover almost the full solid angle and measures truly three-dimensional coordinates with typical resolutions of about 200 mm orthogonal to the drift direction and often much better than 1 mm along the drift direction, leading to excellent momentum resolution [LO [92]]. The performance of the TPC is that of a bubble chamber, but relying entirely on electronic information instead of the numerous pictures that are associated with bubble chamber data. Pattern recognition is therefore simple and efficient and allows experimenters to deal with high track densities [LO [92]].
+
+The most significant disadvantage of the TPC is its slow readout time due to large drift lengths. Also, high rates of particle collisions and accelerator background radiation can lead to space-charge pile-up which will distort the electric drift field and affect momentum resolution. The TPC three-dimensional coordinate data is provided by a highly complicated and sophisticated electronic readout system. Thousands of wires and tens of thousands of cathode pads have to be read out in time slices of typically 100 ns. All the information from the sense wires and pads have to be amplified and digitized with expensive fast circuitry. Furthermore, the readout of large numbers of channels, each with a large number of time slices, introduces huge amounts of data which must be passed to a data acquisition system.
+
+#### Basic Time Projection Chamber Components
+
+In this section the basic components required for a TPC are described. The TPC can be applied to many different experimental situations which ultimately influence the final design and implementation of the detector. Requirements change considerably from one application to the next, but certain components are found in most TPC's.
+
+The largest part of a TPC is the drift region. The drift region is a volume of detector (radiator) gas enclosed by a field cage which creates an electric field. In the case of a rectangular TPC used in fixed-target experiments, the drift space is terminated on one side by a high voltage plane and the other side by a Multi-Wire Proportional Chamber (MWPC). For colliding beam experiments the TPC is cylindrical in shape, positioned so that the beam travels along the main axis of the cylinder. In a cylindrical TPC, the high voltage plane is usually placed in the middle of the TPC, orthogonal to the beam, and the drift volume is terminated with MWPC's on both ends of the detector. Charged particles cross though the drift volume creating tracks of electrons. These electrons drift to the MWPC under the influence of the electric field. Arriving at the MWPC, the electrons generate signals around the sense wires and induce a signal on the cathode plane behind the sense wires.
+
+**Multi-Wire Proportional Chamber**
+
+In a Multi-Wire Proportional Chamber (MWPC), the principle of a proportional counter is put to use in a detector with a large area. A basic MWPC is composed of a cathode plane, a sense/field wire plane, a cathode (or shielding) wire plane and a gating grid. A schematic of the arrangement of these planes is shown in figure 2.4.
+
+The cathode plane is a conductor-couted plate (usually copper clad onto a fiber glass-reinforced epoxy plate) that has been segmented into small pads. The segmentation is performed by means of a photochemical etching process, like used for printed circuit boards, or by milling grooves into the plate. The configuration of the pads, as well as the size of the pads, are application-specific. The cathode plane is where the signal from the ionizing particle is induced. Each pad is connected to a preamplifier. One preamplifier may read out several thousand pads and is the first step in the readout of the data.
+
+Figure 2.4: The wire arrangement of a Multi-wire Proportional Chamber [L.O 92].
+
+The sense/field wire grid contains two kinds of wires, each having a different direction. The grid is made by alternating anode (sense) wires and field wires. The anode wires are held at positive high voltage with respect to the surroundings and the field wires serve to electrically decouple the anode wires [LO 92]. The field wires can be used to provide test pulses to both the sense wires and the pads. When the electrons emerge from the drift region, they travel toward the nearest anode wire. The electric field near the anode wires is that of a cylindrical capacitor. If the primary electrons from the drift region gain enough energy in this electric field, secondary ionization occurs (gas amplification). The secondary electrons repeat the process leading to the formation of an avalanche around the anode wire as shown in figure 2.5. If the signal created by the avalanche on the wire is to be used (e.g. for dB/dx information), each of the sense wires is connected to a preamplifier [LO 92]. The cathode wire plane closes the wire chamber from the drift volume and is typically held at the same potential as the cathode plane.
+
+Figure 2.5: Time development of an avalanche near to an anode wire in a proportional chamber. (a) Primary electron moving towards the anode. (b) The electron gains kinetic energy in the electric field and ionizes further atoms; multiplication starts. (c) The electron and ion cloud drift apart. (d), (e) The electron cloud drifts towards the wire and surrounds it; the ion cloud withdraws stability from the wire [KL 86].
+
+The gating grid, located between the MWPC and the drift volume, performs an essential duty. A uniform electric field is of great importance in the TPC. The uniformity of this field can be disrupted by the presence of space charge in the form of ions in the drift region. The positive ions created in conjunction with the electrons in the primary ionization process represent only a small electric charge and are of no consequence. In contrast, the number of positive ions formed during the avalanche process is on the order of \(10^{2}\)-\(10^{4}\). These positive ions can seriously affect the uniformity of the electric field. A large fraction of these positive ions are nullified by the cathode plane, field wires and the cathode wire grid, but some reach the drift volume building up space charge and therefore distorting the electric field. The gating grid overcomes the problem of space charge buildup. When the gating grid is in a "closed" state it prevents electric charges from traversing the grid. It is made up of a layer of wires that are alternatively connected together. When the gate is in the "open" state it is at a potential similar to its location and does not disturb the original field. In the closed state a potential difference is applied between adjacent wires such that a dipole field is created. A gating grid that is closed prevents the positive ions created in the avalanche process from entering the drift region as well as stopping the primary electrons arriving from the drift region before they enter the MWPC. Therefore the gating grid can be used to choose whether an event is readout (gate open -- signals formed in MWPC) or whether it is to be ignored (gate closed -- no signals formed in MWPC ). Figure 2.6 shows the field configuration for both states of the gating grid.
+
+**Field** Cage
+
+The primary purpose of the field cage is to provide a uniform electric drift field. In addition to this, the field cage also serves as a gas containment vessel. As mentioned before, the field cage is terminated on one side by a high-voltage plane and on the other by a MWPC (rectangular TPC); or terminated on both sides by MWPC with a high-voltage plane in the center (cylindrical TPC). To produce the uniform drift field, electrodes that are connected together by a precision resistor chain are mounted the walls of the field cage parallel to the direction of drift. These resistors create linearly spaced equipotential lines perpendicular to the drift direction, hence the uniform electric field.
+
+The construction of a field cage involves resolving two contradictory requirements. The walls of the field cage should be as thin as possible to minimize the
+
+Figure 2.6: The electric field configuration of a Multi-wire Proportional Chamber with the gate in the open state and in the closed state [LO 92].
+
+amount of material the particles have to traverse in order to reach other detectors. At the same time the field cage must be mechanically stable, self-supporting, and have enough insulator to cope with the high voltage. The electrodes covering the walls of the field cage should leave as little insulating surface as possible exposed to the drift region because surface charges building up there may distort the electric field [LO 92]. Figure 2.7 shows a partial cross-section of the STAR field (voltage gradient) cage. The construction of the voltage gradient cage consists of a double layer of electrodes (0.035-mm Cu) separated by 0.075-mm Kapton film as shown in the figure. In the STAR implementation the outer field cage is in close proximity to other subsystems held at ground potential, therefore a mylar insulator and a grounded aluminum skin are wrapped in layers around the outside of the voltage gradient cage, electrically shielding it from its surroundings.
+
+### Electronics
+
+Each pad on the cathode pad plane is connected to a chain of electronics. This chain consists of a preamplifier, a shaping amplifier and digitizing electronics which measure the amplitude and arrival time of the MWPC signal. In the STAR implementation,
+
+Figure 2.7: Details of the Outer-Field Cage construction [ST 92].
+
+the charge from the cathode plane pads is amplified and integrated by a low noise, low capacitance preamplifier. The time history of the signals is stored on a 512-sample switched-capacitor array (SCA) analog memory. After the total event is stored on the SCA, it is clocked out to an analog-to-digital converter (ADC) for digitization. At this point the digitized data are transmitted to a readout board for data collection and zero suppression before being transmitted to the Data Acquisition (DAQ) subsystem.
+
+To measure the response of the electronics, calibration pulses must be fed to the preamplifiers. This can be accomplished by pulsing the field wire grid in the MWPC. Pulsing the wire grid should induce identical pulses on all the pads. Knowing the input and induced pulse heights, one can correct for differences in electronics gain.
+
+##### The STAR Time Projection Chamber
+
+The TPC is the main detector of the STAR experiment and is capable of handling high-multiplicity events. It determines individual particle momenta by tracking them through the solenoidal magnetic field. By making multiple energy-loss measurements, particle identification is achieved. The TPC gas volume (approximately 50 cubic meters) is bound by coaxial field cage cylinders and is terminated with endcaps which house multi-wire proportional chambers (MWPC) at each end. A high-voltage central membrane creates an electric field so that ionization electrons, that were produced by a particle traversing the TPC; drift toward the endcaps. The ionization electrons are amplified by gas (avalanche) amplification at the anode wires of the MWPC's. Image charges are induced on the pad plane located behind the anode wires and are read out as a function of time. The drift time of the ionization electrons furnish one space coordinate, while the induced signals on the pad plane provide two-dimensional space coordinates of a particle's path through the TPC.
+
+Each endcap is divided into twelve supersectors, each of which is divided into a inner and outer sector as shown in figure 2.8. Each sector will be equipped with electronics designed to read out the information produced in the TPC.
+
+#### Solenoid
+
+The TPC detector subsystem requires a uniform magnetic field over its entire volume to measure the momentum of charged particles produced in the collisions at
+
+Figure 2.8: A diagram of the TPC end-cap indicating the locations for the pad plane sectors and pad rows [ST 92].
+
+RHIC. At STAR a 0.5-Tesla solenoidal magnet will be used to facilitate these measurements. The iron return yoke and shaped pole pieces shown in figure 2.9, carry the magnetic flux generated by the solenoid and shape the magnetic field to the required uniformity at the ends of the detector.
+
+Figure 2.9: Magnet iron return yoke and shaped pole pieces [ST 92].
+
+#### Silicon Vertex Tracker
+
+The SVT greatly improves the tracking capabilities of the STAR detector below transverse momenta of 150 MeV/c and extends the particle detection scheme to short-lived neutral and charged strange particles. Since strange quarks will be the most frequently produced heavy quarks, strange-particle detection is one of the primary goals of STAR. The various types of strange particles are detected and identified by different methods. Charged long-lived kaons will be identified by measuring their energy loss (dE/dx) in both the TPC and the SVT. Short-lived particles (\(\Omega^{0}\), \(\Lambda\), anti-\(\Lambda\), \(\Xi^{\prime}\), \(\Omega^{\prime}\)) are detected via their weak decay into charged particles. Identification of strange-particle decays requires the separation of their decay tracks from those tracks that originate from the primary interaction point. The separation technique requires precise information on the track position close to the interaction point. The SVT is an excellent tool for extending the acceptance of the TPC to low transverse momentum (\(\beta_{\mathrm{t}}\)) particles: Simulations of central Au+Au events show that the transverse momentum distribution of emitted particles at midrapidity will in general be peaked around 300 MeV/c [ST 92]. The lower TPC limit for fully efficient track reconstruction is 150 MeV/c. A considerable part of the event will be measured by inclusion of tracking in the SVT alone.
+
+The STAR SVT is based on Silicon Drift Detector (SDD) technology. SDD's use an n-type silicon wafer as a substrate. Field-shaping electrode strips made of p-type material are symmetrically implanted on both sides of the substrate. A high voltage gradient is applied to the electrodes; depleting the silicon and thus creating a deeppotential well that attracts free electrons produced by the passage of charged particles through the detector. The electrodes are connected to a voltage divider network that produces an electric field parallel to the surface of the wafer. This field transports the electrons toward the edge of the detector where the signals are read out on a segmented anode.
+
+The SVT will consist of 216 SDD's mounted in three concentric barrels. Figure 2.10 shows a drawing of the SVT layout.
+
+Figure 2.10: Conceptual view of the STAR SVT [ST 92].
+
+#### Electromagnetic Calorimeter
+
+A calorimeter is a block of matter which intercepts a particle, and is of sufficient thickness to cause the particle to interact and deposit all its energy inside the detector volume. Electrons and photons interact with the calorimeter material principally through bremsstrahlung and pair-production respectively. These processes produce secondary photons and electrons which interact in a similar manner producing a cascade or "shower" of secondary particles. Calorimeters use scintillators to convert the excitation of a transparent material caused by an ionizing particle into visible light. The scintillator also transports this visible light to the photocathode of a photomultiplier tube. When the light from the excitation strikes the photocathode of the tube it liberates electrons. An electrode is used to collect, focus and accelerate the photo-electrons from the cathode to the first dynode of the phototube. The dynode is an electrode made from a material with a high coefficient of secondary electron emission. The emission of three to five secondary electrons can be achieved for one incident electron with a kinetic energy of 100 to 200 eV. Subsequent dynodes are used to amplify the number of secondary electrons to around 10\({}^{8}\). This whole process takes about 40 ns.
+
+The STAR Electromagnetic Calorimeter will measure the total and local E\({}_{t}\) using a lead-scintillator sampling calorimeter. This measurement is essential in determining the degree of nuclear stopping which occurs in the collisions at RHIC. Analysis of the transverse energy leads to estimates of the energy-density of the reaction, which may allow further determination of the possibility of QGP formation. It covers the fullThe wordes are also broken into 40 towers along the length of the detector. Each tower has 21 layers of 5-mm lead absorber and 3-mm plastic scintillator. There are thus 50,400 pieces of scintillator (60 wedges x 40 towers x 21 layers) of 420 different shapes. Each tile will be read out with two optical fibers that go to photomultiplier tubes.
+
+#### Time-of-Flight
+
+The purpose of the TOF detector is to extend the particle identification capabilities of the TPC and SVT to high transverse momenta and to provide a flexible trigger for
+
+Figure 2.11: An end view of the STAR EMC barrel [ST 92].
+
+event selection. The system must measure the flight time of as many charged particles as possible in the central region of the STAR detector with a timing resolution of at least 100 picoseconds. The TOF is a highly segmented cylindrical scintillator/counter mounted on the outside of the TPC.
+
+The system design is a shingle layout, consisting of tiling the cylinder with 7776 single-ended scintillators arranged in 216 trays of 36 scintillators each. A drawing of 108 trays that house the TOF shingle counters covering one half of the length of the experiment is shown in figure 2.12. Each trays positions and supports 36 scintillators and covers 3.3 degrees in \(\phi\). Each shingle consists of a proximity-mesh dynode phototube optically coupled to a scintillator with a Plexiglas guide. Because of budget constraints the complete TOF detector will be installed only when additional funds become available [ST 92].
+
+Figure 2.12: A drawing of the 108 trays that will house the TOF stingle counters.
+
+#### Forward Time Projection Chambers
+
+The purpose of the FTPC's is to extend the kinematic range covered by the experiment. In order to determine primary particle distributions, it is necessary to be able to detect all particles and reject those coming from secondary interactions. These secondary particles are the result of interactions in the beam pipe, the SVT, the TPC and the decay of short-lived particles.
+
+The FTPC is a high-resolution radial TPC with Micro-strip Gas Chamber readout.
+
+The FTPC is located inside the STAR magnet, filling the space between the RHIC beam pipe and the inner field cage of the main TPC. Figure 2.13 shows a perspective view of the FTPC.
+
+Figure 2.13: Perspective view of the FTPC.
+
+#### Trigger
+
+Since a triggerable signature of quark-gluon plasma events has not been identified, the STAR trigger is being designed to be flexible enough to allow for continual upgrades as the understanding of such signatures increases. The baseline trigger system will operate with high deadtime until sufficient information is obtained to be able to safely increase the selectivity of the trigger and thus decrease the overall deadtime [ST 92].
+
+The goals of the STAR trigger system are to [ST 92]:
+
+\(\bullet\) Detect Au-Au interactions with \(>\)95% efficiency
+
+\(\bullet\) Detect p-p interactions with \(>\)50% efficiency
+
+\(\bullet\) Locate an Au-Au collision vertex within \(\pm\)6 cm within 200 ns
+
+\(\bullet\) Detect multiple events occurring within 40 \(\mu\)s
+
+\(\bullet\) Select highest 2.5% of multiplicity distribution in \(<\) 200 ns
+
+\(\bullet\) Select high transverse electromagnetic energy
+
+\(\bullet\) Select on basis of the geometry of hit patterns
+
+\(\bullet\) Allow simple integration of upgrades to the trigger system
+
+The trigger system is divided into two components. The first comprises the trigger detectors, consisting of a Central Trigger Barrel (CTB), Vertex Position Detectors (VPD), TPC endcap Multi-Wire Proportional Chambers (MWPC), Veto Calorimeters (VTC) and output from the EMC, The second component consists of data processing and the interfaces to the detector subsystems and the Data Acquisition subsystem.
+
+The CTB is a barrel of 200 slats of scintillator on the TPC outer surface that subtends \(|\eta|<1\). These slats are radiators optically coupled to two phototubes.
+
+The VPD contains two scintillators, each placed on either end of the TPC, covering 3.3-3.8 in \(|\eta|\). The light signals from the scintillators are read out by photomultiplier tubes and are sent to specially designed fast circuitry to determine the vertex location. This circuit uses the time difference in the signals to determine the location of the primary vertex in z to within \(\pm 6\) cm in less than 200 ns.
+
+The EMC, covering a region with pseudorapidity less than one, measures a fraction of the total transverse energy which comes in the form of photons and electrons. This energy is primarily the result of \(\pi^{0}\) decays. The EMC is used to select events on the basis of the centrality of the collision and fluctuations in E\({}_{\rm t}\). The EMC, together with the CTB, can be used to select events with unusual ratios of E\({}_{\rm c}\)-to-charge multiplicity.
+
+One purpose of the TPC MWPC's is to trigger on electron avalanche at the anode wires. The direct readout of this information allows triggering on multiplicity fluctuations between different regions of pseudorapidity. The MWPC's cover 1-2 in \(|\eta|\).
+
+The VC's are placed beyond the first dipole magnets in the beam (about seventeen meters from the interaction point) and cover \(\eta\eta\)! > 5. These provide information on the impact parameter independent of the E\({}_{i}\) values. By looking at the well-separated proton and neutron spectators from the interaction point, the spectator energy can be detected. The particle density in pseudorapidity is shown in figure 2.15.
+
+Trigger decisions are made according to a three step process. At each step (level), the event (interaction) may be rejected or retained for additional processing.
+
+Level 1
+
+The first-level trigger provides a veto decision within 200 ns. A determination of the total transverse electromagnetic energy is done with the information from the EMC.
+
+Figure 2.15: Typical particle density in rapidity. Shüdel regions indicate the coverage of the trigger detectors [12].
+
+[MISSING_PAGE_EMPTY:55]
+
+## Chapter 3 Slow Controls System
+
+### 3.1 Slow Controls System Overview
+
+The main purpose of the STAR Controls System is to ensure the validity and consistency of the recorded data so that physics may be extracted. To this end the STAR Controls System:
+
+* Sets the system parameters according to a pre-defined sequence
+* Saves and restores the detector configuration
+* Provides an alternate data acquisition path
+* Verifies proper functioning of the detector by monitoring the subsystem parameters
+* Warns about possible subsystem malfunctions
+* Handles alarms
+* Controls normal operations
+* Provides fault diagnostics
+* Allows for simultaneous testing of different subsystems
+* Archives information about the subsystem parameters in an easily accessible way.
+* Provides logging capability
+
+In addition to these system features, the development of the Controls System has been guided by other system needs. A large and complex detector system like STAR will see a large turnover of users and control system operators. Because of this, the system needs to be well-documented and, perhaps more importantly, robust and suitably supported. The system will employ the use of graphical user interfaces, on-line help and suggestions, and a color-coded "traffic light" model of representing alarms. As well as having to manage tens of thousands of channels, the system must allow for the addition of new subsystems and upgrades.
+
+The systems included in the baseline STAR Controls System are the time projection chamber, magnet, data acquisition, trigger and beam.
+
+### Epics
+
+The Experimental Physics and Industrial Control System (EPICS) was selected as the foundation for the STAR Controls software environment because it incorporates all of the system features outlined above. EPICS was designed by Los Alamos National Laboratory and the Advanced Photon Source at Argonne National Laboratory. At STAR, EPICS is run on a UNIX-based workstation connected to Versa Module Europa (VME) crates operating under VxWorks, a real-time operating system [JG 94]. EPICS was designed as a development toolkit and common run-time environment that allows users to build and execute real-time control and data acquisition systems for experimental facilities [RC 92].
+
+#### EPICS Database Configuration
+
+A principal component of EPICS is its database. The database is an ASCII file that is configured off-line using a Database Configuration Tool and is loaded into the memory of an Input Output Controller (IOC) at boot time. The IOC consists of a VME crate, a CPU, and any application-specific hardware interfaces. The database consists of specific records written for alarm checking and setting, and for monitoring and controlling parameters within each subsystem. The database configuration tool in current use is the Graphical Database Configuration Tool (GDCT). GDCT is part of the EPICS software release and provides application developers with a Computer-Aided Drafting (CAD)-type drawing of the database as it is made (see figure 3.1a). The great advantage of GDCT is that it allows one to graphically see the links between database records, and process and logic flow within a database. By "clicking" on a record in a database, the developer can see and manipulate the attributes (fields) of the record. For these reasons, GDCT is favored over the Database Configuration Tool (DCT) which is a menu driven tool that shows only one record at a time in a given database (see figure 3.1b).
+
+Figure 3.1a: A GDCT screen showing the database that controls the TPC Drinf Velocity High Voltage Control [JG 95a].
+
+[MISSING_PAGE_EMPTY:59]
+
+each instance of a record must have a unique name. For example, it might be that one needs to develop a database to control a cluster of power supplies. This is an easy task for GDCT.
+
+Now say that the experiment has 300 instances of identical power supply clusters. Using GDCT' a developer would have to copy the original database 300 times and change all the record names in the databases so that each one was unique. This is a very time consuming task. Using CAPFAST, however, the task requires little more that making the original database, telling CAPFAST to follow a naming scheme and how many instances of the database are needed.
+
+#### Operator Interfaces
+
+The current STAR operator interfaces (OPI) are SUN IPX workstations. A display editor, Motif Editor and Display Manager (MEDM), is used to create and modify the OPI displays. MEDM allows a developer to design monitoring and control interfaces to suit a specific application. A developer using MEDM has the capability to display graphs and histograms as well as set up monitoring and control dials, switches, alarm conditions, and color intensity. Figure 3.2 shows a MEDM screen developed for the TPC drift velocity high voltage control. A more extensive MEDM screen which controls the LINAC at the Advanced Photon Source at Argonne National Laboratory is shown in figure 3.3Figure 3.2: An MIDM screen used to control the TPC drift velocity [IG 95a].
+
+Figure 3.3: An MIDM screen used to control the TPC drift velocity [IG 95a].
+
+#### EPICS Features
+
+The STAR controls system is a real-time fully distributed controls system. The system hardware consists of a VME crate for each subsystem using commercially available industrial interfaces and programmable controllers wherever possible. The monitoring tasks and system control are distributed on computer workstations. The workstations and VME crates are
+
+Figure 3.3: A top level MEDM screen used to control the LINAC at Argonne National Laboratory [IG 95a].
+
+networked with ethernet. If a single-input output controller becomes saturated, the processing can be shared with other IOCs. If an operator interface were to become saturated, the processing could be distributed to other OPI's [3]. The organization of EPICS is shown in figure 3.4.
+
+One advantage of using EPICS is that it comes with procedures that have been written to support analog and binary inputs and outputs, calculations, fanouts, multi-bit binary inputs and outputs, timers, and a score of other functions. EPICS uses a protocol called Channel Access to communicate with distributed IOC's and workstations. Channel Access hides the details of TCP/IP networking to both clients and servers in a given implementation. The modularity of EPICS eases the development of software to control specialized hardware.
+
+Figure 3.4: Configuration of EPICS.
+
+Each subsystem in STAR has an EPICS-based hardware Controls System which is used by Experiment Control as a tool to control and monitor the performance of the detector hardware. Experiment Control does not execute detailed control of subsystem hardware directly; it issues commands to the appropriate subsystem control processes. This method of implementation serves two purposes. First, it preserves the "chain of command" so that it is clear who or what is controlling a piece of hardware. Second, it provides an interface between the experimentalists working on subsystem control and those involved in Experiment Control.
+
+### The STAR System Test
+
+#### System Test Setup
+
+For the STAR system test, one TPC outer sector has been instrumented with 16 FER cards serviced by one readout board. The TPC sector has been fitted with a small drift chamber (drift distance \(\approx\) 10 cm) through which flows a gas mixture of 90% argon - 10% methane. The configuration of the setup is shown in figure 3.5.
+
+Figure 3.5: The STAR system test hardware setup [JC 96].
+
+3.3.1.1 Data Acquisition System
+
+A data acquisition system (miniDAQ) has been specifically designed for the system test. MiniDAQ consists of [36]:
+
+* two Motorola VMB167 modules with 68040 processors that run the miniDAQ software;
+* one Cyclone VMB964 module, housing an 1960 processor, that holds the "Rosie" mezzanine card, a temporary receiver for STAR;
+* a Motorola MVMB1600-001 (Power PC) that acts as a trigger-miniDAQ interface;
+* and an additional 32 megabyte memory board for interprocessor communication and event buffering.
+
+MiniDAQ receives data from the readout board over a 1.5 Gbit/s optical fiber link.
+
+The Rosie board takes this data and packs it into 20-bit quantities, representing two 10-bit ADC values, and then pads the data into a two-byte word.
+
+When the Trigger system notifies miniDAQ of an upcoming event, miniDAQ starts the transfer of the data from the Rosie card to the memory board in the miniDAQ VME crute.
+
+During the transfer time a busy signal is sent to the Trigger system to prevent further incoming triggers.
+
+#### Trigger
+
+The system-test trigger is a VME-based prototype of the trigger that will be used in STAR. The Data Storage and Manipulation (DSM) board receives signals from scintillators connected to photomultiplier tubes, positioned above and below the TPC sector. If these signals are in coincidence with a master clock, which replicates the RHIC strobe, a 16-bitword is passed to the Trigger Control Unit (TCU). The TCU examines the 16 bits and translates them to a trigger command word that will indicate the type of event that has been identified (i.e. high multiplicity event, low multiplicity event etc.). In the current setup the only type of trigger type is a cosmic ray. The TCU then assigns a 12-bit token to the trigger command word. This token prevents the mixing of events from different sub-detectors in the event building stage. The command word and token are sent from the Trigger and Clock Distribution (TCD) board to the TPC readout board and the event data is sent to the Rosie board in the Data Acquisition system. The information from the TCU and DSM board is used in the trigger Level 1 accept/reject decision, and notifies mini-DAQ of its decision. Once the mini-DAQ system has been notified by the trigger of a Level 1 accept, it takes the event data from the Rosie board and puts it into the VME-event memory buffer. The event data is now ready to be written to tape or used for on-line analysis.
+
+##### Slow Controls
+
+In the actual implementation of the STAR detector the TPC readout boards require a link to the Slow Controls system for a number of testing, control and monitoring tasks as well as to provide STAR with an alternate data-acquisition path. Since each readout board stores over one megabyte of data per event, the Slow Controls link speed is required to be in excess of 10 Kbytes/sec to be of use as a alternate data-acquisition path. The link must operate between the electronics platform and the TPC endcaps, a distance of 30 meters, as well as in the 5-kG magnetic field present in STAR. Due to space considerations, the link must also accommodate a multi-drop topology to reduce cabling [PB 95],[SK 95]. To accomplish this, a bi-directional data transmission and control system is required that interfaces easily with the EPICS software environment.
+
+High-Level Data Link Control (HDLC) was selected as the protocol for the TPC/Slow Controls link because it incorporates all the requirements outlined above. The link throughput is about 1 Mbit/see in the STAR implementation. The major disadvantage of the generic HDLC is that it requires some software development and more on-board hardware than some of the more highly integrated choices[PB 95],[SK 95]. The HDLC interface. accepts function-specific parameters passed from an EPICS database to execute a desired data transmission.
+
+The TPC Front End Electronics (FEE) boards receive event signals from the chamber, and then perform amplification and digitization of the signals. The TPC readout boards receive input from the FEE boards and store the data in event memory or send the information to the Data Acquisition (DAQ) subsystem through a fiber optics link. By pulsing the readout board with known signals, the Slow Controls link can be used to verify that the signals were properly amplified, digitized and stored in memory. The Slow Controls link is also used to write random data to the readout board memory. This data can be read from the readout board by DAQ and also by Slow Controls. Comparisons can be made between the original data and the data sets that are read by DAQ and Slow Controls. This method is used to test data transmission on the fiber optics link as well as on the Slow Controls link.
+
+The TPC has two endcaps each of which is divided up into 12 supersectors. Each supersector network is made up of 6 readout-board slave nodes and one commercially built master node in a VME crate. The slave nodes are based on a 68302 microcontroller running at 20 MHz, and are built on a 73-mm by 84-mm printed circuit "daughter" board which is designed to plug into a readout board. The board communicates with the readout board via memory mapping. The commercially built master node is a Radstone SBCC-1 which is based on a 68360 processor, and supports four HDLC channels. A TPC sector is fitted with readout boards and slave nodes which are then connected to one HDLC channel on a Radstone master node. Timing signals are sent from the Radstone board and reflected back by the readout boards. This is done because the 68302 serial ports cannot self-clock. The hardware configuration for a typical TPC sector is shown in figure 3.6.
+
+The HDLC-EPICS interface consists of subroutines which are loaded into the IOC at boot time and perform read and write transactions to and from a TPC readout board memory in a transparent manner via the Radstone board.
+
+The Slow Controls function in the system test is to record the "housekeeping" parameters of the TPC front-end electronics chain. These parameters include the values of the low-voltage power supplies that power the readout board and the FEE cards and the temperatures of the electronics. Slow Controls can also be used in the geometric configuration (mapping) of the FEE cards on the TPC, test the FEE and pad aliveness, as well as read event data from the readout board over the HDLC link.
+
+Figure 3.6: Hardware configuration for a typical TPC sector: There are six readout boards per super sector, each of which is slave-noule dusty-chained by an HDLC cable to a Raudstone board. (Each Raudstone board can service up to 4 HDLC links; only one is shown,)
+
+#### 3.3.1.4 State Manager
+
+A prototype State Manager has been developed to regulate the operations of each of the system test subsystems. MiniDAQ, Trigger, and Slow Controls have been interfaced to the prototype State Manager. The State Manager incorporates three state models: a sequence state model, a command state model, and an alarm state model. The sequence state model brings each subsystem on-line by stepping through a series of states (i.e. initialize, configure, run). The command model and alarm model provide a command and error messaging interface between the subsystem and operator.
+
+The State Manager does not "know" the detailed operation of each subsystem; it issues commands and requests to each subsystem. The individual subsystems are required to "know" what to do when it certain command or request is issued from the State Manager,
+
+#### 3.3.2 Analysis of TPC Data
+
+The data set discussed here was obtained during the period between July and October 1996. Five different types of data were collected: geometry events, pedestal events, pulser events, cosmic-ray muon events and laser-induced events.
+
+#### Geometry Events
+
+Geometry events were triggered whenever a new arrangement of FEB cards was connected to the TPC sector: Associated with each of the FEE connectors on the TPC pad plane is a "hard-wired" address; which specifies the location of that connector on the TPC. When A FEB card is plugged into a connector on the pad plane it assumes the geographical address of that connector. The readout of these addresses is used to map the FEE card locations on a readout board. This geographical map of the card locations is used in data analysis as well as to identify cabling errors.
+
+##### 3.3.2.2 Pedestal Events
+
+Pedestal events determine the average ADC count for a given channel when no tracks are present. Typically one hundred events were taken for each pedestal determination run. Each run was taken under normal data-taking conditions with the exception of the anode-wire voltage which was disengaged to avoid contamination from cosmic rays. Because the SCA response is slightly time dependent, the average of the one hundred ADC values were averaged for each time division (bucket) of each channel. Figure 3.7 shows the pedestals of four channels as a function of time bucket.
+
+The RMS of a given channel's ADC values gives a measure of the noise level - the variation in pedestal ADC value. Figure 3.8 shows the noise level for an average channel. In order to monitor the stability of the pedestals with time, continual pedestal event runs were taken over the period of several weeks, and the mean value of a given channel averaged over all time buckets was plotted as a function of time (figure 3.9).
+
+Figure 3.8: Noise as a function of time bucket [JC 96].
+
+Figure 3.7: Pedestals as a function of time bucket [JC 96].
+
+Figure 3.9: Pedestat stability [JC 96].
+
+Figure 3.10: Gain stability [JC 96].
+
+[MISSING_PAGE_EMPTY:74]
+
+#### 3.3.2.5 Laser-Induced Events
+
+Laser-induced events were used to determine the two-track resolution of the TPC. The two-track resolution is the measurement of the distance at which two hits from separate tracks appear as one hit in the TPC pad plane. To measure this distance, a laser beam was directed from the bottom of the TPC test sector to the top where it was reflected back by a mirror at a small angle relative to the incident beam. This method produces two ionization tracks in the TPC drift volume in close spatial proximity (see figure 3.12). Several events
+
+Figure 3.12: Laser induced two track event in TPC test sector [JIC 96].
+
+were taken at different angles, and the initial results show that two hits from different tracks blend into one hit when the track separation is less than \(1\) cm in the pad plane (x-y) plane as shown in figure 3.13.
+
+### 3.4 Author's Contribution
+
+The development of the EPICS-to-HDLC interface to be used by STAR, as well as the testing and support of new EPICS implementations were accomplished. Along with this, several introductory EPICS training sessions for individuals within the STAR collaboration were setup and carried out by the author. At the time of this writing the author has been
+
+Figure 3.13: A zoom-in on figure 3.12 showing two track resolution of about \(1\) cm.
+
+given charge of the development, construction and testing of two new scintillator triggers to be used in the system test environment.
+
+#### EPICS - HDLC Interface
+
+The HDLC link was designed to read data words from and write data words to memory locations on the TPC readout board. The interface required the passing of command data (memory address, network and node specifications, specific command words) from an EPICS database to the HDLC software:
+
+The development of the EPICS-HDLC interface occurred in three steps. The decision to use the HDLC protocol was not yet made when work on the interface began, yet it was known that the Slow Controls system would have to read from and write to memory locations. It was decided that the first step in constructing the interface was to use EPICS to read and write from and to any VME memory location. To accomplish this, a detailed look into the configuration of the EPICS software was performed. As was mentioned before, EPICS uses records to perform general operations (i.e. analog inputs, binary outputs etc.). However, the record support routines do not contain information on how to communicate with specific hardware, but rather, rely on a device support software layer to take care of all hardware specific transactions. Hence, device support was written to perform the VME memory transactions. The existing Long-in and Long-out EPICS records use this device support to write or read one long data word to or from VME memory. The next step was to use the new device support to read and write large blocks (100's of Kbytes) of data to and from data files on a user workstation. Upon doing this it was found that the time duration for the transfer of 100's of kilobytes of data was much too large. The problem was that EPICS had to make individual network connections from the workstation to the VME crate for each data word transaction. What was needed was an EPICS record specifically written to move a large data array within a single network transaction. At the time no such record existed, but it was discovered that a generic VME record (allowing access to VME memory via data array transfers) was being developed at the University of Chicago Synchrotron Community. The development of this record guided the development of the EPICS - HDLC interface into the third and final stage. By the time the generic VME record was made available to the EPICS community, the HDLC software was near completion. The generic VME record was modified by the author (appendix B) to pass the appropriate parameters to the HDLC software.
+
+The EPICS - HDLC link was the first data path to and from the STAR TPC and was used to facilitate the initial debugging of the TPC electronics. In the summer of 1997, mini-DAQ will be moved out of the system test setup. The EPICS -HDLC will be the only data path to the TPC test sector and will be used in the testing of the on-line analysis software.
+
+It should be mentioned that STAR as well as BRAHMS, another collaborative detector experiment on the RHIC ring, plan on using the technology discussed here to monitor and control a large portion of their experimental hardware throughout the lifetimes of the experiments.
+
+[MISSING_PAGE_EMPTY:79]
+
+Figure 3.14a: Dimensions of trigger scintillations.
+
+## Conclusions
+
+EPICS has shown itself to be useful as a slow controls system in a high-energy physics detector application. The EPICS - HDLC interface has proven to be a reliable, inexpensive alternate data acquisition path. EPICS will be used in the low-level control and monitoring of the STAR subsystems, while Experiment Controls will take charge in the high-level operation of the experiment.
+
+[MISSING_PAGE_EMPTY:82]
+
+where \(\beta\) is the velocity of \(F\) relative to \(F\). If we substitute equations (3) and (4) into equation (2) we get
+
+\[\dot{\gamma}=\frac{1}{2}\ln\left(\frac{\gamma(p_{\rm s}-\beta p_{\rm u})+\gamma( p_{\rm u}-\beta p_{\rm u})}{\gamma(p_{\rm u}-\beta p_{\rm u})-\gamma(p_{\rm u}- \beta p_{\rm u})}\right) \tag{5}\]
+
+\[\dot{\alpha}\]
+
+\[y^{\prime}=y+\frac{1}{2}\ln\left(\frac{\gamma(1-\beta)}{\gamma(1+\beta)}\right)\]
+
+where y is the rapidity of the particle in the \(F\) frame.
+
+### Pseudorapidity
+
+To characterize the rapidity of a particle, it is essential to measure two quantities of the particle, the longitudinal momentum and the energy. In many experiments it is possible to measure only the angle of the particle's trajectory with respect to the beam axis. In this case, it is convenient to use this information by employing the pseudorapidity variable \(\eta\). The pseudorapidity is defined as:
+
+\[\eta=-\ln\left[\tan\left(\frac{\theta}{2}\right)\right] \tag{6}\]
+
+where \(\theta\) is the angle between the particle 4-momentum \({\bf p}\) and the beam axis. The pseudorapidity can be written in terms of the momentum as:
+
+\[\eta=\frac{1}{2}\ln\left(\frac{|\eta|+p_{\rm u}}{|\eta|-p_{\rm u}}\right) \tag{7}\]A close examination of equations (1) and (7) show that the pseudorapidity coincides with the rapidity when the momentum is large, i.e. \(|\mathbf{p}|\approx p_{\mathrm{a}}\), the particle energy. The pseudorapidity is used to define locations of an experiment; i.e. "The STAR TPC covers - 2 to 2 in pseudorapidity."
+
+## Appendix B VME-HDLC Code
+
+The first five code listings in this appendix belong to the EPIC - HDLC interface.
+
+A brief description of each file is as follows:
+
+* _RecVmeHDLC.c_ This is the main body of code that makes up the VMEHDLC record. This record serves as the interface between EPICS and HDLC.
+* _vmehdlcRecord.h_ This is the header file which supports the main code. It contains calls to include other header file that are needed to compile the main code as well as declarations of structures used in the main code.
+* _vmehdlcRecord.ascil_ This file contains ASCII definitions of many of the main record fields.
+* _chiolecVMEHDLC.h_ This is a header file that contains the record structure choice values.
+* _chiolecRec.ascil_ This file contains the ASCII strings for each of the record choices.
+
+The last file, named _modeTr_rb.c_, was written by Dr. Jan Chrin (Creighton University).
+
+This file and variations of it are responsible for reading entire events out of the event.
+
+memory on the TPC readout boards and it can also be used to write fake events to the TPC readout boards. This code utilizes the VMEHDLC record for the transferring of the data.
+
+* _RecVmeHDLC.c_
+
+[MISSING_PAGE_EMPTY:86]
+
+get_array_info,  put_array_info,  get_units,  get_precision,  get_enum_str,  get_enum_str,  get_enum_str,  get_graphic_double,  get_control_double,  get_alarm_double_ };  static void monitor0;  static long doVnelo0;  static long init_record(pvmendlo, puss)  struct vmehdleRecord "pvmendlo;  int pass;  if (puss==0) {  if (pvmendlo-svmax <= 0) pvmendlo-svmaxel;  pvvmendlo-sbptr = (char *)caloe(pvmehdle-svmax, sizeof(tung));  pvvendlo-sbptr = (char *)caloe(pvmehdle-svmax, sizeof(tenh));  return(0);  return(0); };  static long process(pvmendlo);  struct vmehdleRecord "pvmendlo; {  long status;  status=doVnelo(pvmehdle); };  revGbitGoriTimeStamp(pvmehdle); }; /* check event list */  monitor(pvmehdle); /* process the forward scan link record */  recGbitFwd_link(pvmehdle);  pvvmendlo-sbptr  return(status); };  static long get_value(pvmehdle,pydes)  struct vmehdleRecord *pvmehdle;  struct valueDes *pedes; }  prudes-sno_elems=pvmehdle-snuax;  pvdes-pvvalue = pvmendlo-sbptr;  pvdes-btield_type = DBF_LONG;  return(0); }  static long cvt_dbaddr(paddr)  struct dbAddr *paddr;
+
+[MISSING_PAGE_EMPTY:88]
+
+[MISSING_PAGE_EMPTY:89]
+
+[MISSING_PAGE_EMPTY:90]
+
+[MISSING_PAGE_FAIL:91]
+
+[MISSING_PAGE_EMPTY:93]
+
+[MISSING_PAGE_EMPTY:96]
+
+[MISSING_PAGE_EMPTY:97]
+
+[MISSING_PAGE_EMPTY:99]
+
+## Appendix A Appendix
+
+### A Appendix
+
+The 3
+
+[MISSING_PAGE_EMPTY:101]
+
+[MISSING_PAGE_EMPTY:102]
+
+[MISSING_PAGE_EMPTY:103]
+
+[MISSING_PAGE_EMPTY:104]
+
+[MISSING_PAGE_EMPTY:105]
+
+[MISSING_PAGE_EMPTY:106]
+
+[MISSING_PAGE_EMPTY:107]
+
+[MISSING_PAGE_EMPTY:108]
+
+* [CQ 85] C. Quigg, _Elementary Particles and Forces,_ Readings from Scientific American, Particles and Forces At the Heart of the Matter (1990).
+* [DO 91] J.E. Dodd, _The Ideas of Particle Physics: an introduction for scientists._ Cambridge University Press, Cambridge (1991).
+* [FE 91] T. Ferbel, _Experimental Techniques in High-Energy Nuclear and Particle Physics._ World Scientific Publishing Co., Singapore (1991).
+* [HY 83] B. Hyams et al., _Nucl. Instr. Meth._ 205 (1983).
+* [JC 96] J. Chrin et. al., _Results from the STAR TPC System Test_, submitted to IEEE Transactions on Nuclear Science, (1996).
+* [JG 94] J. Gross, M. Cherney, T.S. McShane, _A Unified Control System for the STAR Experiment_, IEEE Transactions on Nuclear Science, 41 (1994)184.
+* [JG 95a] J. Gross, _Development of a Distributed Slow Control System for the Solenoidal Tracker at RHIC (STAR)._ Masters thesis, Creighton University, 1995.
+* [KL 86] K. Kleinkuecht, _Detectors for Particle Radiation._ Cambridge University Press, 1986.
+* [LO 92] T. Lohse, W. Witzeling, _Instrumentation in High Energy Physics:_ World Scientific Publishing Co., Singapore (1992).
+* [LU 93] T. Ludlum et al., _BNL-49177 Informal Report_ (1993).
+* [PB 95] P. Barale, F. Bieser, J. Hunter, S. Jacobson, S. Klein, C. McParland, _The STAR TPC FEE HDLC Link:_ STAR internal note (1995).
+* [PE 92] A. Peisert, _Instrumentation in High Energy Physics._ World Scientific Publishing Co., Singapore (1992).
+* [SA 77] F. Sauli, _Principles of Operation of Multiwire Proportional and Drift Chambers_, CERN 77-09 (1977).
+* [SK 95] S.R, Klein et al., _Front Find Electronics for the STAR TPC_, submitted to IEEE Transactions on Nuclear Science. (1995).
+
+* [ST 92] STAR Collaboration, _Conceptual Design Report for the Solenoidal Tracker at RHIC (STAR)_. T.BL Document (1992).
+* [WO 94] C. Wong, _Introduction to High-Energy Heavy-Ion Collisions_. World Scientific Publishing Co., Singapore (1994).

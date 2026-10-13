@@ -1,0 +1,973 @@
+[MISSING_PAGE_EMPTY:1]
+
+Accepted by the Graduate Faculty, Indiana University, in partial fulfillment of the requirements of the degree of Doctor of Philosophy.
+
+Doctoral Committee
+
+Swilliam W. Jacobs, Ph.D.
+
+Charles J. Horowitz, Ph.D.
+
+Rex Tayloe, Ph.D.
+
+November 6, 2021
+
+###### Abstract
+
+We report a new measurement of the longitudinal double-spin asymmetry \(A_{LL}\) for neutral pions (\(\pi^{0}s\)) reconstructed in the STAR Endcap Electromagnetic Calorimeter (EEMC) from polarized proton-proton collisions at \(\sqrt{s}=200\) GeV with data taken in 2009. Neutral pion \(A_{LL}\) is directly sensitive to the gluon polarized parton distribution function \(g(x)\), as quark-gluon scattering is the dominant subprocess for \(\pi^{0}\) production at RHIC kinematics. The EEMC is optimized for measurement of \(\pi^{0}s\), with full azimuthal coverage for \(1.086<\eta<2.0\) and a fine granularity, scintillator-based shower maximum detector to distinguish the \(\pi^{0}\)'s signature di-photon decay. In the more forward pseudorapidity region of the EEMC, where inclusive jet measurements are compromised due to charged-particle tracking inefficiencies for \(\eta>1.3\), \(\pi^{0}\)s can be reconstructed accurately, allowing us to probe lower values of partonic momentum fraction \(x\), where \(g(x)\) is poorly constrained.
+
+**Acknowledgements**
+
+I would like to thank my colleagues, teachers, friends, family, and everyone who has supported me in education and research process. I'd like to give a special thanks to my advisor Scott Wissink for taking time to guide my research and teach me all about STAR. Scott modeled excellence as an experimental physicist for me with his standards for rigor and eye for detail. Another special thanks to Will Jacobs for his instruction, advice, sharp criticism, and sharper humor. Will's tireless service is essential to the operation of the STAR Endcap. I would like to extend a thank you to all current and former STAR collaborators at IU CEEM-Gerard Visser, Huanzhoa Liu, Dmitry Kalinkin, Joe Kwasizur, Michael Skoby, Ting Lin, Anselm Vossen, and Brian Page-thank you for camaraderie, shared meals, and answered emails.
+
+I'd like to thank Charles Horowitz for serving on my thesis committee and giving me excellent classroom instruction. I'd like to thank Rex Taloe for advice and support, and for serving as another example of experimental excellence. Furthermore, there are too many names to name but I must thank the whole of the IU Physics Department for providing support, classroom instruction, and examples of excellence. It has been an honor to receive an education at IU and complete research alongside many excellent and distinguished colleagues. Thank you to Moya Wright and the rest of the support staff at CEEM.
+
+Thank you to my collaborators in the Spin group at STAR for interesting discussions and support. Thank you to the many people at BNL, both in CAD and STAR who's tireless effort makes the enormous task of experimental running and data collection possible.
+
+Thanks to the STAR software and computing group for invaluable effort.
+
+Thank you to all my friends and family for good times and care. Thank you to my cousin Amanda Adreani for offering a helpful eye on my work.
+
+Finally, I'd like to thank my parents and sister for love and support, helping me reach where I am. Rachel, Karen, Ron, you are all amazing people. I've seen that parenting through tragedy can be more difficult than completing a dissertation. We lost my brother-in-law Dylan Dickover last year, but his memory lives on in our hearts. My love to my two nephews, this is for you.
+
+## Table of Contents
+
+List of TablesList of Figures
+
+### 1 Introduction
+
+* 1 Deep Inelastic Scattering and Proton Structure
+	* 1.2 Helicity Substructure
+	* 1.3 The RHIC Spin Program and Spin Asymmetries in the study of \(\Delta G\)
+		* 1.3.1 Neutral Pion Double-Spin Asymmetry
+	* 1.4 Thesis Outline
+* 2 RHIC and STAR overview
+	* 2.1 Spin Polarized Proton Collisions at RHIC
+		* 2.1.1 RHIC Accelerator Chain
+
+#### 2.1.2 Spin Dynamics at RHIC
+
+#### 2.1.3 Polarimeters at RHIC
+
+#### 2.2 Solenoidal Tracker at RHIC
+
+#### 2.2.1 Time Projection Chamber
+
+#### 2.2.2 Endcap Electromagnetic Calorimeter
+
+#### 2.2.3 STAR Data Acquisition System and Triggers
+
+#### 3 Data Sample and Simulation Studies
+
+#### 3.1 Data Sample
+
+#### 3.1.1 Data Quality Assurance
+
+#### 3.2 Simulation/Embedding Dataset
+
+#### 3.2.1 Levels of Jet Information
+
+#### 3.3 Photon shape study
+
+#### 4 Software Development for Neutral Pion Reconstruction
+
+#### 4.1 Pion Decay in the Endcap
+
+#### 4.2 Pion Finder Introduction
+
+#### 4.3 The Cluster-Maker
+
+#### 4.3.1 Basic function of the Cluster-Maker
+The Point-Maker
+* 4.5 The Pion-Maker
+* 5 \(A_{ll}\) Analysis of \(\pi^{0}\)s in the STAR EEMC
+	* 5.1 Spin Sorting and Normalization of Diphoton Invariant Mass Plot
+		* 5.1.1 Binning by Polarization
+		* 5.1.2 Spin Pattern
+		* 5.1.3 Relative Luminosity Normalization
+	* 5.2 Diphoton Invariant Mass Fit Procedure and \(\pi^{0}\) Yields
+		* 5.2.1 Diphoton Invariant Mass Fit
+		* 5.2.2 Counting \(\pi^{0}\)s to calculate \(A_{LL}\)
+		* 5.2.3 Central \(p_{T}\) value
+	* 5.3 Data Monte Carlo Comparison
+		* 5.3.1 Comparison of Diphoton Invariant Mass Distributions Between Data and Simulation
+		* 5.3.2 Pion Reconstruction efficiency
+	* 5.4 False Asymmetries
+	* 5.5 Statistical Uncertainty Calculation
+	* 5.6 Systematic Uncertainties
+		* 5.6.1 Luminosity and Polarization Uncertainty
+
+[MISSING_PAGE_EMPTY:9]
+
+List of Tables
+* 2.1 Jet patch geometry in 2009.
+* 2.2 Jet patch thresholds in 2009. Set 1 is through run 10125061.
+* 5.1 The four spin patterns used in 2009. The '+' represents positive helicity and the '-' represents negative helicity.
+* 5.2 Spin patterns for the four relevant helicity states.
+* 5.3 Lower and upper ranges used in the pion invariant mass peak fit. Area around \(\eta\) peak from 0.450 to 0.650 is excluded from the fit range.
+* 5.4 \(\chi^{2}\) value for fits made at skew = 4.0, 6.0 and 8.0 in six \(p_{T}\) bins. Number of degrees of freedom is given in the right column. Nothing has been changed in the fit (for a given \(p_{T}\) bin) other than fixed skew. The \(\chi^{2}\) values indicate that choice of skew between these values does not compromise the quality of the fits.
+* 5.5 Average value for \(p_{T}\) in each of the nine bins for the three polarization bins.
+* 5.6 Average efficiency value for each of the nine \(p_{T}\) bins.
+
+Values for fit uncertainties from each of the polarization bins. Lowest polarization bin at the top, followed by the next polarization bin in the middle, and the high polarization bin at the bottom.
+* 5.8 Values for the longitudinal double-spin asymmetry for inclusive \(\pi^{0}\) production from three independent data sets. Statistical uncertainties and systematic uncertainties from the fitting procedure are also included.
+
+List of Figures
+	* 1.1 Feynman diagram for lepton-proton Deep Inelastic Scattering (DIS) process
+	* 1.2 World Data for proton structure function \(F_{2}^{p}\) with fixed \(x\) as a function of \(Q^{2}\). Near \(Q^{2}\) independence demonstrates Bjorken Scaling. [1]
+	* 1.3 World Data for \(g_{1}(x,q^{2})\) for the proton. The data shows a great deal of agreement between COMPASS and HERMES results.
+	* 1.4 Monte Carlo replicas for gluon helicity density \(\Delta g(x,Q^{2})\) at \(Q^{2}=10\) GeV\({}^{2}\) shown by dotted blue lines. Solid Blue shows statistical average. DSSV14 fit in black, NNPDF in green. Dot Dashed lines show variance. (Structure Function Chapter of PDG [2])
+	* 1.5 Feynman diagrams of partonic interactions for gg, qg and qq sub-processes.
+	* 1.6 Fractional contribution from sub-processes (gg, gq, and qq) to neutral pion cross section for 200 GeV pp collisions at central \(\eta=0\) (left) and at forward \(\eta=3.3\) (right) pseudo-rapidity. [3])
+Plots of Dijet \(A_{LL}\) from central rapidity in 2009 at STAR. Top plot shows dijets in with same sign pseudorapidity and bottom plot shows dijets with opposite sign pseudorapidity.
+* 1.8 Plot of Dijet \(A_{LL}\) from analysis that takes data from both BEMC and EEMC.
+* 1.9 Plot showing the impact from 2009 dijet analyses on the global fit of \(\Delta G\).
+* 2.1 The RHIC accelerator complex at BNL.
+* 2.2 Cross section of the RHIC pC polarimeter
+* 2.3 Schematic for the RHIC H-Jet polarimeter
+* 2.4 Schematic of one half of the EEMC (left) and the setup of layers of an individual section of the EEMC (right).
+* 2.5 Cross section shows simulated shower passing through layers of EEMC Tower.
+* 2.6 U and V layers of the EEMC SMD with a cross section of the overlapping triangular strips.
+* 2.7 Asymmetric layout of the EEMC SMD sub-layers
+* 3.1 Double Gaussian fit of average photon profile plot from photon shape study. The mean of the Double Gaussian is set to 100, the two amplitudes are p0 and p2 with widths p1 and p3 respectively.
+
+Average photon profile plot for U and V planes for the three different SMD plane orderings.
+* 3.3 The fitting parameters as determined by plot from Figure 3.2. Parameters are deemed consistent enough so a single value is used for each parameter instead of varying by layer.
+* 3.4 SMD signal from pion gun simulation. Two photons fit with double Gaussian are distinct and visible in each plane of the SMD.
+* 4.1 An illustration of how a \(\pi^{0}\) candidate is constructed. The \(\pi^{0}\) is made from two points which are each constructed from a cluster in the U plane and a cluster in the V plane.
+* 4.2 Two nearby photons re-fit for the mean adjustment and chi-square test.
+* 4.3 2D histogram of single Gaussian and two Gaussian fit \(\chi^{2}/ndf\) for clusters within 3 SMD strips of each other.
+* 4.4 An example illustrating the working of Point-Maker. Two clusters in U and V form four intersections but only three point candidates because leftmost point is not over an active tower. The top point candidate is added to the point pool because it has the best energy matching between U and V and its two clusters are removed. On the right the two remaining clusters create a single intersection which will also be added to the point pool.
+
+Simple case of a candidate for the splitting algorithm. The single U cluster might be interpreted as two photons which were close in U strips but further separated in V.
+* 4.6 A diagram of patterns for point candidates (in red) in the two SMD planes. From left to right the first point candidate would be classified as a solitary point, the next two points point candidates would qualify for the splitting algorithm, the last four would be picked according to their relative energy ratio.
+* 5.1 Diphoton invariant mass plot (x-axis units of GeV/c\({}^{2}\)) for a single \(p_{T}\) bin created using the Pion Finder algorithm. Both \(\pi^{0}\) and \(\eta\) meson physics peaks are visible. Fit was created using a multi-term exponential for background and a skewed Gaussian for \(\pi^{0}\) peak.
+* 5.2 Number of counts above background in \(\pi^{0}\) mass range vs \(p_{T}\) for the low polarization bin. This distribution is used to determine the average \(p_{T}\) for the nine bins.
+* 5.3 Generated \(\pi^{0}\)\(p_{T}\) (left) and energy (right) for Pythia embedding for events within the \(\eta\) range of the EEMC.
+* 5.4 Generated \(\eta\) (left) and \(\phi\) (right) for \(\pi^{0}\)s for within the \(\eta\) range of the EEMC.
+
+Diphoton invariant mass plots created with pion reconstruction software. Comparing real data (top) with Phythia embedded in real background (bottom). Because of limited statistics for embedding, for this comparison the data is split up into six \(p_{T}\) bins instead of the usual nine used in the analysis. 78
+	* 5.6 Comparing the fitting parameters between doing the fit of diphoton invariant mass plot from real data (in black) and embedding data (in blue).
+	* 5.7 \(p_{T}\) for reconstructed \(\pi^{0}\)s (left). Requires a \(\pi^{0}\) count with \(\eta\) in the EEMC range and within \(\Delta R<0.40\) of a simulated \(\pi^{0}\). \(p_{T}\) for generated \(\pi^{0}s\) (left) that were matched within \(\Delta R<0.40\).
+	* 5.8 Energy for reconstructed \(\pi^{0}\)s (left). Requires a \(\pi^{0}\) count with \(\eta\) in the EEMC range and within \(\Delta R<0.40\) of a simulated \(\pi^{0}\). Energy for generated \(\pi^{0}s\) (left) that were matched within \(\Delta R<0.40\).
+	* 5.9 Efficiency calculated as the number of \(\pi^{0}\) candidates successfully reconstructed divided by the number of neutral pions generated by Pythia. A pion candidate is considered successfully reconstructed if it is found under the \(\pi^{0}\) mass curve from 80 - 190 MeV and within \(\Delta R<4.00\) of generated \(\pi^{0}\)s.
+5.10 False longitudinal spin asymmetries in order: Blue beam single-spin asymmetry (upper left), yellow beam beam single-spin asymmetry (upper right), like-sign double-spin asymmetry (lower left), and unlike-sign double-spin asymmetry (lower right). Lowest polarization results shown in green, middle polarization results shown in blue, and highest polarization bin shown in red.
+5.11 Double-spin asymmetry plotted against \(p_{T}\). Bars give statistical uncertainty and boxes give fit systematics. Lowest polarization results shown in green, middle polarization results shown in blue, and highest polarization bin shown in red. The DSSV14 theory curve is shown in black.
+
+## Chapter 1 Introduction
+
+The proton was discovered as an atomic building block in 1917 when Ernest Rutherford performed a series of experiments involving alpha particles passing through nitrogen gas. Rutherford observed the creation of hydrogen gas in his experiments leading to the hypothesis that the hydrogen nucleus (our proton) already existed within the nucleus of nitrogen and other elements [4][5].
+
+In 1933, Otto Stern found the first experimental evidence suggesting that the proton contained an internal structure, when he measured its relatively large anomalous magnetic moment [6]. In the 1960s and '70s, Deep Inelastic Scattering (DIS) experiments led to the parton model, Quantum Chromodynamics (QCD), and the discovery of quarks and gluons.
+
+Despite the massive progress that has been made in understanding the internal structure of the proton, some interesting puzzles still remain. One such puzzle is how the various partons contribute to the proton's spin 1/2 quantum number. The measurements describedin this thesis are designed to help constrain the contribution to proton spin by intrinsic gluon spin.
+
+### 1.1 Deep Inelastic Scattering and Proton Structure
+
+One of the most important tools for studying internal structure of nucleons has been lepton-nucleon scattering. Elastic measurements, where the proton largely stays intact, can give bulk measurements such as charge radius. Probing the internal structure of a nucleon requires the larger amount of momentum transfer (\(Q^{2}\)) found in Deep Inelastic Scattering (DIS) processes. As a consequence of Bjorken scaling, (discussed below) at high \(Q^{2}\) DIS has the ability to resolve point-like constituents inside of a proton. More information on DIS can be found in [7][8][9].
+
+Figure 1.1: Feynman diagram for lepton-proton Deep Inelastic Scattering (DIS) process
+
+The DIS unpolarized cross section is written as
+
+\[\frac{d^{2}\sigma}{d\Omega dE^{\prime}}=\frac{4\alpha^{2}E^{\prime 2}}{Q^{4}}(2W_{1 }sin^{2}\frac{\theta}{2}+W_{2}cos^{2}\frac{\theta}{2}), \tag{1.1}\]
+
+where \(\alpha\) is the fine structure constant, \(E^{\prime}\) is the energy of the scattered lepton, \(\theta\) is the lepton scattering angle, and \(W_{1}\) and \(W_{2}\) are the inelastic structure functions which depend on energy loss (\(\nu\)) and \(Q^{2}\).
+
+It was proposed by Bjorken in 1969 [10] that for large \(Q^{2}\) the inelastic structure functions, \(W_{1}\) and \(W_{2}\), could be expressed in terms of a single dimensionless variable now known as Bjorken-x (Equation 1.4). This result was quickly confirmed by DIS at the Stanford Linear Accelerator Center (SLAC) [11][12]. With what is known as Bjorken scaling applied, the inelastic structure functions can now be written as
+
+\[F_{1}(x)=MW_{1}(\nu,Q^{2}), \tag{1.2}\]
+
+\[F_{2}(x)=MW_{1}(\nu,Q^{2}), \tag{1.3}\]
+
+where,
+
+\[x\equiv\frac{Q^{2}}{2M\nu}, \tag{1.4}\]
+
+and \(M\) is the target nucleon's mass. Experimental data for Bjorken scaling is shown in Figure 1.2.
+
+The observed relatively weak dependence of \(F_{1}\) and \(F_{2}\) on \(Q^{2}\) would be interpreted by Feynman [13] as evidence for what became known as the parton model. In this model, high \(Q^{2}\) scatterings can be understood as the lepton scattering off of quasi-free point-like constituent particles (known as partons) inside of the proton radius. Figure 1.1 shows a Feynman diagram for DIS scattering, in which the electron scatters off of a parton (one of the proton's valence quarks) via photon exchange.
+
+Bjorken and Paschos [14] proposed \(quarks\), spin-1/2 particles governed by a local quantum field theory based on gauge group SU(3), as candidates for partons. Quarks had been predicted earlier in 1964 by Gell-Mann [15] and Zweig [16][17]. In the quark-parton model the proton is made up of three \(valence\;quarks\) (uud), which carry a large fraction of the proton's momentum, and a multiplicity of \(sea\;quarks\), which consist of quark anti-quark pairs. Kuti and Weisskopf [18] advanced the quark-parton model to include gluons as a neutral force carrier holding the proton together and carrying momentum not experimentally accounted for by quarks and anti-quarks.
+
+In the regime where \(Q^{2}\) is greater than a few GeV\({}^{2}\) the two structure functions (Equations 1.2 and 1.3) are no longer independent but satisfy the Callan-Gross [19] relation, \(F_{2}(x)=2xF_{1}(x)\), predicted for spin 1/2 quarks. Experimental results proved quarks very promising, describing both the proton's free point-like internal structure, and the large DIS cross sections observed at low Bjorken-x where structure is dominated by sea quarks and gluons.
+
+A consequence of the parton model is that the structure functions must contain some information about the probability of finding a given quark. Rewriting the functions in terms of quark Probability Density Functions (PDF) gives
+
+\[F_{2}(x)=2xF_{1}(x)=\sum_{i}e_{i}^{2}x(q_{i}(x)+\bar{q}_{i}(x)), \tag{1.5}\]
+
+where quark flavors are being summed over, \(q_{i}(x)\) (\(\bar{q}_{i}(x)\)) are the PDFs for a given quark (anti-quark) flavor, and \(e_{i}\) is the charge associated with the flavor of quark.
+
+The main early difficulty for the quark model was accounting for the confinement of the quarks within the nucleon. Quarks had to have relatively weak quark interactions over short distance scales, but strong quark interactions over long distance scales. The weak short distance interactions are experimentally shown through a small (logarithmic) dependence on \(Q^{2}\) in the structure functions. These effects require a large range of \(x\) to be probed as demonstrated in Figure 1.2.
+
+Quantum Chromodynamics (QCD) emerged as the leading quantum field theory to describe nucleons and the strong Force. QCD has the property of asymptotic freedom which allows strong interactions to become weak at high energies or short distance scales. Asymptotic freedom in QCD'rehabilitated' quantum field theory by explaining the unusual properties of attraction in the quark-parton model: both the weak interactions at short distances and confinement [20]. This property gives rise to the \(F_{2}\) structure function's logarithmic \(Q^{2}\) dependence in QCD. It is interesting that, while the leptons are unable to probe gluons directly, studying Bjorken scaling violation gives an indirect way to study gluons and make insights into QCD utilizing DIS.
+
+Figure 1.2: World Data for proton structure function \(F_{2}^{p}\) with fixed \(x\) as a function of \(Q^{2}\). Near \(Q^{2}\) independence demonstrates Bjorken Scaling. [1]
+
+Helicity Substructure
+
+So far this discussion of proton structure has not included the matter on hand: spin. Early DIS experiments generally operated on the assumption that the spins of incoming and outgoing leptons, as well as the target nucleon, were well averaged over. Study of polarized DIS has led to new developments in QCD including proton spin, which has received much attention the past 30 years. Overviews of polarized DIS experiments can be found here [21][22][23][24].
+
+In polarized DIS, cross sections were measured with longitudinally polarized proton and lepton beams. Comparing the cross sections in cases where the beam spins are parallel compared to anti-parallel leads to two new structure constants \(g_{1}(\nu,Q^{2})\) and \(g_{2}(\nu,Q^{2})\), though the \(Q^{2}\) dependence is expected to be weak. This is expressed as
+
+\[\frac{d^{2}\sigma^{A}}{d\Omega dE^{\prime}}-\frac{d^{2}\sigma^{P}}{d\Omega dE^ {\prime}}=\frac{4\alpha E^{\prime}}{Q^{2}E}[(E+E^{\prime}cos\theta)mg_{1}-Q^{2 }g_{2}], \tag{1.6}\]
+
+where \(\sigma^{A}\) and \(\sigma^{P}\) are the cross sections for the anti-parallel and parallel polarizations respectively, and E is the incident lepton energy. Bjorken Scaling also applies for polarized DIS so the structure functions are re-expressed as \(g_{1}(x,Q^{2})\) and \(g_{2}(x,Q^{2})\). As with the unpolarized case, one of the new structure functions can be related to probabilities
+
+\[g_{1}(x)=\frac{1}{2}\sum_{i}e_{i}^{2}[\Delta q_{i}(x)+\Delta\bar{q}_{i}(x)], \tag{1.7}\]
+
+where \(\Delta q(x)\) (\(\Delta\bar{q}(x)\)) are the helicity distributions for quark (anti-quark) flavor \(i\). Helicitydistribution is the PDF of a preference for finding a quark (or anti-quark) of a given flavor with spin parallel to the direction of the proton's spin. Simply expressed in terms of PDFs
+
+\[\Delta q(x)=q^{P}(x)-q^{A}(x), \tag{1.8}\]
+
+where \(q^{P}(x)\) is the PDF of finding a quark whose spin is parallel to the spin of the proton, and \(q^{A}(x)\) anti-parallel to the spin of the proton. World data for \(g_{1}(x)\) can be found in Figure 1.3.
+
+Unlike the first structure function which we were able to directly relate to probabilities (Equation 1.7), the second polarized structure function \(g_{2}(x)\) proves far more difficult to assign a physical interpretation and observe. The discussion of this is outside the scope of this paper but a discussion of \(g_{2}(x)\) can be found in [25].
+
+It seems an intuitive assumption that the spin of the proton, analogous to electric charge, would be the vector sum of the spins of the valence quarks. In fact the early quark parton model assumed this would be nearly the case. Using polarized DIS and observables based on \(g_{1}(x)\) this assumption could be tested. In the late 80s, the European Muon Collaboration (EMC) measured the spin structure function \(g_{1}(x)\) in a Bjorken-x range between 0.01 and 0.7 [26][27]. The result implied that quarks and anti-quarks only carry a small fraction (\(\sim 20\%\)) of the proton's spin, assuming a contribution from an unpolarized strange quark. This is significantly smaller than the theoretical expectation (\(\sim 60\%\)) from the relativistic quark-parton model proposed by Jaffe and Ellis [28]. This large variation from theory became known as the "proton spin crisis" and motivated increased theoretical and experimental interest into the origin of the proton's spin.
+
+Figure 1.3: World Data for \(g_{1}(x,q^{2})\) for the proton. The data shows a great deal of agreement between COMPASS and HERMES results.
+
+[MISSING_PAGE_FAIL:27]
+
+\[\Delta G=\int dx\Delta g(x,Q^{2}). \tag{1.11}\]
+
+\(\Delta g(x)\) is an analogous helicity distribution for gluons, and can be defined as the preference at a given x for finding a gluon with spin parallel to the direction of the proton spin. The 1/2 factor is on \(\Delta\Sigma\) in Equation 1.9 since quarks have spin-1/2 whereas gluons are spin-1. Further discussion of decomposing spin and operator definitions can be found in [32][33][34].
+
+### 1.3 The RHIC Spin Program and Spin Asymmetries in the study of \(\Delta G\)
+
+Similar to how scaling violations in \(F_{2}(x,Q^{2})\) is caused by and gives insight into the gluon, scaling violations in \(g_{1}(x,Q^{2})\) give insight into polarized gluons and help constrain \(\Delta G\). There is not a large enough range in \(Q^{2}\) in \(g_{1}(x,Q^{2})\) measurements to properly constrain \(\Delta G\), due to the limited energy range of current lepton-nucleon facilities..
+
+Constraining \(\Delta G\) is a main motivation for the RHIC spin program. High energy polarized pp collisions can probe \(\Delta g(x,Q^{2})\) via quark-gluon and gluon-gluon interactions (described below). Current fits from theory groups constraining \(\Delta G\) using data from RHIC and elsewhere are shown in Figure 1.4. More information about work done by theory groups can be found in [2][35][36].
+
+The observable most sensitive to \(\Delta G(x)\) is the longitudinal double-spin asymmetry \(A_{LL}\)Double-spin asymmetries are simply constructed and defined as the direct measurement of the spin dependencies of the process's cross section. The assymetry of interst can be expressed as
+
+\[A_{LL}=\frac{d\Delta\sigma}{d\sigma}=\frac{(d\sigma^{++}+d\sigma^{--})-(d\sigma^{ +-}+d\sigma^{-+})}{(d\sigma^{++}+d\sigma^{--})+(d\sigma^{+-}+d\sigma^{-+})}. \tag{1.12}\]
+
+where \(\sigma\) refers to the cross section for some process (for this paper the \(\pi^{0}\) cross section) and \(\Delta\sigma\) is the cross section's preference for production by like-signed pp collisions. For clarity \(d\sigma\) is conveniently decomposed into its constituents, a + or - for each proton's polarization.
+
+By factorizing Equation 1.12 into perturbative and non-perturbative terms we can tease out the dependency of \(A_{LL}\) to gluon polarization. Following [37] and with the process
+
+Figure 1.4: Monte Carlo replicas for gluon helicity density \(\Delta g(x,Q^{2})\) at \(Q^{2}=10\) GeV\({}^{2}\) shown by dotted blue lines. Solid Blue shows statistical average. DSSV14 fit in black, NNPDF in green. Dot Dashed lines show variance. (Structure Function Chapter of PDG [2])
+
+\(a+b\to c+X\):
+
+\[A_{LL}=\frac{\sum_{abc}\Delta f_{a}\times\Delta f_{b}\times d\hat{\sigma}^{f_{a}f_{ b}\to f_{c}x}\times D^{f}_{\pi^{0}}\hat{a}^{f_{a}f_{b}\to f_{c}x}_{LL}}{\sum_{abc}f_{a} \times f_{b}\times d\hat{\sigma}^{f_{a}f_{b}\to f_{c}x}\times D^{f}_{\pi^{0}}}. \tag{1.13}\]
+
+\(\hat{\sigma}\) represents the hard partonic cross section and \(\hat{a}_{LL}\) represents the partonic double-helicity asymmetry; both these values are calculated within perturbative QCD. \(\Delta f\) is the polarized parton distribution function and \(f\) is the unpolarized parton distribution function. So gluonic subprocesses yield a \(\Delta g\) dependence for \(A_{LL}\). If the scattering being measured is dominated by single subprocess \(A_{LL}\) can be approximated by
+
+\[A_{LL}\approx\frac{\Delta f_{a}}{f_{a}}\frac{\Delta f_{b}}{f_{b}}\hat{a}^{proc }_{LL}, \tag{1.14}\]
+
+where \(\hat{a}_{LL}\) is the process-specific spin coefficient for partonic hard scattering.
+
+For high energy proton-proton collisions the hadronic reaction can be decomposed in terms of long-range and short-range contributions [38]. The long-range contribution is sensitive to parton distribution within the nucleon structure. The short range parts come from interactions of partons and are therefore process-independent.
+
+Partonic interactions are either between a gluon and a gluon (gg), a gluon and quark (qg) or two quarks (qq). Feynman diagrams for these subprocesses are shown in Figure 1.5. The gg subprocess has a \((\Delta g)^{2}\) term meaning an \(A_{LL}\) observable dominated by this subprocess will not readily reveal \(\Delta g\) sign information, while the qq subprocess has no dependence on \(\Delta g\) whatsoever. The qg subprocess is preferable because it contains a single \(\Delta g\) term, and as discussed above the \(\Delta q\) is well defined from polarized SIDIS. The final term from 1.14, the process-specific spin correlation (\(\hat{a}_{LL}\)) is predicted with excellent accuracy at high energies using perturbative QCD [39].
+
+#### Neutral Pion Double-Spin Asymmetry
+
+The neutral pion (\(\pi^{0}\)) cross section for the reaction \(pp\to\pi^{0}+X\) is dominated by the qg subprocess at RHIC collision energies [40]. Therefore it's found that the \(\pi^{0}\) double-spin asymmetry is able to provide strong constraints on the gluon spin.
+
+Fractional cross sections for \(\pi^{0}\)s from 200 GeV pp collisions are shown for gg, gq, and qq subprocesses in Figure 1.6. The left plot shows central rapidity \(\eta=0\) for \(\pi^{0}\)s with transverse momentum between 1 and 15 GeV/\(c\) and right shows forward rapidity \(\eta=3.3\) for \(\pi^{0}\) energy between 30 and 60 GeV. The qg subprocess dominates the cross section
+
+Figure 1.5: Feynman diagrams of partonic interactions for gg, qg and qq sub-processes.
+
+for the forward rapidity plot; this demonstrates that \(\pi^{0}\) production will be sensitive to gluon polarization in STAR kinematics. The left plot shows that the greatest sensitivity to gluon polarization is found in the intermediate pT range from about 5 to 15 GeV. NLO calculations of parton distributions can be found here [41], and NLO pion production from longitudinal pp collisions here [42][43][44].
+
+High \(p_{T}\)\(\pi^{0}\)s are produced in abundance at RHIC from proton-proton collisions. With a high branching ratio to a signature two photon decay it is also easy to detect \(\pi^{0}\)s at STAR. Since \(\pi^{0}\)s can be detected in abundance and their production is dominated by favorable sub-processes they are an excellent candidate to calculate a Double-Spin Asymmetry and help constrain \(\Delta G\).
+
+Experimentally constructing \(A_{LL}\) involves a bit more nuance than Equation 1.12 immediately lets on. In the experimental context at high energies, perfect beam polarization
+
+Figure 1.6: Fractional contribution from sub-processes (gg, gq, and qq) to neutral pion cross section for 200 GeV pp collisions at central \(\eta=0\) (left) and at forward \(\eta=3.3\) (right) pseudo-rapidity. [3])
+
+Figure 1.7: Plots of Dijet \(A_{LL}\) from central rapidity in 2009 at STAR. Top plot shows dijets in with same sign pseudorapidity and bottom plot shows dijets with opposite sign pseudorapidity.
+
+is not obtainable. Beam polarization and luminosity vary by fill and with time. In the context of RHIC and STAR, the two beams are separated into various bunches scattering at bunch crossings with each beam independently being either parallel or anti-parallel to the beam line. This leads to four types of bunch crossings. The net luminosity for each crossing as well as beam polarization information are then needed to calculate \(A_{LL}\). There are several valid normalization schemes; for this analysis the basic equation used is as follows:
+
+\[A_{LL}=\frac{1}{p_{b}p_{y}}\frac{(N^{++}+N^{--})-R_{3}(N^{+-}+N^{-+})}{(N^{++}+ N^{--})+R_{3}(N^{+-}+N^{-+})} \tag{1.15}\]
+
+where \(p_{b}\) and \(p_{y}\) are the polarization of the blue and yellow beam respectively, N is the raw count of \(\pi^{0}\)s from a bunch crossing with +/- blue (yellow) polarization. \(R_{3}\) accounts for luminosity normalization and is given in Equation 1.16 where \(L\)s are the luminosity values for various types of bunch crossings. More detail on the experimental set up can be found in Chapter 2, and \(A_{LL}\) calculation details will be presented in Chapter 5.
+
+\[R_{3}=\frac{\mathcal{L}^{++}+\mathcal{L}^{--}}{\mathcal{L}^{+-}+\mathcal{L}^{-+}} \tag{1.16}\]
+
+PHENIX, another detector formerly on the RHIC beam line, had a higher trigger rate and was able to reconstruct more \(\pi^{0}\)s at central rapidity compared to STAR [45][46][47]. The STAR Endcap can be utilized to reconstruct pions at a more forward rapidity than at PHENIX. A more forward reconstruction range potentially allows for the constraining of \(\Delta G\) in the crucial region of lower Bjorken-x. A pion study of pp 200 \(GeV\) photonshas also been completed at STAR using the 2006 dataset [48]. STAR has the capability to reconstruct even farther forward rapidity pions using the Forward Meson Spectrometer (FMS).
+
+Jet and dijet \(A_{LL}\) has been a main observable for constraining \(\Delta G\) at STAR. Jet and dijet production are also dominated by qg and gg interactions. The same pp 200 \(GeV\) dataset analyzed in this paper has been used to reconstruct dijets, measure \(A_{LL}\), and constrain \(\Delta G\) at central and intermediate rapidity. Figure 1.7 shows dijet \(A_{LL}\) results at central-rapidity, and Figure 1.8 shows the same for intermediate rapidity. Figure 1.9 shows how these 2009 dijet studies from STAR have helped to constrain the DSSV group theory fit of \(\Delta G\).
+
+### 1.4 Thesis Outline
+
+So far a background for the research presented has been given. Chapter 1 has included the developments in particle physics leading up to proton sub-structure and the so-called proton spin crisis. Experimental exploration of spin-1/2 has been introduced focusing on the work done at STAR. Finally the topic at hand of measurements of \(\pi^{0}\)\(A_{LL}\) for constraining \(\Delta G\) is explored. Chapter 2 will give further information about the facilities at RHIC and STAR as they were during data taking in 2009.
+
+Chapter 3 discusses the creation of the data set as well as the simulated data. In chapter 4 the structure and function of the di-photon reconstruction algorithm, as well as developments and changes made to the procedure and code, is explained. ChapterFigure 1.8: Plot of Dijet \(A_{LL}\) from analysis that takes data from both BEMC and EEMC.
+
+5 will discuss calculation of \(A_{LL}\) from reconstructed di-photons and systematic errors. Comparison between data and simulation will be shown, and results will be presented. Chapter 6 will give some concluding remarks.
+
+Figure 1.9: Plot showing the impact from 2009 dijet analyses on the global fit of \(\Delta G\).
+
+## Chapter 2 RHIC and STAR overview
+
+### 2.1 Spin Polarized Proton Collisions at RHIC
+
+The Relativistic Heavy Ion Collider (RHIC) located at Brookhaven National Lab (BNL) in Upton, New York is the first and only collider in the world capable of colliding beams of high energy spin polarized protons. Protons can be longitudinally (or transversely) polarized and accelerated to center of mass energies of 200 GeV or 510 GeV. A diagram of the layout of RHIC is shown in Figure 2.1. RHIC was designed to be versatile and is also the first collider capable of colliding ultra-relativistic heavy ions. RHIC is a useful facility for studying Quark Gluon plasma and parton contribution to proton spin. A more complete overview of RHIC can be found in [49], [50], and [51].
+
+#### RHIC Accelerator Chain
+
+The RHIC accelerator chain begins with an optically pumped polarized \(H^{-}\) ion source (OPPIS) constructed for RHIC polarization from the OPPIS at KEK. The OPPIS beam produces pulses of \(~{}9\times 10^{11}\) ions \(300-500~{}\mu\)s long with a \(.5\) mA current and \(80\%\) polarization. The \(H^{-}\) ions are accelerated from 35 keV to 200 MeV using a radio-frequency quadripole (RFQ) accelerator and a 200 MHz Linear Accelerator (LINAC). The initial Longitudinal polarization from OPPIS is converted to transverse during injection when the beam passes through the two bending magnets. Polarization alignment can be adjusted by a spin rotator solenoid prior to injection into the LINAC. OPPIS pulses are also directed toward a 200 MeV p-carbon polarimeter to monitor polarization.
+
+Figure 2.1: The RHIC accelerator complex at BNL.
+
+When the pulse is strip-injected into the booster it becomes a single bunch. This process has about a 60% efficiency therefore each bunch contains about \(~{}4\times 10^{11}\) protons. The booster accelerates the bunch to 1.5 GeV and transfers it to the Alternating Gradient Synchrotron (AGS) which accelerates it up to 25 GeV for injection into one of the two RHIC rings. The RHIC rings accelerate and store protons at the desired experimental energy and allow for collisions. RHIC's two rings are concentric and quasi-circular: protons travel clockwise in the blue ring and counterclockwise in the yellow beam. From when the AGS begins injection of bunches until RHIC dumps its beam is known as a "fill". The efficiency of beam transfer from AGS and acceleration is near 50%, leaving about \(~{}2\times 10^{11}\) protons per bunch. It takes about ten minutes for the protons to ramp up to full energy, which is small compared with the potential length of a fill. RHIC is able to accommodate 120 bunches per ring.
+
+#### Spin Dynamics at RHIC
+
+A major challenge for spin polarized proton-proton collisions is maintaining beam polarization during acceleration. The precision of the spin of a beam is governed by the Thomas-BMT equation:
+
+\[\frac{d\vec{P}}{dt}=-\frac{e}{\gamma m}[\gamma G\vec{B}_{\perp}+(1+G)\vec{B}_{ \parallel}]\times\vec{P}, \tag{2.1}\]
+
+where \(\vec{P}\) is the polarization vector in the rest frame, \(\vec{B}\) is the magnetic field, \(G\) is the anomalous magnetic moment, and \(\gamma\) is the Lorentz factor [52].
+
+This can be compared with the Lorentz force equation for the motion of a particle in a synchrotron with an external magnetic field:
+
+\[\frac{d\vec{v}}{dt}=-\frac{e}{\gamma m}\vec{B}_{\perp}\times\vec{v}. \tag{2.2}\]
+
+For an ideal ring with magnetic fields completely perpendicular to the motion of the particle \(\vec{B}_{\parallel}\) becomes zero in equation (2.1). This leads to equations (2.1) and (2.2) differing by a constant factor of \(\gamma G\), known as the \(spin\,tune\) (\(v_{sp}\)) which indicates the number of full spin precessions per circuit of the ring.
+
+Stepping away from the ideal ring towards a real synchrotron with nonzero \(B_{\parallel}\), a major difficulty for spin polarized beams at high energies is having magnetic fields creating depolarizing resonances. Whenever the spin precession frequency of the beam is a rational fraction of oscillation of the focusing magnetic fields, a depolarizing resonance occurs.
+
+The main two types of depolarizing resonances are _imperfection resonances_ caused by magnetic errors and misalignments, and _intrinsic resonances_ caused by focusing fields. The traditional techniques utilized to combat depolarizing resonances employed in the AGS, such as betatron tune jump and harmonic corrections of the vertical orbit [53], are not sufficient for the high energy acceleration at RHIC. A novel technique, the "Siberian Snake" was developed to overcome depolarizing resonances at RHIC's high energies [54]. The Siberian Snake is made up of a series of helical dipole magnets which generate a \(180^{\circ}\) spin rotation about a horizontal axis allowing the stable spin direction to remain unperturbed. To put it another way, the Siberian Snake avoids resonances by fixing the spin tune independent of energy. Two Siberian Snakes are placed on RHIC for the two beam lines. The Siberian Snake concept was first tested at the IUCF Cooler Ring [55].
+
+Additionally, helical dipole magnets called spin rotators are placed on either side of the interaction zones. There are two rotators per beam line per interaction zone. The first spin rotator flips the spin \(90^{\circ}\) from vertical polarization to transverse for collisions at STAR or PHENIX. The second flips the spin back to vertical to continue around the ring without losing polarization.
+
+#### Polarimeters at RHIC
+
+Measurements of beam polarization are an invaluable part of the RHIC Spin Physics Program. They provide important spin asymmetry measurements and accelerator performance feedback. Two types of polarimeters are utilized at RHIC: two proton-Carbon (pC) polarimeters, one per beam, were used to measure relative polarization [56], and a hydrogen gas jet (H-jet) polarimeter was used for absolute polarization measurements [57]. The location of the polarimeters can be found in Figure 2.1
+
+Relative vertical beam polarization is determined by measuring the left-right asymmetry in p+C scattering defined by
+
+\[P_{beam}=\frac{1}{A_{N}^{pC}}\frac{N_{L}-N_{R}}{N_{L}+N_{R}}=\frac{\epsilon}{A _{N}^{pC}}, \tag{2.3}\]
+
+where \(P_{beam}\) is beam polarization, \(A_{N}^{pC}\) is the effective pC analyzing power, \(N_{L}\) and \(N_{R}\) are numbers of carbon nuclei scattered left and right of beam polarization direction normalized by luminosity, and \(\epsilon_{beam}\) is the raw asymmetry. Since the absolute analyzing power (\(A_{N}^{pC}\)is not well known at RHIC energies, the pC polarimeter is only used for relative and not absolute polarization.
+
+In the pC polarimeter a thin carbon ribbon target is used; protons are scattered at very forward angles with the carbon recoiling nearly perpendicular to the beam. Six silicon strip detectors are mounted in a vacuum chamber as shown in Figure 2.2. An advantage of relative polarization measurements with a pC polarimeter is that high statistics measurements can be made in less than one minute. The pC polarimeters give invaluable data, comparing polarization measurements between different fills as well as tracking polarization loss over the course of a given fill. Additionally, a polarization profile, or the dependence of polarimeter polarization on the beam polarization is not well known at RHIC energies, the pC polarimeter is only used for relative and not absolute polarization.
+
+Figure 2.2: Cross section of the RHIC pC polarimeter
+
+[MISSING_PAGE_EMPTY:44]
+
+\[A_{N}^{pp}=-\frac{\epsilon_{target}}{P_{target}}=\frac{\epsilon_{beam}}{P_{beam}}. \tag{2.4}\]
+
+\(\epsilon^{target}\) is the raw asymmetry for pp elastic scattering for the target proton, and \(P_{target}\) is the target proton polarization measured by a Breit-Rabi Polarimeter with an absolute accuracy better than 2%. The beam polarization can now be rewritten as:
+
+\[P_{beam}=-P_{target}\frac{\epsilon_{beam}}{\epsilon_{target}}. \tag{2.5}\]
+
+The cross section for this H-Jet target is mucher thinner than carbon ribbon, therefore it takes longer to make absolute H-Jet polarization measurements compared to the quick pC polarization measurements. The H-Jet polarimeter measurements are used for an overall normalization for each pC polarimeter, making it possible to have a polarization value for each beam and fill.
+
+### 2.2 Solenoidal Tracker at RHIC
+
+The Solenoidal Tracker at RHIC (STAR) [58], is one of the four original experiments on the RHIC ring, along with PHENIX [59], BRAHMS[60], and PHOBOS[61]. STAR is currently the remaining active experiment at RHIC with sPHENIX [62] in development. STAR is a general purpose high acceptance detector for the measurement of hadronic and electromagnetic particles from proton-proton and heavy ion collisions. The measurements and analysis described in this thesis were performed utilizing STAR.
+
+STAR was designed to measure a variety of observables. It consists of several detector subsystems, each of which specializes in detecting and tracking the motion of certain types of particles. At the heart of STAR is the Time Projection Chamber (TPC), which provides tracking, particle identification, and transverse momentum measurements for charged particles. The Barrel Electromagnetic Calorimeter (BEMC) measures electromagnetic energy deposited at central pseudorapidity (Equation 2.6) \(|\eta|<1.0\) with a high degree of accuracy. The Endcap Electromagnetic Calorimeter (EEMC) increases rapidity coverage at the front end of STAR, including a region where tracking from the TPC has fallen off significantly. The main detector subsystem of importance for this analysis is the EEMC.
+
+#### Time Projection Chamber
+
+The STAR Time Projection Chamber (TPC) is the central component which provides tracking and identification of charged particles [63]. It has a nominal range of \(|\eta|<1.3\) in pseudorapidity and \(2\pi\) in azimuthal angle. The TPC is permeated by a 0.5 Tesla solenoidal magnetic field oriented parallel to the beam-line and a uniform 135 V/cm electric field roughly parallel to the magnetic field [64]. Its volume is filled with P10 gas, a mixture of 90% argon and 10% methane. The TPC geometry can be described as follows: it is 4.2 m long, 4.0 m in diameter, and its drift volume extends radially from 50 cm to 200 cm from the beam line.
+
+Charged particles from the collision vertex ionize the p10 gas. An electron avalanche then drifts towards the multi-wire proportional counter (MWPC) system in the TPC endcaps. The electron avalanche in the field surrounding the MWPC wires induces an image charge on the readout pads. Information shared from multiple readout pads give the x-y position of the ionization event. Electron drift velocity is measured by a dedicated laser system, along with the drift time the z position of the ionization event can be determined [65]. The full trajectory of a charged particle can be determined from this positional information.
+
+The solenoidal magnetic field causes charged particles heading through the TPC to have helical trajectories. The radius of a trajectory in the TPC gives the particles momentum in the plane transverse to the field direction, called 'transverse momentum' or \(p_{T}\).
+
+The tracking provided by the TPC is important for reconstructing collision vertices. Nominally the center of STAR at z=0 is the collision point for proton-proton collisions but actually collisions are distributed normally with a sigma of about 60cm. Particle trajectories reconstructed by the TPC can be projected back to the beam-line to determine a vertex.
+
+#### Endcap Electromagnetic Calorimeter
+
+The Endcap Electromagnetic Calorimeter (EEMC) is mounted on the inner face of the west pole tip of STAR, 2.7 m away from the center of STAR. The Endcap helps increase acceptance for particles produced in high energy collisions with intermediate rapidity such as \(W^{\pm}\), jets, eta mesons, and pions. The acceptance extends from pseudorapidity \(1.086\leq\eta\leq 2.00\) (\(\eta\) definition given in Equation 2.6) and azimuth is from \(0\leq\phi\leq 2\pi\). A small gap exists between the Endcap and BEMC (\(-1\leq\eta\leq 1\)) for the sake of access.
+
+\[\eta=-\log(\tan(\theta/2)) \tag{2.6}\]
+
+The Endcap is divided into two halves offset from the horizontal (\(\phi=0\)) by \(15^{\circ}\). It is assembled from 720 towers of alternating layers of plastic scintillator and lead. There are 23 layers of lead which act as radiators and 24 layers of scintillator in each tower.
+
+The first two and the last layers of scintillator make up the pre-shower-1, pre-shower-2, and post-shower detectors. These layers are read out separately from the other scintillator layers. After the fifth radiator the pair of Shower Maximum Detector (SMD) planes are placed. The other layers make up the main energy reading for the tower and are read into a single photo-multiplier tube (PMT). Pre-shower and post-shower information is not directly used in this analysis but they were used to produce energy calibrations for the towers and SMD. The layout of the tower with locations of pre-shower, post-shower, and SMD are found on the right side of Figure 2.4. Figure 2.5 shows a simulation of showering occurring on an EEMC cross section with layers labeled.
+
+The EEMC is divided up by 12 sections in pseudorapidity (\(\eta\)) and 60 sections in azimuth (\(\phi\)) where each section contains one tower. The sections are uniform in azimuth at \(\Delta\theta=6^{\circ}\) but vary with respect to pseudorapidity with \(\Delta\eta\sim 0.06\) near \(\eta=1\) and \(\Delta\eta\sim 0.10\) near \(\eta=2\). The location, size, and shape of the towers inside of the EEMC are illustrated on the left side of Figure 2.4. Every five subsequent sections in azimuth forms one of 12 Endcap sectors as shown in Figure 2.7.
+
+For every beam crossing the energy signal collected from each of the 720 photomultiplier tubes is sent to a tower digitizer card and is digitized in a 12 bit linear flash ADC. The Figure 2.4: Schematic of one half of the EEMC (left) and the setup of layers of an individual section of the EEMC (right).
+
+ADCs are sent to digital data storage and manipulation (DSM) cards for use in the trigger.
+
+The SMD planes are found approximately 5 radiation lengths inside the Endcap. The SMD is made up of polystyrene-based scintillator strips with overlapping triangular-shaped cross sections stretching across a sector. The overlapping strip shape creates energy sharing between nearby strips, leading to stable measurements of shower profile and improving resolution. These strips are organized into two planes U and V, with orientations organized orthogonally to one another so that the positions of energy deposition can be triangulated within a 2D plane. These strips provide the needed position resolution to distinguish single photon showers from di-photon events from \(\pi^{0}\) and \(\eta^{0}\) decays. A schematic drawing of the SMD for two orthogonal planes in a sector illustrating overlapping design of strips is shown in Figure 2.6.
+
+There are actually three layers for the SMD. One contains passive plastic while the
+
+Figure 2.5: Cross section shows simulated shower passing through layers of EEMC Tower.
+
+others contain the U and V SMD planes. The pattern of U, V and passive plastic alternates with a pattern recurring every third sector as shown in Figure 2.7, with SMD layers colored red.
+
+Charged MIPS (Minimum Ionizing Particles), such as muons, charged pions and protons, deposit energy in the calorimeter slowly and uniformly by ionizing atoms. The predictable nature of their energy deposition, as well as their relative abundance, makes them a good candidate for calibrating energy gains in the Endcap. They can be used to arrive at absolute gains for towers on an individual basis and relative gains for each layer. Electrons and photons generate showers in the Endcap as photons undergo pair production (\(\gamma\to e^{+}+e^{-}\)) and electrons and positrons undergo Bremsstrahlung radiation (\(e^{\pm}\to e^{\pm}+\gamma\)) [66][67].
+
+Figure 2.6: U and V layers of the EEMC SMD with a cross section of the overlapping triangular strips.
+
+#### STAR Data Acquisition System and Triggers
+
+The role of the data acquisition (DAQ) [68] system is to read data collected from the other STAR subsystems and reduce the data rate to a manageable level. The decision points in hardware and software of what to collect are called triggers. STAR collects a massive amount of information from frequently occurring collisions, so the DAQ is extremely important to the success of STAR. Datasets are stored in the HPSS system where they can be retrieved by researchers for data analysis [69].
+
+The STAR Trigger system is designed to facilitate heavy ion research and understand the interior of hadrons [70]. The trigger is multi level and modular and pipelined consisting of Level-0, 1, 2 and 3 triggers. Level 0 and Level 1 (L0 and L1) are hardware based while Level 2 and Level 3 (L2 and L3) are software-based. The hardware triggers are fully pipelined with fast access to raw digitized signals from STAR. The firing of hardware triggers signals full readouts from slower detectors to be obtained.
+
+The first layer of trigger electronics consists of a tree of DSM boards and a Trigger
+
+Figure 2.7: Asymmetric layout of the EEMC SMD sub-layersControl Unit (TCU) called level-0 (L0 trigger). These electronics are spread out over several VME crates. Level 0 processes data for every RHIC crossing, only accepting events that are of potential interest.
+
+Some of the decisions at level 0 are based on the energy deposited in fixed regions of BEMC and EEMC called jet patches. Each jet patch covers an area of approximately 1 in pseudorapidity by 1 (60 degrees) in azimuth. The 30 jet patches from the 2009 configuration are shown in Table 2.1. Three different thresholds are used for trigger decisions; from highest to lowest threshold they are JP2, JP1 and JP0 (JP for Jet Patch). The thresholds were adjusted during Run 9 to normalize yields as summarized in Table 2.2. Transverse energy is approximated by \(E_{T}=0.236\times(ADC-5)\) GeV. If any of the 30 jet patches is above a given threshold the given jet patch trigger is set.
+
+Events that are accepted by Level 0 undergo more detailed analysis at Level 2. Level 2 is software-based and implements more sophisticated triggering algorithms. In the L2 processor the dataset will be analyzed for various triggers based on different detectors and their subsystems. The level 2 trigger of interest for this analysis is the L2Egamma trigger which is designed to trigger on electrons or photons. If the event passes the trigger criteria,
+
+\begin{table}
+\begin{tabular}{c|c|c|c|c} \(\phi\) Location & BEMC East & BEMC Middle & BEMC West & EMC Overlap & EEMC \\  & \(-1<\eta<0\) & \(-0.6<\eta<0.4\) & \(0<\eta<1.4\) & \(1<\eta<2\) \\ \hline
+10 o’clock (150\({}^{\circ}\)) & BEMC-JP6 & BEMC-JP12 & BEMC-JP0 & Overlap-JP0 & EEMC-JP0 \\
+12.o’clock (90\({}^{\circ}\)) & BEMC-JP7 & BEMC-JP13 & BEMC-JP1 & Overlap-JP1 & EEMC-JP1 \\
+2 o’clock (30\({}^{\circ}\)) & BEMC-JP8 & BEMC-JP14 & BEMC-JP2 & Overlap-JP2 & EEMC-JP2 \\
+4 o’clock (\(-\)30\({}^{\circ}\)) & BEMC-JP9 & BEMC-JP15 & BEMC-JP3 & Overlap-JP3 & EEMC-JP3 \\
+6 o’clock (\(-\)90\({}^{\circ}\)) & BEMC-JP10 & BEMC-JP16 & BEMC-JP4 & Overlap-JP4 & EEMC-JP4 \\
+8 o’clock (\(-\)150\({}^{\circ}\)) & BEMC-JP11 & BEMC-JP17 & BEMC-JP5 & Overlap-JP5 & EEMC-JP5 \\ \end{tabular}
+\end{table}
+Table 2.1: Jet patch geometry in 2009.
+
+then all the event information from the relevant detector subsystems will be transported to the DAQ system [68][69]. The DAQ system has a parallel structure connected by a Myrinet network and receives data from the receiver board's VME-bus boxes [71].
+
+\begin{table}
+\begin{tabular}{c|c|c|c|c} \hline Label & set 1 (ADC) & set2 (ADC) & set 1 \(E_{T}(GeV)\) & set 2 \(E_{T}(GeV)\) \\ \hline BEMC-JP-th0 & 20 & 20 & 3.5 & 3.5 \\ BEMC-JP-th1 & 28 & 28 & 5.4 & 5.4 \\ BEMC-JP-th2 & 36 & 36 & 7.3 & 7.3 \\ EMC-overlap-JP-th0 & 20 & 19 & 3.5 & 3.3 \\ EMC-overlap-JP-th1 & 28 & 26 & 5.4 & 5.0 \\ EMC-overlap-JP-th2 & 36 & 34 & 7.3 & 6.8 \\ EEMC-JP-th0 & 20 & 18 & 3.5 & 3.1 \\ EEMC-JP-th1 & 28 & 25 & 5.4 & 4.7 \\
+**EEMC-JP-th2** & 36 & 32 & 7.3 & 6.4 \\ \end{tabular}
+\end{table}
+Table 2.2: Jet patch thresholds in 2009. Set 1 is through run 10125061.
+
+## Chapter 3 Data Sample and Simulation Studies
+
+The data used in the analysis presented here was collected using the STAR detector at RHIC during Run IX proton-proton running at center of mass energy \(\sqrt{s}=200\) GeV in the year 2009. The integrated luminosity was 21 pb\({}^{-1}\) with a luminosity-weighted polarization of the two beams at \(P_{B}=56\%\) and \(P_{Y}=57\%\).
+
+To complement this data set a large simulation sample was created. Physics events are simulated in Pythia and then Geant is used to simulate the detector response. Embedding samples are created with simulated events embedded on top of real detector background data. This chapter gives an overview of the data and simulation samples used to test the algorithm.
+
+A number of photon and pion-"gun" type simulations were used to help test the pion reconstruction procedure. An auxiliary study of photon shape in the EEMC SMD is also given here. This study used a large number of simulated photons to construct a showerprofile for photons in the SMD.
+
+### 3.1 Data Sample
+
+At RHIC, a \(fill\) is the period from when the beams are fully injected until the beams are dumped. Data samples at STAR are divided into different \(runs\) which have a set target duration depending on the fill. The 200 GeV portion of Run IX contained over 2000 runs, most of which are not suitable for this data analysis. Many runs can be immediately for various reasons they may be too short, marked bad, calibration runs or missing the EEMC. The run list for this analysis is based on the previous 2009 mid-rapidity dijet measurement. An explanation of how the list of used runs was created is given in the next section.
+
+#### Data Quality Assurance
+
+An initial list of runs was created from all runs which include the TPC, BEMC and EEMC, and lasting longer than 3 minutes. Runs containing major problems with a detector as indicated by shift logs or diagnostic plots were removed. From the remaining runs those containing the trigger setups _production_2009_200_GeV_Hi_, and _production_2009_200_GeV_Single_ were used since they contained the triggers used for this analysis, the L2Gamma and JP1 triggers. The trigger setup _production_2009_200_GeV_Lo_ also contains triggers of interest, but it proved problematic for Run IX. So runs produced with only this trigger setup and not the other two were removed.
+
+The Trigger Clock Distribution (TCD) phase in TCD boards which controls timing of data taking for triggered events was mis-set from the beginning of Run IX. For the first part of the run it was mis-set for both towers and pre/post shower layers and the SMD. After run number 10114054, a few days into pp200 running, the TCD phase was corrected for the towers but not for the pre/post/ESMD. Finally both towers and pre/post/ESMD were correct after run number 10140030 for the final 60% of pp200 running. None of the data with mis-set TCD was deemed usable for this analysis.
+
+To further ensure quality, mean values of tracks per event were plotted and runs with outlier values greater than \(5\sigma\) from global means were removed. It was ensured that runs included information that was required for the analysis. It was required that runs included information on polarization values of each bin, relative luminosity values, and valid spin bits. Ultimately a total of 888 runs were included in this analysis.
+
+### 3.2 Simulation/Embedding Dataset
+
+To correct for detector effects on measurements and study systematic errors, simulated events generated from PYTHIA 6.425 [72] with the Perugia 0 tune [73][74] were chosen to run through a STAR detector response package (GSTAR) implemented in GEANT 3 [75]. Simulated events are embedded into real STAR detector response from events triggered on random bunch crossings known as 'zero bias' data. This allows the simulated events to be subject to the same beam background, pile-up and detector conditions as the real data.
+
+The simulation sample used was originally produced for the 2009 pp200 inclusive jet analysis. It is comprised of a total of 21 million events generated in ten separate partonicbins, and using the detector conditions present in individual run numbers. The simulated jets include plenty of pions. Knowing the run number of the zero bias data allows us to track with the state of the detector over the course of Run IX. A trigger filter was used to reject events which would not fire a simulated JP1 or L2EGamma, the two triggers used for this analysis.
+
+The embedding was made using 856 runs; 271 of these were from before the TCD phase was correctly set for the ESMD. The embedding files created using the mis-set TCD were not adequate for finding photons in the ESMD and so were not used for this analysis.
+
+#### Levels of Jet Information
+
+The simulation contains three distinct divisions of information corresponding to 1) the partonic hard scattering, 2) the final state of the particles after fragmentation and hadronization of the partons, and 3) the detector response to these particles. These levels will respectively be here referred to as parton level, particle level, and detector level.
+
+**Parton Level:** The parton level contains information about the \(2\to 2\) hard scattering event generated by Pythia. Various kinematic properties of the event are stored, such as center of mass energy, scattering angle, and momentum fractions (Bjorken-x values) of the incident partons.
+
+**Particle Level:** The partons generated by Pythia propagate and hadronize into the color-neutral, stable particles recorded at this level. At this level particles are indexed and kinematic information, and particle id are stored. For this analysis, \(\pi^{0}s\) which decay into two photons are of interest.
+
+**Detector Level:** The final level of the simulation stores the detector response as simulated particles traverse the GEANT model of the STAR detector. The interaction of particles with the various volumes of specific materials in STAR is replicated--for instance the ionization of TPC gas, or the deposition of energy inside scintillator layers of calorimeters by our \(\pi^{0}\) photons as they shower. Readout electronics are also emulated to deliver a simulation of the same data recorded for users at STAR.
+
+### 3.3 Photon shape study
+
+A study was made of simulated photons in the EEMC to determine the average shape of energy readout in the SMD. Understanding this shape helps with finding photons in the SMD. Since we are interested in di-photon events to reconstruct \(\pi^{0}\)s, it is very important to be able to distinguish between single and two photon events if the latter are close together. Two sets of GEANT simulation were created using simulated photons. The first set three photons near the center of the detector at \(1.4<\eta<1.6\); the second set threw photons farther forward in the detector at \(1.8<\eta<1.9\). Both sets had the same photon transverse momentum (\(p_{T}=4.0\)), meaning the second set was made up of higher energy photons compared to the first.
+
+To create the photon response profile for the fit, each event was normalized such that the central SMD strip energy is equal to 1. After the strips have been normalized, they are shifted such that the location of the central strip is at strip location 100 (where integers are strip numbers). After all the strips have been normalized and added together, an average shower profile has been created.
+
+Figure 3.1: Double Gaussian fit of average photon profile plot from photon shape study. The mean of the Double Gaussian is set to 100, the two amplitudes are p0 and p2 with widths p1 and p3 respectively.
+
+[MISSING_PAGE_FAIL:61]
+
+\[\sigma_{1} =.87\] \[\sigma_{2} =3.8 \tag{3.2}\] \[c_{1}/c_{2} =5.0\]
+
+The unit on \(\sigma_{1}\) and \(\sigma_{2}\) are just SMD strips and \(c_{1}/c_{2}\) is dimensionless. These values are plugged into Equation 3.1 which is used in the \(\pi^{0}\) analysis to fit U and V plane candidate photons in the SMD. An example of the fit applied to two photon peaks from a simulated \(\pi^{0}\) is shown in 3.4.
+
+Figure 3.2: Average photon profile plot for U and V planes for the three different SMD plane orderings.
+
+Figure 3.3: The fitting parameters as determined by plot from Figure 3.2. Parameters are deemed consistent enough so a single value is used for each parameter instead of varying by layer.
+
+Figure 3.4: SMD signal from pion gun simulation. Two photons fit with double Gaussian are distinct and visible in each plane of the SMD.
+
+## Chapter 4 Software Development for Neutral Pion Reconstruction
+
+### 4.1 Pion Decay in the Endcap
+
+This chapter discusses the continuation of development of software to reconstruct forward rapidity \(\pi^{0}\)s from pp collisions in the STAR experiment. Neutral pions decay via electromagnetic interaction to two photons with a branching ratio of 98.8%.
+
+\[\pi^{0}\rightarrow\gamma\gamma \tag{4.1}\]
+
+Photons are stable and easy to observe using the EEMC, so the di-photon signal is used to reconstruct pions for this analysis. Since \(\pi^{0}\)s decay via electromagnetic interaction they have a relatively short lifetime of \(\tau=8.4*10^{-17}\) s, corresponding to a decay length ofonly 0.025 \(\mu\)m. Since the decay length is short relative to the size and vertex resolution of the detector, the photon pair can be assumed to originate from the primary vertex. If the location and energy of the photons can be experimentally determined, then a calculation of di-photon invariant mass can be made as follows:
+
+\[mass=E*\sqrt{1-Z_{\gamma\gamma}^{2}}\,\sin\frac{\phi_{\gamma\gamma}}{2} \tag{4.2}\]
+
+where \(\phi_{\gamma\gamma}\) is the opening angle between the two photons from their primary vertex. The total energy \(E\) is equal to the sum of the energy of the two photons \(E_{1}\) and \(E_{2}\). The two photon's energies also determine a value called \(energy\)\(sharing\):
+
+\[Z_{\gamma\gamma}\equiv\bigg{|}\frac{E_{1}-E_{2}}{E_{1}+E_{2}}\bigg{|}. \tag{4.3}\]
+
+Photons shower in the Endcap typically depositing all their energy. This creates a shower profile based on energy deposition in the SMD layers. Information from these subsystems is used to reconstruct the photons. The SMD gives information for position so that the opening angle between a pair of photons can be determined. Determining energy sharing requires information from both the SMD planes and the EEMC towers. The energy of the photons is determined mostly from towers in a 3x3 tower patch. An energy-sharing scheme is required since patches will almost always intersect for real EEMC pions from parton collisions. SMD information is used to determine how energy from the intersecting towers is distributed to the overlapping photons. If the photons share the same center tower, energy sharing will be purely determined from SMD energy deposition. Oncethe energy of the photons has been determined, the energy sharing is found according to Equation 4.3 and the diphoton invariant mass according to Equation 4.2.
+
+### 4.2 Pion Finder Introduction
+
+The Pion Finder software was developed to reconstruct di-photon events from EEMC data. A physical pion decays relatively close to the primary vertex into two photons. So, to reconstruct a pion candidate a pair of photons must first be found. For each photon in the 'pair,' we need to know its total energy and position in the EEMC. Energy is found from tower information, but finding position requires detecting coordinated potential photon responses in both the U and V planes of the SMD.
+
+The process can be summarized in the order that the algorithm actually reconstructs pions. EEMC SMD data is analyzed to find 'clusters', which are photon-like energy responses in a given plane. Correlated U and V clusters and information from corresponding EEMC towers are used to reconstruct candidates for photons called 'points'. Photons are paired together as di-photon or \(\pi^{0}/\eta\) candidates, sometimes simply called pairs. Invariant mass and transverse momentum are calculated for each accepted pair. This sequence is illustrated in Figure 4.1.
+
+### 4.3 The Cluster-Maker
+
+#### Basic function of the Cluster-Maker
+
+The Cluster-Maker constructs objects as candidate photons called clusters from SMD strips. This happens independently for each of the twelve EEMC sectors and for the two SMD planes. The work done in this thesis expanded on the version of Pion Finder that had been developed by Weihong He at IU CEEM (formerly IUCF) for work on 2006 pions [76]. The most extensive changes to the original algorithm were done in Cluster reconstruction. In the original cluster maker a central SMD seed strip is selected from high energy strips to be the central'seed' strip for the cluster. A 'floor' is applied to the surrounding strips to suppress appearance of a second seed around nearby strips. An energy profile around the seed strip is added to that strip's floor. Additional seeds are required to be greater
+
+Figure 4.1: An illustration of how a \(\pi^{0}\) candidate is constructed. The \(\pi^{0}\) is made from two points which are each constructed from a cluster in the U plane and a cluster in the V plane.
+
+[MISSING_PAGE_FAIL:69]
+
+histogram before calling itself with this new histogram. The strips above a certain energy will be called'seeds,' but it should be noted that unlike the old cluster-maker the'seed' may not actually be the central strip in the cluster.
+
+Several cuts are used in the process of finding clusters. The most important cut is the adjacent strip cut. This cut requires that the number of strips within 6 strips from seed with energy above 1 MeV in histogram is greater than or equal to 4. The double Gaussian fit (Equation 3.1) is employed to fit near the seed strip. This fit is subtracted from the SMD response histogram. So after the first cluster has been accepted in later recursion the 'adjacent strip cut' is not comparing _strip response_ to 1 MeV so much as _strip response \(-\sum\) cluster fits_. This biases an adjacent cluster's center away from an already found cluster. Functions that help correct this bias are discussed below.
+
+Potential seeds within 1 strip of an existing cluster seed are skipped. Cluster search ends after we have gone through all potential seeds with an energy above 8 MeV. The centroids found for our clusters are passed outside the single-photon-fit function and sequentially sorted.
+
+Next a function is called to look at neighboring clusters and readjust means when two clusters are close together (defined as with means within 8 SMD strips). This is accomplished by fitting these neighboring clusters using a function with two double-Gaussian peaks. The amplitudes and new means for both clusters are recorded. The amplitudes will be used for energy sharing of overlap strips as shown below.
+
+A single double-Gaussian fit is also made. The \(\chi^{2}/ndf\) (number of degrees of freedom) of this fit is compared to the \(\chi^{2}/ndf\) of two-cluster fit to see if a single photon may be a better interpretation of the data. If \(\chi^{2}/ndf\) is less for the single double-Gaussian fit than for the two peak fit, then the two clusters are replaced with a single cluster with a mean determined by the single double-Gaussian fit. The worst fits are excluded; if the \(\chi^{2}/ndf>3\) for both the 2-peak fit and 1-peak fit then both clusters are removed from the list of clusters. If the decision to remove any clusters is made, the function is rerun. Figure 4.3 shows a 2D histograms of \(\chi^{2}/ndf\) for the single and two Gaussian fits for clusters within 3 SMD strips of each other.
+
+At this point, with all of the means found, the cluster can be built. The center of the cluster or 'zero-strip' is the strip closest to the fit mean as found in the accepted fit (either the double Gaussian fit or the corresponding peak from the two double-Gaussian fit). Three strips to the left and right of the zero-strip are added to the cluster. The energy of the cluster is the sum of the energies of all strips in the cluster.
+
+The final function of import is for sharing energy. Clusters with zero-strips closer than
+
+Figure 4.2: Two nearby photons re-fit for the mean adjustment and chi-square test.
+
+seven apart are over-counting energy from shared strips. In the old cluster-maker, clusters couldn't be closer than six strips apart, and when they were exactly six strips apart only a single strip was shared. For the method shown here, potential for overlap is much greater and a more robust strip energy sharing is required.
+
+When zero-strips are closer than seven apart a ratio is calculated using means and amplitudes from neighboring clusters. The energy each overlapping strip contributes to each cluster is re-calculated based on this ratio. The new energy is calculated as follows:
+
+\[E_{1}^{\prime}(S)=E_{strip}\frac{E_{1}(mean_{1}-S,A_{1})}{E_{1}(mean_{1}-S,A_ {1})+E_{2}(mean_{2}-S,A_{2})} \tag{4.4}\]
+
+Figure 4.3: 2D histogram of single Gaussian and two Gaussian fit \(\chi^{2}/ndf\) for clusters within 3 SMD strips of each other.
+
+\[E^{\prime}_{2}(S)=E_{strip}\frac{E(mean_{2}-S,A_{2})}{E_{1}(mean_{1}-S,A_{1})+E_{2 }(mean_{2}-S,A_{2})} \tag{4.5}\]
+
+where \(E^{\prime}_{1,2}\) is the new energy of the strips for cluster 1 or 2, \(S\) is the strip number, and \(E_{1,2}\) is the energy of a double Gaussian as a function of distance from the center (\(mean_{(1,2)}-S\)) and its amplitude (\(A_{(1,2)}\)).
+
+### 4.4 The Point-Maker
+
+The EEMC Point-Maker helps create photon point candidates from SMD clusters discussed above and related tower clusters. The U and V planes of the SMD are orthogonally oriented so that the position of an incident photon will give an intersection between the two planes. Only intersections above an active tower are accepted. The SMD clusters from the EEMC Cluster-Maker discussed above are used to determine the position and energy sharing of points. Related tower clusters are then used to determine the absolute energy points. Here a \(point\) can be defined as the coincidence of SMD clusters from the U and V plane underneath an active tower.
+
+Points are reconstructed sector by sector. For each sector all possible U and V cluster combinations over an active tower (a tower with energy nonzero energy) are found as candidates to become points. Points are found iteratively so that each time a point is found, its corresponding clusters are removed from the list of clusters and the process is repeated.
+
+Clusters are sorted from low to high by the relative energy ratio defined as \[Relative\;Energy\;Ratio=\frac{|E_{u}-E_{v}|}{E_{u}+E_{v}}, \tag{4.6}\]
+
+where \(E_{u}\) is the energy of the U cluster and \(E_{v}\) is the energy of the V cluster. For ideal energy detection one would expect a real photon to deposit nearly the same energy in each plane so we would expect \(Relative\;Energy\;Ratio\approx 0\). In practice, this level of precision cannot be expected from our measurements. Even calibrating individual SMD strips is extremely difficult at STAR.
+
+For every cluster the number of point candidates that may be constructed from it are counted. The point candidates made from two clusters that both only correspond to a single point candidate are examined first. Any isolated U-V pair where both clusters have only one point candidate intersection (being the other cluster in the pair) can be immediately accepted as points. After a point has been accepted the corresponding clusters are removed from the pool, and the algorithm recurses with the remaining pool of clusters.
+
+The process of choosing points is illustrated in Figure 4.4. For this example two clusters are found in both the U and V planes forming four intersections. Three of the intersections occur over active towers so only three point candidates exist. From these three point candidates, the intersection with the best energy match between the U and V planes is chosen, for this example the top point. In the next step there are only two remaining clusters, one from each plane, forming a single valid intersection which will also be chosen.
+
+A more complicated procedure called 'point splitting' is sometimes required. A point candidate is examined for point splitting if it has one cluster which only corresponds to the given intersection, and the other cluster corresponding to multiple intersections. The Figure 4.4: An example illustrating the working of Point-Maker. Two clusters in U and V form four intersections but only three point candidates because leftmost point is not over an active tower. The top point candidate is added to the point pool because it has the best energy matching between U and V and its two clusters are removed. On the right the two remaining clusters create a single intersection which will also be added to the point pool.
+
+Figure 4.5: Simple case of a candidate for the splitting algorithm. The single U cluster might be interpreted as two photons which were close in U strips but further separated in V.
+
+most basic case for a candidate for point splitting is shown in Figure 4.5. A decision must be made whether to accept only one of the two points or to'split' the energy of the shared cluster and accept two points. If no isolated points or splitting candidates are found, the remaining point candidate with the lowest relative energy ratio is accepted. The three types of points discussed above are represented in Figure 4.6.
+
+The splitting algorithm has been modified from the original IU pion finding algorithm. A choice is made to either'split' the energy of a single cluster to accept two of the point candidates, or to only take one of the candidates. Typically there will not be more than a single pion in a sector per event, so the decision criteria for splitting is made with the assumption that both points in the split come from a single pion. Since the SMD separation in one of the planes is nearly zero, it is reasonable to put a cut on SMD separation in the opposite plane. The Point-Maker requires the separation between the two clusters to be at
+
+Figure 4.6: A diagram of patterns for point candidates (in red) in the two SMD planes. From left to right the first point candidate would be classified as a solitary point, the next two points point candidates would qualify for the splitting algorithm, the last four would be picked according to their relative energy ratio.
+
+least six strips apart to qualify for splitting. The algorithm also ensures that the relative energy ratio is improved, not degraded, by splitting. This cut on relative energy ratio is given in Equation 4.7 assuming that both point candidates match the single cluster U (with energy \(E_{u}\)) and each point candidate has a unique V cluster (with energy \(E_{v_{1}}\) and \(E_{v_{2}}\)). If a V cluster is the candidate to be split, the equation is the same except \(u\to v\) and \(v\to u\).
+
+\[\frac{|E_{u}-E_{v_{1}}-E_{v_{2}}|}{E_{u}+E_{v_{1}}+E_{v_{2}}}<\frac{|E_{u}-E_{v _{1}}|}{E_{u}+E_{v_{1}}}\&\frac{|E_{u}-E_{v_{2}}|}{E_{u}+E_{v_{2}}}, \tag{4.7}\]
+
+The split cluster is copied twice; each copy has the same strip numbers and mean as the original but the total SMD energy has been calculated based on the energies of the two clusters in the opposite plane. The new energies, \(E^{\prime}_{u_{1}}\) and \(E^{\prime}_{u_{2}}\), are calculated assuming (again) that a U cluster is the one being split.
+
+\[E^{\prime}_{u_{1}}=E_{u}\frac{E_{v_{1}}}{E_{v_{1}}+E_{v_{2}}} \tag{4.8}\]
+
+\[E^{\prime}_{u_{2}}=E_{u}\frac{E_{v_{2}}}{E_{v_{1}}+E_{v_{2}}} \tag{4.9}\]
+
+If a V cluster is being split the equation is the same with \(u\to v\) and \(v\to u\).
+
+Tests were performed on a third decision branch in the splitting algorithm. If splitting candidate clusters are particularly close together, they might be the result of a single photon. If the condition is met a single new accepted point would be formed from the single cluster in one plane and a new cluster made out of all the strips from the pair of clusters in the other plane. When the Cluster-Maker was altered with tests to combine certain clusters, combining clusters in the splitting algorithm was deemed to be redundant.
+
+In the 'normal case' where each cluster helps create multiple valid intersections, clusters are chosen in order from lowest relative energy ratio to highest. For example, in the case where two clusters in each plane create four valid intersections over active towers, the intersection with the lowest relative energy ratio will be chosen first. The two clusters corresponding to this intersection will be removed before the recursion happens with just the two remaining clusters. Since what remains is just an isolated valid point it will be immediately accepted.
+
+The algorithm is finished with a sector after all of the clusters in either the U or V plane have been used or eliminated. After all points have been added the algorithm uses tower clusters to determine the absolute energy of the points. Energy is determined by looking at the energy of a \(3\times 3\) cluster of towers with the middle tower above the point's SMD intersection. Since towers have much coarser granularity than the SMD it is highly likely that there will be overlap between tower clusters. To handle energy sharing for towers shared by points, a weighting is given based on SMD cluster energy to each tower each time it is added to a tower cluster. After weighting is finished, the energy contribution from each tower is calculated:
+
+\[E_{p}=\sum_{i=1}^{n}E_{T_{i}}\frac{E_{SMD}}{W_{i}} \tag{4.10}\]
+
+where \(E_{p}\) is the final absolute energy measurement of the point, \(n\) is the number of towers, \(E_{SMD}\) is the energy of the SMD cluster, \(E_{T_{i}}\) is the energy of the \(i^{th}\) towers, and \(W_{i}\) is its weighting. \(E_{p}\) is saved as the energy of the point going forward, and points are saved to the point pool to reconstruct \(\pi^{0}\)s.
+
+### 4.5 The Pion-Maker
+
+The Pion-Maker works in three stages: 1) reconstruct all possible di-photon candidates from the pool of points; 2) filter candidates by certain cuts; and 3) accept the remaining di-photons and organize them by \(p_{T}\), invariant mass, and spin at bunch crossing.
+
+Pion Candidates are created by choosing a pair of points (photons) in a given sector. For each point, the position, vertex and energy are used to calculate 4-momentum. When pairs are made from combinations of points, it is now possible to calculate the di-photon opening angle \(\phi_{\gamma\gamma}\) and energy sharing \(Z_{\gamma\gamma}\) (Equation 4.3) which are used to calculate di-photon invariant mass (Equation 4.2).
+
+A pseudo-rapidity cut from 1.086 to 2.00 is set based on the EEMC geometry. The z component of the reconstructed di-photon vertex is required to be between -150 cm and 150 cm. It is required that both points have energy above 0.75 GeV. Finally a further cut is made on central tower energy based on location within the EEMC relative to the center of a sub-sector. At least one tower is required to have energy above the following threshold:
+
+\[Cut=1.5\ \mathrm{GeV}\times\exp\bigg{(}-\frac{1}{2}\bigg{(}\frac{\eta_{ \mathrm{point}}-\eta_{\mathrm{bin}}}{0.035}\bigg{)}^{2}+\bigg{(}\frac{\phi^{ \prime}}{2.3}\bigg{)}^{2}\bigg{)}, \tag{4.11}\]
+
+where \(\eta_{point}\) is the pseudo rapidity of the point based on the SMD crossing, \(\eta_{bin}\) is the pseudo rapidity of the center of the sub-sector, and \(\phi^{\prime}\) is a modified azimuthal angle recalculated modulo \(\deg 30\) based on location within sector. The widths along both dimensions are set to \(2.3^{\circ}\) in azimuth and \(0.35\) in pseudo rapidity based on a simulation study conducted by Weihong He [76]. Both these tower energy cuts were reduced by half to increase acceptance.
+
+For each run, di-photons are binned by mass and \(p_{T}\), and the results are saved for further analysis. The details of this are found in Chapter 5.
+
+## Chapter 5 \(A_{ll}\) Analysis of \(\pi^{0}\)s in the STAR EEMC
+
+Longitudinal double-spin asymmetry (\(A_{LL}\)) is the primary observable for study of the proton's gluon helicity distribution, \(\Delta g(x)\), at RHIC. The details of the relation of \(\Delta g\) to \(A_{LL}\), and previous measurements of jet and pion \(A_{LL}\) at STAR and elsewhere are described in Chapter 1. A general way of writing out \(A_{LL}\), is given below:
+
+\[A_{LL}=\frac{\sigma_{++}-\sigma_{+-}}{\sigma_{++}+\sigma_{+-}} \tag{5.1}\]
+
+where \(\sigma_{++}\) and \(\sigma_{+-}\) are the differential production cross sections from collisions of protons with equal and opposite helicity, respectively.
+
+Details of the experimental measurement data collection in 2009 at STAR are given in Chapter 2, and the algorithm to reconstruct \(\pi^{0}\)s is discussed in Chapter 4. This chapterwill discuss how reconstructed di-photons are used to calculate \(A_{LL}\).
+
+To measure \(A_{LL}\), the polarization of the beams and the integrated luminosity of the individual beam states must be taken into account. Adapting \(A_{LL}\) measurements for polarization and normalization for luminosity is discussed in Section 5.1. The physics and background fits used to measure \(\pi^{0}\) yields are described in Section 5.2. The reasonableness of this method is confirmed in Section 5.3 by comparing fits to data and to simulation studies, and in Section 5.4 by measuring various false asymmetries which should be consistent with zero. Discussion of the calculation of statistical uncertainties is given in Section 5.5, and measurements made to determine systematic uncertainties are given in Section 5.6. Finally, the results are shown in Section 5.7.
+
+### 5.1 Spin Sorting and Normalization of Diphoton Invariant Mass Plot
+
+As Equation 5.1 shows, it becomes necessary to represent \(A_{LL}\) in a way that accounts for the experimental conditions at RHIC and the output of the Pion Finder software. Naively counting pions based on the polarization states at the bunch crossing will not give a valid value. The absolute polarization of each beam must be taken into account, as well as the relative luminosity of the various states. An equation for \(A_{LL}\) which takes these factors into account is given below:
+
+\[A_{LL}=\frac{1}{p_{b}p_{y}}\frac{(N^{++}+N^{--})-R_{3}(N^{+-}+N^{-+})}{(N^{++} +N^{--})+R_{3}(N^{+-}+N^{-+})}. \tag{5.2}\]\(p_{b}\) and \(p_{y}\) are the polarizations of the blue and yellow beams respectively, \(R_{3}\) is a relative luminosity normalization factor, and \(N^{xy}\) are the \(\pi^{0}\) yields for the various spin states.
+
+#### Binning by Polarization
+
+\(A_{LL}\) needs to be scaled by polarization measurements since the beams are not 100% polarized. The beam polarizations for the two beams at RHIC are measured by the pC (proton-Carbon) and H-Jet (polarized Hydrogen gas jet) polarimeters, as described in Section 2.1.3. The pC polarimeter is used to quickly measure relative polarization, and the H-Jet polarimeter is used for slower absolute polarization measurements. The average polarization across all of 2009 pp 200 GeV, the dataset used in this analysis, was \(\approx 56\%\) for the blue beam and \(\approx 57\%\) for the yellow beam.
+
+To account for the way polarization varies from fill to fill, the normalized data was split into three polarization bins based on the product of the average polarizations for the two beams during a given fill. The highest polarization bin contains fills with average \(p_{b}p_{y}\) values between 33.4% to 39.2%, the next highest polarization bin contains fills with \(p_{b}p_{y}\) values between 29.9% to 33.2%, and the lowest polarization bin contains fills with \(p_{b}p_{y}\) values between 23.0% to 29.9%. Labels "pol-H", "pol-M", and "pol-L" (for high, middle, and low) are used to name the polarization bins. These bins were created to contain roughly the same amount of fills. An average value of the polarization of the bin is plugged into Equation 5.2 for \(p_{b}\times p_{y}\). These three bins are used to create three independent measurements of \(A_{LL}\).
+
+#### Spin Pattern
+
+RHIC encodes spin patterns which contain helicity information for each proton-proton bunch crossing. Four spin patterns are created for typical fills; these patterns are given in Table 5.1. These patterns are cycled through fill by fill for pp collisions at RHIC. Only events with a valid spin pattern are retained.
+
+Each of the 120 bunch crossings is assigned a unique number (0-119). The two 'abort gaps' containing events from beam background only are discarded: bunch crossings 31-39 for the yellow beam abort gap and 111-119 for the blue beam abort gap. An analysis of relative luminosity found that bunch crossings 20, 60, and 78-80 were suspect for this data set, so they were also discarded.
+
+The helicity combination of the colliding bunches is encoded as the 'Spin-4' value at STAR. Each of the bunch crossings has a set value associated with it. The meaning of the Spin-4 values used by this analysis is given in Table 5.2. Spin pattern is recorded by an off-line database which is called by the Pion Maker (Section 4.5). The Pion Maker discards events from the abort gap and bad bunch crossings, and sorts events by Spin-4 value.
+
+\begin{table}
+\begin{tabular}{c|c|c} Pattern & Yellow Beam & Blue Beam \\ \hline \(P_{1}\) & ++ - ++ - & + - + - + - + \\ \(P_{2}\) & ++ - ++ - - & - + - ++ - + - - \\ \(P_{3}\) & - ++ - - ++ & + - + - - + - + - + \\ \(P_{4}\) & - - ++ - - ++ & - + - + - + - - \\ \end{tabular}
+\end{table}
+Table 5.1: The four spin patterns used in 2009. The ’+’ represents positive helicity and the ’-’ represents negative helicity.
+
+#### Relative Luminosity Normalization
+
+The various Spin-4 configurations are not equally sampled as there are a limited number of bunch crossings with variable intensity. To compare the various pion yields used in calculating \(A_{LL}\) or other asymmetries it becomes important to normalize by integrated luminosity.
+
+Relative luminosity was measured by the spin-sorted BBC coincidence yields for 2009. The BBCs are able to reliably measure relative luminosity since they have high yields and are independent of the other detector subsystems [77]. Another measure of relative luminosity was made using the ZDC sub-system [78]. The difference between luminosity measurements for the BBC and ZDC is used as an estimate of the systematic error. This is further discussed in [79].
+
+\begin{table}
+\begin{tabular}{c|c|c} Spin-4 & Yellow Beam & Blue Beam \\ \hline
+**5** & **+** & **+** \\
+**6** & **-** & **+** \\
+**9** & **+** & **-** \\
+**10** & **-** & **-** \\ \end{tabular}
+\end{table}
+Table 5.2: Spin patterns for the four relevant helicity states.
+
+Luminosity normalization factors are given below:
+
+\[R_{1}=\frac{\mathcal{L}^{++}+\mathcal{L}^{-+}}{\mathcal{L}^{+-}+ \mathcal{L}^{--}} \tag{5.3a}\] \[R_{2}=\frac{\mathcal{L}^{++}+\mathcal{L}^{+-}}{\mathcal{L}^{-+}+ \mathcal{L}^{--}}\] (5.3b) \[R_{3}=\frac{\mathcal{L}^{++}+\mathcal{L}^{--}}{\mathcal{L}^{+-}+ \mathcal{L}^{-+}}\] (5.3c) \[R_{4}=\frac{\mathcal{L}^{++}}{\mathcal{L}^{--}}\] (5.3d) \[R_{5}=\frac{\mathcal{L}^{-+}}{\mathcal{L}^{--}}\] (5.3e) \[R_{6}=\frac{\mathcal{L}^{+-}}{\mathcal{L}^{--}} \tag{5.3f}\]
+
+\(R_{3}\) is the quantity used to normalize the helicity-sorted yields to calculate \(A_{LL}\), the other quantities are used to normalize the various other asymmetries detailed in 5.4.
+
+In this analysis the Pion Finder algorithm is run over the list of runs for each polarization bin creating invariant mass spectra for each spin pattern. For a given polarization bin these mass spectra are added together in several ways. For \(A_{LL}\) three sums are required: the like-signed spectra are simply added together while the unlike spectra are each scaled by the factor \(R_{3}\) before being added together. The sum of these two spectra is used determine fit parameters, as described below. Other normalized histogram sums are created and stored for false asymmetries.
+
+Spectra are also sorted by by the transverse momentum (\(p_{T}\)) of the pion. \(A_{LL}\) is calculated in nine \(p_{T}\) bins. The nine \(p_{T}\) bins are 2.5-4.0, 4.0-5.0, 5.0-6.0, 6.0-7.0, 7.0-8.0, 8.0-9.0, 9.0-10.0, 10.0 to 12.0, and 12.0-16.0 GeV/c.
+
+### 5.2 Diphoton Invariant Mass Fit Procedure and \(\pi^{0}\) Yields
+
+In order to find the number of \(\pi^{0}\)s from the diphoton invariant mass spectra and accurately compare \(\pi^{0}\) output for \(A_{LL}\) calculations, it is important to have good procedures for fitting and counting \(\pi^{0}\) production. The fit shape is discussed in Section 5.2.1 (below) and the method for using this fit to create comparisons of \(\pi^{0}\) counts is discussed in Section 5.2.2.
+
+#### Diphoton Invariant Mass Fit
+
+Fits are made for the various diphoton invariant mass spectra created using the pion finding algorithm. An invariant mass background must be fit as well as the \(\pi^{0}\) signal. An exponentiated \(2^{nd}\)-order polynomial is chosen to fit the background, and a skewed Gaussian is chosen for the signal region. The fit chosen is given below:
+
+\[\exp\big{(}p_{0}+p_{1}x+p_{2}x^{2}\big{)}+A*\exp\bigg{(}-\frac{1}{2}\Big{(} \frac{x-\mu}{\sigma(1-skew(x-\mu))}\Big{)}^{2}\bigg{)} \tag{5.4}\]
+
+with the first exponential defining the background and the second Gaussian exponential defining the fit region. Parameters \(p_{1}\) and \(p_{2}\) define the shape of the background, and \(exp(p_{0})\) defines its amplitude. For the Gaussian fit of the signal, \(A\) is its amplitude, \(\mu\) is the centroid of the peak, \(\sigma\) is its width and \(s\) is the value of'skew' which is discussed below. Real data fit using Equation 5.4 is shown in Figure 5.1.
+
+A signal above background is also visible for the eta meson (\(\eta\)) near \(\eta\) mass of 547.9 MeV/c\({}^{2}\). Instead of fitting this region with a second skewed Gaussian we decided to ignore the region near \(\eta\), from 450 MeV/c\({}^{2}\) to 650 MeV/c\({}^{2}\) and avoid additional fit parameters having to fit a second physics curve.
+
+Figure 5.1: Diphoton invariant mass plot (x-axis units of GeV/c\({}^{2}\)) for a single \(p_{T}\) bin created using the Pion Finder algorithm. Both \(\pi^{0}\) and \(\eta\) meson physics peaks are visible. Fit was created using a multi-term exponential for background and a skewed Gaussian for \(\pi^{0}\) peak.
+
+[MISSING_PAGE_FAIL:89]
+
+[MISSING_PAGE_FAIL:90]
+
+[MISSING_PAGE_FAIL:91]
+
+Figure 5.2: Number of counts above background in \(\pi^{0}\) mass range vs \(p_{T}\) for the low polarization bin. This distribution is used to determine the average \(p_{T}\) for the nine bins.
+
+### 5.3 Data Monte Carlo Comparison
+
+The embedding Monte Carlo is discussed in detail in Section 3.2. Now that the procedure for creating the diphoton invariant mass distribution and finding pions has been discussed in full (above), it is now appropriate to discuss finding \(\pi^{0}\)s with this simulation. Below are detailed studies of the efficiency of pion reconstruction in embedding and comparisons between algorithm output and fitting for embedding and real data.
+
+Both of these studies utilize the embedding Monte Carlo. Energy and \(p_{T}\) distributions for of simulated \(\pi^{0}s\) in the embedding simulation within the \(\eta\) range of the EEMC are shown in Figure 5.3. The location of these \(\pi^{0}\)s in the EEMC, both \(\eta\) and \(\phi\) values, are shown in Figure 5.4.
+
+Figure 5.3: Generated \(\pi^{0}\)\(p_{T}\) (left) and energy (right) for Pythia embedding for events within the \(\eta\) range of the EEMC.
+
+[MISSING_PAGE_EMPTY:94]
+
+## Chapter 5 Conclusions
+
+Figure 5.5: Diphoton invariant mass plots created with pion reconstruction software. Comparing real data (top) with Phythia embedded in real background (bottom). Because of limited statistics for embedding, for this comparison the data is split up into six \(p_{T}\) bins instead of the usual nine used in the analysis.
+
+Figure 5.6: Comparing the fitting parameters between doing the fit of diphoton invariant mass plot from real data (in black) and embedding data (in blue).
+
+#### Pion Reconstruction efficiency
+
+The embedding data are also used to calculate the pion reconstruction efficiency. Not all diphoton invariant mass counts should be included in the efficiency calculation, only those counts that have successfully reconstructed a \(\pi^{0}\). To differentiate background counts from successfully reconstructed pions, counts are taken from the area of the mass curve (from 0.08 to 0.18 GeV) and are required to have been reconstructed near the location of a generated \(\pi^{0}\). The proximity of a reconstructed to generated pion is measured with \(\Delta R\), with a proximity cut set for \(\Delta R<0.40\). These distances are defined below:
+
+\[\Delta\eta=|\eta_{recon}-\eta_{gen}| \tag{5.5a}\] \[\Delta\phi=|\phi_{recon}-\phi_{gen}|\] (5.5b) \[\Delta R=\sqrt{\Delta\eta^{2}+\Delta\phi^{2}} \tag{5.5c}\]
+
+where \(\eta_{recon}\) and \(\phi_{recon}\) represent reconstructed pseudorapidity and polar angle respectively, and \(\eta_{gen}\) and \(\phi_{gen}\) represent generated pseudorapidity and polar angle. Generated \(\eta\) and \(\phi\) are based on momentum vector information, so if the option to fix Monte Carlo vertices at zero is not activated during the analysis, it is required to calculate a detector based \(\eta_{detector}\) to replace \(\eta_{gen}\). This can be calculated as follows:
+
+\[\eta_{detector}=-\log\Big{(}\tan\big{(}\arctan\frac{H}{270}\big{)}/2.0\Big{)} \tag{5.6}\]where 270 cm is the distance from the center of STAR to the EEMC front surface and the distance H can be determined by the equation below:
+
+\[H=(270-V_{z})\times\frac{p_{T}}{p_{z}}+\sqrt{V_{x}^{2}+V_{y}^{2}}. \tag{5.7}\]
+
+\(p_{T}\) and \(p_{z}\) are the transverse and longitudinal momenta of the pion, and \(V_{x}\), \(V_{y}\), and \(V_{z}\) are the x, y, and z components of the event vertex.
+
+Figure 5.7 shows the reconstructed \(p_{T}\) for reconstructed \(\pi^{0}\)s passing the cut (left) and the corresponding generated \(\pi^{0}\)s (right). Similarly, Figure 5.8 shows the energy of successfully reconstructed \(\pi^{0}\)s and corresponding generated \(\pi^{0}\)s.
+
+Efficiency is calculated as a function \(p_{T}\) by comparing the number of successfully reconstructed \(\pi^{0}\)s (\(n_{1}\)) over the number of generated \(\pi^{0}\)s with \(1.086<\eta<2.00\) (\(n_{0}\)).
+
+Figure 5.7: \(p_{T}\) for reconstructed \(\pi^{0}\)s (left). Requires a \(\pi^{0}\) count with \(\eta\) in the EEMC range and within \(\Delta R<0.40\) of a simulated \(\pi^{0}\). \(p_{T}\) for generated \(\pi^{0}s\) (left) that were matched within \(\Delta R<0.40\).
+
+\[efficiency=\frac{n_{1}}{n_{0}} \tag{5.8}\]
+
+Uncertainty in the efficiency calculation is then given by:
+
+\[error=\sqrt{\frac{n_{1}\times(n_{0}-n_{1})}{n_{0}^{3}}} \tag{5.9}\]
+
+Pion reconstruction efficiency plotted against \(p_{T}\) is shown in Figure 5.9 and average efficiency for each \(p_{T}\) bin used in the analysis is shown in Table 5.6.
+
+### 5.4 False Asymmetries
+
+The calculation of longitudinal double-spin asymmetry for inclusive \(\pi^{0}\) production has here been described. In addition to \(A_{LL}\), four other asymmetries can be calculated from pion
+
+Figure 5.8: Energy for reconstructed \(\pi^{0}\)s (left). Requires a \(\pi^{0}\) count with \(\eta\) in the EEMC range and within \(\Delta R<0.40\) of a simulated \(\pi^{0}\). Energy for generated \(\pi^{0}s\) (left) that were matched within \(\Delta R<0.40\).
+
+Figure 5.9: Efficiency calculated as the number of \(\pi^{0}\) candidates successfully reconstructed divided by the number of neutral pions generated by Pythia. A pion candidate is considered successfully reconstructed if it is found under the \(\pi^{0}\) mass curve from 80 - 190 MeV and within \(\Delta R<4.00\) of generated \(\pi^{0}\)s.
+
+yields binned by Spin-4. These asymmetries provide a valuable check on the analysis since they are expected to be zero, or be in agreement with zero within measured statistical uncertainties. The asymmetries are given as:
+
+\[A_{L}^{Y,B}=\frac{\sigma_{+}-\sigma_{-}}{\sigma_{+}+\sigma_{-}} \tag{5.10a}\] \[A_{LL}^{ls}=\frac{\sigma_{--}-\sigma_{++}}{\sigma_{--}+\sigma_{--}}\] (5.10b) \[A_{LL}^{us}=\frac{\sigma_{-+}-\sigma_{+-}}{\sigma_{-+}+\sigma_{+-}}. \tag{5.10c}\]
+
+\(A_{L}^{Y}\) and \(A_{L}^{B}\) measure longitudinal single-spin asymmetries for the yellow and blue beams respectively. The single-spin asymmetries are expected to be negligible compared to statistical uncertainty since they arise from parity-violating weak interactions.
+
+\(A_{LL}^{ls}\) and \(A_{LL}^{us}\) are the like-sign and unlike-sign longitudinal double-spin asymmetries
+
+\begin{table}
+\begin{tabular}{||l|l l|} \hline \(p_{T}\) & \multicolumn{2}{c}{Efficiency} & \multicolumn{1}{c|}{+/-} \\ \hline
+2.5-4.0 & 0.07219 & 0.00163 \\
+4.0-5.0 & 0.1654 & 0.0032 \\
+5.0-6.0 & 0.265 & 0.005 \\
+6.0-7.0 & 0.3828 & 0.0079 \\
+7.0-8.0 & 0.4243 & 0.0107 \\
+8.0-9.0 & 0.47 & 0.01 \\
+9.0-10.0 & 0.4726 & 0.0188 \\
+10.0-12.0 & 0.5396 & 0.0183 \\
+12.0-16.0 & 0.4322 & 0.0226 \\ \hline \end{tabular}
+\end{table}
+Table 5.6: Average efficiency value for each of the nine \(p_{T}\) bins.
+
+respectively. \(A_{LL}^{ls}\), similar to single-spin asymmetries, arises due to parity violating interactions. \(A_{LL}^{us}\) is made up of two measurements that are rotationally invariant.
+
+Just as in Equation 5.2 the false asymmetries can be expressed in terms of measured spin yields, beam polarization and luminosity normalization factors:
+
+\[A_{L}^{Y} =\frac{1}{P_{Y}}\frac{(N^{++}+N^{-+})-R_{1}(N^{--}+N^{+-})}{(N^{++ }+N^{+-})+R_{1}(N^{--}+N^{-+})} \tag{5.11a}\] \[A_{L}^{B} =\frac{1}{P_{B}}\frac{(N^{++}+N^{-+})-R_{2}(N^{+-}+N^{--})}{(N^{++ }+N^{-+})+R_{2}(N^{+-}+N^{--})}\] (5.11b) \[A_{L}^{ls} =\frac{1}{P_{Y}P_{B}}\frac{N^{++}-R_{4}N^{--}}{N^{++}+R_{4}N^{--}}\] (5.11c) \[A_{L}^{us} =\frac{1}{P_{Y}P_{B}}\frac{R_{5}N^{+-}+R_{6}N^{-+}}{R_{5}N^{+-}+R _{6}N^{-+}} \tag{5.11d}\]
+
+The normalization factors, \(R_{1-6}\), are given in Equations 5.3a - 5.3f.
+
+The four false asymmetries were calculated for the three polarization bins as seen in Figure 5.10. These asymmetries provide an important check on the \(\pi^{0}\)\(A_{LL}\) analysis. Any significant variation from zero would indicate a problem in the analysis. All false asymmetries were found to be consistent with zero.
+
+Figure 5.10: False longitudinal spin asymmetries in order: Blue beam single-spin asymmetry (upper left), yellow beam beam single-spin asymmetry (upper right), like-sign double-spin asymmetry (lower left), and unlike-sign double-spin asymmetry (lower right). Lowest polarization results shown in green, middle polarization results shown in blue, and highest polarization bin shown in red.
+
+Statistical Uncertainty Calculation
+
+The statistical uncertainty for the longitudinal double-spin asymmetry of interest, \(A_{LL}\), can be expressed as
+
+\[\sigma^{2}_{A_{LL}}=\sum_{i}[(\frac{\partial A_{LL}}{\partial N_{i}^{+}}\sigma_{ N_{i}^{+}})^{2}+(\frac{\partial A_{LL}}{\partial R_{3}N_{i}^{-}}\sigma_{N_{i}^{-}})^{2 }+(\frac{\partial A_{LL}}{\partial p_{y}}\sigma_{p_{y}})^{2}+(\frac{\partial A _{LL}}{\partial p_{b}}\sigma_{p_{b}})^{2}] \tag{5.12}\]
+
+where the last two terms can be safely ignored. Looking at the first two partial derivatives,
+
+\[\frac{\partial A_{LL}}{\partial N_{j}^{+}}=\frac{p_{b_{j}}p_{y_{j}}}{\sum_{i}p _{b_{i}}^{2}p_{y_{i}}^{2}N_{i}}(1-p_{b}p_{y}A_{LL}), \tag{5.13}\]
+
+\[\frac{\partial A_{LL}}{\partial R_{3}N_{j}^{-}}=\frac{-p_{b_{j}}p_{y_{j}}}{ \sum_{i}p_{b_{i}}^{2}p_{y_{i}}^{2}N_{i}}(1+p_{b}p_{y}A_{LL}). \tag{5.14}\]
+
+The terms linear in \(A_{LL}\) are negligible compared to 1, and so can be ignored. The uncertainty can then be simplified to:
+
+\[\sigma^{2}_{A_{LL}}=\frac{\sum_{j}p_{b_{j}}^{2}p_{y_{j}}^{2}(\sigma^{2}_{N_{j }^{+}}+\sigma^{2}_{N_{j}^{-}})}{(\sum_{i}p_{b_{i}}^{2}p_{y_{i}}^{2}N_{i})^{2}}. \tag{5.15}\]
+
+The statistical uncertainty in counts as stated above is \(\sigma_{N_{i}^{+,-}}\approx\sqrt{N_{i}^{+,-}+2*B_{i}^{+,-}}\) where \(B_{i}^{+,-}\) is the background under the pion peak in the di-photon invariant mass fit. Placing this into the equation for \(A_{LL}\) a final expression for uncertainty statistical uncertainty proposed for this procedure is found.
+
+\[\delta A_{LL}=\frac{\sqrt{\sum_{j}p_{b_{j}}^{2}p_{y_{j}}^{2}((N_{j}^{+}+2*B_{j}^{+}) +(N_{j}^{-}+2*B_{j}^{-}))}}{\sum_{i}p_{b_{i}}^{2}p_{y_{i}}^{2}N_{i}}=\frac{\sqrt{ \sum_{j}p_{b_{j}}^{2}p_{y_{j}}^{2}(N_{j}+2*B_{j})}}{\sum_{i}p_{b_{i}}^{2}p_{y_ {i}}^{2}N_{i}} \tag{5.16}\]
+
+The calculated statistical uncertainties for the three polarization bins and the nine \(p_{T}\) bins are shown in Table 5.8.
+
+### 5.6 Systematic Uncertainties
+
+Various factors were considered as sources of systematic error. These are discussed below along with estimates of certain systematic errors for the analysis. Systematic uncertainties can be broken between \(p_{T}\) uncertainties and \(A_{LL}\) uncertainties. For reasons discussed below, uncertainties in \(p_{T}\) are very small.
+
+#### Luminosity and Polarization Uncertainty
+
+The polarization uncertainty was determined to be 6.5% by the RHIC polarimetry group [80], and is taken as an overall scale uncertainty. Relative luminosity is used in the same way for \(\pi^{0}\)\(A_{LL}\) as for inclusive jets and dijets, so the relative luminosity systematic can be used from those analyses. By evaluating BBC/ZDC differences and false asymmetry magnitudes, the inclusive jet analysis found a statistical uncertainty for luminosity of \(\pm 0.0005\), which is negligible compared to other errors discussed below.
+
+[MISSING_PAGE_EMPTY:106]
+
+#### Fit Shape Systematic
+
+Two fit shapes alternative to Equation 5.4 are used to calculate a fit shape systematic uncertainty. A skewed Gaussian describes the pion peak quite well, so it is kept but the background fit is altered. Both alterations keep the scheme of an exponential shape, but change parameters inside the exponential. The first fit equation uses one less background parameter, dropping the \(x^{2}\) term from the exponential:
+
+\[exp\big{(}p_{0}+p_{1}x\big{)}+Amp*exp\bigg{(}-\frac{1}{2}\Big{(}\frac{x-\mu}{ \sigma(1-skew(x-\mu))}\Big{)}^{2}\bigg{)} \tag{5.17}\]
+
+The second fit equation replaces the \(x^{2}\) exponential term in the background fit from Equation 5.4 with an \(x^{-1}\) term:
+
+\[exp\big{(}p_{0}+p_{1}x+p_{2}x^{-1}\big{)}+Amp*exp\bigg{(}-\frac{1}{2}\Big{(} \frac{x-\mu}{\sigma(1-skew(x-\mu))}\Big{)}^{2}\bigg{)} \tag{5.18}\]
+
+#### Lower Range Fit Systematic
+
+\(A_{LL}\) is calculated for different fit ranges in addition to the standard fit range found in Table 5.3. The alternative fit ranges use the same upper fit range and exception for the \(\eta\) mass peak but vary the low end by a value of \(+/-.01\) GeV, which is equivalent to a single mass bin in the diphoton invariant mass plot.
+
+Shifting over only a single bin may seem like a small alteration to the procedure. Careful study of diphoton invariant mass spectra reveals that the left side of the background curve where the background starts to fall off is quite close to the pion mass peak. The choice oflower range is therefore tricky with possibly no 'correct' choice. Values in Table 5.7 show that the analysis is in fact sensitive to this choice.
+
+This procedure was limited to a one bin shift because running the analysis varying by two or more bins will render the fit unstable. This variation often places the left side of the fit below the background fall off and/or inside the pion peak.
+
+##### Parameter Fit Systematic
+
+The procedure to determine a fit systematic for parameter variation is slightly more complicated compared with the other fit systematics. The parameters from the initial fit are determined as explained in Section 5.2.2, with \(p_{1}\), \(p_{2}\), \(\mu\) and \(\sigma\) saved. ROOT calculates each of these parameters with some value of variance which is also stored. The fit parameter systematic uncertainty looks at the effect of taking these parameters (excluding \(p_{2}\)) individually one at time and altering them by +/- their variance.
+
+To do this the initial fit is repeated six times with each tested parameter altered by +/- its variance. From here the procedure is continued as normal, calculating \(A_{LL}\) and comparing with default \(A_{LL}\).
+
+### 5.7 Final \(A_{ll}\) Results
+
+Results for the longitudinal double-spin asymmetry for inclusive \(\pi^{0}\) production from 2009 200 GeV data is reported here. The dataset was divided into three subsets based on the average beam polarization during data taking, to create three independent \(A_{LL}\) measure ments. Table 5.8 includes all measured \(A_{LL}\) values along with statistical uncertainties, and values for the systematic fit uncertainty. Figure 5.11 plots the three independent measurements of \(A_{LL}\) with DSSV14 [81] and NNPDF [82] theory curves against \(p_{T}\).
+
+The three independent measurements are offset for readability: the lowest polarization bin on the left (green), followed by the middle polarization bin (in blue), and the high polarization beam on the right (in red). Bars around each of the \(A_{LL}\) measurements represent statistical uncertainty and and colored boxes represent systematic error in the fit. The DSSV14 theory curve is shown in black.
+
+Extrapolations of two modern theoretical models have been included based on polarized PDFs from DSSV14 and NNPDF. Next-to-leading order calculations from [83][84] were used to determine these extrapolations. To calculate the DSSV curve \(A_{LL}^{\pi^{0}}\) DSSV14 [81] is chosen for the polarized PDF (to calculate the numerator) and CTEQ6M PDF [41] was used for the unpolarized PDF (to calculate the denominator). The NNPDF \(A_{LL}^{\pi^{0}}\) was created using NNPDFpol1.1 [82] polarized PDF for the numerator and NNPDF2.3 [85] PDF for the denominator. For both theory curves, the DSS fragmentation function was utilized [86].
+
+The uncertainty band around the \(A_{LL}\) curves comes from the NNPDF calculation. The NNPDF collaboration trains their neural network based fit on Monte Carlos _replicas_ based on the data. Replicas are generated taking into account nominal value of the data, errors, and correlations. The NLO calculation \(A_{LL}\) was performed for 100 replicas, and the error bands are calculated from the standard deviation of these replicas.
+
+Figure 5.11: Double-spin asymmetry plotted against \(p_{T}\). Bars give statistical uncertainty and boxes give fit systematics. Lowest polarization results shown in green, middle polarization results shown in blue, and highest polarization bin shown in red. The DSSV14 theory curve is shown in black.
+
+[MISSING_PAGE_FAIL:111]
+
+## Chapter 6 Conclusion and Outlook
+
+The \(20^{th}\) century saw both the discovery of the proton as a basic building block of the atomic nucleus and of the proton's own internal structure. QCD was discovered as a powerful theory for understanding protons, neutrons, and other particles bound by the strong force. A'spin crisis' occurred when intrinsic quarks were found to carry a much smaller fraction of proton spin than previously expected. Measurements constraining gluon spin increase our understanding of the proton internal structure and serve as a tool for uncovering properties of QCD more generally.
+
+RHIC is the world's first polarized proton-proton collider and has kinematics that are sensitive to gluon interactions. This allows measurements at RHIC to place important constraints on gluon polarization in the proton. Results from STAR have already succeeded at narrowing theory curves for \(g(x)\), including the first non-zero measurement from Run 9 inclusive jets. Data from STAR can continue to probe lower values of Bjorken-x wheregluonic contributions are less well constrained.
+
+The measurements of longitudinal \(A_{LL}^{\pi^{0}}\) at 200 GeV from Run 9 are reported here. The average energy profile of photons in the SMD was studied to help improve the \(\pi^{0}\) reconstruction algorithm. The modifications made allow for intelligent decisions in resolving situations in which photons are close together in either SMD plane. This allows for better reconstruction of high energy \(\pi^{0}\)s. Three independent measurements of \(A_{LL}^{\pi^{0}}\) were created, yielding results that are mostly consistent with theoretical expectations.
+
+Future work with longitudinal \(A_{LL}^{\pi^{0}}\) and other observables will help further constrain \(g(x)\). A larger longitudinal proton-proton dataset was taken by STAR in Run 15. The Run 15 dataset recorded 52 pb\({}^{-1}\), nearly twice the statistics of Run 9. Furthermore, longitudinal proton-proton collisions at 510 GeV were taken in Run 12/13, 82 pb\({}^{-1}\) in Run 12 and 300 pb\({}^{-1}\) in Run 13. At these higher collision energies, the STAR detector can efficiently probe partons of lower momentum fraction; this means that these datasets should allow for measurements which will better probe \(g(x)\) at low Bjorken-x.
+
+The STAR forward upgrade planned for 2021 and future transversely polarized pp and pAu (proton-gold) runs at RHIC will continue to advance our understanding of parton spin [87]. Further into the future, the upcoming EIC (Electron Ion Collider) will add capabilities for colliding a polarized electron beam with a polarized proton beam at BNL. The EIC and the next generation of detectors will allow for precise measurements which will further push our understanding of QCD and parton spin in the proton to new heights.
+
+## Bibliography
+
+* [1] M. e. a. Tanabashi, "Review of particle physics," _Phys. Rev. D_, vol. 98, p. 030001, Aug 2018.
+* [2] D. de Florian, G. A. Lucero, R. Sassot, M. Stratmann, and W. Vogelsang, "Monte carlo sampling variant of the dssv14 set of helicity parton densities," _Physical Review D_, vol. 100, Dec 2019.
+* [3] C. e. a. Aidala, "Research plan for spin physics at rhic collaboration spin plan," 2005.
+* [4] P. S. E. R. F.R.S., "Liv. collision of \(\alpha\) particles with light atoms. iv. an anomalous effect in nitrogen," _The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science_, vol. 37, no. 222, pp. 581-587, 1919.
+* [5] E. Rutherford, "Bakerian Lecture. Nuclear Constitution of Atoms," _Proceedings of the Royal Society of London Series A_, vol. 97, pp. 374-400, jul 1920.
+* [6] J. Toennies, H. Schmidt-Bocking, B. Friedrich, and J. Lower, "Otto stern (1888-1969): The founding father of experimental atomic physics," _Annalen der Physik_, vol. 523, p. 1045-1070, Nov 2011.
+
+* [7] J. I. Friedman, "Deep inelastic scattering: Comparisons with the quark model," _Rev. Mod. Phys._, vol. 63, pp. 615-627, Jul 1991.
+* [8] H. W. Kendall, "Deep inelastic scattering: Experiments on the proton and the observation of scaling," _Rev. Mod. Phys._, vol. 63, pp. 597-614, Jul 1991.
+* [9] R. E. Taylor, "Deep inelastic scattering: The early years," _Rev. Mod. Phys._, vol. 63, pp. 573-595, Jul 1991.
+* [10] J. D. Bjorken, "Asymptotic sum rules at infinite momentum," _Phys. Rev._, vol. 179, pp. 1547-1553, Mar 1969.
+* [11] E. D. Bloom, D. H. Coward, H. DeStaebler, J. Drees, G. Miller, L. W. Mo, R. E. Taylor, M. Breidenbach, J. I. Friedman, G. C. Hartmann, and H. W. Kendall, "High-energy inelastic \(e^{-}p\) scattering at 6 degrees and 10 degrees," _Phys. Rev. Lett._, vol. 23, pp. 930-934, Oct 1969.
+* [12] M. Breidenbach, J. I. Friedman, H. W. Kendall, E. D. Bloom, D. H. Coward, H. DeStaebler, J. Drees, L. W. Mo, and R. E. Taylor, "Observed behavior of highly inelastic electron-proton scattering," _Phys. Rev. Lett._, vol. 23, pp. 935-939, Oct 1969.
+* [13] R. P. Feynman, "Very high-energy collisions of hadrons," _Phys. Rev. Lett._, vol. 23, pp. 1415-1417, Dec 1969.
+* [14] J. D. Bjorken and E. A. Paschos, "Inelastic electron-proton and \(\gamma\)-proton scattering and the structure of the nucleon," _Phys. Rev._, vol. 185, pp. 1975-1982, Sep 1969.
+
+- 215, 1964.
+* [16] G. Zweig, "An SU(3) model for strong interaction symmetry and its breaking. Version 1," 1964.
+* 1978_ (D. Lichtenberg and S. P. Rosen, eds.), pp. 22-101, 1964.
+* [18] J. Kuti and V. F. Weisskopf, "Inelastic lepton-nucleon scattering and lepton pair production in the relativistic quark-parton model," _Phys. Rev. D_, vol. 4, pp. 3418-3439, Dec 1971.
+* [19] C. G. Callan and D. J. Gross, "High-energy electroproduction and the constitution of the electric current," _Phys. Rev. Lett._, vol. 22, pp. 156-159, Jan 1969.
+* [20] G. 't Hooft, "When was asymptotic freedom discovered? or the rehabilitation of quantum field theory," _Nucl. Phys. B Proc. Suppl._, vol. 74, pp. 413-425, 1999.
+* [21] S. D. BASS, "The proton spin puzzle: Where are we today?," _Modern Physics Letters A_, vol. 24, no. 14, pp. 1087-1101, 2009.
+* [22] S. D. Bass, "The Spin structure of the proton," _Rev. Mod. Phys._, vol. 77, pp. 1257-1302, 2005.
+* [23] A. Deur, S. J. Brodsky, and G. F. De Teramond, "The Spin Structure of the Nucleon," _Rept. Prog. Phys._, vol. 82, no. 076201, 2019.
+
+* [24] E. Leader, _Spin in Particle Physics_. Cambridge Monographs on Particle Physics, Nuclear Physics and Cosmology, Cambridge University Press, 2001.
+* 124, 1995.
+* 514, 1988.
+* [27] J. Ashman, B. Badelek, G. Baum, J. Beaufays, C. Bee, C. Benchouk, I. Bird, S. Brown, M. Caputo, H. Cheung, J. Chima, J. Ciborowski, R. Clifft, G. Coignet, F. Combley, G. Court, G. d'Agostini, J. Drees, M. Duren, N. Dyce, A. Edwards, M. Edwards, T. Ernst, M. Ferrero, D. Francis, E. Gabathuler, R. Gamet, V. Gibson, J. Gillies, P. Grafstrom, K. Hamacher, D. Harrach, P. Hayman, J. Holt, V. Hughes, A. Jacholkowska, T. Jones, E. Kabuss, B. Korzen, U. Kruner, S. Kullander, U. Landgraf, D. Lanske, F. Lettenstrom, T. Lindqvist, J. Loken, M. Matthews, Y. Mizuno, K. Monig, F. Montanet, E. Nagy, J. Nassalski, T. Niinikoski, P. Norton, F. Oakham, R. Oppenheim, A. Osborne, V. Papavassiliou, N. Pavel, C. Peroni, H. Peschel, R. Piegaia, B. Pietrzyk, U. Pietrzyk, B. Povh, P. Renton, J. Rieubland, A. Rijllart, K. Rith, E. Rondio, L. Ropelewski, D. Salmon, A. Sandacz, T. Schroder, K. Schuler, K. Schultze, T.-A. Shibata, T. Sloan, A. Staiano, H. Stier, J. Stock, G. Taylor, J. Thompson, T. Walcher, J. Toth, L. Urban, W. Wallucks, S. Wheeler, D. Williams, W. Williams, S. Wimpenny, R. Windmolders, W. Womersley, and K. Ziemons, "Aninvestigation of the spin structure of the proton in deep inelastic scattering of polarised muons on polarised protons," _Nuclear Physics B_, vol. 328, no. 1, pp. 1 - 35, 1989.
+* [28] J. Ellis and R. Jaffe, "Sum rule for deep-inelastic electroproduction from polarized protons," _Phys. Rev. D_, vol. 9, pp. 1444-1446, Mar 1974.
+* [29] C. Adolph _et al._, "Longitudinal double spin asymmetries in single hadron quasi-real photoproduction at high \(p_{T}\)," _Phys. Lett._, vol. B753, pp. 573-579, 2016.
+* [30] R. Milner, "The HERMES experiment," _Nucl. Phys. A_, vol. 622, pp. 16C-30C, 1997.
+* 546, 1990.
+* [32] M. Wakamatsu, "Gauge-invariant decomposition of nucleon spin," _Phys. Rev. D_, vol. 81, p. 114010, Jun 2010.
+* [33] X.-S. Chen, X.-F. Lu, W.-M. Sun, F. Wang, and T. Goldman, "Spin and orbital angular momentum in gauge theories: Nucleon spin structure and multipole radiation revisited," _Phys. Rev. Lett._, vol. 100, p. 232002, Jun 2008.
+* [34] X. Ji, X. Xiong, and F. Yuan, "Probing parton orbital angular momentum in longitudinally polarized nucleon," _Phys. Rev. D_, vol. 88, p. 014041, Jul 2013.
+* [35] E. R. Nocera, R. D. Ball, S. Forte, G. Ridolfi, and J. Rojo, "A first unbiased global determination of polarized pdfs and their uncertainties," _Nuclear Physics B_, vol. 887, p. 276-308, Oct 2014.
+
+* [36] E. Leader, A. V. Sidorov, and D. B. Stamenov, "Determination of polarized parton densities from a qcd analysis of inclusive and semi-inclusive deep inelastic scattering data," _Phys. Rev. D_, vol. 82, p. 114018, Dec 2010.
+* [37] G. Bunce, N. Saito, J. Soffer, and W. Vogelsang, "Prospects for spin physics at rhic," _Annual Review of Nuclear and Particle Science_, vol. 50, no. 1, pp. 525-575, 2000.
+* [38] P. Nason, S. Dawson, and R. Ellis, "The Total Cross-Section for the Production of Heavy Quarks in Hadronic Collisions," _Nucl. Phys. B_, vol. 303, pp. 607-633, 1988.
+* [39] S. Catani and M. Grazzini, "Qcd transverse-momentum resummation in gluon fusion processes," _Nuclear Physics B_, vol. 845, pp. 297-323, 11 2010.
+* [40] V. Guzey, M. Strikman, and W. Vogelsang, "Observations on da scattering at forward rapidities," _Physics Letters B_, vol. 603, p. 173-183, Dec 2004.
+* [41] J. Pumplin, D. R. Stump, J. Huston, H.-L. Lai, P. Nadolsky, and W.-K. Tung, "New generation of parton distributions with uncertainties from global qcd analysis," _Journal of High Energy Physics_, vol. 2002, p. 012-012, Jul 2002.
+* [42] B. Jager, A. Schafer, M. Stratmann, and W. Vogelsang, "Next-to-leading order qcd corrections to high-ptpion production in longitudinally polarizedppcollisions," _Physical Review D_, vol. 67, Mar 2003.
+* [43] G. A. Navarro and R. Sassot, "Constraints on gluon polarization in the nucleon at nlo accuracy," _Physical Review D_, vol. 74, Jul 2006.
+
+* [44] J. F. Aversa, P.Chiappetta M. Greco, "Qcd corrections to parton-parton scattering processes," _Nuclear Physical B_, vol. 327, March 1989.
+* [45] S. S. Adler, S. Afanasiev, C. Aidala, N. N. Ajitanand, Y. Akiba, A. Al-Jamel, J. Alexander, K. Aoki, L. Aphecetche, R. Armendariz, and et al., "Double helicity asymmetry in inclusive midrapidity pi0 production for polarized pp collisions at s=200 gev," _Physical Review Letters_, vol. 93, Nov 2004.
+* [46] A. Adare, S. Afanasiev, C. Aidala, N. N. Ajitanand, Y. Akiba, H. Al-Bataineh, J. Alexander, K. Aoki, L. Aphecetche, R. Armendariz, and et al., "Cross section and double helicity asymmetry for eta mesons and their comparison to pi0 production in pp collisions at s=200 gev," _Physical Review D_, vol. 83, Feb 2011.
+* [47] A. Adare, C. Aidala, N. Ajitanand, Y. Akiba, R. Akimoto, H. Al-Ta'ani, J. Alexander, K. Andrews, A. Angerami, K. Aoki, and et al., "Inclusive double-helicity asymmetries in neutral-pion and eta-meson production in p+p collisions at s=200 gev," _Physical Review D_, vol. 90, Jul 2014.
+* [48] L. Adamczyk, J. Adkins, G. Agakishiev, M. Aggarwal, Z. Ahammed, I. Alekseev, J. Alford, C. Anson, A. Aparin, D. Arkhipkin, and et al., "Neutral pion cross section and spin asymmetries at intermediate pseudorapidity in polarized proton collisions at s=200 gev," _Physical Review D_, vol. 89, Jan 2014.
+* [49] H. Hahn _et al._, "The RHIC design overview," _Nucl. Instrum. Meth._, vol. A499, pp. 235-244, 2003.
+
+* [50] T. L. M. Harrison and S. Ozaki, "Rhic Project Overview," _Nucl. Instrum. Meth._, vol. 499(2), pp. 245-263, 2003.
+* [51] M. Harrison, S. Peggs, and T. Roser, "The rhic accelerator," _Annual Review of Nuclear and Particle Science_, vol. 52, no. 1, pp. 425-469, 2002.
+* [52] E. M. Metodiev, "Thomas-bmt equation generalized to electric dipole moments and field gradients," 2015.
+* [53] F. Z. Khiari, P. R. Cameron, G. R. Court, D. G. Crabb, M. Fujisaki, I. Gialas, P. H. Hansen, M. E. Hejazifar, A. D. Krisch, A. M. T. Lin, S. L. Linn, D. C. Peaslee, R. S. Raymond, R. R. Raylman, T. Roser, T. Shima, K. M. Terwilliger, L. A. Ahrens, J. G. Alessi, H. N. Brown, K. A. Brown, E. D. Courant, G. T. Danby, S. Giordano, H. J. Halama, A. Kponou, R. Lambiase, S. Y. Lee, Y. Y. Lee, R. E. Lockey, Y. I. Makdisi, P. A. Montemurro, R. J. Nawrocky, L. G. Ratner, J. F. Skelly, T. J. Sluyters, A. Soukas, S. Tepikian, R. L. Witkover, J. B. Roberts, G. C. Phillips, V. W. Hughes, P. Schuler, J. A. Bywater, R. L. Martin, J. R. O'Fallon, T. S. Bhatia, L. C. Northcliffe, and M. Simonius, "Acceleration of polarized protons to 22 gev/c and the measurement of spin-spin effects in \(p_{\uparrow}\)+\(p_{\uparrow}\)\(\rightarrow\)p+p," _Phys. Rev. D_, vol. 39, pp. 45-85, Jan 1989.
+* [54] S. S. A. S. G. T. Y Derbenev, A Kondratenko and j.. Y Shatunov, title = Radiative Polarization: Obtaining Control Using
+* [55] A. D. Krisch, S. R. Mane, R. S. Raymond, T. Roser, J. A. Stewart, K. M. Terwilliger, B. Vuaridel, J. E. Goodwin, H.-O. Meyer, M. G. Minty, P. V. Pancella, R. E. Pollock, T. Rinckel, M. A. Ross, F. Sperisen, E. J. Stephenson, E. D. Courant, S. Y. Lee,and L. G. Ratner, "First test of the siberian snake magnet arrangement to overcome depolarizing resonances in a circular accelerator," _Phys. Rev. Lett._, vol. 63, pp. 1137-1140, Sep 1989.
+* [56] I. Nakagawa, I. Alekseev, A. Bravar, G. Bunce, S. Dhawan, K. O. Eyser, R. Gill, W. Haeberli, H. Huang, O. Jinnouchi, Y. Makdisi, A. Nass, H. Okada, E. Stephenson, D. Svirida, T. Wise, J. Wood, and A. Zelenski, "Polarization measurements of rhic-pp run05 using cni pc-polarimeter," _AIP Conference Proceedings_, vol. 915, no. 1, pp. 912-915, 2007.
+* [57] A. Zelenski _et al._, "Absolute polarized H-jet polarimeter development, for RHIC," _Nucl. Instrum. Meth._, vol. A536, pp. 248-254, 2005.
+* [58] K. Ackermann _et al._, "STAR detector overview," _Nucl. Instrum. Meth. A_, vol. 499, pp. 624-632, 2003.
+* [59] K. Adcox _et al._, "PHENIX detector overview," _Nucl. Instrum. Meth. A_, vol. 499, pp. 469-479, 2003.
+* [60] M. Adamczyk, L. Antvorskov, K. Ashktorab, K. Asselta, E. Baker, I. Bearden, D. Beavis, C. Besliu, Y. Blyakhman, J. Brzychczyk, B. Budick, H. Boggild, C. Chasman, C. Christensen, P. Christiansen, J. Cibor, R. Debbe, H. Diaz, L. Dutka, and I. Zgura, "The brahms experiment at rhic," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 499, pp. 437-468, 03 2003.
+
+* [61] B. Back _et al._, "The PHOBOS detector at RHIC," _Nucl. Instrum. Meth. A_, vol. 499, pp. 603-623, 2003.
+* [62] A. Adare and S. A. et al., "An upgrade proposal from the phenix collaboration," 2015.
+* [63] R. Snellings, A. Tang, T. Peitzmann, A. Mischke, M. Botje, M. Anderson, J. Berkovitz, W. Betts, R. Bossingham, F. Bieser, R. Brown, M. Burks, M. Sanchez, D. Cebra, M. Cherney, J. Chrin, W. Edwards, V. Ghazikhanian, D. Greiner, and W. Zhang, "The star time projection chamber: A unique tool for studying high multiplicity events at rhic," _Nuclear Instruments and Methods in Physics Research Section A Accelerators Spectrometers Detectors and Associated Equipment_, vol. 499, 04 2002.
+* [64] R. L. Brown, A. Etkin, K. J. Foley, W. J. Leonhardt, J. A. Mills, I. Polk, E. S. Rodger, J. A. Scheblein, and R. D. Schlueter, "The star detector magnet subsystem," in _Proceedings of the 1997 Particle Accelerator Conference (Cat. No.97CH36167)_, vol. 3, pp. 3230-3232 vol.3, 1997.
+* [65] J. Abele, J. Berkovitz, J. Boehm, A. Brandin, E. Gushin, G. Harper, A. Lebedev, W. Love, A. Ridiger, M. Strikhanov, J. Weidenbach, R. Wells, J. Wolf, J. Wirth, and H. Wieman, "The laser system for the star time projection chamber," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 499, pp. 692-702, 03 2003.
+* [66] S. Wissink, "Doing physics with an electromagnetic calorimeter: A calibration overview," May 2014.
+
+* [67] M. Tanabashi _et al._, "Review of Particle Physics," _Phys. Rev._, vol. D98, no. 3, p. 030001, 2018.
+* 1912, 09 1998.
+* 131, 05 2000.
+* [70] F. Bieser _et al._, "The STAR trigger," _Nucl. Instrum. Meth. A_, vol. 499, pp. 766-777, 2003.
+* 606, 07 2001.
+* [72] T. Sjostrand, S. Mrenna, and P. Skands, "Pythia 6.4 physics and manual," _Journal of High Energy Physics_, vol. 2006, p. 026-026, May 2006.
+* [73] P. Z. Skands, "The perugia tunes," 2009.
+* [74] P. Z. Skands, "Tuning monte carlo generators: The perugia tunes," _Physical Review D_, vol. 82, Oct 2010.
+
+- 303, 2003.
+* [76] W. He, _Double spin asymmetry in inclusive \(\pi^{0}\) production for longitudinally polarized proton proton collisions at \(\sqrt{s}\) = 200-GeV at the Endcap Electromagnetic Calorimeter at STAR_. PhD thesis, Indiana U., 2008.
+* [77] C. Whitten, "The beam-beam counter: A local polarimeter at star," vol. 980, 02 2008.
+* 340, 2001. 8th Pisa Meeting on Advanced Detectors.
+* [79] H. S. B. S. James Hays-Wehle, Joe Seele, "Relative luminosity analysis for run9 pp 200 gev running," November 2012.
+* [80] L. e. a. Adamczyk, "Precision measurement of the longitudinal double-spin asymmetry for inclusive jet production in polarized proton collisions at \(\sqrt{s}=200\) GeV," _Phys. Rev. Lett._, vol. 115, p. 092002, Aug 2015.
+* [81] D. de Florian, R. Sassot, M. Stratmann, and W. Vogelsang, "Evidence for polarization of gluons in the proton," _Physical Review Letters_, vol. 113, Jul 2014.
+* 308, 2014.
+* [83] B. Jager, A. Schafer, M. Stratmann, and W. Vogelsang, "Next-to-leading order qcd corrections to high-\(p_{T}\) pion production in longitudinally polarized pp collisions," _Phys. Rev. D_, vol. 67, p. 054005, Mar 2003.
+* [84] B. Jager, M. Stratmann, and W. Vogelsang, "Single-inclusive jet production in polarized pp collisions at \(\mathcal{O}(\alpha_{s}^{3})\)," _Phys. Rev. D_, vol. 70, p. 034010, Aug 2004.
+* [85] R. D. Ball, V. Bertone, F. Cerutti, L. Del Debbio, S. Forte, A. Guffanti, J. I. Latorre, J. Rojo, and M. Ubiali, "Reweighting nnpdfs: The w lepton asymmetry," _Nuclear Physics B_, vol. 849, p. 112-143, Aug 2011.
+* [86] D. de Florian, R. Sassot, and M. Stratmann, "Global analysis of fragmentation functions for pions and kaons and their uncertainties," _Physical Review D_, vol. 75, Jun 2007.
+* [87] "The star beam use request for run-21, run-22 and data taking in 2023-25," September 2020.

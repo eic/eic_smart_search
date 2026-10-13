@@ -1,0 +1,907 @@
+Ayman Hamad. Ph.D., NUCLEAR PHYSICS
+
+ELLIPTIC FLOW STUDY OF CHARMED MESONS IN 200 GEV AU+AU
+
+COLLISIONS AT THE RELATIVISTIC HEAVY ION COLLIDER (122 pp.)
+
+Director of Dissertation: Spyridon Margetis and Declan Keane
+
+Quantum Chromodynamics (QCD), the theory of the strong interaction between quarks and gluons, predicts that at extreme conditions of high temperature and/or density, quarks and gluons are no longer confined within individual hadrons. This new deconfined state of quarks and gluons is called Quark-Gluon Plasma (QGP). The Universe was in this QGP state a few microseconds after the Big Bang. The Relativistic Heavy Ion Collider (RHIC) at Brookhaven National Laboratory (BNL) on Long Island, NY was built to create and study the properties of QGP.
+
+Due to their heavy masses, quarks with heavy flavor (charm and bottom) are mainly created during the early, energetic stages of the collisions. Heavy flavor is considered to be a unique probe for QGP studies, since it propagates through all phases of a collision, and is affected by the hot and dense medium throughout its evolution. Initial studies, via indirect reconstruction of heavy flavor using their decay electrons, indicated a much higher energy loss by these quarks compared to model predictions, with a magnitude comparable to that of light quarks. Mesons such as \(D^{0}\) could provide information about the interaction of heavy quarks with the surrounding medium through measurements such as elliptic flow. Such data help constrain the transport parameters of the QGP medium and reveal its degree of thermalization.
+
+Because heavy hadrons have a low production yield and short lifetime (e.g. \(c\tau=120\mu\)m for \(D^{0}\)), it is very challenging to obtain accurate measurements of open heavy flavor in heavy-ion collisions, especially since the collisions also produce large quantities of light-flavor particles. Also due to their short lifetime, it is difficult to distinguish heavy-flavor decay vertices from the primary collision vertex; one needs a very high precision vertex detector in order to separate and reconstruct the decay of the heavy flavor particles in the presence of thousands of other particles produced in each collision.
+
+The STAR collaboration built a new micro-vertex detector and installed it in the experiment in 2014. This state-of-the-art silicon pixel technology is named the Heavy Flavor Tracker (HFT). The HFT was designed in order to perform direct topological reconstruction of the weak decay products from hadrons that include a heavy quark. The HFT consists of four layers of silicon, and it improves the track pointing resolution of the STAR experiment from a few mm to around 30 \(\mu\)m for charged pions at a momentum of 1 GeV/\(c\).
+
+In this dissertation, I focus on one of the main goals of the HFT detector, which is to study the elliptic flow \(v_{2}\) (a type of azimuthal anisotropy) for \(D^{0}\) mesons in Au+Au collisions at \(\sqrt{s_{NN}}=\) 200 GeV. My analysis is based on the 2014 data set (about 1.2 billion collisions covering all impact parameters) that include data from the HFT detector. There are two new and unique analysis elements used in this dissertation. First, I performed the analysis using a Kalman filter algorithm to reconstruct the charmed-meson candidates. The standard reconstruction is via a simple helix-swim method. The advantage of using the Kalman algorithm is in the use of the full error matrix of each track in the vertex estimation and reconstruction of the propertiesof the heavy-flavor parent particle. Second, I also used the Tool for Multivariate Analysis (TMVA), a ROOT-environment tool, to its full potential for signal significance optimization, instead of the previous approach based on a set of fixed cuts for separating signal from background.
+
+This dissertation presents the elliptic component (\(v_{2}\)) of azimuthal anisotropy of \(D^{0}\) mesons as a function of transverse momentum, \(p_{T}\). The centrality (impact parameter) dependence of \(D^{0}\)\(v_{2}(p_{T})\) is also studied. Results are compared with similar studies involving light quarks, and with the predictions of several theoretical models.
+
+ELLIPTIC FLOW STUDY OF CHARMED MESONS IN 200 GEV AU+AU COLLISIONS AT THE RELATIVISTIC HEAVY ION COLLIDER
+
+A dissertation submitted to
+
+Kent State University in partial
+
+fulfillment of the requirements for the
+
+degree of Doctor of Philosophy
+
+by
+
+Ayman Hamad
+
+August, 2017
+
+(c) Copyright
+
+All rights reserved
+
+Except for previously published materialsDissertation written by
+
+Ayman Hamad
+
+B.Sc., Garyounis University, 2004
+
+M.Sc., Omar Al-Mukhtar University, 2009
+
+M.A., Kent State University, 2013
+
+Ph.D., Kent State University, 2017
+
+Approved by
+
+, Chair, Doctoral Dissertation Committee
+
+Dr. Spyridon Margetis
+
+, Members, Doctoral Dissertation Committee
+
+Dr. Declan Keane
+
+Dr. Veronica Dexheimer
+
+Dr. Songping Huang
+
+Dr. Mietek Jaroniec
+
+Accepted by
+
+, Chair, Department of Physics
+
+Dr. James T. Gleeson
+
+, Dean, College of Arts and Sciences
+
+Dr. James L. BlankTable of Contents
+
+List of Figures
+
+List of Tables
+
+Acknowledgments
+
+* 1 Introduction
+	* 1.1 The Standard Model
+	* 1.2 Quantum Chromodynamics
+	* 1.3 Quark-Gluon Plasma : QCD Phase Transition
+	* 1.4 **R**elativistic Heavy Ion Collisions
+		* 1.4.1 Space-time evolution
+	* 1.5 **R**elativistic Kinematics of heavy ion collisions
+		* 1.5.1 Rapidity and Pseudo-rapidity
+		* 1.5.2 Transverse momentum
+		* 1.5.3 Collision centrality
+	* 1.6 **P**robing the QGP
+		* 1.6.1 Heavy Flavor
+		* 1.6.2 Elliptic Flow (\(v_{2}\))
+		* 1.6.3 Number-of-constituent quark scaling
+* 2 RHIC and STAR
+	* 2.1 RHIC
+		* 2.2.1 **R**
+The STAR Detector
+
+\[\begin{array}{ll}\mbox{2.2.1}&\mbox{Time Projection Chamber (TPC)}\\ \mbox{2.2.2}&\mbox{Time Of Flight Detector (TOF)}\\ \mbox{2.2.3}&\mbox{Vertex Position Detector (VPD)}\\ \mbox{2.2.4}&\mbox{The Heavy Flavor Tracker (HFT)}\\ \mbox{2.2.5}&\mbox{Silicon Strip Detector (SSD)}\\ \mbox{2.2.6}&\mbox{Intermediate Silicon Tracker (IST)}\\ \mbox{2.2.7}&\mbox{Pixel Detector (PXL)}\end{array}\]
+3Analysis of the Experimental Data
+
+\[\begin{array}{ll}\mbox{3.1}&\mbox{Data Sets and Event Selection}\\ \mbox{3.2}&\mbox{Centrality definition}.\\ \mbox{3.3}&\mbox{Particle identification and track selection}.\\ \mbox{3.3.1}&\mbox{TPC PID}.\\ \mbox{3.3.2}&\mbox{TOF PID}\\ \mbox{3.4}&\mbox{Reconstruction of $D^{0}$ Meson Decays}\\ \mbox{3.5}&\mbox{Kalman Filter Algorithms for $D^{0}$ Reconstruction}\\ \mbox{3.6}&\mbox{TMVA optimization}\\ \mbox{3.6.1}&\mbox{Boosted Decision Tree BDT}\\ \mbox{3.6.2}&\mbox{Signal and Background}\\ \mbox{3.7}&\mbox{Signal of $D^{0}$-Meson}.\end{array}\]
+4Measurement of Elliptic Flow of \(D^{0}\) Mesons
+
+\[\begin{array}{ll}\mbox{4.1}&\mbox{Event Plane Calculation}\\ \mbox{4.2}&\mbox{Detector Acceptance Correction}\end{array}\]	* 4.3 **E**vent Plane Resolution
+	* 4.4 **E**xtracted Yield and Elliptic Flow Determination.
+	* 4.5 **S**ystematic studies.
+* 5 Results and Discussion
+	* 5.1 **C**entrality dependence of -meson.
+	* 5.2 **C**omparison of -Meson with Hadrons.
+	* 5.3 **N**umber-of-Constituent Quarks Scaling.
+	* 5.4 **C**omparison with Theory.
+* 6 Summary
+* A **Gamma-conversion tomography and Beam Pipe position study*
+* A.1 **D**ata Sets
+* A.2 **Ph**otonic electrons
+* A.3 **Quality Cuts Selection.
+* A.4 **Particle identification and track selection.
+* A.5 **Reconstruction of -conversion.
+* A.6 **S**imulation study of -conversion.
+* A.7 **S**ummary
+
+List of Figures
+
+### The standard model.
+
+Various measurements on the strong coupling constant \(\alpha_{s}\) as function of momentum transfer \(Q\). The curves are the QCD predictions. Figure has been taken from Ref. [8].
+
+#### Lattice QCD calculations for energy density as a function of temperature [15].
+
+#### Schematic picture of QCD phase diagram
+
+#### The space-time evolution of a heavy-ion collision [22].
+
+#### A geometrical picture of a heavy ion collision.
+
+#### Quark bare versus dynamical mass.
+
+#### Schematic views of a non-central nucleus-nucleus collision.
+
+Average \(D\)-meson \(v_{2}\) as a function of \(p_{T}\) (left) and average \(D\)-meson \(R_{AA}\) as a function of \(p_{T}\) from ALICE. Figure taken from [78].
+
+Measurements of \(v_{2}(p_{T})\) for identified particles for \(0-80\%\) centrality at RHIC. The lines are the results from hydrodynamic model calculation [79].
+
+(v_{2}\) scaled by number-of-constituent quarks (\(n_{q}\)) as a function of \(p_{T}\)\(/n_{q}\) and \((m_{T}-m_{0})/n_{q}\) for identified hadrons [80].
+
+#### Energies and species combinations at RHIC for Run-1 to 16 [36].
+
+#### A view of BNL with the RHIC facility [38].
+
+### 2.4 Schematic showing the structure of the STAR TPC detector [50]
+
+The three sub detectors that comprise the HFT.
+
+DCA resolution for TPC tracks with hits in IST and both PXL layers vs \(p_{T}\) in Au+Au collision at \(\sqrt{s_{NN}}\) = 200 GeV.
+
+The Silicon Strip Detector (SSD) [58].
+
+The Intermediate Silicon Tracker (IST) [61].
+
+The heart of HFT, the Pixel (PXL) detector [63].
+
+Event vertex coordinates in the transverse \(X\)-\(Y\) position [left-top panel], vertex \(Z\) position [right-bottom panel], The estimated \(Z\) position of the event vertex using the VPDs versus the same position estimated by using the TPC tracks [right-top panel], and the distribution of the difference between the two vertex estimates together with a Gaussian fit [right-bottom panel]
+
+Reference multiplicity distribution for the Run 14 AuAu 200 GeV data sample.
+
+Energy loss [\(dE/dx\)] as a function of track momentum for different particle species
+
+Time-of-Flight [\(1/\beta\)] information as a function of track momentum
+
+The topological variables of kaons and pions associated with \(D^{0}\) decay.
+
+\(D^{0}\) signal performed with non-optimized cuts listed on table 3.
+
+A decision tree is typically a two dimensional structure with a single root node, followed by a set of yes/no decisions (binary splits) that finally result in a set of leaf nodes.
+
+Overlapping of the results of the training and testing samples for BDT (left). The performance of each classifier ranked by best efficiency of the signal and purity (right).
+* 3.9 Reconstructed mass for the signal (simulation), where zero background is present, and for the background, based on real data (bottom).
+* 3.10 The correlation between each topological variable in signal tree (Left) and background tree (Right)
+* 3.11 Variables used for the training of the signal and the background. The probability of the fit (top left), decay length divided by its error (top right), DCA from kaon track to the primary vertex divided by its deviation (bottom left) and the same for pion (bottom right).
+* 3.12 signal obtained with TMVA performance.
+* 4.1 \(\Psi_{2}\) Event plane before recentering (upper panel) and \(\Psi_{2}\) Event plane after recentering (lower panel)
+* 4.2 Second order event plane \(R_{\Psi}\) resolution as a function of centrality
+* 4.3 Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(0.75<p_{T}<1.25\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+* 4.4 Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(1<p_{T}<2\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+* 4.5 Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(1.75<p_{T}<2.25\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+* 4.6 Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(2<p_{T}<3\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+* 4.7
+
+[MISSING_PAGE_EMPTY:12]
+
+[MISSING_PAGE_FAIL:13]
+
+Diffusion coefficient from model calculations and the inferred range from STAR measurements A.1 (Top left panel) the transverse momentum. (Top right panel) Invariant mass of reconstructed pair electrons. (Bottom left panel) Vertex Z position. (Bottom right panel) \(|n\sigma_{e}|\) of electrons \(dE/dx\) from TPC versus \(|1/\beta-1|\) of electrons from TOF at \(p<\)0.5 GeV/\(c\). A.2 The topological variables of an electron-positron pair and the gamma from which it originates. A.3 (Top left panel) Secondary vertex \(x\) - \(y\) coordinates before any cuts. (Top right panel) Secondary vertex \(x\) - \(y\) coordinates after quality cuts. (Bottom left panel) the radial distribution in cm. (Bottom right panel) Secondary vertex \(x\) - \(y\) coordinates with Pb Beam pipe. A.4 Distance between electron-positron hits on first layer of Pixel detector List of Tables
+* 3.1 Run 14 centrality definition and associated track multiplicity measured in the TPC within \(|\eta|<0.5\).
+	* 3.2 Selection cuts of kaons and pions using TPC for \(D^{0}\) meson reconstruction
+	* 3.3 Non-optimized cuts used to obtain the \(D^{0}\) signal in figure 3.9.
+	* 4.1 Selection cuts of tracks for event plane calculation
+	* 4.2 Results of yield and significance for different TMVA cuts.
+	* 4.3 Systematic error estimation for 0-80% central events
+	* 4.4 Systematic error estimation for 0-10% central events
+	* 4.5 Systematic error estimation for 10-40% central events
+	* 4.6 Systematic error estimation for 40-80% central events
+* A.1 Set of cuts applied to reconstructed tracks and vertices
+Acknowledgments
+
+First and foremost, I would like to thank God Almighty for giving me the strength, knowledge, ability and opportunity to undertake this research study and to persevere and complete it satisfactorily.
+
+I extend very special thanks to my advisor, Prof. Spiros Margetis, for giving me the opportunity to work with him in my PhD thesis. His guidance and support were essential to complete my dissertation successfully. He has always been kind and patient teaching me many important and modern topics of Nuclear and High Energy Physics. I thank him for his overall support. Moreover, I express my deepest gratitude to Prof. Declan Keane for his valuable supervision. This dissertation could not have been completed without their generous and professional assistance.
+
+I would like to thank the member of the STAR Collaboration at Brookhaven National Lab (BNL), especially the heavy flavor, and the software and computing groups. They provided me with all the possible help to reach the final step of my analysis. I would also like to thank the STAR group at Lawrence Berkeley National Laboratory (LBNL) for the support they offered with the HFT program and the analysis.
+
+I am grateful to the members of the Kent State Nuclear group with whom I worked over the years, especially, Dr. Jonathan Bouchet, Dr. Amilkar Quintero, and Dr. Michael Lomnitz, for their help and friendship.
+
+Finally, I would like to dedicate my dissertation to my mother, Hania, my father, Ibrahim, my wife, Fareha, and my kids, for their constant support, love, and prayers.
+
+## Chapter 1 Introduction
+
+A fundamental question of physics is what happens to nuclear matter as it is heated or compressed. Studying the properties of such matter under extreme conditions is important to understand the Quantum Chromodynamics (QCD) [1]. High-energy heavy-ion collisions can experimentally probe very high energy density and temperature. The Relativistic Heavy Ion Collider (RHIC) at Brookhaven National Laboratory (BNL) in Long Island, New York, has been in use to recreate conditions similar to those that existed about a few of microseconds after the Big Bang. It collides two heavy ion beams such as gold ions at velocities close to the speed of light. The hot volume created after the beams collide is called a fireball. In these conditions, the hadronic matter (baryons and mesons) melts into a soup of their constituent quarks and gluons. This new phase is known as the Quark Gluon Plasma (QGP)[2]
+
+### 1.1 The Standard Model
+
+The Standard Model (SM) aims to clarify properties of fundamental constituents of matter and their interactions[4]. The elementary particles are divided into three groups: Quarks, Leptons and Gauge Bosons [5]. The leptons and quarks all have spin 1/2 and therefore belong in the category of fermions. The gauge bosons represent three of the four fundamental forces of nature; the weak force, the electromagnetic force, and the strong force. There are six different gauge bosons: The massive \(W^{\pm}\) and \(Z^{0}\) bosons, the massless photons (\(\gamma\)) and gluons (g). The existence of the Higgs(H) boson, which was discovered in 2012, was also predicted by the Standard Model [6]. The leptons in the SM are divided into three generations: The electron and electron neutrino, the muon and muon neutrino, and the tau and tau neutrino. They interact via the weak interaction, and those with an electric charge also interact electromagnetically. The six quarks are divided into three generations in the SM: The up (u) and down (d) quarks, the charm (c) and strange (s) quarks, and the top (t) and bottom (b) quarks. Figure 1.1 shows all the fundamental particles in the SM.
+
+Figure 1.1: The standard model.
+
+### 1.2 Quantum Chromodynamics
+
+The strong force's strength is denoted by its 'coupling constant', \(\alpha_{s}\). The strong nuclear force grows weaker, approaching zero, as either the interaction energy increases or the separation between particles decreases. It also grows stronger as the separation between the particles increases. Figure 1.2 shows the strong force coupling as it varies with \(Q\), the momentum transfer. High \(Q\) values probe small distances and then the strong force becomes weaker. This feature of the strong force is called asymptotic freedom. Asymptotic freedom, as a feature of QCD, arises from the self-interaction of gluons [9].
+
+Figure 1.2: Various measurements on the strong coupling constant \(\alpha_{s}\) as function of momentum transfer \(Q\). The curves are the QCD predictions. Figure has been taken from Ref. [8].
+
+Small \(Q\) values probe large distances where the strength grows rapidly. If we try to separate the quarks inside a hadron, as the distance between quarks grows the interaction between them also grows stronger eventually making it more favorable (energetically) to create a quark-antiquark pair rather than separate them. This inability to separate quarks is called confinement, and is the reason that free quarks have not been observed.
+
+In the realm where \(\alpha_{s}^{2}\ll 1\), also high \(Q\) or high temperature and density, perturbation theory may be used for calculations. As \(\alpha_{s}\) increases, perturbative techniques may no longer be used making low temperature, low density calculations very complicated. [7].
+
+### **Q**uark-Gluon Plasma : QCD Phase Transition
+
+The de-confinement phase transition is the transformation of the system of hadrons into the system of free quarks and gluons. The quarks stop interacting and the force between them is close to zero as long as the quarks are very close together. T.D. Lee came out with a new idea in the year 1974. He proposed that by having high nucleon density over a relatively large volume, it might be possible to create very dense states of nuclear matter which would contain asymptotically free quarks. Such dense nuclear matter of free quarks is called the Quark-Gluon Plasma (QGP) [9, 10, 11, 12, 13, 14]. We define QGP as a (locally) thermally equilibrated state of matter in which quarks and gluons are de-confined from hadrons. The color degrees of freedom then become manifest over nuclear, rather than merely nucleonic, volumes. The calculations of lattice QCD also show that there are two phases in the high temperature QCD calculations [15]. They are identified with the hadron and quark-gluon phase. Figure 3 shows the energy density (\(\epsilon\)) as a function of temperature \((T/T_{c})\) from LQCD calculations. At the critical temperature \(T_{c}\sim 175\) MeV (at zero chemical potential \(\,\mu_{B}\)) there is a sharp increase in energy density [16, 17, 18, 19, 20]. This indicates sudden change in number of degree of freedom of the system which means de-confinement of hadrons into quarks and gluons. The different phases of QCD matter is shown in the figure 1.4. This is a schematic phase diagram of QCD. A state of de-confined quarks and gluons is expected to be present at very high T and low \(\,\mu_{B}\), while at low T and low \(\,\mu_{B}\) the quarks and gluons are known to be confined inside hadrons. The calculations of QCD suggest quarks form a colour super-conducting phase at low T and high \(\,\mu_{B}\)[21].
+
+Figure 1.3: Lattice QCD calculations for energy density as a function of temperature [15].
+
+### 1.4 **Relativistic Heavy Ion Collisions**
+
+Heavy-ion collisions provide a unique opportunity to study quark-gluon plasma in laboratory experiments. The main goal of relativistic heavy-ion collisions is to study the structure of the QCD phase diagram by creating de-confined state of quarks and gluons. If conditions are right, the collision "melts" the protons and neutrons and, for a brief instant, liberates their constituent quarks and gluons. Just after the collision, thousands more particles form as the fireball evolves. Each of these particles provides a clue as to what occurred inside the collision zone. At RHIC and now at the Large Hadron Collider (LHC) it is believed that creating a de-confined state of quarks and gluons has been accomplished.
+
+Figure 1.4: Schematic picture of QCD phase diagram
+
+#### Space-time evolution
+
+Two incoming nuclei accelerated before the collision to highly relativistic speeds appear as two flat pancakes in the center of mass frame due to Lorentz contraction along the beam direction. The two nuclei hit each other at time t = 0 and the interactions start developing in the overlapped region. As the heavy-ions collide, they interact inelastically and lose kinetic energy.
+
+This loss of kinetic energy leads to the creation of matter in the vicinity of the collision which is often labelled as the fireball. The QGP will be formed if the fireball is hot enough. The theoretically motivated space-time picture of a heavy ion collision (HIC) is depicted in figure 1.5. The fireball then expands due to pressure gradients as shown in figure 1.5. As it expands and cools, quarks and gluons then form a hadron gas when the critical temperature \(T_{c}\) is reached. Inelastic collisions eventually cease at the chemical freeze-out as the hadron
+
+Figure 1.5: The space-time evolution of a heavy-ion collision [22].
+
+gas expands with a temperature \(T_{ch}\). The chemical composition from now on remains the same. The elastic collisions, after further expansion, cease with a corresponding temperature \(T_{fo}\) which known as kinetic freeze-out.
+
+### Relativistic Kinematics of heavy ion collisions
+
+The coordinate system at RHIC defines the \(z\)-axis as parallel to the beam direction. In the ideal scenario the interaction point (IP) takes place at (\(x=0\), \(y=0\), \(z=0\)) coordinate. The beams are focused so that the collisions happen at IP point. This point has to be precisely measured since it is the main collision point. It is known as the \(primary\)\(vertex\) in high energy physics.
+
+#### 1.5.1 Rapidity and Pseudo-rapidity
+
+Rapidity is a relativistic quantity defined as
+
+\[y=\frac{1}{2}\ln\left(\frac{E+p_{z}}{E-p_{z}}\right)\]
+
+where \(E=\sqrt{p^{2}+m}\) is the particle's energy and \(p_{z}=p\cos\theta\) the momentum projection on the beam axis (\(\theta\) is the polar angle). In the limit where the particle is traveling near the speed of light where \(p\gg m\) or for massless particles (like the photon), rapidity is reduced to
+
+\[y\approx\frac{1}{2}\ln\left(\frac{p+p_{z}}{p-p_{z}}\right)=\frac{1}{2}\ln\left( \frac{1+\cos\theta}{1-\cos\theta}\right)=-\ln\tan\left(\frac{\theta}{2}\right) \equiv\eta\]
+
+where \(\eta\) is the pseudo-rapidity and it directly relates to the particle's emission polar angle.
+
+Rapidity is a Lorentz additive quantity and the shape of a rapidity distribution of a physics quantity stays the same in all reference systems. The value of rapidity is zero for a particle emitted normal to the beam axis (\(p_{z}=0\)) and achieves its maximum magnitude for beam particles [23].
+
+#### Transverse momentum
+
+The total momentum is divided into two terms, a transverse momentum component (\(p_{T}\) ), and a longitudinal momentum (\(p_{z}\)). \(p_{T}\) is defined as \(p_{T}=\sqrt{p_{x}+p_{y}}\). The \(p_{T}\) is a Lorentz invariant variable since both \(p_{x}\) and \(p_{y}\) are unchanged under a Lorentz boost along \(z\) axis [24].
+
+#### Collision centrality
+
+The minimum overlap distance between two colliding nuclei is called the impact parameter. It is the perpendicular distance (b) from the center of one nucleus to the other center as shown in figure 1.6. Collisions with small impact parameters are called central collisions, and result in a large number (multiplicity) of particles. Collisions with large impact parameters are called peripheral collisions, and result in lower multiplicities.
+
+### **P**robing the QGP
+
+The early stages of the collision (before chemical and thermal freeze-out) can be probed with the help of models.. The most basic tools available, such as total yields (production rates) and \(p_{T}\) spectra, provide a snapshot of the system at freeze-out. In order to gain insight into the nature of the system before that time, we must use more subtle probes. Such probes often involve the study of high momentum particles, because the early stage of the collision is dominated by hard scattering of quarks and gluons. STAR is equipped to study a variety of particles over a large range of \(p_{T}\). Initial results and theoretical background can be found in Refs. [10, 25, 26]. Jetsand leading particles are of particular interest because they should be sensitive to differences in energy loss between excited hadronic matter and a QGP. The chemical freeze-out conditions may be determined by examining the particle's relative yields and also the strangeness content of the final state particles. The relative strangeness content of these particles reflects the degree of chemical equilibration that occurred in the early stage. Similarly, the conditions at thermal freeze-out can be characterized by the bulk properties of the spectra (common velocity, thermal parameters, etc.).
+
+#### Heavy Flavor
+
+The heavy quarks are the charm, bottom and top quarks (see figure 1.1) Top quarks are very rarely produced at RHIC collision energies. So the meaning of heavy flavor is the mesons and baryons that contain charm or bottom quarks. Heavy quarks
+
+Figure 1.6: A geometrical picture of a heavy ion collision.
+
+require a great deal of energy to produce due to their heavy masses. They are mainly produced in parton interactions during the initial phase of the collision when the full incoming kinetic energy is available. Contributions from the late stages of the collision are energetically unfavorable and thus limited. This feature makes heavy flavor a unique tool for studying the features of the early stages of the collisions [27].
+
+The up and down quarks have bare masses of a few MeV, but gluons play an important role in determining hadron masses. In an alternative picture, the up and down quarks inside the nucleon add together to produce a mass of 1 GeV, therefore their dynamical mass is about 300 MeV (see figure 1.7). Heavy quarks however are not as influenced by the QCD vacuum and lie on the 1:1 ratio between the Higgs and the QCD mass. The lighter quarks fall below that line. This feature makes the heavy flavor a very useful tool while probing hot and dense (and probably chiral-symmetry restored) nuclear matter since we don't need to worry about in-medium mass modification effects.
+
+Early QCD calculations expected heavy quarks to have kinematically suppressed gluon radiation while passing through a hot and dense partonic medium, implying that the heavy quarks should lose less energy in denser media than light quarks. However, recent experimental results show that the energy loss of heavy quarks is unexpectedly high, about the same as for light flavor, meaning that the initial theoretical assumptions for heavy quark energy loss were incomplete [28, 29, 30, 31]. It is believed that part of the observed effect is due to elastic collisions with the partons of the medium which initially were thought to be negligible and were not included in the calculations.
+
+Heavy quarks can also help us understand the initial dynamics of the collision.
+
+Charmed hadron flow is thought to be an indication of thermalization due to the interaction of light quarks and gluons with the heavy quarks. If quarks in heavy hadrons flow in the same pattern as those in light hadrons, it is an indicator of many collisions between all quarks (thus thermalization) since heavy quarks are relatively difficult to thermalize; to make them flow with the rest of the partonic 'fluid' requires many collisions. If the data supports a strong flow of heavy quarks then this is the smoking gun of thermalization of the partonic medium formed, i.e. the formation of QGP.
+
+The initial measurements of heavy flavor were indirect, i.e. they were based on observations of their semi-leptonic decays (the presence of an electron in the final state). This method has three main disadvantages: one is that we cannot easily separate charm from beauty decays, the second is that it is hard to infer the heavy
+
+Figure 1.7: Quark bare versus dynamical mass.
+
+quark kinematics from the smeared electron p\({}_{T}\), and third there is an enormous combinatorial background due to electrons from photon conversions in the apparatus. Direct reconstruction of the heavy flavor weak decays is the best and most direct way to study heavy flavor but it is hard due to the short half-lives of the particles. For example, the \(c\tau\) (the proper decay length) of the D\({}^{0}\) meson is only 120 \(\mu\)m. Therefore, a high precision vertex detector is needed in order to distinguish between tracks coming from weak decays from the thousands of tracks coming from the event vertex. The STAR Collaboration built the Heavy Flavor Tracker (HFT) to address exactly this issue.
+
+#### Elliptic Flow (\(v_{2}\))
+
+A large number of secondary particles is produced in collisions of high energy nuclei. During non-central collisions, the nuclear overlap is an ellipsoid in the early stages of a collision. This causes a pressure gradient and it is largest in the shortest direction of the ellipsoid. This initial spatial anisotropy develops into a momentum space anisotropy. Figure 1.8 shows a schematic of this process. The azimuthal distributions can be conveniently described by means of Fourier expansion. Anisotropic flow corresponding to the first two harmonics plays a very important role and we use special terms for them, directed and elliptic flow. The word elliptic comes from the fact that the azimuthal distribution of produced particles with non-zero second harmonic represents an ellipse.
+
+Elliptic flow (\(v_{2}\)) is the second Fourier coefficient in the expansion of the azimuthal distribution of the particle with respect to the azimuthal angle \(\psi_{RP}\) of the reaction plane:
+
+\[\frac{dN}{d\phi}\propto 1+\Sigma_{n=1}^{\infty}2v_{n}(p_{T},y)\cos n(\phi-\psi_{ RP}).\]There is no sine terms in the above equation because of the symmetry \(\phi\leftrightarrow-\phi\) in the collision geometry. The anisotropic flows \(v_{n}\) generally depend on the particle transverse momentum and rapidity. The coefficients \(v_{n}\) are calculated to be \(v_{n}(p_{T},y)=\langle\cos(\phi-\psi_{RP})\rangle\) where \(\langle\dots\rangle\) denotes an average over the azimuthal distribution of all particles in all events studied. It has been shown that the elliptic flow is sensitive to the early dynamics of produced matter in relativistic heavy ion collisions and it is a robust observable for studying the interactions in the partonic matter [32, 33].
+
+The ordinary matter's transition into a soup of quarks and gluons happens under extreme conditions. An estimate of the formation time relevant for the hydrodynamic calculations was predicted to be in the vicinity of \(\tau_{0}=0.6\) fm/c, or approximately \(10^{-24}s\). This is shorter than the time taken by a massless particle to traverse the
+
+Figure 1.8: Schematic views of a non-central nucleus-nucleus collision.
+
+radius of a hadron (\(\tau\sim 1\) fm/c). The temperature of this transition to QGP is about 150-200 MeV or 100,000 times the temperature of the center of the sun. The energy density is around \(\epsilon=30\) GeV/fm\({}^{3}\), and this should be compared with the energy density of a nucleon in its rest frame \(\epsilon_{N}\sim 500\) MeV/fm\({}^{3}\), when the system is in local thermal equilibrium [33]. The hydrodynamic models suggest that collisions at RHIC make something that is hotter, denser, smaller and faster than anything observed before. Very little viscosity is needed to reproduce the RHIC data within experimental and theoretical uncertainties. Thus, the matter created at RHIC is a nearly perfect liquid. The particles that escape from the fireball and reach the detector can retain the signatures of their past. Therefore, the phase transition and the new matter created could be studied using these signatures.
+
+The azimuthal anisotropy for \(D\)-mesons in figure 1.9 (left) [78] from ALICE detector in semi central collisions shows that the \(v_{2}\) for \(D\)-mesons in the range \(2<p_{T}<6\) GeV/c is non-zero. It also indicates that at low \(p_{T}\) charm quarks interact with the medium. The charm quarks also partake in the collective flow at low \(p_{T}\). Figure 1.9 (right) shows the measurement of nuclear modification \(R_{AA}\) that indicates a strong suppression for \(p_{T}>3\) GeV/c, In addition it indicates a large energy loss by heavy quarks in the medium. The results indicate that, during the collective expansion of the medium, the interactions between its constituents and charm quarks transfer to the latter information on the azimuthal anisotropy of the system[78].
+
+#### Number-of-constituent quark scaling
+
+The measured \(v_{2}\) values at intermediate \(p_{T}\) in figure 1.10 shows that the identified particles saturate. It is also shown there is a distinct grouping between baryons and mesons. Since a baryon has three quarks and a meson has two quarks, the \(v_{2}(p_{T})\)Figure 1.10: Measurements of \(v_{2}(p_{T})\) for identified particles for 0\(-\)80% centrality at RHIC. The lines are the results from hydrodynamic model calculation [79]
+
+Figure 1.9: Average \(D\)-meson \(v_{2}\) as a function of \(p_{T}\) (left) and average \(D\)-meson \(R_{AA}\) as a function of \(p_{T}\) from ALICE. Figure taken from [78].
+
+values are divided by the number of their constituents quarks (\(n_{q}\)). This scaling has been observed as can be seen in figure 1.11[80]. It is called the number-of-constituent quark (NCQ) scaling [9, 81, 82].
+
+Figure 1.11, (left) shows \(v_{2}/n_{q}\) as function of \(p_{T}\)\(/n_{q}\) and figure 1.11(right) shows \(v_{2}/n_{q}\) as function of \((m_{T}-m_{0})/n_{q}\). where \(m_{T}\) is transverse mass and \(m_{0}\) is the mass of the hadron. The scaling is observed for all \(p_{T}\).
+
+The bottom panels show that the \(v_{2}\) for the identified particles scales with the NCQ. It can be seen that all particles fall on common line except pions. The large resonance decay contribution to pion production has been suggested as a possible explanation for their apparent violation. The constituent quarks assumed to carry its \(v_{2}\) before they start to form hadrons as suggested by coalescence models. This indicates that the system has been in the de-confined state prior to hadronization.
+
+Figure 1.11: \(v_{2}\) scaled by number-of-constituent quarks (\(n_{q}\)) as a function of \(p_{T}\)\(/n_{q}\) and \((m_{T}-m_{0})/n_{q}\) for identified hadrons [80]
+
+In this dissertation, I present results of \(D^{0}\)-meson \(v_{2}\) with NCQ scaling for Au+Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV.
+
+## Chapter 2 RHIC and STAR
+
+The Relativistic Heavy Ion Collider (RHIC) has now been collecting data for 17 years, as of 2017. It is the first dedicated machine which can collide heavy ion beams at relativistic energies and study matter at extreme densities and temperatures [35]. It is located at Brookhaven National Laboratory, Upton, USA. Initially RHIC was designed for p+p collisions at \(\sqrt{s}=510\) GeV and Au+Au at \(\sqrt{s_{NN}}=200\) GeV. Subsequently, collisions of gold, copper and uranium nuclei in the energy range \(\sqrt{s_{NN}}=7.7\) - 200 GeV have been investigated to study the formation of the quark-gluon plasma (QGP). Figure 2.1 shows the energies and species at RHIC for Run-1 to Run-16.
+
+The RHIC circumference is about 3.8 km. It started operation with four detectors: BRAHMS, PHENIX, PHOBOS and STAR, out of which BRAHMS and PHOBOS are decommissioned as well as PHENIX which had its last run in 2016. STAR is the only experiment being conducted at present, and is located at the most southerly position on the RHIC ring.
+
+This chapter briefly discus the design of RHIC and its experiments. Specific emphasis will be given to the STAR Experiment, particularly highlighting the Heavy Flavor Tracker (HFT), the primary detector system used in this analysis.
+
+### **Rhic**
+
+RHIC uses the nuclei of gold atoms whose electron cloud is completely stripped off. Two opposite directions of beam ions travel around the 3.8 km of RHIC's ring and they cross at six intersections. The constructions of RHIC completed in 1999 and its first data run was in June 2000 using Au+Au beams at center of mass energy 130 GeV. RHIC was designed to operate with particles ranging from polarized protons to heavy ions over an extensive range of beam energy with high luminosity as well as handling asymmetric collisions such as gold on deuterons. RHIC is also capable of providing polarized proton beams of center of mass energy up to 510 GeV to perform the proton spin program. The RHIC accelerator complex show in figure 2.2 is made up of Electron Beam Ion Source, Linac, the Booster Synchrotron, Alternating Gradient Synchrotron (AGS), AGS to RHIC transfer line, and the RHIC ring. Heavy ion beams
+
+Figure 2.1: Energies and species combinations at RHIC for Run-1 to 16 [36].
+
+are fully stripped of electrons and then injected into RHIC with an energy of 10.8 GeV per nucleon. The procedure is similar for Cu+Cu beams. However, in the case of p+p, protons are injected from the 200 MeV Linac into the booster, followed by acceleration in the AGS and injected into the RHIC ring [37].
+
+The RHIC rings have six interaction points, and four of the interaction points have been occupied by heavy ion experiments: BRAHMS detectors [39] located at 2 o'clock position, STAR detectors [47] located at 6 o'clock position, PHENIX detectors [41] located at 8 o'clock position and PHOBOS detectors [42] located at 10 o'clock position. Currently only STAR detector is operational.
+
+Figure 2.2: A view of BNL with the RHIC facility [38].
+
+### The STAR Detector
+
+The presented results of this dissertation are based on data collected using the STAR detector. STAR is made up of several detectors designed to measure different observables and it is shown in figure 2.3. In STAR's coordinate system, the z-axis is along the beam direction pointing to the west (left in figure 2.2). The x-direction is horizontal pointing south (down in figure 2.2) and the y-direction is up so that we form a RHS. The field from the STAR magnet which is applied in the z direction, bends the trajectories of charged particles emanating from the interaction point. The STAR magnet can be maintained at magnetic fields of 0.25 or 0.5 Tesla in either the \(+z\) or \(-z\) direction. The Time Projection Chamber (TPC), is the main tracking detector and is capable of measuring charged particles within \(|\eta|<1.5\) and full azimuthal coverage in the xy plane [43]. A barrel Time-of-Flight (TOF) detector based on Multi-gap Resistive Plate Chamber (MRPC) technique was fully installed in STAR in 2010 [44]. The TOF is made up of a total of 120 trays spanning a pseudo-rapidity range \(|\eta|<0.9\) with full azimuthal coverage. The starting time of the TOF detector is the two upgraded Vertex Position Detectors (VPDs), each located 5.7m away from the TPC center on either side along the beam line. A Barrel Electromagnetic Calorimeter (BEMC) [45] and an Endcap Electromagnetic calorimeter (EEMC) [46] are used to measure the transverse energy deposited by electrons and photons. The full (BEMC) covers \(|\eta|<1.0\) and (EEMC) covers \(1<\eta<2\). Both BEMC and EEMC are azimuthally symmetric. Two Zero-Degree Calorimeters (ZDCs), two Beam Beam Counters (BBCs) and two upgraded Vertex Position Detectors (VPDs) are used for event triggering [48].
+
+The Heavy Flavor Tracker (HFT) is a silicon vertex detector located in the heartof the TPC as shown figure 2.3. The main STAR detectors, the TPC and the TOF as well as the VPD and HFT detectors are briefly described in this section since they are the relevant detectors to the analysis and research project presented in this dissertation.
+
+#### Time Projection Chamber (TPC)
+
+The Time Projection Chamber (TPC) figure 2.4 is the primary tracking device of STAR [49]. It is divided into two halves by a central membrane at \(z=0\) with the electric fields in each half pointing in opposite directions. It is 4.2 m long and 4 m in diameter. The TPC records an image of all charged particle tracks as they traverse through the gas volume and can handle multiplicities reaching about 3000 tracks. It provides complete tracking for charged particles within about \(\pm 1.5\) units of pseudo-rapidity and momenta greater than 125 MeV/c. It is also used to identify charged particles by measuring their ionization energy loss (\(dE/dx\)). It is filled with
+
+Figure 2.3: Three dimensional view of STAR detector system.
+
+P10 gas (90% argon, 10% methane). It is divided into two drift chambers by a central membrane, and with a uniform electric field of \(\sim\) 135V/cm. The TPC is mounted inside the STAR magnet. The electric and magnetic fields inside the TPC volume are parallel. The paths of primary ionizing particles passing through the gas volume are reconstructed with high precision from the released secondary electrons drifting to the end caps at the ends of the chamber. Diffusion of the drifting electrons and their limited number defines the position resolution. Ionization fluctuations and finite track length limit the \(dE/dx\) resolution. The end-caps are organized into 12 inner and outer sectors. The readout section contains the gating grid that opens the readout section only for a triggered event, and the anode grid where the drift-electron amplification and collection happens. The charge collection induces a signal in the pads that are close to the anodes. The pads are arranged in pad rows approximately perpendicular to the tracks and their signal is readout and processed for further analysis.
+
+The hit information from adjacent pads is used to determine the two-dimensional point where the particle ionized the gas. The third coordinate is determined from the drift time of the electron cloud since the trigger was received and the known electron drift velocity in the TPC for the given conditions. The process of reconstructing the three-dimensional positions of ionization points during the offline analysis is called cluster finding. The cluster-finding algorithm is applied to the TPC raw data. The three-dimensional coordinate and the total amount of charge is determined for each ionization point.
+
+#### 2.2.2 Time Of Flight Detector (TOF)
+
+The main goal of Time-of-Flight (TOF) [44] detector is to extend particle identification capabilities of the experiment especially at high \(p_{T}\). It consists of a highly segmented cylindrical detector that surround the TPC and is arranged in 120 trays each of which is 2.4 m long, 21.3 cm wide and 8.5 cm deep. A single tray covers 6 degrees in azimuthal direction around the TPC. Each tray has 32 Multi gap Resistive Plate Chamber (MRPC) [51] modules that are placed along the z-direction. The MRPC is mainly a stack of resistive plates arranged in parallel. A series of gas gaps is created by the intermediate plates. Electrodes are applied to the outer surfaces of the two outer plates. High voltage is applied across these external electrode to generate a strong electric field in each sub gap.
+
+the avalanche charge such that the image charge in the copper readout plates (outside the electrodes) can be collected. The total signal, proportional to the summed avalanche charge in the MRPC chambers, is generally quite small, requiring careful pre-amplification and RF shielding in the mechanical design. The dimensions of the current module are 94 mm \(\times\) 212 mm \(\times\) 12 mm and the active area is 61 mm \(\times\) 200 mm. The electrodes are made of graphite tape with a surface resistivity of 400 k\(\Omega\)/square which covers the entire active area. The outer and inner glass plates have a thickness of 1.8 mm and 0.55 mm respectively. They are kept parallel by using 220 \(\mu\)m diameter nylon fishing-line. The signal is read out with a \(1\times 6\) array of copper pickup pads, each pad with an area of 63 mm \(\times\) 31.5 mm and the distance between pads is 3 mm. The pickup pad layers are separated from the outer electrodes by 0.35 mm of Mylar. TOF system consists of TOF trays and Vertex Position Detectors (VPDs) [52]. The TOF trays provide the stop time of each track whereas the VPD provides the common start time of the event. The difference of these two is the time of flight (TOF) of the associated track. Time resolution of TOF is \(\sim\) 80 to 100 ps. By measuring time of flight of each track we can calculate mass of the corresponding track and extend PID capability to higher momenta.
+
+#### 2.2.3 Vertex Position Detector (VPD)
+
+The (VPD) is used in order to trigger on the location of the event vertex [53]. There are two VPDs located on the east and west side of the interaction region. The z location of a vertex can be determined by using the VPD to measure the time difference between the signals that arrive from the east and the west. The Level-3 trigger receives data from the VPD. There are 19 detector channels on each side. The inner radius of the detector is 6.98 cm and outer radius is 16.51 cm. The VPDshave good time resolution (about 150 ps), in part because they are placed at forward rapidities (forward particles are typically very fast). Thus the z-vertex resolution of the VPD in heavy-ion events is \(\sim\) 3 cm. In p+p collisions the VPD has a vertex resolution of \(\sim\) 5 cm.
+
+#### 2.2.4 The Heavy Flavor Tracker (HFT)
+
+The low multiplicity of particles containing a heavy quark, their short lifetimes and the large combinatorial background associated with their identification makes them difficult to study. Thus a high precision vertex detector called Heavy Flavor Tracker (HFT) was added to STAR in 2014 to reconstruct and study the heavy quarks. The HFT is designed to perform direct topological reconstruction of the weak decays of heavy flavor particles [54]. It consists of four layers of silicon detectors using three different technologies. The outermost layer is silicon strip detector (SSD) followed by a silicon pad detector (IST). The two innermost (PXL) layers are made from state-of-the-art ultra-thin CMOS Monolithic Active PiXel Sensors (MAPS). This is the first application of a full scale CMOS MAPS-based detector in a collider experiment. (Figure 2.5).
+
+The HFT uses MAPS which can be made very thin, which helps to reduce multiple scattering. This is the first time such a technology is used [56].
+
+The track pointing resolution of STAR improves from a few millimeters (TPC tracks) to \(\sim\) 30 microns for 1 GeV/c pions when the HFT is included in tracking. It also permits us to resolve the decay vertices of particles with very short lifetimes. Figure. 2.6 shows the distance of closest approach (DCA) resolution for pions, kaons and protons for TPC tracks with hits in IST and both layers of PXL from 200 GeV Au+Au collisions at RHIC in run 2014 data.
+
+#### 2.2.5 Silicon Strip Detector (SSD)
+
+The Silicon Strip Detector (SSD) is double-sided strip detector installed in STAR in 2004. It is the outer layer of the HFT, and is located at a radial distance of 22.3 cm from the \(z\) axis.. The current SSD was upgraded with new readout electronics to meet the requirement of the HFT detector. It has full azimuthal coverage, and its pseudorapidity coverage is about \(|\eta|\)\(<\) 1.2. Its thickness is 1% of a radiation length. It is one meter long, and is comprised of 20 carbon fiber ladders that surround the interaction point. This subsystem, which pre-dates the HFT, is mounted into a carbon fiber frame. Each ladder is tilted \(\sim\) 11 degrees along its radial axis, thus resulting in a small overlap of active areas. This overlap is incorporated partly for alignment purposes. The ladders contain 16 wafers with dimensions 7.45 cm \(\times\) 4.35 cm \(\times\)300\(\mu\)m. A wafer is a double-sided silicon strip with 768 strips per side. Electron-hole pairs are generated when a particle goes through the detector [57]. Figure. 2.7 shows the SSD detector.
+
+Figure 2.5: The three sub detectors that comprise the HFT.
+
+Figure 2.6: DCA resolution for TPC tracks with hits in IST and both PXL layers vs \(p_{T}\) in Au+Au collision at \(\sqrt{s_{NN}}\) = 200 GeV.
+
+#### Intermediate Silicon Tracker (IST)
+
+The Intermediate Silicon Tracker (IST) is based on single-sided silicon pad technology, and is located at a radial distance of 14 cm from the \(z\) axis. It consists of 24 carbon fiber ladders each 50 cm long. Each ladder has 6 silicon pad sensors of 3.8 cm \(\times\) 7.5 cm, readout electronic chips and aluminum tube for liquid cooling. The main purpose of SSD and IST is to facilitate tracking between the TPC and PXL layers [59]. Figure. 2.8 shows the IST detector.
+
+#### Pixel Detector (PXL)
+
+PXL is the core sub-system of the HFT. It consists of an outer layer at 8 cm and an inner layer at 2.8 cm, utilizing the new MAPS technology [60]. PXL has 10 sectors of carbon fiber tubes each of which has 4 ladders. One inner ladder is located at 2.8
+
+Figure 2.7: The Silicon Strip Detector (SSD) [58].
+
+can ladder has 10 MAPS sensors and each sensor of dimensions 2 cm \(\times\) 2 cm has about one million (\(928\times 960\)) pixels. It allows a precision hit resolution of 6 microns. Figure. 2.9 shows the PXL detector.
+
+The commercial complementary metal-oxide-semiconductor (CMOS) technology is the basis of the MAPS sensors that also include circuitry for some processing of the signal, integrated on the same silicon sensor. The charge collection is mainly through thermal diffused electrons in a low-doped epitaxial layer and collected in a large electric field region [62]. This new technology reduces the collection time, yields a good signal to noise ratio and improves the radiation hardness. The thinned sensors and air cooling as well as the carbon fiber support limit the thickness of PXL to 0.4 % radiation length per layer. Its frame material was designed to allow PXL
+
+Figure 2.8: The Intermediate Silicon Tracker (IST) [61].
+
+replacement in 12 hours and minimizes the multiple Coulomb scattering [56]. The state-of-art PXL detector is the most important sub-detector of the HFT and provides the pointing resolution which is required to reconstruct short lifetime particle such as charm mesons. To achieve an excellent resolution, the SSD and IST layers help us interface and connect the PXL hits to the Time Projection Chamber (TPC) tracks.
+
+Figure 2.9: The heart of HFT, the Pixel (PXL) detector [63].
+
+## Chapter 3 Analysis of the Experimental Data
+
+### 3.1 Data Sets and Event Selection
+
+The results presented here are based on data collected by the STAR experiment from Au+Au collisions at center of mass energy \(\sqrt{s_{NN}}\) = 200 GeV in the year of 2014. This is the first year of physics running with the new HFT detector upgrade included in the STAR apparatus. The goal was to record about one billion minimum bias Au+Au 200 GeV events within the HFT acceptance. The minimum-bias trigger condition ensures that events of all centralities, up to very peripheral collisions, are recorded.
+
+Figure 3.1 [left-top panel] shows the transverse (\(X\)-\(Y\)) position. The beam spot almost coincides (within a couple of millimeters) with the origin of our global reference system in STAR. In this log-scale histogram we see that the transverse width of the beam is less than or about a millimeter. The selection on primary vertex position along the longitudinal beam direction \(\mid V_{Z}\mid<6\,\mathrm{cm}\) is shown in figure 3.1 [left-bottom panel]. It guarantees hits to be in the HFT acceptance for central region tracks. This cut was selected based on figure 3.1 [right-top panel] which shows the correlation of the \(Z\) location (beam direction) of the event vertex (\(V_{Z}\)) as triggered in the VPD versus that estimated by TPC tracking. The diagonal red band in the middle shows the nice correlation between the two vertices which were selected by requiring the cut of \(\mid V_{Z}-V_{\mathrm{VPD}}\mid<3\,\mathrm{cm}\). This selection is used to trigger on the location of the event vertex and also ensures that the tracking-based reconstructed event vertex positionalong the beam direction (\(V_{Z}\)) is within 3 cm from the VPD triggered position. We also see that the red band extends only to about \(\pm 5\,\mathrm{cm}\) which was the trigger setting. Due to resolution effects the band actually extends to about another centimeter on each side. In order to find the VPD resolution we need to look at the distribution of the difference between the two vertices. This is shown in figure 3.1 [right-bottom panel]. The Gaussian fit of the distribution gives a \(\sigma_{Z}\) of about \(5\,\mathrm{mm}\) with an overall shift (bias) of about \(2.5\,\mathrm{mm}\). Both numbers are compatible with the VPD design parameters.
+
+From approximately 1.2 billion events in the total production, the data sample for this analysis is slightly over 850 million events after quality cuts were applied.
+
+### **C**entrality definition.
+
+The impact parameter (\(b\)) or perpendicular distance between the two incoming nuclei, is inversely related to the total number of participant nucleons in the collision. The centrality in the year 2014 dataset (Run 14) for 200 GeV AuAu is based on the number of global tracks of charged particles from the TPC within a pseudo-rapidity \(|\eta|<0.5\). Collisions with small impact parameters are called central collisions, and result in a large number (multiplicity) of particles whereas collisions with large impact parameters are called peripheral collisions, and result in lower multiplicities. The reference multiplicity is then matched to Glauber Monte Carlo simulation after minor rescaling so that it describes data [83]. The centrality definition used in this analysis is summarized in table 3.1. Figure 3.2 shows the reference multiplicity distribution for Run14 minimum-bias events.
+
+Figure 3.1: Event vertex coordinates in the transverse \(X\)-\(Y\) position [left-top panel], vertex \(Z\) position [right-bottom panel], The estimated \(Z\) position of the event vertex using the VPDs versus the same position estimated by using the TPC tracks [right-top panel], and the distribution of the difference between the two vertex estimates together with a Gaussian fit [right-bottom panel]
+
+\begin{table}
+\begin{tabular}{l c c c} \hline Centrality \% & Multiplicity & Centrality \% & Multiplicity \\ \hline
+80-100 & \(<\)10 & 35-40 & 116-145 \\
+75-80 & 10-14 & 30-35 & 145-179 \\
+70-75 & 14-21 & 25-30 & 179-218 \\
+65-70 & 21-29 & 20-25 & 218-263 \\
+60-65 & 29-40 & 15-20 & 263-315 \\
+55-60 & 40-54 & 10-15 & 315-373 \\
+50-55 & 54-71 & 5-10 & 373-441 \\
+45-50 & 71-92 & 0-5 & \(>\)441 \\
+40-45 & 92-116 & & \\ \hline \end{tabular}
+\end{table}
+Table 3.1: Run 14 centrality definition and associated track multiplicity measured in the TPC within \(|\eta|<0.5\).
+
+Figure 3.2: Reference multiplicity distribution for the Run 14 AuAu 200 GeV data sample.
+
+[MISSING_PAGE_FAIL:53]
+
+\((v/c)\), \(N_{A}\) is Avogadro's number, \(I\) is the mean excitation energy and \(\delta\) is the density effect correction to ionization energy loss. Energy loss, however, is a stochastic process and so there are fluctuations in energy loss per finite unit length.
+
+We require a set of cuts to make sure only kaons and pions are selected. For example, a cut of \(|n\sigma_{k,\pi}|<2\) is required to only select both bands. All tracks are also required to have \(\,p_{T}>0.3\) GeV/c which helps to minimize ghosting and eliminate short tracks. The number of fit points need to be more than half of the number of total possible hits (\(>\!0.52\)) to avoid a single track being misidentified as two separate tracks. In addition a minimum number of 20 fit points in the TPC for each track
+
+Figure 3.3: Energy loss \([dE/dx]\) as a function of track momentum for different particle species
+
+has been used in this analysis. The standard cuts for kaons and pions using TPC are listed in table 3.2 among other online cuts.
+
+#### 3.3.2 TOF PID
+
+The time-of-flight TOF detector was fully installed in STAR in the year of 2010. Its role is to significantly improve particle identification. The TOF detector measures the time (\(t\)) taken by a track to traverse the distance (\(L\)) from the primary vertex to TOF. Knowing both \(t\) and \(L\), we can calculate the velocity (\(\beta\)) of each track by using the equation \(\beta\) = \(L/ct\), where \(c\) is the velocity of light.
+
+Figure 3.4 shows the time-of-flight 1/\(\beta\) information as a function of track momentum (\(p\)). The particle species are well separated and the pion, kaon, and proton separation is very good to momenta above 1 GeV/c. The final cut that select kaons and pions is to require TOF \(|\)1/\(\beta\) -1/\(\beta_{exp}\)\(|\)\(<\) 0.03.
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline Parameters & Cut Value \\ \hline Number of fit points in TPC (nHits) & \(>\) 20 \\ Ratio of fit points to possible points (nHits/Max. nHits) & \(>\) 0.52 \\ \(|n\sigma_{k,\pi}|\) of \(K^{-}\)and \(\pi^{+}\) & \(<\) 2.0 \\ Number of TPC Hits used in \(dE/dx\) & \(>\) 10 \\ pseudo-pidity \(|\eta|\) of kaons and pions & \(<\) 1.0 \\ \(p_{T}\) of kaons and pions & \(>\) 0.3 GeV/c \\ nHits on each layer of PXL and IST & \(\geq\) 1.0 \\ Track DCA to primary vertex & \(<\) 0.04 cm \\ \hline \end{tabular}
+\end{table}
+Table 3.2: Selection cuts of kaons and pions using TPC for \(D^{0}\) meson reconstruction 
+
+### 3.4 **Reconstruction of \(D^{0}\) Meson Decays**
+
+After both kaons and pions were identified, the \(D^{0}\) mesons were reconstructed. The reconstruction is based on the daughter particles since charmed mesons decay in a short time (\(c\tau=123\,\mu m\)). A simple helix swimming is used by heavy ion collision experiments with tracking in a magnetic field as a standard reconstruction algorithm. Figure 3.5 shows a cartoon of the topological variables of both daughter kaons and pions to their primary vertex. Below is a list of the most common topological variables for \(D^{0}\) reconstruction.
+
+\(\bullet\) Decay length: Calculated as the distance between the reconstructed decay vertex and the primary vertex (PV).
+
+\(\bullet\) Distance of closest approach (DCA) between the kaon and pion tracks.
+
+Figure 3.4: Time-of-Flight \([1/\beta]\) information as a function of track momentum\(\bullet\) DCA from the kaon track to the PV.
+
+\(\bullet\) DCA from the pion track to the PV.
+
+\(\bullet\) The decay length of \(D^{0}\)
+
+We performed the reconstruction of \(D^{0}\) mesons daughters by using KFParticle package based on Kalman Filter algorithm. The details of Kalman Filter algorithm will be discussed in the following section.
+
+### 3.5 **K**alman Filter Algorithms for \(D^{0}\) Reconstruction
+
+The \(D^{0}\) meson is reconstructed in our analysis by using an algorithm based on the Kalman Filter. The Kalman Filter is very common fitting and filtering method for particle reconstruction. This algorithm is known as the KFParticle.
+
+The KFParticle package was originally designed for the CBM [70] experiment and was later adapted for STAR. The KFParticle was the chosen fitting algorithm for this dissertation due its performance in tracking efficiency and computational resources. The advantage of KFParticle is that the algorithm is independent of the geometry of
+
+Figure 3.5: The topological variables of kaons and pions associated with \(D^{0}\) decay.
+
+[MISSING_PAGE_FAIL:58]
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline Cut Parameter & Cut Value \\ \hline \hline Probability of fit & \(>\) 0.3 \\ \hline DCA of k to \(D^{0}\) & \(<\) 0.005 \\ \hline DCA of \(\pi\) to \(D^{0}\) & \(<\) 0.005 \\ \hline Decay length & \(>\) 5 cm \\ \hline \end{tabular}
+\end{table}
+Table 3.3: Non-optimized cuts used to obtain the \(D^{0}\) signal in figure 3.9.
+
+Figure 3.6: \(D^{0}\) signal performed with non-optimized cuts listed on table 3.3based on the probability density function of the signal and the input background. Each event is multiplied by the probability in the training phase which gives the likelihood of the event to be either signal or background. The second method is called the Fisher Discriminant. It maximizes the separation of the signal mean from the background mean. The third method is the Boosted Decision Tree (BDT). The multivariate technique used in this analysis to optimize and improve \(D^{0}\) meson signal extraction is BDT.
+
+#### Boosted Decision Tree BDT
+
+The BDT is a binary decision structure, where a variable undergoes a finite series of split criteria until a condition is fulfilled. Figure 3.7 shows the parameter space which is split into several regions that are identified as either signal or background in the training stage. Each decision is weighted according to the average of the individual decision tree depending on whether the event belongs to the signal or background category [74].
+
+Figure 3.8 (left) shows training of the signal (blue) to background (red) performed by BDT. The plot on the right shows the performance of each classifier ranked by best efficiency of the signal and purity. The BDT was chosen to perform the TMVA cut since it provides the highest signal efficiency.
+
+#### Signal and Background
+
+The package was trained by using pure signal from HIJING Monte Carlo simulation [3], as illustrated in figure 3.9 (left). The training dataset for the background consisted of a real data sample as shown on figure 3.9 (right) which excludes the signal area. TMVA was used in order to optimize the significance as well as reducing Figure 3.7: A decision tree is typically a two dimensional structure with a single root node, followed by a set of yes/no decisions (binary splits) that finally result in a set of leaf nodes.
+
+the background. The optimization was done by including four topological variables. Further investigation to check the correlation between these four topological variables was done. The TMVA techniques could be prevented from reaching the optimization position if there any pair of variables is strongly correlated. Figure 3.10 shows the correlation between each topological variable in signal (left) and background (right). Both correlation plots clearly indicate that no strong correlation was observed in both signal tree and background tree. Figure 3.11 shows the normalized histograms of the four variables used in the training for both signal (blue) and background (red). The probability of the fit (top left), decay length divided by its error (top right), DCA from kaon track to the primary vertex divided by its deviation (bottom left) and the same for the pion (bottom right). The separation power between signal to background is clearly seen.
+
+Figure 3.8: Overlapping of the results of the training and testing samples for BDT (left). The performance of each classifier ranked by best efficiency of the signal and purity (right).
+
+Figure 3.10: The correlation between each topological variable in signal tree (Left) and background tree (Right)
+
+Figure 3.9: Reconstructed mass for the signal (simulation), where zero background is present, and for the background, based on real data (bottom).
+
+Figure 3.11: Variables used for the training of the signal and the background. The probability of the fit (top left), decay length divided by its error (top right), DCA from kaon track to the primary vertex divided by its deviation (bottom left) and the same for pion (bottom right).
+
+### 3.7 Signal of \(D^{0}\)-Meson.
+
+The \(D^{0}\) meson signal was obtained in this analysis by using the full production of run14 SL16id library. The event selection cuts, tracks quality cuts, and the topological TMVA cuts were applied to select the \(D^{0}\) candidates. The significance of the \(D^{0}\) candidates peak is defined as the ratio of signal to background \(S/\sqrt{S+B}\) (with \(S\) denoting a signal which is fit by the Gaussian function and \(B\) denoting the subtracted background which is fit by the 3rd order polynomial function). The resulting signal and background are fitted across the mass range of 1.73 to 2.00 GeV/\(c\), and when computing the significance, the ratio is taken over a mass range that corresponds to \(3\sigma\) on either side of the mass peak.
+
+Figure 3.12: \(D^{0}\) signal obtained with TMVA performance.
+
+Using TMVA, figure 3.12 shows the obtained \(D^{0}\) mass and width as 1.865 and 0.015, respectively. For comparison, non-optimized cuts listed in table 3.3 lead to figure 3.6, where the mass and width are 1.864 and 0.015, respectively, and the significance is 14 units lower. In the next chapter, we discuss the \(D^{0}\) meson elliptic flow measurement in detail.
+
+## Chapter 4 Measurement of Elliptic Flow of \(D^{0}\) Mesons
+
+The elliptic flow \(v_{2}\) is a measure of the second order azimuthal anisotropy of the produced particles in momentum space. It is a good tool for studying the system formed in the early stages of high energy collisions at RHIC [84]. This collective motion can be observed experimentally by studying the second harmonic coefficient of the Fourier decomposition of azimuthal distribution with respect to the reaction plane angle \(\Psi_{r}\) (eq 4.1). \(\Psi_{r}\) is the plane formed by longitudinal z-axis and the impact parameter direction. Due to the symmetry around the reaction plane \(\phi=-\phi\), the \(\sin\) terms of equation 4.1 vanish. The \(\phi\) symbol is defined as the azimuthal angle (angle from x-axis in x-y plane).
+
+\[E\frac{d^{3}N}{d^{3}p}=\frac{1}{2\pi}\frac{d^{2}N}{p_{T}dp_{T}dy}[1+\sum_{n=1} ^{\infty}2v_{n}\cos n(\phi-\Psi_{r})] \tag{4.1}\]
+
+The anisotropic flow \(v_{2}\) generally depends on the particle rapidity and tranverse momentum. The second Fourier coefficient is:
+
+\[v_{2}=\langle\cos 2(\phi-\Psi_{r})\rangle \tag{4.2}\]
+
+The \(\langle\dots\rangle\) denotes the average over all particles in all events. In the scenario of non-zero impact parameter the reaction volume is anisotropic and the coefficients \(v_{2}\) is non-zero, whereas at near zero impact parameter the reaction volume is spherical resulting in a uniform azimuthal distribution of particles and a vanishing \(v_{2}\).
+
+### Event Plane Calculation
+
+The first step of the elliptic flow measurement is to calculate the reaction plane angle \(\Psi_{r}\). The calculation of \(\Psi_{r}\) experimentally can be approximated by using the anisotropic flow itself since the impact parameter is unknown [76]. In our analysis \(\Psi_{r}\) is calculated by using the event flow vector \(Q_{n}\).
+
+\[Q_{X}=Q_{n}\cos(n\Psi_{n})=\sum_{i}w_{i}\cos(n\phi_{i}) \tag{4.3}\]
+
+\[Q_{Y}=Q_{n}\sin(n\Psi_{n})=\sum_{i}w_{i}\sin(n\phi_{i}) \tag{4.4}\]
+
+where \(\sum\limits_{i}\) runs over the total number of particles in an event. To optimize the event plane resolution, the weight is selected as \(w_{i}=p_{T}\). A cut on tracks 0.2\(<p_{T}<\) 2.0 GeV/c is applied. The harmonic event plane angle is calculated by the following equation.
+
+\[\Psi_{2}=[\tan^{-1}\frac{\sum\limits_{i}w_{i}\sin(2\phi_{i})}{\sum\limits_{i}w _{i}\cos(2\phi_{i})}]/2=[\tan^{-1}\frac{Q_{Y}}{Q_{X}}]/2 \tag{4.5}\]
+
+The TPC primary tracks are used in order to calculate the event plane in this analysis. The tracks selection quality cuts are listed in table 4.1. Tracks with \(\eta\) gap 0.15 from \(D^{0}\) candidate are also rejected from event plane reconstruction. Figure 4.1 upper panel shows the calculated event plane based on these cuts. The distribution is not uniform as it should be because of detector inefficiency and finite acceptance. Therefore, the resulting distribution has to be corrected in order for the event plane to have a flat distribution [76].
+
+### **Detector Acceptance Correction**
+
+It is important to ensure that event plane angle distribution should be flat or uniform in the laboratory frame. The re-centering method [76] corrects the distribution of flow vectors. It is applied on each half of the TPC by using the pseudo-rapidity condition (\(\eta<0\) or \(\eta>0\)). The averaging of event flow vector \(Q_{n}\), i.e. the event plane correction, was done on a run by run basis as shown in eq 4.6.
+
+\[Q_{X}=Q_{X}-\langle Q_{X}\rangle\qquad and\qquad Q_{Y}=Q_{Y}-\langle Q_{Y}\rangle \tag{4.6}\]
+
+Figure 4.1 lower panel shows the event plane after the averages was subtracted and the re-centering method was applied. Its distribution is flat and uniform.
+
+### **Event Plane Resolution**
+
+The event plane resolution (\(R_{\Psi}\)) need to be estimated and corrected for. It is used to scale the observed elliptic flow \(v_{2}^{\rm obs}\) since the finite multiplicity in an event limits
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline Parameters & Cut Value \\ \hline Number of fit points in TPC (nHits) & \(>\) 20 \\ (nHits/Max. nHits) & \(>\) 0.52 \\ pseudo-rapidity \(|\eta|\) & \(<\) 1.0 \\ Tranverse momentum \(p_{T}\) & 0.2\(<\)\(p_{T}\)\(<\) 2.0 GeV/c \\ \hline \end{tabular}
+\end{table}
+Table 4.1: Selection cuts of tracks for event plane calculationFigure 4.1: \(\Psi_{2}\) Event plane before recentering (upper panel) and \(\Psi_{2}\) Event plane after recentering (lower panel)
+
+the resolution to estimate the \(\Psi_{2}\).
+
+\[v_{2}=\frac{v_{2}^{\rm obs}}{R_{\Psi}}=\frac{v_{2}^{\rm obs}}{\langle\cos 2(\Psi_{2 }-\Psi_{r})\rangle} \tag{4.7}\]
+
+The resolution equation can be solved analytically as [76]:
+
+\[\langle\cos 2(\Psi_{2}-\Psi_{r})\rangle=\frac{\sqrt{\pi}}{2\sqrt{2}}\chi_{2}\exp(- \chi_{2}^{2}/4)[I_{0}(\chi_{2}^{2}/4)+I_{1}(\chi_{2}^{2}/4)] \tag{4.8}\]
+
+where \(I_{0}\) is the modified Bessel functions.
+
+\[\chi_{2}=\frac{v_{2}}{\sigma}\quad and\quad\sigma^{2}=\frac{\langle w^{2} \rangle}{2N\langle w\rangle^{2}} \tag{4.9}\]
+
+Figure 4.2 shows the resolution for the second harmonic event plane as function of centrality.
+
+Figure 4.2: Second order event plane \(R_{\Psi}\) resolution as a function of centrality
+
+### 4**Extracted Yield and Elliptic Flow Determination.
+
+The invariant mass of \(D^{0}\) daughter particles \(K\) and \(\pi\) was measured using data taken by HFT detector. A sharp signal of the invariant mass of \(D^{0}\) was obtained by using the topological and TMVA cuts. In this section, we study how the \(D^{0}\) invariant mass significance depends on its azimuthal angle relative to the reaction plane.
+
+In order to extracted the yield, the invariant mass is plotted as function of \((\phi-\Psi_{2})\) for different bins, where \(\phi\) is the azimuthal angle and \(\Psi_{2}\) is the event plane angle. The invariant mass signal and background are fit with Gaussian and polynomial respectively for each single bin. The Gaussian is then integrated around the mean to obtain the yield which is the number of \(D^{0}\) candidates after background subtraction. The extracted yield as a function \((\phi-\Psi_{2})\) is then fit by equation 4.9 to measure the second harmonic anisotropic flow (also called elliptic flow) of charmed meson. The measured elliptic flow is then corrected by the finite bin factor of \((\phi-\Psi_{2})\) and the event plane resolution \(R_{\Psi}\) to observe the true elliptic flow of \(D^{0}\) mesons [77].
+
+\[f(\phi)=B[1+v_{2}^{\rm obs}\cos 2(\phi-\Psi_{2})] \tag{4.10}\]
+
+where \(B\) is a parameter used to obtain the value for the observed elliptic flow \(v_{2}^{\rm obs}\).
+
+Figure 4.3 through figure 4.20 show the corrected signals and yields measured as function of \((\phi-\Psi_{2})\) bins for centralities of 0-80% and 10-40% in nine \(p_{T}\) ranges.
+
+Figure 4.3: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(0.75<p_{T}<1.25\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+
+Figure 4.4: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(1<p_{T}<2\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+
+Figure 4.5: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(1.75<p_{T}<2.25\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+
+Figure 4.6: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(2<p_{T}<3\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+
+Figure 4.7: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(2.5<p_{T}<3.5\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+
+Figure 4.8: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(3<p_{T}<4\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+
+Figure 4.9: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(4<p_{T}<5\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+
+Figure 4.10: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(5<p_{T}<6\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+
+Figure 4.11: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(6<p_{T}<7\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 0-80% central events
+
+Figure 4.12: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(0.75<p_{T}<1.25\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 10-40% central events
+
+Figure 4.13: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(1<p_{T}<2\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 10-40% central events
+
+Figure 4.14: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(1.75<p_{T}<2.25\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 10-40% central events
+
+Figure 4.15: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(2<p_{T}<3\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 10-40% central events
+
+Figure 4.16: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(2.5<p_{T}<3.5\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 10-40% central events
+
+Figure 4.17: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(3<p_{T}<4\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 10-40% central events
+
+Figure 4.18: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(4<p_{T}<5\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 10-40% central events
+
+Figure 4.19: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(5<p_{T}<6\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 10-40% central events
+
+Figure 4.20: Invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(6<p_{T}<7\) GeV/c and \(v_{2}^{\rm obs}\) calculation in 10-40% central events
+
+### Systematic studies.
+
+There are several sources of systematic errors in a measurement. A typical way to estimate their magnitude is by varying the sensitive cut-variables around their nominal cut-value and recalculate its effect on the final corrected value. The width of the resulting variation in the final result is quoted as the systematic error. The variable that provides the main systematic error in this study is the TMVA cut. It summarizes all the topological cuts that provided the \(D^{0}\) signal with highest significance and subtracted background as shown in figure 3.12. The most dominant contributions to the systematics in this analysis come from the yield extraction and hence, the treatment of the background remaining under the \(D^{0}\) meson peak.
+
+The obtained result of the invariant mass of \(D^{0}\)-meson is 1.865 GeV/\(c^{2}\) as shown in figure 4.22 using different TMVA cuts. These different TMVA cuts and their yield and significance are listed in table 4.2. The results in this table are shown in figure 4.21 (left and right). The yield (left plot) versus the TMVA cut shows that number of \(D^{0}\) candidates decreases monotonically as a harder cut is used. On the other hand, the plot on the right shows that the significance clearly peaks for an intermediate cut of about 0.15.
+
+The criterion to estimate the systematic error is to measure the \(D^{0}\) signal in certain \(p_{T}\) and specific centrality with different TMVA cuts. Four cuts of TMVA (0.07, 0.11, 0.15, and 0.19) are used for the nine \(p_{T}\) regions in four centralities. Figure 4.23 shows an example for \(1<p_{T}<2\) GeV/c in 0-80% central events. The systematic error is the standard deviation of these elliptic flow measurements. Figure 4.24 shows the measured results of different TMVA cuts of \(D^{0}\) (\(v_{2}^{\rm obs}\)) for the centralities of 0-80% and 10-40% (top panel left and right) as well as 0-10% and 40-80% (bottom panel
+
+[MISSING_PAGE_EMPTY:92]
+
+Figure 4.22: Variation of the TMVA cut for the \(D^{0}\) candidates.
+
+Figure 4.23: Corrected invariant mass distributions in \(\phi-\Psi_{2}\) bins for \(1<p_{T}<2\) GeV/c and \(v_{2}^{obs}\) calculation in 0-80% central events for four different TMVA cuts of TMVA=0.07 (top panel left), TMVA=0.11 (top panel right), TMVA=0.15 (bottom panel left) and TMVA=0.19 (bottom panel right)
+
+Figure 4.24: Studies of \(D^{0}\)\(v_{2}\) systematic uncertainties versus \(p_{T}\) in centrality classes (top panel left) 0-80% (top panel right) 10-40% (bottom panel left) 0-10% and (bottom panel right) 40-80% central events
+
+[MISSING_PAGE_EMPTY:96]
+
+\begin{table}
+\begin{tabular}{l c c c} \hline \(P_{T}\) ( GeV/c ) & \(D^{0}\) (\(v_{2}^{obs}\)) & error & Syst error \\ \hline
+0.75 & 0.0270427 & 0.0874010 & 0.04810680 \\
+1.50 & 0.0864421 & 0.0160810 & 0.01090720 \\
+2.50 & 0.0345818 & 0.0171977 & 0.00559376 \\
+3.50 & 0.0333994 & 0.0371313 & 0.01379710 \\
+4.50 & 0.1061100 & 0.0187237 & 0.00250282 \\
+5.50 & 0.0817862 & 0.0614053 & 0.00192445 \\
+6.50 & 0.1679760 & 0.0405972 & 0.06069560 \\ \hline \end{tabular}
+\end{table}
+Table 4.6: Systematic error estimation for 40-80% central events
+
+\begin{table}
+\begin{tabular}{l c c c} \hline \(P_{T}\) ( GeV/c ) & \(D^{0}\) (\(v_{2}^{obs}\)) & error & Syst error \\ \hline
+1.00 & 0.03624 & 0.009406 & 0.021996900 \\
+1.50 & 0.07091 & 0.009149 & 0.017404600 \\
+2.00 & 0.07500 & 0.011590 & 0.035142610 \\
+2.50 & 0.07851 & 0.007477 & 0.018392584 \\
+3.00 & 0.09755 & 0.012650 & 0.042638409 \\
+3.50 & 0.10700 & 0.012120 & 0.027350931 \\
+4.50 & 0.05025 & 0.023550 & 0.047351430 \\
+5.50 & 0.09700 & 0.027630 & 0.028926521 \\
+6.50 & 0.11040 & 0.059880 & 0.066141315 \\ \hline
+
+## Chapter 5 Results and Discussion
+
+In this chapter, we present the results of the azimuthal anisotropy of charmed \(D^{0}\) mesons obtained from 850 million MinBias Au+Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV taken in 2014 by HFT detector. The centrality dependence of \(D^{0}\)\(v_{2}\) are shown as well as the \(v_{2}\) versus \(p_{T}\) in different centralities, and are compared to light quarks and selected models.
+
+### 5.1 **C**entrality dependence of \(D^{0}\)-meson \(v_{2}\).
+
+The centrality dependence of \(D^{0}\)-meson \(v_{2}(p_{T})\) is calculated for four different centrality bins: 0\(-\)80%, 0\(-\)10%, 10\(-\)40% and 40\(-\)80% where the percentages are the fraction of total inelastic cross section. Figure 5.1 shows \(D^{0}\)\(v_{2}\) versus \(p_{T}\) for the 0-80% centrality class (near MinBias events) (top panel left) and 10-40% centrality class (intermediate centrality) (top panel right). The bottom panel shows the same but for 0-10% centrality class (left) and 40-80% centrality class events (right). All of them indicate that \(D^{0}\)\(v_{2}\) is non-zero. Charm mesons exhibit significant flow in Au+Au collisions. It also indicates some centrality dependence.
+
+### 5.2 **C**omparison of \(D^{0}\)-Meson \(v_{2}(p_{T})\) with Hadrons.
+
+The ideal hydrodynamics model predicts that \(v_{2}(p_{T})\) follows a mass ordering. Heavy hadrons have a smaller \(v_{2}\) than light hadrons [85]. In this analysis, the mass was observed in \(p_{T}\) region (0.5 \(<\)\(p_{T}\)\(<\) 7.0 GeV/c). Figure 5.2 shows \(D^{0}\)\(v_{2}\) versus \(p_{T}\) compared to other species. Top plot is for intermediate centrality events (10-40%) andFigure 5.1: \(D^{0}\)\(v_{2}\) versus \(p_{T}\) in centrality classes (top panel left) 0-80% (top panel right) 10-40% (bottom panel left) 0-10% and (bottom panel right) 40-80% centrality events
+
+Figure 5.2: \(D^{0}\)\(v_{2}\) versus \(p_{T}\) compared to other species, (top) 10-40% centrality events and (bottom) 0-80% centrality events
+
+bottom plot is for near MinBias events (0-80%). One can see that at the transverse momentum region of \(1.5<p_{T}<7.0\) GeV/c the heavier hadrons exhibit smaller \(v_{2}\) values than the lighter hadrons. However, the comparison will make more sense if \(v_{2}(p_{T})\) of hadrons is scaled with Number-of-Constituent Quarks (NCQ). The NCQ for mesons and baryons are NCQ = 2 and NCQ =3, respectively. This scaling is discussed in next section.
+
+### 5.3 Number-of-Constituent Quarks Scaling.
+
+The observed pattern of NCQ scaling is considered to be a good signature of partonic-level collectivity since it can be explained by the quark recombination (coalescence) model [81]. It can be shown that hadrons from parton coalescence in an anisotropic deconfined medium, where flow and velocity are common to the partons in the system, have flow and kinetic energy (or momentum if the parton masses are similar) proportional to the number of quarks they contain. Therefore, NCQ scaling is a strong indication for the formation of a hot partonic medium.
+
+If this scaling extends to heavy flavor it would indicate full heavy-flavor thermalization in the system. Since heavy flavor particles require a large number of collisions in order to acquire the common system velocity, NCQ scaling for heavy flavor would be a strong indication that the partonic system has achieved thermal equilibrium, the requirement for a new phase of matter, the QGP.
+
+The normal way to test NCQ scaling is to plot \(v_{2}\)/NCQ as a function of the transverse kinetic energy \((m_{T}-m_{0})\)/NCQ, where \(m_{T}\) = \(\sqrt{p_{T}^{2}+m_{0}^{2}}\) is the transverse mass, and \(m_{0}\) is the mass of the hadron. Such plots follow a universal scaling for all the measured hadrons. Figure 5.3 shows \(v_{2}\)/NCQ vs \((m_{T}-m_{0})\)/NCQ for several species. The 10-40% centrality intervals is shown in the upper panel, and near-minimum-biasFigure 5.3: \(D^{0}\)\(v_{2}\)/NCQ versus \((m_{T}-m_{0})\)/NCQ compared to other species, (top) 10-40% centrality events and (bottom) 0-80% centrality events
+
+events (0-80%) are shown in the lower panel. The NCQ scaling holds fairly well for all particles including \(D^{0}\)-mesons. Thus, \(D^{0}\)-meson \(v_{2}\) leads to the conclusion that the charm quarks flow with a thermalized medium where the partons are the relevant degrees of freedom.
+
+### 5.4 Comparison with Theory.
+
+Figure 5.4 shows the comparison between the results obtained in this analysis and several models. The four models presented are DUKE, SUBATECH. TAMU, and HYDRO.
+
+First, the Duke University group (DUKE) used a modified Langevin equation that
+
+Figure 5.4: \(D^{0}\)\(v_{2}\) versus \(p_{T}\) compared to different model calculations in 0-80% centrality events
+
+incorporates both quasi-elastic scattering and gluon radiation, with (2+1)-D hydrodynamic simulation to represent the medium formed. This model shows reasonable agreement with jet quenching effects measured at the CERN LHC. However, the purple dashed line in the figure shows that the magnitude of \(v_{2}\) is underestimated [86].
+
+Second, The SUBATECH research laboratory group applies pQCD and used the Hard Thermal Loop approximation (HTL) to estimate the charm interaction with the medium. Both radiative and collisional energy losses are considered [87]. The black line describes the results from the SUBATECH model which predicts low \(v_{2}\) in intermediate \(p_{T}\).
+
+Third, the Texas A&M University group (TAMU) used Langevin approach to model the quark propagation also in a (2+1)-D hydrodynamic medium but with no viscosity. The interaction of the charm quark with the medium is represented by the non-perturbative T-Matrix dynamical method. The calculations only consider collisional energy loss [88]. The results from the TAMU model, shown as a green line, agree with data and indicate that charm quarks flow with the medium.
+
+Finally, the gray dashed line is from the hydrodynamic model [85]. Hydro models are suitable for describing soft physics (transverse momenta up to 2 or 3 GeV/\(c\)) and since the earliest days of RHIC, it has been known that this type of model accurately describes the \(v_{2}\) for particles composed of light quarks. The hydrodynamic model of Ref [85] supports the conclusion that charm quarks are fully thermalized with the medium.
+
+The diffusion coefficient values \((2\pi T)D\) extracted from several models are shown in figure 5.5 together with the measured results in figure 5.4. It shows that the range inferred from STAR data and several models in figure 5.4 are consistent with value obtained from lattice calculations [89, 90] in the range of 2\(-\)12 for \(1<T/T_{c}<2\). This prediction falls in the same range with our measurement.
+
+Figure 5.5: Diffusion coefficient from model calculations and the inferred range from STAR measurements
+
+## Chapter 6 Summary
+
+The QCD theory predicts that strongly interacting matter should, at sufficiently high energy density, undergo a transition from hadronic matter to QGP. This deconfined state of quarks and gluons is believed to be the one in which the early universe (about 13.8 billion years ago) existed a few microseconds after the Big Bang. Heavy flavor quarks are considered to be a unique probe for QGP studies because they are created during the early stages of the collisions. Another advantage of charm and bottom quarks arises from the fact that observable particles containing these quarks are much heavier than particles containing only up, down and strange quarks.
+
+In order to precisely measure the properties of open heavy flavor, a new generation of particle detectors such as Heavy Flavor Tracker (HFT) was built to perform precise topological reconstruction of short lived heavy flavor particles in heavy ion collisions. The HFT detector is based on Monolithic Active Pixel Sensor (MAPS) technology and was commissioned in 2014. Emphasis was put in keeping the thickness traversed by detected particles very low in order to have good reconstruction of low p\({}_{T}\) particles.
+
+This analysis was based on the 2014 data set, consisting of Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV (about 1.2 billion collisions covering almost all impact parameters) that include the HFT detector as well as the main STAR detectors TPC and TOF that are used for tracking and particle identification. Slightly over 850 million MB events were analyzed after quality cuts were applied.
+
+In this dissertation, the analysis was performed using the Kalman filter algorithm to reconstruct the \(D^{0}\) meson decay vertex. The reconstruction was done by fitting the tracks of both pion and kaon considering the full covariance matrix of each daughter. We also used a tool (TMVA) for signal optimization. The invariant mass signal of \(D^{0}\) mesons was successfully obtained with great significance (sometimes \(>100\)) as shown in chapter 3.
+
+We have measured \(D^{0}\) meson azimuthal anisotropy as a function of transverse momentum \(p_{T}\) and also studied its centrality dependence in Au+Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV. The observed \(D^{0}\)\(v_{2}\) was found to be significantly above zero for all centralities and all \(p_{T}\) regions which is evidence that charm quarks are taking part in the collective expansion of the produced QGP medium. We observed that \(D^{0}\) meson \(v_{2}\) shows an increasing trend with increasing \(p_{T}\). It is also centrality dependent. The measured \(D^{0}\)\(v_{2}\) was compared to other hadrons containing lighter quarks (u, d, s). The elliptic flow of \(D^{0}\) mesons, when scaled with the number of constituent quarks, clearly follows the same trend as lighter hadrons. The comparison strongly suggests that charm quarks are fully thermalized with the hot, partonic medium created in these collisions. The \(D^{0}\)\(v_{2}\) was also compared to several models. Our data favor QGP models that use charm diffusion coefficient values in the range of 2-10 (in dimensionless units). The pending analysis of about two more billion events from the 2016 run will further sharpen the picture of heavy flavor behavior in hot nuclear matter.
+
+Appendix A
+
+**Gamma-conversion tomography and Beam Pipe position study**
+
+Data from the Au+Au \(\sqrt{s_{NN}}\) = 200 Run 14 data set is used as input in order to detect the relative position of the beam pipe and the HFT detector. This also allows us to determine the HFT position in an absolute way since the beam pipe position has been surveyed and is known.
+
+### **Data Sets**
+
+The results presented in this chapter are based on data collected by the STAR-HFT experiment from Au+Au collisions at center of mass energy \(\sqrt{s_{NN}}\) = 200 GeV in the year 2014. The minimum-bias trigger condition is used with event cuts to ensure that all events are used. Simulated HIJING Au+Au events at \(\sqrt{s_{NN}}\) = 200 GeV are also used for cut studies and cut optimization.
+
+### **P**hotonic electrons
+
+Photonic electrons are created in gamma conversions in the detector material (beam pipe thickness (Be) \(X/X_{0}\) = 0.21%) and average HFT detector layer (\(X/X_{0}\) = 0.4%). Gammas are produced in \(\pi^{0}\) and \(\eta\) Dalitz decays. Because of the extremely short lifetime of \(\pi^{0}\) and \(\eta\) mesons, their decay vertex cannot be distinguished from the primary Au + Au collision vertex. Below we list some processes that create gammas.
+
+\(\bullet\)\(\pi^{0}\rightarrow\gamma\gamma\) (B.R. = 98.8%)
+
+\(\bullet\)\(\pi^{0}\to e^{+}e^{-}\gamma\) (B.R. = 3.89%)\(\bullet\)\(\eta\rightarrow\gamma\gamma\) (B.R. = 39.3%)
+
+\(\bullet\)\(\eta\to e^{+}e^{-}\gamma\) (B.R. = 3.89%)
+
+### **Q**uality Cuts Selection.
+
+To reconstruct the gammas one first reconstructs the conversion vertex and then calculates the invariant mass of the electron-positron pairs and exploits the fact that electron-positron pairs from \(\gamma\)-conversion have a very small invariant mass. In order to improve the Signal / Background rations we apply several quality cuts. The first cut is on primary vertex position along the longitudinal beam direction \(|V_{\rm Z}|<\)5 cm as shown in figure 1 (bottom panel left). It guarantees central region tracks to be in the HFT acceptance. The transverse momentum cut of \(p_{T}>0.1\) GeV/c is also required to ensure good track momentum reconstruction and to minimize ghosting and eliminate short tracks which show in figure 1 (top panel left). The whole selection and event cuts are summarized in table 1
+
+Figure 1 (top panel right) shows the invariant-mass plot from our STAR-HFT year 2014 data. Of course, many of the pairs cannot be reconstructed for acceptance and efficiency reasons and many pairs are going to be false, i.e., combinatorial background.
+
+### **P**article identification and track selection.
+
+In this analysis, \(\gamma\) are measured using the HFT through the conversion channel \(\gamma\to e^{+}e^{-}\). Electrons and positrons are identified by measuring their energy loss (\(dE/dx\)) from TPC and speed \(\beta\) (based on measurements from the TOF detector) as a function of momentum. The TPC identification is done by applying a cut on the number of standard deviations from the centroid of the measured \(dE/dx\). Figure 1
+
+\begin{table}
+\begin{tabular}{|l|l|} \hline Parameters & Cut Value \\ \hline Number of fit points in TPC (nHits) & \(>\) 20 \\ \(|V_{Z}|\) & \(<\) 5 \\ \(p_{T}\) & \(>\) 0.1 GeV/c \\ Ratio of fit points to possible points (nHits/Max. nHits) & \(>\) 0.52 \\ \(|n\sigma_{e}|\) of electrons \(dE/dx\) & \(<\) 2.0 \\ \(|1/\beta-1|\) of electrons TOF & \(<\) 0.03 \\ Number of TPC Hits used in \(dE/dx\) & \(>\) 10 \\ Momentum (\(p\)) & \(<\) 0.5 GeV/c \\ pseudo-rapidity \(|\eta|\) & \(<\) 1.0 \\ Number of PXL hits & \(>\) 1 \\ Pair charge sign product & \(<\) 0 \\ nHits on each layer of PXL and IST & \(\geq\) 1 \\ DCA of daughters at secondary vertex & \(<\) 100 \(\mu\)m \\ Inv mass of gamma & \(<\) 50 MeV \\ Cosine of opening angle of decay electrons & \(<\) 0.999 \\ DCA of \(V_{0}\) and Primary vertex & \(<\) 100 \(\mu\)m \\ \hline \end{tabular}
+\end{table}
+Table A.1: Set of cuts applied to reconstructed tracks and verticesFigure A.1: (Top left panel) the transverse momentum. (Top right panel) Invariant mass of reconstructed pair electrons. (Bottom left panel) Vertex Z position. (Bottom right panel) \(|n\sigma_{e}|\) of electrons \(dE/dx\) from TPC versus \(|1/\beta-1|\) of electrons from TOF at \(p<\)0.5 GeV/\(c\).
+
+Figure A.2: The topological variables of an electron-positron pair and the gamma from which it originates.
+
+(bottom panel right) shows that the electron band can be selected by requiring both TPC and TOF cuts.
+
+### **R**econstruction of \(\gamma\)-conversion.
+
+To reconstruct the electron-positron pairs produced in gamma conversions, one combines electron tracks with all opposite-charge electron candidates in the same event. A cut on pair charge sign product (\(<0\)) was applied to ensure the selection of electron-positron pairs.
+
+More quality cuts are applied to further select gamma conversion. For instance, a cut on the angle between electron-positron pairs is applied in order to select gamma conversions, since for real conversions, the two tracks have almost zero opening angle. A DCA cut was also applied between two electrons at the decay vertex as well as the reconstructed momentum of the parent pointing back to the primary Au + Au collision vertex as shown in the diagram A.2. Moreover, we require both layers of Pixel detector to have at least one hit each. The effects of these cuts can be seen by comparing figure A.3 which is the secondary vertex \(x\)-\(y\) coordinate before applied cuts (top panel left) with the corresponding plot after cuts were applied (top panel right). This demonstrates that cuts are successfully selecting electrons from the conversion of gammas in the material of the detector.
+
+### **S**imulation study of \(\gamma\)-conversion.
+
+The quality cuts ensure that we select mainly electrons coming from gamma conversions in the beam pipe and the Pixel layers. However, the beam pipe is not clearly outlined in the data (upper right panel of figure A.3). We used simulated events in order to understand this unexpected behavior. One problem with simulated events is the enormous computer resources it takes to generate a useful sample, so we wanted to have many conversions in the beam pipe in a relatively small sample (tens of thousand of simulated events as compared to hundred of millions in real data). The beam pipe was 0.75 mm of Be (radiation length of \(X/X_{0}=0.21\%\)). We expect about 2 conversions per event since there are around 2 thousand particles in each single event, 80% of which are pions. About 1/3 of these are \(\pi^{0}\)s, each decaying into two gammas. This gives us about one thousand gammas in our acceptance per central Au+Au 200 GeV event. Folding in the radiation thickness of the beam pipe gives us only 2 conversions per event. One way to increase the conversion rate was to change the beam pipe material in our simulation from Be to Pb that has \(X/X_{0}=13.4\%\), an effective increase of a factor of 65. This changes the rate from two conversions per event to about 130. Figure A.3 (bottom panel right) shows that the beam pipe is clearly seen in simulations after this substitution. The bottom left panel in the same figure shows the radial distribution of the conversion vertex around the beam pipe area. It shows a peak at about 2.08 mm. The beam pipe has an internal radial position of 2 mm and extends to 2.075 mm.
+
+We observe that the beam pipe's outline is fuzzy and not as sharp as the Pixel sensors. Its thickness is less than a millimeter but the apparent reconstructed cloud spreads over about 4 mm in the simulation figure. We understand that this is due to the small opening angle between the two electron tracks. The proximity of the beam pipe to the first layer of the Pixel detector doesn't allow for a clear separation of their pixels hits; in most cases they are merged together into a single hit. This leads to an effective shift of the reconstructed vertex, in most cases, to the first Pixel layer. The few remaining cases, where a hit separation is achieved, are overwhelmedFigure A.3: (Top left panel) Secondary vertex \(x\) - \(y\) coordinates before any cuts. (Top right panel) Secondary vertex \(x\) - \(y\) coordinates after quality cuts. (Bottom left panel) the radial distribution in cm. (Bottom right panel) Secondary vertex \(x\) - \(y\) coordinates with Pb Beam pipe.
+
+by the background (in the data). We can still see the beam pipe in the simulation but only after boosting the conversions by almost two orders of magnitude. Let us try to estimate with an example the electron-positron hit separation in the first layer of Pixel detector (PXL1). This helps us understand why the real beam pipe (Be) is not visible. Figure A.4 shows a diagram where a gamma hits the beam pipe and converts into electron-positron pair that hits PXL1. The separation measurement can be estimated from the radius of curvature \(R=p/0.3B\), where \(p\) (momentum) = 400 MeV/\(c\) [typical] and \(B\) (STAR magnetic field) = 5 KG which results in \(R=267\) cm.
+
+The half separation distance \(X\) can be calculated from diagram A.4 by using the relation: \(X=\) AC (d\(\theta/2\)) = AC (AC/2R) = (0.5)\({}^{2}\) cm/(2x267) = 0.00047 cm or 5
+
+Figure A.4: Distance between electron-positron hits on first layer of Pixel detector
+
+microns, i.e. the full separation is about 10 microns. Remember that the pixel size is 20x20 microns! The two hits are merged into one and the vertex finder will replace the secondary vertex, the conversion, at the Pixel-1 layer instead of the beam pipe.
+
+### Summary
+
+We present the first measurement of Gamma-conversion tomography results with HFT detector. A simulation study is used to optimize and understand the best cuts for the electron-positron pair. Changing the beam pipe in the simulation from Be to Pb helps to enhance the conversion probability. The real beam pipe is not clearly resolved via this tomography technique, even though a hint of it is evident in various plots, which is likely due to almost parallel daughter tracks. Similar studies were used for the determination of the amount of material in real data and other physics studies by other collaborators.
+
+## References
+
+* [1] R. C. Hwa and X. N. Wang, _Quark-Gluon Plasma 3_. World Scientific, 2003.
+* [2] C. Y. Wong, _Interoduction to High Energy Heavy-Ion Collisions_. World Scientific, 1994.
+* [3] C. Y. Wong, _Monte Carlo Program for Parton and Particle Production in High Energy Hadronic and Nuclear Collisions_. Comp. Phys. Comm. 83, 307.1994.
+* [4] S. Weinberg, A model of Leptons, _Phys. Rev. Lett._ 19:1264, 1967.
+* [5] D. Griffiths, _Introduction to elementary particles_. 1986.
+* [6] P. W. Higgs, Broken symmetries, massless particles and gauge fields, _Phys. Lett._ 12:132, 1964.
+* [7] K. G. Wilson, Confinement of quarks, _Phys. Rev. D._ 10:2445, 1974.
+* [8] S. Bethke, Experimental tests of asymptotic freedom, _Prog. Part. Nucl. Phys._ 58:351, 1974.
+* [9] G. Baym, RHIC: From dreams to beams in two decades, _Nucl. Phys._ A698,XXIII 2002.
+* [10] J. Adams et al (STAR COllaboration) Experimental and Theoretical Challenges in the Search for the Quark Gluon Plasma: The STAR Collaboration's Critical Assessment of the Evidence from RHIC Collisions, _Nucl. Phys._ A757, 102 2005.
+* [11] I. Arsene et al, _Phys. Rev. A._ 757, 1-27, 2005.
+* [12] B. B. Back et al, _Phys. Rev. A._ 757, 28-101, 2005.
+* [13] K. Adcox et al, _Phys. Rev. A._ 757, 184-283, 2005.
+* [14] B. Back et al, Hot and Dense QCD Matter White Paper submitted to the 2012 Nuclear Science Advisory Committee.
+* [15] F. Karsch, Lattice Results on QCD Thermodynamics, _Nucl. Phys._ A698, 199 2002.
+* [16] Y. Aoki, Z. Fodor, S. D. Katz, et al, _Phys. Rev. D._ 643, 46-54, 2006.
+* [17] Y. Aoki, S. Borsanyi, S. Durr, et al, _JHEP._ 06, 088, 2009.
+
+* [18] S. Borsanyi, Z. Fodor, C. Hoelbling, et al, _JHEP._ 09, 073, 2010.
+* [19] A. Bazavov et al, _Phys. Rev. D._ 85, 054503, 2012.
+* [20] Y. Aoki, G. Endrodi, Z. Fodor, et al, _Nature_. 443, 675-578, 2006.
+* [21] Z. Fodor, Lattice QCD Results at Finite Temperature and Density, _Nucl. Phys._ A715, 319 2003.
+* [22] C. Shen, U, Heinz, The road to precision: Extraction of the specific shear viscosity of the quark-gluon plasma _Nucl. Phys. News._ 25, 6-11 2015.
+* [23][https://en.wikipedia.org/wiki/Pseudorapidity](https://en.wikipedia.org/wiki/Pseudorapidity)
+* [24][https://www.ippp.dur.ac.uk/krauss/Lectures/QuarksLeptons/Basics/Kin2.html](https://www.ippp.dur.ac.uk/krauss/Lectures/QuarksLeptons/Basics/Kin2.html)
+* [25] M. Thoma, M. Gyulassy, M. Plumer, and X. N. Wang, High \(p_{t}\) probes of nuclear collisions. _Nucl. Phys. A._ 538:37, 1992
+* [26] E. Wang and X. N. Wang, Interplay of soft and hard processes and hadron \(p_{t}\) spectra in PA and AA collisions. _Phys. Rev. C._ 64:034901, 2001.
+* [27] M. Djordjevic, M. Gyulassy and S. Wicks (Columbia U) The Charm and beauty of RHIC and LHC, _Phys. Rev. Lett._ 94,112301 2005
+* [28] J. Adams et al, Transverse-Momentum and Collision-Energy Dependence of High-pT Hadron Suppression in Au+Au Collisions at Ultrarelativistic Energies, _Phys. Rev. Lett_, 91,172302, 2003.
+* [29] J. Adams et al, Evidence from d+Au Measurements for Final-State Suppression of High-pT Hadrons in Au+Au Collisions at RHIC, _Phys. Rev. Lett._ 91, 072304, 2003.
+* [30] B. I. Abelev et al, Transverse Momentum and Centrality Dependence of High-pT Non-photonic Electron Suppression in Au+Au Collisions at, \(\sqrt{s_{NN}}\) = 200 GeV _Phys. Rev. Lett._ 98, 192301, 2007.
+* [31] J. Adamczyk et al, Observation of D0 Meson Nuclear Modifcations in Au+Au Collisions at \(\sqrt{s_{NN}}\) = 200 GeV _Phys. Rev. Lett._ 113,142301, 2014.
+* [32] H. Sorge, Elliptical Flow: A Signature for Early Pressure in Ultrarelativistic Nucleus-Nucleus Collisions _Phys. Rev. Lett._ 78, 2309, 1997.
+* [33] F. Peter, P. Kolb, J. Sollfrank and U. Heinz, Anisotropic flow from AGS to LHC energies _Phys. Lett. B._ 459:667, 1999.
+* [34] P. Steinberg, Hotter, Denser, Faster, Smaller...and Nearly-Perfect: What's the matter at RHIC? _J. Phys. Conf. Ser._ 69:012032,2007.
+
+* [35][https://www.bnl.gov/rhic/](https://www.bnl.gov/rhic/)
+* [36][http://www.agsrhichome.bnl.gov/RHIC/Runs/](http://www.agsrhichome.bnl.gov/RHIC/Runs/)
+* [37] H. Hahn, The RHIC design overview _Nuclear Instruments and Methods in Physics Research A._ 499:245, 2003.
+* [38][https://sciencesprings.wordpress.com/tag/bnl-rhic/](https://sciencesprings.wordpress.com/tag/bnl-rhic/)
+* [39] M. Adamczyk et al, BRAHMS Collaboration _Nucl. Inst. and Meth. A._ 499:437, 2003.
+* [40] K. H. Ackermann et al, STAR Collaboration _Nucl. Inst. and Meth. A._ 499:424, 2003.
+* [41] K. Adcox et al, PHENIX Collaboration _Nucl. Inst. and Meth. A._ 499:469, 2003.
+* [42] B. B. Back et al, PHOBOS Collaboration _Nucl. Inst. and Meth. A._ 499:403, 2003.
+* [43] M. Anderson et al, _Nucl. Inst. and Meth. A._ 499:659, 2003.
+* [44] B. Bonner et al, _Nucl. Inst. and Meth. A._ 508:181, 2003.
+* [45] M. Beddo et al, _Nucl. Inst. and Meth. A._ 499:725, 2003.
+* [46] C. E. Allgower et al, _Nucl. Inst. and Meth. A._ 499:740, 2003.
+* [47] K. H. Ackermann et al, _Nucl. Inst. and Meth. A._ 499:713, 2003.
+* [48] C. Adler et al, _Nucl. Inst. and Meth. A._ 499:778, 2003.
+* [49] M. Andersen et al, The star time projection chamber: A unique tool for studying high multiplicity events at rhic. _Nucl. Inst. and Meth. A._ 499, 2003.
+* [50][https://drupal.star.bnl.gov/STAR/book/export/html/7277](https://drupal.star.bnl.gov/STAR/book/export/html/7277)
+* [51] E. C. Zeballos et al, _Nucl. Inst. and Meth. A._ 374:132, 1996.
+* [52] W. J. Llope et al, _Nucl. Inst. and Meth. A._ 522:252, 2005.
+* [53] W. J. Llope et al, The STAR Vertex Position Detector _Nucl. Inst. and Meth. A._ 759:23-28, 2014.
+* [54] The HFT group at STAR, A Heavy Flavor Tracker for STAR [https://drupal.star.bnl.gov/STAR/starnotes/public/sn0600](https://drupal.star.bnl.gov/STAR/starnotes/public/sn0600)
+* [55] J. Joseph, Charmed meson measurements using a sillicon tracker in Au+Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV in STAR experiment at RHIC _Kent State PhD. dissertation_* [56] G. Contin, The STAR Heavy Flavor Tracker (HFT) and Upgrade Plan _Quark Matter 2015_
+* [57] L. Arnold et al, The STAR Silicon strip detector _Nucl. Inst. and Meth. A_, 499, 13, 2003.
+* [58][https://nswww.org/projects/bnl/star/sub-systems.php](https://nswww.org/projects/bnl/star/sub-systems.php)
+* [59] Y. Wang, Intermediate Silicon Tracker for STAR HFT upgrade _Quark Matter 2014_
+* [60] C. Hu-Guo et al, First reticule size MAPS with digital output and integrated zero suppression for the EUDET-JRA1 beam telescope _Nucl. Instrum. Methods Sect A._ 623, 480, 2010.
+* [61][https://sites.google.com/site/ist4star/](https://sites.google.com/site/ist4star/)
+* [62] H. Qiu, STAR Heavy Flavor Tracker _Nuclear Physics A_, 931, 1141-1146, 2014.
+* [63] G. Contin, The STAR Heavy Flavor Tracker (HFT): focus on the MAPS based PXL detector _Nuclear and Particle Physics_, 273-275, 2016.
+* [64] R. Reed et al, Vertex finding in pile-up rich events for p+p and d+Au collisions at STAR _J. Phys_, 032020, 219, 2010.
+* [65] H. Bichsel, A method to improve tracking and particle identification in TPCs and silicon detectors _Nucl. Instrum. Methods Sect A._ 562, 154, 2006.
+* [66] L. Adamczyk et al, Observation of D0 Meson Nuclear Modifications in Au+Au Collisions at \(\sqrt{s_{NN}}\) = 200GeV _Phys. Rev. Lett._ 113, 142301, 2014.
+* [67] J. Adam et al, Transverse momentum dependence of Dmeson production in Pb-Pb collisions at \(\sqrt{s_{NN}}\) = 2.76 TeV _arXiv_, 1509. 06888, 2015.
+* [68] R, E. Kalman, A New Approach to Linear Filtering and Prediction Problems _Journal of Basic Engineering_. 82.35, 1960.
+* [69] STAR Integrated Tracking Task Force. STAR Integrated Tracker _[https://drupal.star.bnl.gov/STAR/system/files/ITTF.pdf_](https://drupal.star.bnl.gov/STAR/system/files/ITTF.pdf_), 2003.
+* [70] S. Gorbunov, and I. Kisel, Reconstruction of decayed particles based on the Kalman Filter _CBM-SOFT-note-2007-003_. 7 May 2007.
+* [71] P. Sinervo, Signal Significance in Particle Physics _arXiv:hepex/0208005_. 2002.
+* [72] T. Ullrich, What is the Effective Signal and what is it good for? _[http://phys.kent.edu/smargeti/STAR/D0/NoteOnEffSignal.pdf_](http://phys.kent.edu/smargeti/STAR/D0/NoteOnEffSignal.pdf_), 2009.
+* [73] A. Ng, Machine Learning _[https://www.coursera.org_](https://www.coursera.org_). 2014.
+
+- Toolkit for Multivariate Data Analysis _arXiv:physics/0703039_. 2007.
+* [75] E. Alpaydin, Introduction to Machine Learning _2nd edition, The MIT Press, Cambridge Massachusetts_ 2010.
+* [76] A. M. Poskanzer and S. A. Voloshin, Methods for analyzing anisotropic flow in relativistic nuclear collisions _Phys. Rev. C_. 58 (3 1998), pp. 1671-1678.
+* [77] H. Masui and A. Schmah, Event plane resolution correction for azimuthal anisotropy in wide centrality bins _ePrint arXiv_. 1506.07605. 2012.
+* [78] B. Abelev et al, _Phys. Rev. C_. 90.034904. 2014.
+* [79] J. Adams et al, _Phys. Rev. C_. 72.014904. 2005.
+* [80] B. I. Abelev et al, _Phys. Rev. C_. 75.054906. 2007.
+* [81] D. Molnar and S.A. Voloshin, _Phys. Rev. Lett._ 91.092301. 2003.
+* [82] R. J. Fries, _Phys. Rev. Lett._ 90.202303. 2003.
+* [83] M.L Miller et al, Glauber Modeling in High-Energy Nuclear Collisions _Annual Review of Nuclear and Particle Science_. 57.2090506. 2007.
+* [84] P. Kolb et al, _Nuclear Physics A_. 715.653. 2003.
+* [85] P. Kolb et al Hydrodynamic simulation of elliptic flow _Nuclear Physics A_. 661.349. 1999.
+* [86] S. Cao et al, Energy loss, hadronization, and hadronic interactions of heavy flavors in relativistic heavy-ion collisions _Phys. Rev. C_. 92.024907. 2015.
+* [87] M. Nahrgang et al, Elliptic and triangular flow of heavy flavor in heavy-ion collisions _Phys. Rev. C_. 91.014904. 2015.
+* [88] A. Andronic et al, Heavy-flavour and quarkonium production in the LHC era: from proton-proton to heavy-ion collisions _arXiv:1506.03981_, Jun 12, 2015.
+* [89] H-T Ding et al, Heavy quark diffusion from lattice QCD spectral functions _Journal of Physics G_. 38.12 (2011), pp. 124070.
+* [90] D. Banerjee et al, Heavy quark momentum diffusion coefficient from lattice QCD _Phys. Rev. D_. 85 (1 2012), pp. 014510.

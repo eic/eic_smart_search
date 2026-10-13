@@ -1,0 +1,581 @@
+Czech Technical University in Prague
+
+Faculty of Nuclear Sciences and Physical Engineering
+
+**Study of Jet Production in d+Au Collisions at RHIC Diploma Thesis**
+
+_Author:_ Jan Rusnak
+
+_Supervisor:_ RNDr. Jana Bielcikova, Ph.D.
+
+Prague, 2010_nazev prace:_ **Studium produkce jetu v d+Au srazkach na urychlovaci RHIC**
+
+_autor:_  Jan Rusnak
+
+_obor:_  Jaderne inzenyrstvi
+
+_druh prace:_  Diplomova prace
+
+_vedouci prace:_  RNDr. Jana Bielcikova, Ph.D.
+
+_konzultant:_  Mgr. Jan Kapitan
+
+_abstrakt:_  Experiment STAR na urychlovaci RHIC se zabyva studiem jaderne hmoty v extremich podminkach vysokych teplot a hustot energie, ktera vznika v Au+Au srazkach pri energii \(\sqrt{s_{\rm NN}}=200\) GeV. Jednou z hlavnich sond teto jaderne hmoty je studium produkce jetu a jejich modifikace pri pruchodu jadernou hmotou. K urceni miry modifikace vlastnosti jetu v horke a huste jaderne hmote je dulezite provest srovnavaci mereni produkce jetu v d+Au srazkach, ktere umozni kvantifikovat vliv jadernych efektu v pocatecnim stavu (tzv. "cold nuclear matter effects"). Clem diplomove prace je aplikace modernich algoritmu pro rekonstrukci jetu (napr. \(k_{\rm T}\), anti-\(k_{\rm T}\)) na d+Au data experimentu STAR s drazem na zmereni \(j_{\rm T}\) spekter jetu. Soucasti prace bude take prakticka aplikace techto algoritmu na simulovana data za ucelem stanoveni korekci merenych spekter.
+
+_klicova slova:_  jety, STAR, \(j_{\rm T}\), algoritmy na rekonstrukci jetu_title:_ **Study of Jet Production in d+Au Collisions at RHIC**
+
+_author:_ Jan Rusnak
+
+_supervisor:_ RNDr. Jana Bielcikova, Ph.D.
+
+_consultant:_ Mgr. Jan Kapitan
+
+_abstract:_ The STAR experiment at RHIC studies extreme states of matter which forms in the nucleus-nucleus collisions at energies \(\sqrt{s_{\rm NN}}=200\) GeV. Jet production and modification of their shape when passing through the hot bulk matter represent one of the most important probes of this matter. In order to quantify these modifications, it is important to compare these measurements with control measurements in the d+Au collisions.
+
+The main aim of this work is the application of modern jet-reconstruction algorithms on the data from d+Au collisions at the STAR experiment, with emphasis on measurement of jet \(j_{\rm T}\) distributions. Furthermore, these algorithms will be applied on simulated data in order to determine corrections for the measured spectra.
+
+_key words:_ jets, STAR, \(j_{\rm T}\), jet reconstruction algorithms
+
+### Prohlaseni
+
+Prohlasuji, ze jsem tuto diplomovou praci vypracoval samostatne a pouzil jsem pouze podklady (literaturu, projekty, SW atd.) uvedene v prilozenem seznamu. Nemam zavazny duvod proti pouziti tohoto skolnho dila ve smyslu SS 60 Zakona c.121/2000 Sb., o pravu autorskem, o pravech souvisejicich s pravem autorskym a o zmene nekterych zakonu (autorskyd zakon).
+
+V Praze dne 1.5.2010
+
+Jan Rusnak
+
+###### Contents
+
+* 1 Introduction
+	* 1.1 Jets
+	* 1.2 Jets and QCD
+* 2 Jet Reconstruction Algorithms
+	* 2.1 Requirements
+	* 2.2 Cone algorithms
+		* 2.2.1 Midpoint algorithm
+		* 2.2.2 SISCone algorithm
+	* 2.3 Clustering algorithms
+		* 2.3.1 \(\mathbf{k}_{\mathrm{T}}\) algorithm
+		* 2.3.2 Anti-\(\mathbf{k}_{\mathrm{T}}\) algorithm
+		* 2.3.3 \(\mathbf{k}_{\mathrm{T}}\) vs. anti-\(\mathbf{k}_{\mathrm{T}}\)
+		* 2.3.4 Resolution parameter R
+	* 2.4 FastJet
+		* 2.4.1 Speed
+		* 2.4.2 Jet areas
+* 3 STAR Experiment
+	* 3.1 RHIC
+	* 3.2 STAR
+		* 3.2.1 Time Projection Chamber
+		* 3.2.2 Electromagnetic Calorimeter
+		* 3.2.3 Beam Beam Counter
+		* 3.2.4 Vertex Position Detector
+		* 3.2.5 Upgrades
+* 4 Data Analysis
+	* 4.1 Data Sample and Selection Criteria
+	* 4.2 Raw \(\mathbf{p}_{\mathrm{T}}\)-distributions of Jets
+		* 4.2.1 Background Correction
+* 5	* 4.3 Jet \(\bf j_{\rm T}\)
+		* 4.3.1 Raw \(j_{\rm T}\)
+		* 4.3.2 Corrections for Detector Effects
+		* 4.3.3 Corrected \(j_{\rm T}\) spectra
+		* 4.3.4 Comparison to other \(j_{\rm T}\) measurements Summary and Outlook
+
+## Preface
+
+Data obtained at the Relativistic Heavy Ion Collider (RHIC) show a significant suppression of high-\(p_{\rm T}\) particles in the central Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV relative to the p+p and d+Au data. This suppression is apparent from both hadron spectra and dihadron correlations, which have represented until recently the main tools for studying the properties of the hot, strongly interacting matter formed in central Au+Au collisions at RHIC [1, 2]. However, in last two years a big progress has been made in the field of the jet reconstruction [3]. Now it is possible to reconstruct the jets even in the Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV, despite of the enormous background. This gives us an additional tool for studying the bulk matter. In order to separate the cold matter effects and the initial state effects from the final state effects it is necessary to perform additional experiments with lighter nuclei, concretely p+p and d+Au collisions. Reconstruction of jets and study of some of their properties in the d+Au collisions is the main goal of this work.
+
+## Chapter 1 Introduction
+
+### 1.1 Jets
+
+In particle physics, jets are narrow sprays of particles, mainly hadrons. They are produced during high-energy collisions from partons (quarks and gluons) as a result of fragmentation and hadronization process. In high-energy p+p or ion collisions, hard scattering involves partons from incoming particles. The scattered partons cannot remain free and they soon hadronize, creating a shower of hadrons. Their momentum is collimated in a narrow cone. The higher is the parton's momentum the narrower is the cone. Such a cone of particles is what we usually call a jet.
+
+The reason why we are so concerned in the observation of jets is that they possess the same kinematic properties as the original partons (total momentum, total energy). Thus the jets are a good probe of the QCD matter and a window to the world of the short-distance (\(<<\)1 fm) physics. What more, jets can be treated as infrared-safe objects, therefore calculations can be made using the perturbative QCD (pQCD) in order to make theoretical predictions about jets.
+
+In p-p collisions, the most common jet event is di-jet - the result of scattering of two partons from each one of the colliding protons.
+
+Let's assume a (central) collision of two protons. In the center of mass system (CMS) their total momentum is zero. Two of their partons can scatter to approximately1) opposite directions in the transverse plane (\(\Delta\phi\simeq\pi\)). However, their momentum in the longitudinal direction (=beam direction) before the collision is \(x_{1}P_{1}\) and \(x_{2}P_{2}\), where \(P_{1},P_{2}\) are momenta of the colliding hadrons and \(x_{1},x_{2}\) are Bjorken's scale variables of scattering partons. Since \(x_{i}\in(0,1)\) and \(P_{i}\) values are large (hundreds of GeV), the size of the partons' longitudinal momentum can vary one from other a lot. Therefore the jets are not back-to-back in the beam direction. The (approximate) transverse back-to-back direction can be further affected by additional soft re-scattering (especially in the heavy ion collisions). Finally thepartons hadronize which results to formation of two jets. But if on of the partons radiates a gluon before it hadronizes, the gluon can also fragment into a jet. That means we can also observe 3-jet, 4-jet,... events. By studying the properties of di-jets one can obtain useful information about the medium surrounding the collision area.
+
+It is anticipated that a dense, strongly interacting medium with deconfined and chiral symmetric quarks and gluons is formed in heavy ion collisions at energy densities above 1 GeV/fm\({}^{3}\). This new kind of matter - Quark Gluon Plasma (QGP) - would affect the passing partons by the strong interaction.
+
+Now imagine two scattered partons surrounded by such matter. They are making their way through the medium and are losing their energy. Suddenly one of them gets out since the other is still on its draining way. They hadronize, but one of them has significantly lower energy. Since most of the energy of the parton is transmitted to only one ("leading") hadron, the leading hadron of the second jet will have noticeable lower \(p_{\rm T}\). Second jet is "quenched". The quenched jet will embody the following properties [4]: softer hadron spectra, larger multiplicity, increased angular broadening. Also the high-\(p_{\rm T}\) hadrons spectra will be suppressed, since the leading hadron of a quenched jet has significantly lower \(p_{\rm T}\). Jet quenching is a phenomena which has been observed in \(\sqrt{s_{\rm NN}}=200\) GeV Au+Au collisions at RHIC [5]. These observations are compatible with expectations from QGP formation.
+
+### 1.2 Jets and QCD
+
+Quantum chromodynamics (QCD) is a non-Abelian gauge field theory of the strong interaction between quarks and gluons. There are two major properties of quarks and gluons described by the QCD.
+
+\(\bullet\)**Confinement**:
+
+Quarks are fermions with electric charge -1/3e or 2/3e. They also carry a color charge. Three types of color charge exist - "red", "green", "blue". According to the QCD quarks cannot be separated singularly, they form only colorless objects - baryons (3 quarks: \(RGB\)) and mesons (quark-antiquark: \(R\bar{R}\), \(G\bar{G}\), \(B\bar{B}\)). If one tries to separate two quarks, the force between them rises and at some distance it is sufficient for creating a quark-antiquark pair which confines with the two "separated" quarks.
+
+Gluons are vector gauge bosons that moderate the strong interaction. They also carry a color charge which means they can also interact between each other.
+
+\(\bullet\)**Asymptotic freedom**:
+
+The strong coupling constant \(\alpha_{S}\) is not a true constant, but it "runs" with the space distance (or equivalently with high momentum transfers). In other words, \(\alpha_{S}(r)\) with the distance \(r\to 0\) (or \(q^{2}\rightarrow\infty\), where \(q^{2}\) is the momentum transfer e.g. between two colliding quarks) vanishes. Therefore the quarks inside a hadron feel (almost) no color force and behave as free particles. Moreover, at the distances \(<<1\) fm (or at sufficiently high momentum transfers) the coupling constant is small enough that the QCD can be approached perturbatively. Perturbative QCD (pQCD) is a powerful tool for making theoretical predictions at the parton level.
+
+### Parton distribution functions
+
+When calculating the parton-parton scattering cross section, one has to take into account that partons (confined in a hadron) are not at rest, but carry a fraction of hadron's momentum. Therefore it is convenient to introduce the parton distribution function (PDF) \(f_{i}(x,Q^{2})\) which express the probability of finding a parton \(i\) inside hadron carrying the hadron's momentum fraction \(x\). \(Q^{2}\) is the momentum transfer between the scattering partons. The total cross section for a general hard process \(i+j\to k+X\) then can be calculated as
+
+\[\sigma_{tot}=\sum_{i,j}\int_{0}^{1}dx_{1}\int_{0}^{1}dx_{2}\int d\hat{t}f_{i}(x _{1},Q^{2})f_{j}(x_{2},Q^{2})\frac{d\sigma_{ij\to kX}}{d\hat{t}}, \tag{1.1}\]
+
+where \(\hat{t}\) is the Mandelstam variable and \(\frac{d\sigma_{ij\to kX}}{d\hat{t}}\) are differential cross sections of all possible processes \(i+j\to k+X\) (\(ud\to ud\), \(u\bar{u}\to d\bar{d}\), \(uu\to uu\), \(u\bar{u}\to d\bar{d}g\), etc.). The \(Q^{2}\) dependence of the PDFs is described by DGLAP equations [6]
+
+\[\begin{split} Q^{2}\frac{d}{d\log Q^{2}}f_{g}(x,Q^{2})& =\frac{\alpha_{s}(Q^{2})}{\pi}\int_{x}^{1}\frac{dz}{z}P_{g\gets q }(z)\sum_{f}\left[f_{f}\left(\frac{x}{z},Q^{2}\right)+f_{\bar{f}}\left(\frac{ x}{z},Q^{2}\right)\right]+\\ &\quad+P_{g\gets g}(z)f_{g}\left(\frac{x}{z},Q^{2}\right), \\ Q^{2}\frac{d}{d\log Q^{2}}f_{f}(x,Q^{2})&=\frac{ \alpha_{s}(Q^{2})}{\pi}\int_{x}^{1}\frac{dz}{z}\left\{P_{q\gets q}(z)f_{f} \left(\frac{x}{z},Q^{2}\right)+P_{q\gets g}(z)f_{g}\left(\frac{x}{z},Q^{2} \right)\right\},\\ Q^{2}\frac{d}{d\log Q^{2}}f_{\bar{f}}(x,Q^{2})&= \frac{\alpha_{s}(Q^{2})}{\pi}\int_{x}^{1}\frac{dz}{z}\left\{P_{q\gets q}(z) f_{\bar{f}}\left(\frac{x}{z},Q^{2}\right)+P_{q\gets g}(z)f_{g}\left( \frac{x}{z},Q^{2}\right)\right\},\end{split} \tag{1.2}\]
+
+where \(P_{i\gets j}(z)\) are splitting functions describing the probability of finding the parton \(i\) inside the parton \(j\) carrying momentum fraction z.
+
+However it is not possible to calculate the parton distribution functions themselves by using the pQCD techniques. The lattice QCD calculations are extremely computationally demanding in this case and can be performed only in a few special cases. Therefore one have to determine the right form of the PDFs by fitting the experimental data, mainly from the deep inelastic scattering (DIS) experiments. It shows up that PDFs of each particular type of hadron (e.g. proton) are universal - PDFs obtained from DIS can be used also for p+p collisions.
+
+### Fragmentation
+
+The scattered parton carries out a large amount of energy which it loses by gluon radiation and by the production of \(q\bar{q}\) pairs. The color charged partons cannot remain free and combine together, forming colorless hadrons. These processes are called fragmentation and hadronization. Probability of finding a hadron \(h\) "inside" the original parton \(i\) carrying the momentum fraction \(x\) is given by fragmentation functions (FF) \(D_{i}^{h}(x,Q^{2})\). These have to be also obtained by fitting the data, e.g. from \(e^{+}+e^{-}\to q\bar{q}\) experiments. Also the FFs exhibit a universality (FF from \(e^{+}+e^{-}\) can be used in DIS and p+p collisions), regardless of the origin of the quarks (\(p+p\) collision, \(e^{-}+p\) collision, \(e^{-}+e^{+}\) annihilation...).
+
+### Divergences in pQCD
+
+Now take a look at the cross section of the following simple process
+
+\[e^{+}+e^{-}\to q+\bar{q}+g\]
+
+For the cross section holds the following proportionality
+
+\[\frac{d\sigma}{dx_{1}dx_{2}}\propto\frac{x_{1}^{2}+x_{2}^{2}}{(1-x_{1})(1-x_{ 2})},\quad x_{i}\equiv\frac{E_{i}}{\sqrt{\hat{s}}}, \tag{1.3}\]
+
+where \(\hat{s}\) is the Mandelstam variable, \(E_{1},E_{2},E_{3}\) are energies of outgoing quark, antiquark and gluon respectively. It holds
+
+\[x_{1}=1-\frac{(p_{2}+p_{3})^{2}}{s},\quad x_{2}=1-\frac{(p_{1}+p_{3})^{2}}{s}. \tag{1.4}\]
+
+Now we will investigate the divergences in the equation (1.3). The limiting case \(x_{1}\to 1\) represents the situation when the emitted gluon is collinear with the outgoing antiquark, while that with \(x_{2}\to 1\) corresponds to the case when the gluon is collinear with the quark ("collinear" divergences). In third case \(x_{1}=x_{2}=0\) the energy of the gluon vanishes ("infrared" divergence). To avoid these divergences higher orders of the perturbation theory have to be calculated in. What is important, not only the process \(e^{-}e^{+}\to q\bar{q}g\) is affected by these divergences. They are a general property of the QCD.
+
+## Chapter 2 Jet Reconstruction Algorithms
+
+### 2.1 Requirements
+
+Unfortunately, it is a formidable task to clearly distinguish which particles belong to the jet, especially in the heavy ion collisions. One needs a reliable algorithm in order to fully reconstruct a jet from the collected data. A good algorithm should fulfill the following conditions:
+
+* \(\bullet\) Order independence
+* \(\bullet\) Infrared and collinear safe
+* \(\bullet\) Easy to use
+* \(\bullet\) Detector independent
+* \(\bullet\) Highly effective
+* \(\bullet\) With short computing time
+
+Order independence- the algorithm should produce the same results at the parton level (when applied on theoretical calculations), hadron level (when applied on MC simulations) and at the detector level (when applied on experimental data), as illustrated on Figure 2.1.
+
+Infrared safe- the algorithm should be insensitive to any soft radiation in the event. This means that any radiated soft gluons (and products of their hadronization) will not affect the shape or even the number of reconstructed jets.
+
+**Collinear safe**- the algorithm should be insensitive to any collinear radiation in the event as well as to any splitting of particles caused by the detectors. Let's say we have a particle which deposits its energy in two neighboring calorimetric towers. Such a particle could be reconstructed as two collinear particles. If the algorithm fails in this case to generate the same jets as it would generate in the case of correctly reconstructed particle, it is collinear unsafe.
+
+Easy to use**- one has to be able to use the algorithm on real data.
+
+Detector independent- the algorithm should be independent on the detector properties as much as possible.
+
+Highly effective- no significant jet should be missed and left unreconstructed.
+
+With short computing time- demands on computer resources should be minimized. Computing time which evolves like \(\mathcal{O}(N^{x})\) with \(x\leq 3\) is probably the upper boundary for practical use.
+
+Many jet reconstruction algorithms have been developed since 1980's, but one can notice there are only two main basic approaches indeed. Cone algorithms create jets by grouping particles which lay inside a "cone" made around their tracks. On the other hand, clustering algorithms make jets by sequential clustering particles together. I will now describe both these groups in more detail.
+
+Figure 2.1: Jets reconstructed at the different levels.
+
+### 2.2 Cone algorithms
+
+As the name suggests, cone algorithms make a virtual cone around the highest-\(p_{\mathrm{T}}\) particles1) (these starting particles are called **seeds**) and all particles inside the cone are proclaimed as the jet particles. A simple cone algorithm can look as follows:
+
+Footnote 1: Depending on the level at which we are using the algorithm, as the “particles” one treats partons (parton level), hadrons (hadron level), tracks or calorimetric towers or both (detector level), depending on the particular experiment.
+
+1) Find all particles with energy above a user-specified threshold and make around them a circle of (user-specified) radius \(R=\sqrt{(\Delta\phi)^{2}+(\Delta\eta)^{2}}\) in the \(\eta-\phi\) space, where \(\eta\) is the pseudorapidity and \(\phi\) is the azimuthal angle.
+
+2) Calculate total energy and total momentum as the sum of energy and momenta of all the particles inside the circles.
+
+3) Particles within the circles now form a proto-jet. Declare the non-intersecting proto-jets as final jets. If some jets do intersect, declare only the most energetic one as the final jet.
+
+The above mentioned algorithm is very simple and fast (like \(\mathcal{O}(N)\), where \(N\) is the number of particles), unfortunately it is not collinear safe2). Additional improvements are therefore needed.
+
+Footnote 2: It is the \(p_{\mathrm{T}}\) threshold for seeds what affects the collinear safeness.
+
+Also it is important that the center of the cone is aligned with the jet's momentum vector. If it is not the case, we have to set the center of the cone to the position of the momentum vector. Then we recalculate the momentum and see if it is now aligned with the center of the cone. If not, we have to repeat this step until they are aligned. This iteration process is called "stabilization".
+
+#### Midpoint algorithm
+
+Midpoint algorithm starts with the simple algorithm mentioned above and continues with the following steps:
+
+4) Stabilize found proto-jets.
+
+5) Create new proto-jets in the midpoints between all stabilized proto-jets and also run stabilization on them.
+
+6) Repeat step (5) until there are no new unique stable proto-jets found.
+
+7) Split/merge intersecting proto-jets: Find the highest \(E_{\mathrm{T}}\) proto-jet. If it doesn't shares any particles, mark it as a final jet. Otherwise calculate fraction \(f=\frac{E_{\perp shared}}{E_{\perp shgest}}\) where \(E_{\perp shared}\) is the \(E_{\mathrm{T}}\) of shared particles and \(E_{\perp highest}\) is the \(E_{\mathrm{T}}\) of that proto-jet. If \(f<f_{split/merge}\) (where \(f_{split/merge}\) is a user-specified parameter), then split the jets,otherwise merge them. Splitting is done by assigning all the shared particles to the nearest (in the \(\eta-\phi\) space) proto-jet, merging is done by assigning all particles (from both proto-jets) to the highest \(E_{\mathrm{T}}\) proto-jet.
+
+8) Repeat previous step until there are no proto-jets remaining.
+
+The midpoint algorithm adopted in the DO and CDF experiments at Tevatron was very slow, \(\mathcal{O}(N^{3.5})\)[8]! Despite of all these improvements, the midpoint algorithm is still collinear and also IR unsafe! In the light of these facts one could ask if there is an IR and collinear safe cone algorithm at all. SISCone algorithm is the answer.
+
+#### SISCone algorithm
+
+A Seedless Infrared-Safe Cone algorithm or just "SISCone" algorithm represents a state of the art cone algorithm that is not only IR-safe but also collinear-safe. I will just outline the basic steps
+
+1) Put the set of current particles equal to the set of all particles in the event.
+
+2) Find all stable cones of radius \(R\) for the current set of particles.
+
+3) For each stable cone, create a proto-jet from the current particles contained in the cone, and add it to the list of proto-jets.
+
+4) Remove all particles that are in stable cones from the list of current particles.
+
+5) Repeat steps (2) - (4) until no new stable cones are found.
+
+6) Run a split-merge procedure on the full list of proto-jets.
+
+The key step in avoiding the IR and collinear unsafeness is the second one. As we know, seeds are source of the collinear unsafety. A seedless approach is therefore needed. SISCone algorithm solves this by trying to identify all distinct cones (cones having a
+
+Figure 2.2: (a) Some initial circular enclosure; (b) moving the circle in a random direction until some enclosed or external point touches the edge of the circle; (c) pivoting the circle around the edge point until a second point touches the edge; (d) all circles defined by pairs of edge points leading to the same circular enclosure. [9]
+
+different particle content), and testing the stability of each one. As shown on Figure 2.2, for each and every enclosure, one can always move the corresponding cone (shown as a circle in the figure) without changing its contents into a position where two particles (points) lie on its boundary. If one considers each circle whose boundary is defined by a pair of points in the set, and considers all permutations of the edge points being contained or not in the enclosure, then one will have identified all distinct circular enclosures. See article [9] how exactly is this procedure implemented in the SISCone algorithm. You can also find the proof of IR safety of the SISCone in this article.
+
+Speed of the algorithm is \(\mathcal{O}(Nn\ln n)\), where \(N\) is the number of particles and \(n\) is the typical number of particles in a circle of radius \(R\).
+
+### 2.3 Clustering algorithms
+
+Clustering algorithms start by selecting a starting particle and then sequentially add other particles that are close enough (e.g. close in the \(\eta-\phi\) space) to the arising jet. Contrary to the cone algorithms, they have no fixed shape. This method better reflects the way the real jets are formed.
+
+#### 2.3.1 \(\mathbf{k_{\mathrm{T}}}\) algorithm
+
+1) For set of particles with index \(j\), transverse momentum \(p_{\perp j}\), position \(\phi_{j}\), \(\eta_{j}\), count "beam distance" \(d_{j}=p_{\perp j}^{2}\).
+
+2) For each pair of particles \(i\) and \(j\) count "distance" \(d_{ij}=min(p_{\perp i}^{2},p_{\perp j}^{2})\frac{(\Delta\phi)^{2}+(\Delta\eta) ^{2}}{R^{2}}\), with user-defined resolution parameter \(R\).
+
+3) Find \(d_{min}=min(d_{ij},d_{j})\).
+
+4) If \(d_{j}=d_{min}\) add object \(j\) to the list of final jets, else if \(d_{ij}=d_{min}\) merge objects \(j\) and \(i\) together (sum their 4-momenta: \(p_{j^{\prime}}=p_{j}+p_{i}\)).
+
+The algorithm is quite slow, \(\mathcal{O}(N^{3})\). Since it is collinear and IR safe, high computing demands represent its only disadvantage. However, there is a \(k_{\mathrm{T}}\) implementation in FastJet software [12], which reaches speed of \(\mathcal{O}(N\ln N)-\mathcal{O}(N^{2})\). This makes the FastJet's \(k_{\mathrm{T}}\) also one of the most promising jet reconstruction algorithms.
+
+#### 2.3.2 Anti-\(\mathbf{k_{\mathrm{T}}}\) algorithm
+
+There is still one small inconvenience about the \(k_{\mathrm{T}}\) algorithm - it is quite sensitive to the background, since it starts the clustering from the soft particles. The anti-\(k_{\mathrm{T}}\) algorithm overcomes this property and stars the clustering from the hard particles. Change is in the steps (1) and (2):1)...count \(d_{j}=p_{\perp j}^{-2}\).
+2)...count \(d_{ij}=min(p_{\perp i}^{-2},p_{\perp j}^{-2})\frac{(\Delta\phi)^{2}+(\Delta\eta) ^{2}}{R^{2}}\)
+
+The anti-\(k_{\mathrm{T}}\) algorithm is also implemented in the FastJet software.
+
+#### 2.3.3 \(\mathrm{k_{T}}\) vs. anti-\(\mathrm{k_{T}}\)
+
+There is a major difference between these two algorithms in the way they response to a soft background. Suppose we reconstruct a hard event (without background) and then we add a soft background and try to run the algorithms again. The new set of jets \(J_{i}^{\prime}\) will be different. Not only the energy of the jets will be higher by the soft energy, but also the shapes of the jets will be changed - content of particles from the hard event will not be the same in the original jets \(J_{i}\) compared to the new jet sets \(J_{i}^{\prime}\). This is called "back reaction". The effect of back reaction is highly suppressed for the anti-\(k_{\mathrm{T}}\) in comparison to the \(k_{\mathrm{T}}\) algorithm [10].
+
+The background-sensitivity of the \(k_{\mathrm{T}}\) algorithm also results in another feature: the shape of the final jets reconstructed by the \(k_{\mathrm{T}}\) is more or less irregular. On the other hand, jets reconstructed by the anti-\(k_{\mathrm{T}}\) alg. are quite round in the \(\eta-\phi\) space, likewise in the case of cone algorithms. See Figure 2.3 for \(k_{\mathrm{T}}\), anti-\(k_{\mathrm{T}}\) and SISCone comparison.
+
+#### Resolution parameter R
+
+Properties of the reconstructed jets depend also on the parameter \(R\) for the cone algorithms as well as for the clustering algorithms. Its value is usually chosen between 0.4-1.0. For higher-\(p_{\mathrm{T}}\) jets lower values of \(R\) are sufficient. Figure 2.4 nicely shows the \(R\)-dependence of the reconstructed jet energy. See [11] for more details.
+
+### 2.4 FastJet
+
+FastJet is a powerful software package for jet reconstruction. It incorporates three clustering jet reconstruction algorithms: Cambridge/Aachen, \(k_{\mathrm{T}}\) and anti-\(k_{\mathrm{T}}\). There is also a possibility of extension for the SISCone algorithm (and others) via plugins. The source code is written in C++ and is well documented. The FastJet also features tools for background subtraction.
+
+#### Speed
+
+As mentioned above, the (anti-)\(k_{\mathrm{T}}\) algorithm embodies computational speed of \(\mathcal{O}(N^{3})\), which makes it very impractical for "everyday use". Assorting the pairs \(i,j\) and calculating the distance \(d_{i,j}\) is an \(\mathcal{O}(N^{2})\) demanding step. Choosing the minimum \(d_{i,j},d_{j}\) is an \(\mathcal{O}(N^{2})\) operation done \(N\)-times. This step dominates, resulting in the total complexity of \(\mathcal{O}(N^{3})\). FastJet overcomes this inconvenience by looking for the "nearest" (with minimal \(d_{ij}\)) particles only among the geometrically nearest (with minimal \(r_{ij}\equiv\sqrt{(\Delta\phi)^{2}+(\Delta\eta)^{2}}\)) neighbors \(G_{i}\):
+
+1. For each particle \(i\) establish its (geometrically) nearest neighbor \(G_{i}\) and construct the arrays of the \(d_{iG_{i}}\) and \(d_{iB}\). \(//\mathcal{O}(N)\)x\(N\)
+2. Find the minimal value \(d_{min}\) of the \(d_{iG_{i}}\), \(d_{iB}\). \(//\mathcal{O}(N)\)x\(N\)
+3. Merge or remove the particles corresponding to \(d_{min}\) as appropriate. \(//\)done \(N\)-times
+4. Identify which particles' nearest neighbors have changed and update the arrays of \(d_{iG_{i}}\) and \(d_{iB}\). If any particles are left go to step 2. \(//\mathcal{O}(N)\)x\(N\)
+
+It is apparent that the total complexity of the algorithm is now \(\mathcal{O}(N^{2})\). Steps 1,2 and 4 can be yet more speeded up to \(\mathcal{O}(N\ln N)\)[13] by using a special structure known from computer science - the Voronoi diagrams. By constructing these diagrams, it is possible to find the nearest neighbor with \(\mathcal{O}(N\ln N)\) operations. Also steps 2 and 4 can be then performed only with \(\mathcal{O}(N\ln N)\) operations.
+
+FastJet implements both \(N^{2}\) and \(N\ln N\) variants of the \(k_{\mathrm{T}}\) algorithm. Moreover, fast variants of the anti-\(kT\) and Cambridge/Aachen algorithms are implemented in the same manner. Figure 2.5 shows comparison of speed of various jet finders.
+
+#### Jet areas
+
+In heavy-ion or d+Au collisions it is necessary to reduce or subtract the underlying event background. Background can be reduced by putting cuts on \(p_{\mathrm{T}}\). This solution is however not very satisfying, since low cuts leave too much of background and high cuts can introduce potential biases in the investigation of jet-quenching effects. FastJet includes tools for background subtraction after running the reconstruction algorithm. It uses concept of **jet areas** for this purpose. FastJet proposes three definitions of the jet area:
+
+\(\bullet\)Active area - Many soft "ghost" particles are added to the event and the reconstructing procedure is done once more. Soft ghosts don't affect the content of original hard particles in reconstructed jets, since the FastJet algorithms are IR safe. The jet area is then proportional to the number of ghost contained in the jet. Next to the original hard jets there are also many soft "ghost" jets found.
+
+\(\bullet\)Passive area - One soft ghost is added to the event. On looks for the jet which contains the ghost. This is repeated many times and the jet area is proportional to the probability of finding the ghost in the jet.
+
+\(\bullet\)Voronoi area - Voronoi diagrams are constructed for the event and the jet area is calculated as the sum of Voronoi areas of jet's constituent particles.
+
+[MISSING_PAGE_EMPTY:19]
+
+Figure 2.3: Jet shapes reconstructed by \(k_{\rm T}\), anti-\(k_{\rm T}\) and SISCone algorithms in a sample parton-level hard event generated with Herwig supplemented with many random soft particles (“ghosts”).
+
+Figure 2.4: The fraction of energy within a jet cone of radius R. As the total energy is meant the energy of the jet with R=1.
+
+Figure 2.5: CPU time vs. initial number of particles of several widely used jet finding algorithms and FastJet \(N^{2}\)\(k_{\rm T}\) variant.
+
+## Chapter 3 STAR Experiment
+
+### 3.1 Rhic
+
+Relativistic Heavy Ion Collider (RHIC) [14] is the biggest1) operating heavy-ion collider in the world. It came to operation in 2000. Since that year it is still under way without any serious problems. It is situated at the Brookhaven National Laboratory on the Long Island, NY.
+
+RHIC is composed of two separated rings which are 3834 m long in circumference with six intersecting sections - interaction points. Therefore it is not necessary to collide particles with the same mass and with the opposite charge, but almost any combination of our choice. The most frequent combinations of collided particles are Au+Au, p+p, d+Au, Cu+Cu. Au+Au collisions represent a unique tool for hot nuclear matter studies, while d+Au collisions are used for measurements of cold nuclear matter effects. Together with the heavy ion program, there is also a very important program of colliding polarized protons at RHIC for spin physics.
+
+Footnote 1: In terms of collision energy: Maximum center-of-mass energy of nucleon-nucleon pair (\(\sqrt{s_{\rm NN}}\)) is 200 GeV. However, Pb+Pb collisions at higher energies are foreseen at LHC later in 2010
+
+Before the particles enter the RHIC ring, they are pre-accelerated by a whole system of smaller accelerators: as first the Tandem Van de Graaff (for ions)/the Linac (for protons), then the Booster and finally the Alternating Gradient Synchrotron (AGS).
+
+There have been four detector systems operating at RHIC:
+
+\(\bullet\)STAR (6 o'clock position at the RHIC)
+
+\(\bullet\)PHENIX (8 o'clock)
+
+\(\bullet\)PHOBOS (10 o'clock)
+
+\(\bullet\)BRAHMS (2 o'clock)
+
+PHOBOS and BRAHMS were specialized experiments and finished their operation in 2005 and 2006 respectively. Both STAR and PHENIX are still active. STAR features a Time Projection Chamber (TPC) detector with full azimuthal coverage, which is idealfor charged tracks reconstruction. On the other hand PHENIX is designed with detectors covering only a part of full-azimuth, since it is equipped with very precise and hence very expensive electromagnetic calorimeters.
+
+### 3.2 Star
+
+STAR [15] is an acronym for the Solenoidal Tracker at RHIC. This large detector is designed to observe most of the particles (charged and also neutral) produced in nuclear collisions at RHIC. Its primary goals are to search for signatures of quark-gluon plasma, investigate the behavior of strongly interacting matter at high energy density, and study proton spin.
+
+Most of its subdetectors have full azimuthal and mid-rapidity coverage. The whole detector system is covered by a large solenoidal magnet which creates a uniform magnetic field of 0.5 Tesla. This field bends trajectories of charged particles and makes it possible to determine their momenta. These tracks are reconstructed in the main subdetector - the Time Projection Chamber (TPC). When going through the TPC, also the energy lost dE/dx of the particle is measured. This can be used to. However, this holds only for charged particles. Neutral particles will go through the TPC without leaving any evidence of their presence. Photons and particles which decay to photons (like \(\pi^{0}\)) will deposit their energy in the outermost laying detector - the electromagnetic calorimeter, but some neutral
+
+Figure 3.1: Aerial photo of the RHIC and a part of the BNL complex. Positions of all 4 RHIC experiments are also marked.
+
+particles like neutrons can leave also the electromagnetic calorimeter deponing almost no energy in there and therefore remain undetected.
+
+Now we will take a look at two subdetectors that are crucial for my analysis.
+
+#### Time Projection Chamber
+
+The Time Projection Chamber [16] is the heart of STAR. It is a 4.2 meter long barrel with outer radius of 2.0 m filled with gaseous argon (90%) and methane (10%) at the atmospheric pressure. The cylinder is divided into two sections by a thin high-voltage carbon coated annulus membrane. This membrane forms a uniform electric field in the longitudinal direction. A charged particle which goes through the TPC ionizes the gas around its track. Ionization electrons start to drift along the electric field direction towards the end-cap. The end-caps contain 2x70,000 pads with anode multi-wire proportional chambers (MPWC) in which the electron signal is amplified and recorded. MPWC's wires form a grid, therefore it is possible to determine two coordinates (\(x\),\(y\)) of each track segment, the \(z\) (longitudinal) coordinate is determined from the drift time. All together we obtain the necessary information for a 3-dimensional track reconstruction of each charged particle coming through the TPC. STAR TPC also provides dE/dx measurements. Its acceptance
+
+Figure 3.2: Sketch of the STAR detector.
+
+for tracking and dE/dx measurement is \(|\eta|<1.0\) at full efficiency, and extends up to \(|\eta|<1.8\) with reduced efficiency and resolution. The spacial resolution is 460 \(\mu\)m in \(x,y\) and 700 \(\mu\)m in \(z\). A disadvantage of the TPC is its relative slowness - the drift time from the membrane to the end-cap is \(\sim 40\)\(\mu\)s.
+
+#### Electromagnetic Calorimeter
+
+The STAR Barrel Electromagnetic Calorimeter (BEMC) [17] is made of 41 layers of lead and scintillator. It has full azimuthal coverage and pseudorapidity coverage \(|\eta|<1\). It is divided into 120 segments in azimuthal angle and 40 segments in pseudorapidity. Therefore there are 4800 calorimetric towers, each of them with individual read out. Resolution (effective size of the towers) of the BEMC is 0.05 x 0.05 (\(\Delta\phi\) x \(\Delta\eta\)). Its main goal is to measure and trigger on the transverse energy deposition in the collisions, mainly from \(e^{+},e^{-}\) and photons. There are totally four calorimetric triggers, so called high-towers. High-Tower 0 (HT0) is triggered if a particle leaves \(E_{\rm T}>\) 2.64 GeV in one of the BEMC's towers, HT1 is triggered by a particle having \(E_{\rm T}>\) 3.6 GeV, lower limit for the HT2 is \(E_{\rm T}>\) 4.3 GeV and finally \(E_{\rm T}>\) 8.4 GeV for the HT4.
+
+#### Beam Beam Counter
+
+On both sides of the STAR detector there are two scintillator detectors surrounding the beam pipe, Beam Beam Counter (BBC) East and BBC West. They are counting charged-particle solid angle multiplicities. Each BBC consists of two rings of scintillating tubes. The BBC East has pseudorapidity coverage \(-5<\eta<-3.4\) and the BBC West \(3.4<\eta<5\)
+
+Figure 3.3: View of the STAR Time Projection Chamber.
+
+#### Vertex Position Detector
+
+There are two Vertex Position Detector (VPD) assemblies [18] on each side of STAR at a distance of approximately 5 m from the center. Both VPD (VPD East and VPD West) consist of three fast plastic scintilator detectors. For collisions at Z=0, the active elements cover approximately 19% of the total solid angle in the pseudorapidity interval \(4.43<\eta<4.94\). The main purpose of VPD is to determine the start time for TOF detector. It can be also used to measure the Z position of the primary interaction vertex on-line, which can then also be used for trigger.
+
+#### Upgrades
+
+After almost one decade, the STAR detector is still up to date. Many new detectors have been installed in recent time and there are still plans for future upgrades.
+
+##### Forward Meson Spectrometer
+
+The Forward Meson Spectrometer (FMS) is a Pb-glass calorimeter, covering \(2.5<\eta<4.0\). Its task is to measure the energy of low-\(p_{\mathrm{T}}\) mesons. It has been operational since Run 08.
+
+##### Time of Flight
+
+The Time of Flight (TOF) is a detector which is used for particle identification. It measures the time it takes to a particle to fly through the TOF. Then it is possible to calculate its speed. In combination with knowledge of the particle's momentum, it is possible to identify the particle. It has been operational since Run 09.
+
+Figure 3.4: Placement of the Vertex Position Detectors.
+
+### Heavy Flavor Tracker
+
+The Heavy Flavor Tracker (HFT) is designed to precisely determine the secondary vertex of rapidly decaying particles containing heavy quarks, like \(D^{0}\) or \(B^{0}\). It consists of several layers of silicon detectors. It should also improve the TPC's tracking abilities.
+
+## Chapter 4 Data Analysis
+
+### 4.1 Data Sample and Selection Criteria
+
+RHIC Run 2008 took approximately 13 weeks. 9 weeks of that run were dedicated to the d+Au collisions at energy \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+
+For my analysis I used two data sets - one with minimum-bias (MB) trigger and second one with HT0 trigger. For the d+Au collisions the minimum-bias trigger occurs when the ZDC East encounters a hit with VPD vertex cut at +/- 30 cm. It brings the smallest possible trigger bias into the data, hence its name. During the Run 08 about 46 millions of minimum-bias events and 4.6 millions of HT0 events with integrated luminosity of 0.34 nb\({}^{-1}\) were taken [19].
+
+However, not all the collected data are useful for the analysis presented in this thesis and several selection criteria described below were applied in order to choose the relevant data. These procedures reduced the number of events in minimum-bias data to 7.5 millions and 0.8 millions in HT0 data.
+
+#### Centrality Selection
+
+The Beam Beam Counter detector in the Au nucleus fragmentation region (BBC East) is used to select the 20% highest multiplicity events.
+
+#### Jet Reconstruction Cuts
+
+Jets were reconstructed with the following cuts applied:
+
+* resolution parameter: \(R=0.5\) and \(R=0.7\), respectively.
+* \(p_{\rm T}\) of jet particles: \(p_{\rm T}>p_{\rm T}^{cut}\) = 0.6 GeV/\(c\) and \(p_{\rm T}>p_{\rm T}^{cut}\) = 2.0 GeV/\(c\), respectively.
+* \(p_{\rm T}\) of jets: \(p_{\rm T}^{jet}>5\) GeV/\(c\), for the \(j_{\rm T}\) analysis \(p_{\rm T}^{jet}\in(6,7)\) GeV/\(c\) for the minimum-bias data and \(p_{\rm T}^{jet}\in(15,20)\) GeV/\(c\) for the HT0 dataResolution parameter \(R\) was discussed in the section 2.3. All particles with transverse momentum \(p_{\mathrm{T}}<p_{\mathrm{T}}^{cut}\) are excluded from the jets. Finally, \(p_{\mathrm{T}}^{jet}\) is the transverse projection of the jet momentum \(\vec{p}_{jet}\) which can be calculated as a sum of jet particles' momenta \(\vec{p}_{i}\).
+
+### 4.2 Raw \(\mathrm{p_{T}}\)-distributions of Jets
+
+First of all, raw \(p_{\mathrm{T}}\) spectra of reconstructed jets for both minimum-bias and HT0 data sets have been extracted. These data are corrected only for the background effect as described further. The spectra are shown only for the illustration purposes to see the \(p_{\mathrm{T}}\) reach available. Their additional correction goes beyond the scope of this work.
+
+Jets were reconstructed using the anti-\(k_{\mathrm{T}}\) algorithm1 with the resolution parameter \(R=0.5\) and \(R=0.7\). As one can see from Figures 4.1 and 4.2, minimum-bias distributions are steeper and lower than the high-tower distributions, which is what would one expect regarding the high-tower trigger properties. More interesting fact is that distributions (in both minimum-bias and high-tower data sets) with \(R=0.7\) are lower for both low and high jet \(p_{\mathrm{T}}\) than those with \(R=0.5\). Jets with \(R=0.7\) contain more particles and their overall momentum should be therefore higher. On the other hand, fiducial acceptance for these jets is only \(|\eta|<(0.9-0.7)=0.2\) in the STAR detector, therefore there will be significantly less jets with \(R=0.7\) reconstructed than with \(R=0.5\).
+
+Footnote 1: All over the text, unless specified otherwise, the anti-\(k_{\mathrm{T}}\) algorithm was used for the jet reconstruction.
+
+#### Background Correction
+
+The background is anisotropic in the d+Au collisions and possesses an \(\eta\)-dependence. Nevertheless one can show [20] that this dependence can be approximated by a simple linear function in the pseudorapidity region of \(|\eta|<0.4\), which is the STAR fiducial acceptance for jets with \(R=0.5\) (see Figure 4.3). Using techniques described in the Section 2.4.2 and by considering the \(\eta\)-dependence, one can write down a formula for the corrected transverse momentum
+
+\[p_{\mathrm{T}}^{corr}=p_{\mathrm{T}}-A\rho(1+c\eta), \tag{4.1}\]
+
+where \(p_{\mathrm{T}}\) is the uncorrected transverse momentum, \(c\) is a constant determined from experimental fits [20] (\(c\simeq-0.15\)), \(A\) is the active jet area, \(\rho\) is the background energy density. The background energy density is calculated as described in the subsection 2.4.2 using the \(k_{\mathrm{T}}\) algorithm which is better suited for background estimates. The background energy density in the d+Au collisions is e.g. for the \(p_{\mathrm{T}}^{cut}=0.5\) GeV/\(c\) approximately 1 GeV/unit area.
+
+Figure 4.1: Uncorrected jet \(p_{\rm T}\) spectra extracted from the d+Au minimum-bias data. Upper histogram is for jets reconstructed with \(R=0.5\) and lower with \(R=0.7\).
+
+Figure 4.2: Uncorrected jet \(p_{\rm T}\) spectra extracted from the d+Au HT0 data. Upper histogram is for jets reconstructed with \(R=0.5\) and lower with R = 0.7.
+
+Figure 4.3: The \(\eta\)-dependence of the background in the d+Au collisions [20].
+
+### Jet \(j_{\rm T}\)
+
+Projection of the particle's momentum into the plane perpendicular to the jet axis is called \(j_{\rm T}\). Jet \(j_{\rm T}\) is to the jet axis as the \(p_{\rm T}\) of a particle is to the beam axis. The \(j_{\rm T}\) is an experimentally robust quantity - it is insensitive to measurement of the jet energy and depends only on the jet axis determination, since the particle momentum is measured quite precisely by the TPC.
+
+#### Raw \(j_{\rm T}\)
+
+Based on the raw \(p_{\rm T}\) distributions we have selected jets with transverse momentum 6-7 GeV/\(c\) from minimum-bias data sample and 15-20 GeV/\(c\) from HT0. Numbers of particles in these jets are shown on Figures 4.5 - 4.8.
+
+Figures 4.9, 4.10, 4.11 and 4.12 show the uncorrected \(j_{\rm T}\) distributions of "minimum-bias" and "high-tower" jets. The distributions are plotted up to the value of \(j_{\rm T}^{max}=p_{\rm T}^{cut}\cdot\sin R\), since larger \(j_{\rm T}\)s are biased by the resolution parameter \(R\). Therefore the \(j_{\rm T}\) distributions for \(p_{\rm T}^{cut}=0.6\) GeV/\(c\) end already at \(j_{\rm T}\)=0.3 GeV/\(c\). All the \(j_{\rm T}\) distributions are for charged particles only, since the momentum of individual neutral hadrons is not available.
+
+Figure 4.4: Definition of the jet \(j_{\rm T}\).
+
+Figure 4.5: Number of jet particles (charged+neutral). Jet \(p_{\rm T}\) 6-7 GeV/\(c\), MB, \(R=0.5\).
+
+Figure 4.6: Number of jet particles (charged+neutral). Jet \(p_{\rm T}\) 6-7 GeV/\(c\), MB, \(R=0.7\).
+
+Figure 4.8: Number of jet particles (charged+neutral). Jet \(p_{\rm T}\) 15-20 GeV/\(c\), HT0, \(R=0.7\).
+
+Figure 4.7: Number of jet particles (charged+neutral). Jet \(p_{\rm T}\) 15-20 GeV/\(c\), HT0, \(R=0.5\).
+
+Figure 4.10: Uncorrected \(j_{\rm T}\) distribution extracted from the d+Au minimum-bias data. Jet \(p_{\rm T}\) 6-7 GeV/\(c\), \(R=0.7\).
+
+Figure 4.9: Uncorrected \(j_{\rm T}\) distribution extracted from the d+Au minimum-bias data. Jet \(p_{\rm T}\) 6-7 GeV/\(c\), \(R=0.5\).
+
+Figure 4.11: Uncorrected \(j_{\rm T}\) distribution extracted from the d+Au HT0 data. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), \(R=0.5\).
+
+Figure 4.12: Uncorrected \(j_{\rm T}\) distribution extracted from the d+Au HT0 data. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), \(R=0.7\).
+
+#### Corrections for Detector Effects
+
+The detector resolution is not perfect and therefore measured quantities may differ from their real values. A software package called GEANT [21] is used by the STAR collaboration to simulate the detector response. Data from the PYTHIA [22] event generator are used as an input for the GEANT. By comparing raw PYTHIA data ("PYMC") with PYTHIA+GEANT data ("PYGE") one can quantify the detector bias.
+
+Although PYTHIA simulates p+p collisions quite well, it cannot simulate d+Au collisions. One way how to "simulate" a d+Au collision is to add random d+Au background into a simulated p+p collision. This is done by merging PYGE event (MB or HT0 trigger) with MB d+Au event. When doing so, one has to pay attention to the fact that d+Au data may also contain jets and these have to be excluded. Otherwise reconstructed jets would possess incorrect \(p_{\rm T}\) spectra and other properties. Therefore it was necessary to made a jet-matching. Jets found in PYBG data were matched to jets in PYGE data, otherwise they were excluded. A PYBG jet with coordinates \((\eta_{0},\varphi_{0})\) was matched if there was found a jet in PYGE data in the same event and with coordinates \((\eta=\eta_{0}\pm 0.2,\varphi=\varphi_{0}\pm 0.2)\).
+
+#### High-Tower Trigger Bias
+
+The high-tower trigger condition brings a bias into the data due to the particle which caused the trigger. To see if this bias can influence also the \(j_{\rm T}\) distributions, I have compared two PYTHIA simulations - first distribution was extracted from all simulated events, second one was extracted only from events containing a particle that would cause the HT0 trigger. One can clearly see from Figure 4.13 and 4.14 that the trigger bias doesn't modify the distributions in the jet \(p_{\rm T}\) range 15-20 GeV/\(c\). However, for lower \(p_{\rm T}\) jets the HT0 bias changes the distribution quite significantly. However as we are interested in 15-20 GeV/\(c\) jets from the HT0 data sample, there is no need for any correction on trigger bias in the HT0 data set.
+
+#### Corrections of \(\mathbf{j_{\rm T}}\)
+
+The correction of \(j_{\rm T}\) is done with the use of the following formulas
+
+\[j_{\rm T}^{c} =C_{j_{\rm T}}\cdot j_{\rm T}^{unc} \tag{4.2}\] \[w^{c} =C_{w}\cdot w^{unc} \tag{4.3}\]
+
+where \(j_{\rm T}^{c}\) and \(w^{c}\) are corrected \(j_{\rm T}\) and corrected weight of the \(j_{\rm T}\) in the histogram, \(j_{\rm T}^{unc}\) and \(w^{unc}\) are uncorrected values, \(C_{j_{\rm T}}\) and \(C_{w}\) are constant correction coefficients.
+
+These coefficients actually change width (\(C_{j_{\rm T}}\)) and height (\(C_{w}\)) of the histogram. First step is to make exponential fits2 of both PYTHIA ("PYMC") and PYTHIA+GEANT+dAu
+
+[MISSING_PAGE_EMPTY:39]
+
+Figure 4.13: Comparison of simulated \(j_{\rm T}\) distributions from “minimum-bias” events and events fulfilling the HT0 trigger condition. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), \(R=0.5\). Bottom graph shows the ratio of MB/HT0.
+
+Figure 4.14: Comparison of simulated \(j_{\rm T}\) distributions from “minimum-bias” events and events fulfilling the HT0 trigger condition. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), \(R=0.7\). Bottom graph shows the ratio of MB/HT0.
+
+Figure 4.15: Fitted PYMC \(R=0.7\)\(j_{\rm T}\) distribution vs. fits of corrected PYBG \(j_{\rm T}\) distributions. PYTHIA data satisfy MB trigger. Jet \(p_{\rm T}\) 6-7 GeV/\(c\), \(R=0.5\) (for PYBG).
+
+Figure 4.16: Fitted PYMC \(R=0.7\)\(j_{\rm T}\) distribution vs. fits of corrected PYBG \(j_{\rm T}\) distributions. PYTHIA data satisfy MB trigger. Jet \(p_{\rm T}\) 6-7 GeV/\(c\), \(R=0.7\).
+
+Figure 4.17: Fitted PYMC \(R=0.7\)\(j_{\rm T}\) distribution vs. fits of corrected PYBG \(j_{\rm T}\) distributions. PYTHIA data satisfy HT0 trigger. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), \(R=0.5\) (for PYBG).
+
+Figure 4.18: Fitted PYMC \(R=0.7\)\(j_{\rm T}\) distribution vs. fits of corrected PYBG \(j_{\rm T}\) distributions. PYTHIA data satisfy HT0 trigger. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), \(R=0.7\).
+
+[MISSING_PAGE_EMPTY:46]
+
+values of parameter \(\sigma\) extracted from the fits are gathered (together with their \(\chi^{2}\)/NDF) in Table 4.2.
+
+Figure 4.20: \(j_{\rm T}\) distribution corrected for the detector effects. Jet \(p_{\rm T}\) 6-7 GeV/\(c\), MB, \(R=0.7\).
+
+Figure 4.21: \(j_{\rm T}\) distribution corrected for the detector effects and jet size. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), HT0, \(R=0.5\).
+
+Figure 4.22: \(j_{\rm T}\) distribution corrected for the detector effects. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), HT0, \(R=0.7\).
+
+[MISSING_PAGE_EMPTY:49]
+
+Figure 4.25: Gaussian fit of corrected \(j_{\rm T}\) distribution. High-tower data. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), \(R=0.5\).
+
+Figure 4.24: Gaussian fit of corrected \(j_{\rm T}\) distribution. Minimum-bias data. Jet \(p_{\rm T}\) 6-7 GeV/\(c\), \(R=0.7\).
+
+Figure 4.26: Gaussian fit of corrected \(j_{\rm T}\) distribution. High-tower data. Jet \(p_{\rm T}\) 15-20 GeV/\(c\), \(R=0.7\).
+
+The final step is to calculate \(\sqrt{\langle j_{\rm T}^{2}\rangle}\). With the use of Equation 4.5, one gets the following results:
+
+\[\begin{array}{ll}&\mbox{\bf jets 6-7 GeV/c, MB:}\\ &R=0.5,\,p_{\rm T}^{cut}=0.6\ {\rm GeV/}c\quad\sqrt{\langle j_{\rm T}^{2} \rangle}=480\pm 80\ {\rm(stat.)}\ {\rm MeV/}c\\ &R=0.5,\,p_{\rm T}^{cut}=2.0\ {\rm GeV/}c\quad\sqrt{\langle j_{\rm T}^{2} \rangle}=460\pm 30\ {\rm(stat.)}\ {\rm MeV/}c\\ &R=0.7,\,p_{\rm T}^{cut}=0.6\ {\rm GeV/}c\quad\sqrt{\langle j_{\rm T}^{2} \rangle}=400\pm 20\ {\rm(stat.)}\ {\rm MeV/}c\\ &R=0.7,\,p_{\rm T}^{cut}=2.0\ {\rm GeV/}c\quad\sqrt{\langle j_{\rm T}^{2} \rangle}=470\pm 50\ {\rm(stat.)}\ {\rm MeV/}c\\ &\mbox{\bf jets 15-20 GeV/c, HT0:}\\ &R=0.5,\,p_{\rm T}^{cut}=0.6\ {\rm GeV/}c\quad\sqrt{\langle j_{\rm T}^{2} \rangle}=470\pm 60\ {\rm(stat.)}\ {\rm MeV/}c\\ &R=0.5,\,p_{\rm T}^{cut}=2.0\ {\rm GeV/}c\quad\sqrt{\langle j_{\rm T}^{2} \rangle}=520\pm 30\ {\rm(stat.)}\ {\rm MeV/}c\\ &R=0.7,\,p_{\rm T}^{cut}=0.6\ {\rm GeV/}c\quad\sqrt{\langle j_{\rm T}^{2} \rangle}=420\pm 30\ {\rm(stat.)}\ {\rm MeV/}c\\ &R=0.7,\,p_{\rm T}^{cut}=2.0\ {\rm GeV/}c\quad\sqrt{\langle j_{\rm T}^{2} \rangle}=600\pm 30\ {\rm(stat.)}\ {\rm MeV/}c\\ \end{array}\]
+
+Statistical errors are determined by the errors of \(\sigma\) and coefficients \(C_{jT}\).
+
+However, as shown in Table 4.2, fits for minimum-bias data with cuts \(R=0.5\), \(p_{\rm T}^{cut}=2.0\) GeV/\(c\) and \(R=0.7\), \(p_{\rm T}^{cut}=2.0\) GeV/\(c\), have \(\chi^{2}\)/NDF significantly greater than 1. It is reasonable question, if resulting values of \(\sqrt{\langle j_{\rm T}^{2}\rangle}\) are meaningful. It is also possible to calculate \(\langle j_{\rm T}^{2}\rangle\) straight from the histogram:
+
+\[\langle j_{\rm T}^{2}\rangle=\frac{\sum_{n=1}^{N}c(n)\cdot j_{ \rm T}^{3}(n)}{\sum_{n=1}^{N}c(n)\cdot j_{\rm T}(n)} \tag{4.6}\]
+
+where \(N\) is the total number of bins in the histogram, \(c(n)\) is content of the \(n\)-th bin, \(j_{\rm T}(n)\) is the center of the \(n\)-th bin.
+
+From this calculation one gets \(\sqrt{\langle j_{\rm T}^{2}\rangle}=460\pm 40\) MeV/\(c\) and \(\sqrt{\langle j_{\rm T}^{2}\rangle}=490\pm 50\) MeV/\(c\) for the minimum-bias data with cuts \(R=0.5\), \(p_{\rm T}^{cut}=2.0\) GeV/\(c\) and \(R=0.7\), \(p_{\rm T}^{cut}=2.0\) GeV/\(c\) respectively. These values are in a good agreement with the original results \(\sqrt{\langle j_{\rm T}^{2}\rangle}=460\pm 40\) MeV/\(c\) and \(\sqrt{\langle j_{\rm T}^{2}\rangle}=470\pm 50\) MeV/\(c\).
+
+One can see that values of \(\langle j_{\rm T}^{2}\rangle\) for the same \(p_{\rm T}\) cut for both values of \(R\) are in an agreement in the range of statistical errors, which is what would one expect, since we have made a correction for the jet size. The only exception are high-tower jets with \(p_{\rm T}^{cut}=2.0\) GeV/\(c\). The systematic errors have not been estimated yet and are a subject of further studies.. It is possible that after the calculation of the systematic errors also these two values will get into an agreement.
+
+#### Comparison to other \(j_{\rm T}\) measurements
+
+This analysis is partially based on the analysis made by Thomas Henry [23] using d+Au data from Run 03 (2003). However, several significant improvements have been made in my analysis:
+
+* there is approximately five times more events in both Run 08 minimum-bias and HT0 data than in Run 03
+* in 2003 BEMC covered only \(0<\eta<1\), while in 2008 the BEMC acceptance was \(-1<\eta<1\). Therefore Henry was forced to use \(R=0.5\).
+* advanced reconstruction algorithms (instead of a cone algorithm) in combination with background energy subtraction based on the anti-\(k_{\rm T}\) algorithm.
+
+Henry's results are following: for 6 - 7 GeV/\(c\) jets \(\sqrt{\langle j_{\rm T}^{2}\rangle}=630\pm 12\) (stat.) \(\pm 30\) (syst.) MeV/\(c\) and for range 15 - 20 GeV/\(c\)\(\sqrt{\langle j_{\rm T}^{2}\rangle}=630\pm 13\) (stat.) \(\pm 30\) (syst.) MeV/\(c\) for d+Au data. He also analyzed p+p data at \(\sqrt{s}=200\) GeV with the results (comparable with d+Au) \(\sqrt{\langle j_{\rm T}^{2}\rangle}=690\pm 12\) (stat.) \(\pm 60\) (syst.) MeV/\(c\) for 6-7 GeV/\(c\) jets \(\sqrt{\langle j_{\rm T}^{2}\rangle}=573\pm 9\) (stat.) \(\pm 30\) (syst.) MeV/\(c\) for 15-20 GeV/\(c\) jets.
+
+In 1980 the CCOR Collaboration at ISR [24] at CERN measured \(\sqrt{\langle j_{\rm T}^{2}\rangle}=697\pm 13\) MeV/\(c\) for three various collision energies: \(\sqrt{s}=31,45,62\) GeV.
+
+The PHENIX Collaboration at RHIC [25] calculated \(\sqrt{\langle j_{\rm T}^{2}\rangle}\) from di-hadron correlations in p+p collisions at \(\sqrt{s}=200\) GeV. Their result is \(\sqrt{\langle j_{\rm T}^{2}\rangle}=585\pm 5\) (stat.) \(\pm 15\) (syst.) MeV/\(c\).
+
+Despite the fact that the CCOR Collaboration and the PHENIX Collaboration measured \(\sqrt{\langle j_{\rm T}^{2}\rangle}\) from di-hadron correlations and not for jets, it shows up in all measurements that \(\sqrt{\langle j_{\rm T}^{2}\rangle}\) doesn't significantly change with jet energy and that the results are consistent for both ISR and RHIC collision energy ranges. It also shows up that p+p results are comparable with d+Au \(\sqrt{\langle j_{\rm T}^{2}\rangle}\) values.
+
+## Summary and Outlook
+
+In this work, the first results on \(j_{T}\) distributions for jets from d+Au collisions at \(\sqrt{s_{\rm NN}}\)=200 GeV measured by the STAR Collaboration in Run8 at RHIC are presented. For the jet reconstruction, modern jet reconstruction algorithms \(k_{\rm T}\) and anti-\(k_{\rm T}\) were used.
+
+High-tower trigger bias was shown to be negligible and detector effects have been corrected using PYTHIA and GEANT simulation.
+
+Values of \(\sqrt{\langle j_{\rm T}^{2}\rangle}\) have been calculated for various jet energies. It seems that \(\sqrt{\langle j_{\rm T}^{2}\rangle}\) doesn't significantly change with rising jet energy and with \(p_{\rm T}\) cut imposed on jet particles. Obtained values of \(j_{\rm T}\) are about 25% lower than other measurements at RHIC, however systematic errors of the measurement have not been evaluated yet and are subject of further detailed studies.
+
+The next important step will be an extension of the \(j_{\rm T}\) measurements to Au+Au collisions, in which properties of jets are expected to be modified due to the presence of hot and dense nuclear matter. Experimentally this measurement presents a challenge due to a large and fluctuating underlying event background.
+
+## Bibliography
+
+* J. Adams _et al._, Nucl. Phys. A 757, 102 (2005).
+* K. Adcox _et al._, Nucl. Phys. A 757, 184 (2005).
+* [3] E. Bruna, Eur. Phys. J. C 62, 133-137 (2009); J. Putschke, Eur. Phys. J. C 62, 629-635 (2009); S. Salur, Eur. Phys. J. C 61, 761-767 (2009).
+* [4] D. Enterria, arXiv:0902.2011v2.
+* J. Adams _et al._, Phys. Rev. Lett. 91, 072304 (2003); Phys. Rev. Lett. 97, 162301 (2006).
+* [6] M. E. Peskin, D. V. Schroeder, "An Introduction To Quantum Field Theory" (Westview, 1995).
+* [7] G. C. Blazey _et al._, arXiv:hep-ex/0005012v2.
+* [8] J. Miner, "Comparison of Jet reconstruction Algorithms", 2006.
+* [9] G. P. Salam, G. Soyez, JHEP0705:086, 2007, arXiv:0704.0292v2.
+* [10] M. Cacciari, G. P. Salam, G. Soyez, JHEP0804:063, 2008, arXiv:0802.1189v2.
+* [11] H. Caines, Nucl. Phys. A 830, 263c-266c, (2009), arXiv:0907.3460v1.
+* [12] FastJet webpage, [http://www.lpthe.jussieu.fr/](http://www.lpthe.jussieu.fr/) salam/fastjet/.
+* [13] M. Cacciari, G. P. Salam, Phys. Lett. B 641, 57-61 (2006), arXiv:hep-ph/0512210v2.
+* [14] Wikipedia webpage of the RHIC, [http://en.wikipedia.org/wiki/Relativistic_Heavy_Ion_Collider](http://en.wikipedia.org/wiki/Relativistic_Heavy_Ion_Collider).
+* [15] STAR Collaboration, "STAR Conceptual Design Report", 1992.
+* [16] M. Anderson _et al._, Nucl. Instrum. Meth. A 499, 659 (2003).
+* [17] M. Beddo _et al._, Nucl. Instrum. Meth. A 499, 725 (2003).
+* [18] W. J. Llope _et al._, arXiv:nucl-ex/0308022v1.
+
+* [19] RHIC Run 2008 info, [http://www.star.bnl.gov/protected/common/common2008/trigger2008/lum_pertriggerid_dau2008.txt](http://www.star.bnl.gov/protected/common/common2008/trigger2008/lum_pertriggerid_dau2008.txt).
+* [20] J. Kapitan (STAR), poster at the Quark Matter 2009 conference, [http://qm09.phys.utk.edu/indico/getFile.py/access?contribId=743&amp](http://qm09.phys.utk.edu/indico/getFile.py/access?contribId=743&amp);sessionId=44&amp; resId=0&amp;materialId=poster&amp;confId=1.
+* [21] GEANT webpage, [http://geant4.web.cern.ch/geant4/](http://geant4.web.cern.ch/geant4/).
+* [22] PYTHIA webpage, [http://home.thep.lu.se/](http://home.thep.lu.se/) torbjorn/PYTHIA.html.
+* [23] T. W. Henry, "Reconstruction And Attributes Of Jets Observed In \(\sqrt{s}=200\) GeV Proton-Proton and Deuteron-Gold Collisions At STAR", Texas A&M University, 2006.
+* [24] A. L. S. Angelis _et al._ (CCOR), Phys.Lett. **B97**, 163 (1980).
+* [25] S. S. Adler _et al._, Phys. Rev. D 74, 072002 (2006).
+
+### Acknowledgements
+
+I would like to thank Jana Bielcikova for her guidance and help with this work and for her infinite patience. I would also like to thank Jan Kapitan for his precious advice, suggestions, ideas and for his will to solve my problems 24/7.

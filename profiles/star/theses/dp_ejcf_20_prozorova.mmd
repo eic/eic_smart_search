@@ -1,0 +1,1061 @@
+**CZECH TECHICAL UNIVERSITY**
+
+**IN PAGE**
+
+**FACULTY OF NUCLEAR SCIENCES AND PHYSICAL ENGINEERING**
+
+Department of Physics
+
+Experimental Nuclear and Particle Physics
+
+**Master's thesis**
+
+**Study of jet shape observables in Au+Au collisions in the STAR experiment**
+
+Author: Bc. Veronika Prozorova
+
+Supervisor: RNDr. Jana Bielcikova, Ph.D.
+
+Prague, 2020
+
+[MISSING_PAGE_EMPTY:2]
+
+**CESKE VYSOKE UGENI TECHICKE V PRAZE**
+
+**FAKULTA JADERNA A FYZIKALNE INZENYRSKA**
+
+Katedra fyziky
+
+Experimentalni jaderna a casticova fyzika
+
+**Dilpomova prace**
+
+**Studium tvaru jetu v Au+Au srazkach v experimentu STAR**
+
+Vypracovala: Bc. Veronika Prozorova
+
+Skolitel: RNDr. Jana Bielcikova, Ph.D.
+
+Praha, 2020
+
+[MISSING_PAGE_EMPTY:4]
+
+**Prohlaseni**
+
+Prohlasuji, ze jsem svou diplomovou praci vypracovala samostatne a pouzila jsem, pouze podklady (literaturu, projekty, SW atd.) uvedene v prilozenem seznamu.
+
+Nemam zavazny duvod proti pouziti tohoto skolnrho dila ve smyslu SS60 Zakona, c. 121/2000 Sb., o pravu autorskem, o pravech souvisejicich s pravem autorskym a o zmene nekterych zakonu (autorsky zakon).
+
+V Praze dne.............
+
+.................................
+
+Bc. Veronika Prozorova
+
+[MISSING_PAGE_EMPTY:6]
+
+_Nazev prace:_
+
+\begin{tabular}{l l} _Autor:_ & Bc. Veronika Prozorova \\ _Obor:_ & Experimentalnljaderna a casticova fyzika \\ _Druh prace:_ & Diplomova prace \\ _Vedouci prace:_ & RNDr. Jana Bielcikova, Ph.D. \\  & Ustav jaderne fyziky AV CR, v.v.i. \\ _Abstrakt:_ & Jadro-jaderne srazky pri energiich dosazitelnych na urychlovaci RHIC v BNL v USA jsou idealnim prostredim ke studiu jaderne hmoty, existujici v extremnich podminkach vysokych teplot a hustot energii. Jedhou z nejdulezitejisch sond teto jaderne hmoty je studium produkce jetu. V teto diplomove praci je jetovy algoritmus anti-\(k_{T}\) aplikovan na experimentalni data z Au+Au srazek zmerena experimentem STAR pri energii 200 GeV v tezist'ovem systemu na nukleon-nukleonovy par. Vybrane pozorovatelne popisujici tvar nabitych jetu jsou extrahovany pro ruzne centrality srazky a hodnoty pricne hynosti nabitych jetu. Take je proveden odpoet prumerneho pozadi pro tyto pozorovatelne. \\ _Klocova slova:_ & jet, tvary jetu, RHIC, STAR, kvarkovo-gluonove plazma \\ \end{tabular}
+
+[MISSING_PAGE_EMPTY:8]
+
+_Title:_
+
+**Study of jet shape observables in Au+Au collisions**
+
+**in the STAR experiment**
+
+_Author:_
+
+Bc. Veronika Prozorova
+
+_Specialization:_
+
+Experimental Nuclear and Particle Physics
+
+_Sort of project:_
+
+Master's thesis
+
+_Supervisor:_
+
+RNDr. Jana Bielcikova, Ph.D.
+
+Ustav jaderne fyziky AV CR, v.v.i.
+
+_Abstract:_
+
+The nucleus-nucleus collisions at energies attainable at the accelerator RHIC in BNL in the US are an ideal environment to study nuclear matter existing in the conditions of extremely high temperature and density. One of the most important probes is to study production of jets. In this master's thesis the anti-\(k_{T}\) jet finding algorithm is applied to the experimental data from Au+Au collisions at the center of mass energy of 200 GeV per nucleon-nucleon pair in the STAR experiment. The chosen observables describing the shape of charged jets are extracted at the detector level for different collision centralities and the transverse momentum of the charged jets and are corrected for the average background.
+
+_Key words:_
+
+jet, jet shapes, RHIC, STAR, quark-gluon plasma 
+
+[MISSING_PAGE_EMPTY:10]
+
+**Acknowledgement**
+
+I would like to express my sincere gratitude to my supervisor RNDr. Jana Bielcikova, Ph.D. for guiding this thesis, her willingness, patience, precious advices and language corrections.
+
+Additionally, I would like to thank Oleg Tsai, Akio Ogawa and David Kapukhyan from Brookhaven National Laboratory for giving me an opportunity to help with the Forward Calorimeter System Upgrade. The experience I got during one month of working with these people is invaluable.
+
+I am also thankful to my dear husband, my parents and friends for their support during all my research.
+
+Bc. Veronika Prozorova
+
+[MISSING_PAGE_EMPTY:12]
+
+###### Contents
+
+* 1 Heavy-ion collisions
+	* 1.1 Phase diagram of QCD matter
+	* 1.2 Space-time evolution of a nucleus-nucleus collisions
+	* 1.3 Centrality of the collision
+		* 1.3.1 Centrality types
+		* 1.3.2 Determination of centrality
+	* 1.4 Glauber model of nucleus-nucleus collisions
+	* 1.5 Hard probes of the QCD medium
+		* 1.5.1 Jets
+		* 1.5.2 Heavy flavor
+	* 1.6 Nuclear Modification factor
+* 2 Jets
+	* 2.1 Requirements for jet reconstructing algorithms
+	* 2.2 Sequential-clustering jet algorithms
+		* 2.2.1 \(\mathbf{k_{T}}\) jet algorithm
+		* 2.2.2 Anti-\(\mathbf{k_{T}}\) jet algorithm
+	* 2.3 Area related properties
+	* 2.4 FastJet
+	* 2.5 Constituent pile-up subtraction for jets
+	* 2.6 Unfolding techniques
+		* 2.6.1 Bayesian unfolding
+		* 2.6.2 Singular Value Decomposition
+* 3 RHIC and STAR
+	* 3.1 RHIC
+	* 3.2 STAR
+		* 3.2.1 Time Projection Chamber
+		* 3.2.2 Barrel Electro-Magnetic Calorimeter
+		* 3.2.3 Endcap Electro-Magnetic Calorimeter
+		* 3.2.4 Beam-Beam Counter
+		* 3.2.5 Vertex Position Detector
+		* 3.2.6 Zero-Degree Calorimeter
+		* 3.2.7 Time Of Flight
+		* 3.2.8 Heavy Flavor Tracker
+* 4 Contribution to the Forward Calorimeter System Upgrade
+	* 4.1 Forward Calorimeter System
+	* 4.2 HCal scintillating tiles
+	* 4.3 Calibration data for SiPMs in ECal
+	* 4.4 Optimal operating voltage for SiPMs in FCS
+* 5 Data analysis
+	* 5.1 Jet shapes
+	* 5.2 Dataset
+	* 5.3 Jet analysis
+	* 5.4 Angularity
+	* 5.5 Momentum dispersion
+* 6 Summary
+
+## Appendix A Basic kinematic observables
+* A.1 Transverse momentum
+* A.2 Rapidity and pseudorapidity
+* A.3 Center-of-mass energy
+* B Bad run list
+* C Results
+List of Figures
+* 1.1 A phase diagram of nuclear matter [1].
+* 1.2 A space-time view of a central collision of two heavy nuclei (A+A) in the Landau picture. a) Two nuclei approaching each other with relativistic velocities and zero impact parameter in the CMS frame. b) The slowing down of the nuclei with further interaction and particle production. c) The light-cone representation of the high-energy hadron collision in the Landau picture. The shaded area is the particle production area.
+* 1.3 A space-time evolution of the relativistic heavy-ion collision [2].
+* 1.4 A space-time view of a central collision of two heavy nuclei (\(A+A\)) in the Bjorken model. a) The central collision of two nuclei. b) Passage of the nuclei through each other. c) The light-cone representation of the high-energy nucleus-nucleus collision. The shaded area is the area of forming the highly excited matter.
+* 1.5 A schematic view of central, peripheral and ultra-peripheral collisions.
+* 1.6 The measured charged particle multiplicity in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV by the STAR experiment together with corresponding values of the impact parameter \(b\), number of participants \(N_{part}\) in the collisions and fraction of geometrical cross-section \(\sigma/\sigma_{tot}\)[3].
+* 1.7 Geometry of a collision between nucleus A and nucleus B. with transverse (a) and longitudinal (b) views [4].
+* 1.8 A schematic view of jet created in a heavy-ion collision [5].
+* 1.9 Quark masses in the QCD vacuum and the Higgs vacuum [6].
+* 1.10 Nuclear modification factor \(R_{\rm AA}\) of charged particles as a function of \(p_{\rm T}\) in Pb+Pb collisions at \(\sqrt{s_{\rm NN}}=5.02\) TeV compared to the results at \(\sqrt{s_{\rm NN}}=2.76\) TeV from CMS, ALICE and ATLAS. Centrality ranges: 0-5% (left), 50-70% (right). The systematic uncertainty of the 5.02 TeV CMS points is represented by yellow boxes. The blue and gray boxes represent the \(T_{AA}\) and pp luminosity uncertainties, respectively. [7].
+* 1.11 Upper panel: Nuclear modification factor for D\({}^{0}\) mesons in central Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV at STAR compared to the ALICE results at \(\sqrt{s_{\rm NN}}=2.76\) TeV. Bottom panel: Measurements of charged pions from STAR and charged hadrons from ALICE [8].
+
+1.12 Nuclear modification factor \(R_{\rm AA}\) as a function of jet \(p_{T}\) for jets with \(|y|<2.8\) in different centrality intervals. Right: 10-20%, 30-40%, 50-60%, 70-80%. Left: 0-10%, 20-30%, 40-50%, 60-70%. The \(p_{\rm T}\) of constituents is \(>10\) GeV/\(c\). \(p_{\rm T}\) of the tracks \(>10\) GeV/\(c\). The statistical uncertainties and the bin-wise correlated systematic uncertainties are represented by the error-bars and the shaded boxes around the data points, respectively. Fractional \(\langle T_{AA}\rangle\) and p+p luminosity uncertainties are shown as colored and grey shaded boxes, respectively, at \(R_{\rm AA}\) = 1 [9].
+1.13 The \(R_{\rm AA}\) for jets as a function of \(p_{T}^{jet}\) for various resolution parameters and centrality classes [10].
+1.14 Jet \(R_{\rm AA}\) at \(\sqrt{s_{\rm NN}}\) = 5.02 TeV for \(R\) = 0.2 with \(|\eta_{jet}|<0.5\) (left) and \(R\) = 0.4 with \(|\eta_{jet}|<0.7\) (right) [11].
+1.15 Charged jet \(R_{\rm CP}\) with \(p_{\rm T}^{lead}>\) 5 GeV for R = 0.2 - 0.4 [12].
+2.1 An example of infrared sensitivity in cone jet clustering. Seed particles are shown as arrows with the length proportional to energy [13].
+2.2 A sample parton-level event generated with HERWIG Monte-Carlo generator of p+p collision clustered with \(k_{T}\) (left) and anti-\(k_{T}\) (right) algorithms [14].
+2.3 Distribution of areas in di-jet events at the LHC for various jet finding algorithms. The events were generated by PYTHIA 6.4. (a) passive area at parton level, (b) active area at hadron level including UE and pile-up [14].
+2.4 The running times of the \(k_{T}\) jet-finder and FastJet implementations of the \(k_{T}\) clustering algorithm versus the number of initial particles [15].
+3.1 RHIC complex. 1 - Electron Beam Ion Source (EBIS), 2 - Linear Accelerator (Linac), 3 - Booster Synchrotron, 4 - Alternating Gradient Synchrotron, 5 - AGS-to-RHIC Line, 6 - RHIC [1].
+3.2 A 3D model of the STAR detector system [16].
+3.3 The layout of the STAR Time Projection Chamber [17].
+3.4 The ionization energy loss measured in 200 GeV Au+Au collisions at RHIC [18].
+3.5 Cross sectional views of the STAR detector. The Barrel EMC covers \(|\eta|\leq 1\). The BEMC modules slide in from the ends on rails which are held by aluminum hangers attached to the magnet iron between the magnet coils [19].
+3.6 A side view of the STAR BEMC module. The image shows the location of the two layers of shower maximum detector at a depth of approximately 5 radiation length \(X_{0}\) from the front face at \(\eta=0\)[19].
+3.7 Endcap Electro-Magnetic Calorimeter [16].
+3.8 The schematic view of the BBC position. The blue and yellow arrows represent the differently polarized proton beams.
+3.9 A schematic view of the Beam-Beam Counter [16].
+3.10 A schematic side view of the Vertex Position Detector [20].
+3.11 RHIC Zero-Degree Calorimeter [16].
+3.12 The TOF system [16].
+
+3.13 The momentum dependence of the particle mass resolution for a 100 ps time resolution for pions, kaons, protons and deuterons [21].
+3.14 TOF particle identification from 1/\(\beta\) measured in 200 GeV Au+Au collisions at RHIC [18].
+3.15 A schematic view of the Heavy Flavor Tracker inside the STAR detector [16].
+3.16 The Heavy Flavor Tracker parts. PXL - Pixel Detector, IST - Intermediate Silicon Tracker, SSD - double-sided Silicon Strip Detector [16].
+
+4.1 A three-dimensional CAD model of the FCS in the STAR detector model [22].
+4.2 The polisher: CrystalMaster Pro 12 Lap Grinder Kit (left) and the NOVUS fine scratch remover (right).
+4.3 The tiles before (left) and after (right) the polishing.
+4.4 The painting of the tiles.
+4.5 The SiPM boards used for data taking.
+4.6 The dependence of current on the bias voltage for all SiPM boards.
+4.7 The dependence of average response on the bias voltage (left). The bias voltage distribution at 159 \(\mu\)A (right).
+4.8 Top (left) and side (right) schematic views of the cosmic muon setup for finding the optimal operating voltage for SiPMs in FCS.
+4.9 An example of data fit for low (66.32 V) voltage for the Channel 4 and the Channel 5.
+4.10 An example of data fit for high (70.65 V) voltage for the Channel 4 and the Channel 5.
+4.11 The dependence of \(\Delta\) (left), \(\sigma\) (right) on voltage for Channel 4 and Channel 5.
+4.12 The dependence of \(\Delta/\sigma\) on voltage for Channel 4 and Channel 5.
+4.13 Jet shape distributions in 0-10% central Pb-Pb collisions at \(\sqrt{s_{\rm NN}}\) = 2.76 TeV for \(R\) = 0.2 in range of jet \(p_{\rm T,jet}^{\rm ch}\) of 40-60 GeV/\(c\) compared to JEWEL with and without recoils with different subtraction methods. The colored boxes represent the experimental uncertainty on the jet shapes [23].
+4.14 The distance distribution of the primary vertex from the center of the Au+Au collision at energy \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+4.15 Reference multiplicity of charged particles in Au+Au collisions at energy \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+4.16 Number of constituents in charged jets with R = 0.2 (upper row) and R = 0.4 (bottom row) for different \(p_{\rm T,jet}^{ch}\) ranges.
+4.17 Dependence of background density \(\rho\) on the charged particle reference multiplicity (\(|\eta|<\) 0.5) for the resolution parameters of the jet R = 0.2 (left) and R = 0.4 (right).
+4.18 Background energy density for 4 centrality classes in Au+Au collisions. Left: for jet resolution parameter R = 0.2, right: for jet resolution parameter R = 0.4.
+
+[MISSING_PAGE_FAIL:18]
+
+[MISSING_PAGE_EMPTY:19]
+
+[MISSING_PAGE_EMPTY:20]
+
+List of Tables
+* 4.1 The parameters provided by Hamamatsu.
+* 5.1 Definition of Au+Au centrality classes. \(\sigma/\sigma_{geo}\) is a fraction of geometrical cross-section.
+* 5.2 The mean and Root Mean Square (RMS) values of the background density distributions for different centrality classes for R = 0.2 and R = 0.4.
+
+[MISSING_PAGE_EMPTY:22]
+
+## Preface
+
+The state of matter existing under extreme conditions of high temperature and density, called Quark-Gluon Plasma, is of interest for many scientists. One of the ways to create such matter is to collide heavy-ions at ultrarelativistic energies. The nucleus-nucleus collisions at energies attainable at the accelerator RHIC in Brookhaven National Laboratory in the United States are an ideal environment to study Quark-Gluon Plasma. The main topic of this master thesis are jets, which are created in the initial stage of heavy-ion collisions.
+
+Jets are collimated sprays of hadrons traveling in the direction of the original parton. The partons as well as their bremsstrahlung gluons can interact with the surrounding medium, that is created in the heavy-ion collisions. If the parton does not have enough energy to pass through the QGP medium, it will be quenched. This could indicate the presence of the QGP. In order to study the jet fragmentation and restrict the aspects of the theoretical description of the interaction of jets with medium, different jet shape observables are used.
+
+The Chapter 1 of the thesis describes the properties of heavy-ion collisions and the QGP matter. Also it gives examples of the hard probes and observables used for the study the QCD medium.
+
+The Chapter 2 is dedicated to the theory of jets. It tells about the important properties of the jet reconstructing algorithm and gives the detailed description of the two sequential-clustering algorithms: the \(k_{T}\) and the anti-\(k_{T}\) algorithm. The Chapter 2 also provides the information about the Constituent background subtraction method and the unfolding techniques (SVD and Bayesian unfolding) used to subtract the pile-up and the detector effects, respectively.
+
+The Chapter 3 is devoted to description of the STAR experiment at RHIC. It contains the information about the detectors used in STAR. Author's contribution to the Forward Calorimeter System Upgrade in STAR is described in Chapter 4. It contains the results of the work for HCal and ECal during one-month stay at BNL.
+
+The main goal of this work is to apply the anti-\(k_{T}\) jet algorithm to the experimental data from Au+Au collisions in the STAR experiment. The chosen jet shape observables: angularity and momentum dispersion, are extracted at the detector level for different centralities of the collision. The analysis is made for two resolution parameters and three transverse momentum ranges of the jet. The obtained distributions are corrected for the background using the constituent background subtractor.
+
+[MISSING_PAGE_EMPTY:24]
+
+## Chapter 1 Heavy-ion collisions
+
+### 1.1 Phase diagram of QCD matter
+
+Various experiments perform the research of the state of matter existing in the conditions of extremely high temperature (order of magnitude of 100 MeV) and density (order of magnitude of GeV/fm\({}^{3}\)). This nuclear matter, in which quarks and gluons are no longer confined but are asymptotically free, is called Quark-Gluon Plasma (QGP). Even though some progress has been made in understanding the properties of the QGP, little is known about the phase diagram of strongly interacting (Quantum Chromodynamics, QCD) matter. There are three places, where the QGP could be found: in the early universe, at the center of compact stars and in the initial stages of heavy-ion collisions.
+
+The phase diagram of QCD matter is shown in Figure 1.1. The horizontal axis shows the baryon chemical potential \(\mu_{B}\) and the vertical axis shows the temperature \(T\).
+
+There are three basic phases that could be distinguished in the phase diagram: hadronic phase, QGP and color superconducting quark matter. Some of the transitions between these phases are continuous (dashed or no lines), others are the first-order (solid lines). The temperature, at which the hadron gas undergoes a
+
+Figure 1.1: A phase diagram of nuclear matter [1].
+
+phase transition to QGP, is called _the critical temperature_\(T_{c}\). Its value varies from 150 to 170 MeV [24]. It can be seen, that at very low values of the baryon chemical potential, \(\mu_{B}\), lattice QCD calculations predict a smooth crossover transition, while at higher values of \(\mu_{B}\), QCD-based models predict that there will be a first-order phase transition between the QGP and hadron gas [25]. In order to clarify the structures of the phase diagram, the Beam Energy Scan (BES) program at the Relativistic Heavy-Ion Collider (RHIC) is being preformed. The BES has three goals: search for the turn off of the QGP signatures, search for the first-order phase transition, and search for the critical point (the end point of the first-order line).
+
+### 1.2 Space-time evolution of a nucleus-nucleus collisions
+
+High-energy hadron collisions can be considered in terms of two space-time scenarios, one of which was invented by Bjorken [26] and another by Landau [27]. Consider now a central collision of two nuclei having a mass number \(A\) in the center-of-mass (CMS) frame with \(\sqrt{s_{\rm NN}}=E_{cm}\) (see Appendix A). In this frame the nuclei are Lorentz-contracted and collide having a thickness of \(d=2R/\gamma_{cm}\), where \(\gamma_{cm}=E_{cm}/2m_{N}\) is the Lorentz factor and \(m_{N}\) is the nucleus mass.
+
+In the Landau picture (Figure 1.2), the colliding nuclei are considerably slowed down, producing particles mainly within the thickness of nuclear matter. Then, the expansion of the hot and baryon-rich system of particles occurs.
+
+In the last decades, there is a considerable rise of the incident energy of the nuclei, the Landau model must be replaced by the Bjorken one (Figure 1.4). The Bjorken scenario is based on the parton model of hadrons. It differs from the Landau picture by the time expansion of particle production and the existence of wee partons (gluons
+
+Figure 1.2: A space-time view of a central collision of two heavy nuclei (A+A) in the Landau picture. a) Two nuclei approaching each other with relativistic velocities and zero impact parameter in the CMS frame. b) The slowing down of the nuclei with further interaction and particle production. c) The light-cone representation of the high-energy hadron collision in the Landau picture. The shaded area is the particle production area.
+
+and sea-quarks), which carry much smaller momentum fraction of the nucleon in comparison to valence quarks.
+
+It is known, that after the two nuclei collide, the fireball is created, which undergoes different phases in its evolution. Figure 1.3 shows the space-time diagram of the relativistic collisions. The space-time evolution can be divided into three stages: pre-equilibrium stage and thermalization, hydrodynamical evolution and freeze-out, freeze-out and post-equilibrium [28].
+
+### 1.3 Pre-equilibrium stage and thermalization
+
+Figure 1.4 shows a schematic view of a central collision of two heavy nuclei. Firstly, we see the two nuclei approaching each other with the relativistic velocities in the center of mass frame (Figure 1.4 a). As the collision is central, the value of the impact parameter is zero. As soon as the nuclei pass through each other, the highly excited matter with a small net baryon number between the nuclei is left (shaded area in Figure 1.4 b). After the significant number of the virtual quanta and gluon coherent field configuration is excited, a proper time \(\tau_{de}\), typically a fraction of 1 fm, is needed to de-excite these quanta into real quarks and gluons. The state of matter for \(0<\tau<\tau_{de}\) is called the pre-equilibrium stage. As the \(\tau_{de}\) is defined in the rest frame of each quantum, the \(\tau\) can be then defined as \(\tau=\tau_{de}\gamma\) in the center of mass frame. The \(\gamma\) stands for the Lorentz factor of each quantum. This implies the so called inside-outside cascade, meaning the slow particles are emerging first near the interaction point and then the fast particles far from the interaction point. This phenomenon is not included in the Landau model. In Figure 1.4 c the light-cone representation of the nucleus-nucleus collision is shown. \(\tau_{0}<\tau_{de}\) stands for the proper time within which the system is equilibrated and depends on the basic parton-parton cross section and also on the density of partons produced in the pre-equilibrium stage.
+
+Figure 1.3: A space-time evolution of the relativistic heavy-ion collision [2].
+
+### 1.2 Space-time evolution of a nucleus-nucleus collisions
+
+#### Hydrodynamical evolution and freeze-out
+
+For this stage \(0<\tau_{0}<\tau_{f}\), where \(\tau_{f}\) stands for the freeze-out time of the hadronic plasma. In this period the evolution of the thermalized QGP and its phase transition occur. After the local thermal equilibrium is reached at \(\tau_{0}\), the relativistic hydrodynamics can be used for the description of the system expansion. The expectation values of the equations of the conservation of energy-momentum tensor and baryon number,
+
+\[\partial_{\mu}\langle T^{\mu\nu}\rangle=0,\quad\partial_{\mu}\langle j_{B}^{ \mu}\rangle=0, \tag{1.1}\]
+
+are taken with respect to the time-dependent state in the local thermal equilibrium [28]. In case the system is approximated as a perfect fluid, the local energy density, \(\varepsilon\), and the local pressure, \(P\), parametrize the expectation values. Therefore, the Equation (1.3) is supplemented by the equation of state \(\varepsilon=P(\varepsilon)\). Having the appropriate initial conditions at \(\tau=\tau_{0}\), the Equation (1.3) can predict the time development of the system until it undergoes a freeze-out at \(\tau=\tau_{f}\). In other case, when the system cannot be approximated as a perfect fluid, the extra information is required.
+
+#### Freeze-out and post-equilibrium
+
+For this stage \(\tau_{f}<\tau\). A space-time hyper-surface defines the freeze-out of the hadronic plasma. As there is an increase of the mean free time of the plasma particles in comparison to the time scale of the plasma expansion, the local thermal equilibrium is no longer maintained. The freeze-out can be divided into 2 types. The first is the chemical freeze-out, after which the number of each species is frozen, while the equilibration in the phase-space is still maintained. The other one is the thermal equilibrium. In contradiction to the chemical freeze-out, after the thermal freeze-out occurs, the kinetic equilibrium is no longer maintained. Besides, there
+
+Figure 1.4: A space-time view of a central collision of two heavy nuclei (\(A+A\)) in the Bjorken model. a) The central collision of two nuclei. b) Passage of the nuclei through each other. c) The light-cone representation of the high-energy nucleus-nucleus collision. The shaded area is the area of forming the highly excited matter.
+
+could also be a difference in the temperature for the chemical and thermal freeze-outs. The first one should occur at higher temperature followed by the second one. After the evolution of the medium is finished, there is an increase in the distances between the hadrons. Therefore, the hadrons leave the interaction region, but still can interact in a non-equilibrium way.
+
+### 1.3 Centrality of the collision
+
+#### Centrality types
+
+Nuclear collisions can be classified according to the size of the overlapping area that is related to centrality. Centrality can be determined as:
+
+\[c_{b}\equiv\frac{1}{\sigma_{inel}}\int_{0}^{b}P_{inel}(b^{\prime})2\pi b^{ \prime}db^{\prime}, \tag{1.2}\]
+
+where \(\sigma_{inel}\) is the inelastic nucleus-nucleus cross section, \(P_{inel}\) is the probability that an inelastic collision occurs at the impact parameter \(b\) that is defined as the difference between the positions of the nuclei's centers. Depending on the values of the impact parameter one can distinguish three types of collisions: central or "head-on" collisions, peripheral and ultra-peripheral collisions (Figure 1.5). Central collisions have the impact parameter \(b\approx 0\), peripheral collisions have \(0<b<2R\), and ultra-peripheral collisions have \(b>2R\), where the colliding nuclei are viewed as hard spheres with radius \(R\).
+
+The centrality dependence of various observables provides insight into their dependence on the global geometry. As the energy loss of partons increases with the length of the path traversed inside the quark-gluon plasma, it is larger in central collisions.
+
+#### Determination of centrality
+
+In heavy-ion collisions the centrality of the collision and the impact parameter cannot be directly experimentally measured, even though they are perfectly well-defined quantities. There are two main methods to determine the centrality.
+
+Figure 1.5: A schematic view of central, peripheral and ultra-peripheral collisions.
+
+The first is to measure the particle multiplicity, which is proportional to the energy released in the collision. As the color force has an extremely short range, it cannot couple quarks that are separated by much more than nucleon's radius. The more central the collision is, the higher multiplicity of created particles it has. Consequently, more particle tracks can be observed in the detector. The charged particle multiplicity distribution can be seen in Figure 1.6. The first 5% of the high minimum-bias multiplicity, \(N_{ch}\), events correspond to central collisions and approximately last 50% of \(N_{ch}\) correspond to peripheral collisions.
+
+Another way to determine the centrality is to measure nucleons which do not participate in the collision (_spectators_). For this measurement the special Zero Degree Calorimeters (ZDC) (see section 3.2.6 for more information) can be used. The number of the spectators for central and most peripheral collisions \(\sim 0\), since the nucleons in the colliding nuclei are not "kicked out" of the nuclei and therefore they are not measured by ZDCs. There may also be different amount of spectators for the same impact parameter \(b\) in the collisions of deformed nuclei having different orientations of the spectators for the same impact parameter. The number of participant nucleons can be evaluated using the semi-classical Glauber model [29] which is described in the following section.
+
+Figure 1.6: The measured charged particle multiplicity in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV by the STAR experiment together with corresponding values of the impact parameter \(b\), number of participants \(N_{part}\) in the collisions and fraction of geometrical cross-section \(\sigma/\sigma_{tot}\)[3].
+
+### 1.4 Glauber model of nucleus-nucleus collisions
+
+In order to describe the high-energy nuclear reactions and evaluate the total reaction cross-section, the number of nucleons that participated in a binary collision at least once (participant nucleons), \(N_{part}\), and nucleon-nucleon collisions, \(N_{coll}\), the Glauber model [29] is used. The Glauber model is a semi-classical model, which considers the nucleus-nucleus collision as multiple nucleon-nucleon interactions (see Figure 1.7). That means there is an interaction between the nucleon of the incident nucleus and the target nucleons with a given density distribution. The nucleons are assumed to travel in the straight lines and are not deflected after the collision. That gives a good approximation at very high energies. As this model does not consider the secondary particle production and possible excitations of nucleons, the nucleon-nucleon inelastic cross section, \(\sigma_{NN}^{in}\), is assumed to be the same as that in the vacuum.
+
+In the Glauber model, the number of participant nucleons, \(N_{part}\), and the number of binary nucleon-nucleon collisions can be calculated as follows:
+
+\[\begin{split} N_{part}(b)&=\int d^{2}\vec{s}T_{A}( \vec{s})\left(1-\exp^{-\sigma_{NN}^{in}T_{B}(\vec{s})}\right)\\ &\qquad+\int d^{2}\vec{s}T_{B}(\vec{s}-\vec{b})\left(1-\exp^{- \sigma_{NN}^{in}T_{A}(\vec{s})}\right),\end{split} \tag{1.3}\]
+
+\[N_{coll}(b)=\int d^{2}\vec{s}\sigma_{NN}^{in}T_{A}(\vec{s})T_{B}(\vec{s}-\vec{ b}). \tag{1.4}\]
+
+Here, the \(T_{A}\) is the thickness function defined as \(T_{A}(s)=\int dz\rho_{A}(z,\vec{s}),\,\vec{b}\) is the impact parameter, \(\vec{s}\) is the impact parameter of all pairs of incident and target nucleons, \(z\) is the collision axis and \(\rho_{A}\) is the nuclear mass number density normalized to mass number \(A\).
+
+### 1.5 Hard probes of the QCD medium
+
+In heavy-ion collisions the QGP exists only during the limited period of time (less than \(10^{-23}\) seconds) and as a result of this, it cannot be studied directly. However, hard probes (heavy flavor quarks, jets) can be used for studying the properties of
+
+Figure 1.7: Geometry of a collision between nucleus A and nucleus B. with transverse (a) and longitudinal (b) views [4].
+
+this medium as they are created early in the collision. In the following sections jets and heavy flavor particles will be discussed.
+
+#### Jets
+
+In the early stages of nucleus-nucleus collisions a hard parton travelling through the Quark-Gluon Plasma emits gluons loosing thereby its energy. Such process is described down to transfer momentum \(O(1)\) GeV by the Dokshitzer-Gribov-Lipatov-Altarelli-Parisi (DGLAP) evolution equation [30]
+
+\[Q^{2}\frac{\partial f_{a}(x,Q^{2})}{\partial Q^{2}}=\sum_{b}\int_{x}^{1}\frac{ dz}{z}\frac{\alpha_{s}}{2\pi}P_{ab}(z)f_{b}(\frac{x}{z},Q^{2}), \tag{1.5}\]
+
+where \(f_{a}(x,Q^{2})\) is the parton distribution function (PDF), \(x\) is a fraction of a total momentum, \(Q^{2}\) is the energy scale, \(\alpha_{s}\) is the running coupling constant, \(P_{ab}\) is a splitting function1. The emitted gluons, in turn, produce \(q\overline{q}\) pairs which then combine together with the rest of free quarks into color charge neutral mesons and baryons. As a result, a collimated spray of hadrons originating from fragmentation of a hard parton is formed which is called jet (Figure 1.8). As jets mostly conserve the energy and the direction of the originating parton, they are studied in order to determine the properties of the original partons. If the parton does not have enough energy, the jet will be quenched. Jets will be discussed in a more detail in the following chapter.
+
+Footnote 1: Splitting function - the probability of a parton \(b\) splitting into a parton \(a\) with a momentum fraction \(z\) of the initial parton \(b\).
+
+#### Heavy flavor
+
+Using the term "heavy flavor" one means the \(c\), \(t\) and \(b\) quarks, as their masses are much larger then the QCD scale, \(\Lambda_{QCD}\), which is \(\approx\) 218 MeV. The top quark is the
+
+Figure 1.8: A schematic view of jet created in a heavy-ion collision [5].
+
+[MISSING_PAGE_EMPTY:33]
+
+### 1.6 Nuclear Modification factor
+
+The nuclear modification factor, \(R_{\rm AA}\), is an observable quantifying medium effects on particle production in medium or in the QGP. It characterizes how much the particle production in medium created in an A+A collision differs from the p+p reference and is defined as follows:
+
+\[R_{AA}=\frac{\frac{\mathrm{d}^{2}N_{AA}}{\mathrm{d}p_{T}\mathrm{d}y}}{\langle T _{AA}\rangle\frac{\mathrm{d}^{2}\sigma_{\mathrm{pp}}}{\mathrm{d}p_{T}\mathrm{d }y}}. \tag{1.8}\]
+
+Here \(\langle T_{AA}\rangle\) is the nuclear thickness function accounting for increased flux of partons per collision in A+A collisions and it is estimated using Glauber model (see section 1.4), \(\mathrm{d}^{2}N_{AA}/\mathrm{d}y\mathrm{d}p_{\mathrm{T}}\) is the differential yield of particles in A+A collisions, \(\sigma_{\mathrm{pp}}\) is the particle cross-section in p+p collisions. Both \(N_{AA}\) and \(\sigma_{\mathrm{pp}}\) are measured as a function of transverse particle momentum \(p_{\mathrm{T}}\) and rapidity \(y\) (see Appendix A). The nuclear modification factor is defined in such way, that if one imagines heavy-ion collision as a simple superposition of individually binary collisions, then \(R_{AA}\) should be equal to unity. That means, that either no QGP is produced or other effects in the collision compensate the QGP effects. Experimental data show that for all transverse momenta \(p_{\mathrm{T}}\) at RHIC and STAR the nuclear modification factor is less than unity.
+
+The first measurement of jet quenching was made at RHIC [33], [34], [35], where a strong suppression of inclusive charged particle production was observed. Analogous measurement was later performed in CERN at CMS, ALICE and ATLAS. In Figure 1.10 the nuclear modification factor for charged particles in Pb+Pb collisions can be found. A characteristic suppression can be observed for both central
+
+Figure 1.10: Nuclear modification factor \(R_{\rm AA}\) of charged particles as a function of \(p_{\mathrm{T}}\) in Pb+Pb collisions at \(\sqrt{s_{\rm NN}}=5.02\) TeV compared to the results at \(\sqrt{s_{\rm NN}}=2.76\) TeV from CMS, ALICE and ATLAS. Centrality ranges: 0-5% (left), 50-70% (right). The systematic uncertainty of the 5.02 TeV CMS points is represented by yellow boxes. The blue and gray boxes represent the \(T_{AA}\) and pp luminosity uncertainties, respectively. [7].
+
+and peripheral collisions. For central collisions the suppression is around 7-8 for \(p_{\rm T}\) 6-9 GeV/\(c\), that is much stronger than for peripheral ones.
+
+It is also important to look at production of heavy flavor particles described in section 1.5.2. It is expected that particle composed of heavy-quarks will be less suppressed in nucleus-nucleus collisions due to their larger masses in comparison to light quarks due to the dead-cone effect [36]. However, the measurements for \(D^{0}\) mesons, which contain charm quark, from STAR and ALICE show the suppression is comparable to that of pions at both collision energies.
+
+In order to obtain more detailed information about jet quenching the fully reconstructed jets are used. As jets are "image" of the parton, their energy corresponds to the whole energy of the parton and therefore the less suppression is expected. The nuclear modification factor for jets can be defined similarly to the \(R_{AA}\) of the particles as
+
+\[R_{\rm AA}=\frac{\frac{1}{N_{\rm evt}}\frac{\mathrm{d}^{2}N_{\rm jet}}{\mathrm{ d}p_{\rm T}\mathrm{d}y}\bigg{|}_{\rm cent}}{\langle T_{AA}\rangle\frac{ \mathrm{d}^{2}\sigma_{\rm jet}}{\mathrm{d}p_{\rm T}\mathrm{d}y}\bigg{|}_{pp}} \tag{1.9}\]
+
+where \(\mathrm{d}^{2}N_{\rm jet}/\mathrm{d}p_{\rm T}\mathrm{d}y\) is the differential jet yield, \(\sigma_{\rm jet}\) is the jet cross-section in p+p collisions and \(N_{\rm evt}\) is the total number of A+A collisions within a chosen centrality interval. Again, both \(N_{\rm jet}\) and \(\sigma_{\rm jet}\) are measured as a function of transverse mo
+
+Figure 1.11: Upper panel: Nuclear modification factor for D\({}^{0}\) mesons in central Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV at STAR compared to the ALICE results at \(\sqrt{s_{\rm NN}}\) = 2.76 TeV. Bottom panel: Measurements of charged pions from STAR and charged hadrons from ALICE [8].
+
+[MISSING_PAGE_EMPTY:36]
+
+Analogous measurements for lower jet transverse momenta and lower jet \(p_{\rm T}\) constituents were performed by ALICE (Figure 1.14) and STAR (Figure 1.15) [12] for different resolution parameters of the jet. As there is no p+p reference at STAR, the ratio of the inclusive jet yields in central to peripheral collisions is used in order to compare these two measurements. For this aim one can define the nuclear modification factor, \(R_{CP}\), as follows:
+
+\[R_{CP}=\frac{\frac{1}{N_{\rm events}^{\rm central}}\frac{{\rm d}^{2}N_{\rm real }}{{\rm d}p_{\rm T,jet}{\rm d}\eta}\langle N_{\rm bin}^{\rm peri}\rangle}{ \frac{1}{N_{\rm events}^{\rm peri}}\frac{{\rm d}^{2}N_{\rm peri}}{{\rm d}p_{ \rm T,jet}{\rm d}\eta}\langle N_{\rm bin}^{\rm cent}\rangle}. \tag{1.10}\]
+
+Both measurements show that the values of nuclear modification factor for all jet radii are approximately the same, \(R_{AA}\approx\) 0.4 at ALICE and \(R_{CP}\approx\) 0.45 at STAR.
+
+Figure 1.14: Jet \(R_{\rm AA}\) at \(\sqrt{s_{\rm NN}}\) = 5.02 TeV for \(R\) = 0.2 with \(|\eta_{jet}|\) \(<\) 0.5 (left) and \(R\) = 0.4 with \(|\eta_{jet}|\) \(<\) 0.7 (right) [11].
+
+Figure 1.15: Charged jet \(R_{\rm CP}\) with \(p_{\rm T}^{lead}\)\(>\) 5 GeV for R = 0.2 - 0.4 [12].
+
+[MISSING_PAGE_EMPTY:38]
+
+## Chapter 2 Jets
+
+Jets can be divided into two groups: regular ("soft-resilient") and less regular ("soft-adaptable"). Having a regular jet can simplify some theoretical calculations as well as some parts of the momentum resolution loss caused by underlying event (UE) and pile-up contamination. An infrared and collinear (IRC) safe algorithm can stimulate irregularities in the boundary of the final jet in the second type of the jets.
+
+### 2.1 Requirements for jet reconstructing algorithms
+
+In order to reconstruct jets different algorithms are used. A good algorithm should satisfy the following criteria:
+
+* **Infrared and Collinear (IRC) safety**. If one modifies an event by a collinear splitting or the addition of a soft emission, the set of hard jets that are found in the event should remain unchanged [37]. 
+
+Figure 2.1 illustrates the infrared sensitivity in the cone jet clustering. It can be seen that the jet clustering begins around seed particles. The soft radiation does not affect jet configuration (left).
+* **Full specification**. All parts of the algorithm, i.e merging, splitting, clustering, energy and angle definition as well as all the algorithmic processes should have clear and complete description.
+* **Independence on the cell type, number or size of the detector**. Otherwise, the performance of even the most ideal jet algorithm will be influenced
+
+Figure 2.1: An example of infrared sensitivity in cone jet clustering. Seed particles are shown as arrows with the length proportional to energy [13].
+
+by different effects, such as particle showering, noise, detector response after the jet enters a detector.
+* **Ease of use**. The algorithms should be also easy to implement in perturbative calculations, with typical experimental detectors and data.
+* **Order independence**. The same results should be produced at the parton, particle and detector levels.
+* **High efficiency and short computing time**. Computing time evolving as \(O(N^{3})\) should be the upper boundary for any practical use, where \(N\) stands for the number of particles needed to be clustered.
+
+Nowadays, there are two big classes of the jet finding algorithms: cone jet algorithms and sequential-clustering algorithms. The first type is based on identifying energy-flow into cones in pseudorapidity \(\eta=-\ln\tan\frac{\theta}{2}\) and azimuth \(\phi\) (see Appendix A). The second ones are based on successive pair-wise recombination of particles. The sequential recombination algorithms are infrared safe. As the cone jet algorithms violate the IRC safety, this thesis will be focused on sequential-clustering jet finding algorithms.
+
+### 2.2 Sequential-clustering jet algorithms
+
+The difference between the sequential recombination and cone jet finding methods is in their sensitivity to non-perturbative effects like hadronization and underlying event (UE) contamination. Also, in comparison to the cone algorithms, the jets reconstructed via sequential recombination have no fixed shape.
+
+#### 2.2.1 \(k_{T}\) jet algorithm
+
+For a set of particles with an index \(i\) having the transverse momentum \(k_{ti}\), position \(y_{i}\), \(\phi_{i}\) the following steps are done.
+
+1. Find the distance, \(d_{ij}\), between particles \(i\) and \(j\) as \[d_{ij}=\min(k_{ti}^{2},k_{tj}^{2})\frac{\Delta_{ij}^{2}}{R^{2}}.\] (2.1) \(\Delta_{ij}^{2}=(y_{i}-y_{j})^{2}+(\phi_{i}-\phi_{j})^{2}\) and \(R\) is a radius parameter of the particle \(i\).
+2. Find the distance, \(d_{iB}\), between the entity \(i\) and the beam \(B\) as \[d_{iB}=k_{ti}^{2}.\] (2.2)
+3. Find \(d_{min}=\min(d_{ij},d_{iB})\).
+4. If \(d_{min}=d_{ij}\), merge the particles summing their four-momenta.
+5. If \(d_{min}=d_{iB}\), call a particle to be a final jet, remove it from the list.
+6. Repeat the steps 1-5 until no particles are left.
+
+The main problem of the \(k_{T}\) algorithm was originally its slowness. Clustering \(N\) particles into jets requires \(O(N^{3})\) operations. However, this problem has been already solved (see section 2.4). As the \(k_{T}\) algorithm is sensitive to the background in comparison to other algorithms, it is mostly used for the background estimation in heavy-ion collisions.
+
+#### Anti-\(k_{T}\) jet algorithm
+
+Contrary to the \(k_{T}\) jet-finder, the anti-\(k_{T}\) algorithm starts the clustering from the hardest particle (having the largest \(p_{T}\)). Then, all the steps are the same as for the \(k_{T}\) algorithm. The only change is in the definitions of \(d_{ij}\) and \(d_{iB}\). The first two steps will be the following:
+
+1. Find the distance, \(d_{ij}\), between the hard particle and the remaining soft ones as \[d_{ij}=\min(k_{ti}^{-2},k_{tj}^{-2})\frac{\Delta_{ij}^{2}}{R^{2}}.\] (2.3)
+2. Find \(d_{iB}\) as \[d_{iB}=k_{ti}^{-2}.\] (2.4)
+
+The shape of the jet is determined only by the distance between the two hard particles, \(\Delta_{12}\), as the soft particle do not modify the jet shape. Overall, three cases could be distinguished:
+
+1. There are no other hard particles within the distance \(2R\) from the given hard particle. Such a hard particle will collect all the soft particles around itself inside a radius \(R\). As a result a perfect conical jet will be acquired.
+2. The second hard particle is located within a distance \(R<\Delta_{12}<\)2\(R\). As a result, two hard jets will be obtained. The only difference will be in the shapes of these jets. Depending on the particle transverse momenta (\(k_{t1}\) and \(k_{t2}\)) the following three cases could be distinguished: * \(k_{t1}\gg k_{t2}\): in this situation the first jet will have a conical shape, while the second jet will be partly conical since it will miss the part crossing the first jet (see the light-blue jet depicted in the Figure 2.2 right). * \(k_{t1}=k_{t2}\): none of the jets will have a conical shape, the overlying area will be divided into two equal parts (compare the blue and the gray jets shown in the Figure 2.2 right). * \(k_{t1}\sim k_{t2}\): both cones will be clipped. The boundary \(b\) between them will be defined as \(\Delta R_{1b}/k_{t1}=\Delta_{2b}/t_{t2}\).
+3. The second hard particle is within a distance \(\Delta_{12}<R\). As a result, the two particles will cluster to form a single jet. Likewise the previous case, the shape of the jet will depend on the hard particles transverse momenta and can be thereby divided into two situations: * \(k_{t1}\gg k_{t2}\): there will be a conical jet centered on \(k_{t1}\).
+
+* \(k_{t1}\sim k_{t2}\): the shape of the jet will be a union of cones having the radius \(R\) around each hard particle plus a cone of radius \(R\) centered on the final jet.
+
+A comparison of the \(k_{T}\) and anti-\(k_{T}\) algorithm behavior is shown in Figure 2.2. A parton-level event was taken together with \(10^{4}\) soft particles and then clustered with the \(k_{T}\) and the anti-\(k_{T}\) algorithm, respectively. It can be seen, that for the \(k_{T}\) algorithm there are irregular shapes of jets, while the anti-\(k_{T}\) algorithm gives jets of the regular shape.
+
+### 2.3 Area related properties
+
+In order to discuss the properties of jet boundaries for different algorithms, the calculations of jet areas are used. The jet areas can be active or passive. The active jet area measures jet susceptibility to diffuse radiation and is defined as
+
+\[A(J|\{g_{i}\})=\frac{N_{g}(J)}{\nu_{g}}, \tag{2.5}\]
+
+where \(\nu_{g}\) is the number of ghosts per unit area and \(N_{g}(J)\) is the number of ghosts contained in the jet \(J\) and \(\{g_{i}\}\) is the given specific set of ghosts [38]. An example of such an area can be seen in the left part of Figure 2.2.
+
+Passive area measures jet susceptibility to point-like radiation and can be calculated using the following equation:
+
+\[a(J)\equiv\int dy\,d\phi\;f(g(y,\phi),J)\qquad\qquad f(g,J)=\left\{\begin{array} []{cc}1&g\in J\\ 0&g\notin J\end{array}\right.\;. \tag{2.6}\]
+
+That corresponds to the 4-vector area of the region where \(g\) is clustered with \(J\)
+
+\[a_{\mu}(J)\equiv\int dy\,d\phi\;f_{\mu}(g(y,\phi),J)\qquad\qquad f_{\mu}(g,J)= \left\{\begin{array}{cc}g_{\mu}/g_{t}&g\in J\\ 0&g\notin J\end{array}\right.\;, \tag{2.7}\]
+
+where \(g_{t}\) is the ghost transverse momentum. In case of a jet with small area \(a(J)\), the 4-vector area has the properties that its transverse component satisfies \(a_{t}(J)=a(J)\).
+
+Figure 2.2: A sample parton-level event generated with HERWIG Monte-Carlo generator of p+p collision clustered with \(k_{T}\) (left) and anti-\(k_{T}\) (right) algorithms [14].
+
+The area is also approximately massless and points in the direction of \(J\). Otherwise, when the area of jet \(a(J)\)\(\sim\)1, the 4-vector area receives a mass and may not point in the same direction as \(J\). For the typical IRC safe algorithm it is also important to note that the jet passive area equals \(\pi R^{2}\) only when \(\Delta_{12}=0\). Increasing \(\Delta_{12}\) changes the area.
+
+In Figure 2.3 the distributions of passive (left) and active (right) areas at parton and hadron levels respectively in di-jet events at the LHC can be observed. The distributions are calculated for cone jet algorithm SISCone [39] and three different clustering jet algorithms (Cambridge/Aachen, \(k_{T}\) and anti-\(k_{T}\)) using the PYTHIA 6.4 Monte-Carlo generator.
+
+### 2.4 FastJet
+
+FastJet is a software package [14], [15], [40] containing most of jet finding algorithms. Besides, different tools for jet area calculation and background subtraction performance needed for various jet related analyses are also implemented in the package.
+
+As it was discussed above, one of the main disadvantages of the \(k_{T}\) algorithm used to be originally its slowness. This problem was solved in the implementation of the \(k_{T}\) jet-finder in the FastJet package. Through the use of Voronoi diagrams [41] and a Delaunay triangulation for identification of each particles geometrical nearest neighbor, the geometrical aspects of the problem are isolated. The FastJet implementation, therefore, reduces the \(k_{T}\) algorithm complexity from \((N^{3})\) to \((N\ln N)\) operations. Concerning this, the \(k_{T}\) jet-finder can be used for large values of \(N\) that rise when considering all cells of a finely segmented calorimeter and for heavy-ion events. A comparison of the running times of the \(k_{T}\) jet finding algorithm and its FastJet implementation is depicted in Figure 2.4. It can be clearly seen that during the same time the FastJet implementation of the \(k_{T}\) algorithm will cluster a larger number of particles.
+
+Figure 2.3: Distribution of areas in di-jet events at the LHC for various jet finding algorithms. The events were generated by PYTHIA 6.4. (a) passive area at parton level, (b) active area at hadron level including UE and pile-up [14].
+
+### 2.5 Constituent pile-up subtraction for jets
+
+Most jet shapes are significantly affected by pile-up, e.g. in high luminosity p+p collisions or in heavy-ion collisions, which modifies kinematics of a jet. In order to correct this effect different techniques are used. Simple ones remove a constant "offset" from the jets transverse momentum that is proportional to the number of observed pile-up effects, another methods subtracts an amount given by the product of the event's measured pile-up \(p_{\mathrm{T}}\) density \(\rho\) and the jet's measured area. In order to correct the jet 4-momentum an area-based method [42] is used. It performs the corrections after the jet finding has been accomplished. The method is based on the measurement of each jet's susceptibility to contamination, which is embodied in the jet area \(A\), from diffuse noise as well as on the measuring the level, \(\rho\), of this diffuse noise in any given event. This method is also extended to account for hadron masses. The area-based procedure allows to remove the contributions due to pileup even for previously intractable jet shape observables, such as for example planar flow. Moreover, there is no need to have the explicit consideration of a specific jet algorithm to perform the pileup subtraction.
+
+The method is intended to be valid for arbitrary jet algorithms and generic IRC safe jet shapes, without analytic study of each individual shape variable. Thus, it will be discussed in more details below.
+
+The first step is a characterization of the average pile-up density in a given event terms of two variables - mass densities, \(\rho\) and \(\rho_{m}\), such that the 4-vector of the expected pile-up deposition, \(p_{\mathrm{pileup}}^{\mu}\), in a small region of size \(\Delta y\Delta\phi\) can be written as
+
+\[p_{\mathrm{pileup}}^{\mu}=[\rho\cos\phi,\rho\sin\phi,(\rho+\rho_{m})\sinh y,( \rho+\rho_{m})\cosh y]\Delta y\Delta\phi. \tag{2.8}\]
+
+Figure 2.4: The running times of the \(k_{T}\) jet-finder and FastJet implementations of the \(k_{T}\) clustering algorithm versus the number of initial particles [15].
+
+Here \(\rho\) and \(\rho_{m}\) have only weak dependence on \(\phi\) and \(y\). In order to determine these mass densities, all the particles are then grouped into so-called _patches_ using the k\({}_{T}\) algorithm. Then the \(\rho\) and \(\rho_{m}\) could be calculated as
+
+\[\rho=\text{median}_{\text{patches}}\left\{\frac{p_{\text{T,patch} }}{A_{\text{patch}}}\right\}, \tag{2.9}\] \[\rho_{m}=\text{median}_{\text{patches}}\left\{\frac{m_{\delta \text{patch}}}{A_{\text{patch}}}\right\}. \tag{2.10}\]
+
+Here, \(p_{\text{T,patch}}\) and \(m_{\delta\text{patch}}\) are the transverse momentum and mass of each patch, respectively, and \(A_{\text{patch}}\) is the area of the patch in \(y-\phi\) plane.
+
+Further, it is necessary to include a set of very low momentum particles, so called "ghost particles", that cover the \(y-\phi\) plane with high density. Each of them covers a certain area \(A_{g}\). The 4-momentum of the ghost particle could be expressed as
+
+\[p^{\mu}=[p_{\text{T}}^{g}\cos\phi,p_{\text{T}}^{g}\sin\phi,(p_{\text{T}}^{g}+ m_{\delta}^{g})\sinh y,(p_{\text{T}}^{g}+m_{\delta})^{g}\cosh y], \tag{2.11}\]
+
+where \(m_{\delta}^{g}=\sqrt{m^{2}+p_{\text{T}}^{2}}-p_{\text{T}}\) and \(p_{\text{T}}^{g}\) is the transverse momentum of the ghost particle. After the ghost particles are added to the event, the jet algorithm runs over all particles and ghosts. The same jets as in case without the ghost particles are produced. That means that the jets now can be corrected for the pile-up. In order to do so let us identify the transverse momentum and mass of the ghost particle with the amount of pile-up within are \(A_{g}\) as
+
+\[p_{\text{T}}^{g}=A_{g}\cdot\rho, \tag{2.12}\] \[m_{\delta}^{g}=A_{g}\cdot\rho_{m}. \tag{2.13}\]
+
+Then, the specified amount of transverse momentum and mass is subtracted from each jet constituent using the matching scheme based on the distance between the particle \(i\) and the ghost \(k\), \(\Delta R_{i,k}\). This distance satisfy the following definition
+
+\[\Delta R_{i,k}=p_{\text{T},i}^{\alpha}\cdot\sqrt{(y_{i}-y_{k}^{g})^{2}+(\phi _{i}-\phi_{k}^{g})^{2}}, \tag{2.14}\]
+
+where \(\alpha\) could be any real number. If one wants to subtract the lower \(p_{\text{T}}\) constituents, \(\alpha\) should be set to 0. The list of the distances is then sorted in the ascending order and the pile-up subtraction starts from the particle-ghost pair, which has the lowest \(\Delta R_{i,k}\).
+
+1. Correct the transverse momentum and mass of the particle and ghost as 
+ until the end of the list or the threshold, \(\Delta R^{\text{max}}\) is reached.
+
+2. Discard the particles with the zero momentum. If no particle are left, the jet originates from pile-up.
+3. Recalculate the 4-momentum of the jet.
+
+The presence of the threshold in the algorithm guarantees the usage of only ghosts neighbouring the given particle to correct the kinematics of that particle. As the procedure described above corrects the 4-momentum of a jet by constituent, it also corrects the substructure of a jet. This method corrects the jets only at the detector level. In order to eliminate the detector effects, the unfolding techniques are used.
+
+### 2.6 Unfolding techniques
+
+In particle physics it is desired to have "true" distributions, i.e the distributions that could be observed under the ideal conditions. However, such distributions are never observed in real life. That is why, the "observed" distribution is considered as a "noise distortion" of a "true" one. One of the goals of the experimental physics is to perform a separation of the true distribution from the observed spectrum. For this aim different techniques are used. In this thesis only two methods, Bayesian and SVD unfolding, will be described. These techniques are planned to be used in future analysis [43], [44], [45].
+
+#### Bayesian unfolding
+
+Bayesian unfolding (or deconvolution) [43], [44] is based on the Bayes' theorem which allows to calculate the reverse probability form the known probability. Let us have several independent causes (\(C_{i},i=1,2,...,n_{C}\)) which can produce one effect (\(E\)). If the initial probability of the causes, \(P(C_{i})\), and the conditional probability of the \(i\)th cause to produce the effect \(P(E|C_{i})\) are known, then the Bayes formula can be defined as
+
+\[P(C_{i}|E)=\frac{P(E|C_{i})\cdot P_{0}(C_{i})}{\sum\limits_{l=1}^{n_{C}}P(E|C_ {l})P_{0}(C_{l})}. \tag{2.15}\]
+
+The initial probability \(P_{0}(C_{i})\) is called _prior_ and the left side of the Equation (2.15) is called _posterior_. The probability \(P(E|C_{i})\) is given by the response matrix, \(\mathbb{R}[p_{\mathrm{T}}^{\mathrm{true}}(i),p_{\mathrm{T}}^{\mathrm{meas}}(j)]\) = R\({}_{ij}\), which satisfies the following condition: \(\mathbb{R}C=E\).
+
+Let us now denote contents of the bin \(E_{j}\) and \(C_{i}\) as \(n(E_{j})\) and \(n(C_{i})\), respectively. Then, the best estimate is
+
+\[\widehat{n}(C_{i})=\sum\limits_{j=1}^{n_{C}}n(E_{j})P(C_{i}|E_{j}). \tag{2.16}\]
+
+Now, it is possible to estimate the true total number of the events, \(\widehat{N}_{\mathrm{true}}\), and the final probability of the causes, \(P(C_{i})\) as
+
+\[\widehat{N}_{\mathrm{true}}=\sum\limits_{i=1}^{n_{C}}\widehat{n}(C_{i}), \tag{2.17}\]
+
+\[\widehat{P}(C_{i})\equiv P(C_{i}|n(E))=\frac{\widehat{n}(C_{i})}{\widehat{N}_ {\mathrm{true}}}. \tag{2.18}\]In case the prior is not consistent with the data, there will be no agreement with the final distribution \(\widehat{P}(C_{i})\). It is obvious that the smaller is the difference between the initial and the true distributions, the better the agreement is. The Bayesian unfolding can be described as follows:
+
+1. Choose the prior distribution \(P_{0}(C)\) from the best knowledge of the process that is studied. In case there is no information about the true distribution, then \(P_{0}(C_{i})\) is just a uniform distribution: \(P_{0}(C_{i})=1/n_{C}\).
+2. Calculate the unfolded distribution, \(\widehat{n}(C)\), and \(\widehat{P}_{C}\).
+3. Perform a \(\chi^{2}\) comparison between \(\widehat{n}(C)\) and \(n_{0}(C)\).
+4. Replace \(P_{0}(C)\) with \(\widehat{P}_{C}\) and \(n_{0}(C)\) with \(\widehat{n}(C)\).
+5. Start the process again. In case the value of the \(\chi^{2}\) after the second iteration is small, stop the process. Otherwise, go to step 2.
+
+#### Singular Value Decomposition
+
+A Singular Value Decomposition (SVD) [45] states that the response matrix \(\mathbb{R}\) (real matrix \(m\times n\)) is its factorization of the form
+
+\[\mathbb{R}=\mathbb{U}\mathbb{S}\mathbb{V}^{\mathrm{T}}, \tag{2.19}\]
+
+where \(\mathbb{U}\) and \(\mathbb{V}\) are the orthogonal square matrices of \(m\times m\) and \(n\times n\), respectively, and \(\mathbb{S}\) is an \(m\times n\) matrix with non-negative elements on the diagonal [45]. Therefore the following relations are true:
+
+\[\mathbb{U}\mathbb{U}^{\mathrm{T}}=\mathbb{U}^{\mathrm{T}}\mathbb{ U}=\mathbb{I}, \tag{2.20}\] \[\mathbb{V}\mathbb{V}^{\mathrm{T}}=\mathbb{V}^{\mathrm{T}}\mathbb{ V}=\mathbb{I},\] (2.21) \[S_{ij}=0\text{ for }i\neq j,\quad S_{ij}\equiv s_{i}\geq 0. \tag{2.22}\]
+
+It was mentioned before, that the response matrix satisfies the following expression: \(R_{ij}C_{j}=E_{i}\). Using the Equation 2.19 one can get
+
+\[\mathbb{U}\mathbb{S}\mathbb{V}^{\mathrm{T}}\overrightarrow{C}=\overrightarrow {E}. \tag{2.23}\]
+
+After the multiplication of this equation by \(\mathbb{U}^{\mathrm{T}}\) from the right side one can obtain
+
+\[\mathbb{S}\mathbb{V}^{\mathrm{T}}\overrightarrow{C}=\mathbb{U}^{\mathrm{T}} \overrightarrow{E}. \tag{2.24}\]
+
+It is now possible to diagonalize this linear system by rotating the vectors \(d\) and \(z\):
+
+\[\begin{array}{l}d\equiv\mathbb{U}^{\mathrm{T}}\overrightarrow{E},\\ z\equiv\mathbb{V}^{\mathrm{T}}\overrightarrow{C}\end{array}\quad\Rightarrow \quad s_{i}\cdot z_{i}=d_{i}\quad\Rightarrow\quad z_{i}=\frac{d_{i}}{s_{i}}. \tag{2.25}\]
+
+It is very important to determine the \(z_{i}\) correctly. Sometimes this process can fail due to several problems. First, when \(s_{i}\) is close to zero, then it leads to the increase of the errors on \(d_{i}\). Secondly, if \(E\) has large errors, then \(d_{i}\) is significant and hence the large error-bars can appear.
+
+[MISSING_PAGE_EMPTY:48]
+
+## Chapter 3 RHIC and STAR
+
+### 3.1 Rhic
+
+The **R**elativistic **H**eavy **I**on **C**ollider (RHIC) is situated at Brookhaven National Laboratory. It is a "chain" of different particle accelerators as can be seen from Figure 3.1.
+
+Heavy-ions start the movement from the Electron Beam Ion Source accelerator (1), which is a compact source and heavy-ion accelerator. It serves as the start of the pre-injector system for RHIC and can create highly charged ion beams from almost any element. The ion beams are later accelerated in two small Linacs (2) and then carried to the circular Booster synchrotron (3). The Booster provides the ions with more energy. Ions move forward with higher and higher speed and then enter the Alternating Gradient Synchrotron (AGS) (4) at an approximately 37% speed of light. After the acceleration in the AGS the beam travels through
+
+Figure 3.1: RHIC complex. 1 - Electron Beam Ion Source (EBIS), 2 - Linear Accelerator (Linac), 3 - Booster Synchrotron, 4 - Alternating Gradient Synchrotron, 5 - AGS-to-RHIC Line, 6 - RHIC [1].
+
+the AGS-to-RHIC Line (5) at 99.7% of the speed of light. At the end of this line a switching magnet sends the ion bunches down to one of the two beam lines, such that the bunches are directed right to the counter-clockwise RHIC direction and left to the clockwise RHIC direction, respectively. These beams are accelerated, as in the Booster Synchrotron or AGS, and then circulate in RHIC where they would collide in six interaction points. At four of the six interaction points a detector is/was located. There are PHOBOS (10 o'clock interaction point), BRAHMS (2 o'clock interaction point), STAR (6 o'clock interaction point) and PHENIX/sPHENIX, that will be at the 8 o'clock interaction point. The first two experiments finished the data collection 11 years ago. Super PHENIX (sPHENIX) will be a new experiment that is proposed to replace the PHENIX experiment that completed its last measurements in 2016.
+
+### 3.2 Star
+
+The **S**olenoidal **T**racker **at RHIC (STAR) is an experiment that studies the formation and characteristics of QGP and also origin of the spin of the proton. It is designed to detect particles that arise as a result of the interaction of ultrarelativistic heavy-ions or protons. The STAR detector system is shown in Figure 3.2. In central Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV more than 1000 particles are formed. Much more particles appear due to the decay of the short-lived particles and the interaction of primary particles with the detector material. In order to identify each of these particles and to determine the trajectories, different types of calorimeters, detectors and counters are used.
+
+The **T**ime **P**rojection **C**hamber (TPC) is the main part of the system to measure charged particle tracks after collisions. The **B**arrel and **E**ndcap **E**lectro-**M**agnetic **C**alorimeters (BEMC and EEMC) allow to measure hadronic and photonic energy deposition in the calorimeter towers. The **B**eam-**B**eam **C**ounter (BBC), **V**ertex
+
+Figure 3.2: A 3D model of the STAR detector system [16].
+
+**P**osition **D**etector (VPD) and **Z**ero-**D**egree **C**alorimeter (ZDC) are used to monitor collision luminosity and beam polarimetry. The **T**ime **O**f** Flight detector (TOF) of STAR is designed for improvement of direct identification of hadrons. The **H**eavy **F**lavor **T**racker reconstructs open heavy flavor hadrons with displaced decay vertices enhancing thereby many open heavy flavor measurements.
+
+#### Time Projection Chamber
+
+The TPC is the central part of the STAR detector system. It is a cylindrical detector with 4 m in diameter and 4.2 m in length built around the beam-line. The detector is filled with gas in a well-defined, uniform, electric field of \(\approx 135\) V/cm. Electrically charged particles, that were produced in high-\(\sqrt{s}\) heavy-ion collisions, are deflected by the STAR magnet in a helical motion.
+
+The TPC acceptance coverage is \(2\pi\) in azimuthal angle \(\phi\) and \(-1<\eta<+1\) in pseudorapidity. The TPC has been recently upgraded with inner TPC (iTPC) having \(-1.3<\eta<+1.3\), which has started taking data in 2019. The upgrade provides better momentum resolution and improved acceptance at high pseudorapidity to \(|\eta|<1.7\). The layout of the STAR TPC is shown in Figure 3.3. It consists of a central membrane, an inner and outer field cage and two end-cap planes. The empty space between the central membrane and two end-caps is filled with P10 gas, which is 10% methane and 90% argon regulated at 2 mbar above atmospheric pressure. After the passage of the charged particles through the gas, the ionized secondary electrons drift toward the two end-caps in the uniform electric field which is provided by the two end-caps and the central membrane. The drifting electrons are then collected by the end-caps.
+
+The TPC is able to record these tracks, measure their momenta and identify
+
+Figure 3.3: The layout of the STAR Time Projection Chamber [17].
+
+particles by their ionization energy loss (\(dE/dx\)), which is calculated using the Bethe-Bloch formula [46]
+
+\[-\frac{dE}{dx}=4\pi N_{A}r_{e}^{2}m_{e}c^{2}z^{2}\frac{Z}{A\beta^{2}}\left(\frac{ 1}{2}\ln\frac{2m_{e}c^{2}\beta^{2}\gamma^{2}T_{max}}{I^{2}}\right)-\beta^{2}- \frac{\delta}{2}-2\frac{C}{Z}. \tag{3.1}\]
+
+Here, \(N_{A}\) is the Avogadro number, \(r_{e}\) is classical electron radius, \(m_{e}\) is the mass of the particle that losses energy, \(z\) is the charge of the incoming particle, \(\rho\) is material density, \(T_{max}\) is maximum energy transfer in a single collision, \(I\) is the mean excitation energy, \(Z\) and \(A\) are the proton number and relative atomic mass, respectively, \(\delta\) and \(C\) are the density and shell corrections. Figure 3.4 shows the track energy loss measured by the TPC in 200 GeV Au+Au collisions for different particle species associated to the observed bands.
+
+#### Barrel Electro-Magnetic Calorimeter
+
+The Barrel Electro-Magnetic Calorimeter (BEMC) is a fast lead-scintillator, sampling electromagnetic calorimeter. It surrounds the Central Trigger Barrel and the TPC. The BEMC allows STAR the triggering and studying of the high-\(p_{\rm T}\) processes, e.g. jets, heavy quarks, due to its acceptance that is equal to that of the TPC for full length tracks (Figure 3.5). The coverage region of the calorimeter is \(-1<\eta<1\) in pseudorapidity and \(2\pi\) in azimuth angle. The calorimeter is divided into 120 segments in \(\phi\) and 40 segments in \(\eta\). That means there are 4800 calorimetric towers in total, each tower having its individual readout. Resolution of the BEMC is 0.05 \(\times\) 0.05 (\(\Delta\times\Delta\eta\)).
+
+Figure 3.4: The ionization energy loss measured in 200 GeV Au+Au collisions at RHIC [18].
+
+[MISSING_PAGE_EMPTY:53]
+
+The neutral energy in the form of produced photons can be measured by detecting the particle cascade when those photons interact with the calorimeter. The calorimeter stack is stable in any orientation due to the friction between individual layers.
+
+In order to get precise measurements for \(\pi^{0}\)'s and direct photons the shower maximum detectors are implemented in the BEMC situating approximately 5 radiation lengths from the front of the stack. That provides the high the spatial resolution measurements of shower distributions in two mutually orthogonal transverse dimensions.
+
+An end view of a module showing the mounting system and the compression components is shown in Figure 3.6.
+
+#### Endcap Electro-Magnetic Calorimeter
+
+The Endcap Electro-Magnetic Calorimeter (EEMC) is a lead-scintillator sampling electromagnetic calorimeter that covers the west endcap of the Time Projection Chamber as it is depicted in Figure 3.7. There are 720 individual towers grouped together to provide coverage for pseudorapidity values \(1<\eta\leq 2\) and full azimuth range. The EEMC significantly enhances STAR's sensitivity to the flavor dependence of sea antiquark polarizations via \(W^{\pm}\) production in polarized p+p collisions.
+
+#### Beam-Beam Counter
+
+The Beam-Beam Counter (BBC) is a set of scintillator rings installed around the RHIC beam pipe on the east and west pole tips of the STAR magnet. The schematic view of its positions is depicted in Figure 3.8.
+
+Each BBC counter consists of two rings of hexagonal scintillator tiles. An outer ring is composed of large tiles and an inner ring is composed of small tiles. Each of these annuli is internally divided into two separate subrings of 6 and 12 tiles each [16]. The hexagonal tile annuli for BBC is depicted in Figure 3.9.
+
+Figure 3.7: Endcap Electro-Magnetic Calorimeter [16].
+
+#### Vertex Position Detector
+
+The Vertex Position Detector (VPD) consists of two detectors, one of which located on the east and another on the west side of the STAR. The VPD provides the primary detector input to STAR minimum bias trigger in heavy-ion collisions. Both VPD contains nineteen detectors, a schematic side view of which is shown in Figure 3.10. Approximately half of the solid angle in the pseudorapidity range of \(4.24\leq\eta\leq 5.1\) is subtended by all of the nineteen detectors in each assembly. There are up to nineteen times measured by the VPD in each event. These times are then used for the calculation of the primary vertex along the beam pipe position \(z_{vtx}\) via
+
+\[Z_{vtx}=c(T_{east}-T_{west})/2, \tag{3.2}\]
+
+where \(c\) is the speed of light, \(T_{east}\) and \(T_{west}\) are the times from each of the two VPDs. The times measured by the Vertex Position Detector are also needed for the start time \(T_{start}\) calculation as
+
+\[T_{start}=(T_{east}+T_{west})/2-L/c, \tag{3.3}\]
+
+where \(L\) is the distance between the center of STAR and each VPD. The start time is lately used by the TOF to perform particle identification at mid-rapidity.
+
+#### Zero-Degree Calorimeter
+
+The Zero-Degree Calorimeter (ZDC) is a small transverse area hadron calorimeter located downstream of the DX dipole magnets in STAR. This detector measures
+
+Figure 3.9: A schematic view of the Beam-Beam Counter [16].
+
+Figure 3.8: The schematic view of the BBC position. The blue and yellow arrows represent the differently polarized proton beams.
+
+[MISSING_PAGE_EMPTY:56]
+
+number of spectator neutrons is then used as a minimum bias trigger.
+
+#### Time Of Flight
+
+The Time Of Flight (TOF) detector, depicted in Figure 3.12, measures time intervals with a specific precision. While the VPD measures the "start time" of the particle, the TOF measures the so-called stop time of the particle. The difference, \(\Delta t\), between these times is the time of flight of the particle. Using the data from the TPC the inverse velocity \(1/\beta\) for each track and the particle mass \(M\) can be calculated as
+
+\[\frac{1}{\beta}=c\frac{\Delta t}{s}, \tag{3.4}\]
+
+\[M=p\sqrt{\frac{1}{\beta^{2}}-1}, \tag{3.5}\]
+
+where \(s\) is the total path length, \(p\) is the momentum and \(c\) is the speed of light.
+
+The momentum dependence of the particle mass resolution for a 100 ps time resolution for pions, kaons, deuterons and protons is shown in Figure 3.13. The upper line in the pair shows the dependence of \(M+\Delta M\) versus the momentum. The \(M-\Delta M\) dependence on the momentum is demonstrated by the lower line. An example of particle identification with the TOF from Au+Au collisions at the top RHIC energy is shown in Figure 3.14. It can also be seen from this figure that with the increasing momentum pions are the first particles leading to a significant background in the proton identification and the first background to deuteron identification.
+
+The TOF system can provide direct \(K\), \(p\) or \(\pi\) identification up to momenta \(p~{}\sim~{}1.7\) GeV/\(c\), proton identification up to \(p\sim 2.6\) GeV/\(c\), deuteron identification out to \(p\sim 4\) GeV/\(c\)[21].
+
+Figure 3.12: The TOF system [16].
+
+#### Heavy Flavor Tracker
+
+The Heavy Flavor Tracker (HFT) which is depicted in Figure 3.15 is a new tracker of STAR installed in 2014 and removed in 2016 after reaching very successfully its goals. The HFT enables precision tracking measurements of heavy quarks at low momentum where the particle production is most sensitive to the bulk medium
+
+Figure 3.14: TOF particle identification from \(1/\beta\) measured in 200 GeV Au+Au collisions at RHIC [18].
+
+Figure 3.13: The momentum dependence of the particle mass resolution for a 100 ps time resolution for pions, kaons, protons and deuterons [21].
+
+created in heavy-ion collisions. The HFT allows to distinguish the decay vertices of heavy flavor particles from primary vertices and significantly reduces combinational background, which yields cleaner measurements with a higher level of significance.
+
+There are three detectors that compose the Heavy Flavor Tracker: a silicon pixel detector (PXL), a double-sided Silicon Strip detector (SSD) and an Intermediate Silicon Tracker (IST). The HFT structure is shown in Figure 3.16. Since the minimal radius of the HFT is only 2.5 cm, it tightly surrounds the beam pipe. The SPD and the IST lie inside the radial location of the SSD. The Intermediate Silicon Tracker is a single-sided double-metal silicon pad detector that matches the high resolution of the PXL with the high resolution of the Time Projection Chamber and the SSD. The IST is composed of two layers. The inner layer lies at a radius of 12 cm and consists of 19 ladders of 40 cm length [48]. The outer layer lies at a radius of 17 cm and consists of 27 ladders of 52 cm length. The strips on the inner layer are oriented to give the best resolution in the \(r-\phi\) direction, while the strips of outer layer are oriented to give the best resolution in the \(z\) direction.
+
+The HFT Pixel Detector is the first operational vertex detector based on Monolithic Active Pixel Sensors (MAPS) or also called CMOS Pixel Sensors (CPS). It is a low mass detector located closest to the beam pipe. For this reason, the Pixel Detector achieves the maximum resolution. As the IST, the PXL is also composed of two layers. The inner layer is located at a radius of 2.5 on average radius and has 9 ladders. The outer one is located at a 7 cm radius and consists of 24 ladders.
+
+Figure 3.15: A schematic view of the Heavy Flavor Tracker inside the STAR detector [16].
+
+[MISSING_PAGE_EMPTY:60]
+
+## Chapter 4 Contribution to the Forward Calorimeter System Upgrade
+
+### 4.1 Forward Calorimeter System
+
+During my one-month stay at BNL, I was participating in the Forward Calorimeter System Upgrade. During this period I have helped in different projects. Their aims as well as the results of my work will be described in more detail below.
+
+In order to explore QCD physics in the high and low region of Bjorken \(x\), the STAR Forward Calorimeter System (FCS) upgrade is planned. In Figure 4.1 a
+
+Figure 4.1: A three-dimensional CAD model of the FCS in the STAR detector model [22].
+
+scheme of the FCS is shown. The FCS will consist of a Spaghetti Electromagnetic Calorimeter (SPACal), followed by a lead and scintillator plate sampling Hadronic Calorimeter (HCal). For the Electromagnetic Calorimeter (ECal) it was decided to take the calorimeter from the PHENIX experiment after the end of the data taking in 2016 as it has the required energy resolution and therefore constitutes a very cost-effective solution. The refurbished read-out system will be placed in the front in order to minimize the dead gaps between the ECal and the HCal.
+
+### 4.2 HCal scintillating tiles
+
+The new hadronic calorimeter will have 18720 scintillating tiles. The tiles should be polished and painted before they will be installed in the HCal. These procedures are done by different universities. The size of each tile is 95\(\times\)97 mm\(\times\)mm. The longer side was polished, while the short one was painted. Previous team of three people had spent 35 hours to polish and paint 600 tiles. As the painting have been done separately for each tile, it was decided to change the technique by using clamps. That had reduced the time of the machining, so it took approximately 25 hours to polish and paint the batch of 600 tiles by two people.
+
+In order to distinguish the long side from the short one, all the tiles have been marked. The polypad is placed on the rotating table of the polisher, which is set to spin at moderate speed. Then it is wet with water dripping at a very slow rate from the tap situated at the back side of the polisher. Afterwards, a small amount of the fine scratch remover is placed in the center of the polypad. As it is hard to keep one tile perpendicular to the surface of the polisher, it was decided to use a stack of 6 or 7 tiles to have a better feeling when the tiles tilt. All the equipment used for the polishing procedure is shown in Figure 4.2.
+
+After the polishing the surface and edges of each tile are wiped and the stack is visually inspected to ensure that polishing is complete. A significant difference
+
+Figure 4.2: The polisher: CrystalMaster Pro 12 Lap Grinder Kit (left) and the NOVUS fine scratch remover (right).
+
+between the tiles before and after the polishing procedure can be seen in Figure 4.3.
+
+After all the tiles have been polished and wiped, the painting process could start. In order to make the painting faster it was decided to use clamps to keep together a stack of 20 tiles. Two coats of paint were required and the second coat was applied the next day after the first coat. For the painting bicron BC-620 was used. The painting procedure is shown in Figure 4.4. After all the stacks have dried, it was possible to separate the tiles. Each tile was then checked whether the paint is chipped.
+
+### 4.3 Calibration data for SiPMs in ECal
+
+The goal was to check the characteristics of the Silicon Photomultipliers (SiPMs) provided by Hamamatsu and to decide which SiPMs should be ordered. The SiPMs provided by Hamamatsu have a \(\pm\)20 mV variation of the operating voltage, V\({}_{op}\), within a tray. The packing quantity was a multiple of 4 per tray. In the Table 4.1 the parameters from the Hamamatsu datasheet can be found. As it can be seen from the second column, the variation of operating voltage is \(\pm\)100 mV for the
+
+Figure 4.4: The painting of the tiles.
+
+Figure 4.3: The tiles before (left) and after (right) the polishing.
+
+whole sample. For the calibration the data taken at UCLA for pre-production batch of SiPMs was used. The SiPM boards that were used for taking data can be seen in Figure 4.5. These boards have been glued for the first four rows of towers in the recently stacked EMcal.
+
+Figure 4.6 shows the dependence of current on the bias voltage for all SiPM boards. The given current is shown with a green line. The corresponding range for the bias voltage is shown with red lines. It can be seen, that all of them have linear dependence (except the one board only). For the given current (159 \(\mu\)A) the bias voltage is 39.82 V \(\pm\) 100 mV, that is roughly consistent with data provided by Hamamatsu.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline
+**Type No.** & S14160-9401 & \\ \hline
+**Shipping date** & 31.07.2019 & \\ \hline
+**T[\({}^{\circ}\)C]** & 25 & \\ \hline
+**Tray No.** & \(V_{op}\)**Range, [V]** & **Quantity, [pcs]** \\ \hline
+1 & 41.73 - 41.76 & 68 \\ \hline
+2 & 41.77 - 41.80 & 156 \\ \hline
+3 & 41.77 - 41.80 & 20 \\ \hline
+4 & 41.81 - 41.84 & 156 \\ \hline
+5 & 41.81 - 41.84 & 52 \\ \hline
+6 & 41.85 - 41.88 & 156 \\ \hline
+7 & 41.85 - 41.88 & 136 \\ \hline
+8 & 41.89 - 41.92 & 156 \\ \hline
+9 & 41.89 - 41.92 & 100 \\ \hline \end{tabular}
+\end{table}
+Table 4.1: The parameters provided by Hamamatsu.
+
+Figure 4.5: The SiPM boards used for data taking.
+
+The average dependence of response vs bias voltage for all boards is shown in Figure 4.7 (left plot). It can be seen that for \(\pm 20\) mV variation of bias the current varies approximately within 2% range, for \(\pm 50\) mV variation the change is within 5%. It can be also seen from the histogram (to the right) that the calibration of boards at UCLA is roughly consistent with the factory data, i.e. bias voltage for same response varies in \(\pm 100\) mV (as it was shown in the Table 4.1). For the future calorimeter system it was decided to order SiPMs with the variation of \(\pm 20\) mV.
+
+Figure 4.6: The dependence of current on the bias voltage for all SiPM boards.
+
+Figure 4.7: The dependence of average response on the bias voltage (left). The bias voltage distribution at 159 \(\mu\)A (right).
+
+### 4.4 Optimal operating voltage for SiPMs in FCS
+
+Another task was to analyze the data from the cosmic muon setup in order to get the optimal operating voltage for the SiPMs that will be used in FCS. Optimal means having a good signal to noise ratio for a preshower detector after it was irradiated in STAR in Run 17.
+
+As a basis of the cosmic muon setup a preshower detector was used. Figure 4.8 shows the top and the side views of the setup. The preshower detector contains 9 glued scintillator slats, having a size \(5\times 85\) cm\(\times\)cm each, with a Front End Electronics (FEE) board on the end of each slat. Also the trigger counters, which size is 10\(\times\)10 cm\(\times\)cm, were used. One of the trigger counters was placed directly on the preshower detector, the other one was situated under the detector, as it is shown in Figure 4.8 (left). The distance between these trigger counters is 25.5 cm. After a particle went through the top and the bottom counters, the data was taken during 80 ns.
+
+As the width of the trigger counters is 10 cm and the width of the each slat is 5 cm, the data from 2 channels only was analyzed. An example of the fit of the data that was taken by the Channel 4 and Channel 5 for different voltages is shown in Figures 4.9 and Figure 4.10. For the fit the sum of the Gaussian and convolution of Gaussian and Landau functions was used. The fit parameters were taken from the Gaussian fit of the pedestal peak and the convolution of Gaussian and Landau functions for the minimum ionizing particle1 (MIP) peak. The sigma for the Gaussian in the convolution was fixed. It can be seen, that the fits for high and low voltage are reasonable.
+
+Footnote 1: A minimum ionizing particle (MIP) is a particle whose mean energy loss rates close to the minimum.
+
+However, one can notice that the Channel 4 has a better resolution in comparison to the Channel 5. This could be due to the electronics. Also it is assumed that the Channel 5 has an offset, for this reason, only half of the charge is integrated. The
+
+Figure 4.8: Top (left) and side (right) schematic views of the cosmic muon setup for finding the optimal operating voltage for SiPMs in FCS.
+
+problem of the poor resolution of the Channel 5 is still under investigation.
+
+For simplicity, in the measurements the Signal to Noise ratio is defined as a ratio between the position difference of the most probable value (MPV) for the Landau peak and pedestal peak (\(\Delta\)) to the width of the pedestal (\(\sigma\)). In Figure 4.11 two plots showing the dependence of \(\Delta\) and \(\sigma\) for both channels can be observed. One can notice that after 68 V the values of \(\Delta\) and \(\sigma\) remain almost constant as the current is being saturated at this voltage due to the design of FEE boards. It can be seen from Figure 4.12 that the optimal operating voltage should be in the interval from 66.5 V to 67.1 V.
+
+Figure 4.10: An example of data fit for high (70.65 V) voltage for the Channel 4 and the Channel 5.
+
+Figure 4.9: An example of data fit for low (66.32 V) voltage for the Channel 4 and the Channel 5.
+
+Figure 4.11: The dependence of \(\Delta\) (left), \(\sigma\) (right) on voltage for Channel 4 and Channel 5.
+
+Figure 4.12: The dependence of \(\Delta/\sigma\) on voltage for Channel 4 and Channel 5.
+
+## Chapter 5 Data analysis
+
+### 5.1 Jet shapes
+
+In order to probe the complimentary aspects of the jet fragmentation and constrain different aspects of the theoretical description of jet-medium interactions, different observables related to the shapes of jets are studied. In this thesis the attention will be paid to the two jet shape observables, angularity and momentum dispersion.
+
+The _radial moment_ (alternatively _angularity_ or _girth_), \(g\), probes the radial distribution of radiation inside a jet. It is defined as
+
+\[g=\sum_{i\in jet}\frac{p_{\rm T}^{\rm i}}{p_{\rm T,jet}}|\Delta R_{\rm i,jet}|, \tag{5.1}\]
+
+where \(p_{\rm T}^{\rm i}\) represents the momentum of the \(i\)th constituent and \(\Delta R_{\rm i,jet}\) is the distance in \(\eta\times\phi\) plane between the constituent \(i\) and the jet axis [49]. \(\eta\) stands for the pseudorapidity (see Appendix A) and \(\phi\) is the azimuthal angle. This type of shape is sensitive to the radial energy profile or broadening of the jet. In the collinear limit for the polar angle (see Appendix A) \(\theta\to 0\) the radial moment becomes equivalent to jet broadening.
+
+The next observable discussed in this thesis is the _momentum dispersion_, \(p_{T}D\), given by the equation:
+
+\[p_{T}D=\frac{\sqrt{\sum_{i\in jet}p_{\rm T,i}^{2}}}{\sum_{i\in jet}p_{\rm T, i}}. \tag{5.2}\]
+
+This observable measures the second moment of the constituent \(p_{\rm T}\) distribution in the jet and is connected to hardness or softness of the jet fragmentation. In case of a large number of constituents and softer momentum the \(p_{\rm T}D\) tends to 0, while in the opposite situation, i.e. the small number of constituents carrying the large fraction of momentum, the \(p_{\rm T}D\) will be close to 1.
+
+The girth and the momentum dispersion are related to the moments of the so-disant generalized angularities defined as: \(\lambda_{\beta}^{\kappa}=\sum_{i}(\frac{p_{\rm T,i}}{p_{\rm T,jet}})^{\kappa} (\frac{\Delta R_{\rm jet,i}}{R})^{\beta}\)[50]. For the number of jet constituents \((\kappa,\beta)\) equals to \((0,0)\), the radial moment \(g\) corresponds to \((1,1)\) and for the square of the momentum dispersion \(p_{T}D\)\((\kappa,\beta)=(2,0)\). Only for \(\kappa=1\), the shapes are infrared and collinear (IRC) safe.
+
+An example of the measured jet shape distributions for small jets in 0-10% central Pb-Pb collisions at \(\sqrt{s_{\rm NN}}=2.76\) TeV for anti-\(k_{T}\) charged jets at ALICEcompared to JEWEL1 simulation with and without recoils is shown in Figure 5.1. The recoils of the medium represent the response of the medium to the jet. One can notice a better agreement between the data and JEWEL when the recoils option is switched off. The background subtraction was performed using different methods, including the area-based method (the ghost area A\({}_{g}\) = 0.005 [23]). As the resolution parameter is small, \(R\) = 0.2, the effects of medium recoils are also small. That means that the measurement is constrained by purely radiative aspects of the JEWEL shower modification. A good agreement between the data and the model, especially in momentum dispersion can be observed. The left plot shows that the radial moment is shifted to the lower values, while the momentum dispersion distribution (the right plot) is shifted to the larger values. That means, the transverse momentum of the jet is not carried only by the hardest constituent.
+
+Footnote 1: Jet **E**volution **W**ith **E**nergy **L**oss (JEWEL) a Monte Carlo event generator describing the QCD evolution of jets in vacuum and in a medium in a perturbative approach [51], [52], [53].
+
+### 5.2 Dataset
+
+For the jet reconstruction the Run14 data from Au+Au collisions at the center of mass energy of 200 GeV per nucleon-nucleon pair in the STAR experiment was used. During the analysis the data from VPD minimum-bias trigger2 (MB) was used with the following trigger IDs: 450050, 450060, 450005, 450015, 450025. The analysis was performed on the PicoDst files, which are created during the pre-analysis of the measured data from the MuDst files. These files contain the most important information about the collision such as the vertex position, centrality of the collision, particle tracks and then momenta and other properties of the particles. In this analysis around 200 million events were reconstructed.
+
+Figure 5.1: Jet shape distributions in 0–10% central Pb–Pb collisions at \(\sqrt{s_{\rm NN}}\) = 2.76 TeV for \(R\) = 0.2 in range of jet \(p_{\rm T,jet}^{\rm ch}\) of 40–60 GeV/\(c\) compared to JEWEL with and without recoils with different subtraction methods. The colored boxes represent the experimental uncertainty on the jet shapes [23].
+
+In order to choose only those events or particle tracks that are suitable for the analysis, different cuts are applied before the jet reconstruction. In this analysis the following event selection and particle tracks were used:
+
+* The position of the primary vertex \(|z_{vertex}|<30\) cm from the center of the collision along the beam axis "\(z\)".
+* Pseudorapidity range of tracks: \(-1.0<\eta<1.0\)
+* Number of points used for the track fit is \(>\) 14.
+* Number of fit points to maximum number of all possible fit points ratio \(>0.52\).
+* The track momenta are in \(p_{\rm T}^{track}\) range: 0.2 GeV/\(c\)\(<\)\(p_{\rm T}^{track}\)\(<\) 30 GeV/\(c\), in order to exclude the low momentum particles, which cannot provide enough reconstruction points, and high momentum particles, which can give the large uncertainties in momentum calculations due to the low bend by the magnetic field.
+* The Distance of Closest Approach (DCA) of the track to the primary vertex is less than 1 cm in order to exclude the tracks originating from the secondary decays.
+
+Figure 5.2 shows the distance distribution \(v_{z}\) of the primary vertex from the center of the collision. As one can see, the distribution is symmetrical. Some of the primary vertices can be found at the distance larger than 30 cm from the center of
+
+Figure 5.2: The distance distribution of the primary vertex from the center of the Au+Au collision at energy \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+
+the detector. These vertices are not included in the analysis as there will not be the same coverage in the pseudorapidity.
+
+In Figure 5.3 the reference multiplicity distribution of the charged particles \(N_{ch}\) in pseudorapidity range \(|\eta|<0.05\) is depicted. If one compares this plot with Figure 1.6, one can see the same shape of the spectrum. Different centrality classes corresponding to 4 intervals in the reference multiplicity can be found in Table 5.1.
+
+### 5.3 Jet analysis
+
+In the analysis only charged jets were reconstructed using the anti-kT jet finding algorithm implemented in the FastJet software package [40]. The term "charged jets" means, that only charged tracks (pions, kaons, protons) were used for the reconstruction. At low transverse momenta the algorithm can reconstruct clusters of the particles, which are not jets from the physical point of view. For this reason
+
+Figure 5.3: Reference multiplicity of charged particles in Au+Au collisions at energy \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline Centrality bin & \(\sigma/\sigma_{geo}\) & \(N_{ch}\) (low) & \(N_{ch}\) (high) \\ \hline
+1 & 0–10\% & \(>\) 364 & – \\ \hline
+2 & 20–40\% & 115 & 257 \\ \hline
+3 & 40–60\% & 40 & 115 \\ \hline
+4 & 60–80\% & 10 & 40 \\ \hline \end{tabular}
+\end{table}
+Table 5.1: Definition of Au+Au centrality classes. \(\sigma/\sigma_{geo}\) is a fraction of geometrical cross-section.
+
+only jets with \(p_{\rm T,jet}^{\rm ch}>\) 10 GeV/\(c\) are used. The analysis was performed in three \(p_{\rm T,jet}^{\rm ch}\) ranges (10-20 GeV/\(c\), 20-30 GeV/\(c\), 30-40 GeV/\(c\)) for two resolution parameters: R = 0.2 and R = 0.4.
+
+Figure 5.4 shows the number of constituents for jets with different transverse momenta and different resolution parameters. With the increase of resolution parameter the jet contains more tracks. For this reason the spectra for R = 0.4 are shifted to the right. In the analysis it was also decided to exclude the jets having only one constituent, which have no physical interest.
+
+One of the problems arising during the jet reconstruction is large and fluctuating background from the underlying event with fluctuations of the magnitude of the signal. There are different methods which can be used for the background subtraction. One of them is the event-by-event correction, recommended by FastJet authors [40]. From the reconstructed jet transverse momentum, \(p_{\rm T,jet}^{\rm raw,ch}\) one needs to subtract the median jet energy density \(\rho\) multiplied by the jet area \(A\) as:
+
+\[p_{\rm T,jet}^{\rm ch}=p_{\rm T,jet}^{\rm raw,ch}-\rho\cdot A. \tag{5.3}\]
+
+The jet area \(A\) was calculated using the large amount of the extremely _ghost_ particles, which have been randomly added to the event. The median jet energy density is calculated as:
+
+\[\rho={\rm med}\{\frac{p_{\rm T,jet}^{i}}{A_{i}}\} \tag{5.4}\]
+
+for \(i\) running over all jets in the event. For the background calculation the \(k_{T}\) algorithm was used due to a better sensitivity to the soft particles.
+
+Figure 5.5 shows the dependence of the reference multiplicity on the background density for R = 0.2 (left) and R = 0.4 (right). In Figure 5.6 the background energy density distributions for different centrality classes are presented for two resolution
+
+Figure 5.4: Number of constituents in charged jets with R = 0.2 (upper row) and R = 0.4 (bottom row) for different \(p_{\rm T,jet}^{ch}\) ranges.
+
+parameters. It can be seen for the both Figures that the more central is the collision, the more background is present. Table 5.2 contains the mean and RMS values of the background density distributions from Figure 5.6. It can be clearly seen from the Table as well as from Figure 5.6 that there is almost no dependence of the background on the resolution parameter of the jet, but there is, as anticipated, a strong dependence on collision centrality.
+
+In order to correct every constituent of the jet to the background subtraction the constituent background subtractor described in section 2.5 that is implemented in the FastJet Contribution package was used with the basic settings. The area covered by the ghost was chosen to be \(A_{g}\) = 0.01, the threshold for the distances between the particle and the ghost was set to \(\Delta R^{max}\rightarrow\infty\) and the parameter \(\alpha\) in
+
+Figure 5.6: Background energy density for 4 centrality classes in Au+Au collisions. Left: for jet resolution parameter R = 0.2, right: for jet resolution parameter R = 0.4.
+
+Figure 5.5: Dependence of background density \(\rho\) on the charged particle reference multiplicity (\(|\eta|\) \(<\) 0.5) for the resolution parameters of the jet R = 0.2 (left) and R = 0.4 (right).
+
+the Equation (2.14) was set to 0. As every jet constituent will be corrected to the background, the jet transverse momentum will also change.
+
+In the following section the results for angularity and momentum dispersion will be discussed for both resolution parameters in central 0-10%, mid-central 20-40% and peripheral 40-60% Au+Au collisions. The raw distributions with corrected jet transverse momentum using mentioned in this section Equation (5.3) will be compared to the distributions after the application of the constituent background subtractor. All the jets after the constituent background subtraction were required to have the transverse momentum \(p_{\rm T,jet}^{\rm ch,bkgr.corr}>10\) GeV/\(c\), i.e \(p_{\rm T,jet}^{\rm ch,bkgr.corr}\) equals to \(p_{\rm T,jet}^{\rm ch}\). The spectra for all selections can be found in Appendix C.
+
+### 5.4 Angularity
+
+In this section the results for angularity are presented. The radial moment was calculated using the Equation (5.1).
+
+In Figure 5.7 one can see the results for two observed resolution parameters in \(p_{\rm T,jet}^{\rm ch}\) range: 10 GeV/\(c<\ p_{\rm T,jet}^{\rm ch}\ <20\) GeV/\(c\). As it was seen before, the more central is the collisions the more background is present. For this reason one can notice that the corrected spectra for the central and mid-central collisions are shifted to lower values of the radial moment, while for the peripheral collisions the values remain the same. Also, as the jet with higher resolution parameter contains more tracks, it also means, that it contains more background. Thus, the higher difference between the raw spectra and the spectra after the application of the constituent background subtractor can be observed. The same behaviour can be seen in Figure 5.8 and Figure 5.9, where the distributions for \(p_{\rm T,jet}^{\rm ch}\) range: 20 GeV/\(c<\ p_{\rm T,jet}^{\rm ch}\ <30\) GeV/\(c\) and 30 GeV/\(c<\ p_{\rm T,jet}^{\rm ch}\ <\)40 GeV/\(c\) are shown. However, as there are not so many hard jets, the larger uncertainties can be observed.
+
+If one qualitatively compares the obtained distributions to the results from the ALICE experiment that were shown in Figure 5.1, one can notice that the obtained spectra have the same shape. Also, for the hard jets the peak for the angularity in central collisions for R = 0.2 is around 0.04. That corresponds to the ALICE results. Nevertheless, the final physics conclusions can be made after performing the unfolding procedure to correct for detector inefficiencies and finite momentum resolution.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline  & \multicolumn{2}{c|}{R = 0.2} & \multicolumn{2}{c|}{R = 0.4} \\ \hline Centrality & Mean value & RMS & Mean value & RMS \\ \hline \hline
+0–10\% & 24.8 & 4.03 & 24.8 & 4.03 \\ \hline
+20–40\% & 11.2 & 3.14 & 11.2 & 3.14 \\ \hline
+40–60\% & 4.90 & 1.60 & 4.90 & 1.60 \\ \hline
+60–80\% & 2.73 & 0.72 & 2.73 & 0.72 \\ \hline \end{tabular}
+\end{table}
+Table 5.2: The mean and Root Mean Square (RMS) values of the background density distributions for different centrality classes for R = 0.2 and R = 0.4.
+
+### 5.4 Angularity
+
+Figure 5.7: Angularity for central (upper row), mid-central (middle row) and peripheral (bottom row) Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. Resolution parameters R = 0.2 (left column) and R = 0.4 (right column), \(p_{\rm T,jet}^{\rm ch}\) range: 10 GeV/\(c<\ p_{\rm T,jet}^{\rm ch}\ <\) 20 GeV/\(c\).
+
+[MISSING_PAGE_EMPTY:77]
+
+### 5.4 Angularity
+
+Figure 5.9: Angularity for central (upper row), mid-central (middle row) and peripheral (bottom row) Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. Resolution parameters R = 0.2 (left column) and R = 0.4 (right column), \(p_{\rm T,jet}^{\rm ch}\) range: 30 GeV/\(c<\ p_{\rm T,jet}^{\rm ch}\ <\) 40 GeV/\(c\).
+
+### 5.5 Momentum dispersion
+
+This section contains the distributions of momentum dispersion. The observable was calculated using the Equation (5.2).
+
+In Figure 5.10 the momentum dispersion distributions for central, mid-central and peripheral Au+Au collisions in \(p_{\rm T,jet}^{\rm ch}\) range: 10 GeV/\(c<~{}p_{\rm T,jet}^{\rm ch}~{}<\) 20 GeV/\(c\) are shown. It can be seen, that the shape of the distribution remains almost the same for all centralitities. The peak in the last bin in mid-central and peripheral collisions for R = 0.2 indicates that there are more jets having small number of constituents carrying the large fraction of momentum after the application of the constituent background subtractor. The same peak in the last bin can be observed for jets having the transverse momentum in 20 GeV/\(c<~{}p_{\rm T,jet}^{\rm ch}~{}<\) 30 GeV/\(c\) in all centralities for R = 0.2. Momentum dispersion distributions of the jets with transverse momentum 30 GeV/\(c<~{}p_{\rm T}^{jet}~{}<\) 40 GeV/\(c\) have only one peak around 0.75 and no peak in the last bin, that means that the constituents have approximately the same transverse momentum. Also, as for the radial moment results, one can see the increase of the uncertainties with growing \(p_{\rm T,jet}^{\rm ch}\).
+
+The obtained results for the momentum dispersion in \(p_{\rm T,jet}^{\rm ch}\) range: 30 GeV/\(c<p_{\rm T,jet}^{\rm ch}~{}<\) 40 GeV/\(c\) can be qualitatively compared to the results from the ALICE collaboration. The same shape of the spectra can be observed. However, the maximum value of the momentum dispersion at ALICE is at 0.55, while the obtained distribution for R = 0.2 reaches its maximum at 0.85 for central Au+Au collisions at RHIC energy. That tells about more even distribution of the transverse momenta of constituents in jets from the ALICE experiment. Again, as for the angularity, the final physics conclusions can be made after performing the unfolding procedure to correct for detector inefficiencies and finite momentum resolution.
+
+### 5.5 Momentum Dispersion
+
+Figure 5.10: Momentum dispersion for central (upper row), mid-central (middle row) and peripheral (bottom row) Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Resolution parameters \(R=0.2\) (left column) and \(R=0.4\) (right column), \(p_{\rm T,jet}^{\rm ch}\) range: 10 GeV/\(c<\ p_{\rm T,jet}^{\rm ch}\ <\) 20 GeV/\(c\).
+
+[MISSING_PAGE_EMPTY:81]
+
+### 5.5 Momentum Dispersion
+
+Figure 5.12: Momentum dispersion for central (upper row), mid-central (middle row) and peripheral (bottom row) Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Resolution parameters \(R\) = 0.2 (left column) and \(R\) = 0.4 (right column), \(p_{\rm T}^{jet}\) range: 30 GeV/\(c<\ p_{\rm T}^{jet}\ <\) 40 GeV/\(c\).
+
+## Chapter 6 Summary
+
+This thesis is devoted to study of jet shape observables in Au+Au collisions in the STAR experiment as well as to my service work at Brookhaven National Laboratory.
+
+As a part of the one-month Service work at BNL I had an opportunity to participate in the Forward Calorimeter System (FCS) upgrade. In this period I have helped in different projects for Hadronic and Electromagnetic Calorimeters, that are described in Chapter 4. The 600 tiles have been polished and painted and are now ready for the installation in the HCal. Also, the characteristics of the Silicon Photomultipliers (SiPMs) provided by Hamamatsu have been checked. As a result, it was decided to order the SiPMs with the variation of \(\pm 20\) mV of the operating voltage within a tray. The last task was the data analysis from the cosmic muon setup in order to get the optimal operating voltage for the SiPMs that will be used in FCS. The setup was built using the preshower detector that was irradiated in Run17. During the analysis it was found that the optimal operating voltage should be in the interval from 66.5 V to 67.1 V. The analysis is still ongoing in order to eliminate various problems with the setup and achieve more reliable results.
+
+The main part of this thesis is dedicated to study of two jet shape observables: radial moment and momentum dispersion in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV at the STAR experiment. The charged jets were reconstructed using the anti-\(k_{T}\) algorithm and the jet shape observables were calculated in three jet \(p_{\rm T,jet}^{\rm ch}\) ranges (10-20 GeV/\(c\), 20-30 GeV/\(c\), 30-40 GeV/\(c\)) for two resolution parameters: R = 0.2 and R = 0.4. In order to get physics interpretable results the background was subtracted using the constituent background subtractor implemented in the FastJet software. For the subtraction the basic settings were used. All the jet shape distributions have been calculated for different centrality classes: 0-10%, 20-40%, 40-60%, 60-80%. The jets having only one constituent, were excluded from the analysis. The shift of the angularity spectra to the lower values indicates of that after the background subtraction the jets become softer, i.e. more constituents carry small fraction of the momentum. The data also suggests to make the same conclusion based on the fact that momentum dispersion distributions are shifted closer to 1. The difference in the shifts of the peaks for angularity for different resolution parameters after the application of the constituent background subtractor is due to that wider jets contain more background. The obtained distributions for radial moment and momentum dispersion have qualitatively the same shape as the distributions from the ALICE collaboration.
+
+Nevertheless, the performed correction by using the constituent background subtractor is only a first step of the all corrections that are needed to be made. In future analysis it is planed to correct the jet shape observables for detector effects via two-dimensional unfolding described briefly in Chapter 2 to get final physics results, which can be then compared with model calculations.
+
+## Appendix A Basic kinematic observables
+
+In order to describe the properties of particles created in nuclear-nuclear collisions, it is good to define some variables accounting for relativistic effects.
+
+### A.1 Transverse momentum
+
+The importance of the transverse momentum arises because momentum along the beamline may just be left over from the beam particles, while the transverse momentum is always associated with whatever physics happened at the collision vertex.
+
+The _transverse momentum_\(p_{T}\) is defined as
+
+\[p_{\rm T}=\sqrt{p_{x}^{2}+p_{y}^{2}},\] (A.1)
+
+where the \(p_{x}\) and \(p_{y}\) are the components of the three-momentum \(\overrightarrow{p}=(p_{x},p_{y},p_{z})\), the last component, \(p_{z}\), is the component of the momentum along the beam axis (longitudinal momentum \(p_{L}\)).
+
+### A.2 Rapidity and pseudorapidity
+
+The _rapidity_, \(y\), is a measure of velocity. It is defined as
+
+\[y=\frac{1}{2}\ln\left(\frac{E+p_{L}}{E-p_{L}}\right),\] (A.2)
+
+where \(p_{L}\) is the longitudinal momentum and \(E\) is the energy of the particle. The rapidity is related to the angle between the \(XY\) plane and the direction of emission of a product of the collision.
+
+As the rapidity can be hard to measure for highly relativistic particles, the _pseudorapidity_, \(\eta\), is usually used in experimental particle physics instead of rapidity \(y\). The pseudorapidity is determined by the following equation:
+
+\[\eta=-\ln\left(\tan\frac{\theta}{2}\right),\] (A.3)
+
+where \(\theta\) is the angle between the particle three-momentum \(\overrightarrow{p}\) and the positive direction of the beam axis. In comparison to rapidity, pseudorapidity depends only on the polar angle of the particle's trajectory, and not on the energy of the particle. The dependence of the pseudorapidity on the polar angle is shown in the Figure A.1.
+
+### **C**enter-of-mass energy
+
+The _center-of-mass energy_, CMS energy, which is defined as
+
+\[\sqrt{s}=\sqrt{(E_{1}+E_{2})^{2}-(p_{1}+p_{2})^{2}},\] (A.4)
+
+is an energy of the two colliding nucleons with momenta \(p_{1}\), \(p_{2}\) and energies \(E_{1}\), \(E_{2}\).
+
+\(\sqrt{s_{\rm NN}}\) is the CMS energy per nucleon-nucleon pair. In case of a symmetric collision, the relation between previously defined CMS energies is \(\sqrt{s_{\rm NN}}=\sqrt{s}/A\), where \(A\) is a nucleon number.
+
+Figure A.1: The dependence of the pseudorapidity \(\eta\) on the polar angle \(\theta\). As polar angle approaches zero, pseudorapidity becomes infinite.
+
+[MISSING_PAGE_EMPTY:87]
+
+[MISSING_PAGE_EMPTY:88]
+
+## Appendix C Results
+
+In this appendix all the results for the jet shape observables: angularity and momentum dispersion, obtained in the data analysis are presented.
+
+Figure C.1: Angularity for different centralities of Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Resolution parameter \(R=0.2\) and \(p_{\rm T,jet}^{\rm ch}\) range: 10 GeV/\(c~{}<~{}p_{\rm T,jet}^{\rm ch}~{}<\) 20 GeV/\(c\).
+
+Figure C.2: Angularity for different centralities of Au+Au collisions at \(\sqrt{s_{\rm NN}}\)\(=200\) GeV. Resolution parameter of the jet \(R=0.4\) and \(p_{\rm T,jet}^{\rm ch}\) range: \(10\) GeV/\(c~{}<~{}p_{\rm T,jet}^{\rm ch}~{}<20\) GeV/\(c\).
+
+## Appendix C ResultsFigure C.4: Angularity for different centralities of Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Resolution parameter of the jet \(R=0.4\) and \(p_{\rm T,jet}^{\rm ch}\) range: 20 GeV/\(c~{}<~{}p_{\rm T,jet}^{\rm ch}~{}<30\) GeV/\(c\).
+
+## Appendix C ResultsFigure C.6: Momentum dispersion for different centralities of Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. Resolution parameter of the jet \(R=0.4\) and \(p_{\rm T,jet}^{\rm ch}\) range: \(10\ {\rm GeV}/c\ <\ p_{\rm T,jet}^{\rm ch}\ <20\ {\rm GeV}/c\).
+
+## Appendix C ResultsFigure C.8: Momentum dispersion for different centralities of Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. Resolution parameter of the jet \(R=0.4\) and \(p_{\rm T,jet}^{\rm ch}\) range: \(20\ {\rm GeV}/c\ <\ p_{\rm T,jet}^{\rm ch}\ <30\ {\rm GeV}/c\).
+
+## Appendix C ResultsFigure C.10: Momentum dispersion for different centralities of Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. Resolution parameter of the jet \(R=0.4\) and \(p_{\rm T,jet}^{\rm ch}\) range: \(30~{}{\rm GeV}/c~{}<~{}p_{\rm T,jet}^{\rm ch}~{}<40~{}{\rm GeV}/c\).
+
+## Bibliography
+
+* [1] Brookhaven National Laboratory. RHIC. [https://www.bnl.gov/rhic/](https://www.bnl.gov/rhic/). [online 5.5.2018].
+* [2] R. Stock. Relativistic Nucleus-Nucleus Collisions and the QCD Matter Phase Diagram. [arXiv 0807.1610].
+* [3] S. Sarkar et al. The Physics of the Quark-Gluon Plasma: Introductory Lectures. Springer Berlin Heidelberg, 2009. ISBN 978-3-642-02286-9.
+* [4] M. L. Miller, K. Reygers, S. J. Sanders, P. Steinberg. Glauber modeling in high energy nuclear collisions, _Ann. Rev. Nucl. Part. Sci.,_ 57:205-243, 2007.
+* [5] F. Tanedo. The picture is taken from:. [http://www.quantumdiaries.org/wp-content/uploads/2011/04/clustering.png](http://www.quantumdiaries.org/wp-content/uploads/2011/04/clustering.png). [online 1.12.2018].
+* [6] Heavy flavor. [https://drupal.star.bnl.gov/STAR/pwg/heavy-flavor](https://drupal.star.bnl.gov/STAR/pwg/heavy-flavor). [online 10.10.2019].
+* [7] CMS collaboration. Charged-particle nuclear modification factors in PbPb and pPb collisions at \(\sqrt{s_{\rm{NN}}}=5.02\) TeV, _JHEP_ 04(039)2017.
+* [8] STAR collaboartion. Centrality and transverse momentum dependence of D0-meson production at mid-rapidity in Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV, _Phys. Rev._ C 99, 034908 (2019).
+* [9] M. Aaboud et al. Measurement of the nuclear modification factor for inclusive jets in Pb+Pb collisions at \(\sqrt{s_{\rm{NN}}}=5.02\) TeV with the ATLAS detector, _Phys. Lett._ B790(2019)108-128.
+* [10] CMS Collaboration. Measurement of Jet Nuclear Modification Factor in PbPb Collisions at \(\sqrt{s_{NN}}=5.02\) TeV with CMS, 2019. [http://cds.cern.ch/record/2698506](http://cds.cern.ch/record/2698506).
+* [11] S. Acharya et al. ALICE. Measurements of inclusive jet spectra in pp and central Pb-Pb collisions at \(\sqrt{s_{\rm{NN}}}=5.02\) TeV.
+* [12] Jan Rusnak. Jet Reconstruction in Au+Au collisions at RHIC. [https://drupal.star.bnl.gov/STAR/theses/phd/janrusnak](https://drupal.star.bnl.gov/STAR/theses/phd/janrusnak). [online 05.12.2019].
+* [13] G. C. Blazey et. al. Run II jet physics, [hep-ex/0005012].
+* [14] G. Soyez M. Cacciari, G. P. Salam. The Anti-k(t) jet clustering algorithm. _JHEP_, 04:063, 2008.
+
+* [15] M. Cacciari, G. P. Salam. Dispelling the \(N^{3}\) myth for the \(k_{t}\) jet-finder. _Phys. Lett._,B641:57-61, 2006.
+* [16] Nuclear Science and Technology. [https://nsww.org/projects/bnl/star/trigger-system.php](https://nsww.org/projects/bnl/star/trigger-system.php). [online 13.8.2018].
+* [17] M. Anderson, J. Berkovitz, W. Betts et.al. The STAR Time Projection Chamber: A Unique Tool for Studying High Multiplicity Events at RHIC, [arXiv:nucl-ex/0301015v1], 2003.
+* [18] J. Adam et al. Centrality and transverse momentum dependence of D0 -meson production at mid-rapidity in Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV, _Phys. Rev._, C99(3):034908,2019.
+* [19] M. Beddo, E. Bielick, T. Fornek et.al. The STAR Barrel Electromagnetic Calorimeter. [https://www.star.bnl.gov/public/tpc/NimPapers/emc/emc_nim.pdf](https://www.star.bnl.gov/public/tpc/NimPapers/emc/emc_nim.pdf), 2002.
+* [20] W. J. Llope et al. STAR. The STAR Vertex Position Detector, _Nucl. Instrum. Meth._, A759(2014)23-28.
+* [21] The STAR TOF collaboration. Proposal for a large area Time Of Flight system for STAR. [https://www.star.bnl.gov/public/tof/publications/TOF_20040524.pdf](https://www.star.bnl.gov/public/tof/publications/TOF_20040524.pdf), 2004.
+* [22] STAR Collaboration. The star forward calorimeter system and forward tracking system, 2018.
+* [23] S. Acharya et al. ALICE. Medium modification of the shape of small-radius jets in central Pb-Pb collisions at \(\sqrt{s_{\rm NN}}=2.76\,\)TeV, _JHEP_ 10:139, 2018.
+* [24] F. Karsch. Lectures on quark matter. Proceedings, 40. International Universitatswochen for theoretical physics, 40th Winter School, IUKT 40, _Lect. Notes Phys._583, 209 (2002).
+* Lattice Critical point of QCD at finite T and \(\mu\), lattice results for physical quark masses, _JHEP_ 04, 050 (2004).
+* [26] J.D. Bjorken. In _Current Induced Reactions_, Lecture Notes in Physics vol.56. New York: Springer, p.93, 1976.
+* [27] L.D Landau. Izv. Akad. Nauk SSSR 17, 51; reprinted (1965) in _Collective Papers of L. D. Landau_", ed. D. T. ter Haar New York: Gordon & Breach, p. 596, 1953.
+* [28] K. Yagi, T. Hatsuda, Y. Miake. Quark-Gluon Plasma. Cambridge University Press, 2005.
+* [29] R. J. Glauber. _Lectures on Theoretical physics_", vol. 1. New York: Interscience, p. 315, 1959.
+* [30] J. Chyla. Quarks, partons and Quantum Chromodynamics. [https://www.fzu.cz/~chyla/lectures/text.pdf](https://www.fzu.cz/~chyla/lectures/text.pdf). [online 12.06.2019].
+
+* [31] Particle Data Group. The Review of Particle Physics (2019).
+* [32] A. Grozin. Heavy Quark Effective Theory, _Springer, Berlin, Heidelberg_, 2004.
+* [33] J. Adams et al. Transverse momentum and collision energy dependence of high pT hadron suppression in Au+Au collisions at ultrarelativistic energies _Phys.Rev.Lett._ 91, 172302.
+* [34] S. Adler et al. Suppressed \(\pi^{0}\) Production at Large Transverse Momentum in Central Au+Au Collisions at \(\sqrt{s_{NN}}\) = 200 GeV _Phys.Rev.Lett._ 91, 072301.
+* [35] B. Back et al. (PHOBOS). Pseudorapidity dependence of charged hadron transverse momentum spectra in d+Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV _Phys.Rev._ C70, 061901, (2004).
+* [36] Yu. L. Dokshitzer et al. Heavy quark colorimetry of QCD matter, _Phys.Lett._B519:199- 206,2001.
+* [37] G. P. Salam. Towards Jetography, [arXiv: 0906.1140], _Eur. Phys. J._ C67:637-686, 2010.
+* [38] G. Soyez M. Cacciari, G. P. Salam. The Catchment Area of Jets, _JHEP_ 04:005, 2008.
+* [39] G. Salam, G. Soyez. The SISCone Jet Algorithm. [https://siscone.hepforge.org/](https://siscone.hepforge.org/).
+* [40] M. Cacciari, G. P. Salam, G. Soyez. FastJet user manual. [arXiv: 1111.6097].
+* [41] G. L. Dirichlet, J. Reine. _Math._40 (1850) 209.
+* [42] M. Cacciari, G. P. Salam. Pileup subtraction using jet areas, _Phys. Lett._ B659 (2008) 119.
+* [43] G. D'Agostini. Improved iterative Bayesian unfolding, 2010, arXiv:1010.0632.
+* [44] G. D'Agostini. A multidimensional unfolding method based on Bayes' theorem, _Meth. in Phys. Res._ A362 (487) 1995.
+* [45] A. Hocker, V. Kartvelishvili. SVD approach to data unfolding, _Nucl. Instrum. Meth._(469-481)1996.
+* [46] B. A. Schwartz C. Grupen. Particle Detectors, 2nd edition, _Cambridge University Press_, 2009.
+* [47] The RHIC Zero Degree Calorimeters. [https://www.phenix.bnl.gov/~swhite/zcal/index.html](https://www.phenix.bnl.gov/~swhite/zcal/index.html). [online 13.8.2018].
+* [48] C. Chasman, D. Beavis, R. Debbe et.al. A Heavy Flavor Tracker for STAR. [http://rnc.lbl.gov/~wieman/hft_final_submission_version.pdf](http://rnc.lbl.gov/~wieman/hft_final_submission_version.pdf). [online 6.5.2018].
+* [49] L. Cunqueiro. Jet shapes in pp and Pb-Pb collisions at ALICE. _Nucl. Phys.,_ A956:593-596, 2016.
+
+* [50] W. J. Waalewijn A. J. Larkoski, J. Thaler. Gaining (Mutual) Information about Quark/Gluon Discrimination, _JHEP_ 11:129, 2014.
+* [51] K. C. Zapp. JEWEL 2.0.0: Directions for use. _Eur. Phys. J.,_ C74(2):2762, 2014.
+* [52] K. C. Zapp. Geometrical aspects of jet quenching in JEWEL, _Phys. Lett.,_ B735:157-163, 2014.
+* [53] J. Rathsman J. Stachel U.A. Wiedemann K. Zapp, G. Ingelman. A Monte Carlo Model for 'Jet Quenching', _Eur. Phys. J._ C60:617-632, 2009.

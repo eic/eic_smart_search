@@ -1,0 +1,843 @@
+Pion Production in 4.5 GeV Au + Au Collisions from the STAR Fixed-Target Pilot Run
+
+By
+
+Kathryn Carson Meehan
+
+Dissertation
+
+Submitted in partial satisfaction of the requirements for the degree of
+
+Doctor of Philosophy
+
+in
+
+Physics
+
+in the
+
+Office of Graduate Studies
+
+of the
+
+University of California
+
+Davis
+
+Approved:
+
+Daniel A. Cebra, Chair
+
+Manuel Calderon de la Barca Sanchez
+
+Ramona Vogt
+
+Committee in Charge
+
+2018To my parents: Thank you for making me do math problems during my summer break and for supporting me through 22+ years of school. And thank you for not frequently asking me why I haven't graduated yet.
+
+###### Contents
+
+* List of Figures
+* List of Tables
+* List of Tables
+* 1 Introduction
+	* 1.1 Extreme Matter
+	* 1.2 The RHIC Beam Energy Scan Program
+* 2 A Brief Introduction to STAR
+	* 2.1 RHIC: A World Class Facility
+	* 2.2 The STAR Detector
+		* 2.2.1 A Brief Overview of the STAR Detector
+	* 2.3 The STAR Time Projection Chamber
+		* 2.3.1 The TPC: How it works
+		* 2.3.2 The TPC: Particle Identification
+	* 2.4 The STAR Time-of-Flight Detector
+* 3 The First STAR Fixed-Target Dedicated Test Run
+	* 3.1 Experimental Setup
+	* 3.2 The Fixed-Target Trigger
+	* 3.3 Data Production
+	* 3.4 Quality Assurance and Analysis Cuts
+		* 3.4.1 Event Selection
+		* 3.4.2 Vertex Selection
+		* 3.4.3 Track Selection
+* 4 Centrality Selection
+	* 4.1 Introduction
+* 5Centrality Selection
+* 4.3 Pile-up Study
+* 5 Extracting the Raw Yield
+	* 5.1 \(zTPC\) Fitting Procedure
+	* 5.2 Extracting the Raw Spectra
+* 6 Background Subtraction
+	* 6.1 Sources of Background
+	* 6.2 Simulating Background Pions
+	* 6.3 Results from the Background Simulation
+* 7 Correcting for Detector Acceptance and Efficiency
+	* 7.1 Introduction to the Efficiency x Acceptance Correction
+	* 7.2 The Corrected Spectra
+		* 7.2.1 Obtaining the corrected spectra
+		* 7.2.2 Discussion of Uncertainties
+* 8 Extracting the Rapidity Density Distribution
+	* 8.1 Results
+	* 8.2 Systematic Uncertainties in Extracting the Rapidity Density Distribution
+	* 8.3 Comparison with Previous Experiments
+	* 8.4 Concluding Remarks
+
+List of Figures
+* 1 Early sketch of a nuclear matter phase diagram, plotted as a function of the baryonic number density and temperature.
+* 2 Elliptic flow as a function of transverse momentum for several particle species measured byt PHENIX and STAR. The lines are hydrodynamic predictions. Below \(\approx\)1-2 GeV/c, the predictions agree with the data, indicating the formation of a strongly-coupled quark-gluon plasma in the heavy-ion collisions.
+* 3 A schematic of the QCD phase diagram plotted using the coordinates of temperature and baryon chemical potential (\(\mu_{B}\)). The LHC and top RHIC energies probe the high temperature, \(\mu_{B}\approx 0\) region of the phase diagram where behavior consistent with the expected crossover transition is observed. The energy reach of the two phases of the RHIC BES program and their FXT extension is shown. No numbers are included on the axes to emphasize that the locations and existence of a critical point and first order phase transition have yet to be determined.
+* 4 Schematic of the RHIC injector chain taken from [1].
+* 5 Photograph of the author and her advisor in front of the STAR detector.
+* 6 Diagram of the STAR detector and a selection of subsystems [2].
+* 7 Diagram of the STAR detector and a selection of subsystems (from reference [3]).
+* 8 Diagram of the side view of one of the outer sectors. (From [3]).
+* 9 Diagram of the side view of one of the outer sectors. Figure taken from [3].
+* 10 Bichsel curves (solid lines) are plotted on top of the STAR data. The jagged shape of the curves is an artificial effect due to the maximum limit on the number of points used by the drawing software to draw the function. The data is broader than the curves due to the resolution limits of the detector.
+
+Two side views of the structure of an MRPC module. The two views are not shown at the same scale. Figure taken from [4].
+* 2.9 The inverse velocity, \(1/\beta\), calculated using the time-of-flight, as a function of momentum. The bands correspond to particles of different mass and charge.
+* 3.1 Photo of the gold target inserted inside the beam pipe. Inset: photo of the gold target installed in its aluminum support structure.
+* 3.2 Schematic of the STAR experiment configuration for the 2015 FXT test run. The incident beam comes from the right side of this diagram and is steered to collide with the top edge of the target, located at the edge of the TPC, 211 cm from the center of the detector. The approximate location of pseudo-rapidity \(|\eta|\) = 1.52 is shown by the dashed red line.
+* 3.3 The TOF multiplicity after event-level cuts. The different TOF cuts used in the trigger for different run numbers result in the step-like structure on the left side of the plot.
+* 3.4 The \(z\)-distribution of vertices (left) and the \(y\) vs. \(x\) vertex distribution (right).
+* 3.5 The number of tracks from the same vertex with at least one hit in the TOF, before a \(z\)-vertex cut (left) and after the condition 210 cm \(<V_{z}<\) 212 cm is applied (right). Note a simple cut on the \(z\)-location of the vertices removes the peak at low numbers of TOF matches.
+* 3.6 Mass-squared PID bands calculated using time-of-flight information from the TOF and the matched track's momentum and path length from the TPC. The plot on the left includes vertex indices that have miscalibrated time-of-flight information causing additional diagonal features to appear.
+
+This figure, from reference [5], shows the energy dependence of the inelastic cross section. The filled black circles are measurements of the inelastic \(pp\) cross section made by several experiments.
+* 4.2 The Glauber + Negative Binomial Fit (red line) to the measured multiplicity distribution (black histogram). The blue line is the estimate, from simulation, of the contribution from pile-up events. The vertical lines indicate the multiplicity cuts for the various centrality bins as well as the cut to remove pile-up from the most central bin.
+* 5.1 This plot shows the \(dE/dx\) as a function of \(m_{T}-m_{\pi}\) for the rapidity window -1.25 \(<y_{\pi}<\) -1.15. Both the transverse mass and rapidity bins assume all tracks have the mass of the pion. Note that above \(m_{T}-m_{\pi}\approx\) 0.5 GeV/\(c^{2}\) the protons merge with the positive pions. The positive kaons merge with the positive pions at an even lower \(m_{T}-m_{\pi}\).
+* 5.2 A single Gaussian fit (red line) to the data (blue crosses) for a single transverse mass bin at mid-rapidity. The vertical lines show the Bichsel \(zTPC\) predictions for different particle species. By the definition in equation (5.1), the pion prediction (brown line) is at \(zTPC\) = 0. The purple, green and navy lines represent the electron, anti-proton and \(K^{-}\) predictions, respectively, which should all be negligible for this bin. The stat box shows the goodness of fit, amplitude (p0), mean (p1) and width (p2) parameters.
+* 5.3 The mean of each \(zTPC\) fit as a function of \(m_{T}-m_{\pi}\) at mid-rapidity. The red line is a piecewise polynomial fit to stabilize and constrain the means for the next fitting round.
+* 5.4 The width of each \(zTPC\) fit as a function of \(m_{T}-m_{\pi}\) for mid-rapidity. The red line is a piecewise polynomial fit.
+* 5.5 A double Gaussian fit (red line) to the data (blue crosses) for a single transverse mass bin at mid-rapidity. Vertical lines are the same as in Figure 5.2. Note for this fit the mean and width of the pion Gaussian are fixed.
+
+The amplitude of the Gaussian describing the electron contribution of each zTPC fit as a function of \(m_{T}-m_{\pi}\) for mid-rapidity.
+* 5.7 The mean of the Gaussian describing the electron contribution of each zTPC fit as a function of \(m_{T}-m_{\pi}\) for mid-rapidity.
+* 5.8 The width of each \(zTPC\) fit as a function of \(m_{T}-m_{\pi}\) for mid-rapidity. The red line is a polynomial piecewise fit to stabilize and constrain the widths for the next fitting round.
+* 5.9 The pion (brown) and electron (purple) Gaussians are plotted on top of the data (open circles). The parameters of each Gaussian are those from the final round of fitting.
+* 5.10 Raw \(\pi^{-}\) spectra as a function of \(m_{T}-m_{\pi}\) for the top 5% most central Au + Au \(\sqrt{s_{\rm NN}}\) = 4.5 GeV collisions. The mid-rapidity spectra is shown in red.
+* 6.1 An example of a simulated Au + Au fixed-target collision at \(\sqrt{s_{NN}}=4.5\) GeV illustrated with Starsim software. As expected, the tracks come from the edge of the detector where the target is located. This event was paused before all the tracks could be generated for ease of visibility. The full simulation of the event is higher in multiplicity than the one shown here.
+* 6.2 Simulated background vertex distributions in the \(x-y\) plane. The left-hand side shows vertices that produce background pions by weak decays, and the right-hand side shows vertices that produce background pions by strong interactions. The latter are produced from interactions with detector material and the beam pipe. As expected, the weak decay vertices are clustered at the location where the beam spot hits the target. The secondary vertices illuminate the beam pipe.
+
+Simulated background \(z\)-vertex distributions. The left-hand side shows vertices that produce background pions by weak decays. These vertices are clustered close to the target, as expected. The right-hand side shows vertices that produce background pions by strong interactions. As expected, peaks can be seen at locations where there is more detector or beam pipe material.
+* 6.4 GEANT parent ID of the simulated pions that were reconstructed as having originated from the primary vertex. Pions with a parent ID of "NA" came from the primary vertex. Other pions came from background sources such as weak decays or interaction with detector material. The largest source of background pions at mid-rapidity is \(K_{s}^{0}\) decays. The simulation used 100,000 events.
+* 6.5 Fraction of reconstructed pions at midrapidity that were produced by the hadronic interaction, e.g. from interactions with beam pipe material. A linear fit was used to estimate the background contribution. A polynomial fit is also shown in this figure for comparison.
+* 6.6 Fraction of reconstructed pions at midrapidity that came from weak decays.
+* 7.1 The efficiency fit to the ratio of the matched tracks to the embedded tracks as a function of \(m_{T}-m_{\pi^{-}}\), for the mid-rapidity bin.
+* 7.2 The \(\pi^{-}\) spectrum for the mid-rapidity bin, corrected for secondaries and for detector efficiency \(\times\) acceptance.
+* 7.3 Ratio of the corrected \(\pi^{-}\) spectra using two different nHitsFit cuts for the rapidity bin centered at \(y\) = -1.0. The difference between the spectra can be can be contained within a 10% systematic uncertainty.
+* 7.4 Ratio of the corrected \(\pi^{-}\) spectra using two different nHitsFit cuts for the mid-rapidity bin. Points with uncertainties more than 50% of the point value are not shown. A 10% systematic uncertainty can describe the difference between the spectra at higher transverse mass, but at lower transverse mass the uncertainty is increased to 15%.
+
+The DCA distributions of reconstructed simulated tracks (red dotted line) does not accurately reproduce data (blue line) for the mid-rapidity bin.. 7.6 Ratios of the negatively charged pion spectra, equal units away from mid-rapidity, from the Au + Au 3.0 GeV pre-production data. Mid-rapidity is \(-1.05\). 7.7 An example of the energy loss as a function of the reconstructed track's momentum for the mid-rapidity bin. A horizontal line is fit to the data to represent the calibration offset. 8.1 The temperature parameter from a first round of spectra fitting is plotted for each rapidity bin. These temperatures are fit with a Gaussian with a mean fixed at mid-rapidity since the distribution should be symmetric about mid-rapidity. 8.2 The negative pion spectra for the mid-rapidity bin, fit with a Bose-Einstein distribution. The solid red line shows the fit range and the dashed red line is the extrapolation to lower transverse mass. 8.3 Negative pion spectra for all rapidity bins, for the top 5% most central events. The mid-rapidity spectrum is shown in red. The solid lines are Bose-Einstein fits, and the dashed lines are their extrapolations to lower transverse mass values. To make the plot easier to read, the spectra are scaled by \(3^{n}\) where \(n\) is the number of rapidity bins each spectrum is away from mid-rapidity. 8.4 The rapidity density distribution for negatively charged pions. Open symbols are reflected. A Gaussian was fit to the measured points (filled symbols) with its mean fixed to mid-rapidity. The dashed line shows the extrapolation of the Gaussian fit. Statistical uncertainties are shown as black lines on all the points. Systematic uncertainties are shown as red bands on the measured points. The parameter values shown in the figure only include statistical errors.
+
+The negative pion spectra for the mid-rapidity bin, fit with a Maxwell-Boltzmann distribution.
+* 8.6 The negative pion spectra for the mid-rapidity bin, fit with an exponential distribution.
+* 8.7 The rapidity density distribution for negatively charged pions calculated using Maxwell-Boltzmann fits to the spectra. Open symbols are reflected. A Gaussian was fit to the measured points (filled symbols) with its mean fixed to mid-rapidity. The dashed line shows the extrapolation of the Gaussian fit. Only statistical errors are shown.
+* 8.8 The rapidity density distribution for negatively charged pions calculated using exponential fits to the spectra. Open symbols are reflected. A Gaussian was fit to the measured points (filled symbols) with its mean fixed to mid-rapidity. The dashed line shows the extrapolation of the Gaussian fit. Only statistical errors are shown.
+* 8.9 Comparison of the rapidity density distributions for negatively charged pions from central events measured by STAR and several AGS experiments. Open symbols are reflected. A Gaussian was fit to the measured points (filled symbols) with its mean fixed to mid-rapidity. The dashed line shows the extrapolation of the Gaussian fit. Systematic uncertainties are only shown for the STAR and E895 points.
+* 8.10 The excitation function of the mid-rapidity yields for the most central events, scaled by the average number of participants. The \(K^{0}_{s}\) yields were scaled by 0.1 and the proton yields were scaled by a factor of 20, to make the plot easier to read. The STAR FXT proton measurement (red star) is consistent with the decreasing trend seen in the world data. All the other STAR FXT measurements (red stars) are consistent with the increasing trend seen in the world data.
+
+List of Tables
+* 3.1 The number of bunches, the minimum TOF multiplicity cut, the total number of triggers, the total number of vertices, the number of vertices that passed event & vertex QA cuts, and the trigger efficiency for each run number. *There were an additional 5,393 laser triggers during this run.
+* 3.2 Summary table of analysis conditions. The track requirements listed include both the implicit ones enforced during the production of the MuDsts as well as the explicit ones I apply to the DavisDsts.
+* 4.1 The multiplicity cuts used for centrality binning obtained from a Glauber + Negative Binomial Model fit to data. An estimate of the number of events in each bin that are pile-up events is also included.
+* 7.1 List of chief sources of systematic uncertainty
+
+-xiiKathryn Meehan
+
+December 2018
+
+Physics
+
+###### Abstract
+
+**Pion Production in 4.5 GeV Au + Au Collisions from the STAR**
+
+**Fixed-Target Pilot Run**
+
+The RHIC Beam Energy Scan (BES) Program was proposed to look for the turn-off of signatures of the quark gluon plasma (QGP), search for a possible QCD critical point, and study the nature of the phase transition between hadronic and partonic matter. The first phase of the BES program (BES-I) took place from 2010-2016. Several interesting observables studied in BES-I, including the net-proton higher moments and the directed flow of protons, show interesting behavior below 20 GeV and could suggest a transition to a hadron dominated regime. Data from energies lower than 7 GeV could help determine whether these behaviors are indicative of phase transitions or criticality. The goal of the STAR Fixed-Target (FXT) Program is to extend the collision energy range in BES-II to lower energies than is feasible with colliding beams. In order for this program to be approved, it was necessary to demonstrate that STAR could successfully perform measurements in a fixed-target geometry.
+
+In this dissertation we present results from the fixed-target pilot run data set collected in 2015 with the STAR detector. The pilot run consisted of 4.5 GeV per nucleon center-of-mass energy Au + Au collisions. The \(\pi^{-}\) spectra and rapidity density are measured from the top 5% most central collisions and found to be comparable to previous results at similar energies from the AGS experiments. Additionally the 4\(\pi\) yield is extracted and found to be 153 \(\pm\) 15 (stat) \(\pm\) 29 (sys). Together, these and additional results measured by other analyzers from multiple institutions in STAR, demonstrated that STAR can successfully reproduce many physics results from the AGS experiments. This helped convince the Brookhaven Program Advisory Committee (PAC) to include an official FXTprogram in BES-II, to be conducted in 2019-2021. Specifically, the PAC approved the collection of 100 million events each taken at eight different energies with STAR operating in the fixed-target configuration. This will extend BES-II to center-of-mass energies as low as 3.0 GeV per nucleon, nearly doubling the \(\mu_{B}\) reach of the BES program and thus broadening our search for interesting transition features in the phase diagram.
+
+-xiv
+
+## Acknowledgments
+
+First, I would like to thank my advisor Daniel Cebra. Thank you for being exceedingly patient, readily available, and an expert at explaining complicated physics in an easy-to-understand way (a rare talent among physicists). Thank you for believing in me and the Fixed-Target Program. As a junior student with "just" a poster at Quark Matter, I would have never thought of trying to get a flash talk if I didn't have the confidence and support from an advisor like you. Thank you for being an easy-going travel partner in China (and thanks for all the other travel opportunities I lucked out with!) Lastly, thank you for lending me to LBNL for so many years.
+
+I am extremely fortunate to have had Dr. Chris Flores as my senior graduate student mentor. My Ph.D. degree is largely built upon his time and patience. Thank you for helping me become a more meticulous physicist and a more thoughtful programmer.
+
+Thank you Grazyna Odyniec and Peter Jacobs for accepting me into the RNC group. Special thanks to Grazyna, whom I admire very much, for being my mentor at LBNL and a strong advocate for the Fixed-Target Program. Thank you for both tough feedback and kind words of encouragement. I would also like to thank you for taking the time to help me improve my talks, including my postdoc interview talk, so they would have a stronger message.
+
+I would like to thank my dissertation committee members: Thank you Daniel for catching all the errors no one else did. Thank you Ramona for suffering through my consistently wrong formatting. Thank you Manuel for strengthening my thesis and for lifting my spirits with your positive comments.
+
+A big thank you to the UCD NPG. I was lucky to be a member of such a supportive, fun-loving group. I am grateful for all the support I received during group meetings from STAR and CMS members alike. I feel privileged to be passing on the work of the Fixed-Target Program to Todd, Sam, Ben and Matt and cannot wait to see what the future holds. And of course, thank you Daniel for being the BBQ Grill Master and to Manuel for knowing all the best restaurants when we travel to meetings.
+
+I would also like to thank the RNC group for their support. Thank you Xin Dong forallowing me to bring a little fixed-target kinematics to the Soft Hadron Group. Thank you Spencer Klein for being so welcoming and for taking the time to give me feedback on my cover letter and resume. A big thanks to everyone who suffered through my first postdoc interview practice talk. I also cannot forget to thank Alex Schmah who was also very welcoming when I first joined the RNC group and got me started using the Run 14 fixed-target data. Thanks to Ji Xu, Guannan Xie, and Yue Liang for tolerating me as an office-mate and for sharing your tea and chocolate.
+
+My biggest regret in leaving the field of heavy-ion physics is leaving all the friends I've made in the STAR Collaboration. I am so fortunate to have met all of you, and I will hold onto the hope that I might be invited back to give a career talk on Juniors Day. I hope I will always work in an environment that is so supportive. There are far too many people to name individually, but I would like to briefly mention Zhangbu Xu for advocating for me.
+
+I would also like to thank Professor Qinghua Xu at Shandong University for elevating the standard for good hospitality. Thank you Deng Jian, Chi Yang, Fuwang Sheng, and Wang Xu for all your help.
+
+Thank you to all those members of the most noble profession who paved my way to grad school: Ms. Daigler, who first got me hooked on physics, Dr. Morse, Peter Love, Steve Boughn, Beth Willman, and James Battat.
+
+Finally, thank you Michael for letting me monopolize your workspace during the Thanksgiving holiday when I was frantically finishing my thesis.
+
+## Chapter 1 Introduction
+
+### 1.1 Extreme Matter
+
+Since at least the 1960s, scientists have speculated as to the nature of hadronic matter at extreme temperatures and the possibility of matter with new degrees of freedom existing at high temperatures [6]. In 1973 and 1974, David J. Gross, H. David Politzer, and Frank Wilczek made their Nobel-prize-winning discovery of asymptotic freedom [7, 8, 9, 10], in which they realized that at high energies the interaction between quarks becomes weaker, while at low energies it becomes stronger, causing quarks to be "confined" within a hadron. In 1975 Nicola Cabibbo and Giorgio Parisi published a paper [11] with one of the earliest outlines of a nuclear matter phase diagram, shown in Figure 1.1.
+
+This diagram depicts a state of confined quarks at lower baryonic number densities and temperatures (phase I)
+
+Figure 1.1: Early sketch of a nuclear matter phase diagram, plotted as a function of the baryonic number density and temperature.
+
+and a state of deconfined quarks at high baryonic number densities and temperatures (phase II).
+
+As theorists made progress in unraveling the mysteries of the strong force, experimentalists started designing experiments to search for such a deconfined state of matter. A heavy-ion program, involving seven experiments at the Super-Proton-Synchrotron (SPS) collider at CERN, was started in 1994 with the purpose of colliding heavy ions at high enough energies to create the extreme energy densities necessary for quarks to become deconfined. In 2000, CERN announced that compelling evidence of a new state of matter that consists of deconfined quarks had been observed [12]. An overview of the results of the CERN SPS heavy-ion program by two theorists from CERN's theoretical physics division concluded that scientists "...now have compelling evidence that a new state of matter has indeed been created... The new state of matter found in heavy ion collisions at the SPS features many of the characteristics of the theoretically predicted quark-gluon plasma" [13].
+
+However, while there was general agreement that evidence pointed to a new state of "quark matter" at the SPS, there was some debate as to whether this new state of matter was the predicted quark-gluon plasma (QGP). The same year that CERN published its press release, four independent experiments at the Relativistic Heavy-Ion Collider at Brookhaven National Laboratory (BNL) in New York, had their first data-taking runs. While the SPS has a top energy of \(\sqrt{s_{\rm NN}}\) = 17 GeV for lead ions, RHIC has a top energy of \(\sqrt{s_{\rm NN}}\) = 200 GeV for gold ions, making it a "quark-gluon plasma factory". In 2005 Brookhaven National Lab released a report with results from the four experiments, PHOBOS, STAR, PHENIX and BRAHMS, after the first three years of RHIC running. This report confirmed the observation of a quark-gluon plasma, although one with different properties than what had been expected [14]. According to the report, the QGP observed was more strongly coupled than expected and behaved like a nearly "perfect" liquid. In 2010, data-taking began for the heavy-ion program at the newly constructed Large Hadron Collider (LHC) at CERN. The LHC first collided lead ions at \(\sqrt{s_{\rm NN}}\) = 2.76 TeV. Despite the much higher energy, initial results agreed with the RHIC experiments' characterization of the new state of matter as a strongly-coupled, "perfect" fluid. It was reported that "In total, the medium formed at the LHC appears to be qualitatively similar to that measured at lower energies" [15].
+
+Listing all the evidence for the existence of a QGP at the aforementioned collision energies is outside the scope of this dissertation, but one piece of evidence, the agreement between the identified particle elliptic flow and hydrodynamic predictions, will be discussed as an example. If a thermalized QGP is created, it will undergo collective motion, called "flow", before the partons hadronize. In particular, in non-central heavy-ion collisions strong pressure gradients are formed in the early stages of the collision that create an azimuthal spatial anisotropy. This spatial anisotropy gets translated into a momentum anisotropy as the system expands. The azimuthal distribution of particles can be written as a Fourier expansion [16]:
+
+\[E\frac{d^{3}N}{d{\bf p}^{3}}=\frac{1}{2\pi}\frac{d^{2}N}{p_{T}dp_{T}dy}\Bigg{(} 1+2\sum_{n=1}^{\infty}v_{n}{\rm cos}[n(\phi-\Psi_{RP})]\Bigg{)} \tag{1}\]
+
+where the coefficients, \(v_{n}\), correspond to different components of flow. \(\Psi_{RP}\) is the reaction plane, which is defined by the impact parameter and the beam direction (\(z\)-axis). Since the impact parameter, and therefore the true reaction plane, cannot be measured, the angle \(\phi\) is measured relative to an estimate of the reaction plane, called the "event plane". The sine terms vanish since \(\phi\) is symmetric with respect to the reaction plane. The second order coefficient in this expansion, \(v_{2}\), is referred to as "elliptic flow".
+
+Figure 2 shows the elliptic flow as a function of transverse momentum, \(p_{T}\), for different species, measured by both STAR and PHENIX [17]. Dashed lines that represent the hydrodynamic predictions for different particle species are also illustrated. For \(p_{T}\) between 1-2 GeV/c, the momentum dependence of the elliptic flow for all the plotted particle species agrees with the hydrodynamic predictions, a signature of the QGP. This was the first time this agreement was observed. This behavior was not seen at SPS energies. The hydrodynamic equations assume a perfect fluid and include the equation of state for the QGP. At higher \(p_{T}\) the agreement between data and the hydrodynamic predictions breaks down, since equilibrium is not fully maintained at these high momenta [18].
+
+### 1.2 The RHIC Beam Energy Scan Program
+
+The extremely high energies at the LHC and the \(\sqrt{s_{\rm NN}}=200\) GeV top energy at RHIC enable scientists to create the high temperature systems necessary to study the properties of the QGP. It is understood at these energies that as the QGP cools, it transitions to a hadron gas through a crossover transition [19] at approximately \(T_{c}=155\) MeV [20]. A crossover transition means there are no discontinuities in the thermodynamic state variables such as temperature or entropy, or their derivatives. It is postulated that at lower energies, the phase transition is first order, implying a discontinuity in one or more of the state variables. If there is a first order phase transition, the existence of a critical point connecting the two types of phase transitions is implied [21, 22, 23]. At a critical
+
+Figure 1.2: Elliptic flow as a function of transverse momentum for several particle species measured by PHENIX and STAR. The lines are hydrodynamic predictions. Below \(\approx\)1-2 GeV/c, the predictions agree with the data, indicating the formation of a strongly-coupled quark-gluon plasma in the heavy-ion collisions.
+
+point, there is no longer any way to distinguish between the two phases. This is also the case for the critical point of the water phase diagram where there is no longer a way to distinguish between the liquid and gas phases. Additionally, a first order phase transition implies the existence of a mixed-phase region where the QGP and dense hadronic matter coexist. By tuning the heavy-ion beams to collide at different center-of-mass energies, scientists can probe different regions of (\(\mu_{B}\), T) of the QCD phase diagram, shown in Figure 1.3.
+
+The baryon chemical potential, \(\mu_{B}\), is a measure of the imbalance between anti-matter and matter. A \(\mu_{B}\) value of zero indicates a perfect balance, and a positive value indicates more matter than anti-matter. Fortunately, in addition to its high energy reach, the RHIC collider is able to collide heavy-ions at multiple energies, including as low as \(\sqrt{s_{\rm NN}}=7.7\) GeV. This energy range allows RHIC to run a complementary program to the LHC called the Beam Energy Scan (BES). The LHC collides
+
+Figure 1.3: A schematic of the QCD phase diagram plotted using the coordinates of temperature and baryon chemical potential (\(\mu_{B}\)). The LHC and top RHIC energies probe the high temperature, \(\mu_{B}\approx 0\) region of the phase diagram where behavior consistent with the expected crossover transition is observed. The energy reach of the two phases of the RHIC BES program and their FXT extension is shown. No numbers are included on the axes to emphasize that the locations and existence of a critical point and first order phase transition have yet to be determined.
+
+than RHIC and is therefore better equipped to create hotter quark-gluon plasmas as well as study higher-momenta phenomena. However, the LHC collision energies, as well as the top energy of RHIC, only probe the region of the phase diagram where \(\mu_{B}\) is close to zero. On the other hand, by colliding ions at energies as low as \(\sqrt{s_{\rm NN}}=7.7\) GeV, RHIC is best equipped to probe higher \(\mu_{B}\) regions of the QCD phase diagram. This energy range allows RHIC to reach \(\mu_{B}\) values up to 400 MeV, enabling scientists to search for phase diagram features such as the first order phase transition and critical point discussed above. Thus in 2010, RHIC physicists set out to map the properties of the QCD phase diagram by initiating a Beam Energy Scan program which systematically collided gold ions at a series of energies, from 62.4 GeV to 7.7 GeV.
+
+The first phase of the Beam Energy Scan Program (BES-I) ran from 2010-2014, and included center-of-mass collision energies per nucleon of 62.4, 39, 27, 19.6, 14.5, 11.5, and 7.7 GeV. Interesting behavior in the energy dependence of several observables was measured, including an enhancement at 7.7 GeV in the kurtosis of the net-proton multiplicity distributions [24, 25]. The kurtosis is the fourth moment of a probability distribution. In particular, the kurtosis of the net-baryon distribution is proportional to a high power of the correlation length [22]. At a critical point, the correlation length, and thus the net-baryon kurtosis, diverges. However, since it is too challenging to measure the number of neutrons produced in each heavy-ion collision, the kurtosis of the net-proton distribution, the distribution of the number of protons in an event minus the number of anti-protons, is used as a proxy for the net-baryon kurtosis. The peak in the net-proton kurtosis observed in BES-I is consistent with the predictions for critical behavior [26]. However, the uncertainties are relatively large, and need to be reduced before a conclusive statement can be made. Additionally, the directed flow of net protons shows a transition from positive to negative flow [27], which is consistent with a softening of the equation of state expected in the spinodal region created by a first order phase transition. The directed flow, \(v_{1}\), is the first order coefficient of equation 1.1.
+
+Furthermore, when searching for the turning off of QGP signatures, hints of deconfinement remain down to at least 7.7 GeV. Figure 1.4 shows the elliptic flow as a function of transverse mass, both scaled by the number of constituent quarks[28]. Notice that in Figure 1.2, for \(p_{T}\lesssim 2\) GeV clear mass ordering is observed. Additionally, for \(p_{T}\gtrsim 2\) GeV, mesons separate from the baryons. On the other hand, Figure 1.4 shows that after scaling \(v_{2}\) by the number of constituent quarks, the \(v_{2}\) values for the different particle species collapse to the same curve. This indicates that the elliptic flow was formed during a stage where the fluid had partonic degrees of freedom, indicative of the formation of a quark-gluon plasma. The fact this scaling can be seen at energies as low as \(\sqrt{s_{\rm NN}}=7.7\) GeV for most particles indicates that the QGP may still be formed even at this energy.
+
+These and other findings motivate a second Beam Energy Scan (BES-II) with increased statistics to clarify the physics messages of the observables. This second phase is already planned for 2019-2021 and included in the official 2018 Brookhaven National Laboratory Program Advisory Committee (PAC) report1. BES-II will focus on the lower energy range from \(\sqrt{s_{\rm NN}}=19.6\) GeV down to \(\sqrt{s_{\rm NN}}=3.0\) GeV, with high-statistics
+
+Figure 1.4:
+
+runs of 100-400 million events at each energy. Several STAR detector upgrades [29, 30, 31, 32], in combination with electron beam cooling to achieve higher luminosities [33], will lead to greatly improved statistics, particle identification (PID) capabilities, and acceptance reach. To properly understand if the net-proton kurtosis behavior observed is consistent with critical behavior, and to confirm turn-off of the QGP with or without a first order phase transition, it is essential to study systems below 7.7 GeV with ample statistics. It is not practical to run RHIC at energies below 7.7 GeV, well below the top energy for which the RHIC design was optimized. At energies lower than 7.7 GeV the RHIC magnets cannot sufficiently focus the beams to make data taking practical. At these lower energies, the Coulomb repulsion between the positive ions causes the beam spot to spread out over time, greatly reducing the luminosity of the beams. Therefore, the UC Davis group, led by Daniel Cebra, developed a fixed-target (FXT) program, where one beam is steered into an internal target that is inserted into the beam pipe, to extend the reach of BES-II down to the center-of-mass energy of 3.0 GeV. This will almost double the BES-II program's reach in \(\mu_{B}\) from approximately 400 MeV to about 720 MeV. Additionally, the 7.7 GeV energy will have runs in both collider mode and fixed-target mode. Having a shared energy will provide an opportunity to cross-check acceptance corrections and other systematics.
+
+This dissertation will focus on an analysis of the first dedicated fixed-target test run data which took place in 2015. This test run collided gold ions at \(\sqrt{s_{\rm NN}}=4.5\) GeV, corresponding to a single-beam energy of \(E_{B}=9.8\) GeV. Similar Au + Au collision energies were studied during the heavy-ion program at the Alternating Gradient Synchrotron (AGS) at BNL in the 1990s, with a top energy of \(\sqrt{s_{\rm NN}}=4.9\) GeV. In addition, some of the AGS experiments recorded data at lower energies, including at \(\sqrt{s_{\rm NN}}=4.3\) GeV. The analysis in this dissertation is part of a larger effort with the STAR 2015 FXT data to demonstrate the capabilities of the FXT program at STAR by reproducing many of the key results from the AGS heavy-ion program, and where possible extending those measurements.
+
+For this dissertation, the rapidity density distribution of the negatively charged pi ons was measured. Pions are the species most copiously produced at this energy. Other STAR analyzers measured the rapidity density distributions of protons [34], kaons, and lambdas [35]. By measuring the rapidity distributions of multiple particle species and fitting them with thermal distributions, information about the longitudinal expansion dynamics and baryonic stopping can be inferred [36]. Additionally, comparing the ratios of the \(4\pi\) particle yields for different species with thermal models can determine the \(\mu_{B}^{\rm fo}\) and \(T^{\rm fo}\) parameters at chemical freezeout, when the produced hadrons no longer interact through inelastic collisions. Knowing these parameters locates the collision system on the QCD phase diagram at chemical freezeout [37]. Having good particle identification capabilities and carefully measuring the contribution of different particle species to the total yield is important in understanding the bulk properties of the medium produced in heavy-ion collisions. The AGS noted that the energy range of their experiments (approximately \(\sqrt{s_{\rm NN}}=2.7\) to 4.3 GeV), compared to the Bevalac/SIS experiments (approximately \(\sqrt{s_{\rm NN}}=2.0\) to 2.4 GeV), represents a transition regime where the matter created has evolved from a compressed gas of nucleons into a hadron gas (predominantly pions). They noted studying pion production at these energies allows us to observe nuclear matter in transition [38]. Extending this rapidity density study to the energy range covered by the STAR FXT program will allow us to observe nuclear matter transition from a compressed hadron gas to a quark-gluon plasma, possibly through a first order phase transition.
+
+In the rest of this dissertation, I will introduce the RHIC facility and STAR detector, discuss the fixed-target setup and the dataset collected during the 2015 test run, explain the centrality selection, the raw yield extraction, the background subtraction, the detector acceptance and efficiency corrections, and finally the rapidity density extraction and discussion of conclusions.
+
+## Chapter 2 A Brief Introduction to STAR
+
+### 2.1 RHIC: A World Class Facility
+
+Brookhaven National Laboratory (BNL) in Upton, New York is home to the Relativistic Heavy-Ion Collider (RHIC), one of the most impressive and versatile facilities for nuclear physics research. Turning on in 2000, it was the first synchrotron capable of colliding heavy ions, in this case Au + Au collisions, until a decade later when the Large Hadron Collider (LHC) in Europe started colliding lead beams. A synchrotron is a type of particle accelerator in which the changing electric and magnetic fields are synchronized to keep the accelerated particle in a circular orbit.
+
+RHIC consists of two rings in a 3.8 km circumference tunnel, making it the largest operational collider in the U.S. and the second largest in the world at the time of this dissertation. RHIC is designed to accelerate gold ions up to 100 GeV/nucleon, also earning it the title of second-highest energy collider in the world. It is also the most versatile collider in the world as it can collide several species of ions at a range of energies and is the only collider in the world that can collide polarized protons, essential for proton spin studies [39]. As of fiscal year 2016, over 1000 scientists, engineers and students use the facility for their research [40].
+
+This thesis takes advantage of RHIC's versatility to study Au + Au fixed-target collisions at \(\sqrt{s_{NN}}\) = 4.5 GeV. In these collisions, a single gold beam is steered into an internal gold target. Given that RHIC was constructed to meet performance design requirements of being able to accelerate gold ions up to 100 GeV/nucleon, it is not surprising that collisions below \(\sqrt{s_{NN}}\) = 10 GeV have tested the limits of the collider design. Test data-taking runs during the Beam Energy Scan (BES-I) Program demonstrated that the luminosity of the beam drops dramatically with the beam energy and that the low luminosity at energies below \(\sqrt{s_{NN}}\) = 7.7 GeV make it impossible to take data on a practical time scale [41]. As beam energy decreases, it becomes more difficult for the magnets to focus the beam since the Coulomb repulsion between the positive ions within the beam increases the beam spread. By conducting fixed-target collisions with a single beam on an internal target, we can circumvent this luminosity challenge and access energies as low as \(\sqrt{s_{NN}}\) = 3.0 GeV with statistics expected to be comparable to those of the collider runs in BES-II [35].
+
+Before describing the experimental setup in fixed-target mode of operations, I will first describe how the incident gold beam is obtained. The RHIC injector chain for Au ions consists of several accelerators connected by beam transfer lines. For the first decade of RHIC running, negative ions (including gold) were produced by a cesium sputter ion source and accelerated in a Tandem Van De Graaff. This process was later replaced by an Electron Beam Ion Source (EBIS). Since EBIS is the ion source of the beam in the 2015 Au + Au fixed-target run (part of Run 15), only the EBIS procedure will be discussed here. For a discussion of the Tandem Van De Graaf procedure, see [42]. Figure 2.1 is a schematic of the RHIC injector chain that shows both the path starting from the original Tandem source as well as the current path originating from the EBIS source.
+
+One method used at EBIS to produce ions is to feed gas into the trap region. Alternatively, multiple types of external sources can be used to produce ions [43]. An external laser ion source (LION), commissioned in 2014, was used to produce the gold ions used in Run 15 [44]. LION provides fast injection of Au\({}^{1+}\) ions to EBIS which then acts as a charge state multiplier. The output of EBIS is Au\({}^{32+}\) ions accelerated into the radio-frequency quadrupole (RFQ) with a kinetic energy of 17 keV per nucleon. The RFQ further accelerates the Au\({}^{32+}\) ions to a kinetic energy of 300 keV per nucleon and injects them into the linac, which accelerates the Au\({}^{32+}\) ions up to a kinenucleon before injecting them into the booster.
+
+The rest of the injection process will be summarized here, but a more detailed description can be found in reference [45]. In the booster the beam is further accelerated up to 95 MeV per nucleon and a foil strips the Au ion down to just two electrons before injection into the Alternating Gradient Synchrotron (AGS). The AGS further accelerates the beam before it is sent down the transport line to RHIC. The last two electrons are stripped at the exit of the AGS. The highest kinetic energy the AGS can inject into RHIC is 8.86 GeV, which corresponds to a \(\sqrt{s_{NN}}\) = 19.6 GeV in the collider mode of operation. For collisions with this center-of-mass energy and below, RHIC simply acts as a storage ring. For higher energies, RHIC acts as a synchrotron accelerator. RHIC itself consists of two separate rings that intersect at interaction points inside the four experimental halls. The two ring design allows collisions between different species of ions. At the time of this dissertation, the Solenoidal Tracker at RHIC (STAR) experiment is the only operational experiment at RHIC.
+
+### 2.2 The STAR Detector
+
+#### A Brief Overview of the STAR Detector
+
+The Solenoidal Tracker at RHIC (STAR) detector, shown in Figure 2.2, is a three-story configuration of detectors that is dynamically evolving to meet the physics goals of the collaboration. Over the years, many sub-detectors have been added and removed, or
+
+Figure 2.1: Schematic of the RHIC injector chain taken from [1].
+
+upgraded. However, the heart of STAR is clearly the Time Projection Chamber (TPC) which is used for particle identification (PID) and tracking. The TPC will be discussed in its own subsection. The diagram in Figure 2.3 shows many of the sub-detectors of STAR that were present during run 15. In this subsection I will give a brief overview of the STAR detector.
+
+Figure 2.3: Diagram of the STAR detector and a selection of subsystems [2].
+
+Figure 2.2: Photograph of the author and her advisor in front of the STAR detector.
+
+subsystems present during this run. Then in the following subsections, I will describe in more detail the subsystems central to the analysis presented in this dissertation.
+
+The beam pipe runs through the center of STAR, which is built radially around it. For runs 14-16 a silicon tracking detector, the Heavy-Flavor Tracker (HFT), was installed between the beam pipe and the TPC. The HFT was designed primarily for the \(\sqrt{s_{\rm NN}}~{}=~{}200\) GeV energy runs, so it will not be discussed in detail in this dissertation. Its purpose was to more accurately reconstruct decay vertices of heavy-quark hadrons as well as improve tracking resolution in the high track density region. At the time of the writing of this dissertation, the HFT has the best pointing resolution of any tracker in the world, over a broad momentum range [46].
+
+The Time-of-Flight (TOF) detector is the first detector outside of the TPC and is mounted on the TPC's outer field cage. It is also used for particle identification, and, in conjunction with the Vertex Position Detector (VPD), can be used to trigger on an event. The TOF and VPD will be discussed in more detail below. Outside the TOF is the Barrel Electromagnetic Calorimeter (BEMC) which measures the electromagnetic energy deposited by each heavy-ion collision. It was primarily designed "...to trigger on and study rare, high \(p_{T}\) processes (jets, leading hadrons, direct photons, heavy quarks) and provide large acceptance for photons, electrons, \(\pi^{0}\) and \(\eta\) mesons... Other applications include general event characterization in heavy-ion collisions including ultraperipheral collisions [47]." The BEMC was not used in our analysis thus further details are outside the scope of this dissertation.
+
+All of the aforementioned detectors fit within the 7.32 m diameter solenoidal magnet. The magnet is a room temperature magnet and is 7.25 m long, providing a uniform field of 0.5 Tesla along the \(z\)-axis (the beam axis). The magnetic field has a uniformity of better than 1000 ppm over its fiducial volume [48]. Measuring the curvature of the particle path in the magnetic field allows the rigidity (\(p/q\) where \(p\) is momentum and \(q\) is charge) of the particle to be determined. This information is then used in conjunction with measurements from other detectors for particle identification.
+
+Finally, the muon telescope detector (MTD) is mounted on the 30 backlegs of the magnet, which are bars outside the coil that provide a return flux path for the magnetic field. The MTD is the outermost detector since muons can penetrate the most material (aside from neutrinos) and the dense backlegs help absorb the background particles which are less piercing. The purpose of the MTD is to reconstruct quarkonium states with better resolution using the dimuon channel, which is much cleaner than the previously used dielectron channel [49]. The muon detector was not included as a data-taking detector in the 2015 run and will also not be further discussed in this dissertation.
+
+### 2.3 The STAR Time Projection Chamber
+
+#### The TPC: How it works
+
+In this section I will give a brief description of how the TPC works. More details can be found in reference [3]. As noted above, the TPC is the heart of STAR and the primary detector used for particle identification. It is composed of a large volume of P10 gas (90% argon, 10% methane) housed in between two cylinders which are part of the inner and outer field cage, as shown in Figure 2.4. The inner field cage is about 50 cm from the center of the beam pipe and the outer field cage is about 200 cm from the center of the
+
+Figure 2.4: Diagram of the STAR detector and a selection of subsystems (from reference [3]).
+
+beam pipe. The TPC spans from \(z\) = -210 cm to \(z=+210\) cm. The gas is held slightly above atmospheric pressure to prevent contamination in case of a leak.
+
+This gas volume or "drift volume" is inside a strong electric field of about 28 kV oriented along the \(z\)-axis. The TPC is divided into two halves by the negatively-charged cathode central membrane. When charged particles produced in the heavy-ion collisions traverse the TPC, they ionize the gas. This results in ionization "clusters" of electrons which drift toward the positive anodes at each end of the TPC, while the positive ions drift toward the cathode in the center.
+
+Each end of the TPC is divided into twelve trapezoidal sectors. Each sector consists of a gating grid, a multi-wire proportional chamber (MWPC) and pad planes, as shown in Figure 2.5. Readout electronics are on the back of the pad planes. Electrons drift toward the strong fields of the anodes which cause them to avalanche, amplifying their signal. The corresponding image charge formed on the pad planes are then read out as a signal of the ionization energy lost by the initial charged particle that ionized the gas.
+
+The pad plane signals also give the \(x\) and \(y\) coordinates of the ionization clusters (where \(z\) is along the beam axis). The track reconstruction software uses this information when fitting clusters with helices to obtain particle tracks. The gating grid is a wire plane that "opens" and "closes" so that electrons can only drift through to the anodes during data collection (when a trigger has fired on an event). It also prevents positive ions produced during the avalanche from drifting back into the TPC and disrupting the uniform electric
+
+Figure 2.5: Diagram of the side view of one of the outer sectors. (From [3]).
+
+field.
+
+Figure 2.6 shows a diagram of one full trapezoidal pad plane. Each pad plane has an inner sector and an outer sector. The inner sector has 13 pad rows spaced about 52 mm apart to fit each pad's readout electronics on the back of the plane. The outer sector has an additional 32 pad rows that are hermetic. For BES-II in 2019, the iTPC, an upgrade to the inner sectors of the TPC, will be installed [30]. Since readout electronics are much smaller than they were two decades ago, the inner pad rows will be able to be hermetic, providing 40 pad rows for each inner sector instead of just 13.
+
+The spatial location of the pad plane hits help determine the \(x\) and \(y\) coordinates of the ionization clusters, but to obtain the \(z\) coordinate, more information is needed. The drift time it takes the clusters to drift to the pad plane from the known collision time, together with the drift velocity of the gas, are used to determine the \(z\) coordinate. The drift velocity of the gas in the TPC is typically 5.45 cm/\(\mu\)s. The methane molecules in the TPC gas have additional degrees of freedom relative to the argon, allowing them to absorb some of the kinetic energy of the drifting electrons. By absorbing some of their energy, the methane molecules act like brakes on the electrons, helping keep their drift velocity approximately constant. Every few hours during data taking, lasers that are located at fixed, known positions around the TPC are turned on and used to calibrate
+
+Figure 2.6: Diagram of the side view of one of the outer sectors. Figure taken from [3].
+
+the drift velocity. Since the location and timing of the lasers are known, and the time the resulting clusters reach the pad planes can be measured, the drift velocity can be calculated. Laser triggers in the data acquisition (DAQ) system are added to record these events which are not of general physics interest, but purely for calibration purposes.
+
+#### The TPC: Particle Identification
+
+Since charged particles are known to travel in a helical path when in a magnetic field, the track reconstruction algorithm fits a set of the ionization clusters or "hits" with helices, resulting in a collection of "global tracks". The vertexing algorithm then identifies possible collision vertices and the track reconstruction algorithm performs a refitting procedure to refit the global tracks to include a vertex point. The resulting tracks are referred to as "primary tracks" since they are now associated with a primary vertex. Generally the collection of global tracks is larger than the collection of primary tracks. The curvature of a given track and the known magnetic field is used to determine the rigidity of the track, \(R=p/q\), where \(p\) is the momentum and \(q\) is the charge. The direction of curvature gives the sign of the charge. When saving this information in the data files used for analysis, the charge of the track is assumed to be either \(+1\) or \(-1\) (in units of \(e\)), and \(p=R\). Obviously for \(Z>1\) particles, like alphas and helions (\({}^{3}\)He), this underestimates their true value of \(p\) by the factor \(q\). The best relative momentum resolution is about 2% for pions [3].
+
+Once the momentum of a particle is measured, all that is needed to identify the particle is knowledge of its energy loss as it travels through the detector material. The Bethe-Bloche equation relates the mean energy loss of a charged particle per distance it traveled through matter, \(\langle dE/dx\rangle\), to its velocity:
+
+\[-\Bigg{\langle}\frac{dE}{dx}\Bigg{\rangle}=\frac{4\pi}{m_{e}c^{2}}\frac{nz^{ 2}}{\beta^{2}}\Bigg{(}\frac{e^{2}}{4\pi\epsilon_{0}}\Bigg{)}^{2}\Bigg{[}ln \Bigg{(}\frac{2m_{e}c^{2}\beta^{2}}{I(1-\beta^{2})}\Bigg{)}-\beta^{2}\Bigg{]} \tag{2.1}\]
+
+where \(m_{e}\) is the mass of the electron, \(c\) is the speed of light, \(\beta=v/c\), \(z\) is the charge of the incident particle, \(e\) is the charge of the electron, \(\epsilon_{0}\) is the electric constant, \(I\) is the mean excitation and ionization potential of the material, and n is the electron density of the material. The latter is given by:
+
+\[n=\frac{N_{A}Z\rho}{AM_{\mu}} \tag{2.2}\]
+
+where \(N_{A}\) is Avogadro's constant, \(Z\) is the atomic number of the material, \(\rho\) is the density of the material, \(A\) is the atomic mass of the material, and \(M_{\mu}\) is the molar mass constant. Since \(\beta=p/\gamma mc\), if the momentum and \(dE/dx\) are measured, the mass of the particle can be identified.
+
+However, there are multiple possible choices of values that could be used as \(\langle dE/dx\rangle\). Experimentally, each track in the STAR data files used for analyses is assigned a single ionization energy loss value, \(dE/dx\), although each individual hit in a track has its own \(dE/dx\) measurement. The probability distribution of the ionization produced by one track, called the "straggling function", is a Landau distribution with a long tail toward high \(dE/dx\) values. Thus, if the mean \(dE/dx\) were used to characterize each track, it could be heavily biased by a very high \(dE/dx\) measurement for one of its hits. Therefore in STAR, typically one of two methods are used instead. Prior to run 14, the truncated 70% value was the default \(dE/dx\) value stored in the "MuDst" data files. In this case, the highest 30% of the \(dE/dx\) distribution for each track was discarded before taking the mean. This revised mean would be the default stored \(\langle dE/dx\rangle\) value of the track. For run 14 and later, the default \(dE/dx\) value stored became the "most probable" value, which is the most probable value from a maximum likelihood fit.1 This is the default \(dE/dx\). Use of the most probable \(dE/dx\) was motivated by an instability in the truncated mean value seen in high luminosity events (specifically \(\sqrt{s_{NN}}=500\) GeV proton-proton collisions). The truncated method is used in this research since there is less pileup in \(\mathrm{Au+Au}\)\(\sqrt{s_{\mathrm{NN}}}=4.5\) GeV collisions, and to be consistent with previous spectra analyses from STAR. It is also expected that differences between the two methods will not contribute to the biggest sources of systematic uncertainty for this data set. Additionally, Hans Bichsel determined a more accurate parameterization of the energy loss per track segment length, referred to as "Bichsel curves" [50]. These curves have a different shape as a function of the \(\beta\gamma\) of the track, as well as a different dependence on the track segment length, than the Bethe-Bloch curves [51]. The STAR values used for the most probable mean and for the 70%- truncated mean defined above, are based on Bichsel functions as opposed to Bethe-Bloch functions. An example of the Bichsel curves plotted on top of STAR data is shown in Figure 2.7. The \(dE/dx\) resolution of a track that crosses 40 pad rows is 8% [3].
+
+### 2.4 The STAR Time-of-Flight Detector
+
+The TOF detector is used for particle identification like the TPC, but uses track timing information instead of energy loss to identify mass. A more complete discussion of the TOF design can be found in reference [4]. The VPD is part of the TOF system and measures the "start time" of the collision. In fixed-target collisions the VPD plays a
+
+Figure 2.7: Bichsel curves (solid lines) are plotted on top of the STAR data. The jagged shape of the curves is an artificial effect due to the maximum limit on the number of points used by the drawing software to draw the function. The data is broader than the curves due to the resolution limits of the detector.
+
+different role and will be discussed further in the next chapter. The TOF trays mounted outside the TPC measure the "stop time" of the track. There are 120 trays in total, 60 on each side of the central membrane, completely covering the TPC in azimuth. The span in pseudorapidity is -1 \(<\eta<\) 1. One TOF tray contains 32 Multi-gap Resistive Plate Chamber (MRPC) modules. Figure 2.8 is a diagram of one such module. It is made of a stack of glass resistive plates with freon gas gaps in between them. A high voltage is applied across the outermost plates. A charged particle passing through a module generates avalanches in the gas gaps. The corresponding signal is the sum of all the avalanches in these gaps. This design gives the total time of flight, \(\Delta t=t_{\rm stop}-t_{\rm start}\), a resolution of approximately 100 ps.
+
+An algorithm matches hits in the TOF pads to tracks in the TPC. Knowing the particle path length, \(L\), (using information from the TPC and extrapolating to the TOF and the primary vertex) and knowing its time of flight, the particle velocity can then be calculated
+
+Figure 2.8: Two side views of the structure of an MRPC module. The two views are not shown at the same scale. Figure taken from [4].
+
+by:
+
+\[\beta=\frac{L}{c\Delta t} \tag{2.3}\]
+
+Then, since \(\beta=p/E\) and \(E=\sqrt{p^{2}+m^{2}}\), we can relate the particle mass to its velocity in terms of measured quantities by:
+
+\[m^{2}=p^{2}\Bigg{(}\frac{1}{\beta^{2}}-1\Bigg{)}. \tag{2.4}\]
+
+Figure 2.9 shows the \(1/\beta\) value of a track as a function of its momentum \(\times\) charge (where the magnitude of the charge is assumed to be unity). The inverse velocity as a function of momentum is used to identify particles with the TOF, since different \(1/\beta\) bands correspond to different masses and therefore different particle species. Comparing Figures 2.9 and 2.7 reveals that the bands, and thus the particle species, are better separated by the TOF than by the TPC for a given momentum. Therefore it is often easier to distinguish the particle species using the TOF. Additionally, the species remain separated out to a higher momentum in the TOF, one of the initial motivations for constructing the detector. However, the TPC has the lower reach in momentum. This
+
+Figure 2.9: The inverse velocity, \(1/\beta\), calculated using the time-of-flight, as a function of momentum. The bands correspond to particles of different mass and charge.
+
+allows for better extrapolation of the particle yields to the low momentum regime where the bulk of the yield lies.
+
+This chapter sketched the capabilities of the RHIC facility and the STAR detector, with a focus on how the TPC and TOF are used for particle identification. However, for the analysis in this dissertation the STAR detector was used in a novel, fixed-target configuration. This new configuration, along with the details of the data set collected for this dissertation, are discussed in the following chapter.
+
+## Chapter 3 The First STAR Fixed-Target Dedicated Test Run
+
+The UC Davis group started analyzing fixed-target collisions with STAR using data from the 2009-2011 collider runs. They focused on collisions between ions from the gold beam halo and the aluminum beam pipe. These analyses were successful proof-of-principle studies to test the STAR detector acceptance and the reconstruction algorithm performance for a fixed-target geometry, since both were optimized for "collider mode" [52]. In 2014, a gold target was installed inside the beam pipe and another proof-of-principle study was conducted. Simultaneously with the data from the Au + Au \(\sqrt{s_{\rm NN}}\)=14.5 GeV collider run with two beams, data from fixed-target collisions between ions from the gold beam halo and the target were also collected. These fixed-target collisions were \(\rm Au_{like}+Au\) collisions at \(\sqrt{s_{\rm NN}}=3.9\) GeV. The fixed-target data also indicated that the STAR detector works well in fixed-target mode and that the test run was successful [52]. However, there were concerns that the projectile ions from the halo were not truly gold and that the statistics of the fixed-target data set (about 5000 central collisions in about 3 weeks of running) were low. To address both these concerns a "dedicated" fixed-target test run was conducted in 2015.
+
+### 3.1 Experimental Setup
+
+On Wednesday, May 20, 2015, STAR conducted its first "dedicated" fixed-target test run during Run 15. In 2014 the fixed-target experiment operated in a parasitic mode, with projectile ions from the beam halo colliding with the target during the usual beam-beam data taking runs. For the 2015 four-hour test run, only one beam was injected into the collider and intentionally steered into the top edge of the target. The target, shown in Figure 3.1, is the same target used in the 2014 test run. The target is a 1 mm thick gold foil that is about 1 cm high and 4 cm wide. It is a 4% target, meaning that an incident gold ion has a 4% probability of interacting with the target.
+
+The target was installed at the edge of the TPC at \(z=211\) cm from the center of the detector (210 cm for Run 14), where the \(z\)-axis is parallel to the beam pipe. A diagram illustrating STAR in fixed-target configuration for Run 15 is shown in Figure 3.2. The projectile gold beam was coming from the West side (the right side of Figure 3.2).
+
+Therefore, positioning the target at the edge of the TPC allowed us to take advantage of its full tracking volume. Unlike symmetric beam-beam collisions, in fixed-target collisions mid-rapidity, defined as half of the beam rapidity, changes with projectile beam energy. For \(\sqrt{s_{\rm NN}}=4.5\) GeV collisions, mid-rapidity in the lab frame is \(|\rm y_{mid}|=1.52\). The dashed red line in Figure 3.2 illustrates the approximate location of \(|\eta|=1.52\). Thus mid-rapidity pions either exit near the end of the barrel of the TPC or through the TPC pad plane. Midrapidity protons and deuterons exit through the pad plane of the TPC and have fewer than 45 hits in the pad plane. The acceptance for different species will be further discussed in the QA section. The BBC, or Beam-Beam Counter detectors, are also shown. These detectors are made of scintillator tiles and are used for triggering and for event plane measurements for flow analyses [53, 54].
+
+### 3.2 The Fixed-Target Trigger
+
+The 2015 fixed-target test run lasted approximately four hours, with the bulk of the data collected in the last half hour. In order to "fire", or start a data collection interval, the fixed-target trigger required a hit in the BBC East detector simultaneously with a veto in the BBC West detector, along with a minimum TOF multiplicity. The minimum TOF multiplicity cut was required because it was unclear how large the background would be. Since the 2014 fixed-target test run had large background, there was concern it would be impossible to distinguish between peripheral Au + Au events and lower multiplicity background such as Au\({}_{\rm like}\) + Al events. We experimented with the choice of TOF multiplicity cut for each run number, as can be seen in Table 3.1.
+
+The first several runs were not used for physics analyses because the trigger was still being synchronized with the RHIC clock. The six runs used for this analysis, along with some useful details, are shown in Table 3.1. All runs except run 16140037 had only one trigger, the fixed-target trigger mentioned above. Run 16140037 had both a fixed-target trigger and a laser trigger. In this table "# of Vertices" is the number of vertices within 210 cm \(<V_{z}<212\) cm from fixed-target triggered events that had at least two primary tracks. The last column is the trigger efficiency, (\(\epsilon_{\rm trig}\)), defined as the ratio of the preceding two columns. It is evident from this table that there is much less background in the dedicated fixed-target mode of operation than operating simultaneously with beam-beam collisions. In the latter, it took three weeks to collect about 5000 central events, whereas in the former, approximately one million, roughly top 30% central events were collected in just half an hour. Because the background was relatively low, the TOF multiplicity trigger requirement will be relaxed in future fixed-target runs. Already, in the 2018 fixed-target run the minimum TOF multiplicity requirement was 5. This requirement resulted in collecting roughly the top 70% central events. The high trigger efficiency seen in the 2015 run indicates that for dedicated fixed-target runs, statistics are limited by the DAQ rate unlike beam-beam collisions where statistics are limited by luminosity. This demonstrates a clear advantage to operating the collider in fixed-target mode as opposed to collider mode at lower center-of-mass energies.
+
+### 3.3 Data Production
+
+There is a multi-step process to transform the raw detector readouts into data that can be analyzed. The raw readouts from different detectors are combined into events by "event-builders" and then stored in data acquisition or DAQ files. There can be petabytes of
+
+\begin{table}
+\begin{tabular}{|c|r|r|r|r|r|} \hline Run \# & \# of Bunches & TOF Mult Cut & \# of Triggers & \# of Vertices & \(\epsilon_{trig}\) \\ \hline
+16140033 & 1 & 130 & 89294 & 89240 & 99.94\% \\ \hline
+16140034 & 1 & 50 & 116629 & 108888 & 93.36\% \\ \hline
+16140035 & 1 & 200 & 4909 & 4908 & 99.98\% \\ \hline
+16140036 & 1 & 130 & 119238 & 119201 & 99.97\% \\ \hline
+16140037 & 6 & 160 & 603721* & 603658 & 99.99\% \\ \hline
+16140038 & 6 & 130 & 414977 & 414796 & 99.96\% \\ \hline \hline Total: & - & - & 1348768 & 1340691 & 99.40\% \\ \hline \end{tabular}
+\end{table}
+Table 3.1: The number of bunches, the minimum TOF multiplicity cut, the total number of triggers, the total number of vertices, the number of vertices that passed event & vertex QA cuts, and the trigger efficiency for each run number.
+
+*There were an additional 5,393 laser triggers during this run.
+
+raw data just for one run year. These raw DAQ files are not used for analysis because (1) they are not in human-readable form, (2) they contain a multitude of supplemental information that is not relevant to the average individual analysis causing the file size to be bloated, and (3) they are uncalibrated. To produce the standard file format for STAR analyses -the MuDsts, or micro- data summary tapes - the DAQ files must be run through the official STAR production chain, referred to as the BFC or Big Full Chain. This chain is a long collection of code that applies the relevant information, including calibrations and detector geometries, for the dataset in question. One of the chain options used in the production of the 2015 fixed-target data was a database that had updated values for the vertex-finder search range. When reconstructing data taken during collider mode, the vertex-finder searches for vertices within a \(z\)-range of -200 cm to 200 cm. For the fixed-target production this range was changed to 150 cm to 250 cm.
+
+However, the MuDst file format has been around since 2002. Furthermore, the MuDsts for one dataset can still be hundreds of terabytes and contain information that is no longer relevant for most analyses. Since there was room for improvement, a new, more compact data format, the PicoDst, was developed by the heavy-ion group at Lawrence Berkeley National Laboratory1. The PicoDsts will replace the MuDsts in STAR official production starting in 2018. At the time of my analysis this data format was still under development. However, for the reasons stated above, it was still desirable to trim the MuDsts to a more compact data format that would be easier to store locally and quicker to run over. Thus Chris Flores, a UC Davis nuclear physics graduate student who graduated in 2017, developed a file format referred to as the "DavisDsts". At the time that this dissertation was being written, this file format was used exclusively by the UC Davis group for speed and convenience. The code used to produce the DavisDsts of the 2015 fixed-target data from MuDsts can be found here: [https://github.com/kcmeehan/DavisDstMaker](https://github.com/kcmeehan/DavisDstMaker).
+
+Footnote 1: For more information on picodsts see: [http://rnc.lbl.gov/](http://rnc.lbl.gov/) xdong/SoftHadron/picoDst.html and [https://github.com/star-bnl/star-picoDst](https://github.com/star-bnl/star-picoDst).
+
+It should be noted that various calibrations (such as the TPC space-charge and grid leak corrections) as well as the vertex ranking algorithm and track reconstruction code were not optimized for the fixed-target configuration. In the fixed-target configuration midrapidity tracks are longer and more forward than in the collider configuration. Future fixed-target runs may benefit from optimizing the calibration and reconstruction codes for the fixed-target configuration.
+
+### 3.4 Quality Assurance and Analysis Cuts
+
+#### Event Selection
+
+I performed several quality assurance (QA) studies on this dataset to determine the analysis cuts. First, as mentioned above, only run numbers 16140033-16140038 were used. Run 16140037 had some additional laser triggers, so a cut requiring the trigger ID to be 1 (the fixed-target trigger ID) was used. Additionally, built into the code that makes the DavisDsts, there is a cut which removes events with no primary vertices. I will not show all the plots used to do QA here, but just focus on select pertinent features. Figure 3.3 shows the effect of varying the TOF multiplicity requirement in the trigger for different run numbers, as discussed in the previous section and Table 3.1.
+
+Figure 3.3: The TOF multiplicity after event-level cuts. The different TOF cuts used in the trigger for different run numbers result in the step-like structure on the left side of the plot.
+
+#### Vertex Selection
+
+Before going further, I will explain the STAR coordinate system. The \(z\)-coordinate is along the beam direction and is positive in the "blue" beam direction. The "yellow" beam is the projectile beam in the fixed-target configuration, so the direction of the projectile beam is in the negative-\(z\) direction by STAR convention. The positive \(z\)-direction is in the direction of the target. The positive and negative \(y\)-directions are simply up and down, respectively. The positive and negative \(x\)-directions are outward from the collider ring and toward the collider ring center, respectively. Since the fixed target is located at \(z=211\) cm, the requirement \(210\) cm \(<V_{z}<212\) cm was placed on the \(z\)-coordinate of primary vertices to select target vertices. The vertex distributions are shown in Figure 3.4.
+
+Note that after applying a simple \(z\)-cut there is very little background. Another variable that is commonly used in vertex selection is the number of TOF-matched tracks. This is the number of tracks from the same vertex with at least one hit in the TOF. There is usually a peak at the low end due to background. In this case, a minimum requirement is made on the number of TOF-matched tracks in a vertex. However, in the case of this analysis the simple \(z\)-cut already removed this peak, as seen in Figure 3.5. Therefore no such additional cut was applied. This demonstrates that there is significantly less background in a dedicated mode of running operations, than in a simulatenous mode of fixed-target and beam-beam collisions such as in Run 14. There
+
+Figure 3.4: The \(z\)-distribution of vertices (left) and the \(y\) vs. \(x\) vertex distribution (right).
+
+fixed-target runs can significantly loosen the TOF multiplicity cut used in the trigger. This cut was placed out of concern it would be difficult to distinguish between peripheral Au + Au events and Au + Al beam pipe background events.
+
+This analysis also required that vertices have a vertex index of 0. This cut is only necessary if the time-of-flight information is being used. A typical event (or trigger) has multiple vertices which are sorted by the vertex ranking algorithm "..such that the highest-rank vertex is the best match for the primary interaction point" [55]. Each vertex within an event is assigned a unique index directly related to its ranking. Index-0 vertices are the vertices likely to be the most interesting collision in the event. However, it should be noted that the vertex-ranking algorithm was not optimized for a fixed-target configuration at the time of this dissertation, and not all vertices that fell within the range of the target (210 cm \(<V_{z}<\) 212 cm) were index-0 vertices. In this case, for some events a higher index vertex, such as the index-1 vertex might actually be the collision of interest. Therefore, in general it is better to keep these interesting vertices and not apply a vertex index cut.
+
+However, this requirement is needed for analyses that use the time-of-flight information. To determine the start time of the collision, the time-of-flight detector usually relies on the two vertex position detectors (VPD). The VPD consists of two identical scintillator detectors located symmetrically at \(z=+\)/- 5.7 m from the center of STAR [56].
+
+Figure 3.5: The number of tracks from the same vertex with at least one hit in the TOF, before a \(z\)-vertex cut (left) and after the condition 210 cm \(<V_{z}<\) 212 cm is applied (right). Note a simple cut on the \(z\)-location of the vertices removes the peak at low numbers of TOF matches.
+
+In collider mode, the two detectors could measure forward photons from \(\pi^{0}\) decays to determine the \(z\)-position of the primary collision as well as its time relative to the RHIC master clock [56]. However, one of the requirements of the fixed-target trigger is a veto in the west BBC and VPD since the target is on the west side and thus particles produced from fixed-target collisions are boosted in the eastern direction. Thus the VPDs cannot be used to determine a start time in the time-of-flight system for fixed-target events.
+
+Instead, a "startless" time-of-flight calibration must be applied in order to obtain useful time-of-flight information for the produced particles. The "startless" method calculates a start time using all pion-like tracks from the index-0 primary vertex. Thus, if the fixed-target vertex of interest is the index-0 vertex of the event, the time-of-flight calibrations are correct. However, if the fixed-target vertex happens to have been assigned a higher vertex index for that event, the time-of-flight information for that vertex will be miscalibrated.
+
+Figure 3.6 shows the mass-squared bands as a function of momentum. The plot on the left includes all vertex indices that pass our \(z\)-cut, while the one on the right only includes the index-0 vertices that pass the \(z\)-cut. The figure on the left has extra diagonal features off the mass peak due to the miscalibration. This miscalibration is more visible in these
+
+Figure 3.6: Mass-squared PID bands calculated using time-of-flight information from the TOF and the matched track’s momentum and path length from the TPC. The plot on the left includes vertex indices that have miscalibrated time-of-flight information causing additional diagonal features to appear.
+
+mass-squared plots than in the \(1/\beta\) plots usually used for PID. By requiring vertices to be index-0 for my analysis, I removed collisions with incorrect TOF calibrations. This cut removes 3.5% of the vertices that pass the fixed-target \(z\)-cut.
+
+#### Track Selection
+
+Before discussing the analysis cuts I applied explicitly, it is important to mention that some track cuts are already applied to the primary tracks when producing the official MuDsts. The primary tracks in the official MuDsts meet the following criteria:
+
+1. nHitsdE/dx = 0 or nHitsdE/dx \(>\) 5
+2. nHitsFitTPC, nHitsPosTPC \(>\) 10
+3. nHitsFit, nHitsPoss \(>\) 11
+4. gDCA \(<=\) 3
+
+The first requirement is on the number of \(dE/dx\) hits a single track has. The second is on the number of hits in the TPC used in the track fit and the total number of hits in the TPC that could be associated with that track. The third requirement is similar but includes the primary vertex as a "hit", and the last is a requirement on the global distance of closest approach. The gDCA used here is the magnitude of the vector between the primary vertex and the point on the reconstructed _global_ track that passes closest to the vertex. The cut is not actually a strict cut like the other three: there are still tracks with a gDCA \(>\) 3, but the number of these tracks is reduced by about three orders of magnitude.
+
+The standard track requirement that the ratio of the number of hits used in the track fit (nHitsFit), to the number of possible hits that could have been used (nHitsPoss), must be equal to or greater than 0.52 was used. This discriminates against short tracks in order to cut out "split tracks". These split tracks are sections of one track that were mistakenly reconstructed by the tracking algorithm as two separate tracks. Unlike in collider mode, in the fixed-target configuration most of the tracks cross the central membrane, so many of these split tracks are split across the central membrane in this case.
+
+I also cut tracks that had no hits with \(dE/dx\) information (nHitsdEdx = 0) since they could not be used for PID with the TPC. This cut also removed tracks that appearedbehind the gating grid and are not useful for analysis. The latter is a unique feature due to the fact that the TPC physically extends to \(z\) = 210 cm and the target is located at 211 cm. Thus, tracks with a pseudorapidity close to zero appear behind the gating grid and are read out by the pads. The last cut applies a strict gDCA \(>\) 3 cut.
+
+One last feature to note is that QA studies revealed a dead TPC readout board(s) in the innermost pad row of one of the sectors. This results in a "hole" of reduced acceptance at forward pseudorapidities around \(\phi=-0.5\). This can be corrected for as part of the acceptance \(\times\) efficiency correction that is discussed in a later chapter.
+
+The table below summarizes all the requirements and cuts used in my analysis.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline Event Requirements & Vertex Requirements & Track Requirements \\ \hline \# of Primary Vertices \(>\) 0 & 210 cm \(\leq V_{z}\leq\) 212 cm & nHitsdEdx \(>\) 5 \\ Trigger Id == 1 & Vertex Index == 0 & nHitsFitTPC \(>\) 10 \\  & & nHitsPossTPC \(>\) 10 \\  & & nHitsFit, nHitsPoss \(>\) 11 \\  & & nHitsFit/nHitsPoss \(\geq\) 0.52 \\  & & gDCA \(\leq\) 3 cm \\ \hline \end{tabular}
+\end{table}
+Table 3.2: Summary table of analysis conditions. The track requirements listed include both the implicit ones enforced during the production of the MuDsts as well as the explicit ones I apply to the DavisDsts.
+
+## Chapter 4 Centrality Selection
+
+### 4.1 Introduction
+
+Unlike \(p\) + \(p\) collisions, a single heavy-ion collision can have a varying number of nucleon + nucleon (binary) collisions, and a single nucleon or participant can undergo multiple interactions within a collision. Peripheral collisions have fewer participants and fewer binary collisions, resulting in a "fireball" of smaller size. Here the term fireball is used to describe a region of hot, dense, compressed nuclear matter that may or may not have undergone a phase transition into a QGP. Central collisions have close to the maximum number of participants possible, and a larger number of binary collisions. Thus they can create a larger "fireball". By dividing collisions into centrality classes, we can make more accurate comparisons and also study properties as a function of the system size.
+
+Glauber models, named after their inventor and Nobel laureate Roy J. Glauber, use Monte-Carlo simulations of many nucleus + nucleus collisions to obtain distributions of the impact parameter (\(b\)), number of binary collisions (\(N_{\rm coll}\)), and number of participants (\(N_{\rm part}\)). The impact parameter is the distance between the centers of two colliding nuclei. Thus \(b\) can take on values of \([0,2R]\) where \(R\) is the nuclear radius. More central collisions correspond to smaller impact parameters. A detailed discussion on the topic of Glauber modeling and centrality determination is outside the scope of this dissertation, and I will focus only on the details most relevant for my analysis. For a more detailed discussion see [57, 58].
+
+Generally, in a Monte-Carlo Glauber Model the nucleons within each nucleus are assumed to have some spatial distribution; in the case of the model used in this dissertation, a Woods-Saxon distribution was assumed. The two nuclei are then given a random impact parameter and if two nucleons have a separation distance, \(d\), such that \(d<\sqrt{\sigma_{\rm inel}^{NN}/\pi}\) where \(\sigma_{\rm inel}^{NN}\) is the nucleon-nucleon inelastic cross section, they are considered to have undergone a binary collision. It is assumed that \(\sigma_{\rm inel}^{NN}=\sigma_{\rm inel}^{pp}=\sigma_{\rm inel}^{pn}=\sigma_{ \rm inel}^{nn}\). For our model \(\sigma_{\rm inel}^{pp}=30\) mb was used, consistent with the measured value for this energy range, as shown in Figure 4.1. From such a model, distributions of the number of binary collisions and the number of participants can be created. However, neither are measurable quantities. Thus, an additional step is needed to relate the model to data.
+
+### 4.2 Centrality Selection
+
+A multiplicity distribution, such as the number of charged particles, or the number of tracks within a given acceptance, etc. is usually the experimental observable that is compared to simulation for centrality determination. As stated in reference [57], the mul
+
+Figure 4.1: This figure, from reference [5], shows the energy dependence of the inelastic cross section. The filled black circles are measurements of the inelastic \(pp\) cross section made by several experiments.
+
+[MISSING_PAGE_FAIL:53]
+
+The multiplicity distribution we used for centrality selection is the distribution of tracks (charged particles), \(N_{\rm ch}\), that passed basic track quality assurance cuts. These tracks must have nHitsFit/nHitsPoss\(\geq 0.52\) and nHitsdEdx\(>0\). In fact, these are the same as the track QA requirements described in the previous chapter, with the exception that there is no DCA requirement other than the MuDst default of no more than about 3 cm. This multiplicity distribution, along with the centrality bins and the Glauber + Negative Binomial fit, is shown in Figure 4.2. The vertical lines correspond to the multiplicity cuts for centrality binning listed in Table 4.1. The code to perform centrality selection can be found here: [https://github.com/kcmeehan/CentralitySelectionForFXT](https://github.com/kcmeehan/CentralitySelectionForFXT).
+
+In addition to the centrality selection, there are two other notable features. First, due to the TOF multiplicity requirement in the trigger, the trigger is biased towards central events and is roughly a top 30% trigger. Due to this trigger bias, the data does not sample the full top 30% of the cross section evenly and visibly undershoots the Glauber
+
+Figure 4.2: The Glauber + Negative Binomial Fit (red line) to the measured multiplicity distribution (black histogram). The blue line is the estimate, from simulation, of the contribution from pile-up events. The vertical lines indicate the multiplicity cuts for the various centrality bins as well as the cut to remove pile-up from the most central bin.
+
+fit at multiplicities lower than the top 15% centrality bin. The discrepancy between the fit and the data indicate that the bins more peripheral than 15% are biased to more central collisions within their bin. The second feature is the "tail" at high multiplicities. These events are pile-up events that occur when two ions from the same bunch hit the target. Once the vertexing algorithm finds the "best" vertex, it associates tracks within a 3 cm gDCA with that vertex. It also prevents another vertex from being found within 3 cm of the initial vertex, since there would be no clear way to know which tracks came from which vertex. Therefore, if two ions from the same bunch hit the target, they will be reconstructed by the vertexing algorithm as a single vertex. This biases the multiplicity distribution to higher multiplicities. This bias occurs in collider mode as well, but is more prominent in fixed-target collisions where the collisions of interest are localized to the target. The next section describes our method of estimating the contribution of pile-up events in each centrality bin.
+
+### 4.3 Pile-up Study
+
+The pile-up was modeled with a Monte-Carlo simulation performed by UC Davis graduate student Todd Kinghorn. To create the simulated multiplicity distribution with pile-up, he filled a histogram with events with a multiplicity obtained by randomly sampling the data distribution up to a multiplicity of 240. Beyond this multiplicity we expect the vast majority of events to be pile-up events. Additionally, for an assumed, small percentage of events, he would also sample the "minimum bias" Glauber Monte-Carlo + Negative Binomial fit to the data and add the multiplicity of that event to the first event sampled from the data distribution. A minimum-bias distribution was used to model one of the collisions of the pile-up event since only the combined multiplicity of the two events had to be sufficient to satisfy the trigger conditions. The resulting distribution was then fit to the originally measured distribution. This procedure was repeated assuming different percentage values for the fraction of events that were pile-up, and a \(\chi^{2}\) minimization was done to optimize this percentage, estimated to be 0.8%. The blue curve in Figure 4.2 is the resulting simulated distribution of only the pile-up events.
+
+The estimate of the percentage of events that are pile-up events for each centrality bin is given in Table 4.1. An upper limit on the multiplicity for an event in the top 5% centrality bin was chosen to be 240. A stricter cut could be used for analyses more sensitive to pile-up such as moments analyses (e.g. measuring the net-proton kurtosis).
+
+## Chapter 5 Extracting the Raw Yield
+
+After selecting the appropriate data quality cuts and performing centrality selection, we are now ready to proceed with the analysis. To obtain spectra and rapidity densities we must further divide our centrality bins into rapidity and \(m_{T}-m_{\pi}\) bins, where \(m_{T}\) is the transverse mass, and \(m_{\pi}\) is the charged pion mass. We chose \(m_{T}-m_{\pi}\) bins instead of transverse momentum, \(p_{T}\), bins to make it easier to compare to previous experiments which generally plotted spectra as a function of \(m_{T}-m_{\pi}\). Binning the data by rapidity and \(m_{T}-m_{\pi}\) requires assuming a mass value for the tracks. For the pion spectra analysis we assume all tracks are pions, the most commonly produced species at this energy, for the binning step.
+
+To obtain the raw (uncorrected for background and acceptance/efficiencies) spectra, we extract the raw yield for each \(m_{T}-m_{\pi}\) bin from fits to \(zTPC\) distributions. The \(zTPC\) variable is defined by equation 5.1:
+
+\[zTPC=\ln\biggl{(}\frac{\mbox{{\it dE/dx}}_{\rm meas}}{\mbox{{\it dE/dx}}_{\rm pred }}\biggr{)} \tag{5.1}\]
+
+where \(dE/dx_{\rm meas}\) is the 70%-truncated \(\langle dE/dx\rangle\) measured by the TPC, and \(dE/dx_{\rm pred}\) is the prediction from the corresponding Bichsel paramterization. Thus the \(zTPC\) value should be spread around zero due to the resolution of the TPC. For each rapidity bin, the raw yield is plotted as a function of \(m_{T}-m_{\pi}\) to produce raw spectra. Later chapters will discuss corrections applied to the raw spectra to obtain the final spectra, before they are ready to be fit to extract rapidity density yields.
+
+### \(zTpc\) Fitting Procedure
+
+The objective of the \(zTPC\) fitting procedure is to estimate the raw yield of the particle of interest, in this case the \(\pi^{-}\) meson, while minimizing contamination from other particles. Due to the limited momentum and \(dE/dx\) resolution of the TPC, the \(dE/dx\) values of different particles can overlap in momentum or transverse mass phase space, as shown in Figure 5.1.
+
+In this figure the positive kaons and protons both merge with the positive pions above a certain value of \(m_{T}-m_{\pi}\). Typically in STAR analyses the time-of-flight detector is used to extend the spectra to higher transverse mass values since it has better resolution and can thus better separate the different species. However, due to its location further away from the primary vertices, the TOF does not have as low a reach in transverse mass as the TPC. Thus we rely on TPC measurements for the lower transverse mass portion of the spectra, where the bulk of the yield resides.
+
+Figure 5.1: This plot shows the \(dE/dx\) as a function of \(m_{T}-m_{\pi}\) for the rapidity window -1.25 \(<y_{\pi}<\) -1.15. Both the transverse mass and rapidity bins assume all tracks have the mass of the pion. Note that above \(m_{T}-m_{\pi}\approx 0.5\) GeV/\(c^{2}\) the protons merge with the positive pions. The positive kaons merge with the positive pions at an even lower \(m_{T}-m_{\pi}\).
+
+Fortunately, in the case of this analysis, for the \(\pi^{-}\) spectra there are fewer contaminating particles. The center-of-mass energy is close to the proton - anti-proton production threshold and thus the anti-proton yield is negligible. Additionally, there are far fewer \(K^{-}\) mesons produced than \(K^{+}\), since at this energy range the associated production of \(K^{+}\) mesons with \(\Lambda\) baryons is the dominant production mechanism for \(K^{+}\) mesons, as opposed to pair production. Indeed while fitting the \(\pi^{-}\) yields I have found the \(K^{-}\) contribution to be negligible, however the \(K^{+}\) contamination has a clear effect in inflating the \(\pi^{+}\) yield.
+
+Multiple "rounds" of fitting are performed to reduce the number of free parameters in the final fit and extract the final raw \(\pi^{-}\) yield. In the first round, a single Gaussian function is used to fit the \(\pi^{-}\) peak for each transverse mass bin, as shown in Figure 5.2.
+
+The means and widths of these Gaussians are then plotted as a function of \(m_{T}-m_{\pi}\) and fit with a piecewise polynomial + line given by equation (5.2). A polynomial is used because there is no physical motivation for the transverse mass dependence, it is just an
+
+Figure 5.2: A single Gaussian fit (red line) to the data (blue crosses) for a single transverse mass bin at mid-rapidity. The vertical lines show the Bichsel \(zTPC\) predictions for different particle species. By the definition in equation (5.1), the pion prediction (brown line) is at \(zTPC=0\). The purple, green and navy lines represent the electron, anti-proton and \(K^{-}\) predictions, respectively, which should all be negligible for this bin. The stat box shows the goodness of fit, amplitude (p0), mean (p1) and width (p2) parameters.
+
+indication of imperfect TPC calibrations. (Calibrations are done assuming all tracks are pions, so in a world with perfect calibrations the pion mean should be zero and the width should be the resolution of the TPC).
+
+\[\begin{cases}\text{p}0&x\leq\text{p}2\\ \text{p}0+\text{p}1(x-\text{p}2)+\text{p}3(x-\text{p}2)^{2}&x\geq\text{p}2\end{cases} \tag{5.2}\]
+
+Now that the means and widths of the pion Gaussians are constrained, a second round of fitting is performed with the goal of constraining the parameters of the Gaussian describing the electron yield. In the region of phase space where the electron and pion peaks are well separated, a single Gaussian is fit to the electron peak. For the region where the pion and electron yields start to overlap, a double Gaussian is fit to both peaks, as shown in Figure 5.5. The Gaussian describing the pion contribution has its mean and width fixed to their respective fit function values, evaluated at the bin center of that transverse mass bin, shown in Figures 5.3 and 5.4.
+
+The amplitudes, means and widths of the electron Gaussian from these fits were plotted as a function of \(m_{T}-m_{\pi}\), shown in Figures 5.6-5.8. The same functional form, given by
+
+Figure 5.3: The mean of each \(zTPC\) fit as a function of \(m_{T}-m_{\pi}\) at mid-rapidity. The red line is a piecewise polynomial fit to stabilize and constrain the means for the next fitting round.
+
+equation (5.2), was used to fit the electron widths and constrain them for a third round of fitting. There was no reasonable functional form that would describe the \(m_{T}-m_{\pi}\) dependence of the amplitudes or means of the electron Gaussian, so in the third round of fitting these amplitudes and means were fixed to the value of the individual points in the fit.
+
+Figure 5.4: The width of each \(zTPC\) fit as a function of \(m_{T}-m_{\pi}\) for mid-rapidity. The red line is a piecewise polynomial fit.
+
+Figure 5.5: A double Gaussian fit (red line) to the data (blue crosses) for a single transverse mass bin at mid-rapidity. Vertical lines are the same as in Figure 5.2. Note for this fit the mean and width of the pion Gaussian are fixed.
+
+Figures 5.6 and 5.7, respectively.
+
+In the third and final round of fitting, a double Gaussian was used in the \(m_{T}-m_{\pi}\) region that has a significant electron contribution, and a single Gaussian was used for the
+
+Figure 5.7: The mean of the Gaussian describing the electron contribution of each zTPC fit as a function of \(m_{T}-m_{\pi}\) for mid-rapidity.
+
+Figure 5.6: The amplitude of the Gaussian describing the electron contribution of each zTPC fit as a function of \(m_{T}-m_{\pi}\) for mid-rapidity.
+
+higher \(m_{T}-m_{\pi}\) region where there are no longer any electrons. For the double Gaussian fit, all parameters are fixed except the pion amplitude.
+
+### 5.2 Extracting the Raw Spectra
+
+After the final fitting round, the integral of the pion Gaussian is calculated and then properly normalized to obtain the raw yield:
+
+\[\frac{1}{2\pi m_{T}}\frac{d^{2}N}{dm_{T}dy}=N\frac{\sqrt{2\pi}A\sigma}{\Delta z TPC} \tag{5.3}\]
+
+where \(\sqrt{2\pi}A\sigma\) is the integral of the Gaussian calculated with the width and amplitude parameters, \(\Delta zTPC\) is the bin width of the \(zTPC\) plots, and \(N\) is the normalization factor. The factor \(1/(2\pi m_{T})\) makes the yield Lorentz invariant. For this analysis, \(\Delta zTPC\) was chosen to be 0.015. To obtain "raw" (uncorrected) spectra, these yields must be
+
+Figure 5.8: The width of each \(zTPC\) fit as a function of \(m_{T}-m_{\pi}\) for mid-rapidity. The red line is a polynomial piecewise fit to stabilize and constrain the widths for the next fitting round.
+
+normalized by the \(m_{T}-m_{\pi}\) and rapidity bin widths, as well as the number of events:
+
+\[N=\frac{1}{2\pi m_{T}\Delta(m_{T}-m_{\pi})\Delta yN_{\rm events}} \tag{5.4}\]
+
+where \(\Delta(m_{T}-m_{\pi})\) is the \(m_{T}-m_{\pi}\) bin width, \(\Delta y\) is the rapidity bin width, and \(N_{\rm events}\) is the number of events, in our case 274,398 for the top 5% centrality bin.
+
+Figure 5.9 shows the outcome of the final fitting round. In this figure the two Gaussians representing the pion and electron contributions to the yield are plotted on top of the data. The parameters for both Gaussians are those from the final round of fits. The pion amplitude and width parameters, along with the \(z TPC\) bin width are used to calculate the raw pion yield. All the \(z TPC\) fits for each phase space bin, as well as the fits to the \(z TPC\) means and widths as a function of \(m_{T}-m_{\pi}\), can be found here: [http://nuclear.ucdavis.edu/~kmeehan/protected/AnalysisUpdates/ThesisPDFs/](http://nuclear.ucdavis.edu/~kmeehan/protected/AnalysisUpdates/ThesisPDFs/)
+
+Figure 5.10 shows the raw spectra as a function of \(y\) for each rapidity bin in the lab frame. The drop at low transverse mass is an effect of the low \(p_{T}\) acceptance. Tracks with lower \(p_{T}\) are curved more by the magnetic field. Thus, not as many make it into the TPC volume. We see another acceptance effect for the high transverse mass bins of the most backward rapidity bins (closest to \(y\sim 0\)). A rapidity of zero would apply to particles that
+
+Figure 5.9: The pion (brown) and electron (purple) Gaussians are plotted on top of the data (open circles). The parameters of each Gaussian are those from the final round of fitting.
+
+are produced moving perpendicular to the \(z\)-axis. Since the target is located at \(z\)=211 cm but the TPC volume ends at 210 cm (with the fiducial volume ending at 200 cm), tracks with rapidity close to zero whose trajectories are bent less by the magnetic field (higher transverse mass) will not make it into the TPC volume. Notice in the first case (low \(p_{T}\)) the tracks do not extend to a large enough radial distance to make it into the TPC, whereas in the latter case (low \(|y|\), high \(p_{T}\)) the tracks do not extend far enough in \(z\) to make it into the TPC.
+
+In order to obtain the final \(\pi^{-}\) spectra that we can fit to extract a rapidity density distribution, the spectra must first be corrected for background and detector and reconstruction artifacts. These corrections will be discussed in the next chapters.
+
+Figure 5.10: Raw \(\pi^{-}\) spectra as a function of \(m_{T}-m_{\pi}\) for the top 5% most central Au + Au \(\sqrt{s_{\rm NN}}\) = 4.5 GeV collisions. The mid-rapidity spectra is shown in red.
+
+## Chapter 6 Background Subtraction
+
+### 6.1 Sources of Background
+
+At this point there are several reasons the raw pion spectra in Chapter 5 do not accurately represent the pion yield produced in the heavy-ion collisions. Detector effects, as well as artifacts from the reconstruction techniques, must be characterized so that the spectra can be corrected for them. These corrections will be discussed in the following chapter. An additional reason the pions measured in Chapter 5 do no reflect the true pion yield is that they are contaminated by pions that did not come from the primary vertex.
+
+There are two main sources of "non-primary" pions. Some of the measured pions are produced during weak decays. Particles produced in heavy-ion collisions that can decay weakly will travel some distance from the primary vertex before decaying into pion(s) and other particles. Due to the limited resolution of the vertex and track reconstruction algorithms, these tracks could still be reconstructed to have a DCA within our DCA requirement (3 cm) for "good" tracks. To subtract these background pions, the fraction of the pion yield due to weak decays is simulated.
+
+The second main source of "non-primary" pions is secondary interactions with detector materials, hence these pions will be referred to as "secondaries". Particles produced in the primary collision might interact with material in the beam pipe or other detectors, or even with gas in the beam pipe. These interactions can produce additional pions that are reconstructed as having a DCA within 3 cm of the primary collision. A DCA cutshould already disqualify many secondary pions from being mistakenly reconstructed as having come from the primary vertex, but there are still secondaries that pass this track QA cut. As in the case of weak decays, the fraction of the pion yield from secondaries can be estimated using simulations and then subtracted from the raw yield.
+
+### 6.2 Simulating Background Pions
+
+The Ultrarelativistic Quantum Molecular Dynamics (UrQMD) model is a Monte-Carlo simulation package1 that generates heavy-ion collisions with known parameters. The particles produced from these collisions are then propagated through a comprehensive Starsim simulation (based on GEANT3) of the STAR detector geometry and detailed detector response. Finally, the output of these simulations are passed through the same STAR reconstruction chain that was used to produce the original data.
+
+Footnote 1: [https://urqmd.org/](https://urqmd.org/)
+
+Since the simulation gives us the origin of each track, we can quantify the fraction of tracks that came from
+
+Figure 6.1: An example of a simulated Au + Au fixed-target collision at \(\sqrt{s_{NN}}=4.5\) GeV illustrated with Starsim software. As expected, the tracks come from the edge of the detector where the target is located. This event was paused before all the tracks could be generated for ease of visibility. The full simulation of the event is higher in multiplicity than the one shown here.
+
+secondary interactions or weak decays that were misidentified as having come from the primary vertex. The software to run this procedure, starting from running the UrQMD simulations and ending with the minimc.root files output from the reconstruction, can be found at: [https://bitbucket.org/kmeehan713/backgroundforpionyield/src/master/](https://bitbucket.org/kmeehan713/backgroundforpionyield/src/master/). The code that reads these minimc.root files can be found at: [https://bitbucket.org/kmeehan713/backgroundminmcreaderforthesis/src/master/](https://bitbucket.org/kmeehan713/backgroundminmcreaderforthesis/src/master/). The latter code produces output root files that can then be used to generate and fit background correction curves using the code in the main analysis repository ([https://bitbucket.org/kmeehan713/pion-dndy-analysis-repo/src/master/](https://bitbucket.org/kmeehan713/pion-dndy-analysis-repo/src/master/)).
+
+The plots shown in Figures 6.2 and 6.3 show the distribution of simulated vertices of a given GEANT "process id". In both cases the left-hand side shows the distribution of vertices from which background pions produced from weak decays originated, while the right-hand side shows the distribution of vertices from which background pions produced by hadronic interactions originated.
+
+As expected, the majority of weak decays occur close to the simulated location of the primary vertex. In the case of strong interactions, the beam pipe material is clearly outlined, as evident in Figure 6.2. Since the target is located
+
+Figure 6.2: Simulated background vertex distributions in the \(x-y\) plane. The left-hand side shows vertices that produce background pions by weak decays, and the right-hand side shows vertices that produce background pions by strong interactions. The latter are produced from interactions with detector material and the beam pipe. As expected, the weak decay vertices are clustered at the location where the beam spot hits the target. The secondary vertices illuminate the beam pipe.
+
+at 211 cm and the beam pipe narrows from approximately a 4 cm radius at \(z=200\) cm to a 2 cm radius at \(z=150\) cm, the vertex distribution is spread between these two radii. In Figure 6.3, a peak can be seen at the location of a flange in the beam pipe at about 140 cm. Similarly there are peaks where the beam pipe switches from Al to Be at \(z\sim\pm\) 60 cm and at the end of the TPC where the material of the MWPC, pad planes, and electronics are.
+
+### 6.3 Results from the Background Simulation
+
+Figure 6.4 shows the distribution of the GEANT ID of the "parent" particle that each reconstructed \(\pi^{-}\) originated from. All the pions in this histogram were reconstructed as having come from the primary vertex. This histogram was created using a simulation of 100,000 UrQMD events. The tallest peak, "NA", consists of pions that really do originate from the primary vertex. Thus, for these pions the reconstruction was correct. The next tallest peak indicates that the largest source of background pions is \(K_{s}^{0}\) decays. The next largest sources are \(\Lambda\) and \(\Sigma^{-}\) decays. Note the \(y\)-axis is plotted on a log scale. Thus, weak decays are the dominant source of background pions compared to pions from interactions with detector material. The latter would have "parent" IDs of a proton, neutron, pion,
+
+Figure 6.3: Simulated background \(z\)-vertex distributions. The left-hand side shows vertices that produce background pions by weak decays. These vertices are clustered close to the target, as expected. The right-hand side shows vertices that produce background pions by strong interactions. As expected, peaks can be seen at locations where there is more detector or beam pipe material.
+
+etc.
+
+The dominance of the background by weak decays is also illustrated in Figures 6.5 and 6.6. Both figures show the \(m_{T}-m_{\pi^{-}}\) dependence of the background for the mid-rapidity bin. The contribution to the raw pion yield from secondary hadronic interactions stays well below 1% for the entire transverse mass range. Thus the impact of this correction on the final spectra is negligible, especially within systematic uncertainties to be discussed in a later section. One reason the background might be this low is that most tracks produced in the fixed-target configuration at this energy are very forward, compared to the collider configuration. Thus, although forward tracks travel through a larger cross section of material, perhaps fewer pions from beam pipe/material interactions can be reconstructed as having come within 3 cm of the primary vertex. The raw spectra were corrected for the secondary background by (1) fitting the background fraction as a function of transverse mass, (2) subtracting this fraction from 1, and (3) multiplying the raw yield for each \(m_{T}\) and rapidity bin by this final fraction obtained in step (2) for the corresponding bin.
+
+Figure 6.4: GEANT parent ID of the simulated pions that were reconstructed as having originated from the primary vertex. Pions with a parent ID of “NA” came from the primary vertex. Other pions came from background sources such as weak decays or interaction with detector material. The largest source of background pions at mid-rapidity is \(K_{s}^{0}\) decays. The simulation used 100,000 events.
+
+A linear fit function was chosen to fit the distribution due to the limited statistics. The simulation pipeline, from running the UrQMD and Starsim simulations to running reconstruction and the minimcreader, is quite time consuming and scales with the num
+
+Figure 6.6: Fraction of reconstructed pions at midrapidity that came from weak decays.
+
+Figure 6.5: Fraction of reconstructed pions at midrapidity that were produced by the hadronic interaction, e.g. from interactions with beam pipe material. A linear fit was used to estimate the background contribution. A polynomial fit is also shown in this figure for comparison.
+
+ber of events. In this analysis, 100,000 events were chosen, both due to time constraints, and that the contribution of the statistical uncertainty from this correction to the final measurement uncertainty is much less than the dominant source of uncertainty. The background contribution of these secondary pions is dependent on the geometry of the surrounding material as well as the fraction that pass analysis cuts, including the requirement that their tracks were reconstructed as originating within 3 cm of the primary vertex. Thus there is no clear physics motivation for a particular \(m_{T}-m_{\pi^{-}}\) shape or fit function. However, due to energy conservation it is expected that the contribution is largest at the low end of the transverse mass spectrum since the particles that initially interacted with the material to produce the pions only carried a small fraction of the outgoing energy of the collision. Because there is no clear motivation of fit function choice, and limited statistics, I used a linear fit for the final background correction. A pdf of the background fits for all rapidity bins can be found here: [http://nuclear.ucdavis.edu/~kmeehan/protected/AnalysisUpdates/BackgroundFits.pdf](http://nuclear.ucdavis.edu/~kmeehan/protected/AnalysisUpdates/BackgroundFits.pdf).
+
+Figure 6.6 illustrates the fraction of the raw pion yield that came from weak decays as opposed to the primary vertex, in the midrapidity bin. At the low transverse mass end of the spectrum the contribution reaches approximately 20%, two orders of magnitude above the hadronic background. Both an exponential and a power law fit the data reasonably well. Although pions from weak decays are the dominant background source, this correction is not applied when comparing the final rapidity density with results from previous experiments since those results did not include a weak decay correction. Thus the most "apples-to-apples" comparison of \(\pi^{-}\) rapidity densities is without a weak decay correction.
+
+Before the final corrected spectra can be presented, the background-corrected spectra must also be corrected for the imperfect detector acceptance and track reconstruction inefficiencies. This correction is the subject of the following chapter.
+
+## Chapter 7 Correcting for Detector Acceptance and Efficiency
+
+### 7.1 Introduction to the Efficiency x Acceptance Correction
+
+After measuring the raw pion yield (see Chapter 5) and subtracting the contribution from background pions (see Chapter 6) the measurement is still not an accurate count of the pions produced in the collisions. Pions are lost due to imperfect detector acceptance and reconstruction efficiency. The STAR detector does not have perfect, 100% acceptance coverage. This is the most striking effect that can be seen in the raw spectra figure at the end of Chapter 5. The yield drops in the lowest \(m_{T}-m_{\pi^{-}}\) bins since pions with insufficient transverse momentum exit the detector before they can travel 10 pad rows radially into the TPC, the minimum required to pass the 10 nHitsFit analysis cut. Similarly, since the target is located at \(z=211\) cm and the edge of the fiducial volume of the TPC is 200 cm, tracks with a pseudorapidity close to zero do not make it into the \(z\)-range of the TPC. Additionally, tracks with trajectories in the \(x-y\) plane along the gap between two TPC sectors will not be reconstructed. In addition to missing pions that do not enter into the fiducial volume of the detector, the raw pion yield excludes pions that are not reconstructed due to a less than 100% efficient reconstruction algorithm. In a perfect experiment the tracking algorithm would reconstruct all the tracks withperfect \(dE/dx\) and momentum resolution, and perfect efficiency. Additionally, all tracks would be reconstructed to be coming from their vertex of origin with DCA values of zero. Additionally, tracks would not be mistakenly split into two by the reconstruction algorithm when they cross the central membrane of the TPC. Track splitting happens for many of the tracks in this fixed-target configuration since most tracks are fairly forward. This results in some tracks being split and only the first half of the track being reconstructed. The track cuts chosen for the analysis, such as the gDCA cut and the nHitsFit/nHitsPoss cut discussed in Chapter 3, optimize our track selection and reduce contamination from split tracks and tracks originating from secondary vertices. However, since the tracking algorithm is not perfect, these cuts are not 100% efficient. Additionally the standard STAR vertex reconstruction algorithm and tracking algorithm was used in the official production. Optimizing these algorithms for the fixed-target configuration may bring improvements and should be further explored in the future, but is outside the scope of this thesis.
+
+Due to the complexity of the reconstruction algorithms and the detector geometry, the current state-of-the art method for correcting for these effects is done by embedding simulated events into data and then propagating them through the Starsim detector geometry and reconstruction algorithm. This method estimates the combined effects of the detector acceptance, the reconstruction algorithm efficiency, and the efficiency of the analysis cuts. Currently there is no method for dealing with the detector acceptance and the reconstruction efficiency corrections separately. This technique is similar to the method used for estimation of background pions, except in the case of the efficiency \(\times\) acceptance correction, the simulated tracks are embedded as primary tracks into real data. Minimc files with the embedded events are generated by the STAR embedding team based on an "embedding request" submitted by the main analyzer. The embedding request for this analysis can be found here: [https://drupal.star.bnl.gov/STAR/starsimrequests/2016/jun/03/pi-fxt-au-au-45-gev](https://drupal.star.bnl.gov/STAR/starsimrequests/2016/jun/03/pi-fxt-au-au-45-gev). The code to process the minimc embedding files can be found here: [https://bitbucket.org/kmeehan713/embeddingreader/src/master/](https://bitbucket.org/kmeehan713/embeddingreader/src/master/).
+
+Once the minimc files are generated, the efficiency as a function of transverse mass is calculated for each rapidity bin. The efficiency is given by the ratio of the number of "matched" tracks to the number of embedded Monte-Carlo tracks. A "matched" track is a reconstructed track that can be successfully matched to one of the simulated tracks pre-reconstruction.
+
+\[\epsilon=\frac{\#\text{ofmatchedtracks}}{\#\text{ofembeddedtracks}} \tag{7.1}\]
+
+The efficiencies as a function of transverse mass are fit with the following function:
+
+\[\epsilon(x)=Ae^{-b/x^{c}} \tag{7.2}\]
+
+where \(x\) is \(m_{T}-m_{\pi^{-}}\), and \(A\), \(b\), and \(c\) are fit parameters. This fit is used to smooth the efficiency correction. An example of this fit to the embedding data for the mid-rapidity bin is shown in Figure 7.1.
+
+For most rapidity bins that are not near the edge of the
+
+Figure 7.1: The efficiency fit to the ratio of the matched tracks to the embedded tracks as a function of \(m_{T}-m_{\pi^{-}}\), for the mid-rapidity bin.
+
+acceptance, the efficiency flattens at around 80-90% at higher transverse mass values. As expected, the TPC efficiency drops steeply at low transverse mass where fewer particles have enough transverse momentum to make it inside the inner radius of the TPC. Plots of the fits for all rapidity bins can be found here: [http://nuclear.ucdavis.edu/~kmeehan/protected/AnalysisUpdates/pimEfficiencyCurves.pdf](http://nuclear.ucdavis.edu/~kmeehan/protected/AnalysisUpdates/pimEfficiencyCurves.pdf).
+
+### 7.2 The Corrected Spectra
+
+#### Obtaining the corrected spectra
+
+To finally obtain the \(\pi^{-}\) spectra representative of the true pion yield produced in the collision (within statistical and systematic uncertainties), both the background subtraction correction and the efficiency \(\times\) acceptance correction must be applied.
+
+The background is subtracted from each \(m_{T}-m_{\pi^{-}}\) bin of the raw spectra (see Chapter 5) by subtracting the background fit evaluated at the bin center, from 1, and then multiplying the raw yield by this factor (see Chapter 6). The efficiency \(\times\) acceptance correction is then applied by
+
+Figure 7.2: The \(\pi^{-}\) spectrum for the mid-rapidity bin, corrected for secondaries and for detector efficiency \(\times\) acceptance.
+
+dividing the background-corrected yield at each transverse mass bin by the value of the efficiency \(\times\) acceptance fit at the bin center of that transverse mass bin. In general a correction for weak decays should also be applied, but for the sake of comparison to results from previous experiments that did not apply such a correction, we present the corrected spectra without this correction as well. Figure 7.2 shows an example corrected spectrum for the mid-rapidity bin. When applying the TPC efficiency \(\times\) acceptance correction, spectra points with a TPC efficiency less than 30% were excluded from the analysis. Additionally, points with uncertainties larger than 50% of their yield value were excluded from the analysis because the uncertainty from the efficiency correction is too large to have confidence in the correction, especially since it is known that the efficiency from the embedding model fails to accurately describe the efficiency at the edge of the detector acceptance. This will be described in more depth in the following subsection.
+
+#### Discussion of Uncertainties
+
+The spectrum shown in Figure 7.2 includes uncertainties from both statistical and systematic sources. There are many sources of systematic uncertainties in the analysis steps for obtaining the corrected spectra. Table 7.1 summarizes the main sources and their relative contributions.
+
+The largest source of uncertainty is from the simulation of the detector. As discussed above, this simulation is used in generating both the background and efficiency correction curves. We tested a couple of different data-driven techniques to estimate the uncertainty of the simulation and these corrections.
+
+As a first check of the size of the uncertainty in our simulation, we individually varied the track selection cuts in this analysis. Varying the track selection cuts alters the
+
+\begin{table}
+\begin{tabular}{l c} Source of error & Maximum Contribution (\%) \\ \hline \(nSigma\) vs \(zTPC\) & 1.5 \\ Energy Loss & 0.5 \\ Efficiency & 10 \\ \end{tabular}
+\end{table}
+Table 7.1: List of chief sources of systematic uncertainty number of "raw" pions measured. However, the same cuts that are used for the analysis are also used for reconstructing the simulated tracks (when generating background correction curves) and for reconstructing the embedded data (when generating the efficiency \(\times\) acceptance correction curves). Therefore, although the number of raw pions measured changes, the corresponding efficiency correction (and background correction) also changes. The new efficiency correction should compensate for the change in the raw spectra, assuming our simulation of the detector is accurate.
+
+The initial minimum nHitsFit track selection requirement, listed in Chapter 3, is 10. This number was intentionally selected to be much lower than the 25 hits required for most collider analyses in order to extend the pseudorapidity coverage. Most of the tracks produced in the fixed-target collision at this energy have very forward pseudorapidity values and are exiting the TPC through the pad plane without making it to the outer field cage. This means the distribution of the maximum number of hits tracks can have in this configuration is shifted to lower values, since many tracks are not crossing all the TPC pad rows. We varied the nHitsFit requirement from the minimum requirement of 10 hits (the default value used in the official production of the MuDsts before any individual analysis cuts are applied) to 20 hits to study the effect on the corrected spectra. The difference between the corrected spectra for the two different nHitsFit requirements could be described by a 10% systematic error. Figure 7.3 shows the ratio of the spectra using the nHitsFit \(\geq\) 10 requirement to the spectra using the nHitsFit \(\geq\) 20 requirement for the rapidity bin centered at \(y_{\rm lab}=-1.0\). Most tracks with this rapidity should be able to make it to the outer radius of the TPC and have nHitsFit values greater than 35. However, previous studies by UC Davis students have indicated that the simulation fails to accurately describe the detector acceptance/tracking efficiency near the edge of the detector acceptance. This finding is supported by the current study, as the forward rapidity bins exhibit a greater difference between the two spectra, implying a greater systematic uncertainty due to the simulation. Figure 7.4 shows that the systematic uncertainty increases to 15% for the lowest transverse mass bins at mid-rapidity.
+
+Figure 7.4: Ratio of the corrected \(\pi^{-}\) spectra using two different nHitsFit cuts for the mid-rapidity bin. Points with uncertainties more than 50% of the point value are not shown. A 10% systematic uncertainty can describe the difference between the spectra at higher transverse mass, but at lower transverse mass the uncertainty is increased to 15%.
+
+Figure 7.3: Ratio of the corrected \(\pi^{-}\) spectra using two different nHitsFit cuts for the rapidity bin centered at \(y\) = -1.0. The difference between the spectra can be can be contained within a 10% systematic uncertainty.
+
+The gDCA cut was also varied. However, it became clear from the embedding QA that the DCA distribution of reconstructed simulated tracks does not match the DCA distribution of the reconstructed tracks from actual data. This discrepancy was exacerbated at the most forward rapidities. Figure 7.5 illustrates this discrepancy between simulation and data for the mid-rapidity bin. This issue is known and appears in collider analyses as well. Thus, we require a 3 cm cut to give us the least biased value of the efficiency correction. As discussed in Chapter 3, tracks with DCA values larger than 3 cm are all but eliminated due to a \(\chi^{2}\) cut placed during official production of the MuDsts.
+
+To cross-check the systematic uncertainties assigned to the spectra from varying the nHitsFit cut, another data-driven approach was taken using the Run 18 \(\sqrt{s_{\mathrm{NN}}}=\) 3 GeV data. At the time line of this dissertation, we were limited to using the pre-production data, which might not include all the standard calibrations since official production was not available yet. Ben Kimelman, another UC Davis student, obtained a preliminary rapidity density for negative pions with this dataset. Rapidity density distributions must be symmetric about mid-rapidity, within uncertainties, due to energy and momentum conservation. Therefore, if the measured rapidity distribution is asymmetric about mid-rapidity, this is most likely due to a systematic error in the efficiency correction due to
+
+Figure 7.5: The DCA distributions of reconstructed simulated tracks (red dotted line) does not accurately reproduce data (blue line) for the mid-rapidity bin.
+
+uncertainty in the simulation of the edge of the detector acceptance. At \(\sqrt{s_{\rm NN}}=3\) GeV mid-rapidity is \(y_{mid}=1.05\). Thus, most mid-rapidity tracks make it to the outer radius of the TPC. This makes it an easier energy to compare the symmetry of the rapidity distribution, since for the \(\sqrt{s_{\rm NN}}=4.5\) GeV energy, mid-rapidity is at the edge of the detector acceptance and there are few forward rapidity bins to compare with backward bins.
+
+Figure 7.6 plots the ratios of the forward rapidity and backward rapidity spectra that are equidistant from mid-rapidity. By conservation of energy and momentum, we would expect this ratio to be unity, within uncertainties. Except for the most forward and backward rapidity bins, for most transverse mass bins the ratio is within 5-10% of unity. This is consistent with the size of uncertainties from varying the nHitsFit cut. The largest deviations from unity occur at lower transverse mass bins and at the bins furthest from mid-rapidity, also consistent with the nHitsFit cut study. Both studies support the claim that the simulation used to generate the detector \(\times\) efficiency correction is not accurately modeling the detector acceptance and reconstruction efficiency at the edge of the acceptance. For the most forward rapidity bins and lowest transverse mass bins, the systematic uncertainties on the corrected spectra points were increased to match the size of the deviation from unity of the ratios shown in Figure 7.6. The highest value used for the systematic uncertainty due to the efficiency correction is 25%. As mentioned previously, points with combined uncertainties above 50% of their value are excluded from the analysis. From the ratios alone, it is not clear whether the uncertainties should be assigned to the forward or the backward spectra. We do not independently know the true values for the rapidity bins. However, from the embedding QA, the nHitsFit studies, and previous beam pipe studies at UC Davis, we have reason to suspect the simulation fails at the edge of the detector acceptance. Therefore, in this analysis, the uncertainties from this study were applied to the forward bins. For bins backward from \(y=1.1\), the 5% value from the nHitsFit study of the systematic uncertainty was used.
+
+The other two sources of uncertainty listed in Table 7.1 are negligibly small once they are added in quadrature with the uncertainty due to the simulation used for the efficiency correction. The first source comes from using two different methods for particle identification. In this analysis the \(zTPC\) distribution is calculated for each transverse mass and rapidity bin and the yield from Gaussian fits to these distributions is extracted. Alternatively, the \(nSigma\) distribution could have been fit instead. The \(nSigma\) distribution is more Gaussian for the particle of interest, but the distributions of the contaminating particles tend to be distorted. On the other hand, the \(zTPC\) distribution has non-Gaussian trails coming from short tracks, but both the particle of interest and the contaminating particles have similar distributions. Both methods were explored in previous beam pipe studies, and it was found that the difference between the two PID methods contributes a 1.5% uncertainty to the total systematic uncertainty.
+
+Finally, during official production an energy loss correction is applied to the momentum of the tracks to account for energy loss as the particle travels through the TPC. By default, this correction assumes the track
+
+Figure 7.7: An example of the energy loss as a function of the reconstructed track’s momentum for the mid-rapidity bin. A horizontal line is fit to the data to represent the calibration offset.
+
+is a pion. Thus, usually this correction is negligible for pions, which is indeed the case for this data set, as seen in Figure 7.7. The calibration appears to deviate from zero, but by an insignificant amount. A generous systematic uncertainty value of 0.5% is assigned to the energy loss, making it a negligible source of systematic uncertainty.
+
+Now that the corrected spectra have been obtained, we can finally extract a rapidity density distribution. This procedure will be described in the following chapter.
+
+## Chapter 8 Extracting the Rapidity Density Distribution
+
+### 8.1 Results
+
+To extract each point in the pion rapidity density distribution, the full pion yield must be counted for that rapidity bin. In theory, most pions produced in heavy-ion collisions are produced thermally from the medium. These pions should decrease exponentially with transverse mass. This has been broadly observed in experiment. Consequently, the lower transverse mass bins have the largest contribution to the total yield. In practice, even with the acceptance \(\times\) efficiency corrections, we can only measure the pion yield over a limited range in transverse mass. In order to estimate the full yield for a given rapidity bin, the spectra are fit assuming some thermal distribution and the total yield is estimated by extrapolating that function to zero and infinity.
+
+Since pions are bosons, the spectra are fit with a Bose-Einstein distribution. I reformulated the fit function so that one of the parameters of the function would be the yield in that rapidity bin:
+
+\[f_{\rm BE}=\frac{1}{2\pi}\frac{dN/dy}{A}\frac{1}{e^{m_{T}/T}-1} \tag{8.1}\]
+
+where
+
+\[A=\int_{m_{\pi^{-}}}^{10}dm_{T}\frac{m_{T}}{e^{m_{T}/T}-1} \tag{8.2}\]The spectra were fit twice. After the first round of fitting, the temperature (inverse slope) parameter was plotted as a function of rapidity. In general, particle production has been observed to peak at mid-rapidity in this energy range while the slopes of pion spectra have increased away from mid-rapidity [36, 38]. Indeed Figure 8.1 also demonstrates that the slope of the spectra becomes steeper away from mid-rapidity. Consistent with previous experiments, the temperature was then fit with a Gaussian with the mean fixed at mid-rapidity. The \(\chi^{2}/ndf\) is small due to the large uncertainties at forward rapidities. These uncertainties are dominated by the systematic uncertainty of our simulation of the detector acceptance, particularly at the edge of the acceptance, as discussed in Chapter 7.
+
+During the second round of fitting, the temperature parameter of each spectrum is fixed to the value of the Gaussian fit at the corresponding rapidity. Figure 8.2 shows an example fit to the spectra for the mid-rapidity bin after the temperature has been fixed. Figure 8.3 shows
+
+Figure 8.1: The temperature parameter from a first round of spectra fitting is plotted for each rapidity bin. These temperatures are fit with a Gaussian with a mean fixed at mid-rapidity since the distribution should be symmetric about mid-rapidity.
+
+the spectra from all the rapidity bins together. These spectra decrease exponentially with transverse mass which is consistent with thermal emission [59]. Plots with fits for all of the rapidity bins can be found here: [http://nuclear.ucdavis.edu/~kmeehan/protected/AnalysisUpdates/pimCorrectedSpectraSingleBoseEinsteinFits.pdf](http://nuclear.ucdavis.edu/~kmeehan/protected/AnalysisUpdates/pimCorrectedSpectraSingleBoseEinsteinFits.pdf). The rapidity density distribution can then be plotted using the values for \(dN/dy\) from each spectrum fit. This distribution is shown in Figure 8.4. The solid stars in the figure are the measured \(dN/dy\), and the open stars are their reflection about mid-rapidity. A Gaussian is fit to the measured \(dN/dy\) with the mean fixed to mid-rapidity. From this fit, the extracted 4\(\pi\) yield is 153 \(\pm\) 15 (stat) \(\pm\) 29 (sys). Before we present comparisons with results from previous experiments, we must first discuss the systematic uncertainties in extracting the rapidity density.
+
+Figure 8.2: The negative pion spectra for the mid-rapidity bin, fit with a Bose-Einstein distribution. The solid red line shows the fit range and the dashed red line is the extrapolation to lower transverse mass.
+
+Figure 8.3: Negative pion spectra for all rapidity bins, for the top 5% most central events. The mid-rapidity spectrum is shown in red. The solid lines are Bose-Einstein fits, and the dashed lines are their extrapolations to lower transverse mass values. To make the plot easier to read, the spectra are scaled by \(3^{n}\) where \(n\) is the number of rapidity bins each spectrum is away from mid-rapidity.
+
+Figure 8.4: The rapidity density distribution for negatively charged pions. Open symbols are reflected. A Gaussian was fit to the measured points (filled symbols) with its mean fixed to mid-rapidity. The dashed line shows the extrapolation of the Gaussian fit. Statistical uncertainties are shown as black lines on all the points. Systematic uncertainties are shown as red bands on the measured points. The parameter values shown in the figure only include statistical errors.
+
+Systematic Uncertainties in Extracting the Rapidity Density Distribution
+
+The dominant source of systematic uncertainty in the \(dN/dy\) for each rapidity is the extrapolation of the yield to lower transverse mass. This is unsurprising considering the lowest transverse mass bins make the largest contributions to the total yield. Additionally, the systematic uncertainty is largest for the more forward rapidity bins which do not reach as low in transverse mass. Since the more forward tracks leave fewer hits in the TPC, fewer of these tracks pass the nHitsFit acceptance cut. To further complicate the yield extraction, the forward rapidity, low transverse mass spectra points are also the points with the largest systematic uncertainties. This is due to the uncertainty in the simulation model at the edge of the detector acceptance, as discussed in Chapter 7. These large uncertainties restricted our choice of fitting function to a single-slope fit. Previous analyses used two-slope fit functions to describe the pion rapidity density, such as the sum of two independent Maxwell-Boltzman thermal functions used in [38]. Using two slope parameters accounts for two different pion production mechanisms. At this energy range of around \(\sqrt{s_{\rm NN}}=4.5\) GeV, in addition to thermal pions, many pions come from the decays of delta resonances. In fact \(\Delta\) decays are expected to be the dominant production mechanism for pions with lower transverse mass while thermal production is expected to dominate at higher transverse mass. A double Bose-Einstein fit, a double Maxwell-Boltzmann fit, a Bose-Einstein and Maxwell-Boltzmann combination, and a double exponential fit were fit to the data in an attempt to account for these two production sources. However, due to our limited low transverse mass reach, the "low temperature" components of all the two-slope spectra fits failed to be constrained and resulted in distorted, over-constrained fits.
+
+Thus, to obtain the systematic uncertainty we compared different single-slope fit functions. In addition to the Bose-Einstein fit function, we fit the spectra with a Maxwell-Boltzmann thermal function and with a simple exponential function. Figure 8.5 shows an example Maxwell-Boltzmann fit for the mid-rapidity bin. The Maxwell-Boltzmann fit tends to undershoot the lower transverse mass points for many rapidity bins to a greater Figure 8.5: The negative pion spectra for the mid-rapidity bin, fit with a Maxwell-Boltzmann distribution.
+
+Figure 8.6: The negative pion spectra for the mid-rapidity bin, fit with an exponential distribution.
+
+extent than the Bose-Einstein fit. This is consistent with the property of Bose-Einstein functions which tend to have a steeper slope at small values. Figure 8.6 shows an example exponential fit for the mid-rapidity bin. In general, the exponential fits tend to fall between the Bose-Einstein and Maxwell-Boltzmann fits. This can also be seen by comparing their extracted rapidity density distributions. Figure 8.7 shows the rapidity density distribution extracted from the Maxwell-Boltzmann thermal fits.
+
+This \(dN/dy\) distribution is significantly lower than that from the Bose-Einstein fits. This is simply a consequence of the steeper slope of the Bose-Einstein function at lower transverse mass values. Thus, when extrapolating the Maxwell-Boltzmann function to lower transverse mass values where most of the yield lies, the total extracted \(dN/dy\) will be lower than that from the Bose-Einstein extrapolation. Figure 8.8 shows the extracted yield from the
+
+Figure 8.7: The rapidity density distribution for negatively charged pions calculated using Maxwell-Boltzmann fits to the spectra. Open symbols are reflected. A Gaussian was fit to the measured points (filled symbols) with its mean fixed to mid-rapidity. The dashed line shows the extrapolation of the Gaussian fit. Only statistical errors are shown.
+
+exponential fits. As expected based on the spectra, the total \(4\pi\) yield lies between the yield from the Bose-Einstein rapidity distribution and the Maxwell-Boltzmann rapidity distribution. Since the Maxwell-Boltzmann rapidity distribution and the Bose-Einstein rapidity distribution had the largest difference of about 20% at mid-rapidity, the systematic uncertainty due to choice of spectra fit function was estimated to be approximately 20%.
+
+Figure 8.8: The rapidity density distribution for negatively charged pions calculated using exponential fits to the spectra. Open symbols are reflected. A Gaussian was fit to the measured points (filled symbols) with its mean fixed to mid-rapidity. The dashed line shows the extrapolation of the Gaussian fit. Only statistical errors are shown.
+
+### 8.3 Comparison with Previous Experiments
+
+Figure 8.9 shows the \(dN/dy\) distribution extracted from the Bose-Einstein fits, with the \(dN/dy\) distributions measured by several other experiments at the AGS [38, 60, 61].
+
+The E895 experiment had the most similar center-of-mass energy of 4.3 GeV. They collected fewer events, but had broader rapidity coverage and lower \(p_{T}\) acceptance due to their experimental setup. Thus, their statistical errors are larger than those presented here, but their systematic and total uncertainties are smaller. Within uncertainties, the STAR
+
+Figure 8.9: Comparison of the rapidity density distributions for negatively charged pions from central events measured by STAR and several AGS experiments. Open symbols are reflected. A Gaussian was fit to the measured points (filled symbols) with its mean fixed to mid-rapidity. The dashed line shows the extrapolation of the Gaussian fit. Systematic uncertainties are only shown for the STAR and E895 points.
+
+result agrees with the E895 result. The STAR measurement is also consistent with expectations compared to the results of the E802 and E877 experiments which are at a similar, but slightly higher center-of-mass energy of 4.9 GeV.
+
+Figure 8.10 shows the excitation function of the mid-rapidity yields for the most central events, scaled by the number of participants. The pion, proton, \(K^{0}_{s}\) and \(\Lambda\) yields are all shown. The STAR FXT yields, all measured using the dataset in this thesis, are shown with world data [38, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75].
+
+The STAR FXT pion yield was extracted as described in this thesis. The other STAR FXT measurements were done by other analyzers and are outside the scope of this thesis.
+
+Figure 8.10: The excitation function of the mid-rapidity yields for the most central events, scaled by the average number of participants. The \(K^{0}_{s}\) yields were scaled by 0.1 and the proton yields were scaled by a factor of 20, to make the plot easier to read. The STAR FXT proton measurement (red star) is consistent with the decreasing trend seen in the world data. All the other STAR FXT measurements (red stars) are consistent with the increasing trend seen in the world data.
+
+### 8.4 Concluding Remarks
+
+This dissertation includes one of the first analyses of data collected by the STAR detector operating as a fixed-target experiment. By operating STAR in fixed-target mode, STAR can collect data at energies below \(\sqrt{s_{\rm NN}}\) = 7.7 GeV with statistics comparable to that of the other BES runs. Despite the very different acceptance in the fixed-target configuration compared to the collider configuration, \(\pi^{-}\) are identified and their spectra are measured. The background from secondary interactions is studied for the first time in this configuration. The analysis pushes the capabilities of STAR to the edge of its acceptance and, in doing so, exposes a need to improve the accuracy of the detector simulations at these edges. After correcting for background pions and the detector acceptance and efficiency, the spectra are fit with multiple thermal functions to obtain the \(\pi^{-}\) rapidity density distribution with systematic uncertainties. The rapidity density distribution is then fit with a Gaussian and a \(4\pi\) yield is extracted. The rapidity density distribution is found to be comparable with results from the AGS experiments. Additionally, the mid-rapidity yield is consistent with the trend from world data.
+
+The results presented in this dissertation are one of many results included in a larger effort that successfully reproduces results from the AGS experiments, demonstrating that STAR works well in a fixed-target configuration. The author presented most of these results at the Quark Matter 2015 conference. These results convinced the Brookhaven Nuclear & Particle Physics Program Advisory Committee to approve a STAR FXT extension of the Beam Energy Scan Program. The STAR FXT program will extend BES-II to energies as low as 3.0 GeV. This almost doubles the \(\mu_{B}\) reach of the BES program from 400 MeV to 720 MeV. As of the 2018 PAC report, eight energies have been approved to run in fixed-target mode, with 100 million events requested for each energy. Thus, STAR is in a good position to probe the higher baryon chemical potential region of the phase diagram to discover what new physics may lie there. In order to achieve the BES physics goals, two detector upgrades will be installed before BES-II begins in 2019. One upgrade, the inner TPC (iTPC), increases the number of pad rows in the inner sectors of the TPC to improve tracking capabilities and acceptance. The second upgrade is madepossible through partnership with the Compressed Baryonic Matter (CBM) experiment. STAR will install endcap time-of-flight (eTOF) modules from the CBM experiment to improve the forward PID capabilities of STAR, which allows the CBM collaboration to test their modules before their experiment comes online. By improving the forward acceptance and PID capabilities, the FXT program will be able to reach energies as high as \(\sqrt{s_{\rm NN}}=7.7\) GeV, providing an overlap energy with collider analyses. Having an overlap energy will enable analyzers to cross-check the acceptance corrections of results obtained in both configurations. In conclusion, BES-II promises a newly upgraded STAR with a FXT extension that almost doubles the \(\mu_{B}\) reach of the experiment into new territory on the QCD phase diagram. The author is grateful for the opportunity to witness and play a part in the growth of the STAR FXT program from a pilot run to a fully-fledged physics program.
+
+## References
+
+* Gardner et al. [2015] C. Gardner et al. Operation of the RHIC Injector Chain with Ions from EBIS. In _Proceedings, 6th International Particle Accelerator Conference (IPAC 2015): Richmond, Virginia, USA, May 3-8, 2015_, page THPF046, 2015. URL [http://accelconf.web.cern.ch/AccelConf/IPAC2015/papers/thpf046.pdf](http://accelconf.web.cern.ch/AccelConf/IPAC2015/papers/thpf046.pdf).
+* Schmah [2003] Alex Schmah. Collaboration Communications.
+* Anderson et al. [2003] M. Anderson et al. The STAR Time Projection Chamber: A Unique Tool for Studying High Multiplicity Events at RHIC. _Nucl. Instrum. Meth._, A499:659-678, 2003. doi: 10.1016/S0168-9002(02)01964-2. URL [https://arxiv.org/pdf/nucl-ex/0301015.pdf](https://arxiv.org/pdf/nucl-ex/0301015.pdf).
+* Fachini et al. [2004] P. Fachini et al. Proposal for a Large Area Time of Flight System for STAR. _STAR Note SN0621_, 2004. URL [https://drupal.star.bnl.gov/STAR/files/tof-5-24-2004.pdf](https://drupal.star.bnl.gov/STAR/files/tof-5-24-2004.pdf).
+* Aad et al. [2011] G. Aad et al. (ATLAS Collaboration). Measurement of the inelastic proton-proton cross-section at \(\sqrt{s}\) 7 TeV with the ATLAS detector. _Nature Communications_, 2, 2011. doi: 10.1038/ncomms1472. URL [https://www.nature.com/articles/ncomms1472.pdf](https://www.nature.com/articles/ncomms1472.pdf).
+* Hagedorn [1965] R. Hagedorn. Statistical thermodynamics of strong interactions at high energies. _Nuovo Cim. Suppl._, 3:147-186, 1965. URL [https://cds.cern.ch/record/346206/files/CM-P00057114.pdf](https://cds.cern.ch/record/346206/files/CM-P00057114.pdf).
+* Gross and Wilczek [1973] D. J. Gross and F. Wilczek. Ultraviolet behavior of non-abelian gauge theories. _Phys. Rev. Letters_, 30:1343, 1973. URL [https://journals.aps.org/prl/pdf/10.1103/PhysRevLett.30.1343](https://journals.aps.org/prl/pdf/10.1103/PhysRevLett.30.1343).
+* Politzer [1973] H. D. Politzer. Reliable perturbative results for strong interactions. _Phys. Rev. Letters_, 30:1346, 1973. URL [https://journals.aps.org/prl/pdf/10.1103/PhysRevLett.30.1346](https://journals.aps.org/prl/pdf/10.1103/PhysRevLett.30.1346).
+
+* Gross and Wilczek [1973] D. J. Gross and F. Wilczek. Asymptotically free gauge theories. i. _Phys. Rev. D_, 8:3633, 1973. URL [https://journals.aps.org/prd/pdf/10.1103/PhysRevD.8.3633](https://journals.aps.org/prd/pdf/10.1103/PhysRevD.8.3633).
+* Politzer [1974] H. D. Politzer. Asymptotic freedom: An approach to strong interactions. _Phys. Rep._, 14:129, 1974. URL [http://puhep1.princeton.edu/~kirkmcd/examples/EP/politzer_pr_14_129_74.pdf](http://puhep1.princeton.edu/~kirkmcd/examples/EP/politzer_pr_14_129_74.pdf).
+* Cabibbo and Parisi [1975] N. Cabibbo and G. Parisi. Exponential hadronic spectrum and quark liberation. _Phys. Lett._, 59B:67-69, 1975. doi: 10.1016/0370-2693(75)90158-6. URL [https://ac.els-cdn.com/0370269375901586/1-s2.0-0370269375901586-main.pdf?_tid=4cbf68f1-8201-493c-985c-8c102bf1865c&acdnat=1541374738_5e7fc325aadbcabd2931e406f7f1fd5f](https://ac.els-cdn.com/0370269375901586/1-s2.0-0370269375901586-main.pdf?_tid=4cbf68f1-8201-493c-985c-8c102bf1865c&acdnat=1541374738_5e7fc325aadbcabd2931e406f7f1fd5f).
+* CERNpress [2000] CERNpress. New state of matter created at CERN. Feb 2000. URL [https://press.cern/press-releases/2000/02/new-state-matter-created-cern](https://press.cern/press-releases/2000/02/new-state-matter-created-cern).
+* Heinz and Jacob [2000] Ulrich Heinz and Maurice Jacob. Evidence for a new state of matter: An assessment of the results from the CERN lead beam programme. Feb 2000. URL [https://arxiv.org/pdf/nucl-th/0002042.pdf](https://arxiv.org/pdf/nucl-th/0002042.pdf).
+* PHOBOS Collaboration [2005] PHOBOS Collaboration, STAR Collaboration, PHOENIX Collaboration, BRAHMS Collaboration. Hunting the quark gluon plasma: Results from the first 3 years at RHIC. _Brookhaven National Laboratory Formal Report_, Apr 2005. URL [https://www.bnl.gov/npp/docs/Hunting%20the%20QGP.pdf](https://www.bnl.gov/npp/docs/Hunting%20the%20QGP.pdf).
+* Steinberg [2012] P. Steinberg. Exponential hadronic spectrum and quark liberation. _New Journal of Physics_, 14:035006, Mar 2012. doi: doi:10.1088/1367-2630/14/3/035006. URL [http://iopscience.iop.org/article/10.1088/1367-2630/14/3/035006/pdf](http://iopscience.iop.org/article/10.1088/1367-2630/14/3/035006/pdf).
+* Snellings [2011] R. Snellings. Elliptic flow: a brief review. _New Journal of Physics_, 13:055008, 2011. doi: 10.1088/1367-2630/13/5/055008. URL [http://iopscience.iop.org/article/10.1088/1367-2630/13/5/055008/pdf](http://iopscience.iop.org/article/10.1088/1367-2630/13/5/055008/pdf).
+
+* Gyulassy and McLerran [2005] M. Gyulassy and L. McLerran. New forms of QCD matter discovered at RHIC. _Nucl. Phys. A_, 750:30-63, 2005. doi: 10.1016/j.nuclphysa.2004.10.034. URL [https://arxiv.org/pdf/nucl-th/0405013.pdf](https://arxiv.org/pdf/nucl-th/0405013.pdf).
+* Kolb and Heinz [2003] P. Kolb and U. Heinz. Hydrodynamic description of ultrarelativistic heavy-ion collisions. pages 634-714, 2003. URL [https://arxiv.org/pdf/nucl-th/0305084.pdf](https://arxiv.org/pdf/nucl-th/0305084.pdf).
+* Aoki et al. [2006] Y. Aoki et al. The order of the quantum chromodynamics transition predicted by the standard model of physics. _Nature_, 443:675-678, October 2006. doi: 10.1038/nature05120. URL [https://arxiv.org/pdf/hep-lat/0611014.pdf](https://arxiv.org/pdf/hep-lat/0611014.pdf).
+* Bhattacharya et al. [2014] Bhattacharya et al. (HotQCD Collaboration). QCD phase transition with chiral quarks and physical quark masses. _Phys. Rev. Letters_, 113:082001, Aug 2014. doi: 10.1103/PhysRevLett.113.082001. URL [https://arxiv.org/pdf/1402.5175.pdf](https://arxiv.org/pdf/1402.5175.pdf).
+* Rischke [2004] D. H. Rischke. The quark-gluon plasma in equilibrium. _Prog. Part. Nucl. Phys._, 52:197-296, Mar 2004. doi: 10.1016/j.ppnp.2003.09.002. URL [https://arxiv.org/pdf/nucl-th/0305030.pdf](https://arxiv.org/pdf/nucl-th/0305030.pdf).
+* Stephanov [2005] M. A. Stephanov. QCD phase diagram and the critical point. _Int. J. Mod. Phys. A_, 20:4387-4392, 2005. doi: 10.1142/S0217751X05027965. URL [https://arxiv.org/pdf/hep-ph/0402115.pdf](https://arxiv.org/pdf/hep-ph/0402115.pdf).
+* Fukushima and Sasaki [2013] K. Fukushima and C. Sasaki. The phase diagram of nuclear and quark matter at high baryon density. _Prog. Part. Nucl. Phys._, 72:99-154, 2013. doi: 10.1016/j.ppnp.2013.05.003. URL [https://arxiv.org/pdf/1301.6377.pdf](https://arxiv.org/pdf/1301.6377.pdf).
+* Luo and Xu [2017] X. Luo and N. Xu. Search for the QCD critical point with fluctuations of conserved quantities in relativistic heavy-ion collisions at RHIC: An overview. _Nuc. Sci. Tech._, 28:112, Aug 2017. doi: 10.1007/s41365-017-0257-0. URL [https://arxiv.org/pdf/1701.02105v3.pdf](https://arxiv.org/pdf/1701.02105v3.pdf).
+* Adamczyk et al. [2014] L. Adamczyk et al. (STAR Collaboration). Energy dependence of moments of net proton multiplicity distributions at RHIC. _Phys. Rev. Lett._, 112:032302, 2014. doi: 10.1103/PhysRevLett.112.032302. URL [https://arxiv.org/pdf/1309.5681.pdf](https://arxiv.org/pdf/1309.5681.pdf).
+* Stephanov [2011] M. A. Stephanov. QCD critical point and event-by-event fluctuations. In _Proceedings, 22nd International Conference on Ultra-Relativistic Nucleus-Nucleus Collisions, Quark Matter 2011_, volume J. Phys. G38, page 124147. IOPscience, 2011. doi: 10.1088/0954-3899/38/12/124147. URL [http://stacks.iop.org/0954-3899/38/i=12/a=124147](http://stacks.iop.org/0954-3899/38/i=12/a=124147).
+* Adamczyk et al. [2014] L. Adamczyk et al. (STAR Collaboration). Beam-energy dependence of the directed flow of protons, antiprotons, and pions in au + au collisions. _Phys. Rev. Lett._, 112:162301, 2014. doi: 10.1103/PhysRevLett.112.162301. URL [https://arxiv.org/pdf/1401.3043.pdf](https://arxiv.org/pdf/1401.3043.pdf).
+* Adamczyk et al. [2013] L. Adamczyk et al (STAR Collaboration). Elliptic flow of identified hadrons in Au+Au collisions at \(\sqrt{s_{\rm NN}}\)=7.7-62.4 GeV. _Phys. Rev. C_, 88:014902, 2013. doi: 10.1103/PhysRevC.88.014902. URL [https://arxiv.org/pdf/1301.2348.pdf](https://arxiv.org/pdf/1301.2348.pdf).
+* Schmah et al. [2017] A. Schmah, R. Reed, and M. Lisa. An Event Plane Detector for STAR. _STAR Note SN0666_, 2017. URL [https://drupal.star.bnl.gov/STAR/starnotes/public/sn0666](https://drupal.star.bnl.gov/STAR/starnotes/public/sn0666).
+* [30] STAR Collaboration. A Proposal for STAR Inner TPC Sector Upgrade (iTPC). _STAR Note SN0619_, 2015. URL [https://drupal.star.bnl.gov/STAR/starnotes/public/sn0619](https://drupal.star.bnl.gov/STAR/starnotes/public/sn0619).
+* [31] STAR Collaboration. Technical Design Report for the iTPC Upgrade. _STAR Note SN0644_, 2015. URL [https://drupal.star.bnl.gov/STAR/starnotes/public/sn0644](https://drupal.star.bnl.gov/STAR/starnotes/public/sn0644).
+* [32] STAR Collaboration and CBM eTOF Group. Physics Program for the STAR/CBM eTOF Upgrade. Sep 2016. URL [https://arxiv.org/pdf/1609.05102.pdf](https://arxiv.org/pdf/1609.05102.pdf).
+
+* [33] BNL Collider-Accelerator Department. Low-Energy RHIC electron Cooler (LEReC). Sep 2013. URL [https://www.c-ad.bnl.gov/esfd/LE_RHICeCooling_Project/WhitePaper/9_19_13_LEReC_white_paper.pdf](https://www.c-ad.bnl.gov/esfd/LE_RHICeCooling_Project/WhitePaper/9_19_13_LEReC_white_paper.pdf).
+* [34] Y. Wu (STAR Collaboration). Recent results for STAR \(\sqrt{s_{\rm NN}}\)=4.9 GeV Al + Au and \(\sqrt{s_{\rm NN}}\)=4.5 GeV Au + Au fixed-target collisions. 2018. URL [https://arxiv.org/pdf/1807.06738.pdf](https://arxiv.org/pdf/1807.06738.pdf).
+* [35] K. Meehan. STAR Results from Au + Au Fixed-Target Collisions at \(\sqrt{s_{NN}}=4.5\) GeV. _Nucl. Phys._, A967:808-811, 2017. doi: 10.1016/j.nuclphysa.2017.06.007. URL [https://arxiv.org/abs/1704.06342](https://arxiv.org/abs/1704.06342).
+* [36] J. L. Klay et al. (E895 Collaboration). Longitudinal Flow of Protons from 2-8 AGeV Central Au + Au Collisions. _Phys. Rev. Lett._, 88:102301, 2002. doi: 10.1103/PhysRevLett.88.102301. URL [https://arxiv.org/pdf/nucl-ex/0111006.pdf](https://arxiv.org/pdf/nucl-ex/0111006.pdf).
+* [37] J. Cleymans and K. Redlich. Chemical and thermal freeze-out parameters from 1 to 200 A GeV. _Phys. Rev. C_, 60:054908, 1999. doi: 10.1103/PhysRevC.60.054908. URL [https://arxiv.org/pdf/nucl-th/9903063.pdf](https://arxiv.org/pdf/nucl-th/9903063.pdf).
+* [38] J. L. Klay et al. (E895 Collaboration). Charged pion production in 2A to 8A GeV central Au + Au Collisions. _Phys. Rev. C_, 68:054905, 2003. doi: [https://doi.org/10.1103/PhysRevC.68.054905](https://doi.org/10.1103/PhysRevC.68.054905). URL [https://arxiv.org/pdf/nucl-ex/0306033.pdf](https://arxiv.org/pdf/nucl-ex/0306033.pdf).
+* [39] M. Harrison, S. Peggs, and T. Roser. The RHIC accelerator. _Annu. Rev. Nucl. Part. Sci._, 52:425-69, Dec 2002. doi: 10.1146/annurev.nucl.52.050102.090650. URL [http://www.annualreviews.org/doi/pdf/10.1146/annurev.nucl.52.050102.090650](http://www.annualreviews.org/doi/pdf/10.1146/annurev.nucl.52.050102.090650).
+* [40] U.S. Department of Energy Office of Science. User facilities: Relativistic heavy ion collider (RHIC). URL [https://science.energy.gov/np/facilities/user-facilities/rhic/](https://science.energy.gov/np/facilities/user-facilities/rhic/).
+* [41] D. Cebra. Fixed target physics in BES II with detector upgrades, 2015. URL [http://cicpi.ustc.edu.cn/indico/getFile.py/access?contribId=](http://cicpi.ustc.edu.cn/indico/getFile.py/access?contribId=)4&sessionId=1&resId=0&materialId=slides&confId=297. STAR Regional Meeting: Workshop on STAR Upgrades.
+* Stetski et al. [2002] D. B. Stetski et al. Operation of the relativistic heavy ion collider au\({}^{-}\) ion source. In _Proceedings, 9th International Conference on Ion Sources (ICIS 2001)_, volume 73, page 797. American Institute of Physics, Feb 2002. doi: 10.1063/1.1430871. URL [http://aip.scitation.org/doi/10.1063/1.1430871](http://aip.scitation.org/doi/10.1063/1.1430871).
+* Alessi et al. [2014] J. Alessi et al. A hollow cathode ion source for production of primary ions for the bnl electron beam ion source. In _Proceedings, 15th International Conference on Ion Sources (ICIS 2013)_, volume 85. American Institute of Physics, Feb 2014. doi: 10.1063/1.4852235. URL [http://aip.scitation.org/doi/pdf/10.1063/1.4852235](http://aip.scitation.org/doi/pdf/10.1063/1.4852235).
+* Beebe et al. [2014] E. Beebe et al. Intense pulsed heavy ion beam production by ebis and its future development. URL [http://www.c-ad.bnl.gov/icis2015/Presentations/TuesdayAM/TueM01_talk.pdf](http://www.c-ad.bnl.gov/icis2015/Presentations/TuesdayAM/TueM01_talk.pdf).
+* Hahn et al. [2003] H. Hahn et al. The RHIC design overview. _Nucl. Instrum. Meth._, A499:245-263, 2003. doi: 10.1016/S0168-9002(02)01938-1.
+* Qiu [2014] H. Qiu. Star heavy flavor tracker. In _Quark Matter 2014, XXIV International Conference on Ultrarelativistic Nucleus-Nucleus Collisions (QM 2014)_, volume 931, pages 1141-1146. Elsevier, Nov 2014. doi: 10.1016/j.nuclphysa.2014.08.056. URL [http://ac.els-cdn.com/S0375947414003157/1-s2.0-S0375947414003157-main.pdf?_tid=99d4fc86-9d8c-11e7-b4e6-00000aacb35e&acdnat=1505861466_d00a175c8e019690bf2db9370dbb6c3](http://ac.els-cdn.com/S0375947414003157/1-s2.0-S0375947414003157-main.pdf?_tid=99d4fc86-9d8c-11e7-b4e6-00000aacb35e&acdnat=1505861466_d00a175c8e019690bf2db9370dbb6c3).
+* Beddo et al. [2003] M. Beddo et al. The STAR barrel electromagnetic calorimeter. _Nucl. Instrum. Meth._, A499:725-739, 2003. doi: 10.1016/S0168-9002(02)01970-8.
+* Brown et al. [1997] R. L. Brown et al. The STAR Detector Magnet Subsystem. In _Proceedings of the 1997 Particle Accelerator Conference_, volume 3, page 3230. IEEE, 1997. doi: 10.1109/PAC.1997.753164. URL [http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=753164](http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=753164).
+
+* Huang et al. [2016] T. C. Huang et al. Muon Identification with Muon Telescope Detector at the STAR Experiment. _Nucl. Instrum. Meth._, A833:88-93, 2016. doi: 10.1016/j.nima.2016.07.024. URL [https://arxiv.org/pdf/1601.02910.pdf](https://arxiv.org/pdf/1601.02910.pdf).
+* Bichsel [2001] H. Bichsel. Comparison of Bethe-Bloch and Bichsel Functions. _STAR Note SN0439_, 2001. URL [https://drupal.star.bnl.gov/STAR/starnotes/public/sn0439](https://drupal.star.bnl.gov/STAR/starnotes/public/sn0439).
+* Bichsel [2006] H. Bichsel. A method to improve tracking and particle identification in TPCs and silicon detectors. _Nucl. Instrum. Meth._, A562:154-197, 2006. doi: 10.1016/j.nima.2006.03.009.
+* Meehan [2016] K. Meehan. Fixed Target Collisions at STAR. In _The XXV International Conference on Ultrarelativistic Nucleus-Nucleus Collisions: Quark Matter 2015_, volume 956, pages 878-881, December 2016.
+* J. [2008] Whitten Jr., C.A. and STAR Collaboration. The Beam-Beam Counter: A Local Polarimeter at STAR. In _AIP Conference Proceedings_, volume 980, page 390. American Institute of Physics, 2008.
+* Keane [2017] Keane, D. The Beam Energy Scan at the Relativistic Heavy Ion Collider. In _Journal of Physics: Conference Series_, volume 878, page 012015. IOP Publishing, 2017.
+* [2017] D. et al. Smirnov. Vertex Reconstruction at STAR: Overview and Performance Evaluation. In _Journal of Physics: Conference Series_, volume 898, page 042058. IOP Publishing, 2017. doi: 10.1088/1742-6596/898/4/042058. URL [http://iopscience.iop.org/article/10.1088/1742-6596/898/4/042058/pdf](http://iopscience.iop.org/article/10.1088/1742-6596/898/4/042058/pdf).
+* Llope et al. [2014] Llope, W. J. et al. The STAR Vertex Position Detector. _Nucl. Instrum. Meth._, A759:23-28, 2014. doi: 10.1016/j.nima.2014.04.080. URL [https://arxiv.org/pdf/1403.6855.pdf](https://arxiv.org/pdf/1403.6855.pdf).
+* [2017] M. L. et al. Miller. Glauber Modeling in High-Energy Nuclear Collisions. _Annu. Rev. Nucl. Part. Sci._, 57:205-243, 2007. doi: 10.1146/annurev.nucl.
+
+57.090506.123020. URL [https://www.annualreviews.org/doi/pdf/10.1146/annurev.nucl.57.090506.123020](https://www.annualreviews.org/doi/pdf/10.1146/annurev.nucl.57.090506.123020).
+* [58] C.E. Flores. _A Systematic, Large Phase Space Study of Pion, Kaon, and Proton Production in Au+Au Heavy-Ion Collisions from the RHIC Beam Energy Scan Program at STAR_. dissertation, University of California, Davis, 2017. URL [http://nuclear.ucdavis.edu/thesis/CEF_Thesis_Final.pdf](http://nuclear.ucdavis.edu/thesis/CEF_Thesis_Final.pdf).
+* [59] F. Cooper and G. Frye. Single-particle distribution in the hydrodynamic and statistical thermodynamic models of multiparticle production. _Phys. Rev. D_, 10:186-189, Jul 1974. doi: {10.1103/PhysRevD.10.186}. URL [https://journals.aps.org/prd/pdf/10.1103/PhysRevD.10.186](https://journals.aps.org/prd/pdf/10.1103/PhysRevD.10.186).
+* [60] J. Barrette et al. (E877 Collaboration). Proton and pion production in Au+Au collisions at 10.8A GeV/c. _Phys. Rev. C_, 62:024901, 2000. doi: [https://doi.org/10.1103/PhysRevC.62.024901](https://doi.org/10.1103/PhysRevC.62.024901). URL [https://arxiv.org/pdf/nucl-ex/9910004.pdf](https://arxiv.org/pdf/nucl-ex/9910004.pdf).
+* [61] L. Ahle et al. (E802 Collaboration). Particle production at high baryon density in central Au+Au reactions at 11.5A GeV/c. _Phys. Rev. C_, 57:R466, 1998. doi: [https://doi.org/10.1103/PhysRevC.57.R466](https://doi.org/10.1103/PhysRevC.57.R466). URL [https://journals.aps.org/prc/pdf/10.1103/PhysRevC.57.R466](https://journals.aps.org/prc/pdf/10.1103/PhysRevC.57.R466).
+* [62] L. Ahle et al. (E802 Collaboration). Proton, deuteron, and triton emission at target rapidity in Au+Au collisions at 10.20\(A\) GeV: Spectra and directed flow. _Phys. Rev. C_, 57:1416-1427, Mar 1998. doi: 10.1103/PhysRevC.57.1416. URL [https://link.aps.org/doi/10.1103/PhysRevC.57.1416](https://link.aps.org/doi/10.1103/PhysRevC.57.1416).
+* [63] C. Roland et al. (NA49 Collaboration). Event-by-event fluctuations of particle ratios in central Pb + Pb collisions at 20-158 A GeV. _Journal of Physics G: Nuclear and Particle Physics_, 30:S1381, 2004. URL [http://stacks.iop.org/0954-3899/30/i=8/a=132](http://stacks.iop.org/0954-3899/30/i=8/a=132).
+* [64] I. G. Bearden et al. (NA44 Collaboration). Particle production in central Pb+Pb col lisions at \(158A\) GeV/\(c\). _Phys. Rev. C_, 66:044907, Oct 2002. doi: 10.1103/PhysRevC.66.044907. URL [https://link.aps.org/doi/10.1103/PhysRevC.66.044907](https://link.aps.org/doi/10.1103/PhysRevC.66.044907).
+* 498, 2002. doi: [https://doi.org/10.1016/S0375-9474](https://doi.org/10.1016/S0375-9474)(01)01412-9. URL [http://www.sciencedirect.com/science/article/pii/S0375947401014129](http://www.sciencedirect.com/science/article/pii/S0375947401014129).
+* Barrette et al. [2001] J. Barrette et al. (E877 Collaboration). Lambda production and flow in Au + Au collisions at 11.5 AGeV/c. _Phys. Rev. C_, 63:014902, 2001. doi: 10.1103/PhysRevC.63.014902.
+* Ahmad et al. [1996] S. Ahmad et al. (E891 Collaboration). \(\Lambda\) production 11.6 \(A\) GeV/c \(Au\) beam on _Au_ target. _Phys. Lett. B_, 382:35-39, 1996. doi: [https://doi.org/10.1016/0370-2693](https://doi.org/10.1016/0370-2693)(96)01111-2. URL [http://www.sciencedirect.com/science/article/pii/0370269396011112](http://www.sciencedirect.com/science/article/pii/0370269396011112).
+* Albergo et al. [2002] S. Albergo et al. (E896 Collaboration). \(\Lambda\) spectra in 11.6_AGeV/\(c\)_ Au-Au collisions. _Phys. Rev. Lett._, 88:062301, Jan 2002. doi: 10.1103/PhysRevLett.88.062301. URL [https://link.aps.org/doi/10.1103/PhysRevLett.88.062301](https://link.aps.org/doi/10.1103/PhysRevLett.88.062301).
+* Anticic et al. [2004] T. Anticic et al. (NA49 Collaboration). \(\Lambda\) and \(\overline{\Lambda}\) production in central Pb-Pb collisions at 40, 80, and \(158a\) GeV. _Phys. Rev. Lett._, 93:022302, Jul 2004. doi: 10.1103/PhysRevLett.93.022302. URL [https://link.aps.org/doi/10.1103/PhysRevLett.93.022302](https://link.aps.org/doi/10.1103/PhysRevLett.93.022302).
+* Zhu et al. [2006] X. Zhu et al. (STAR Collaboration). Strange hadron production in Au + Au collisions at \(\sqrt{s_{\rm NN}}\)=7.7, 11.5, 19.6, 27, and 39 GeV. In Collaboration Review.
+* Antinori et al. [2006] F. Antinori et al. (NA57 Collaboration). Transverse dynamics of PbPb collisions at 40 A GeV/ c viewed by strange hadrons. _Journal of Physics G: Nuclear and Particle Physics_, 32:2065, 2006. URL [http://stacks.iop.org/0954-3899/32/i=11/a=002](http://stacks.iop.org/0954-3899/32/i=11/a=002).
+
+* [72] M. M. Aggarwal et al. (WA98 Collaboration). One-, two-, and three-particle distributions from \(158a\)GeV/\(c\) central Pb+Pb collisions. _Phys. Rev. C_, 67:014906, Jan 2003. doi: 10.1103/PhysRevC.67.014906. URL [https://link.aps.org/doi/10.1103/PhysRevC.67.014906](https://link.aps.org/doi/10.1103/PhysRevC.67.014906).
+* [73] M. Gazdzicki (NA49 Collaboration). Report from NA49. _Journal of Physics G: Nuclear and Particle Physics_, 30:S701, 2004. doi: 10.1088/0954-3899/30/8/008. URL [https://arxiv.org/pdf/nucl-ex/0403023.pdf](https://arxiv.org/pdf/nucl-ex/0403023.pdf).
+* [74] B. B. Back et al. (E917 Collaboration). Baryon rapidity loss in relativistic au + au collisions. _Phys. Rev. Lett._, 86:1970-1973, Mar 2001. doi: 10.1103/PhysRevLett.86.1970. URL [https://link.aps.org/doi/10.1103/PhysRevLett.86.1970](https://link.aps.org/doi/10.1103/PhysRevLett.86.1970).
+* [75] L. Adamczyk et al. Bulk Properties of the Medium Produced in Relativistic Heavy-Ion Collisions from the Beam Energy Scan Program. _Phys. Rev._, C96:044904, 2017. doi: 10.1103/PhysRevC.96.044904. URL [https://arxiv.org/pdf/1701.07065.pdf](https://arxiv.org/pdf/1701.07065.pdf)

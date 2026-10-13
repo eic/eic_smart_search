@@ -1,0 +1,1069 @@
+###### Abstract
+
+Inclusive Hadron Yield Analysis in Small and Mid-sized Collision Systems at
+
+Center-of-Mass Collision Energy of 200 GeV per Nucleon at STAR
+
+Tong Liu
+
+2024
+
+At extremely high temperature and energy density, the quarks and gluons that make up protons and neutrons become asymptotically deconfined and form a novel state of matter called the Quark-Gluon Plasma (QGP). This state of matter is experimentally created in relativistic heavy-ion collisions, where the high energy density carried by the incoming nuclei produce such a deconfined state. The QGP has been widely confirmed and studied in large collision systems like Au+Au and Pb+Pb, but whether the QGP exists in small systems like \(p\)+Au, and the dependence of QGP production on the collision system size are still open questions in the field. One way to study the QGP properties is by using proxies of high energy partons created in the initial stages of the collisions. Partons are colored quarks and gluons, and they fragment into color-neutral hadrons in the final state. These high momentum partons lose energy while traveling through the QGP, and the impact of these interactions can be reflected via the modified hadron yields. By contrasting hadron spectra in \(p\)+\(p\) to those in A+A we can determine the amount of modification from the medium which informs us about the QGP properties.
+
+In this thesis, I report studies on charged hadron yields in Ru+Ru, Zr+Zr and \(p\)+Au collisions at \(\sqrt{s_{\rm NN}}=200\,\)GeV with the STAR detector at RHIC, as functions of momentum and number of participating nucleons \(N_{\rm part}\). The yields are measured differentially in centrality/event activity, and their comparison with the \(p\)+\(p\) hadron yield, the nuclear modification factors, are reported. Enhancement in \(p\)+Au collision yields is reported, which is expected from initial state effects. In Ru+Ru/Zr+Zr, significant suppression is seen in central collisions. The suppression weakens gradually moving to more peripheral collisions, until a geometric bias from the centrality estimation complicates the interpretation. Using
+
+[MISSING_PAGE_EMPTY:2]
+
+Inclusive Hadron Yield Analysis in Small and Mid-sized Collision Systems at Center-of-Mass Collision Energy of 200 GeV per Nucleon at STAR
+
+A Dissertation
+
+Presented to the Faculty of the Graduate School
+
+of
+
+Yale University
+
+in Candidacy for the Degree of
+
+Doctor of Philosophy
+
+by
+
+Tong Liu
+
+Dissertation Director: Professor Helen L. Caines
+
+May 2024Copyright (c) 2024 by Tong Liu
+
+All rights reserved.
+
+## Acknowledgements
+
+As I was writing this thesis up, I more and more came to realize what a privilege it has been to get to where I am right now, and that I certainly wouldn't have been here without the many wonderful people around me. Therefore, I would like to take this opportunity to thank all those people and the support they've given me.
+
+To my advisor Helen. With all the insight from your clear vision of the field, and the willingness to also help me on the most detail bug in my code, you are the best advisor I could ever hope for, and such a kind person in general. I certainly wouldn't be able to achieve all of this without you. Thank you for all the wisdom you've shared with me, and all the knock-at-the-door discussions I've had over the years.
+
+To my committee members, John, Karsten and Ian. Thank you for the interesting discussions and guidance during my Ph.D. Especially John, thank you for the great group that you and Helen fostered.
+
+To the members of the heavy ion group (ordered by years that they came to Yale within subgroup), including past and present graduate students, James, Raymond, Michael, Dave, Dan, Caitie, Hannah, Youqi, Ananya, Andrew, Sierra and Iris; and the postdocs, Eliane, Audrey, Laura (who later became a faculty right here in the same group!), Mike, Mesut, Raghav, Isaac and Fernando; technicians Nicolai, (late) Dick and Prakar, visiting professor Agnes, and our admin staff Paula. I am extremely lucky to have you as my academic family for the past years. I really enjoyed the in-depth physics discussions, the intriguing lunchtime conversations, the parties we had in various occasions, and the light-hearted atmospherewhenever I walk into the office. Within you, I am confident that I have seen the best of academia.
+
+To my collaborators at STAR. I walked into the collaboration expecting that we would simply be colleagues, but by now I feel comfortable calling you my friends. Thank you all for the expertise you shared with me, the discussions and exchanges we had during the various meetings and conferences, and the time we spent together (especially the conversations that kept me from dosing off) in the STAR control room.
+
+To the friends that I had to pleasure to get to know during my time at Yale. Being a Ph.D. student is never easy, but your companionship has definitely made it more enjoyable. Thank you for the fun time we had together, be it going on hikes, rock-climbing both at the gym and outdoors, having dinners together, or taking on extended trips to various interesting places. You were not only the ones I share my good times with, but also the ones that kept me company in the bad ones.
+
+To my parents. Thank you for having so much confidence in me, and my career choices. Although you have no idea what all the physics I study could be used for, what job a physics major could get after graduation, or what the words "hedge fund" mean, you have always been still fully supportive of all my decisions, from college and grad school to job hunting. You are also the ones who took care of everyone back home, so that I can go full-on with whatever I am passionate about without any additional concern.
+
+And finally, to my partner Kate. Meeting you is one of the best things that have ever happened to me, and over the past four and a half years, you have taught me how to love and approach nature, each other, and most importantly myself. I have been always harsh to myself especially when I'm not doing so well, but you have always been the one to calm me down, teach me to make peace with my imperfections, and grow to be a better man. I cannot imagine getting to this point without you, and I am looking forward to the many years ahead we will spend together.
+
+###### Contents
+
+* List of Figures
+* List of Tables
+* 1 Introduction to Supporting Theory and Motivation for This Thesis
+	* 1.1 The Standard Model of Particle Physics
+	* 1.2 Quantum Chromodynamics
+	* 1.3 The Quark-Gluon Plasma
+	* 1.4 Heavy-Ion Collisions
+	* 1.5 The Glauber Model
+* 2 Previous Measurements on Jet and High Momentum Hadron Modification in Heavy-Ion Collisions
+	* 2.1 Jets and High Energy Hadrons
+	* 2.2 Existence of QGP in Small Systems
+	* 2.3 Cold Nuclear Matter Effect
+* 3* 3 Experimental Setup
+	* 3.1 Relativistic Heavy Ion Collider (RHIC)
+	* 3.2 The Solenoidal Tracker at RHIC (STAR) Experiment
+		* 3.2.1 Time Projection Chamber
+		* 3.2.2 Time of Flight Detector
+		* 3.2.3 Zero Degree Calorimeter
+		* 3.2.4 Vertex Position Detector
+		* 3.2.5 Beam Beam Counters
+		* 3.2.6 Electromagnetic Calorimeters
+		* 3.2.7 Event Plane Detector
+		* 3.2.8 Forward Upgrade
+		* 3.2.9 Trigger and Data Acquisition System
+* 3.2.10 Track and Vertex Reconstruction
+* 4 Data Selection, Embedding and Analysis Procedure
+	* 4.1 2015 \(p+\)Au \(\sqrt{s_{\rm NN}}=200\) GeV Collisions
+	* 4.2 2018 Ru+Ru & Zr+Zr \(\sqrt{s_{\rm NN}}=200\) GeV Collisions
+	* 4.3 Vertex and Luminosity Correction on Multiplicity
+	* 4.4 Track Embedding and Efficiency Correction
+* 4.5 TOF-matching Efficiency Correction
+* 4.6 Systematic Uncertainties
+* 5 Centrality/Event Activity Selection
+	* 5.1 Centrality Definition in Isobar Collisions
+	* 5.2 Event Activity Definition of \(p+\)Au Collisions
+		* 5.2.1 BBC-ADC Signal as EA Indicator
+		* 5.2.2 Underlying Event Multiplicity as EA Indicator
+* 6 Results and Discussion
+	* 6.1 Event Activity Dependent High-\(p_{\rm T}\) Hadron Yields in \(p+\)Au Collisions
+	* 6.2 Initial State Effects
+	* 6.3 Centrality Dependent High-\(p_{\rm T}\) Hadron Yields in Isobar Collisions
+	* 6.4 Comparisons Between Ru+Ru and Zr+Zr Spectra
+	* 6.5 Dependence of High-\(p_{\rm T}\) Hadron Yields on System Size
+	* 6.6 Geometry and Selection Bias in Peripheral Collisions: the HG-PYTHIA model
+* 7 Outlook
+	* 7.1 Alternative Centrality Grouping with the Isobar Dataset
+	* 7.2 Jet Measurements in Small and Medium Systems
+* A Coordinate Systems Used in Particle Collisions* B Bad run list for \(p{+}{\rm Au}\)\(\sqrt{s_{\rm NN}}=200\,{\rm GeV}\) Collisions
+* C Glauber Parameters for All Collision Species Used in This Thesis
+* D Systematic ErrorsList of Figures
+	* 1.1 Particles in the Standard Model
+	* 1.2 The running coupling constant as a function of \(Q\)
+	* 1.3 Parton Distribution Functions
+	* 1.4 QCD Phase Diagram
+	* 1.5 NCQ Scaling of \(v_{2}\) of Identified Particles
+	* 1.6 Stages of relativistic heavy-ion collisions
+	* 1.7 Optical Glauber model
+	* 1.8 Monte-Carlo Glauber model
+	* 1.7 Optical Glauber model
+	* 1.8 Monte-Carlo Glauber model
+		* 1.7.1 Interaction Mechanisms Between Hard Parton and the Medium
+	* 1.8 Monte-Carlo Glauber model
+		* 1.8.1 Interaction Mechanisms Between Hard Parton and the Medium
+			* 1.8.1.1 2.2 Published charged hadron \(R_{\rm AA}\) measurements in large systems
+			* 1.8.1.2 Published inclusive jet modification in small systems
+		* 1.8.2 Published EA differential jet modification
+		* 1.8.2 \(R_{\rm pA}\) prediction in \(\sqrt{s_{\rm NN}}=200\,{\rm GeV}\)\(d\)+Au collisions
+		* 1.8.2 Charged hadron \(R_{\rm AA}\) measurements in small and medium systems
+
+### 2.7 Compilation of STAR charged hadron \(R_{\rm AA}\)
+
+### 3.1 Aerial view of the RHIC complex
+
+### 3.2 Schematic of the STAR detector
+
+### 3.3 The STAR Time Projection Chamber
+
+### 3.4 The STAR ZDC
+
+### 3.5 The STAR VPD
+
+### 3.6 BBC schematic
+
+7 Schematics of the STAR BEMC (left), figure taken from Ref.[128], and one half of the EEMC(right), figure taken from Ref.[129].
+
+### 3.8 STAR EPD Schematic
+
+### 3.9 STAR Forward Upgrade
+
+### 3.10 TPC reconstruction logic
+
+### 4.1 Bad Run Rejection in \(p\)+Au dataset
+
+### 4.2 Pileup event rejection in isobar events
+
+### 4.3 ZDCx and \(v_{z}\) dependence of nTOFMatch in \(p\)+Au collisions
+
+### 4.4 Nhits vs NhitsMax in p+Au Collisions
+
+### 4.5 Ratio of Nhits and NhitsMax Between Real Data and Embedding
+
+### 4.6 \(\eta-\phi\) Distribution in \(\sqrt{s_{\rm NN}}=200\,\)GeV \(p\)+Au Tracks
+
+### 4.7 Illustration of the detector efficiency correction procedure.
+* 4.9 Raw and Corrected \(\sqrt{s_{\rm NN}}=200\) GeV\(p\)+Au Spectrum
+* 4.10 Tracking Efficiency in Isobar Collisions
+* 4.11 \(p\)+Au TOF matching efficiency
+* 4.12 TOF Matching Efficiency as Function of \(p_{\rm T}\)
+* 5.1 Correlation between \(b\) and \(N_{\rm coll}\) in small and large systems
+* 5.2 Glauber model fit to isobar reference multiplicity
+* 5.3 Examples of ADC distributions in several BBC tiles in 2015 \(p\)+Au collisions. Some tiles, e.g. tile 12 shown in the bottom right, have different gain settings, which result in larger spikes at ADC\(\sim\)4000. Figure taken from [157].
+* 5.4 The summed ADC signal of inner tiles of BBC-East fit to Glauber+NBD convolution model in 2015 \(p\)+Au collisions.
+* 5.5 TPC multiplicity in 2015 \(p\)+Au collisions fit to Glauber model.
+* 5.6 Correlation between TPC multiplicity and inner BBC-East ADC in 2015 \(p\)+Au collisions.
+* 5.7 Demonstration of the Underlying Event selection process. The cartoon is shown with \(z\) direction pointing out of the paper. The blue sector stands for the UE region, and the red stands for the spectrum region. See text for detail.
+* 5.8 \(UE^{\rm rand}\) multiplicity in \(p\)+Au collisions fit to Glauber+NBD model. Top panel shows normalized distributions for both data and model, and bottom panel shows their ratio.
+* 6.1 Inclusive Charged Hadron Yields in \(\sqrt{s_{\rm NN}}=200\) GeV \(p\)+Au Collisions
+* 6.2 Inclusive Charged Hadron \(R_{\rm AA}\) in \(\sqrt{s_{\rm NN}}=200\) GeV \(p\)+Au Collisions
+* 6.3
+
+[MISSING_PAGE_EMPTY:14]
+
+List of Tables
+* 4.1 \(v_{z}\) and Luminosity Correction Parameter
+* C.1 \(\langle N_{\rm part}\rangle\), \(\langle N_{\rm coll}\rangle\)\(\langle\)Refmult\(\rangle\) and lowest RefMult for different centrality/EA bins in Ru+Ru, Zr+Zr and \(p\)+Au collisions. Isobar data from Ref.[149] and private communication in STAR.
+
+## Chapter 1 Introduction to Supporting Theory and Motivation for This Thesis
+
+### 1.1 The Standard Model of Particle Physics
+
+Our current understanding of physics describes most of the phenomena we observe with four basic forms of interaction: gravitation, electromagnetism, the strong interaction and the weak interaction. Out of these four, three of them (all except gravitation, which does not play a significant role in microscopic particle interactions) can be included in a framework called the Standard Model of Particle Physics [1]. The Standard Model is an \(SU(3)\times SU(2)\times U(1)\) quantum field theory that describes the properties of fundamental particles and their interactions. These particles can be grouped into
+
+* fermions that have spin-1/2, i.e. quarks and leptons,
+* bosons that have spin-1, i.e. gauge bosons, and
+* the Higgs boson, which is the only scalar boson that has spin-0.
+
+Their names, categories, spins, charges and masses are summarized in Fig.1.1.
+
+The Lagrangian1 of the Standard Model consists of fermionic fields that describe all the quarks and leptons, electroweak boson fields that describe photons, W bosons and Z bosons, the gluon field that describes gluons, and the Higgs field that is responsible for the Higgs boson. Despite its failure to include gravitation, and a few caveats (e.g. failure to describe neutrino mass [3], dark matter/dark energy [4], and the W boson mass discrepancy [5]), the Standard Model has been extremely successful in describing interactions whose strengths and ranges span over \(>40\) orders of magnitude, and has made several important predictions, e.g. the existence of heavy quarks like top [6], charm [7, 8] and beauty [9], and the Higgs boson [10], and their properties, with great precision.
+
+Footnote 1: For non-experts in physics, read: recipe
+
+Figure 1.1: The elementary particles described by the Standard Model, their categories, spins, charges, and masses. Figure taken from Ref.[2].
+
+### Quantum Chromodynamics
+
+The work presented in this thesis mainly addresses questions about the strong interaction, so we focus on the underlying theory behind this type of interaction, which is called Quantum Chromodynamics (QCD). A comprehensive review for QCD, as well as other forms of interactions, can be found in Ref. [11]. The fundamental building blocks of QCD are called quarks and gluons, and the theory is described by a non-Abelian SU(3) group. Quarks are the basic building blocks of hadrons, such as protons, neutrons, \(\pi\) mesons, etc., and they are charged with three "color" charges. Interactions between quarks are carried out by gluons, which also carry color charges and therefore self-interact, unlike other force-mediating particles, like photons in Quantum Electrodynamics (QED) that describes the electromagnetic and weak interactions. One fundamental feature of QCD is that the interaction, or coupling strength, evolves as a function of the energy scale, due to the non-Abelian nature of the theory. Both theoretical calculations and experimental measurements conclude that the coupling constant (\(\alpha_{s}\)) is actually not a constant but decreases with momentum transfer \(Q\), as shown in Fig.1.2. This phenomenon is unique to QCD, contrary to electroweak interactions where the coupling strength stays constant regardless of the energy scale.
+
+One consequence of the inverse dependence between \(\alpha_{s}\) and \(Q\) is that perturbative calculation of QCD interactions are only possible in the high-\(Q\) regime, where \(\alpha_{s}\) is small. At lower-\(Q\), where \(\alpha_{s}\) is large, the perturbative approach to calculate QCD interactions results in a divergence and is hence impossible practically. This brings up the division of QCD into perturbative QCD, or pQCD for short, which applies to the high-\(Q\) region, vs non-perturbative QCD or npQCD for short that works at the low-\(Q\) region. While pQCD is calculated similar to other perturbation theories, npQCD requires special calculation methods, such as Lattice QCD2[13].
+
+Footnote 2: See Ref.[12] for a more detailed review on effects and calculation methods of the running coupling constant.
+
+Hard processes3 that start in the high \(Q\) regime will eventually evolve toward low \(Q\), anddue to the multi-scale nature of the process, they cannot be calculated by either pQCD or npQCD alone. Therefore, a factorization approach is needed to describe such processes. The method first treats the different regions of the collision, namely initial state, hard scattering and final state, separately, and then combines them to obtain the cross section of high energy hadrons. Under this approach, the production cross-section \(\sigma\) of the final-state observable is obtained via the equation below (here the production of high energy hadrons is used as an example):
+
+\[\mathrm{d}\sigma_{ab\to h}^{\mathrm{hard}}\approx A\cdot B\cdot f_{a}(x,Q^{2}) \otimes f_{b}(x,Q^{2})\otimes\mathrm{d}\sigma_{ab\to c}^{\mathrm{hard}} \otimes\mathcal{D}_{c\to h}(z,Q^{2}), \tag{1.1}\]
+
+where \(A\) and \(B\) are the scaling factors for the collision, \(\mathrm{d}\sigma_{ab\to c}^{\mathrm{hard}}\) is the cross-section for the incoming partons \(a\) and \(b\) to produce a hard parton \(c\), which is calculated from first principles
+
+Figure 1.2: A pQCD calculation of the running coupling constant \(\alpha_{s}\) as a function of interaction strength \(Q\), fitted to the world average Z boson mass, and values extracted from different measurements. The label \(M_{z}\) in the lower left corner refers to the Z boson mass. Figure from Ref.[11].
+
+with pQCD, \(\mathcal{D}\) stands for the fragmentation functions from the parton to hadrons, and \(f\) stands for the parton distribution functions.
+
+The parton distribution functions (PDFs) are used in the equation to describe the initial state of the collision. They refer to the densities of different parton species as a function of the fraction of momentum they take up in the nucleon, defined as \(x=p_{parton}/p_{nucleon}\)4. The PDFs are not perturbatively calculable, and have to be extracted from data via methods such as the DGLAP equations [15, 16, 17]. It is worth noting that the PDFs are dependent on \(Q^{2}\), as shown in Fig.1.3, which shows the PDFs at \(Q^{2}=10\) GeV\({}^{2}\) and \(Q^{2}=10^{4}\) GeV\({}^{2}\) extracted from collider experiment data [14].
+
+Footnote 4: Aside from the valence quarks that explicitly contribute to a hadron’s quantum numbers e.g. charge, spin, there are also virtual \(q\bar{q}\) pairs in hadrons that are known as sea quarks, as well as gluons that mediate the interaction between quarks. They also play an important role in the PDF of a hadron
+
+Deep inelastic scattering (DIS) experiments have revealed that when protons and neutrons are bound in a nucleus their PDFs are modified compared to those of a free proton/neutron in a nontrivial way. This has led to the analyses of nuclear parton distribution functions (nPDFs) [18], and this modification leads to observable effects in the production of high energy hadrons in collider experiments (see Sec.2.3 for more details).
+
+Figure 1.3: The Parton Distribution Functions calculated at next-to-next-to-leading order (NNLO) from data extracted from experiments. Figure from Ref.[14].
+
+Fragmentation functions (FF) describe the probability of a parton turning into specific hadrons [19]. They quantify the final stages of the collision, and are also not calculable by pQCD.
+
+### 1.3 The Quark-Gluon Plasma
+
+At low temperatures and energies (\(T\ll 10^{12}\) K), quarks are bound with each other in the form of colorless hadrons, and it is impossible to observe an isolated quark. This is a phenomenon called "color confinement". At low-\(Q\), the required energy to pull quarks apart from each other increases with the distance, and the system eventually reaches a point where it is energetically favorable to produce another \(q-\bar{q}^{5}\) pair from vacuum and form new hadrons. However at higher \(Q\) the interaction strength gradually decreases, asymptotically approaching 0 as \(Q\to\infty\), as shown in Fig.1.2, in a phenomenon named "asymptotic freedom" [20].
+
+The implication of asymptotic freedom is that, at extremely high temperature and/or energy density, the quarks and gluons inside hadronic matter should asymptotically deconfine from each other, forming a new state of matter. This state of matter has been suggested by theorists since the 1980s [21] and is called the Quark Gluon Plasma (QGP). The evidence of such a novel state of matter was first experimentally reported by CERN SPS [22, 23]. This novel state of matter has been confirmed and since put under extensive study at both Relativistic Heavy Ion Collider (RHIC, Sec.1.4), located at Brookhaven National Lab in Upton, NY, and the Large Hadron Collider (LHC) at CERN, which is situated on the border between France and Switzerland.
+
+A cartoon of the phase diagram of QCD matter is shown in Fig.1.4. The \(x\) axis is the chemical baryon potential (\(\mu_{b}\)), and the \(y\) axis is the temperature. The QGP phase is broadly on the top right part of the figure, where either temperature or energy density is high, while the experimentally accessible QGP is focused on the left side, where \(\mu_{b}\) is lower than that of atomic nuclei.
+
+Studying the QGP has been interesting to the broader community for several reasons. First, the QGP is so far the only way we can study free quark and gluon matter experimentally. Second, the QGP is predicted to be the state of the Universe around 1 \(\mu\)s after the Big Bang [25], and a similar state of matter might also be present inside neutron stars [26] due to their extremely high density (shown in the lower right of Fig.1.4), so it is also of interest to the cosmology and astronomy communities.
+
+The QGP is predicted by theorists to have many intriguing properties, which have been put under extensive study both theoretically and experimentally over the past decades. They have helped us understand the nature of the medium, as well as the underlying QCD mechanisms. Some of them are listed below as examples:
+
+* Thermodynamic equilibrium: The Statistical Hadronization Model (SHM) [27, 28, 29] can be used to describe the yields of different particle species in collisions by a grand-canonical ensemble that is governed by the chemical freeze-out temperature \(T_{ch}\), and the baryon chemical potential \(\mu_{b}\). Experimental data have shown remarkable agreement with this model over up to 8 orders of magnitude in the LHC measurements, which implies that the hadronic composition is frozen at this temperature. At high energy, above \(\sqrt{s_{\rm NN}}=200\,\)GeV, where \(\mu_{b}\sim 0\), the transition temperature is pretty
+
+Figure 1.4: A sketch of the QCD phase diagram with boundaries of various QCD matter states. Figure taken from Ref. [24].
+
+consistent, and recent measurements usually point the temperature at \(\sim 156\) MeV [30, 31], which agrees with the QGP phase transition temperature predicted by Lattice QCD. This is compatible with the phase transition that happens during the cooling of the system, above which the system is in a "melted" partonic state. At lower energies, as \(\mu_{b}\) increases, \(T_{ch}\) decreases gradually, to around 120-140 MeV [30, 32] at \(\sqrt{s_{\rm NN}}\) of 5 GeV. It is worth highlighting here that studies of the QCD phase diagram, especially the search for the critical point in the QCD phase diagram, have also been important topics that are related to the QGP's thermodynamic property, and has been under active study at RHIC with the Beam Energy Scan program.
+
+* Anisotropic flow: The QGP produced in heavy-ion collisions also demonstrates hydrodynamic properties. In fact, the QGP has been predicted to be a nearly perfect fluid with the smallest specific shear viscosity (\(\eta/s\)) known, approaching the quantum limit [34, 35]. One of the accessible signatures of a hydrodynamic response to initial conditions is anisotropic flow. In off-center collisions with a non-zero impact parameter \(b\), the hadronic matter density is asymmetric due to the almond-shaped impact region. This creates a pressure gradient in the QGP, which then translates into azimuthal anisotropy in the momentum distribution of produced particles. This effect is usually measured as the Fourier harmonics of the azimuthal distribution of particles, denoted
+
+Figure 1.5: \(v_{2}\) scaled by number of constituent quarks (NCQ) as a function of \(p_{T}/n_{q}\) and \((m_{T}-m_{0})/n_{q}\) for 0–30% and 30–80% collision centrality in \(\sqrt{s_{\rm NN}}=200\) GeV Au+Au collisions. Figure taken from [33].
+
+by \(v_{n}\), where \(n\) stands for the order of flow harmonics [36]. Anisotropic flow, especially the second order harmonics \(v_{2}\), has been measured in heavy-ion collisions [37], and measurements on identified particles demonstrate a number of constituent quarks 6 (NCQ) scaling [38, 39, 40], which agrees with our understanding that the anisotropy is generated by the QGP at partonic level [41]. As the example shown in Fig.1.5, the measured anisotropy works very well with NCQ scaling at higher momentum, while at lower momentum mass scaling is more dominant. Higher order anisotropies, on the other hand, originate mainly from the fluctuations of the initial states, as will be discussed further in Sec.1.5. Footnote 6: In particle physics, particles made of 3 valance quarks are called baryons, and those made of a quark and an antiquark is called mesons.
+* Quarkonium production: Quarkonia are flavorless mesons made of a heavy flavor quark and its own antiquark (namely \(c\bar{c}\) and \(b\bar{b}\), \(t\bar{t}\) states do not exist [42]). In the QGP environment, the yield of quarkonia is expected to be suppressed due to interactions with the medium. There are two main competing effects that contribute to this phenomenon. One mechanism is melting by color screening, which is similar in concept to electrostatic shielding, where the QGP dissociate color connections in the \(q\bar{q}\) pair, suppressing the quarkonium production, and the other is called regeneration, where heavy quarks recombine with their own antiparticles in the medium and form new quarkonia [43, 44]. Measurements of production of \(c\bar{c}\), including \(J/\psi\) and its excited states, and \(b\bar{b}\) states including \(\Upsilon\)(1S), (2S) and (3S) states, have been made by both RHIC and the LHC [45, 46, 47, 48], and results show that their production has indeed been strongly suppressed, confirming the existence of QGP. It is worth noting that the measurements at LHC show lesser suppression that that at RHIC, which is a sign of more recombination [49]. It is also shown that the suppression of \(b\bar{b}\) is stronger for states with smaller binding energies, an effect called "sequential suppression", which is also compatible with the picture [47, 48].
+
+Also, last but not least, jet quenching has also been an important phenomenon in studying QGP physics, but as the hero of this thesis, its introduction is left to its own section, Sec.2.1.
+
+### Heavy-Ion Collisions
+
+Creating the QGP requires extremely high temperature and/or energy density. The main experimental method to create the QGP is via heavy-ion collisions. Currently, RHIC and the LHC are the only two experimental facilities in the world capable of creating the QGP.
+
+In heavy-ion collisions, two beams of large atomic nuclei (usually Au at RHIC or Pb at LHC) are accelerated to nearly the speed of light in opposite directions. Due to high Lorentz contraction, the nuclei are squeezed along the beam-line direction into pancake shapes. When nuclei coming from opposite directions interact at the designated collision points, the participants from both sides will undergo multiple scatterings with each other, resulting in deconfinement of quarks from their parent nuclei. At this stage, there is a finite probability that extremely high \(Q\) scatterings could happen, which create high energy partons that later fragment and turn into jets (see Sec.2.1 for detail). After \(\sim\)1 fm/\(c\) of pre-equilibrium evolution, the system produces an equilibrium-state QGP droplet, which possess thermodynamic and hydrodynamic properties as discussed in Sec.1.3. After that, the QGP will quickly cool down while expanding outwards from the collision point, and the quarks and gluons recombine into hadrons due to color confinement (introduced in Sec.1.2). After \(\sim\)10 fm/\(c\), the system has cooled down sufficiently to reach first chemical freeze-out at \(T_{ch}\) and then kinetic freeze-out at \(T_{kin}\). At these temperatures hadrons stop having inelastic and elastic interactions, respectively, after which the hadrons free-stream to the detector. An outline of the collision process is shown in Fig.1.6.
+
+### 1.5 The Glauber Model
+
+Heavy atomic nuclei are made up of multiple protons and neutrons, have a finite size, and the impact parameters (\(b\)) of the collisions are purely random. The overlap regions that actually participate in the collision, and hence determine how "violent" the collision is, vary greatly between different collisions. As a result, in order to perform quantitative analyses on heavy-ion collisions, it is crucial to understand their initial conditions, e.g. the geometry of the initial impact area and the amount of matter that takes part in the collision. A setof theoretical techniques have been developed to address this problem, generally referred to as the Glauber model, named after Roy Glauber [51].
+
+The Glauber model was developed to estimate the initial geometry of the collision. The model is based on the following assumptions:
+
+* The path of a nucleon is strictly a straight line along the beam-line direction, and its momentum and composition are not influenced by colliding with nucleons from the opposite nucleus.
+* The nucleons are independent of each other. After the nucleons' relative positions within the nucleus are set via their distribution functions (e.g. Woods-Saxon distribution for Au), they do not influence each other's trajectory in the collision.
+
+The end result of the Glauber Model is a set of nucleon-nucleon collisions spanned over the \(x\)-\(y\) plane7, since the \(z\) coordinate is always 0 due to the Lorentz contraction, as discussed in Sec.1.4. Quantities of interest to this thesis are:
+
+Figure 1.6: Sketch of stages of a relativistic heavy-ion collision from initial stage to final free streaming particles. Figure from Ref.[50].
+
+* \(N_{\rm part}\): the number of nucleons that participated in the heavy-ion collision, and
+* \(N_{\rm coll}\): the number of nucleon-nucleon collisions that took place in the collision.
+
+It has been shown experimentally that soft physics production, e.g. low-\(p_{\rm T}\) hadrons, is generally proportional to \(N_{\rm part}\), whereas hard physics production e.g. jets and heavy-flavor hadrons8 is proportional to \(N_{\rm coll}\)[52].
+
+Footnote 8: In particle physics, when something is called heavy-flavor, it usually means the particle contains quarks heavier than the strange quark.
+
+There are two main approaches to calculate the parameters in the Glauber model. The more analytical way is called the optical-limit approximation (shown in Fig.1.7). In this approach, one integrates the thickness functions - similar to the nucleon distribution functions - of both nuclei over the overlap region, and gets the probability of two given nucleons colliding in the region. Then \(\langle N_{\rm coll}\rangle\) and \(\langle N_{\rm part}\rangle\) can be obtained using properties of the Poisson distribution. The other approach, which is more commonly applied in experiments, is based on Monte Carlo simulations. In each simulated event, the positions of all the nucleons from both nuclei are assigned according to the distribution function of their respective species,
+
+Figure 1.7: Schematic of the optical Glauber model calculation from the side direction (a) and beam-line direction (b). Figure taken from Ref.[53].
+
+and whether a collision takes place between nucleons is determined by their distance in the \(x\)-\(y\) plane9. Fig.1.8 provides a demonstration for the process. Then quantities like \(N_{\rm coll}\) and \(N_{\rm part}\) are recorded for each event and the average is determined over many samples.
+
+Footnote 9: In the vanilla Glauber model, a ”hard ball potential” at \(d=\sqrt{\sigma^{NN}/\pi}\) is adopted, while other models like HIJING [54] take a more sophisticated approach. More details will be discussed in later sections.
+
+Both approaches generate similar \(\langle N_{\rm coll}\rangle\) and \(\langle N_{\rm part}\rangle\), however the analytical approach fails to capture the event-by-event fluctuations of the nucleon distribution, which may influence the interpretation of elliptical flow measurements [55] and also explains the origin of higher order azimuthal anisotropy observed in collisions [56]. Therefore, the Monte Carlo method is usually the standard approach used in the community10.
+
+Figure 1.8: Schematic of a Monte-Carlo Glauber event from the side direction (a) and beamline direction (b). Dark colors indicate participating nucleons, and light colors stand for spectators. Figure taken from Ref.[53].
+
+Chapter 2 Previous Measurements on Jet and High Momentum Hadron Modification in Heavy-Ion Collisions
+
+In this chapter, I will first give a brief introduction to jets, and high energy hadrons as proxies to jets. I then briefly introduce the motivation for the measurements performed in this thesis, provide a summary of measurements relevant to this study, and previous results carried out by various experiments. I then talk about comparisons of previous results against each other and theory predictions, and demonstrate the necessity to carry out this thesis study.
+
+### 2.1 Jets and High Energy Hadrons
+
+As briefly mentioned in Sec.1.3, in the initial stage of collisions, there is a finite chance that partons from the two nuclei may engage in hard scatterings and generate high energy partons. In such occasions, these partons will traverse the QGP created in the collision, if any, and fragment into a cluster of hadrons in the final stage. Due to the high momentum of the initial parton, the final stage will be highly collimated in lab frame. These particles are collectively called a jet.
+
+During their traversal of the QGP, these partons will interact with the medium. There are three main ways the partons with color charges strongly interact with the QGP, all of which will result in energy loss and modification of the final state structure [58, 59]. The first way is collisional energy loss, which refers to the elastic in-medium scatterings of the parton. These scatterings are relatively soft and only result in a small amount of energy and momentum transfer, an effect known as momentum broadening. There are rare cases though where the parton experiences a hard scattering with a medium particle, known as Moliere scattering [60], resulting in a large-angle deflection. The energy loss from this type of interaction is proportional to the pathlength, \(\mathcal{L}\). The second way is via radiative energy loss. This refers to the medium-induced inelastic emissions that are expected to be mostly collinear gluon radiations at high-\(p_{\mathrm{T}}\), while also having some at wide angles, and the radiation strength is expected to be proportional with \(\mathcal{L}^{2}\). In the non-perturbative QCD regime, though, both mechanisms mentioned above are not applicable. An approach to model the energy loss is to use the AdS/CFT1 correspondence, which considers QCD equivalent to a dual gravity theory in the appropriate limits. The energy loss in this mechanism is considered proportional to \(\mathcal{L}^{3}\). A cartoon for the three kinds of interactions is shown in Fig.2. It is worth noting here that, the pathlength dependence introduced here assumes static medium. In an expanding medium, e.g. the QGP created in heavy-ion collisions, the proportionality power reduces by \(\sim 1\).
+
+Footnote 1: Short for anti-de Sitter/Conformal Field theory. See Chapter 4.5 in Ref.[61] for detail.
+
+In this thesis, we are mainly interested in using jets as a probe to study properties of the QGP, i.e. the quenching part of the process, so we need to establish a benchmark of "unquenched" jets. Modification of jets is not expected to occur in \(p\)+\(p\) collisions, which makes them an appropriate benchmark for nuclear effects on jets in larger systems. However, to make appropriate comparisons between systems, jet production in \(p\)+\(p\) collisions must be scaled by the \(\langle N_{\rm coll}\rangle\) factor determined as described in Sec.1.5, since jet production is a hard process. The measurement of interest here, the _nuclear modification factor_, is defined as the ratio between the measured yield and the scaled benchmark:
+
+\[R_{\rm AB}=\frac{Y_{\rm AB}}{\langle N_{\rm coll}\rangle\times Y_{\rm pp}}, \tag{2.1}\]
+
+where \(A\) and \(B\) refer to the species of the two nuclei in the collision, and \(Y\) is the boost-invariant yield of the observable we are interested in. Since the two nuclei are frequently of the same species, the nuclear modification factor is also commonly referred to as \(R_{\rm AA}\) without specifying the species. As a side note, this formula is valid not only for jets, but also for other hard probes, e.g. \(J/\psi\) mesons, \(W\) bosons and \(Z\) bosons.
+
+As said in Sec.1.5, in the low-\(p_{\rm T}\) range the yields are expected to scale with \(N_{\rm part}\), whereas in the high-\(p_{\rm T}\) range, which roughly corresponds to \(p_{\rm T}\)\(>\)3 GeV/\(c\), should scale with \(N_{\rm coll}\). Since the \(R_{\rm AA}\) is scaled by \(N_{\rm coll}\) by definition, the "benchmark" value for \(R_{\rm AA}\) on the low-\(p_{\rm T}\) end is expected to be \(N_{\rm part}/N_{\rm coll}\), while for high \(p_{\rm T}\) the value is expected to be 1 if no collective effects are present. The \(R_{\rm AA}\) value is called "suppressed" if it is below unity, and is "enhanced" if it is above 1. Jet suppression in heavy-ion collisions is widely considered
+
+Figure 2.1: Parton energy loss mechanisms in the QGP. The Feynman diagrams in the collisional (left) and radiative (middle) loss are drawn for quark-initiated jets, while a visual representation is shown for the AdS/CFT mechanism. Figure taken from [62].
+
+to result from the energy loss in the medium [63], while enhancement is more often related to initial state effects [64].
+
+Unfortunately, there is no way the whole fragmentation process can be back-traced unambiguously from final state particles all the way back to the initial parton, since we don't have access to the parton information due to color confinement. Therefore, we need to find ways to combine final state particles into jets, in order to approximate the initial parton. Over the years, there have been various algorithms for this purpose (see for example Ref.[65]). However in this thesis, I use the spectrum of high-\(p_{\rm T}\) charged hadrons reconstructed by the Time Projection Chamber (TPC, see Sec.3.2.1 for description) as a proxy to jets. Admittedly, one single hadron cannot recover all the energy of a parton, but when compared across different collision systems at the same \(\sqrt{s_{\rm NN}}\), the difference in modification of the single hadron spectrum can also serve as an indicator of hard partons' modification in the medium. Also, when comparing between collision systems, single particle measurements can benefit from higher statistics and avoid some systematic uncertainties introduced by clustering particles into jets and subtracting jet background, and make for a cleaner comparison. Therefore, in this thesis, I focus on the measurement of inclusive charged hadron spectra. The quantity \(Y\) in Eqn.2.1 used throughout this thesis is therefore the invariant yield of charged hadrons, and is defined as
+
+\[Y_{\rm ch}=\frac{1}{N_{\rm ev}}\frac{1}{p_{\rm T}}\frac{d^{3}N_{\rm ch}}{dp_{ \rm T}d\eta d\phi}, \tag{2.2}\]
+
+where \(N_{\rm ch}\) stands for the number of charged particles, and \(N_{\rm ev}\) stands for the number of events.
+
+### 2.2 Existence of QGP in Small Systems
+
+Validating the existence of the QGP and studying its property is one of the core missions of the heavy-ion community. It has been well proven by now in various ways that the QGP exists in large system collisions like central Au+Au and Pb+Pb at top energies for RHIC and the LHC [68, 69, 70, 71] (see [72] for a comprehensive review). Especially relevant for this thesis is the modification of inclusive hadron spectra in Au+Au collisions at \(\sqrt{s_{\rm NN}}\)= 130 GeV and \(\sqrt{s_{\rm NN}}=200\,\)GeV [67, 73, 74], as well as Pb+Pb collisions at LHC energies [75, 76]. These measurements, two of them shown in Fig.2.2, show that in large systems at high \(\sqrt{s_{\rm NN}}\), there is significant suppression of high-\(p_{\rm T}\) hadron yield relative to \(p\)+\(p\) collisions, which is a strong indication of the existence of a QGP [63]. It was initially assumed that the QGP doesn't exist in smaller systems like \(p\)+\(p\) or \(p\)+Au. However, several measurements published by LHC experiments [77, 78, 79] suggested that QGP-like signals, e.g. near-side "ridge", are present in high-multiplicity \(p\)+\(p\) collisions. Since then, the question of whether a QGP exists in small systems in particular, e.g. high-multiplicity \(p\)+Au and \(p\)+\(p\), has been an actively pursued research question. The jet community has also performed different measurements in small systems, but so far the results have been inconclusive.
+
+Jet and charged hadron \(R_{\rm AA}\) are straightforward observables to determine the existence of QGP in small systems and RHIC and LHC made several such measurements in \(p\)/\(d\)+A systems. As shown in Fig.2.3, all of the inclusive jet measurements [80, 81, 82] show \(R_{\rm AA}\) values compatible with unity, indicating that an average minimum biased2 event does not show a significant suppression. On the other hand, when the spectra are binned by event activity (EA, see Sec.5 for detail), both ATLAS and PHENIX report some degree of suppression
+
+Figure 2.2: Examples of previously published measurement in charged hadron \(R_{\rm AA}\) as functions of \(p_{\rm T}\) in large systems.
+
+Figure 2.3: A selection of published inclusive jet nuclear modification factors for small system collisions. Plots taken from [80, 81, 82].
+
+for \(R_{p/d+\rm A}\) for central collisions, shown in Fig.2.4, and enhancements are seen in peripheral collisions3.
+
+Footnote 3: PHENIX released a statement in 2021 that they would update their centrality results, and from their preliminary erratum the modification is currently not significant enough to draw any conclusive statements [83].
+
+The result from ALICE [85], \(Q_{\rm pPb}\)4, on the other hand, don't show any significant modification. Studies [86] have also suggested that with no QGP effects built-in, simulations from the PYTHIA Angantyr model [87], which extrapolates the PYTHIA [88] model to \(p\)+A and A+A collisions by adding the treatments of multi-parton interactions and diffractive excitations, reproduce the EA-differential modification to some degree, which indicates the modification seen comes from kinetic effects instead of jet quenching. Several other types of measurements, including semi-inclusive modification and di-jet acoplanarity measurements [86], as well as jet substructures like the jet mass [89] have also been made, and none of them show significant modification when compared against \(p\)+\(p\) collisions.
+
+Footnote 4: \(Q_{\rm pPb}\) is an equivalent definition of \(R_{\rm pA}\) used in Ref.[85], which was introduced due to their alternative way of centrality definition.
+
+In summary, whether a QGP droplet is present in \(p/d\)+A collisions is still inconclusive.
+
+Figure 2.4: A selection of published jet nuclear modification factors binned by Event Activity. Plots taken from [81, 84, 85]; see legend and text for detailed context.
+
+The kinetic effects shown with the Angantyr model in the EA-differential measurements also make the interpretation more complicated. Therefore, in order to address the puzzle of QGP in small systems, it is important to provide more possible evidence on jet and high-\(p_{\rm T}\) hadron modification in these collisions, especially inclusive measurements that can be more directly compared without phase space constraints.
+
+### 2.3 Cold Nuclear Matter Effect
+
+On the other hand, it is also known that the modification of jet and high-\(p_{\rm T}\) hadron spectra is not entirely created by QGP effect, but can also come from the existence of cold nuclear matter (CNM) effects, also referred to as initial state effects. It was first reported in 1975 by Cronin _et al._, that hadron spectra in asymmetric collisions at lower energies reveal some degree of enhancement at medium-\(p_{\rm T}\) of \(\sim\)2-7 GeV/\(c\), and the phenomenon has been named the "Cronin effect" or "Cronin enhancement" [90, 91, 92]. It has also been measured that the \(d\)+Au charged hadron spectrum at \(\sqrt{s_{\rm NN}}=200\) GeV is enhanced at 2\(<\)\(p_{\rm T}\)\(<\)7 GeV/\(c\), both in minimum bias collisions and in 0-20% central collisions, as shown in Fig.2.6a; identified particle spectra have also shown signs of enhancement [93, 94, 95, 81, 96]. The phenomenon is interpreted as a result of multiple scatterings between a parton from the \(p/d\) nucleus and multiple partons from the larger nucleus [97]. Theorists have made predictions on how the Cronin effect would effect the \(R_{\rm pA}\) curve for \(p\)+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV [98, 99]. Shown in Fig.2.5 is the prediction made with HIJING5[99]. HIJING [54] is a model based on PYTHIA to predict jet interaction in heavy-ion environment. It takes into account the nPDF modifications of heavy nuclei and multiple scatterings, and jet quenching effect is modeled via an assumed parton energy loss in the QGP produced in the collision; it is worth mentioning though that collective motion is not included in the model. It is capable of making predictions on jet modification effects in \(p/d\)+Au and Au+Au.
+
+Footnote 5: The name HIJING is short for Heavy-Ion Jet INteraction Generator, and is also phonetically translated into Chinese as \(\cmsSymbolFace{B}\cmsSymbolFace{B}\) by the author, which implies it is a divination for nuclear reactions.
+
+Although these effects are mainly present in asymmetric systems where only one participant is a large nucleus, the same CNM effects are also in principle present in large systems where both are heavy nuclei, but in those cases the CNM effects are usually overwhelmed by QGP-originated quenching effects. Therefore, the measurements of \(R_{\rm pA}\) in \(p\)+Au collisions can both provide a better understanding of the CNM effect itself, and help the community properly evaluate the effect of QGP-induced modification in A+A collisions.
+
+### 2.4 Dependence of QGP Jet Effects on System Size
+
+Along with the discussion of whether QGP exists comes the question of how different QGP effects evolve with the system size. Different factors could be influencing different effects, including \(\langle N_{\rm part}\rangle\), average radius of the overlapping region \(\langle r\rangle\), eccentricity of the region \(\varepsilon_{2}\), etc. Theoreists have made various predictions on this topic. For example, analytical model
+
+Figure 2.5: Theoretical prediction of \(R_{\rm pA}\) in \(d\)+Au collisions \(h^{\pm}\) at \(\sqrt{s_{\rm NN}}=200\,\)GeV with HIJING [54], and measurements from STAR and PHENIX. Figure taken from [99]. The lines in the figure stands for different options specified in the HIJING 2.1 model; see [99] for details.
+
+[MISSING_PAGE_FAIL:38]
+
+A compilation of previous STAR results in high-\(p_{\rm T}\) charged hadron \(R_{\rm AA}\) measurements [67, 93, 104] is shown in Fig.2.7. With centrality differential measurements in these collision systems, we can extract a continuous picture on the evolution of high-\(p_{\rm T}\) modification as a function of system size. Most measurements agree with the intuitive trend that a bigger system equates to heavier jet modification. However, due to the limited statistics of earlier datasets, the uncertainties and number of bins presently available are not enough to depict a precise picture. Therefore, measurement in this thesis could greatly compliment this picture. Especially with the large statistics of the Ru+Ru/Zr+Zr collisions (see Sec.4.2), which can be done in much greater precision than previously achieved, we hope to improve the field's understanding on the evolution of jet quenching effect with the system size, and help finding the boundary where QGP effects start to dominate the modification.
+
+Figure 2.7: Compilation of previous STAR measurements in charged hadron \(R_{\rm AA}\) modification at \(\sqrt{s_{\rm NN}}=200\,\mathrm{GeV}\). Data taken from Refs.[67, 93, 104].
+
+## Chapter 3 Experimental Setup
+
+The analyses in this thesis were carried out with data collected at RHIC. More specifically, the data were collected with the detector complex called the Solenoidal Tracker at RHIC (STAR). In this chapter, I will introduce RHIC, STAR, and the components at STAR that are of particular relevance to this thesis.
+
+### 3.1 Relativistic Heavy Ion Collider (RHIC)
+
+RHIC is so far the largest dedicated heavy-ion collider in the world. It has two rings 3834 m in circumference, referred to as the blue and yellow rings, and it is capable of accelerating almost every species of atomic nuclei1, provides a top energy of 100 GeV per nucleon to heavy nuclei, and can accelerate protons to as much as 255 GeV.
+
+Footnote 1: So far RHIC has delivered 10 species of nuclei to the experiments, including \(p\), \(d\), \({}^{3}\)He, \({}^{16}_{8}\)O, \({}^{27}_{13}\)Al, \({}^{64}_{29}\)Cu, \({}^{96}_{40}\)Zr, \({}^{96}_{44}\)Ru, \({}^{197}_{79}\)Au, and \({}^{238}_{92}\)U[103].
+
+In order to deliver a beam of ultra-relativistic atomic nuclei, the Electron Beam Ion Source (EBIS) is first used to create highly charged ions by stripping off electrons from the atoms [108], and then accelerate them to nearly the speed of light2 while stripping off the remainingelectrons using the Booster Synchrotron, and the Alternating Gradient Synchrotron (AGS), where they are also grouped into bunches, injected into the main RHIC ring and accelerated to the desired energy, as shown in Fig.3.1. After the acceleration procedure, the nuclei are constrained by 1740 Helium-cooled superconducting magnets in the main RHIC rings [109], travelling either in the clockwise or anti-clockwise direction, for the duration of the fill. The specific numbers of nuclei and bunches vary between species and fills, but as a reference for top energy \({}^{197}_{79}\)Au, the operation conditions are designed at \(10^{9}\) ions per bunch and 56 bunches per ring [110]. The bunches from opposite directions are designated to cross with each other at the designed collision points, creating high energy collisions.
+
+A little bit different from the large nuclei, when protons are used at the experiments, they are first generated at a proton source called the Optically PumpJed Ion Source (OPPIS) [111]. Then they are accelerated through the linear accelerator (LINAC), injected into the Booster, after which they will go through the same processes as the large nuclei. The proton bunches are usually called "buckets", and each bucket contains around \(10^{11}\) protons, around 2 orders of magnitude larger than that for the Au nuclei. This results in \(\sim 10^{4}\) higher luminosity difference than Au+Au, which is largely offset by the cross-sectional difference[112, 113], hence the reaction rates end up comparable.
+
+Shown as white boxes in Fig.3.1, there are 6 collision points designed around the RHIC ring, and detector complexes are built at some of these collision points. If the experiment is "on" during the fill, beams will be directed to the designated collision point and collide with the opposite beam or a fixed target. Throughout the history of RHIC, there are four collision points that have had active heavy-ion experiments, namely BRAHMS, PHENIX, PHOBOS and STAR. Among them, the PHOBOS and BRAHMS experiments were only active for the first few years after RHIC turned on in 2000, PHENIX which sits at the 8 o'clock collision point took data from 2000 to 2016, and was then transformed into sPHENIX, which started data collection in 2023. STAR, sitting at the 6 o'clock position, is the only detector that has actively taken data every year RHIC has run, and is where the data used for this thesis was taken.
+
+### The Solenoidal Tracker at RHIC (STAR) Experiment
+
+The STAR detector [115] is a multi-purpose TPC-based particle detector complex, designed to unveil the properties of the QGP by studying the variety of high energy nuclear collisions that RHIC delivers. A schematic of STAR is shown in Fig.3.2. As the name implies, the detector is located in a solenoidal magnet which is 6.2 m long and 5.26 m in diameter, and the nominal collision point (when in collider mode) is in the geometric center of the cylinder; it can produce a uniform magnetic field of up to 0.5 T in \(\pm z\) direction inside the fiducial volume. The detector complex is made of multiple components built inside and around the magnet, which are designed to convert the information of the produced particles from the collisions at certain acceptance regions to electric signals, trigger upon certain condition to initiate the data acquisition system, and record the triggered collision events as readable data for physics analysis. In the following sections, I briefly introduce a few that are the most relevant to this analysis.
+
+#### Time Projection Chamber
+
+The Time Projection Chamber (TPC) [117] is the primary tracking detector of STAR. The detector, shown in Fig.3.3, provides tracking and PID information for charged particles within a pseudorapidity range of \(|\eta|<1\) and full azimuth. STAR employs a gas phase TPC design, which mainly consists of a cylinder-shaped gas chamber with inner and outer radii of 50 cm and 200 cm, concentric within the solenoid, filled with a 10% methane +
+
+Figure 3.1: An aerial view of the RHIC complex, shot from the south of the accelerator. Figure taken from [114].
+
+90% argon gas mixture. It is divided into two equal halves, each of 210 cm long, by the cathode in the middle, which is charged to have a high negative voltage of 31000 V. The cathode and anodes together create a static electric field of 140 V/cm parallel to the beam line direction. When charged particles produced in the collision pass through the chamber, they ionize the gas mixture and create free electrons, which drift towards the anodes under the influence of the electric field at a speed of 5.45 cm/\(\mu\)s along a maximum distance of 210 cm [117]. This results in a maximum drift time of 38.53 \(\mu\)s, which puts the TPC in the category of "slow detectors" relative to the "fast detectors" that can respond within \(10^{2}\) nanoseconds or shorter. The drifting electronic signals are then amplified at the end-cap by the Multi Wire Proportional Chambers (MWPC) [118] into electronic signals readable by the readouts, which are then processed and stored in the DAQ system (see Sec.3.2.9 for details).
+
+The readout panels in both endcaps are each divided into an inner ring and an outer ring, and each ring contains 12 sectors azimuthally; within each sector are read out pads that individually readout amplified signals. When a collision event is recorded, signals received in the pad rows will be clustered into "hits", which records the \(x\)-\(y\) position as well as timing
+
+Figure 3.2: Schematic of the STAR detector with some detector components pointed out. The ZDC (Sec.3.2.3), VPD (Sec.3.2.4), and BBC (Sec.3.2.5) all have east and west arms; the ZDC is too far from the collision point to be shown in the figure. Figure is altered from [116].
+
+of when the signal is received; \(z\)-axis coordinate is then calculated from drift time of the electrons to the endcaps and the drift velocity. The tracks of the charged particles produced in the collision are then reconstructed from the hits.
+
+Due to the magnetic field introduced by the solenoid, the tracks of the charged particles are curved in the \(x\)-\(y\) direction. The curvature of the track is used to calculate the transverse momentum \(p_{\rm T}/q\) of the corresponding particle; the \(z\) component is calculated simultaneously from the direction of the momentum. The charge sign of the particle is also determined via the curvature direction. Moreover, the information on the energy loss per unit distance travelled (\(dE/dx\)) is also recorded by the TPC and used for particle identification.
+
+It is worth noting that the inner sector of the TPC has recently been upgraded, referred to as the iTPC upgrade [119], which increased the number of readout pad rows in the inner sector from 12 rows to 40 rows, the number of pads in a row, as well as replaced aged electronics with new improved design. The increased density allows the pseudorapidity coverage of the TPC to increase from \(|\eta|<1.0\) to 1.5, and the design also provides better
+
+Figure 3.3: Sketch of the STAR TPC. Figure taken from [117].
+
+\(dE/dx\) and momentum resolution overall.
+
+#### 3.2.2 Time of Flight Detector
+
+The Time of Flight (TOF) system [120] measures the time it takes for particles to fly from the collision point to the detector, and has the same coverage as the original TPC design of full azimuth and \(|\eta|<\)1. It consists of a event "start" detector (pVPD) near the beam pipe and a set of multi-gap resistive plate chambers (MRPC) placed between the TPC and the barrel EMC (introduced in Sec.3.2.6). Each MRPC module is essentially a stack of resistive gas plates with a series of uniform gas gaps. High voltages are applied to the graphite electrodes on the outside of the outermost plates, and an electric field is generated in each gap. When the charged particles go through the chamber, they generate avalanches of electrons in the gas gaps, and are picked up by pad layers outside of the outer electrodes and sent to electronic readouts. With the time difference between the start and end detectors, one calculates the speed of the detected particle, given that the distance traveled by the particle from the collision vertex to TOF is already determined by extrapolation from the TPC track left by the particle. The detector is mostly designed to enhance STAR's PID efficiency, however due to its fast detector nature, it can also be used to match TPC tracks in order to exclude out-of-time pileup by requiring TPC-reconstructed tracks to match to a TOF hit at the right angle as well as at the same time of the trigger (see e.g. Ref.[121]). In this thesis, I will take advantage of this technique to eliminate the pileup tracks in the \(p\)+Au analysis, as discussed in more detail in Sec.4.5.
+
+#### 3.2.3 Zero Degree Calorimeter
+
+The Zero Degree Calorimeter (ZDC) [122] at STAR is composed of two sets of detectors, located along \(\pm z\) directions of the nominal collision point, 18 m from the interaction point. Each set consists of tungsten plates, followed by quartz fibers that detect the Cherenkov radiation produced by particles passing through them. The photons are passed along to photon multiplier tubes (PMT) to magnify the optical signal, and finally converted to electronic signals and sent to digital readout units. The ZDC is capable of measuring the number, energy and direction of the neutrons that escape the collision with an angle less than 4 mrad from the beam pipe, which are usually considered spectator neutrons that do not participate in the collision [123].
+
+In the STAR experiment, a ZDC coincidence (i.e. simultaneous signals from both detector components) is used as a criteria of minimum-biased (MB) events, and its fast detector nature makes it a trigger detector for starting event recordings (See Sec.3.2.9 for detail). In addition, the rate of the coincidence between both components, also referred to as ZDCx, is used to represent the collision rate or luminosity. Therefore, in this thesis, I use this measurement to correct for luminosity-related effects, such as pileup and tracking efficiency (see Sec.4.3 for details).
+
+#### Vertex Position Detector
+
+As is the case with the ZDC, STAR's Vertex Position Detector (VPD) [124] also consists of two identical assemblies on both \(\pm z\) sides of STAR. Both assemblies are located 5.7 meters away from the center of the detector. Each assembly is made of 19 aluminum detector tubes with 5 cm outer diameter; inside the cylinder, from front to back, there is an aluminum front cap, a non-conducting spacer, and a lead converter and then a scintillator that's coupled to a PMT. The tubes are organized in a clam-like shape, and each assembly collectively covers about half of the full azimuthal coverage in pseudorapidity range \(|\eta|\in[4.24,5.1]\). The VPD detects the timing of produced particles that first reach the detector, and reconstructs the \(z\) position of the collision from the difference in arrival time between \(\pm z\) assemblies. The
+
+Figure 3.4: A Schematic of the STAR Zero Degree Calorimeter. Figure taken from Ref.[122].
+
+timing resolution of each tube is of order 100 ps. When measurement from different tubes are combined, the resolution scales with the inverse square root of the number of tubes triggered [124]; the resulting timing resolution reaches a few tens of picoseconds, and the corresponding position resolution is around 1 cm in Au+Au collisions.
+
+As a fast detector, the VPD is also often used as a triggering signal in the data aquisition system. In this thesis, I will also use the \(z\) position obtained from the VPD signals to ensure that the primary vertex reconstructed by the TPC is indeed that of the event triggered by constraining the difference between the VPD \(v_{z}\) and the TPC \(v_{z}\).
+
+#### Beam Beam Counters
+
+The Beam Beam Counters (BBC) are two sets of scintillator annuli installed on both the east and west endcaps of the STAR detector. They are located 3.7 m away from the nominal collision point along the \(z\)-axis, and consist of 1 cm thick hexagonal scintillator tiles [126] arranged in inner and outer rings. The inner rings are made of smaller hexagonal tiles, and cover a pseudo-rapidity range of \(3.4<|\eta|<5\). The outer rings are made of larger hexagon tiles and cover \(2<|\eta|<3.4\). The arrangement of the tiles is shown in Fig.3.6, the small and large hexagons are 5.57 cm and 22.28 cm on the edge, respectively, and there is a hole in the center (labeled "B" in the figure) reserved for the beam pipe. The signals collected are transmitted by optical fibers and then converted to digital signals by PMTs located on
+
+Figure 3.5: Left: A Schematic front view of one assembly of the STAR Vertex Position Detector. Right: a photograph of both assemblies; a 30 cm long ruler is shown for scale. Figure from Ref.[124].
+
+Figure 3.6: A front view of the BBC, with the beam pipe in the center denoted as “B”. Figure taken from Ref.[125].
+
+the outer rim of the STAR magnet. The BBC is a fast detector, and is commonly used in STAR's event trigger systems. It can also provide useful information in forward physics measurements, as well as polarization studies [127]. In many studies, including this thesis, the BBC is used as an high-rapidity indicator for the event activity (EA) for the \(p\)+Au 2015 dataset (see Sec.5.2 for detailed discussion).
+
+#### Electromagnetic Calorimeters
+
+There are currently two ElectroMagnetic Calorimeters (EMC) at STAR, one on the barrel, called the Barrel EMC (BEMC), and another on the endcap, called the Endcap EMC (EEMC). Schematics of these two detectors are shown in Fig.3.7.
+
+The BEMC [128] consists of 4800 towers encompassing the outer radius of the TPC, which are arranged into 40 rows along the \(\eta\) direction, covering \(-1<\eta<1\), and 120 columns around the \(\phi\) direction, providing full azimuthal coverage. Each tower covers an area of \(\Delta\eta\times\Delta\phi=0.05\times 0.05\). Each tower is made of 10 cm of lead divided into 20 layers, with scintillators lying in between. The scintillator signals are then fed into the PMTs and converted into electric signals. The scintillating signals scale linearly with the transverse energy (\(E_{\rm T}\)) of the particle, so the signal can be used to measure the energy of the incoming particles [130]. The BEMC is capable of providing electromagnetic readout for both charged
+
+Figure 3.7: Schematics of the STAR BEMC (left), figure taken from Ref.[128], and one half of the EEMC(right), figure taken from Ref.[129].
+
+and neutral particles, and has a response time of around 700 ns [128]. For jet analyses, the BEMC is often used as a primary detector for neutral particles, due to the fact that TPC cannot resolve them. It also acts as a trigger detector due to its fast detector nature.
+
+The EEMC [129] is situated on the western end of the detector. It covers \(1<\eta<2\) on the pseudorapidity direction, and also provides full azimuthal coverage. It is divided into 12 rings along the pseudorapidity direction, and 60 columns along the azimuth. The EEMC applies similar technology that is used in the BEMC, and provides a complimentary coverage in the forward region.
+
+#### Event Plane Detector
+
+The Event Plane Detector (EPD) [131] is an upgraded detector system that was commissioned in 2018. As the name suggests, it is designed and installed to measure the "event planes" of the collision events, which quantifies the azimuthal orientation of the event's overlap region in measurements, such as anisotropic flow[132, 133]. It determines the event plane by measuring the distribution of charged particles in the forward direction, especially their azimuthal angles.
+
+Figure 3.8: Schematic of one of the STAR EPD disks. Figure taken from [131].
+
+The STAR EPD consists of two identical round disks 0.9 m in radius on both endcaps, sitting at \(z=\pm 3.75\) m from the nominal collision point, and covers \(2.14<|\eta|<5.09\) in pseudorapidity. A schematic of one of the disks is shown in Fig.3.8. Each disk consists of 12 supersectors, each of them spans \(30^{\circ}\) along the azimuth and contains 31 tiles. The tiles are made of 1.2 cm thick plastic scintillators, separated by isolation grooves, and each of them is connected to Silicon PhotoMultipliers (SiPM) via optical fibers that are embedded into the tiles. The signal is then digitized and recorded. The response time of the detector is on the order of nanoseconds, which categorizes it as a fast detector, and it is used in the trigger system, as described in 3.2.9.
+
+#### Forward Upgrade
+
+The forward upgrade is a series of new detectors added to the forward rapidity region on the west side of the detector, with a pseudorapidity coverage of \(2.5<|\eta|<4\). The upgrade targets at the precise imaging of gluons and sea quarks3 inside protons and nuclei, addressing some of the deepest questions about QCD-related nuclear properties, e.g. gluon saturation and spin attribution, and pave the way for the physics program leading to the future EIC program [134, 135].
+
+Footnote 3: See Sec.1.2 for an brief introduction.
+
+The forward upgrade added four new sub-systems to the detector: the Forward Silicon Tracker (FST) and the Small-strip Thin Gap Chambers (sTGC), sitting closer to the collision point, are mainly responsible for providing tracking information. The ECal and HCal, collectively called the Forward Calorimetry System (FCS), which sit farther away from the nominal collision point, are mainly responsible for calorimetry measurement[136]. A Schematic of these four components is shown in Fig.3.9. Combined together, they provide great detection capacity in the forward region in the measurements of various observables including jets, charged and neutral hadrons, and photons. The forward upgrade detectors were commissioned at STAR in 2022, and are expected to continue taking data through the end of the RHIC program in 2025. It will hopefully provide data in phenomena including the Sivers effect [137], Collins effect [138], generalized parton distributions, nuclear partondistribution functions and the longitudinal structure of the initial states in nuclear collisions [134, 136].
+
+#### Trigger and Data Acquisition System
+
+Although RHIC can provide bunch crossings at a frequency of up to 9.37 MHz, the data acquisition frequency at STAR is limited to 3 kHz, and the TPC can only record data at 1.7 kHz due to the drift time as introduced in Sec.3.3. Therefore it is apparent that STAR cannot record data for every crossing, and the trigger system is required to determine when to turn on the Data AcQuisition (DAQ) system and read all data collected by detectors to file. A more detailed review on the trigger system can be found in Ref.[139].
+
+A set of conditions, defined by thresholds on the readout of fast detectors, are used to decide whether an event of interest has occurred. The specific conditions are selected according to the physics goals of each run, and each is given a "pre-scale" factor based on the statistics needed and the capacity of the detector. As an example, in the 2015 \(p\)+Au run, the
+
+Figure 3.9: Schematic of the STAR Forward Upgrade detectors. The three small round disks closest to the interacting point is the Silicon Tracker, the blue pantagonal plates behind are the sTGC detectors, and the magenta (front) and purple (back) rectangles in the back are the ECal and HCal detectors, respectively. Figure taken from [134].
+
+minimum-bias (MB) trigger is given a larger scale factor averaging to \(\sim\)11,800 over all runs, meaning only 1 event was recorded for 11,800 events that met the criteria. For the High Tower (HT) trigger, on the other hand, the pre-scale factor is set at 1, which means every event that passed the threshold was recorded4.
+
+Footnote 4: In the analyses reported in this thesis, only the MB triggers are used for both \(p\)+Au and isobar systems.
+
+As described in previous sections, different detector systems at STAR have different amounts of response time. For example, fast detectors like the VPD can finish one response within \(\sim 10^{2}\) ns, while the slow ones like the TPC will need as much as \(\sim\)60 \(\mu\)s. The outputs of the "trigger only" detectors, e.g. the VPD, BBC and ZDC are sent to the trigger system in their entirety at every bunch crossing. Detectors like the BEMC and TOF which are also fast but have a larger amount of data send their summary data. The TPC on the other hand only reports its state to the system. The trigger system then compares the signals sent by detectors to the preset threshold, and when the thresholds are satisfied, required detectors are available and DAQ also has available bandwidth, the trigger system checks with the pre-scale values and issue orders to record data accordingly. When the order is given, the trigger system will let the detectors digitize their recorded signals, and instruct DAQ to record the event.
+
+#### Track and Vertex Reconstruction
+
+After the DAQ system writes raw data to tape, the offline reconstruction software processes the recorded signals from raw digital readings to physically meaningful particle information [140]. One of the most computationally intense tasks is to reconstruct the TPC hits into tracks and determine the primary vertex of the event. The process, shown in Fig.3.10, first uses the Kalman Filter [141] which includes a similar TPC model with GEANT[142], and reconstructs the tracks without any reference to vertices. These fitted results are referred to as "global tracks", and they are used in conjunction with the BEMC and EEMC to determine the most likely collision vertex location(s). The one deemed most likely is called the primary vertex [143]. The tracks are then refit with the requirement of having to pass through the vertex, and are called primary tracks (relative to each vertex). The analyses in this thesis always adopt the primary vertex, and require the "global" impact parameter of the tracks to be close enough to the vertex in order to be considered primary, refit, and included in the analyses (see Sec.4 for details).
+
+Figure 3.10: Logic process of TPC event reconstruction. Figure taken from [144].
+
+## Chapter 4 Data Selection, Embedding and Analysis Procedure
+
+This thesis includes two measurements that are performed in different collision systems but of similar nature: the inclusive charged hadron \(R_{\rm AA}\) in \(\sqrt{s_{\rm NN}}=200\) GeV p+Au collisions from data taken in 2015, and \(\sqrt{s_{\rm NN}}=200\) GeV isobaric collisions (\({}^{96}_{44}Ru+^{96}_{44}Ru\) and \({}^{96}_{40}Zr+^{96}_{40}Zr\) collisions) taken in 2018. Therefore, in this chapter, I will introduce the analysis procedure of both datasets in a parallel fashion, and then show the embedding and detector effect corrections together. The majority of the data processing (track reconstruction, vertex finding, detector simulation, etc.) are done centrally at STAR [145], as introduced in Sec.3.2.10, and I will only detail those that are of particular importance to this thesis, and the additional procedures performed specifically for the analyses here.
+
+### 4.1 2015 \(p\)+Au \(\sqrt{s_{\rm NN}}=200\) GeV Collisions
+
+STAR took a \(\sqrt{s_{\rm NN}}=200\) GeV p+Au dataset in 2015. The physics run lasted a total of 35 days, with protons injected into the blue ring and Au nucleons into the yellow ring1, and the integrated luminosity at STAR was 0.64 pb\({}^{-1}\)[103]. Each beam fill provided byRHIC lasted for about 7 hours, and STAR broke up the time periods into "runs" of data taking for around 30 minutes. The DAQ system was activated on a set of triggers, and in this thesis, the main trigger we use is VPDMB-30 trigger (trigger ID: 500904), which is a minimally-biased trigger. The trigger recorded 58.38 million events in total, and we follow a set of selection criteria to choose the events and particles that are good for our analysis from these events.
+
+The first level of cuts are on the run level. In order to ensure the stability of apparatus conditions over the period, we excluded some of the runs with certain run-averaged parameters of interest that lie too far from the overall average. These run-averaged parameters are generally reflective of certain subsystems' status, and ruling out outliers makes sure that the detectors operated in a consistent state. The run-by-run QA and bad run selection of this \(p\)+Au collision dataset is determined in Ref.[144]. Although different triggers are used in these two analyses, the data are taken concurrently, and the detectors involved in this thesis are included in those used in Ref.[144], therefore the bad run list can be applied for this analysis. As mentioned in Sec.4.1, runs with less than 2000 events or those that were shorter than 10 minutes are cut. After that, the run-averaged value \(\langle X\rangle|_{run}\) of the observables listed below are inspected. Runs with at least one observable falling out of the \(\langle X\rangle\pm 3\sigma\) range are rejected, and those with one or more observables that stand out of its "local" cluster are also rejected by hand. The criteria used are:
+
+* TPC track kinematics: \(\langle\phi\rangle\), \(\langle\eta\rangle\), \(\langle p_{T}\rangle\) and \(\Sigma p_{T}\) (total \(p_{\rm T}\) of the event)
+* Distance of closest approach between a track and the collision vertex, either in 3D space or projected onto XY plane: DCA\({}_{3D}\) and DCA\({}_{2D}\)
+* The ratio of TPC hits associated with a track to the maximum number of possible hits on the path: N\({}_{\rm hit}\)/N\({}_{\rm poss}\)
+* Number of tracks that are matched to either a TOF hit or a BEMC hit: N\({}_{\rm trk}^{\rm TOF}\) and N\({}_{\rm trk}^{\rm BEMC}\)
+* Total number of primary tracks and those that pass the quality cuts: N\({}^{\rm primary}\) and \(\mathrm{N_{good}^{primary}}\) (see later in the subsection)
+* Total signal from the inner ring of the east BBC pads: \(\mathrm{\Sigma BBC_{East,Small}}\) (see 3.2.5)
+* The z-axis location of primary vertex determined by the TPC and VPD: \(v_{z}^{TPC}\), \(v_{z}^{VPD}\)
+* Trigger rate: average number of MB events taken per second in the run
+* The coincidence rate at which both east and west ZDC are triggered simultaneously: the ZDCx (see Sec.3.2.3)
+
+In addition, because we use TOF-matched tracks in this analysis (see Sec.4.5), we also inspect the average number of TOF-matched tracks per run. In general this ratio should be heavily dependent on ZDCx of the run, however there are three runs whose average TOF-matched multiplicity are significantly higher than others in the same ZDCx range. Therefore we also reject these three runs.
+
+Figure 4.1: Runs rejected by the QA procedure. The index of the run is assigned chronologically from 1. Runs shorter than 10 minutes are marked in black stripes, and those with \(<\)2000 events are marked in tan; both are removed prior to calculation of \(\langle X\rangle\). Runs rejected from \(\langle X\rangle\) inspection are marked in magenta at its respective observable. Figure taken from Ref.[144].
+
+The runs rejected by the different various criteria are shown in Fig.4.1, and a total of 7.9% of the events are rejected from these selections. The bad run list is given in Appendix.B.
+
+The second level of cuts are on an event-by-event level. The purpose of these cuts are to ensure that the collisions happen in the detector's optimal acceptance region, and that the recorded events match the timing of the trigger. The specific criteria are mostly inherited from those used in previous measurements of similar observables. The specific criteria are listed below:
+
+* The vertex ranking of the primary vertex is positive. This is to ensure that the vertex reconstructed is a genuine collision vertex as opposed to decay vertices, beam pipe events, etc.
+* The z-axis vertex determined by the TPC is between \(\pm 30\) cm. This is to ensure a uniform acceptance while having adequate statistics.
+* The difference between z-vertex positions determined by the TPC and the VPD \(|v_{z}^{TPC}-v_{z}^{VPD}|\) is smaller than 3 cm. This is also to ensure the quality of the vertex location.
+
+Out of the 58.4 million events recorded by STAR, 24.7 million events passed both the run and event selections, and will be used as our statistics for the following analysis.
+
+Finally we also make selections on the track-by-track level, in order to select the tracks that fall within the detectors' acceptance, are well reconstructed and have a good momentum resolution, and come from the primary collision vertex as intended. The criteria for the track selection are:
+
+* The track is a TPC primary track. This means that the track is associated with the primary collision vertex in the reconstruction process.
+* The \(p_{\rm T}\) of the track lies between 0.2 and 30 GeV/\(c\). With a magnetic field of 0.5 T in the barrel during the data taking period, the curvature of particles with \(p_{\rm T}\) out of this range is either too big or too small to gather enough hits for accurate reconstruction.
+
+* The pseudorapidity, \(\eta\), needs to lie between \(\pm 1\). This requirement comes from the TPC pseudorapidity coverage.
+* Each track needs to have at least 15 hits associated with it, and the NhitsRatio (\(\rm{N_{hit}/N_{pos}}\)) is greater than 52%. The Nhits requirement is to ensure the tracks reconstructed do come from an actual particle, instead of some random combination of hits; while the NhitsRatio requirement prevents double counting track splitting occasions.
+* The \(\rm{DCA}_{2D}\) between the track and the primary vertex is within 3 cm. This requirement is to ensure the particles actually come from the collision vertex; further tightening this cut can further reject pile-up tracks, as will be discussed later.
+
+Also for this specific analysis, TOF-matching is needed for all the tracks in order to improve the quality of pile-up track rejection.
+
+### 4.2 2018 Ru+Ru & Zr+Zr \(\sqrt{s_{\rm NN}}=200\,\rm{GeV}\) Collisions
+
+The quality assurance and run selection for the isobar data was mostly done by the collaboration centrally for the Chiral Magnetic Effect (CME) studies. The run selection process is performed via an algorithm designed and frozen during the blind analysis period. The algorithm first performs a global event QA, and rejects the apparent outliers. It then extracts smoothing curves for run-averaged quantities, divides up the entire run period into different regions based on the smoothed curve as well as identified "jumps" in these quantities, and rejects outliers based on the deviation from the curve. The process was done iteratively until no bad runs are identified. The specific details of the selection is reported in Ref.[146].
+
+Most of the event and track level selection are the same with the p+Au data, except two difference:
+
+* The \(v_{z}\) range is changed to -35 to 25 cm, due to the different distribution of collision vertices.
+
+* TOF-matching is not required in isobar collisions. The pileup is removed on an event level by inspecting the correlation between reference multiplicity (RefMult), defined as the number of TPC primary tracks within \(|\eta|\)\(<\)0.5, and TOF-matched multiplicity (nTOFMatch). As illustrated in Fig.4.2, the 2-d distribution is cut into nTOFMatch slices, and resulting RefMult distributions are fitted to two Negative Binomial Distribution (NBD) functions. The mean (\(\mu\)), standard deviation (\(\sigma\)) and skewness(\(S\)) parameters are extracted and parameterized to functions of nTOFMatch, upper and lower limits of (\(\mu+2.5(\sigma+S)\)) and (\(\mu-3\sigma\)) are applied to cutoff pileup events.
+
+Figure 4.2: Illustration of pileup event rejection algorithm in isobar data analyses. The 2-d histograms in the left two plots are both RefMult-vs-nTOFMatch plots, and the vertical lines on the top show slicing on nBTOFMatch; the top-right plot shows a Negative Binomial fit on one of the slices. The lines on the lower-left plot shows the mean (\(\mu\)) and upper- and lower- cut limits for pileup events; lower-right plot shows RefMult distribution for all events, rejected pileup events and good events.
+
+### Vertex and Luminosity Correction on Multiplicity
+
+As will be discussed in Sec.5, mid-rapidity multiplicities are used as centrality/event activity (EA) indicators in both analyses presented in this thesis. However, different events occurred at different positions and therefore have different acceptance ranges. As a result, the same event could have a different multiplicity if located at different vertex positions, especially for \(p+\)Au collisions which are asymmetrical in nature. Also, events in a higher luminosity environment have a higher probability of containing more pileup tracks and other noises. The TPC tracking algorithm will pick up some of those tracks, and the RefMult number will artificially increase due to these pileup tracks. On the other hand, the tracking efficiency decreases due to larger occupancy, hence the TOF-matched multiplicity will decrease with luminosity. In order to correct for these effects and obtain a fair indicator for centrality/EA, we inspect the dependence of RefMult on these both factors, and define a corrected multiplicity which accounts for these factors. The isobar correction is done by the collaboration and integrated into the PicoDst structure. Below I detail the \(p+\)Au study I performed to illustrate the method.
+
+As shown in Fig.4.3, the TOF-matched multiplicity has an almost linear dependence on ZDCx, and a 3rd order polynomial dependence on \(v_{z}\). Since we are unsure about the intrinsic correlation, we tried both fitting the vz and ZDC-dependence separately (Eqn.4.1), and fitting the distribution to a combined 2-D polynomial function (Eqn.4.2):
+
+\[\langle\text{nTOFMatch}\rangle=(c_{0}+c_{1}v_{z}+c_{2}v_{z}^{2}+c_{3}v_{z}^{3 })*(1+c_{4}\text{ZDCx}) \tag{4.1}\]
+
+\[\langle\text{nTOFMatch}\rangle=c_{0}+c_{2}v_{z}+c_{4}v_{z}^{2}+c_{6}v_{z}^{3 }+\text{ZDCx}\times(c_{1}+c_{3}v_{z}+c_{5}v_{z}^{2}+c_{7}v_{z}^{3}) \tag{4.2}\]
+
+I found that the parameters and goodness of fit (\(\chi^{2}\)/NDF) are similar in both cases, and chose to use the separate fit for the correction. The final efficiency is listed in table.4.1.
+
+\begin{table}
+\begin{tabular}{c|c} \hline Parameter & value \\ \hline \(c_{0}\) & 7.056 \\ \(c_{1}\) & 2.39\(\times 10^{-3}\) \\ \(c_{2}\) & -4.16\(\times 10^{-4}\) \\ \(c_{3}\) & 2.70\(\times 10^{-5}\) \\ \(c_{4}\) & -7.25\(\times 10^{-3}\) \\ \hline \end{tabular}
+\end{table}
+Table 4.1: \(v_{z}\) and luminosity correction parameter, as defined in Eqn.4.1
+
+Figure 4.3: nTOFMatch’s dependence on luminosity (ZDCx, left) and \(v_{z}\) (right) in 2015 \(p\)+Au collisions. Top panel in both plots show the 2D histogram and the bottom shows the x-direction profile.
+
+### Track Embedding and Efficiency Correction
+
+In order to study the effect of tracking efficiency, momentum resolution and noises on the observables of interest, STAR employs a procedure called embedding. During the data acquisition process, the raw ADC information from all the subsystems were saved for a subset of the events. In the embedding procedure, STAR simulates some additional processes of interest (single tracks, jets, etc.), and run them through a simulation of the detector material and geometry called GEANT[142] and then a simulation of each detector via a Monte-Carlo process to obtain the detector response for these signals. Then the simulated response signals are added, or "embedded", with the saved ADC signals from real events, and the combined events are then fed through the event reconstruction algorithm just like real data. Finally, the "truth level" initially simulated observables are matched to the "detector level" measurements in the reconstructed embedded events. The corresponding detector effect corrections are determined from the mapping, called a response matrix.
+
+The reason for such a procedure is that, some of the detector effects, like electronic noise, collision environment, and run-to-run variations can't be accurately depicted by pure modeling. With this procedure, all of these effects come along with the real data used in the embedding by design. Therefore, we can obtain an accurate mapping between "truth level" and "detector level" values.
+
+For both analyses in this thesis, since the observable of interest is the charged hadron spectrum, single track embeddings are used. The STAR collaboration performed embedding for \(\pi^{\pm}\), \(K^{\pm}\), and \(p/\bar{p}\) particles into minimum-biased events. For \(p\)+Au collisions, there were 50 thousand embedded events for each species, which have a flat distribution in \(p_{\rm T}\)\(<\)15 GeV/\(c\), \(|\eta|<\)1 and full azimuth; and for isobar data there are 5 million events for \(\pi^{+}\) and \(\pi^{-}\) each, 1 million each for \(K^{+}\), \(K^{-}\), \(p\) and \(\bar{p}\), uniformly distributed in 0\(<\)\(p_{\rm T}\)\(<\)5 GeV/c, and additionally there are 30 thousand events for each species for 5\(<\)\(p_{\rm T}\)\(<\)20 GeV/c.
+
+Before diving into the correction procedure, we first inspect the performance and distribution of the embedded tracks, to make sure it provides a close enough description of the real data. In Fig.4.4 we show the 2-D distribution of number of TPC hits (Nhits) and theFigure 4.5: Ratio of normalized Nhits and NhitsMax distribution between real and embedded data. Distribution is normalized to the number of tracks in the sample.
+
+Figure 4.4: Number of TPC hits (Nhits) vs the maximal number of allowed hits (NhitsMax) for embedded (left) and real (right) tracks in \(\sqrt{s_{\mathrm{NN}}}=200\,\mathrm{GeV}\) p+Au collisions. Embedded tracks are weighted by \(p_{\mathrm{T}}\) distribution of the real data, while tracks from all particle species are simply added together.
+
+[MISSING_PAGE_EMPTY:65]
+
+detector-level spectrum is also updated accordingly. The efficiency curve is calculated based on these embedding spectra, and applied to the real data to get the corrected spectrum. This "corrected spectrum" is then used as the prior for the next iteration, and the process is then repeated several times until the resulting corrected spectrum converges.
+
+Although the embedding is performed in \(K^{\pm}\), \(\pi^{\pm}\) and \(p/\bar{p}\) separately, in actual data the spectrum is the sum of all species. Especially, the efficiency for \(K^{\pm}\) is lower than that for \(\pi^{\pm}\) and \(p/\bar{p}\). Therefore, we need to know the percentage each species occupies at each \(p_{\rm T}\) in order to properly construct the efficiency curve. STAR has previously measured the identified particle spectra in \(\sqrt{s_{\rm NN}}=200\,\)GeV \(p+p\) and \(d+\)Au collisions [94]. For \(p+\)Au collisions, I use both weightings to the process, use the \(d+\)Au value as nominal and quote their difference as uncertainty. The particle component for isobar collisions is in principle between that of \(d+\)Au collisions and Au+Au collisions. Previous research [147] has shown that they are comparable in the \(p_{\rm T}\) range of interest to this thesis. Therefore, for isobar collisions, I use the \(d+\)Au weighting as nominal value, and quote its difference with reconstruction done purely with pions only as uncertainty, since they have the highest abundance among the three.
+
+In Fig.4.8, we show the species-mixed, original (flat \(p_{\rm T}\)) and re-weighted (as in the last
+
+Figure 4.7: Illustration of the detector efficiency correction procedure.
+
+iteration) response matrix of the embedded tracks. The binning is the same as that for the spectrum reported in [67]. The response matrix is weighted by \(\frac{1}{p_{\mathrm{T}}}\) of the tracks in order to conform to the formula of the spectrum defined in Eqn.2.2. The distribution on the right is weighted by the distribution of the measured spectrum, so that the smearing effect can be more realistic. The lower bins have gained more weight in the process, due to the exponentially falling spectrum. In order to avoid the fluctuation from the limited embedding statistics, apparent outliers are removed manually.
+
+The correction is done differentially in luminosity, measured by ZDCx, and Event Activity (EA), as defined in Sec.5.2. The reconstructed spectra are then combined along the luminosity axis. The top panel in Fig.4.9 shows the raw spectrum as well as 1st- and 2nd-round iteratively corrected spectrum in different EA bins, and the bottom panel shows the ratio between the raw spectrum and the 2nd-round corrected spectra, as well as that between the 1st and 2nd round. The raw spectrum is significantly smaller than the corrected spectrum, and the red curves on the bottom panel reflects the tracking efficiency of this dataset after momentum weighting. On the other hand, the two rounds of corrected data are largely consistent within uncertainty, which confirms that with two rounds of corrections we have converged on the correct spectra. We will quote the difference between the first and second
+
+Figure 4.8: Response matrix for \(\sqrt{s_{\mathrm{NN}}}=200\,\mathrm{GeV}\)\(p+\)Au embedding in STAR. The left panel is the unweighted raw response matrix, and the right one is weighted by the raw \(p+\)Au spectrum on the x-axis.
+
+iteration as a source for systematic uncertainty.
+
+The correction process in the isobar collisions is the same as the one in \(p+\)Au.I do not repeat the narration, and instead only show the final tracking efficiency curves in Fig.4.10 for completeness.
+
+Figure 4.10: Tracking efficiency in isobar collisions, after the iterative correction process.
+
+Figure 4.9: Raw and corrected spectrum of \(\sqrt{s_{\mathrm{NN}}}=200\,\mathrm{GeV}\)\(p+\)Au data from 0-75% Event Activity (EA) as defined by Sec.5.2, normalized by number of events but not \(\langle N_{\mathrm{coll}}\rangle\). Note that the azimuthal acceptance is 2 radians instead of \(2\pi\) due to the EA definition method, and only statistical uncertainties from raw data and unfolding are shown.
+
+### TOF-matching Efficiency Correction
+
+As mentioned in Sec.4.1, in order to reject the pileup tracks that were coincidentally captured by the TPC, tracks are required to match to a TOF hit in the data selection process for \(p\)+Au collisions. However, the TOF detector can only be triggered by a portion of the tracks due to its geometric acceptance. Therefore, it is important to estimate and correct for this inefficiency in order to properly measure the track yield.
+
+Tracks reconstructed by the TPC primarily consist of three components: the tracks that come from the primary collision, the tracks that come from in-time pileup events, namely tracks from other collisions that happened at the same bunch crossing with the primary collision, and those from out-of-time pileup events, which happened at a different crossing but got recorded due to the slow detector nature of the TPC (see Sec.3.2.1). A track coming from the primary collision has a probability of 50-70% to be matched to a TOF hit, depending on its momentum and the beam luminosity the collision happened in. In-time pileups are primarily rejected by requiring the tracks to be close enough to the primary vertex, while out-of-time pileup tracks do not match to TOF hits due to its fast detector nature, and therefore only show up as non-TOF matched TPC tracks. Both kinds of pileup tracks should gradually disappear as we approach zero luminosity, so the ratio between TOF-matched and pure TPC multiplicity should approach the matching efficiency at 0 luminosity. However a 0-luminosity collision environment obviously doesn't exist, so in this analysis we apply a data-driven method to estimate the efficiency.
+
+The entire dataset is divided into different \(p_{\mathrm{T}}\) slices, and within each slice we look at the fraction of TPC tracks that can be matched to TOF as a function of ZDCx. Figure 4.11 shows the average ratio of TOF-matched multiplicity (TOFMult) divided by all TPC multiplicity (TPCMult), where each panel shows a \(p_{\mathrm{T}}\) region. Since there is no first principal guidance on the functional form for this dependence, we empirically fit it with two different forms
+
+\[\frac{\mathrm{TOFMult}}{\mathrm{TPCMult}}=c_{0}+c_{1}e^{-c_{2}\mathrm{ZDCx}} \tag{4.3}\]Figure 4.11: TOF matching efficiency as a function of ZDCx in selected bins in 200 GeV +Au collisions. The blue curve shows the fit with an exponential function Eqn.4.3, and the red one shows the fit with a reciprocal function Eqn.4.4. The highest bins of 3-10 GeV/\(c\) are merged together for the fitting in order to improve the statistics; see text for detail.
+
+\[\frac{\text{TOFMult}}{\text{TPCMult}}=c_{0}\times\frac{1+c_{1}\text{ZDCx}}{1+c_{2} \text{ZDCx}} \tag{4.4}\]
+
+throughout the range and extrapolate both forms to ZDCx=0. We quote the average of the two as our nominal value, propagate their fitting uncertainty from the model quadratically under the uncorrelated assumption, and cite half of the difference between these two results as an additional uncorrelated uncertainty.
+
+The original fitting is done in \(p_{\text{T}}\) binning consistent with that shown in Ref.[67] for consistency. Then in the \(p_{\text{T}}\) range of 0.5-3 GeV/\(c\), where the values are relatively stable but still show some random fluctuations, we use a Savitzky-Golay filter [148] to smooth out the random fluctuations; we apply the filter and quote the result as the nominal value, and repeat the process on the nominal value plus or minus the data uncertainty to obtain an uncertainty of the smoothed efficiency. For \(p_{\text{T}}\)\(>\) 3 GeV/\(c\), due to the limited statistics (as shown in the error bars), we use one single fit that includes all the statistics to represent the fitting efficiency. We also perform a linear fit to the \(p_{\text{T}}\)\(>\)2 GeV/\(c\) and 3 GeV/\(c\) regions separately, then calculate their differences with the single fit result at their respective \(p_{\text{T}}\) value, and use the bigger of the two as an additional source of uncertainty. The ZDC-extrapolated efficiency and all of the smoothing and fits are shown in Fig.4.12. Then finally, the matching efficiency is applied to the TOF-matched spectrum to calculate the physics level yield.
+
+It is worth noting though that this procedure is only required for \(p\)+Au collisions; pileup in isobar collisions are taken care of in the event selection period by the CME group as mentioned in Sec.4.2, and the effect is much smaller in the first place.
+
+### 4.6 Systematic Uncertainties
+
+In the final section of this chapter, I list the major sources of uncertainties in the data processing procedure in both \(p\)+Au and isobar collisions. These sources will have an impact on the final result, and are taken into account as systematic uncertainty. Unless otherwise mentioned, these errors are usually assumed uncorrelated and summed quadratically.
+
+Figure 4.12: Extrapolated TOF matching efficiency as a function of \(p_{\rm T}\) in \(\sqrt{s_{\rm NN}}=200\,\)GeV\(p+\)Au collisions. Uncertainty in data is combined under the assumption that they are uncorrelated with each other. See text for detail.
+
+1. The number of iterations in the efficiency correction process. As shown in Fig.4.9, the spectrum stays relatively stable after one iteration of efficiency correction. However there are still some fine differences between the first and second iteration of data, and therefore we include it as a systematic error. This source is common in both \(p\)+Au and isobar data.
+2. The weighting of different particle species. As stated in Sec.4.4, the current response matrix is constructed by assuming that the weight between particle species is identical to that in previously measured \(d\)+Au measurements. We also use, for \(p\)+Au collisions, the species weighting in \(p+p\) collisions and for isobar collisions 100% pure pions as another variant, repeat the same process, and quote their difference in the final spectrum as an uncertainty source.
+3. \(p_{\mathrm{T}}\) smearing: In order to get a worst-case on estimate on our momentum resolution of the tracks, we perform an additional smearing testing on our response matrix assuming the resolution is worse than it is in reality. This is manually done to the embedding tracks by assigning them a measured \(p_{\mathrm{T}}\) that deviates 20% more than in the official embedding data. The same correction procedure is then carried out to the data, and its difference with the nominal result is quoted as the systematic uncertainty assuming the error is symmetric on both sides.
+4. Glauber uncertainty: in the Glauber model calculation (see Sec.1.5 for an introduction), we made some assumptions on the nucleus-nucleus cross section \(\sigma_{NN}\)= 42 mb and a Wood-Saxon profile of the Au nucleus, i.e. radius \(R_{Au}\)=6.35 fm and skin depth \(d_{Au}\)=0.535 fm. In order to reflect the uncertainty on this profile, we made two sets of variation on this profile, each targeting \(\sigma_{NN}\) and the Au nucleus profile, respectively: set 1 assumes \(\pm\)1 mb on \(\sigma_{NN}\), while set 2 assumes either a 2% increase on the \(R_{Au}\) and a 10% decrease on the \(d_{Au}\), or the exact opposite. Within each set, the bigger difference in both directions is included as two different uncorrelated uncertainties. The Glauber uncertainty for isobar data was examined by the CME study at STAR [149], and the estimation is found to be much more precise with the better controlled environment and much larger statistics, therefore the uncertainty on Glauber parameters is not included for that dataset.
+5. Pileup rejection: as discussed in Sec.4.5, in the \(p\)+Au analysis, we use TOF-matched tracks in order to reject pileup tracks. The uncertainty in the TOF matching efficiency estimation is quoted as a systematic uncertainty.
+
+The uncertainty from both datasets are summed up quadratically and shown in Appendix.D.
+
+## Chapter 5 Centrality/Event Activity Selection
+
+A very important concept in heavy-ion collisions is centrality. It describes the size of the overlap region in a collision, and is defined as the percentile of the hadronic cross section in the inclusive sample; 0% stands for the most central, or "head-on" collisions, while 100% stands for the most peripheral collisions. Intuitively, centrality would be best measured by either the impact parameter \(b\), or the size of the overlap area (see Fig.1.7 and Fig.1.8 for visualization); however these parameters cannot be directly measured, therefore it is necessary to find a measurable quantity that strongly correlates with the impact parameter, e.g. the number of particles in a certain acceptance range1, and determine the mapping between them, so that the recorded events can be categorized into different centrality classes.
+
+Footnote 1: Usually referred to as multiplicity
+
+The centrality classification methods are well-defined for large systems such as Au+Au and Pb+Pb. The most common method is to use mid-rapidity multiplicity as an indicator, and fit the empirical distribution with a convolution of Monte-Carlo simulations and a Negative Binomial Distribution (NBD) distribution. This method is best suited for inclusive studies that require Glauber parameters like \(N_{\rm coll}\) and \(N_{\rm part}\) as defined in Sec.1.5, and it hasbeen proven successful via many measurements, such as the yield of Z bosons [150, 151]. However, in studies that include a large portion of mid-rapidity particles, e.g. low-\(p_{\mathrm{T}}\) spectrum analyses, the same particle population used for spectral measurements is also used for centrality determination. Especially in small systems where the phase space is more constrained, this method introduces an auto-correlation bias to the analysis, because events with a higher yield are artificially grouped to higher centrality bins. Therefore, alternative methods have been developed to avoid auto-correlation problems, including forward rapidity measurements and underlying-event definitions. These methods can, to some degree, avoid the auto-correlation problem, however some of them will cause bigger difficulty when matching different classes to Glauber parameters. Therefore, one needs to carefully define and study the centrality definition method based on the physics measurement.
+
+In asymmetric small systems like \(p\)+Au, however, the concept of centrality is more ill-defined. As shown in Fig.5.1, the correlation between impact parameter \(b\) and \(N_{\mathrm{coll}}\) is much weaker in \(p\)+Au, shown on the left, than large systems like Au+Au, shown on the right, due to the geometry of the system, and random fluctuations produce a larger fraction of the final multiplicity because of the smaller numbers of binary collisions, which is detrimental to the discriminating power of any indicator. Also, due to the smaller multiplicity itself (see Fig.4.3), the existence of a jet in an event may significantly increase the multiplicity by a factor of 2 or more, which creates severe auto-correlations if a mid-rapidity multiplicity
+
+Figure 5.1: The correlation between impact parameter \(b\) and \(N_{\mathrm{coll}}\) in \(p\)+Au (left) and Au+Au (right) system Glauber simulation.
+
+indicator were used. Therefore, we introduce the concept of Event Activity (EA), which eliminates the implied correlation with distance between the nuclei within "centrality", and simply reflects the degree of violence in the collision.
+
+In this section, I introduce the centrality definition method for both collision systems reported in this thesis. In Sec.5.1, I introduce the definition and mapping of the centrality indicator in isobar collisions, along with some findings of my own studies with a refined Glauber model, and in Sec.5.2 I introduce the challenges we encountered while determining the EA indicator in the \(p+\)Au collisions, and my solution to the problem.
+
+### 5.1 Centrality Definition in Isobar Collisions
+
+The centrality definition of isobar collisions was defined in the previous CME study reported in Refs.[149, 152], which basically follows the standard centrality definition procedure at STAR. Here we briefly summarize the method and the result.
+
+The goal of this procedure is to match the empirical events to a probabilistic distribution of the Glauber model; namely, for a given event, what is the most probable value of \(N_{\rm part}\) and \(N_{\rm coll}\). The Glauber model distribution is given by Monte-Carlo simulations, while the empirical indicator in this case is the _reference multiplicity_, or RefMult, defined by the number of raw TPC tracks within \(|\eta|<0.5\), after quality assurance, pileup rejection and luminosity correction, as stated in Sec.4.2. A fit is then performed by convoluting the Glauber simulation with a Negative Binomial Distribution (NBD), as the multiplicity distribution for nuclear collisions has been reported to comply with this form [153, 154, 155], with a few free parameters that can be tuned. Specifically, for each simulated collision, a linear combination of \(N_{\rm part}\) and \(N_{\rm coll}\,\,\,m\), is defined as
+
+\[m=xN_{coll}+(1-x)\frac{N_{part}}{2}, \tag{5.1}\]
+
+and then a random number is taken from the NBD distribution with \(m\):\[NBD(m)=\frac{\Gamma(m+k)}{\Gamma(m+1)\Gamma(k)}(\frac{\mu/k}{1+\mu/k})^{n}(1+\mu /k)^{(-k)}, \tag{5.2}\]
+
+where \(\mu\) represents the particle production per nucleon-nucleon collision, and k tunes the sharpness of the distribution at the upper edge. The reasoning behind this formula is that, an equivalent binary collision is considered as a linear combination of \(N_{\rm part}/2\) and \(N_{\rm coll}\), and each binary collision produces a certain number of particles that follow a geometric distribution. Then the multiplicity is discounted by a factor that corresponds to the detector efficiency, which assumes the efficiency decreases with multiplicity in a linear fashion:
+
+\[\epsilon=0.98\times(1-d\times(ideal\_mult)/540) \tag{5.3}\]
+
+where \(ideal\_mult\) stands for the multiplicity as calculated previously, 0.98 is the maximum efficiency at zero multiplicity, and \(d\) represents the maximum inefficiency at highest multiplicities (\(Mult_{max}=\)540 in the isobar case), and is on the order of a few percent.
+
+The fitting is done by scanning the parameters, \(\mu\), \(k\), \(x\) and \(d\) through a certain range, and calculating the \(\chi^{2}\) between real data and simulation in the mid-to-high multiplicity region, since at lower multiplicity there is a lower trigger efficiency and some of the events will "escape" from the trigger. The parameter combination with the smallest \(\chi^{2}\) is selected, and the events at low multiplicity are assigned a weight so that the measured distribution matches the Glauber distribution, in order to correct for the trigger inefficiency.
+
+After the fitting is done and the parameters are determined, each multiplicity is assigned a percentage range, \(N_{\rm coll}\) and \(N_{\rm part}\). Then for the desired centrality binning, the threshold multiplicities are determined and corresponding \(\langle N_{\rm coll}\rangle\) and \(\langle N_{\rm part}\rangle\) are calculated. The results of the fitting for both Ru+Ru and Zr+Zr collisions are shown in Fig.5.2.
+
+Conventionally at STAR, the centrality of collision systems is reported in bins of 0-5%, 5-10%, 10-20%2, 20-40%, 40-60% and 60-80%. The centrality bins are usually reported this way, because the amount of particle production decreases with centrality, and fluctuations become significant as statistics for particle yields become increasingly limited. Beyond 80% centrality, the events become so peripheral that the trigger inefficiency becomes so large that the measurements become inaccurate. However, in this isobar dataset, due to the large statistics and well-controlled conditions, the centrality bin is defined at 5% accuracy throughout 0-80% range, as shown in Appendix.C. Also, recent efforts have been made in the collaboration to further push the limit and refine the binning to 1% level. This would take better advantage of the large statistics of the dataset and help us better understand the difference in various phenomena between Ru and Zr. Further details will be discussed in Sec.6.3.
+
+A possible twist to the centrality definition is using EPD (Sec.3.2.7) multiplicity, which was commissioned at STAR before Run 18 (the isobar run) started. As will be discussed in Sec.6.6, using mid-rapidity multiplicity as the centrality indicator can result in a larger degree of correlation between the \(N_{\rm coll}\) and hard collision cross-section, while using forward-rapidity multiplicity can to some degree relieve the problem. Therefore, it would be beneficial to revisit the definition using EPD after some prerequisite analyses are completed.
+
+Figure 5.2: Glauber model’s best fit to the experimental data. The left plot shows the fit for Zr, while right shows the one for Ru. Figure taken from [152].
+
+### Event Activity Definition of \(p\)+Au Collisions
+
+As discussed in the beginning of this chapter, the EA definition of small systems is more challenging than the centrality definition in larger systems like Au+Au and isobar, and using RefMult as the indicator is not suitable for this task. In this section, I introduce two different techniques we've attempted to define EA in \(p\)+Au systems and their performance as well as limitations.
+
+#### BBC-ADC Signal as EA Indicator
+
+The first technique tried was to use the Analog-Digital Converter (ADC) count from the Beam Beam Counter (BBC) as an indicator. As introduced in Sec.3.2.5, the BBC has two rings, one on either side, with the inner rings providing full azimuthal coverage in 3.4\(<\)\(|\eta|\)\(<\)5.0 and outer rings in 2.0\(<\)\(|\eta|\)\(<\)3.4. Particle production at this forward rapidity should, in principle, exhibit a correlation with the collision geometry while not having significant auto-correlation with mid-rapidity production, making it a good EA/centrality indicator in multiple studies at RHIC and the LHC. Especially, the Au-going direction energy deposition in the BBC detector has been used as an EA indicator in \(d\)+Au measurements at the PHENIX experiment [156, 81]. Therefore, in this study, we also made the first attempt to generate a \(p\)+Au EA definition by looking at the energy deposition in the BBC in the Au-going direction.
+
+However, several problems were identified in the process. To start with, the way BBC-ADC correlates to Glauber parameters like \(N_{\text{part}}\) and \(N_{\text{coll}}\) is different from the TPC multiplicity discussed in the previous chapter, or the BBC charge used in Ref.[156], and the NBD model used in Sec.5.1 do not seem appropriate here. Also in the 2015 \(p\)+Au run, the BBC ADC's gain settings were set to fit the \(p\)+\(p\) data which has a smaller average forward yield than \(p\)+Au collisions, and as a result, the Au-going tiles suffer from a severe saturation effect, as shown in the spikes for various tiles at ADC\(\sim\)4000 in Fig.5.3. Combined together, these two effects make the relationship between collision geometry and BBC-ADC signal different than that between geometry and TPC multiplicity, and therefore cannot be modeled by the NBD model. As shown in Fig.5.4, the attempt to fit the summation of BBC-ADCFigure 5.3: Examples of ADC distributions in several BBC tiles in 2015 \(p\)+Au collisions. Some tiles, e.g. tile 12 shown in the bottom right, have different gain settings, which result in larger spikes at ADC\(\sim\)4000. Figure taken from [157].
+
+in the inner tiles to \(N_{\rm part}\)+NBD3 convolution resulted in a ratio between data and fitted curve that is abnormal and cannot be explained by known detector effects. For example, a NBD fit curve higher than data is expected at the low BBC-ADC end, due to the decreased efficiency at low-EA, but the actual fit shows the opposite. In addition, the high ADC end should in principle give a uniform fit, but the result shows a large deviation. A more detailed study and modeling of the BBC-ADC response is needed to perform this fit, and is out of the scope of this thesis.
+
+Footnote 3: In \(p\)+Au collisions, \(N_{\rm part}\)= \(N_{\rm coll}\)+ 1 by construction, therefore variable \(m\) in Eqn.5.1 is simplified to either \(N_{\rm coll}\) or \(N_{\rm part}\). In this application it makes more sense to use \(N_{\rm part}\).
+
+A second attempt was to apply a two-step fitting procedure, where the centrality placement of each event is determined by the BBC-ADC value, while the \(\langle N_{\rm coll}\rangle\) and \(\langle N_{\rm part}\rangle\) values are determined by the event's TPC \(|\eta|\)\(<\)1 multiplicity, using the traditional NBD method; the fitting procedure is shown in Fig.5.5. However, due to the small system size and restricted dynamic range from the severe saturation, statistical fluctuations introduces a large spread in the forward production, and as shown in Fig.5.6, the correlation between BBC-ADC and multiplicity is limited. After this process, the discrimination power of BBC-ADC on
+
+Figure 5.4: The summed ADC signal of inner tiles of BBC-East fit to Glauber+NBD convolution model in 2015 \(p\)+Au collisions.
+
+Figure 5.5: TPC multiplicity in 2015 \(p\)+Au collisions fit to Glauber model.
+
+collision geometry is further limited to only 20% between 0-10% and 60-80% bins (\(N_{\rm coll}\) for both bins are 7.59 vs 6.21, respectively), and is unable to provide a meaningful comparison between EA bins.
+
+From the two attempts above, we conclude that the BBC-ADC signal is not well suited as an EA indicator for this particular analysis. It is worth mentioning that, although the BBC-ADC signal does not match well with the Glauber model quantitatively, it can still be used as a qualitative high-low EA indicator as long as the parameters \(N_{\rm coll}\) and \(N_{\rm part}\) are not needed, as is done in Ref.[144].
+
+#### Underlying Event Multiplicity as EA Indicator
+
+The other technique introduced in this section originates from the idea of determining the EA from regions that do not contain jets. Due to energy and momentum conservation, jets typically appear in pairs that are comparable in momentum and opposite in direction. Therefore, one could ideally use the region without jets, or the Underlyint Event (UE), as the "EA" region, and categorize an event's EA placement from the UE multiplicity in this region. However, due to the existence of random fluctuations, one cannot simply use the track with the highest \(p_{\rm T}\) as the jet direction, otherwise the events that have a higher
+
+Figure 5.6: Correlation between TPC multiplicity and inner BBC-East ADC in 2015 \(p\)+Au collisions.
+
+number of tracks but no real jets would pick up the upwards fluctuation as "jets", and use the downward fluctuation as EA indicator, hence artificially putting them into a lower EA bracket.
+
+Therefore, in this thesis, we introduce a random-azimuth method to define the UE multiplicity and use that as the event EA indicator. The procedure goes as follows (shown in Fig.5.7): for any given event, we pick a random angle \(\phi_{0}\) in 0-2\(\pi\) azimuth, and use that as the "trigger". Then we select the azimuthal regions that are parallel (same or opposite) to this random trigger for spectrum measurement, and use the regions that are perpendicular to this angle for UE multiplicity measurement. More specifically, the spectral region is defined by \(\phi_{0}-1<\phi<\phi_{0}+1\) and \(\phi_{0}+\pi-1<\phi<\phi_{0}+\pi+1\), while the UE-multiplicity region is the rest of the \(\phi\) range. In this thesis, in order to maximize the dynamic range, the EA region uses tracks within the entire TPC acceptance of \(|\eta|<1\)4, while the spectrum region uses tracks within \(|\eta|<0.5\) in order to be consistent with the \(p\)+\(p\) reference.
+
+Footnote 4: The \(p\)+Au dataset was taken before the iTPC upgrade
+
+One argument that could be made against this method is the jet contamination in the EA
+
+Figure 5.7: Demonstration of the Underlying Event selection process. The cartoon is shown with \(z\) direction pointing out of the paper. The blue sector stands for the UE region, and the red stands for the spectrum region. See text for detail.
+
+region. This is in principal true, as the UE multiplicity would indeed abnormally increase when the jet falls in the EA region; however, statistically speaking this effect is much smaller than if one instead picked the direction of the track with the highest \(p_{\rm T}\), i.e. the leading track, as the trigger, since the jet is a low-probability process, while UE fluctuations happen in every collision event. The only effect of these contaminated events is they will migrate to a higher EA bin, and pull down the per-event yield of that bin. To obtain an approximation of jet contamination, we use the assumption that an event contains jet if there is a particle above 3 GeV/\(c\) in the event. It is found that the fraction of events with jets is on the order of 0.5% on the EA binning reported, which poses a negligible impact to the measurement reported here. Therefore, this method is established to be a reliable technique to determine the EA of asymmetric small system events.
+
+The distribution of UE multiplicity is shown in Fig.5.8. The entire distribution is similar to the overall reference multiplicity distribution, despite being roughly a factor of 3 smaller
+
+Figure 5.8: \(UE^{\rm rand}\) multiplicity in \(p\)+Au collisions fit to Glauber+NBD model. Top panel shows normalized distributions for both data and model, and bottom panel shows their ratio.
+
+than Fig.5.5. This is expected by construction because the acceptance of EA region is \(\frac{\pi-2}{\pi}\approx 36\%\) of the reference multiplicity and is chosen by random. Therefore it also fits as well to the Glauber+NBD convolution model on the high end, because the NBD model can be scaled up or down by simply tuning the parameters. In this thesis, I use this method to categorize events into different EA classes, and measure the spectrum in the region parallel to the trigger, as will be discussed in Sec.6.1. The specific parameters of the EA definition are listed in Appendix.C.
+
+[MISSING_PAGE_FAIL:88]
+
+unity, and grow beyond 1 as \(p_{\rm T}\) increases. The \(R_{\rm pA}\) values reach their highest at around 2-3 GeV/\(c\) for all EA bins. At higher \(p_{\rm T}\), \(R_{\rm pA}\) for all EA bins start to fall back down, but the highest EA bin shows substantial enhancement over the other bins until 6 GeV/\(c\), while the 13-34% and 34-75% spectra appear very similar. Above 6 GeV/\(c\), statistical errors start to become significant, and at \(p_{\rm T}\)\(>7\) GeV/\(c\), the \(R_{\rm pA}\) values are approximately unity and modifications in different EA bins show no significant difference within uncertainty.
+
+### 6.2 Initial State Effects
+
+Historically, there have been two interpretations put forward to explain the suppression in high energy hadrons measured in heavy-ion collisions. The first states that it is final state effects that caused this suppression, where produced partons lose energy while traveling through the dense medium produced (now known as the QGP) [158]; the other states the
+
+Figure 6.1: Fully corrected inclusive charged hadron differential yields at midrapidity ( \(|\eta|<0.5\)) in \(\sqrt{s_{\rm NN}}=200\) GeV p+Au collisions. Spectra are shown in EA bins of 0-13%, 13-34% and 34-75%. The minimum bias spectrum of 0-75% is also shown. Factors of 5 are applied to different EA for visibility. Sizes of error bars are smaller than that of markers.
+
+suppression comes from initial state effects prior to the hard scattering, including gluon saturation in the incoming nuclei [159]. The asymmetric small systems provide a good environment to separate these two hypotheses. If the final state interpretation is dominant, then the modification factor in small systems is also expected to be consistent with or above unity, due to the absence of a dense medium created, and if the initial state hypothesis prevails then a suppression is expected.
+
+The \(p\)+Au \(R_{\rm pA}\) measurements presented in this thesis show no suppression, which supports the final state interpretation. In fact, it even shows substantial enhancement over unity. This is qualitatively in line with the Cronin effect, discussed in Sec.2.3, that describes the enhancement of high-\(p_{\rm T}\) hadron production in proton-nucleus collisions. The enhancement observed in this analysis is also qualitatively consistent with previous measurements done in the \(p\)+Au \(R_{\rm pA}\) measurement.
+
+Figure 6.2: \(R_{\rm pA}\) of inclusive charged hadrons in \(\sqrt{s_{\rm NN}}=200\,\)GeV \(p\)+Au collisions with \(p_{\rm T}\) between 0.4 and 10 GeV/\(c\), in EA bins same with Fig.6.1. Bins are slightly shifted horizontally for visibility. The \(p\)+\(p\) denominator is taken from [67]. Statistical uncertainties coming from \(p\)+Au data are shown in bars, and systematic errors are shown in boxes. Uncertainties from \(p\)+\(p\) spectra are shown in gray bands around 1.
+
+at RHIC with \(d\)+Au collisions at the same energy [93, 95, 96, 156], confirming that this is a common phenomenon in asymmetric small systems. When compared with theory results, this measurement suggest a stronger enhancement than some previous predictions made with phenomenological predictions [98] while being consistent with others from HIJING (see Sec.2.3 for introduction). The prediction reported in Ref.[99], shown in Fig.2.5, was made for \(d\)+Au collisions and is in agreement with \(d\)+Au measurements by STAR [93] and PHENIX [81], but it should also be similar with \(p\)+Au ones.
+
+The measurements in \(p\)/\(d\)+Au collisions provide important references for jet and high-\(p_{\rm T}\) hadron measurements in heavy-ion collisions, as the same initial state effect is also present in larger systems, although it is dwarfed by the larger QGP effect. They also address the question of whether a QGP exists in small systems, discussed in Sec.2.2. The measurements presented both in Fig.6.2 and in the previous \(d\)+Au measurement [93] demonstrate that a QGP droplet is likely either completely absent, or too small to cause any observable quenching effect, in \(p\)/\(d\)+Au collisions, especially considering the fact that \(R_{\rm pA}\) in the highest EA bin is consistent with or even higher than the minbias \(R_{\rm pA}\) in both systems.
+
+### 6.3 Centrality Dependent High-\(p_{\rm T}\) Hadron Yields in Isobar Collisions
+
+The fully corrected isobar inclusive charged hadron yields at \(|\eta|<0.5\) for different centrality bins are calculated and shown as a function of \(p_{\rm T}\) in Fig.6.3. With the same procedures as done in Sec.6.1, their \(R_{\rm AA}\) factors are shown in Fig.6.4.
+
+The overall high \(p_{\rm T}\) shape of the spectra shown in Fig.6.3 is similar with the \(p\)+Au spectra shown in Fig.6.1, where the same power law features dominate the shape of the measurements. It is also noteworthy that the isobar spectra are reported up to 20 GeV/\(c\), compared to 10 GeV/\(c\) in Fig.6.1, and all error bars are invisible in the figure throughout the entire range. This demonstrates the high statistics of this dataset. Hints of differences in the slopes of the spectra between different centralities can be seen, especially at lower \(p_{\rm T}\).
+
+As can be seen in Fig.6.4, Ru+Ru and Zr+Zr \(R_{\rm AA}\) results are very similar. This is expected since they have the same number of nucleons; the subtle differences resulting from Ru's 4 extra protons, on the other hand, is an interesting topic worth further discussion, and will be covered in Sec.6.4.
+
+Within each graph, we see the \(R_{\rm AA}\) values start off at around 0.4-0.75 at the low \(p_{\rm T}\) end, depending on centrality, due to the scaling difference between \(\langle N_{\rm part}\rangle\) and \(\langle N_{\rm coll}\rangle\). The values rises up until about 2.5 GeV/\(c\) and then drop back down at higher \(p_{\rm T}\). The rising trend at lower \(p_{\rm T}\) is due to the radial flow produced by the QGP, which was shown to exist by \(p/\pi\) and \(K/\pi\) ratio by studies in Au+Au and Pb+Pb studies [160, 161]. The suppression at higher \(p_{\rm T}\) comes from jet quenching, which was confirmed in Au+Au measurements with pQCD calculation [67]. In the rest of the section, we focus on the high-\(p_{\rm T}\) side, which in this thesis refers to the \(p_{\rm T}\)\(>\)5 GeV/\(c\) region. The \(R_{\rm AA}\) at high \(p_{\rm T}\) for central collision events are significantly smaller than 1, indicating that the high energy partons in those events are substantially quenched. As we move to more peripheral events, the \(R_{\rm AA}\) values gradually become larger, indicating the jet quenching effect becomes smaller at more
+
+Figure 6.3: Fully corrected inclusive charged hadron differential yields at \(|\eta|<0.5\) in \(\sqrt{s_{\rm NN}}=200\) GeV Ru+Ru (left) and Zr+Zr (right) collisions. Spectra are shown in centrality bins of 0-10%, 10-20%, 20-40%, 40-60% and 60-80%. Factors of 5 are applied to different centralities for visibility. The statistical and systematic uncertainties are smaller than the markers.
+
+peripheral collisions. Interestingly, the \(R_{\rm AA}\) values turn out close to identical for 40-60% and 60-80% events.
+
+### 6.4 Comparisons Between Ru+Ru and Zr+Zr Spectra
+
+Despite having the same number of total nucleons, the \({}^{96}_{44}\)Ru nucleus has 4 more protons than \({}^{96}_{40}\)Zr, which brings 10% extra charge to the nucleus. This subtly affects the structure of the nucleus, via a difference in neutron skin thickness, nuclear deformation1, etc [163, 164]. In the case of our study, the main influence is that the smaller neutron skin thickness in Ru makes its nucleus more "compact", therefore in any given centrality percentage, Ru+Ru events contain on average more nucleon-nucleon binary collisions, and consequently correspond to a larger \(\langle N_{\rm part}\rangle\) and \(\langle N_{\rm coll}\rangle\) than Zr+Zr events, as shown in Appendix C. This implies that the QGP created in Ru+Ru collisions has a larger impact on hard partons.
+
+Figure 6.4: Inclusive charged hadrons \(R_{\rm AA}\) in \(\sqrt{s_{\rm NN}}=200\,\)GeV Ru+Ru (left) and Zr+Zr (right) collisions with \(p_{\rm T}\) between 0.4 and 10 GeV/\(c\), in the same centrality bins as Fig.6.3. Bins are slightly shifted horizontally for visibility. The \(p\)+\(p\) denominator is taken from [67], and is the same across both panels. Statistical uncertainties coming from isobar data are smaller than the marker size; systematic errors from isobar data are shown in boxes. Uncertainties from \(p\)+\(p\) spectra are shown in gray bands around 1, and Glauber uncertainties are shown as rectangles on right edges of the panels.
+
+We observe how much influence this effect has on high-\(p_{\rm T}\) charged hadron yields with Fig.6.5: In the top panel where we directly compare the per-event yields, we see that the yield from Ru+Ru events is significantly bigger than that of Zr+Zr events for any given centrality percentage. This is consistent with the expectation that a system with larger \(\langle N_{\rm part}\rangle\) and \(\langle N_{\rm coll}\rangle\) should produce more particles on average. Without making further interpretation, I would like to mention that theoretical post-diction made by Trajectum [102] matches with data fairly well at central collisions with their most realistic nuclear density distribution function, while claiming a ratio closer to unity than measured in more peripheral collisions.
+
+In the middle and lower panels, the yields normalized by the \(\langle N_{\rm coll}\rangle\) and \(\langle N_{\rm part}\rangle\), respectively, are plotted in order to scrutinize the behaviour of the spectra at high and low-\(p_{\rm T}\) region in more detail. The curves in the middle panel, which effectively shows the \(R_{\rm AA}\) ratio between the two systems, are mostly consistent with unity within uncertainty in central events. In mid-central collisions, signs of larger suppression in Ru+Ru are seen, consistent with the fact that the ratio in \(\langle N_{\rm coll}\rangle\)between Ru+Ru and Zr+Zr increases at these centralities, and the additional QGP quenching effect in Ru+Ru is more significant, while in 60-80% events, as statistics drop, the uncertainties become large and the ratio becomes inconclusive. On the other hand, the lower panel shows that the hadron production is consistent with \(\langle N_{\rm part}\rangle\) scaling at low-\(p_{\rm T}\), while at \(\sim\)2 GeV/\(c\) there are hints of the ratio rising above unity. This could result from combination of a difference of radial flow in both systems, and the transition from \(\langle N_{\rm part}\rangle\) scaling to \(\langle N_{\rm coll}\rangle\) scaling.
+
+### 6.5 Dependence of High-\(p_{\rm T}\) Hadron Yields on System Size
+
+One central argument about using jet quenching as a probe of the QGP is that the larger the QGP droplet created the more energy jets will lose while traversing the medium, and therefore the lower \(R_{\rm AA}\) will be. It has been shown in Sec.6.1 that asymmetric small systems such as \(p/d\)+Au do not create QGP droplets that can induce jet quenching, while measurements in larger systems like Au+Au and Cu+Cu, e.g. charged hadron and pion measurements at STAR [67, 104] demonstrate significant suppression, especially in central collisions. Therefore, it is interesting to perform a systematic study and explore how the modification evolves with system size, which can be represented by \(\langle N_{\rm part}\rangle\), since \(\langle N_{\rm part}\rangle\) stands for the amount of nuclear matter that participates in the collision. In order to both extend the range of how large/small system sizes can be and provide a continuous
+
+Figure 6.5: Comparison between \(\sqrt{s_{\rm NN}}=200\,\)GeV Ru+Ru and Zr+Zr inclusive charged hadron yields in different centrality bins; only statistical errors are shown because the systematics cancel out due to consistent run conditions. The top panel shows the ratio of Ru+Ru/Zr+Zr in per-event yields, middle panel shows that scaled by \(\langle N_{\rm coll}\rangle\), while the bottom panel shows the ratio scaled by \(\langle N_{\rm part}\rangle\).
+
+transition throughout the range, we combine results from several collision species, and also use centrality-differential measurements where available. With measurements performed in multiple collision systems at RHIC [103] from \(p\)+Au to Au+Au, we can have access to a large range of \(\langle N_{\rm part}\rangle\) from \(\sim\)4 to \(>\)300. Centrality-differential measurements from different systems will partially overlap in \(\langle N_{\rm part}\rangle\), which provides us with both a cross-check between systems, and an opportunity to study whether collision geometry has any impact on quenching effects by comparing systems with similar \(\langle N_{\rm part}\rangle\) but different shapes.
+
+Using the data presented in Sec.6.1 and Sec.6.3, I integrate the \(R_{\rm AA}\) for charged hadrons in different centralities above 5.1 GeV/\(c\) and plot them as a function of \(\langle N_{\rm part}\rangle\) in Fig.6.62. The high statistics in the isobar dataset makes doing the analysis in 5%-wide centrality bins possible, which provides us with more details on the evolution. I also plot \(R_{\rm AA}\) mea
+
+Figure 6.6: \(R_{\rm AA}\) of inclusive charged hadrons with \(p_{\rm T}\)\(>\) 5.1 GeV/\(c\). For the isobar results, each point represents 5% centrality (rightmost: 0-5%; leftmost: 75-80%). The \(p\)+\(p\) and Au+Au spectra are taken from Ref.[67], d+Au from Ref.[93], Cu+Cu from Ref.[104]. HG-PYTHIA simulations modified from Ref.[165] are shown as solid curves (\(N_{\rm hard}\)) and shaded bands (synthetic particle yields). Vitev prediction taken from Ref.[100]. See text for detail.
+
+surements from previous analyses from STAR [67, 93, 104] to make a more comprehensive comparison.
+
+The \(R_{\rm AA}\) from isobar collisions increase gradually from 0-5% central to 55-60% semi-peripheral collisions, where \(\langle N_{\rm part}\rangle>\)20, which aligns with the expectation that hard partons experience less quenching as \(\langle N_{\rm part}\rangle\) decreases. By comparing between STAR results, we see that similar \(\langle N_{\rm part}\rangle\) leads to similar \(R_{\rm AA}\) regardless of the collision system. This corroborates that \(\langle N_{\rm part}\rangle\) is the dominating factor in the quenching of hard partons, rather than the initial state anisotropy, centrality percentage, etc. The measurements are also compared to theoretical predictions [100, 102], briefly introduced in Sec.2.4, and they also show fair agreement in this region. However, as we move to the region where \(\langle N_{\rm part}\rangle<\) 20, the \(R_{\rm AA}\) values in the isobar collisions start to gradually drop back down, and reach 0.79\(\pm\)0.03(stat)\(\pm\)0.04(sys) and 0.75\(\pm\)0.03(stat)\(\pm\)0.04(sys) at 75-80% centrality for Ru+Ru and Zr+Zr, respectively. This is clearly counter-intuitive, since in more peripheral events, one would naively expect smaller quenching effects and a larger \(R_{\rm AA}\), which should approach or exceed unity if enhancement from cold nuclear matter effects dominate over quenching effect. \(R_{\rm pA}\) measurements in smaller systems (i.e. \(p\)+Pb and \(p/d\)+Au) have been shown to be consistent with CNM expectations (Sec.2.3), and are also shown in the \(p\)+Au measurement from this thesis and [93, 166], which also disagree with the decrease seen in isobar collisions. The continuously decreasing \(R_{\rm AA}\) seen in the isobar systems clearly proves that the \(R_{\rm AA}\) values not increasing from 40-60% to 60-80% centrality is not simply statistical fluctuation, but raises from a more fundamental issue of the Glauber model. We will discuss this further in Sec.6.6. The theoretical predictions we talked about earlier [100, 102] are incompatible with both isobar and \(p\)+Au measurements in the region, which is expected due to the absence of initial state effect or the geometry bias in the models.
+
+### Geometry and Selection Bias in Peripheral Collisions: the HG-PYTHIA model
+
+As discussed in Sec.6.5, the \(R_{\rm AA}\) values in isobar collisions decrease from 60% up to 80% peripheral events at \(\langle N_{\rm part}\rangle\)\(<\) 20, and deviate from previous small system measurements. After inspection on detector effects and trigger efficiencies, we narrowed down the cause to flaws in the Glauber model assumptions.
+
+As stated in Sec.1.5, a central premise of the Glauber model is that the cross section for high-\(Q^{2}\) processes is proportional to \(N_{\rm coll}\). Further, in the Monte Carlo Glauber simulations, binary nucleon-nucleon collisions are determined with a hard ball potential assumption, and each binary collision is treated the same regardless of the impact parameter (\(b\)). However, nucleon-nucleon collisions with larger nucleon-nucleon impact parameter, \(b_{\rm NN}\)3, have a smaller chance to generate a high-\(p_{\rm T}\) parton [167, 168]. As shown in Fig.6.7, when we perform Monte Carlo Glauber simulations for the Ru+Ru collisions, it is found that peripheral collisions have a larger \(\langle b_{\rm NN}\rangle\) than central collisions, and hence each binary collision has, on average, a smaller high-\(p_{\rm T}\) cross section in peripheral collisions. As a result, the \(\langle N_{\rm coll}\rangle\) scaling in the \(R_{\rm AA}\) calculation, as taken from a standard Glauber model, does not hold true when performing centrality-differential studies at low \(\langle N_{\rm part}\rangle\), and one needs a more accurate scaling parameter, especially when higher precision measurements are accessible in peripheral collisions, e.g. isobar collisions presented here and [169, 170].
+
+Footnote 3: The \(b_{\rm NN}\) value is determined by the average distance of two interacting nucleons in the Glauber model
+
+To quantitatively study the effect, a new benchmark model, HG-PYTHIA [165], which takes into account the difference in high-\(p_{\rm T}\) generation cross-sections, has been introduced. This model used the same Glauber setup as HIJING [54], where instead of a hard ball potential, binary collisions in heavy-ion events are determined via a probability function dependent on \(b\); each binary collision is also stochastically given a non-negative integer number of hard collisions, \(N_{\rm hard}\)  usually on the order of a few, based on a separate hard scattering cross-section. The scaling factor is then determined as the ratio of \(\langle N_{\rm hard}\rangle\) between heavy-ioncollisions in the centrality class and \(p{+}p\) collisions. In order to simulate how centrality is determined experimentally, each nucleon-nucleon collision is assigned a PYTHIA \(p{+}p\) event with said number of \(N_{\rm hard}\). All the PYTHIA events in the same simulated event are then stacked together to create a synthetic event; the centrality percentage of the event is determined by its multiplicity at mid-rapidity.
+
+As shown in the solid curves in Fig.6.6, HG-PYTHIA's prediction of \(N_{\rm hard}/N_{\rm coll}\) as a function of centrality qualitatively agrees with the dip seen in data. The curve does slightly over-shoot the \(R_{\rm AA}\), which is also reported in Ref.[165], and the effect might be caused by choice of collision profiles on the simulation end, or uncertainty of trigger efficiency on the experimental end.
+
+Taking a step further and treating the synthetic PYTHIA event as an actual event, we can in principal also plot the synthetic \(R_{\rm AA}\) by comparing its particle yield at \(p_{\rm T}{>}\) 5.1 GeV/\(c\) against that in \(p{+}p\) collisions; the results are shown in Fig.6.6 as shaded bands. Surprisingly, in this case the \(R_{\rm AA}\) in peripheral collisions is significantly under-predicted, even considering the fact that only statistical uncertainties are shown in the plot. Currently we attribute this to the faster than linear relationship between \(N_{\rm hard}\), which HG-PYTHIA
+
+Figure 6.7: Average nucleon-nucleon impact parameter (\(b_{NN}\)) in Ru+Ru collision Glauber simulations. Code adapted from [165].
+
+[165] equates with number of multi-parton interactions (MPIs) in PYTHIA, and high-\(p_{\rm T}\) particle yields, as is shown in Fig.6.8, which results in a steeper drop in the shaded bands at the peripheral end. To my best understanding, the \(N_{\rm hard}\) curves shown in Fig.6.6 should be used as the more credible benchmark.
+
+Figure 6.8: Number of particles in different \(p_{\rm T}\) range as a function of multi-parton interactions (MPI), normalized to unity at MPI=1, in the PYTHIA model.
+
+## Chapter 7 Outlook
+
+In this thesis, I presented high-\(p_{\rm T}\) charged hadron measurements at \(\sqrt{s_{\rm NN}}=200\,\)GeV in \(p+\)Au and isobar collisions at STAR. The results are presented as functions of \(p_{\rm T}\) and \(N_{\rm part}\), and are compared against previous measurements at STAR. The \(p+\)Au study confirms that the initial state effect is the dominant effect in asymmetric small systems, and the QGP effects are either not present or too small. In the isobar results, a gradual turn-on of jet quenching effect is shown in mid-to-central region, while the geometric bias effect shows up in peripheral events which complicates the interpretation below \(N_{\rm part}\)=20. In combination, these results present a continuous picture of nuclear modification as a function of collision system size using charged hadrons as a proxy for hard scatterings.
+
+The journey, however, is far from complete. The isobar campaign presents a unique opportunity to inspect various nuclear effects in detail, both from the ability to contrast between the two similar species, and from the tremendous statistics and well-controlled conditions which enables measurements with great precision. RHIC is currently planning to perform another \(p+\)Au run in 2024, and there is also data taken in O+O and \(p+\)Al at STAR. Along with the upgraded detectors introduced in Sec.3.2, various measurements can be performed, which will hopefully complement the measurements made in this thesis. In this chapter, I will discuss some possible future measurements stemmed from the analyses presented in this thesis.
+
+### 7.1 Alternative Centrality Grouping with the Isobar Dataset
+
+As mentioned earlier, with the great precision of the isobar dataset, several further measurements can be taken to study the mechanism of jet quenching in further details. To begin with, centrality binning with different boundaries may allow us to study the dependence of jet quenching on initial geometry. For example, the comparison between Ru+Ru and Zr+Zr, as shown in Fig.6.5, can be performed in bins with the same \(\langle N_{\rm part}\rangle\), instead of same centrality percentage. The events can also be re-organized so that the \(\langle N_{\rm part}\rangle\) of different bins align with those with other systems, e.g. Au+Au, in order to study the influence of initial state anisotropy on jet modification when \(\langle N_{\rm part}\rangle\) is fixed. Recent studies at STAR have shown that it is possible to divide centrality bins as fine as 1% in the central region with decent accuracy. This gives us confidence that such measurements can be achieved.
+
+The other possible improvement that can be made on the centrality front is to use the signal from EPD (mentioned in Sec.3.2.7), which covers \(2.14<|\eta|<5.09\) as the centrality indicator. As discussed in Sec.5, a rapidity gap between centrality indicator and spectrum measurement reduces the auto-correlation between them. Studies with the HG-PYTHIA model, shown in Fig.7.1 have also shown that using multiplicity at forward rapidity can reduce the geometric bias in the peripheral region, and studies on using EPD at STAR have already shown that it will likely have good centrality distinguishing power in the isobar dataset. Therefore, applying EPD-based centrality to this high-\(p_{\rm T}\) hadron analysis may help address the decreasing \(R_{\rm AA}\) in peripheral bins and give us an improved picture of the transition from small to large systems.
+
+### 7.2 Jet Measurements in Small and Medium Systems
+
+Another interesting measurement that could be performed is a jet measurement using a jet clustering algorithm. Although the clustering of hadrons into jets may include some complications, and jet measurements are more greedy for statistics, reconstructed jets are better proxies of the initial partons, providing a more complete picture of the jet-QGP interaction. With the high statistics available in the isobar dataset, an inclusive jet measurementis in principle available. Also with the new forward upgrade installed, EA definition with forward detectors could be available for the 2024 \(p\)+Au data. This would provide better statistics than available in this thesis, since the full azimuth can be used as the acceptance region for spectrum measurement.
+
+The O+O and \(p\)+Al collision data taken at STAR are also an interesting opportunity to investigate jet phenomena. The \(\langle N_{\rm part}\rangle\) of central O+O collisions overlaps with peripheral isobar collisions, which can therefore be used as an additional cross check on whether measured low \(R_{\rm AA}\) values in peripheral isobar collisions are due to geometric bias. On the other hand, the peripheral O+O events have \(\langle N_{\rm part}\rangle\) which overlaps with those of \(p/d\)+Au collisions, which can enable comparisons between symmetric and asymmetric small systems from a jet perspective. The \(p\)+Al data, on the other hand, could bridge the gap between \(p+p\) and \(p\)+Au collisions, and analysis in this dataset could help us explore how initial state effects evolve with the size of nucleus. The current available dataset in both datasets, however, are limited in statistics, and an inclusive hadron spectrum like those presented in this thesis might be more appropriate.
+
+Figure 7.1: Number of hard collisions per \(N_{\rm coll}\) as a function of centrality in the HG-PYTHIA model. Different curves indicate centrality percentage defined with multiplicity in a certain range (or impact parameter).
+
+Besides the inclusive spectrum measurement, other jet observables can also be measured in the systems measured above, e.g. the (sub-)structure of jets [171] and energy-energy correlators [172]. These measurement can provide us more information on the jet evolution history, and its interaction details with the QGP, and hopefully also give us more insight on the correlation between QGP formation and collision system size.
+
+Besides the experimental measurements mentioned above, theoretical/computational studies can also be performed towards a comprehensive understanding of the evolution of QGP production with the system size. While models mentioned in this thesis, e.g. HIJING [54], Angantyr [87] and Trajectum [101] can model some aspects of the process, it would be helpful to have a more complete model that includes more components. The recent JETSCAPE [173] framework provides such an opportunity. It is modular package, composed of a collection of models that are for different components of the collision process, including collision geometry, initial state, hydrodynamic evolution, jet quenching, etc. Pre/post-diction on high-\(p_{\mathrm{T}}\) hadron modifications in different system sizes can test the validity of various models that are responsible for different stages of the evolution. Taking advantage of the modular "plug and play" design of JETSCAPE, it is also possible to compare between different theories that are focused on a certain stage. This series of studies can hopefully help the field build a more complete understanding the anatomy of QGP evolution from the jet perspective.
+
+## Appendix A Coordinate Systems Used in Particle Collisions
+
+In this appendix, I give a brief introduction on the coordinate system used in this thesis when describing collider experiments. A simple sketch of the coordinate system is shown in Fig.A.1. The beamline direction from which nuclei are sent in is defined as the \(z\) axis, and the plane perpendicular to the \(z\) axis is called the \(x\)-\(y\) plane. In order to comply with the boost-invariance requirement along the \(z\) direction1, a particle's momentum is described by using its transverse momentum \(p_{\mathrm{T}}\), rapidity \(y\), and azimuthal angle \(\phi\).
+
+Footnote 1: In relativity, a quantity is called boost invariant when it does not change under changes reference frame via Lorentz transformation. This is required specifically along the \(z\) direction in collider experiment for ease of analysis and comparison between observables along the beamline direction.
+
+Transverse momentum \(p_{\mathrm{T}}\) is defined by \(p_{\mathrm{T}}\)= \(\sqrt{p_{\mathrm{x}}^{2}+p_{\mathrm{y}}^{2}}\) of the particle's momentum, and the azimuthal angle \(\phi\) is simply the same as in the regular spherical coordinate system, as indicated in Fig.A.1. Rapidity \(y\) is defined as:
+
+\[y=\frac{1}{2}ln\left[\frac{E+cp_{z}}{E-cp_{z}}\right],\]
+
+where \(E\) is the particle's energy, \(p_{z}\) is its momentum along the \(z\) axis, and \(c\) is the speed oflight. Alternatively, it can be approximated by the pseudo-rapidity \(\eta\). It is converted from \(\theta\) angle between the momentum direction and the \(z\) axis, and is defined as
+
+\[\eta=-ln\left[tan(\frac{\theta}{2})\right].\]
+
+Pseudo-rapidity \(\eta\) is a good approximation of \(y\) when the particle's kinetic energy is much greater than the rest mass, and they are precisely equivalent when the particle has a rest mass of 0 (e.g. photons).
+
+Figure A.1: A simple sketch of the coordinate system used in collider experiments.
+
+[MISSING_PAGE_EMPTY:107]
+
+[MISSING_PAGE_EMPTY:108]
+
+## Appendix C Glauber Parameters for All Collision Species Used in This Thesis
+
+In this appendix, I list the parameters extracted from the Glauber model that was fit to data, i.e. \(\langle N_{\rm coll}\rangle\), \(\langle N_{\rm part}\rangle\), average multiplicity and multiplicity edge, for Ru+Ru, Zr+Zr and \(p\)+Au collisions. The multiplicities in the isobar refer to the reference multiplicity, and those in \(p\)+Au refer to UE multiplicity, defined in Sec.5.2.2.
+
+The initial geometry assumed for protons is an exponential distribution:
+
+\[\frac{dP}{dr}\propto r^{2}Exp(-\frac{r}{0.234\ {\rm fm}}),\] (C.1)
+
+and a Woods-Saxon distribution is assumed for the Au nucleus:
+
+\[\frac{dP}{dr}\propto r^{2}/(1+Exp(\frac{r-6.38\ {\rm fm}}{0.535\ {\rm fm}}).\] (C.2)
+
+The initial geometry for Ru and Zr nuclei used in this thesis is the Case 3 reported in Ref.[149].
+
+[MISSING_PAGE_FAIL:110]
+
+[MISSING_PAGE_EMPTY:111]
+
+## Appendix D Systematic Errors
+
+In this appendix, I list the systematic errors for \(p\)+Au, Ru+Ru and Zr+Zr collisions, as discussed in Sec.4.6. For \(p\)+Au collisions, the difference between 1st and 2nd iteration of efficiency correction, \(p_{\rm T}\) smearing, different weighting of embedding data (weighting reported in \(p\)+\(p\) vs \(d\)+Au), those from Glauber model uncertainty (cross-section and radius) are reported for each EA bin, while TOF-matching efficiency is common for all bins. The resulting total systematic uncertainty range from 3% to 9%. For isobar studies, only errors coming from efficiency correction iteration, weighting of embedding (\(d\)+Au weighting vs pions only) and \(p_{\rm T}\) smearing are included, and the resulting uncertainty range from 2% to 4%.
+
+Figure D.1: Systematic uncertainty for \(p\)+Au collisions.
+
+Figure D.2: Systematic uncertainty for Ru+Ru collisions.
+
+Figure D.3: Systematic uncertainty for Zr+Zr collisions.
+
+## Bibliography
+
+* [1] M. K. Gaillard, P. D. Grannis, and F. J. Sciulli, "The standard model of particle physics", Rev. Mod. Phys. **71**, S96-S111 (1999) 10.1103/RevModPhys.71.S96.
+* [2][https://en.wikipedia.org/wiki/File:Standard_Model_of_Elementary_Particles.svg](https://en.wikipedia.org/wiki/File:Standard_Model_of_Elementary_Particles.svg), Accessed: 2023-10-29.
+* [3] M. E. Peskin and D. V. Schroeder, _An Introduction to Quantum Field Theory_, Reading, USA: Addison-Wesley (1995) 842 p (Westview Press, 1995).
+* [4] E. Oks, "Brief review of recent advances in understanding dark matter and dark energy", New Astronomy Reviews **93**, 101632 (2021) 10.1016/j.newar.2021.101632.
+* [5] T. Aaltonen et al. (CDF), "High-precision measurement of the \(W\) boson mass with the CDF II detector", Science **376**, 170-176 (2022) 10.1126/science.abk1781.
+* [6] F. Abe, H. Akimoto, A. Akopian, et al., "Observation of Top Quark Production in \(\bar{p}p\) Collisions with the Collider Detector at Fermilab", Phys. Rev. Lett. **74**, 2626-2631 (1995) 10.1103/physrevlett.74.2626.
+* [7] J. J. Aubert et al., "Experimental Observation of a Heavy Particle \(J\)", Phys. Rev. Lett. **33**, 1404-1406 (1974) 10.1103/PhysRevLett.33.1404.
+* [8] J. E. Augustin et al., "Discovery of a Narrow Resonance in \(e^{+}e^{-}\) Annihilation", Phys. Rev. Lett. **33**, 1406-1408 (1974) 10.1103/PhysRevLett.33.1406.
+* [9] S. W. Herb, "Observation of a Dimuon Resonance at 9.5 GeV in 400-GeV Proton-Nucleus Collisions", Phys. Rev. Lett. **39**, 10.1103/PhysRevLett.39.252 (1977) 10.1103/PhysRevLett.39.252.
+
+* (10) G. Aad et al. (ATLAS), "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC", Phys. Lett. B **716**, 1-29 (2012) 10.1016/j.physletb.2012.08.020.
+* (11) R. L. Workman et al. (Particle Data Group), "Review of Particle Physics", Progress of Theoretical and Experimental Physics **2022**, 083C01 (2022) 10.1093/ptep/ptac097.
+* (12) A. Deur, S. J. Brodsky, and G. F. de Teramond, "The QCD running coupling", Progress in Particle and Nuclear Physics **90**, 1-74 (2016) 10.1016/j.ppnp.2016.04.003.
+* (13) K. G. Wilson, "Confinement of quarks", Phys. Rev. D **10**, 2445-2459 (1974) 10.1103/PhysRevD.10.2445.
+* (14) S. Bailey et al., "Parton distributions from LHC, HERA, Tevatron and fixed target data: MSHT20 PDFs", Euro. Phys. Jour. C **81**, 10.1140/epjc/s10052-021-09057-0 (2021) 10.1140/epjc/s10052-021-09057-0.
+* (15) Y. L. Dokshitzer, "Calculation of the Structure Functions for Deep Inelastic Scattering and e+ e- Annihilation by Perturbation Theory in Quantum Chromodynamics.", Sov. Phys. JETP **46**, 641-653 (1977).
+* (16) V. N. Gribov and L. N. Lipatov, "Deep inelastic e p scattering in perturbation theory", Sov. J. Nucl. Phys. **15**, 438-450 (1972).
+* (17) G. Altarelli and G. Parisi, "Asymptotic freedom in parton language", Nucl. Phys. B **126**, 298-318 (1977) [https://doi.org/10.1016/0550-3213](https://doi.org/10.1016/0550-3213)(77)90384-4.
+* (18) K. J. Eskola et al., "EPPS16: nuclear parton distributions with LHC data", Euro. Phys. Jour. C **77**, 10.1140/epjc/s10052-017-4725-9 (2017) 10.1140/epjc/s10052-017-4725-9.
+* (19) B. R. Webber, _Fragmentation and Hadronization_, 1999.
+* (20) D. J. Gross and F. Wilczek, "Ultraviolet Behavior of Non-Abelian Gauge Theories", Phys. Rev. Lett. **30**, 1343-1346 (1973) 10.1103/PhysRevLett.30.1343.
+* (21) L. C. P. Van Hove, "Theoretical prediction of a new state of matter, the "quark-gluon plasma" (also called "quark matter")", (1987).
+
+* (22) E. Andersen et al., "Strangeness enhancement at mid-rapidity in Pb-Pb collisions at 158 A GeV/c", Phys. Lett. B **449**, 401-406 (1999) [https://doi.org/10.1016/S0370-2693](https://doi.org/10.1016/S0370-2693)(99)00140-9.
+* (23) F. Antinori et al. (WA97), "Transverse mass spectra of strange and multistrange particles in Pb Pb collisions at 158-A-GeV/c", Eur. Phys. J. C **14**, 633-641 (2000) 10.1007/s100520000386.
+* (24) A. Aprahamian et al., "Reaching for the horizon: The 2015 long range plan for nuclear science", (2015).
+* (25) K. Yagi, T. Hatsuda, and Y. Miake, _Quark-gluon plasma: From big bang to little bang_, Vol. 23 (Cambridge University Press, 2005).
+* (26) E. Annala et al., "Evidence for quark-matter cores in massive neutron stars", Nat. Phys. **16**, 907-910 (2020) 10.1038/s41567-020-0914-9.
+* (27) J. Cleymans and K. Redlich, "Unified Description of Freeze-Out Parameters in Relativistic Heavy Ion Collisions", Phys. Rev. Lett. **81**, 5284-5286 (1998) 10.1103/PhysRevLett.81.5284.
+* (28) A. Andronic, P. Braun-Munzinger, K. Redlich, and J. Stachel, "Decoding the phase structure of QCD via particle production at high energy", Nature **561**, 321-330 (2018) 10.1038/s41586-018-0491-6.
+* (29) F. A. Flor, "Sequential Strangeness Freeze-out via Statistical Hadronization in Relativistic Heavy Ion and Elementary Particle Collisions", Presented 28 Jan 2022 (University of Houston, 2022).
+* (30) J. Stachel, A. Andronic, P. Braun-Munzinger, and K. Redlich, "Confronting LHC data with the statistical hadronization model", Journal of Physics: Conference Series **509**, 012019 (2014) 10.1088/1742-6596/509/1/012019.
+* (31) A. Andronic et al., "Influence of modified light-flavor hadron spectra on particle yields in the statistical hadronization model", Nuc. Phys. A **1010**, 122176 (2021) [https://doi.org/10.1016/j.nuclphysa.2021.122176](https://doi.org/10.1016/j.nuclphysa.2021.122176).
+* (32) P. Braun-Munzinger, J. Stachel, J. Wessels, and N. Xu, "Thermal equilibration and expansion in nucleus-nucleus collisions at the AGS", Phys. Lett. B **344**, 43-48 (1995) [https://doi.org/10.1016/0370-2693](https://doi.org/10.1016/0370-2693)(94)01534-J.
+
+* (33) L. Adamczyk et al. (STAR), "Centrality and transverse momentum dependence of elliptic flow of multistrange hadrons and meson in \(\mathrm{Au+Au}\) collisions at \(\sqrt{s_{\mathrm{NN}}}=200\) GeV", Phys. Rev. Lett. **116**, 062301 (2016) 10.1103/PhysRevLett.116.062301.
+* (34) J. E. Bernhard, J. S. Moreland, and S. A. Bass, "Bayesian estimation of the specific shear and bulk viscosity of quark-gluon plasma", Nat. Phys. **15**, 1113-1117 (2019) 10.1038/s41567-019-0611-8.
+* (35) J. E. Parkkila, A. Onnerstad, and D. J. Kim, "Bayesian estimation of the specific shear and bulk viscosity of the quark-gluon plasma with additional flow harmonic observables", Phys. Rev. C **104**, 10.1103/physrevc.104.054904 (2021) 10.1103/physrevc.104.054904.
+* (36) U. Heinz and R. Snellings, "Collective Flow and Viscosity in Relativistic Heavy-Ion Collisions", Annual Review of Nuclear and Particle Science **63**, 123-151 (2013) 10.1146/annurev-nucl-102212-170540.
+* (37) K. H. Ackermann et al. (STAR), "Elliptic flow in \(Au+Au\) collisions at\(\sqrt{s_{\mathrm{NN}}}\)=130 GeV", Phys. Rev. Lett. **86**, 402-407 (2001) 10.1103/PhysRevLett.86.402.
+* (38) B. Abelev et al. (ALICE), "Elliptic flow of identified hadrons in pb-pb collisions at \(\sqrt{s_{\mathrm{NN}}}\)=2.76 TeV", JHEP **2015**, 10.1007/jhep06(2015)190.
+* (39) B. I. Abelev et al. (STAR), "Centrality dependence of charged hadron and strange hadron elliptic flow from \(\sqrt{s_{NN}}=200\) gev au+au collisions", Phys. Rev. C **77**, 054901 (2008) 10.1103/PhysRevC.77.054901.
+* (40) J. Adams, C. Adler, M. M. Aggarwal, Z. Ahammed, et al. (STAR), "Particle-Type Dependence of Azimuthal Anisotropy and Nuclear Modification of Particle Production in \(\mathrm{Au+Au}\) Collisions at \(\sqrt{s_{NN}}=200\) GeV", Phys. Rev. Lett. **92**, 052302 (2004) 10.1103/PhysRevLett.92.052302.
+* (41) M. Wang et al., "Number-of-constituent-quark scaling of elliptic flow: a quantitative study", Nucl. Sci. Tech. **33**, 37 (2022) 10.1007/s41365-022-01019-9.
+* (42) N. Fabiano, "Top mesons", The Euro. Phys. J. C **2**, 345-350 (1998) 10.1007/s100520050144.
+
+* (43) J.-P. Blaizot, D. D. Boni, P. Faccioli, and G. Garberoglio, "Heavy quark bound states in a quark-gluon plasma: dissociation and recombination", Nucl. Phys. A **946**, 49-88 (2016) 10.1016/j.nuclphysa.2015.10.011.
+* (44) X. Du, M. He, and R. Rapp, "Color screening and regeneration of bottomonia in high-energy heavy-ion collisions", Phys. Rev. C **96**, 054901 (2017) 10.1103/PhysRevC.96.054901.
+* (45) J. Adam et al. (STAR), "Measurement of inclusive J/\(\psi\) suppression in Au+Au collisions at \(\sqrt{s_{\rm NN}}\)=200 GeV through the dimuon channel at STAR", Phys. Lett. B **797**, 134917 (2019) [https://doi.org/10.1016/j.physletb.2019.134917](https://doi.org/10.1016/j.physletb.2019.134917).
+* (46) J. Adam et al. (ALICE), "J/\(\psi\) suppression at forward rapidity in Pb-Pb collisions at \(\sqrt{s_{\rm NN}}\) =5.02 TeV", Phys. Lett. B **766**, 212-224 (2017) [https://doi.org/10.1016/j.physletb.2016.12.064](https://doi.org/10.1016/j.physletb.2016.12.064).
+* (47) A. Tumasyan et al. (CMS), _Observation of the \(\Upsilon\)(3S) meson and suppression of \(\Upsilon\) states in PbPb collisions at \(\sqrt{s_{\rm NN}}\) = 5.02 TeV_, 2023.
+* (48) B. E. Aboona et al. (STAR), "Measurement of Sequential \(\Upsilon\) Suppression in \({\rm Au}+{\rm Au}\) Collisions at \(\sqrt{s_{NN}}=200\) GeV with the STAR Experiment", Phys. Rev. Lett. **130**, 112301 (2023) 10.1103/PhysRevLett.130.112301.
+* (49) A. Abdulsalam, "The rates of charmonium dissociation and recombination in heavy-ion collisions at \(\sqrt{s_{\rm NN}}=\)5.02 TeV using Bateman equation", Nuc. Phys. A **1007**, 122130 (2021) [https://doi.org/10.1016/j.nuclphysa.2020.122130](https://doi.org/10.1016/j.nuclphysa.2020.122130).
+* (50) C. Shen, _Sketch of relativistic heavy-ion collisions_, [https://u.osu.edu/vishnu/2014/08/06/sketch-of-relativistic-heavy-ion-collisions/](https://u.osu.edu/vishnu/2014/08/06/sketch-of-relativistic-heavy-ion-collisions/), 2014.
+* (51) R. Glauber, in Lectures in theoretical Physics series, Ed. W.E. Brittin and L.G. Dunham, Vol.1, 315 (Interscience, New York, 1959).
+* (52) D. d'Enterria and C. Loizides, "Progress in the Glauber Model at Collider Energies", Annual Review of Nuclear and Particle Science **71**, 315-344 (2021) 10.1146/annurev-nucl-102419-060007.
+* (53) M. L. Miller et al., "Glauber modeling in high-energy nuclear collisions", Annual Review of Nuclear and Particle Science **57**, 205-243 (2007) 10.1146/annurev.nucl.57.090506.123020.
+
+* (54) X.-N. Wang and M. Gyulassy, "Hijing: a monte carlo model for multiple jet production in pp, pA, and AA collisions", Phys. Rev. D **44**, 3501-3516 (1991) 10.1103/PhysRevD.44.3501.
+* (55) M. Miller and R. Snellings, _Eccentricity fluctuations and its possible effect on elliptic flow measurements_, 2003, 10.48550/ARKIV.NUCL-EX/0312008.
+* (56) Z. Qiu and U. Heinz, "Event-by-event hydrodynamics for heavy-ion collisions", in AIP conference proceedings (2012), 10.1063/1.3700676.
+* (57) D. d'Enterria and C. Loizides, "Progress in the Glauber Model at Collider Energies", Annual Review of Nuclear and Particle Science **71**, 315-344 (2021) 10.1146/annurev-nucl-102419-060007.
+* (58) D. K. Srivastava, "Evolution of mechanism of parton energy loss with transverse momentum at the RHIC and LHC in relativistic collision of heavy nuclei", Journal of Physics G: Nuclear and Particle Physics **38**, 055003 (2011) 10.1088/0954-3899/38/5/055003.
+* (59) B. Muller, "Parton energy loss in strongly coupled AdS/CFT", Nuc. Phys. A **855**, 74-82 (2011) 10.1016/j.nuclphysa.2011.02.022.
+* (60) F. D'Eramo, K. Rajagopal, and Y. Yin, "Moliere scattering in quark-gluon plasma: finding point-like scatterers in a liquid", JHEP **2019**, 10.1007/jhep01(2019)172 (2019) 10.1007/jhep01(2019)172.
+* (61) U. A. Wiedemann, "Jet quenching in heavy ion collisions", in _Relativistic heavy ion physics_ (Springer Berlin Heidelberg, 2010), pp. 521-562, 10.1007/978-3-642-01539-7_17.
+* (62) C. Beattie, "Pathlength-dependent jet quenching in the quark-gluon plasma at ALICE", PhD thesis (Yale U., Mar. 2023).
+* (63) G.-Y. Qin and X.-N. Wang, "Jet quenching in high-energy heavy-ion collisions", International Journal of Modern Physics E **24**, 1530014 (2015) 10.1142/s0218301315300143.
+* (64) N. Armesto, "Small collision systems: theory overview on cold nuclear matter effects", in Epj web of conferences, Vol. 171 (EDP Sciences, 2018), p. 11001.
+* (65) M. Cacciari, G. P. Salam, and G. Soyez, "FastJet user manual", Euro. Phys. J. C **72**, 10.1140/epjc/s10052-012-1896-2 (2012) 10.1140/epjc/s10052-012-1896-2.
+
+* (66) V. Khachatryan et al. (CMS), "Charged-particle nuclear modification factors in PbPb and pPb collisions at \(\sqrt{s_{NN}}=5.02\) TeV", JHEP **2017**, 10.1007/jhep04(2017)039 (2017)10.1007/jhep04(2017)039.
+* (67) J. Adams et al. (STAR), "Transverse-momentum and collision-energy dependence of high-\(p_{T}\) hadron suppression in \(\mathrm{Au+Au}\) collisions at ultrarelativistic energies", Phys. Rev. Lett. **91**, 172302 (2003)10.1103/PhysRevLett.91.172302.
+* (68) J. Adams et al. (STAR), "Azimuthal anisotropy at the relativistic heavy ion collider: the first and fourth harmonics", Phys. Rev. Lett. **92**, 062301 (2004)10.1103/PhysRevLett.92.062301.
+* (69) J. Adams et al. (STAR), "Particle-type dependence of azimuthal anisotropy and nuclear modification of particle production in \(\mathrm{Au+Au}\) collisions at \(\sqrt{s_{NN}}=200\) GeV", Phys. Rev. Lett. **92**, 052302 (2004)10.1103/PhysRevLett.92.052302.
+* (70) S. S. Adler et al. (PHENIX), "Elliptic flow of identified hadrons in \(\mathrm{Au+Au}\) collisions at \(\sqrt{s_{NN}}=200\) GeV", Phys. Rev. Lett. **91**, 182301 (2003)10.1103/PhysRevLett.91.182301.
+* (71) A. Adare et al. (PHENIX), "\(J/\psi\) Production versus centrality, transverse momentum, andrapidity in \(\mathrm{Au+Au}\) collisions at \(\sqrt{s_{NN}}=200\) GeV", Phys. Rev. Lett. **98**, 232301 (2007)10.1103/PhysRevLett.98.232301.
+* (72) M. Arslandok et al., _Hot qcd white paper_, 2023.
+* (73) C. Adler et al. (STAR), "Centrality Dependence of High-\(p_{T}\) Hadron Suppression in \(\mathrm{Au+Au}\) Collisions at \(\sqrt{s_{NN}}=130\) GeV", Phys. Rev. Lett. **89**, 202301 (2002)10.1103/PhysRevLett.89.202301.
+* (74) K. Adcox et al. (PHENIX), "Suppression of hadrons with large transverse momentum in central \(Au+Au\) collisions at \(\sqrt{s_{\mathrm{NN}}}=130\)GeV", Phys. Rev. Lett. **88**, 022301 (2001)10.1103/PhysRevLett.88.022301.
+* (75) G. Aad et al. (ATLAS), _Charged-hadron production in \(p+p\), p+Pb, Pb+Pb, and Xe+Xe collisions at \(\sqrt{s_{\mathrm{NN}}}=5\) TeV with the ATLAS detector at the LHC_, 2022.
+* (76) S. Chatrchyan et al. (CMS), "Study of high-\(p_{\mathrm{T}}\) charged particle suppression in pbpb compared to pp collisions at \(\sqrt{s_{\mathrm{NN}}}=2.76\)TeV", Euro. Phys. J. C **72**, 1945 (2012)10.1140/epjc/s10052-012-1945-x.
+
+* (77) V. Khachatryan et al. (CMS), "Evidence for collectivity in pp collisions at the LHC", Phys. Lett. B **765**, 193-220 (2017) [https://doi.org/10.1016/j.physletb.2016.12.009](https://doi.org/10.1016/j.physletb.2016.12.009).
+* (78) V. Khachatryan et al. (CMS), "Measurement of long-range near-side two-particle angular correlations in \(pp\) collisions at \(\sqrt{s}=13\) TeV", Phys. Rev. Lett. **116**, 172302 (2016) 10.1103/PhysRevLett.116.172302.
+* (79) G. Aad et al. (ATLAS), "Observation of long-range elliptic azimuthal anisotropies in \(\sqrt{s}=13\) and 2.76 tev \(pp\) collisions with the atlas detector", Phys. Rev. Lett. **116**, 172301 (2016) 10.1103/PhysRevLett.116.172301.
+* (80) V. Khachatryan et al. (CMS), "Measurement of inclusive jet production and nuclear modifications in pPb collisions at \(\sqrt{s_{\rm NN}}=5.02\) TeV", Euro. Phys. J. C **76**, 372 (2016) 10.1140/epjc/s10052-016-4205-7.
+* (81) A. Adare et al. (PHENIX), "Centrality-dependent modification of jet-production rates in deuteron-gold collisions at \(\sqrt{s_{NN}}=200\) GeV", Phys. Rev. Lett. **116**, 122301 (2016) 10.1103/PhysRevLett.116.122301.
+* (82) J. Adam et al. (ALICE), "Measurement of charged jet production cross sections and nuclear modification in p-Pb collisions at \(\sqrt{s_{NN}}\)=5.02 TeV", Phys. Lett. B **749**, 68-81 (2015) [https://doi.org/10.1016/j.physletb.2015.07.054](https://doi.org/10.1016/j.physletb.2015.07.054).
+* (83) J. Lajoie, _Recent Reconstructed Jet Results from PHENIX_, [https://moriond.in2p3.fr/QCD/2021/FridayAfternoon/Lajoie.pdf](https://moriond.in2p3.fr/QCD/2021/FridayAfternoon/Lajoie.pdf), 2021.
+* (84) G. Aad et al., "Centrality and rapidity dependence of inclusive jet production in snn=5.02 tev proton-lead collisions with the atlas detector", Phys. Lett. B **748**, 392-413 (2015) [https://doi.org/10.1016/j.physletb.2015.07.023](https://doi.org/10.1016/j.physletb.2015.07.023).
+* (85) J. Adam et al. (ALICE), "Centrality dependence of charged jet production in p-Pb collisions at \(\sqrt{s_{NN}}=5.02\) TeV", Euro. Phys. J. C **76**, 10.1140/epjc/s10052-016-4107-8 (2016) 10.1140/epjc/s10052-016-4107-8.
+* (86) D. Stewart, "Semi-inclusive charged jet production dependence on event activity at high backward-rapidity in \(\sqrt{s_{\rm NN}}=200\) GeV \(p+\)Au collisions at STAR", PoS **HardProbes2020**, 113 (2021) 10.22323/1.387.0113.
+
+* (87) C. Bierlich et al., "The Angantyr model for heavy-ion collisions in Pythia8", JHEP **2018**, 10.1007/jhep10(2018)134 (2018)10.1007/jhep10(2018)134.
+* (88) T. Sjostrand, S. Mrenna, and P. Z. Skands, "A Brief Introduction to PYTHIA 8.1", Comput. Phys. Commun. **178**, 852-867 (2008)10.1016/j.cpc.2008.01.036.
+* (89) I. Mooney, "Jet substructure in p+p and p+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV at STAR", PoS **HardProbes2020**, 144 (2021)10.22323/1.387.0144.
+* (90) J. W. Cronin et al., "Production of hadrons at large transverse momentum at 200, 300, and 400 GeV", Phys. Rev. D **11**, 3105-3123 (1975)10.1103/PhysRevD.11.3105.
+* (91) L. Kluberg et al., "Atomic-number dependence of large-transverse-momentum hadron production by protons", Phys. Rev. Lett. **38**, 670-673 (1977)10.1103/PhysRevLett.38.670.
+* (92) P. B. Straub et al., "Nuclear dependence of high-\(x_{t}\) hadron and high-\(\tau\) hadron-pair production in p-A interactions at \(\sqrt{s}=\)38.8 GeV", Phys. Rev. Lett. **68**, 452-455 (1992)10.1103/PhysRevLett.68.452.
+* (93) J. Adams et al. (STAR), "Evidence from \(d+\mathrm{Au}\) measurements for final-state suppression of high-\(p_{T}\) hadrons in \(\mathrm{Au}+\mathrm{Au}\) collisions at rhic", Phys. Rev. Lett. **91**, 072304 (2003)10.1103/PhysRevLett.91.072304.
+* (94) J. Adams et al. (STAR), "Identified hadron spectra at large transverse momentum in \(p+p\) and d+Au collisions at \(\sqrt{s_{NN}}=200\) GeV", Phys. Lett. B **637**, 161-169 (2006)[https://doi.org/10.1016/j.physletb.2006.04.032](https://doi.org/10.1016/j.physletb.2006.04.032).
+* (95) I. Arsene et al. (BRAHMS), "Transverse-momentum spectra in \(\mathrm{Au}+\mathrm{Au}\) and \(d+\mathrm{Au}\) collisions at \(\sqrt{s_{NN}}=200\) GeV and the pseudorapidity dependence of high-\(p_{T}\) suppression", Phys. Rev. Lett. **91**, 072305 (2003)10.1103/PhysRevLett.91.072305.
+* (96) B. B. Back et al. (PHOBOS), "Centrality dependence of charged-hadron transverse-momentum spectra in \(d+\mathrm{Au}\) collisions at \(\sqrt{s_{NN}}=200\) GeV", Phys. Rev. Lett. **91**, 072302 (2003)10.1103/PhysRevLett.91.072302.
+* (97) J.-P. Blaizot, F. Gelis, and R. Venugopalan, "High energy pA collisions in the color glass condensate approach i: gluon production and the cronin effect", Nucl. Phys. A **743**, 13-56 (2004)10.1016/j.nuclphysa.2004.07.005.
+
+* (98) B. Z. Kopeliovich, J. Nemchik, A. Schafer, and A. V. Tarasov, "Cronin effect in hadron production off nuclei", Phys. Rev. Lett. **88**, 10.1103/physrevlett.88.232303 (2002) 10.1103/physrevlett.88.232303.
+* (99) R. Xu, W.-T. Deng, and X.-N. Wang, "Nuclear modification of high-\(p_{T}\) hadron spectra in high-energy \(p+A\) collisions", Phys. Rev. C **86**, 051901 (2012) 10.1103/PhysRevC.86.051901.
+* (100) I. Vitev, "Testing the theory of QGP-induced energy loss at RHIC and the LHC", Phys. Lett. B **639**, 38-45 (2006) 10.1016/j.physletb.2006.05.083.
+* (101) G. Nijs et al., "Transverse momentum differential global analysis of heavy-ion collisions", Phys. Rev. Lett. **126**, 202301 (2021) 10.1103/PhysRevLett.126.202301.
+* (102) W. van der Schee et al., _Hard probes in isobar collisions as a probe of the neutron skin_, 2023.
+* (103)_Run overview of the relativistic heavy ion collider_, [https://www.agsrhichome.bnl.gov/RHIC/Runs/index.html](https://www.agsrhichome.bnl.gov/RHIC/Runs/index.html), Accessed: 2023-03-21.
+* (104) B. I. Abelev et al. (STAR), "Spectra of identified high-\(p_{T}\)\(\pi^{\pm}\) and \(p/\bar{p}\) in Cu+Cu collisions at \(\sqrt{s_{\rm NN}}=200\) GeV", Phys. Rev. C **81**, 054907 (2010) 10.1103/PhysRevC.81.054907.
+* (105) U. Acharya et al. (PHENIX), "Production of \(\pi^{0}\) and \(\eta\) mesons in U+U collisions at \(\sqrt{s_{NN}}=192\) GeV", Phys. Rev. C **102**, 064905 (2020) 10.1103/PhysRevC.102.064905.
+* (106) C. Aidala et al. (PHENIX), "Production of \(\pi^{0}\) and \(\eta\) mesons in \(\mathrm{Cu+Au}\) collisions at \(\sqrt{s_{{}_{NN}}}=200\)GeV", Phys. Rev. C **98**, 054903 (2018) 10.1103/PhysRevC.98.054903.
+* (107) A. Adare et al. (PHENIX), "Suppression Pattern of Neutral Pions at High Transverse Momentum in \(\mathrm{Au+Au}\) Collisions at \(\sqrt{s_{NN}}=200\)GeV and Constraints on Medium Transport Coefficients", Phys. Rev. Lett. **101**, 232301 (2008) 10.1103/PhysRevLett.101.232301.
+* (108) J. G. Alessi et al., "The Brookhaven National Laboratory electron beam ion source for RHIC)", Review of Scientific Instruments **81**, 02A509 (2010) 10.1063/1.3292937.
+
+* (109) M. Anerella et al., "The RHIC magnet system", Nuc. Instru. Meth. Phys. Res. A **499**, The Relativistic Heavy Ion Collider Project: RHIC and its Detectors, 280-315 (2003) [https://doi.org/10.1016/S0168-9002](https://doi.org/10.1016/S0168-9002)(02)01940-X.
+* (110) H. Hahn et al., "The RHIC design overview", Nuc. Instru. Meth. Phys. Res. A **499**, The Relativistic Heavy Ion Collider Project: RHIC and its Detectors, 245-263 (2003) [https://doi.org/10.1016/S0168-9002](https://doi.org/10.1016/S0168-9002)(02)01938-1.
+* (111) W. MacKay et al., "Spin dynamics in AGS and RHIC", in Proceedings of the 2003 particle accelerator conference, Vol. 1 (2003), 405-409 Vol.1, 10.1109/PAC.2003.1288936.
+* (112) J. Adam et al. (STAR), "Results on total and elastic cross sections in proton-proton collisions at \(\sqrt{s}=200\) GeV", Phys. Lett. B **808**, 135663 (2020) [https://doi.org/10.1016/j.physletb.2020.135663](https://doi.org/10.1016/j.physletb.2020.135663).
+* (113)[https://www.bnl.gov/isd/documents/93109.pdf](https://www.bnl.gov/isd/documents/93109.pdf), Accessed: 2023-10-12.
+* (114)[https://science.osti.gov/np/Facilities/User-Facilities/RHIC](https://science.osti.gov/np/Facilities/User-Facilities/RHIC), Accessed: 2022-12-19.
+* (115) the STAR collaboration, "STAR Conceptual Design Report", (1992).
+* (116) "Global \(\Lambda\) hyperon polarization in nuclear collisions", Nature **548**, 62-65 (2017) 10.1038/nature23004.
+* (117) M. Anderson, J. Berkovitz, W. Betts, et al., "The STAR time projection chamber: a unique tool for studying high multiplicity events at RHIC", Nuc. Instru. Meth. Phys. Res. A **499**, The Relativistic Heavy Ion Collider Project: RHIC and its Detectors, 659-678 (2003) [https://doi.org/10.1016/S0168-9002](https://doi.org/10.1016/S0168-9002)(02)01964-2.
+* (118) F. Shen et al., "MWPC prototyping and performance test for the STAR inner TPC upgrade", Nuc. Instru. Meth. Phys. Res. A **896**, 90-95 (2018) 10.1016/j.nima.2018.04.019.
+* (119) The STAR Collaboration, "Technical Design Report for the iTPC Upgrade", (2015).
+* (120) The STAR TOF Collaboration, "Proposal for a Large Area Time of Flight System for STAR", (2004).
+* (121) Ramiro Debbe, "TOF-track matching efficiency", (2011).
+
+* (122) C. Adler, A. Denisov, E. Garcia, et al., "The RHIC zero degree calorimeters", Nuc. Instru. Meth. Phys. Res. A **470**, 488-499 (2001) [https://doi.org/10.1016/S0168-9002](https://doi.org/10.1016/S0168-9002)(01)00627-1.
+* (123) Y.-F. Xu, J.-H. Chen, Y.-G. Ma, et al., "Physics performance of the STAR zero degree calorimeter at relativistic heavy ion collider", Nuclear Science and Techniques **27**, 126 (2016) 10.1007/s41365-016-0129-z.
+* (124) W. Llope, J. Zhou, T. Nussbaum, G. Hoffmann, et al., "The STAR Vertex Position Detector", Nuc. Instru. Meth. Phys. Res. A **759**, 23-28 (2014) [https://doi.org/10.1016/j.nima.2014.04.080](https://doi.org/10.1016/j.nima.2014.04.080).
+* (125)[https://www.star.bnl.gov/public/trg/.introduction/bbc.gif](https://www.star.bnl.gov/public/trg/.introduction/bbc.gif), Accessed: 2023-10-13.
+* (126)[https://www.star.bnl.gov/public/bbc/geom/small_hex_triplet.html](https://www.star.bnl.gov/public/bbc/geom/small_hex_triplet.html), Accessed: 2023-10-13.
+* (127) J. Whitten C. A. (STAR), "The Beam-Beam Counter: A Local Polarimeter at STAR", AIP Conference Proceedings **980**, 390-396 (2008) 10.1063/1.2888113.
+* (128) M. Beddo, E. Bielick, T. Fornek, et al., "The STAR Barrel Electromagnetic Calorimeter", Nuc. Instru. Meth. Phys. Res. A **499**, The Relativistic Heavy Ion Collider Project: RHIC and its Detectors, 725-739 (2003) [https://doi.org/10.1016/S0168-9002](https://doi.org/10.1016/S0168-9002)(02)01970-8.
+* (129) C. Allgower, B. Anderson, A. Baldwin, J. Balewski, et al., "The STAR endcap electromagnetic calorimeter", Nuc. Instru. Meth. Phys. Res. A **499**, The Relativistic Heavy Ion Collider Project: RHIC and its Detectors, 740-750 (2003) [https://doi.org/10.1016/S0168-9002](https://doi.org/10.1016/S0168-9002)(02)01971-X.
+* (130) T. Cormier et al., "STAR barrel electromagnetic calorimeter absolute calibration using "minimum ionizing particles" from collisions at RHIC", Nuc. Instru. Meth. Phys. Res. A **483**, 734-746 (2002) 10.1016/s0168-9002(01)01951-9.
+* (131) J. Adams et al., "The STAR event plane detector", Nuc. Instru. Meth. Phys. Res. A **968**, 163970 (2020) 10.1016/j.nima.2020.163970.
+
+* (132) A. M. Poskanzer and S. A. Voloshin, "Methods for analyzing anisotropic flow in relativistic nuclear collisions", Phys. Rev. C **58**, 1671-1678 (1998) 10.1103/physrevc.58.1671.
+* (133) E. Richardson et al., "A reaction plane detector for PHENIX at RHIC", Nuc. Instru. Meth. Phys. Res. A **636**, 99-107 (2011) 10.1016/j.nima.2011.01.034.
+* (134) J. Brandenburg, "STAR Forward Rapidity Upgrade", PoS **HardProbes2020**, 179 (2021) 10.22323/1.387.0179.
+* (135) E.-C. Aschenauer et al., _The rhic cold qcd plan for 2017 to 2023: a portal to the eic_, 2016.
+* (136) C. Gagliardi, _The STAR Forward Upgrade_, [https://drupal.star.bnl.gov/STAR/system/files/STAR_Forward_Upgrade_2-22_Juniors.pdf](https://drupal.star.bnl.gov/STAR/system/files/STAR_Forward_Upgrade_2-22_Juniors.pdf), Accessed: 2023-10-19.
+* (137) D. Sivers, "Single-spin production asymmetries from the hard scattering of pointlike constituents", Phys. Rev. D **41**, 83-90 (1990) 10.1103/PhysRevD.41.83.
+* (138) J. Collins, "Fragmentation of transversely polarized quarks probed in transverse momentum distributions", Nuc. Phys. B **396**, 161-182 (1993) 10.1016/0550-3213(93)90262-n.
+* (139) E. Judd et al., "The evolution of the star trigger system", Nuc. Instru. Meth. Phys. Res. A **902**, 228-237 (2018) [https://doi.org/10.1016/j.nima.2018.03.070](https://doi.org/10.1016/j.nima.2018.03.070).
+* (140) J. Landgraf et al., "An overview of the STAR DAQ system", Nuc. Instru. Meth. Phys. Res. A **499**, The Relativistic Heavy Ion Collider Project: RHIC and its Detectors. 762-765 (2003) [https://doi.org/10.1016/S0168-9002](https://doi.org/10.1016/S0168-9002)(02)01973-3.
+* (141) P. Astier et al., "Kalman filter track fits and track breakpoint analysis", Nuc. Instru. Meth. Phys. Res. A **450**, 138-154 (2000) 10.1016/s0168-9002(00)00154-6.
+* (142) S. Agostinelli et al., "GEANT4--a simulation toolkit", Nuc. Instru. Meth. Phys. Res. A **506**, 250-303 (2003) [https://doi.org/10.1016/S0168-9002](https://doi.org/10.1016/S0168-9002)(03)01368-8.
+* (143) R. Reed et al., "Vertex finding in pile-up rich events for p+p and d+Au collisions at star", Journal of Physics: Conference Series **219**, 032020 (2010) 10.1088/1742-6596/219/3/032020.
+* (144) D. Stewart, _Jet to Event Activity Correlations in Small Systems Collisions at STAR_, [https://drupal.star.bnl.gov/STAR/theses/PhD-107](https://drupal.star.bnl.gov/STAR/theses/PhD-107).
+
+* (145) A. Rose, _STAR Integrated Tracker_, 2003.
+* (146)[https://drupal.star.bnl.gov/STAR/system/files/isobar_analysis_note_v3_0.pdf](https://drupal.star.bnl.gov/STAR/system/files/isobar_analysis_note_v3_0.pdf), Accessed: 2023-05-09.
+* (147) B. I. Abelev et al. (STAR), "Systematic Measurements of Identified Particle Spectra in \(pp\), \(d\)+Au and Au+Au Collisions from STAR", Phys. Rev. C **79**, 10.1103/physrevc.79.034909 (2009) 10.1103/physrevc.79.034909.
+* (148) A. Savitzky and M. J. E. Golay, "Smoothing and differentiation of data by simplified least squares procedures.", Ana. Chem. **36**, 1627-1639 (1964) 10.1021/ac60214a047.
+* (149) M. Abdallah et al. (STAR), "Search for the chiral magnetic effect with isobar collisions at \(\sqrt{s_{NN}}\)=200 GeV by the STAR Collaboration at the BNL Relativistic Heavy Ion Collider", Phys. Rev. C **105**, 014901 (2022) 10.1103/PhysRevC.105.014901.
+* (150) G. Aad et al. (ATLAS), "Measurement of \(Z\) Boson Production in Pb-Pb Collisions at \(\sqrt{s_{NN}}\)=2.76 TeV with the ATLAS Detector", Phys. Rev. Lett. **110**, 022301 (2013) 10.1103/PhysRevLett.110.022301.
+* (151) S. Chatrchyan et al. (CMS), "Study of z production in PbPb and pp collisions at \(\sqrt{s_{NN}}\)=2.76 TeV in the dimuon and dielectron decay channels", JHEP **2015**, 10.1007/jhep03(2015)022 (2015) 10.1007/jhep03(2015)022.
+* (152) Z. Sweger, Y. Zhang, T. Nonaka, and G. Nigmatkulov, _Centrality for isobars: status report_, [https://drupal.star.bnl.gov/STAR/system/files/CentralityForIsobars_20211217.pdf](https://drupal.star.bnl.gov/STAR/system/files/CentralityForIsobars_20211217.pdf).
+* (153) A. Giovannini and L. Van Hove, "Negative binomial multiplicity distributions in high energy hadron collisions", Zeitschrift fur Physik C Particles and Fields **30**, 391-400 (1986) 10.1007/BF01557602.
+* (154) G. Alner et al., "Multiplicity distributions in different pseudorapidity intervals at a CMS energy of 540 GeV", Phys. Lett. B **160**, 193-198 (1985) [https://doi.org/10.1016/0370-2693](https://doi.org/10.1016/0370-2693)(85)91491-1.
+* (155) K. Aamodt, N. Abel, U. Abeysekara, et al. (ALICE), "Charged-particle multiplicity measurement in proton-proton collisions at \(\sqrt{s_{\rm NN}}=0.9\) and 2.36 TeV with ALICE at LHC", Euro. Phys. J. C **68**, 89-108 (2010) 10.1140/epjc/s10052-010-1339-x.
+
+* (156) A. Adare et al. (PHENIX), "Centrality categorization for \(R_{p(d)+A}\) in high-energy collisions", Phys. Rev. C **90**, 034902 (2014) 10.1103/PhysRevC.90.034902.
+* (157) T. Liu, _p+Au Event Activity Study_, [https://drupal.star.bnl.gov/STAR/system/files/TongLiu_Centrality_210107_v2.pdf](https://drupal.star.bnl.gov/STAR/system/files/TongLiu_Centrality_210107_v2.pdf).
+* (158) C. Adler et al. (STAR), "Disappearance of back-to-back high-\(p_{T}\) hadron correlations in central \(\mathrm{Au}+\mathrm{Au}\) collisions at \(\sqrt{s_{NN}}=200\) GeV", Phys. Rev. Lett. **90**, 082302 (2003) 10.1103/PhysRevLett.90.082302.
+* (159) D. Kharzeev, E. Levin, and L. McLerran, "Parton saturation and npart scaling of semi-hard processes in QCD", Phys. Lett. B **561**, 93-101 (2003) 10.1016/s0370-2693(03)00420-9.
+* (160) S. S. Adler et al. (PHENIX), "Identified charged particle spectra and yields in Au+Au collisions at \(\sqrt{s_{\mathrm{NN}}}=200\) GeV", Phys. Rev. C **69**, 10.1103/physrevc.69.034909 (2004) 10.1103/physrevc.69.034909.
+* (161) J. Adam, D. Adamova, M. M. Aggarwal, G. Aglieri Rinella, et al. (ALICE), "Centrality dependence of the nuclear modification factor of charged pions, kaons, and protons in Pb-Pb collisions at \(\sqrt{s_{NN}}=2.76\) TeV", Phys. Rev. C **93**, 034913 (2016) 10.1103/PhysRevC.93.034913.
+* (162) J. Jia, G. Giacalone, and C. Zhang, "Separating the impact of nuclear skin and nuclear deformation in high-energy isobar collisions", Phys. Rev. Lett. **131**, 10.1103/physrevlett.131.022301 (2023) 10.1103/physrevlett.131.022301.
+* (163) H.-j. Xu et al., "Determine the neutron skin type by relativistic isobaric collisions", Phys. Lett. B **819**, 136453 (2021) 10.1016/j.physletb.2021.136453.
+* (164) H.-j. Xu et al., "Importance of isobar density distributions on the chiral magnetic effect search", Phys. Rev. Lett. **121**, 10.1103/physrevlett.121.022301 (2018) 10.1103/physrevlett.121.022301.
+* (165) C. Loizides and A. Morsch, "Absence of jet quenching in peripheral nucleus-nucleus collisions", Phys. Lett. B **773**, 408-411 (2017) 10.1016/j.physletb.2017.09.002.
+* (166) B. B. Abelev et al. (ALICE), "Transverse momentum dependence of inclusive primary charged-particle production in p-Pb collisions at \(\sqrt{s_{\mathrm{NN}}}=5.02\) TeV", Eur. Phys. J. C **74**, 3054 (2014) 10.1140/epjc/s10052-014-3054-5.
+
+* (167) M. Rybczynski and W. Broniowski, "Wounded-nucleon model with realistic nucleon-nucleon collision profile and observables in relativistic heavy-ion collisions", Phys. Rev. C **84**, 10.1103/physrevc.84.064913 (2011) 10.1103/physrevc.84.064913.
+* (168) M. Rybczynski and Z. Wlodarczyk, "The nucleon-nucleon collision profile and cross section fluctuations", Journal of Physics G: Nuclear and Particle Physics **41**, 015106 (2013) 10.1088/0954-3899/41/1/015106.
+* (169) A. M. Sirunyan et al. (CMS), "Constraints on the initial state of pb-pb collisions via measurements of \(Z\)-boson yields and azimuthal anisotropy at \(\sqrt{s_{NN}}=5.02\) TeV", Phys. Rev. Lett. **127**, 102002 (2021) 10.1103/PhysRevLett.127.102002.
+* (170) J. Adam et al. (ALICE), "Centrality dependence of particle production in \(p-\mathrm{Pb}\) collisions at \(\sqrt{s_{NN}}=5.02\) TeV", Phys. Rev. C **91**, 064905 (2015) 10.1103/PhysRevC.91.064905.
+* (171) J. Casalderrey-Solana, G. Milhano, D. Pablos, and K. Rajagopal, "Modification of Jet Substructure in Heavy Ion Collisions as a Probe of the Resolution Length of Quark-Gluon Plasma", JHEP **2020**, 10.1007/jhep01(2020)044 (2020) 10.1007/jhep01(2020)044.
+* (172) C. Andres et al., "Resolving the Scales of the Quark-Gluon Plasma with Energy Correlators", Phys. Rev. Lett. **130**, 10.1103/physrevlett.130.262301 (2023) 10.1103/physrevlett.130.262301.
+* (173) J. H. Putschke et al., _The jetscape framework_, 2019.

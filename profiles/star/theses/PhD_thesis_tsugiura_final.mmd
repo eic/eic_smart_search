@@ -1,0 +1,1589 @@
+Exploring the QCD phase diagram measured by cumulants of net-charge distributions in Au+Au collisions at the STAR experiment
+
+Tetsuro SUGIURA
+
+February 2019
+
+[MISSING_PAGE_EMPTY:2]
+
+Exploring the QCD phase diagram measured by cumulants of net-charge distributions in Au+Au collisions at the STAR experiment
+
+Tetsuro SUGIURA
+
+Doctoral Program in Physics
+
+Submitted to the Graduate School of
+
+Pure and Applied Sciencies
+
+in Partial Fulfillment of the Requirements
+
+for the Degree of Doctor of Philosophy in
+
+Science
+
+at the
+
+University of Tsukuba
+
+[MISSING_PAGE_EMPTY:4]
+
+###### Abstract
+
+In heavy-ion collision experiments, the study of event-by-event fluctuation is a powerful tool to characterize the thermodynamic properties of the hot and dense QCD matter. According to the Lattice QCD calculations, an analytic crossover exists at small \(\mu_{B}\) regions, but there is no experimental evidence for the location of predicted crossover, and the detail structure of the QCD phase diagram is not known well. Especially, the location of the critical point which is the end point of the first-order phase transition boundary is unknown. According to the theoretical prediction, higher-order fluctuations of conserved quantities, such as net-baryon, net-charge and net-strangeness, diverge near the critical point. In addition, it is thought that up to the sixth-order cumulants and cumulant ratios of conserved quantities may be the signal of the crossover. The STAR experiment published up to the fourth-order cumulants and cumulant ratios of net-proton, net-charge and net-Kaon distributions. In this thesis, cumulants and cumulant ratios of net-charge distributions up to the sixth-order in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 and 54 GeV have been measured, and compared to Poisson, NBD baseline and UrQMD simulation. The results are also compared to the net-proton results which have already reported as a preliminary by the STAR experiment. It was reported that \(C_{6}/C_{2}\) had the negative value at \(\sqrt{s_{\rm NN}}\) = 200 GeV and positive value at \(\sqrt{s_{\rm NN}}\) = 54 GeV in 0-40% centrality in net-proton results. In net-charge \(C_{6}/C_{2}\), the small deviation has been observed in 40-50% centrality at \(\sqrt{s_{\rm NN}}\) = 54 GeV, but consistent with the baseline within statistical errors in other centralities. The deviations from the statistical baseline have not been observed at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+
+Compared to the published net-charge results, analysis and correction methods are improved. The efficiency corrections have been done for different \(p_{T}\) regions and the different particles species separately whereas average efficiencies were applied in published results. The factorial cumulant method makes it possible to calculate cumulants with shorter CPU time compared to the factorial moment method which is the conventional method. \(S\sigma\) (\(=C_{3}/C_{2}\)) and \(\kappa\sigma^{2}\) (\(=C_{4}/C_{2}\)) of the net-charge distributions at \(\sqrt{s_{\rm NN}}\) = 54 GeV are newly measured in addition to the published Beam Energy Scan I (BES-I) results, and the results at \(\sqrt{s_{\rm NN}}\) = 54 GeV are in good agreement with the previous BES-I results.
+
+In addition to the sixth-order cumulants analysis, \(\Delta\eta\), which represents the finite rapidity window, dependence of net-charge cumulants have been measured. ALICE experiment published \(\Delta\eta\) dependence of D-measure which corresponds to the second-order cumulant over multiplicity in Pb-Pb collisions at \(\sqrt{s_{\rm NN}}\) = 2.76 TeV. When we suppose hadron gas, D-measure is expected to be 3-4, while it would be about 1-1.5 in QGP. ALICE reported that D-measure decreases with increasing \(\Delta\eta\), and also decreases when going from peripheral to central collisions. However, \(\Delta\eta\) dependence of net-charge cumulants including D-measure have not been investigated in great detail at lower beam energies. Theoretically, \(\Delta\eta\) dependence of D-measure, third and fourth-order cumulants are predicted by the diffusion master equation (DME) model calculations but there are many parameters of the initial conditions. Therefore, it is important to measure these values experimentally in order to determine the initial condition parameters of the model.
+
+In this thesis, \(\Delta\eta\) dependence of net-charge cumulants, cumulant ratios and D-measure have been measured at BES-I energies, \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV. D-measure has been observed to decrease with increasing \(\Delta\eta\), and this increasing trend is strongerat higher beam energies, which do not conflict with the previous results from ALICE. The \(C_{3}/C_{2}\) and \(C_{4}/C_{2}\) have been observed to increase with \(\Delta\eta\) in all BES-I energies except for the most central collision at \(\sqrt{s_{\rm NN}}=200\) GeV, which are close to the model prediction with the large higher-order susceptibilities.
+
+Finally, the validity of the new correction method called Volume Fluctuation Correction (VFC) has been studied. Initial volume fluctuation (VF) caused by event-by-event initial participant fluctuation would be the background which should be subtracted experimentally from the measured higher-order cumulants. STAR experiment has been applying Centrality Bin Width Correction (CBWC) to suppress VF. However, there might be some residual fractions of VF backgrounds even with CBWC. Recently, the VFC was developed under the assumption of the independent particle production (IPP) model. In this thesis, the importance of subtracting VF and validity of the VFC for both net-charge and net-proton cumulants have been studied by using simple toy model assuming IPP as well as UrQMD model. The results shows that VFC works could need to be applied in toy model, but does not seem to work well in UrQMD model, which imply that IPP model is expected to be broken in UrQMD. If we apply VFC to the experimental data, we would need to consider this effect.
+
+In addition, there is a physics correlation between multiplicities used for the centrality determinations and the number of charged particles which are used for the cumulant analysis. This correlation may suppress the cumulants like an auto-correlation effect. Thus, we would have to treat this effect which is not considered in toy model simulation. UrQMD simulation tells that using the experimental centrality definition, which corresponds to the multiplicity measured in \(0.5<|\eta|<1\) in net-charge analysis and \(0<|\eta|<1\) without proton and anti-proton in net-proton analysis, are not enough to eliminate the multiplicity correlation. Therefore, we would have to consider these effect in future analysis. At STAR experiment, using the Event Plane Detector (EPD) which is used for the external centrality measurement from BES-II could be one of the solution to reduce this effect.
+
+###### Contents
+
+* 1 Introduction
+	* 1.1 Standard Model
+	* 1.2 Quantum Chromodynamics
+	* 1.3 Quark-Gluon Plasma
+	* 1.4 Relativistic heavy-ion collision
+	* 1.5 Beam Energy Scan (BES)
+		* 1.5.1 Freeze-out parameters
+		* 1.5.2 Event-by-event fluctuations
+		* 1.5.3 Other observables
+	* 1.6 Thesis motivation
+		* 1.6.1 Sixth-order fluctuations
+		* 1.6.2 D-measure and \(\Delta\eta\) dependence
+		* 1.6.3 Volume Fluctuation Correction
+* 2 Moments and Cumulants
+	* 2.1 Net quantities
+	* 2.2 Moments
+	* 2.3 Additivities
+	* 2.4 Cumulants
+	* 2.5 Sum and difference of two stochastic variables
+	* 2.6 Susceptibility
+	* 2.7 Statistical baseline
+		* 2.7.1 Binomial Distribution (BD)
+		* 2.7.2 Negative Binomial Distribution (NBD)
+		* 2.7.3 Poisson distribution
+		* 2.7.4 Skellam distribution
+		* 2.7.5 Gaus distribution
+	* 2.8 D-measure
+		* 2.8.1 D-measure defined by second-order cumulant
+		* 2.8.2 D-measure defined by \(\nu_{(+-,dyn)}\)
+* 3 Experiment
+	* 3.1 Relativistic Heavy Ion Collider (RHIC)
+	* 3.2 The STAR experiment
+		* 3.2.1 Time Projection Chamber
+		* 3.2.2 Time Of Flight
+		* 3.2.3 Vertex Position Detector
+		* 3.2.4 Zero Degree Calorimeter
+
+* 4 Data analysis
+	* 4.1 Data set
+		* 4.1.1 \(C_{6}\) analysis
+		* 4.1.2 \(\Delta\eta\) analysis
+		* 4.1.3 VFC study
+	* 4.2 Run selection
+	* 4.3 Event selection
+	* 4.4 Track cut
+	* 4.5 Particle Identification
+	* 4.6 Centrality Determination
+		* 4.6.1 Auto-correlation Effect
+		* 4.6.2 Glauber model
+	* 4.7 Efficiency correction
+	* 4.8 Factorial cumulant method
+	* 4.9 Volume fluctuation
+		* 4.9.1 Centrality Bin Width Correction (CBWC)
+		* 4.9.2 Volume Fluctuation Correction
+* 4.10 Charge conservation correction
+* 4.11 Statistical Errors
+* 4.12 Systematic uncertainties
+* 5 Results and Discussion
+	* 5.1 Up to the sixth-order fluctuation
+		* 5.1.1 Cumulants
+		* 5.1.2 Cumulant ratios
+	* 5.2 \(\Delta\eta\) dependence
+	* 5.3 Volume Fluctuation
+		* 5.3.1 Toy model approach
+		* 5.3.2 UrQMD approach
+* 6 Conclusion
+* A Light-Cone variables
+* A.1 Transverse momentum
+* A.2 Rapidity
+* A.3 Pseudo-rapidity
+* A.4 Center of mass energy
+* B QA plots and analysis details
+* B.1 \(C_{6}\) analysis
+* B.2 \(\Delta\eta\) analysis
+* C Z-vertex and luminosity correction for Refmult2
+* D Other VFC results
+* D.1 Net-proton toy model results
+* D.2 Net-charge toy model results
+
+List of Figures
+	* 1.1 Hierarchical structure of the matter [1]
+	* 1.2 Standard Model of Elementary Particles [2]
+	* 1.3 The coupling constant as a function of transfer momentum [5]
+	* 1.4 \(\epsilon/T^{4}\) as a function of the temperature \(T/T_{c}\) from Lattice QCD calculation [6]
+	* 1.5 Sketch of the QCD phase transition [7]
+	* 1.6 History of the universe [5]
+	* 1.7 Time-space expansion after the heavy-ion collision [9]
+	* 1.8 The sketch of the QCD phase diagram [10]
+	* 1.9 Chemical freeze-out temperature versus baryon chemical potential for Grand Canonical Ensemble (left). Kinetic freeze-out temperature versus \(\beta\) (right) [11].
+* 1.10 Up to the fourth-order cumulant ratios of net-proton [15] (left), net-charge [16] (middle) and net-Kaon [17] (right) as a function of beam energy from Beam Energy Scan I
+* 1.11 Net-proton cumulant ratios up to the fourth-order using TPC and TOF detector [18]
+* 1.12 Directed flow slope versus beam energy in Au+Au collisions (left) [19]. Charged hadron Y(\(\langle N_{part}\rangle\)) for two ranges of \(p_{T}\) (right) [20].
+* 1.13 Comparison of \((R_{out}^{2}-R_{side}^{2})\) versus beam energy in Au+Au collisions [21].
+* 1.14 \(\chi_{6}/\chi_{2}\) and \(\chi_{4}/\chi_{2}\) versus temperature (left). Values of \(\chi_{6}/\chi_{2}\) and \(\chi_{4}/\chi_{2}\) of net-baryon and net-charge fluctuation (right) [22]
+* 1.15 \(\chi_{6}/\chi_{2}\) versus temperature from Lattice QCD calculation. [23]
+* 1.16 \(C_{6}/C_{2}\) of net-proton distributions as a function of centrality at \(\sqrt{s_{\rm NN}}=200\) GeV (left) [24] and 0-40% merged results at \(\sqrt{s_{\rm NN}}=54\) GeV and 200 GeV (right) [25]
+* 1.17 Deviations of the efficiency corrected values of cumulants using averaged efficiency assuming the distribution which has 5% smaller cumulants than Poisson distributions [26]
+* 1.18 D-measure as a function of \(\Delta\eta\) for three centralities in Pb-Pb collision at \(\sqrt{s_{\rm NN}}=2.76\) TeV from ALICE experiment[28]
+* 1.19 System described by diffusion master equation [29][30]
+* 1.20 D-measure as a function of \(\Delta\eta\) for two initial conditions [29]
+* 1.21 Normalized third and fourth-order cumulants as a function of \(\Delta\eta\) for several initial conditions [29][30]
+* 1.22 Same as 1.21, but with the initial conditions large higher-order cumulants [29][30].
+* 1.23 Centrality dependence of \(\kappa\sigma^{2}\) of net-proton distributions for each correction method at HADES experiment (left). Energy dependence of \(\kappa\sigma^{2}\) of net-proton distributions at HADES and STAR experiment [34].
+	* 1.2 Event-by-event net-proton distributions for three centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}=200\) GeV at the STAR experiment [15]
+		* 1.2.2 Typical distribution functions with non-zero skewness (left) and kurtosis (right) [30]
+		* 1.2.3 Number of hadron and quark
+		* 1.3.1 An aerial photo of the accelerators at BNL [36]
+STAR detector
+* 3.3 Schematic sketch of the TPC [38]
+* 3.4 Basic parameters of the TPC [38]
+* 3.5 The energy loss distribution as a function of momentum [38].
+* 3.6 The anode pad plane with one sector [38].
+* 3.7 The two side view of the MRPC [39].
+* 3.8 Inverse velocity as a function of momentum of the particles [40].
+* 3.9 A Schematic front view of the VPD (left). A Photograph of the VPD [41].
+* 3.10 A Schematic view of the VPD [41].
+* 3.11 Resolution of the single detector versus VPD channel number [41].
+* 3.12 Correlation between primary vertex position measured by VFC (\(Z_{vtx}^{VPD}\)) and TPC (\(Z_{vtx}^{TPC}\)) in 510 GeV \(p+p\) collision (left) and 200 GeV Au+Au collision(right) [41].
+* 3.13 Plane view of the ZDC [42].
+* 3.14 Structure of the Tungsten Modules used for ZDC [42].
+* 4.1 Run by run QA for Run11
+* 4.2 (a)z-vertex measured by TPC (b)Vertex in \(xy\)-plane measured by TPC (c)Difference between z-vertex measured by TPC and VPD (d)Correlation between Refmult and TOF matched track at \(\sqrt{s_{\rm NN}}=200\) GeV in Run11, Trigger ID = 350043
+* 4.3 (a)Pseudo-rapidity distribution (b)Distance of Closest Approach (DCA) distribution (c)Number of hit points in TPC track used for reconstruction (d)Number of hit points in TPC track used for calculating energy loss (e)Distribution of the Track quality, which is nHitsFit divided by maximum number of nHitsFit, at \(\sqrt{s_{\rm NN}}=200\) GeV in Run11, Trigger ID = 350043.
+* 4.4 (a)\(dE/dx\) as a function of \(p/q\) measured by TPC in Run11, Trigger ID = 350043. (b)\(m^{2}\) as a function of \(p/q\) measured by TOF in Run11, Trigger ID = 350043. Red line represent the cut parameters written in Tab. 4.7.
+* 4.5 Before and after heavy-ion collision with impact parameter \(b\)[45].
+* 4.6 Centrality dependence of \(S\sigma\) in Au+Au collisions at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV in UrQMD simulation with two different centrality determinations. [32]
+* 4.7 Centrality dependence of \(\kappa\sigma^{2}\) in Au+Au collisions at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV in UrQMD simulation with two different centrality determinations. [32]
+* 4.8 Heavy-ion collision event described by Glauber model which is projected to \(x\)-\(y\) plane in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. Impact parameter \(b=10\) fm in this event.
+* 4.9 Correlation between \(N_{part}\) and \(N_{coll}\) by Glauber simulation in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. Number of events are 500 Million.
+* 4.10 Image of Independent Particle Production (IPP) model.
+* 4.11 Glauber fit results (left) and the ratio of data points to fitting results (right). Fitting parameters are written in the left hand side panel.
+* 4.12 Refmult2 distribution for each centrality bins at \(\sqrt{s_{\rm NN}}=200\) GeV in Au+Au collisions in Run11, Trigger ID = 350043.
+* 4.13 \(p_{T}\) dependence of TPC tracking efficiencies by the embedding simulation in Run10.
+
+4.14 Identified particle transverse momentum spectra in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV
+4.15 Refmult2 dependence of TOF matching efficiencies in Run10, Trigger ID = 260001
+4.16 Refmult2 dependence of TPC and TPC+TOF efficiencies in Run10.
+4.17 Image of the initial volume difference in 0-10% centrality.
+4.18 \(\kappa\sigma^{2}\) of net-proton distributions as a function of centralities in UrQMD model simulation in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV [32].
+4.19 Correlation between number of participant and multiplicity from Glauber simulation in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV for 10% (left), 5% (middle) and 2.5%
+4.20 Number of participant distributions for each centrality (top) and second to fourth-order cumulants (bottom) for 10%, 5% and 2.5% from left to right by Glauber model simulation in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+4.21 Correlation between number of participant and multiplicity in UrQMD model in Au+Au collision at at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+4.22 \(\langle N_{ch}\rangle/\langle N_{part}/2\rangle\) versus collision energy from various experiments [47] (left). Fitting to the left graph (right).
+4.23 Schematic of the bootstrap process [51]
+4.24 \(\kappa\sigma^{2}\) of 50 samples arranged by order for three different error estimation method [32]. \(\kappa\sigma^{2}\) are calculated from Skellam distribution with different number of event, 0.01, 0.1 and 1 Million.
+4.25 Run index dependence of RufmultPos, RefmultNeg, RefmultNet and Refmult at \(\sqrt{s_{\rm NN}}\) = 200 GeV in Run11.
+5.1 first to sixth-order cumulants and \(N_{ch}\) as a function of \(\langle N_{part}\rangle\). Trigger ID = 350043 at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Open round symbol and star symbol represent the before and after efficiency corrected results.
+5.2 first to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) for various systematic cut. Trigger ID = 350043
+5.3 First to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) in Run11 for each trigger ID at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+5.4 First to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) in Run10 for each trigger ID at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+5.5 First to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+5.6 First to sixth-order cumulants and \(N_{ch}\) as a function of \(\langle N_{part}\rangle\). Trigger ID = 580021. Open round symbol and star symbol represent the before and after efficiency corrected results.
+5.7 first to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 54 GeV.
+5.8 third to fifth-order cumulants over second-order cumulants as a function of \(\langle N_{part}\rangle\) in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+5.9 third to fifth-order cumulants over second-order cumulants as a function of \(\langle N_{part}\rangle\) in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 54 GeV.
+
+5.10\(C_{6}/C_{2}\) of net-charge distribution as a function of centrality in Au+Au collision at 54 GeV (left), 200 GeV (middle) and \(C_{6}/C_{2}\) of net-proton distribution (right) [24].
+* 5.11\(C_{6}/C_{2}\) of net-proton (top) [25] and net-charge (bottom) distribution as a function of centrality in Au+Au collision at 54 GeV and 200 GeV. 0-40% centralities are merged and UrQMD calculations at 200 GeV are also plotted.
+* 5.12 Energy dependence of \(S\sigma\) and \(\kappa\sigma^{2}\) of net-charge distribution. Results at \(\sqrt{s_{\rm NN}}=54\) GeV are compared to other published results from BES-I [16].
+* 5.13\(\Delta\eta\) dependence of first to fourth-order cumulant in Au+Au collision at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV for 0-5%, 20-30% and 40-50% centralities. Color difference represents the different centralities.
+* 5.14\(\Delta\eta\) dependence of various order cumulant ratios and D-measure in Au+Au collision at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV for 0-5%, 20-30%, 40-50% and 70-80% centralities. Color difference represents the different centralities.
+* 5.15 From second to fourth-order cumulants as a function of mean number of participant by using Toy model for for 10% centrality. Red, blue and green results show the \(N_{W}\) fluctuation, \(N_{W}\) fixed and VFC results. CBWC results are written as the blue star symbol. Red and blue dotted line is the Poisson baseline and the expectation of \(N_{W}\) fluctuation results.
+* 5.16\(\kappa\sigma^{2}\) as a function of mean number of participant by using toy model for 10% (left), 5% (middle) and 2.5% (right) centrality step. The color and marker differences are same as Fig.5.15
+* 5.17 From second to fourth order cumulants as a function of mean number of participant by using UrQMD model simulation for 10% centrality step. The color and marker differences are same as Fig.5.15
+* 5.18 Pseudo-rapidity distributions in UrQMD model in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV.
+* 5.19 Correlation between Refmult2 and number of positively charged particles which are measured in different kinematic windows. From left to right, \(|\eta|<0.5\), \(0.5<|\eta|<1\), \(1.5<|\eta|<2\), \(2.1<|\eta|<5.1\).
+* 5.20 From second to fourth order cumulants as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for different centrality determination.
+* 5.21 Up to the sixth-order net-proton cumulants as a function of mean number of participant by UrQMD model for 10% centrality step for different centrality determination. These results are consistent with previous studies [53].
+* 5.22\(C_{3}/C_{2}\) (left), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (right) of net-proton distributions as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for various correction methods.
+* 5.23 From second to the fourth-order net-proton cumulants as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for different centrality definitions. Centralities are determined at \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<3\), \(3<|\eta|<4\) and \(4<|\eta|<5\) without proton (anti-proton), which are drawn as different colors.
+
+* 5.24 From second to the fourth-order net-proton cumulants as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for various centrality definitions. Centralities are determined at \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<5\) without proton (anti-proton) and \(2<|\eta|<5\) including proton (anti-proton), which are drawn as different colors.
+* 5.25 \(C_{3}/C_{2}\) (top), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (bottom) of net-proton distributions as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for various centrality determinations. Centralities are determined at \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<3\), \(3<|\eta|<4\) and \(4<|\eta|<5\) without proton (anti-proton), which are drawn as different colors.
+* 5.26 \(C_{3}/C_{2}\) (top), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (bottom) of net-proton distributions as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for various centrality determinations. Centralities are determined at \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<5\) without proton (anti-proton) and \(2<|\eta|<5\) including proton (anti-proton), which are drawn as different colors.
+* 5.27 From second to the fourth-order net-proton cumulants as a function of mean number of participant by using UrQMD model simulation for 10% and 2.5% centrality step for raw (left) and VFC (right).
+* B.1 Run by run QA for Run10 at \(\sqrt{s_{NN}}=200\) GeV
+* B.2 Run by run QA for Run17 at \(\sqrt{s_{NN}}=54\) GeV
+* B.3 fig:(a)z-vertex measured by TPC (b)vertex in \(xy\)-plane measured by TPC (c)Difference between z-vertex measured by TPC and VPD (d)Correlation between Refmult and TOF matched track at \(\sqrt{s_{NN}}=54\) GeV in Run17, Trigger ID = 580021
+* B.4 fig:(a)Pseudo-rapidity distribution (b)Distance of Closest Approach (DCA) distribution (c)Number of hit points in TPC track used for reconstruction (d)Number of hit points in TPC track used for calculating energy loss (e)Distribution of track quality at \(\sqrt{s_{NN}}=54\) GeV in Run17, Trigger ID = 580021
+* B.5 Refmult2 dependence of TPC and TPC+TOF efficiencies in Run11 for each Trigger ID.
+* B.6 Refmult2 dependence of TPC and TPC+TOF efficiencies in Run17 \(\sqrt{s_{\rm NN}}\) = 54 GeV.
+* B.7 \(\phi-\eta\) distributions after event selections at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+* B.8 Z-vertex distributions after event selections at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+* B.9 \(V_{r}\) distributions after event selections at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+* B.10 Pile-up events rejection at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+* B.11 \(\eta\) distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+* B.12 \(p_{T}\) distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+* B.13 DCA distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+* B.14 Nhitspoints distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+* B.15 Nhitsdex distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.109B.16 Track quality distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV. B.17 Distributions of the difference between Z-vertex measured by TPC and VPD at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV. B.18 Refmult2 centrality cuts in BES energies. These values are same as published results [16]. B.19 Tracking efficiencies at \(\sqrt{s_{NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39 and 62.4 GeV. These values are same as published results [16]. C.1 Luminosity correction for Refmult2 in Run11 at \(\sqrt{s_{\rm NN}}\) = 200 GeV C.2 Luminosity correction for Refmult2 in Run10 at \(\sqrt{s_{\rm NN}}\) = 200 GeV C.3 Luminosity correction for Refmult2 in Run17 at \(\sqrt{s_{\rm NN}}\) = 54 GeV C.4 Refmult2 distribution for each Z-vertex from -30 to 30cm and fitting to extract "max Refmult2" in Run11 at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Trigger ID = 350043. C.5 Z-vertex correction for Refmult2 in Run11 at \(\sqrt{s_{\rm NN}}\) = 200 GeV C.6 Z-vertex correction for Refmult2 in Run10 at \(\sqrt{s_{\rm NN}}\) = 200 GeV C.7 Z-vertex correction for Refmult2 in Run17 at \(\sqrt{s_{\rm NN}}\) = 54 GeV. D.1 (a) Correlation between multiplicity and \(N_{W}\) by Glauber simulation and two component model. (b) \(N_{W}\) distributions for each centrality. (c)(d)(e) Second to the fourth-order \(N_{W}\) cumulants as a function of \(\langle N_{W}\rangle\). Number of events are 100 Million. D.2 From first to sixth-order net-proton cumulants as a function of mean number of participant by using toy model simulation for 10% centrality step for different centrality determination. D.3 From first to sixth-order net-proton cumulants as a function of mean number of participant by using toy model simulation for 5% centrality step for different centrality determination. D.4 From first to sixth-order net-proton cumulants as a function of mean number of participant by using toy model simulation for 5% centrality step for different centrality determination. D.5 \(C_{3}/C_{2}\) (left), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (right) of net-proton distributions as a function of mean number of participant by using toy model simulation for 10% centrality step for various correction methods. D.6 \(C_{3}/C_{2}\) (left), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (right) of net-proton distributions as a function of mean number of participant by using toy model simulation for 10% centrality step for various correction methods. D.7 \(C_{3}/C_{2}\) (left), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (right) of net-proton distributions as a function of mean number of participant by using toy model simulation for 10% centrality step for various correction methods. D.8 From 2nd to 4th order cumulants of \(N_{+}\) distribution as a function of mean number of participant by using Toy model for 10% centrality step. D.9 From 2nd to 4th order cumulants of \(N_{+}\) (top) and net-charge (bottom) distribution as a function of mean number of participant by using Toy model for 5% centrality step.
+
+D.10 From 2nd to 4th order cumulants of \(N_{+}\) (top) and net-charge (bottom) distribution as a function of mean number of participant by using Toy model for 2.5% centrality step. D.11 \(S\sigma\) and \(\kappa\sigma^{2}\) of \(N_{+}\) (top) and net-charge (bottom) distribution as a function of mean number of participant by using Toy model for 10% centrality step. D.12 \(S\sigma\) and \(\kappa\sigma^{2}\) of \(N_{+}\) (top) and net-charge (bottom) distribution as a function of mean number of participant by using Toy model for 2.5% centrality step.
+
+List of Tables
+	* 1.1 Summary of relativistic heavy-ion collisions
+	* 1.1 Data set (\(\sqrt{s_{\rm NN}}=54\) GeV)
+	* 1.2 Data set (\(\sqrt{s_{\rm NN}}=200\) GeV, Minimum bias)
+	* 1.3 Number of event at \(\sqrt{s_{\rm NN}}=200\) GeV
+	* 1.4 Data set used for \(\Delta\eta\) analysis
+	* 1.5 Event selection
+	* 1.6 Track cut
+	* 1.7 Particle Identification
+	* 1.8 Refmult2
+	* 1.9 Parameters used for Glauber simulation in Au+Au collision at \(\sqrt{s_{\rm NN}}=200\) GeV.
+* 1.10 Parameters used for the systematic error estimations
+
+## Acknowledgment
+
+I would like to express my gratitude to Prof. Y.Miake. When I was an under graduate student, I read his textbook and decided to study QGP and join the heavy-ion experiment. He gave me an opportunity to study QGP in this field. I am deeply grateful to Prof. S.Esumi. We discussed a lot of things about physics, experiment, data analysis and so on every day for five years and I have never written this thesis without him. I can't thank him enough. I express my gratitude to Prof. H.Masui and Prof. M.Kitazawa. They taught me fluctuation physics which is very fantastic and I was very impressed with their lecture when I was a master course student. I would like to express my thank to members of weekly focus meeting for fluctuation physiscs, Prof. N.Xu, Prof. B.Mohanty and Prof. X.Luo. We discussed at the meeting and they gave me a lot of informative comments and advices. I also had a great time at the workshop held at CCNU in China. Many thanks to the staffs and teachers of High Energy Nuclear Physics Group at University of Tsukuba, Prof. T.Chujo, Prof. M.Inaba, Prof. S.Sato, Prof. N.Novitzky, Prof. Y.Watanabe, Mr. S.Kato, Prof. O.Busch, Prof. K.Ozawa and Prof. H.Sako. They always gave me helpful advices and comments at weekly meeting in our laboratory.
+
+I would like to appreciate Dr. T.Nonaka and Mr. R.Aoyama. We discuss a lot about data analysis and physics as a member of STAR and spent time together for a long time. We went to BNL for taking shift and attended several conferences and workshops. I had great time with them. T.Nonaka also gave me a lot of advices about the fluctuation analysis. I acknowledge Dr. A.Chatterjee and Dr. N.Kulathunga. We discussed fluctuation analysis for QM.
+
+I would like to thank Dr. T.Todoroki, Dr. T.Niida, Dr. J.Bhom, Dr. S.Mizuno, Dr. N.Tanaka, Dr. H.Nakagomi, Dr. D.Watanabe, Mr. T.Kobayashi, Mr. R.Hosokawa and Mr. W.Sato. Dr. T.Todoroki, Dr. T.Niida and Dr. S.Mizuno helped me when I was in trouble with STAR analysis. Mr. R.Hosokawa is always kind. Dr. N.Tanaka taught me an interesting TV show and music. I also would like to thank my colleagues who spent time with me when we were master course student, Mr. T.Shioya, Mr. M.Hirano, Mr. H.Yamamoto and Mr. J.Lee. I could enjoy my daily life in our laboratory thanks to them.
+
+Many thanks to master course and undergraduate students of our group at University of Tsukuba, Mr. B.Kim, Mr. K.Ito, Ms. S.Kudo, Mr. M.Chang, Mr. Y.Fukuda, Mr. K.Matsunaga, Mr. K.Sato, Mr. Y.Rebaza, Mr. H.Saito, Mr. T.Ichisawa, Mr. H.Kato, Mr. D.Kawana, Mr. Y.Kawamura, Mr. T.Suzuki, Mr. K.Nakagawa, Mr. M.Takamura, Mr. K.Tadokoro, Ms. K.Nakagawa, Ms. M.Hatakeyama, Ms. Y.Hoshi, Mr. N.Ito, Mr. K.Okubo, Ms. Y.Sato, Mr. Y.Sudo, Mr. K.Tsukui, Mr. R.Nakazato, Mr. K.Mitamura and Mr. K.Yasaki. I enjoyed conversations with them in daily life. There are a lot of sweet memories with them but I can't write it all.
+
+Finally, I would like to thank my family Syuichi, Kazuko, Yoko and all of my friends who supported and encouraged me.
+
+[MISSING_PAGE_EMPTY:18]
+
+## Chapter 1 Introduction
+
+In this chapter, we introduce the fundamental particles and the theory of the strong interaction which is described by Quantum Chromodynamics (QCD). Then, phase transition of the QCD, previous results are shown and finally thesis motivation is discussed.
+
+### 1.1 Standard Model
+
+Atoms composing the matter in our world consist of nuclei and electrons. Nuclei consist of nucleons, such as protons and neutrons, are composed of three quarks. Quarks are considered as the most fundamental particles. This hierarchical structure of the matter is shown in Fig. 1.1.
+
+Properties and interactions of the elementary particles are well described by Standard Model. In this world, there are four fundamental forces which are gravitational, electromagnetic, strong and weak interactions, and Standard Model can describe three interactions without gravitational force. Fig. 1.2 shows the Standard Model of elementary particles. There are 12 fermions of spin \(\frac{1}{2}\), 4 gauge boson of spin 1 and Higgs bosons of spin 0. Each particle is characterized by their mass, spin and the electric charge which are written in Fig. 1.2. Fermions can be classified into 2 groups which are 6 quarks (\(u,d,c,s,b,t\)) and 6 leptons (\(e,\mu,\tau,\nu_{e},\nu_{\mu},\nu_{\tau}\)). The gauge bosons are vector bosons and carry the fundamental interactions. The Higgs boson is the scalar boson, and experimentally confirmed in December, 2013 for the first time. The Higgs field gives the mass of the SM particles.
+
+Figure 1.1: Hierarchical structure of the matter [1]
+
+### 1.2 Quantum Chromodynamics
+
+The strong interaction is known for the mechanism of the strong nuclear force and the strong interaction between quarks and gluons which are described by Quantum Chromodynamics (QCD). The classical Lagrangian density (\(\mathscr{L}\)) of the QCD [3][4] is expressed by
+
+\[\mathscr{L}=\sum_{f}^{Nf}\bar{q}_{f}(i\gamma^{\mu}D_{\mu}-m_{f})-\frac{1}{4}F_ {\mu\nu}^{a}F_{\mu\nu}^{a}, \tag{1.1}\]
+
+where \(\gamma^{\mu}\) is called gamma matrices or Dirac matrices and \(q_{f}\) is the quark field. According to the QCD, each quark has three flavor which comes in three different colors (\(f=1,2,3\)). \(D_{\mu}\) represents the co-variant derivative of QCD and \(F_{\mu\nu}\) is defined as gluon field strength tensor. \(F_{\mu\nu}^{a}\) and \(D_{\mu}\) are expressed by
+
+\[D_{\mu} = \partial_{\mu}+ig\frac{\lambda_{a}}{2}A_{\mu}^{a}, \tag{1.2}\] \[F_{\mu\nu}^{a} = \partial_{\mu}A_{\nu}^{a}-\partial_{\nu}A_{\mu}^{a}-gf_{abc}A_{ \mu}^{b}A_{\nu}^{c}, \tag{1.3}\]
+
+where \(\lambda_{a}\) denotes the Gell-Mann matrix, and \(A_{\mu}^{a}\) is the gluon field of color (\(a=1,2...8\)). \(g\) is the coupling constant of QCD, which corresponds to the charge \(e\) in electromagnetic dynamics.
+
+The quarks are combined to form hadrons. Hadrons are classified into baryons and mesons. Baryons are the fermions consist of three quarks, such as protons and neutrons. Mesons are the bosons consist of two quarks, such as pion and Kaon.
+
+There are two important characteristics of QCD which are "color confinement" and "asymptotic freedom". If momentum transfer \(Q\) is large (\(Q>1\) GeV) or distance among partons is
+
+Figure 1.2: Standard Model of Elementary Particles [2]small, perturbative QCD (pQCD) calculation can be used. According to pQCD calculations, coupling strength represented as \(\alpha_{s}\) can be written by
+
+\[\alpha_{s}(Q^{2})=\frac{1}{\beta_{0}\mbox{ln}(Q^{2}/\Lambda^{2})}, \tag{1.4}\]
+
+where \(\beta_{0}\) is written as
+
+\[\beta_{0}=\frac{33-2N_{f}}{12\pi}. \tag{1.5}\]
+
+\(\Lambda\) is called the QCD scale parameter and \(N_{f}\) is the number of quark flavors. \(Q\) represents the transfer momentum.
+
+If distance among partons is small or \(Q\) is large, \(\alpha_{s}\) become smaller which means that interaction among quarks become asymptotically weak. This property is called asymptotic freedom. On the other hand, if distance among partons is large or \(Q\) is small, \(\alpha_{s}\) became larger which means that partons are confined in hadron, which is called color confinement. Fig. 1.3 shows the coupling strength as a function of transfer momentum, and the solid line shows the pQCD calculation.
+
+Figure 1.3: The coupling constant as a function of transfer momentum [5]
+
+### Quark-Gluon Plasma
+
+From Eq.(1.4), the coupling strength diverges with \(Q{\rightarrow}0\). This result shows pQCD calculation can not be applied for small \(Q\) region. Lattice QCD is one of the non-perturbative methods, and tells us properties of the quarks at small \(Q\) region. Fig. 1.4 shows the \(\epsilon/T^{4}\) as a function of temperature \(T\) scaled by critical temperature \(T_{c}\) by Lattice QCD calculations, where \(\epsilon\) is the energy density [6]. At Fig. 1.4, \(\epsilon/T^{4}\) is largely changed around \(T{\sim}T_{c}\). The extrapolated \(T_{c}\) is \(T_{c}=155\) MeV for \(N_{f}=3\) case and \(\epsilon_{c}\) corresponds to \(\epsilon=0.5\)-1.0 GeV/\(c\).
+
+This large jump indicates that phase transition occurs around \(T_{c}\) from hadron phase to "Quark-Gluon Plasma (QGP)" phase. QGP phase is considered as a new phase that quarks and gluon move freely like a "plasma". Fig. 1.5 shows the sketch of the phase transition from hadron to QGP phase.
+
+The \(\epsilon/T^{4}\) jump shown in Fig. 1.4 can be explained by very simple model called "Bag model" [3][8]. Let us introduce the massless free pion gas and free quarks and gluons gas. Then, energy
+
+Figure 1.4: \(\epsilon/T^{4}\) as a function of the temperature \(T/T_{c}\) from Lattice QCD calculation [6]
+
+Figure 1.5: Sketch of the QCD phase transition [7]density and entropy density can be written as follows:
+
+\[\epsilon_{H}=3d_{\pi}\frac{\pi^{2}}{90}T^{4}, \tag{1.6}\] \[s_{H}=4d_{\pi}\frac{\pi^{2}}{90}T^{3}, \tag{1.7}\]
+
+where \(d_{\pi}\) is the number of degrees which is expressed as
+
+\[d_{\pi}=N_{f}^{2}-1, \tag{1.8}\]
+
+where \(N_{f}\) is the number of flavors. Next, energy density and entropy density in QGP phase can be written by the same procedures as:
+
+\[\epsilon_{QGP} = 3d_{QGP}\frac{\pi^{2}}{90}T^{4}+B, \tag{1.9}\] \[s_{QGP} = 4d_{QGP}\frac{\pi^{2}}{90}T^{3}, \tag{1.10}\]
+
+where \(B\) represents bag constant and \(d_{QGP}\) is written as
+
+\[d_{QGP} = d_{g}+\frac{7}{8}d_{q}, \tag{1.11}\] \[d_{g} = N_{spin}N_{cg},\] (1.12) \[d_{q} = N_{spin}N_{q\bar{q}}N_{cq}N_{f}. \tag{1.13}\]
+
+\(d_{g}\) and \(d_{q}\) show the number of degrees of gluon and quark respectively. In this case, number of degrees of spin, color, flavor and quark/anti-quark are \(N_{spin}=2\), \(N_{cq}=3\), \(N_{f}=2\) and \(N_{q\bar{q}}=2\) respectively, and number of degrees of gluon color is \(N_{cg}=8\). As a result, \(d_{\pi}=2\times 2-1=3\) and \(d_{QGP}=2\times 2+\frac{7}{8}\times 2\times 2\times 3\times 2=37\). Therefore, \(\epsilon_{QGP}\) is twelve times larger than \(\epsilon_{H}\) and this result is consistent with the Lattice QCD results even though assumptions of this model are very simple.
+
+Fig. 1.6 shows the history of the universe. It is believed that QGP existed after \(\sim\mu\) seconds from the Big Bang. Then, QCD phase transition occurred and hadrons were formed. After that, nuclei, atoms, planet, galaxy and finally our present universe were formed. Therefore, discovering the properties of QGP means not only understand the properties of the quarks but also understand the beginning of the universe. In addition, QGP is considered to exist inside of the neutron star because of the high density.
+
+The phase transition from QGP phase to hadron phase is also explained by "chiral symmetry breaking" which is the spontaneous symmetry breaking of the chiral symmetry. For example, proton is composed of two up quarks and one down quark. However, the proton mass (938 MeV) is much larger than sum of the quark mass in Fig. 1.2. Therefore, the mass of the matter around us is mostly coming from QCD, and the mass given by Higgs field is only few percent fraction of the matter.
+
+### 1.4 Relativistic heavy-ion collision
+
+As mentioned in the previous section, QGP can exist at extremely high temperature or high density places. Therefore, it is difficult to create QGP on the earth. A unique way to create QGP on the earth is using heavy-ion collider. Charged particles are accelerated by the collider up to the nearly speed of the light, and then collide at the point. This way we can achieve very high temperature and create QGP, the matter close being created after the Bing Bang. Therefore, this is called "Little Bang". In order to create and figure out the properties of the QGP, various experiments have been conducted at RHIC-STAR experiment at BNL or LHC-ALICE experiment at CERN, etc. Tab. 1.1 shows the history of the heavy-ion collision experiment.
+
+Figure 1.6: History of the universe [5]Next, we will consider the space-time evolution after heavy-ion collision at the experiment. Fig. 1.7 is the schematic description of the heavy-ion collision. \(z\) and \(t\) represent the space and time dimension, and both nuclei collide at \((t,z)=(0,0)\). In relativistic heavy-ion collision, it is useful to use kinetic variables which take simple form or unchanged under Lorentz transformations. Therefore, let us introduce the proper time of the particles which is defined as
+
+\[\tau=\sqrt{t^{2}-z^{2}}. \tag{1.14}\]
+
+In Fig. 1.7, \(t^{2}-z^{2}>0\) region is called time-like region and \(t^{2}-z^{2}<0\) is called space-like region. In heavy-ion collision, particle production occurs in the upper half of the time-like region. After
+
+\begin{table}
+\begin{tabular}{l c c c c} \hline Year & Accelerators & Location & Species & \(s_{\rm NN}\) Energy(GeV) \\ \hline \hline
+1986 & AGS & BNL & \({}^{16}\)O, \({}^{28}\)Si & 5.4 \\
+1992 & & & \({}^{197}\)Au & 4.8 \\ \hline
+1986 & SPS & CERN & \({}^{16}\)O, \({}^{32}\)S & 19.4 \\
+1994 & & & \({}^{208}\)Pb & 17.4 \\ \hline
+2000 & RHIC & BNL & \({}^{197}\)Au & 130 \\
+2001 & & & \({}^{197}\)Au & 200 \\
+2003 & & & d+\({}^{197}\)Au & 200 \\
+2004 & & & \({}^{197}\)Au & 200, 62.4 \\
+2005 & & & \({}^{63}\)Cu & 200, 62.4, 22.4 \\
+2007 & & & \({}^{200}\)Au & 200 \\
+2008 & & d+\({}^{197}\)Au & 200, 62.4 \\
+2010 & & & \({}^{197}\)Au & 200, 62.4, 39, 11.5, 7.7 \\
+2011 & & & \({}^{197}\)Au & 200, 19.6, 27 \\
+2012 & & & \({}^{238}\)U & 193 \\
+2012 & & & \({}^{63}\)Cu+\({}^{197}\)Au & 200 \\
+2014 & & & \({}^{197}\)Au & 200, 14.6 \\
+2014 & & & \({}^{3}\)He+\({}^{197}\)Au & 200 \\
+2015 & & p+\({}^{197}\)Au & 200 \\
+2015 & & p+\({}^{197}\)Al & 200 \\
+2016 & & & \({}^{197}\)Au & 200 \\
+2016 & & d+\({}^{197}\)Au & 200, 62.4, 19.6, 39 \\
+2017 & & & \({}^{197}\)Au & 54 \\
+2018 & & & \({}^{96}\)Zr,\({}^{96}\)Ru & 200 \\
+2018 & & & \({}^{197}\)Au & 27 \\ \hline
+2010 & LHC & CERN & \({}^{208}\)Pb & 2760 \\
+2011 & & & \({}^{208}\)Pb & 2760 \\
+2013 & & & p+\({}^{208}\)Pb & 5020 \\
+2015 & & & \({}^{208}\)Pb & 5020 \\
+2016 & & & p+\({}^{208}\)Pb & 5020, 8160 \\
+2017 & & & \({}^{129}\)Xe & 5440 \\
+2018 & & & \({}^{208}\)Pb & 5020 \\ \hline \hline \end{tabular}
+\end{table}
+Table 1.1: Summary of relativistic heavy-ion collisionscollisions, particles are produced by following procedures.
+
+**Pre-equilibrium \(0<\tau<\tau_{0}\)**
+
+A lot of particles are produced by parton-parton hard scattering in the overlap region of two nuclei. Several model such as pQCD, color Glass Condensate (CGC) and string model tried to describe this stage. However, medium properties are not understood perfectly.
+
+**QGP phase and phase transition \(\tau_{0}<\tau<\tau_{ch}\)**
+
+After Pre-equilibrium stage, partonic matters reach to the local thermal equilibrium and the QGP is formed. After that, the system expands due to the high pressure, and then system cool down. QCD phase transition takes place at critical temperature \(T_{c}\) and hadrons are formed.
+
+**Freeze-out**\(\tau_{ch}<\tau<\tau_{f}\)
+
+Then, system expands with hadron-hadron interaction and number of species are fixed at \(T_{ch}\) which is called "Chemical freeze-out". Then, hadron interactions are stopped and momentum of the particles are fixed at \(T_{f}\) which is called "Kinetic freeze-out".
+
+Figure 1.7: Time-space expansion after the heavy-ion collision [9]
+
+### Beam Energy Scan (BES)
+
+Fig. 1.8 shows the schematic diagram of QCD. According to the Lattice QCD calculations, crossover transition occurs at small \(\mu_{B}\) region. However, there are no experimental evidence of crossover or first-order transition. Especially, the location of the Critical Point (CP) which is the end point of the first-order phase transition boundary is still unknown. In order to figure out the detail structure of the QCD phase diagram, Beam Energy Scan I (BES-I) program had been done from 2010 to 2014 at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeVat RHIC. If the collision energy become lower, \(\mu_{B}\) become larger due to the baryon stopping. Therefore, we can scan the phase diagram with variable collision energy with different \(\mu_{B}\) and \(T\). Thus, it is important to measure the observables with various collision energies in order to figure out the structure of the phase diagram and find the evidence of CP.
+
+#### Freeze-out parameters
+
+Chemical freeze-out parameters, such as \(T_{ch}\) and \(\mu_{B}\), can be extracted from particles yields fit using the THERMUS package. Left hand side panel of Fig. 1.9 shows the chemical freeze-out temperature as a function of baryon chemical potential using Grand-Canonical Ensemble (GCE) [11]. The grey bands show the theoretical prediction ranges. In addition, kinetic freeze-out temperature \(T_{kin}\) and transverse radial flow velocity \(\beta\) are obtained by fitting the \(p_{T}\) spectra with blast wave model. Right hand side panel of Fig. 1.9 shows the \(T_{kin}\) as a function of \(\langle\beta\rangle\). These results give us a lot of information about freeze-out line.
+
+Figure 1.8: The sketch of the QCD phase diagram [10]
+
+#### Event-by-event fluctuations
+
+Event-by-event fluctuation is a one of the powerful tool to characterize the thermodynamic properties of the hot and dense QCD matter. It is said that the correlation length (\(\xi\)) diverges at the CP [12]. \(\xi\) is related to the cumulants and moments of the distributions of conserved quantities, such as net-baryon, net-charge and net-strangeness [13, 14]. The higher-order cumulants are more sensitive to the CP than lower-order cumulants. In other words, higher-order cumulants have a stronger dependence on \(\xi\). Cumulants are proportional to the volume. Therefore cumulant ratios are independent of the volume and usually measured as a observables. Details about cumulants and moments are explained at the next chapter.
+
+Experimentally, net-proton and net-Kaon are measured as a proxy for the net-baryon and net-strangeness. STAR experiment published up to the fourth-order fluctuations of net-proton, net-charge and net-Kaon distributions. Fig. 1.10 shows the published results of net-proton [15], net-charge [16] and net-Kaon [17] cumulant ratios. In most cases, cumulants ratios are consistent with statistical baseline. Therefore, it is difficult to extract the signal of phase transition from these results.
+
+However, an interesting energy dependence is observed when we extend the \(p_{T}\) range by using TOF detector. Fig. 1.11 shows the preliminary results of net-proton cumulants with transverse momentum range \(0.4<p_{T}<2\) GeV/\(c\)[18]. Momentum range of the published result which is shown at the left hand side of the Fig. 1.10 is \(0.4<p_{T}<0.8\) GeV/\(c\), and only TPC is used for PID. The \(\kappa\sigma^{2}\) (\(=C_{4}/C_{2}\)) shows the non-monotonic behaviour with beam energy for 0-5% centrality. At higher energy region, \(\kappa\sigma^{2}\) is close to the unity. On the other hand, we observe a minimum which is smaller than unity around \(\sqrt{s_{\rm NN}}=20\) GeV, and the observed value at \(\sqrt{s_{\rm NN}}=7.7\) GeV is larger than unity.
+
+Figure 1.9: Chemical freeze-out temperature versus baryon chemical potential for Grand Canonical Ensemble (left). Kinetic freeze-out temperature versus \(\beta\) (right) [11].
+
+Figure 1.11: Net-proton cumulant ratios up to the fourth-order using TPC and TOF detector [18]
+
+Figure 1.10: Up to the fourth-order cumulant ratios of net-proton [15] (left), net-charge [16] (middle) and net-Kaon [17] (right) as a function of beam energy from Beam Energy Scan I
+
+#### Other observables
+
+The interesting behaviour seen at the net-proton results was also seen in different experimental observables. The left hand side of Fig. 1.12 is the directed flow slope as a function of beam energy with various particle species [19]. Energy dependence of net-proton and net-\(\lambda\)\(v_{1}\) slope are similar to net-proton fluctuation results, and both results have minimum value around 20 GeV.
+
+The right hand side of Fig. 1.12 shows the charged hadron yield as a function of centrality [20]. Cronin effect is dominant at 7.7 and 11.5 GeV and the suppressions were observed down to \(\sqrt{s_{\rm NN}}\) = 14.5 GeV. In other words, trends are changed around \(\sqrt{s_{\rm NN}}\) = 10-20 GeV.
+
+Fig. 1.13 shows the HBT radii \(R_{out}^{2}-R_{side}^{2}\) as a function of beam energy for various centralities [21]. Maximum value was observed around 20 GeV in all centralities.
+
+We introduced the BES-I results of various observables and a lot of interesting behaviour can be observed at lower energy regions. Beam Energy Scan II (BES-II) program has been conducted to investigate low energy with high statistics from 2019.
+
+Figure 1.12: Directed flow slope versus beam energy in Au+Au collisions (left) [19]. Charged hadron Y(\(\langle N_{part}\rangle\)) for two ranges of \(p_{T}\) (right) [20].
+
+### 1.6 Thesis motivation
+
+This thesis is composed of measurements of up to the sixth-order fluctuations, \(\Delta\eta\) dependence of net-charge distributions and the study of the volume fluctuation correction. In this section, three different motivations are introduced.
+
+#### Sixth-order fluctuations
+
+As we said at previous section, STAR published up to the fourth-order cumulants of net-proton, net-charge and net-Kaon distributions for BES-I energies. Recently, it is suggested that sixth-order fluctuation have an important role to figure out the QCD phase transition. The left panel of Fig. 1.14 shows the \(\chi_{6}/\chi_{2}\), which corresponds to \(C_{6}/C_{2}\) experimentally, as function of temperature over pseudo-critical temperature \(T_{pc}\) from theoretical predictions using PQM model [22]. The right panel of Fig. 1.14 shows the values of \(\chi_{6}/\chi_{2}\) and \(\chi_{4}/\chi_{2}\) of net-baryon and net-charge fluctuation. The values of the first low are calculated from Hadron Resonance Gas model. The values for second and third low show the cumulant ratios at hadron phase and chiral crossover temperature respectively. If crossover transition occurred, sixth-order cumulant ratios of conserved quantities have negative values. Fig. 1.15 shows the \(\chi_{6}/\chi_{2}\) of net-baryon distribution from Lattice QCD calculation and negative \(\chi_{6}/\chi_{2}\) was also seen around \(T_{c}\)[23]. Therefore, sixth-order cumulants of the conserved quantities may be the good observables to search for the signal from the crossover transition.
+
+Recently, STAR reported the sixth-order cumulants of the net-proton distributions which is shown at Fig. 1.16. The left panel of Fig. 1.16 shows the centrality dependence of net-proton cumulants at \(\sqrt{s_{\rm NN}}=200\) GeV [24],and the right hand side panel is 0-40% merged results
+
+Figure 1.13: Comparison of (\(R_{out}^{2}-R_{side}^{2}\)) versus beam energy in Au+Au collisions [21].
+
+Figure 1.15: \(\chi_{6}/\chi_{2}\) versus temperature from Lattice QCD calculation. [23]
+
+Figure 1.14: \(\chi_{6}/\chi_{2}\) and \(\chi_{4}/\chi_{2}\) versus temperature (left). Values of \(\chi_{6}/\chi_{2}\) and \(\chi_{4}/\chi_{2}\) of net-baryon and net-charge fluctuation (right) [22]
+
+which are compared with UrQMD model and \(\sqrt{s_{\rm NN}}=\) 54 GeV results [25].
+
+The negative signal at \(\sqrt{s_{\rm NN}}=\) 200 GeV and the positive signal at \(\sqrt{s_{\rm NN}}=\) 54 GeV were observed in most central collisions. However, statistical uncertainties are large especially in central collisions. Therefore, it is not enough to conclude that these results imply the signal from the crossover. It is important to discuss the results not only net-proton but also net-charge fluctuation. In this thesis, centrality dependence of up to the sixth-order cumulants of net-charge distributions are shown, and compare to net-proton results.
+
+As it is said at the previous section, up to the fourth-order cumulants of net-charge distributions have already published. However, improvements of analysis and correction methods are necessary from published method in sixth-order cumulant analysis. In published net-charge results, averaged efficiencies between positively and negatively charged particles and among different particles species are used for efficiency corrections. Therefore, Particle Identification (PID) had not been done in published paper. However, it is said that efficiency correction using averaged efficiency would give artificial results when the distribution do not follow Poisson distribution. At Fig. 1.17 shows the deviation of the efficiency corrected cumulants with averaged efficiency [26]. In addition, these deviation are larger with the order of the cumulants. Therefore, sixth-order cumulants are largely affected by this effect, and we should correct the experimental efficiency separately if efficiencies are different among different phase space.
+
+For example, efficiencies are different among different particle species (\(\pi^{\pm},K^{\pm},p\) and \(\bar{p}\)), between low-\(p_{T}\) and high-\(p_{T}\) region, and positively and negatively charged particles [27]. In this thesis, PID has been done, and the efficiency corrections have been done separately with 12 efficiency bins using factorial cumulant method [26] whereas there is only 1 efficiency bin in published paper.
+
+Figure 1.16: \(C_{6}/C_{2}\) of net-proton distributions as a function of centrality at \(\sqrt{s_{\rm NN}}=\) 200 GeV (left) [24] and 0-40% merged results at \(\sqrt{s_{\rm NN}}=\) 54 GeV and 200 GeV (right) [25]
+
+#### D-measure and \(\Delta\eta\) dependence
+
+Fig. 1.18 shows the D-measure which corresponds to the second-order cumulant over entropy density as a function of \(\Delta\eta\) in Pb-Pb collision at \(\sqrt{s_{\rm NN}}=2.76\) TeV from ALICE experiment [28]. \(\Delta\eta\) represents the rapidity window. For example, \(-0.5<\eta<0.5\) corresponds to \(\Delta\eta=1\) and \(\Delta\eta\) was fixed to 1 in published results at Fig. 1.10. The value of D-measure was estimated by several theoretical calculations, and D-measure takes \(D=3\)-4 in hadron gas and \(D=1\)-1.5 in QGP.
+
+Fig. 1.18 shows that D-measure decreases with rapidity window \(\Delta\eta\), and also decreased
+
+Figure 1.17: Deviations of the efficiency corrected values of cumulants using averaged efficiency assuming the distribution which has 5% smaller cumulants than Poisson distributions [26]
+
+Figure 1.18: D-measure as a function of \(\Delta\eta\) for three centralities in Pb-Pb collision at \(\sqrt{s_{\rm NN}}=2.76\) TeV from ALICE experiment[28]when going from peripheral to central collisions. Therefore, D-measure is close to theoretically predicted value of QGP at larger \(\Delta\eta\), and close to hadron region at smaller \(\Delta\eta\).
+
+This trend, where D-measure decreases with \(\Delta\eta\), was studied theoretically and well described by the diffusion master equation (DME) model [29, 30]. Fig. 1.19 shows an illustration for the DME model. In one dimensional case, we divide the coordinate into discrete cells. We set the length of each cell as \(a\) and index the cells by an integer \(m\). The number of particles of cell \(m\) is donated as \(n_{m}\) and \(P(\mathbf{n},t)\) is defined as probability function with \(\mathbf{n}=(\cdots,n_{m-1},n_{m},n_{m+1},\cdots)\) at time \(t\). We introduce \(\gamma\) which is probability that each particle moves to adjacent cells per unit time.
+
+Then we can write the probability function \(P(\mathbf{n},t)\) as
+
+\[\begin{split}\partial_{\tau}P(\mathbf{n},\tau)=&\gamma (t)\sum_{m}\left[\left(n_{m}+1\right)\left\{P\left(\mathbf{n}+\mathbf{e}_{m}-\mathbf{e}_{m+1 },\tau\right)+P\left(\mathbf{n}+\mathbf{e}_{m}-\mathbf{e}_{m-1},\tau\right)\right\}\right. \\ &-2n_{m}P(\mathbf{n},\tau)\right]\!,\end{split} \tag{1.15}\]
+
+where \(\mathbf{e}_{m}\) is the vector that all components are zero except \(e_{m}=1\). Then we take continuous limit \(a\to 0\).
+
+Fig. 1.20 shows the D-measure as a function of \(\Delta\eta\) for two initial conditions and D-measure was observed to decrease with expending \(\Delta\eta\). Not only up to the second-order fluctuation, such as D-measure, but also third and fourth-order cumulants are calculated by the model. Fig. 1.21 and Fig. 1.22 show the \(\Delta\eta\) dependence of third and fourth-order cumulants that are normalized by \(C_{1}\) and \(N_{ch}\) respectively for several initial parameters which are \(a\), \(b\), \(c\) and \(D_{n}\). \(D_{n}\) is \(n^{th}\)-order susceptibilities, and there are a lot of results which correspond to the different initial conditions. Thus, it is important to determine the initial parameters by comparing with the experimental results.
+
+STAR published D-measure results [31] at \(\sqrt{s_{\rm NN}}=\) 19.6, 62.4, 130, and 200 GeV. However, \(\Delta\eta\) dependence of higher-order net-charge cumulants and D-measure at lower energy region have not measured yet. In this thesis, \(\Delta\eta\) dependence of D-measure and up to the fourth-order cumulants of net-charge distribution at BES-I energy (\(\sqrt{s_{\rm NN}}=\) 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV) are shown and compare with the previous ALICE results and the theoretical predictions.
+
+Figure 1.19: System described by diffusion master equation [29][30]
+
+Figure 1.22: Same as 1.21, but with the initial conditions large higher-order cumulants [29][30].
+
+Figure 1.20: D-measure as a function of \(\Delta\eta\) for two initial conditions [29]
+
+Figure 1.21: Normalized third and fourth-order cumulants as a function of \(\Delta\eta\) for several initial conditions [29][30]
+
+#### Volume Fluctuation Correction
+
+Initial volume fluctuation (VF) is the event-by-event fluctuation of number of participant nucleons (\(N_{W}\)) in heavy-ion collision experiment. On higher-order event-by-event fluctuation analysis, the VF is one of the experimental backgrounds which should be taken into account. Specifically, it is well known that experimentally measured cumulants of net-particles are artificially enhanced due to the VF [32]. One of the possible way to suppress the VF is applying Centrality Bin Width Correction (CBWC) [32] which is the data driven conventional method, and STAR experiment has been applying this method. However, there might be some residual fractions of VF backgrounds even with CBWC. Recently, a new correction method called Volume Fluctuation Correction (VFC) [33] is proposed under the assumption of the independent particle production (IPP) model. HADES experiment applied this new correction method to the experimental data [34]. The left hand side panel of Fig. 1.23 shows the centrality dependence of net-proton \(\kappa\sigma^{2}\) at HADES experiment. Color difference represents the different correction method. Green and blue marker show the traditional efficiency corrected results based on binomial distribution model, and the yellow and red marker show the results corrected by unfolding. Blue and red marker show the volume fluctuation corrected results which are suppressed by the correction compared with the green and yellow results. The right hand side panel of Fig. 1.23 shows the energy dependence of net-proton \(\kappa\sigma^{2}\) from HADES experiment with published STAR results. Black and red color represent the mid central and most central collisions and these color also represent the unfolding results. Traditional efficiency correction results are shown as green gradation color. VFC was applied for both results whereas STAR did not applied VFC for the data.
+
+As shown in Fig. 1.23, the values of the cumulants strongly depend on the correction method. The validity of the VFC has already been studied by using simple toy model [33]. However, it is
+
+Figure 1.23: Centrality dependence of \(\kappa\sigma^{2}\) of net-proton distributions for each correction method at HADES experiment (left). Energy dependence of \(\kappa\sigma^{2}\) of net-proton distributions at HADES and STAR experiment [34].
+
+not obvious that VFC works well when we apply this method to the experimental data because IPP model is expected to be broken in real experiment whereas IPP is established in the toy model. Thus, it is important to study the validity of the VFC in more realistic case where IPP is expected to be broken, but such studies have not been done yet. In this thesis, the validity of the VFC is studied by using toy model and the UrQMD model simulations.
+
+## Chapter 2 Moments and Cumulants
+
+In this section, moments and cumulants which are used for experimental observables are introduced with some important statistical basics.
+
+### 2.1 Net quantities
+
+Net-quantities, such as net-charge, net-baryon and net-strangeness, have an important role because they are conserved values. Net-charge can be measured directly by the experiment whereas net-proton and net-Kaon are measured as a proxy for net-baryon and net-strangeness. The net-quantities are defined by
+
+\[\delta N_{q}=N_{q}-N_{\bar{q}}, \tag{2.1}\]
+
+where \(N_{q}\) represents the number of baryon, charge or strangeness and \(N_{\bar{q}}\) represents the number of anti-particles. For example, net-charge is defined as \(N_{+}-N_{-}\) where \(N_{+}\) and \(N_{-}\) are number of positively and negatively charged particles for each event respectively. \(N_{q}\) and \(N_{\bar{q}}\) are not conserved quantities due to the pair production and annihilation but net-charge is not affected by these effect. That is the reason why net-quantities are "conserved". Fig. 2.1 shows the event-by-event net-proton distributions for three different centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}=200\) GeV at the STAR experiment [15].
+
+### 2.2 Moments
+
+The \(n^{th}\)-order non-central moments is defined by
+
+\[\langle m^{n}\rangle=\sum_{m}m^{n}P(m), \tag{2.2}\]
+
+where \(m\) is defined by the integer stochastic variable, and \(P(m)\) represents the probability distribution satisfying \(\sum_{m}P(m)=1\). The bracket represents the statistical average and the \(n^{th}\)-order central moments are also defined by
+
+\[\langle\delta m^{n}\rangle=\langle(m-\langle m\rangle)^{n}\rangle. \tag{2.3}\]By definition, \(\langle\delta m^{1}\rangle=0\). If the variable is continuous stochastic variable which is defined as \(x\), the moments can be written as
+
+\[\langle x^{n}\rangle=\sum_{x}x^{x}P(x). \tag{2.4}\]
+
+Then, Mean (\(M\)), variance (\(\sigma^{2}\)), skewness (\(S\)) and kurtosis (\(K\)) are defined by
+
+\[M = \langle x\rangle, \tag{2.5}\] \[\sigma^{2} = \langle(x-\langle x\rangle)^{2}\rangle\] (2.6) \[= \langle x^{2}\rangle-\langle x\rangle^{2},\] (2.7) \[S = \frac{\langle x^{3}\rangle}{\sigma^{3}},\] (2.8) \[\kappa = \frac{\langle x^{4}\rangle}{\sigma^{4}}-3. \tag{2.9}\]
+
+Skewness and kurtosis represent the "asymmetry" and "tailedness" of the distributions respectively.
+
+Then, moment generating function is introduced in order to calculate higher-order moments easily, which is defined as
+
+\[M(\theta) = \langle e^{\theta}X\rangle \tag{2.10}\] \[= \left\{\begin{array}{ll}\sum_{n}e^{\theta m}P(m)&\mbox{for integer case}\\ \int_{0}^{\infty}e^{\theta x}P(x)dx&\mbox{for continuous case}\end{array}\right.\]
+
+The \(n^{th}\)-order moments are given by the derivatives of \(M(\theta)\) as
+
+\[\langle m^{n}\rangle=\frac{d^{n}}{d\theta^{n}}M(\theta)|_{\theta=0}. \tag{2.11}\]
+
+Figure 2.1: Event-by-event net-proton distributions for three centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}=\) 200 GeV at the STAR experiment [15]
+
+For example, second-order moments can be written as
+
+\[\frac{d^{2}}{d\theta^{2}}M(\theta)|_{\theta=0} = \langle m^{2}e^{\theta X}\rangle_{\theta=0} \tag{2.12}\] \[= \langle m^{2}\rangle.\]
+
+Therefore, \(n\) times derivatives of \(M(\theta)\) generate the \(\langle m^{n}\rangle\), which is the reason why \(M(\theta)\) is called moment "generating" function.
+
+### 2.3 Additivities
+
+Additivity is a very useful property but moments do not have this property. For example, we suppose two independent phase space \(X\) and \(Y\). If moments have additivity, \(M(\theta,X+Y)\) must be the same as \(M(\theta,X)+M(\theta,Y)\) but \(M(\theta,X+Y)\) is written by
+
+\[M(\theta,X+Y) = \langle e^{\theta(X+Y)}\rangle \tag{2.13}\] \[= \langle e^{\theta X}e^{\theta Y}\rangle.\]
+
+Therefore, it is obvious that moments don't have additivity. Then, cumulant generating function is introduced.
+
+### 2.4 Cumulants
+
+The cumulant generation function is defined by
+
+\[K(\theta)=\ln(M(\theta)), \tag{2.14}\]
+
+and cumulants are also defined by
+
+\[C_{n}=\frac{d^{k}}{d\theta^{k}}K(\theta)|_{\theta=0}, \tag{2.15}\]
+
+Figure 2.2: Typical distribution functions with non-zero skewness (left) and kurtosis (right) [30]
+
+which have additivity and proportional to the volume. Cumulants can be written by the moments as follows
+
+\[C_{1}=\langle m^{1}\rangle,\ \ \ C_{2}=\langle\delta m^{2}\rangle,\ \ \ C_{3}=\langle\delta m^{3}\rangle,\ \ \ C_{4}=\langle\delta m^{4}\rangle-\langle\delta m^{3}\rangle. \tag{2.16}\]
+
+Moments also can be written by using the cumulants. In general, cumulants are expressed as
+
+\[C_{n}=\langle m^{n}\rangle-\sum_{m=1}^{n-1}{}_{n-1}C_{m-1}C_{m} \langle m^{n-m}\rangle. \tag{2.17}\]
+
+In addition, \(M\), \(\sigma\), \(S\) and \(\kappa\) can be expressed by cumulants as
+
+\[M=C_{1},\ \ \ \sigma^{2}=C_{2},\ \ \ S=\frac{C_{3}}{(C_{2})^{\frac{3}{2}}},\ \ \ \kappa=\frac{C_{4}}{(C_{2})^{2}}. \tag{2.18}\]
+
+By taking ratio, the effect of the volume can be canceled out and the following relation consist,
+
+\[S\sigma=\frac{C_{3}}{C_{2}}, \tag{2.19}\] \[\kappa\sigma^{2}=\frac{C_{4}}{C_{2}}. \tag{2.20}\]
+
+### Sum and difference of two stochastic variables
+
+In this section, sum and difference of two stochastic variables are introduced. We consider two integer stochastic variables which are represented as \(m_{1}\) and \(m_{2}\) respectively. The probability distributions of sum and difference of two stochastic variables are given by
+
+\[P(m)=\sum_{m_{1},m_{2}}\delta_{m,m_{1}\pm m_{2}}P(m_{1})P(m_{2}). \tag{2.21}\]
+
+The moment and cumulant generating function are given by
+
+\[M(\theta) = \sum_{m}(e^{m\theta})P(m) \tag{2.22}\] \[= \sum_{m}(e^{m\theta})\sum_{m1,m2}\delta_{m,m_{1}\pm m_{2}}P_{1}( m_{1})P_{2}(m_{2})\] \[= \sum_{m_{1},m_{2}}e^{\theta m_{1}}e^{\pm\theta m_{2}}P_{1}(m_{1} )P_{2}(m_{2})\] \[= M_{1}(\theta)M_{2}(\pm\theta)\] \[K(\theta) = K_{1}(\theta)+K_{2}(\pm\theta) \tag{2.23}\]
+
+Therefore, cumulants of sum of two variables can be written by using Eq. (2.15) as
+
+\[\frac{d^{n}}{d\theta^{n}}K(\theta)=\frac{d^{n}}{d\theta^{n}}K_{1 }(\theta)+\frac{d^{n}}{d\theta^{n}}K_{2}(\theta). \tag{2.24}\]
+
+The cumulants of net-variables also can be written by the same procedures as
+
+\[\frac{d^{n}}{d\theta^{n}}K(\theta)=\frac{d^{n}}{d\theta^{n}}K_{1 }(\theta)+(-1)^{n}\frac{d^{n}}{d\theta^{n}}K_{2}(\theta). \tag{2.25}\]
+
+### Susceptibility
+
+In this section, we consider the relation between cumulants and the susceptibilities. We suppose the grand canonical ensemble. First, density operator is defined by using Hamiltonian \(H\), inverse temperature \(\beta\), baryon chemical potential \(\mu\), number of particle \(N\) and partition function \(Z\) as
+
+\[\rho_{GC}=\frac{tr[e^{-\beta(\widehat{H}-\mu\widehat{N})}]}{Z}. \tag{2.26}\]
+
+Then, the mean value of the variable \(A\) can be calculated by \(tr[\rho A]\), and \(tr[\rho_{GC}]=1\) must be consist. Therefore, the partition function \(Z\) must be written as
+
+\[Z=tr[e^{-\beta(\widehat{H}-\mu\widehat{N})}]. \tag{2.27}\]
+
+In addition, Grand canonical potential \(\Omega\) and its density \(\omega\) can be written by using \(Z\) as
+
+\[\Omega = -T{\rm ln}Z, \tag{2.28}\] \[\omega = \frac{\Omega}{V}, \tag{2.29}\]
+
+where \(V\) is a volume. In general, \(\widehat{N}\) does not satisfy the commutation relation with \(\widehat{H}\) because \(\widehat{H}\) is an operator. However, if we suppose \(\widehat{N}\) as conserved value such as net-charge or net-baryon, \(\frac{d\widehat{N}}{dt}=0\) is consist. We can write the following formula by using Heisenberg equation of motion \(\frac{d\widehat{N}}{dt}=\frac{i}{\hbar}[\widehat{H},\widehat{N}]\) as
+
+\[[\widehat{H},\widehat{N}]=0. \tag{2.30}\]
+
+By differentiative \(\Omega\) by \(\mu\), we can find
+
+\[\frac{\partial\Omega}{\partial\mu} = -\frac{T}{Z}\frac{\partial Z}{\partial\mu} \tag{2.31}\] \[= -\frac{T}{Z}tr[\beta\widehat{N}e^{-\beta(\widehat{H}-\mu\widehat {N})}]\] \[= -tr[\widehat{N}\rho]\] \[= -\langle N\rangle.\]
+
+The second-order differential also can be written as
+
+\[C_{2} = -T\frac{\partial^{2}\Omega}{\partial\mu^{2}} \tag{2.32}\]
+
+Then we also define \(\widehat{\Omega}=\frac{\Omega}{T}\), \(\widehat{\omega}=\frac{\omega}{T}\) and \(\widehat{\mu}=\frac{\mu}{T}\). Generally, \(n^{th}\)-order differential is written by
+
+\[C_{n} = (-T)^{n-1}\frac{\partial^{n}\Omega}{\partial\mu^{n}} \tag{2.33}\] \[= \frac{\partial^{n}(-\widehat{\omega})}{\partial\widehat{\mu}^{n} }V\equiv\chi_{n}V,\]where we used Eq. (2.30), and \(\chi_{n}\) represents the \(n^{th}\)-order susceptibilitiy which is defined as
+
+\[\chi_{n}=\frac{\partial^{n}(-\widehat{\omega})}{\partial\widehat{\mu}^{n}}. \tag{2.34}\]
+
+From Eq. (2.34), \(n^{th}\)-order cumulants can be generated by \(n^{th}\)-order differential of the grand potential \(\Omega\). Therefore, \(\Omega\) correspond to the generating functions. Moreover, by Eq. (2.33)
+
+\[C_{n+1}=T\frac{\partial}{\partial\mu}C_{n} \tag{2.35}\]
+
+can be written. From Eq. (2.31) and Eq. (2.33), \(C_{2}\) can be written as
+
+\[\chi_{2}=\frac{C_{2}}{V}=\frac{\partial}{\partial\mu}\frac{T\langle N\rangle} {V}. \tag{2.36}\]
+
+The right hand side term of Eq. (2.36) shows the magnitude of the variation of \(\langle N\rangle\) with the change of \(\mu\) which is the external force. This is the reason why the left hand side term \(\chi\) is called "susceptibility", and this relation is called linear response relationship [30]. If \(N\) is not conserved variables, Eq. (2.33) and Eq. (2.35) don't consist because we supposed Eq. (2.30) which is not consist if \(N\) is not conserved value. Eq. (2.33) says that if susceptibilities dramatically changed near the critical point, cumulants also changed. In addition, from Eq. (2.36), it is obvious that cumulants are proportional to the volume \(V\), which is the properties of additivity, and the cumulant ratios can be directly compared to the susceptibility ratios like
+
+\[\frac{C_{3}}{C_{2}}=\frac{\chi_{3}}{\chi_{2}}, \tag{2.37}\]
+
+\[\frac{C_{4}}{C_{2}}=\frac{\chi_{4}}{\chi_{2}}, \tag{2.38}\]
+
+because the effect of the volume is canceled out by taking ratio. This is very important property because we can not directly measure the susceptibility, but Eq. (2.37) and Eq. (2.38) tell us that we can calculate the susceptibility ratio by measuring the cumulant ratio experimentally.
+
+It is said that correlation length \(\xi\) is also dramatically changed near the critical point and relation between cumulants and the correlation length is written by
+
+\[C_{3} \sim \xi^{4.5}, \tag{2.39}\] \[C_{4} \sim \xi^{7},\] (2.40) \[C_{5} \sim \xi^{9.5},\] (2.41) \[C_{6} \sim \xi^{12}. \tag{2.42}\]
+
+From Eq. (2.39) to Eq. (2.42), it is obvious that the higher cumulants are more sensitive to the correlation length than lower order cumulants.
+
+### Statistical baseline
+
+In thin section, some specific distributions are introduced, which are compare to experimental results in the later sections.
+
+#### 2.7.1 Binomial Distribution (BD)
+
+The Binomial Distribution (BD) represents the distribution of the number of "success" under the independent \(N\) trials. The probability function is defined by
+
+\[B_{p,N}(k)={}_{N}C_{k}p^{k}(1-p)^{N-k}, \tag{2.43}\]
+
+where
+
+\[{}_{N}C_{k}=\frac{N!}{r!(N-r)!}. \tag{2.44}\]
+
+\(k\) and the parameter \(p\) correspond to the number of and the probability of "success" respectively. The moment and cumulant generating function can be written from Eq. (2.10), Eq. (2.43) and Eq. (2.44) as
+
+\[M(\theta) = \sum_{k}{}_{N}C_{k}(pe^{\theta})^{k}(1-p)^{N-k} \tag{2.45}\] \[= (pe^{\theta}+1-p)^{N},\] \[K_{\theta} = N(pe^{\theta}+1-p). \tag{2.46}\]
+
+By differentiate Eq. (2.46), up to the sixth-order cumulants can be written as
+
+\[C_{1} = \mu, \tag{2.47}\] \[C_{2} = \mu\epsilon,\] (2.48) \[C_{3} = \mu\epsilon(2\epsilon-1),\] (2.49) \[C_{4} = \mu\epsilon(6\epsilon^{2}-6\epsilon+1),\] (2.50) \[C_{5} = \mu\epsilon(2\epsilon-1)(12\epsilon^{2}-12\epsilon+1),\] (2.51) \[C_{6} = \mu\epsilon(120\epsilon^{4}-240\epsilon^{3}+150\epsilon^{2}-30 \epsilon+1), \tag{2.52}\]
+
+where
+
+\[\epsilon = 1-p, \tag{2.53}\] \[\mu = pN, \tag{2.54}\]
+
+where \(\mu\) represents the mean value of the distribution. It is obvious that \(0<\epsilon<1\) from Eq. (2.53). Therefore, from Eq.(2.49), the following relation can be written straightforwardly,
+
+\[C_{2}<\mu. \tag{2.55}\]
+
+In other words, variance of the BD is smaller than that of the mean value. In addition, it can be seen that cumulants of BD are proportional to \(N\) from Eq. (2.54) and Eq. (2.47) to (2.52). These conclusion is consistent with the properties of the cumulants which is "additivities".
+
+Next, let us consider the sum and the difference of the two independent BD with the same probability \(p\). From Eq. (2.25) and Eq. (2.46), sum and difference of the two independent BD can be expressed as
+
+\[C_{n}^{sum} = C_{n}^{a}+C_{n}^{b}, \tag{2.56}\] \[C_{n}^{net} = C_{n}^{a}+(-1)^{n}C_{n}^{b}, \tag{2.57}\]
+
+where \(C_{n}^{a}\) and \(C_{n}^{b}\) represent the cumulants for each independent BD.
+
+#### Negative Binomial Distribution (NBD)
+
+There are various definitions of the Negative Binomial Distribution (NBD). One of the definition of NBD is considered as the distribution of the number of "success" under given r "failures" The probability function is given by
+
+\[F_{r,p}(k) = {}_{r+k-1}C_{k}p^{k}(1-p)^{r} \tag{2.58}\] \[= {}_{-r}C_{k}p^{k}(1-p)^{r}.\]
+
+We used negative binomial theorem from the first to the second line in Eq. (2.58). The negative binomial theorem is defined by
+
+\[(1+p)^{-n} = {}_{n}C_{k}p^{k} \tag{2.59}\] \[= (-1)^{k}{}_{r+k-1}C_{n-1}p^{k},\]
+
+which is the reason why this distribution is called "negative" binomial.
+
+The moment and cumulant generating function can be written from Eq. (2.54), (2.58) and (2.59) as
+
+\[M(\theta) = \sum_{k}{}_{n}C_{k}(pe^{\theta})^{k}(1-p)^{n-k} \tag{2.60}\] \[= (pe^{\theta}+1-p)^{n},\] \[K_{\theta} = N(pe^{\theta}+1-p). \tag{2.61}\]
+
+By differentiate Eq. (2.61), up to the sixth-order cumulants can be written. Surprisingly, cumulants can be written as the same formula as Eq. (2.47) to Eq. (2.52) even though the definition is different between BD and NBD if we define
+
+\[\epsilon = \frac{1}{1-p}, \tag{2.62}\] \[\mu = \frac{pr}{1-p}. \tag{2.63}\]
+
+It is obvious that \(1<\epsilon\) from Eq. (2.62). Therefore, the following relation can be established like the BD case,
+
+\[C_{2}>\mu. \tag{2.64}\]
+
+Contrary to the BD, variance of the NBD is larger than that of the mean value. Eq. (2.56) and Eq. (2.57) are also consist for NBD case by the same procedures as BD.
+
+In the Eq. (2.59), parameter \(k\) and \(r\) can only take integer. By using gamma function, these values can be expand to the continuous variable. For example, Eq. (2.58) can be expressed as
+
+\[{}_{r+k-1}C_{k}p^{k}(1-p)^{r}=\frac{\Gamma(r+k)}{\Gamma(k+1)\Gamma(r)}p^{k}(1- p)^{r}. \tag{2.65}\]
+
+In addition, we define the mean value of the distribution as \(m\) which can be written by\[\langle k\rangle=\frac{pr}{1-p}\equiv m. \tag{2.66}\]
+
+Then, the probability function is written as
+
+\[F_{r,p}(k) = \frac{\Gamma(r+k)}{\Gamma(k+1)\Gamma(r)}\left(\frac{m}{r+m}\right) ^{k}\left(\frac{r}{r+m}\right)^{r} \tag{2.67}\] \[= \frac{\Gamma(r+k)}{\Gamma(k+1)\Gamma(r)}\left(\frac{m}{r}\right) ^{k}\left(\frac{m}{r}+1\right)^{-(r+k)}.\]
+
+#### Poisson distribution
+
+The Poisson distribution is given by taking the \(p\)\(\rightarrow\)\(0\) limit of the BD with fixed \(\lambda=pN\) and defined by
+
+\[P(m)=e^{-\lambda}\frac{\lambda^{m}}{m!}, \tag{2.68}\]
+
+where \(\lambda\) is the parameter of the distribution and \(m\) is the positive integer.
+
+The moment and cumulant generating function are given from Eq. (2.10) and Eq. (2.68) by
+
+\[M(\theta) = e^{-\lambda}\sum_{m}e^{\theta m}\frac{\lambda^{m}}{m!} \tag{2.69}\] \[= e^{-\lambda}\mbox{exp}(\lambda e^{\theta}),\]
+
+where Taylor series are used. The cumulant generating function is given from Eq. (2.14) and Eq. (2.68) by
+
+\[K(\theta) = \ln(M(\theta)) \tag{2.70}\] \[= \lambda(e^{\theta}-1).\]
+
+By Eq.(2.15), cumulants of the Poisson distribution are given by
+
+\[\frac{d^{n}}{d\theta^{n}}K(\theta)=\lambda. \tag{2.71}\]
+
+Therefore, all the cumulants of the Poisson distribution are the same.
+
+Then, we suppose two independent Poisson distributions with parameters \(\lambda_{1}\) and \(\lambda_{2}\). By Eq. (2.24), sum of the two independent Poisson distributions with parameters \(\lambda_{1}\) and \(\lambda_{2}\) is written as
+
+\[\lambda_{3}=\lambda_{1}+\lambda_{2}, \tag{2.72}\]
+
+where \(\lambda_{3}\) represent the parameter of sum of the distributions. Therefore, sum of the two independent Poisson distributions follow the Poisson distribution.
+
+#### Skellam distribution
+
+In previous section, we showed that sum of the two independent Poisson distribution also follow the Poisson distribution. However, difference of the two independent Poisson distribution does not follow the Poisson distribution, which follows the Skellam distribution. By Eq. (2.25) cumulants of the Skellam distributions are given by
+
+\[C_{n} = \lambda_{1}+(-1)^{n}\lambda_{2}.\]
+
+By using Eq. (2.73), cumulant ratios of the different order Skellam distributions can be calculated as
+
+\[\frac{C_{2n}}{C_{2m}}=\frac{C_{2n+1}}{C_{2m+1}}=1, \tag{2.74}\] \[\frac{C_{2n}}{C_{2m+1}}=\frac{\lambda_{1}+\lambda_{2}}{\lambda_{ 1}-\lambda_{2}},\] (2.75) \[\frac{C_{2n+1}}{C_{2m}}=\frac{\lambda_{1}-\lambda_{2}}{\lambda_{ 1}+\lambda_{2}}, \tag{2.76}\]
+
+where \(n\) and \(m\) take the positive integer. Thus, \(C_{2n}\) and \(C_{2n+1}\) represent the even and odd order cumulants respectively. For example,
+
+\[\frac{C_{6}}{C_{2}} = \frac{C_{4}}{C_{2}}=1, \tag{2.77}\] \[\frac{C_{5}}{C_{2}} = \frac{C_{3}}{C_{2}}=\frac{\lambda_{1}-\lambda_{2}}{\lambda_{1}+ \lambda_{2}}, \tag{2.78}\]
+
+#### Gaus distribution
+
+At last of this section, Gaus distribution is introduced. The probability function of the Gaus distribution is defined by
+
+\[G(x) = \frac{1}{\sqrt{2\pi\sigma^{2}}}\exp\left(\frac{-(x-\mu)^{2}}{2 \sigma^{2}}\right), \tag{2.79}\]
+
+which satisfies \(\int_{-\infty}^{\infty}dxG(x)=1\).
+
+The moment and cumulant generating function are given by
+
+\[M(\theta) = \int_{-\infty}^{\infty}e^{\theta x}\frac{1}{\sqrt{2\pi\sigma^{2} }}\mathrm{exp}\left(\frac{-(x-\mu)}{2\sigma^{2}}\right) \tag{2.80}\] \[= \frac{1}{\sqrt{2}}\mathrm{exp}\left(\mu\theta+\frac{1}{2}\sigma ^{2}\theta^{2}\right),\] \[K(\theta) = \mu\theta+\frac{1}{2}\sigma^{2}\theta^{2}+A, \tag{2.81}\]
+
+where \(A\) is a constant value which is vanished after differentiative. Therefore, cumulants can be expressed as\[C_{1} = \mu, \tag{2.82}\] \[C_{2} = \sigma^{2},\] (2.83) \[C_{n} = 0\quad\mbox{for}\quad\mbox{n}\geq 3. \tag{2.84}\]
+
+From Eq. (2.82) to (2.84), \(\mu\) and \(\sigma\) represent the mean and variance of the distribution respectively, and more higher-order cumulants take 0. Therefore, higher-order fluctuations are called "non-Gaussian" fluctuation.
+
+### D-measure
+
+In this section, D-measure (\(D\)) is introduced. There are various definition of D-measure, ant two of them are introduced in this thesis.
+
+#### 2.8.1 D-measure defined by second-order cumulant
+
+D-measure is defined as the second-order net-charge cumulant (\(C_{2}\)) divided by the entropy density. Experimentally, number of charged particles in finite acceptance is used as a proxy for the entropy density. D-measure is written as
+
+\[D=4\frac{C_{2}}{\langle N_{ch}\rangle}, \tag{2.85}\]
+
+where \(N_{ch}=N_{+}+N_{-}\). If \(N_{+}\) and \(N_{-}\) follow the Poisson distribution whose parameters are \(\lambda_{1}\) and \(\lambda_{2}\) respectively. From Eq. (2.73), second-order cumulant of the Skellam distribution takes sum of the Poisson parameters, \(C_{2}=\lambda_{1}+\lambda_{2}\). Therefore, the value of D-measure is \(D=4\) which corresponds to the values of hadron gas fluctuation. Let us consider the simple model. If there are hadron thermalization, and we suppose all hadrons are baryons which follow the Poisson distributions for simplicity. \(n^{th}\)-order cumulants of net-particle distributions of baryon (\(\delta N_{B}\)) follow the
+
+\[\langle\delta{N_{B}}^{n}\rangle_{c}=\langle N_{B}\rangle. \tag{2.86}\]
+
+On the other hand, in case of QGP, that of quark (\(\delta N_{q}\)) follow the
+
+\[\langle\delta{N_{q}}^{n}\rangle_{c}=\langle N_{q}\rangle. \tag{2.87}\]
+
+Baryon is composed of three quarks. Thus, the following relation is consist.
+
+\[3N_{B}=N_{q} \tag{2.88}\]
+
+From, Eq. (2.87) and Eq. (2.88), if measured cumulants "remember" the QGP thermalization, measured cumulant follow the
+
+\[\langle\delta{N_{B}}^{n}\rangle_{c}=\frac{1}{3^{n}}\langle N_{B}\rangle. \tag{2.89}\]
+
+Therefore, if measured cumulants "remember" the QGP thermalization, cumulants become smaller with higher-order. As already mentioned, D-measure is defined as the second-orderthe assumption of QGP thermalization is smaller than that of hadron gas.
+
+This is very simple model, but the similar trends are predicted by various theoretical considerations such as HRG model and Lattice QCD calculation. According to the Lattice QCD calculations, \(D=4\) in free pion gas and \(D=3\) if we consider the resonance yield [28]. If there is a fluctuation from QGP, \(D=\)1-1.5. HRG model also predicted \(D=\)3-4 and \(D\) is about twice smaller if there is deconfinement medium [35][30]. In any case, D-measure from QGP thermalization is smaller than that of hadron thermalization. Therefore, D-measure may be a good probe to figure out the time expansion and phase transition.
+
+#### D-measure defined by \(\nu_{(+-,dyn)}\)
+
+\(\nu_{(+-)}\) is defined as
+
+\[\nu_{(+-)}=\left\langle\left(\frac{N_{+}}{\langle N_{+}\rangle}-\frac{N_{-}}{ \langle N_{-}\rangle}\right)^{2}\right\rangle. \tag{2.90}\]
+
+Then, the following relation is established.
+
+\[\langle N_{ch}\rangle\nu_{(+-)}\approx 4\frac{C_{2}}{\langle N_{ch}\rangle}. \tag{2.91}\]
+
+If distribution follow the Poisson distribution, \(\nu_{(+-)}\) is written by
+
+\[\nu_{(+-,stat)}=\frac{1}{\langle N_{+}\rangle}+\frac{1}{\langle N_{-}\rangle}. \tag{2.92}\]
+
+Then, \(\nu_{(+-,dyn)}\) is defined by
+
+\[\nu_{(+-,dyn)} = \nu_{(+-)}-\nu_{(+-,stat)} \tag{2.93}\] \[= \frac{\langle N_{+}(N_{+}-1)\rangle}{\langle{N_{+}}^{2}\rangle}+ \frac{\langle N_{-}(N_{-}-1)\rangle}{\langle{N_{-}}^{2}\rangle}-2\frac{ \langle N_{+}N_{-}\rangle}{\langle N_{+}\rangle\langle N_{-}\rangle}.\]
+
+In addition, the following formula is obtained,
+
+\[\langle N_{ch}\rangle\nu_{(+-,dyn)}\approx D-4. \tag{2.94}\]
+
+Figure 2.3: Number of hadron and quark
+
+\(\nu_{(+-,dyn)}\) does not affected by tracking efficiency and represents the correlation between \(N_{+}\) and \(N_{-}\). If there are no correlation between \(N_{+}\) and \(N_{-}\), \(\nu_{(+-,dyn)}\) takes 0. \(\nu_{(+-,dyn)}>0\) and \(\nu_{(+-,dyn)}<0\) mean the positive and negative correlations respectively. Experimentally, \(\nu_{(+-,dyn)}\) was observed to have negative value at both STAR and ALICE experiment [31][28]. These results mean that \(N_{+}\) and \(N_{-}\) have positive correlations.
+
+## Chapter 3 Experiment
+
+### 3.1 Relativistic Heavy Ion Collider (RHIC)
+
+The Relativistic Heavy Ion Collider (RHIC) is the first and unique heavy-ion accelerator at Brookhaven National Laboratory (BNL) in United States of America. QGP is created on the earth by colliding ions traveling at relativistic speeds in order to study the properties of the QGP. Fig. 3.1 shows the picture of RHIC. RHIC started from 2000, and RHIC can accelerate various ions not only protons but also gold, copper, aluminum nuclei and so on. The top energy is \(\sqrt{s_{\rm NN}}=200\) GeV in Au+Au collisions. There are two circular rings of superconductor magnets which are called "Blue ring" and "Yellow ring". The rings are 3.8 km in circumstance. In Au+Au collisions, ions are accelerated by the following steps. First, gold ions are created by sputter ion source and accelerated to 1 MeV per nucleon. Some of the electrons are stripped (Au\({}^{+32}\)). Next, ions are accelerate to 2 MeV by Linear accelerator (LINAC) and accelerate to 70 GeV by Booster Synchrotron. At the end of the Booster, most of the electrons are stripped by stripper foil and the charge state reach to Au\({}^{+77}\). Then, gold ions are accelerated to 9 GeV and electrons are stripped to the charge state of Au\({}^{+79}\) at Alternating Gradient Synchrotron (AGS). Then ions are injected into RHIC [37].
+
+There are six collision points at RHIC and six different experiments were conducted for each collision point. Now only STAR experiment is being conducted.
+
+### The STAR experiment
+
+The Solenoidal Tracker At RHIC (STAR) is the experiment conducted at the 6 O' clock position on RHIC. Fig. 3.2 shows the sketch of the STAR detectors. The aim of the STAR experiment is to study the properties and formation of the QGP. There are 65 institutions from 14 countries and 652 collaborators.
+
+#### Time Projection Chamber
+
+Time Projection Chamber (TPC) is one of the main detector of STAR experiment which is 4.2 m long and 4 m in diameter. Fig. 3.3 shows the schematic sketch of TPC [38]. The TPC is filled with P10 gas (90% argon and 10% methane), and can record the tracks of particles and measure their momenta. The acceptance covers \(\pm 1.8\) units of pseudo-rapidity and overs full azimuthal angle. Multiplicities more than 3000 tracks are routinely reconstructed by the software. Momenta can be measured over a range of 100 MeV/\(c\) to 30 GeV/\(c\). Basic parameters of the TPC are shown at Fig. 3.4.
+
+Particle identification (PID) can be done by using ionization energy loss (\(dE/dx\)) over a momentum range from 100 MeV/\(c\) to greater than 1 GeV/\(c\). Fig. 3.5 shows the \(dE/dx\) distribution as a function of momentum of the particles.
+
+The uniform electric field of 135 V/cm is applied by 28 kV central membrane and the end caps which are ground. The magnetic field is also applied at 0.5 T by solenoidal magnet. Both electric and magnetic fields are applied along to the beam direction. The primary particles pass through the gas and ionized. Trajectories of these primary particles are reconstructed by secondary electrons which drift to the end caps.
+
+The end-cap read out plane is consist of Multi-Wire Proportional Chambers (MWPC) with
+
+Figure 3.1: An aerial photo of the accelerators at BNL [36]Figure 3.3: Schematic sketch of the TPC [38]
+
+Figure 3.2: STAR detector
+
+Figure 3.3: Schematic sketch of the TPC [38]
+
+Figure 3.4: Basic parameters of the TPC [38]
+
+Figure 3.5: The energy loss distribution as a function of momentum [38].
+
+modules. There are 12 sectors which are arranged as on a clock around the circle. Fig. 3.6 shows the sketch of the anode pad plane of one sector. Electrons drift and avalanche at the high electric fields at the anode wires and amplification is 1000-3000. Then, positive ions are created because of the avalanche, and the image charges on the pads are measured. The charge from the avalanche is shared over several adjacent pads. For example, 3 adjacent pads are shared in a row. The position of the cluster is determined by these 3 pads. If we suppose the distribution of the signal follow the Gaussian distribution, position \((x,y)\) can be determined as follows,
+
+\[x = \frac{\sigma^{2}}{2w}\ln\left(\frac{h_{3}}{h_{1}}\right), \tag{3.1}\] \[\sigma^{2} = \frac{w^{2}}{\ln({h_{2}}^{2}/{h_{2}h_{3}})}, \tag{3.2}\]
+
+where \(h_{1}\), \(h_{2}\) and \(h_{3}\) represent the amplitudes of 3 adjacent pads. We supposed that pad \(h_{2}\) centered at \((x,y)=(0,0)\) and \(w\) represents the pad width.
+
+#### Time Of Flight
+
+As discussed in previous subsection, PID can not be done over a momentum range more than 1 GeV/\(c\) by using TPC. Time Of Flight (TOF) detector is used for PID not only low \(p_{T}\) region but also high \(p_{T}\) region more than 1 GeV/\(c\). PID can be done by measuring the mass of the particle species. The mass of the particles are measured as
+
+\[m^{2} = p^{2}\left(\left(\frac{t}{L}\right)^{2}-1\right), \tag{3.3}\]
+
+where \(L\) is the distance between TOF detector and the collision vertex, and \(p\) is the momentum of the particles measured by TPC. \(t\) is the time difference between "start time" and "stop time".
+
+Figure 3.6: The anode pad plane with one sector [38].
+
+Stop time is measured by TOF and start time is measured by VPD which will be explained in the next subsection. Eq. (3.3) can be easily obtained by the following steps. From relativistic theory, momentum \(p\) can be written as
+
+\[p=\gamma mv, \tag{3.4}\]
+
+where \(\gamma\) is called "Gamma factor" or "Lorentz factor" which is defined as \(1/\sqrt{1-\beta^{2}}\), where \(\beta=v/c\). When we define \(c=1\), \(\beta\) is expressed by
+
+\[\beta = v \tag{3.5}\] \[= \frac{L}{t}.\]
+
+From Eq. (3.4) and Eq. (3.5), Eq. (3.3) is obtained.
+
+The mass resolution is given by
+
+\[\frac{dm}{m} = \sqrt{\left(\frac{dp}{p}\right)^{2}+\gamma^{4}\left(\frac{dt}{t} +\frac{dL}{L}\right)^{2}}, \tag{3.6}\]
+
+where \(dm\) and \(dt\) show the resolution of the mass and time. From Eq. (3.6), mass resolution \(dm\) depends on time resolution \(dt\). Therefore, it is important to use TOF which have good timing resolution.
+
+STAR TOF is based on Multi-gap Resistive Plate Chamber (MRPC). Fig. 3.7 shows the side view (upper panel) and end view (lower panel) of MRPC. There are stack of resistive plate which is 0.54 mm float glass and 220 \(\mu\)m gas gaps between the plates. High voltage is applied to graphite electrodes which are applied to the outer surface of the resistive plates. Therefore, strong electric field is generated for each gap. If charged particle go through the stack, primary ionization is generated along the path and produce Townsend amplification avalanche because of the strong electric field. Then, we can read the signal as the sum of the avalanches from readout pads. The stop time resolution is approximately 80 ps. The MRPC is bathed in a gas which is composed of Freon R-134a (90-95%), isobutane and SF6. Isobutane and SF6 can suppress the streamers which cause very large avalanche.
+
+Signals are digitized in CAMAC by subsystem with VPD. Fig. 3.8 shows the \(1/\beta\) measured by TOF detector as a function of the momentum of the particles. The bands correspond to the identified charged particles, such as pion, Kaon and proton. Pion, Kaon and proton can be separated over a momentum range more than 1 GeV/\(c\).
+
+#### Vertex Position Detector
+
+Vertex Position Detector (VPD) is \(2\times 19\) channel detector used for minimum-bias trigger in Au+Au collisions, measuring the position of the primary collision vertex and used for "start time" of other fast-timing detectors, such as TOF and Muon Telescope Detector (MTD). VPD had been upgraded from pseudo Vertex Position Detector (pVPD) which is \(2\times 3\) channel detector. In heavy-ion collision experiment, a lot of photons from \(\pi^{0}\) are produced and stream outwards which are very close to the beam pipe. The VPD can measure these photons. The VPD consists of two identical detector assemblies which are shown in Fig. 3.9. These assemblies are located symmetrically and distance from the center of STAR is 5.7 m, which cover Figure 3.7: The two side view of the MRPC [39].
+
+Figure 3.8: Inverse velocity as a function of momentum of the particles [40].
+
+\(\eta<5.1\). Each assembly consists of 19 detectors and one of them is shown at Fig. 3.10. The detector consist of 0.25 inch (6.35 mm) Pb converter, 1 cm thick scintillator, photomultiplier tube (PMT) and so on.
+
+The vertex position along the bean pipe (\(Z_{vtx}\)) can be determined by
+
+\[Z_{vtx}=c(T_{east}-T_{west})/2, \tag{3.7}\]
+
+where \(T_{east}\) and \(T_{west}\) are the times measured by east and west side VPD assemblies respectively. \(c\) represents the speed of light. Start time can be also determined by
+
+\[T_{start}=(T_{east}+T_{west})/2-L/c, \tag{3.8}\]
+
+where \(L\) is the distance between assembly and the center of STAR. The minimum bias trigger requires at least one VPD channel on each side is lit in an event. Fig. 3.13 shows the single detector resolution as a function of VPD channel number. The mean value of the single detector is about 94 ps at \(\sqrt{s_{\rm NN}}=200\) GeV in Au+Au collisions and increase to 150 ps for lower energy Au+Au and p+p collisions. This is because the number of prompt particles which hit the detector and the number of channels lit by prompt particles are larger at \(\sqrt{s_{\rm NN}}=200\) GeV in Au+Au collision compared with the lower energy collisions. The vertex resolution \(Z_{vtx}\) can be estimated by using single detector time resolution as
+
+Figure 3.10: A Schematic view of the VPD [41].
+
+Figure 3.9: A Schematic front view of the VPD (left). A Photograph of the VPD [41].
+
+\[\sigma(Z_{vtx})=(2/c)\sigma_{\Delta T}=(\sigma/\sqrt{2})\sigma_{T}=(c/\sqrt{2}) \sigma\sqrt{N}, \tag{3.9}\]
+
+where \(T\) represents \(T_{east}\) or \(T_{west}\), \(\sigma_{T}\) is the resolution of \(T\), \(\sigma_{0}\) is the single detector time resolution. \(\sigma_{T}\) is the resolution of the \(T_{east}-T_{west}\). From Eq. (3.9), the resolution become \(\sigma_{0}/\sqrt{M}\) where \(M\) is the number of VPD channel lit. Therefore, the start time resolution is 20-30 ps in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. This start time resolution (20-30 ps) is better than stop time resolution of TOF (\(\bar{8}0\) ps) and MTD (100 ps). In p+p collisions, the start time resolution is about 80 ps.
+
+Fig.3.12 shows the correlation between primary vertex position measured by VFC (\(Z_{vtx}^{VPD}\)) and TPC (\(Z_{vtx}^{TPC}\)) in 510 GeV \(p+p\) collision and 200 GeV Au+Au collision. The vertex resolutions are determined by Gaussian fitting to the \(Z_{vtx}^{VPD}-Z_{vtx}^{TPC}\). As a results of the fitting, the vertex resolution is \(\sim\)1 cm at 200 GeV Au+Au collisions and \(\sim\)2.4 cm in 510 GeV p+p collisions.
+
+#### Zero Degree Calorimeter
+
+Zero Degree Calorimeter (ZDC) is the hadron calorimeter which is used for the minimum bias trigger and luminosity monitor. ZDC can measure neutron which is emitted within the cone along beam direction. Fig. 3.9 shows the plane view of the collision region and view of the ZDC location. ZDC is located at 18 m from center of the STAR. Protons and other charged particles are deflected by Dipole magnet. In addition, electro magnetic emission into the ZDC is predicted to be negligible. Therefore, only neutrons are considered to be detected by ZDC in this region.
+
+Fig. 3.14 shows the mechanical design of Tungsten modules of ZDC. If neutrons are injected into the module, neutrons lose their energies in Tungsten module and emit Cerenkov light. The optical fibers only transport Cerenkov light if emitted light is aligned with the fiber axis and
+
+Figure 3.11: Resolution of the single detector versus VPD channel number [41].
+
+Figure 3.12: Correlation between primary vertex position measured by VFC (\(Z_{vtx}^{VPD}\)) and TPC (\(Z_{vtx}^{TPC}\)) in 510 GeV \(p+p\) collision (left) and 200 GeV Au+Au collision(right) [41].
+
+Figure 3.13: Plane view of the ZDC [42].
+
+most sensitive if angle is about \(45^{\circ}\). Thus, the fibers and Tungsten plates are fixed to \(45^{\circ}\) relative to the beam direction. Then, signal is read by PMT.
+
+Figure 3.14: Structure of the Tungsten Modules used for ZDC [42].
+
+[MISSING_PAGE_FAIL:63]
+
+### (2) UrQMD model simulation
+
+In addition to the experimental data, the data of the Ultra-Relativistic Quantum Molecular Dynamics (UrQMD) model simulation [43, 44] has been analyzed. The UrQMD is the microscopic transport model which is based on hadron-hadron scattering, and can describe the excitation and decay of hadronic resonances and strings. In this thesis, the data of UrQMD model in Au+Au collision at \(\sqrt{s_{\rm NN}}=200\) GeV is used. The number of events are approximately 45 Million after event selections. The analysis details for UrQMD, which are event selection, track cut, centrality definition, etc., are the same as experimental data which are explained at the following section.
+
+\begin{table}
+\begin{tabular}{c c c c} \hline Run name & Trigger ID & NEvent (Million) \\ \hline Run11 & 350003 & 200 \\ \hline Run11 & 350013 & 74 \\ \hline Run11 & 350023 & 15 \\ \hline Run11 & 350033 & 12 \\ \hline Run11 & 350043 & 187 \\ \hline Run10 & 260001 & 91 \\ \hline Run10 & 260011 & 24 \\ \hline Run10 & 260021 & 79 \\ \hline Run10 & 260031 & 45 \\ \hline \end{tabular}
+\end{table}
+Table 4.2: Data set (\(\sqrt{s_{\rm NN}}=200\) GeV, Minimum bias)
+
+\begin{table}
+\begin{tabular}{c c c c} \hline Run & Trigger type & Centrality & NEvent (Million) \\ \hline Run10 & Minimum bias trigger & 10-80\% & 160 \\ \hline Run10 & Central trigger & 0-10\% & 200 \\ \hline Run11 & Minimum bias trigger & 0-80\% & 480 \\ \hline \end{tabular}
+\end{table}
+Table 4.3: Number of event at \(\sqrt{s_{\rm NN}}=200\) GeV
+
+#### 4.1.2 \(\Delta\eta\) analysis
+
+In \(\Delta\eta\) analysis, analysis has been done in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV. Collision energy, Run name, and number of events (Million) after event selection are shown as follows. Table 4.1 shows the data used for \(\Delta\eta\) analysis.
+
+\begin{table}
+\begin{tabular}{c c c} \hline \(\sqrt{s_{NN}}\) & Run name & NEvent (Million) \\ \hline
+200 & Run11 & 97.8 \\ \hline
+62.4 & Run10 & 50.4 \\ \hline
+39 & Run10 & 85.3 \\ \hline
+27 & Run11 & 27.5 \\ \hline
+19.6 & Run11 & 15.5 \\ \hline
+14.5 & Run14 & 12.0 \\ \hline
+11.5 & Run10 & 2.57 \\ \hline
+7.7 & Run10 & 1.55 \\ \hline \end{tabular}
+\end{table}
+Table 4.4: Data set used for \(\Delta\eta\) analysis
+
+#### 4.1.3 VFC study
+
+In VFC study, we use two models, simple toy model and UrQMD model simulations. In toy model, 500 Million events for net-charge study and 100 Million events for net-proton study are generated by Glauber simulation. The data set of the UrQMD model is the same as \(C_{6}\) analysis.
+
+### 4.2 Run selection
+
+Run by run QA has been done, and the outlier runs of \(3\sigma\) were rejected as bad runs. \(\langle p_{T}\rangle\), \(\langle\eta\rangle\), \(\langle\phi\rangle\), \(\langle\)dca\(\rangle\) and \(\langle\)Refmult\(\rangle\) are measured for each trigger ID and used for evaluation of \(3\sigma\). Refmult is defined by the multiplicity counted in \(|\eta|<0.5\). Same good run list is used between minimum bias trigger and the central trigger in Run10. Fig. 4.1 shows the run by run mean value of \(\langle p_{T}\rangle\), \(\langle\eta\rangle\), \(\langle\phi\rangle\), \(\langle\)dca\(\rangle\) and \(\langle\)Refmult\(\rangle\) in Run11 \(\sqrt{s_{\rm NN}}=\) 200 GeV. Dotted line represent the \(3\sigma\) for each trigger ID.
+
+Figure 4.1: Run by run QA for Run11
+
+### Event selection
+
+Event selection has been done by the following cuts.
+
+In Tab. 4.5, \(V_{r}^{2}=V_{x}^{2}+(V_{y}+0.89)^{2}\) at 14.5GeV and \(V_{r}^{2}=V_{x}^{2}+V_{y}^{2}\) at the other energies.
+
+\(V_{i}\) represents the vertex position along to \(i\)-axis determined by TPC, and \(\mathrm{Vpd}V_{z}\) is the vertex position along to z-axis determined by VPD. (a) to (c) in Fig. 4.2 show the distribution of event-by-event \(V_{z}\), \(V_{xy}\) and \(V_{z}-\mathrm{Vpd}V_{z}\) respectively. Red line represents the upper or lower limit used for the event selection written in Tab. 4.5. (d) in Fig. 4.2 shows the correlation between Refmult and TOF matched track. Events under the red line were cut in order to remove pile-up events.
+
+\begin{table}
+\begin{tabular}{c c c c c} \hline \hline \(\sqrt{s_{NN}}\)(GeV) & \(|V_{z}|\) & \(|V_{r}|\) & \(|\mathrm{Vpd}\,V_{z}-V_{z}|\) & Pile-up events cut \\ \hline
+200 & 30 & 2 & 4 & \(\mathrm{Tofractched}<0.46\mathrm{Refmult}-10\) \\ \hline
+62.4 & 30 & 2 & 4 & \(\mathrm{Tofractched}<0.46\mathrm{Refmult}-10\) \\ \hline
+54 & 30 & 2 & 4 & \(\mathrm{Tofractched}<0.46\mathrm{Refmult}-10\) \\ \hline
+39 & 30 & 2 & 4 & \(\mathrm{Tofractched}<0.46\mathrm{Refmult}-10\) \\ \hline
+27 & 30 & 2 & - & \(\mathrm{Tofractched}<0.46\mathrm{Refmult}-10\) \\ \hline
+19.6 & 30 & 2 & - & \(\mathrm{Tofractched}<0.46\mathrm{Refmult}-10\) \\ \hline
+14.5 & 30 & 1 & - & \(\mathrm{Tofractched}<0.71\mathrm{Refmult}-10.2\) \\ \hline
+11.5 & 30 & 2 & - & \(\mathrm{Tofractched}<0.46\mathrm{Refmult}-10\) \\ \hline
+7.7 & 30 & 2 & - & \(\mathrm{Tofractched}<0.46\mathrm{Refmult}-10\) \\ \hline \hline \end{tabular}
+\end{table}
+Table 4.5: Event selectionFigure 4.2: (a)z-vertex measured by TPC (b)Vertex in \(xy\)-plane measured by TPC (c)Difference between z-vertex measured by TPC and VPD (d)Correlation between Refmult and TOF matched track at \(\sqrt{s_{\rm NN}}\) = 200 GeV in Run11, Trigger ID = 350043
+
+### Track cut
+
+Track cuts are shown in Tab. 4.6.
+
+Fig. 4.3 shows the distribution of \(\eta\), DCA, nHitsFit, nHitsdedx and Track quality respectively. Definition of these values are written in the caption of Fig. 4.3.
+
+Red line represents the upper or lower limit of track cut. Exceptionally, nHitsdedx\(>\)5 has been applied at \(\sqrt{s_{\rm NN}}=\) 14.5 GeV.
+
+Figure 4.3: (a)Pseudo-rapidity distribution (b)Distance of Closest Approach (DCA) distribution (c)Number of hit points in TPC track used for reconstruction (d)Number of hit points in TPC track used for calculating energy loss (e)Distribution of the Track quality, which is nHitsFit divided by maximum number of nHitsFit, at \(\sqrt{s_{\rm NN}}=\) 200 GeV in Run11, Trigger ID = 350043.
+
+\begin{table}
+\begin{tabular}{l c} \hline \(\eta\) & -0.5 to 0.5 \\ \hline nHitsFit & \(>\)20 \\ \hline DCA & \(<\)1 cm \\ \hline Track quality cut & \(>\)0.52 \\ \hline nHitsdedx & \(>\)10 \\ \hline \end{tabular}
+\end{table}
+Table 4.6: Track cut
+
+### Particle Identification
+
+As mentioned in Chapter. 1, efficiency corrections for each particle species separately, such as \(\pi\), \(K\), and p, are important to calculate true efficiency corrected cumulant in sixth-order fluctuation analysis. Therefore, particle identification (PID) is essential to this analysis whereas PID had not been done in published net-charge analysis. PID is done by using energy loss and momentum measured by TPC. Figure (a) in Fig. 4.4 is \(dE/dx\) as a function of \(p/q\), where \(q\) is a sign of the charged particle. \(\pi\), \(K\), and p can be separated at lower \(p_{T}\) regions (\(p<1\) GeV/\(c\)). PID has been done by \(2\sigma\) cut for each \(p_{T}\) regions. However, as already mentioned in Chapter. 3, PID does not work well at higher \(p_{T}\) regions (\(p>1\) GeV/\(c\)) due to the contamination from other particle species. Then, TOF is used for PID at higher \(p_{T}\) regions in addition to TPC. Figure (b) in Fig. 4.4 shows the \(m^{2}\) as a function of \(p/q\) measured by TOF. PID has been done as following cuts.
+
+In proton PID, \(0.2<p_{T}<0.4\) GeV/\(c\) is not used because of the spallation protons which are generated by interaction with the beam pipe. \(p_{T}<0.2\) was also not used due to the low tracking efficiencies.
+
+Figure 4.4: (a)\(dE/dx\) as a function of \(p/q\) measured by TPC in Run11, Trigger ID = 350043. (b)\(m^{2}\) as a function of \(p/q\) measured by TOF in Run11, Trigger ID = 350043. Red line represent the cut parameters written in Tab. 4.7.
+
+\begin{table}
+\begin{tabular}{l c c c} \hline  & \(\pi\) & K & p \\ \hline \(p_{T}\)(TPC) & 0.2 to 0.5 GeV/\(c\) & 0.2 to 0.4 GeV/\(c\) & 0.4 to 0.8 GeV/\(c\) \\ \hline \(p_{T}\)(TPC+TOF) & 0.5 to 1.6 GeV/\(c\) & 0.4 to 1.6 GeV/\(c\) & 0.8 to 2 GeV/\(c\) \\ \hline PID(TPC) & nsigmapion \(<2\) & nsigmakaon \(<2\) & nsigmaproton \(<2\) \\ \hline PID(TOF) & \(-0.15<m^{2}<0.14\) & \(0.14<m^{2}<0.4\) & \(0.6<m^{2}<1.2\) \\ \hline \end{tabular}
+\end{table}
+Table 4.7: Particle Identification
+
+### Centrality Determination
+
+In this section, centrality is introduced and explain how to define centralities. We assume all nucleons propagate along parallel in heavy-ion collisions. The nucleons which interact with each other are called "participant", and the nucleons which do not meet any other nucleons are called "spectator". Number of participants are expressed as \(N_{W}\) or \(N_{part}\) and the number of collisions are expressed as \(N_{corr}\) in this thesis. A length of centers of two nuclei which is projected in \(x\)-\(y\) plane is defined as impact parameter (\(b\)). The impact parameter determine the collision geometry but can not be measured by experiment directly. Fig. 4.5 shows the before and after heavy ion collision with impact parameter \(b\).
+
+Experimentally, centrality is often used which corresponds to \(b\). The centrality have the following relation [46],
+
+\[c(N)\simeq\frac{\pi b^{2}(N)}{\sigma}, \tag{4.1}\]
+
+where \(\sigma\) is total inelastic nucleus-nucleus cross section. \(c(N)\) is the centrality with the multiplicity \(N\) and \(b(N)\) is the impact parameter when mean number of multiplicity is \(N\). If we consider identical nuclei, \(c\simeq b^{2}/(4R^{2})\) where \(R\) is the length radii of the nuclei and collision occurs only if \(b<2R\).
+
+#### Auto-correlation Effect
+
+In this thesis, charged particles used for net-charge analysis and multiplicity used for centrality determination are measured in different kinematic window in order to avoid auto-correlation. Fig. 4.6 and Fig. 4.7 show the \(S\sigma\) and \(\kappa\sigma^{2}\) of net-proton distribution as a function of centralities in Au+Au collisions at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV in UrQMD simulation for two different centrality determination [32]. Centrality is defined by charged Kaon and pion in black marker and defined by all charged particles including protons in square the blue marker results. It can be seen that results of blue markers are suppressed by auto-correlation effect comparing to black markers.
+
+In this thesis, cumulants and cumulant ratios of net-charge distributions are measured in \(|\eta|<0.5\) and the multiplicities used for the centrality determination are measured in
+
+Figure 4.5: Before and after heavy-ion collision with impact parameter \(b\)[45].
+
+Figure 4.6: Centrality dependence of \(S\sigma\) in Au+Au collisions at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV in UrQMD simulation with two different centrality determinations. [32]
+
+Figure 4.7: Centrality dependence of \(\kappa\sigma^{2}\) in Au+Au collisions at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV in UrQMD simulation with two different centrality determinations. [32]
+
+\(|\eta|<1\). We call this multiplicity used for centrality determination as "Refmult2". Refmult2 has been measured by following cuts.
+
+Refmult2 depends on z-vertex and luminosity, which should be correct. Detail about these correction methods are shown in Appendix.
+
+#### Glauber model
+
+The most simple way to determine centrality is dividing multiplicity distribution into the same number of events class. However, this definition is not perfect because ultra peripheral collision events are not triggered by Minimum Bias trigger. Thus, Glauber simulation is done for centrality determinations.
+
+The parameters used for the Glauber simulation are shown in the following table.
+
+\(\sigma\) is the cross section and width is the parameter of Wood-saxon. Fig. 4.8 shows the picture of collision event described by Glauber model which is projected to \(x\)-\(y\) plane. Blue and black markers represent the nucleons of two different nuclei and red markers are the participants. At Fig. 4.8, impact parameter \(b=10\).
+
+\begin{table}
+\begin{tabular}{l c} \hline Number of nucleon & 197 \\ \hline Width & 0.535 \\ \hline Radius & 6.4 (fm) \\ \hline \(\sigma\) & 42 (mb) \\ \hline \end{tabular}
+\end{table}
+Table 4.9: Parameters used for Glauber simulation in Au+Au collision at \(\sqrt{s_{\rm NN}}=200\) GeV.
+
+Figure 4.8: Heavy-ion collision event described by Glauber model which is projected to \(x\)-\(y\) plane in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. Impact parameter \(b=10\) fm in this event.
+
+By repeating these procedure, \(N_{part}\) and \(N_{coll}\) are obtained. Fig. (4.9) shows the correlation between \(N_{part}\) and \(N_{coll}\) by Glauber simulation.
+
+Then, "two component model" is introduced. In two component model, initial "source" is described by
+
+\[N_{source}=(1-x)\frac{N_{part}}{2}+xN_{coll}, \tag{4.2}\]
+
+where \(x\) is the parameter of the two component model, and \(x=0.13\) is applied in this thesis. We suppose final state multiplicity is produced from each source independently, which is call Independent Particle Production (IPP) model shown at Fig. 4.10. The NBD is employed to implement the source-by-source multiplicity fluctuations.
+
+Fig.4.11 shows the results of Glauber fitting (left) and ratio of data points to fitting results (right).
+
+\(n_{pp}\) and \(k\) are the parameters of NBD at Eq. (2.67), and \(n_{pp}\) corresponds to the \(m\) in Eq. (2.67). The parameter \(efficiency\) corresponds to the tracking efficiency.
+
+Fig. 4.12 shows the Refmult2 distribution for each centrality bins which are represented as different color.
+
+Figure 4.10: Image of Independent Particle Production (IPP) model.
+
+Figure 4.9: Correlation between \(N_{part}\) and \(N_{coll}\) by Glauber simulation in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV. Number of events are 500 Million.
+
+Figure 4.11: Glauber fit results (left) and the ratio of data points to fitting results (right). Fitting parameters are written in the left hand side panel.
+
+Figure 4.12: Refmult2 distribution for each centrality bins at \(\sqrt{s_{\rm NN}}=200\) GeV in Au+Au collisions in Run11, Trigger ID = 350043.
+
+[MISSING_PAGE_FAIL:76]
+
+TOF matching efficiencies which are measured by experiment are used as a efficiency of TOF at high-\(p_{T}\) region. Fig. 4.15 shows the Refmult2 dependence of TOF matching efficiencies for each particle species.
+
+Fig. 4.16 shows the Refmult2 dependence of TPC and TPC+TOF efficiencies for each particle species in Run10. Solid line represent the TPC tracking efficiencies, and dotted line represent the TPC+TOF efficiencies which are calculated by TPC efficiencies times TOF efficiencies.
+
+Figure 4.14: Identified particle transverse momentum spectra in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV
+
+Figure 4.15: Refmult2 dependence of TOF matching efficiencies in Run10, Trigger ID = 260001
+
+### 4.8 Factorial cumulant method
+
+In fluctuation analysis, factorial moment method [50] is usually used to calculate the efficiency corrected cumulants and cumulant ratios. However, CPU time by using factorial moment method strongly depends on the number of efficiency bins, and it takes long CPU time if number of efficiency bins are large like 6th-order cumulants analysis of net-charge.
+
+Recently, factorial cumulant method has been proposed [26], and this method can reduce CPU time if number of efficiency bins are large in higher-order cumulants analysis.
+
+Cumulants up to the sixth-order are written as
+
+Figure 4.16: Refmult2 dependence of TPC and TPC+TOF efficiencies in Run10.
+
+[MISSING_PAGE_EMPTY:79]
+
+sign of the charge respectively and \(M=12\) in \(C_{6}\) analysis. \(Q\) and \(q\) represents the efficiency corrected and measured cumulants respectively.
+
+Efficiency correction formula of factorial cumulants are easier than that of cumulants. In this method, once measured cumulants are converted to the measured factorial cumulants, and then efficiency corrections are applied. Then, corrected factorial cumulants are converted to the corrected cumulants.
+
+### 4.9 Volume fluctuation
+
+In this chapter, effects from Volume fluctuation (VF) are explained and two correction method, Centrality Bin Width Correction (CBWC) and Volume Fluctuation Correction (VFC) are introduced in order to eliminate the effect of VF. Then, we will discuss the validity of VFC by using simple toy model and UrQMD model.
+
+#### Centrality Bin Width Correction (CBWC)
+
+In heavy-ion collision experiment, data analysis is done for each centrality. For example, 10% centrality divisions are usually used. However, initial volume which corresponds to the number participant nucleons (\(N_{W}\)) are different even in the same centrality bins like the following sketch.
+
+This initial Volume Fluctuation (VF) artificially enhance the cumulants.
+
+In order to eliminate VF, Centrality Bin Width Correction (CBWC) has been applied for experimental data in this thesis, and also applied in published results from STAR experiment. In CBWC, cumulants for each centrality bin are calculated by taking weighted average for each multiplicity bin as follows:
+
+\[C_{n} = \sum_{r}w_{r}C_{(n,r)}, \tag{4.12}\] \[w_{r} = \frac{N_{r}}{\sum_{r}N_{r}}, \tag{4.13}\]
+
+where \(C_{(n,r)}\) is the \(n^{th}\)-order cumulant in \(r^{th}\) multiplicity bins for centrality determination.
+
+Fig. 4.18 shows the centrality dependence of net-proton distributions in UrQMD model simulation at BES-I energies. The open cross symbol represents the without CBWC and open round and open star symbols are CBWC results. In star marker, weights are calculated by error whereas number of events are used in open round marker. The blue dotted points show the 2.5% (32 divisions) centrality step results. The without CBWC results are enhanced from the unity which is the statistical baseline of \(\kappa\sigma^{2}\), and CBWC weighted by events can remove VF. 2.5% centrality step can also remove VF compared with the 10% step results. These results say that CBWC weighted by events or 2.5% centrality divisions can eliminate the effect from VF. Therefore, CBWC is usually used for eliminate VF.
+
+Figure 4.17: Image of the initial volume difference in 0-10% centrality.
+
+#### Volume Fluctuation Correction
+
+As it is said in the previous sections, CBWC can reduce the VF. However, initial participant (\(=N_{part}=N_{W}\)) fluctuation can not be eliminated even though we measure cumulants for each multiplicity bin. Fig. 4.19 shows the correlation between number of participant and multiplicity from Glauber simulation in Au+Au collisions at \(\sqrt{s_{\rm NN}}=\) 200 GeV for 10% (left), 5% (middle) and 2.5%. If we choose 2.5% centrality step or one multiplicity bins, VF become smaller than 10% centrality step. However, there remain VF.
+
+In VFC, we suppose IPP model whereas CBWC is the data driven method. In this model, measured net-particle (\(\Delta N\)) is expressed as the sum of the net-particles from each source (\(\Delta n\)). If we suppose \(N_{W}\) is the number of sources, the moment generating function can be written as,
+
+\[M_{\Delta N}(\theta)=\left[M_{\Delta n}(\theta)\right]^{N_{W}}, \tag{4.14}\]
+
+where \(M_{\Delta N}(\theta)\) and \(M_{\Delta n}(\theta)\) represent the moment generating function of \(\Delta N\) and \(\Delta n\) distributions respectively. Then, cumulants are given by the derivatives of the cumulant generating function \(K_{\Delta N}(\theta)=\ln\left(M_{\Delta N}(\theta)\right)\). Thus, up to the sixth-order cumulants are written as,
+
+Figure 4.18: \(\kappa\sigma^{2}\) of net-proton distributions as a function of centralities in UrQMD model simulation in Au+Au collision at \(\sqrt{s_{\rm NN}}=\) 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV [32].
+
+\[\kappa_{1}(\Delta N) = \langle N_{W}\rangle\kappa_{1}(\Delta n), \tag{4.15}\] \[\kappa_{2}(\Delta N) = \langle N_{W}\rangle\kappa_{2}(\Delta n)+\langle\Delta n\rangle^{2} \kappa_{2}(N_{W}),\] (4.16) \[\kappa_{3}(\Delta N) = \langle N_{W}\rangle\kappa_{3}(\Delta n)+3\langle\Delta n\rangle \kappa_{2}(\Delta n)\kappa_{2}(N_{W})+\langle\Delta n\rangle^{3}\kappa_{3}(N_ {W}),\] (4.17) \[\kappa_{4}(\Delta N) = \langle N_{W}\rangle\kappa_{4}(\Delta n)+4\langle\Delta n\rangle \kappa_{3}(\Delta n)\kappa_{2}(N_{W})\] (4.18) \[+ 3\kappa_{2}^{2}(\Delta n)\kappa_{2}(N_{W})+6\langle\Delta n \rangle^{2}\kappa_{2}(\Delta n)\kappa_{3}(N_{W})+\langle\Delta n\rangle^{4} \kappa_{4}(N_{W}),\] \[\kappa_{5}(\Delta N) = \langle N_{W}\rangle\kappa_{5}(\Delta n)+\left\{5\kappa_{4}( \Delta n)\kappa_{1}(\Delta n)+10\kappa_{3}(\Delta n)\kappa_{2}(\Delta n) \right\}\kappa_{2}(N_{W})\] (4.19) \[+ \left\{10\kappa_{3}(\Delta n)\kappa_{1}^{2}(\Delta n)+15\kappa_ {2}^{2}(\Delta n)\kappa_{1}(\Delta n)\right\}\kappa_{3}(N_{W})+10\kappa_{2}( \Delta n)\kappa_{1}^{3}(\Delta n)\kappa_{4}(N_{W})\] \[+ \kappa_{1}^{5}(\Delta n)\kappa_{5}(N_{W}),\] \[\kappa_{6}(\Delta N) = \langle N_{W}\rangle\kappa_{6}(\Delta n)+\left\{6\kappa_{5}( \Delta n)\kappa_{1}(\Delta n)+15\kappa_{4}(\Delta n)\kappa_{2}(\Delta n)+10 \kappa_{3}^{2}(\Delta n)\right\}\kappa_{2}(N_{W})\] (4.20) \[+ \left\{15\kappa_{4}(\Delta n)\kappa_{1}^{2}(\Delta n)+60\kappa_{ 3}(\Delta n)\kappa_{2}(\Delta n)\kappa_{1}(\Delta n)+15\kappa_{2}^{3}(\Delta n )\right\}\kappa_{3}(N_{W})\] \[+ \left\{20\kappa_{3}(\Delta n)\kappa_{1}^{3}(\Delta n)+45\kappa_ {2}^{2}(\Delta n)\kappa_{1}^{2}(\Delta n)\right\}\kappa_{4}(N_{W})+15\kappa _{2}(\Delta n)\kappa_{1}^{4}(\Delta n)\kappa_{5}(N_{W})\] \[+ \kappa_{1}^{6}(\Delta n)\kappa_{6}(N_{W}),\]
+
+where \(\kappa_{n}(\Delta N)\) and \(\kappa_{n}(\Delta n)\) are the cumulants of \(\Delta N\) and \(\Delta n\) distributions respectively [33][53]. From Eq. (4.16)-(4.20), \(\kappa_{n}(\Delta N)\) is not only written by the sum of the \(\kappa_{n}(\Delta n)\) but also \(N_{W}\) cumulant (\(\kappa_{n}(N_{W})\)) terms. These \(\kappa_{n}(N_{W})\) terms represent the VF background which should be subtracted from measured cumulants.
+
+This correction method is call Volume Fluctuation Correction (VFC). In this thesis, validity of VFC will be studied by using Toy model in net-charge case and UrQMD model in both net-charge and net-proton cases.
+
+### Toy model approach
+
+From Eq. (4.16) to Eq. (4.20), VFC needs cumulants of \(N_{W}\) which can not be measured experimentally. In toy model approach, \(N_{W}\) is estimated by Glauber simulation which is discussed
+
+Figure 4.19: Correlation between number of participant and multiplicity from Glauber simulation in Au+Au collisions at \(\sqrt{s_{\rm NN}}=\) 200 GeV for 10% (left), 5% (middle) and 2.5%
+
+in centrality determination section. Fig. 4.20 shows the \(N_{W}\) distributions for each centrality (top), and the second to the fourth-order \(N_{W}\) cumulants (bottom) for 10%, 5% and 2.5% from left to right by Glauber model simulation at \(\sqrt{s_{\rm NN}}=200\) GeV. Trends are changed around central collisions because maximum value of \(N_{W}\) is fixed. Participant fluctuation become larger with number of bin divisions become small which means that VF in 2.5% centrality definition is smaller than that in 10% definition. In Toy model approach, two independent Poisson distributions are generated which are used to calculate net-charge for each centrality. The parameters of the Poisson distributions (\(\lambda_{+}\) and \(\lambda_{-}\)) are determined that number of positively and negatively charged particles (\(N_{+}\) and \(N_{-}\)) describe the real experiment respectively like the following formula,
+
+\[\lambda_{+}\langle N_{W}\rangle = N_{+}, \tag{4.21}\] \[\lambda_{-}\langle N_{W}\rangle = N_{-},\] (4.22) \[(\lambda_{+}-\lambda_{+})\langle N_{W}\rangle = N_{+}-N_{-}, \tag{4.23}\]
+
+\(\langle N_{W}\rangle\) is number of participant which is estimated by Glauber simulation. In Eq. (4.21) to (4.23), mean values of \(N_{W}\) are used. Thus, there are no VF. If we replace \(\langle N_{W}\rangle\) to \(N_{W}\), measured cumulants of net-charge distributions include the VF.
+
+Figure 4.20: Number of participant distributions for each centrality (top) and second to fourth-order cumulants (bottom) for 10%, 5% and 2.5% from left to right by Glauber model simulation in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV.
+
+[MISSING_PAGE_EMPTY:85]
+
+### Charge conservation correction
+
+When we consider \(\Delta\eta\) dependence of net-charge fluctuations, it is important to consider the effect from charge conservation. When we expand an acceptance such as \(\Delta\eta\), cumulants become smaller due to the charge conservation. It is obvious that the fluctuation is zero if we measure all the charged particles with full acceptance because net-charge is "conserved" value. In order to correct this effect for D-measure, \(\nu_{(+-,dyn)}\) is corrected as
+
+\[\nu^{corr}_{(+-,dyn)}=\nu_{(+-,dyn)}+\frac{4}{\langle N_{total}\rangle}, \tag{4.24}\]
+
+where \(\nu^{corr}_{(+-,dyn)}\) is corrected \(\nu_{(+-,dyn)}\) and \(\langle N_{total}\rangle\) is the multiplicity with full acceptance. Then, corrected D-measure which is expressed as \(D^{\prime}\) is written by
+
+\[D^{\prime} = \nu^{corr}_{(+-,dyn)}\langle N_{ch}\rangle+4 \tag{4.25}\] \[= \nu_{(+-,dyn)}\langle N_{ch}\rangle+4\frac{\langle N_{ch}\rangle} {\langle N_{total}\rangle}+4\] \[= D+4\frac{\langle N_{ch}\rangle}{\langle N_{total}\rangle}.\]
+
+STAR experiment can not measure \(N_{total}\) because of TPC acceptance. Therefore, \(N_{total}\) is estimated from different experiment such as PHOBOS [47] which has large acceptance (\(|\eta|<5.4\)). The left hand side panel of Fig. 4.22 shows the \(\langle N_{ch}\rangle/\langle N_{part}/2\rangle\) versus collision energy from various experiments in most central collisions. From left hand side panel of Fig. 4.22, \(N_{total}\) at \(\sqrt{s_{\rm NN}}=19.6\)GeV, \(62\)GeV and \(200\)GeV are directly obtained. \(N_{total}\) at the other BES-I energies are extracted from the fitting which is shown in right hand side panel of Fig. 4.22.
+
+Figure 4.22: \(\langle N_{ch}\rangle/\langle N_{part}/2\rangle\) versus collision energy from various experiments [47] (left). Fitting to the left graph (right).
+
+### Statistical Errors
+
+To evaluate statistical errors, Bootstrap method [51] is often used for the fluctuation analysis [52]. Fig. 4.23 shows the schematic of the bootstrap process. If we want to estimate the standard error of a statistic \(s(x)\), \(B\) bootstrap sample are generated from the original data. Each bootstrap sample is generated by sampling "with replacement" \(n\) times from the original data set. The standard deviation of the \(s(x^{*1})\) to \(s(x^{*n})\) is the statistical error of \(s(x)\).
+
+Fig. 4.24 shows the \(\kappa\sigma^{2}\) of 50 samples arranged by order for three different error estimation method, Delta theorem, Bootstrap and Sub-group [32]. The Sub-group method seems over estimate the statistical uncertainties, but Delta theorem and Bootstrap seem to estimate the errors correctly in all number of events.
+
+Resampling has been done for more than 100 times in this thesis.
+
+Figure 4.23: Schematic of the bootstrap process [51]
+
+### Systematic uncertainties
+
+In order to estimate systematic uncertainties, following cuts have been changed.
+
+For example, (pos+5%, neg+5%) means that tracking efficiency of positively and negatively charged particles are changed from \((\epsilon_{pos},\epsilon_{neg})\) to \((\epsilon_{pos}*1.03,\epsilon_{neg}*1.03)\). In case of efficiency1 in Tab. 4.10, positively and negatively charged particle efficiencies were changed to the same directions simultaneously. On the other hand, the efficiencies were changed to the opposite directions in case of efficiency2.
+
+Fig. 4.25 shows the run index dependence of RufmultPos, RefmultNeg, RefmultNet and Refmult at \(\sqrt{s_{\mathrm{NN}}}=200\) GeV in Run11, where RefmultPos and RefmultNeg are defined as the positively and negatively charged particle multiplicities measured in \(|\eta|<0.5\). Refmult and RefmultNet are defined as RefmultPos+RefmultNeg and RefmultPos-RefmultNeg respectively. Red dotted line shows the mean values if efficiencies of poritivel
+
+\begin{table}
+\begin{tabular}{l c} \hline dca & 0.8, 1.0 (default), 1.2 \\ \hline nHitsFit & -18, 20 (default), 22 \\ \hline nhitsdedx & 8, 10 (default), 12 \\ \hline efficiency1 & (pos+5\%, neg+5\%), (pos-5\%, neg-5\%) \\ \hline efficiency2 & (pos+0.3\%, neg-0.3\%), (pos-0.3\%, neg+0.3\%) \\ \hline \end{tabular}
+\end{table}
+Table 4.10: Parameters used for the systematic error estimations
+
+Figure 4.24: \(\kappa\sigma^{2}\) of 50 samples arranged by order for three different error estimation method [32]. \(\kappa\sigma^{2}\) are calculated from Skellam distribution with different number of event, 0.01, 0.1 and 1 Million.
+
+are changed 5% simultaneously. Blue and green dotted line show the mean values if efficiencies of positively and negatively charged particles are changed 0.3% separately. Fig. 4.25 says that efficiency2 in Tab.4.10 largely affect the net-charge but not affect the multiplicities.
+
+The systematic errors were estimated by,
+
+\[RMS_{j} = \sqrt{\frac{1}{n}\sum_{i}\left(Y_{i,j}-Y_{def}\right)^{2}} \tag{4.26}\] \[Sys.Err = \sqrt{\sum_{j}(RMS_{j})^{2}}. \tag{4.27}\]
+
+Where \(Y_{def}\) represents the cumulant measured by using the default cut and \(Y_{i,j}\) represents the cumulant measured by using the different cut. \(j\) correspond to the index of the each parameter and \(i\) correspond to the index of the changed variables. In this analysis, \(n=2\) in all cases.
+
+Figure 4.25: Run index dependence of RufmultPos, RefmultNeg, RefmultNet and Refmult at \(\sqrt{s_{\rm NN}}=\) 200 GeV in Run11.
+
+## Chapter 5 Results and Discussion
+
+### 5.1 Up to the sixth-order fluctuation
+
+In this section, centrality dependence of up to the sixth-order cumulants of net-charge distributions in Au+Au collisions at \(\sqrt{s_{\rm NN}}=54\) and 200 GeV are shown, and compare to the published net-charge results and preliminary net-proton results. As it is said at previous chapter, \(\sqrt{s_{\rm NN}}=200\) GeV data was taken from 2010 to 2011 year. Therefore, detector conditions are different among different year and trigger IDs. First, for consistency check, cumulants are measured for each trigger ID. Then, cumulants of each trigger ID and each run are merged.
+
+#### Cumulants
+
+First, cumulants at \(\sqrt{s_{\rm NN}}=200\) GeV are shown. Fig. 5.1 shows the before and after efficiency corrected first to the sixth-order cumulants and \(N_{ch}\) as a function of centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}=200\) GeV in Run11, trigger ID = 350043. \(N_{ch}\) is defined as \(\langle N_{+}+N_{-}\rangle\) whereas \(C_{1}\) is defined as \(\langle N_{+}-N_{-}\rangle\).
+
+Cumulants are proportional to the mean number of the participant because of the additivity of cumulants. After efficiency correction, statistical uncertainties become larger in all cases. It is obvious that statistical uncertainty become larger with the order of the cumulants. Unless otherwise noted, all the results which will be shown from now are efficiency corrected results.
+
+Fig. 5.2 shows the first to the sixth-order cumulant and \(N_{ch}\) as a function of centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}=200\) GeV for various systematic cuts. Trigger ID = 350043 in Run11 data is used. (pos+3%, neg-3%) and (pos-3%, neg+3%) largely affect \(C_{1}\) but not largely affect the other order cumulants.
+
+Fig. (5.3) and Fig. (5.4) show the first to the sixth-order cumulant as a function of centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}=200\) GeV for each trigger ID in Run11 and Run10 respectively including systematic uncertainties. Color difference represents the different trigger ID. In case of \(C_{1}\) and \(N_{ch}\), the systematic uncertainties are the dominant ones over the statistical uncertainties. On the other hand, at higher order cumulants, statistical errors are the dominant comparing to the systematic ones. It seems that most of the data points are consistent within statistical or systematic errors among different trigger IDs.
+
+Figure 5.2: first to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) for various systematic cut. Trigger ID = 350043
+
+Figure 5.1: first to sixth-order cumulants and \(N_{ch}\) as a function of \(\langle N_{part}\rangle\). Trigger ID = 350043 at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Open round symbol and star symbol represent the before and after efficiency corrected results.
+
+Figure 5.3: First to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) in Run11 for each trigger ID at \(\sqrt{s_{\rm NN}}=200\) GeV.
+
+Figure 5.4: First to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) in Run10 for each trigger ID at \(\sqrt{s_{\rm NN}}=200\) GeV.
+
+Fig. (5.5) shows the merged results from first to the sixth-order cumulants as a function of centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Cumulants are compared with statistical baseline and model calculation. Red and blue dotted line show the Poisson and NBD baseline and red band show the UrQMD calculation. The width of the band represent the statistical uncertainties. The \(C_{1}\) baseline of NBD and Poisson are the same by definition. NBD baselines are systematically larger than the other results especially from \(C_{2}\) to \(C_{4}\). At \(C_{5}\) and \(C_{6}\) results, statistical errors on the data points are larger than the difference between NBD and Poisson baseline. UrQMD calculations are almost consistent within experimental data at higher order cumulants.
+
+Next, cumulants at \(\sqrt{s_{\rm NN}}\) = 54 GeV are shown. Fig. (5.6) shows the before and after efficiency corrected first to sixth-order cumulants and \(N_{ch}\) as a function of centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 54 GeV in Run17, trigger ID = 580021. \(C_{1}\) at \(\sqrt{s_{\rm NN}}\) = 54 GeV is larger than that of 200 GeV because of baryon stopping. 62.4 GeV efficiencies are used for efficiency corrections as a proxy for the 54 GeV. We observed that the \(N_{ch}\) at \(\sqrt{s_{\rm NN}}\) = 54 GeV is smaller than that of \(\sqrt{s_{\rm NN}}\) = 200 GeV, which means that charged particle multiplicities in finite acceptance become larger with collision energies. In addition, the tracking efficiency is smaller at higher multiplicities, therefore the efficiency at 54 GeV is better than that of 200 GeV.
+
+Fig. (5.7) shows the first to sixth-order cumulants as a function of centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 54 GeV. Cumulants are compared with Poisson and NBD baseline. The NBD baselines are larger than Poisson baseline from \(C_{2}\) to \(C_{4}\) but the deviations between NBD and Poisson baseline are smaller than that of \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+
+Figure 5.5: First to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+
+Figure 5.6: First to sixth-order cumulants and \(N_{ch}\) as a function of \(\langle N_{part}\rangle\). Trigger ID = 580021. Open round symbol and star symbol represent the before and after efficiency corrected results.
+
+Figure 5.7: first to sixth-order cumulants as a function of \(\langle N_{part}\rangle\) in Au+Au collision at \(\sqrt{s_{\rm NN}}=\) 54 GeV.
+
+#### Cumulant ratios
+
+In this subsection, we summarise the results of cumulant ratios. Fig. (5.8) and Fig. (5.9) show the third to fifth-order cumulant over second-order cumulants as a function of centralities in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 200 GeV and 54 GeV respectively. Poisson and NBD baseline are also plotted and UrQMD simulation results are shown at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Data points of \(C_{3}/C_{2}\) and \(C_{4}/C_{2}\) are always larger than Poisson baseline and \(C_{3}/C_{2}\) are close to NBD baseline. \(C_{5}/C_{2}\) is consistent within statistical baseline and the difference between Poisson and NBD baseline is small.
+
+Fig.5.10 shows the \(C_{6}/C_{2}\) of net-charge distribution as a function of centralities in Au+Au collision at 54 GeV (left), 200 GeV (middle) and \(C_{6}/C_{2}\) of net-proton distribution (right) at \(\sqrt{s_{\rm NN}}\) = 200 GeV respectively. The right hand side panel is same as the right hand side panel of Fig. (1.16). Absolute values of \(C_{6}/C_{2}\) of net-charge and errors are larger than that of net-proton because width of the net-charge distribution wider than that of net-proton. Most of the data points of net-charge \(C_{6}/C_{2}\) consistent within statistical baseline in all centrality whereas net-proton have the negative values at some centralities with larger statistical errors.
+
+Fig. (5.11) shows \(C_{6}/C_{2}\) of net-proton (top) [25] and net-charge (bottom) distribution as a
+
+Figure 5.8: third to fifth-order cumulants over second-order cumulants as a function of \(\langle N_{part}\rangle\) in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+
+Figure 5.9: third to fifth-order cumulants over second-order cumulants as a function of \(\langle N_{part}\rangle\) in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 54 GeV.
+
+function of centrality in Au+Au collision at 54 GeV and 200 GeV. 0-40% centralities are merged and UrQMD calculations at 200 GeV are also plotted. At net-proton results, \(C_{6}/C_{2}\) have the negative value at \(\sqrt{s_{\rm NN}}=\) 200 GeV and positive value at \(\sqrt{s_{\rm NN}}=\) 54 GeV in 0-40% centrality. On the other hand, at net-charge results, the small deviation can be seen between \(\sqrt{s_{\rm NN}}=\) 200 GeV and 54 GeV at 40-50% centrality. However, net-charge \(C_{6}/C_{2}\) at \(\sqrt{s_{\rm NN}}=\) 200 GeV and 54 GeV are consistent within statistical errors in other centralities.
+
+Next, \(S\sigma\) and \(\kappa\sigma^{2}\) of net-charge distributions at \(\sqrt{s_{\rm NN}}=\) 54 GeV are compared to other published results from BES-I energies. Fig. (5.12) shows the energy dependence of \(S\sigma\) and \(\kappa\sigma^{2}\) of net-charge distribution in 0-5% and 70-80% centralities. The \(S\sigma\) and \(\kappa\sigma^{2}\) at \(\sqrt{s_{\rm NN}}=\) 54 GeV are consistent with the previously measured \(\sqrt{s_{\rm NN}}=\) 39 and 62.4 GeV, and it agrees very well the overall trend of the collision energy dependency.
+
+Figure 5.10: \(C_{6}/C_{2}\) of net-charge distribution as a function of centrality in Au+Au collision at 54 GeV (left), 200 GeV (middle) and \(C_{6}/C_{2}\) of net-proton distribution (right) [24]
+
+Figure 5.11: \(C_{6}/C_{2}\) of net-proton (top) [25] and net-charge (bottom) distribution as a function of centrality in Au+Au collision at 54 GeV and 200 GeV. 0-40% centralities are merged and UrQMD calculations at 200 GeV are also plotted.
+
+Figure 5.12: Energy dependence of \(S\sigma\) and \(\kappa\sigma^{2}\) of net-charge distribution. Results at \(\sqrt{s_{\rm NN}}=54\) GeV are compared to other published results from BES-I [16].
+
+### \(\Delta\eta\) dependence
+
+Fig. 5.13 shows the \(\Delta\eta\) dependence of up to the fourth-order cumulants in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV. Three centralities, 0-5%, 20-30% and 40-50% are measured. Cumulants are observed to linearly increase with \(\Delta\eta\) because of the additivity of the cumulants. Cumulants also increase from peripheral to central collisions for the same reason. Statistical error of \(C_{4}\) in 0-5% centralities are much larger than that in peripheral collisions. \(C_{1}\) is observed to decrease with collision energies because of the baryon stopping. On the other hand, \(C_{2}\) is observed to increase with collision energies because multiplicities are increasing towards to higher collision energies, and the width of the distributions are also increasing with the multiplicities.
+
+Fig. 5.14 shows the \(\Delta\eta\) dependence of various order cumulant ratios and D-measure in Au+Au collision at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV. Four centralities, 0-5%, 20-30%, 40-50% and 70-80% are measured and color difference represents the different centralities, and we compare to the Poisson baseline shown with the dotted line. Before and after charge conservation corrections are represented by open round and star symbol respectively.
+
+\(C_{2}/C_{1}\) decrease with \(\Delta\eta\) at all beam energies and peripheral results are larger than central collision at most of energies. In addition to efficiency correction, charge conservation correction have been done for D-measure. At D-measure results, similar trends of \(C_{2}/C_{1}\) can be seen. D-measure also decrease with \(\Delta\eta\) at all beam energies and peripheral results are larger than central collision at most of energies. These trends are similar to ALICE results and higher results at higher energies are more decreasing with \(\eta\).
+
+At \(C_{3}/C_{2}\), most of the results are larger than Poisson baseline and increase with \(\Delta\eta\) without most central collision at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+
+At \(C_{4}/C_{2}\), most of the results are consistent with Poisson baseline and increase with \(\Delta\eta\) without most central collision.
+
+Figure 5.13: \(\Delta\eta\) dependence of first to fourth-order cumulant in Au+Au collision at \(\sqrt{s_{\rm NN}}=\) 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV for 0-5%, 20-30% and 40-50% centralities. Color difference represents the different centralities.
+
+Figure 5.14: \(\Delta\eta\) dependence of various order cumulant ratios and D-measure in Au+Au collision at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV for 0-5%, 20-30%, 40-50% and 70-80% centralities. Color difference represents the different centralities.
+
+### 5.3 Volume Fluctuation
+
+In this section, VFC and CBWC results are compared by using toy model and UrQMD approach. We only show the main results and the other results are shown in appendix.
+
+#### Toy model approach
+
+Fig. 5.15 shows the second to fourth-order cumulants of net-charge distribution as a function of \(\langle N_{W}\rangle\) (=\(\langle N_{part}\rangle\)) by using toy model for 10% centrality step. For red points, \(N_{W}\) is fixed at the value of the averaged number of participant nucleons (\(\langle N_{W}\rangle\)) in each centrality bin, they thus do not include VF. \(K_{n}(N_{+}-N_{+})\) which is sometimes written as \(C_{n}\) represents the \(n\)th-order cumulants of net-charge distributions.
+
+Blue symbols include the fluctuation of the \(N_{W}\) in each centrality. Red and blue dotted line show the Poisson baseline and the expectation line of \(N_{W}\) fluctuation which is estimated from Eq. (4.15) to Eq. (4.18) respectively. \(N_{W}\) fixed results (red) are consistent within Poisson baseline, and \(N_{W}\) fluctuation results (blue) are also consistent with the baseline in all cases. \(K_{2}(N_{+}-N_{-})\) which corresponds to \(K_{2}(\Delta n)\) in Eq. (4.16) is not affected by VF. This is because small \(\Delta n\) leads to small VF according to Eq. (4.16). For \(K_{3}\) and \(K_{4}\), \(N_{W}\) fluctuation results are larger than \(N_{W}\) fixed results which means that \(N_{W}\) fluctuation results are enhanced by VF. Then, we tried both CBWC and VFC to subtract VF from \(N_{W}\) fluctuation results. VFC results (green) are consistent with \(N_{W}\) fixed results (red) which means that VFC works well in this model. On the other hand, CBWC results are smaller than \(N_{W}\) fluctuation results but larger than \(N_{W}\) fixed results. Therefore, in toy model case, CBWC can reduce VF but can not completely eliminate the VF whereas VFC can remove VF completely.
+
+Fig. 5.16 shows the \(\kappa\sigma^{2}\) of net-charge distribution as a function of \(\langle N_{W}\rangle\) for 10%, 5% and 2.5% centrality step. In 10% centrality step, CBWC results contain larger VF compared to the results with 5% and 2.5% step centrality. However, the differences between CBWC and \(N_{W}\) fluctuation results become smaller in 5% centrality step and consistent in 2.5% step. This results imply that 2.5% centrality step can reduce VF as well as CBWC. However, there remain
+
+Figure 5.15: From second to fourth-order cumulants as a function of mean number of participant by using Toy model for for 10% centrality. Red, blue and green results show the \(N_{W}\) fluctuation, \(N_{W}\) fixed and VFC results. CBWC results are written as the blue star symbol. Red and blue dotted line is the Poisson baseline and the expectation of \(N_{W}\) fluctuation results.
+
+VF in both CBWC and \(N_{W}\) fluctuation results in any case. On the other hand, VFC works well in any case and does not depend on the definition of the centrality divisions.
+
+#### UrQMD approach
+
+##### Net-charge
+
+Next, UrQMD simulation results will be shown.
+
+Fig. 5.17 shows the second to fourth-order cumulants of net-charge distribution as a function of \(\langle N_{W}\rangle\) by using UrQMD model for 10% centrality step. Red open star symbols "CBWC-\(N_{W}\)" mean that CBWC is applied for each \(N_{W}\) bin. Standard CBWC is applied for each multiplicity bin which is represented by blue open star symbol. CBWC-\(N_{W}\) results are considered as "no-VF" results which correspond to the red round symbol in the toy model case. Blue symbols contain VF without any corrections, and VFC results are shown in green markers. As discussed in previous section, \(K_{2}\) is not affected by VF due to the small value of. However, trends at \(K_{3}\) and \(K_{4}\) are not consistent with toy model case. For example, CBWC results are smaller than CBWC-\(N_{W}\) results, and VFC results are smaller than both of them. VFC results seem over correction and VFC does not work well. One of the reason could be that IPP is broken in UrQMD model.
+
+The other reason is the correlation effect. In toy model, particles used for centrality determination and particles used for the net-charge calculation are produced independently. Therefore, there are no correlation between multiplicity used for centrality and net-charge. In UrQMD model and real experiment, net-charge and multiplicity used for centrality determination (Reffmult2) are calculated in different kinematic window in order to avoid the correlation. Specifically, net-charge is measured in \(|\eta|<0.5\) and multiplicity used for centrality determination is measured in \(0.5<|\eta|<1\). However, there may remain the correlation which make cumulants smaller. In order to check this effect, we defined four different kinematic \(\eta\) window, \(|\eta|<0.5\), \(0.5<|\eta|<1\), \(1.5<|\eta|<2\), \(2.1<|\eta|<5.1\). Fig. 5.18 shows the \(\eta\) distribution in UrQMD model and color bands represent different \(\eta\) windows. \(|\eta|<0.5\) is used to measure net-charge cumulants. Therefore, if centrality is defined in \(|\eta|<0.5\), the correlation effect is considered to be
+
+Figure 5.16: \(\kappa\sigma^{2}\) as a function of mean number of participant by using toy model for 10% (left), 5% (middle) and 2.5% (right) centrality step. The color and marker differences are same as Fig.5.15
+
+[MISSING_PAGE_EMPTY:104]
+
+of \(\langle N_{W}\rangle\) by using UrQMD model for 10% centrality step for different centrality determinations. The left hand side panels are raw (no correction), middle panels are CBWC and right panels are VFC results respectively. Color differences are different centrality determination, \(\eta\) regions are \(|\eta|<0.5\), \(0.5<|\eta|<1\), \(1.5<|\eta|<2\) and \(2.1<|\eta|<5.1\). In CBWC and VFC results, third and fourth order cumulants become larger with forward \(\eta\) region which is used for centrality determinations. These results imply that cumulants are suppressed by the correlation if \(\eta\) region which is used to centrality determination is close to the region which is used for cumulants calculation. Therefore, using Refmult2 for centrality determination in net-charge analysis might not be enough to eliminate the correlations.
+
+Figure 5.19: Correlation between Refmult2 and number of positively charged particles which are measured in different kinematic windows. From left to right, \(|\eta|<0.5\), \(0.5<|\eta|<1\), \(1.5<|\eta|<2\), \(2.1<|\eta|<5.1\).
+
+Figure 5.20: From second to fourth order cumulants as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for different centrality determination.
+
+[MISSING_PAGE_EMPTY:107]
+
+Next, net-proton cumulants for different centrality definitions are shown as well as net-charge case in Fig. 5.20, which have not been done in previous studies [53].
+
+Fig. 5.23 shows the second to fourth-order cumulants of net-proton distribution as a function of \(\langle N_{W}\rangle\) by using UrQMD model for 10% centrality step for different centrality determinations. Color differences are different centrality definitions, \(\eta\) ranges are \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<3\), \(3<|\eta|<4\) and \(4<|\eta|<5\) without proton and anti-proton in order to avoid auto-correlation effect. Color line show the CBWC-N results for each centrality definition. Black dotted line shows the CBWC-N results which centrality is determined by dividing \(N_{W}\) distribution. In other words, centralities are determined by final state multiplicity for each \(\eta\) region and then CBWC-N has been done for color line whereas centrality is determined by \(N_{W}\) distribution itself for dotted line.
+
+The third and fourth-order cumulants of net-proton become larger with forward \(\eta\) region which is used for centrality determinations as well as net-charge case.
+
+Fig. 5.24 is the same as Fig. 5.23 but only centrality definitions are different. Color differences are different centrality definitions, \(\eta\) ranges are \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<5\). As mentioned in previous section, \(\eta\) range of EPD is \(2.1<|\eta|<5.1\). Thus, \(2<|\eta|<5\) corresponds to the EPD acceptance, and multiplicities are measured both including proton and excepting proton cases. As well as Fig. 5.23, the third and fourth-order cumulants of net-proton become larger with forward \(\eta\) region. In addition, the systematic difference of CBWC results among different centrality definition is smaller than VFC results, and trends are similar to CBWC-N results.
+
+Fig. 5.25 shows the cumulant ratios from Fig. 5.23, and Fig. 5.26 shows the cumulant ratios from Fig. 5.24. As well as Fig. 5.23, the third and fourth-order cumulant ratios of net-proton become larger with forward \(\eta\) region, and CBWC results are always smaller than CBWC-N results.
+
+In Fig. 5.27, we compared different centrality divisions between 10% and 2.5%. The result shows that cumulants depend on both centrality definition and bin width.
+
+Figure 5.22: \(C_{3}/C_{2}\) (left), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (right) of net-proton distributions as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for various correction methods.
+
+Figure 5.23: From second to the fourth-order net-proton cumulants as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for different centrality definitions. Centralities are determined at \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<3\), \(3<|\eta|<4\) and \(4<|\eta|<5\) without proton (anti-proton), which are drawn as different colors.
+
+Figure 5.24: From second to the fourth-order net-proton cumulants as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for various centrality definitions. Centralities are determined at \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<5\) without proton (anti-proton) and \(2<|\eta|<5\) including proton (anti-proton), which are drawn as different colors.
+
+Figure 5.25: \(C_{3}/C_{2}\) (top), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (bottom) of net-proton distributions as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for various centrality determinations. Centralities are determined at \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<3\), \(3<|\eta|<4\) and \(4<|\eta|<5\) without proton (anti-proton), which are drawn as different colors.
+
+Figure 5.26: \(C_{3}/C_{2}\) (top), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (bottom) of net-proton distributions as a function of mean number of participant by using UrQMD model simulation for 10% centrality step for various centrality determinations. Centralities are determined at \(|\eta|<1\), \(1<|\eta|<2\), \(2<|\eta|<5\) without proton (anti-proton) and \(2<|\eta|<5\) including proton (anti-proton), which are drawn as different colors.
+
+Figure 5.27: From second to the fourth-order net-proton cumulants as a function of mean number of participant by using UrQMD model simulation for 10% and 2.5% centrality step for raw (left) and VFC (right).
+
+## Chapter 6 Conclusion
+
+Up to the sixth-order cumulants and cumulant ratios of net-charge distributions in Au+Au collisions at \(\sqrt{s_{\rm NN}}=200\) and 54 GeV have been measured, and compared to Poisson, NBD baseline and UrQMD simulation results. These results also have been compared to the previous net-proton results. At net-proton results, \(C_{6}/C_{2}\) have the negative value at \(\sqrt{s_{\rm NN}}=200\) GeV and positive value at \(\sqrt{s_{\rm NN}}=54\) GeV in 0-40% centrality. At net-charge results, the small deviation from the baseline has been observed at \(\sqrt{s_{NN}}=54\) GeV in 40-50% centrality. However, net-charge \(C_{6}/C_{2}\) at \(\sqrt{s_{\rm NN}}=200\) GeV and most of the centralities at \(\sqrt{s_{\rm NN}}=54\) GeV are consistent with the baseline within the statistical errors. As it is said in Chapter. 1, negative \(C_{6}/C_{2}\) is predicted as the signal from the crossover transition from theoretical predictions. Net-proton results in 0-40% and net-charge results in 40-50% centrality imply that crossover signal might be stronger at \(\sqrt{s_{\rm NN}}=200\) GeV than 54 GeV. These trends do not conflict with the theoretical prediction because the baryon density at \(\sqrt{s_{\rm NN}}=200\) GeV is considered to be smaller than that of 54 GeV, and we can imagine that the signal from crossover at \(\sqrt{s_{\rm NN}}=200\) GeV is stronger than that of 54 GeV. However, the statistical errors are large compared to the observed deviations between \(\sqrt{s_{\rm NN}}=200\) GeV and 54 GeV. Therefore, it is not obvious that the signal from crossover has been observed by the measurement of the sixth-order fluctuations at \(\sqrt{s_{\rm NN}}=200\) GeV and 54 GeV. The BES-II program starts from 2019, and the statistics at lower energy region will increase than that of BES-I. Therefore, it is important to measure sixth-order cumulants of both net-proton and net-charge distributions at lower energy regions, and compare to the results at \(\sqrt{s_{NN}}=200\) GeV and 54 GeV.
+
+Compared to the published net-charge results, analysis and correction methods have been improved. The efficiency corrections have been done for different \(p_{T}\) region and the different particles species separately whereas average efficiencies were applied to the published results. The factorial cumulant method makes it possible to calculate cumulants with shorter CPU time compared to the conventional method. \(S\sigma\) and \(\kappa\sigma^{2}\) of the net-charge distributions at \(\sqrt{s_{\rm NN}}=54\) GeV are newly measured in addition to the published BES-I results, and the results at \(\sqrt{s_{\rm NN}}=54\) GeV are in good agreement with the previous BES-I results.
+
+\(\Delta\eta\) dependence of cumulants, cumulant ratios and D-measure of net-charge distributions have been measured at BES-I energies, \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV. D-measure is observed to decrease with expanding \(\Delta\eta\) acceptance, and this trend is stronger at higher beam energies, which do not conflict with the previous results from ALICE experiment in Pb-Pb collisions at \(\sqrt{s_{NN}}=2.76\) TeV. These results imply that the effect from QGP is gettingstronger at higher energies, and the trends of \(\Delta\eta\) dependence could represent the time evolution of the phase transition. The \(C_{3}/C_{2}\) and \(C_{4}/C_{2}\) of net-charge distributions have been observed to increase with \(\Delta\eta\) in all BES-I energies except for the most central collision at \(\sqrt{s_{\rm NN}}=200\) GeV. These increasing trends are close to the DME model predictions with the large higher-order susceptibilities which are the initial condition parameters of the model. At BES-II, new detectors which are Event Plane Detector (EPD), iTPC and eTOF have been installed which make it possible to measure cumulants and D-measure with larger \(\Delta\eta\) acceptance. It is important to expand rapidity window by using these detectors in future analysis.
+
+Validity of the volume fluctuation correction on higher-cumulants of both net-charge and net-proton distributions are studied by using toy model assuming IPP and the UrQMD model simulation. From these studies, 2.5% centrality division can reduce VF as well as CBWC but 5% or 10% centrality divisions include the effect from VF. In toy model, even though CBWC has been applied, effect from VF can not be removed completely, and VFC could need to be applied by definition. However, VFC does not seem to work well in UrQMD model, which would be because IPP model is expected to be broken in UrQMD. Therefore, we have to consider these effect if VFC is applied to experimental data. In addition, there is a physics correlation between multiplicity for centrality definition and the charged particles used for the cumulant analysis. This correlation may suppress the cumulants like an auto-correlation effect.
+
+UrQMD simulation tells that using Refmult2 (multiplicity in \(0.5<|\eta|<1\)) and Refmult3 (multiplicity in \(0<|\eta|<1\) excluding proton and anti-proton) would not be enough to eliminate the multiplicity correlations. Thus, when we define centrality at real experiment, we would need to treat this effect which is not considered in the toy model simulation. At STAR experiment, using EPD for an external centrality measurements could be one of the solution to reduce this effect compared with the conventional centrality definition using TPC.
+
+## Appendix A Light-Cone variables
+
+As mentioned at previous section, in relativistic heavy ion collision, it is convenient to use kinetic variables which take simple form or unchanged under Lorentz transformations (LT), such as proper time \(\tau\). In this section some light-cone variables, such as rapidity, are introduced [3].
+
+### Transverse momentum
+
+In relativistic theory, motion of the particles are characterized by 4-momentum, \(p_{\mu}=(E,{\bf p})\). At experiment, particles are "light like" along the beam direction, \(z\). Therefore, momentum is changed under LT. However, transverse momentum which is defined as
+
+\[{\bf p}_{T}=(p_{x},p_{y})\mbox{,}\] (A.1)
+
+is unchanged under LT. Thus, transverse momentum is usually used as a observables. In addition, transverse mass \(m_{T}^{2}=m^{2}+p_{T}^{2}\) is also used where \(m\) is the mass of the particle.
+
+### Rapidity
+
+According to the composition low for velocities of classical mechanics, sum of the velocities of the two objects can be expressed as
+
+\[v_{3}=v_{1}+v_{2},\] (A.2)
+
+where \(v_{1},v_{2}\) are the velocities of two objects. However, if the speed of the objects are close to the light speed like heavy ion collision, Eq.(A.2) is not true and expressed as
+
+\[v_{3}=\frac{v_{1}+v_{2}}{1+v_{1}v_{2}}.\] (A.3)
+
+On the other hand, according to the addition theorem,
+
+\[\tanh(x+y)=\left(\frac{\tanh x+\tanh y}{1+\tanh(x)\tanh(y)}\right)\] (A.4)
+
+is established. Therefore, if we define velocity \(v\) as\[v=\tanh(y),\] (A.5)
+
+Eq.(A.3) can be written by
+
+\[y_{3}=y_{1}+y_{2}.\] (A.6)
+
+This formula is same as Eq.(A.2) in spite of relativistic case. From relativistic theory, \(\frac{v}{c}=\frac{p_{z}}{E}\). Therefore, \(y\) can be expressed as
+
+\[y = \tanh^{-1}\biggl{(}\frac{p_{z}}{E}\biggr{)}\] (A.7) \[= \frac{1}{2}\mathrm{ln}\left(\frac{E+p_{z}}{E-p_{z}}\right).\] (A.8)
+
+\(y\) is called "rapidity". In addition, from Eq.(A.7), \(E^{2}=m^{2}+p^{2}\) and \(m_{T}^{2}=E^{2}-p_{z}^{2}\), following relations are established
+
+\[E = m_{T}\mathrm{cosh}y,\] (A.9) \[p_{z} = m_{T}\mathrm{sinh}y.\] (A.10)
+
+### Pseudo-rapidity
+
+If \(p\) is much larger than \(m\), \(E\) close to \(p\), \(E\sim p\). Then, rapidity can be expressed as
+
+\[y \sim \tanh^{-1}\biggl{(}\frac{p_{z}}{p}\biggr{)}\] (A.11) \[= \tanh^{-1}(\cos(\theta)).\]
+
+Therefore, rapidity only depend on angle \(\theta\) and called pseudo-rapidity (\(\eta\)). \(\eta\) takes simple form under LT. Hence, \(\eta\) can be used to represent the angle from the beam direction instead of \(\theta\).
+
+### Center of mass energy
+
+Next, we consider the energy when 2 particles collide at the point. 4-momentum is written as \(p_{\mu}=(E,\mathbf{p})\). Thus, energy \(E\) is changed under LT. Then, \(s\) is introduced by using 4-momentum of 2 particles \(p_{1}\). \(p_{2}\). \(s\) is defined as
+
+\[s=(p_{1}+p_{2})^{2}.\] (A.12)
+
+\(s\) is Lorentz invariant and correspond to the center of mass energy. In case of heavy ion collision, center of mass energy per nucleon is expressed as \(\sqrt{s_{\mathrm{NN}}}=\).
+
+[MISSING_PAGE_EMPTY:118]
+
+Figure B.3: fig:(a)z-vertex measured by TPC (b)vertex in \(xy\)-plane measured by TPC (c)Difference between z-vertex measured by TPC and VPD (d)Correlation between Refmult and TOF matched track at \(\sqrt{s_{NN}}=54\) GeV in Run17, Trigger ID = 580021
+
+Figure B.2: Run by run QA for Run17 at \(\sqrt{s_{NN}}=54\) GeV
+
+Figure B.4: fig:(a)Pseudo-rapidity distribution (b)Distance of Closest Approach (DCA) distribution (c)Number of hit points in TPC track used for reconstruction (d)Number of hit points in TPC track used for calculating energy loss (e)Distribution of track quality at \(\sqrt{s_{NN}}\) = 54 GeV in Run17, Trigger ID = 580021
+
+[MISSING_PAGE_FAIL:121]
+
+### \(\Delta\eta\) analysis
+
+Fig.B.19 are tracking efficiencies for each energies which are same as published results [16]. In published results, average values between positively and negatively charged particles are applied. In addition, 62.4 GeV efficiencies are applied to 200 GeV data as a proxy of 200 GeV tracking efficiencies. In this thesis, efficiency corrections were done separately between positively and negatively charged particles and 200 GeV efficiencies are applied to 200 GeV data.
+
+Figure B.6: Refmult2 dependence of TPC and TPC+TOF efficiencies in Run17 \(\sqrt{s_{\rm NN}}=54\) GeV.
+
+Figure B.7: \(\phi-\eta\) distributions after event selections at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+
+Figure B.8: Z-vertex distributions after event selections at \(\sqrt{s_{\rm NN}}=7.7\), 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+
+Figure B.9: \(V_{r}\) distributions after event selections at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+
+Figure B.11: \(\eta\) distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+
+Figure B.13: DCA distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+
+Figure B.15: Nhitsdex distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+
+Figure B.16: Track quality distributions at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+
+Figure B.17: Distributions of the difference between Z-vertex measured by TPC and VPD at \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, 62.4 and 200 GeV.
+
+Figure B.18: Refmult2 centrality cuts in BES energies. These values are same as published results [16].
+
+Figure B.19: Tracking efficiencies at \(\sqrt{s_{NN}}=7.7,11.5,14.5,19.6,27,39\) and \(62.4\) GeV. These values are same as published results [16]
+
+[MISSING_PAGE_FAIL:130]
+
+Figure C.2: Luminosity correction for Refmult2 in Run10 at \(\sqrt{s_{\rm NN}}=\) 200 GeV
+
+Figure C.3: Luminosity correction for Refmult2 in Run17 at \(\sqrt{s_{\rm NN}}=\) 54 GeV
+
+\[f(x) = a\times Erf(-b(x-c))+a,\] (C.1) \[Erf(x) = \frac{2}{\sqrt{\pi}}\int_{0}^{\infty}e^{-t^{2}}dt,\] (C.2)
+
+where \(a\), \(b\) and \(c\) are fitting parameters and \(c\) is called "Max Refmult2". \(Erf(x)\) is called error function.
+
+Fig.C.5 and Fig.C.6 show the Max Refmult2 as a function of Z-vertex from \(-30<V_{z}<30\)cm in Run11 at \(\sqrt{s_{\rm NN}}\) = 200 GeV for each Trigger ID. 2nd polynomial fitting was done for each Trigger ID and corrected to be flat. In addition, mean values of Refmult2 is scaled to Trigger ID = 350043 at \(\sqrt{s_{\rm NN}}\) = 200 GeV.
+
+Figure C.4: Refmult2 distribution for each Z-vertex from -30 to 30cm and fitting to extract ”max Refmult2” in Run11 at \(\sqrt{s_{\rm NN}}\) = 200 GeV. Trigger ID = 350043
+
+Figure C.5: Z-vertex correction for Refmult2 in Run11 at \(\sqrt{s_{\rm NN}}=\) 200 GeV
+
+Figure C.6: Z-vertex correction for Refmult2 in Run10 at \(\sqrt{s_{\rm NN}}=\) 200 GeV
+
+## Appendix D Other VFC results
+
+In this chapter, we show the various VFC results which are not shown in Chapter.5.
+
+### Net-proton toy model results
+
+In this section, we show the toy model results of net-proton distributions and correlation plot.
+
+Figure D.1: (a) Correlation between multiplicity and \(N_{W}\) by Glauber simulation and two component model. (b) \(N_{W}\) distributions for each centrality. (c)(d)(e) Second to the fourth-order \(N_{W}\) cumulants as a function of \(\langle N_{W}\rangle\). Number of events are 100 Million.
+
+Figure D.2: From first to sixth-order net-proton cumulants as a function of mean number of participant by using toy model simulation for 10% centrality step for different centrality determination.
+
+Figure D.3: From first to sixth-order net-proton cumulants as a function of mean number of participant by using toy model simulation for 5% centrality step for different centrality determination.
+
+Figure D.4: From first to sixth-order net-proton cumulants as a function of mean number of participant by using toy model simulation for 5% centrality step for different centrality determination.
+
+Figure D.5: \(C_{3}/C_{2}\) (left), \(C_{4}/C_{2}\) (middle) and \(C_{6}/C_{2}\) (right) of net-proton distributions as a function of mean number of participant by using toy model simulation for 10% centrality step for various correction methods.
+
+[MISSING_PAGE_EMPTY:138]
+
+### Net-charge toy model results
+
+Figure D.8: From 2nd to 4th order cumulants of \(N_{+}\) distribution as a function of mean number of participant by using Toy model for 10% centrality step.
+
+Figure D.10: From 2nd to 4th order cumulants of \(N_{+}\) (top) and net-charge (bottom) distribution as a function of mean number of participant by using Toy model for 2.5% centrality step.
+
+Figure D.9: From 2nd to 4th order cumulants of \(N_{+}\) (top) and net-charge (bottom) distribution as a function of mean number of participant by using Toy model for 5% centrality step.
+
+Figure D.11: \(S\sigma\) and \(\kappa\sigma^{2}\) of \(N_{+}\) (top) and net-charge (bottom) distribution as a function of mean number of participant by using Toy model for 10% centrality step.
+
+Figure D.12: \(S\sigma\) and \(\kappa\sigma^{2}\) of \(N_{+}\) (top) and net-charge (bottom) distribution as a function of mean number of participant by using Toy model for 5% centrality step.
+
+Figure D.13: \(S\sigma\) and \(\kappa\sigma^{2}\) of \(N_{+}\) (top) and net-charge (bottom) distribution as a function of mean number of participant by using Toy model for 2.5% centrality step.
+
+## Bibliography
+
+* [1] "Quark Gluon Plasma" [http://hep.itp.tuwien.ac.at/ipp/qgp.html](http://hep.itp.tuwien.ac.at/ipp/qgp.html)
+* [2] Andrej Arbuzov, "Quantum Field Theory and the Electroweak Standard Model", arXiv:1801.05670v1 (2018)
+* [3] Sourav Sarkar,Helmut Satz,Bikash Sinha, " The Physics of the Quark-Gluon Plasma ",
+* [4] N.Tanaka, " Measurements of Azimuthal Angle Dependence of HBT radii with respect to the event plane in \(\sqrt{s_{NN}}=2.76\) TeV Pb-Pb collisions at LHC-ALICE ", PhD thesis, University of Tsukuba (2018).
+* [5] "Particle Data Group" [http://pdg.lbl.gov](http://pdg.lbl.gov) (2018)
+* [6] F. Karsch, "Lattice QCD at High Temperature and Density" Lect. Notes Phys. 583, 209 (2002)
+* [7] "What is the Quark Gluon Plasma?" [http://hep.itp.tuwien.ac.at/](http://hep.itp.tuwien.ac.at/) ipp/qgp.html
+* [8] T.Niida, " Measurements of Quantum Interference of Two Identical Particles with respect to the Event Plane in Au+Au Collisions at \(\sqrt{s_{NN}}=200\) GeV at RHIC-PHENIX ", PhD thesis, University of Tsukuba (2014).
+* [9] A. Tawfi and Asmaa G. Shalaby "Balance Function in High-Energy Collisions" Advances in High Energy Physics Volume (2015), Article ID 186812, 24 pages
+* [10] Grazyna Odyniec, "The RHIC Beam Energy Scan program in STAR and what's next...", Journal of Physics: Conference Series 455 (2013) 012037
+* [11] STAR Collaboration, L. Adamczyk et al., "Bulk Properties of the Medium Produced in Relativistic Heavy-Ion Collisions from the Beam Energy Scan Program", Phys. Rev. C96 (2017),
+* [12] M. A. Stephanov, "Non-Gaussian Fluctuations near the QCD Critical Point" Phys. Rev. Lett. 102, 032301 (2009)
+* [13] V. Koch et al., "Baryon-Strangeness Correlations: A Diagnostic of Strongly Interacting Matter" Phys. Rev. Lett. 95, 182301 (2005);
+* [14] M. Asakawa et al., "Fluctuation Probes of Quark Deconfinement" Phys. Rev. Lett. 85, 2072 (2000). no. 4 044904, [1701.07065].
+
+* [15] L. Adamczyk et al. (STAR Collaboration), "Energy Dependence of Moments of Net-Proton Multiplicity Distributions at RHIC" Phys. Rev. Lett. 112, 032302 (2014)
+* [16] L. Adamczyk et al.(STAR Collaboration), "Beam Energy Dependence of Moments of the Net-Charge Multiplicity Distributions in Au+Au Collisions at RHIC", Phys. Rev. Lett. 113, 092301(2014)
+* [17] L. Adamczyk et al.(STAR Collaboration), "Collision Energy Dependence of Moments of Net-Kaon Multiplicity Distributions at RHIC" Phys.Lett. B785 (2018) 551-560.
+* [18] X. Luo, "Exploring the QCD Phase Structure with Beam Energy Scan in Heavy-ion Collisions", Nucl. Phys. A956 (2016) 75-82, [1512.09215].
+* [19] L. Adamczyk et al. (STAR Collaboration), "Beam-Energy Dependence of Directed Flow of \(\lambda,\bar{\lambda},K^{\pm},K^{0}_{s}\) and \(\phi\) in Au+Au Collisions" Phs. Rev. Lett. 120, 062301 (2018)
+* [20] L. Adamczyk et al. (STAR Collaboration), "Beam Energy Dependence of Jet-Quenching Effects in Au+Au Collisions at \(\sqrt{s}_{NN}\) = 7.7, 11.5, 14.5, 19.6, 27, 39, and 62.4 GeV" Phys. Rev. Lett. 121, 032301 (2018)
+* [21] L. Adamczyk et al. (STAR Collaboration), "Indications for a Critical End Point in the Phase Diagram for Hot and Dense Nuclear Matter" Phys. Rev. Lett. 114, 142301 (2015)
+* [22] B. Friman, F. Karsch, K. Redlich, and V. Skokov, "Fluctuations as probe of the QCD phase transition and freeze-out in heavy ion collisions at LHC and RHIC", Eur. Phys. J. C71 (2011) 1694, [1103.3511].
+* [23] A. Bazavov et al.,"The QCD Equation of State to \(O(\mu_{B}^{6})\) from Lattice QCD",Phys.Rev. D95 (2017) no.5, 054504.
+* [24] Roli Esha (STAR Collaboration), "Measurement of the cumulants of net-proton multiplicity distribution in Au+Au collisions at \(\sqrt{s_{NN}}\) =7.7-200 GeV from the STAR experiment Nuclear Physics A 967 (2017) 457-460
+* [25] T.Nonaka (STAR Collaboration), "Studying the QCD Phase Diagram in RHIC-BES at STAR", Quarks and Nuclear Physiscs (2018)
+* [26] T.Nonaka, M.Kitazawa and S.Esumi, "More efficient formulas for efficiency correction of cumulants and effect of using averaged efficiency" Phys. Rev. C 95, 064912 (2017)
+* [27] T.Nonaka, T.Sugiura, S.Esumi, H.Masui and X.Luo, "Importance of separated efficiencies between positively and negatively charged particles for cumulant calculations" Phys. Rev. C 94, 034909 (2016)
+* [28] B. Abelev et al.(ALICE Collaboration), Net-Charge Fluctuations in Pb-Pb Collisions at \(\sqrt{s_{N}N}\) =2.76 TeV, Phys. Rev. Lett 110, 152301 (2013)
+* [29] M. Kitazawa, "Rapidity window dependences of higher order cumulants and diffusion master equation", Nucl. Phys. A 942 (2015) 65 [arXiv:1505.04349 [nucl-th]].
+
+* [30] M.Asakawa, M.Kitazawa, "Fluctuations of conserved charges in relativistic heavy ion collisions: An introduction", Progress in Particle and Nuclear Physics Volume 90, September 2016, Pages 299-342
+* [31] B. I. Abelev et al. (STAR Collaboration), "Beam-Energy and System-Size Dependence of Dynamical Net Charge Fluctuations" Phys. Rev. C 79, 024906 (2009)
+* [32] X.Luo,"Volume fluctuation and auto-correlation effects in the moment analysis of net-proton multiplicity distributions in heavy-ion collisions", J. Phys. G: Nucl. Part. Phys. 40 105104 (2013)
+* [33] P.Braun-Munzinger, A.Rustamov, J.Stachel, "Bridging the gap between event-by-event fluctuation measurements and theory predictions in relativistic nuclear collisions" Nuclear Physics A Volume 960, April (2017), Pages 114-130
+* [34] Romain Holzmann (HADES collaboration), "Higher Moments of evt-by-evt Proton-Multiplicity Fluctuations in Au+Au Collisions at 1.23 GeV/u" Quark Matter 2017
+* [35] S. Jeon and V. Koch, "Charged Particle Ratio Fluctuation as a Signal for Quark-Gluon Plasma" Phys. Rev. Lett. 85, 2076 (2000)
+* [36] M. J. Tannenbau "Highlights from BNL-RHIC" Searching for the Unexpected at LHC and the Status of Our Knowledge pp. 295-342 (2013).
+* [37] D. B. Steski et al. "Operation of the Relativistic Heavy Ion Collider \(Au^{-}\) ion source", Review of Scientific Instruments 73, 797 (2002).
+* [38] M.Anderson et al. "The STAR Time Projection Chamber: A Unique Tool for Studying High Multiplicity Events at RHIC" Nucl. Instrum. Meth. A 499 (2003) 659
+* [39] W. J. Llope, "The large-area time-of-flight upgrade for STAR", Nucl. Instrum. Meth. B241 (2005) 306-310.
+* [40] T. Hallman,"The STAR barrel TOF detector upgrade: an overview" Annual DOE TOF Review (2006)
+* [41] W.J.Llope et al. "The STAR Vertex Position Detector", Volume 759, 21 September 2014, Pages 23-28
+* [42] Adler C. et al. "The RHIC zero degree calorimeters", Nucl. Inst. Meth A, 2008, 470: 488. 10.1016/S0168-9002(01)00627-1
+* [43] S.A.Bass et al. "Microscopic models for ultrarelativistic heavy ion collisions", Prog. Part. Nucl. Phys., Volume 41, 1998
+* [44] M.Bleicher et al. "Relativistic Hadron-Hadron Collisions in the Ultra-Relativistic Quantum Molecular Dynamics Model", Journal of Physics G: Nuclear and Particle Physics, Volume 25, Number 9, 1999
+* [45] R.Snellings, "Elliptic Flow: A Brief Review", New Journal of Physics, Volume 13, May 2011* [46] W.Florkowski, "Phenomenology of Ultra-Relativistic Heavy-Ion Collisions" (2010)
+* [47] B. B. Back et al. (PHOBOS Collaboration), "The PHOBOS Perspective on Discoveries at RHIC", Nuclear Physics A Volume 757, Issues 1-2, 8 August 2005, Pages 28-101
+* [48] Z.Tang, Y.Xu, L.Ruan, G.Buren, F.Wang and Z.Xu, "Spectra and radial flow in relativistic heavy ion collisions with Tsallis statistics in a blast-wave description" Phys. Rev. C 79, 051901(R) (2009)
+* [49] B. I. Abelev et al. (STAR Collaboration), "Systematic measurements of identified particle spectra in pp, d+Au, and Au+Au collisions at the STAR detector", Phys. Rev. C 79, 034909 (2009)
+* [50] A.Bzdak and V.Koch, "Acceptance corrections to net baryon and net charge cumulants" Phys.Rev. C86 (2012) 044904
+* [51] B. Efron,R. Tibshirani, "An introduction to the bootstrap", Chapman Hall (1993)
+* [52] X.Luo, "Error Estimation for Moments Analysis in Heavy-Ion Collision Experiments" J.Phys. G39 (2012) 025008
+* [53] T.Nonaka, "First measurement of the sixth order cumulant of net-proton multiplicity distributions in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions at the STAR experiment" PhD thesis, University of Tsukuba (2018).

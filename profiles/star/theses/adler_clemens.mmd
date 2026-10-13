@@ -1,0 +1,988 @@
+**Bau und Test eines Null-Grad-Kalorimeters**
+
+**fur RHIC**
+
+Diplomarbeit
+
+vorgelegt beim Fachbereich Physik
+
+der Johann Wolfgang Goethe-Universitat
+
+in Frankfurt am Main
+
+von
+
+Clemens Adler
+
+aus Leonberg
+
+Frankfurt am Main 1998
+
+[MISSING_PAGE_EMPTY:2]
+
+## Zusammenfassung
+
+Die Stossparameterbestimmung, an den zur Zeit im Bau befindlichen bzw. geplanten Schwerionen-_Colliden_**RHIC** und **LHC** ist nicht mehr wie bei Experimenten mit festem _Target_ uber die Messung der Summe aller Spektatoren moglich. Am einfachsten sind die neutralen Spektatoren (Neutronen) nachzuweisen. Diese enden bei **RHIC** jedoch in einem Bereich zwischen den zwei Strahlrohren, der die Grosse eines Detektors auf 10 cm Breite und 130 cm Lange beschrankt, was im Vergleich zu der Breite herkommlicher Kalorimeter, die zur Messung von Spektatoren eingesetzt werden, sehr klein ist.
+
+Die Anzahl neutraler Spektatoren kann uber deren Gesamtenergie bestimmt werden, da sie im wesentlichen den Strahlimpuls behalten. Am **RHIC** wird zu beiden Seiten der vier Wechselwirkungzonen je ein Kalorimeter zur Messung der neutralen Spektatoren instaliert (d. h. insgesamt 8 Kalorimeter). Diese Kalormeter werden aus Wolfram bestehen und eine Lange von 6 hadronischen Wechselwirkungslangen haben. Zusatzlich sollen mit diesen Detektoren einzelne Neutronen aus Riesenenanz-Abregungen gemessen werden. Uber die Rate der Koinzidenz dieser einzelnen Neutronen auf beiden Seiten der Wechselwirkungszone soll die Luminositat des Beschleunigers bestimmt werden.
+
+An die Detektoren wurde in erster Line die Forderung nach einer Energieauflosung von ca. 20% gestellt, um das Signal der einzelnen Neutronen vom Untergrund trennen zu konnen. Fur die Messung der neutralen Spektatoren, deren erwartete Anzahl im Bereich von \(\sim 10-40\) liegt, ist die Energieauflosung nicht so kritisch. Fluktuationen in der Signalhohe des Detektors werden durch die Messung mehrerer Neutronen zum Teil kompensiert; die Energieauflosung skaliert mit der Anzahl der Neutronen \(N_{\mathfrak{n}}\) wie \(\frac{1}{\sqrt{N_{\mathfrak{n}}}}\). Weiterhin wurde die Forderung einer Zeitauflosung \(\sigma<300\) ps gestellt. Dies ist zum einen notig, um bei der Messung der korrelierten Emission einzelner Neutronen zur Luminositatsbestimmung zufallige Koinzidenzen zu vermeiden. Weiterhin kann der Ort der Wechselwirkung uber eine Laufzeitmessung der Spektatoren zu beiden Seiten des Wechselwirkungspunktes auf einige cm genau bestimmt werden.
+
+Eine neue Kalorimeter-Bauform, das Cherenkov-Licht-Kalorimeter, ermoglicht es hadronische Kalorimeter mit geringen lateralen Ausmaessen zu konstruieren, da nur der zentrale Teil des hadronischen Schauers zum Signal beitragt. Cherenkov-Licht-Kalorimeter bestehen aus einem Absorbermaterial und darin eingebrachten Lichtletern, in denen relativistische geladene Teilchen des Schauers Cherenkov-Strahlung erzeugen.
+
+Es wurden zwei Prototypen aus Kupfer bzw. Wolfram mit _PMMA_-Lichtleitern am **SPS**(CERN) im 100 GeV/c- und 158 GeV/c-Protonstrahl getestet. Beide Prototypen haben eine Lange von 8 hadronischen Wechselwirkungslangen \(\lambda_{\rm I}\) und einen Querschnitt von \(10\times 10\) cm\({}^{2}\). Das Kupferkalorimeter ist longitudinal in 8 Module zu je 1 \(\lambda_{\rm I}\) Lange unterteilt; das Wolframkalorimeter besteht aus 4 Modulen von je 2 \(\lambda_{\rm I}\) Lange. Die Lichtleiter laufen bei beiden Prototypen unter 45\({}^{\rm o}\) relativ zur Strahlachse. In fruheren Untersuchungen von Gorodetzky _et al._ wurde festgestellt, dass in dieser Anordnung, das maximale Signal erzeugt wird.
+
+Die Energieauflosung des Kupferkalorimeters betragt \(21.8\pm 0.5\%\)\(RMS/E\) bei 100 GeV/c Strahlimpuls. Das Wolframkalorimeter hatte im 100 GeV/c-Protonstrahl eine Energieauflosung von \(20.5\pm 0.5\%\)\(RMS/E\). Bei beiden Prototypen wurde eine Zeitauflosung von \(\sigma<\) 200 ps gemessen.
+
+[MISSING_PAGE_EMPTY:5]
+
+	* 5.3 Datenaufnahme fur das Wolframkalorimeter
+		* 5.3.1 Elektronik
+		* 5.3.2 Datenerfassung
+	* 5.4 Kalibration der Kalorimeter
+		* 5.4.1 Relative Kalibration des Kupferkalorimeters
+		* 5.4.2 Relative Kalibration des Wolframkalorimeters
+		* 5.4.3 Bestimmung der Anzahl der Photoelektronen
+	* 5.5 Kupferergebnisse
+		* 5.5.1 Datenstze
+		* 5.5.2 Energieauflosung
+		* 5.5.3 Positionsabhangigkeit des Signals
+		* 5.5.4 Zeitauflosung
+	* 5.6 Wolframergebnisse
+		* 5.6.1 Datenstze
+		* 5.6.2 Energieauflosung
+		* 5.6.3 Energielinearitat
+		* 5.6.4 Signal bei \(135^{\circ}\)-Faserorientierung
+		* 5.6.5 Positionsabhangigkeit des Signals
+		* 5.6.6 Zeitauflosung
+* A Konstruktionszeichnungen des Kupfer-Kalorimeters
+
+**Tabellenverzeichnis**
+
+**Abbildungsverzeichnis**
+
+**Literaturverzeichnis**
+
+## 1 Einleitung
+
+## 1 Einleitung
+
+einem,,baryonfreien Quark-Gluon-Plasma" [Wong] fuhren konnte. Um so hohe Schwerpunktsenergien zu erreichen, werden _Collider3_ wie der **LHC** (_Large Hadron Collider_) am **CERN**, an dem Bleiionen mit einer Schwerpunktsenergie von ca. 3 TeV/Nukleonpaar kollidieren sollen, und der **RHIC** (_Relativistic Heavy Ion Collider_) in Brookhaven gebaut. Am **RHIC**, der 1999 in Betrieb geht, werden unter anderem4 Au-Au Stosse bei einer Strahlenergie von 100 GeV/Nukleonpaar, also einer Schwerpunktsenergie von \(\sqrt{s}=200\) GeV/Nukleonpaar, untersucht.
+
+Bei Schwerionenstossen muss zwischen verschiedenen Ereignisklassen bezuglich des Stossparameters unterschieden werden (siehe Kapitel 2); im Extremfall gibt es zentrale Stosse, bei denen die Kerne vollstandig uberlappen, oder periphere Stosse, in denen die Kerne sich gerade beruhren. Da dies zu einer sehr unterschiedlichen Zahl der am Stoss beteiligten Nukleonen und somit zu verschieden grossen Reaktionsvolumina fuhrt, muss der Stossparameter bestimmt werden. Schon 1973 wurde das,,Abrasions-Modell" entwickelt [Huf75], dass von der Aquivalenz des Wirkungsquerschnitts von Schwerionenstossen mit dem geometrischen Wirkungsquerschnitt ausgeht. Die Nukleonen beim Schwerionenstoss werden dadurch in,,Partizipanten" (Nukleonen im Uberlappbereich der Kerne) und,,Spektatoren" (engl.,,Spectator": Zuschauer, die Teile der Kerne, die nicht uberlappen) unterteilt. Letztere werden bei ultrarelativistischen Schwerionenstossen,,abgeschert" und,,fragmentieren" zu einzelnen Nukleonen und leichteren Kernen, die im wesentlichen den Strahlimpuls behalten.
+
+Footnote 3: Ein,,Collider" ist ein Speicherring mit gegenläufigen Strahlen. Dies ermögicht eine höhere Stösenergie, da das Schwerpunksystem des Stöses im Laborsystem liegt und somit die Schwerpunktsenergie der doppelten Strahlenergie entspricht.
+
+Footnote 4: Am **RHIC** wie auch am **LHC** sollen auch Proton-Strahlen mit einer Energie von 250 GeV (**RHIC**) bzw. 7 TeV (**LHC**) beschleunigt werden.
+
+In Stossen zwischen gleich grossen Kernen stellt die Anzahl der Spektatoren ein Mass fur die Zentralitat des Stosses dar; eine grose Anzahl an Spektatoren entspricht einem grossen Stossparameter, wenig Spektatoren entsprechen einem kleinen Stossparameter (vergleicheKapitel 2). Sie konnen in Experimenten mit festem _Target_ unter kleinen Winkeln zur Strahlachse, hinter dem Experiment gemessen werden. Soll die Anzahl aller (auch der neutralen) Spekt atoren bestimmt werden mussen Kalorimeter benutzt werden. Dies sind Detektoren, die ein Signal proportional zur Gesamtenergie der gemessenen Teilchen im Akzeptanzbereich produzieren. Da die Spektatoren die Strahlenergie behalten, kann aus der Messung der Gesamtenergie deren Anzahl bestimmt werden.
+
+Bei Speicherringen wie dem **RHIC** und dem **LHC** stellt sich das Problem, dass im Bereich, in dem die Spekt atoren enden, die Strahlrohre verlaufen. Aufgrund der Strahlfuhrungsmagnete werden die geladenen Spektatoren (Protonen und leichte Kerne) je nach Zusammensetzung abgelenkt. Die neutralen Spekt atoren (Neutronen) enden am **RHIC** zwischen den Strahlrohren im,,Null-Grad-Bereich" 1, wo sie einer Messung zuganglich sind. Die Herausforderung war einen Detektor zur Messung der neutralen Spektatoren zu konstruieren, der schmal genug ist, um zwischen die Strahlrohre zu passen.
+
+Eine weitere Anwendung dieses Detektors soll die Messung der Luminositat des Beschleunigers sein. Sie wird uber die Rate einzelner Neutronen aus Riesenresonanzabregungen gemessen (siehe Kapitel 2.2).
+
+In dieser Arbeit wird der Test zweier Prototypen einer erstmals 1995 von Gorodetzky et al. untersuchten Kalorimeterbauform, dem,,Cherenkov-Licht-Kalorimeter"2 (siehe Kapitel 4.1) beschrieben. Bei hadronischen3 Kalorimetern wird in einem Material mit hoher Dichte (oft Blei, Eisen oder Uran), aufgrund von hadronischen Wechselwirkungen der einfallenden Teilchen, ein,,Schauer" von neuen Teilchen produziert. Grob kann man einen hadronischen Schauer in einen schmalen Kern hochenergetischer Teilchen und einen breit-en Teil niederenergetischer Teilchen unterteilen. Bei herkommlichen Kalorimetern werden alle geladenen Teilchen des Schauer s, bei Cherenkov-Licht-Kalorimetern, nur der zentrale Teil des Schauer s gemessen. Die in solch einem Kalorimeter sichtbare Schauerenergie ist also auf ein schmaleres Volumen beschrankt, wodurch Kalorimeter mit geringen lateralen Ausmassen gebaut werden konnen.
+
+In Kapitel 3 sind die Funktionsweise und charakteristische Merkmale von Kalorimetern im Allgemeinen beschrieben. In Kapitel 4 wird auf Cherenkov-Licht-Kalorimeter eingegangen und der Aufbau der Prototypen und die Simulation derselben beschrieben. In Kapitel 5 werden der Testes der Prototypen im Rahmen des Experimentes NA49 am **SPS** im Herbst 1997 beschrieben und die Ergebnisse des Testes diskutiert.
+
+## 2 Aufgabe der Null-Grad-Kalorimeter
+
+### 2.1 Stossparameterbestimmung
+
+In Schwerionenstossen ist der Stossparameter1bestimmed fur die Ersignischarakterisierung. Wegen der kurzen Reichweite der starken Wechselwirkung entspricht der Wirkungs-querschnitt fur Kern-Kern-Stossen nahezu dem geometrischen Wirkungsquerschnitt. Starke Wechselwirkungen finden also nur zwischen den Nukleonen der beiden Stosspartner statt, die sich im Uberlappbereich der Kerne befinden. Bei kleinem Stossparameter (zentrale Stosse) nehmen ein Grossteil der Nukleonen der beiden Kerne an der Reaktion teil, was zu einem grossen Reaktionsvolumen fuhrt; bei grossem Stossparameter (periphere Stosse) nehmen nur wenig Nukleonen an der Reaktion teil, das Reaktionsvolumen ist also klein. Da der Stossparameter keiner direkten Messung zuganglich ist, muss er entweder aus der Anzahl der an der Reaktion teilnehmenden Nukleonen (Partizipanten) oder aus der Anzahl der nicht an der Reaktion teilnehmenden Nukleonen (Spektatoren) bestimmt werden. Ersteres ist uber die Messung der in der Reaktion freigesetzten Energie (d. h. Teilchenmultiplizitat) moglich. Dabei mussen strenggenommen der gesamte Raumwinkel abgedeckt und alle Teilchensorten gemessen werden. Ein weiteres Problem ist, dass eventuelle Fluktuationen in der Multiplizitat von Ereignissen gleichen Stossparameters die Messung desselben verflaschen. Eine direktere Messung des Stossparameters geht uber die Bestimmung der Anzahl der Spektatoren. Die Bereiche der Kerne die nicht an der Reaktion teilnehmen, werden abgeschert und behalten den Impuls, den sie vor dem Stoss hatten. Diese abgescherten Kernbruchstucke stellen deformierte Kerne mit in der Regel starkem Neutronenuberschuss der. Sie zerfallen deshalb in leichtere, stabile Kerne und einzelne Nukleonen2. Die Messung der Summe der Spektatoren, die sich aus den Fragmenten, Neutronen und Protonen zusammensetzt, stellt damit ein gutes Mass fur die Zentralitat eines Schwerionenstosses dar.
+
+### Stossparameterbestimmung
+
+**Abbildung 2.1**: Stark verkurzte, schematische Aufsicht einer Wechselwirkungszone am **RHIC** (der gezeigte Bereich erstreckt sich uber ca. 40 m). In der Mitte befindet sich der Punkt, an dem sich die Strahlpakete treffen (mit _ir_ bezeichnet), nach außem hin befinden sich die Diplomagnete (mit _DX magnet_ bezeichnet). Mit ZDC ist der Ort der Installation der \(0^{\circ}\)-Kalorimeter zwischen den Strahlrohren bezeichnet.
+
+Bei Experimenten mit festem _Target_ wird der Stossparameter haufig uber die Messung der Gesamtenergie der Spektatoren in einem Detektor auf der Strahlachse, hinter dem _Target_, bestimmt. Bei Speicherringen mit gegenlaufigen Strahlen (_Collider_), wie dem **RHIC**, stellt sich das Problem, dass "hinter" dem Experiment die Strahlrohre verlaufen. Beim **RHIC** werden die gegenlaufigen Strahlen in getrennten Strahlrohren gefuhrt. An beiden Enden der Wechselwirkungszonen konvergieren die beiden Strahlrohre, sodass die Trajektorien des einlaufenden und auslaufenden Strahls sich nahern. Auf beiden Seiten des Wechselwirkungspunktes werden in 13.5 m Entfernung, die Strahlen von einem Diplomagneten so abgelenkt, dassie in einem Bereich von ca. 19 m auf der gleichen Trajektorie laufen. Derselbe Dipolmagnet lenkt die auslaufenden Strahlen in deren Strahlrohr.
+
+Die Spektatoren sind einer Messung nur in dem in Abbildung 2.2 gezeigten Bereich hinter dem Dipolmagneten, in dem die Strahlrohre getrennt verlaufen, zuganglich. Aufgrund des Magnetfeldes werden die Spektatoren, je nach Zusammensetzung, unterschiedlich stark abgelenkt. Die Neutronen enden zwischen den Strahlrohren, die Protonen werden am starksten abgelenkt und enden im Bereich neben den Strahlrohren (aus Sicht des auslaufenden Strahls rechts), und die Kernfragmente sind dicht um den auslaufend
+
+## 2 Aufgabe der Null-Grad-Kalorimeter
+
+**Abbildung 2.2** Der Bereich, in dem die \(0^{\circ}\)-Kalorimeter zwischen den Strahlrohren installliert werden sollen. Oben die Sicht von oben, unten die seitliche Ansicht. Die Wechselwirkungszone liegt rechts, das Ende des Diplomagneten ist noch zu sehen.
+
+en Strahl gruppiert. Simulationen [1] haben gezeigt, dass die Fragmente zunachst im Strahlrohr weitergefuhrt werden, bis sie strahlabwarts in die Wande des Strahlrohrs laufen. Dies bedeutet, dass die Kernfragmente einer Messung nicht zuganglich sind3.
+
+Footnote 3: Grundsatzlich ware es zwar möglich, Detektoren zur Messung der Energie der Fragmente in den Strahlrohren zu installlieren; diese würden aber die Fuhrung des Strahls behindern.
+
+Bei einer Messung im Rahmen des Experimentes **NA49** am **CERN SPS** im Herbst 1996 wurde die Zusammensetzung der Spektatoren von Blei-Blei-Sossen bei 158 GeV /Nukleon in Hinsicht auf die Frage, wie gut der Stossparameter bestimmt werden kann, wenn nur Protonen, nur Neutronen oder Neutronen+Protonen gemessen werden, untersucht [1].
+
+### StoBparameterbestimmung
+
+**Abbildung 2.3**: Korrelation zwischen der Energie der Spektatorfragmente (oben) und der Spektator-nukleonen (unten) und \(E_{\rm R}\) (siehe Text) bei 158 GeV/Nukleon Pb-Pb Stossen, aus Referenz [App98]. Die Kreuze zeigen die Korrelation bei Messung der Energie aller Spektatoren (Fragmente und Nukleonen).
+
+In Abbildung 2.3 ist die Energie der Spektatoren \(E_{\rm V}\) in dieser Messung gegen \(E_{\rm R}\)1 aufgetragen. Die Kreuze stellen die Abhangigkeit der Gesamtenergie aller Spektatoren von \(E_{\rm R}\) dar. Im oberen Teil der Abbildung ist die Verteilung bei der Messung der Kernfragmente ohne ungebundene Nukleonen gezeigt, im unteren Teil bei Messung der ungebunden Nukleonen ohne Kernfragmente. Es zeigt sich, da8 die Spektatoren bei peripheren Stossen zum Grossteil aus schweren Kernfragmenten und nur wenig ungebundenenen Nukleonen bestehen; die Anzahl der ungebundenen Spektatoren nimmt also zu grossen wie auch zu kleinen Stossparametern hin ab. Die Bestimmung der Zentralitat eines Stosses uber ungebundene Spektatoren ist demnach nur eindeutig, wenn gleichzeitig die transversale Energiegeemessen wird und aus dieser Mesung ersichtlich ist, ob ein zentraler oder peripherer Stoss vorlag. In [1] wird gezeigt, dass fur Stossparameter \(<7\) fm der Stossparameter aus der Messung ungebundener Neutronen mit einer Ungenauigkeit von ca. 20% bestimmt werden kann. Die Anzahl der neutralen Spektatoren wurde zu 9 Neutronen fur zentrale Stosse mit Stossparameter \(\mathrm{b}<2\) fm bestimmt. Der Wirkungsquerschnitt fur die Messung von weniger als 9 Neutronen fallt stark ab. Fur semizentrale Stosse mit \(\mathrm{b}\approx 7\) fm wurden \(\sim 40\) Spektatorneutronen gemessen.
+
+Der Bereich, in dem die neutralen Spektatoren einer Messung zuganglich sind (siehe Abbildung 2.2) ist in seinen Dimensionen beschrankt. Ein Detektor zur Bestimmung der Energie, und damit der Anzahl der Neutronen, darf nicht breiter als 11 cm und langer als 130 cm sein. Es wurde beschlossen, dass an allen vier Wechselwirkungszonen am **RHIC** je zwei Detektoren (also insgesamt 8 Detektoren) zu beiden Seiten der Wechselwirkungszone in diesem Bereich installiert werden sollen.
+
+Spektatoren behalten im wesentlichen den Fermimpuls \(p_{\mathrm{F}}\approx 270\) MeV/c [1], den sie im Kern hatten. Der mittlere Impuls der Nukleonen bestimmt sich uber \(<p^{2}>=\frac{3}{5}p_{\mathrm{F}^{2}}\) zu \(<p>\approx 200\) MeV/c. Dies fuhrt zu einem maximalen transversalen Impuls von 270 MeV/c entsprechend einer Auslenkung der Neutronen am Ort des Detektors (18.25 m vom Wechselwirkungspunkt) von 4.9 cm. Der mittlere transversale Impuls der Spektatoren betragt ca. 120 MeV/c entsprechend einer Auslenkung von \(<2.5\) cm. Somit kann der Raumwinkel, in den die neutralen Spektatoren emittiert werden, mit einem Detektor zwischen den Strahlrohren vollstandig abgedeckt werden.
+
+### 2.2 Luminositatsmessung
+
+Bei Experimenten mit festem _Target_ kann die Rate der Wechselwirkungen des Strahls im _Target_ durch die _Target_dicke und durch die Rate, mit der Strahlprojektile auf das _Target_ treffen, bestimmt werden. Bei Speicherringen mit kollidierenden Strahlen ist der Strahl sozusagen selbst das _Target_; die Rate der Wechselwirkungen ist also abhangig von der Bundelung der Strahlen, der Anzahl der Projektile pro Strahlpaket1 und davon, wie gut die Strahlen durcheinander durchgefuhrt werden. Die Grosse, die dies beschreibt, heisst Luminositat und ist definiert uber die Rate \(R\) irgendeines Prozesses, der bei der Kreuzung der Strahlen auftritt, dividiert durch dessen Wirkungsquerschnitt \(\sigma\)
+
+Footnote 1: In Spéicherringen werden Projektile immer in Paketen, sogennanten _Bunches_, beschleunigt.
+
+\[L=\frac{R}{\sigma}[\mathrm{cm^{-2}s^{-1}}]. \tag{2.1}\]
+
+Dabei spielt der Wirkungsquerschnitt die Rolle einer Normierung auf den gewahlten Prozess. Die Luminositat kann zum einen uber Beschleunigerparameter, wie Strahlintensitat, laterales Profil des Strahls etc., der sogenannten _Van der Meer-Methode_, bestimmtwerden. Die Unsicherheit der absoluten Bestimmung der Luminositat mit dieser Methode soll bei **RHIC** geringer als 10% sein [Baltz96a]. Zusatzlich soll die Luminositat uber die Rate eines physikalischen Prozesses mit bekanntem Wirkungsquerschnitt bestimmt werden. Dies bietet die Moglichkeit einer Luminositatsmessung in Echtraeit und dient der Kontrolle der _Van der Meer_-Methode.
+
+Es gibt einige Anforderungen an den physikalischen Prozess, uber den die Luminositat bestimmt werden soll:
+
+* Grosser Wirkungsquerschnitt.
+* Der Endzustand des Prozesses muss einer Messung gut zuganglich sein.
+* Die Messung sollte nicht durch Untergrund beeintrachtigt sein.
+
+Verschiedene Prozesse, die zur Luminositatsmessung Verwendung finden konnten, sind in [Baltz96a] diskutiert. Der Prozess der bei **RHIC** verwendet werden soll, ist die,,korellierte Coulomb-Dissoziation".
+
+#### Korrelierte Coulomb-Dissoziation
+
+Coulomb-Dissoziation ist eine Emission von einem oder mehreren Nukleonen aus einem Kern, nachdem dieser durch Absorption eines Photons zu Riesenresonanzen angeregt wurde. Riesenresonanzen sind kollektive Anregungszustande, die als Schwingungen der Nukleonen eines Kerns gegeneinander interprereitert werden konnen. Es gibt elektrische (Protonen schwingen gegen Neutronen) und magnetische (Spin-Up Teilchen schwingen gegen Spin-Down Teilchen) Riesenresonanzen, die ihreseits in die Multipolaritat ihrer Schwingung (Monopol-, Dipol-, Quadrupolriesenresonanz) und in isovektorielle (gegenphasige Schwingung) und isoskalare (gleichphasige Schwingung) Riesenresonanzen unterteilt werden. Diese Riesenresonanzen konnen auch noch in verschiedenen Schwingungsmoden vorkommen (Ein-, Zwei-, etc.-Phonon-Riesenresonanz) [Bor95]. Die Riesenresonanzen liegen bei Anregungsenergien zwischen 10 und 40 MeV, und haben eine Breite von typischerweise 2-5 MeV. Die wichtigste Riesenresonanz ist die elektrische EinPhonon-Dipolriesenresonanz, deren Maximum bei \({}^{197}\)Au bei 14 MeV liegt. Im gleichen Energiebereich spielen noch die isoskalare und isovektorielle Quadrupolriesenresonanz, sowie bei etwas hoheren Energien, die Zwei-Phonon-Dipolriesenresonanz (Maximum bei \(\approx 27\) MeV fur \({}^{197}\)Au) eine Rolle. Sie konnen uber Absorption von Photonen1 (ein Photon zur Anregung der 1-Phonon-Riesenresonanzen, zwei Photonen zur Anregung der 2-Phononen-Riesenresonanzen) angeregt werden. Der Zerfall der Riesenresonanzen erfolgt fast ausschliellich uber Aussendung von Neutronen; die Coulomb-Barriere unterbindet
+
+## 2 Aufgabe der Null-Grad-Kalorimeter
+
+die Emission von Protonen. Der Beitrag des direkten Zerfalls in ein Photon betragt bei schweren Kernen ca. 1% [Bor95].
+
+Die Anregung von Riesenresonanzen bei ultrarelativistischen Schwerionenstossen erfolgt durch elektromagnetische Wechselwirkung der zwei aneinander vorbeifliegenden Kerne. Das elektrische Feld eines Kerns ist bei relativistischen Geschwindigkeiten stark lorentzkontrahiert und erscheint einem vorbeifliegenden Kern als kurzer Impuls elektromagnetischer Strahlung. Dies kann mit der _Weizsacker-Williams_ Methode virtueller Photonen beschrieben werden, die in den dreissiger Jahren zur Beschreibung von Bremsstrahlungsspektren gleichzeitig von Weizsacker [Weiz34] und Williams [Wil34] entwickelt wurde. Die Methode ist ausfuhrlich in [Jack] dargestellt. Dabei handelt es sich um die Gleichsetzung des elektromagnetischen Feldes des Projektils2 mit einem aquivalenten Strahlungspuls. Die Fouriertransformierte dieses Strahlungspulses stellt ein Frequenzspektrum virtueller Photonen dar. Fur die kollidierenden \({}^{19}\)Au-Strahlen am **RHIC** bedeut dies also, dass zwei aneinander vorbeifliegende Kerne vom jeweils anderen Kern ein Spektrum von Photonen sehen.
+
+Der Wirkungsquerschnitt fur Anregung photonuklearer Prozesse in Schwerionenstossen
+
+### Luminositatsmessung
+
+kann mit
+
+\[\sigma_{\rm Photo}=\frac{2\alpha Z^{2}}{\pi\gamma^{2}}\int_{\omega_{a}}^{\infty} \omega\sigma_{\rm ph}(\omega){\rm d}\omega\int_{b_{a}}^{\infty}bK_{1}^{2}\left( \frac{b\omega}{\gamma}\right){\rm d}\,b \tag{2.2}\]
+
+approximiert werden [Baltz96], wobei \(\alpha\) die Feinstrukturkonstante, \(Z\) die Ladung des Projektilis, \(b\) der Stossparameter, \(b_{a}\) der minimale Stossparameter, bei dem noch nicht starke Wechselwirkungen dominieren (die Summe der Radien der beiden Kerne), \(\omega_{a}\) die untere Grenze der Photonenergien, bei denen noch photonukleare Prozesse angeregt werden und \(\gamma\) der Lorentzfaktor \(1/\sqrt{1-\frac{v^{2}}{e^{2}}}\) sind. Der Lorentzfaktor im Ruhesystem der Kerne, der hier benutzt werden muss, berechnet sich bei den gegenlaufigen Au-Strahlen mit 100 GeV pro Nukleon am **RHIC** durch
+
+\[\gamma=2\gamma_{\rm Lab}^{2}-1 \tag{2.3}\]
+
+zu \(\gamma\sim 23000\). In Gleichung 2.2 wird der Wirkungsquerschnitt fur Photonukleare Reaktionen (Abbildung 2.4) mit dem Weizsacker-Williams Photonenspektrum gewichtet. Die untere Grenze der Photonenergien in Gleichnung 2.2 ist durch die NeutronenAbspal ungenergie (8.1 MeV fur Au) gegeben; der Stossparameterbereich ist auf Abstande grosser einem Kerndurchmesser beschrankt, wobei in [Baltz96a] ein Kerndurchmesser von Au von 17.32 fm angenommen wird. Man kann eine Dissoziationswahrscheinlichkeit \(P(b)\) definieren, sodass
+
+\[\sigma_{\rm Photo}=2\pi\int_{b_{a}}^{\infty}P(b)b{\rm d}\,b \tag{2.4}\]
+
+ist. Damit wird aus Gleichung 2.2 \(P(b)\) zu
+
+\[P(b)=\frac{2\alpha Z^{2}}{\pi\gamma^{2}}\int_{\omega_{a}}^{\infty}\omega \sigma_{\rm ph}(\omega)K_{1}^{2}\left(\frac{b\omega}{\gamma}\right){\rm d}\omega. \tag{2.5}\]
+
+Die Berechnungen in [Baltz96] ergeben damit einen Wirkungsquerschnitt fur Neutronemission nach Coulomb-Anregung am **RHIC** von 95 barn in guter Ubereinstimmung mit fruhere Berechnungen [Vido93], die fur Bleistrahlen unter **RHIC**-Bedingungen einen Wirkungsquerschnitt von 109 barn ergaben (der Wirkungsquerschnitt ist ungefahr proportional zu \(Z^{3}\)). Der Wirkungsquerschnitt fur die Emission eines einzelnen Neutrons nach Coulombnregung betragt noch 51 barn [Baltz97a].
+
+Fur die Luminositatsmessung stellt sich noch das Problem des Untergrundes, da Neutronen auch aus peripharen nuklearen Kollisionen und Strahl-Restgas-Wechselwirkungen stammen konnen. Deshalb wird die korrelierte Coulomb-Dissoziation einzelner Neutronen zur Luminositatsmessung benutzt, d. h. der Fall, wenn beide beteiligten Kerne ein einzelnes Neutron emmittieren. Fur diesen Fall ergibt sich der Wirkungsquerschnitt mit der in Gleichung 2.5 definierten Dissoziationswahrscheinlichkeit zu
+
+\[\sigma_{\rm Photo}=2\pi\int_{b_{a}}^{\infty}\left[P(b)\right]^{2}b{\rm d}\,b. \tag{2.6}\]
+
+Daraus resultiert ein Wirkungsquerschnitt fur korrelierte Neutronenemission nach Coulombnregung von ca. 4 barn. Die korrelierte Emission einzelner Neutronen emgglichteine klar definierte Messung eines Bruchteils dieses Wirkungsquerschnittes mit einem verbleibenden Wirkungsquerschnitt von 0.83 barn, der jedoch praktisch untergrundfrei ist [10].
+
+#### Kinematik der emittierten Neutronen
+
+Eine weitere Frage ist der Endzustand dieses Prozesses. K. Boretzky [11] hat fur einen 650 MeV/Nukleon \({}^{208}\)Pb-Strahl auf verschiedene _Targets_ gezeigt, dass das Energiespektrum von nach Coulombanregung emmittierten, einzelnen Neutronen durch eine Maxwell-Verteilung
+
+\[N(T_{\rm kin})=C\cdot T_{\rm kin}\cdot{\rm e}^{-\frac{T_{\rm kin}}{T}} \tag{2.7}\]
+
+mit der kinetischen Energie \(T_{\rm kin}\) des Neutrons, der Kerntemperatur \(T\) und einer Konstante \(C\), beschrieben wird, wobei aus den Messungen eine Kerntemperatur \(T=1.18\pm 0.01\) MeV resultierte. Transformiert man dieses Spektrum der kinetischen Energie der Neutronen im Ruhesystem des Kerns ins Laborsystem, ergeben sich die Impulsverteilungen des einzelnen Neutrons im Labor, wie in Abbildung 2.5 gezeigt, wobei angenommen wurde, dass das Energiespektrum der emittierten Neutronen bei \({}^{197}\)Au dem bei \({}^{208}\)Pb entspricht.
+
+### Luminositatsmessung
+
+Dort sind links die Verteilung der longitudinalen Impulse der emittierten Neutronen im Laborsystem und rechts die Verteilung der transversalen Impulse dargestellt. Die Verschmerung des longitudinalen Impulses der Neutronen hat bei einem Detektor mit einer Energieauflosung von \(\approx 20\%\) RMS/E eine vernachlassigbare Auswirkung auf die Breite der resultierende Signalhohenverteilung des Detektors. Der transversale Impuls von maximal 140 MeV/c lenkt die Neutronen bei einer Entfernung des Detektors von \(\approx 18\) m von der Wechselwirkung um maximal 2.5 cm aus. Das bedeutet fur den Detektor, dass seine Empfindlichkeit auf einer Kreisflache mit einem Radius \(<2.5\) cm einigermassen konstant sein sollte, um eine Verschlechterung der Energieauflosung zu verhindern.
+
+## 3 Kalorimeter in der Hochenergiephysik
+
+Ein Kalorimeter dient zur Messung der Energie von hochenergetischen Teilchen1. Bei Teilchenenergien grosser einigen GeV verlieren stark wechselwirkende Teilchen ihre Energie in Materie durch inelastische hadronische Prozesse, die zur Produktion weiterer Teilchen fuhren. Elektronen und Photonen verlieren in diesem Energiebereich ihre Energie durch Bremsstrahlung bzw. Paarbildung. Dabei gibt es in der Regel mehrere Generationen von produzierten Teilchen. Es bildet sich also eine Kaskade von Teilchen, die auch,,Schauer" genannt wird. Das Prinzip eines Kalorimeters beruht auf der Annahme, dass die Grosse des Schauers und somit die Anzahl der produzierten Teilchen proportional zu der Energie der primaren Teilchen ist. In der Regel nimmt man einen Block eines Materials, der so bemessen ist, dass das eingeschossene und die in der Folge erzeugten Teilchen ihre gesamte Energie in dessen Volumen verlieren. In diesem Volumen mist man die geladenen Teilchen meist uber die Erzeugung von Licht in szintillierenden [Leo] Materialien; es kommen aber auch andere Methoden zum Nachweis geladener Teilchen zur Anwendung (Halbleiterdetektoren, Proportional-Gaszahler, Cherenkov-Licht etc. ). Ein typisches Kalorimeter zur Energiemessung hochenergetischer Teilchen besteht aus einer Abfolge von,,Absorber-Platten" und Szintillator-Platten [Fab85] [Klei87] [Ama81]. In den Absorber-Platten (meist Eisen, Blei oder Uran) wird der Schauer produziert, in den Szintillator-Platten wird ein Signal proportional zum Energieverlust geladener Teilchen des Schauers gemessen. Diese Bauform wird als,,Sandwich-Kalorimeter" bezeichnet. Ein anderer Typ ware ein sogenanntes,,Spaghetti-Kalorimeter", welches aus einer Matrix aus Absorber-material und szintillierenden Fasern besteht [Aco90]. Beides sind sogennante _Sampling_-Kalorimeter, im Gegensatz zu _homogenen_ Kalorimeter, bei denen im gesamten Volumen ein Signal erzeugt werden kann [Fab85].
+
+Nach der Art der Prozesse, die zur Produktion sekundarer Teilchen fuhren, werden elektromagnetische und hadronische Schauer unterschieden.
+
+### 3.1 Elektromagnetische Schauer
+
+Elektromagnetische Schauer entstehen, wenn Teilchen, die uberwiegend nur elektromagnetisch wechselwirken (z. B. \(e^{\pm}\), \(\gamma\)), in Materie geschossen werden. Bei Energien uber \(\sim\)10 MeV verlieren Elektronen Energie vor allem durch Bremsstrahlung im elektrischen Feld der Kerne, also durch Erzeugung von Photonen. Photonen verlieren in demselben Energiebereich vor allem Energie durch \(e^{\pm}\)-Paarbildung. Die Langenskala, auf der diese Prozesse stattfinden, ist durch die Strahlungslange \(X_{\circ}\) eines Materials gegeben. Die Strahlungslange \(X_{\circ}\) ist definiert uber den spezifischen Energieverlust eines Elektrons mit der Energie \(E\) durch Bremsstrahlung [12]
+
+\[-(\mathrm{d}E/\mathrm{d}x)_{\mathrm{Brems}}=E/X_{\circ}. \tag{3.1}\]
+
+Meist wird die Strahlungslange in [g/cm\({}^{2}\)] angegeben, wobei in obiger Definition \(dE/dx\) in [\(MeVg^{-1}cm^{2}\)] gemessen wird. Der Wert der Strahlungslange kann durch folgende Beziehung abgeschatzt werden (Fehler\(<\)20 % fur Z\(>\)13 [13]) :
+
+\[X_{\circ}[\mathrm{g/cm^{2}}]\approx 180A/Z^{2} \tag{3.2}\]
+
+Die Strahlungslange wird also mit steigender Kernladungszahl kleiner.
+
+Im Energiebereich uber \(\approx\) 1 GeV kann der Energieverlust von Elektronen durch andere Prozesse vernachlassigt werden, und die mittlere Energie \(<E>\) eines Elektrons der Einschussenergie \(E_{\circ}\) nach Durchqueren einer Schicht der Massenbelegung \(X\) ist dann nach Gleichung 3.1 durch
+
+\[<E>=E_{\circ}\cdot\mathrm{e}^{-X/X_{\circ}} \tag{3.3}\]
+
+gegeben. Dies legt die Interpretation der Strahlungslange als einer tatsachlichen Lange nahe, was erreicht wird, indem man die Strahlungslange eines Materials nach obiger Definition durch die Dichte des Materials dividiert. Somit gibt die Strahlungslange die Dicke einer Materialischicht an, nach deren Durchqueren ein Elektron durchschnittlich noch seine um den Faktor \(e\) reduzierte Einschussenergie hat. Im weiteren ist mit der Strahlungslange \(X_{\circ}\) immer diese anschaulichere Interpretation mit der Einheit [Lange] gemeint.
+
+Fur den Prozesse der Paarbildung durch Photonen der Energie \(E_{\gamma}>\) 1 GeV kann man zeigen [12], dass folgende Gleichung gilt:
+
+\[<N_{\gamma}>=N_{\gamma}^{\circ}\cdot e^{-7X/\beta X_{\circ}} \tag{3.4}\]
+
+mit \(N_{\gamma}^{\circ}\), der Anzahl eingeschossener Photonen, und \(N_{\gamma}\), der Anzahl der Photonen, die in einer Schicht der Dicke X keine Wechselwirkung erfahren haben. Die Wahrscheinlichkeit, dass ein Photon in einer Schicht der Dicke \(X_{\circ}\) ein \(e^{\pm}\) Paar erzeugt, ist demnach \(P=1-\mathrm{e}^{-7/9}\approx 54\%\).
+
+Es kommt also zu einer Kaskade, in deren Verlauf Photonen \(e^{\pm}\)-Paare erzeugen, welche wiederum durch Bremsstrahlung Photonen erzeugen. Die beiden Prozesse wiederholen
+
+## 3 Kalorimeter in der Ho chenergiep hysik
+
+**Abbildung 3.1**: Simulation des Schauer s eines 50 GeV Elektrons in zwei verschiedenen Materialien (links: Kupfer, rechts: Wolfram). Zu sehen sind die Spuren geladener Teilchen. Die Abmessungen der Quader sind 15\(\times\)15\(\times\)40 \(cm^{3}\). Die Auswirkung der kurzen Strahlungslange von Wolfram (\(X_{o}=0.35\) cm) im Vergeleich zu Kupfer (\(X_{o}=1.43\)cm) ist in dem sehr viel kurzeren Schauer zu sehen. Die laterale Ausdehnung des Schauer sist entsprechend dem Verhaltnis der Moliere-Radien (s. Tabelle 3.1) ahnlich.
+
+sich bis die Energie der Photonen und Elektronen so weit abgenommen hat, dass Bremsstrahlung und Paarerzeugung nicht mehr die dominierenden Prozesse sind. Dieser Punkt wird per Definition erreicht, wenn der Energieverlust der Elektronen durch Ionisation dem Energieverlust durch Bremsstrahlung untspricht. Das Verhaltnis zwischen Energieverlust durch Bremsstrahlung und Energieverlust durch Ionisation ist angenahert \(\Delta E_{\mathrm{Brems}}/\Delta E_{\mathrm{Ion}}\approx Z\cdot E/550\) (\(E\) in MeV) [10]. Die Energie, bei der dieses Verhaltnis zu 1 wird, wird,,kritische" Energie \(E_{\mathrm{c}}=550/Z\) MeV genannt (Fehler dieser Abschatzung \(<\)10 % fur Z\(>\)13).
+
+Eine Abschatzung uber die Lange (in Einheiten von \(X_{o}\)) eines Volumens, das den elektromagnetischen Schauer eines Teilchens mit der Energie \(E\) zu 98 % beinhalten soll, ist mit
+
+\[L(98\%)\approx 2.5\cdot(\ln{(E/E_{c})}-a) \tag{3.5}\]
+
+gegeben [11], mit \(a=1.0\) fur ein eingeschossenes Elektron und \(a=0.5\) fur ein Photon. Die transversale Ausdehnung eines elektromagnetischen Schauer sird durch die Streuwinkel der Teilchen im Schauer bestimmt, in erster Linie durch die Winkel, um die die Elektronen im Feld der Atomkerne abgelenkt werden. Diese Winkel nehmen mit geringerer Elektronenenergie und mit grosserem \(Z\) zu. Der Schauer wird also breiter, je grosser die Eindringtiefe im Material ist. Die Einheit, mit der die laterale Ausdehnung
+
+### 3.2 Hadronische Schauer
+
+eines elektromagnetischen Schauer s beschrieben wird, ist der Moliere-Radius \(\rho_{M}\). Der Moliere-Radius ist durch \(\rho_{M}=21\mathrm{MeV}\cdot X_{\circ}/E_{\mathrm{c}}\) gegeben. Eine Abschatzung des Moliere-Radius ist \(\rho_{M}\approx 7A/Z\) [g/cm\({}^{2}\)]. Hier gilt bezuglich der Enheit das gleiche, was oben zur Strahlungslange gesagt wurde; um eine Grosse mit der Enheit Lange zu erhalten, muss durch die Dichte des Materials dividiert werden. Tragt man das laterale Schauerprofil gegen den Moliere-Radius auf, ist die Breite unabhangig vom Absorbermaterial, er stellt also eine naturliche Einheit fur die Schauerbreite dar. Unabhangig vom Material gilt, dass 95 % der Energie des Schauer s in einem Zylinder mit Radius 2 \(\rho_{\mathrm{M}}\) und 98 % der Schauerenergie in einem Zylinder mit Radius 3 \(\rho_{\mathrm{M}}\) enthalten ist.
+
+### 3.2 Hadronische Schauer
+
+Die Vorgange in hadronischen Schauern sind komplizierter und nicht so analytisch zu beschreiben wie elektromagnetische Schauer. Die Langenskala fur die Ausdehnung eines hadronischen Schauer sist die nukleare Absorptionslange oder hadronische Wechselwirkungslange \(\lambda_{\mathrm{I}}\). Sie ist definiert als
+
+\[\lambda_{\mathrm{I}}=A_{\mathrm{Mol}}/(\sigma_{\mathrm{i}}N_{\circ}\rho)[ \mathrm{cm}] \tag{3.6}\]
+
+mit der Molmasse \(A_{\mathrm{Mol}}\), der Dichte \(\rho\), der Avogadro-Zahl \(N_{\circ}\) und dem inelastischen hadronischen Wirkungsquerschnitt \(\sigma_{\mathrm{i}}\)[10]. Die hadronische Wechselwirkungslange eines Materials kann durch
+
+\[\lambda_{\mathrm{I}}\approx 35A^{1/3}[\mathrm{g/cm}^{2}] \tag{3.7}\]
+
+approximiert werden [11]. Einige gemessene Werte sind in Tabelle 3.1 angegeben.
+
+Trifft ein hochenergetisches Hadron auf einen Kern, werden vor allem Pionen (\(\pi^{\pm}\) und \(\pi^{\circ}\)) aber auch Nukleonen produziert und der Kern kann gespalten werden. Rund die Halfte der Energie geht in die Produktion von Teilchen, die einen mittleren transversalen Impuls
+
+\begin{table}
+\begin{tabular}{|l||r|r|r|r|r|} \hline Material & \(Z\) & \(X_{\circ}\) [cm] & \(\rho_{M}\) [cm] & \(\lambda_{I}\) [cm] & Dichte [g/cm\({}^{2}\)] \\ \hline \hline Fe & 26 & 1.76 & 1.81 & 16.8 & 7.87 \\ \hline Cu & 29 & 1.43 & 1.45 & 15.1 & 8.96 \\ \hline W & 74 & 0.35 & 0.99 & 9.6 & 19.30 \\ \hline Pb & 82 & 0.56 & 1.66 & 17.1 & 11.35 \\ \hline U & 92 & 0.32 & 1.12 & 10.5 & 18.90 \\ \hline \end{tabular}
+\end{table}
+Table 3.1: Die Werte für Strahlungslange, Molière-Radius und hadronische Wechselwirkungslange für einige Materialien [11].
+
+## 3 Kalorimeter in der Hohenergiephy sik
+
+\(<p_{\rm T}>\approx 0.35\) GeV/c haben, der Rest der Energie wird von Teilchen mit hohem longitudinalen Impuls (sogenannten,,leading particles") davongetragen. Wenn das Projektil ein Nukleon war, kann man davon ausgehen, dass wieder ein Nukleon als,,leading particle" viel Energie davontragt.
+
+Es ist sinnvoll, bei den weiteren Prozessen zwischen elektromagnetischen und hadronischen zu unterscheiden.
+
+* 150 GeV [Aco92] haben gezeigt, dass dieser Ausdruck die Daten im Bereich 10 -150 GeV sehr gut wiedergibt.
+* starken Fluktuationen unterliegenden
+- restlichen Prozessen, findet. Gabriel [Gab78] hat abgeschatzt, dass bei einem 5 GeV Hadronschauer in Eisen ca. 15% der nicht-elektromagnetischen Energie in geladenen Pionen endet, wahrend die verbleibenden 85% in den eben beschriebenen Prozessen verbraucht werden.
+
+### Hadronische Schauer
+
+\begin{tabular}{|l|}
+**Abbildung 3.2**: Spuren geladener Teilchen in der Simulation des Schauer s eines 100 GeV Protons in Kupfer. Die Abmessungen der Quaders sind 60 x60 x120\(cm^{3}\). Rechts ist ein Ereignis mit hoher \(\pi^{\circ}\)-Multiplizität in der ersten Wechselwirkung zu sehen, in dem fast die gesamte Energie in elektromagnetischen Schauern endet. Links ght ein Grosteil der Energie in die Produktion geladener Hadronen (zu erkennen an der Lange der Spuren im Kupfer). Das Fehlen ausgepragter elektromagnetischer Schauer weist auf geringe \(\pi^{\circ}\)-Multiplizität hin. Im Algemeinen wird das rechte Ereignis eine großere Signalhohe in einem Kalorimeter erzeugen ais das linke Ereignis.
+
+Die Energie in einem hadronischen Schauer geht also ungefahr zur Halfte in elektromagnetische Schauer mit verhalt nismassig geringen Dimensionen. Die andere Halfte geht zum uberwiegenden Teil in Bindungsenergie und niederenergetische Photonen und Nukleonen, wobei die Prozesse, wie auch die Dimensionen, auf denen sie stattfinden, starken Fluktuationen unterliegen.
+
+Kalorimeter konnen in der Regel den elektromagnetischen und den hadronischen Anteil einen hadronischen Schauer s unterschiedlich gut detektieren. Deshalb ist das \(e/h\)- Verhaltnis eines Kalorimeters, welches das Verhaltnis des Signals aus den elektromagnetischen Subschauern und dem Signal aus dem hadronischen Teil darstellt, eine wichtige Grosse. Nur bei kompensierenden Kalorimetern aus Uran (siehe Fussnote) kann ein \(e/h\)-Verhaltnis von \(\sim 1\) erreicht werden, sonst ist das \(e/h\)-Verhaltnis immer \(>1\) (im Bereich von 1.2 -1.5 fur nicht kompensierende Szintillator-Kalorimeter).
+
+Die longitudinale und transversale Ausdehnug eines hadronischen Schauer s skaliert, wie oben angedeutet, mit der hadronischen Wechselwirkungslange \(\lambda_{\rm I}\). Die longitudinale Ausdehnung eines Volumens, in dem 95% der Schauerenergie deponiert werden, kann mit
+
+\[L(95\%)\approx 2.5\cdot(0.54\cdot\ln(E[{\rm GeV}])+0.4)\cdot\lambda_{\rm I} \tag{3.8}\]
+
+## Chapter 3 Kalorimeter in der Hohenergiephysik
+
+### 3.1 Energieauflosung
+
+Die Energieauflosung eines Kalorimeters wird durch Fluktuationen bei der Erzeugung des Signals im Kalorimeter bestimmt. Die Fluktuationen in elektromagnetischen Kalorimeters sind analytisch gut zu beschreiben [1]. Die wichtigsten Beitrage sind:
+
+* _Sampling-Fluktuationen_, die auftreten, wenn der Schauer bei ",nicht-homogenen" Kalorimeters (z. B. der Sandwich Bauweise) nur in dem sensitiven Bereich (z. B. Szntillator) gemessen wird. Es konnen Fluktuationen im Anteil der geladenen Teilchen, die im sensitiven Material Energie verlieren und somit ein Signal erzeugen, auftreten.
+* _Weglangen-Fluktuationen_ sind Fluktuationen in der Winkelverteilung der geladenen Teilchen im sensitiven Material. Nmmt man das Beispiel der Szntillatorplatten eines _Sandwich_-Kalorimeters, wird mehr Signal erzeugt, wenn die Teilchen unter kleinem Winkel zur Plattenebene laufen, als wenn sie senkrecht zur Plattenebene laufen, da sie im ersten Fall einen langeren Weg im Szntillator zurucklegen.
+
+### Energieauflosung
+
+* _Landau-Fluktuationen_ kommen aus der Asymmetrie der Verteilung deponierter Energie, wenn geladene Teilchen einer bestimmten Energie einen Szintillator einer bestimmten Dicke durchqueren. Diese Verteilung ist eine Landau-Verteilung, hat also einen Schwanz zu hoheren Signalahohen hin.
+* Wenn der Schauer nicht vollstandig im Detektorvolumen enthalten ist, gibt es Fluktuationen in dem Anteil der Schauerenergie, die aus dem Kalorimeter "herausleckt" und nicht mehr zum Signal beitragt. Dabei haben mogliche longitudinale Verluste einen grosseren Einfluss auf die Energieauflosung als mogliche laterale Verluste [CHARM80].
+
+Fur Konfigurationen, in denen keine Energie aus dem Kalorimeter austritt, sind _Sampling-Fluktuationen_ in der Regel der bestimmende Beitrag [Ama81]. In erster Ordnung kann man annehmen, dass die Fluktuationen statistischer Natur sind und nur von der Anzahl der Teilchen, die zum Signal beitragen, abhangen. Da die Anzahl der erzeugten Teilchen proportional zur Energie ist, ist die Energieauflosung \(\sigma(E)/E\) proportional zu \(1/\sqrt{E}\).
+
+Bei hadronischen Kalorimeren spielen zusatzlich folgende Fluktuationen eine Rolle:
+
+* Fluktuationen in dem Anteil der Energie, die in \(\pi^{\circ}\)-Produktion geht, sind bei Kalorimetern mit \(e/h>1\) wichtig. Ein Ereignis, bei dem viel Energie in die \(\pi^{\circ}\)-Produktion geht, wird in einem solchen Kalorimeter ein hoheres Signal erzeugen, als ein Ereignis, bei dem viel Energie in hadronische Prozesse geht.
+* Der hadronische Teil des Schauers unterliegt generell sehr starken Fluktuationen. Die Verteilung der Anzahl nuklearer Kollisionen hat eine Halbwertsbreite in der Grossenordnung 100%, und die Verteilung der Bindungsenergie, die dabei verlorengeht, ebenfalls. Wie oben erwahnt, konnen diese Fluktuationen nur mit Uran-Kalorimetern kompensiert werden.
+
+_Sampling-Fluktuationen_ spielen bei hadronischen Kalorimetern insofern eine Rolle, als ein Teil der Energie immer in elektromagnetische Subschauer geht. Bei _Sandwich_-Kalorimetern hat sich gezeigt [Ama81], dass sich die Energieauflosung fur eine Absorberglattendicke kleiner \(1\)\(X_{\circ}\) fast nicht mehr andert. Der Einfluss der letzten beiden Punkte ist abhangig vom \(e/h\) Wert des Kalorimeters. Bei \(e/h\sim 1\) spielen Fluktuationen in der \(\pi^{\circ}\)-Produktion keine Rolle, wahrend Fluktuationen im hadronischen Teil des Schauers einen grossen Einfluss haben. Bei Kalorimetern mit \(e/h\gg 1\) sind die Fluktuationen vor allem durch die \(\pi^{\circ}\)-Produktion bestimmt.
+
+Die funktionelle Abhangigkeit der Energieauflosung von der Energie ist bei hadronischen Kalorimetern aufgrund der verschiedenen Beitrage und deren verschiedener Energieabhangigkeit komplizierter [Ama81]. Meist wird daher fur die Energieauflosung hadronischer Kalorimeter eine Summe aus einem Term proportional zu \(1/\sqrt{E}\) und einem konstanten Term mit der Energie angenommen. Dies ist nur eine Naherung, da praktisch kein Fluktuationsbeitrag energieunabhangig ist [Fab85]. Fur Kalorimeter mit einem sehr
+
+## 3 Kalorimeter in der Hochenergiephy sik
+
+grossen \(e/h\)-Verhaltnis hat sich gezeigt, dass die Energieauflosung proportional zum Logarithmus der Energie abnimmt [12], was der Energieabhangigkeit der Fluktuationen der \(\pi^{\circ}\)-Produktion in hadronischen Schauern entspricht [13].
+
+## 4 Die Null-Grad-Kalorimeter Prototypen
+
+### 4.1 Cherenkov-Kalorimeter
+
+Wie in Kapitel 3 erwahnt, wird das Signal eines Kalorimeters haufig erzeugt, indem geladene Schauerteilchen durch ihren spezifischen Energieverlust in Szintillatoren Licht erzeugen, welches von Photovervielfachern in ein elektrisches Signal umgewandelt und verstarkt wird. Eine andere Moglichkeit der Lichterzeugung durch geladene Teilchen im Kalorimeter ist die Nutzung des Cherenkov-Effekts. Beim Durchgang eines relativistischen geladenen Teilchens durch ein transparentes Material, in dem die Lichtgeschwindigkeit kleiner ist als die Geschwindigkeit des Teilchens, wird Licht emittiert, welches auch uber Photovervielfacher ausgelesen und verstarkt werden kann. Analog zu den Szintillatorplatten, die haufig in _Sandwich_-Kalorimetern verwendet werden, konnen auch Glasplatten benutzt werden. Ein besonderer Typ ist das Quarzfaser-Kalorimeter, bei dem Quarz-Lichtleiter1 gleichzeitig als sensitives Material und als Transportmedium des Lichts vom Entstehungsort zum Photovervielfacher dienen. Dieser Typ von Kalorimeter wurde 1994 von P. Gorodetzky _et al._ erstmlas im Rahmen des _RD4_-Projektes am CERN genauer untersucht [12] [13]. Seitdem beschaftigen sich verschiedene Gruppen damit, vor allem in Hinblick auf eine Anwendung am LHC2[14] [15]. Dabei spielen vor allem die Schnelligkeit des Detektors (das Cherenkov wird instantan erzeugt, wenn ein geladenes Teilchen durch den Lichtleiter fliegt, und dann mit Lichtgeschwindigkeit zum Photovervielfacher transportiert) und die Strahlungsharte der Quarzfasern eine Rolle. Es wurden auch Tests mit,,Plastik"-Lichtleiter3 durchgefuhrt [13], die grundsatzlich die gleiche Funktion erfullen wie Quarz-Lichtleiter, jedoch weniger strahlungshart sind.
+
+## Chapter 4 Die Null-Grad-Kalorimeter Prototypen
+
+**Abbildung 4.1**: Ein geladenes Teilchen durchlauft ein Medium. In jedem durchlaufenen Punkt entsteht eine elektromagnetische Kugelwelle. Ist die Geschwindigkeit \(v\) größer als die Lichtgeschwindigkeit \(c\) im Medium (rechts), bildet sich eine Wellenfront auf dem Kegel, auf dem die Kugelwellen die gleiche Phase haben, und es wird Licht (Pfeile) in Richtung dieser Wellenfront emittiert.
+
+In Abschnitt 4.1.2 wird naher auf die Funktionsweise dieses Kalorimetertyps und auf Unterschiede zu Szintillator basierten Kalorimetern eingegangen.
+
+### 4.1 Der Cherenkov-Effekt
+
+Der Cherenkov-Effekt entspricht einem Uberschallknall elektromagnetischer Wellen. Er tritt auf, wenn ein geladenes Teilchen durch ein dielektrisches Medium fliegt und seine Geschwindigkeit grosser als die Lichtgeschwindigkeit in diesem Medium ist. Dabei wird Licht (sichtbarer bis UV-Bereich) unter einem bestimmten Winkel1 zur Teilchentrajektorie emittiert. Dies ist ein Polarisations- und Interferenz-Effekt. Bewegt sich das geladene Teilchen durch das Medium, werden Atome auf seinem Weg polarisiert, was einer geringen Anregung entspricht. In der Folge gehen die Atome wieder in ihren unpolarisierten Zustand uber, wobei sie niederenergetische Photonen emittieren. Man kann sich jedes Atom auf dem Weg des Teilchens als Quelle spharischer elektromagnetischer Wellen vorstellen, die sich nach dem Huygenschen Prinzip uberlagern. Ist die Teilchengeschwindigkeit \(v\) kleiner als die Lichtgeschwindigkeit _c_m im Medium, haben diese Elementarwellen keine bestimmte Phasenbeziehung (Abb. 4.1, links) und werden sich im Mittel ausloschen. Ist \(v\) grösser als die Lichtgeschwindigkeit _c_m, gibt es eine Flache, auf der die Kugelwellen die
+
+### Cherenkov-Kalorimeter
+
+**Abbildung 4.2**: Anzahl der erzugten Cherenkov-Photonen pro mm durchquerter Schicht, in Abhangigkeit von \(\beta\) bei verschiedenen Brechungsindizes n. Hierbei wurde uber einen Wellenlangenberech von 400-550 nm integriert.
+
+gleiche Phase haben und sich verstarken (Abb. 4.1, rechts). In Richtung dieser Wellenfront wird dann Licht emittiert. Der Offnungswinkel des Kegels, unter dem die Cherenkov-Strahlung emittiert wird, heisst Cherenkov-Winkel und wird im allgemeinen mit \(\theta_{\rm c}\) bezeichnet. Da das Teilchen mit der Geschwindigkeit \(\beta\cdot\)c durch das Medium fliegt und die elektromagnetischen Kugelwellen sich mit der Geschwindigkeit \(\mathrm{c}/n\) ausbreiten, ergibt sich aus Abbildung 4.1 \(\theta_{\rm c}\) zu
+
+\[\cos\theta_{\rm c}=\frac{1}{\beta n} \tag{4.1}\]
+
+wobei \(n\), der (im allgemeinen wellenlangenabhangige) Brechungsindex des Mediums, und \(\mathrm{c}\) die Vakuumlichtgeschwindigkeit ist. Lichtleiter haben in der Regel einen Brechungsindex von \(n=1.5\). Fur Teilchen mit \(\beta>0.9\) bedeutet dies, dass Cherenkov-Strahlung im Lichtleiter in einem Kegel mit \(\simeq 45^{o}\) Offnungswinkel emittiert wird. Der Energieverlust eines Teilchens mit Ladung \(z\cdot e\), welches durch eine Schicht der Dicke \(L\) fliegt, durch Emission von Cherenkov-Photonen des Frequenzintervalls \(\mathrm{d}\omega\) in den Raumwinkel \(\mathrm{d}\Omega\) ist durch
+
+\[\frac{\mathrm{d}^{2}E}{\mathrm{d}\omega\mathrm{d}\Omega}=z^{2}\frac{\alpha \hbar}{\mathrm{c}}n\beta^{2}\mathrm{sin}^{2}\theta\left(\frac{\omega L}{2\pi \beta c}\frac{\mathrm{sin}\xi\left(\theta\right)}{\xi\left(\theta\right)} \right)^{2} \tag{4.2}\]
+
+gegeben [Leo], wobei \(\alpha\) die Feinstrukturkonstante ist und
+
+\[\xi\left(\theta\right)=\frac{\omega L}{2\beta\mathrm{c}}(1-\beta n\mathrm{ cos}\left(\theta\right)). \tag{4.3}\]
+
+## Chapter 4 Die Null-Grad-Kalorimeter Prototypen
+
+Von grosserem Interesse ist meist die Anzahl der emittierten Photonen pro durchlaufener Schichtdicke. Ist die durchquerte Schichtdicke gross gegenuber der Wellenlange der emittierten Photonen, lasst sich aus Gleichung 4.2 folgende Gleichung ableiten [Leo] :
+
+\[\frac{\mathrm{d}^{2}N}{\mathrm{d}\lambda\mathrm{d}x}=\frac{2\pi z^{2}\alpha}{ \lambda^{2}}(1-\frac{1}{\beta^{2}n^{2}}). \tag{4.4}\]
+
+Da man die Cherenkov-Strahlung haufig mit Photovervielfacherm milst, deren spektrale Empfindichkeit1 im Bereich 350 nm bis 550 nm liegt, kann man Gleichung 4.4 uber diesen Bereich integrieren und erhalt als Abschatzung der Anzahl emittierter Photonen pro cm durchquerter Schicht
+
+Footnote 1: Dies ist abhangg vom Fenstermaterial der Photovervielfacher. Die Angabe bezieht sich auf Photovervielfacher mit Borosilikat-Fenster. Eigentlich waren Photovervielfacher mit UV-durchlässigem Glas besser zur Messung von Cherenkov-Strahlung geeginet, da ein grosser Anteil im UV-Bereich liegt.
+
+\[\frac{\mathrm{d}N}{\mathrm{d}x}\approx 475z^{2}\mathrm{sin}^{2}\theta_{ \mathrm{c}}[\mathrm{Photonen/cm}]. \tag{4.5}\]
+
+### 4.1.2 Funktionsprinzip eines Lichtleiter-Kalorimeters
+
+Werden Szintillatoren benutzt, um die geladenen Teilchen in einem Kalorimeter zu messen, wird deren spezifischer Energieverlust gemessen. Der spezifische Energieverlust eines geladene Teilchens wird durch die Bethe-Bloch Formel beschrieben. Bei kleinen Energien ist er sehr gross, nimmt bis zu einer Teilchengeschwindigkeit von \(v\approx 0.96\cdot\mathrm{c}\) ab [Leo] und steigt zu hoheren Energien wieder an, bis er das,,relativistische Plateau" erreicht, wo der Energieverlust dann fast konstant bleibt. Dies bedeutet fur ein Szintillator-Kalorimeter, dass niederenergetische Teilchen stark zum Signal beitragen, da sie relativ viel Energie im Szintillator deponieren. Werden nicht-szintillierende Lichtleiter als,,aktive" Elemente eines Kalorimeters benutzt, d. h. das Signal des Kalorimeters ist proportional zu der Menge an produzierten Cherenkov-Photonen in den Lichtleitern, sieht dies anders aus, da in diesem Fall nur von relativistischen geladenen Teilchen Signale erzeugt werden. Schon in einem einfachen Bild eines Schauers, der in seinem Verlauf immer breiter wird, wobei die Teilchen immer weniger Energie besitzen, kann man sich vorstellen, dass bei Szintillator-Kalorimeters die Randbereiche des Schauers viel zum Signal beitragen, wahrend bei Cherenkov-Licht Kalorimetersn eher ein schmaler Bereich um die Richtung des einfalenden Teilchens ein Signal produziert. Dabei kommt es auf den Typ des Lichtleiters an, welche Teilchen tatsachlich zum Signal beitragen.
+
+### Cherenkov-Kalorimeter
+
+#### Lichtleiter
+
+Ein Lichtleiter2 ist aus einem Kern und einer ihn umgebenden Hulle (_Cladding_) aufgebaut, wobei der Brechungsindex des Kerns immer etwas grosser ist als der des _Claddings_, sodass ein Lichstrahl, der auf die Grenzflache zwischen Kern und Hulle trifft, totalreflektiert und im Lichtleiter weitergeleitet wird. Der grosse Winkel \(\phi\) (im allgemeinen als,,maximaler Eintrittswinkel" bezeichnet ), unter dem noch Totalreflektion stattfindet, ist durch
+
+Footnote 2: Hier soll nur von sogennanten Stufenindexfasern die Rede sein. Diese werden so bezeichnet, da der Brechungsindex, beim Ubergang vom Kern zum _Cladding_ einen Sprung macht. Bei Gradientefasern andert sich der Brechungsindex kontinuierlich, verringert sich also von der Mitte des Lichtleiters zum Rand hin. Dies kompensiert die unterschiedliche Laufzeit von Photonen, die unter unterschiedlichen Winkel zur Faserachse weitergeleitet werden [Berg].
+
+\[\sin\phi=\sqrt{n_{\rm Kern}^{2}-n_{\rm Cladding}^{2}} \tag{4.6}\]
+
+gegeben, wobei \(n_{\rm Kern}\) und \(n_{\rm Cladding}\) die Brechungsindizes des Kerns bzw. der Hulle sind. Der Ausdruck \(\sin\phi\) wird,,numerische Apertur" genannt und wird in der Regel anstelle des maximalen Eintrittswinkel \(\phi\) angegeben. Die drei wichtigsten Vertreter der Stufenindexfasern sind:
+
+* _Quarz-Quarz-Fasern_, bei denen der Kern wie auch die Hulle aus Quarz bestehen. Die typische numerische Apertur von Quarz-Quarz-Fasern ist \(N.\,A.=0.22\), was einem maximalen Eintrittswinkel von \(12.7^{\circ}\)entspricht. Quarz-Quarz-Fasern ubertragen Licht im Wellenlangenbereich von ca. 200 nm bis zu 2000 nm1 [BTO], d. h. vom Infrarot- bis in den UV-Bereich. Die Strahlungsharte, d. h. die Dosis, mit der die Faser ohne nennenswerte Transmissionsverluste bestrahlt werden kann, liegt im Bereich von 1 Grad, ist jedoch abhangig von der Reinheit des Materials [Goro95]. Quarz-Quarz-Fasern sind teuer und schwer zu bearbeiten.
+
+Footnote 1: Diese Werte werden nur mit sehr reinem Quarz erreicht. Meist sind Lichtleiter auf den UV- oder den IR-Bereich optimiert.
+* _Quarz-Plastik-Fasern_ bestehen aus einem Kern aus Quarz und einer Hulle aus _PMMA_. Typische numerische Aperturen liegen im Bereich \(N.\,A.=0.3-0.4\), akzeptieren also Licht unter grosseren Winkeln. Mit Quarz-Plastik Lichtleitern kann kein UV-Licht ubertragen werden. Die Strahlungsharte ist geringer als bei Quarz-Quarz-Fasern. Der Preis liegt zwischen Quarz-Quarz- und Plastik-Plastik-Fasern.
+* _Plastik-Plastik-Plastik-Fasern_ bestehen im Kern als auch der Hulle aus _PMMA_. Sie werden meist einfach als _PMMA_-Fasern bezeichnet. Die numerische Apertur ist \(N.\,A.=0.5\), d. h. der maximale Eintrittswinkel betragt \(30^{\circ}\). Dieser Typ ist der billigste. Es kann nur Licht im sichtbaren Bereich ubertragen werden, und die Strahlungsharte ist am geringsten.
+
+Bezogen auf die Funktion der Fasern im Kalorimeter unterscheiden sich die Fasern also durch die numerische Apertur. Da nur Licht weitergeleitet wird, welches unter kleinerenWinkeln als dem maximalen Eintritswinkel in der Faser emittiert wird, wird auch nur das Licht von geladenen Teilchen, die in einem bestimmten Winkelbereich durch die Faser fliegen, weitergeleitet. Geladene Teilchen mit \(\beta>0.9\) emittieren Cherenkov-Strahlung im Lichtleiter in einem Kegel mit \(45^{\rm o}\) Offnungswinkel. Fliegt ein solches Teilchen unter einem Winkel von \(45^{\rm o}\) durch einen Lichtleiter, wird ein Teil des Cherenkov-Lichtkegels, weitergeleitet, wahrend ein Teilchen, welches unter einem Winkel von \(90^{\rm o}\) durch die Faser fliegt, in erster Ordnung nur Licht emittiert, welches unter Winkeln von \(\simeq 45^{\rm o}\) auf die Wand des Lichtleiters trifft und somit nicht totalreflexktiert wird. Die genaue Beschreibung der Topologie in Abhangigkeit von Eintritswinkel und Eintritsposition des Teilchens in die Faser ist kompliziert. Es hat sich aber gezeigt [11], dass der Winkelbereich, in dem die Teilchen durch die Faser fliegen konnen, sodass das von ihnen emittierte Cherenkov-Licht in der Faser weitergeleitet wird, auch durch die numerische Apertur gegeben ist. Bei Quarz-Quarz-Fasern tragen also nur Teilchen zum Signal bei, welche unter \(45^{\rm o}\pm 13^{\rm o}\) relativ zur Faserachse durch die Lichtleiter fliegen. Bei _PMMA_-Fasern ist dieser Winkelbereich \(45^{\rm o}\pm 30^{\rm o}\). Bezogen auf einen Schauer im Kalorimeter bedeutet dies, dass nur die Schauerteilchen eines bestimmten Winkelbereichs relativ zur Strahlachse ein Signal produzieren. In Abbildung 4.3 sind Ergebnisse der _GEANT_-Simulation mit der Geometrie des Kupfer-Prototypen (vgl. Abschnitt 4.3) gezeigt. Es wurden \(100\,{\rm GeV}\) Protonen in die Mitte des Kalorimeters eingeschossen. In Abbildung 4.3 sind jeweils die gelade
+
+### Cherenkov-Kalorimeter
+
+**Abbildung 4.4**: Simulation der Winkelverteilung von Elektronen und geladenen Pionen im hadronischen Schauer im Kupferkalorimeter. Es gilt dasselbe wie fur Abb. 4.3, hier ist die Anzahl der Teilchen gegen den Winkel, unter dem sie relativ zur Strahlaches laufen, wenn sie eine Faserschicht durchqueren, dargestellt. Die Pionen wurden um den Faktor 2 hochskaliert.
+
+nen Teilchen des Schauers, die eine Lichtleiterschicht erreichen, als Teilchenanzahl bezeichnet. In Abbildung 4.3 links ist der Abstand eines geladenen Teilchens, welches eine Lichtleiterschicht erreicht, von der Strahlachse dargestellt. Die durchgezogene Linie zeigt alle geladenen Teilchen, die eine Lichtleiterschicht erreichen. Die gestrichelte Linie zeigt die geladenen Teilchen mit einer Geschwindigkeit grosser als 0.9 c und einem Winkel \(\phi\) zur Strahlachse kleiner 30\({}^{\circ}\), was in etwa der Situation mit _PMMA_-Lichtletern entspricht. Fur die gepunktete Linie ist dieser Winkel \(\phi\) auf 12\({}^{\circ}\) eingeschrankt, was Quarz-Quarz-Fasern entspricht. Man sieht, dass die kinematischen und geometrischen Beschrankungen durch die Lichtleiter zu einem schmaleren _sichtbaren_ Schauer fuhren, da die aussen, niederenregetischen Schauerbereiche offenbar nicht mehr wesentlich zum Signal beitragen. In Abbildung 4.3 rechts ist fur die wichtigsten Teilchensorten die Haufigkeit der Teilchen, die eine Lichtleiterschicht unter einem Winkel kleiner als 30\({}^{\circ}\) relativ zur Strahlachse durchlaufen, gegen die Geschwindigkeit in \(\beta\) aufgetragen2. Man sieht, dass der Grosseil des Signals von Elektronen und Positronen erzeugt wird. Betrachtet man nur die Teilchen mit \(\beta>0.9\), ergibt sich eine Zusammensetzung von \(\simeq 84\%\)\(e^{\pm}\), \(\simeq 14\%\,\pi^{\pm}\,\mbox{und}\simeq 2\%\) Protonen und sonstiges. Ein Grosseil dieser \(e^{\pm}\) stammt aus elektromagnetischen Kaskaden aus \(\pi^{\circ}\)Zerfallen, d. h. ein solches Kalorimeter miss in erster Linie den elektromagnetischen Anteil des hadronischen Schauers. Messungen mit einem Kupferkalorimeter mit parallel zum Strahl verlaufenden Quarz-Quarz-Fasern [2] haben tatsachlich ein \(e/h\)-Verhalnis von 5 ergeben, was extrem hoch ist, da schon Kalorimeter mit \(e/h=1.5\) als,,stark nichtkompensierend" bezeichnet werden. Dieses hohe \(e/h\)-Verhaltnis kommt zum Teil durch die Ausrichtung der Quarz-Faser unter \(0^{\circ}\) zum Strahl, da der hadronische Teil des Schauers, d. h. vor allem \(\pi^{\pm}\), der zum Signal beitragt, unter kleinen Winkeln zum Strahl laufen. Die elektromagnetischen Subschauer haben eine breitere Winkelverteilung (s. Abbildung 4.4), weshalb die Unterscheidung zwischen hadronischer und elektromagnetischer Komponente des hadronischen Schauers verstarkt wird. Sind die Fasern unter \(45^{o}\) zum Strahl angeordnet, erzeugen auch die \(\pi^{\pm}\) Signal und es ist mit einem kleineren \(e/h\)-Verhaltnis zu rechnen. Simulationen von Gorodetzky \(et\)\(al.\)[2] sagten fur einen,,\(0^{o}\)-Prototyp" aus Kupfer mit Quarz-Fasern ein \(e/h\)-Verhaltnis von 2.5 und fur einen,,\(45^{o}\)-Typ" mit denselben Fasern ein \(e/h\)-Verhaltnis von 1.8 voraus. Die Simulation sagt offenbar ein zu kleines \(e/h\)-Verhaltnis voraus; es zeigt sich jedoch der Unterschied zwischen der \(0^{o}\) und \(45^{o}\) Anordnung. Der Fasertyp spielt fur das \(e/h\)-Verhaltnis auch eine Rolle. Der grosere Winkelbereich, den _PMMA_-Fasern sehen, wird aus den oben beschriebenen Grunden das 
+
+### 4.2 Aufbau der Kalorimeter
+
+\(e/h\)-Verhaltnis eines Kalorimeters mit 45\({}^{\rm o}\)-Anordnung der Fasern vergrossern, wahrend fur eine 0\({}^{\rm o}\)-Anordnung der Fasern das Gegenteil gilt. Diese hohe \(e/h\)-Verhaltnis hat auch Einfluss auf die Breite des _sichtbaren_ Schauer s im Kalorimeter, da dies bedeutet, dass das Signal in erster Linie durch elektromagnetische Schauer mit vergleichsweise geringer lateraler Ausdehnung erzeugt wird (siehe Abb. 4.5). Es gibt also zwei Effekte, die zu einer geringeren lateralen Ausdehnung des _sichtbaren_ hadronischen Schauer sbeitragen, die Winkelbeschrankung durch die Lichtleiter und das hohe \(e/h\)-Verhaltnis. Messungen mit 0\({}^{\rm o}\)-Prototypen [12, 13] und 45\({}^{\rm o}\)-Prototypen [13] zeigen in guter Ubereinstimmung, dass der Radius des Zylinders, in dem 90 % der sichbaren Schauer sichbarenergie enthalten ist, nur halb so gross ist wie bei Szntillator-Kalorimetern. Da bei dem 45\({}^{\rm o}\)-Design ein ganz anderer Winkelbereich des Schauer s gemessen wird als bei 0\({}^{\rm o}\)-Typen, legt dies den Schluss nahe, dass der bestimmende Effekt bei der Verringerung der lateralen Ausdehnung des _sichtbaren_ Schauer s das hohe \(e/h\)-Verhaltnis ist. Dies bedeutet, dass die Eigenschaften des Absorbermaterials in Bezug auf elektromagnetische Schauer auch fur hadronische Schauer ein starkeres Gewicht bekommen. Da bisher nur Messungen der Schauer sichge in Lichtleiter-Kalorimeter aus Kupfer und Blei gemacht wurden, kann man keine Aussage machen, wie die laterale Ausdehnung des _sichtbaren_ Schauer s in diesem Kalorimetertyp mit Materialkonstanten (Z, \(\lambda\), \(\rho_{\rm M}\), \(X_{\rm o}\)) skaliert, man kann aber davon ausgehen, dass der Moliere-Radius (s. Kapitel 3.1) eine wichtige Rolle spielt.
+
+Fluktuationen kommen bei Kalorimetern mit einem so grossen \(e/h\)-Verhaltnis vor allem durch Fluktuationen in der \(\pi^{\rm o}\)-Produktion zustande (vergl. Kapitel 3.4). Die geringere sichtbare laterale Schauer sie macht Lichtleiter-Kalorimeter unempfindlicher gegen Fluktuationen durch laterale Schauerverluste und ermoglicht, schmalere Kalorimeter mit derselben Energieauflosung zu bauen.
+
+### 4.2 Aufbau der Kalorimeter
+
+Die Platzverhaltnisse am Ort, an dem die Kalorimeter installiert werden sollen (vgl. Kap. 2), beschranken die Grosse der Kalorimeter auf 10 cm Breite und 120 cm Lange. Im Vergleich dazu ist die laterale Ausdehnung von Szntillator-Kalorimetern ca. 2-3 mal so breit. Es wurden zwei Prototypen, die sich im Absorbermaterial unterschieden, getestet. Ein Kalorimeter wurde aus Kupfer gebaut, was im Vergleich zu anderen im Kalorimeterbau gebrauchlichen Materialien ( Fe, Pb) eine kurzere hadronische Wechselwirkungslange und einen kleineren Moliere-Radius besitzt (vgl. Tabelle 3.1). Ein weiterer Vorteil ist, dass es leicht zu bearbeiten ist. Beim anderen Kalorimeter wurde Wolfram als Absorbermaterial eingesetzt, was sich durch eine um 30% kurzere hadronische Wechselwirkungslange und einen geringeren Moliere-Radius gegenuber Kupfer auszeichnet. Die Strahlungslange ist mit 0.35 cm rund 4 mal kurzer als bei Kupfer (\(X_{\rm o}=1.43\) cm). Der Nachteil von Wolfram ist die extreme Harte des Materials, welches sich nur schlecht bearbeiten lasst, und sein
+
+## Chapter 4 Die Null-Grad-Kalorimeter Prototypen
+
+Der Kupferprototyp wurde in Frankfurt gefertigt und montiert, der Wolframprototyp wurde am **BNL** gebaut, weshalb hier nur auf konstruktionstechnische Details des Kupferkalorimeters eingegangen werden kann. Konstruktionszeichnungen des Kupfer-Prototypen sind im Anhang zu finden. Beide Prototypen bestehen aus Platten des Absorbermaterials, die in einem Winkel von 45\({}^{o}\) zur Strahlachse angeordnet sind. Zwischen den Kupfer- bzw. Wolfram-Platten befinden sich Lagen aus _PMMA_-Lichtleitern mit einem Durchmesser von 0.5 mm.
+
+### 4.2 Das Kupferkalorimeter
+
+Das Kupferkalorimeter besteht aus 8 Modulen von je 1\(\lambda_{l}\) Lange. Jedes Modul besteht aus 9 \(\times\) 1 cm dicken Platten und je einer 0.5 cm dicken Platten an der Vorderseite und der Ruckseite des Moduls. In der Projektion auf die Strahlachse besitzt also eine Platte eine Dicke von 1 \(X_{\circ}\). Die Front- und Endplatte sind halb so dick, um beim Hintereinanderstellen mehrerer Module die Homogenitat1 des Kalorimeters zu wahren. Die 1 cm dicken Platten sind 15 cm lang, sodass sich mit der Anordnung unter 45\({}^{o}\) ein Querschnitt von \(10\times 10\) cm\({}^{2}\) ergibt. Die Front- und die Endplatte sind aus konstruktionstechnischen Grunden langer. Zwischen den 11 Platten jedes Moduls befinden sich entsprechend 10 Lagen aus Lichtleitern, sodass die Fasern auch unter 45\({}^{o}\) zur Strahlachse laufen. Pro Faserschicht befinden sich 197-199 einzelne Lichtleiter einer Lange zwischen 34 cm und 43 cm, die auf die Kupferplatten aufgeklebt sind. Die ca. 2000 Lichtleiter wurden an ihrem Ende mit einer Klemmvorrichtung zu einem Bundel zusammengefasst und verklebt2. Die Faserbundel hatten dann einen Durchmesser von 25 mm. Das Verkleben der Fasern war notwendig, um das Ende des Faserbundels abfrasen und polieren zu konnen, sodass ein guter optischer Ubergang zu den auslesenden Photovervielfachern gegeben ist. Die unterschiedliche Lange der Fasern dient dazu, Laufzeiten der geladenen Teilchen im Schauer zu kompensieren. Da das Cherenkov-Licht in dem Moment des Durchgangs des geladenen Teilchens durch die Faser entsteht und sich dann mit Lichtgeschwindigkeit in der Faser ausbreitet, entspricht die Zeit, die ein Teilchen mit Lichtgeschwindigkeit benotigt, um von einer Faserschicht zur nachsten zu gelangen, ungefahr der Zeit, die die Cherenkov-Photonen benotigen, um 1 cm innerhalb des Lichtleiters zuruckzulegen. Deshalb betragt die Lange der Fasern der ersten3 Faserschicht jedes Moduls 43 cm und wird mit jeder Faserschicht 1 cm kurzer, bis
+
+### 4.2 Aufbau der Kalorimeter
+
+die 10. Faserschicht eines Moduls noch 34 cm lang ist.
+
+Die gebundelten Faserenden wurden fixiert und mit einem 38 mm O Photovervielfacher ausgelesen. Zwischen dem Ende der Fasern und dem Fenster des Photovervielfacher s war ein Luftspalt von 3mm Breite. Es wurden _R580-16_ Photovervielfacher von Hamamatsu verwendet. Die spektrale Empfindlichkeit der Bialkali-Photokathode reicht von 300 nm bis 650 nm [Ham], womit der Wellenlangenbereich der Transmissivitat der _PMMA-Fasern_ voll abgedeckt wird. Die Photovervielfacher wurden ebenfalls unter einen Winkel von 45\({}^{\rm o}\) zur Strahlachse angeordnet.
+
+#### Das Wolframkalorimeter
+
+Das Wolframkalorimeter besteht aus vier Modulen von jeweils 2 \(\lambda_{I}\) Lange, sodass die Gesamtlange wie beim Kupferkalorimeter 8 \(\lambda_{I}\) betragt (80 cm). Jedes Modul besteht aus 27 Wolframplatten von 5 mm Dicke. In der Projektion auf die Strahlachse ergib sich so eine Dicke von \(\sim 7\)mm, was zwei Strahlungslangen in Wolfram entspricht. Aufgrund der schlechten Bearbeitbarkeit der Wolframplatten wurden sie von einem tragenden Gehause umschlossen. Dies besteht aus zwei 5 mm dicken Seitenwanden, die in ihren Abbmessungen auf die Dicke der Wolframplatten und der Faserschichten abgestimmt sind, und aus 2 mm dicken Front- und Endplatten, die an die Seitenteile angeschraubt wsind. Der Boden des Gehauses besteht aus einer 1 cm dicken Aluminiumplatte. Das Gehause ist oben mit einer 7.5 mm starken Aluminiumplatte abgeschlossen, in der sich ein Loch fur das Faserbundel und der Befestigungsmechanismismus fur den Photovervielfacher befindet. Die Gehause sind so bemessen, dass in longitudinaler Richtung moglichst keine Luftraume vorhanden sind. Um die Faserschichten zwischen den Wolframplatten zu entlasten, sind in einigen Modulen Abstandshalter zwischen die Platten eingebracht, in anderen Modulen wurden die Wolframplatten mit den Seitenteilen der Gehause verklebt. Pro Faserschicht wurden \(\simeq 170-180\) Fasern mit _RTV_ verklebt, sodass man eine in sich stabile Lage aus Fasern hatte, die zwischen die Wolframplatten gelegt werden konnte. Die \(\simeq 4500\) Fasern pro Modul sind zu Bundeln von 40 mm O zusammengefasst, die mit Eposidharz Klebstoff2 verklebt wurden. Die Faserbundel wurden abgeschnitten und die Oberflache poliert. Zur Auslese wurden Hamamatsu _R329_ Photovervielfacher mit einem Durchmesser von 51 mm benutzt. Das Fenster des Photovervielfacher wurde direkt auf das Ende des Faserbundels geprest.
+
+## Chapter 4 Die Null-Grad-Kalorimeter Prototypen
+
+### 4.3 Simulation der Kalorimeter
+
+Es wurde eine _GEANT_-Simulation3 der getesteten Kalorimeter programmiert. _GEANT_ermoglicht, die Geometrie und die in den Materialien des Detektors stattfindenden Wechselwirkungen von Teilchen zu modellieren. Die Spuren der Teilchen werden in Schritten verfolgt und der Ort der nachsten Wechselwirkung oder des Zerfalls des Teilchen bestimmt. Die Schrittgrosse wird an die Art des Materials, durch welches das Teilchen gerade fliegt angepasst, und fur jeden Schritt gibt es Information bezuglich des Teilchens (seinen Ort, seine Kinematik, etc. ). Wenn ein Teilchen eine bestimmte Energie unterschreitet, wird seine Restenergie als im Material deponierte Energie betrachtet und es wird nicht weiterverfolgt. Dies ist notig, um den Rechenaufwand zu begrenzen. Fur Elektronen und Photonen wurden die vorgegebenen Werte dieser Minimalenergie auf 500 keV (Elektronen) bzw. 1 MeV (Photonen) herabgesetzt, soass alle Teilchen mit einer Geschwindigkeit grosser \(0.7\cdot c\) verfolgt werden. Alle anderen Teilchen wurden bis zu einer Minimalenergie von 10 MeV verfolgt. Ansonsten wurden bei allen Parametern die Standardeinstellungen beibehalten. Fur die Simulation der hadronischen Wechselwirkungen stehen zwei Routienen zur Verfugung, _FLUKA_ und _GEISHA_, hier wurde die _FLUKA_-Routine benutzt.
+
+Footnote 3: _GEANT_ ist ein Detektorsimulationspaket der CERN _Program Library_.
+
+#### Geometrie
+
+Fur das Kupferkalorimeter wurden Platten in drei Grossen, entsprechend den Abmessungen der 1 cm bzw. 0.5 cm dicken Front- und Endplatten, definiert. Dies wurden unter 45\({}^{\circ}\) angeordnet. Der Abst and zwischen den Platten betragt 0.5 mm, er entspricht also genau dem Durchmesser eines Lichtleiters. Im realen Kalorimeter betrug der Abstand der Platten aufgrund der Verklebung der Lichtleiter 0.61 mm. Ausser zwischen End- und Frontplatten, am Ubergang von einem Modul zum anderen, wurden zwischen allen Platten,,Lichtleiterschichten" definiert. Dies sind Platten mit der effektiven Dicke einer Lichtleiterschicht (\(\pi/4\cdot Faserdurchmesser\)), d.h. die Lichtleiter wurden in der Simulation nicht modelliert. Dies Naherung begrundet sich auf der Annahme, dass genug geladene Teilchen im Schauer produziert werden, soass uber die durchquerte Weglange der Teilchen in den Fasern gemittelt werden kann. Als Material fur diese,,Lichtleiterschichten" wurde Luft gewahlt, da angenommen wurde, dass Wechselwirkungen innerhalb der Faser vernachlassigbar sind. Die Abmessung der Faserschichten war 10 cm \(\times\) 30 cm, soda8 15 cm zwischen den Absorberplatten und 15 cm oberhalb der Absorberplatten lagen.
+
+Fur das Wolframkalorimeter wurden 4 Module aus 26 Wolframlatten der Abmessung \(15\times 10\times 0.5\) cm\({}^{3}\) mit einem Abstand von 0.7 mm senkrecht zur Plattenflache definiert. Als erste und letzte Platte eines Moduls wurde eine 2 mm dicke Eisenplatten genommen.
+
+### 4.3 Simulation der Kalorimeter
+
+Lichtleiterschichten, die gen au wie beim Kupferkalorimeter definiert wurden, befanden sich nur zwischen Wolframplatten. So ergab sich bei dem Ubergang von einem Modul zum nachsten ein Bereich von ca. 3 cm Lange ohne Lichtleiter. Diese Inhomogenitat konnte zu _Sampling_-Fluktuationen fuhren; Vergleiche mit der Simulation einer homogenen Struktur zeigten aber, dass diese vernachlassigbar sind.
+
+### 4.3 Signalerzeugung in der Simulation
+
+Erreicht ein geladenes Teilchen des Schauer s eine Lichtleiterschicht, wird die Geschwindigkeit und der Winkel, unter dem das Teilchen sich relativ zur Faserebene bewegt, berechnet. Ist dieser Winkel kleiner als \(30^{\rm o}\), wird mit Gleichung 4.4 (Abschnitt 4.1.1) die Anzahl der erzeugten Cherenkov-Photonen bei einer durchquerten Dicke von \(\sqrt{2}\cdot Lichtleiterschichtdike\) berechnet. Von den Photonen im Wellenlangenbereich der spektralen Empfindlichkeit einer Bialkali-Photokathode wurde ein Bruchteil1 genommen und als Signal betrachtet. Hierbei wurden auch wieder einige Naherungen gemacht, da die durchquerte Weglange im Lichtleiter eine Funktion des Winkels zwischen Flugbahn des Teilchens und Lichtleiter ist. Der Bruchteil der in Richtung Auslese weitergeleiteten Photonen hangt von diesem Winkel und der Position, an der das Teilchen die Faserdurchdringt ab. Diese Naherung rechtfertigt sich durch die grosse Anzahl der geladenen Schauerteilchen. Das Signal in der Simulation entspricht also der ungefahren Anzahl der erzeugten Photonen in den Lichtleiterschichten. Dies berucksichtigt keine Einflusse des Lichttransports in den Fasern und in den Photovervielfachern auf das Signal.
+
+#### Kinematik der Projektile
+
+Um die Situation bei der kinematischen Verschmierung der Projektile durch Coulomb-Dissociation bzw. Fermi-Impuls am **RHIC** zu simulieren, wurde in 18.25 m (der Entfernung der Kalorimeter von dem Wechselwirkungspunkt, an dem sich die gegenlaufigen Au-Strahlen kreuzen,) ein Impuls des Projektilnikleonsentsprechend der jeweiligen Impulsverteilung (siehe Kapitel 2) im Ruhesytem des Mutterkerns (100 GeV/Nukleon im Laborsystem) gewurfelt. Die Orientierung des Impulses im Ruhesystem wurde entsprechend einer isotropen Verteilung gewurfelt. Dann wurde der Impuls des Projektilnikleons ins Laborsystem transformiert und als Projektilimpuls an _GEANT_ ubergeben.
+
+Fur die Vergleiche der beim Test gewonnenen Daten mit der Simulation wurde ein Projektil mit festem Impuls von 100 oder 160 GeV/c in Strahlrichtung ohne transversalen Impuls eingeschossen.
+
+### 4.3 Simulation der Kalorimeter
+
+**Abbildung 4.8**: Simulation des Kupferkalorimeters bei verschiedener Kinematik der Projektile. Links ist die Signalh\(\ddot{\rm o}\)henverteilung bei Einschu\(\ss\) eines 100 GeV Protonstrahls in die Mitte des Kalorimeters zu sehen, rechts ist die Signalh\(\ddot{\rm o}\)henverteilung fur Neutronen mit der Kinematik aus Coulomb-Dissoziation eines Au-Kerns mit 100 GeV/Nukleon gezeigt.
+
+#### Kupferergebnisse
+
+Das longitudinale Schauerprofil ist in Abbildung 4.7 dargestellt. Es zeigt sich, dass der Grosseitl des Signals aus den ersten Modulen stammt, wahrend das letzte Modul fast nicht mehr zum Signal beitragt. Die Verteilung ist typisch fur die longitudinale Energie-verteilung eines hadronischen Schauers, da das Projektil eine gewisse Weglange im Material ohne Wechselwirkung zurucklegt und bei der ersten Wechselwirkung viel Energie verliert, weshalb das Signal im ersten Modul kleiner ist als in den darauflolgenden. Im weiteren Verlauf nimmt die Schauerenergie ungefahr exponentiell ab.
+
+Das Gesamtsignal aller Module bei Einschu\(\ss\) von 100 GeV/c Protonen ist in Abbildung 4.8 links zu sehen. Die Energieaufl\(\ss\)ung ist 21% \(RMS/E^{1}\). Eine genauere Diskussion uber die Kurvenform und den Vergleich der Daten zur Simulation ist in Kapitel 5.5.2 zu finden. In Abbildung 4.8 rechts ist die Signalverteilungen fur Neutronen mit der Impulsverteilung entsprechend eines Neutrons aus Coulomb-Dissoziation eines Au-Kerns mit einer Energie von 100 GeV/Nukleon zu sehen (siehe Kapitel 2). Die Signalverteilung wird im Vergleich zu Abbildung 4.8 links etwas breiter, was sich in der Energieaufl\(\ss\)ung von 24% \(RMS/E\) bemerkbar macht. Die Verteilung ist aber nach wie vor schmal genug, um ein Signalh\(\ddot{\rm o}\)henfenster definieren zu konnen, in dem die Rate der einzelnen Neutronen zur Luminositatsmessung bestimmt werden kann (vgl. Kapitel 2).
+
+In Abbildung 4.9 ist links die Signalh\(\ddot{\rm o}\)he in Abb\(\ddot{\rm o}\)h\(\ddot{\rm o}\)angigkeit der Einschu\(\ss\)energie dargestellt. Die gestrichelte Kurve ist eine Anpassung der Form \(P1\cdot E\cdot\ln E+P2\cdot E+P3\), dieas logarithmische Anwachsen des elektromagnetischen Anteils des Schauer s beschreibt. Dies ist an der leichten Konvexitat der Kurve zu sehen. Rechts ist die Energieauflosung gegen \(\sqrt{E}\) aufgetragen. Wie schon in Abschnitt 3.4 beschrieben, ist dies bei hadronischen Kalorimetern immer eine Naherung an die funktionelle Abhangigkeit von der Energie. Eine Anpassung der Form \(\frac{P2}{\sqrt{E}}+P1\) gibt die Werte aber gut wieder. Somit konnte man die Energieauflosung des Kupferkalorimeters mit \(\frac{(115\pm 9)\%}{\sqrt{E}}+(10.2\pm 1.1)\%\)\(RMS/E\) parametrisieren.
+
+### 4.3 Wolframergebinisse
+
+Abbildung 4.10 zeigt die Signalhohenverteilung der Schauer von 100 GeV Protonen in den Modulen des Wolframkalorimeters. Die durchgezogenen Linien zeigen die Verteilung in den 4 Modulen des Wolframkalorimeters. Zum Vergleich zum longitudinalen Schauerprofil in den 8 Modulen des Kupferkalorimeters ist das Profil im Wolframkalorimeter bei Unterteilung in 8 je 1\(\lambda_{\rm I}\) lange Module gestrichelt eingzeichnet. Im Vergleich zum Kupferkalorimeter 4.7 zeigt sich, dass hier schon das erste \(\lambda_{\rm I}\) die grossen Signalhohen hat, die dann zu weiter hinten liegenden Modulen abfallen. Dies ist auf die kurzere Strahlungslange des Wolframs zuruckzufuhren. Elektromagnetische Schauer aus \(\pi^{\rm o}\)-Zerfallen haben im Wolfram ungefahr eine Lange von einem halben \(\lambda_{\rm I}\), wahrend sie sich bei Kupfer uber \(\sim 2\lambda_{\rm I}\) erstrecken (siehe Kapitel 3.1). Fur die elektromagnetischen Schauer aus der ersten Wechselwirkung des Projektils im Kalorimeter bedeutet dies, dass sie im Wolframkalorimeter meist in demselben Modul Signal erzeugen, wo die Wechselwirkung stattgefunden hat, beim Kupferkalorimeter aber in jedem Fall noch bis im zweite oder dritte Modul dahinter
+
+### Simulation der Kalorimeter
+
+**Abbildung 4.10** Simulation der longitudinalen Signalverteilung im Wolframkalorimeter bei 100 GeV Protonen. Durchgezogen sind die mittleren Signalh\(\ddot{o}\)hen in den vier Modulen des Wolframkalorimeters zu sehen. Zum Vergleich mit dem Kupferkalorimeter wurden die mittleren Signalh\(\ddot{o}\)hen bei Unterteilung des Wolframkalorimeters in \(8\times 1\lambda\) lange Module gestrichelt eingzeichnet.
+
+In Abbildung 4.11 ist die Signalh\(\ddot{o}\)henverteilung des Wolframkalorimeters bei 100 GeV, links bei Einschuss des Strahls in die Mitte des Kalorimeters und rechts mit der Coulomb-Dissoziations Kinemaktik gezeigt. Die Energieaufl\(\ddot{o}\)sung verschlechtert sich nur geringf\(\ddot{u}\)ig von 19.7% \(RMS/E\) auf 20.3% \(RMS/E\).
+
+In Abbildung 4.12 ist links die Abhangigkeit der Signalh\(\ddot{o}\)he von der Energie und rechts die Energieaufl\(\ddot{o}\)sung in Abhangigkeit von \(1/\sqrt{E}\) gezeigt. Die Energieabhangigkeit der Signalh\(\ddot{o}\)hen und der Energieaufl\(\ddot{o}\)sung ist fast identisch zum Kupferkalorimeter. Die Signalh\(\ddot{o}\)hen steigen etwas linearer an als beim Kupferkalorimeter, auch bei niedrigeren Energieien. Die Energieaufl\(\ddot{o}\)sung kann durch \(\frac{(112\pm 5)\%}{\sqrt{E}}+(6\pm.7)\%\)\(RMS/E\) paramterisiert werden.
+
+**Abbildung 4.11**: Simulation des Wolframkalorimeters bei verschiedener Kinematik der Projektile. Links ist die Signalh\(\ddot{o}\)henverteilung bei Einschuß eines 100 GeV Protonstrahls in die Mitte des Kalorimeters zu sehen, rechts ist die Signalh\(\ddot{o}\)enverteilung für Neutronen mit der Kinematik aus Coulomb-Dissociation eines Au-Kerns mit 100 GeV/Nukleon gezeigt.
+
+**Abbildung 4.12**: Energielinearität (links) und Energieaufl\(\ddot{o}\)sung, aufgetragen gegen \(1/\sqrt{E}\) (rechts) (Simulation des Wolframkalorimeters).
+
+## 5 Test der Prototypen
+
+Der Test der Kalorimeter wurde im Rahmen der Protonstrahlzeit des NA49 Experiments im Herbst 1997 am **SPS** des **CERN** durchgefuhrt. Fur den Test der Kalorimeter wurden Protonstrahlen von 100 GeV/c und 158 GeV/c benutzt. Die Messung der Energieauflosung des Kupferkalorimeters wurde am Anfang der Strahlzeit, die Messungen am Wolframkalorimeter und die Messung der Zeitauflosung des Kupferkalorimeters wurden am Ende der Strahlzeit durchgefuhrt.
+
+Das Kalorimeter befand sich auf einem horizontal und vertikal verstellbaren Tisch, der es ermoglichte, die Position des Kalorimeters in der Ebene senkrecht zur Strahlrichtung per Fernsteuerung von der Meshutte aus einzustellen.
+
+### 5.1 Trigger
+
+Abbildung 5.1 zeigt die Anordnung der verschiedenen Strahlzahler, die ein gultiges Ereignis definieren. Gultiges Ereignis heisst hier, da s ein Proton mit Strahlimpuls zum Kalorimeter gelangt, was nur bedingt richtig ist, da zwischen dem letzten relevanten Strahlzahler und dem Kalorimeter \(\sim 15\) m Luft lagen und mit Strahl-Luft-Wechselwirkungen in der Grossenordnung von 2 % gerechnet werden muste.
+
+_S1_ und _S2_ sind 5 mm bzw. 2 mm dicke Szintillatonszahler im Strahl. _V0_ ist ein Szintillator mit 80 mm Durchmesser und einem Loch von 10 mm Durchmesser. _S1_ und _S2_ definieren ein Strahlteilchen, _V0_ gibt ein Signal, wenn eine Wechselwirkung eines Protons mit Restgas oder Material im Strahlrohr stattgefunden hat. _S4_ ist ein 10 mm dicker Szintillationszahler, der sich hinter dem _Target_ befindet. Dieser wird dazu benutzt, um festzustellen, ob eine Wechselwirkung im _Target_ stattgefunden hat. Da sich das Kalorimeter \(\sim 19\) m hinter dem Target befand, wurde eine _Trigger_-Konfiguration gewahlt, bei der fur ein gultiges Ereignis _S1, S2_ und _S4_ ein Signal haben musten, wahrend _V0_ kein Signal haben durfte.
+
+Fur das Wolframkalorimeter wurde zusatzlich eine Anordnung aufgebaut, um auf Myonen
+
+## Chapter 5 Test der Prototypen
+
+### 5.1 Detenaufnahme fur die Messungen am Kupferkalorimeter
+
+Fur den ersten Teil der Messungen, d.h. fur die Messungen mit dem Kupferkalorimeter, wurde das NA49 Datenaufnahmesystem (DAQ) benutzt. Fur die spateren Messungen wurde ein unabhangiges Datenaufnahmesystem aufgebaut.
+
+#### Elektronik
+
+Die Signale der 8 Photovervielfacher wurden uber 25 m lange Lemo-Kabel in die Messhutte geleitet. Dort wurden sie mit passiven Verzogerungsgliedern (Kabelboxen) um 100 ns verzogert. Das verzogerte Signal wurde mit ebenfalls passiven Signalteilern in zwei Aste geteilt. Ein Ast wurde nach einer weiteren Verzogerung in ladungsempfindliche Analog-Digital-Wandler (LeCroy 2249A, 10 bit, 10 Kanal ADC) gefuhrt. Als Gattersignal fur die Analog-Digital-Wandler wurde ein aus dem Trigger gewonnener 70 ns breiter Impuls benutzt. Der andere Zweig fuhrte in Diskriminatoren, um ein logisches Signal zu erhalten. Es wurden sogenannte _Constant Fraction Discriminators_ benutzt, die den Vorteil haben, dass der Triggerzeit punkt nicht von der Amplitude des analogen Engangssignals abhangt. Beim Test zeigte sich aber, dass die Diskriminatoren nicht korrekt arbeiteten, weshalb die Messung der Zeitauflosung spater wiederholt werden muste. Die Ausgange der Diskrimi
+
+### 5.2 Datenaufnahme fur die Messungen am Kupferkalorimeter
+
+natoren wurden als Stopsignale des Zeit-Digital-Wandlers (LeCroy 2228, 11 bit, 8 Kanal TDC mit einer Zeitauflosung von 50 ps pro Kanal) genutzt. Als St artsignal des TDC wurde der _Trigger_ benutzt. Da dieses Signal eine Verknupfung mehrerer Zahler ist, wird keine sehr gute Zeitauflosung erreicht. Um eine prazisere Zeitreferenz zu haben, wurde auch das Zeitsignal eines 5 mm dicken Szintillatonszahlers (\(S1\), s.o.) aufgenommen. Analog-Digit al-Wandler und Zeit-Digital-Wandler sind im CAMAC Standard [Leo] ausgefuhrt.
+
+Datenaufnahmesystem beinhaltet eine Vielzahl verschiedener Auslesesysteme, um den Anforderungen der unterschiedlichen Detektoren des Experiments gerecht zu werden. Die vier Spurendriftkammern (TPC) werden mittels VME-System (vergl. [Bie97] [Rau94]), die Flugzeitwande (TOF) mit einem Fastbus-System [Eck96] und die NA49 Kalorimeter, Strahlzahler, der Zentralitatsdetektor und TPC-Arbeitsparameter1 werden uber Module im CAMAC Standard ausgelesen.
+
+Footnote 1: Druck, Temperatur, Hochspannung, etc..
+
+Die verschiedenen Systeme werden in einer zentralen Datenerfassung, welche unter dem Echtzeitbetriebssystem OS-9 lauft, zusammmengefasst und die Detektorinformationen in eine Datenstruktur geschrieben. Es ist moglich, die drei Hauptdatengruppen, d.h. TPC, TOF und CAMAC, einzeln aus der Datenaufnahme herauszunehmen. Die Grosse einer NA49 Datenstruktur betrgt \(\sim 7\) MByte pro Ereignis, wenn alle Detektordaten gesammelt werden, und \(\sim 12\) KByte pro Ereignis, wenn nur die CAMAC Daten aufgenommen werden. Diese Datenstrukturen konnen nun auf Magnetband (SONY 19 mm Band oder _Exabyte_ Kassetten) geschrieben werden. Zusatzlich ermoglicht ein _Eventserver_, dass Ereignisse uber _Ethernet_ gelesen werden konnen. Dies wird genutzt, um die Datenaufnahme wahrend der Aufzeichnung zu uberwachen.
+
+Fur den Test des Kupferkalorimeters wurden der Analog-Digital-Wandler und der Zeit-Digital-Wandler uber ein CAMAC System ausgelesen und die Daten in die NA49 Datenstruktur geschrieben. Teilweise wurden die Daten auf _Exabyte_ Band geschrieben, teilweise vom _Eventserver_ geholt, die interessierenden Daten extrahiert, und in PAW _N-Tuples2_ geschrieben.
+
+Footnote 2: _Physics Analysis Workstation_, ein Programm zur Datenanalyse aus der CERNProgram Library. N-Tuples_ sind ein Format in dem Datensatze gespeichert werden konnen, ahnlich einem DST(Data Summary Tape).
+
+Auch wenn nur die CAMAC Daten aufgenommen wurden, lag die Ereignisrate bei \(\sim 30\) aufgenommenen Ereignissen pro einem Beschleunigerzylus von 14 s Dauer. Bei der Datensammlung uber _Ethernet_ konnen nur \(\sim 12\) Ereignisse pro Beschleunigerzyk-lus aufgenommen werden. Dies lag daran, dass einige neue NA49 Detektorsysteme (Zentralitatsdetektor, Wellenformalysator), die auch uber CAMAC ausgelesen wurden, die Datenaufnahme verlangsamten.
+
+## Chapter 5 Test der Prototypen
+
+### 5.3 Datenaufnahme fur das Wolframkalorimeter
+
+Fur die spateren Messungen mit dem Wolframkalorimeter und der nochmaligen Messung der Zeitauflosung des Kupferkalorimeters wurde ein unabhangiges Datenaufnahmesystem aufgebaut. Dies geschah vor allem in Hinblick auf eine Vergrosserung der Ereignisrate. Das System wurde auf 4 Kanale ausgelegt, d.h. es wurden nur die ersten 4 Wechselwirkungslangen des Kupferkalorimeters zur Messung der Zeitauflosung benutzt.
+
+### 5.3 Datenaufnahme fur das Wolframkalorimeter
+
+Fur die spateren Messungen mit dem Wolframkalorimeter und der nochmaligen Messung der Zeitauflosung des Kupferkalorimeters wurde ein unabhangiges Datenaufnahmesystem aufgebaut. Dies geschah vor allem in Hinblick auf eine Vergrosserung der Ereignisrate. Das System wurde auf 4 Kanale ausgelegt, d.h. es wurden nur die ersten 4 Wechselwirkungslangen des Kupferkalorimeters zur Messung der Zeitauflosung benutzt.
+
+### 5.3 Datenaufnahme fur das Wolframkalorimeter
+
+Fur die spateren Messungen mit dem Wolframkalorimeter und der nochmaligen Messung der Zeitauflosung des Kupferkalorimeters wurde ein unabhangiges Datenaufnahmesystem aufgebaut. Dies geschah vor allem in Hinblick auf eine Vergrosserung der Ereignisrate. Das System wurde auf 4 Kanale ausgelegt, d.h. es wurden nur die ersten 4 Wechselwirkungslangen des Kupferkalorimeters zur Messung der Zeitauflosung benutzt.
+
+### 5.3 Elektronik
+
+Der Signalverlauf und die benutzten Analog-Digital-Wandler und Zeit-Digital-Wandler waren identisch mit dem oben beschriebenen, hier sollen nur die Unterschiede aufgezeigt werden.
+
+Statt der _Constant Fraction_ Diskriminatoren wurden solche benutzt, die nach dem _Leading Edge_ Verfahren arbeiten. Diese Diskriminatoren erzeugen ein logisches Signal am Ausgang, sobald das Eingangsssignal eine einstellbare Schwellspannung uberschreitet. Das Problem bei diesem Verfahren ist, dass der Triggerzeitpunkt von der Amplitude des Eingangsssignals abhangt. Kleine Signale, die aufgrund der konstanten Anstiegszeit eines Photovervielfachersignals eine flachere Anstiegsflanke haben als grose Signale, erreichen erst spater die Schwellspannung, wodurch das logische Zeitsignal etwas zu spat kommt. Dieser _Walk_ genannte Effekt [Leo] kann aber korrigiert werden, wenn zu jedem Zeitsignal die zugehorige Amplitudeninformation gespeichert wird. Zusatzlich wurden noch vor und hinter dem Kalorimeter Szintillationszahler installiert, um auf Myonen triggern zu konnen. Von diesen wurde auch Zeit- und Amplitudeninformation aufgezeichnet.
+
+### 5.3 Datenerfassung
+
+Es wurde ein VME-System zur Auslese eines CAMAC_-crates_ aufgebaut. Das VME-System beinhaltet ein _Branch Driver_ Modul CBD 8210 von CES, welches als Schnittstelle zwischen einem _A-2_ CAMAC _Crate-Controller_ und dem Prozessor dient, indem die CAMAC Kontroll-Befehle in den Adressraum des unter OS-9 laufenden VME-Prozessors abgebildet werden. Der Start der Auslese der CAMAC Module wird durch ein _interrupt-control-board_ (CORBO) RCB 8047 von CES initiiert, das ein _Trigger_-Signal akzeptiert und als _Interrupt_ an den Prozessor weiterleitet. Die ausgelesenen ADC-und TDC-Werte werden dann als 2 Byte _Integer_-Zahlen sequentiell als Binardatei auf Platte geschrieben. Zur Steuerung des Ablaufs dieser Prozesse wurde ein C-Programm geschrieben.
+
+In Abb. 5.2 sieht man den Aufbau der Triggerlogik. Diese ist notig, da wahrend der
+
+### 5.4 Kalibration der Kalorimeter
+
+5 s dauernden Strahlextraktion \(\sim 3\cdot 10^{5}\) gultige _Trigger_-Signale kommen, das Datenaufnahmesystem aber \(\sim 30\) ms braucht, um ein Ereignis auszulesen und auf Platte zu schreiben, wahrend denen keine Gattersignale zu ADC und TDC durchkommen durfen. Desweiteren wird sie benotigt, um ein _Fast Clear_ und ein Gattersignal (60 ns Dauer) fur den ADC bereitzustellen.
+
+Das CORBO generiert wahrend der Totzeit des VME-Systems ein _busy_-Signal. Am Ende des _busy_-Signals wird ein 100 ns dauerndes _Fast Clear_ Signal fur ADC und TDC erzeugt und ein _Timer_ wird gestartet, der ein 5 \(\mu\)_s_ dauerndes Signal erzeugt. Erst nach Ende des _Timer_-Signals werden wieder _Trigger_zugelassen. Dies garantiert, dass ADC und TDC vor jedem aufzuzeichnendem Ereignis in aufnahmebereiten Zust and zuruckgesetzt werden.
+
+Es wurden 8 ADC-, 8 TDC-Werte und die Ereignisnummer aufgezeichnet. Die Grosse eines Ergenisses betrug also 34 Byte. Die Rohdaten wurden in _PAW N-Tuple_ umgewandelt und mit _PAW_ analysiert.
+
+### 5.4 Kalibration der Kalorimeter
+
+Beide Kalorimeter bestehen aus mehreren hintereinandergestellten Modulen (siehe Kapitel 4.2) und jedes Modul wird von einem eigenen Photovervielfacher ausgelesen. Diese Unterteilung hat nur konstruktionstechnische Grunde. Im Prinzip ware es wunschenswert, dass das Kalorimeter an jeder Stelle dasselbe Verhalten zeigt, also moglichst homogen ist. Ist dies nicht der Fall, wurden zwei identische Schauer (d. h. zwei Schauer, die die gleiche Anzahl geladener Teilchen mit derselben Energie haben sollen), die sich an verschiedenen Stellen des Kalorimeters entwickeln, zu unterschiedlichem Signal und somit zu zusatzlichen
+
+## 5 Test der Prototypen
+
+Fluktuationen und einer Verschlechterung der Energieauflosung fuhren. Da die Tiefe der ersten Wechselwirkung eines hadronischen Schauers im Kalorimeter tatsachlich sehr stark fluktuiert, hatte eine unterschiedliche Empfindlichkeit der Module eben diesen Effekt. In die,,Empfindlichkeit" der Module geht die Anzahl der Lichtleiter, die Beschaffenheit des Ubergangs vom Lichtleiter zum Photovervielfacher (Oberflache der Faserenden, Abstand der Fasern vom Photovervielfacher bei Kopplung uber Luftspalt) und die Verstarkung des Photovervielfachers ein. Die Anzahl der Lichtleiter ist in unserem Fall in jedem Modul gleich, und der Ubergang von Faserenden zu Photovervielfacher sollte auch bei allen Modulen gleich sein. Photovervielfacher konnen jedoch bei gleicher Hochspannung sehr unterschiedliche Verstarkungen haben, weshalb die Hochspannung jedes Photovervielfachers individuell einggestellt werden muss. Diese Anpassung der,,Verstarkungen" der Module aneinander wird hier als relative Kalibration bezeichnet. Es ist sinnvoll, dafur eine Methode zu benutzen, die alle moglichen Unterschiede der Module in Betracht zieht, d. h. reproduzierbar ein Signal in den Fasern erzeugt, das in den Fasern weitergeleit werden muss und im Photovervielfacher gemessen wird. Im Vorfeld des Testes wurden Moglichkeit-en dieser relativen Kalibration diskutiert:
+
+**Myonen:**
+
+Myonen mit einem Impuls im Bereich einiger GeV/c bis ca. 100 GeV/c verlieren im Kalorimeter praktisch nur Energie uber Ionisation. Der Betrag der deponierten Energie im Kalorimeter ist 1.5 -2.0 GeV bei nur geringer Energieabhangigkeit. Die Energie der Myonen am **SPS** liegt im Bereich der Strahlenergie, bleibt also uber die Lange des Kalorimeters fast konstant. Die Myonen erzeugen in allen Lichtleterschichten des Kalorimeters Cherenkov-Strahlung, was den Vorteil hat, dass alle Module gleichzeitig vermessen werden konnen.
+
+Tests in Brookhaven haben gezeigt, dass ein Myon pro Faserschicht mit 0.5 mm Lichtleitern 0.5 - 0.6 Photoelektronen im Photovervielfacher erzeugt. Dieser Wert ist abhangig davon, ob die Fasern uber einen Luftspalt vom Photovervielfacher ausgelesen werden oder direkt mit optischem Fett an die Photokathode gekoppelt werden. Letztere Variante ergab im Test in Brookhaven eine Zunahme der Lichtausbeute von \(\sim 15\%\). Fur das Kupferkalorimeter mit 10 Faserschichten pro Modul bekame man also \(\sim 5\) Photoelektronen pro Myon. Aufgrund der statistischen Natur der Verstarkung im Photovervielfacher (siehe auch Kapitel 5.4.3), entsprache die Verteilung der gemessenenen Pulshohen einer Gaussverteilung mit einer Auflosung von \(\sim 45\) %, was im wesentlichen eine flache Verteilung und somit nicht zur Kalibration geignet ist.
+
+Beim Wolframkalorimeter hat man 27 Faserschichten pro Modul, kann also mit 13-16 Photoelektronen pro Myon rechnen, was ausreichend fur die Kalibration ist, wenn man genug Ereignisse sammelt, um die Lage des Maximums der Signalhohen bestimmen zu konnen.
+
+### 5.4 Kalibration der Kalorimeter
+
+**Elektronen:**
+
+Die Signalh\(\ddot{\rm o}\)he bei einem 30 GeV/c Elektronenstrahl liegt laut Simulation im Bereich der Signalh\(\ddot{\rm o}\)hen eines einzelnen Moduls bei 100 GeV/c Protonen. Um den elektromagnetischen Schauer bei einem Strahlimpuls von 30 GeV/c zu 98 % im Kalorimeter zu haben, brauchte man \(\sim\)18 \(X_{\rm o}\) (vergl. Kapitel 3.1), trotzdem bekame man auch mit nur 10 \(X_{\rm o}\) ein brauchbares Signal zur Kalibration (Abb.5.3 links).
+
+Beim Wolframkalorimeter betragt \(X_{\rm o}\) 3.5 mm, ein Modul hat also eine Lange von 55 \(X_{\rm o}\), womit der Schauer komplett im Modul enthalten ist. Das zu erwartende Signal eines einzelnen Wolframmoduls ist in Abb. 5.3 rechts zu sehen. Die Kalibration mit Elektronen ware also f\(\ddot{\rm u}\)r beide Prototypen gleichermassen geignet.
+
+**Protonen:**
+
+Da ein Kupfermodul nur eine hadronische Wechselwirkungslange \(\lambda\) lang ist, ist die Pulsh\(\ddot{\rm o}\)henverteilung flach, wenn man in ein einzelnes Modul Protonen einschiesst. Allerdings stellte sich heraus, dass, wenn man ein Modul vor das zu messende Modul stellt, also den Schauer nach einem \(\lambda\) Absorber misst, ein _Peak_ zu sehen ist. Diese Methode wurde auch fur die Kalibration der Kupfermodule probiert (siehe nachsten Abschnitt). F\(\ddot{\rm u}\)r die Wolframmodule, die 2 \(\lambda\) lang sind, ware f\(\ddot{\rm u}\)r ein einzelnes Modul auch ein brauchbares Signal zu erwarten.
+
+## Chapter 5 Test der Prototypen
+
+### 5.4.1 Relative Kalibration des Kupferkalorimeters
+
+Beim Test am CERN stand wider Erwarten kein Elektronenstrahl zur Verfugung, weshalb zunachst die Variante mit Protonen und einem Modul als Absorber vor dem zu messenden Modul versucht wurde. Ein Problem war, genug Ereignisse zu sammeln, um eine ausreichend genaue Aussage uber die Lage des _Peaks_ machen zu konnen. Mit der NA49-Datenaufnahme war die Ereignisrate auf \(\sim 1\) Ereignis/s limitiert (s. Kapitel 5.2). Eine Losung schien ein selbstriggernder Pulshohen-Analysator zu sein. Dieser analysiert die Pulshohe eines eintreffenden Signals und ordnet sie einem von 2048 Kanalen zu. Das Pulshohenspektrum wird auf einem Monitor ausgegeben. Dies ermoglichte eine sehr viel hohere Ereignisrate.
+
+Die Hochspannungen der Photovervielfacher wurden erst grob eingestellt und dann in der Folge der Messungen der verschiedenen Module so variiert, dass das Maximum der Zahlrate der Signale fur alle Module im gleichen Kanal lag.
+
+Nach dieser Kalibration wurde eine Messung mit dem kompletten Kalorimeter gemacht.
+
+Das Ergebnis war, dass die Energieauflosung sehr viel schlechter war als mit den nur grob eingestellten Hochspannungen. Die Grunde dafur lagen vermutlich bei einer falsch eingestellten Schwelle im Pulshohen-Analysator und bei einem Vorverstarker, der bei dieser Messung benutzt wurde, um die Signale der Photovervielfacher zu verstarken. Es konnte aber nicht restlos geklart werden, was das Problem verursachte. Aufgrund dieser Probleme und mangelnder Messzeit wurden die Hochspannungen grob eingestellt und spater eine _Software_-Feinkalibration durchgefuhrt.
+
+### Kalibration der Kalorimeter
+
+**Einstellung der Hochspannungen:**
+
+Es wurde davon ausgegangen, dass das longitudinale Schauerprofil im Kalorimeter von der Simulation (Kapitel 4.3) gut reproduziert wird. Im 158 GeV/c Protonstrahl wurden Messungen mit dem kompletten Kalorimeter gemacht und das longitudinale Schauerprofil1 mit der Simulation verglichen. Dieser Vergleich zeigte, welche Photovervielfacher zu hohe oder zu niedrige Hochspannungen hatten, die dann verkleinert bzw. vergrossert wurden. Dieser Vorgang wurde einige Male iteriert, bis eine grobe Ubereinstimmung erzielt war (siehe Abb. 5.4). Alle Messungen wurden mit den so eingestellten Hochspannungen durchgefuhrt.
+
+Footnote 1: Genauer, das longitudinale Profil der mittleren Signalhöhen der einzelnen Module
+
+**Feine Kalibration:**
+
+Die Idee hinter der Feinkalibration ist, dass die Energieauflosung ein Minimum hat, wenn die relative Kalibration der einzelnen Module optimal ist, d. h. die Verstarkung aller Module gleich ist. Dies ware so zu erwarten, da ungleichmassige Verstarkung zu Fluktuationen fuhren wurde (siehe Anfang des Kapitels).
+
+Die Feinkalibration wurde mit einem Programm durchgefuhrt, welches die _CERNLIB_ Minimisierungsroutine _MINUIT_ benutz. _MINUIT_ verlangt die Definition von Variablen, deren Inhalt von _MINUIT_ varliert wird. Diese Variablen sind Parameter einer benutzerdefinierten Funktion und werden so lange verandert, bis das Ergebnis der Funktion ein Minimum hat. Es werden ein Startwert und die Grenzen, in denen sich die Werte der Variablen bewegen durfen, angegeben. Weiterhin bietet sich die Moglichkeit, Variablen zu fixieren, d. h. _MINUIT_ kann diese dann nicht mehr verandern und behalt deren Startwert bei. Diese von _MINUIT_ veranderbaren Parameter sind in unserem Fall 8 multiplikative Faktoren mit Startwert 1.0, mit denen die Signalhöhen der einzelnen Module gewichtet werden. Die so gewichteten Daten der 8 Module werden Ereignis fur Ereignnis addiert, und aus der Summe der Mittelwert und das _RMS_ berechnet. Der Quotient aus _RMS_ und Mittelwert werden als zu minimierende Grosse an _MINUIT_ zuruckgegeben. _MINUIT_ verandert nun so lange die Gewichtungsfaktoren, bis die aus _RMS_ und Mittelwert berechnete Energieauflosung ein Minimum hat. Da die Energieauflosung minimal wird, wenn alle 8 Parameter 0 werden, dies aber keine sinnvolle Losung ist, wurde ein Parameter fixiert. Dies fuhrte zum gewunschten Ergebnis. Dabei wurde der Gewichtungsparameter des Moduls mit der grossten Signalhohe, dem 2. Modul, fixiert. Die andere denkbare Moglichkeit, die Grenzen der Parameter einzuschranken, fuhrte zu Problemen, da die Grenzen so gewahlt werden mussen, dass im dann noch moglichen Wertebereich der Funktion kein weiteres Minimum liegt. Dies wurde also erst eine iterative Anpassung der Parametergrenzen verlangen.
+
+Zur Kalibration wurde ein Datensatz mit 5800 Ereignissen bei 100 GeV/c Strahlimpuls benutzt. Dies war der Datensatz mit der hochsten Statistik bei den Messungen des gesamten Kupferkalorimeters. Der Vergleich der so kalibrierten Daten mit der Simulation ist in Abb.
+
+### 5 Test der Prototypen
+
+### 5.5 zu sehen.
+
+Um zu uberprufen, ob die Softwareroutine zur feinen relativen Kalibration der Kalorimetermodule ein sinnvolles und stabiles Ergebnis liefert, wurde diese Kalibrationsroutine auf simulierte Daten (5000 Ereignisse bei 160 GeV/c) angewandt. Die Ergebnisse sind in Tabelle 5.1 zusammengefasst. Par1-Par8 sind die Gewichtungsfaktoren der Module 1-8, wobei Modul 1 das Vorderste ist. Da die simulierten Daten per Definition perfekt kalibriert sind, sollte sich eigentlich bei allen Parametern der gleiche Wert wie beim auf 1.0 fixierten Modul einstellen. Um zue sehen, ob die angegebenen Startparameter oder die Wahl des fixierten Moduls einen Einfluss auf das Ergebnis hat, wurde einmal der 2. Parameter (obere Halfte der Tabelle), zum anderen der 1. Parameter (untere Halfte) fixiert und verschiedene Startparameter vorgegeben. Es wurden drei Satze von Startparameter vorgegeben, die sich bis zum Faktor 3 vom Sollwert (1.0) unterschieden. Das Ergebnis fur diese verschiedenen Startparameter ist in der Tabelle als Ergebnis 1-3 aufgefuhrt, wobei jeweils die Parameter der einzelnen Module im Minimum der Energieauflosung angegeben sind. In der Zeile,,Max. Differenz" ist die maximale Differenz der Ergebnisse der verschiedenen Startwerte fur jedes Modul angegeben, um zue sehen, wie stark die Ergebnisse von den Startparametern abhangen.
+
+Es zeigt sich, dass im Minimum der Energieauflosung das Signal des 2. und des 3. Moduls relativ zum 1. Modul leicht abgesenkt ist, wahrend das Signal zu weiter hinten liegenden Modulen leicht angehoben ist und beim letzten Modul \(70-90\%\) vom Sollwert abweicht. Dies bedeutet, dass das Minimum der Energieauflosung nicht bei gleichmassiger Verstarkung aller Module erreicht wird. Dies ist durch das unterschiedliche Profil der Energieverteilung bei Ereignissen mit starker elektromagnetischer bzw. starker hadro-nischer Komponente zu erklaren. Ereignisse, bei denen viel Energie in \(\pi^{o}\)-Produktion geht,zeichnen sich dadurch aus, dass schon bei der ersten Wechselwirkung viel Energie in elektromagnetischen Schauern endet. Dies fuhrt zu einer hohen Signalhohe in den Modulen, in denen die erste Wechselwirkung stattfindet. Bei Ereignissen mit starker hadronischer Komponente, d. h. wenig \(\pi^{\circ}\), aber viele geladene Pionen, ist der Schauer aufgrund der langeren Wegstrecke, die \(\pi^{\pm}\) im Kalorimeter ohne Wechselwirkung zurucklegen konnen, im Mittel langgezogen. Aufgrund des hohen _e/h_-Verhaltnisse dieses Kalorimeters fuhrt ein Ereignis mit hohem elektromagnetischem Anteil zu sehr viel hoheren Signalhohen als ein Ereignis mit starken hadronischem Anteil. Stark hadronische Ereignisse fuhren also zu niedrigen Signalhohen, die sichtbare Schauerenergie ist aber mehr uber das gesamte Kalorimeter, also auch die letzten Module, verteilt. Ereignisse mit starkem elektromagnetischen Anteil fuhren zu hohem Signal, das vor allem aus den Modulen stammt, wo die erste Wechselwirkung stattfindet, dem 1.-3. Modul, und den direkt darauflolgenden, in die die elektromagnetischen Schauer noch hineinreichen. In Abbildung 5.6 ist links oben das Schauerprofil fur Ereignisse mit einer hohen Signalhohe gezeigt. Die dargestellten Ereignisse sind in dem Bild darunter durchgezogen dargestellt. Rechts oben sieht man dasselbe fur kleine Signalhohen. Man kann erkennen, dass das Schauerprofil der grossen Signalhohen zwar in allen Modulen mehr Signal zeigt, als wenn alle Ereignisse (gestrichelt dargestellt) beitragen, aber es ist eine relative Uberhohung vor allem im 2. und 3. Modul zu sehen. Bei den kleinen Signalhohen zeigt sich tatsachlich ein flacheres longitudinales Schauerprofil. Da also die letzten Module bei Ereignissen mit geringer Signalhohe und das 2. und 3. Modul bei Ereignissen mit grosser Signalhohe relativ viel zum Signal beitragen, konnen die Fluktuation der Signalhohe durch eine entsprechend angepaste Gewichtung etwas kompensiert werden. Die grosse Abweichung des 8. Parameters vom Sollwert wird vermutlich von Ereignissen verursacht, bei denen das Projektil erst in den letzten beiden Modulen eine Wechselwirkung macht und dabei hauptsachlich im 8. Modul Signalerzeugt, da bei solchen Schauern ein Teil der Energie hinten aus dem Kalorimeter herausleckt und somit wenig Signal erzeugt wird.
+
+Die Abhangigkeit der Ergebnisse (1-3) von den Startparametern ist vernachlassigbar.
+
+Um zu sehen, wie gut sich die Ergebnisse der Simulation auf die Daten wbertragen lassen, wurde das Schauerprofil von beiden nach der Kalibration verglichen (Abb.5.7). Aufgrund der guten Ubereinstimmung konnte man die Ergebnisse der Simulation nutzen, um die Daten fur den Fehler, der durch die Kalibrationsroutine gemacht wird, zu korrigieren. Betrachtet man aber den Betrag der Anderung durch die Korrektur (s. Tabelle 5.2), so betragt er je \(\sim\) 5% bei _RMS_ und Mittelwert, was sich in einer Anderung der Energieauflosung um \(\sim\) 2% niederschlagt. Die Fehler der Messungen haben ungefahr dieselbe Grosse, weshalb diese Korrektur nicht angewandt wird.
+
+### 5.4 Kalibration der Kalorimeter
+
+#### Relative Kalibration des Wolframkalorimeters
+
+Fur die relative Kalibration der Wolframmodule wurde das Myonensignal genutzt. Das Kalorimeter wurde aus dem Strahl gefahren und je ein Saintillationszahler vor und hinter dem Kalorimeter in Koinzidenz als _Trigger_ benutzt. Zusatzlich wurde bei der Auswertung noch die Bedingung gestellt, dass ein gultiges Ereignisse in allen vier Modulen ein Signal erzeugen muss, um zufallige Koinzidenzen auszuschliessen.
+
+Es wurde bei verschiedenen Photovervielfacherspannungen bestimmt, in welchem ADC
+
+\begin{table}
+\begin{tabular}{|l||c|c|c|} \hline  & _RMS_ & Mittelwert & _RMS_/Mittelwert \\ \hline \hline unkalibrierte Daten & 69.2 & 289.2 & 23.9 \% \\ \hline kalibrierte Daten & 57.1 & 267.4 & 21.3 \% \\ \hline kalibrierte + korrigierte Daten & 54.4 & 249.7 & 21.8 \% \\ \hline \end{tabular}
+\end{table}
+Table 5.2: Vergleich der Energieauflösung bei rohen, kalibrierten und kalibrierten + korrigierten Daten.
+
+## 5 Test der Prototypen
+
+Kanal der Mittelwert des Myonensignals lag und eine Funktion mit zwei Parametern \(P1\) und \(P2\) der Form
+
+\[(\mbox{ADC-Kanal})=\mbox{e}^{(P1+P2\cdot Spnnnung)} \tag{5.1}\]
+
+an die Messpunkte angepast (Abb. 5.8). Aus diesen Eichkurven konnten dann die Hochspannungen abgelesen werden, die eingeselt werden musten, um das Maximum des Myonensignal in allen Modulen in einem bestimmten ADC-Kanal zu haben. Zur Kontrolle wurden die Hochhspannungen so eingeseltelt, dass das Myonsignal in allen Modulen im ADC-Kanal 30 liegen sollte. Das Ergebnis (Abb. 5.9) ist im Rahmen der statistischen Genauigkeit befriedigend.
+
+Um sicherzustellen, dass das Signal beim 100 GeV/c- und 158 GeV/c-Protonstrahl noch im Messbereich der Analog-Digit al-Wandler liegt, wurden die Hochspannungen verringert. Mit diesen Hochspannungseinstellungen wurde ein grosserer Datensatz mit Myonen genommen (Abb.5.10). Die Form des Signals ist eine Landau-Verteilung, wie bei Detektoren, die ein Signal proportional zum spezifischen mittleren Energieverlust eines Teilchens erzeugen, wie z.B. Szintillationszahler. Der Mechanismus, der zu dieser Verteilung fuhrt, ist hier ahnlich. Das Myon schlagt auf seiner Bahn durch das Kalorimeter Elektronen aus den Atomverbanden, welche teilweise genug Energie haben, um einen kleinen elektromagnetischen Schauer im Wolfram zu erzeugen. Insgesamt werden genug freie Elektronen erzeugt, dass einige relativistische Elektronen (und Positronen) eine Lichtleiterschicht erreichen und Cherenkov-Strahlung produzieren, welche zu dem,,Schwanz" fuhrt.
+
+Um die Lage des Mittelwertes einer solchen Verteilung zu bestimmen, wird in der Regel die Methode des,,Truncated Mean" angewandt, bei der ein bestimmter Prozentsatz (35 - 40 %) der grossten Signale weggeschnitten wird [Berg98]. Da in unserem Fall nur die Lage der Signale in den vier Modulen relativ zueinander interessiert, wird lediglich eine Gaussfunktion an die Spitzen der Verteilungen angepasst.
+
+## 5 Test der Prototypen
+
+Offenbar war die Berechnung der Hochspannungen wahrend der Datenaufnahme nicht sehr genau, da die Lage der Spitzen der Verteilungen bis zu 15% von Kanal 10 abweichen. Dies zeigt sich auch, wenn man mit den Eichgeraden aus Abbildung 5.10 und den Hochspannungen, die verwendet wurden, die Lage der Verteilungen berechnet. In Tabelle 5.3 ist diese berechnete Lage des Myonsignals in den vier Modulen mit den gemessenen Werten verglichen. Im Modul 3 wurde bei der Datenaufnahme ein um 0.5 ADC-Kanale zu hohes Pedestal abgezogen, dies wurde in der Tabelle korrigiert. Die gemessenen Werte liegen etwas unter den berechneten Werten, die relativen Abweichungen der vier Module untereinander sind aber bei beiden innerhalb der Fehler konstant. Mit den Werten aus der Eichung wurden Korrekturfaktoren (Tabelle 5.4) berechnet, mit denen die Wolframdaten fur diesen Fehler korrigiert wurden.
+
+Die relative Kalibration jedes Moduls ist mit einem Fehler zwischen 10% und 15% behaftet. Der Fehler des Mittelwertes und der Energieauflosung des gesamten Kalorimeters
+
+### 5.4 Kalibration der Kalorimeter
+
+aufgrund dieser Unsicherheit der relativen Kalibration wurde auf jeweils kleiner als 5% abgeschatzt.
+
+#### Bestimmung der Anzahl der Photoelektronen
+
+Die Verstarkung der Photovervielfacher unterliegt Fluktuationen, die in guter Naherung durch eine gausssche Normalverteilung um den Mittelwert \(\mu_{\rm p.e.}=N_{\rm p.e.}\) (\(N_{p.e.}:\) Anzahl der in der Photokathode erzeugten Photoelektronen) mit Standardabweichung \(\sigma_{\rm p.e.}\)=\(\sqrt{N_{\rm p.e.}}\) gegeben ist. Eine Signalverteilung, die mit dem Photovervielfacher gemessen wird, wird also'verschmiert'.
+
+Ist die zu messende Signalverteilung gaussformig mit Mittelwert \(\mu_{\rm o}\) und Standardabweichung \(\sigma_{\rm o}\), addieren sich \(\sigma_{\rm p.e.}/\mu_{\rm p.e.}\) und \(\sigma_{\rm o}/\mu_{\rm o}\) quadratisch zur gemessenen Signalauflosung.
+
+\[\left(\sigma/\mu\right)_{\rm gemessen}=\sqrt{\left(\sigma_{\rm o}/\mu_{\rm o} \right)^{2}+\left(\sigma_{\rm p.e.}/\mu_{\rm p.e.}\right)^{2}} \tag{5.2}\]
+
+Um den Einfluss der Photoelektronen-Statistik auf die Energieauflosung der Kalorimeter abschatzen zu konnen, wurde bei dem Wolfram-Kalorimeter eine Messung mit einem Pulser und Leuchtdioden, die uber Lichtleiter mit der Photokathode jedes Moduls verbunden waren, gemacht. Da bei dieser Messung die Photoelektronen-Statistik die einzige Quelle fur Fluktuationen darstellt, kann aus der Signalverteilung, d.h. deren Standardabweichung und Mittelwert, die Anzahl der Photoelektronen berechnet werden.
+
+Es wurden mehrere Messungen mit verschiedener Pulseramplitude gemacht, die Anzahl der Photoelektronen gegen den ADC-Kanal aufgetragen und eine Gerade mit den Parametern \(P1\) und \(P2\)
+
+\[N_{\rm p.e.}=P2\cdot{\rm ADC-Kanal}+P1 \tag{5.3}\]
+
+durch die Messpunkte gelegt, wie in Abb. 5.11 zu sehen ist. Die unterschiedlichen Steingungen \(P2\) der angepassen Geraden sind auf unterschiedliche Verstarkungen der Pho
+
+\begin{table}
+\begin{tabular}{|l|c|c|c|c|} \hline  & Modul 1 & Modul 2 & Modul 3 & Modul 4 \\ \hline \hline Eichung & 11.8\(\pm\)1.8 & 10.7\(\pm\)1.2 & 9.7\(\pm\)0.9 & 9.3\(\pm\)1.2 \\ \hline Gemessen & 10.7\(\pm\)0.7 & 9.7\(\pm\)1.6 & 8.4\(\pm\)0.9 & 8.6\(\pm\)1.6 \\ \hline \end{tabular}
+\end{table}
+Table 5.3: Lage des Myonsignals in ADC-Kanälen bei Hochspannungseinstellung für die Protonstrahlmessung.
+
+tovervielfacher zuruckzufuhren. Im Vergleich mit der Lage des Myonsignals in den vier Modulen (s. Kapitel 5.4.2) sieht man, dass dort das 3. und das 4. Modul eine niedrigere Verstarkung haben als die ersten beiden Module, was auch hier an der starkeren Steigung zu beobachten ist. Allerdings ist beim Myonsignal die Verstarkung im 4. Modul hoher als im 3. Modul, wahrend es hier andersherum ist.
+
+Die beiden Messungen sind aber nicht direkt vergleichbar, da die Kopplung zwischen Lichtletern und Photovervielfacher nicht in die Messung der Photoelektronen eingeht. Um eine Eichkurve fur die Anzahl der Photoelektronen beim Protonenstrahl zu bekommen, muss beachtet werden, dass die Hochspannungen fur den Protonenstrahl reduziert wurden, sodass das Myonsignal im ADC-Kanal 10 statt ADC-Kanal 30 liegen wurde. Die Anpassungsparameter der vier Module werden mit dem Beitrag des jeweiligen Moduls
+
+### Kalibration der Kalorimeter
+
+\begin{tabular}{|l|c|c|c|c|c|} \hline  & Modul 1 & Modul 2 & Modul 3 & Modul 4 & Summe \\ \hline Gewicht & 63.55\% & 27.25 \% & 7.18 \% & 2.02 \% & 100 \% \\ \hline \(P1\!\cdot\!\mbox{Gewicht}\!\cdot\!3\) & 14.47\(\pm\)4.0 & 6.35\(\pm\)1.72 & 0.91\(\pm\)0.34 & 0.34\(\pm\)0.12 & 22.07\(\pm\)6.18 \\ \hline \(P2\!\cdot\!\mbox{Gewicht}\!\cdot\!3\) & 0.846\(\pm\)0.032 & 0.403\(\pm\)0.014 & 0.110\(\pm\)0.004 & 0.039\(\pm\)0.002 & 1.398\(\pm\)0.052 \\ \hline \end{tabular}
+
+**Tabelle 5.5**: Berechnung der Paramter fur die Eichkurve zur Bestimmung der Anzahl der Photoelektronen. Die aus Abbildung 5.11 abgelesenen Anpassungsparameter werden mit dem Beitrag des jeweiligen Moduls zum Gesamtsignal (vergl. Abbildung 4.10 in Abschnitt 4.3.5) gewichtet. Der Faktor 3 kommt durch die unterschiedlichen Hochspannungen bei der Pulsermessung und der Messungen im Protonenstrahl.
+
+zum Gesamtsignal1 gewichtet und mit 3 multipliziert (Tabelle 5.5). Die Summen dieser gewichteten Parameter ergeben die Parameter der Photoelektronen-Eichkurve (Abb. 5.12) fur die Protonenstrahl-Messungen mit dem Wolframkalorimeter.
+
+Footnote 1: Im letzten Modul werden nur ca. 2% des Gesamtsignals produziert. Dieser Beitrag ist vernachlassigbar, weshalb die Wolfram-Kajorimeter die am **RHIC** eingebaut werden nur eine Lange von 6 \(\lambda_{1}\) haben.
+
+**Abbildung 5.12**: Eichkurve zur Bestimmung der Anzahl der Photoelektronen im Wolframkalorimeter bei der Messung mit Protonenstrahl.
+
+## 5 Test der Prototypen
+
+Beim Wolframkalorimeter wurde bei 100 GeV Strahlenergie eine mittlere Signalhohe von 400.5 ADC-Kanalen gemessen (siehe Kapitel 5.6.2), womit aus Abbildung 5.12 die Anzahl der Photoelektronen zu 580\(\pm\)30 bestimmt wurde. Damit ist der Beitrag der Photoelektronen-Statistik auf die Energieauflosung vernachlassigbar. Fur das Kupferkalorimeter kann die Anzahl der Photoelektronen nur abgeschatzt werden. Das Kupferkalorimeter hat in der Simulation ein um den Faktor 1.1 grosses Signal, es ist also zu erwarten, dass die Grosse des Signals bei den beiden getesteten Prototypen ahnlich ist. Aufgrund des vernachlassigbaren Beitrags der Photoelektronen-Statistik auf die Ergebnisse wurde auf eine genauere Bestimmung der Anzahl der Photoelektronen beim Kupferkalorimeter verzichtet.
+
+### 5.5 Kupferergebnisse
+
+#### Die 158 GeV-Messung
+
+Bei der Messung des Kupferkalorimeters im 158 GeV Protonenstrahl wurde ein defektes C AMAC-_Crate_ zur Auslese der Analog-Digital-Wandler eingesetzt. Dies wurde erst nach Abschluss der Messung, aufgrund von Problemen mit CAMAC-Modulen der NA49-Datenaufnahme, die sich im gleichen _Crate_ befanden, bemerkt. Zuerst schien dies keine Auswirkung auf die Kalorimeterdaten zu haben, bei der Auswertung stellte sich jedoch heraus, dass die Gesamtsignalhohe des Kalorimeters sehr viel niedriger lag als erwartet. Es wurde untersucht, ob ein 'Bit-Fehler' vorlag, d.h. ob ein Bit des CAMAC-Buses immer auf 1 oder auf 0 lag, was aber nicht der Fall war. Vermutlich hat das CAMAC-_Crate_ durch Probleme bei der Spannungsversorgung Fehler im Analog-Digital-Wandler verursacht. Da es nicht moglich war, die Daten auf diese Fehler zu korrigieren, sind die 158 GeV Kupferdaten nicht sehr aussagekraftig.
+
+Es wurde ein Datensatz mit 1500 Ereignissen mit dem Strahl in der Mitte des Kalorimeters genommen. Mehrere Messungen wurden bei verschiedenen Positionen des Kalorimeters relativ zur Strahlachse gemacht. Letztere haben alle nur geringe Statistik, und da dieselben Messungen spater mit dem 100 GeV Strahl mit hoherer Statistik wiederholt wurden, wurden sie nicht ausgewertet.
+
+#### 5.5.1 Die 158 GeV-Messungen
+
+Bei der Messung des Kupferkalorimeters im 158 GeV Protonenstrahl wurde ein defektes C AMAC-_Crate_ zur Auslese der Analog-Digital-Wandler eingesetzt. Dies wurde erst nach Abschluss der Messung, aufgrund von Problemen mit CAMAC-Modulen der NA49-Datenaufnahme, die sich im gleichen _Crate_ befanden, bemerkt. Zuerst schien dies keine Auswirkung auf die Kalorimeterdaten zu haben, bei der Auswertung stellte sich jedoch heraus, dass die Gesamtsignalhohe des Kalorimeters sehr viel niedriger lag als erwartet. Es wurde untersucht, ob ein 'Bit-Fehler' vorlag, d.h. ob ein Bit des CAMAC-Buses immer auf 1 oder auf 0 lag, was aber nicht der Fall war. Vermutlich hat das CAMAC-_Crate_ durch Probleme bei der Spannungsversorgung Fehler im Analog-Digital-Wandler verursacht. Da es nicht moglich war, die Daten auf diese Fehler zu korrigieren, sind die 158 GeV Kupferdaten nicht sehr aussagekraftig.
+
+Es wurde ein Datensatz mit 1500 Ereignissen mit dem Strahl in der Mitte des Kalorimeters genommen. Mehrere Messungen wurden bei verschiedenen Positionen des Kalorimeters relativ zur Strahlachse gemacht. Letztere haben alle nur geringe Statistik, und da dieselben Messungen spater mit dem 100 GeV Strahl mit hoherer Statistik wiederholt wurden, wurden sie nicht ausgewertet.
+
+#### 5.5.2 Die 158 GeV-Messungen
+
+Bei 100 GeV/c Strahlimpuls wurde das Kalorimeter zunachst im Strahl zentriert. Von dieser Position aus wurde es dann in 1cm Schritten horizontal und vertikal verfahren, um den Einfluss von Schauerverlusten zu sehen. Diese Messungen beinhalten jeweils \(\sim 1500\) (bei horizontalem Verschieben des Kalorimeters) bzw. 700 -1300 Ereignisse (bei vertikalem verschieben des Kalorimeters). Mit dem auf der Strahlachse zentrierten Kalorimeter wurden schliesslich noch 5800 Ereignisse aufgenommen.
+
+#### Messung der Zeitauflosung
+
+Die Zeitauflosung des Kupferkalorimeters wurde nach den Messungen mit dem Wolframkalorimeter gemessen. Es wurden nur die ersten vier Module des Kupferkalorimeters benutzt. Die Messung wurde mit dem 100 GeV Protonstrahl gemacht, wobei 7100 Ereignisse aufgenommen wurden.
+
+## Chapter 5 Test der Prototypen
+
+Abbildung 5.13Kurvenform des Kupferkalorimeters bei 100 GeV Protonenstrahl. Links: Strahl-Luft Wechselwirkungen verursachen Eintrage bei niedrigen Energien (siehe Text). Rechts: Die Ereignisse, die Strahl-Luft Wechselwirkung zugeschrieben werden konnen, wurden verworfen um die Energieauflosung zu bestimmen.
+
+### 5.5 Energieauflosung
+
+Eine der wichtigsten Fragen an den Test war die Energieauflosung der Prototypen im 100 GeV Protonstrahl. Das Signal des Kupferkalorimeters ist in Abb. 5.13 zu sehen. Die Eintrage bei niedrigen Signalhohen in Abb. 5.13 links sind auf Strahl-Luft-Wechselwirkung nach dem letzten Strahlzahler zuruckzufuhren. In Kapitel 5.1 wurde abgeschatzt, dass dieser Anteil bei \(\sim 2\%\) aller Ereignisse liegt. Hier (Abb. 5.13 rechts) wurden 1.7% der niedrigsten Signalhohen verworfen, da diese Eintrage die Standardabweichung der Verteilung stark verflaschen.
+
+Die Form der Verteilung ist nicht gaussformig, wesh alb die _RMS_ Werte statt der Standardabweichung einer angegeben werden. Die Energieauflosung betragt 21.8 \(\pm\) 0.5 \(\%\)\(RMS/E\) und ist somit etwas schlechter als die Vorhersage der Simulation von 20.5 \(\pm\) 0.4 \(\%\)\(RMS/E\).
+
+Die Kurvenform ist charakteristisch fur Kalorimeter dieses Typs wie schon in [11] gezeigt und in [11] beschrieben wurde. Da das Kalorimeter praktisch nur die elektromagnetische Energie des Schauer s,,sieht", welche aus \(\pi^{\circ}\) Zerfallen stammt, sind die Fluktuationen in der Signalhohe auf Fluktuationen des Bruchteils der Energie, der in die Produktion von \(\pi^{\circ}\) geht, zuruckzufuhren. In [1] wurde gezeigt, dass die Verteilung des Bruchteils der elektromagnetischen Energie an der Gesamtenergie des Schauers (150 GeV
+
+[MISSING_PAGE_EMPTY:69]
+
+## Chapter 5 Test der Prototypen
+
+Protonen keine grosse Rolle spielen. Die Asymmetrie der Verteilung in unserer Messung bei 100 GeV kommt vermutlich nur durch die Poisson-Statistik der \(\pi^{o}\) zustande, die bei hoheren Energien mit entsprechend steigender \(\pi\)-Multiplizitat durch eine Gaufverteilung approximiert werden kann.
+
+Abb. 5.15 zeigt das Signal fur 158 GeV Protonen mit im Strahl zentriertem Kalorimeter. Es sind \(\sim 2.5\) mal mehr Eintrage bei niedrigen Signalhohen als durch Strahl-Luft-Wechselwirkung zu erwarten ware, was auf die fehlerhafte Datenaufnahme zuruckzufuhren ist. Die mittlere Signalhohe ist nur das 1.36 fache der mittleren Signalhohe der 100 GeV Messung, wahrend ein Wert im Bereich 1.6 zu erwarten ware, wenn die Signalhohe annahernd linear mit der Energie steigt. Tatsachlich muste der Wert etwas hoher als 1.6 sein, da der Bruchteil der elektromagnetischen Energie im hadronischen Schauer ungefahr durch die Beziehung (siehe Kapitel 3.2) \(f_{\pi^{o}}=0.1\cdot\ln E\) [GeV] gegeben ist (vergl. Kapitel 4.3). Dieser,,lineare" Anstieg der Signalhohe mit der Enschussenergie ist in der Simulation des Kupferkalorimeters und in den Daten sowie der Simulation des Wolframkolarimeters zu sehen und ware somit auch fur die Kupferdaten zu erwarten. Die Fehlfunktion des CAMAC-_create_ scheint also die mittlere Signalhohe verringert zu haben (siehe Einleitung dieses Kapitels). Aus dem \(RMS\) und dem Mittelwert der Verteilung errechnet sich eine Energieauflosung von 20 \(\pm 2.5\) % \(RMS/E\).
+
+### Kupferergebnisse
+
+**Abbildung 5.16**: Die mittlere Signalhohe in Abh\(\ddot{\mbox{a}}\)ngigkeit der Strahlposition relativ zur Mitte des Kupferkalorimeters. Links: Vergleich mit Simulation. Rechts: Vergleich mit berechneten Werten aus einer Parametisierung von \(\pi^{-}\) Schauern ( siehe Text ).
+
+#### Positionsabhangigkeit des Signals
+
+Das Kalorimeter wurde in 1 cm Schritten seitlich durch den Strahl gefahren, wobei der Strahl jeweils 1 cm unterhalb der Mitte war, und von der Mittelposition ausgehend in 1 cm Schritten nach unten gefahren, sodass die Position des Strahls in Richtung der Ausle-sefasern ging.
+
+Das Ergebnis der ersten Messung ist in Abb. 5.16 links im Vergleich zur Simulation zu sehen. In Abb. 5.16 rechts sind dieselben Daten im Vergleich zu Werten dargestellt, die sich aus einer Parametrisierung des lateralen Schauerprofils von \(\pi^{-}\) in das oben erwahnte Kupfer-Quarzfaser Kalorimeter [1], integriert uber die Flache (10 cm x 10 cm) unseres Kalorimeters, ergibt.
+
+Diese Parametrisierung des \(\pi^{-}\)-Schauers ist eine Summe zweier Exponentialfunktionen:
+
+\[\frac{\mbox{d}\,E}{\mbox{d}r\mbox{d}\,\phi}=C_{1}\cdot\mbox{e}^{a_{1}\cdot r}+ C_{2}\cdot\mbox{e}^{a_{2}\cdot r} \tag{5.4}\]
+
+mit \(C_{1}=0.164\), \(a_{1}=-0.171\), \(C_{2}=0.0066\) und \(a_{1}=-0.0376\).
+
+Der erste Term beschreibt den prominenten elektromagnetischen,,Kern" des Schauers, wahrend der zweite Term den breiteren, in unserem Kalorimeter fast nicht,,sichtbaren" hadronischen Schauer beschreibt, Akchurin _et al._ haben fur Protonen einen etwas breiteren
+
+## 5 Test der Prototypen
+
+Schauer gemessen als fur \(\pi^{-}\)[1]. Dies erklart das etwas schnellere Abfallen der Signalhohe zum Rand des Kalorimeters in unseren Daten.
+
+Die Parametrisierung 5.4 wurde an unsere Daten angepasst; da wir aber in erster Linie nur den elektromagnetischen Kern des Schauers im Kalorimeter messen, ist die Bestimmung des zweiten Terms in Gleichung 5.4 ungenau. Es lasst sich somit nur sagen, dass wir ein etwas breiteres Schauerprofil mit Protonen messen als Akchurin _et al._ mit \(\pi^{-}\).
+
+Im Vergleich mit der Simulation (Abb. 5.16 links) zeigt sich, dass diese ein schmaleres Schauerprofil vorhersagt; es gibt weniger Verluste, wenn die Strahlposition sich dem Rand des Kalorimeters nahert, daher geringeres Abfallen der Signalhohe.
+
+Abb. 5.17 zeigt die Signalhohen bei vertikalem Verschieben des Kalorimeters im Strahl verglichen zur Simulation. Die Signalhohe nimmt zu, je naher man dem oberen Rand der Kupferplatten kommt. Dies kommt von geladenen Teilchen des Schauers, die oberhalb des Kupfers,,ungestort" durch die Auslesefasern laufen konnen und dort Cherenkov-Licht produzieren. Je naher der Strahl den Auslesefasern kommt, desto mehr Schauerenergie geht in Richtung der Fasern verloren und erzeugt dort einen ungewollten Beitrag zum Gesamtsignal, was in den Daten und der Simulation deutlich zu sehen ist.
+
+Die Unterschiede zwischen Simulation und Daten sind durch die unrealistische Geometrie der Fasern uber den Absorberplatten in der Simulation1 z urklaren. Sie kommen d dadurch
+
+### Kupferergebnisse
+
+zustande, dass die Lichtleiter jedes Moduls zur Auslesse gebundelt werden und somit in der Mitte uber dem Kalorimeter (parallel zum Strahl gesehen) viel Faservolumen vorhanden ist. Die mittlere Energie der Schauerverluste (und somit die Anzahl der geladenen Teilchen) wird in diesem Bereich grosser sein als in den Randbereichen rechts und links der Faserbundel, weshalb beim realen Kalorimeter relativ mehr Signal in den Auslesefasern produziert wird als in der Simulation.
+
+Der Beitrag des Signals in den Fasern uber dem Kalorimeter zum Gesamts signal bei Einschuss des Protonenstrahls in die Mitte des Kalorimeters wurde auf \(\sim\)3-6 % abgeschatzt.
+
+### Zeitauflosung
+
+Bei der Messung der Zeit auflosung wurden _Leading Edge_ Diskriminatoren benutzt (siehe Kapitel 5.3). Dies fuhrt zu,,_Slewing\({}^{\rm a}\)_, d. h. der Signalhohenabhangigkeit des Zeitsignals, wie es in Abbildung 5.18 zu sehen ist. Dort sind fur die vier gemessenen Kupfermodule die TDC-Werte gegen die ADC-Werte aufgetragen. Es zeigt sich, wie zu erwarten, dass bei niedrigen ADC-Werten, d. h. Signalhohen, das Zeitsignal durchschnittlich spater
+
+[MISSING_PAGE_EMPTY:74]
+
+### Kupferergebnisse
+
+hinten liegenden Modulen schlechter, was durch starkere laterale Ausdehnung des Schauers in diesen Modulen zu erklaren ist. Dadurch konnen starkere vertikale Fluktuationen im Schwerpunkt des Schauers im jeweiligen Modul aufteren, die sich in Fluktuationen des Zeitsignals bemerkbar machen. Es ware zu erwarten, dass die Zeitauflosung zu hinteren Modulen hin kontinuierlich schlechter wird.
+
+**Abbildung 5.21**: Die Zeitauflosung der vier Kupfermodule (Links oben das erste Modul, rechts unten das letzte) relativ zu \(S1\).
+
+## 5 Test der Prototypen
+
+Ein weiterer Einfluss sind die Hochspannungen der Photovervielfacher. In Tabelle 5.6 sind diese Hochspannungen und die Zeitauflosung der Module aufgelistet. Die Zeitauflosung wird beim Ubergang vom zweiten Modul zum dritten Modul sprungartig schlechter, was erstaunlich ist, da es unwahrscheinlich ist, dass vertikale Fluktuationen im Schauer sprungartig ansteigen. Dieses Verhalten ist durch die geringere Hochspannung des Photovervielfachers des dritten Moduls z urklaren. In diese Zeitauflosungen geht jeweils noch die Zeitauflosung des _S1_-Zahlers ein. Wenn die Zeitverteilungen der Detektoren gauflosung sind, addieren sie sich quadratisch auf. Die Zeitauflosung der Module 1 und 2 relativ zueinander, d.h. die Differenz der Zeitsignale der beiden Module, ist in Abbildung 5.22 links zu sehen. Dasselbe ist fur die Module 2 und 3 in Abbildung 5.22 rechts dargestellt. Die ersten beiden Module haben mit 233 _ps_ bzw. 230 ps praktisch dieselbe Zeitauflosung, womit sich aus der Differenz der beiden Zeitsignale mit einem \(\sigma\) von 258 ps
+
+\begin{table}
+\begin{tabular}{|c||c|c|} \hline Modul Nr. & Hochspannung [V] & Zeitauflösung [ps] \\ \hline \hline
+1 & 1600 & 234 \\ \hline
+2 & 1650 & 230 \\ \hline
+3 & 1350 & 259 \\ \hline
+4 & 1500 & 259 \\ \hline \end{tabular}
+\end{table}
+Table 5.6: Die Zeitauflösung der vier Kupfermodule und die an die Photovervielfacher angelegte Hochspannung.
+
+### 5.6 Wolframergebinisse
+
+Eine intrinsische Zeitauflosung der beiden Module von 182 ps ergibt. Mit diesen Werten ergibt sich die Zeitauflosung von _S1_ zu \(\sim\) 144 ps. Rechnet man mit der intrinsischen Zeitauflosung von Modul 2 und der Differenz von Modul 2 und 3 (298 ps) die intrinsische Zeitauflosung von Modul 3 aus, ergibt sich diese zu 190 ps. Bestimmt man aus diesem Wert die Zeitauflosung von _S1_ ergibt sich dafur \(\sim\) 110 ps. Dies zeigt, dass diese Berechnungen nicht ganz konsistent sind, was vermutlich daran liegt, dass das Zeitsignal des _S1_ nicht gaussformig ist. Man kann mit diesen Werten aber den Fehler der Werte fur die intrinsische Zeitauflosung auf \(\sim\)10% abschatzen, Modul 1 und 2 haben somit eine intrinsische Zeitauflosung von 160-200 ps.
+
+### 5.6 Wolframergebinisse
+
+#### Datensatze
+
+Beim 100 GeV/c Protonstrahl wurden die Signale des Wolframkalorimeters in verschiedenenen Positionen relativ zum Strahl gemessen. Bei der Auswertung der Daten wurde festgestellt, dass die tatsachliche Position des Strahls nicht der angenommenen Position entsprach. Die effektiven Positionen des Strahls sind in der Mitte des Kalorimeters sowie 2 cm unterhalb der Mitte und 2 cm und 4 cm oberhalb der Mitte. Horizontal wurden jeweils 2 cm unterhalb der Mitte an Punkten, die 2 cm, 4 cm und 4.5 cm zu einer Seite der Mittelposition lagen, Daten genommen. Vertikal besteht eine Unicherheit bezuglich der tatsachlichen Position des Strahls von 0.5 cm, Horizontal betragt diese Unsicherheit 0.3 cm. Bei diesen Messungen wurden jeweils 5000-7000 Ereignisse aufgenommen. Schliesslich wurde noch eine Messung gemacht, bei der das Kalorimeter umgedreht wurde, sodass die Lichtleiter unter einem Winkel von 135\({}^{o}\) zur Strahlachse orientiert waren. Diese Messung beinhaltet ca. 1000 Ereignisse. Bei 158 GeV/c Strahlimpuls wurde 2 cm unterhalb der Mitte des Kalorimeters eine Messung mit 7000 Ereignissen gemacht. Die TDC-Werte wurden immer mitaufgenommen. Fur die Bestimmung der Zeitauflosung wurde die 100 GeV/c Messung mit Strahl in der Mitte des Kalorimeters genommen.
+
+#### Energieauflosung
+
+Zur Bestimmung der Energieauflosung wurden wie beim Kupferkalorimeter die 2 % niedrigsten Signalhohen verworfen, da sie auf Strahl-Luft-Wechselwirkungen zuruckzufuhren sind (siehe Kapitel 5.5.2). In Abbildung 5.23 sind die Signalhohenverteilungen bei 100 GeV/c (links) und 158 GeV/c (rechts) zu sehen. Bezuglich der Kurvenform ist dasselbe zu sagen wie beim Kupferkalorimeter (Abschnitt 5.5.2). Verglichen mit der Simulation (Abbildung 4.11) zeigt sich jedoch eine hervorragende Ubereinstimmung der
+
+## 5 Test der Prototypen
+
+Kurvenformen. Die Energieauflosung bei 100 GeV/c betragt 20.5\(\pm\)0.5% \(RMS/E\), bei 158 GeV/c, 18.0\(\pm\)0.5% _RMS/E_. Diese Werte sind zum einen schlechter als die Werte aus der Simulation, zum anderen kaum besser als die Werte des Kupferkalorimeters. Bei horizontalem Verschieben des Kalorimeters (Abschnitt 5.6.5) zeigt sich auch ein kaum schmaleres Schauerprofil im Wolframkalorimeter verglichen mit dem Kupferkalorimeter. Die Annahme, dass die Energieauflosung des Wolframkalorimeters besser sein sollte, begrundet sich auf der um 30% kurzeren hadronischen Wechselwirkungslange und dem um ebenfalls 30% kleineren Moliere-Radius, dem somit schmaleren sichtbaren Schauer im Kalorimeter und den dadurch reduzierten Fluktuationen durch laterale Schauerverluste. Es wurden zwar noch nie Messungen mit einem Wolfram-Lichtleiterkalorimeter gemacht, die diese Annahme untermauren konnten, es ist aber unwahrscheinlich, dass samtliche Simulationen1 Wolfram falsch beschreiben. Die wahrscheinliche Ursache sind Inhomogenitaten bei der Kopplung der Faserbundel an die Photovervielfacher. Zum einen wird die sensitive Flache der verwendeten 2" Photovervielfacher (O 42-46 mm) durch die Faserbundel mit einem Durchmesser von 40 mm fast vollstandig abgedeckt, wodurch ein haufig vorkommendes Abfallen der Empfindlichkeit der Photokathode zum Rand hin zu Fluktuationen fuhren kann. Dies wurde nachgemessen und es steltle sich ein Nachlassender Empfindlichkeit von der Mitte zum Rand hin von maximal 7% heraus. Eine weitere Ursache konnte das direkte Anliegen der Fasern auf den Fenstern der Photovervielfacher sein. Da bei ersten Messungen die Fasern mit optischem Fett an die Photovervielfacher gekoppelt waren, welches dann fur die verwendeten Messungen entfernt wurde, konnten Reste des optischen Fetts an manchen Stellen fur bessere optische Kopplung gesorgt haben. Der Betrag der Verbesserung der optischen Kopplung durch optisches Fett wurde in Messungen mit Myonen auf 15-20% bestimmt. Eine endgultige Aussage uber die Ursache der relativ schlechten Energieauflosung des Wolframkalorimeters kann aber nicht gemacht werden.
+
+In Abbildung 5.24 links sind die beiden Datenpunkte bei 100 GeV und 158 GeV gegen \(1/\sqrt{E}\) aufgetragen und eine Gerade angepasset. Die Anpassungsparameter sind aufgrund der relativ grossen Fehler sogar kompatibel mit den Simulationsergebnissen (Abbildung 4.12). Auch wenn mit den beiden Datenpunkten keine prazise Aussage uber das Skalieren der Energieauflosung mit der Energie gemacht werden kann, bestatigten sie jedoch die Existenz eines konstanten Terms in der Grossenordnung 5-10 % \(RMS/E\).
+
+### Energielinearitat
+
+Abbildung 5.24 zeigt die Signalhohe des Kalorimeters in Abhangigkeit von der Strahlenergie. Es wurde eine Gerade angepasset, um zu zeigen, dass die Signalhohe nicht ganz
+
+[MISSING_PAGE_EMPTY:80]
+
+### 5.6 Wolframergebnisse
+
+nis der Signalhohen, bei von ruckwarts und vorwarts eingeschossenem Strahl von 11%. Bei Einschuss von 8 GeV Elektronen in der Simulation ergibt sich ein Verhaltnis von 9.5%. Die benutzte _GEANT_-Simulation unterschatzt also offenbar stark die Streuwinkel im elektromagnetischen Schauer, und somit den Teil der Elektronen, der isotrop verteilt ist. Eine _GEANT_-Simulation von A.Denisov ergab ein Verhaltnis von 21% [11]. Dies ist auf die prazisere Modellierung der Prozesse der Signalgeneration in den Fasern zuruckzufuhren, die in der hier benutzten Simulation (s. Kapitel 4.3) nicht berucksichtigt werden. Bemerkenswert ist, dass dieses Verhaltnis bei hadronischen Schauern in den Daten, wie auch in der Simulation, grosser ist als bei elektromagnetischen Schauern. Bei hadronischen Schauern wurde man erwarten, dass der sichtbare hadronische Anteil des Schauers, sprich geladene Pionen, im Kalorimeter vorwarts lauft, zumindest keinen nennenswerten Beitrag zum Signal bei Einschuss des Strahls von hinten liefert. Die Erklarung ist vermutlich, dass neutrale Pionen, die zu den elektromagnetischen Subschauern fuhren mit einem gewissen transversalen Impuls produziert werden, sodass sich diese elektromagnetischen Schauer unter einem gewissen Winkel zur Strahlachse ausbreiten, und somit auch mehr Elektronen mit Impuls unter groseren Winkeln zur Strahlachse beinhalten als elektromagnetische Schauer bei Einschuss von Elektronen.
+
+### 5.6.5 Positionsabhangigkeit des Signals
+
+In Abbildung 5.26 sind links die Signalhohen bei Verschiedenen Einschusspositionen des Strahls bei horizontalem Verschieben des Kalorimeters im Strahl zu sehen. Der Vergleich mit der Simulation zeigt keine gute Ubereinstimmung. Das starkere Abfallen zum Rand des Kalorimeters, deutet auf ein breiteres Schauerprofil hin, als die Simulation vorhersagt. Tatsachlich stimmen die Wolframdaten fast genau mit den Daten des Kupferkalorimeters uberein. Dies wurde bedeuten, dass das laterale Schauerprofil unabhangig von Moliere-Radius und hadronischer Wechselwirkungslange ist. Dies kann zwar nicht ganz ausgeschlossen werden, vermutlich tragen aber die im vorigen Abschnitt geschilderten Probleme in der optischen Kopplung zwischen Photovervielfacher und Fasern bei. Nimm man an, dass die Position des Strahls am ausseren Rand der Fehlergrenzen zum Rand des Kalorimeters hin war und weiterhin berucksichtigt, dass _GEANT_ ein zu schmales Schauerprofil vorhersagt, konnen die Unterschiede zwischen Daten und Simulation durch diese Inhomogenitaten in der optischen Kopplung und den Fehler der Simulation erklart werden.
+
+Die Signalhohe bei vertikaler Verschiebung des Kalorimeters relativ zum Strahl ist in Abbildung 5.26 rechts, dargestellt. Das Ansteigen der Signalhohe, wenn sich die Einschussposition des Strahls den Auslesefasern nahert, ist starker als in der Simulation. Dies kann, wie beim Kupferkalorimeter, zum Teil auf die nicht ganz realistische Geometrie der Fasern oberhalb des Kalorimeters in der Simulation zuruckgefuhrt werden. Im Vergleich mit den Daten des Kupferkalorimeters zeigt sich, dass der Anstieg der Signalhohe bei bei
+
+## Chapter 5 Test der Prototypen
+
+**Abbildung 5.26** Links: Signalh@he bei horizontalem Verfahren des Kalorimeters im Strahl. Rechts: Signalh@he bei vertikalem Verfahren des Kalorimeters im Strahl. Die Daten sind im Vergleich zur Simulation dargestelit.
+
+### 5.6 Zeitauflosung
+
+In Abbildung 5.27 sind die TDC-Werte gegen die ADC-Werte aufgetragen. Die letzten beiden Module des Wolframkalorimeters tragen nur \(\sim 10\%\) des Gesamtsignals bei, was dazu fuhrt, dass nur relativ geringe Signalh@hen gemessen werden, die zu schlechter Zeitauflosung fuhren. Aus diesem Grund wurde nur die Zeitauflosung der ersten beiden Module betrachtet. Wie beim Kupferkalorimeter musste eine _Slewing_-Korrektur durchgefuhrt werden. Die korrigierten Verteilungen der ersten beiden Module sind in Abbildung 5.28 dargestellt. Die Verteilungen der Zeitdifferenzen der ersten beiden Module relativ zu _S1_ sind in Abbildung 5.29 zu sehen. Fur das erste Modul ergibt sich eine Zeitauflosung von 199 ps, fur das zweite Modul eine Zeitauflosung von 215 ps.
+
+Die Differenz des Zeitsignals der beiden ersten Module ist in Abbildung 5.30 zu sehen. Die Zeitauflosung betragt 231 ps. Damit kann die intrinsische Zeitauflosung berechnet werden. Sei \(\sigma_{1_{0}}\) die intrinsische Zeitauflosung des ersten Moduls, \(\sigma_{2_{0}}\) die des zweiten,\(\sigma_{12}\) die gemessene Zeitauflosung der Differenz der beiden Module, \(\sigma_{1S1}\) die gemessene Zeitauflosung des ersten Moduls relativ zu _S1_, \(\sigma_{2S1}\) die Zeitauflosung des zweiten Moduls relativ zu _S1_ und \(\sigma_{S1}\) die intrinsische Zeitauflosung des _S1_, dann ergeben sich folgende Gleichungen:
+
+\[\sigma_{1_{0}}^{2}+\sigma_{2_{0}}^{2}=\sigma_{12}^{2} \tag{5.5}\]
+
+\[\sigma_{1_{0}}^{2}+\sigma_{S1}^{2}=\sigma_{1S1}^{2} \tag{5.6}\]
+
+\[\sigma_{2_{0}}^{2}+\sigma_{S1}^{2}=\sigma_{2S1}^{2} \tag{5.7}\]
+
+Durch einsetzen von 5.6 und 5.7 in 5.5 und Auflosen nach \(\sigma_{S1}\), erhalt man:
+
+\[\sigma_{S1}=\sqrt{\frac{1}{2}(\sigma_{1S1}^{2}+\sigma_{2S1}^{2}-\sigma_{12}^{2 })} \tag{5.8}\]
+
+Setzt man die gemessenen Werte ein, ergibt sich fur _S1_ eine intrinsische Zeitauflosung von 127 ps. Dieser Wert liegt zwischen den beiden Werten, die mit dem Kupferkalorimeter bestimmt wurden (siehe Kapitel 5.5.4). Mit dem dort abgeschatzten Fehler ergeben sich als Werte fur die intrinsische Zeitauflosung des ersten Moduls \(150\pm 15\) ps und fur das zweite Modul \(173\pm 13\) ps.
+
+## 5 Test der Prototypen
+
+**Abbildung 5.28**: Signalh\(\ddot{\text{o}}\)he des Zeit-Digital-Wandlers (TDC) in Abh\(\ddot{\text{a}}\)ngigkeit von dem ADC-Wert nach _Sewing_-Korrektur. Links sind die Signale im ersten Modul, rechts im zweiten Modul gezeigt.
+
+**Abbildung 5.29**: Verteilung der Zeitdifferenz des ersten Moduls (links) und des zweiten Moduls (rechts) relativ zu _S1_.
+
+### 5.6 WolframergebnisseKonstruktionszeichungen des Kupper-Kalorimeters
+
+[MISSING_PAGE_EMPTY:87]
+
+[MISSING_PAGE_EMPTY:88]
+
+[MISSING_PAGE_EMPTY:89]
+
+## Bibliquesverzeichnis
+
+* 1.1 Stossgeometrie relativistischer Schwerionenstosse.
+* 2.1 Wechselwirkungszone am.
+* 2.2 Null-Grad-Bereich zwischen den Strahlrohren.
+* 2.3 Energie der Spektatorfragmente und Spektatornukleonen in Abhangigkeit von.
+* 2.4 Photonukleare Absorbtions-Wirkungsquerschnitte.
+* 2.5 Impulsverteilung einzelner Neutronen aus Coulomb Dissoziation.
+* 3.1 Elektromagnetischer Schauer in Kupfer und in Wolfram.
+* 3.2 Hadronischer Schauer in Kupfer.
+* 4.1 Der Cherenkov-Effekt.
+* 4.2 Anzahl der erzeugten Cherenkov-Photonen in Abhangigkeit von \(\beta\) bei verschiedenen Brechungsindizes.
+* 4.3 Abstand geladener Schauerteilchen von der Strahlachse und Geschwindigkeiten nach Teichensorte getrennt.
+* 4.4 Winkelverteilung von Elektronen und Pionen im hadronischen Schauer.
+* 4.5 Hadronischer Schauer und sichtbarer Schauer im Cu-Prototyp.
+* 4.6 Geometrie der Kalorimeter in der Simulation.
+* 4.7 Simulation der longitudinalen Signalverteilung im Kupferkalorimeter
+* 4.8 Simulation des Kupferkalorimeters bei verschiedener Kinematik der Projektile.
+* 4.9 Energielinearitat und Energieauflosung (Simulation des Kupferkalorimeters).
+* 4.10 Simulation der longitudinalen Signalverteilung im Wolframkalorimeter
+* 4.11 Simulation des Wolfram-Kalorimeters bei verschiedener Kinematik der Projektile.
+* 4.12 Energielinearitat und Energieauflosung (Simulation des Wolframkalorimeters).
+* 5.1 Strahlzahler
+* 5.2 DAQ Aufbau
+* 5.3 30 GeV Elektronen Signal in einzelnen Modulen* 5.4 Longitudinale Signalverteilung im Kupferkalorimeter vor Feinkalibration
+* 5.5 Longitudinale Signalverteilung im Kupferkalorimeter nach Feinkalibration
+* 5.6 Schauerprofil bei kleinen bzw. grossen Signalhohen
+* 5.7 Longitudinale Signalverteilung im Kupferkalorimeter nach Feinkalibration im Vergleich zur simulierten Daten nach Feinkalibration
+* 5.8 Lage des Myonensignals bei verschiedenen Hochspannungen
+* 5.9 Myonsignal in Kanal30 nach der relativen Kalibration
+* 5.10 Myonsignal in Kanal 10 nach der relativen Kalibration
+* 5.11 Photoelektronen-Kalibration mit gepulster LED
+* 5.12 Photoelektronen-Eichkurve
+* 5.13 Kurvenform des Kupferkalorimeters bei 100 GeV Protonenstrahl.
+* 5.14 Simulation des Kupferkalorimeters fur 100 GeV Protonenstrahl.
+* 5.15 Gesamtsignal des Kupferkalorimeters bei 158 GeV Protonenstrahl.
+* 5.16 Signalhobe in Abhangigkeit der horizontalen Strahlposition im Kupferkalorimeter.
+* 5.17 Signalhobe in Abhangigkeit der vertikalen Strahlposition im Kupferkalorimeter.
+* 5.18 Signalhobe des TDC in Abhangigkeit von dem ADC-Wert (Kupfer).
+* 5.19 TDC-Wert gegen ADC-Wert bei den Kupfermodulen
+* 5.20 TDC-Signal von _S1_
+* 5.21 Die Zeitauflosung der vier Kupfermodule relativ zu _S1_.
+* 5.22 Differenz der Zeitsignale von Modul 1 und 2 bzw. Modul 2 und 3.
+* 5.23 Signal des Wolframkalorimeters bei 100 GeV und 160 GeV Strahlenergie.
+* 5.24 Engeieabhangigkeit der Energieauflosung und des Signals des Wolframkalorimeters.
+* 5.25 Signal des Wolframkalorimeters bei 135\({}^{\circ}\)-Faserorientierung.
+* 5.26 Positionsabhangigkeit des Signals bei dem Wolframkalorimeter.
+* 5.27 TDC-Werte des Wolframkalorimeters aufgetragen gegen die ADC-Werte
+* 5.28 TDC-Werte des Wolframkalorimeters aufgetragen gegen die ADC-Werte nach _slewing-Korrektur_
+* 5.29 Verteilung der Zeitdifferenz des ersten Moduls (links) und des zweiten Moduls (rechts) relativ zu _S1_.
+* 5.30 Verteilung der Zeitdifferenz der ersten beiden Module.
+
+A.1 Seitenansicht eines Kupfermoduls.
+
+A.2 Teil 2 und 3.
+
+A.3 Teil 4a.
+
+A.4 Teil 5.
+
+A.5 Teil 6.
+
+## References
+
+* [1]
+* [Aco92] D. Acosta, _et al_: Lateral shower profiles in a lead/scintillating fibre calorimeter, **NIM A316 (1992) 196-198**.
+* [Aco90] D. Acosta, _et al_: Results of Prototype Studies for a Spaghetti Calorimeter, **NIM A294 (1990) 193-210**.
+* [Akh97] N. Akchurin, _et al_: Beam test results from a fine-sampling quarz fibre calorimeter for electron,photon and hadron detection,**NIM A399 (1997) 202-226**.
+* [Akh98] N. Akchurin, _et al_: On the differences between high-energy proton and pion showers and their signals in a non-compensating calorimeter, **NIM A408 (1998), 380-396**.
+* [Ama81] U. Amaldi: Fluctuations in Calorimetry Measurements, Physica Scripta, Vol. 23, 409-424, Nachdruck in Experimental Techniques in High Energy Physics, Th. Ferbel (Hrsg.), Addison-Wesley (1987).
+* [Aum93] T.Aumann, _et al_: **Phys. Rev. C47(1993) 1728-1737**.
+* [Baltz96a] A. J. Baltz, S. N. White: Correlated forward-backward Coulomb dissociation and luminosity monitoring at heavy ion colliders, **BNL-63127, Juni 1996**.
+* [Baltz96] A. J. Baltz, M. J. Rhoades-Brown, J. Weneser: Heavy-ion partial beam lifetimes due to Coulomb induced processes, **Pys. Rev. E54 (1996) 4233**.
+* [Baltz97a] A. J. Baltz: Vortrag bei dem 3. Zero Degree Calorimeter Workshop in Brookhaven, September 1 997, in den Proceedings desselben.
+* [Bar92] J. Barette, _et al_.: Forward baryons in relativistic nucleus-nucleus collisions, **Pys. Rev. C45 (1992) 828**.
+* [Berg] Heinz Niedrig [Hrsg. ]: Bergmann-Schafer, Lehrbuch der Experimentalphysik, Bd. 3 Optik, 9.Auflage, de Gruyter, S.541.
+* [Berg98] Jens Berger: **Dip lomarbeit, Johann-Wolfgang Goethe Universitat, Frankfurt am Main (1998)**.
+* [Bie97] F. Bieser: _et al_., Design and performance of TPC readout electronics for the NA49 Experiment, **NIM A385 (1997) 535-546**.
+* [Bor95] Konstanze Boretzky: **Dissertationsarbeit, Johann-Wolfgang Goethe Universitat, Frankfurt am Main (1995)**.
+
+* [Brau92] James E. Brau: Simulation of hadronic showers and calorimeters, **NIM A312 (1992) 483-514**.
+* [BTO] BTO Bungert GmbH, Fibre Optics and Light Measurement Katalog.
+* [CHARM80] A.N.Diddens, _et al_,CHARM Coll. : **NIM178 (1980) 27**.
+* [CPP95] P. Gorodetzky _et al_, RD40 Project: Status Report of the RD 40 Project, **CERN-Preprint CERN/LHCC 95-27, 15. April 1995**.
+* [Den98a] A.Denisov: Private Mitteilung.
+* [Eck96] Frank Eckhardt: **Dissertationsarbeit, Philips-Universitat Marburg (1996)**.
+* [Fab85] C. Fabjan: Calorimetry in High Energy Physics, aus Techniques and Concepts of High Energy Physics-III, Thomas Ferbel (Hrsg.) Plenum Pub. Corp.(1985), Nachdrouck in Experimental Techniques in High Energy Physics, Th. Ferbel (Hrsg.), Addison-Wesley (1987).
+* [Gab78] T.A. Gabriel: **NIM150 (1978) 145**.
+* [Gab94] T.A. Gabriel: _et al_., Energy dependence of hadronic activity, **NIM A338 (1994) 336-347**.
+* [Gan95] O.Ganel, Richard Wigmans: Quarz fibre calorimetry for LHC experiments, **NIM A365 (1995) 104-116**.
+* [Gar97a] E. Garcia: Vortrag bei dem 3. Zero Degree Calorimeter Workshop in Brookhaven, September 1997, in den Proceedings desselben (nicht Veroffentlicht).
+* [Gea321] R. Brun _et al_ : GEANT Handbuch (Version 3.21), **CERN Program Library Long Writeup W5013 (Oktober 1994)**.
+* [Goro95] P. Gorodetzky, _et al_ : Quartz Fiber Calorimetry, **NIM A361 (1995) 161-179**.
+* [Ham] Hamamatsu Photonics, Photomultipliers Catalog, Mai 1997.
+* [Huf75] J. Hufner, K. Schafer, und B. Schurmann: Abrasion-ablation in reactions between relativistic heavy ions, **Phys. Rev. C12 (1975) 1888**.
+* [Jack] W. D. Jackson: Classical Elektrodynamics, John Wiley & Sons (1967).
+* [Klei82] K. Kleinknecht: Particle Detectors, Physics Reports, Vol. 84 (1982) 85-161, Nachdrouck in Experimental Techniques in High Energy Physics, Th. Ferbel (Hrsg.), Addison-Wesley (1987).
+* [Klei87] K. Kleinknecht: Detektoren fur Teilchenstrahlung, Teubner Studienbucher, Stuttgart (1987).
+* [Leo] W.R. Leo: Techniques for Nuclear and Particle Physics Experiments, Springer (1994).
+* [Lun95] M. Lundin _et al_ : On the electromagnetic energy resolution of cherenkov-fibre calorimeters, **CERN-Preprint CERN-PPE 95-174, 13. Oktober 1995**.
+
+* [App98] The NA49 Collaboration, H. Appelhauser _et al_: Spectator Nucleons in Pb+Pb Collisions at 158 AGeV, **Eur. Phys. J. A2 (1998), 383-390**
+* [PDG96] Particle Data Group: Review of Particle Physics, **Phys. Rev. D54, (1996)**
+* [Rau94] W. Rauch: The NA49 Data Acquisition System, **IEEE Trans Nucl. Sci. Vol.41, Num.1, (1994)**
+* [Vido93] M. Vidovic, M. Greiner, G. Soff: Elektromagnetic dissociation of Pb nuclei in peripheral ultrarelativistic heavy-ion collisions, **Pys. Rev. E 54 (1996) 423**.
+* [Weiz34] C. F. v. Weizsacker: Ausstrahlung bei Stossen sehr schneller Elektronen, **Z. Phys. 88 (1934) 612**
+* [Wes76] G. Westfall, _et al_: Nuclear Fireball Model for Proton Inclusive Spectra from Relativistic Heavy-Ion Collisions, **P hys. Rev. Lett. 37 (1976) 1202**.
+* [Wil34] E. J. Williams: Nature of the High Energy Particles of Penetrating Radiation and Status of Ionisation and Radiation Formulae, **P hys. Rev. 45 (1934) 729**
+* [Wong] C.-Y. Wong: Introduction to High-Energy Heavy-Ion Collisions, World Scientific (1994)
+
+## Danksagung
+
+An erster Stelle mochte ich Herrn Prof. Dr. Herbert Strobele fur das vielseitige Diplomarbeitsthema, die angenehme Arbeitsatmosphare, seine Geduld in den ersten Monaten und das Vertrauen, das er in mich hatte, danken. Herrn Prof. Dr. Reinhard Stock danke ich fur das stete Interesse an meiner Arbeit, seine Hilfsbereitschaft (die ihn schon mal stundenlange Diskussionen mit amerikanischen Zollbeamten uber die Moglichkeiten, mit einem Photomultiplier ein Flugzeug in die Luft zu sprengen, kostete) und besonders seine Fahigkeit selbst Eichtheorien, anschaulich darzustellen (,,Oh Gott!! Der Clemens runzelt schon wieder die Stirn").
+
+Dem baldigen Professor, Priv. Doz. Dr. Dieter Rohrich danke ich fur sein offenes Ohr, seine Geduld, sich Probleme so lange anzuhoren, bis sie sich erledigten und fur die Beantwortung der (physikalischen) Fragen, die man sonst niemand zu fragen traute. Im Besonderen danke ich ihm fur seine Ermutigungen, als ich anfing, mich mit _GEANT_ zu beschaftigen und seine Begeisterung, wenn es darum, ging Probleme damit zu losen und fur seine Hilfe bei dem Aufbau der Datenquisition fur den Test. Dr. habil. Marek Gazdzicki danke ich fur die Beantwortung der physikalischen Fragen, die ich mich zu stellen traute.
+
+Ein ganz besonders grosses Dankeschon geht an Werner Amend, dessen Hifsbereitschaft mich immer wieder fassungslos machte. Ohne ihn ware das Kalorimeter nicht rechtzeitig zum Test fertig geworden, ware ich letzten Sommer den Hitzetod gestorben und hatte sicher auch nicht ein so komfortables Zimmer (und Zimmergenossen) bekommen. Er hatte eigentlich eine eigene Danksagung verdient.
+
+Ebenfalls ein besonders herzliches Dankeschon geht an Dr. Peter Beckerle (,,Dr. Ebby"), der wirklich eine unschatzbare Hilfe beim Test der Kalorimeter war, und ohne den die Strahlzeit am CERN sicher weniger lustig gewesen ware. Nicht zuletzt danke ich ihm fur die Uberlassung seines luxurosen PC's, der das Arbeiten zur Freude machte.
+
+Herrn Zangert und Herrn Schwab danke ich fur die fachkundige Hilfe bei allen mechanischen Designfragen. Herrn Schwab danke ich besonders fur die Prazision mit der der das Kupfer bearbeitete. Herrn Meuter danke ich fur den schnellen Bau der Photomultiplier-Basen (was nur an ihm hangenblieb, weil er zufallig rumstand als ich schlecht gelaunt in die Elektronik kam..). Claudia Freudenberger danke ich fur die Erstellung einiger technischer Zeichnungen (die vermutlich unbefriedigendste Arbeit ihrer Laufbahn:,,Wofur sind die denn?".,,Keine Ahnung.. weiss ich auch nicht"), fur das Einscannen einiger Bilder und fur das Binden der Arbeit. Heidrun Rheinfels-Immanns dankeich fur die freundliche Aufnahme in ihr Zimmer, fur die vielen Plausche, in denen ich einige interessante Details uber das IKF und CERN erfuhr. Jutta Berschin danke ich fur ihre Hilfsbereitschaft, wenn es um Sachen wie,,Wie schreib' ich denn jetzt was auf Band???" ging.
+
+Fur den Bau des Wolframkalorimeters geht mein Dank an Alexei Denisov und den russischen Handwerker, der alles mit einer Handbohrmaschine und ein paar Schraubzwingen machen konnte. Alexei Denisov danke ich auch fur die Einblicke in sein unslaubliches Wissen uber Hochenergie-Experimentalphysik. Mein Dank gilt auch Michael Murray, der immer benuht war, beim Test zu helfen, auch fur die Erklarung der physikalischen Prozesse in unserem Kalorimeter, auch wenn ich ihm erst kein Wort glaubte, ein halbes Jahr spater aber feststellen musste, dass ercht hatte. Sebastian White danke ich fur sein Beharren, mich nach Brookhaven zu holen, was mir einige nette Tage auf Long Island bescherte. Und Edmundo Garcia-Solis danke ich fur sein Engagement beim Test des Wolframkalorimeters. Ich danke der ges amten NA49-Kollaboration fur die Moglichkeit, die Kalorimeter zu testen, was einigen Leuten einige Nerven gekostet hat.
+
+Meinen Mitdiplomanden Markus Oldenburg, Jens Berger und Dominik Flierl bin ich wirklich dankbar dafur, dass man nie das Gefuhl hatte, man stehe alleine mit seinen Problemen da. Den Doktorandinnen Anja Billmeier und Christina Markert danke ich fur viele spassige Momente (,,Christina! Erzahl' das nach dem Essen"). Anja danke ich besonders fur das Korrekturlesen dieser Arbeit und fur die vielen Ratschage zur Verschonerung; ohne sie ware die Notation nicht halb so konsistent. Nicht zuletzt danke ich ihr fur die charmante Begleitung bei vielen Mittagessen ;). Uli Frankenfeld und allen schon erwahnten, die bei der Strahlzeit 1997 dabei waren, danke ich fur die Zeit, die wir dort zusammen verbracht haben, ihr wisst schon, was ich meine...
+
+Meiner Mitbewohnerin Kerstin Muller danke ich dafur, dass ich ihr immer mein Herz ausschutten konnte und sie mir oft gut zuredete (,,Du machst das ganz toll"...,,Du weisst doch gar nicht was ich mache!"...,,Trotzdem... du machst das ganz toll..."). Meinen Freunden, besonders Ute, Alois, Nathalie, Jorg und Annette danke ich fur's Dasein und hoffe, dass sie mir die Vernachlassigung und Unverbindlichkeit in Stresszeiten verzeihen.
+
+Last but surely not least, danke ich meinen Eltern Pitt und Beate Adler dafur, dass sie mich immer finanziell und seelisch unterstutzt haben und mir das Gefuhl gaben, zu wissen, was richtig fur mich ist. Meinen Schwestern Christiane Lerner-Adler und Katrin Strasser danke ich schliesslich noch fur die Teilung ihrer Erfahrungen mit Diplom- bzw. Doktorarbeiten, die mich des offeren besser schlafen liesen.

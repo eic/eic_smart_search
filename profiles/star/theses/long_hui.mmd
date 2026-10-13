@@ -1,0 +1,1422 @@
+University of California
+
+Los Angeles
+
+**Mid-rapidity \(\Lambda\) and \(\bar{\Lambda}\) Production in Au+Au Collisions at the Relativistic Heavy Ion Collider**
+
+A dissertation submitted in partial satisfaction
+
+of the requirements for the degree
+
+Doctor of Philosophy in Physics
+
+by
+
+**Hui Long**
+
+[MISSING_PAGE_EMPTY:2]
+
+The dissertation of Hui Long is approved.
+
+Chettao Lin
+
+David Saltzberg
+
+Charles A. Whitten Jr., Committee Co-chair
+
+Huan Z. Huang, Committee Co-chair
+
+University of California, Los Angeles
+
+2002To my very supportive family...
+
+Table of Contents
+
+* 1 Introduction
+* 2 Physics
+	* 2.1 The Hadron Bag Model and the Critical Temperature
+	* 2.2 Nucleus-Nucleus Collisions
+	* 2.3 \(\Lambda\) (\(\tilde{\Lambda}\)) and Strangeness Production
+* 3 Facilities
+	* 3.1 RHIC Accelerator Complex
+	* 3.2 The STAR Detector
+* 4 Simulation and TPC Response Simulator
+	* 4.1 GEANT4 and GSTAR
+	* 4.2 TPC Response Simulator
+		* 4.2.1 Charge Re-distribution
+		* 4.2.2 Drift of Electrons in the TPC
+		* 4.2.3 Amplification of Ionization
+		* 4.2.4 Signal Generation
+		* 4.2.5 Digitization
+	* 4.3 Evaluation of the TRS
+* 5 Analysis Methods
+	* 5.1 Trigger
+Event Selection
+* 5.3 \(\Lambda\) and \(\bar{\Lambda}\) Reconstruction
+* 5.4 \(\Lambda\) and \(\bar{\Lambda}\) Signals and Backgrounds
+* 5.5 Efficiency Corrections
+* 6 Results
+	* 6.1 Corrected \(p_{t}\) Spectra
+	* 6.2 The Transverse Mass Distribution
+	* 6.3 Ratio of the \(\bar{\Lambda}/\Lambda\)
+	* 6.4 The \(dN/dy\) and \(h^{-}\)
+* 7 Systematic Uncertainties
+	* 7.1 Uncertainties in the Efficiency Calculation
+	* 7.2 Uncertainties in Raw Signal Extraction
+	* 7.3 Sector-by-Sector Variations and other Asymmetries
+	* 7.4 Other Uncertainties
+	* 7.5 Feed-Down Contributions
+	* 7.6 Double-Counting Signals
+* 8 Discussion
+	* 8.1 Lambda/Anti-Lambda Production
+	* 8.2 Lambda Enhancement from pp to AA Collisions
+	* 8.3 Simple Thermal Model and Baryon Yield
+	* 8.4 Conclusions
+
+* A Relativistic Kinematics
+* A.1 Lorentz Transformations
+* A.2 Kinematic Variables
+* B The STAR Collaboration
+* C Data Tables
+
+List of Figures
+
+### 1 QCD phase diagram
+
+#### 2.1 Space-time Picture of a Nucleus-Nucleus Collision
+
+#### 2.2 \(K/\pi\) Ratio and \(\phi/\pi\) Ratio
+
+#### 2.3 Strange Particle Enhancement versus Strangeness Content (WA97)
+
+4 Mid-Rapidity \(m_{\perp}\)-Spectra of \(\Lambda\), \(\Xi^{-}\) and \(\Omega^{-}\) and Antihyperons
+
+#### 2.5 \(M_{T}\) Slope and mass
+
+#### 2.6 \(\vec{B}/B\) ratio vs. \(\sqrt{s_{{}_{NN}}}\)
+
+#### 2.7 Ratio of \(\tilde{\Lambda}/\vec{p}\) from NA35
+
+#### 2.8 Ratio of \(\tilde{\Lambda}/\vec{p}\) (AGS)
+
+#### 3.1 Diagram of the AGS - RHIC facility
+
+#### 3.2 First collision at \(\sqrt{s_{{}_{NN}}}=60\) GeV
+
+#### 3.3 First collision at \(\sqrt{s_{{}_{NN}}}=130\) GeV
+
+#### 3.4 The STAR experiment
+
+#### 3.5 The STAR Magnetic Field Map
+
+#### 3.6 The 3D view of ExB distortion
+
+#### 3.7 The STAR Time Projection Chamber
+
+#### 3.8 The Wires and Pads Layout
+
+#### 3.9 A TPC Super-Sector
+
+#### 3.10 Resistors for the Outer Field Cage
+The Charge Segment
+* 4.3 Transverse Diffusion Constant vs. \(B^{2}\)
+* 4.4 Side View of the Drifting Electron
+* 4.5 **E** Field Lines in the MWPC (inner sector)
+* 4.6 **E** Field Lines in MWPC (outer sector)
+* 4.7 Schematic Development of The Avalanche on the Anode Wires
+* 4.8 Change in Gain vs. Change in Pressure in the STAR TPC
+* 4.9 Plot of S(t) on a logarithmic time scale
+* 4.10 Calculation of Signal Currents Induced on Pad Plane
+* 4.11 Charge Images Created by a Charge \(q\)
+* 4.12 Charge Collected by Pad
+* 4.13 3D View of the Pad Response Function (PRF)
+* 4.14 Projected View of the PRF on the X axis (outer)
+* 4.15 Projected View of the PRF on the X axis (inner)
+* 4.16 The Measured PRF on the X axis (inner)
+* 4.17 Projected View of the PRF on the Y axis (outer)
+* 4.18 Projected View of the PRF on the Y axis (inner)
+* 4.19 Projected View of the PRF on the X axis (outer, all wire)
+* 4.20 Pre-amplifier and shaper
+* 4.21 Number of Pads per Hit (TRS)
+* 4.22 Number of Pads per Hit (Real)
+* 4.23 Number of Time-Buckets per Hit (TRS)
+* 4.24 Number of Time-Buckets per Hit (Real)* 4.25 XY Residuals vs. Crossing Angle (Outer Sector)
+* 4.26 Z Residuals vs. dip Angle (Outer Sector)
+* 4.27 XY Residual Dependence on Drift Length (Real Data)
+* 4.28 XY Residual Dependence on Drift Length (TRS Data)
+* 4.29 Mean Energy Deposited per Hit vs. Pad Row
+* 4.30 Distribution of the Number of Hits per Track
+* 5.1 Minimum-bias charged multiplicity distribution
+* 5.2 Lambda Decay Topology
+* 5.3 The measured \(\langle dE/dx\rangle\) vs. \(p\) for reconstructed tracks in the TPC
+* 5.4 The Crossing points of two circles
+* 5.5 Invariant mass distribution of \(\Lambda\) and \(\overline{\Lambda}\) candidates.
+* 5.6 Comparison Between Lorentzian Fit and Gaussian Fit
+* 5.7 Mass Histograms of Signals and Combinatorial Background
+* 5.8 Raw yield (\(0.4<P_{t}<0.6\) GeV/c)
+* 5.9 Raw yield (\(0.6<P_{t}<0.8\) GeV/c)
+* 5.10 Raw yield (\(0.8<P_{t}<1.0\) GeV/c)
+* 5.11 Raw yield (\(1.0<P_{t}<1.2\) GeV/c)
+* 5.12 Raw yield (\(1.2<P_{t}<1.4\) GeV/c)
+* 5.13 Raw yield (\(1.4<P_{t}<1.6\) GeV/c)
+* 5.14 Raw yield (\(1.6<P_{t}<1.8\) GeV/c)
+* 5.15 Raw yield (\(1.8<P_{t}<2.0\) GeV/c)
+* 5.16 Raw yield (\(2.0<P_{t}<2.2\) GeV/c)* 5.17 Raw yield (\(2.2<P_{t}<2.4\) GeV/c)
+* 5.18 Event Embedding Procedure
+* 5.19 Number of common hits vs. number of fit points
+* 5.20 Reconstruction efficiency of the \(\Lambda\) for 5 centrality bins
+* 5.21 Reconstruction efficiency of the \(\bar{\Lambda}\) for 5 centrality bins
+* 5.22 Reconstruction Efficiency of the \(\Lambda\) in \(p_{t}-Rapidity\) Phase Space
+* 5.23 Uncorrected Transverse Momentum Spectra of the \(\Lambda\) for 5 centrality bins
+* 5.24 Uncorrected Transverse Momentum Spectra of the \(\bar{\Lambda}\) for 5 centrality bins
+* 6.1 Corrected Transverse Momentum Spectra of the \(\Lambda\) for 5 centrality bins
+* 6.2 Corrected Transverse Momentum Spectra of the \(\bar{\Lambda}\) for 5 centrality bins
+* 6.3 Transverse Mass Spectra for 5 Centrality Bins for \(\Lambda\)
+* 6.4 Transverse Mass Spectra for 5 Centrality Bins for \(\bar{\Lambda}\)
+* 6.5 Ratio of the \(\bar{\Lambda}/\Lambda\) for 5 centrality bins
+* 6.6 dndy vs. h\({}^{-}\)
+* 7.1 Cuts comparison (1)
+* 7.2 Cuts comparison (2)
+* 7.3 Cuts comparison (3)
+* 7.4 Cuts comparison (4)
+* 7.5 Cuts comparison (5)Cuts comparison (6)
+* 7.7 Cuts comparison (7)
+* 7.8 Cuts comparison (8)
+* 7.9 Cuts comparison (9)
+* 7.10 Cuts comparison (10)
+* 7.11 Cuts comparison (11)
+* 7.12 Cuts comparison (12)
+* 7.13 Number of Reconstructed \(\Lambda\) vs. Sector
+* 7.14 Number of Reconstructed \(\Lambda\) vs. Sector ( \(1.0<p_{t}<1.2\) GeV/c)
+* 7.15 Relative Efficiency vs. \(p_{t}\)
+* 7.16 The dcaV0 Distribution from Real Data and MC Data
+* 7.17 The \(m_{t}\) Spectra of the \(\Lambda\) from Feedown
+* 8.1 The mid-rapidity \(\overline{\Lambda}\) (\(|y|\)\(<\)0.5) transverse momentum distribution from the top 5% most central collisions. For comparison the distributions for negative hadrons (\(d^{2}N/(2\pi p_{T})dp_{T}d\eta\), \(|\eta|\)\(<\)0.1) and anti-protons (\(|y|\)\(<\)0.1) for the similar centrality bin are included. Statistical errors of the data points are smaller than the marker size.143
+* 8.2 The mid-rapidity transverse momentum for \(\overline{\Lambda}\) (\(|y|\)\(<\)0.5), negative hadrons ( \(d^{2}N/(2\pi p_{T})dp_{T}d\eta\), \(|\eta|\)\(<\)0.1 ) and anti-protons (\(|y|\)\(<\)0.1) for central collisions. Statistical errors of the data points are smaller than the marker size.
+
+\(\Lambda\) and \(\overline{\Lambda}\) rapidity density as a function of negative hadron multiplicity at mid-rapidity. The open symbols in the figure are data points from an independent analysis using event-mixing techniques. Errors shown are statistical only.
+* 8.4 Contribution for the Wroblewski factor from strange baryon (dotted line), strange mesons (dashed line) and mesons with hidden strangeness (dash-dotted line). The sum of all contributions is given by the full line.
+* 8.5 The \(\Lambda/\pi^{+}\) ratio vs \(\sqrt{s}\).
+* 8.6 The \(\Lambda/\pi^{+}\) ratio vs \(\sqrt{s}\). The ratio from AA collisions are normalized by a factor of 4.65.
+* 8.7 particle ratios from simple thermal model.
+* 8.8 \(N_{p}\) Vs. T List of Tables
+
+### 2.1 Properties of the \(\Lambda\) Baryon
+
+#### 3.1 Physical parameters and performance specifications for RHIC
+
+#### 3.2 Quantities measurable on an Event-By-Event basis
+
+#### 5.1 Centrality definitions
+
+#### 5.2 Requirements placed on candidate positive and negative tracks
+
+#### 6.1 Data-points for \(\Lambda\) spectra
+
+#### 6.2 Data-points for \(\bar{\Lambda}\) spectra
+
+#### 6.3 Fit parameters from exponential and Boltzmann fits of the \(m_{T}\)
+
+spect ra for \(\Lambda\) and \(\overline{\Lambda}\). Both statistical (the first) and systematic errors are presented.
+
+#### 6.4 The corresponding \(h^{-}\) for 5 centrality bins
+
+#### 7.1 Value of Signals Extracted by Different Methods
+
+#### 7.2 Relative Uncertainties in Different z Bins and Overall Uncertainties 121
+
+#### 7.3 Corrected \(\Lambda\) and Ratio of Efficiencies
+
+#### 7.4 Corrected \(\Lambda\) and Ratio of Efficiencies (II)
+
+#### 7.5 Corrected Number of \(\Lambda\) from Feed-down
+
+#### 7.6 Percentage of Double-Counted Signals
+
+#### 7.1 \(\Lambda\) Yield 0-5% Centrality Bin
+* C.3 \(\Lambda\) Yield 10-20% Centrality Bin
+* C.4 \(\Lambda\) Yield 20-35% Centrality Bin
+* C.5 \(\Lambda\) Yield 35-75% Centrality Bin
+* C.6 \(\bar{\Lambda}\) Yield 0-5% Centrality Bin
+* C.7 \(\bar{\Lambda}\) Yield 5-10% Centrality Bin
+* C.8 \(\bar{\Lambda}\) Yield 10-20% Centrality Bin
+* C.9 \(\bar{\Lambda}\) Yield 20-35% Centrality Bin
+* C.10 \(\bar{\Lambda}\) Yield 35-75% Centrality Bin
+
+## Acknowledgments
+
+I thank H. Huang and C. Whitten for being the best advisors possible. Thanks also go to members of the UCLA Heavy Ion and Intermediate Energy group: G. Igo, S. Trentalange, V. Ghazikhanian, J. Kiryluk, O. Tsai, A. Tai, Y. Chen, P. Soresen, J. Wood and former graduate student E. Yamamoto and S. Kelly. Special thanks to Stephen Trentalange for useful advise on my data analysis and help with writing my thesis. I 'd also like to thank my ex-classmate Zhangbu Xu for his help with my analysis. Thanks to H. Caines, P. Jones, M.A.C. Lamont, G. Van Buren, H. Zhang and other members of the STAR strangeness group for their help with my analysis work. Thanks to H.G. Ritter, H. Wieman, J. Thomas, I. Sakrejda, R. Bossingham, N. Xu, E. Hjort, F. Wang, J. Porter, R. Snellings, D. Hardtke, B. Lasiuk, L. Ray, Y. Fisyaki, B. Stringfellow and P. Neviski for their help with my early work on the TPC alignment and simulations. Thanks to the whole STAR collaboration and the RHIC Operations Group.
+
+* [16] Dec. 1971 Born, YueYang, Hunan, P.R.China
+* [1994] B.S. Physics University of Science and Technology of China Anhui,P.R.China
+* Los Angeles
+* Los Angeles Los Angeles, CA
+* Los Angeles
+
+## Publications and Presentations
+
+K.H. Ackermann _et al._, Hardware Controls for the STAR Experiment at RHIC, _IEEE Trans. Nucl. Sci._**47**:210, 2000.
+* [190] K.H. Ackermann _et al._, The STAR Time Projection Chamber, _Nucl. Phys._**A661**:681, 2000.
+* [191] K.H. Ackermann _et al._, Elliptic Flow in Au+Au Collisions at \(\sqrt{s_{{}_{NN}}}=130\) GeV, _Phys. Rev. Lett._, **86**:402, 2001.
+
+K.N. Barish _et al._, Leading Baryon and Antiproton Measurements in P + A Collisions at AGS Energies, _Nucl. Phys._, **A698**:599, 2002.
+* [1] K.N. Barish _et al._, Leading Baryon Production in P + A Collisions at Relativistic Energies, _Phys. Rev._, **C65**:014904, 2002.
+* [2] C. Adler _et al._, Results from the STAR Experiment, _Nucl. Phys._, **A698**:64, 2002.
+* [3] C. Adler _et al._, Measurement of inclusive antiprotons from Au+Au collisions at \(\sqrt{s_{{}_{NN}}}=130\) GeV, _Phys. Rev. Lett._, **87**:262302-1, 2001.
+* [4] C. Adler _et al._, Antideuteron and Antihelium Production in Au+Au collisions at \(\sqrt{s_{{}_{NN}}}=130\) GeV, _Phys. Rev. Lett._, **87**:262301-1, 2001.
+* [5] C. Adler _et al._, Identified Particle Elliptic Flow in Au+Au collisions at \(\sqrt{s_{{}_{NN}}}=130\) GeV, _Phys. Rev. Lett._, **87**:182301-1, 2001.
+* [6] C. Adler _et al._, Multiplicity Distribution of Negatively Charged Hadrons in Au+Au Collisions at \(\sqrt{s_{{}_{NN}}}=130\) GeV, Accepted by _Phys. Rev. Lett_. 16 July, 2001.
+* [7] C. Adler _et al._, Pion Interferometry of \(\sqrt{s_{{}_{NN}}}=130\) GeV Au+Au Collisions at RHIC, Accepted by _Phys. Rev. Lett._ 11 July, 2001.
+* [8] C. Adler _et al._, Midrapidity \(Antiproton-to-Proton\) Ratio in Au+Au Collisions at \(\sqrt{s_{{}_{NN}}}=130\) GeV, Accepted by _Phys. Rev. Lett_. **86**:4778, 2001.
+* [9] H. Long, Mid-rapidity \(\Lambda\) and \(\bar{\Lambda}\) Production in Au+Au collisions at \(\sqrt{s_{{}_{NN}}}=130\) GeV, _Contribution to the American Physical Society Meeting_, 2001.
+* [10] H. Long, First look at Strangeness at RHIC with the STAR detector, _Contribution to the American Physical Society Meeting_, 2000.
+
+H. Long, Study of the v0 reconstruction with the STAR TPC, _Contribution to the American Physical Society Meeting,_ 1998.
+
+## Abstract of the Dissertation
+
+**Mid-rapidity \(\Lambda\) and \(\bar{\Lambda}\) Production in Au+Au Collisions at the Relativistic Heavy Ion Collider**
+
+by
+
+**Hui Long**
+
+Doctor of Philosophy in Physics
+
+University of California, Los Angeles, 2002
+
+Professor Huan Z. Huang, Co-chair
+
+Professor Charles A. Whitten Jr., Co-chair
+
+Results from the first measurement of mid-rapidity \(\Lambda\) (\(\bar{\Lambda}\)) production in Au+Au collisions at RHIC (\(\sqrt{s_{{}_{NN}}}\) = 130 GeV) are described. Using the STAR detector, \(\Lambda\) (\(\bar{\Lambda}\)) baryons were measured from the \(\Lambda\rightarrow\pi^{-}p\) and \(\bar{\Lambda}\rightarrow\pi^{+}\overline{p}\) decay channels. The transverse mass spectra of the \(\Lambda\) and \(\bar{\Lambda}\) are found to be well discribed by a Boltzman function. The rapidity density and the slope parameter are obtained for several centrality bins. For the 5% most central collisions, the yield \(dN/dy\) is \(17.0\pm 0.4(stat)\pm 1.8(sys)\) and \(12.0\pm 0.3(stat)\pm 1.3(sys)\) for \(\Lambda\) and \(\bar{\Lambda}\) respectively. The feed-down effects from multi-strangeness particle decay were estimated for the most central bin and it is about 27% of the inclusive measurement. The slope parameter varies from 312 MeV for the most central collisions to 254 MeV for the peripheral collisions. This trend is indicative of larger expansion velocities for the \(\Lambda\)s and \(\bar{\Lambda}\)s in the central collision than in the peripheral collisions. The \(\bar{\Lambda}\) to \(\Lambda\) ratio is \(0.74\pm 0.04\), consistant with a low net baryon density at mid-rapidity, and with no significant variation over the range of 5 selected centrality bins. The \(p_{T}\) distributions of \(\Lambda\) and \(\bar{\Lambda}\) are considerably flatter than that of thenegative hadrons, indicating an increasingly important contribution from baryon production at high \(p_{T}\). The rapidity densities of \(\Lambda\) and \(\bar{\Lambda}\) are approximately proportional to the number of negative hadrons.
+
+## Chapter 1 Introduction
+
+Relativistic heavy ion collisions provide a unique opportunity to study the properties of highly excited hadronic matter under extreme conditions of high density and high temperature [14]. It is generally believed that Quantum Chromodynamics (QCD) is the fundamental theory to describe and determine the Equation of State of such highly excited nuclear matter. In the QCD Theory, the strong force coupling constant depends on the distance scale of the interaction. When the distance is small, perturbative QCD is applicable and when it is large, one has to use lattice QCD. Lattice QCD indicates that when the distance scale becomes comparable to the size of hadron, quarks interact with an effective interaction which goes approximately linearly with the spatial distance [15]. This feature makes it more energetically favorable to produce another quark-antiquark pair than to break them up when trying to seperate a quark/anti-quark pair, or diquark. It therefore becomes an impossible task to isolate a quark from its partner, resulting in the confinement of quarks. On the other hand, if there is a finite system packed with enough quarks and gluons, the coupling between quarks will be small due to small coupling distances. This system will be different from the hadron system in the sense that quarks and gluons are not associated with individual hadrons and are considered quasi-free. This is commonly refered to as the Quark-Gluon Plasma. The phase transition from hadron matter to QGP can happen when the temperature is extremely highor when the baryon density is large. This state of matter is believed to have existed in the early universe, about one microsecond after the Big Bang. Lattice QCD calculations also indicate that the order of the phase transition appears to depend on the quark masses [1].
+
+Motivated by QCD predictions and calculations of this new form of matter, scientists around the world have studied heavy ion collisions in which the conditions to form the QGP can be met in the laboratory. Figure 1.1 shows the QCD phase diagram and possible accessible phases in nature and heavy ion collisions. Results from the Alternating Gradient Synchrotron (AGS) at Brookhaven and the CERN SPS have yielded some evidence which cannot be explained with existing models, for example a \(\rho\) mass shift, \(J/\psi\) suppression and strangeness enhancement. But whether they constitute the signatures for the formation of QGP is still not universally agreed upon.
+
+Currently, scientists are studying heavy ion collisions using the Relativistic Heavy Ion Collider (RHIC) at Brookhaven National Laboratory. With center of mass collision energies 10 times greater than previous heavy ion studies and wider variability in the species of colliding particles, this machine offers greater opportunities in measuring the macroscopic properties of strongly interacting matter and the predicted phase transition back to normal matter. In turn, the experimental results will help better determine the dynamics of QCD interactions and the conditions prevalent in the early universe.
+
+Figure 1.1: QCD phase diagram. The major features of QCD phases possibly accessible in nature and heavy ion collisions are shown. Figure taken from [Yam01].
+
+## Chapter 2 Physics
+
+### 2.1 The Hadron Bag Model and the Critical Temperature
+
+A phenomenological description of quark confinement is provided by the Bag Model[12][13]. In this model, quarks are treated as massless particles inside a bag of finite dimension and as infinitely massive outside the bag. Confinement in the model is the result of the balance of the bag pressure \(B\), which is directed inward, and the tension arising from the kinetic energy of the quarks. If the quarks are confined in the bag, the gluons are as well.
+
+We can get an estimate of the magnitude of the bag pressure by considering massless free fermions in a spherical cavity of radius \(R\). The fermions in the cavity are described by the Dirac equation
+
+\[\gamma\cdot p\psi=0. \tag{2.1}\]
+
+With the boundary condition \(\tilde{\psi}\psi=0\) at the bag surface \(r=R\)[13], the energy of the quarks is
+
+\[p^{0}=\frac{2.04}{R}. \tag{2.2}\]
+
+If we use the bag pressure \(B\) to represent confinement effects, the total energy for system of \(N\) quarks in a bag is
+
+\[E=\frac{2.04N}{R}+\frac{4\pi}{3}R^{3}B. \tag{2.3}\]The equilibrium radius of the system is located at radius \(R\) determined by \(dE/dR=0,\) which leads to
+
+\[B^{1/4}=\left(\frac{2.04N}{4\pi}\right)^{1/4}\frac{1}{R}. \tag{2.4}\]
+
+The bag pressure constant \(B^{1/4}\) is 206 MeV for N=3 and R=0.8 fm.
+
+For a QGP system in thermal equilibrium at high temperature \(T\) within volume, \(V\), the pressure arising from the quarks, antiquarks and gluons can be calculated using classic quantum statistics techniques. The pressure is given by
+
+\[P=g_{total}\frac{\pi^{2}}{90}T^{4}, \tag{2.5}\]
+
+where
+
+\[g_{total}=g_{g}+\frac{7}{8}(g_{q}+g_{\bar{a}})=37 \tag{2.6}\]
+
+and \(g_{g}\), \(g_{q}\), \(g_{q}\) are degeneration numbers of (anti) quarks and gluons. The critical temerature is defined as the temperature when the QGP pressure is equal to the bag pressure. This is given by
+
+\[T_{c}=(\frac{90}{37\pi^{2}})^{1/4}B^{1/4}. \tag{2.7}\]
+
+Thus, we have \(T_{c}=144\) MeV for \(B^{1/4}=206\) MeV. When the temperature is higher than \(T_{c}\), the bag will not be able to contain the quark matter and it will be deconfined to form the QGP. At the critical temperature of 144 MeV, the energy density of the QGP is about 0.68 GeV/fm\({}^{3}\).
+
+### 2.2 Nucleus-Nucleus Collisions
+
+The head-on collision of two nuclei can be represented as two thin disks approaching each other at high speed because of the Lorentz contraction effect in the moving direction. The dynamics of the collision can be viewed from a different perspective in the space-time diagram with the longitudinal coordinate \(z\) and the time coordinate \(t\), as shown in Fig. 2.1. The trajectories of the colliding projectile nucleus and target nucleus are shown as thick lines.
+
+Each nucleus-nucleus collision consists of large number of nucleon-nucleon collisions and each inelastic nucleon-nucleon collision is accompanied by a large loss of energy of the colliding baryons. At very high energy (of the order of 100 GeV/nucleon and above in the center-of-mass system), the slowed-down baryons can still have enough momentum to proceed forward and move away from the collision region. So the collision region is a system with high energy density
+
+Figure 2.1: The Space-time picture of a nucleus-nucleus collision.
+
+and small net baryon density which is similar to conditions in the early universe. The physics in nucleus-nucleus collisions has lots of astrophysical interest [14].
+
+High energy density means high system temperature. When the energy density is high enough, the system can be in the region of the QGP. Since all the deposited energy during a collision eventually manifests itself by producing particles which can be detected directly or indirectly, one can estimate the initial energy density [14] by
+
+\[\epsilon=\frac{m_{T}}{\tau_{0}A}\frac{dN}{dy}|_{y=0}. \tag{2.8}\]
+
+This shows the energy density over the transverse area \(A\) at proper time \(\tau_{0}\) is proportional to the number of particles produced in the mid-rapidity region. \(m_{T}\) is the transverse mass of particles. This result was first derived by Bjorken [14]. The parameter \(\tau_{0}\) is the proper time at which the QGP is produced and it was estimated to be 1 fm/c [14]. For Au on Au collisions at RHIC at \(\sqrt{s_{NN}}=130\) GeV, \(dNdy\) for negatively charged particles is about 280 and the \(\langle P_{T}\rangle\) is 0.508 GeV/c [1]. If we assume all of them are pions, the estimated energy density is about 2.9 GeV/fm\({}^{3}\). This is greater than the energy density estimated for the QGP at the critical temperature.
+
+From the space-time diagram, one can see the QGP takes a time to form and reach thermal equilibrium equal to the proper time, \(\tau_{0}\). After that, when the system continues to expand rapidly, the energy density drops and the transition from the QGP to hadron matter occurs at later times. The hadrons will stream out of the collision region when the temperature drops below the freeze-out temperature. What are directly observable are the particles after the freeze-out.
+
+### \(\Lambda\) (\(\bar{\Lambda}\)) and Strangeness Production
+
+The \(\Lambda\) is a singly strange hyperon with quark content (\(uds\)). \(\bar{\Lambda}\) (\(\bar{u}\bar{d}\bar{s}\)) is its anti-particle. Its major properties are listed in Table 2.1.
+
+The production of strange (\(s\)) and anti-strange (\(\bar{s}\)) quarks was proposed by Rafelski [12] as a probe to study the QGP phase transition. In a deconfined QGP, the \(s\bar{s}\) pair can be copiously produced through gluon fusion (\(gg\to s\bar{s}\))[12, 13]. The energy threshold for this strange quark production mechanism is roughly 2 times the mass of the \(s\) quarks which is about 150 MeV. This is much smaller than the threshold for strangeness production in the hadronic scenario. Therefore, it is considerably easier for a system to produce strange particles if it is in the QGP state than in the hadronic matter state. In pp or pA collisions, the created system is considered too small to hold a QGP. Therefore, these systems are usually used as the scaling reference to show the strangeness enhancement. At CERN SPS, the \(K/\pi\) ratio and the \(\phi/\pi\) ratio have been seen as enhanced from pp or pA to S+S and Pb+Pb collisions [14] (see Fig. 2.2). For strange hyperons, the enhancement increases with strangeness content [14] as shown in Figure 2.3 where the enhancement, E, going from p+Pb to Pb+Pb collisions, is defined as the double ratio of the strange particle yield to
+
+\begin{table}
+\begin{tabular}{c c} \hline \hline \multicolumn{2}{c}{\(\Lambda\) Baryon} \\ \hline Mass & 1115.684 MeV/c\({}^{2}\) \\ \(\tau\) (mean life) & 2.632e-10 s \\ \hline \multicolumn{2}{c}{Major Branching Ratios} \\ \hline \(p\pi^{-}\) & 63.9\% \\ \(n\pi^{0}\) & 35.8\% \\ \hline \hline \end{tabular}
+\end{table}
+Table 2.1: Properties of the \(\Lambda\) Baryon.
+
+the number of participants, normalized to the ratio in p+Pb collisions. Although one can say that the QGP can lead to strangeness enhancement, the observation of the strangeness enhancement doesn't definitely imply the formation of QGP. There are conventional explanations for the enhancement at the CERN-SPS. The recent idea of antihyperon production by multi-mesonic reactions [Gre00] is just an example. In short, whether the enhancement signals the formation of a QGP is still an issue and more systematic studies are still needed at RHIC.
+
+Figure 2.2: Left: Ratio of the multiplicity of kaons and pions for various target-projectile systems as function of the number of participants–global strangeness enhancement. Right: \(\phi/\pi\) ratio measured for Pb+Pb (NA49) compared with p+p data (NA49). This figure taken from [R01].
+
+In addition to the issues related to the QGP, understanding the dynamic evolution of the system is also important. Figure 2.4 shows the mid-rapidity \(M_{T}\) spectra of \(\Lambda\), \(\Xi^{-}\), \(\Omega^{-}\) and antihyperons in Pb+Pb collisions at CERN-SPS energy[11]. We note the shape identity of the \(\Lambda\) and \(\tilde{\Lambda}\) spectra at a level of better than 1% (Figure 2.4. It has been argued that [12] the similarity in the hyperon and antihyperon spectra support a sudden hadronization picture: driven by internal pressure, a QGP fireball expands and ultimately a sudden breakup into final-state particles occurs, which reach detectors without much further rescattering. Deep supercooling requires a first order phase transition and
+
+Figure 2.3: Strange particle enhancement versus strangeness content (WA97). This figure taken from [10].
+
+this in turn implies the presence of a latent heat [Raf01a]. It was also argued that because the \(\Lambda\) contains potentially two original valence quarks, the \(\Lambda\)-spectra are stretched in y, whereas \(\bar{\Lambda}\) spectra are not, as they are from newly-formed particles. However, both have the same thermal-explosive collective-flow controlled shape of \(m_{\perp}\)-spectra.
+
+In a scenario where thermal motion is coupled with a transverse collective expansion, one can expect the measured slope parameter in \(\mathbf{m}_{t}\) spectra to consist of two terms as
+
+\[\langle T\rangle=T_{0}+m\beta^{2}, \tag{2.9}\]
+
+Figure 2.4: Mid-rapidity \(m_{\perp}\)-Spectra of \(\Lambda\), \(\Xi^{-}\) and \(\Omega^{-}\) and antihyperons obtained in 158 GeV/nucleon Pb-Pb interactions by the CERN WA97 experiment [Raf01a].
+
+where \(T_{0}\) is the thermal temperature and \(\beta\) is the common flow velocity. Figure 2.5 shows the dependence of the \(m_{T}\) spectra inverse slope, T, on the particle mass m for Pb+Pb collisions at SPS energy. It seems the multiple strangeness hyperons don't flow as much as the \(\Lambda\). It would be very interesting to see if this flow picture is similar at the RHIC energy which is at almost 10 times higher collision center-of-mass energy.
+
+Measurement of anti-particle and particle rations in heavy ion collisions can also give information on net baryon density. Figure 2.6 shows the anti-baryon to baryon ratio vs. \(\sqrt{s_{{}_{NN}}}\). The non-zero net baryon density is caused by stopping
+
+Figure 2.5: Dependencies of the \(m_{T}\) spectra inverse slopes T on the particle mass m for Pb+Pb collisions at the SPS energy.
+
+effects. It is directly related to how much energy is initially transfered from the projectiles to the system. It is obvious that from AGS to SPS to RHIC, we are approaching the baryon-free region at mid-rapidity. Low net baryon density doesn't neccesarily mean small energy transfer. It only means the energy transfer is small as compared to the initial energy. While the mid-rapidity region is almost baryon-free for the RHIC energy, there is still substantial net baryon density for the SPS energy. This means the initial condition is quite different for the collisions at SPS and RHIC. Therefore, it would not be a surprise to see different results from RHIC. In addition, the two different initial conditions will be different for the SPS and RHIC.
+
+Figure 2.6: Anti-baryon to baryon ratio vs. \(\sqrt{s_{{}_{NN}}}\). Heavy ion data for \(\bar{\Lambda}/\Lambda\) and \(\bar{p}/p\) are shown as well as the \(\bar{p}/p\) ratio from \(p+p\) collisions. There is considerable stopping in heavy ion collisions at the AGS and SPS (\(\sqrt{s_{{}_{NN}}}=4.9\) and \(17.2\) GeV, respectively). Year 2000 RHIC data at \(\sqrt{s_{{}_{NN}}}=130\) GeV indicates that \(B-\bar{B}\) pair production accounts for over half of the baryon number in the central rapidity region.
+
+add more constraints to some theoretical models. When finite baryon density is present, breaking the particle/antiparticle symmetry, the exact balance between \(s\) and \(\bar{s}\) requires non-trival relations between the parameters characterizing the final state hadron abundances. These strangeness conservation constraints imply different particle distributions for different structures of the source [17]. In addition, results of strangeness production from WA97 and NA49 experiments at the CERN SPS indicated the strangeness has little dependence on centrality. Lighter ion data obtained previously also confirm the impression that strangeness production is basically constant throughout the SPS domain [18]. From the baryon ratios, one can tell that the initial conditions are rather different from the SPS to RHIC. Therefore, it would be very interesting to compare the observations on strangeness production at the SPS to those at RHIC.
+
+In strangeness production, the phase space occupancy, \(\gamma_{s}\), is a very important parameter in the statistical model. \(\gamma_{s}\)=1 means the strangeness reaches chemical equilibrium. This can be derived from the numbers of \(\Lambda\), \(\bar{\Lambda}\), protons and anti-protons [19]:
+
+\[\gamma_{s}^{2}=\frac{\Lambda}{p}\frac{\bar{\Lambda}}{\bar{p}}. \tag{2.10}\]
+
+There have been measurements of this ratio at both AGS and SPS. It was found the ratio is very high, considering the mass of the \(\bar{\Lambda}\) is larger than the \(\bar{p}\). Results from Experiment NA35 (Fig. 2.7 ) show the ratio in pp and pA reactions is small (\(<1\)) and increase by almost a factor of 5 in S+S, S+Ag, S+Au reactions. A preliminary result for the ratio \(\bar{\Lambda}/\bar{p}\) from NA49 is \(3\pm 1\)[10]. The AGS/E864 Collaboration has deduced a \((\bar{\Lambda}+\bar{\Sigma^{0}}+1.1\bar{\Sigma^{+}})/\bar{p}\) ratio in Au+Au collisions at mid-rapidity and zero \(p_{T}\). A strong increase of the \(\bar{\Lambda}/\bar{p}\) ratio from peripheral to central collisions is deduced from experimental data at the AGS [18]( Figure 2.8). The large ratio in the mid-rapidity and low \(p_{T}\) region is mainly due to the strong absorption of the \(\bar{p}\) and \(\bar{\Lambda}\)[20].
+
+At RHIC, since the net baryon density at mid-rapidity is much smaller than that at the AGS or SPS, absorption effects should be much reduced. Therefore, the measurement of the ratio of \(\bar{\Lambda}\) to \(\bar{p}\) should be closer to the initial ratio.
+Figure 2.8: UrQMD calculation of the freeze-out (\((\bar{\Lambda}+\vec{\Sigma^{0}}+1.1\vec{\Sigma^{+}})/\vec{p}\) ratio at mid-rapidity \(|\delta y|<0.4\) and low \(P_{T}\) (\(p_{T}<300\) MeV/c)as function of impact parameter (open squares), compared with experimental results in a similar kinematic region (filled circles). Figure taken from [22].
+
+## Chapter 3 Facilities
+
+### 3.1 RHIC Accelerator Complex
+
+The Relativistic Heavy Ion Collider is located at Brookhaven National Laboratory on Long Island, NY. The facility consists of two rings of superconducting magnets, each with a circumference of 2.4 miles. The whole RHIC complex (Figure 3.1) includes also the Tandem Van de Graaff accelerators, the Booster Synchrotron and the Alternating Gradient Synchrotron (AGS). Gold(Au) atoms are generated in the Pulsed Sputter Ion Source in the tandem. They are accelerated and passed through two Au foils to strip off some of the electrons from the atoms. That leaves a beam of Au atoms an energy of 1 MeV/nucleon and a distribution of charge states peaking at +32e. The 1 MeV/nucleon Au is then transferred to the booster where it is accelerated to 95 MeV/nucleon and further stripped to a net charge of +77e before it is injected to the AGS. In the AGS, the energy of the Au beam is increased to 10.8 GeV/nucleon and the beam is bunched. In the final stage of the injection into the RHIC rings, all the orbital electrons of the Au atoms are stripped off and the atoms have a charge of +79e. Once injected into RHIC, the bunches are accelerated to collision energy and kept in the rings by the magnetic fields produced by the superconducting magnets. For proton beams, the Linear Accelerator is used as the source instead of the tandem.
+
+RHIC is the first machine in the world capable of colliding heavy ions. It can
+
+\begin{table}
+\begin{tabular}{l c} \hline \hline Physical Parameters & \\ \hline No. Intersection Regions & 6 \\ No. Bunches/ring & 60 \\ Bunch Spacing (nsec) & 213 \\ Collision Angle & 0 \\ Free Space at Crossing Point (m) & \(\pm 9\) \\ \hline Performance Specifications & _Au_ & \(p\) \\ \hline No. Particles/Bunch & \(1\times 10^{9}\) & \(1\times 10^{11}\) \\ Top Energy (GeV/u) & 100 & 250 \\ Luminosity, average (cm\({}^{-2}\)sec\({}^{-1}\)) & \(\sim 2\times 10^{26}\) & \(\sim 1\times 10^{31}\) \\ \hline \hline \end{tabular}
+\end{table}
+Table 3.1: Physical parameters and performance specifications for the Relativistic Heavy Ion Collider (RHIC).
+
+Figure 3.1: Diagram of the AGS - RHIC facility..
+
+[MISSING_PAGE_FAIL:40]
+
+Figure 3.2: First collision at \(\sqrt{s_{{}_{NN}}}=60\) GeV. Side view of TPC fiducial volume. Tracks are reconstructed from online level-3 trigger.
+
+**Figure 3.3**: First collision at \(\sqrt{s_{{}_{NN}}}=130\) GeV. End view of TPC fiducial volume. Tracks are reconstructed from online level-3 trigger.
+
+cludes these sub-systems: Time Projection Chamber (TPC) [1], Silicon Vertex Tracker (SVT), E-M Calorimeter (EMC), Forward Time Projection Chamber (FTPC), Central Trigger Barrel (CTB), Zero Degree Calorimeters (ZDC), Time of Flight (TOF) and magnet. For the year 2000 data-taking, the setup consisted of only the TPC, CTB, ZDC and one ladder of SVT. A ring-imaging Cerenkov detector (RICH) with an area of approximately one square meter is positioned directly outside the TPC for high-\(p_{t}\) particle id during the first two years of running.
+
+The STAR magnet can provide uniform fields along the beam direction with a strength of 0.25 Tesla to 0.5 Tesla. For the Year 2000 physics run, the field was set at 0.25 Tesla. Figure 3.5 shows the mapped field [14] in the radial direction at full field. The deviation from a uniform field is within the design value of 0.5% over the volume of the TPC. The mapped field was used in the
+
+Figure 3.4: The STAR experiment.
+
+offline reconstruction to correct the position of hits on tracks. Figure 3.6 shows the ExB distortion in both radial and axial directions in the TPC due to the non-uniform B field.
+
+The TPC is the main tracking detector of the STAR. It covers the pseudorapidity region -2 \(<\eta<\) 2. Figure 3.7 is a perspective view of the STAR TPC. The TPC is divided into two longitudinal drift regions, each 2.1 m long, by a high voltage membrane. The inner field cage (r=0.5 m), the outer field cage (r=2.0 m) and the anode and pad sectors, which are 2.1 m away from the central membrane, define two coaxial cylindrical drift volumes of 24.75 m\({}^{3}\).
+
+The chamber is filled with a gas mixture of 90% Argon and 10% Methane. The choice of the P10 gas for the TPC was made as a compromise among the
+
+Figure 3.5: Radial component of the magnetic field as a function of radius at Z=210 cm. This plot demonstrates the uniformity of the magnetic at full field since the maximal deviation of the field within any volume will occur on the surface of that volume. The deviation is largest at the outer-most portion of the TPC starting from the center and changes sign from inner sector to outer sector (\(r>120\) cm). The mapped field was used in the offline correction.
+
+Figure 3.6: 3D view of ExB distortions. The calculated distortion on hit position caused by the ExB effects. The distortion is given as a function of R and Z for a single plane. The full map is computed as a function of 3D position in the TPC.
+
+Figure 3.7: The STAR Time Projection Chamber.
+
+following 10 features [14]:
+
+1. The gas mixture has to work at atmospheric pressure ;
+2. The electron drift velocity must be \(2.0\) cm/\(\mu\)s at \(E<300\) V/cm ; The field limit is determined by the tolerances of the insulators on the field cages;
+3. At nominal field, the drift velocity should be saturated to reduce the effects from inhomogeneities in the E field, and variations from gas pressure (gas pressure changes with atmospheric pressure);
+4. Small transverse and longitudinal diffusion;
+5. Large \(\omega\tau\), to reduce transverse diffusion;
+6. High ionization efficiency;
+7. Low electron absorption over drift length;
+8. High drift velocity for positive ions in order to minimize the space charge accumulation;
+9. Low rate of aging and high resistance to high voltage breakdown;
+10. Gas should be cheap, safe and affordable in large quantities.
+
+When a high velocity charged particle travels through the gas-filled TPC volume, the gas molecules will be ionized and produce positive ions and electron clouds along the path. The energy loss due to ionization is typically a few KeV per cm of gas. This gives a total energy loss of a few MeV over a path length of 2 m. For most particles produced in heavy ion collisions, the kinetic energy is above 100 MeV. Under the influence of the electric field provided by the central membrane (CM), inner field cage (IFC), outer field cage (OFC) and the grounded anode plane, the electrons drift to the anode plane. The arrival time and locations of the electron clusters are recorded. Before the signals produced at anode plane can be read out by the electronics system, they are collected by the pads shown in the figure 3.8. The signals on pads are image charges induced by the electron avalanches in the region close to the anode wires where the E field is very strong.
+
+There are 144,000 pads grouped into 24 sectors, 12 on either end of the TPC and each with two subsectors (Figure 3.9), an inner subsector and outer subsector. The inner sector is made of 13 pad rows and the outer sector has 32 rows. A
+
+Figure 3.8: The Wires and Pads Layout. There are three layers of wires: gating grid, ground and anode wires. Each layer is equally spaced. The pad plane lies beneath the anode wires.
+
+straight track passing through both sectors gives 45 \(dE/dx\) samples. This leads to a good ability in particle identification by means of energy loss measurements. The configurations of inner sector pads and outer sector pads are different. The sizes of pads were designed according to the required position resolution along pad row direction. With dimensions of 2.85 mm \(\times\) 11.5 mm, the inner pads are smaller than the outer pads with dimensions of 6.2 mm \(\times\) 19.5 mm. This gives them better two-track resolution, which is needed in the region where the track density is high.
+
+The analog signals collected on the pad plane are amplified, shaped and then digitized into discrete signals in time. The amplitude of the digital signals is used later to form clusters and hits offline, while the timing information carried by them can be used to determine the hit position in the drift direction if the drift velocity is known. The formulas to reconstruct the 3 dimensional position
+
+Figure 3.9: A TPC super-sector. A super-sector consists of an inner sector and an outer sector.
+
+of the centroid of an ionization cluster will be discussed in Chapter 4.
+
+Since the drift paths of electrons follow the electric field lines, the distortion of the E field has to be very small. The OFC and IFC serve this purpose. The OFC and IFC include a series of gradient rings set to a certain voltage by a chain of resistors that connect to the CM. In this way, the voltage changes at the boundary match the decrease in the body part of TPC and this results in a near perfect axial E field. The schematic Figure 3.10 shows the resistors for the outer field cage.
+
+The discrete signals from each sector are delivered to DAQ from 6 readout cards, each transporting the data from 1152 pads in several contiguous padrows. Each pad produces data from 512 timebins. The data from each readout card are sent to a DAQ reciever card via an optical fiber whose bandwidth is 1.5 Gbit/s. TPC readout starts after the L0 trigger latency(\(\sim\)1\(\mu\)s). In the DAQ, these data
+
+Figure 3.10: The Resistors for the Outer Field Cage.
+
+are processed as appropriate, which may include pedestal subtraction, gain correction, and zero suppression. It also assembles the data from each detector subsystem into a form suitable for recording and distribution via network to analysis and monitoring tasks. Combined with the L3 trigger system, the DAQ also provides the infrastructure to allow event selection based on physics criteria. A typical tape archiving rate is about 1 TPC event/s, which translates to 16 Mbyte/s. Compared to the beam crossing rate, the STAR data-taking is relatively slow due to the event size and the slow TPC. So the trigger system must look at every RHIC crossing and decide whether or not to initiate recording that event.
+
+The lowest level trigger system is composed of a CTB and two ZDCs. The CTB is an array of plastic scintillators configured as cylindrical barrel surrounding the TPC. The ZDC's are located 18 meters up and downstream along the beam direction and measure beam-like neutrons from the fragmentation of colliding nuclei.
+
+For the year 2000 data taking, the experimental setup consisted of the TPC, CTB, and ZDC. There was also one ladder of prototype silicon detector from the SVT and a small acceptance ring-imaging Cerenkov detector in place.
+
+STAR offers excellent capabilities to study hadronic observables using the TPC, FTPC, and the silicon detectors, and good photon and electron coverage using the TPC and the EM calorimeter. Because of STAR's large acceptance, it is possible to measure the quantities listed in Table 3.2 on an Event-by-Event basis with reasonable statistics. For the first year, STAR has detected all hadronic observables listed in Table 3.2, as well as the \(\pi^{0}\). With such a large sample of measurable particles, STAR has the unique opportunity to describe the global features of the heavy ion collisions recorded during the summer of 2000.
+
+\begin{table}
+\begin{tabular}{l l} \hline \hline  & \multicolumn{2}{c}{Hadronic Observables} \\ \hline a) Charged hadrons: & \(p\), \(\bar{p}\), \(\pi\)’s, \(K\)’s, \(\Xi^{-}\), \(\bar{\Xi}^{+}\), \(\Omega^{-}\), \(\bar{\Omega}^{+}\), \(d\), \(\bar{d}\) \\ b) Neutral hadrons: & \(\Lambda\), \(\bar{\Lambda}\), \(K^{0}_{s}\), \(\phi\), \(\rho\), \(K^{*}\), \(\bar{K}^{*}\) \\ c) Spectra: & \(p_{t}\), particle ratios, slope parameters \\ d) Collision Geometry: & Flow, HBT, E-by-E Correlations, Event Multiplicity \\ \hline \multicolumn{2}{c}{Electromagnetic Observables} \\ \hline e) \(\pi_{0}\), \(\eta\) distributions \\ f) High p\({}_{t}\) particles and jets \\ \hline \hline \end{tabular}
+\end{table}
+Table 3.2: Quantities measurable on an Event-By-Event basis.
+
+## Chapter 4 Simulation and TPC Response Simulator
+
+### 4.1 GEANT4 and GSTAR
+
+GEANT4 is a software package developed by the CERN RD44 collaboration. It is a toolkit for full and fast Monte Carlo simulation of detectors in high energy physics. It is also designed to take into account the requirements of space and cosmic ray applications and nuclear and heavy ion applications [Pro]. GEANT4 allows the complete description of geometry and materials of detector elements.
+
+The kinematics of the primary physics events is used to generate particles which are then tracked through the detector, simulating their physics interactions in matter and the effect of fields and boundaries on their trajectories. The GEANT4 physics processes include the electromagnetic physics and hadronic physics. The electromagnetic physics encompasses lepton physics, gamma, x-ray, optical photon physics, and muon physics. It includes various implementations of ionization, Bremsstrahlung and multiple scattering effects. Photoelectric and Compton effects, pair conversion, synchrotron and transition radiation, scintillation, refraction, reflection, absorption and Raleigh effect are implemented as well. The hadronic physics includes inelastic and elastic scattering, decay, capture and dedicated processes for stopping kaons and pions. Lepton-hadron interactions, such as muon-nuclear interactions, photo-fission and general gamma-meson conversion are also implemented.
+
+The GSTAR is the framework to run the STAR detector simulation using GEANT [Nev]. It is an enhanced version of the interactive GEANT. It consists of a set of modules (ending in '.g') which provide either the geometry of different subsystems of the STAR detector or procedures to perform operations such as I/O, particle generation, and in-flight analysis. For example, the file tpcgeo.g provides the information on both the position of the TPC components and types of material they are made of. The GSTAR accepts text formated files as input and writes out a file with a platform independent format, a.FZ file. All the commands to run the STAR simulation can be put into a.kumac file.
+
+The output information from GSTAR is stored in track tables, vertex tables and hit tables. Tracks and vertices include both the primary ones and secondary ones. For each vertex, information such as position, medium, detector, number of daughter tracks if decayed, number of parent track which produced it, etc. will be stored. In track tables, charge and kinematic variables (momentum, energy) are available as well as the start and stop vertex of a track and information about the hits associated with the track. GEANT traces particle trajectories in steps (5\(\mu\)m). For the TPC, to minimize the amount of recorded information, GSTAR doesn't write a new hit on each GEANT step, but tries to write a single hit per padrow. There are typically 45 hits associated with a TPC track. The position of a hit is determined by midpoint of a track segment over a padrow. The actual stored position is calculated with parabolic approximation with an accuracy of 5 \(\mu\)m[Nev]. In the case when a particle crosses a padrow with large crossing angle, and its path length exceeds 5 cm or a particle turns back within a padrow, the hit position is calculated as the midpoint of the entering and exiting point on the padrow. The local momentum and the total energy loss over the track segment are stored with the hit as well.
+
+### TPC Response Simulator
+
+The TPC Response Simulator (TRS)[Las] is the software package that simulates the response of the STAR TPC to the ionization of charged tracks in the TPC gas. Physical processes included in the simulation are the drift of the ionized electrons in the gas, amplification on the sense wires, induction of signal on the readout pads, and the response of the readout electronics which generate digitized data. Most of the processes occur in the region close to the end of the chamber where the MWPC (Multi-Wire Proportional Chamber) is located. The MWPC's consist of three planes of wires and a pad plane (Figure 4.1) connected to the front end readout electronics. The three wire planes are the gating grid, the ground grid, and the anode grid. The ground grid and gating grid help to define the drift field as indicated by the lines on Figure 4.1 when the gating is on ( open ) and off ( closed ). The simulation deals with only the case when the gating grid is on. The anode wires are biased to a high voltage to provide the necessary electrical field to avalanche the electrons from the track ionization.
+
+#### 4.2.1 Charge Re-distribution
+
+The input to the TRS are the hits from GEANT simulation. Each hit has the size of the pads which is on the order of 2 cm. Therefore, a process to divide the track segment further into smaller pieces is needed before the simulation. Each segment is broken into subsegments with a size of 4 mm (Figure 4.2). Then, how to deposit the total energy onto the subsegments becomes a problem. In GEANT, the total energy is accumulated through all the small steps in the simulation, but this is not a practical solution for the TRS because of the computation time. In practice, a binary partition alogrithm [1] is used to determine how much charge should be assigned to the subsegments with the conservation of totalFigure 4.1: The drift field lines in a typical MWPC. The three wire planes, the gating grid, the ground grid, and the anode grids are shown as well as the pad plane. (a) Drifting electrons are collected on the gating grid until the gate is opened by a triggering event. A shielding grid at the ground potential is used to terminate the drift region. Electrons drift through an open gating grid (b) pass through to the amplification region around the anode wires. The slow positive ions are blocked from entering the drift region by closing the gating grid after the electrons have drifted through. Figure was taken from the Particle Data Book[GG00].
+
+**Figure 4.2**: The Charge Segmentation.
+
+charge involved. This algorithm starts with the parent segment Q and divides it into two parts Q\({}_{1}\) and Q\({}_{2}\) with equal length. The mean rate of the ionization energy loss is given by the Bethe-Bloch equation [12],
+
+\[-\frac{\mathrm{d}E}{\mathrm{d}x}=Kz^{2}\frac{Z}{A}\frac{1}{\beta^{2}}\left[ \frac{1}{2}ln\frac{2m_{e}c^{2}\beta^{2}\gamma^{2}T_{max}}{I^{2}}-\beta^{2}- \frac{\delta}{2}\right]. \tag{4.1}\]
+
+For a proton, the ionization energy loss rate reaches the lowest point at an energy of about 3 GeV. \(\langle dE/dx\rangle_{\mathit{mip}}\), energy loss rate by minimum ionizing protons, is sometimes a convenient reference to the \(dE/dx\) of other particles at different energies. For the charge segment concerned here, there are two quantities related to the energy loss rate. One is the measured or simulated \(\langle dE/dx\rangle\), the other is the reading from its Bethe-Bloch curve \(\langle dE/dx\rangle_{\mathit{Bethe-Bloch}}\). The value of \(Q_{1}\) will be determined by a reflected Gaussian distribution if \(\langle dE/dx\rangle/\langle dE/dx\rangle_{\mathit{Bethe-Bloch}}>1\) or a reflected Landau distribution otherwise. Using \(i=0\) to denote a gaussian distribution and \(i=1\) for a Landau distribution, the mean \(\langle Q_{i}\rangle\) and the \(\sigma_{i}\) of the distributions are
+
+\[\langle Q_{i}\rangle=a_{i}L^{\epsilon_{i}}\langle\mathrm{d}E/\mathrm{d}x \rangle_{\mathit{Bethe-Bloch}}^{\alpha_{i}+\lambda_{i}}\langle\mathrm{d}E/ \mathrm{d}x\rangle_{\mathit{mip}}^{-\alpha_{i}}\langle\mathrm{d}E/\mathrm{d}x \rangle^{-\lambda_{i}}, \tag{4.2}\]
+
+and
+
+\[\sigma_{i}=L^{K_{i}}+G_{i} \tag{4.3}\]
+
+where
+
+\[K_{i}=\left[\frac{\langle\mathrm{d}E/\mathrm{d}x\rangle_{\mathit{Bethe-Bloch}} ^{\gamma_{i}}/\langle\mathrm{d}E/\mathrm{d}x\rangle_{\mathit{mip}}^{\gamma_{ i}}+c_{i}}{\langle\mathrm{d}E/\mathrm{d}x\rangle/\langle\mathrm{d}E/\mathrm{d}x \rangle_{\mathit{Bethe-Bloch}}^{\beta_{i}}}\right], \tag{4.4}\]
+
+\[G_{i}=\langle\mathrm{d}E/\mathrm{d}x\rangle_{\mathit{Bethe-Bloch}}^{\delta_{i} }/\langle\mathrm{d}E/\mathrm{d}x\rangle_{\mathit{mip}}^{\delta_{i}}+d_{i}+b_{i }\langle\mathrm{d}E/\mathrm{d}x\rangle/\langle\mathrm{d}E/\mathrm{d}x\rangle _{\mathit{Bethe-Bloch}}, \tag{4.5}\]with L the length of charge segment in cm, \(a_{0}=0.367\), \(a_{1}=0.267\), \(\alpha_{0}=0.05\), \(\alpha_{1}=0.1\), \(\lambda_{0}=0.2\), \(\lambda_{1}=1.0\), \(\epsilon_{0}=0.0423\), \(\epsilon_{1}=0.0852\), \(\beta_{0}=1.0\), \(\beta_{1}=0.267\), \(b_{0}=0.0\), \(b_{1}=-0.02\), \(\gamma_{0}=0.0041\), \(\gamma_{1}=0.0052\), \(c_{0}=-1.02\), \(c_{1}=-1.02\), \(\delta_{0}=-0.022\), \(\delta_{1}=-0.0058\), \(d_{0}=-1.88\), \(d_{1}=-1.92\).
+
+After \(Q_{1}\) is determined, \(Q_{2}\) is \(Q-Q_{1}\). The process is iterated using these quantities as the parent segments, and so on until the segments are smaller than 4 mm.
+
+#### 4.2.2 Drift of Electrons in the TPC
+
+Assuming the magnetic field B is parallel to the electric field E and the E field is uniform in the whole drift volume of the TPC, an electron has a constant drift velocity in the E direction
+
+\[\textbf{u}=\frac{e}{m}\tau\textbf{E}, \tag{4.6}\]
+
+where\(\tau\) is the average time interval between successive collisions of the drifting electron and the medium gas molecules[11]. Even in this much-simplified case, due to the random nature of the collisions, point-like clouds of electrons which begin to drift at time t=0 from the origin in the E direction will, after some time t, assume the following Gaussian density distribution:
+
+\[n=\left(\frac{1}{\sqrt{4\pi Dt}}\right)^{3}exp\left(\frac{-r^{2}}{4Dt}\right), \tag{4.7}\]
+
+where \(r^{2}=x^{2}+y^{2}+(z-ut)^{2}\); D is the diffusion constant. Due to the electric anisotropy effects, the diffusion constant is not the same in the tranverse and longitudinal direction and we have the density distribution:
+
+\[n=\frac{1}{\sqrt{4\pi D_{L}t}}\left(\frac{1}{4\pi D_{T}t}\right)^{2}exp\left[ (-\frac{x^{2}+y^{2}}{4D_{T}t})/4D_{T}t-\frac{(z-ut)^{2}}{4D_{L}t}\right]. \tag{4.8}\]
+
+when the magnetic anisotropy is included. The tranverse diffusion constant \(D_{T}\) will change as a function of the B field (Figure 4.3).
+
+In the TRS, the TPC pad plane local coordinates are used (Figure 4.4). The Z direction is perpendicular to the pad plane and the X direction is along the pad row and Y direction is the center line of the sector. By this definition, Figure 4.4 is the YZ side view of the drift. For each sub-segment, a uniform electron density approximation is assumed. This will take into account the finite size and orientation of the sub-segment and is considered closer to the real situation and better in simulating the interaction effects among segments. However, since a full 3D description of the density distribution presents a great challenge for fur
+
+Figure 4.3: The Transverse Diffusion Constant vs. B\({}^{2}\). This is a linear function of \(B^{2}\) for both small and large B. D(0) is the diffusion constant at zero B field and \(\omega=eB/m\).
+
+ther calculations, another practical assumption is made in the TRS. Since the electrons mostly drift along the field lines (Figure 4.5 and Figure 4.6), a charge distribution spreading in the Y direction will be diverted into 4 small groups and collected by the sense wires which have fixed Y position. Therefore, the original charge spreading in the Y direction becomes unimportant, only the Y value of the centroid of the original electron cloud is important since that decides which portion and how much of the charge goes to which wires. With these assumptions and approximations, we have a final charge distribution:
+
+\[Q(x,y,z,x_{0}^{\prime},y_{0}^{\prime},z_{0}^{\prime})=Q_{0}(x,y,z,x_{0},y_{0},z_{0},L)\otimes n(x,y,z,x_{0},y_{0},z_{0}) \tag{4.9}\]
+
+Figure 4.4: The YZ side view of the electron drift in pad plane coordinate system.
+
+where L is the length of the charge segment, \((x_{0},y_{0},z_{0})\) is the centroid of the original electron cloud with the original charge distribution
+
+\[Q_{0}(x,y,z,x_{0},y_{0},z_{0})=\frac{1}{L_{x}L_{z}}\delta(y_{0})h(L_{x}-|x-x_{0}| )h(L_{z}-|z-z_{0}|)\delta(x_{0}-x_{0}^{\prime})\delta(y_{0}-y_{0}^{\prime}) \delta(z_{0}-z_{0}^{\prime}), \tag{4.10}\]
+
+with \((x_{0}^{\prime},y_{0}^{\prime},z_{0}^{\prime})\) the new position of the centroid of the smallest sub-segment in simulation when it reaches the anode wire plane. The shift from the old centroid to the new centroid is also the effect of diffusion.
+
+The configuration of the wires and anode voltage set
+
+Figure 4.5: The Drawing of the **E** field lines in the MWPC (inner sector). Charge segments are split by the gating grid and ground wires and take different paths to the anode wires. Isochrones are spaced at 0.010 \(\mu\)s.
+
+inner sectors and outer sectors. From the ground plane to the anode wire plane, the drift time is different for inner and outer sectors. This effect has been studied in detail elsewhere [21]. A numerical calculation was made which gives an arrival time difference of 0.0870 \(\mu\)s [15] at the nominal TPC drift field (E=148.05 V/cm). This gives an equivalent drift length of 0.47 cm. This parameter can be well determined with an accuracy of 200 \(\mu\)m by calibration.
+
+Because of the assumption of perfectly aligned \(\mathbf{E}\) field and \(\mathbf{B}\) field, the \(\mathbf{E}\times\mathbf{B}\) distortion is not simulated in the TRS, although it has the framework to do so. In
+
+Figure 4.6: The Drawing of the \(\mathbf{E}\) field lines in the MWPC (outer sector). Charge segments are split by the gating grid and ground wires and take different paths to the anode wires. Isochrones are spaced at 0.010 \(\mu\)s.
+
+the region of the anode sense wires, it is obvious the \(\mathbf{E}\times\mathbf{B}\) is not zero. This will pull the centroid a little to either postive X or negative X direction depending on the force exerted by the pull of \(\mathbf{E}\times\mathbf{B}\) on the electrons. This effect is included in the simulation with rough estimation of the pull. It was checked that there was no big difference in final results whether this effect is turned on or off.
+
+Even when the gating grid is switched on, there are still some field terminated on the wires. As a result, some of the electrons are not able to drift through the grid. The gating grid voltages are set at -202 Volts when it is switched on during the STAR TPC operation. At that voltage level, the transparency of the gating grid is close to 100%. During their drift, electrons may be absorbed in the gas by the formation of negative ions. Some molecules such as O\({}_{2}\) are capable of capturing electrons at low collision energy. The oxygen concentration in the TPC gas is controlled to be at very low level, thus the charge loss due to the attachment is approximately 2.5% [Las]. This can either be considered negligible or the effect can be simply absorbed as a constant in the simulation.
+
+#### Amplification of Ionization
+
+When an electron drifts towards the anode wire, it travels in an increasing electric field E, which, in the vicinity of the wire at radius r, is given by the linear charge density \(\lambda\) on the wire:
+
+\[E=\frac{\lambda}{2\pi\epsilon}. \tag{4.11}\]
+
+Once the electric field near the wire is strong enough that between collisions with the gas molecules the electron can pick up sufficient energy for ionization, another electron is created and the avalanche starts (Figure 4.7).
+
+As the number of electrons multiply in successive generations, the avalanche continues to grow until all the electrons are collected on the wire. The avalanche does not, in general, surround the wire but develops preferentially on the approaching side of the initiating electrons [1]. In the direction along the wire, the avalanche spreads on the order of 75 \(\mu\)m based on a detailed Monte Carlo simulation of the scattering process involved in the multiplication [10]. This is still small compared to the size of the electron clouds which are simulated in the TRS. It was also observed that the space charge effects were negligible during the avalanche [10].
+
+Under normal gas conditions, an avalanche lasts for a fraction of a nanosecond,
+
+Figure 4.7: The schematic development of the avalanche on the anode wires.
+
+but the physics processes inside it are quite complicated. They involve single and multiple ionization, optical and metastable excitations, energy transfer by collisions between atoms, etc [1]. In general, when the charge density in the avalanche is negligible compared with the linear charge density of the wire, the number of collected electrons is proportional to the product of a gain factor G and the number of electrons that initiate the avalanche \(n_{0}\) :
+
+\[N=n_{0}G. \tag{4.12}\]
+
+G is determined by the gas properties and the field. For the outer sectors, the anode wire voltage is 1170 Volts. It is 1390 Volts for the inner sectors. The estimated P10 gas gains with these voltages are [1]:
+
+\[G_{inner}=2503, \tag{4.13}\]
+
+\[G_{outer}=1315. \tag{4.14}\]
+
+Due to the random nature of the multiplication process, there is always statistical fluctuation of the gain. In theory, the distribution of avalanches started by single electrons can be described by Polya or negative binomial distribution functions [1]. When the number of initial electrons is large, the central-limit theorem of statistics applies. The gain simply follows a Gaussian distribution. In the TRS, when the number of initial electrons is less than 6, a Polya function is called for each electron, otherwise a Gaussian function is called once to approximate the average number of electrons.
+
+The gas gain is affected by the gas density, which changes with the pressure [1] :
+
+\[dG/G=constant*dp/p. \tag{4.15}\]Figure 4.8 is a plot showing the relationship between the gain and pressure. The pressure was recorded by the gas system of the TPC, the gain calculated by the offline analysis using the pion dE/dx band in the momentum range \(0.25<p<0.30\) GeV/c for several runs. The data points are well described by Equation 4.15. But this feature is not included in the simulation because the variation is slow in time and it is better to correct the real data to modify the Monte Carlo simulation.
+
+#### 4.2.4 Signal Generation
+
+A small test charge \(q\) that travels between two points 1 and 2 under the influence of the field E reduces the electric energy \(\varepsilon\) of system by the amount
+
+\[\Delta\varepsilon=\int_{1}^{2}q\mathbf{E}\cdot d\mathbf{r}=q(\Phi_{1}-\Phi_{2}), \tag{4.16}\]
+
+proportional to the potential difference between the two points. This change in energy is the source of the signal.
+
+After an avalanche occurs in the TPC MWPC, the electrons do not have much potential difference to travel before reaching the anode wire, while the ions will travel to the ground wires which have a large potential difference with respect to the anode wires. Therefore, almost all the energy and all the signal are due to the motion of positive ions.
+
+We can write the change in energy as a function of time as [1]
+
+\[\Delta\varepsilon=qVS(t), \tag{4.17}\]
+
+with
+
+\[S(t)=\frac{ln(1+t/t_{0})}{2ln(D/a)}, \tag{4.18}\]
+
+where \(S(t)\) is a function that rises from 0 to 1, \(t_{0}\) is of order of 1 nanosecond, \(V\) is the potential of the anode wire, D is the distance between the anode plane and ground plane. Using \(\Delta E\)=\(\Delta Q(t)*V\), We have signal
+
+\[\Delta Q(t)=qS(t). \tag{4.19}\]
+
+\(S(t)\) is plotted in Figure 4.9. It is seen to reach more than 0.5 after 200 ns, and nearly 1 after 68 \(\mu\)s. The differentiation of \(\Delta Q(t)\) is
+
+\[I(t)=\frac{q}{ln(D/a)}\frac{1}{(t+t0)}, \tag{4.20}\]which is origin of the famous 1/t tail of the signal.
+
+A more precise form of Equation 4.20 can be derived from Ramo's Theorem: The current \(I\) that flows into one particular electrode \(i\) under the influence of a charge \(q\) moving at \(r_{1}\) with velocity \(v\) can be calculated using
+
+\[I_{i}=-q\frac{\left(v\cdot E_{i}(x_{1})\right)}{V_{i}} \tag{4.21}\]
+
+from the field \(\mathbf{E}_{i}(r_{1})\) created by raising this electrode to potential \(V_{i}\) and grounding all others, in the absence of the charge. Therefore, the image current on the pad plane induced by a charge moving towards the ground grid is related to
+
+Figure 4.9: Plot of \(S(t)\) from Eq. 4.18 on a logarithmic time scale. The example was calculated for t\({}_{0}\)=1.0 ns and D/a=200
+
+\(\mathbb{E}_{i}(r_{1})\) in system 1 (Figure 4.10) by Equation 4.21. System I can be decomposed into two simpler systems: system II, system III. [25](Figure 4.10). With \(s\) being the wire spacing distance, \(z_{0}\) being the distance between wire plane and the conductive plane, \(r\) being the radius of the wires, \(\lambda\) the charge density on the wires and \(1/G=1-s/(2\pi Z_{0})ln(2\pi r/s)\), the fields in system I is constant at \((1-G/(2-G))/D\)\(Volt/m\) and the solution of the field in system III is [1]
+
+\[E_{z}(z)=\frac{\lambda}{2s\varepsilon}\left\{\frac{sinh[(2\pi/s)(z-z_{0})]}{A_ {1}}-\frac{sinh[(2\pi/s)(z+z_{0})]}{A_{2}}\right\}, \tag{4.22}\]
+
+\[V_{wire}=\frac{\lambda z0}{s\varepsilon}\left(1-\frac{s}{2\pi z_{0}}ln\frac{2 \pi r}{s}\right)=1, \tag{4.23}\]
+
+where
+
+\[A_{1}=cosh\left[\frac{2\pi}{s}(z-z_{0})\right]-1, \tag{4.24}\]
+
+\[A_{2}=cosh\left[\frac{2\pi}{s}(z+z_{0})\right]-1, \tag{4.25}\]
+
+However, a normal electronic amplifier produces its signal in a short time - usually much less than a microsecond - by using only the early part of the original signals when the ions are still in the vincinity of the wire. The detector is faster and the trade-off of this is that only a fraction of the total charge is seen by the downstream electronics (i.e. the ADC). This fraction F is given by [Las]:
+
+\[F=\frac{ln(1+t_{m}/t_{0})}{ln(1+t_{s}/t_{0})}, \tag{4.26}\]
+
+where \(t_{m}\) is the length of time the original signal would persist (\(\sim\)62 \(\mu\)s), \(t_{0}\) is the characteristic development time (\(\sim\)1 ns), and \(t_{s}\) is the shaping time (\(\sim\)180 ns). F is close to 0.5 for STAR and is slightly different for the inner and outer sectors due to different geometry. Because of this, the avalanche signal is treated as a delta function of time with any amplitude of the q*F so that the time response function of the system can be analytically calculated in simulation. But 180 ns is equivalent to 1 mm in the Z direction and it is not small compared with the size of the sub-segment. This is one area which can be improved in future simulations. This means that the signals should be more blurred in the Z direction than what is currently simulated in the TRS. However, the bottom line is the present simulation is already fairly good, as one may see in the later discussion.
+
+In order to derive the induced charge on the pad plane, we use the method of images, where the influence of the wire is neglected. Figure 4.11 shows a schematic drawing for a point charge \(q\) located at (x\({}_{0}\), y\({}_{0}\), D/2) between two
+
+Figure 4.10: Calculation of Signal Currents Induced on Pad Plane. System 1 is decomposed into system 2 and 3 on the merit of supposition of potential. System 2 and System 3 have analytic solutions.
+
+[MISSING_PAGE_EMPTY:71]
+
+[MISSING_PAGE_EMPTY:72]
+
+In the case of the TPC, the signal is produced by the avalanche on the anode wires, so the \(Y_{i}-y_{0}\) can only be \(\pm k\), (k=0,1,...). If we choose \(Y_{i}\)=0 and \(X_{i}\)=0, Figure 4.13 shows the 3 dimension view of the pad response function. The band structure is caused by the anode wires.
+
+It has been found experimentally [10] that the pad response function (PRF) can be approximated by a Gaussian curve to within a few percent of its maximum value along the pad row direction (X). Figure 4.14 shows the X-Axis projection of the pad response function, when \(Y_{i}-y_{0}=0\), as well as the gaussian fit. The function shown is not normalized. The fitted \(\sigma_{p}^{out}\) of the gaussian function is 0.391 cm. In the case of inner sector pads (Figure 4.15), the \(\sigma_{p}^{in}\) is 0.196 cm. For the STAR TPC, the PRF was measured using a nitrogen laser on an aluminum coated quartz window as an approximate point source. Figure 4.16 shows the measured points and a fit to a gaussian function for pads in the inner sectors [11]. The \(\sigma\) from the measurements is \(0.197\pm 0.002\) cm for inner sector pads and \(0.37\pm 0.01\) cm for the outer sector pads. The measurements are almost identical to the theoretical calculation.
+
+The Y projection of the PRF is a step function. The results are shown in Figure 4.17 for outer sector pads and Figure 4.18 for inner sector pads. In simulation, the parametrized PRF is
+
+\[P(X_{i},Y_{i},x_{0},y_{0})=-\frac{1}{2\pi}P_{x}(X_{i},x_{0})P_{y}(Y_{i},y_{0}), \tag{4.31}\]
+
+with q=1,
+
+\[P_{x}(X_{i},x_{0})=e^{-\frac{(X_{i}-x_{0})^{2}}{2\sigma_{p}^{2}}}, \tag{4.32}\]
+
+\[P_{y}(Y_{i},y_{0}) = \epsilon_{0}h(\frac{s}{2}-|Y_{i}-y_{0}|)\] \[+\epsilon_{1}[1-h(\frac{s}{2}-|Y_{i}-y_{0}|)]h(\frac{3s}{2}-|Y_{i }-y_{0}|)\]\[+\epsilon_{2}[1-h(\frac{3s}{2}-|Y_{i}-y_{0}|)]h(\frac{5s}{2}-|Y_{i}-y_{0}|)\] \[+\epsilon_{3}[1-h(\frac{5s}{2}-|Y_{i}-y_{0}|)]h(\frac{7s}{2}-|Y_{i} -y_{0}|)\] \[+\epsilon_{4}[1-h(\frac{7s}{2}-|Y_{i}-y_{0}|)]h(\frac{9s}{2}-|Y_{i} -y_{0}|)\] \[+\epsilon_{5}[1-h(\frac{9s}{2}-|Y_{i}-y_{0}|)],\]
+
+where \(h(x)=1\) if \(x>0\) and \(h(x)=0\) if \(x<0\), s is the wire spacing. For inner sector pads, \(\epsilon_{0}=1.86332\), \(\epsilon_{1}=1.62671\), \(\epsilon_{2}=0.163215\), \(\epsilon_{3}=0.0051573\), \(\epsilon_{4}=0.0000\), \(\epsilon_{5}=0.0000\). For outer sectors, \(\epsilon_{0}=2.07\), \(\epsilon_{1}=2.01\), \(\epsilon_{2}=1.58\), \(\epsilon_{3}=0.538\), \(\epsilon_{4}=0.101\), \(\epsilon_{5}=0.000\). In this parameterized form of the PRF, there is an assumption that the \(\sigma_{p}\) is the same for the signals on all the wires. Figure 4.19 shows the 2D projection of the 3D PRF. It is a good approximation for the most central 3 wires. For the other two wires, the signal coupled to the pad is small so that the effect is small. Nevertheless, this will cause the PRF to be un-normalized, so an adjustable factor was introduced in the simulation which can be tuned to match the data.
+
+The induced charges on pads can be picked up by amplifiers connected to them. The amplified signals are then shaped before being sampled and digitized. Figure 4.20 is the schematic plot of the pre-amplifier and shaper. Using pulse inputs \(\delta(t_{0})\) on the pads, we can study the time response function (TRF) of the electronic system. It is parameterized as
+
+\[F(t,t_{0})=h(t-t_{0})\frac{1}{2\tau}(\frac{t}{\tau})^{2}e^{-\frac{t}{\tau}}, \tag{4.33}\]
+
+where \(\tau\) is about 55 ns for the TPC.
+
+The PRF and TRF are the response to \(\delta(x_{0},y_{0},t_{0})\). The real response will be the superpositon of all the signal avalanches, therefore it should be a convolution of the reponse function and diffusion of the original charge distribution 
+
+[MISSING_PAGE_FAIL:75]
+
+For the response in the \(z\) direction or the \(t\) direction, we have
+
+\[w_{z}(Z,z_{0}^{\prime}) = w_{z}(T,t_{0}^{\prime})\] \[= (erf\left(B_{1}\right)-erf(B_{0})+s_{0}-s_{1})\frac{1}{2D_{t}},\]
+
+with h
+
+\[\sigma_{Lt} = \sigma_{z}(z)/v,\] \[D_{t} = L_{z}/v,\] \[A = \sqrt{2}\sigma_{Lt}/\tau\] \[B_{1} = (T-t_{0}^{\prime}+D_{t}/2)/\tau/A,\] \[B_{0} = (T-t_{0}^{\prime}-D_{t}/2)/\tau/A,\] \[\Gamma_{0} = (A/2.-B_{0}),\] \[\Gamma_{1} = (A/2.-B_{1}),\] \[\alpha_{0} = \Gamma_{0}A,\] \[\alpha_{1} = \Gamma_{1}A,\] \[\beta_{0} = \alpha_{0}-A^{2}/4,\] \[\beta_{1} = \alpha_{1}-A^{2}/4,\] \[s_{0} = \frac{A}{2}erfc(\Gamma_{0})exp(\beta_{0})(\alpha_{0}^{2}-\alpha_ {0}+AB_{0}+2)+exp(-B_{0}^{2})/(\sqrt{\pi}/2(2-\alpha_{0}),\] \[s_{1} = \frac{A}{2}erfc(\Gamma_{1})exp(\beta_{1})(\alpha_{1}^{2}-\alpha_ {1}+AB_{1}+2)+exp(-B_{1}^{2})/\sqrt{\pi}/2(2-\alpha_{1}).\]
+
+Here \(v\) is the drift velocity. The \(w_{z}(Z,z_{0}^{\prime})\) is again parameterized as a Gaussian function plus an exponential function in the simulation.
+
+#### 4.2.5 Digitization
+
+The simulated analog signals are digitized to their ADC and TDC values as the output from the TRS. In this step, white noise is added. The noise level is set at 1.2 ADC counts, in accordance with measurements. There has been a discussion about whether we should simulate the noise using other models. Because most of electronic noise is added after the pre-amplifier and shaper, it has a different time dependence than the signals and should not be white noise at the output end. One of the effects is a possible anti-correlated noise in the time direction [1]. However, preliminary results do not show any such obvious effects.
+
+### Evaluation of the TRS
+
+The first workable version of the TRS was implemented in the STAR software library in 2000. This version was used in the tuning of offline analysis code such as the cluster- and hit-finding algorithms, as well as the L3 trigger software.. Currently, the TRS is used by the STAR collaboration as one of the embedding tools in the calculation of efficiencies for the TPC. A major evolution of the TRS was done by comparing the simulated results on the characteristics of pixels, hits, and tracks with the results from real data.
+
+At the pixel level, one can compare the dimension of the hits along the padrows and in the drift direction in real data and in MC data. The performance of the simulation in this respect is directly related to whether the simulation can reproduce the two-hit resolution in real data, and eventually the tracking efficiency change as a function of multiplicity of events in real data. Figure 4.21 and Figure 4.22 compare the the distribution of number of pads covered by TPC hits in the outer sectors. The hits are compared on tracks with \(p_{t}<0.3\) GeV/c.
+
+Figure 4.23 and Figure 4.24 compare the distribution of number of time buckets occupied by TPC hits in the inner sectors. The time bucket is the number of periods of the data sampling clock.
+
+At the hit level, one can compare the hit residuals which determine the momentum resolution of the track and reconstructed vertex resolution. Figure 4.25 and Figure 4.26 show the comparison of the residuals as a function of the track crossing angles and dip angles. The crossing angles are define by the track's projection onto the pad plane and padrow: 90\({}^{o}\) means the track is parrallel to the gating grid, ground wires and pad row and 0\({}^{o}\) is perpendicular to this direction. The dip angles are defined by the track and the pad plane: 90\({}^{o}\) means the track is perpendicular to the plane and 0\({}^{o}\) means it is parallel to the pad plane. There are about 400 \(\mu\)m discrepancy between the real data and the TRS simulation in the \(z\) residual comparison. This may be related to the fact that signals on the sense wires are mainly due to the motion of the ions, but are assumed to be a \(\delta\) function in time. That in turn means the simulation underestimates the signal broadening in the \(z\) direction to some degree. This aspect of the TRS remains to be improved. The easiest way to do this is to add an extra, constant diffusion term in the \(z\) direction and then vary this parameter in the simulation to match the real data.
+
+The dependence of the residual on the drift distance is studied too. Figure 4.27 and Figure 4.28 show the residuals as a function of crossing angle for different drift length. The residuals increase as the drift length increases. At the hit level, the distribution of the total energy deposited per TPC hit is shown in Figure 4.29 for both real data and the TRS. This quantity is shown as a function of padrow; the step between inner pad rows and outer pad rows is caused by the different size of the pads. At the track level, the distribution of the number of hits on global tracks were compared for real data and the TRS. The results are shown in Figure 4.30. More precise and quantative comparisons are done in efficiency studies by people who use this as the simulator in their embedding. In general, the TRS reproduces the data fairly well.
+
+Figure 4.13: The 3D View of the Pad Response Function (PRF). The X axis is the direction along the pad row. The Y axis is the direction transverse to the pad row. Because the original signals are collected by wires above the pads and signals on wires then induce the image charge to produce signals on pads, this causes the band structure seen here.
+
+Figure 4.14: Projected View of the PRF on the X axis. The X axis is the direction along the pad row. This was plotted for the wire right above the outer sector pad. The fitting function is Gaussian with a \(\sigma\)=0.39 cm.
+
+Figure 4.15: Projected View of the PRF on the X axis. The X axis is the direction along the pad row. This was plotted for the wire right above the inner sector pad. The fitting function is a Gaussian with a \(\sigma\)=0.196 cm.
+
+Figure 8: This is a sample of the measurement of the pad response function (PRF) widths. The curve fit is a Gaussian with an offset. m1 is the peak amplitude, m2 is the location of the centroid, m3 is thesigma in mm and m4 is the offset. This particular measurement was done on the 2-2 chamber at a gain of about 1600.
+
+Figure 4.17: Projected View of the PRF on the Y axis. The Y axis is the direction transverse the pad row. The number of steps reflects the position of the wires over the pad plane on the outer sectors. There are five equally spaced wires over each pad row but the plot takes into account wires beyond one pad row. The distance between the wire plane and pad plane is 0.4 cm. The pad size is 20 mm x 6.7 mm.
+
+Figure 4.18: Projected View of the PRF on the Y axis. The Y axis is the direction transverse the pad row. The number of steps reflects the position of the wires over the pad plane on the inner sectors. There are three equally spaced wires over each pad row but the plot takes into account wires beyond one pad row. The distance between the wire plane and pad plane is 0.2 cm. The pad size is 12 mm x 3.35 mm.
+
+**Figure 4.19**: Projected View of the PRF on the X axis for all wires for the outer sector pads.
+
+Figure 4.20: The pre-amplifier and the shaper.
+
+**Figure 4.21**:
+
+The simulated number of pads per TPC hit for tracks with \(p_{t}<0.3\) GeV/c for the outer sectors.
+
+**Figure 4.22**: The number of pads per TPC hit for tracks with \(p_{t}<0.3\) GeV/c for the outer sectors.
+
+Figure 4.23: The simulated number of time-buckets per TPC hit for tracks with \(p_{t}<0.3\) GeV/c for the inner sectors.
+
+**Figure 4.24**: The number of time-buckets per TPC hit for tracks with \(p_{t}<0.3\) GeV/c for the inner sectors. Tracks were reconstructed from real star data.
+
+Figure 4.25: The XY residuals vs. crossing angle for tracks with \(p_{t}<0.3\) GeV/c for the outer sectors. The XY residuals are the hit residuals along the padrow. Crossing angle is defined by the track and TPC padrows.
+
+Figure 4.26: The Z residuals vs. dip angle for tracks with \(p_{t}>0.3\) GeV/c for the outer sectors. The Z residuals are the hit residuals in the drift direction. Dip angle is defined by the track and TPC pad plane.
+
+**Figure 4.27**:
+
+The XY residual dependence on drift length for tracks with \(p_{t}>0.3\) GeV/c for the outer sectors. Data points are from real data.
+
+**Figure 4.28**:
+
+The XY residual dependence on drift length for tracks with \(p_{t}>0.3\) GeV/c for the outer sectors. Data points are from TRS data.
+
+Figure 4.29: The Mean Energy Deposited per Hit vs. Pad Row
+
+Figure 4.30: The distribution of the number of hits per track.
+
+## Chapter 5 Analysis Methods
+
+### 5.1 Trigger
+
+Real data was taken with two different trigger conditions: a minimum-bias trigger requiring a coincidence between the ZDC's and a central trigger additionally requiring a high multiplicity in the CTB. The central trigger corresponded to approximately the top 15% of the measured cross section for Au+Au collisions. Data from the minimum-bias trigger were used in final analyses. Data from central trigger were used in some systematic error analysis. For the results presented here, about 400k minimum-bias trigger events and 200k central trigger events were used.
+
+### 5.2 Event Selection
+
+During the summer 2000 run, the collision vertex position varied considerably. This would greatly change the acceptance of particles in transverse momentum (\(p_{t}\)) and pseudo-rapidity (\(\eta\)) phase space due to either pure geometric effects or the material distributions in the TPC. It was neccessary to select events based on the primary vertex postion to simplify the analysis. In this analysis, we chose the events with primary vertex between +75 and -75 cm in Z. For the centrality measurement, the uncorrected total charged multiplicity distribution within a pseudo-rapidity window \(|\eta|\leq 0.5\) was divided into 5 bins: \(\geq\)430, 363-430, 256-363, 142-256, 14-142. These bins correspond to top 5%, 5-10%, 10-20%, 20-35%, and 35-75% of the total cross section for Au+Au collisions, respectively [1]. Figure 5.1 presents the uncorrected charge multiplicity distribution for minbias events and the centrality binning. They were converted to the distribution within pseudo-rapidity interval \(-0.5\leq\eta\leq 0.5\) to define the centrality bins in this analysis. The flow centrality definition [1]was shown in Table 5.1 for
+
+Figure 5.1: The minimum-bias primary track charged multiplicity distribution in a pseudo-rapidity interval \(-0.75<\eta<0.75\) as a function of the number of tracks normalized by the maximum observed number of tracks. The eight centrality regions used in this analysis are shown. The integral under the curve is 1.0 and the cumulative fraction corresponding to the lower edge of each centrality bin is indicated as a percentage. Figure taken from [1].
+
+comparison.
+
+### \(\Lambda\) and \(\bar{\Lambda}\) Reconstruction
+
+\(\Lambda\) and \(\bar{\Lambda}\) are reconstructed through the charged decay topology: \(\Lambda\to\pi^{-}+p\) and \(\bar{\Lambda}\to\pi^{+}+\overline{p}\).
+
+Figure 5.2 shows the topology of a \(\Lambda\) decay. Track p (positive) and Track n (negative) are the two decay daughter tracks. The dca stands for the distance of closest approach (DCA) from the daughter tracks to the primary vertex. The dcapn means the DCA between the two tracks. The momentum of track p and track n are combined at the decay vertex at the DCA between the two tracks to form the total momentum of the \(\Lambda\) and the dcaV0 refers to the DCA from the primary vertex to the direction of total momentum. L is the decay length.
+
+\begin{table}
+\begin{tabular}{c c c} \hline \hline Centrality Bin & Measured cross section & Geometric Au+Au cross section \\ \hline
+1 & 58–85\% & 53–77\% \\
+2 & 45–58\% & 41–53\% \\
+3 & 34–45\% & 31–41\% \\
+4 & 26–34\% & 24–31\% \\
+5 & 18–26\% & 16–24\% \\
+6 & 11–18\% & 10–16\% \\
+7 & 6–11\% & 5–10\% \\
+8 & Top 6\% & Top 5\% \\ \hline \hline \end{tabular}
+\end{table}
+Table 5.1: Flow centrality as defined in reference [1]. Charged multiplicity is measured within a pseudo-rapidity window \(|\eta|\leq 0.75\) for an event. The numbers for both the measured cross section as well as the geometric cross section associated with each centrality bin are listed.
+
+[MISSING_PAGE_EMPTY:100]
+
+to include almost all possible protons after this cut. The \(dE/dx\) cut was applied because all the events were dominated by pions and this cut greatly reduced the combinatorial background. For the pion candidates, there is effectively no cut on \(dE/dx\). The dca cuts were applied to exclude as many primary tracks as possible. For each candidate pair, a vertex is formed by finding the closest point between the two helical tracks. A helical track used in the vertex reconstruction is parameterized as :
+
+\[x = x_{e}+rcos(\theta+h\phi), \tag{5.1}\]
+
+\begin{table}
+\begin{tabular}{l c} \hline \hline Track Quality and Kinematic Cuts & \\ \hline Track (\(p\), \(\overline{p}\)) Distance of Closest Approach & \(>0.9\) cm \\ to Primary Vertex & \\ Track (\(\pi^{-}\),\(\pi^{+}\)) Distance of Closest Approach & \(>2.95\) cm \\ to Primary Vertex & \\ Number of Hits on Track & \(>15\) \\ Distance of Closest Approach & \(<0.75\) cm \\ between Positve and Negative Track & \\ Track (\(\Lambda\),\(\overline{\Lambda}\)) Distance of Closest Approach & \(<0.5\) cm \\ to Primary Vertex & \\ Decay Length & \(>5\) cm \\ \hline Particle Identification Cuts & \\ \hline Pion PID & N/A \\ Proton PID & (\(-2.85\sigma_{p^{\prime}}+\infty\)) \\ \hline \hline \end{tabular}
+\end{table}
+Table 5.2: Requirements placed on candidate positive and negative tracks. These cuts are optimized taking into account requirements for adequate signal and minimization of background while reducing possible systematic uncertainties from the efficiency calculation.
+
+\[y = y_{c}+rsin(\theta+h\phi), \tag{5.2}\] \[z = z_{c}+rtan(\lambda)\phi. \tag{5.3}\]
+
+(\(x_{c}\), \(y_{c}\), \(z_{c}\)) is the coordinate of the center of the helix, \(z_{c}\) is the z coordinate of the first point (\(x_{0}\), \(y_{0}\), \(z_{0}\)) on the track, r is the curvature, h is the helicity, \(\theta\) is the azimuthal angle of the vector (\(x_{0}-x_{c}\), \(y_{0}-y_{c}\)), \(\lambda\) is the dip angle of the helix, \(\phi\) is the parameter of the equations.
+
+We first find the dca points in the XY plane. They are simply the crossing points of two circles (case 1) or one point (case 2) (Figure 5.4). Let the solutions be \(\phi_{p^{1}}\), \(\phi_{p^{2}}\) for track 1 and \(\phi_{n^{1}}\), \(\phi_{n^{2}}\) for track n. Next, we look for the dca points in 3 dimensions for each set of solutions. Let's take set 1 as an example. In general, the dca points in the 3D space is close to the dca points found in 2D calculation,
+
+[MISSING_PAGE_EMPTY:103]
+
+The distance between the two helices can be expressed as:
+
+\[D^{2}(x_{p},y_{p},z_{p},x_{n},y_{n},z_{n})=(x_{p}-x_{n})^{2}+(y_{p}-y_{n})^{2}+(z _{p}-z_{n})^{2}. \tag{5.10}\]
+
+Finding the DCA becomes finding the solution for the group of linear equations:
+
+\[\frac{\partial D^{2}}{\partial(\delta\phi_{p})}=0, \tag{5.11}\]
+
+\[\frac{\partial D^{2}}{\partial(\delta\phi_{n})}=0. \tag{5.12}\]
+
+For a group of linear equations, there is one and only one solution (\(\delta\phi_{p}\), \(\delta\phi_{n}\)) and it can be calculated. After a solution is found, the candidate vertex can be chosen as the midpoint of the two DCA points on the two tracks. If the vertex can pass the cuts listed in Table 5.2, the invariant mass is calculated, using a mass hypothesis of proton for the postive track and pion for the negative track:
+
+\[m=\sqrt{\ (\sqrt{m_{p}^{2}+P_{p}^{2}}+\sqrt{m_{\pi}^{2}+P_{n}^{2}}\ )^{2}-P^{2}}, \tag{5.13}\]
+
+where \(m_{p}\) is the mass of proton, \(m_{\pi}\) is the mass of pion, \(P_{p}\) and \(P_{n}\) are the momenta at the DCA points and \(P\) is the total momentum of \(P_{p}\) and \(P_{n}\). The cuts for the \(\bar{\Lambda}\) are charge-symmetric as compared to the \(\Lambda\).
+
+### \(\Lambda\) and \(\bar{\Lambda}\) Signals and Backgrounds
+
+The STAR TPC worked well and the data taken in the summer 2000 run were of good quality. With the geometric cuts applied in the \(\Lambda\) and \(\bar{\Lambda}\) reconstruction, Figure 5.5 shows an example of the invariant mass distribution in \(|y|<0.5\)from central collisions. The mass resolutions for the reconstructed \(\Lambda\) and \(\bar{\Lambda}\) are typically about 3-4 MeV/c\({}^{2}\) for the width (\(\sigma\)) of the Gaussian fit to the peak.
+
+We studied the best function to use to describe the reconstructed signals. We could fit the mass histograms with either a combination of a Lorentzian function for the signals and a 2nd order polynomial function for the background, or a combination of a Guassian function and a 2nd order polynomial function. We noticed that the magnitude of the signals were different when different functions were used. The Lorentzian fit would systematically give a raw signal yield about 15% higher than the Gaussian fit on average over the entire pt range. Figure 5.6 shows a sample mass histogram in the pt range from 0.6 GeV/c to 0.8 GeV/c. The two different fits were tried. The raw yields are \(1582\pm 53\) and \(1274\pm 41\) for the Lorentzian fit and Gaussian fit, respectively. The difference is certainly not a statistic fluctuation. A comparison between the \(\chi\)-square of the two fits didn't rule out either one. It was then noticed that the integration of any Lorentzian function outside the 3\(\sigma\) counted for about 12% of the integral over the whole
+
+Figure 5.5: Invariant mass distribution of \(\Lambda\) and \(\overline{\Lambda}\) candidates.
+
+range. So the problem could be traced down to whether there was enough signal outside the 3\(\sigma\) (\(\sim\)12 MeV) in real data. A Monte-Carlo simulation using the TRS shows virtually no signal outside the mass region of (m\({}_{0}\pm 12\) MeV), m\({}_{0}\) is 1.116 GeV/c\({}^{2}\). But a more convincing conclusion is better to be drawn based on the analysis of real data. To do so, the background had to be subtracted. An event rotation method was proposed to reproduce the background. This was inspired by the event mixing technique originally proposed by Kopylov [12]. The basic idea of the event rotation method is to rotate all the positive tracks by 180 degrees in the azimuthal plane with respect to the primary vertex. In this way, the whole event is not changed statistically, because of the symmetry of the events themselves, but all the decay vertices were destroyed because one of the daughter tracks was rotated away. Thus, only combinatorial background is reconstructed.
+
+Figure 5.6: The comparison between Lorentz fit and Gaussian fit in \(0.6<p_{t}<0.8\). A second order polynomial fit to the background is used in both fits. The solid line is a Gaussian fit to the signals while the dashed line is for the Lorentzian fit. The extracted yield is 1275 for the Gaussian fit and 1582 for the Lorentzian fit.
+
+After the background subtraction, signals are revealed as mostly concentrated within the mass window of \((\mathrm{m_{0}\pm 12})\). Therefore, a Lorenztian function was considered as inappropriate for the reconstructed \(\Lambda\) and \(\bar{\Lambda}\). Figure 5.7 shows the mass histogram of signals, combinatorial background and signal after the background subtraction, integrated over \(P_{t}\).
+
+Besides the combinatorial background, the \(K_{s}\) will contribute most of the remaining background. At \(\mathrm{p_{t}}\) above 1 GeV/c, we can't distinguish protons from pions. They therefore can't be subtracted using event rotation. If we mis-indentified a pion as proton, the reconstructed mass would most likely be higher than the lambda mass. Three body decay, \(\mathrm{e^{+}e^{-}}\) pair production and vertices produced by showers are other possible sources of background. Since the overall background
+
+Figure 5.7: The Mass histograms of signals and combinatorial background. The combinatorial background is reconstructed by event rotation. The histogram after the background subtraction shows the width of real signals is about 4 MeV. These are for all \(P_{t}\).
+
+is low, we don't expect it to have big effect on the signal fit after the background subtraction and refitting of the subtracted mass histograms. Figure 5.8 to Figure 5.17 show the raw yield of \(\Lambda\)s in 10 pt bins. In each plot, the upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function. They are for the top 5% centrality bin in \(|y|<0.5\) from minimum-bias collisions. The differences in integrated raw yield of signals between these two methods is small for most of the \(p_{t}\) bins and this will be discussed further in Chapter 6.
+
+From low \(p_{t}\) bins to high \(p_{t}\) bins, the width of the Gaussian fit becomes larger. This is mainly due to that fact that the momentum resolution becomes worse for high \(p_{t}\) tracks. Because the Gaussian fit always under-estimates the signal at the mass peak by a few percent, we use bin counting as our estimate of the raw yield. The bin counting is done by subtracting the histogram bin content with the fitted background at that bin. The case for the \(\bar{\Lambda}\)s are similar to those for the \(\Lambda\) s.
+
+Figure 5.8: The Mass histograms of signals and combinatorial background for \(0.4<P_{t}<0.6\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+Figure 5.9: The Mass histograms of signals and combinatorial backgrounds for \(0.6<P_{t}<0.8\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+Figure 5.10: The Mass histograms of signals and combinatorial backgrounds for \(0.8<P_{t}<1.0\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+Figure 5.11: The Mass histograms of signals and combinatorial backgrounds for \(1.0<P_{t}<1.2\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+Figure 5.12: The Mass histograms of signals and combinatorial backgrounds for \(1.2<P_{t}<1.4\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+Figure 5.13: The Mass histograms of signals and combinatorial backgrounds for \(1.4<P_{t}<1.6\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+Figure 5.14: The Mass histograms of signals and combinatorial backgrounds for \(1.6<P_{t}<1.8\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+Figure 5.15: The Mass histograms of signals and combinatorial backgrounds for \(1.8<P_{t}<2.0\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+Figure 5.16: The Mass histograms of signals and combinatorial backgrounds for \(2.0<P_{t}<2.2\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+Figure 5.17: The Mass histograms of signals and combinatorial backgrounds for \(2.2<P_{t}<2.4\) GeV/c. The upper panel shows the raw signals, backgrounds and a fit to the raw signals. The lower panel shows the signals after the background subtraction and a fit to the histogram. The fitting function is a gaussian function plus a 2nd order polynomial function.
+
+### Efficiency Corrections
+
+We used the event embedding method to correct these pt spectra for detector acceptance, response, tracking efficiency and vertex reconstruction efficiency. The event embedding method (Figure 5.18) includes the simulation programs GSTAR and TRS and the standard STAR embedding and reconstruction chain. Simulated \(\Lambda(\vec{\Lambda})\)s were generated using a flat rapidity distribution and an \(m_{t}\) distribution with a slope of 350 MeV. They were passed through the GSTAR and TRS first. In GSTAR, As are forced to decay in charged decay mode.
+
+The output of TRS were then mixed with the raw data. The combined data were then passed though the reconstruction chain just like the real data. After the reconstruction of the complete event, reconstructed vertices were to be correlated with the Monte Carlo(MC) simulated ones. This process is referred to as 'Association'. In the 'Association', reconstructed hits will be associated with MC generated hits if they are within a maximum distance of 0.5 cm. When a reconstructed track has at least 5 common hits with one MC track, they will be associated. If a reconstructed vertex has two associated tracks, and the two
+
+Figure 5.18: The event embedding procedures.
+
+MC track they are associated with are coming from a MC vertex, the vertex will be associated too. For each \(p_{t}\) and rapidity bin, the efficiency is defined as the number of associated vertices divided by the number of input MC vertices in the particular bin. The final efficiency includes the branching ratio as well.
+
+The Monte-carlo association efficiency for tracks was studied. Figure 5.19 shows the correlation between the common hits requirement when associating tracks and the off-line number of fit points requirement applied to real data. It was determined that the final result would be insensitive to association inefficiency as long as the number of common hits required were 5 fewer than the number of fit points required for the off-line data [17]. The number of fit points is almost equal
+
+Figure 5.19: Number of common hits vs. number of fit points used to reconstruct the track. The error bars are \(3\sigma\) error bars from a gaussian fit to the distribution of number of common hits for each value of the number of fit points.
+
+[MISSING_PAGE_EMPTY:121]
+
+Figure 5.20: The Reconstruction efficiency of the \(\Lambda\) for 5 centrality bins. The decay branching ratio is included. Error bars shown are statistical errors only.
+
+Figure 5.21: The Reconstruction efficiency of the \(\bar{\Lambda}\) for 5 centrality bins. The decay branching ratio and absorption corrections are included. Error bars shown are statistical errors only.
+
+Figure 5.22: Reconstruction Efficiency of the \(\Lambda\) in \(p_{t}-Rapidity\) Phase Space. Each entry is correspondent to 1000 input \(\Lambda\)s and the decay branch ratio of 0.639 is not included. It includes all centralities.
+
+Figure 5.23: The uncorrected transverse momentum spectra of the \(\Lambda\) for 5 centrality bins. Error bars shown are statistical errors only.
+
+Figure 5.24: The uncorrected transverse momentum spectra of the \(\bar{\Lambda}\) for 5 centrality bins. Error bars shown are statistical errors only.
+
+## Chapter 6 Results
+
+### 6.1 Corrected \(p_{t}\) Spectra
+
+The raw \(p_{t}\) spectra were divided by the efficiency histograms to obtain the corrected \(p_{t}\) spectra for all centrality bins. The spectra are plotted in Figure 6.1 and Figure 6.2.
+
+### 6.2 The Transverse Mass Distribution
+
+The transverse mass of a particle is related to \(p_{t}\) by
+
+\[m_{t}=\sqrt{m_{0}^{2}+p_{t}^{2}}, \tag{6.1}\]
+
+\[m_{t}dm_{t}=p_{t}dp_{t}. \tag{6.2}\]
+
+The corrected \(p_{t}\) spectra can be translated into the transverse mass distribution which features the invariant multiplicity vs. transverse mass (\(\frac{1}{2\pi m_{t}}\frac{d^{2}N}{dm_{t}dy}\) vs \(m_{t}-m_{\Lambda}\)) for the 5 centrality bins for both the \(\Lambda\)s and \(\bar{\Lambda}\)s in Figures 6.3 and 6.4. Tables 6.1 and 6.2 list the value and the errors for each data point. The errors include the statistical errors and estimated systematic errors. The systematic error estimation is discussed in chapter 7.
+
+The transverse mass distributions were fit to
+
+\[\frac{1}{2\pi m_{t}}\frac{d^{2}N}{dm_{t}dy}=\frac{1}{2\pi}A\ e^{-(m_{t}-m_{0})/T} \tag{6.3}\]
+
+and
+
+\[\frac{1}{2\pi m_{t}}\frac{d^{2}N}{dm_{t}dy}=\frac{1}{2\pi}Am_{t}\ e^{-(m_{t}-m_{0 })/T} \tag{6.4}\]
+
+separately with the former the exponential fit and the later the Boltzmann fit. In each case, the slope parameter \(T\) can be extracted. The rapidity density, \(dN/dy\) at mid-rapidity, was extracted by integrating the fit to the measured transverse mass distribution. For the exponential fit, the \(dN/dy\) is \(AT(m_{0}+T)\) and for the
+
+Figure 6.1: The corrected transverse momentum spectra of the \(\Lambda\) for 5 centrality bins. Error bars shown are statistical errors only.
+
+Boltzmann fit, it is \(AT(m_{0}^{2}+2m_{0}T+2T^{2})\).
+
+To simplify the error calculation, the fitted variable A is replaced by the \(dN/dy\) in both the exponential fit and Boltzmann fit.
+
+From the fitted parameters, the fraction of the \(\Lambda\) and \(\bar{\Lambda}\) in the measured \(m_{t}\) region is \(\sim\)80%. The results of the fits to the invariant multiplicity distributions are shown in Table 6.3. The slope parameters obtained from the exponential fit are systematically higher than those from the Boltzmann fit by about 35-50 MeV. However, the integrated yield from both fit functions are consistent
+
+Figure 6.2: The corrected transverse momentum spectra of the \(\bar{\Lambda}\) for 5 centrality bins. Error bars shown are statistical errors only.
+
+with each other within errors.
+
+### Ratio of the \(\bar{\Lambda}/\Lambda\)
+
+From the corrected \(p_{t}\) spectra, the ratio of the \(\bar{\Lambda}/\Lambda\) were drawn as a function of \(p_{t}\) (Figure 6.5). The systematic errors are 0.04. No obvious \(p_{t}\) dependence was seen About the ratio, one possible systematic error is the ExB effect. In the data presented here, the P00hm version of the STAR reconstructed code was used. The P00hm version performs the ExB correction on the real data.
+
+\begin{table}
+\begin{tabular}{c|c|c|c|c|c} \hline \hline \(m_{t}-m_{\Lambda}\) & \(0-5\%\) & \(5-10\%\) & \(10-20\%\) & \(20-35\%\) & \(35-75\%\) \\ (GeV/c\({}^{2}\)) & & & & & \\ \hline
+0.107 & \(3.73\pm 0.26\) & \(3.07\pm 0.26\) & \(2.24\pm 0.16\) & \(1.49\pm 0.12\) & \(0.49\pm 0.04\) \\
+0.201 & \(2.53\pm 0.10\) & \(1.93\pm 0.09\) & \(1.67\pm 0.07\) & \(0.97\pm 0.05\) & \(0.32\pm 0.02\) \\
+0.318 & \(1.99\pm 0.06\) & \(1.59\pm 0.06\) & \(1.28\pm 0.04\) & \(0.73\pm 0.03\) & \(0.21\pm 0.01\) \\
+0.451 & \(1.57\pm 0.05\) & \(1.15\pm 0.04\) & \(0.90\pm 0.03\) & \(0.51\pm 0.02\) & \(0.13\pm 0.01\) \\
+0.597 & \(1.02\pm 0.03\) & \(0.79\pm 0.03\) & \(0.57\pm 0.02\) & \(0.36\pm 0.01\) & \(0.09\pm 0.00\) \\
+0.754 & \(0.66\pm 0.02\) & \(0.54\pm 0.02\) & \(0.41\pm 0.01\) & \(0.23\pm 0.01\) & \(0.05\pm 0.00\) \\
+0.918 & \(0.43\pm 0.02\) & \(0.33\pm 0.02\) & \(0.25\pm 0.01\) & \(0.14\pm 0.01\) & \(0.03\pm 0.00\) \\
+1.088 & \(0.25\pm 0.01\) & \(0.20\pm 0.01\) & \(0.16\pm 0.01\) & \(0.08\pm 0.00\) & \(0.02\pm 0.00\) \\
+1.262 & \(0.13\pm 0.01\) & \(0.11\pm 0.01\) & \(0.09\pm 0.01\) & \(0.04\pm 0.00\) & \(0.01\pm 0.00\) \\ \hline \hline \end{tabular}
+\end{table}
+Table 6.1: Invariant yield in each \(m_{t}-m_{\Lambda}\) bin for 5 event centralities. Errors listed are statistical errors only.
+
+\begin{table}
+\begin{tabular}{|c c|c|c|c|c|} \hline \hline Centrality & \multicolumn{1}{c|}{0–5\%} & \multicolumn{1}{c|}{5–10\%} & \multicolumn{1}{c|}{10–20\%} & \multicolumn{1}{c|}{20–35\%} & \multicolumn{1}{c|}{35–75\%} \\ \hline \(dN/dy\) & \(\Lambda\) & 17.0\(\pm\) 0.4 & 13.0\(\pm\)0.3 & 10.1\(\pm\)0.2 & 5.9\(\pm\)0.2 & 1.61\(\pm\)0.05 \\ \cline{2-6} (Boltz) & \(\overline{\Lambda}\) & 12.0\(\pm\) 0.3 & 9.6\(\pm\)0.3 & 7.4\(\pm\)0.2 & 4.6\(\pm\)0.1 & 1.26\(\pm\)0.04 \\ \hline \(T_{B}\) & \(\Lambda\) & 298\(\pm\) 5 & 304\(\pm\) 6 & 303\(\pm\) 6 & 289\(\pm\)6 & 254\(\pm\)5 \\ \cline{2-6} (MeV) & \(\overline{\Lambda}\) & 312\(\pm\) 6 & 310\(\pm\) 6 & 305\(\pm\) 6 & 280\(\pm\)6 & 258\(\pm\)5 \\ \hline \hline \(dN/dy\) & \(\Lambda\) & 17.4\(\pm\) 0.4 & 13.3\(\pm\)0.3 & 10.4\(\pm\)0.2 & 6.1\(\pm\)0.2 & 1.66\(\pm\)0.05 \\ \cline{2-6} (exp fit) & \(\overline{\Lambda}\) & 12.3\(\pm\) 0.3 & 9.8\(\pm\)0.3 & 7.6\(\pm\)0.2 & 4.7\(\pm\)0.1 & 1.30\(\pm\)0.04 \\ \hline \(T_{E}\) & \(\Lambda\) & 355\(\pm\) 8 & 364\(\pm\) 9 & 362\(\pm\) 8 & 343\(\pm\)8 & 295\(\pm\)7 \\ \cline{2-6} (MeV) & \(\overline{\Lambda}\) & 374\(\pm\) 9 & 373\(\pm\) 8 & 366\(\pm\) 8 & 331\(\pm\)8 & 301\(\pm\)7 \\ \hline \end{tabular}
+\end{table}
+Table 6.3: Fit parameters from exponential and Boltzmann fits of the \(m_{T}\) spect ra for \(\Lambda\) and \(\overline{\Lambda}\). Both statistical (the first) and systematic errors are presented.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \hline \(m_{t}-m_{\Lambda}\) & \(0-5\%\) & \(5-10\%\) & \(10-20\%\) & \(20-35\%\) & \(35-75\%\) \\ \cline{2-6} (GeV/c\({}^{2}\)) & & & & & \\ \hline
+0.107 & \(2.19\pm 0.17\) & \(1.67\pm 0.15\) & \(1.57\pm 0.13\) & \(1.30\pm 0.13\) & \(0.33\pm 0.03\) \\
+0.201 & \(1.79\pm 0.08\) & \(1.38\pm 0.07\) & \(1.27\pm 0.06\) & \(0.77\pm 0.04\) & \(0.25\pm 0.01\) \\
+0.318 & \(1.39\pm 0.05\) & \(1.13\pm 0.05\) & \(0.93\pm 0.03\) & \(0.56\pm 0.03\) & \
+
+### The \(dN/dy\) and \(h^{-}\)
+
+In this analysis, the event selection for different centrality bins was based on the number of uncorrected charged primary tracks (see Chapter 4). In order to make a meaningful comparison to data from other analyses, a conversion from the number of uncorrected charged primary tracks (\(N_{uncorrected}\)) to the number of corrected negative primary tracks within a pseudo-rapidity interval \(|\eta|<0.75\) is necessary. The negatively charged hadron multiplicity (\(h^{-}\)) were chosen to describe the events because the negatively charged hadrons are free of the projectile fragments. A more general quantity, the number of nucleons that participate in the collisions (\(N_{part}\)) can be related to the \(h^{-}\) by Equation 6.5 in STAR at \(\sqrt{s}=130\) GeV when comparison between different experiments are needed.
+
+\[\langle h^{-}\rangle=0.4042\langle N_{part}\rangle^{1.097}. \tag{6.5}\]
+
+Table 6.4 shows the relation between centrality bin used in this analysis and the \(h^{-}\). The plot of \(dN/dy\) vs. \(h^{-}\) is shown in Figure 6.6. \(dN/dy\) increases with \(h^{-}\) as expected. That dependence is the same for the \(\Lambda\) and \(\bar{\Lambda}\) with the ratio of the \(\Lambda\) and \(\bar{\Lambda}\) staying almost constant for all centrality bins.
+
+\begin{table}
+\begin{tabular}{|l|c|c|c|c|c|} \hline Centrality & \(0-5\%\) & \(5-10\%\) & \(10-20\%\) & \(20-35\%\) & \(35-75\%\) \\ \hline \hline \(h^{-}\) & \(296.6\) & \(243.4\) & \(186.7\) & \(109.6\) & \(33.3\) \\ \hline \end{tabular}
+\end{table}
+Table 6.4: The corresponding \(h^{-}\) for 5 centrality bins
+
+**Figure 6.3**: The transverse mass spectra for 5 centrality Bins for \(\Lambda\). Dashed lines represent boltzmann fits to the data. Data points from the 0-5% bin were scaled by 3 and data points from the 5-10% bin were scaled by 2. Error bars shown are statistical errors only.
+
+Figure 6.4: The transverse mass spectra for 5 centrality Bins for \(\bar{\Lambda}\). Dashed lines represent boltzmann fits to the data. Data points from the 0-5% bin were scaled by 3 and data points from the 5-10% bin were scaled by 2. Error bars shown are statistical errors only.
+
+Figure 6.5: The Ratio of the \(\bar{\Lambda}/\Lambda\) for 5 centrality bins as a function of \(p_{t}\). Error bars shown are statistical errors only.
+
+**Figure 6.6**: \(dN/dy\) vs. h\({}^{-}\). The rapidity density at mid-rapidity increases almost linearly with the negative charged multiplicity, while \(\bar{\Lambda}/\Lambda\) is almost constant. the open symbol represent the results from event mixing method which is an independent analysis from H. Zhang and Z.Xu
+
+## Chapter 7 Systematic Uncertainties
+
+In this analysis, we have measured inclusive \(\Lambda\) (\(\bar{\Lambda}\)) cross sections which include the primordial \(\Lambda\) (\(\bar{\Lambda}\) ) production, \(\Sigma^{0}\) decays, and decays from multi-strange hyperons, notably the \(\Xi^{0}\) and \(\Xi^{-}\). For the inclusive measurements, the full range of the systematic uncertainty is estimated to be 9% for T and 10% for \(dN/dy\). The feed-down effect has been estimated for the most central bin and determined to be about 27% of the inclusive yield. The systematic error was estimated by using different methods and we assumed that the error obtained by different methods are uncorrelated, although it might not always be the case in real life.
+
+### 7.1 Uncertainties in the Efficiency Calculation
+
+Systematic uncertainties due to the Monte-Carlo simulation have been studied. The uncertainties lie in the inevitable inability of the Monte- Carlo to completely describe the detector response. Using identical cuts in \(\Lambda\) reconstruction for both the real events and embedded events, the final distributions for all the geometric cuts were compared between the real data and Monte-Carlo (MC) data. The distribution for the real data was obtained after the background subtraction. The MC distribution was obtained from the associated \(\Lambda\)s or \(\bar{\Lambda}\)s. The dataset used were minimum-bias events. As a precaution against possible effects due to the TPC central membrane and asymmetric effects on positive and negativecharge due to field distortions, the dataset was divided into two groups, with one group having \(\Lambda\)s (\(\bar{\Lambda}\)s) pointing away from the central membrane and the other having them pointing towards the central membrane. They were further divided for the east half and the west half of the TPC. For some of the cuts, different \(p_{t}\) bins were used: a low \(p_{t}\) bin with \(p_{t}<0.7\) GeV/c, a medium \(p_{t}\) bin with \(0.9<p_{t}<1.2\) GeV/c and a high \(p_{t}\) bin with \(p_{t}>1.4\) GeV/c. Due to limited statistics, all distributions combined all the centrality bins. The meaning of the cuts were explained in Chapter 4. All the Figures 7.1 to Figures 7.12 shown here were for the case of \(\Lambda\) or \(\bar{\Lambda}\) pointing towards the central membrane. As for the other case, the results are similar.
+
+From these plots, some conclusions can be drawn: 1) No obvious differences were seen for all cuts on particle or anti-particle in real data; 2) Except for the dcaV0 cut, no obvious differences between real data and MC data were seen for all cuts ; 3) No obvious effects were seen on the distributions for the east and west TPC for this analysis; 4) There was about 8% difference in the dcaV0 distribution between the real data and MC data.
+
+Cut comparisons between the real data and MC data were done for central events by Lamont and the results were similar. The discrepancy in the dcaV0 distribution is due to the feed-down from \(\Xi^{-}\) and \(\bar{\Xi}^{-}\) decay. This will be discussed later in feed-down correction. This was not estimated as a source of efficiency uncertainties.
+
+Although it is very hard to estimate the differences between the cuts distribution of the real data and of the MC data quantitively, it is safe to say they are smaller than the 8% differences shown in the dcaV0 distribution. If we assume the uncertainty is not correlated with \(p_{t}\) bins, the overall uncertainty is estimated at 3% for the extracted yield and the slope parameters when about 10 data pointsare used in the tranverse mass spectra. The assumptions for this estimate are not very unrealistic because the difference has to show up in the distribution for all the \(p_{t}\) bins, if the MC always has higher or lower efficiency than the real data.
+
+Another approach to estimate the uncertainty is to alter the cuts. Due to the effects of feed-down, the best candidate cut to change is the requirement of the number of hits on tracks. After changing the cut on the number of hits from 15 to 20, less than 3% change on each data points was seen and about a 1% change was seen on the yield and slopes. Thus, we estimate the efficiency uncertainties to be \(\pm\) 3% for \(T\) and \(dN/dy\), excluding the effects of feed-down.
+
+### Uncertainties in Raw Signal Extraction
+
+For the study described in this section, the central events were used. The events were divided into 2 bins according to the z positions of the primary vertex: bin 1 (-35 cm \(<z<\) 0 cm), bin 2 (0 cm \(<z<\) 35 cm ). For a given invariant mass histogram, three methods were employed to extract the number of raw signal. Method I is to fit the raw histogram with a Gaussian function plus a 2nd order polynomial function and then subtract the polynomial function from the histogram. Method II is to directly subtract the bin counts in a pre-defined background region from the counts in a pre-defined signal region in the mass histogram. The signal region is always the peak region in the mass histogram while the background region is chosen such that it is adjacent to and as wide as the signal region on the mass axis in the histogram. This method works if the real signal is not spread over many bins and the background variation is almost linear in the region concerned. Method III is to subtract the combinatorial background reconstructed in the event-rotation method from the histogram first and then follow Method I.
+
+The results for the 2 bins are listed in Table 7.1. The counts are normalized to the number of events. \(\delta\) is the relative uncertainty divided by the mean of the three methods.
+
+We also compared bin 1 with bin 2 to look for possible uncertainties introduced by an asymmetry in the detector system itself. These estimates are listed in Table 7.2. Assuming these two uncertainty sources are uncorrelated, the combined estimate is also listed in Table 7.2. The estimate was applied to all the data points before making the spectra in the analysis. Therefore, they will be
+
+Figure 7.1: Cuts comparsion (1). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+[MISSING_PAGE_EMPTY:141]
+
+\begin{tabular}{l c c} \hline \(p_{t}\) (GeV/c) & \(\delta_{bin1,bin2}\) & \(\delta_{all}\) \\ \(0.4-0.6\) & 14\% & 22\% \\ \(0.6-0.8\) & 2\% & 4\% \\ \(0.8-1.0\) & 5\% & 5\% \\ \(1.0-1.2\) & 2\% & 2\% \\ \(1.2-1.4\) & 3\% & 4\% \\ \(1.4-1.6\) & 5\% & 5\% \\ \(1.6-1.8\) & 7\% & 7\% \\ \(1.8-2.0\) & 7\% & 7\% \\ \(2.0-2.2\) & 6\% & 9\% \\ \hline \end{tabular}
+
+**Table 7.2**: The relative uncertainties in different z bins and overall uncertainties. \(\delta_{bin1,bin2}\) is the relative uncertainty when different cuts on vertex Z are used in Table 7.1. \(\delta_{all}\) is the uncertainty when \(\delta_{bin1,bin2}\) is combined with the \(\delta\) in Table 7.1, assuming they are uncorrelated.
+
+folded with the statistical errors and included in the fitting procedure.
+
+### 7.3 Sector-by-Sector Variations and other Asymmetries
+
+The TPC has 24 independent sectors and most of them worked well during the summer 2000 run. However, it is very hard to make them identical in detection efficiency, especially in the \(\Lambda\) reconstruction, which is very sensitive to field distortions and other hardware glitches. Figure 7.13 shows the number of \(\Lambda\)s vs. the
+
+Figure 7.2: Cuts comparsion (2). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+sector for real Data and MC data. The dips at sector 1, sector 5, and sector 18 in read data are all related to the imperfections in hardware. These hardware problems also showed up in the residual studies.
+
+In our analysis, we sum over all the sectors, so the real reconstruction efficiency is lower than the one when all the sectors are perfect. It is important to determine to what degree the embedding can simulate these results. Figure 7.14 shows the number of reconstructed \(\Lambda\) for MC data and real data in \(1.0<p_{t}<1.2\) GeV/c. The mean value of the MC data is then normalized to match the mean of the
+
+Figure 7.3: Cuts comparsion (3). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+real data. It seems the MC more or less reflects the asymmetry in the efficiency in real data.
+
+To quantitatively study the effects on the \(dN/dy\), we took the average of the sectors with three highest efficiencies as the references and calculated its relative value to the mean of all the sectors for each \(p_{t}\) bin. Figure 7.15 shows the ratio of the reference efficiency \(Eff_{Max}\) and the mean efficiency \(Eff_{mean}\) for both the real data and MC data. After compensation by the MC embedded data, the overall uncertainty is estimated at 3%. A more conservative estimate is 5%,
+
+Figure 7.4: Cuts comparsion (4). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+which includes the errors of the ratios themselves.
+
+To study the effects on the slope parameters, we grouped the sectors into two, with one group of sectors having higher than average efficiency and the other group having lower efficiency. The estimated uncertainty is at 4% for the \(T\). It is also estimated that the number of \(\Lambda\)s reconstructed in the east TPC and west TPC is different by about 2%. We include this in our systematic uncertainty. For the top 5% of the minimum-bias events, the \(dN/dy\) and \(T\) were compared for the rapidity interval \(0~{}<~{}y~{}<~{}0.6\) and \(-0.6~{}<~{}y~{}<~{}0\). The uncertainties are
+
+Figure 7.5: Cuts comparsion (5). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+3% for \(dNdy\) and 7% for \(T\).
+
+In conclusion, we estimate the part of uncertainty due to the asymmetry of the detector at 8% for \(T\) and 6% for the \(dN/dy\).
+
+### 7.4 Other Uncertainties
+
+There are other uncertainties. The difference between a Boltzmann fit and exponential fit to the \(m_{t}\) spectra is about 3% for \(dN/dy\). Including all the uncertainties
+
+Figure 7.6: Cuts comparsion (6). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+we have studied and assuming they are all uncorrelated, the uncertainty estimate is 9% for \(T\) and 10% for \(dN/dy\) for the inclusive measurements of \(\Lambda\) and \(\widetilde{\Lambda}\).
+
+### 7.5 Feed-Down Contributions
+
+The feed-down to the \(\Lambda\) originates from \(\Xi\) decays via \(\Xi^{-}\to\pi^{-}+\Lambda\) and \(\Xi^{0}\to\pi^{0}+\Lambda\). We have investigated the feed-down from \(\Xi\) hyperons by studying the distribution of the Distance of the Closest Approach to the primary vertex for
+
+Figure 7.7: Cuts comparsion (7). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+the reconstructed \(\Lambda\)(dcaV0). The dcaV0 of the \(\Lambda\)s from \(\Xi\) decay tend to have a wider distribution than that of the \(\Lambda\)s from the primary vertex (Figure 7.16) due to the boost from the \(\Xi\) decay. The \(\Xi\) decay branching ratio is close to 100%. For the sake of convenience, we use \(\Xi\) to indicate the \(\Lambda\) from the \(\Xi\) decay.
+
+Varing only the cut on dcaV0 will change the reconstruction efficiency for both \(\Lambda\) and \(\Xi\) by different degrees. Since the \(\Xi^{0}\) has longer lifetime than that of \(\Xi^{-}\), we will use the average reconstruction efficiency for the \(\Xi\)s, assuming the equal numbers of \(\Xi-\) and \(\Xi^{0}\). We have used 4 different dcaV0 cuts to study this
+
+Figure 7.8: Cuts comparsion (8). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+problem to overcome the large uncertainty. These cuts are: \(\text{dcaV0}\leq 0.5\) cm, \(\text{dcaV0}\leq 0.7\) cm, \(\text{dcaV0}\leq 1.0\) cm and \(0.3\leq\text{dcaV0}\leq 1.0\) cm. If we use index \(i\) to stand for the 4 cut sets and \(j\) to stand for pt bins, \(\eta_{\Lambda}^{i,j}\) means the reconstruction efficiency for \(\Lambda\) and \(\eta_{\Xi}^{i,j}\) means that for \(\Xi\). With these definitions, the corrected number of \(\Lambda\)s is
+
+\[\Lambda^{\,{}^{\prime}i,j}=\frac{\eta_{\Lambda}^{i,j}\Lambda^{j}+\eta_{\Xi}^{ i,j}\Xi^{j}}{\eta_{\Lambda}^{i,j}}. \tag{7.1}\]
+
+Subtracting the results from any two different cut sets \(i_{a}\) and \(i_{b}\), we have equation
+
+Figure 7.9: Cuts comparsion (9). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+\[\Lambda^{\prime\,i_{a},j}-\Lambda^{\prime\,i_{b},j}=\{\frac{\eta_{\Xi}^{i_{a},j}}{ \eta_{\Lambda}^{i_{a},j}}-\frac{\eta_{\Xi}^{i_{b},j}}{\eta_{\Lambda}^{i_{b},j}} \}\Xi^{j}. \tag{7.2}\]
+
+To get rid of the uncertainty of \(K_{s}\) contamination, we excluded candidates which are also possible \(K_{s}\) candidates in both the efficiency calculation and real signal extraction. Some of the corrected \(\Lambda^{\prime}\) and ratio of the efficiency \(\eta_{\Xi}\) and \(\eta_{\Lambda}\) are shown in Table 7.3. Estimated from different combinations of the cut s, the means of the data points are listed in Table 7.5. A boltzmann fit was performed on the \(m_{t}\) spectra of the estimated \(\Lambda\)s from the feed-down (Figure 7.17). This
+
+Figure 7.10: Cuts comparison (10). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+gives a \(dN/dy=9.03\pm 0.8\) for \(\Xi^{0}\), \(\Xi^{-}\) and \(\Omega^{-}\) production.
+
+For the cuts with dcaV0 \(<0.5\) cm, the inclusive \(\Lambda\) yield is dndy=17.5. Taken into account of the reconstruction efficiency ( 0.52) for the feed-down, the percentage of the feed-down effect is \(27\%\pm 2\%(\rm stat)\pm 5\%(\rm sys)\).
+
+In the feed-down analysis, we ignored the feed-down from \(\Omega\). The \(\Omega\)s have similar \(c\tau\) as \(\Xi^{-}\)s, their effects are additively folded into the results. If we assume \((\Xi^{-}+\Xi^{0})/(\Lambda+3\Sigma^{0})=\Omega^{-}/(\Xi^{-}+\Xi^{0})=k\), the constant \(k\) will be about 0.36. It also means the dndy for \(\Xi^{-}\)i s about 3.44. A preliminary results from the \(\Xi^{-}\)s are shown in Fig. 7.11.
+
+Figure 7.11: Cuts comparison (11). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+analysis is \(dN/dy=3.27\).
+
+### 7.6 Double-Counting Signals
+
+It happens sometimes that one track will be used twice in the reconstructed As due to track-splitting. These should not be both counted in the same events. A study was carried out to see to what degree the MC embedding simulated the real situation. This effect is obviously dependent on the multiplicity of the events,
+
+Figure 7.12: Cuts comparison (12). The solid lines are for real data and the dashed lines are for Monte-Carlo data (MC data). EST stands for east half TPC. WST stands for the west half TPC. LT means momentum of \(\Lambda\) points towards the central membrane.
+
+[MISSING_PAGE_EMPTY:154]
+
+[MISSING_PAGE_EMPTY:155]
+
+[MISSING_PAGE_FAIL:156]
+
+\begin{table}
+\begin{tabular}{c c c c c c} \hline \hline Centrality & \(0-5\%\) & \(5-10\%\) & \(10-20\%\) & \(20-35\%\) & \(35-75\%\) \\ \hline Real Data & \(8.8\%\) & \(8.8\%\) & \(8.0\%\) & \(5.5\%\) & \(3\%\) \\ MC Data & \(15\%\) & \(13\%\) & \(10\%\) & \(7\%\) & \(3\%\) \\ \hline \hline \end{tabular}
+\end{table}
+Table 6: Percentage of double counted signals for 5 centrality bins. Results show the largest deviation between the real data and MC data occurs in the highest centrality
+
+Figure 7.13: The number of reconstructed \(\Lambda\) vs. Sector. The distribution of the number of \(\Lambda\) is shown as a function of sector. The real data are binned for \(p_{t}>1.0\) GeV/c and \(p_{t}<1.0\) GeV/c. The MC distribution shown in the middle of the plot includes all the \(p_{t}\). The uneven distribution is caused by some hardware imperfection which lowers the tracking efficiency in the related sectors.
+
+Figure 7.14: The number of reconstructed \(\Lambda\) vs. Sector (\(1.0<p_{t}<1.2\) GeV/c). The distribution of the number of \(\Lambda\) is shown as a function of sector for \(1.0<p_{t}<1.2\) GeV/c. The lines are for the MC data. The thicker line is the MC data which is normalized to have the same mean as real data. Errors are statistical only.
+
+Figure 7.15: The Relative Efficiency vs. \(p_{t}\). The relative efficiency is the maximum efficiency divided by the mean efficiency. The mean efficiency is the efficiency averaged over all sectors. The maximum efficiency is the average of the three sectors with highest efficiency.
+
+**Figure 7.16**: The dcaV0 distribution. The dcaV0 distribution for real data and MC \(\Lambda\)s are different. This is explained by \(\Xi\) feed-down effects. A mixture of distributions from the \(\Lambda\) from the feed-down and MC \(\Lambda\) seems to match the real distribution best.
+
+Figure 7.17: The \(m_{t}\) spectra of the \(\Lambda\) from feedown. The line is a Boltzmann fit.
+
+## Chapter 8 Discussion
+
+### 8.1 Lambda/Anti-Lambda Production
+
+Ultra-relativistic nucleus-nucleus collisions provide a unique means to create nuclear matter of high energy density (temperature) and/or baryon density over an extended volume [14]. The first results from the Relativistic Heavy Ion Collider (RHIC) have shown that the large charged particle multiplicity, measured in Au+Au collisions at \(\sqrt{s_{{}_{NN}}}=130\) GeV, corresponds to an energy density significantly higher than that previously achieved in heavy ion collisions [1, 2, 3]. In addition, the anti-proton to proton ratio at mid-rapidity has been measured to be in the range 0.6-0.7 [2, 1, 1], which is indicative of particle production from a low net baryon density regime. Thus the global characteristics of nucleus-nucleus collisions at RHIC are the formation of a high energy and low finite net baryon density region at mid-rapidity.
+
+The yield of baryons and anti-baryons is sensitive to two important dynamical aspects of nuclear collisions: the processes of baryon and anti-baryon pair production, and baryon number transport. The mechanism for baryon pair production from a thermalized Quark Gluon Plasma (QGP) has not been established. String fragmentation into di-quark pairs from quarks and gluons at a temperature of a few hundred MeV is believed not to be effective because the energy threshold is much higher than the temperature. Alternative exotic mechanisms such asbaryon formation from QCD domain walls have been proposed [118]. The dynamics of baryon number transport [119, 120], whereby the baryon number from the initial colliding nuclei are transported over a large rapidity gap into the mid-rapidity region, are important for establishing initial net baryon densities in nucleus-nucleus collisions.
+
+The production of strange baryons is a particularly interesting probe of early stages of nuclear collisions. Large strangeness production has long been predicted to be a signature of QGP formation [120]. The strangeness production in previous generations of heavy ion experiments has been observed to be significantly increased compared to those from p+p, p+A and light ion collisions [1, 2, 22, 23, 24], although questions remain about the exact strangeness production mechanism. In particular, the relative importance of strange baryon production from hadronic rescatterings differs between calculations [123, 118], depending on both the evolution of the system and the scattering cross sections assumed. Exotic dynamical mechanisms that have been proposed for strange baryon production include, for example, Color String Ropes [23], String Fusion [10] and Multi-mesonic Reactions [124]. All require a high local energy density and therefore suggest that strangeness production occurs early in the collision.
+
+From the \(\Lambda\) (\(\overline{\Lambda}\)) measurements at RHIC using the STAR detector, we have found the slope parameters from the Boltzmann fit to the \(\Lambda\) (\(\overline{\Lambda}\)) transverse mass spectra change from 254 MeV to 312 MeV from the most peripheral to the most central collisions, respectively. A similar increase in transverse motion was found in the \(\overline{p}\) transverse mass distributions [118]. For fixed freeze-out temperature [118], this increase of slope parameters implies an increase of the collective velocity [118, 23]. One of the important characteristics of hydrodynamic flow is the mass dependence of particles' mean transverse momenta. The transverse momentum distributions of negatively charged hadrons, \(\overline{p}\) and \(\overline{\Lambda}\) are shown in Figure 8.1.
+
+The \(\overline{p}\) and \(\overline{\Lambda}\)\(p_{T}\) distributions are similar in the \(p_{T}\) region below 1 GeV/c, and the fit parameters for Boltzmann \(m_{T}\) or Gaussian \(p_{T}\) functions are consistent even though the data sets cover different ranges in \(p_{T}\). Both distributions are much less steep than that of the h\({}^{-}\) which is dominated by pions. A qualitatively similar mass dependence was observed in SPS collisions [1, 2, 3]. The larger slope parameters at RHIC were attributed to an increased expansion velocity as a function of center-of-mass energy [15].
+
+Figure 8.1 shows that at higher \(p_{T}\) (\(p_{T}\)\(>\)1 GeV/c) the ratio of \(\overline{\Lambda}\) to negative hadrons increases. This effect is in agreement with \(\overline{p}/\pi^{-}\) measurements in PHENIX [1]. This agreement is more pronounced in Figure 8.2 where the \(\overline{p}\) spectra from PHENIX is shown together with \(\overline{\Lambda}\) spectra from STAR. This is
+
+Figure 8.1: The mid-rapidity \(\overline{\Lambda}\) (\(|y|\)\(<\)0.5) transverse momentum distribution from the top 5% most central collisions. For comparison the distributions for negative hadrons (\(d^{2}N/(2\pi p_{T})dp_{T}d\eta\), \(|\eta|\)\(<\)0.1) and anti-protons (\(|y|\)\(<\)0.1) for the similar centrality bin are included. Statistical errors of the data points are smaller than the marker size.
+
+the first time that at moderate \(p_{T}\) of approximately 2 GeV/c more baryons than mesons have been produced in heavy ion collisions. However, data from \(e^{+}e^{-}\) collisions and calculations of string fragmentation indicate that the baryon to meson ratio never exceeds 0.2 [10, 11, 12, 13]. As mentioned above, a natural explanation for this large ratio would be a collective radial flow [11, 12]. In the flow picture, heavier particles like baryons tend to have larger momenta than mesons. On the other hand, it has also been suggested that the energy loss of high \(p_{T}\) partons could modify the baryon to meson ratio through intrinsic \(p_{T}\) broadening caused by gluon saturation expected in high density QCD [VG]. Baryons produced via a baryon junction mechanism combined with jet-quenching in the pion production could also explain this effect [13]. To determine the exact dynamics that cause the relative enhancement of baryons to mesons at high \(p_{T}\), more experimental measurements over a larger \(p_{T}\)-range are needed. From Figure 8.2, the strange baryon to non-strange baryon ratio increases as function of \(p_{T}\). This ratio is probably close to 1 at \(p_{T}\) of 2 GeV/c as well. Because the
+
+Figure 8.2: The mid-rapidity transverse momentum for \(\overline{\Lambda}\) (\(|y|\)\(<\)0.5), negative hadrons ( \(d^{2}N/(2\pi p_{T})d\eta\), \(|\eta|\)\(<\)0.1 ) and anti-protons (\(|y|\)\(<\)0.1) for central collisions. Statistical errors of the data points are smaller than the marker size.
+
+mass difference between \(\overline{\Lambda}\) and \(\overline{p}\) is small and \(\overline{p}\) tend to be more effected by flow than \(\overline{\Lambda}\) due to its larger cross section to interact with pions, simple radial flow from hadronic phase due to re-scatterings among hadrons seems to be inadequate to explain this feature in data.
+
+Figure 8.3 shows the \(dN/dy\) of \(\Lambda\) and \(\overline{\Lambda}\) from the Boltzmann fit as a function of the h\({}^{-}\) pseudo-rapidity density [14]. The open symbols in the figure are data points from an independent analysis using event-mixing techniques. At mid-rapidity the hyperon production is approximately proportional to the primary h\({}^{-}\) multiplicity in Au+Au collisions at RHIC. The dashed lines in the figure correspond to \(\Lambda=(0.054\pm 0.001)\)h\({}^{-}\) and \(\overline{\Lambda}=(0.040\pm 0.001)\)h\({}^{-}\) from a linear fit to the data. Similar centrality dependence of the lambda production was observed at the SPS energies. The \(\overline{\Lambda}\) to h\({}^{-}\) ratio at RHIC is much larger than that at the SPS while the \(\Lambda\) to h\({}^{-}\) ratio is smaller at RHIC [15]. Most of the \(\Lambda\) hyperons at the SPS carry the baryon numbers from the colliding nuclei, and baryon fragmentations contribute significantly to the observed large \(\Lambda\) to
+
+Figure 8.3: \(\Lambda\) and \(\overline{\Lambda}\) rapidity density as a function of negative hadron multiplicity at mid-rapidity. The open symbols in the figure are data points from an independent analysis using event-mixing techniques. Errors shown are statistical only.
+
+\(\Lambda\) ratio. However, at the RHIC energy the pair production processes play a relatively much more important role in the hyperon yields. From Figure 8.3 we also found the average ratio of \(\overline{\Lambda}\) to \(\Lambda\) is \(0.74\pm 0.04\) with no significant variation over the measured range of centrality. These excess \(\Lambda\) hyperons at mid-rapidity must carry the baryon numbers (not necessarily the valence quarks) from the colliding nuclei. The dynamics of the baryon number transport are yet to be established. Our measurement is consistent with the conclusion drawn from the anti-proton to proton ratio, that a low net-baryon density regime has been reached in nucleus-nucleus collisions at RHIC [13, 14]. Although the dynamics of baryon number transport are very different from that of the baryon pair production, the shapes of the \(m_{T}\) spectra for \(\overline{\Lambda}\) and \(\Lambda\) are the same within statistical uncertainties. Copious rescatterings during the evolution of the system for \(\Lambda\) and \(\overline{\Lambda}\) can lead to similar \(p_{T}\) spectra [16, 17].
+
+### 8.2 Lambda Enhancement from pp to AA Collisions
+
+The ratio of strange to non-strange particle production such as \(K^{+}/\pi^{+}\) in
+
+Figure 8.4: Contribution for the Wroblewski factor from strange baryon (dotted line), strange mesons (dashed line) and mesons with hidden strangeness (dash-dotted line). The sum of all contributions is given by the full line.
+
+relativistic heavy ion collisions reaches a maximum at beam energies around 30 AGeV in the lab frame. In the hadronic statistic model, the appearance of the maximum seems to follow the trend of the Wroblewski factor \(\lambda_{s}\) (\(=2<s\overline{s}>/(<u\overline{u}>+<d\overline{d}>)\)) as a function of beam energy (Figure 8.4). As the energy increases, the decrease of the baryon chemical potential coupled with only modest increases in the associated temperature causes a decline in the relative number of strange baryons above energies of about 30 AGeV [11].
+
+In Figure 8.5, the ratio of \(\Lambda/\pi^{+}\) also has a maximum at AGS energy and the trend is similar for pp and AA collisions. After normalization by a factor of 4.65 for AA collisions, the ratio data points appear to be fit by a common curve as demonstrated by the dashed line in Figure 8.6. There is an obvious enhancement in the ratio from pp collisions to AA collisions, but a possible common enhancement factor over a very large energy range is very interesting, given the fact that the fraction of associated production versus pair production for hyperons is very different at different energies. At low energy, most of hyperons are produced via associated processes. At high energies, such as RHIC, the hyperons are dominated by the ones from pair production. Detailed measurements for this ratio for both pp and AA collision systems will be needed to address the origin of this simple scaling factor between A+A and p+p collisions.
+
+### 8.3 Simple Thermal Model and Baryon Yield
+
+In classical physics, studing the photons emitted from a hot source can give us information on some of the global features of the radiation source such as temperatures and pressures. Similar approaches have been adapted to study heavy ion collisions except that not only photons but also and more often other particles such as pions, kaons, protons, strange particles and etc., are studied. Thermal models which treat the heavy ion system as a thermal source have been very successful in describing some observations in pA and AA collisons at the AGS and the SPS energy. In a simple thermal model, particle yield can be described as
+
+\[N_{i}=constant\frac{g_{i}}{2\pi^{2}}\left(\frac{T}{\hbar c}\right)^{3}\left( \frac{m_{i}}{\hbar c}\right)^{2}K_{2}\left(\frac{m_{i}}{T}\right), \tag{8.1}\]
+
+where \(g_{i}\) is the degree of degeneracy of particle \(i\), \(m_{i}\) is the mass and T is the system temperature and \(K_{2}\) is the modified Bessel function.
+
+[MISSING_PAGE_EMPTY:170]
+
+GeV. Further precise measurements of \(\Xi\) and \(\Omega\) will provide better constraints on theoretical modeling.
+
+### 8.4 Conclusions
+
+In conclusion, we have presented the first inclusive mid-rapidity (\(|y|\)\(<\)0.5) \(\Lambda\) and \(\overline{\Lambda}\) spectra as a function of centrality from Au+Au collisions at the energy \(\sqrt{s_{{}_{NN}}}\) = 130 GeV. There is no significant difference in the shapes of the transverse mass spectra between \(\Lambda\) and \(\overline{\Lambda}\). The \(T_{B}\) parameter from the Boltzmann fit to the \(m_{T}\) spectra increases from 260 MeV for the peripheral collisions to 318 MeV
+
+Figure 8.7: The particle ratios from a simple thermal model as a function of T.
+
+for central collisions suggesting a greater collective expansion in central collisions. The \(\overline{\Lambda}\) to \(\Lambda\) ratio is \(0.74\pm 0.04\) with no significant variation over the selected range of centrality, which is consistent with a low net baryon density at mid-rapidity for all measured centralities. The rapidity density of \(\Lambda\) and \(\overline{\Lambda}\) is approximately proportional to the number of negative hadrons at mid-rapidity. Compared to the negatively charged hadron distribution, the \(p_{T}\) distributions of \(\Lambda\) and \(\overline{\Lambda}\) are found to be much flatter over the whole \(p_{T}\) region. For \(p_{T}\)\(>\)1 GeV/c there seem to be strong enhancement of the baryon yield over the meson yield in comparison with calculations from string fragmentation models.
+
+Figure 8.8: The particle yield from simple thermal model and measurements constrain as a function of T
+
+## Appendix A Relativistic Kinematics
+
+In this appendix, aspects of relativistic kinematics relevant to heavy ion physics and resonance analysis are reviewed. The purpose of this appendix is to provide an introduction for the reader who is new to heavy ion physics, and to set forth the notations and conventions used in this thesis. The following derivations use the convention in which \(\hbar=c=1\). The following conversions are useful: \(\hbar c=197.3\) MeV-fm and \((\hbar c)^{2}=0.3894\)\((\mbox{GeV})^{2}\)-mb.
+
+### Lorentz Transformations
+
+The energy \(E\) and 3-momentum \({\bf p}\) of a particle of mass \(m\) form the 4-vector \(p=(E,{\bf p})\), whose square \(p^{2}\equiv E^{2}-|{\bf p}|^{2}=m^{2}\). The velocity of the particle is \(\beta={\bf p}/E\). The energy and momentum \((E^{*},\,{\bf p}^{*})\) viewed from a frame moving with a velocity \(\beta_{f}\) are given by
+
+\[\left(\begin{array}{c}E^{*}\\ p_{\parallel}^{*}\end{array}\right)=\left(\begin{array}{cc}\gamma_{f}&- \gamma_{f}\beta_{f}\\ -\gamma_{f}\beta_{f}&\gamma_{f}\end{array}\right)\left(\begin{array}{c}E\\ p_{\parallel}\end{array}\right)\,\ p_{t}^{*}=p_{t}\] (A.1)
+
+where \(\gamma_{f}=1/\sqrt{1-\beta_{f}^{2}}\) and \(p_{t}(p_{\parallel})\) are the components of \({\bf p}\) perpendicular (parallel) to \(\beta_{f}\). Other 4-vectors, such as the space-time coordinates of events transform in the same manner. The scalar product of two 4-momenta \(p_{1}\cdot p_{2}=E_{1}E_{2}-{\bf p}_{1}\cdot{\bf p}_{2}\) is invariant (frame independent).
+
+### 11 Kinematic Variables
+
+We consider collision systems with two bodies (particles or nuclei) in the initial state and define the \(z\)-axis to coincide with the axis of collision. For the purposes of presenting single-particle differential multiplicities, it is convenient to describe particle trajectories using kinematic variables which are either Lorentz invariant or transform trivially under Lorentz boosts along this axis.
+
+The momentum components \(p_{x}\) and \(p_{y}\) are unchanged by a boost along \(z\) so we define and use the transverse momentum of a particle,
+
+\[p_{t}=\sqrt{p_{x}^{2}+p_{y}^{2}} \tag{110}\]
+
+as one such variable. The transverse mass (or transverse energy) of a particle with mass \(m\) is defined as
+
+\[m_{t}=\sqrt{p_{t}^{2}+m^{2}} \tag{111}\]
+
+such that the transverse kinetic energy of the particle is \(m_{t}-m\).
+
+The longitudinal variable most commonly used is rapidity,
+
+\[y=\frac{1}{2}\ln\;\left(\frac{E+p_{z}}{E-p_{z}}\right) \tag{112}\]
+
+which has the advantage of being additive under Lorentz transformations along \(z\). This means that under Lorentz transformations along \(z\), differences in rapidity, \(dy\), are invariant and rapidity spectra, \(dN/dy\), translate in \(y\) while their shapes are preserved. The expression for rapidity may also be written as
+
+\[y=\;\ln\;\left(\frac{E+p_{z}}{m_{t}}\right). \tag{113}\]
+
+From the above definitions, the relations
+
+\[p_{z}=m_{t}\;\mbox{sinh}\;y \tag{114}\] \[E=m_{t}\;\mbox{cosh}\;y \tag{115}\]are obtained. Dividing these, we have
+
+\[\beta_{z}=\ \tanh\ y\] (A.8)
+
+which is the longitudinal component of the velocity of a particle of rapidity \(y\) in the lab. Since rapidity is additive under Lorentz transformations, this suggests a form for the rapidity transformation corresponding to a boost along the \(z\)-axis. If a particle has a rapidity \(y\) in the lab and we want to know its rapidity \(y^{\prime}\) in a system which has velocity \(\beta_{z}\) relative to the lab, then:
+
+\[y^{\prime}=y-\tanh^{-1}\beta_{z}.\] (A.9)
+
+A related quantity is the pseudo-rapidity, \(\eta\). To obtain the expression for \(\eta\), we first rewrite Equation A.4 as
+
+\[y=\frac{1}{2}\ln\ \left(\frac{1+\beta\ \cos\theta}{1-\beta\ \cos\theta}\right)\] (A.10)
+
+and taking the limit of Equation A.10 as \(\beta\to 1\):
+
+\[\eta=-{\rm ln}\ {\rm tan}\ \left(\frac{\theta}{2}\right).\] (A.11)
+
+For particles with \(\beta\approx 1,\ \eta\approx y,\) while for massless particles, \(\eta=y\). Note that a particle's \(\eta\) only depends on its angle of emission relative to the beam axis.
+
+## Appendix B The STAR Collaboration
+
+STAR Collaboration Author List
+
+C. Adler\({}^{11}\), Z. Ahammed\({}^{23}\), C. Allgower\({}^{12}\), J. Amonett\({}^{14}\), B.D. Anderson\({}^{14}\), M. Anderson\({}^{5}\), G.S. Averichev\({}^{9}\), J. Balewski\({}^{12}\), O. Barannikova\({}^{9,23}\), L.S. Barnby\({}^{14}\), J. Baudot\({}^{13}\), S. Bekele\({}^{20}\), V.V. Belaga\({}^{9}\), R. Bellwied\({}^{30}\), J. Berger\({}^{11}\), H. Bichsel\({}^{29}\), L.C. Bland\({}^{12}\), C.O. Blyth\({}^{3}\), B.E. Bonner\({}^{24}\), R. Bossingham\({}^{15}\), A. Boucham\({}^{26}\), A. Brandin\({}^{18}\), R.V. Cadman\({}^{1}\), H. Caines\({}^{20}\), M. Calderon de la Barca Sanchez\({}^{3}\), A. Cardenas\({}^{23}\), J. Carroll\({}^{15}\), J. Castillo\({}^{26}\), M. Castro\({}^{30}\), D. Cebra\({}^{5}\), S. Chattopadhyay\({}^{30}\), M.L. Chen\({}^{2}\), Y. Chen\({}^{6}\), S.P. Chernenko\({}^{9}\), M. Cherney\({}^{8}\), A. Chikanian\({}^{31}\), B. Choi\({}^{27}\), W. Christie\({}^{2}\), J.P. Coffin\({}^{13}\), L. Conin\({}^{26}\), T.M. Cormier\({}^{30}\), J.G. Cramer\({}^{29}\), H.J. Crawford\({}^{4}\), M. DeMello\({}^{24}\), W.S. Deng\({}^{14}\), A.A. Derevschikov\({}^{22}\), L. Didenko\({}^{2}\), J.E. Draper\({}^{5}\), V.B. Dunin\({}^{9}\), J.C. Dunlop\({}^{31}\), V. Eckardt\({}^{16}\), L.G. Efimov\({}^{9}\), V. Emelianov\({}^{18}\), J. Engelage\({}^{4}\), G. Eppley\({}^{24}\), B. Erazmus\({}^{26}\), P. Fachini\({}^{25}\), V. Faine\({}^{2}\), E. Finch\({}^{31}\), Y. Fisyak\({}^{2}\), D. Flierl\({}^{11}\), K.J. Foley\({}^{2}\), J. Fu\({}^{15}\), N. Gagunashvili\({}^{9}\), J. Gans\({}^{31}\), L. Gaudichet\({}^{26}\), M. Germain\({}^{13}\), F. Geurts\({}^{24}\), V. Ghazikhanian\({}^{6}\), J. Grabski\({}^{28}\), O. Grachov\({}^{30}\), D. Greiner\({}^{15}\), V. Grigoriev\({}^{18}\), M. Guedon\({}^{13}\), E. Gushin\({}^{18}\), T.J. Hallman\({}^{2}\), D. Hardtke\({}^{15}\), J.W. Harris\({}^{31}\), M. Heffner\({}^{5}\), S. Heppelmann\({}^{21}\), T. Herston\({}^{23}\), B. Hippolyte\({}^{13}\), A. Hirsch\({}^{23}\), E. Hjort\({}^{15}\), G.W. Hoffmann\({}^{27}\), M. Horsley\({}^{31}\), H.Z. Huang\({}^{6}\), T.J. Humanic\({}^{20}\), H. Hummler\({}^{16}\), G. Igo\({}^{6}\), A. Ishihara\({}^{27}\), Yu.I. Ivanshin\({}^{10}\), P. Jacobs\({}^{15}\), W.W. Jacobs\({}^{12}\), M. Janik\({}^{28}\), I. Johnson\({}^{15}\), P.G. Jones\({}^{3}\), E. Judd\({}^{4}\), M. Kaneta\({}^{15}\), M. Kaplan\({}^{7}\), D. Keane\({}^{14}\), A. Kisiel\({}^{28}\), J. Klay\({}^{5}\), S.R. Klein\({}^{15}\), A. Klyachko\({}^{12}\), A.S. Konstantinov\({}^{22}\), L. Kotchenda\({}^{18}\), A.D. Kovalenko\({}^{9}\), M. Kramer\({}^{19}\)P. Kravtsov\({}^{18}\), K. Krueger\({}^{1}\), C. Kuhn\({}^{13}\), A.I. Kulikov\({}^{9}\), G.J. Kunde\({}^{31}\), C.L. Kunz\({}^{7}\), R.Kh. Kutuev\({}^{10}\), A.A. Kuznetsov\({}^{9}\), L. Lakehal-Ayat\({}^{26}\), J. Lamas-Valverde\({}^{24}\), M.A.C. Lamont\({}^{3}\), J.M. Landgraf\({}^{2}\), S. Lange\({}^{11}\), C.P. Lansdell\({}^{27}\), B. Lasiuk\({}^{31}\), F. Laue\({}^{2}\), A. Lebedev\({}^{2}\), T. LeCompte\({}^{1}\), R. Lednicky\({}^{9}\), V.M. Leontiev\({}^{22}\), M.J. LeVine\({}^{2}\), Q. Li\({}^{30}\), Q. Li\({}^{15}\), S.J. Lindenbaum\({}^{19}\), M.A. Lisa\({}^{20}\), T. Ljubicic\({}^{2}\), W.J. Llope\({}^{24}\), G. LoCurto\({}^{16}\), H. Long\({}^{6}\), R.S. Longacre\({}^{2}\), M. Lopez-Noriega\({}^{20}\), W.A. Love\({}^{2}\), D. Lynn\({}^{2}\), R. Majka\({}^{31}\), S. Margetis\({}^{14}\), L. Martin\({}^{26}\), J. Marx\({}^{15}\), H.S. Matis\({}^{15}\), Yu.A. Matulenko\({}^{22}\), T.S. McShane\({}^{8}\), F. Meissner\({}^{15}\), Yu. Melnick\({}^{22}\), A. Meschanin\({}^{22}\), M. Messer\({}^{2}\), M.L. Miller\({}^{31}\), Z. Milosevich\({}^{7}\), N.G. Minaev\({}^{22}\), J. Mitchell\({}^{24}\), V.A. Moiseenko\({}^{10}\), D. Moltz\({}^{15}\), C.F. Moore\({}^{27}\), V. Morozov\({}^{15}\), M.M. de Moura\({}^{30}\), M.G. Munhoz\({}^{25}\), G.S. Mutchler\({}^{24}\), J.M. Nelson\({}^{3}\), P. Nevski\({}^{2}\), V.A. Nikitin\({}^{10}\), L.V. Nogach\({}^{22}\), B. Norman\({}^{14}\), S.B. Nurushev\({}^{22}\), G. Odyniec\({}^{15}\), A. Ogawa\({}^{21}\), V. Okorokov\({}^{18}\), M. Oldenburg\({}^{16}\), D. Olson\({}^{15}\), G. Paic\({}^{20}\), S.U. Pandey\({}^{30}\), Y. Panebratsev\({}^{9}\), S.Y. Panitkin\({}^{2}\), A.I. Pavlinov\({}^{30}\), T. Pawlak\({}^{28}\), V. Perevoztchikov\({}^{2}\), W. Peryt\({}^{28}\), V.A Petrov\({}^{10}\), W. Pinganaud\({}^{26}\), E. Platner\({}^{24}\), J. Pluta\({}^{28}\), N. Porile\({}^{23}\), J. Porter\({}^{2}\), A.M. Poskanzer\({}^{15}\), E. Potrebenikova\({}^{9}\), D. Prindle\({}^{29}\), C. Pruneau\({}^{30}\), S. Radomski\({}^{28}\), G. Rai\({}^{15}\), O. Ravel\({}^{26}\), R.L. Ray\({}^{27}\), S.V. Razin\({}^{9,12}\), D. Reichhold\({}^{8}\), J.G. Reid\({}^{29}\), F. Retiere\({}^{15}\), A. Ridiger\({}^{18}\), H.G. Ritter\({}^{15}\), J.B. Roberts\({}^{24}\), O.V. Rogachevski\({}^{9}\), J.L. Romero\({}^{5}\), C. Roy\({}^{26}\), D. Russ\({}^{7}\), V. Rykov\({}^{30}\), I. Sakrejda\({}^{15}\), J. Sandweiss\({}^{31}\), A.C. Saulys\({}^{2}\), I. Savin\({}^{10}\), J. Schambach\({}^{27}\), R.P. Scharenberg\({}^{23}\), K. Schweda\({}^{15}\), N. Schmitz\({}^{16}\), L.S. Schroeder\({}^{15}\), A. Schuttauuf\({}^{16}\), J. Seger\({}^{8}\), D. Seliverstov\({}^{18}\), P. Seyboth\({}^{16}\), E. Shahaliev\({}^{9}\), K.E. Shestermanov\({}^{22}\), S.S. Shimanskii\({}^{9}\), V.S. Shvetcov\({}^{10}\), G. Skoro\({}^{9}\), N. Smirnov\({}^{31}\), R. Snellings\({}^{15}\), J. Sowinski\({}^{12}\), H.M. Spinka\({}^{1}\), B. Srivastava\({}^{23}\), E.J. Stephenson\({}^{12}\), R. Stock\({}^{11}\), A. Stolpovsky\({}^{30}\), M. Strikhanov\({}^{18}\), B. Stringfellow\({}^{23}\), H. Stroebele\({}^{11}\), C. Struck\({}^{11}\), A.A.P. Suaide\({}^{30}\), E. Sugarbaker\({}^{20}\), C. Suire\({}^{13}\), M. \(\ddot{\rm{\i}}\)\(\ddot{\rm{\i}}\)mpa\({}^{9}\), T.J.M. Symons\({}^{15}\), A. Szanto de Toledo\({}^{25}\), P. Szarwas\({}^{28}\), J. Takahashi\({}^{25}\), A.H. Tang\({}^{14}\), J.H. Thomas\({}^{15}\), V. Tikhomirov\({}^{18}\), T.A. Trainor\({}^{29}\), S. Trentalange\({}^{6}\), M. Tokarev\({}^{9}\), M.B. Tonjes\({}^{17}\), V. Trofimov\({}^{18}\), O. Tsai\({}^{6}\), K. Turner\({}^{2}\), T. Ullrich\({}^{2}\),D.G. Underwood\({}^{1}\), G. Van Buren\({}^{2}\), A.M. VanderMolen\({}^{17}\), A. Vanyashin\({}^{15}\), I.M. Vasilevski\({}^{10}\), A.N. Vasiliev\({}^{22}\), S.E. Vigdor\({}^{12}\), S.A. Voloshin\({}^{30}\), F. Wang\({}^{23}\), H. Ward\({}^{27}\), J.W. Watson\({}^{14}\), R. Wells\({}^{20}\), T. Wenaus\({}^{2}\), G.D. Westfall\({}^{17}\), C. Whitten Jr. \({}^{6}\), H. Wieman\({}^{15}\), R. Willson\({}^{20}\), S.W. Wissink\({}^{12}\), R. Witt\({}^{14}\), N. Xu\({}^{15}\), Z. Xu\({}^{31}\), A.E. Yakutin\({}^{22}\), E. Yamamoto\({}^{6}\), J. Yang\({}^{6}\), P. Yepes\({}^{24}\), A. Yokosawa\({}^{1}\), V.I. Yurevich\({}^{9}\), Y.V. Zanevski\({}^{9}\), I. Zborovsky\({}^{9}\), W.M. Zhang\({}^{14}\), R. Zoulkarneev\({}^{10}\), A.N. Zubarev\({}^{9}\)
+
+(STAR Collaboration)
+
+\({}^{1}\)Argonne National Laboratory, Argonne, Illinois 60439
+
+\({}^{2}\)Brookhaven National Laboratory, Upton, New York 11973
+
+\({}^{3}\)University of Birmingham, Birmingham, United Kingdom
+
+\({}^{4}\)University of California, Berkeley, California 94720
+
+\({}^{5}\)University of California, Davis, California 95616
+
+\({}^{6}\)University of California, Los Angeles, California 90095
+
+\({}^{7}\)Carnegie Mellon University, Pittsburgh, Pennsylvania 15213
+
+\({}^{8}\)Creighton University, Omaha, Nebraska 68178
+
+\({}^{9}\)Laboratory for High Energy (JINR), Dubna, Russia
+
+\({}^{10}\)Particle Physics Laboratory (JINR), Dubna, Russia
+
+\({}^{11}\)University of Frankfurt, Frankfurt, Germany
+
+\({}^{12}\)Indiana University, Bloomington, Indiana 47408
+
+\({}^{13}\)Institut de Recherches Subatomiques, Strasbourg, France
+
+\({}^{14}\)Kent State University, Kent, Ohio 44242
+
+\({}^{15}\)Lawrence Berkeley National Laboratory, Berkeley, California 94720
+
+\({}^{16}\)Max-Planck-Institut fur Physik, Munich, Germany
+
+\({}^{17}\)Michigan State University, East Lansing, Michigan 48824
+
+\({}^{18}\)Moscow Engineering Physics Institute, Moscow, Russia
+
+\({}^{19}\)City College of New York, New York City, New York 10031
+
+\({}^{20}\)Ohio State University, Columbus, Ohio 43210\({}^{21}\)Pennsylvanian State University, University Park, Pennsylvania 16802
+
+\({}^{22}\)Institute of High Energy Physics, Protvino, Russia
+
+\({}^{23}\)Purdue University, West Lafayette, Indiana 47907
+
+\({}^{24}\)Rice University, Houston, Texas 77251
+
+\({}^{25}\)Universidade de Sao Paulo, Sao Paulo, Brazil
+
+\({}^{26}\)SUBATECH, Nantes, France
+
+\({}^{27}\)University of Texas, Austin, Texas 78712
+
+\({}^{28}\)Warsaw University of Technology, Warsaw, Poland
+
+\({}^{29}\)University of Washington, Seattle, Washington 98195
+
+\({}^{30}\)Wayne State University, Detroit, Michigan 48201
+
+\({}^{31}\)Yale University, New Haven, Connecticut 06520
+
+## Appendix C Data Tables
+
+[MISSING_PAGE_EMPTY:181]
+
+[MISSING_PAGE_EMPTY:182]
+
+[MISSING_PAGE_EMPTY:183]
+
+[MISSING_PAGE_EMPTY:184]
+
+[MISSING_PAGE_EMPTY:185]
+
+[MISSING_PAGE_EMPTY:186]
+
+[MISSING_PAGE_EMPTY:187]
+
+[MISSING_PAGE_EMPTY:188]
+
+[MISSING_PAGE_EMPTY:189]
+
+\begin{tabular}{l c c} \hline \hline \(p_{t}\) (GeV) & dN/event & error \\ \hline
+0.3 & 0.272 & 0.080 \\
+0.5 & 0.196 & 0.020 \\
+0.7 & 0.204 & 0.012 \\
+0.9 & 0.173 & 0.008 \\
+1.1 & 0.139 & 0.006 \\
+1.3 & 0.108 & 0.005 \\
+1.5 & 0.074 & 0.004 \\
+1.7 & 0.044 & 0.003 \\
+1.9 & 0.028 & 0.002 \\
+2.1 & 0.016 & 0.002 \\
+2.3 & 0.013 & 0.002 \\
+2.5 & 0.005 & 0.001 \\
+2.7 & 0.009 & 0.001 \\
+2.9 & 0.003 & 0.001 \\
+3.1 & 0.001 & 0.001 \\
+3.3 & 0.000 & 0.000 \\ \hline \end{tabular}
+
+**Table C.10**: \(\bar{\Lambda}\) Yield vs \(p_{t}\) for the centrality bin 35-75%
+
+## References
+
+* [Abb90] T. Abbott et al. _Phys. Rev. Lett._, **64**:847, 1990.
+* [Ack99] K.H. Ackermann et al. "The STAR Time Projection Chamber." _Nucl. Phys._, **A661**:681c-685c, 1999.
+* [Ack01] K.H. Ackermann et al. _Phys. Rev. Lett._, **86**:402, 2001.
+* [Adc01] K. Adcox et al. _Phys. Rev. Lett._, **86**:3500, 2001.
+* [Adc02] K. Adcox et al. _nucl-ex/0112006_, 2002.
+* [Adl01a] C. Adler et al. _Phys. Rev. Lett._, **87**:112303, 2001.
+* [Adl01b] C. Adler et al. _Phys. Rev. Lett._, **87**:112303, 2001.
+* [Adl01c] C. Adler et al. _Phys. Rev. Lett._, **86**:4778, 2001.
+* [Adl01d] C. Adler et al. _Phys. Rev. Lett._, **87**:262302, 2001.
+* [Ahm96] S. Ahmad et al. _Phys. Lett.B_, **382**:35, 1996.
+* [Ame93] N. Amelin et al. _Phys. Lett._, **B306**:312, 1993.
+* [And85] B. Andersson et al. _Physica Scripta_, **32**:574, 1985.
+* [Ant99] F. Antinori et al. _Eur. Phys. J._, **C11**:79, 1999.
+* [Ant00] F. Antinori et al. _Nucl. Part. Phys._, **27**:375, 2000.
+* [App98a] H. Appelshauser et al. _Phys. Lett._, **B444**:523, 1998.
+* [App98b] H. Appelshauser et al. _Eur. Phys. J._, **C2**:661, 1998.
+* [Bac00] B.B. Back et al. _Phys. Rev. Lett._, **85**:3100, 2000.
+* [Bac01] B.B. Back et al. _Phys. Rev. Lett._, **87**:102301, 2001.
+* [Bea97] I. Bearden et al. _Phys. Rev. Lett._, **78**:2080, 1997.
+* [Bea01] I.G. Bearden et al. _Phys. Rev. Lett._, **87**:112305, 2001.
+* [Bel00] R. Bellwied et al. _Phys. Rev._, **C62**:054906, 2000.
+* [Bjo83] J.D. Bjorken. _Phys. Rev._, **D27**:140, 1983.
+
+* [BL88] W. Busza and R. Ledoux. _Ann. Rev. of Nucl. and Part. Sci._, **38**:119, 1988.
+* [BL99] R. Bossingham and M. Lisa. _private communication_, 1999.
+* [Bla99] J. P. Blaizot et al. _Nucl. Phys._, **A661**, 1999.
+* [Bos96] R. Bossingham. "TPC: Algorithms, Gain and R-Phi Resolution with P10." _STAR note 247_, 1996.
+* [Bos99] R. Bossingham. URL: [http://www.star.bnl.gov/STAR/html/](http://www.star.bnl.gov/STAR/html/) tpc_l/tpc.html, 1999.
+* [BR94] W. Blum and L. Rolandi. _Particle Detection With Drift Chambers_. Springer Verlag, Berlin, second edition, 1994.
+* [BW99] R. Bossingham, H. Wieman, et al. _private communication_, 1999.
+* [CJJ74] A. Chodos, R.L. Jaffem, K. Johnson, C.B. Thorn, and V.F. Weisskopf. _Phys. Rev._, **D9**:3471, 1974.
+* [Clo79] F.E. Close. _Introduction to Quarks and Partons_. Academic, London, 1979.
+* [Col92] The STAR Collaboration. "Conceptual Design Report for the Solonoid Tracker at RHIC." Technical report, STAR Collaboration, 1992.
+* [DD83] C.D. Detar and J.F. Donoghue. _Ann. Rev. Nucl. Part. Sci._, **33**:235, 1983.
+* [EH93] J. Sollfrank E. Schnedermann and U. Heinz. _Phys. Rev._, **C48**:2462, 1993.
+* [Ell89] J. Ellis et al. _Phys. Lett._, **B233**:223, 1989.
+* [Fin00] R.A. Fini. _Eur. Phys. J._, **c14**:633, 2000.
+* [FS79] D.L. Fancher and A.C. Schaffer. _IEEE Trans. Nucl. Sci._, **NS-26**:150, 1979.
+* [GG00] (Particle Data Group), D.E. Groom, et al. _Eur. Phys. Journal._, **C15**:1, 2000.
+* [Got87] G. Gottieb. _Phys. Rev._, **D35**:2531, 1987.
+* [Gre00] C. Greiner. _nucl-th/0011026_, p. 12, 2000.
+
+* [GSS89] J. Groh, E. Schenuit, and H. Spitzer. _Nuclear Instruments and Methods in Physics Research_, **A283**:730-734, 1989.
+* [Hec98] H. van Hecke et al. _Phys. Rev. Lett._, **81**:5764, 1998.
+* [Hof88] W. Hoffman. _Ann. Rev. Nucl. Part. Sci_, **38**:279, 1988.
+* [Hua] H.Z. Huang. Proceedings of Relativistic Heavy Ion Symposium APS Centennial Meeting '99, R. Seto, Editor. 3.
+* [JT96] J. Letessier J. Rafelski and A. Tounsi. _Acta Physica Polonica_, **B27**:1035-1140, 1996.
+* [Kha96] D. Kharzeev. _Phys. Lett._, **B378**:238, 1996.
+* [Koc86] P. Koch et al. _Phys. Rep._, **142**:167, 1986.
+* [Kop74] G.I. Kopylov. _Phys. Lett._, **B50**:472, 1974.
+* [KX01] M. Kaneta and N. Xu. _J. Phys. G_, **27**:589, 2001.
+* [Las] B. Lasiuk. "The Physics of the TPC Response Simulat or." _STAR note._
+* [Nev] Paval Nevski. URL:[http://www.star.bnl.gov/STARAFS/](http://www.star.bnl.gov/STARAFS/) comp/simu/gstar/gstar.html.
+* [PR01] H. Oeschler P. Braun-Munzinger, J. Cleymans and K. Redlich. _hep-ph/0106066_, 2001.
+* [Pro] CERN RD44 Project. URL:[http://wwwinfo.cern.ch/asd/geant/](http://wwwinfo.cern.ch/asd/geant/) geant4_public/G4UsersDocuments/Welcome/IntroductionToGeant4 /html/introductionToGeant4.html.
+* [PS01] K. Redlich P. Braun-Munzinger, D. Magestro and J. Stachel. _Phys. Lett._, **B518**:41, 2001.
+* [R01] D. Rohrich. _Nucl. Part. Phys._, **27**:355-366, 2001.
+* [Raf82] J. Rafelski. _Phys. Rep._, **88**:331, 1982.
+* [Raf01a] J. Rafelski. _Nucl. Part. Phys._, **27**:723-726, 2001.
+* [Raf01b] J. Rafelski. _J. Phys. G:Nucl. Part. Phys._, **27**:723-726, 2001.
+* [Ray99] L. Ray. _private communication_, 1999.
+
+* [Red01] K. Redlich. _hep-ph/0105104_, 2001.
+* [RM86] J. Rafelski and B. Muller. _Phys. Rev. Lett._, **56**:2334(E), 1986.
+* [RR86] B. Muller R. Koch and J. Rafelski. _Phys. Rep._, **142**:167, 1986.
+* [RS01] R. Rapp and E. Shuryak. _Phys. Rev. Lett._, **86**:2980, 2001.
+* 29, 1999.
+* [Sor95] H. Sorge. _Phys. Rev._, **C52**:3291, 1995.
+* [Tre00] S. Trentalange. _private communication_, 2000.
+* [VG] I. Vitev and M. Gyulassy. _nucl-th/0104066_.
+* [VG01] I. Vitev and M. Gyulassy. _nucl-th/0104066_, 2001.
+* [Wan97] X.N. Wang. _Phys. Rep._, **280**:287, 1997.
+* [Wan01] F. Wang. _Nucl. Part. Phys._, **27**:283-292, 2001.
+* [Whi01] C. Whitten. _private communication_, 2001.
+* [Won94] C. Wong. _Introduction to High-Energy Heavy-Ion Collisions_. World Scientific, Singapore, first edition, 1994.
+* [WW96] E. Hjort W. Betts, W. Gong and H. Wieman. "Studies of Several Wire and Pad Configurations for the STAR TPC." _STAR Note 263_, 1996.
+* [Yam01] E.T. Yamamoto. "\(\Phi\) Meson Production in Au+Au Collisions at the Relativistic Heavy Ion Collider." _Thesis_, 2001.

@@ -1,0 +1,928 @@
+Measurement of Directed Flow with the STAR Event Plane Detector (EPD) in Au+Au collisions at \(\sqrt{s_{NN}}=\)27 and 19.6 GeV
+
+DISSERTATION
+
+Presented in Partial Fulfillment of the Requirements for the Degree Doctor of Philosophy in the Graduate School of The Ohio State University
+
+By
+
+Xiaoyu Liu, B.S.
+
+Graduate Program in Physics
+
+The Ohio State University
+
+2023
+
+Dissertation Committee:
+
+Michael Lisa, Advisor
+
+Thomas Humanic
+
+Ulrich Heinz
+
+Fengyuan Yang
+
+[MISSING_PAGE_EMPTY:2]
+
+###### Abstract
+
+Directed flow (\(v_{1}\)) describes the collective sideward motion of produced particles and nuclear fragments in heavy-ion collisions. It carries information on the very early stage of the collision, especially at large pseudorapidity (in the fragmentation region), where it is believed to be generated during the nuclear passage time. Directed flow therefore probes the onset of bulk collective dynamics during thermalization, providing valuable experimental guidance to models of the pre-equilibrium stage. Model studies have indicated that directed flow is sensitive to the shear viscosity of the hot QCD matter. Furthermore, directed flow has demonstrated strong constraining power on the initial baryon stopping and can serve as a probe for the equation of state in heavy-ion collisions. Past measurements have indicated that the directed flow signal is most pronounced at the forward(backward) (pseudo)rapidity. Therefore, any sensitivity to the initial state, hydrodynamic evolution, or the equation of state may be more evident at large (pseudo)rapidities.
+
+In 2018, the Event Plane Detector (EPD, \(2.1<|\eta|<5.1\)) was installed in STAR and used for the Beam Energy Scan phase-II (BES-II) data taking. The combination of EPD and high-statistics BES-II data enables us to extend the \(v_{1}\) measurement to the forward and backward \(\eta\) regions. In this work, we present the measurement of \(v_{1}\) over six units of \(\eta\) in Au+Au collisions at \(\sqrt{s_{NN}}=\)19.6 and 27 GeV using the STAR EPD. EPD is a pre-shower scintillator detector mainly designed for reconstructing the event plane angle. In order to use it as the particles of interest region rather than the reference, an entire new method was developed to ensure the accuracy of this analysis. The results of the analysis at \(\sqrt{s_{NN}}=\)19.6 GeV exhibit excellent consistency with the previous PHOBOS measurement, while elevating the precision of the overall measurement to a new level. The increased precision of the measurement also revealed finer structures in heavy-ion collisions, including a potential observation of the first-order event plane decorrelation. The "limiting fragmentation" of \(v_{1}\) wasobserved at all the centralities. It is interesting to see this energy scaling extends beyond yields to the dynamics, as it might offer us new insights into the particle production mechanism in the fragmentation region. Multiple physics models were compared to this experimental measurement. Only transport model and three-fluid hybrid model can reproduce a sizable \(v_{1}\) at large \(\eta\) as what was observed experimentally. This underscores the importance of incorporating all segments of the heavy-ion collision in model studies, especially at BES energies where the nuclear fragments can substantially influence particle production across the entire pseudorapidity range.
+
+To my parents and sister.
+
+## Acknowledgments
+
+I would like to thank my advisor Prof. Mike Lisa for his support and guidance during my PhD journey. I would like to thank the co-PAs of my paper: Dr. Prithwish Tribedy, Prof. Shinichi Esumi, my committee members and all the professors who have taught me classes in the graduate school for their help. Furthermore, I want to thank all the friends who have supported me through my PhD program especially during my candidacy exam. I also want to thank all the friends at BNL for always generously sharing their food and making my trips to BNL cheerful. Last but not least, I would like to thank the STAR collaboration for providing a supportive and friendly environment for me to learn and grow.
+
+VITA
+
+November 22, 1994 Born--Wuhan, Hubei, China
+
+May, 2017 B.S. Central China Normal University, Wuhan, Hubei, China
+
+**Publications**
+
+STAR Collaboration, Hyperon Polarization along the Beam Direction Relative to the Second and Third Harmonic Event Planes in Isobar Collisions at \(\sqrt{s_{NN}}\) =200 GeV, Phys.Rev.Lett. 131 (2023) 20, 202301.
+
+STAR Collaboration, Measurement of electrons from open heavy-flavor hadron decays in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV with the STAR detector, JHEP 06 (2023) 176.
+
+STAR Collaboration, Energy dependence of intermittency for charged hadrons in Au+Au collisions at RHIC, Phys.Lett.B 845 (2023) 138165.
+
+STAR Collaboration, Observation of Directed Flow of Hypernuclei \({}^{3}_{\Lambda}\)H and \({}^{4}_{\Lambda}\)H in \(\sqrt{s_{NN}}\) =3 GeV Au+Au Collisions at RHIC, Phys.Rev.Lett. 130 (2023) 21, 212301.
+
+STAR Collaboration, Beam energy dependence of the linear and mode-coupled flow harmonics in Au+Au collisions, Phys.Lett.B 839 (2023) 137755.
+
+STAR Collaboration, \(K^{*0}\) production in Au+Au collisions at \(\sqrt{s_{NN}}\) =7.7, 11.5, 14.5, 19.6, 27, and 39 GeV from the RHIC beam energy scan, Phys.Rev.C 107 (2023) 3, 034907.
+
+STAR Collaboration, Higher-order cumulants and correlation functions of proton multiplicity distributions in \(\sqrt{s_{NN}}\) =3 GeV Au+Au collisions at the RHIC STAR experiment, Phys.Rev.C 107 (2023) 2, 024908.
+
+STAR Collaboration, Beam Energy Dependence of Triton Production and Yield Ratio (\(\rm N_{t}\times N_{p}/N_{d}^{2}\)) in Au+Au Collisions at RHIC, Phys.Rev.Lett. 130 (2023) 202301.
+
+STAR Collaboration, Search for the Chiral Magnetic Effect in Au+Au collisions at \(\sqrt{s_{{}_{\rm NN}}}=27\) GeV with the STAR forward Event Plane Detectors, Phys.Lett.B 839 (2023) 137779.
+
+STAR Collaboration, Beam Energy Dependence of Fifth and Sixth-Order Net-proton Number Fluctuations in Au+Au Collisions at RHIC, Phys.Rev.Lett. 130 (2023) 8, 082301.
+
+STAR Collaboration, Observation of sequential \(\Upsilon\) suppression in Au+Au collisions at \(\sqrt{s_{{}_{\rm NN}}}=200\) GeV with the STAR experiment, Phys.Rev.Lett. 130 (2023) 11, 112301.
+
+STAR Collaboration, Measurement of \({}^{4}_{\Lambda}\)H and \({}^{4}_{\Lambda}\)He binding energy in Au+Au collisions at sNN = 3 GeV, Phys.Lett.B 834 (2022).
+
+STAR Collaboration, Azimuthal transverse single-spin asymmetries of inclusive jets and identified hadrons within jets from polarized \(pp\) collisions at \(\sqrt{s}=200\) GeV, Phys.Rev.D 106 (2022) 7, 072010.
+
+STAR Collaboration, Azimuthal anisotropy measurement of (multi)strange hadrons in Au+Au collisions at \(\sqrt{s_{NN}}=54.4GeV\), Phys.Rev.C 107 (2023) 2, 024912.
+
+STAR Collaboration, Projections of two-particle correlations onto transverse rapidity in Au+Au collisions at \(\sqrt{s_{NN}}=\)200 GeV at STAR, Phys.Rev.C 106 (2022) 4, 044906.
+
+STAR Collaboration, Pattern of global spin alignment of \(\phi\) and \(\rm K^{*0}\) mesons in heavy-ion collisions, Nature 614 (2023) 7947, 244-248.
+
+STAR Collaboration, Centrality and transverse momentum dependence of higher-order flow harmonics of identified hadrons in Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV, Phys.Rev.C 105 (2022) 6, 064911.
+
+STAR Collaboration, Collision-System and Beam-Energy Dependence of Anisotropic Flow Fluctuations, Phys.Rev.Lett. 129 (2022) 25, 252301.
+
+STAR Collaboration, Light nuclei collectivity from \(\sqrt{s_{NN}}=\) 3 GeV Au+Au collisions at RHIC, Phys.Lett.B 827 (2022) 136941.
+
+STAR Collaboration, Evidence for Nonlinear Gluon Effects in QCD and Their Mass Number Dependence at STAR, Phys.Rev.Lett. 129 (2022) 9, 092501.
+
+STAR Collaboration, Measurements of \(H_{\Lambda}^{3}\) and \(H_{\Lambda}^{4}\) Lifetimes and Yields in Au+Au Collisions in the High Baryon Density Region, Phys.Rev.Lett. 128 (2022) 20, 202301.
+
+STAR Collaboration, Measurement of cold nuclear matter effects for inclusive J/\(\psi\) in p+Au collisions at sNN=200 GeV, Phys.Lett.B 825 (2022) 136865.
+
+STAR Collaboration, Measurement of inclusive electrons from open heavy-flavor hadron decays in \(p\)+\(p\) collisions at \(\sqrt{s}=200\) GeV with the STAR detector, Phys.Rev.D 105 (2022) 3, 032007.
+
+STAR Collaboration, Differential measurements of jet substructure and partonic energy loss in Au+Au collisions at \(\sqrt{s_{NN}}=\)200 GeV, Phys.Rev.C 105 (2022) 4, 044906.
+
+STAR Collaboration, Probing the Gluonic Structure of the Deuteron with \(J/\psi\) Photoproduction in d+Au Ultraperipheral Collisions, Phys.Rev.Lett. 128 (2022) 12, 122303.
+
+STAR Collaboration, Search for the chiral magnetic effect with isobar collisions at \(\sqrt{s_{NN}}\)=200 GeV by the STAR Collaboration at the BNL Relativistic Heavy Ion Collider, Phys.Rev.C 105 (2022) 1, 014901.
+
+STAR Collaboration, Disappearance of partonic collectivity in sNN=3GeV Au+Au collisions at RHIC, Phys.Lett.B 827 (2022) 137003.
+
+STAR Collaboration, Probing strangeness canonical ensemble with K\(-\), \(\phi\)(1020) and \(\Xi-\) production in Au+Au collisions at \(\sqrt{s_{NN}}=\)3 GeV, Phys.Lett.B 831 (2022) 137152.
+
+STAR Collaboration, Global \(\Lambda\)-hyperon polarization in Au+Au collisions at \(\sqrt{s_{NN}}\)=3 GeV, Phys.Rev.C 104 (2021) 6, L061901.
+
+STAR Collaboration, Search for the Chiral Magnetic Effect via Charge-Dependent Azimuthal Correlations Relative to Spectator and Participant Planes in Au+Au Collisions at \(\sqrt{s_{NN}}=\leavevmode\nobreak\ 200\) GeV, Phys.Rev.Lett. 128 (2022) 9, 092301.
+
+STAR Collaboration, Measurement of the Sixth-Order Cumulant of Net-Proton Multiplicity Distributions in Au+Au Collisions at \(\sqrt{s_{NN}}=\) 27, 54.4, and 200 GeV at RHIC, Phys.Rev.Lett. 127 (2021) 26, 262301.
+
+STAR Collaboration, Invariant Jet Mass Measurements in \(pp\) Collisions at \(\sqrt{s}=200\) GeV at RHIC, Phys.Rev.D 104 (2021) 5, 052007.
+
+STAR Collaboration, Azimuthal anisotropy measurements of strange and multistrange hadrons in \(U+U\) collisions at \(\sqrt{s_{NN}}=\)193 GeV at the BNL Relativistic Heavy Ion Collider, Phys.Rev.C 103 (2021) 6, 064907.
+
+STAR Collaboration, Longitudinal double-spin asymmetry for inclusive jet and dijet production in polarized proton collisions at \(\sqrt{s}=\) 200 GeV, Phys.Rev.D 103 (2021) 9, L091103.
+
+STAR Collaboration, Cumulants and correlation functions of net-proton, proton, and antiproton multiplicity distributions in Au+Au collisions at energies available at the BNL Relativistic Heavy Ion Collider, Phys.Rev.C 104 (2021) 2, 024902.
+
+STAR Collaboration, Observation of \(D_{s}^{\pm}/D^{0}\) enhancement in Au+Au collisions at \(\sqrt{s_{{}_{NN}}}=\) 200 GeV, Phys.Rev.Lett. 127 (2021) 092301.
+
+STAR Collaboration, Global Polarization of \(\Xi\) and \(\Omega\) Hyperons in Au+Au Collisions at \(\sqrt{s_{NN}}=\) 200 GeV, Phys.Rev.Lett. 126 (2021) 16, 162301.
+
+STAR Collaboration, Measurement of transverse single-spin asymmetries of \(\pi^{0}\) and electromagnetic jets at forward rapidity in 200 and 500 GeV transversely polarized proton-proton collisions, Phys.Rev.D 103 (2021) 9, 092009.
+
+STAR Collaboration, Comparison of transverse single-spin asymmetries for forward \(\pi^{0}\) production in polarized \(pp\), \(p\)Al and \(p\)Au collisions at nucleon pair c.m. energy \(\sqrt{s_{\rm NN}}=\) 200 GeV, Phys.Rev.D 103 (2021) 7, 072005.
+
+STAR Collaboration, Measurements of \(W\) and \(Z/\gamma^{*}\) cross sections and their ratios in p+p collisions at RHIC, Phys.Rev.D 103 (2021) 1, 012001.
+
+STAR Collaboration, Flow and interferometry results from Au+Au collisions at \(\sqrt{s_{NN}}=\) 4.5 GeV, Phys.Rev.C 103 (2021) 3, 034908.
+
+STAR Collaboration, Measurement of inclusive J/\(\psi\) polarization in \(p+p\) collisions at \(\sqrt{s}=\)200 GeV by the STAR experiment, Phys.Rev.D 102 (2020) 9, 092009.
+
+STAR Collaboration, Beam-energy dependence of the directed flow of deuterons in Au+Au collisions, Phys.Rev.C 102 (2020) 4, 044906.
+
+STAR Collaboration, Pair invariant mass to isolate background in the search for the chiral magnetic effect in Au+Au collisions at \(\sqrt{s_{NN}}=\)200 GeV, Phys.Rev.C 106 (2022) 3, 034908.
+
+STAR Collaboration, Measurement of the central exclusive production of charged particle pairs in proton-proton collisions at \(\sqrt{s}\) = 200 GeV with the STAR detector at RHIC, JHEP 07 (2020) 07, 178.
+
+STAR Collaboration, Results on total and elastic cross sections in proton-proton collisions at \(\sqrt{s}\) = 200 GeV, Phys.Lett.B 808 (2020) 135663.
+
+STAR Collaboration, Measurement of groomed jet substructure observables in p+p collisions at \(\sqrt{s}\) =200 GeV with STAR, Phys.Lett.B 811 (2020) 135846.
+
+STAR Collaboration, Beam energy dependence of net- \(\Lambda\) fluctuations measured by the STAR experiment at the BNL Relativistic Heavy Ion Collider, Phys.Rev.C 102 (2020) 2, 024903.
+
+STAR Collaboration, Underlying event measurements in \(p+p\) collisions at \(\sqrt{s}\) = 200 GeV at RHIC, Phys.Rev.D 101 (2020) 5, 052004.
+
+STAR Collaboration, Measurement of D\({}^{0}\)-meson + hadron two-dimensional angular correlations in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV, Phys.Rev.C 102 (2020) 1, 014905.
+
+STAR Collaboration, First measurement of \(\Lambda_{c}\) baryon production in Au+Au collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV, Phys.Rev.Lett. 124 (2020) 17, 172301.
+
+STAR Collaboration, Measurement of \(e^{+}e^{-}\) Momentum and Angular Distributions from Linearly Polarized Photon Collisions, Phys.Rev.Lett. 127 (2021) 5, 052302.
+
+STAR Collaboration, Bulk properties of the system formed in \(Au+Au\) collisions at \(\sqrt{s_{\rm NN}}\) =14.5 GeV at the BNL STAR detector, Phys.Rev.C 101 (2020) 2, 024905.
+
+STAR Collaboration, Beam-energy dependence of identified two-particle angular correlations in \(\sqrt{s_{NN}}\) = 7.7-200 GeV Au+Au collisions, Phys.Rev.C 101 (2020) 1, 014916.
+
+STAR Collaboration, Measurement of away-side broadening with self-subtraction of flow in Au+Au collisions at \(\sqrt{s_{{}_{\rm NN}}}=200\) GeV, Chin.Phys.C 44 (2020) 104001.
+
+STAR Collaboration, Strange hadron production in Au+Au collisions at \(\sqrt{s_{{}_{\rm NN}}}\) = 7.7, 11.5, 19.6, 27, and 39 GeV, Phys.Rev.C 102 (2020) 3, 034909.
+
+STAR Collaboration, Measurement of inclusive \(J/\psi\) suppression in Au+Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV through the dimuon channel at STAR, Phys.Lett.B 797 (2019) 134917.
+
+STAR Collaboration, Polarization of \(\Lambda\) (\(\bar{\Lambda}\)) hyperons along the beam direction in Au+Au collisions at \(\sqrt{s_{{}_{NN}}}\) = 200 GeV, Phys.Rev.Lett. 123 (2019) 13, 132301.
+
+STAR Collaboration, Measurements of the transverse-momentum-dependent cross sections of \(J/\psi\) production at mid-rapidity in proton+proton collisions at \(\sqrt{s}\) = 510 and 500 GeV with the STAR detector, Phys.Rev.D 100 (2019) 5, 052009.
+
+STAR Collaboration, First Observation of the Directed Flow of \(D^{0}\) and \(\overline{D^{0}}\) in Au+Au Collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV, Phys.Rev.Lett. 123 (2019) 16, 162301.
+
+STAR Collaboration, Measurement of the mass difference and the binding energy of the hypertriton and antihypertriton, Nature Phys. 16 (2020) 4, 409-412.
+
+STAR Collaboration, Beam energy dependence of (anti-)deuteron production in Au + Au collisions at the BNL Relativistic Heavy Ion Collider, Phys.Rev.C 99 (2019) 6, 064905.
+
+STAR Collaboration, Collision-energy dependence of second-order off-diagonal and diagonal cumulants of net-charge, net-proton, and net-kaon multiplicity distributions in Au + Au collisions, Phys.Rev.C 100 (2019) 1, 014902, Phys.Rev.C 105 (2022) 2, 029901 (erratum).
+
+STAR Collaboration, Azimuthal Harmonics in Small and Large Collision Systems at RHIC Top Energies, Phys.Rev.Lett. 122 (2019) 17, 172301.
+
+STAR Collaboration, Collision-energy dependence of \(p_{t}\) correlations in Au + Au collisions at energies available at the BNL Relativistic Heavy Ion Collider, Phys.Rev.C 99 (2019) 4, 044918.
+
+**Fields of Study**
+
+Major Field: Physics
+
+Studies in Measurement of directed flow at forward and backward pseudorapidity using the STAR Event Plane Detector(EPD): Mike Lisa 
+
+## Table of Contents
+
+* 1 Introduction
+	* 1.1 QCD phase diagram and QGP
+	* 1.2 Relativistic Heavy-ion collision
+		* 1.2.1 Evolution of relativistic heavy-ion collision
+		* 1.2.2 Model simulation
+		* 1.2.3 RHIC Beam Energy Scan Program
+	* 1.3 Anisotropic flow
+		* 1.3.1 Overview
+		* 1.3.2 Measurement method
+	* 1.4 Motivation for the directed flow measurement
+* 2 Experimental Setup
+	* 2.1 The RHIC complex
+	* 2.2 The STAR detector
+		* 2.2.1 The Time Projection Chamber
+		* 2.2.2 The Event Plane Detector
+* 3 Measurement of Directed Flow
+	* 3.1 Data set and event selections
+		* 3.1.1 Data set
+		* 3.1.2 Centrality definition
+		* 3.1.3 Event level cuts
+		* 3.1.4 Run regions
+	* 3.2 Event plane and its resolution
+* 43.2.1 Momentum conservation effect 3.2.2 TPC track cuts and weightings 3.2.3 Event Planes from EPD 3.2.4 Event Plane resolution of TPC 3.3 Averaged number of MIPs per EPD tile 3.4 Extraction of \(v_{1}\) 3.5 Correction for the STAR material effect
+* 4 Systematic Uncertainties 4.1 Barlow's method 4.2 Systematic effects and systematic checks 4.2.1 GEANT3 correction 4.2.2 Variation of references 4.2.3 \(v_{1}\) asymmetry 4.2.4 Systematic uncertainties on \(v_{1}\) 4.2.5 Systematic uncertainties on \(\eta\) 4.3 Propagation of systematic uncertainties 4.3.1 Average of \(\eta\) 4.3.2 Average of \(v_{1}(\eta)\) at forward and backward \(\eta\) 4.3.3 Average of centralities
+* 5 Results and Discussions 5.1 Results 5.2 Model comparisons 5.3 Discussion
+* 6 SummaryList of Figures
+
+* 1.1 Elementary particles in Standard Model
+* 1.2 QCD running coupling
+* 1.3 QCD phase diagram
+* 1.4 Evolution of heavy-ion collisions
+* 1.5 Net proton density distribution
+* 1.6 Evolution of heavy-ion collisions
+* 1.7 BES coverage of the QCD phase diagram
+* 1.8 Flow component illustration
+* 1.9 Collision illustration
+* 1.10 Fireball evolution illustration
+* 1.11 Reaction Plane vs. Participant Plane
+* 1.12 PID \(v_{1}\) around the mid-rapidity for three centralities
+* 1.13 PID \(v_{1}\) around the mid-rapidity for \(10\sim 40\%\) centrality with high statistics
+* 1.14 Sensitivity of \(v_{1}(\eta)\) on the shear viscosity at \(\sqrt{s_{NN}}=\)200 GeV
+* 2.1 RHIC aerial view
+* 2.2 RHIC storage rings sketch
+* 2.3 STAR Detector
+* 2.4 STAR event display
+* 2.5 STAR TPC sketch
+* 2.6 EPD illustration
+* 2.7 EPD \(\eta\) acceptance as a function of \(V_{Z}\)
+* 3.1 Momentum conservation effect in the \(v_{1}(\eta)\) measurement at TPC
+* 3.2 TPC resolution
+* 3.3 Cartoon of the EPD ADC spectra
+* 3.4 Demonstration of the EPD spectra fitting
+* 3.5 \(v_{1}(\eta)\) measured in sixteen \(V_{Z}\) bins
+* 3.6 \(v_{1}(\eta)\) after combining sixteen \(V_{Z}\) binsFlowchart for correcting for the STAR material effect.
+* 3.8 Radiation plots
+* 3.9 HIJING particles before decaying.
+* 3.10 HIJING particles after decaying.
+* 3.11 Parent HIJING tracks that cause EPD hits
+* 3.12 All the HIJING tracks that cause EPD hits including decayed particles
+* 3.13 Iteration one
+* 3.14 Iteration two
+* 3.15 Iteration three
+* 3.16 Iteration four
+* 3.17 Correction factors
+* 4.1 Flowchart for Barlow's method
+* 4.2 \(v_{1}(\eta)\) measured with two different references at \(\sqrt{s_{NN}}=\)19.6 GeV
+* 4.3 \(v_{1}(\eta)\) measured with two different references at \(\sqrt{s_{NN}}=\)27 GeV
+* 4.4 Systematic checks at \(\sqrt{s_{NN}}=\)19.6 GeV
+* 4.5 Systematic checks at \(\sqrt{s_{NN}}=\)27 GeV
+* 4.6 Merge of EPD rings at different \(V_{Z}\) bins
+* 5.1 \(v_{1}(\eta)\) at \(\sqrt{s_{NN}}=\)19.6 and 27 GeV
+* 5.2 \(v_{1}(\eta-y_{\rm beam})\) at \(\sqrt{s_{NN}}=\)19.6 and 27 GeV
+* 5.3 STAR \(v_{1}(\eta-y_{\rm beam})\) compared with PHOBOS
+* 5.4 Model comparison at \(\sqrt{s_{NN}}=\)19.6 GeV
+* 5.5 Model comparison at \(\sqrt{s_{NN}}=\)27 GeVList of Tables
+
+**Table**
+
+* 1.1 BES-I data-taking overview
+* 1.2 BES-II data-taking overview
+* 3.1 Data sets at \(\sqrt{s_{NN}}=\)19.6 and 27 GeV
+* 3.2 Cuts for TPC tracks
+
+## Chapter 1 Introduction
+
+### 1.1 QCD phase diagram and QGP
+
+There are four fundamental interactions in the universe: gravity, electromagnetic interaction, strong interaction and weak interaction. This thesis focuses on the study of the strong interaction. In the Standard Model (Figure 1.1), all the hadrons are made of smaller constituent elementary particles called quarks and gluons. Quarks are fermions and carry both electric and color charge1. They have six flavors: up (u) and down (d); charm (c) and strange (s); top (t) and bottom (b). Antiquarks carry exactly the opposite flavor, electric charge and color charge to quarks. Gluons are bosons and only carry color charge. They are the strong force carrier and have eight color combination states. The Quantum Field Theory for describing the strong interactions between quarks and gluons is called Quantum Chromodynamics (QCD). One remarkable feature of QCD is the property of asymptotic freedom: quarks and gluons tend to interact weakly over short distances and strongly over longer distances. Figure 1.2 shows the measurement of QCD coupling constant (\(\alpha_{s}\)) as a function of the energy scale. The running coupling decreases approximately as[1]:
+
+Footnote 1: Three color charges are denoted as red, green and blue. All three colors mixed together, or any one of these colors and its complement, is ”colorless”. “color charge” is completely unrelated to the everyday meaning of “color” and “charge”
+
+\[\alpha_{s}(Q^{2})=\frac{1}{\beta_{2}\ln(Q^{2}/\Lambda_{QCD}^{2})}, \tag{1.1}\]
+
+where
+
+\[\beta_{2}=\frac{11N_{c}-2N_{f}}{12\pi}, \tag{1.2}\]with \(N_{c}=3\) the number of colors and \(N_{f}\) the number of quark flavors. While \(N_{f}=6\) in the Standard Model of particle physics, the effective number of flavors relevant for a given physical process depends on the momentum scale Q and may be smaller than six[1]. \(\Lambda_{QCD}\approx 200-300\) MeV is the fundamental scale of QCD, \(\alpha_{s}\) becomes large near \(Q\approx\Lambda_{QCD}\). At large energy scale (\(Q\) above a few GeV), when \(\alpha_{s}\ll 1\), QCD can be solved perturbatively, while at lower energies, first-principles Lattice QCD calculations are usually used.
+
+Studying the QCD phase diagram is one of the primary goals of nuclear physics[2]. Figure 1.3 illustrates our modern understanding of it in terms of temperature (\(T\)) and baryon chemical potential (\(\mu_{B}\)). Every point on the phase diagram represents a stable thermodynamic state that can be characterized by the equation of state (EoS). EoS describes the relationships between various thermodynamic quantities such as energy, density, temperature, pressure, and etc. It can also describe the phase transition between different states of matter. In nature, quarks and gluons do not exist as free particles but are combined into hadrons, this phenomenon is known as quark confinement. However, at extremely high energy densities, the strong force between quarks and gluons becomes weak due to asymptotic freedom and the hadronic matter dissolves into a system of deconfined quarks and gluons. This phase of matter is called Quark Gluon Plasma (QGP). It is believed to fill the early universe during \(10^{-6}\) s after the Big Bang. QGP was first predicted theoretically and later found at collider experiments[3, 4, 5, 6, 7]. First-principle lattice QCD calculations have established the transition between the QGP and hadron gas to be a crossover transition at the critical temperature \(T_{c}=154\pm 9\) MeV for \(\mu_{B}=0\)[8]. At finite \(\mu_{B}=0\), QCD-based models predict a first-order phase transition and the existence of a critical point at the end of the first-order phase transition line. However, the locations of the phase boundary and the critical point depend on model assumptions. The finite \(\mu_{B}\) area of the QCD phase diagram can only be explored by experimental measurements and detailed modeling since the first-principle lattice calculations of QCD EoS are no longer stable at high \(\mu_{B}\).
+
+### 1.2 Relativistic Heavy-ion collision
+
+#### Evolution of relativistic heavy-ion collision
+
+A droplet of QGP can be reproduced in the laboratory by colliding two beams of accelerated nuclei whose speed is close to the speed of light. Figure 1.4 illustratesFigure 1.1: Elementary particles described in the standard model. Figure taken from [9]
+
+Figure 1.2: Summary of measurements of \(\alpha_{s}\) as a function of the energy scale \(Q\). The respective degree of QCD perturbation theory used in the extraction of \(\alpha_{s}\) is indicated in brackets (NLO: next-to-leading order; NNLO: next-to-next-to-leading order; NNLO+res.: NNLO matched to a resummed calculation; N3LO: next-to-NNLO). Figure taken from Ref.[10]
+
+Figure 1.3: a sketch of the phase diagram of nuclear matter. Lattice QCD estimates indicate that the critical point falls within the interval \(250<\mu_{B}<450\) MeV[11, 12]. The phase space covered by various experiments are also plotted.
+
+Figure 1.4: Various evolution stages of relativistic heavy-ion collisions from left to right, with corresponding physics descriptions and associated time scales at the bottom. Figure taken from Ref.[13]
+
+various evolution stages of the relativistic heavy-ion collisions and the corresponding time scales. When two nuclei that travel in the opposite direction approach each other, they are flattened along the beam direction due to the Lorentz contraction. Then they pass through each other, depositing a large amount of energy in the overlapping zone. Right after the collision, a hot, dense system of deconfined quarks and gluons is created (QGP). There exist several frameworks to describe this transition, for example: QCD string breaking, QCD parton cascades, or color glass condensate evolving into glasma and later into the QGP[14]. The transportation of baryon number in this process has aroused great interests in the heavy-ion community. Figure 1.5 shows the net proton density distribution measured at multiple collision energies. In the conventional picture, the baryon number is carried by the valence quarks. At sufficiently high energies, they are expected to pass through each other and end far from midrapidity in the fragmentation region[15, 16]. Therefore, the observed nonzero net proton density around the midrapidity is striking, as it must come from the colliding nuclei due to the conservation of baryon number. This phenomenon is usually referred as "baryon stopping"[17]. The mechanism through which the baryon number gets transported from the beam rapidity to the midrapidity is unknown and remains a topic of intense research[18, 19, 20, 21].
+
+The QGP reaches local thermal equilibrium in about 1 fm/\(c\). During this rapid thermalization, thermodynamic pressure is generated in the QGP, which acts against the surrounding vacuum and cause fast collective expansion of the reaction zone[22]. Then the system undergoes hydrodynamic expansion and cools down as it becomes more dilute. When the system is below the critical temperature \(T_{c}\), the strongly coupled quarks and gluons recombine into hadrons. At this point, the system reaches the strongly interacting hadron gas phase where unstable hadrons decay and hadrons undergo elastic and inelastic scatterings. When the inelastic collisions between hadrons cease, the system reaches "chemical freeze-out". Approximately 10 fm/\(c\) after the collision, the system reaches "kinetic freeze-out" where the hadrons stop interacting (the mean free path of hadrons is of the same order as the size of the system). Then all the particles keep moving towards the detectors and get registered.
+
+#### Model simulation
+
+As mentioned in Chapter 1.1, the QCD EoS at finite \(\mu_{B}\) can only be inferred from the systematic comparisons between detailed modeling and experimental measurements.
+
+Before examining the experimental efforts, let's briefly discuss the model simulation of heavy-ion collisions.
+
+When the QGP reaches local thermal equilibrium, the subsequent evolution can be described by relativistic hydrodynamics until the hadronization. In model studies, the second-order viscous hydrodynamics is usually used. Two important transport coefficients in this case are the shear (\(\eta\)) and bulk (\(\zeta\)) viscosity over entropy (\(s\)). Both of them are very small and depend on the \(T\) and \(\mu_{B}\) of the system. The shear viscosity describes the system's resistance to deformation, while the bulk viscosity describes the system's resistance to expansion. Therefore, both of them have important influence on the final particle distribution. At finite baryon chemical potential, the net baryon current diffusion should also be taken into account [23; 24; 25; 26]. The aforementioned net proton density distribution will then be modeled as a result of the initial baryon stopping and the subsequent hydrodynamic baryon transport.
+
+Any hydrodynamic simulation requires an initial state, which can be obtained from parametrized initial conditions or the initial state generated by a transport model. Then, the hydrodynamic equation needs to be solved together with the EoS, which are usually taken from the Lattice QCD calculation. Different EoS (e.g a crossover transition between QGP and hadron gas vs. a first-order phase transition) will lead to different behaviors of the simulated QGP[27; 28]. The comparison between experimental data and model calculations employing different EoS can provide valuable constrains on the EoS of the nuclear matter.
+
+As the system expands and cools down, the late hadronic stage becomes too dissipative for a fluid dynamic approach[29] and must be described microscopically. The stage between the hadronization and kinetic freeze-out is usually simulated by transport models [30; 31]. Transport models treat the microscopic substructure of the colliding nuclei explicitly, i.e. the trajectories and interactions of all protons, neutrons and newly created baryons and mesons.
+
+The simulation of heavy-ion collisions is a complex and rapidly evolving field. Currently, the hybrid model (consisting of initial conditions, hydrodynamic evolution, and hadronic afterburner) is considered the most realistic approach for simulating heavy-ion collisions[23; 32; 33] at the energies that the QGP is expected, although pure transport models are also in use. However, no model currently incorporates all the discussed details. Constrained by limited theoretical knowledge and computational resources, each model typically focuses on the comprehensive simulation of specific stages, or specific dynamic ingredients, in the space-time evolution of the heavy-ioncollision, depending on the targeted observable.
+
+#### RHIC Beam Energy Scan Program
+
+After the discovery of strongly coupled quark gluon plasma (sQGP) at RHIC, in order to further explore the QCD phase diagram at finite baryon chemical potential, RHIC conducted the Beam Energy Scan (BES) program[35, 2]. The idea is to dope the QGP with an excess of quarks over antiquarks by colliding gold nuclei at lower and lower energies to reach higher and higher \(\mu_{B}\)[36, 2]. Figure 1.7 illustrates the phase space covered by the BES program. The main physics goals of BES are: 1) further confirm the evidence for the QGP; 2) search for the threshold of the QGP formation; 3) search for the critical point; 4) look for the first-order phase transition if it exists.
+
+During 2010 and 2014, the first stage of the RHIC beam energy scan program was carried out. Au+Au data were collected by the STAR experiment at six energies (\(\sqrt{s_{NN}}=\)7.7, 11.5, 14.5, 19.6, 27, 39 and 62.4 GeV). Data analysis have revealed promising results but the location of the critical point still cannot be pinpointed and the existence of the first-order phase transition remains unknown [37]. The second phase of the BES started in 2018 and successfully concluded in 2021. Multiple detector upgrades were implemented at the STAR experiment for the BES-II data-taking. It
+
+Figure 1.5: Net-proton distributions for 0 5% centrality at AGS (Au+Au \(\sqrt{s_{NN}}=\)5 GeV, \(y_{\rm beam}=1.64\)), SPS (Pb+Pb \(\sqrt{s_{NN}}=\)17.2 GeV, \(y_{\rm beam}=2.91\)) and RHIC energies (Au+Au \(\sqrt{s_{NN}}=\)62.4 GeV, \(y_{\rm beam}=4.2\); Au+Au \(\sqrt{s_{NN}}=\)200 GeV, \(y_{\rm beam}=5.36\)). The large-rapidity 200 GeV data points are preliminary. The beam rapidity \(y_{B}\) at each energy is indicated by the dashed lines. Figure taken from Ref.[34]
+
+will be discussed in more details in Chapter 2. The data analysis on BES-II data is ongoing. This thesis presents physics analyses utilizing the BES-II data. The details of BES-I and BES-II are summarized in Table 1.2.3 and 1.2.3.
+
+At BES energies, the model study encounters new challenges. As shown in Figure1.6, the colliding system is less boosted at lower collision energies. While the thickness of the Lorentz contracted nuclei is almost negligible at \(\sqrt{s_{NN}}=\)200 GeV, it cannot be ignored at \(\sqrt{s_{NN}}=\)19.6 GeV. Therefore, a three-dimensional initial state is needed. At lower energies, a lot of evolution happens before nuclei have completely pass through each other, and the pre-hydrodynamic stage can become as long as the hydrodynamic stage itself. So the simulation of the pre-equilibrium stage becomes important. Furthermore, due to the baryon doping, non-zero baryon and electric charge
+
+\begin{table}
+\begin{tabular}{l c c c} \hline \(\sqrt{s_{NN}}\) & \(\mu_{B}\) (MeV) & Year & Statistics (Millions) \\ \hline
+27 & 155 & 2018 & 1000 \\
+19.6 & 205 & 2019 & 400 \\
+17.3 & 230 & 2021 & 250 \\
+14.5 & 260 & 2019 & 300 \\
+11.5 & 315 & 2020 & 230 \\
+9.1 & 370 & 2019+2020 & 160 \\
+7.7 & 420 & 2019+2021 & 100 \\ \hline \end{tabular}
+\end{table}
+Table 1.2: An overview BES-II. The \(\mu_{B}\) values are estimated from the systematics of central collisions in Ref. [38].
+
+\begin{table}
+\begin{tabular}{l c c c} \hline \(\sqrt{s_{NN}}\) & \(\mu_{B}\) (MeV) & Year & Statistics (Millions) \\ \hline
+62.4 & 70 & 2010 & 67 \\
+39 & 115 & 2010 & 130 \\
+27 & 155 & 2011 & 70 \\
+19.6 & 205 & 2011 & 36 \\
+14.5 & 260 & 2014 & 20 \\
+11.5 & 315 & 2010 & 12 \\
+7.7 & 420 & 2010 & 4 \\ \hline \end{tabular}
+\end{table}
+Table 1.1: An overview BES-I. The \(\mu_{B}\) values are estimated from the systematics of central collisions in Ref. [38].
+
+densities need to be taken into account. Therefore, the experimental measurements at RHIC are extremely important for the heavy-ion community, as it offers valuable information about the properties and evolution of the QGP at finite baryon chemical potential.
+
+### 1.3 Anisotropic flow
+
+#### Overview
+
+Anisotropic flow measures the momentum-space correlation of the final state particles in the heavy-ion collisions. It has been particularly useful in extracting both the QGP properties as well as nontrivial initial conditions[40, 22]. Anisotropic flow can be characterized by the coefficients in the Fourier expansion of the azimuthal particle distribution with respect to the reaction plane (\(\Phi\)):
+
+\[\frac{\mathrm{d}N}{\mathrm{d}(\phi-\Phi)}=\frac{1}{2\pi}\{1+\sum_{n=1}^{ \infty}2v_{n}\cos{[n(\phi-\Phi)]}\}, \tag{1.3}\]
+
+where the reaction plane(\(\Phi\)) is the plane spanned by the impact parameter and the beam axis. Figure 1.8 demonstrates different order of the flow component. The second order flow(\(v_{2}\)), also called the elliptic flow, originated in the elliptic shape of the participant region in the heavy-ion collision. As shown in Figure 1.9, in non-central
+
+Figure 1.6: Nucleon positions on the \(x-z\) plane for to different collision energies. Figure taken from Ref.[39]
+
+Figure 1.7: a sketch illustrating the phase space that the BES program and the fix-target (FTX) program can probe. The black closed circles are current heavy-ion experimental calculations of the chemical freeze-out temperature (\(T\)), and baryon chemical potential (\(\mu_{B}\)) based on statistical model fits to the measured particle ratios. The dashed curves show the estimated trajectories of the corresponding collision energies.
+
+collisions, the overlapping region of two colliding nuclei has an almond shape. Due to the higher pressure gradient along the short axis, more particles are squeezed out in that direction, resulting in an anisotropic particle distribution in the transverse plane. In other words, the spatial anisotropy of the system is converted to the momentum anisotropy through the particle rescatterings during the rapid expansion of the system, eventually giving rise to the elliptic flow[41, 42]. Therefore, \(v_{2}\) is sensitive to the particle interactions at the early stage of the collision. In fact, a strong \(v_{2}\) is among the first evidences that a strongly coupled matter was created at RHIC[43, 44]. The third(\(v_{3}\)) and higher order flow are usually attributed to the event-by-event fluctuations of the participant region geometry[45]. However, recent studies have shown that at lower collision energies (\(\sqrt{s_{NN}}<4\) GeV), \(v_{3}\) can also come from the initial collision geometry and is sensitive to the equation of state[46, 47]. The first order flow(\(v_{1}\)) describes the collective sideward motion (along the \(x\) axis) of the produced particles and nuclear fragments in heavy-ion collisions. It is also referred as the directed flow because it has "directions". Unlike \(v_{2}\), \(v_{1}\) is not boost invariant around the midrapidity, and it is an odd function of rapidity(\(y\)). In a simplified picture shown by Figure 1.10, some nuclear fragments are deflected at the forward and backward region, whereas produced particles are squeezed out from a tilted fireball in the participant region. As a result, the particles can be pushed away from the beam axis towards opposite directions at the large and small (pseudo)rapidity, leading to a sign change of \(v_{1}(\eta)\). More importantly, the asymmetry of the collision geometry on the \(x-z\) plane causes the particles to move towards opposite directions at the positive and negative (pseudo)rapidities, resulting in an odd \(v_{1}(\eta)\). By definition, \(v_{1}>0\) when \(\langle p_{x}\rangle>0\). As a convention at the STAR experiment, the impact parameter direction (\(\mathbf{x}\)) always point from the nucleus moving towards \(-\mathbf{z}\) to the nucleus moving towards \(\mathbf{z}\).
+
+#### Measurement method
+
+Experimentally, the reaction plane angle cannot be measured, and the event plane (\(\Psi\)) is used as an approximation to the reaction plane. The reaction plane angle is calculated by the azimuthal particle distribution:
+
+\[\Psi_{n}=\frac{1}{n}\arctan\frac{\sum_{i}w_{i}\sin\left(n\phi_{i}\right)}{\sum_ {j}w_{j}\cos\left(n\phi_{j}\right)}, \tag{1.4}\]Figure 1.9: a sketch illustrating the heavy-ion collision. The particle distribution after the collision is anisotropic because the overlapping region of the two nuclei is elliptic.
+
+Figure 1.8: a sketch illustrating different order of the flow components.
+
+where the sums run over all the particles that are used to calculate the event plane. This subgroup of particles is called the reference. In the flow measurement, the reference is chosen differently from the particles of interest (PoI) in order to exclude self-correlations. The coefficient \(w_{i}\) is the weight for particle \(i\), where for odd harmonics \(w_{i}(-y)=-w_{i}(y)\) due to the asymmetry of the collision with respect to the midrapidity. The optimal choice for \(w_{i}\) is to approximate \(v_{n}(p_{T},y)\)[48]. Since both \(v_{1}(y)\) around the midrapidity and \(v_{2}(p_{T})\) are found to be linear functions, \(-y\) becomes a common choice for a weight at the first order and \(p_{T}\) becomes a common choice for a weight at the second order. Experimentally, in order to remove acceptance correlations from an imperfect detector, a \(\phi\) weight will also be assigned to the reference tracks to flatten the azimuthal particle distribution in the detector and the event planes will be shifted to obtain an uniform \(\frac{\mathrm{d}N}{\mathrm{d}\Psi_{n}}\) distribution. Then the anisotropic flow can be measured as:
+
+\[v_{n}^{\mathrm{obs.}}=\langle\cos{[n(\phi_{i}-\Psi_{n})]}\rangle, \tag{1.5}\]
+
+Figure 1.10: a sketch illustrating the collision on the \(x-z\) plane. By definition, \(v_{1}>0\) when \(\langle p_{x}\rangle>0\).
+
+where the angle bracket denotes an average over all the particles in all the events. Since finite multiplicity limits the estimation of the reaction plane, the observed \(v_{n}\) must be corrected by the event plane resolution:
+
+\[R_{n}=\langle\cos{[n(\Psi_{n}-\Phi)]}\rangle, \tag{6}\]
+
+\[v_{n} = \frac{v_{n}^{\rm obs.}}{R_{n}} \tag{7}\] \[= \frac{\langle\cos{[n(\phi_{i}-\Psi_{n}+\Phi-\Phi)]}\rangle}{ \langle\cos{[n(\Psi_{n}-\Phi)]}\rangle}\] (8) \[= \frac{\langle\cos{[n(\phi_{i}-\Phi)]}\cos{[n(\Psi_{n}-\Phi)]} \rangle}{\langle\cos{[n(\Psi_{n}-\Phi)]}\rangle}\] (9) \[= \frac{\langle\cos{[n(\phi_{i}-\Phi)]}\rangle\langle\cos{[n(\Psi_ {n}-\Phi)]}\rangle}{\langle\cos{[n(\Psi_{n}-\Phi)]}\rangle}\] (10) \[= \langle\cos{[n(\phi_{i}-\Phi)]}\rangle \tag{11}\]
+
+The event plane resolution depends on the multiplicity and the flow of the reference particles via the resolution parameter:
+
+\[\chi=v_{n}\sqrt{M}, \tag{12}\]
+
+\[R_{k}(\chi)=\sqrt{\pi}/2\chi e^{-\chi^{2}/2}[I_{(k-1)/2}(\chi^{2}/2)+I_{(k+1)/ 2}(\chi^{2}/2)], \tag{13}\]
+
+where \(I\) is the modified Bessel function. To estimate the event plane resolution, we can use two identical sub-events, one of which is the reference:
+
+\[R_{n,sub} = \sqrt{\langle\cos{[n(\Psi_{n}^{A}-\Psi_{n}^{B})]}\rangle}\] (14) \[= \sqrt{\langle\cos{[n(\Psi_{n}^{A}-\Phi-\Psi_{n}^{B}+\Phi)]}\rangle}\] (15) \[= \sqrt{\langle\cos{[n(\Psi_{n}^{A}-\Phi)]}\cos{[n(\Psi_{n}^{B}- \Phi)]}\rangle}\] (16) \[= \sqrt{\langle\cos{[n(\Psi_{n}^{A}-\Phi)]}\rangle\langle\The most essential assumption for the event plane method to work is that all the particles from the collision are correlated with each other only via the reaction plane. This assumption gives rise to two problems in reality: the choice of reference and the non-flow correlations. Due to the lumpiness of the colliding nuclei, the minor axis of the elliptic participant region doesn't necessarily align with the impact parameter direction (Figure 1.11). As a result, all the particles are correlated to each other through the participant plane instead of the reaction plane. Therefore, \(|v_{n}\{\)EP\(\}|\) is always greater than \(|v_{n}\{\)RP\(\}|\) The difference between \(v_{n}\{\)EP\(\}\) and \(v_{n}\{\)RP\(\}\) can be very prominent and a UrQMD study on this topic will be shown in Chapter 5. As we enter the era of high-precision measurement, more subtle longitudinal structure of the heavy-ion collision has been revealed. Measurement like the longitudinal flow decorrelation has suggested the event plane angle might be different at different (pseudo)rapidity[49, 50, 51, 52]. Model studies also showed that the spectator plane differs from the participant plane[53]. Consequently, the anisotropic flow measurement could be dependent on the choice of reference. Further studies are needed to reach a definitive conclusion on this problem [54, 55, 56]. Another major issue for the flow measurement is the non-flow correlations. Non-flow includes resonance decays, jet or minijet fragmentation, among others[57, 58]. Common ways to suppress the nonflow contributions include introducing a large (pseudo)rapidity gap between the particles of interest and the reference, employing higher order cumulant measurements[59], using event plane method with mixed harmonics[60](although later on, people have realized \(\Psi_{2}\) is not a good approximation for \(\Psi_{1}\)), and so on. Nevertheless, nonflow effects can only be suppressed to some extent and cannot be entirely removed.
+
+In practice, the event plane method can also be implemented using the flow vectors, with the major difference lying in the correction for the detector effect. In this approach, the flow vectors are recentered rather than shifting the event planes. While the two approaches result in exactly the same flow values (when only the recentering was applied in the traditional event plane method as shown by eq. 1.5, eq. 1.6 and eq. 1.11), the associated statistical errors are slightly different. Additionally, a scaler product method has been proposed to optimize the precision of the analysis[61]. Since the Q vector needs to be measured event by event, it is not suitable for this analysis given the characteristics of the detector used. Therefore, it will not be further discussed in this thesis.
+
+Figure 1.11: the definition of the Reaction Plane and Participant Plane coordinate systems.
+
+### 1.4 Motivation for the directed flow measurement
+
+Directed flow (\(v_{1}\)) quantifies the sidewards deflection as a function of (pseudo)rapidity. It is particularly interesting at BES energies, as it connects the longitudinal and transverse dynamics, manifestly probing the three-dimensional nature of the system's evolution. Directed flow carries information on the very early stage of the collision, especially at large \(\eta\) (in the fragmentation region), where it is believed to be generated during the nuclear passage time (\(2R/\gamma\sim 0.1\)fm/\(c\))[62, 63]. It therefore probes the onset of bulk collective dynamics during thermalization, providing valuable experimental guidance to models of the pre-equilibrium stage[35]. A review on the directed flow measurements in nuclear collisions from AGS to LHC energies can be found in [64]. At RHIC, directed flow was initially measured with charged particles across a wide pseudorapidity range both by the STAR and the PHOBOS experiment[65, 66, 67, 60, 60, 68, 69, 70]. However, no models have successfully reproduced the measured \(v_{1}(\eta)\) across the entire \(\eta\) range. Subsequently, directed flow of identified particles around midrapidity has been extensively measured in various collision systems at different energies by the STAR experiment[71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81]. One of the interesting observations is the sign change of proton \(v_{1}\) at lower collision energies, the origin of which is still unknown and might relate to the first order phase transition of the QCD matter (Figure 1.12 and 1.13). On the theory side, considerable ongoing efforts have been dedicated to understanding these experimental results[63, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94]. Model studies have indicated that directed flow is sensitive to the shear viscosity of the hot QCD matter [95] (Figure 1.14). Furthermore, directed flow has demonstrated strong constraining power on the initial baryon stopping and can serve as a probe for the equation of state in heavy-ion collisions[96, 97, 98]. Currently, most model studies focus on the midrapidity due to both the lack of experimental data at the forward region and an insufficient understanding of the particle production in the fragmentation region (since it cannot be calculated by pQCD). However, past measurements have indicated that the directed flow signal is most pronounced at the forward(backward) (pseudo)rapidity. Therefore, any sensitivity to the initial state, hydrodynamic evolution, or the equation of state may be more evident at large (pseudo)rapidities. Moreover, at RHIC BES energies, nuclear fragments can significantly influence particle production across the entire (pseudo)rapidity region. Consequently, any dynamical models must treat the full three-dimensional system in detail. The measurement ofdirected flow over a wide pseudorapidity range will offer valuable constraints on the three-dimensional initial state and evolution of the colliding system.
+
+In 2018, the Event Plane Detector (EPD, \(2.1<|\eta|<5.1\)) was installed in STAR and used for the Beam Energy Scan phase-II (BES-II) data taking. The combination of EPD and high-statistics BES-II data enables us to extend the directed flow measurement to the forward and backward pseudorapidity with much smaller uncertainties. High-precision measurements might also reveal finer structures of the colliding system, deepening our understanding of the heavy-ion collisions.
+
+Figure 1.12: directed flow of protons and \(\pi^{-}\) versus rapidity for three centralities in Au+Au collisions at \(\sqrt{s_{NN}}\) =7.7, 11.5, 19.6, 27, 39 GeV. Only statistical errors are plotted. Figure taken from Ref.[72]
+
+Figure 1.13: directed flow of proton, anti-proton, \(\pi^{+}\) and \(\pi^{-}\) versus rapidity for 10 40% centrality in Au+Au collisions at \(\sqrt{s_{NN}}\) =7.7, 11.5, 19.6, 27, 39, 62.4, 200 GeV. Only statistical errors are plotted. Figure taken from Ref.[72]
+
+Figure 1.14: Directed flow of pions for different values of \(\eta/s\) simulated by the ECHO-QGP model at \(\sqrt{s_{NN}}=\)200 GeV. The STAR data points are measured with charged particles versus pseudorapidity at \(\sqrt{s_{NN}}=\)200 GeV. Figure taken from Ref.[95]
+
+## Chapter 2 Experimental Setup
+
+### 2.1 The RHIC complex
+
+The Relativistic Heavy Ion Collider (RHIC) is the first and one of only two operating heavy-ion colliders, and the only spin-polarized proton collider ever built. Figure 2.1 shows a sketch of it with the key infrastructures labeled. RHIC has two independent storage rings ("blue" ring and "yellow" ring). Figure 2.2 shows a detailed sketch of the RHIC rings. The RHIC rings are hexagonally shaped with curved edges, in which particles are deflected and focused by superconducting magnets. The "blue" and "yellow" ring cross at six interaction points (IP), allowing the particles to collide. Detectors are built around the IPs in order to record collision events. As of 2023, two experiments are running at RHIC: sPHENIX (the successor to PHENIX) and STAR. All the research in this thesis was done at the STAR experiment. Three smaller experiments were also conducted at RHIC. The PHOBOS experiment(1999-2005) is tailored for the bulk particle multiplicity measurement, it consists of many silicon detectors and has the largest pseudorapidity (\(\eta\)) coverage of all detectors. The BRAHMS experiment (2000-2006) is designed for the momentum spectrum measurement. The PP2PP experiment is now part of the STAR experiment, it aims to study the spin dependence in proton-proton elastic scatterings. Various particle species were collided at RHIC at different energies. Since this thesis focuses on the BES program, let's take a look at the Au+Au collisions.
+
+Before the gold nuclei reach the RHIC storage rings, they undergo several stages of boosters. The first stage is the electron beam ion source (EBIS). The gold nuclei leave EBIS with the kinetic energy of \(E=2\)A MeV and the electric charge of \(Q=+32\) (32 of 79 electrons are stripped from the gold atom). Then, they are injected into the Booster synchrotron and get accelerated to \(E=100\)A MeV. In the meanwhile,Figure 2.2: A sketch of the RHIC storage rings. Several experiments are located at the interaction points (IPs). As of 2023, only sPHENIX and STAR are running.
+
+Figure 2.1: An aerial view of the Relativistic Heavy Ion Collider (RHIC), a 2.4 mile circumference particle collider at Brookhaven National Laboratory. Several key infrastructures are labelled. Figure taken from [99]
+
+their electric charges become \(Q=+77\). Next, the gold nuclei are injected into the Alternating Gradient Synchrotron (AGS), where they reach \(E=8.86\)A GeV and \(Q=+79\). Finally, the gold nuclei get transferred to the RHIC storage rings through the AGS-to-RHIC Transfer Line (AtR) and undergo further acceleration within the RHIC rings.
+
+### 2.2 The STAR detector
+
+The STAR (Solenoidal Tracker at RHIC) detector is one of the experiments at RHIC. Figure2.3 shows an illustration of the STAR detector with labeled sub-systems: end-cap Electromagnetic Calorimeter (EEMC), Magnet, Muon Telescope Detector (MTD), Barrel Electromagnetic Calorimeter (BEMC), Time Projection Chamber (TPC), Time of Flight Detector (TOF), Vertex Position Detector (VPD), inner TPC (iTPC), end-cap Time of Flight Detector (eTOF), Event Plane Detector (EPD). The zero degree calorimeter (ZDC) is out of the frame and not plotted. The STAR magnet
+
+Figure 2.3: An illustration of the STAR detector with labeled sub-systems: end-cap Electromagnetic Calorimeter (EEMC), Magnet, Muon Telescope Detector (MTD), Barrel Electromagnetic Calorimeter (BEMC), Time Projection Chamber (TPC), Time of Flight Detector (TOF), Vertex Position Detector (VPD), inner TPC (iTPC), end-cap Time of Flight Detector (eTOF), Event Plane Detector(EPD). The zero degree calorimeter (ZDC) is out of the frame. Those in red are installed for BES-II.
+
+the TPC. For the BES-II data-taking, STAR went through several detector upgrades including the installation of the iTPC, eTOF and EPD. The iTPC increases the \(\eta\) acceptance of the TPC from \(|\eta|<1.0\) to \(|\eta|<1.5\). It also provides better acceptance for tracks with low transverse momentum(\(p_{T}\)), as well as better resolution in momentum and energy loss (dE/dx) for tracks of all momenta. The eTOF enables particle identification(PID) of high \(p_{T}\)particles to \(|\eta|<1.6\). The EPD offers excellent event plane resolution at the forward and backward \(\eta\). The The main detectors used in this thesis are the TPC and EPD. Figure 2.4 demonstrates an event recorded by the STAR TPC and EPD.
+
+#### The Time Projection Chamber
+
+The STAR TPC is 4.2 m long and 4 m in diameter. It is used to detect charged particles within \(|\eta|<1\), with a full \(2\pi\) azimuthal coverage and a transverse momentum lower limit of \(p_{T}>0.15\) GeV/\(c\)[100]. The TPC is also used to reconstruct the primary vertex position of each event along the beam direction (\(V_{z}\)) and its radial distance from the beam axis (\(V_{r}\)). Figure 2.5 shows a sketch of the STAR TPC. TPC is filled with
+
+Figure 2.4: A sketch of an event recorded by the TPC and the EPD
+
+gas (90% Argonne and 10% CH\({}_{4}\))and a homogeneous electric field is applied along the axis of the cylinder. When a charged particle goes through the TPC, it ionizes the atoms of the gas along its trajectory. The electrons produced by the ionization drift in the chamber towards the anode plane and are detected by the readout electronics. The longitudinal position of the track can be reconstructed from the drift time, i.e. the angle (\(\theta\)) between the track momentum and the beam axis. Additionally, a high magnetic field parallel to the electric field is used to "bend" the particle trajectory on a spiral track via the Lorentz force. Then the \(p_{T}\)of the track is:
+
+\[p_{T}=|q|Br, \tag{2.1}\]
+
+where q is the electric charge, B is the magnetic field and r is the curvature of the track. The sign of the electric charge can be known from the direction of the curvature. With \(p_{T}\)and \(\theta\), the momentum of the track can be calculated. Accurate measurement of track momentum relies on the drift velocity. Therefore, a laser calibration system is implemented at STAR to measure the drift velocity. TPC can also identify particle species by measuring the dE/dx with the readout pad rows. The velocity of the particles can be derived from the measured dE/dx using the Bethe-Bloch formula[10]. With access to the velocity and momentum, the particle mass can be calculated, allowing for the identification of particle species.
+
+#### The Event Plane Detector
+
+The STAR EPD consists of two segmented scintillator wheels located at \(\pm 3.75\) m from the center of the TPC along the beam direction (Figure 2.4). Each EPD wheel is composed of twelve "supersectors" that subtend 30 degrees in azimuth and each supersector is divided into 31 tiles [101]. When a minimum ionization particle (MIP) traverses an EPD tile, the EPD tile absorbs its energy and emits photons. In the meanwhile, the optical fibers wired in the EPD tile transport the light to a silicon photomultiplier (SiPM). Then signals from the SiPM are amplified and sent to the STAR digitizing and acquisition system and eventually get recorded as ADC values. The peusorapidity and azimuthal angle of each EPD tile are determined by a straight line between the primary vertex and a random point on the tile (Figure 2.6). When the primary vertex is at the origin of the TPC, the EPD acceptance is \(2.1<|\eta|<5.1\). Figure 2.7 shows the \(\eta\) coverage of each EPD ring as a function of \(V_{Z}\). More details about EPD will be discussed in Chapter 3.3.
+
+Figure 2.6: the pseudorapidity (\(\eta\)) range of a EPD tile depends on the primary vertex position. The EPD acceptance is \(2.1<|\eta|<5.1\) when \((V_{x},V_{y},V_{z})=(0,0,0)\).
+
+Figure 2.5: A diagram of the STAR Time Projection Chamber (TPC), Figure taken from [100]
+
+Figure 2.7: The \(\eta\) coverage of each EPD ring as a function of \(V_{Z}\). Figure taken from Mike Lisa’s drupal page
+
+## Chapter 3 Measurement of Directed Flow
+
+### 3.1 Data set and event selections
+
+#### Data set
+
+This analysis is conducted with Au+Au \(\sqrt{s_{NN}}=\)27 GeV data collected in 2018 and Au+Au \(\sqrt{s_{NN}}=\)19.6 GeV data collected in 2019 as part of the BES-II program. The data sets are summarized in Table 3.1.1.
+
+#### Centrality definition
+
+The centrality classes are defined based on the charged-particle multiplicity (\(N_{\rm ch}\)) distribution in the TPC within the pseudorapidity window of \(|\eta|<0.5\). Such distributions are fit to Glauber Monte Carlo (GMC) simulations after correcting for the luminosity and acceptance variation as a function of \(V_{z}\). The detailed procedure to obtain the simulated multiplicity using the GMC is similar to that described in Ref. [102]. Measurements from seven centralities are presented in this thesis: \(0\sim 5\%,5\sim 10\%,10\sim 20\%,20\sim 30\%,30\sim 40\%,40\sim 50\%,50 \sim 60\%\). Larger centrality corresponds to more peripheral collision; while smaller centrality corresponds to more central collisions.
+
+\begin{table}
+\begin{tabular}{l l l} \hline \(\sqrt{s_{NN}}\) & Production Tag & Triggers \\ \hline
+19.6 & P21ic & 640001, 640011, 640021, 640031, 640041, 640051 \\
+27 & P19ib & 610001, 610011, 610021, 610031, 610041, 610051 \\ \hline \end{tabular}
+\end{table}
+Table 3.1: Data sets at \(\sqrt{s_{NN}}=\)19.6 and 27 GeV
+
+#### Event level cuts
+
+Bad runs are removed using the StRefMultCorr class. After QA for the EPD, one more bad run was identified and removed at \(\sqrt{s_{NN}}=\)19.6 GeV: run 20088001. Then, following event level cuts were applied:
+
+* Vertex selection cut: \(|V_{Z}|<40\) cm, \(|V_{r}|<1.0\) cm, DCA \(<3\) cm.
+* Pile-up events removal: STAR collected minimum-bias events by requiring the coincidence of signals from the Zero Degree Calorimeters (ZDCs), on either side of the interaction region, at the rate of 0.5-2 kHz. By excluding outliers in the correlation between the number of TPC tracks and the number of those tracks that match with a hit in the Time of Flight (TOF) detector, we are able to detect out-of-time pile-up in roughly 0.02% of these minimum-bias events. This is possible since the TOF is a fast detector and does not detect out-of-time pile-up events, unlike the TPC.
+* Ultra-peripheral events removal: removed events with centrality greater than 80%.
+
+After all the cuts, 320 M events are left and used for the analysis at \(\sqrt{s_{NN}}=\)27 GeV, and 260 M events at \(\sqrt{s_{NN}}=\)19.6 GeV.
+
+#### Run regions
+
+All the track weighting and \(\Psi\) shifting are conducted run-region by run-region at \(\sqrt{s_{NN}}=\)27 GeV. There are 14 run regions: [0, 19131037, 19135016, 19137041, 19139063, 19140030, 19141030, 19144012, 19144033, 19145034, 19147021, 19147048, 19155057, 19158020, 19268002]. All the track weighting and \(\Psi\) shifting are conducted day by day at \(\sqrt{s_{NN}}=\)19.6 GeV.
+
+### 3.2 Event plane and its resolution
+
+Since EPD cannot measure the \(\mathbf{Q}\) vectors of each event, the event plane method was used in this analysis. The measurements of anisotropic flow are associated with non-collective or nonflow correlations from various sources of long and short range two- and many-particle correlations. They include the momentum conservation effect, quantum statistics, resonance decays, jet or minijet fragmentation, among others [57, 48, 58].
+
+Therefore, the acceptance of reference particles used to determine \(\Psi_{n}\) needs to be carefully selected to suppress those nonflow effects. To remove acceptance correlation from an imperfect detector, the event plane distribution needs to be flattened[57, 48]. Two treatments were applied for this purpose: \(\phi\) weighting and \(\Psi_{n}\) shifting. All the weightings used will be discussed in details. The formula used for \(\Psi_{n}\) shifting can be found in[57, 48].
+
+#### Momentum conservation effect
+
+In this analysis, particles in the Time Projection Chamber are used as the reference to suppress the momentum conservation effect [58]. Flow measures the global collective correlations among all the produced particles and nuclear fragments. However, there might be some fake correlations simply because the total momentum is conserved in the collisions. Figure 3.1 is a good demonstration of the momentum conservation effect. It shows \(v_{1}(\eta)\) in \(|\eta|<1.0\) measured with three different references: East EPD, West EPD and both sides of the EPD. While \(v_{1}\) at the midrapidity should be zero, it is greater than zero when measured w.r.t. \(\Psi_{1}^{\rm EPDWest}\), and it is smaller than zero when measured w.r.t. \(\Psi_{1}^{\rm EPDEast}\). The \(v_{1}(\eta)\) curve becomes an odd function when both sides of EPD are used to reconstruct \(\Psi_{1}\). The same analysis with UrQMD showed this "shift" of \(v_{1}(\eta)\) with the same order of magnitude and signs.
+
+It was shown in [58] that the order of magnitude of the correlation due to momentum conservation is:
+
+\[\langle\cos{(\phi-\Phi)}\rangle_{m.c.}\sim-\frac{p_{T}}{\sqrt{N\langle p_{T}^ {2}\rangle}}f, \tag{3.1}\]
+
+where f is a dimensionless quantity given by
+
+\[f=\langle wp_{T}\rangle_{Q}\sqrt{\frac{M}{\langle w^{2}\rangle_{Q}N\langle p_ {T}^{2}\rangle}}, \tag{3.2}\]
+
+and the subscript Q refers to those M particles used for the **Q**-vector. N is the total number of particles in the collision. All effects of momentum conservation disappear if the parameter \(f\) defined in Eq. 3.2 vanishes, which occurs if \(\langle wp_{T}\rangle=0\). Since \(w\) is usually an odd function of \(\eta\) (otherwise the symmetry of the collisions will lead to a zero resolution), \(\langle wp_{T}\rangle=0\) vanishes if the detector acceptance is symmetric with respect to the midrapidity. Therefore, TPC was chosen as the reference in spite of the fact that it has lower event plane resolution compared to EPD.
+
+#### TPC track cuts and weightings
+
+The cuts applied to the TPC tracks are summarized in Table 3.2.2. The \(\eta\) cut was determined based on the detector performance in each run. During the RHIC run in 2018, one of the 24 TPC sectors was used to commission the inner TPC (iTPC) sector and the data from this sector were not used for physics analyses. The loss of tracks due to the iTPC sector leads to a region of depletion in the \(\eta-\phi\) acceptance map. Commonly, such issues are resolved by implementing a \(\phi\)-weighting. Nevertheless, when the collision vertex is displaced considerably from the center of the TPC, for instance, \(V_{z}\) in the vicinity of -40 cm and \(\eta\) close to -1, the regions of depletion are too prominent to be corrected by the \(\phi\) weighting. Therefore, we only used tracks
+
+Figure 3.1: \(v_{1}(\eta)\) in \(|\eta|<1.0\) measured with \(\Psi_{1}^{\rm EPDWest}\), \(\Psi_{1}^{\rm EPDEast}\) and \(\Psi_{1}^{\rm BothEPD}\) respectively. The fact that \(v_{1}(\eta)\) is only an odd function when a symmetric reference around the midrapidity was used (both sides of EPD) is a good demonstration of the momentum conservation effect.
+
+\begin{table}
+\begin{tabular}{l l l l l} \hline \(\sqrt{s_{NN}}\) & Tracks & nHitsFit & \(p_{T}\) (GeV/\(c\)) & \(|\eta|\) \\ \hline
+19.6 & Primary & \(>15\) & \([0.15,2.0]\) & \(<\)1.0 \\
+27 & Primary & \(>15\) & \([0.15,2.0]\) & \(<\)0.8 \\ \hline \end{tabular}
+\end{table}
+Table 3.2: Cuts for TPC trackswithin \(|\eta|<0.8\) at \(\sqrt{s_{NN}}\) =27 GeV. In run19, there is no such issue, so, we used tracks within \(|\eta|<1.0\) at \(\sqrt{s_{NN}}\) =19.6 GeV.
+
+The \(\phi\) weights are calculated with the following binning: 9 centrality bins (only used at \(\sqrt{s_{NN}}\) =27 GeV); positive and negative charges; 20 variable \(p_{T}\)bins (11 even bins in \(p_{T}\)\(\in[0.15,1.25]\) GeV/\(c\) and one large bin for \(p_{T}\)\(\in[1.25,2.0]\) GeV/\(c\)); 16 \(V_{Z}\) bins in [-40,40] cm.
+
+As mentioned in Section 3.2.1, the reference should be symmetric around the mid-rapidity in order to suppress the momentum conservation effect. However, the \(\frac{{\rm d}N}{{\rm d}\eta}\) distributions of TPC tracks are by nature not symmetric around the mid-rapidity when \(V_{Z}\)\(\neq 0\). Therefore, we apply an \(\eta\) weighting to make the \(\frac{{\rm d}N}{{\rm d}\eta}\) symmetric, the weights are calculated with the following binning: 9 centrality bins; positive and negative charges; 12 variable \(p_{T}\) bins in [0.15,2.0] GeV/\(c\) (11 even bins in \(p_{T}\)\(\in[0.15,1.25]\) GeV/\(c\) and one large bin for \(p_{T}\)\(\in[1.25,2.0]\) GeV/\(c\)); 16 \(V_{Z}\) bins in [-40,40] cm.
+
+The event plane resolution is proportional to \(v_{i}\sqrt{M}\)[57], where \(v_{i}\) is the ith order flow and \(M\) is the multiplicity of the particles used to determine the event plane. Since \(v_{1}(\eta)\) in \(|\eta|<1.0\) is almost a linear function with negative slope, we just apply a weight of \(w=-\eta\) to every TPC track in order to maximize the TPC event plane resolution. Without this weight, the asymmetry of the system would result in a resolution of zero.
+
+In summary, the following three weights are assigned to TPC tracks; the first two weights are there to correct for the detector acceptance effects and the third weight is for maximizing the event plane resolution.
+
+1. \(\phi\) weights to make the \(\frac{{\rm d}N}{{\rm d}\phi}\) distribution uniform;
+2. \(\eta\) weights to make the \(\frac{{\rm d}N}{{\rm d}\eta}\) distribution symmetric;
+3. \(w=-\eta\) to maximize the TPC event plane resolution.
+
+#### Event Planes from EPD
+
+The event plane from the EPD is not directly used in this analysis, but it is used to determine the event plane resolution of TPC. The EPD event plane is calculated as follows:
+
+\[\Psi_{1}^{\rm EPD}=\arctan\frac{\sum_{\rm tilek}W_{k}\sin\phi_{k}}{\sum_{\rm tile k }W_{k}\cos\phi_{k}} \tag{3.3}\]where the sum runs over all the EPD tiles. The weight for each EPD tile is consist of two parts, the tile weight (\(w_{t}\)) and the \(\eta\) weight (\(w_{\eta}\)):
+
+\[W_{k}=w_{k,t}\times w_{k,\eta} \tag{3.4}\]
+
+The tile weight depends on the nMIP of each tile:
+
+\[w_{k,t}=\begin{cases}0&\text{nMIP}_{k}<\text{threshold}\\ \max&\text{nMIP}_{k}>\text{threshold}\\ \text{nMIP}_{k}&\text{otherwise}\end{cases} \tag{3.5}\]
+
+In this analysis, the threshold is chosen to be 0.3 and the max is chosen to be 2.
+
+At \(\sqrt{s_{NN}}=27(19.6)\) GeV, the beam rapidity (\(y_{\text{beam}}=3.4(3.0)\)) lies in the acceptance of the EPD, therefore, \(v_{1}(\eta)\) changes sign in the EPD acceptance. Similar to the TPC case, in order to maximize the event plane resolution, we need to assign bigger weights to the \(\eta\) regions with bigger \(v_{1}\) and more importantly, assign negative weights to the \(\eta\) regions with negative \(v_{1}\). A natural choice will be using the \(v_{1}(\eta)\) as the \(\eta\) weight. First of all, we roughly calculate the \(v_{1}(\eta)\) in EPD, using the truncated nMIP, with respect to the TPC event plane. Then we fit the data points with a polynomial function and use this function as the \(\eta\) weight for the EPD:
+
+\[w_{k,\eta}=v_{1}\{\Psi_{1}^{\text{TPC}}\}(\eta_{k}). \tag{3.6}\]
+
+#### Event Plane resolution of TPC
+
+The resolution of the TPC event plane is calculated by the "three sub-event method":
+
+\[R_{1}^{\text{TPC}}=\sqrt{\frac{\langle\cos{(\Psi_{1}^{\text{TPC}}-\Psi_{1}^{ \text{EPDE}})}\rangle\langle\cos{(\Psi_{1}^{\text{TPC}}-\Psi_{1}^{\text{EPDW}} )}\rangle}{\langle\cos{(\Psi_{1}^{\text{EPDE}}-\Psi_{1}^{\text{EPDW}})} \rangle}}. \tag{3.7}\]
+
+Figure 3.2 shows the \(\Psi_{1}^{\text{TPC}}\) resolution as a function of centrality. The resolution ranges between 0.02 and 0.08, peaking around \(20-30\%\) centrality.
+
+### 3.3 Averaged number of MIPs per EPD tile
+
+As a pre-shower scintillator detector, the EPD cannot reconstruct charged tracks like the TPC does. But, fortunately, the number of MIPs traversing each EPD tile averaged over all the events can be probabilistically determined. As a recap,Figure 3.2: \(\Psi_{1}^{\rm TPC}\) resolution as a function of centrality for 16 \(V_{z}\) bins; the resolution is calculated by the three sub event method.
+
+the working principle of the EPD is as follows: when a minimum ionizing particle (MIP) traverses an EPD tile, the tile absorbs part of its energy and emits photons. The optical fibers in the EPD tile transport the light to a silicon photomultiplier (SiPM). Signals from the SiPM are then amplified and sent to the STAR digitizing and acquisition system and are eventually recorded as ADC values.
+
+Since the energy loss of MIPs follows a Landau distribution, the ADC spectra of the EPD tiles also follow Landau distributions (with some background noise). The Landau distribution only has two parameters: the most probable value (MPV) and the width over MPV (WID/MPV). In principle, the WID/MPV only depends on the material and thickness of the detector; and the ADC values are calibrated in a way that MPV is normalized to unity for the Landau distribution corresponding to a single MIP traversing the EPD tile in an event. Fig. 3.3 demonstrates how an ideal EPD
+
+Figure 3.3: The black, red, green, purple curves correspond to the 1,2,3,4-MIP Landau respectively. The blue curve shows what the EPD spectrum is like when 30% of the events are 1-MIP event, 5% of the events are 2-MIP event, 0.4% of the events are 3-MIP event, 0.3% of the events are 4-MIP event and the rest are 0-MIP event. This plot is just a sketch for the demonstration purpose, it is not made from real data.
+
+spectrum should look when different numbers of MIPs traverse an EPD tile. When a single MIP traverses the EPD tile in an event, the EPD spectrum looks like the black curve (1-MIP Landau). When two MIPs traverse the EPD tile in an event, the EPD spectrum looks like the red curve (2-MIP Landau), which is simply the convolution of two 1-MIP Landau distributions. The 3-MIP and 4-MIP Landau look like the green and purple curves, respectively. In general, the N-MIP Landau is the convolution of (N-1)-MIP Landau with the 1-MIP Landau (\(N\neq 1\)).
+
+In reality, an EPD tile gets hit by varying numbers of MIPs (minimum ionizing particles) in different events. The resulting EPD spectrum is a weighted sum of the 1, 2, 3,..., \(N\)-MIP Landau, with the weights representing the probabilities of 1, 2, 3,..., \(N\)-MIP events. This spectrum is illustrated by the blue curve in Fig. 3.3. Therefore, the distribution of calibrated ADCs can be described by the equation:
+
+\[\frac{\mathrm{d}N}{\mathrm{d}(\mathrm{Calibrated~{}ADC})}=\,\sum_{i=1}^{N}M_{i }L_{i}(\mathrm{Calibrated~{}ADC}), \tag{3.8}\]
+
+where \(M_{i}\) represent the probability of i-MIP event and \(L_{i}\) represents the i-MIP Landau:
+
+\[L_{i}=\begin{cases}\mathrm{Landau(MPV,WID/MPV)},&\text{if $i=1$;}\\ L_{i-1}*L_{1},&\text{otherwise.}\end{cases} \tag{3.9}\]
+
+Since the mean of the Landau distribution is undefined, the law of large number doesn't apply. Therefore, the mean of calibrated ADCs will not necessarily get close to the averaged number of MIPs traversing an EPD tile as more data gets collected. Instead, the probabilities of 1,2,3..., \(N\)-MIP events must be derived by fitting the spectrum shown in Fig. 3.3 with the Equation 3.8. Then the averaged MIPs can be calculated as follows:
+
+\[N=\sum_{i=1}^{i=4}M_{i}\times i. \tag{3.10}\]
+
+The corresponding uncertainty on \(N\) is calculated by the covariance matrix:
+
+\[\sigma^{2}=\mathbf{k}\mathbf{\Sigma}\mathbf{k}^{\top} \tag{3.11}\]
+
+where \(\Sigma\) is the covariance matrix of the fitting parameters and \(\mathbf{k}=(1,2,3,4,0,0)\).
+
+As shown in Fig. 2.6, the pseudorapidity coverage of each EPD tile depends on \(V_{z}\). So, this analysis is carried out in 16 \(V_{z}\) bins in \([-40,40]\) cm. The pseudorapidity and \(\phi\) of each EPD tile is determined by a straight line between the primary vertex and a random point on the EPD tile. Fig. 3.4 demonstrates the procedure of extracting \(v_{1}\) of ring 16 on the east EPD for \(20\sim 30\%\) centrality and \(-5<\)\(V_{Z}\)\(<0\) cm. First of all, for each tile on ring 16, we make the calibrated ADC spectrum for each \((\phi-\Psi_{1}^{\rm TPC})\) bin and apply the fit. Fig. 3.4 (a) is made from events in which the difference between the \(\phi\) of tile 1 and \(\Psi_{1}^{\rm TPC}\) is between \(-\pi\) and \(-\frac{11}{12}\pi\). Then, the \({\rm d}N/{\rm d}(\phi-\Psi_{1}^{\rm TPC})\) distribution for a single tile can be calculated by Eq. 3.10. Next, we take the average of all the good tiles on ring 16 and obtain the \({\rm d}N/{\rm d}(\phi-\Psi_{1}^{\rm TPC})\) distribution for the whole ring as shown in Fig. 3.4 (b).
+
+### 3.4 Extraction of \(v_{1}\)
+
+After obtaining the azimuthal particle distributions, we can extract the raw \(v_{1}\) by fitting them with Fourier expansions:
+
+\[\frac{{\rm d}N}{{\rm d}(\phi-\Psi_{1}^{\rm TPC})}=k\{1+2\times v_{1}\times\cos (\phi-\Psi_{1}^{\rm TPC})+2\times v_{2}\times\cos[2(\phi-\Psi_{1}^{\rm TPC})]\}, \tag{3.12}\]
+
+the higher orders are left out. Then, we correct the raw \(v_{1}\) with the event plane resolution measured in Chapter 3.2:
+
+\[v_{1}^{\rm measured}=\frac{v_{1}}{R^{(1)}}. \tag{3.13}\]
+
+Fig. 3.5(a) shows \(v_{1}(\eta)\) after the resolution correction for 16 \(V_{Z}\) bins for \(20\sim 30\%\) centrality. The \(v_{1}\) obtained from Fig. 3.4(b) only corresponds to one data point in Fig. 3.5(a). As a sanity check, we fit all the data points with a smooth curve and calculate the normalized residuals (shown by the lower panel of Fig. 3.5(a)):
+
+\[r_{i}=\frac{y_{i}-f(x_{i})}{\sigma_{i}}, \tag{3.14}\]
+
+where \(f(x)\) is the fitting function and \(\sigma_{i}\) is the error bar associated with the data point. The normalized residuals follow a Gaussian distribution of \(\sigma\sim 1.08\) (Fig. 3.5(b)), which indicates that the fluctuations and error bars on the data points are reasonable. As for the statistical error on the x axis, it is calculated as the standard deviation over mean \((\sigma/\sqrt{N})\) of all the \(\eta\) values for a specific EPD ring in all the events.
+
+In order to better present the final results, we group every 16 \(v_{1}\) points along \(\eta\) simply by taking the average of the 16 \(v_{1}\) values and 16 \(\eta\) values (Figure 3.6). The group of 16 points might have contributions from different EPD rings especially at small Figure 3.4: (a): the calibrated ADC spectra (blue, largely obscured by the red curve) for tile 1 at ring 16 on the east EPD (shown by the orange area on the middle right EPD sketch) obtained from events with \((\phi-\Psi_{1})\in[-\pi,-\frac{11}{12}\pi]\), -5\(<\)\(V_{Z}\)\(<\)0 cm, and 20 \(\sim\) 30% centrality. The shaded areas represent the expected calibrated ADC spectra when 1, 2, 3, 4 minimum ionization particles (MIPs) traverse an EPD tile. The histogram is fitted by the weighted sum of these four distributions (red curve) using the weights (\(M_{i}\)) as the fitting parameters. (b): the \(\mathrm{d}N/\mathrm{d}(\phi-\Psi_{1}^{\mathrm{TPC}})\) distribution for ring 16 (shown by the orange area on the upper right EPD sketch). Each point is obtained by fitting multiple calibrated ADC spectra. The leftmost point is calculated from the calibrated ADC spectra of 24 tiles on ring 16 including the one shown in (a).
+
+\(|\eta|\), which again shows the importance of measuring \(v_{1}(\eta)\) in small \(V_{Z}\) bins instead of using a wide \(V_{Z}\) range (Figure 4.6).The formulas for calculating the uncertainties after the combination can be found in Chapter 4.
+
+### 3.5 Correction for the STAR material effect
+
+Since EPD sit at the far ends of the STAR detector, approximately half of the particles it detects originate from the interactions between the primary particles and the materials within the detector. These particles can significantly impact the measured \(v_{1}\). In order to rectify this effect, an iterative process, as illustrated by the flow chart in Figure 3.7, was conducted.
+
+The core of this correction process lies in the accurate simulation of all the matters within the STAR detector and their interactions with various particles. This includes each sub-detector system, the beam pipe, the supporting structures, etc. This simulation was achieved by GEANT3 (GEometry ANd Tracking) [103], a software designed to describe the passage of particles through matter. Figure 3.8 shows several radiation plots generated with the GEANT3 simulation. Each plot displays all the decaying and scattering vertices as particles travel through STAR. All the major components of the STAR detector are visible, which suggests the detector geometries in the GEANT3 simulation were properly implemented (STAR geometry tag "y2018a", "epdDb").
+
+Next, we need to pass some "primary" particles to GEANT3, get the corresponding "EPD hits" and measure their \(v_{1}\). Evidently, the distribution and composition of the input particles will influence the output \(v_{1}\). Therefore, our goal is to find the input particle distribution that can reproduce the measured \(v_{1}(\eta)\). Then, in principle, the \(v_{1}(\eta)\) of input particles is what we are interested in: \(v_{1}(\eta)\) of the primary particles without the influence from the STAR materials.
+
+In this analysis, HIJING[104] was chosen as the event generator due to its efficiency in terms of computation speed. About 45000 HIJING events in Au+Au collisions at \(\sqrt{s_{NN}}=\)200 GeV were generated. Since different particles interact with matters differently, it is important to employ realistic particle constituents. Figure 3.9,3.10, 3.11, 3.12 show the particle composition of the HIJING tracks. Most primary particles coming from the collisions before decaying are pions, followed by protons and kaons, which is consistent with experimental observations.
+
+As for the particle distribution, the yield (\(\frac{\mathrm{d}N}{\mathrm{d}\eta}\)) and azimuthal distribution of the HIJING tracks can be tuned to any desired shape by weighting. It will not influence Figure 3.5: \(v_{1}(\eta)\) for 16 \(V_{Z}\) bins between \(-40\) and 40 cm, before correcting for the influence from the STAR material effect. All the data points are fitted by a smooth curve and the normalized residuals (residuals divided by error bars) follow a Gaussian distribution of \(\sigma\sim 1.08\), which indicates the fluctuations and error bars on the data points are reasonable.
+
+Figure 3.6: \(v_{1}(\eta)\) after combining sixteen \(V_{Z}\) bins
+
+Figure 3.7: Flowchart for correcting for the STAR material effect.
+
+Figure 3.8: Radiation plots simulated by HIJING+GEANT3. The upper row displays vertices from events with \(V_{Z}\) ranging from -45 to -35 cm, while the lower row displays vertices from events with \(V_{Z}\) ranging from 35 to 45 cm. The same set of plots is presented in two different scales to accentuate different structures: the plots on the left, with the z-axes spanning \([0,550]\), highlight the positions of the primary vertices. Meanwhile, the plots on the right, with the z-axes spanning \([0,15]\), showcase the locations of sub-detector systems, the beam pipe, and the supporting structures within the STAR detector and these components are labeled in the upper right plot. The radiation plot serves as a valuable cross-check to verify the accuracy of the GEANT3 simulation. In this case, the GEANT3 simulation has successfully replicated all the major structures within the experimental setup.
+
+Figure 3.10: HIJING particles after decaying.
+
+Figure 3.9: HIJING particles before decaying.
+
+Figure 3.11: Parent HIJING tracks that cause EPD hits in the GEANT3 simulation (through scattering or directly). All the EPD hits are traced back to the parent tracks in HIJING, i.e. if a HIJING particle decays into several daughters and each of them causes a EPD hit (through scattering or directly), then this parent particle will be counted multiple times.
+
+the accuracy of this correction process as long as the same weights are simultaneously assigned to the HIJING tracks and the associated EPD hits (if there is any). Therefore, although these particles are generated at \(\sqrt{s_{NN}}=\)200 GeV, they can be used for corrections at all the other energies, too. Since primary particles out of the EPD acceptance can result in EPD hits through decaying and scattering, and the particle interactions depend on momenta, \(\frac{\mathrm{d}N}{\mathrm{d}\eta}\) and \(v_{1}(p_{T})\) are important input parameters for this iterative process, too. The particle distribution is tuned as follows, note all the weights need to be assigned both to the HIJING tracks and the associated EPD hits (if there is any).
+
+* Yield: the \(\frac{\mathrm{d}N}{\mathrm{d}\eta}\) measured from the unfolding analysis by Mate Csanad (STAR preliminary results) are used. \[w^{\mathrm{yield}}(\eta_{i})=\frac{\mathrm{d}N^{\mathrm{STAR}}}{\mathrm{d}\eta} (\eta_{i})/\frac{\mathrm{d}N^{\mathrm{HIJING}}}{\mathrm{d}\eta}(\eta_{i})\] (3.15)
+* Azimuthal distribution: the HIJING tracks are isotropically distributed in the azimuthal direction, leading to zero anisotropic flows. We can adjust the az
+
+Figure 3.12: All the HIJING particles that cause EPD hits in the GEANT3 simulation (through scattering or directly). All the EPD hits are traced back to a HIJING track, i.e. if the hit is caused by a decayed daughter (through scattering or directly), the daughter particle is counted instead of further tracing back to the its parent track.
+
+[MISSING_PAGE_EMPTY:67]
+
+Figure 3.14: Example of the iterative correction process for \(10\sim 40\%\) centrality, second iteration.
+
+Figure 3.13: Example of the iterative correction process for \(10\sim 40\%\) centrality, first iteration.
+
+Figure 3.16: Example of the iterative correction process for \(10\sim 40\%\) centrality, fourth iteration. Since the \(\chi^{2}/N\) doesn’t keep decreasing, the iteration stops.
+
+Figure 3.15: Example of the iterative correction process for \(10\sim 40\%\) centrality, third iteration.
+
+Figure 3.17: The correction factors from the third iteration will be used to correct for the STAR material effect.
+
+## Chapter 4 Systematic Uncertainties
+
+"Systematic effects is a general category which includes effects such as background, selection bias, scanning efficiency, energy resolution, angle resolution, variation of counter efficiency with beam position and energy, dead time, etc. The uncertainty in the estimation of such a systematic effect is called a systematic error."
+
+-Jay Orear
+
+"Any uncertainty in the process whereby your raw data is converted into a published result is a systematic error."
+
+-Roger Barlow
+
+### 4.1 Barlow's method
+
+The estimation of systematic uncertainties2 in this analysis follows Barlow's method[105]. It consists of two parts:1) evaluation of systematic effects; 2) systematic checks. In both cases, we vary some parameters and see what happens to the results. But the expectations and how they are handled afterwards are completely different.
+
+Footnote 2: Systematic uncertainties are sometimes referred as systematic errors. However, the term ’error’ can be misleading, as it implies a mistake, whereas, in reality, it just reflects our lack of precise knowledge in some aspects.
+
+Systematic effects arise from the uncertainties associated with specific parameters in the analysis. For example, uncertainty in efficiency, uncertainty in MC tuning numbers, etc. When we vary those parameters, we expect the analysis results to change and we usually know the extent to which the parameters should be varied. In principle, we could sample a parameter a lot of times from a Gaussian distribution given its value and uncertainty and take the RMS of the analysis results as thesystematic uncertainty associated with that particular systematic effect. However, there are instances where the "parameter" is a function and we are uncertain about its exact functional form, making it impractical to sample it. Or there are only limited variations that we can make given the experimental setup. In such cases, we usually vary the parameter once and assume the analysis results will follow a uniform distribution if we could try out more values for that parameter.
+
+Systematic checks are crucial for helping us identify analysis mistakes or make new discoveries. When we make variations in the systematic checks, we don't expect the analysis results to change. If the result changes significantly, the systematic check fails and we need to carefully investigate why it fails and correct for it. Only when we are "truly at our wits' end", we can incorporate failed check results into systematic uncertainties[105]. On the other hand, if the systematic check passes, we shouldn't include it in the systematic uncertainties. Barlow's rule is used when determining if a systematic check fails or passes and it is shown in Figure 4.1. It is not uncommon that we start with systematic checks and end up with correction for mistakes, or discoveries of new systematic effects, or both!
+
+At this point, systematic uncertainties seem to be well defined. However, in some occasions, it can be tricky to determine if an uncertainty should go to systematic uncertainty or statistical uncertainty, for example, the uncertainty in the event plane resolution (\(\sigma_{\text{EP}}\)). Following the above discussion, it might be natural to classify it into a systematic effect. It is true if all the data points are corrected by the same event plane resolution. A useful way to think about this problem is to look at the normalized residual distribution which is introduced at the first place as a check for
+
+Figure 4.1: Flow chart for demonstrating Barlow’s rule and how the systematic error is calculated.
+
+statistical errors. If \(\sigma_{\rm EP}\) is incorporated into the systematic error, it won't influence the normalized residual distribution. No matter how much the resolution varies, the normalized residual distribution will remain the same because every data point is corrected by the same resolution. If \(\sigma_{\rm EP}\) is incorporated into the statistical errors, a large \(\sigma_{\rm EP}\) will lead to a narrow Gaussian distribution, which shouldn't happen if the statistical errors are calculated properly. However, as mentioned in Chapter 3, the event plane resolution is measured in 16 \(V_{z}\) bins; and when every 16 data points along \(\eta\) is combined, they mainly come from different \(V_{z}\) bins. In this case, data points from different \(V_{z}\) bins are corrected by different resolutions. When the resolutions vary, the data points will become more spread out, leading to a wider normalized residual distribution. Again, it shouldn't happen if the statistical errors are calculated properly. By incorporating \(\sigma_{\rm EP}\) into statistical errors, the numerators and denominators of normalized residuals will increase(decrease) at the same time. Therefore, in this analysis, \(\sigma_{\rm EP}\) is classified as a statistical error.
+
+### 4.2 Systematic effects and systematic checks
+
+#### GEANT3 correction
+
+This is a known systematic effect. When we correct for the STAR material budgets with the GEANT3 simulation as mentioned in Chapter 3.5, \(\frac{{\rm d}N}{{\rm d}\eta}\) and \(v_{1}(p_{T})\) are required as input parameters. We expect those parameters to influence the correction factors but we are uncertain of their values. Furthermore, it is impossible to measure \(\frac{{\rm d}N}{{\rm d}\eta}\) and \(v_{1}(p_{T})\) simply because our detector doesn't cover the whole \(\eta\) range and it cannot measure \(p_{T}\) at forward and backward \(\eta\). Therefore, we take our best guess as the default setting, then vary \(\frac{{\rm d}N}{{\rm d}\eta}\) and \(v_{1}(p_{T})\) within a reasonable range and incorporate the differences into systematic uncertainties.
+
+The default setting is: \(v_{1}\) is independent of \(p_{T}\ \frac{{\rm d}N}{{\rm d}\eta}\) comes from the unfolding analysis conducted by Mate Csanad. The variations are as follows, only one parameter is varied at a time.
+
+* \(v_{1}(p_{T})=k\cdot\sqrt{p_{T}}\)
+* \(v_{1}(p_{T})=k\cdot p_{T}^{2}\)
+* \(\frac{{\rm d}N}{{\rm d}\eta}\)measured by the PHOBOS experiment [106]PHOBOS never measured \(\frac{{\rm d}N}{{\rm d}\eta}\) at \(\sqrt{s_{NN}}=\)27 GeV, but STAR measured \(\frac{{\rm d}N}{{\rm d}\eta}\) at both \(\sqrt{s_{NN}}=\)27 GeV and \(\sqrt{s_{NN}}=\)19.6 GeV (preliminary). A "fake" PHOBOS measurement at \(\sqrt{s_{NN}}=\)27 GeV was created for the sake of systematic uncertainties. It was calculated as follows:
+
+\[\frac{{\rm d}N^{\rm PHOBOS27}}{{\rm d}\eta}=\frac{\frac{{\rm d}N^{\rm PHOBOS19.6} }{{\rm d}\eta}}{\frac{{\rm d}N^{\rm STAR19.6}}{{\rm d}\eta}}\times\frac{{\rm d }N^{\rm STAR27}}{{\rm d}\eta} \tag{4.1}\]
+
+#### Variation of references
+
+The variation of references was first conducted as a systematic check. Naively, we expect the measured \(v_{1}\) to be the same regardless of the references used. However, the analysis results turned out to be different when \(v_{1}\) was measured with respect to \(\Psi_{1}\) from TPC and the other side of EPD (Figure 4.2 and 4.3). Further investigation shows the differences could arise from at least three different sources.
+
+* **Nonflow effects**: here the nonflow effects mainly refer to resonances decay, jets and di-jets. When the \(\eta\) gap between the PoI and the reference becomes larger, the nonflow effect gets suppressed. It might be more intuitive to expect \(|v_{1}|\) to be smaller when the nonflow effect decreases since the nonflow usually introduces fake positive correlations. However, in principle, \(|v_{1}|\) can also become larger with decreased nonflow. Only data knows the answer. In one of the studies, several symmetric references around the mid-rapidity were used: \(|\eta|<1.0,0.9,0.8,0.7,0.6,0.5.\) The magnitude of \(v_{1}\) turned out to decrease with increasing \(\eta\) gaps, especially for data points at smaller \(|\eta|\), where the \(\eta\) gaps are smaller and thus the measured flow is more sensitive to the nonflow effects. Interestingly, the same study with UrQMD led to an opposite observation: \(|v_{1}|\) increases with increasing \(\eta\) gaps. It doesn't mean the UrQMD analysis is wrong but it definitely indicates that UrQMD cannot model the nonflow effects well. At this point, there are reasons for us to believe the differences at small \(|\eta|\) in Figure 4.2 and 4.3 can come from the fact that the nonflow effects are better suppressed when \(\Psi_{1}^{\rm EPD}\) was used. But how about the peripheral collisions? At both energies, \(|v_{1}\{\Psi_{1}^{\rm EPD}\}|\) is larger than \(|v_{1}\{\Psi_{1}^{\rm TPC}\}|\) at small \(|\eta|\). Then it comes to the momentum conservation effect.
+* **Momentum conservation effect**: as discussed in Chapter 3.2, the measured flow can contain artificial correlations simply due to the fact that momentum is conserved in the collisions. However, by using a symmetric reference around the mid-rapidity, the momentum conservation effect can be excluded[58]. It is the main reason why TPC is chosen as the reference in this analysis. When a single side of EPD is used as the reference, the momentum conservation effect cannot be suppressed, and it is more prominent when \(\langle p_{T}\rangle\) is high (small \(|\eta|\)) and the multiplicity is low (peripheral collisions). At peripheral collisions, the \(v_{1}\{\Psi_{1}^{\rm EPDEast}\}\) (\(v_{1}\{\Psi_{1}^{\rm EPDWest}\}\)) curve is shifted down (up) from the \(v_{1}\{\Psi_{1}^{\rm TPC}\}\) curve, which is consistent with the observation at TPC(Figure 3.1). It indicates \(v_{1}\{\Psi_{1}^{\rm EPDEast(West)}\}\) is influenced by the momentum conservation effect significantly.
+* **Event plane decorrelation**: previous simulation study shows that the participant plane and the spectator plane can be decorrelated and this decorrelation is most prominent at central and peripheral collisions[53]. As a result, at smaller \(|\eta|\), \(|v_{1}\{\Psi_{1}^{\rm TPC}\}|\) can be larger than \(|v_{1}\{\Psi_{1}^{\rm EPD}\}|\) because the PoI are more correlated with the participant plane; at larger \(|\eta|\), \(|v_{1}\{\Psi_{1}^{\rm TPC}\}|\) can be smaller than \(|v_{1}\{\Psi_{1}^{\rm EPD}\}|\) because the PoI are more correlated with the spectator plane.
+
+Ideally, only the difference due to the nonflow effect should go to the systematic uncertainties. However, it is impractical to isolate those effects. So, all the failed checks are incorporated into the systematic uncertainties.
+
+#### 4.2.3 \(v_{1}\) asymmetry
+
+There is no doubt that \(v_{1}(\eta)\) should be asymmetric, therefore the consistency between \(|v_{1}(\eta)|\) at forward and backward pseudorapidity becomes a natural systematic check. At the beginning, this systematic check failed. After further investigation, we realized that the inconsistency comes from the unsymmetric \(\frac{{\rm d}N}{{\rm d}\eta}\) in TPC which leads to some momentum conservation effect. As an improvement, an \(\eta\) weight was introduced to the TPC tracks that are used to reconstruct the event plane to force the \(\frac{{\rm d}N}{{\rm d}\eta}\) distribution to be symmetric. A better \(\eta\) cut was also implemented to the \(\sqrt{s_{NN}}=\)27 GeV data set to account for the inefficient iTPC sector. Details about this investigation can be found in my STAR internal Drupal page. After refining the analysis method, some inconsistency still remains and they are incorporated into the systematic uncertainties as a last resort.
+
+Figure 4.2: \(v_{1}(\eta)\) measured with two different references at \(\sqrt{s_{NN}}=\)19.6 GeV (before correcting for the STAR material budget). Orange data points are measured with respect to \(\Psi_{1}\) from the other side of EPD; black data points are measured with respect to \(\Psi_{1}\) from TPC. Circles are \(v_{1}(\eta)\) when \(\eta>0\); squares are \(-v_{1}(-\eta)\) when \(\eta<0\). The differences can arise from several effects including the momentum conservation effect, nonflow and the event plane decorrelation. Nevertheless, it is impractical to isolate and disentangle individual effects.
+
+Figure 4.3: \(v_{1}(\eta)\) measured with two different references at \(\sqrt{s_{NN}}=\)27 GeV (before correcting for the STAR material budget). Orange data points are measured with respect to \(\Psi_{1}\) from the other side of EPD; black data points are measured with respect to \(\Psi_{1}\) from TPC. Circles are \(v_{1}(\eta)\) when \(\eta>0\); squares are \(-v_{1}(-\eta)\) when \(\eta<0\). The differences can arise from several effects including the momentum conservation effect, nonflow and the event plane decorrelation. Nevertheless, it is impractical to isolate and disentangle individual effects.
+
+#### Systematic uncertainties on \(\upsilon_{1}\)
+
+The calculation of systematic uncertainties follows the flowchart in Figure 4.1. All the systematic checks are shown in Figure 4.4 and 4.5. Only the checks that fail according to Barlow's rule are passed to the systematic uncertainty following the equation:
+
+\[\sigma_{\rm sys}=\sqrt{\sum_{i}(\sigma_{\rm sys,i}/\sqrt{12})^{2}} \tag{4.2}\]
+
+#### Systematic uncertainties on \(\eta\)
+
+The pseudorapidity and azimuthal angle of each EPD tile are determined by a straight line between the primary vertex of the collision and a random point on the tile, which leads to the uncertainty on the \(\eta\) of each EPD ring. At each \(V_{Z}\) bin, the \(\eta\) of each EPD ring is determined by the averaged \(\eta\) over all the tiles on this ring over all the events. The associated systematic uncertainty is then calculated as the standard deviation of all the \(\eta\) values.
+
+Figure 4.4: Multiple systematic checks at \(\sqrt{s_{NN}}=\)19.6 GeV. Different colors represent different checks. Circles are \(y(\eta)\) at \(\eta>0\), squares are \(-y(-\eta)\) at \(\eta<0\). Please refer to Figure 4.1 for the formulas used to calculate the value and error bar of each point. Only the points whose error bars don’t touch zero are incorporate into the systematic uncertainties.
+
+Figure 4.5: Multiple systematic checks at \(\sqrt{s_{NN}}=\)27 GeV. Different colors represent different checks. Circles are \(y(\eta)\) at \(\eta>0\), squares are \(-y(-\eta)\) at \(\eta<0\). Please refer to Figure 4.1 for the formulas used to calculate the value and error bar of each point. Only the points whose error bars don’t touch zero are incorporate into the systematic uncertainties.
+
+Figure 4.6: Demonstration of how EPD rings (on the west side) from different \(V_{Z}\)bins are combined based on their \(\langle\eta\rangle\). Bins that are marked by the same color and pattern are combined.
+
+### 4.3 Propagation of systematic uncertainties
+
+#### Average of \(\eta\)
+
+As discussed in Chapter 3.4, to enhance the visibility of the data points, \(v_{1}\) from various \(V_{Z}\) bins are combined by taking the average of every sixteen data points along the \(\eta\) direction. Figure 4.6 shows the \(\langle\eta\rangle\) of each west EPD ring in each \(V_{Z}\) range (averaged over all the tiles on this EPD ring and over all the events in this \(V_{Z}\) range). Bins marked by the same color and pattern are combined, and the combined bin is calculated as follows:
+
+\[\eta=\frac{\sum_{i=1}^{16}m_{i}N_{i}}{\sum_{i=1}^{16}N_{i}}, \tag{4.3}\]
+
+\[\sigma_{\rm sys}=\sqrt{\frac{\sum_{i=1}^{16}(\sigma_{i}^{2}+m_{i}^{2})N_{i}}{ \sum_{i=1}^{16}N_{i}}-(\frac{\sum_{i=1}^{16}m_{i}N_{i}}{\sum_{i=1}^{16}N_{i}})^ {2}}, \tag{4.4}\]
+
+\[\sigma_{\rm stat}=\frac{\sigma_{\rm sys}}{\sqrt{\sum_{i=1}^{16}N_{i}}} \tag{4.5}\]
+
+where \(m_{i}\) is \(\langle\eta\rangle\) from bin i; \(N_{i}\) is the number of entries in bin \(i\); \(\sigma_{i}\) is the standard deviation (systematic uncertainty) of bin \(i\).
+
+#### Average of \(v_{1}(\eta)\) at forward and backward \(\eta\)
+
+Due to the symmetric nature of the Au+Au collision, the measurements at the forward and backward pseudorapidity can be viewed as two independent measurements on the same observable. Therefore, when needed, they can be combined to reduce the statistical uncertainties and to improve the presentation of the analysis results. They are combined as follows:
+
+\[v_{1}(\eta)=\frac{1}{2}\times[v_{1}(\eta)-v_{1}(-\eta)],\eta>0, \tag{4.6}\]
+
+\[\sigma_{\rm stat}(\eta)=\frac{1}{2}\times\sqrt{[\sigma_{\rm stat}(\eta)]^{2}+[ \sigma_{\rm stat}(-\eta)]^{2}},\eta>0. \tag{4.7}\]
+
+However, the systematic uncertainties shouldn't decrease as the number of measurements increases. So, it is calculated as:
+
+\[\sigma_{\rm sys}(\eta)=\frac{1}{\sqrt{2}}\times\sqrt{[\sigma_{\rm sys}(\eta)] ^{2}+[\sigma_{\rm sys}(-\eta)]^{2}},\eta>0. \tag{4.8}\]
+
+#### Average of centralities
+
+This measurement was conducted for seven centralities: \(0\sim 5\%,5\sim 10\%,10\sim 20\%,20\sim 30\%,30\sim 40\%,40\sim 50\%,50\sim 60\%\). The same measurement at different energies and by different experiments were conducted in wider centrality bins [68][67]. In order to have a more precise comparison between this measurement and previous measurements, we need to report our results in the same centrality range, e.g. \(10\sim 40\%\). It was done by conducting the whole analysis all over again in the \(10\sim 40\%\) centrality, including the systematic checks and the systematic uncertainty calculation.
+
+## Chapter 5 Results and Discussions
+
+### 5.1 Results
+
+Figure 5.1 shows \(v_{1}(\eta)\) measured in Au+Au collisions at \(\sqrt{s_{NN}}\) =19.6 and 27 GeV for seven centralities. Statistical errors are plotted with vertical and horizontal lines, while the systematic errors are plotted with boxes. The statistical errors associated with \(\eta\) are too small and hidden behind the line widths of the statistical errors associated with \(v_{1}\). At both energies, \(v_{1}(\eta)\) cross zero roughly around the beam rapidity for all the centralities. At \(\eta<y_{\rm beam}\), \(|v_{1}(\eta)|\) decreases towards central collisions; at \(\eta>y_{\rm beam}\), \(|v_{1}(\eta)|\) slightly increases and then decreases going from peripheral to central collisions.
+
+The "\(v_{1}\) wiggle" (\(v_{1}\) changes sign three times along \(\eta\) including the zero crossing at the midrapidity) has been observed by multiple experiments at various energies [67, 60, 65, 68, 70]. It is believed to be due to the longitudinal hydrodynamic expansion of a tilted source[90, 91, 92, 93, 97]. As shown in Figure 1.10, after the collision, a tilted source is created due to the local imbalance of the longitudinal momenta of the forward- and backward-going participants. Due to the higher pressure gradient, more particles are produced along the minor axis of the tilted fireball, leading to a negative \(\langle p_{x}\rangle\) at small positive \(\eta\), and thus a negative \(v_{1}\). For central collisions, the fireball is less tilted and less anisotropic, resulting in a milder \(v_{1}(\eta)\) slope around the midrapidity[90]. For peripheral collisions, the fireball is more titled, but the nuclear fragments also gets stronger deflection, leading to both large flow and large "anti-flow" in the fragmentation region. This can explain the nonmonotonic change of \(v_{1}\)with centrality at the forward pseudorapidity.
+
+Figure 5.2 shows \(v_{1}(\eta-y_{\rm beam})\) at \(\sqrt{s_{NN}}\) =19.6 and 27 GeV for seven centralities. The results from the forward and backward pseudorapidities are combined by averaging \(v_{1}(\eta)\) and \(-v_{1}(-\eta)\). Again, the statistical errors are plotted with vertical and horizontal lines, while the systematic errors are plotted with boxes, and the statistical errors associated with \(\eta\) are too small to be seen. At all the centralities, the \(v_{1}(\eta-y_{\rm beam})\) curves from two energies fall on top of each other especially beyond the beam rapidity. This scaling with \((\eta-y_{\rm beam})\) is usually referred as "limiting fragmentation". The phenomenon of "Limiting fragmentation" will be discussed in more details in Chapter 5.3. Figure 5.3 shows the comparison between the STAR and PHOBOS measurements. The results at \(\sqrt{s_{NN}}=\)19.6 GeV exhibit excellent consistency.
+
+### 5.2 Model comparisons
+
+Figure 5.4 shows the model comparison at \(\sqrt{s_{NN}}=\)19.6 GeV. The simulation with UrQMD are represented by the orange and navy blue bands. UrQMD (Ultra-relativistic Quantum Molecular Dynamics) is a microscopic hadron transport and string model. In the standard cascade mode, UrQMD models particle production via hadron rescattering, resonances decay, string excitation and decay. It doesn't rely on any mean-field or equilibrium assumptions. The UrQMD particles are sampled at 500 fm/\(c\) after the collision in the cascade mode. The orange band is \(v_{1}(\eta)\) measured with respect to the reaction plane, while the navy blue band is \(v_{1}(\eta)\) measured with respect to the event plane. The event plane angle and its resolution are calculated with exactly
+
+Figure 5.1: \(v_{1}(\eta)\) at \(\sqrt{s_{NN}}=\)19.6 (red) and 27 (black) GeV in Au+Au collisions for seven centralities. Circles are \(v_{1}(\eta)\) at \(\eta>0\), squares are \(-v_{1}(-\eta)\) at \(\eta<0\). Statistical errors are plotted with lines, systematic errors are plotted with boxes. The red arrows represent the beam rapidity (\(y_{\rm beam}=3.0\)) at \(\sqrt{s_{NN}}=\)19.6 GeV, while the black arrows represent the beam rapidity (\(y_{\rm beam}=3.4\)) at \(\sqrt{s_{NN}}=\)27 GeV.
+
+Figure 5.2: \(v_{1}(\eta-y_{\rm beam})\) at \(\sqrt{s_{NN}}=\)19.6 (red) and 27 (black) GeV in Au+Au collisions for seven centralities. The results from the forward and backward pseudorapidities are combined by averaging \(v_{1}(\eta)\) and \(-v_{1}(-\eta)\). Statistical errors are plotted with lines, systematic errors are plotted with boxes.
+
+Figure 5.3: \(v_{1}(\eta-y_{\rm beam})\) measured by STAR and PHOBOS for \(0\sim 40\%\) centrality.
+
+the same reference, track cuts and weights as what were used in the experimental measurement. The discrepancy between \(v_{1}\{\)RP\(\}\) and \(v_{1}\{\)EP\(\}\) can originate from the lumpiness of the colliding nuclei, the non-flow correlations and the decorrelation between the spectator plane and the participant plane. This suggests it is important to use the event plane rather than the reaction plane to calculate \(v_{1}\) in models if we want to make an "apple-to-apple" comparison between the model calculation and the experimental measurement. Although UrQMD failed to reproduce the experiment results quantitatively, it was able to reproduce the overall shape of the data including the "\(v_{1}\) wiggle" and the substantial nonzero \(v_{1}\) at the forward pseudorapidity.
+
+The simulations with MUFFIN[33] are depicted by the pink and green curves. MUFFIN is an event-by-event three-fluid dynamic model based on the vHLLE code[107]. In this model, the incoming nuclei are represented by two droplets of cold nuclear fluid, called projectile and target fluids. The process of heavy-ion collision is thus modeled as mutual interpenetration of the projectile and target fluids. The phenomenon of baryon stopping is modeled as friction between the projectile and target fluids. The kinetic energy lost to friction is channeled into the creation of a third fluid, which represents particles produced in the reaction. In this calculation, MUFFIN was coupled to a final-state hadronic cascade using SMASH[31]. The \(v_{1}\) from MUFFIN are measured with respect to the reaction plane and as a function of rapidity. A \(p_{T}\) cut of \(0.15<p_{T}<2.0\) GeV/\(c\) was applied to the simulation data while no \(p_{T}\) cut was applied to the particles of interest in the experiment. The green curves represent \(v_{1}(y)\) of nucleons, while the red curves represent \(v_{1}(y)\) of \(\pi^{-}\). The solid lines represent the simulation implementing a crossover phase transition, while the dashed lines represent the simulation implementing a first-order phase transition. This MUFFIN+SMASH hybrid simulation shows the sign of \(\pi^{-}\)\(v_{1}\) at large rapidity is sensitive to the QGP phase transition. It will be interesting to see if this sensitivity still exist for charged particle \(v_{1}(\eta)\). Since the proportion of nucleons increases at the fragmentation region, it is possible that \(v_{1}\) at large \(\eta\) is predominantly influenced by the nucleon \(v_{1}\), which exhibits a mild dependence on the QGP phase transition.
+
+The bright blue band shows the simulation from a (3+1)-dimensional hybrid framework with parametric initial conditions (both the initial energy density distribution and the initial baryon density distribution) [97]. This model has successfully reproduce the measured rapidity and beam energy dependence of the directed flow \(v_{1}(y)\) of identified particles from \(\sqrt{s_{NN}}=\)7.7 to 200 GeV. However, it yields significantly smaller \(v_{1}(\eta)\) compared to the STAR measurement at the forward pseudorapidity. This discrepancy mainly arises from the fact that this model only takes into account the fluid at the participant region. In reality, the nucleons that don't directly overlap with other nucleons at the initial stage of the collision can also interact with the fireball, thus making a substantial contribution to the final particle production across the entire (pseudo)rapidity range. Therefore, any dynamical models must treat the full three-dimensional system in detail.
+
+Figure 5.5 shows the model comparisons at \(\sqrt{s_{NN}}=\)27 GeV. Similar to \(\sqrt{s_{NN}}=\)19.6 GeV, UrQMD qualitatively reproduced the overall shape of the measured \(v_{1}(\eta)\). The hybrid models that only simulate the middle fluid failed to produce any non-zero \(v_{1}\) at the forward pseudorapidity. Again, it demonstrates the importance of including all the segments of the heavy-ion collisions in the model study.
+
+### 5.3 Discussion
+
+Particle production at the forward and backward (pseudo)rapidity has been poorly understood and cannot be reproduced by existing models. Over the years, one way to gain insights into the nature of particle production is through the study of limiting fragmentation[108, 109, 110, 111].
+
+The hypothesis of limiting fragmentation states that, in high-energy collisions, two incoming particles go through each other and break into fragments in the process instead of completely stopping each other [112]. It further predicts that at high enough energy, both \({\rm d}^{2}N/{\rm d}y^{\prime}{\rm d}p_{T}\) and the mix of particles species reach a limiting value and become independent of energy in a region around \(y^{\prime}\sim 0\), where \(y^{\prime}\equiv y-y_{\rm beam}\) and \(y\) is the rapidity. It also implies a limiting value for \({\rm d}N/{\rm d}\eta^{\prime}\) where \(\eta^{\prime}\equiv\eta-y_{\rm beam}\)[113]. This \({\rm d}N/{\rm d}\eta^{\prime}\) scaling has been observed both at BRAHMS and PHOBOS[114, 115, 106]. Surprisingly, the same scaling behavior was also observed for directed and elliptic flow at PHOBOS and STAR [116, 67, 60, 65, 68, 70]. This analysis verified the \(v_{1}(\eta-y_{\rm beam})\) scaling again at one more energy with high precision (Figure 5.3). While the energy scaling of the yield around \(y^{\prime}\sim 0\) can be attributed to "spectators" minimally influenced by the collisions, the energy scaling of directed flow is less intuitive to comprehend, as \(v_{1}\) is usually closely related to the collision dynamics. A common interpretation for large \(v_{1}\) at the forward rapidity is the deflection of nuclear fragments. However, it is hard to explain the energy independence of the directed flow around \(y^{\prime}\sim 0\) with this picture. The limiting fragmentation of directed flow indicates the production of large \(v_{1}\) at the fragmentation region might Figure 5.4: Model comparisons of \(v_{1}(\eta)\) at \(\sqrt{s_{NN}}=\)19.6 GeV for \(10\sim 40\%\) centrality. Details about the models can be found in the text. Note \(v_{1}\) from the MUFFIN simulations are measured as a function of rapidity instead of the pseudorapidity.
+
+Figure 5.5: Model comparisons of \(v_{1}(\eta)\) at \(\sqrt{s_{NN}}=\)27 GeV for \(10\sim 40\%\) centrality.
+
+come from another mechanism.
+
+## Chapter 6 Summary
+
+Directed flow (\(v_{1}(\eta)\)) has been measured at \(\sqrt{s_{NN}}\) =19.6 and 27 GeV over six units of rapidity with the STAR Event Plane Detector. In order to use a scintillator detector as the particles of interest region, a whole new method has been developed to ensure the accuracy of this measurement. The measurement results at \(\sqrt{s_{NN}}\) =19.6 GeV has exhibited excellent consistency with the previous PHOBOS measurement. The increased precision of the measurement has revealed finer structures in heavy-ion collisions, including a potential observation of the first-order event plane decorrelation. Simulations from various models including transport, hydrodynamic, one-fluid hybrid and three-fluid hybrid models have been compared to this STAR measurement. Only UrQMD (transport model) and MUFFIN (three-fluid hybrid model) were able to reproduce a significant \(v_{1}\) at the forward(backward) pseudorapidity as observed in the experiment. This underscores the importance of incorporating all segments of the heavy-ion collision in model studies, especially at BES energies where nuclear fragments can substantially influence particle production across the entire pseudorapidity range. Furthermore, the UrQMD study has shown significant discrepancy between \(v_{1}\){EP} and \(v_{1}\){RP}, demonstrating the importance of employing the same reference when comparing experimental measurements and model calculations.
+
+## Bibliography
+
+* [1] Yuri V. Kovchegov and Eugene Levin. _Quantum Chromodynamics at High Energy_, volume 33. Oxford University Press, 2013.
+* [2] Ani Aprahamian et al. Reaching for the horizon: The 2015 long range plan for nuclear science. 10 2015.
+* [3] Ulrich W. Heinz and Maurice Jacob. Evidence for a new state of matter: An Assessment of the results from the CERN lead beam program. 1 2000.
+* [4] John Adams et al. Experimental and theoretical challenges in the search for the quark gluon plasma: The STAR Collaboration's critical assessment of the evidence from RHIC collisions. _Nucl. Phys. A_, 757:102-183, 2005.
+* [5] K. Adcox et al. Formation of dense partonic matter in relativistic nucleus-nucleus collisions at RHIC: Experimental evaluation by the PHENIX collaboration. _Nucl. Phys. A_, 757:184-283, 2005.
+* [6] B. B. Back et al. The PHOBOS perspective on discoveries at RHIC. _Nucl. Phys. A_, 757:28-101, 2005.
+* [7] I. Arsene et al. Quark gluon plasma and color glass condensate at RHIC? The Perspective from the BRAHMS experiment. _Nucl. Phys. A_, 757:1-27, 2005.
+* [8] A. Bazavov et al. Equation of state in ( 2+1 )-flavor QCD. _Phys. Rev. D_, 90:094503, 2014.
+* [9] Wikimedia Commons. Standard model of elementary particles. [https://commons.wikimedia.org/w/index.php?title=File:Standard_Model_of_Elementary_Particles.svg&oldid=818996477](https://commons.wikimedia.org/w/index.php?title=File:Standard_Model_of_Elementary_Particles.svg&oldid=818996477), 2023. [Online; accessed 28-November-2023].
+* [10] R. L. Workman and Others. Review of Particle Physics. _PTEP_, 2022:083C01, 2022.
+
+* [11] F. Karsch, C. R. Allton, S. Ejiri, S. J. Hands, O. Kaczmarek, E. Laermann, and C. Schmidt. Where is the chiral critical point in three flavor QCD? _Nucl. Phys. B Proc. Suppl._, 129:614-616, 2004.
+* [12] R. V. Gavai and Sourendu Gupta. On the critical end point of qcd. _Phys. Rev. D_, 71:114014, Jun 2005.
+* [13] Chun Shen, Zhi Qiu, Huichao Song, Jonah Bernhard, Steffen Bass, and Ulrich Heinz. The iEBE-VISHNU code package for relativistic heavy-ion collisions. _Comput. Phys. Commun._, 199:61-85, 2016.
+* [14] Wojciech Florkowski. _Spacetime picture of ultra-relativistic heavy-ion collisions_. World Scientific, 2010.
+* [15] D. Kharzeev. Can gluons trace baryon number? _Phys. Lett. B_, 378:238-246, 1996.
+* [16] Bo Andersson, G. Gustafson, G. Ingelman, and T. Sjostrand. Parton Fragmentation and String Dynamics. _Phys. Rept._, 97:31-145, 1983.
+* [17] Wit Busza and Alfred S. Goldhaber. NUCLEAR STOPPING POWER. _Phys. Lett. B_, 139:235, 1984.
+* [18] James Daniel Brandenburg, Nicole Lewis, Prithwish Tribedy, and Zhangbu Xu. Search for baryon junctions in photonuclear processes and isobar collisions at RHIC. 5 2022.
+* [19] Nicole Lewis. Identified Hadron Spectra and Baryon Stopping in \(\gamma+\mathrm{Au}\) Collisions at STAR. _Acta Phys. Polon. Supp._, 16(1):1-A152, 2023.
+* [20] Wendi Lv, Yang Li, Ziyang Li, Rongrong Ma, Zebo Tang, Prithwish Tribedy, Chun Yuen Tsang, Zhangbu Xu, and Wangmei Zha. Correlations of Baryon and Charge Stopping in Heavy Ion Collisions. 9 2023.
+* [21] Weijie Dong, Xiaozhou Yu, Siyuan Ping, Xiatong Wu, Gang Wang, Huan Zhong Huang, and Zi-Wei Lin. Study of Baryon Number Transport Dynamics and Strangeness Conservation Effects Using \(\Omega\)-hadron Correlations. 6 2023.
+* [22] Ulrich Heinz and Raimond Snellings. Collective flow and viscosity in relativistic heavy-ion collisions. _Ann. Rev. Nucl. Part. Sci._, 63:123-151, 2013.
+* [23] Lipei Du, Ulrich Heinz, and Gojko Vujanovic. Hybrid model with dynamical sources for heavy-ion collisions at BES energies. _Nucl. Phys. A_, 982:407-410, 2019.
+
+* [24] Chun Shen, Gabriel Denicol, Charles Gale, Sangyong Jeon, Akihiko Monnai, and Bjoern Schenke. A hybrid approach to relativistic heavy-ion collisions at the rhic bes energies. _Nuclear Physics A_, 967:796-799, 2017. The 26th International Conference on Ultra-relativistic Nucleus-Nucleus Collisions: Quark Matter 2017.
+* [25] Gabriel S. Denicol, Charles Gale, Sangyong Jeon, Akihiko Monnai, Bjorn Schenke, and Chun Shen. Net-baryon diffusion in fluid-dynamic simulations of relativistic heavy-ion collisions. _Phys. Rev. C_, 98:034916, Sep 2018.
+* [26] Lipei Du and Ulrich Heinz. (3+1)-dimensional dissipative relativistic fluid dynamics at non-zero net baryon density. _Computer Physics Communications_, 251:107090, 2020.
+* [27] Chun Shen, Ulrich Heinz, Pasi Huovinen, and Huichao Song. Systematic parameter study of hadron spectra and elliptic flow from viscous hydrodynamic simulations of Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV. _Phys. Rev. C_, 82:054904, 2010.
+* [28] G. F. Burgio and I. Vidana. The Equation of State of Nuclear Matter : from Finite Nuclei to Neutron Stars. _Universe_, 6(8):119, 2020.
+* [29] Huichao Song, Steffen A. Bass, and Ulrich Heinz. Viscous QCD matter in a hybrid hydrodynamic+Boltzmann approach. _Phys. Rev. C_, 83:024912, 2011.
+* [30] S. A. Bass et al. Microscopic models for ultrarelativistic heavy ion collisions. _Prog. Part. Nucl. Phys._, 41:255-369, 1998.
+* [31] J. Weil et al. Particle production and equilibrium properties within a new hadron transport approach for heavy-ion collisions. _Phys. Rev. C_, 94(5):054905, 2016.
+* [32] Bjoern Schenke, Chun Shen, and Prithwish Tribedy. Running the gamut of high energy nuclear collisions. _Phys. Rev. C_, 102(4):044905, 2020.
+* [33] Jakub Cimerman, Iurii Karpenko, Boris Tomasik, and Pasi Huovinen. Next-generation multifluid hydrodynamic model for nuclear collisions at sNN from a few GeV to a hundred GeV. _Phys. Rev. C_, 107(4):044902, 2023.
+* [34] F. Videbaek. Overview and Recent Results from BRAHMS. _Nucl. Phys. A_, 830:43C-50C, 2009.
+* [35] M. M. Aggarwal et al. An Experimental Exploration of the QCD Phase Diagram: The Search for the Critical Point and the Onset of De-confinement. 7 2010.
+
+* [36] Wit Busza, Krishna Rajagopal, and Wilke van der Schee. Heavy Ion Collisions: The Big Picture, and the Big Questions. _Ann. Rev. Nucl. Part. Sci._, 68:339-376, 2018.
+* [37] STAR Collaboration. Studying the phase diagram of qcd matter at rhic. [https://drupal.star.bnl.gov/STAR/files/BES_WPII_ver6.9_Cover.pdf](https://drupal.star.bnl.gov/STAR/files/BES_WPII_ver6.9_Cover.pdf), 2014. [Online; accessed 28-November-2023].
+* [38] J. Cleymans, S. Wheaton, H. Oeschler, and K. Redlich. Comparison of chemical freeze-out criteria in heavy-ion collisions. _PoS_, CPOD2006:035, 2006.
+* [39] Chun Shen and Bjorn Schenke. Dynamical initialization and hydrodynamic modeling of relativistic heavy-ion collisions. _Nucl. Phys. A_, 982:411-414, 2019.
+* [40] Ulrich W. Heinz. Early collective expansion: Relativistic hydrodynamics and the transport properties of QCD matter. _Landolt-Bornstein_, 23:240, 2010.
+* [41] Jean-Yves Ollitrault. Flow systematics from SIS to SPS energies. _Nucl. Phys. A_, 638:195-206, 1998.
+* [42] S. A. Voloshin. Anisotropic flow at RHIC: Constituent quark scaling. _J. Phys. Conf. Ser._, 9:276-279, 2005.
+* [43] K. H. Ackermann et al. Elliptic flow in Au + Au collisions at (S(NN))**(1/2) = 130 GeV. _Phys. Rev. Lett._, 86:402-407, 2001.
+* [44] Ulrich W. Heinz. Thermalization at RHIC. _AIP Conf. Proc._, 739(1):163-180, 2004.
+* [45] B. Alver and G. Roland. Collision geometry fluctuations and triangular flow in heavy-ion collisions. _Phys. Rev. C_, 81:054905, 2010. [Erratum: Phys.Rev.C 82, 039903 (2010)].
+* [46] J. Adamczewski-Musch et al. Directed, Elliptic, and Higher Order Flow Harmonics of Protons, Deuterons, and Tritons in \(\mathrm{Au}+\mathrm{Au}\) Collisions at \(\sqrt{s_{NN}}=2.4\) GeV. _Phys. Rev. Lett._, 125:262301, 2020.
+* [47] Reaction plane correlated triangular flow in Au+Au collisions at \(\sqrt{\mathbf{s_{\mathrm{NN}}}}=\mathbf{3}\) GeV. 9 2023.
+* [48] Sergei A. Voloshin, Arthur M. Poskanzer, and Raimond Snellings. Collective phenomena in non-central nuclear collisions. _Landolt-Bornstein_, 23:293-333, 2010.
+* [49] Albert M Sirunyan et al. Pseudorapidity and transverse momentum dependence of flow harmonics in pPb and PbPb collisions. _Phys. Rev. C_, 98(4):044902, 2018.
+
+* [50] Georges Aad et al. Longitudinal Flow Decorrelations in Xe+Xe Collisions at \(\sqrt{s_{\rm NN}}=5.44\) TeV with the ATLAS Detector. _Phys. Rev. Lett._, 126(12):122301, 2021.
+* [51] Morad Aaboud et al. Measurement of longitudinal flow decorrelations in Pb+Pb collisions at \(\sqrt{s_{\rm NN}}=2.76\) and 5.02 TeV with the ATLAS detector. _Eur. Phys. J. C_, 78(2):142, 2018.
+* [52] Maowu Nie. Energy dependence of longitudinal flow decorrelation from STAR. _Nucl. Phys. A_, 1005:121783, 2021.
+* [53] Joseph R. Adams and Michael A. Lisa. Decorrelation of participant and spectator angular momenta in heavy-ion collisions. _Phys. Rev. C_, 106(6):064904, 2022.
+* [54] Zhiwan Xu, Xiatong Wu, Caleb Sword, Gang Wang, Sergei A. Voloshin, and Huan Zhong Huang. Flow-plane decorrelations in heavy-ion collisions with multiple-plane cumulants. _Phys. Rev. C_, 105(2):024902, 2022.
+* [55] Jiangyong Jia, Peng Huo, Guoliang Ma, and Maowu Nie. Observables for longitudinal flow correlations in heavy-ion collisions. _J. Phys. G_, 44(7):075106, 2017.
+* [56] Jiangyong Jia and Peng Huo. A method for studying the rapidity fluctuation and decorrelation of harmonic flow in heavy-ion collisions. _Phys. Rev. C_, 90(3):034905, 2014.
+* [57] Arthur M. Poskanzer and S. A. Voloshin. Methods for analyzing anisotropic flow in relativistic nuclear collisions. _Phys. Rev. C_, 58:1671-1678, 1998.
+* [58] N. Borghini, P. M. Dinh, Jean-Yves Ollitrault, Arthur M. Poskanzer, and S. A. Voloshin. Effects of momentum conservation on the analysis of anisotropic flow. _Phys. Rev. C_, 66:014901, 2002.
+* [59] N. Borghini, P. M. Dinh, and J. Y. Ollitrault. Analysis of directed flow from elliptic flow. _Phys. Rev. C_, 66:014905, 2002.
+* [60] J. Adams et al. Directed flow in Au+Au collisions at s(NN)**(1/2) = 62-GeV. _Phys. Rev. C_, 73:034903, 2006.
+* [61] Matthew Luzum and Jean-Yves Ollitrault. Eliminating experimental bias in anisotropic-flow measurements of high-energy nuclear collisions. _Phys. Rev. C_, 87(4):044907, 2013.
+* [62] H. Sorge. Elliptical flow: A Signature for early pressure in ultrarelativistic nucleus-nucleus collisions. _Phys. Rev. Lett._, 78:2309-2312, 1997.
+
+* [63] N. Herrmann, J. P. Wessels, and T. Wienold. Collective flow in heavy ion collisions. _Ann. Rev. Nucl. Part. Sci._, 49:581-632, 1999.
+* [64] Subhash Singha, Prashanth Shanmuganathan, and Declan Keane. The first moment of azimuthal anisotropy in nuclear collisions from AGS to LHC energies. _Adv. High Energy Phys._, 2016:2836989, 2016.
+* [65] J. Adams et al. Azimuthal anisotropy at RHIC: The First and fourth harmonics. _Phys. Rev. Lett._, 92:062301, 2004. [Erratum: Phys.Rev.Lett. 127, 069901 (2021)].
+* [66] J. Adams et al. Azimuthal anisotropy in Au+Au collisions at s(NN)**(1/2) = 200-GeV. _Phys. Rev. C_, 72:014904, 2005.
+* [67] B. B. Back et al. Energy dependence of directed flow over a wide range of pseudorapidity in Au + Au collisions at RHIC. _Phys. Rev. Lett._, 97:012301, 2006.
+* [68] B. I. Abelev et al. System-size independence of directed flow at the Relativistic Heavy-Ion Collider. _Phys. Rev. Lett._, 101:252301, 2008.
+* [69] B. I. Abelev et al. Identified particle production, azimuthal anisotropy, and interferometry measurements in Au+Au collisions at s(NN)**(1/2) = 9.2- GeV. _Phys. Rev. C_, 81:024911, 2010.
+* [70] G. Agakishiev et al. Directed and elliptic flow of charged particles in Cu+Cu collisions at \(\sqrt{s_{NN}}\) = 22.4 GeV. _Phys. Rev. C_, 85:014901, 2012.
+* [71] L. Adamczyk et al. Directed Flow of Identified Particles in Au + Au Collisions at \(\sqrt{s_{N}N}=200\) GeV at RHIC. _Phys. Rev. Lett._, 108:202301, 2012.
+* [72] L. Adamczyk et al. Beam-Energy Dependence of the Directed Flow of Protons, Antiprotons, and Pions in Au+Au Collisions. _Phys. Rev. Lett._, 112(16):162301, 2014.
+* [73] L. Adamczyk et al. Charge-dependent directed flow in Cu+Au collisions at \(\sqrt{s_{{}_{NN}}}\) = 200 GeV. _Phys. Rev. Lett._, 118(1):012301, 2017.
+* [74] Leszek Adamczyk et al. Beam-Energy Dependence of Directed Flow of \(\Lambda\), \(\bar{\Lambda}\), \(K^{\pm}\), \(K^{0}_{s}\) and \(\phi\) in Au+Au Collisions. _Phys. Rev. Lett._, 120(6):062301, 2018.
+* [75] Leszek Adamczyk et al. Azimuthal anisotropy in Cu+Au collisions at \(\sqrt{s_{{}_{NN}}}\) = 200 GeV. _Phys. Rev. C_, 98(1):014915, 2018.
+* [76] Jaroslav Adam et al. First Observation of the Directed Flow of \(D^{0}\) and \(\overline{D^{0}}\) in Au+Au Collisions at \(\sqrt{s_{\rm NN}}\) = 200 GeV. _Phys. Rev. Lett._, 123(16):162301, 2019.
+
+* [77] J. Adam et al. Beam-energy dependence of the directed flow of deuterons in Au+Au collisions. _Phys. Rev. C_, 102(4):044906, 2020.
+* [78] Jaroslav Adam et al. Bulk properties of the system formed in \(Au+Au\) collisions at \(\sqrt{s_{\rm NN}}=\)14.5 GeV at the BNL STAR detector. _Phys. Rev. C_, 101(2):024905, 2020.
+* [79] J. Adam et al. Flow and interferometry results from Au+Au collisions at \(\sqrt{s_{NN}}=4.5\) GeV. _Phys. Rev. C_, 103(3):034908, 2021.
+* [80] M. S. Abdallah et al. Disappearance of partonic collectivity in sNN=3GeV Au+Au collisions at RHIC. _Phys. Lett. B_, 827:137003, 2022.
+* [81] Bassam Aboona et al. Observation of Directed Flow of Hypernuclei HA3 and H\(\Lambda\)4 in sNN=3 GeV Au+Au Collisions at RHIC. _Phys. Rev. Lett._, 130(21):212301, 2023.
+* [82] R. J. M. Snellings, H. Sorge, S. A. Voloshin, F. Q. Wang, and N. Xu. Novel rapidity dependence of directed flow in high-energy heavy ion collisions. _Phys. Rev. Lett._, 84:2803-2805, 2000.
+* [83] Yao Guo, Feng Liu, and Aihong Tang. Directed flow of transported and non-transported protons in Au+Au collisions from UrQMD model. _Phys. Rev. C_, 86:044901, 2012.
+* [84] Yasushi Nara, Harri Niemi, Jan Steinheimer, and Horst Stocker. Equation of state dependence of directed flow in a microscopic transport model. _Phys. Lett. B_, 769:543-548, 2017.
+* [85] Yasushi Nara and Akira Ohnishi. Mean-field update in the jam microscopic transport model: Mean-field effects on collective flow in high-energy heavy-ion collisions at \(\sqrt{s_{NN}}=\) 2-20 gev energies. _Phys. Rev. C_, 105:014911, Jan 2022.
+* [86] J. Steinheimer, J. Auvinen, H. Petersen, M. Bleicher, and H. Stocker. Examination of directed flow as a signal for a phase transition in relativistic nuclear collisions. _Phys. Rev. C_, 89(5):054913, 2014.
+* [87] Yu. B. Ivanov and A. A. Soldatov. What can we learn from the directed flow in heavy-ion collisions at BES RHIC energies? _Eur. Phys. J. A_, 52(1):10, 2016.
+* [88] Yu. B. Ivanov and A. A. Soldatov. Directed flow indicates a cross-over deconfinement transition in relativistic nuclear collisions. _Phys. Rev. C_, 91:024915, Feb 2015.
+* [89] V. P. Konchakovski, W. Cassing, Yu. B. Ivanov, and V. D. Toneev. Examination of the directed flow puzzle in heavy-ion collisions. _Phys. Rev. C_, 90(1):014903, 2014.
+
+* [90] Piotr Bozek and Iwona Wyskiel. Directed flow in ultrarelativistic heavy-ion collisions. _Phys. Rev. C_, 81:054902, 2010.
+* [91] Sandeep Chatterjee and Piotr Bozek. Large directed flow of open charm mesons probes the three dimensional distribution of matter in heavy ion collisions. _Phys. Rev. Lett._, 120(19):192301, 2018.
+* [92] Piotr Bozek. Splitting of proton-antiproton directed flow in relativistic heavy-ion collisions. _Phys. Rev. C_, 106(6):L061901, 2022.
+* [93] Ze-Fang Jiang, Shanshan Cao, Xiang-Yu Wu, C. B. Yang, and Ben-Wei Zhang. Longitudinal distribution of initial energy density and directed flow of charged particles in relativistic heavy-ion collisions. _Phys. Rev. C_, 105:034901, Mar 2022.
+* [94] Kishora Nayak, Shusu Shi, Nu Xu, and Zi-Wei Lin. Energy dependence study of directed flow in Au+Au collisions using an improved coalescence in a multiphase transport model. _Phys. Rev. C_, 100(5):054903, 2019.
+* [95] F. Becattini, G. Inghirami, V. Rolando, A. Beraudo, L. Del Zanna, A. De Pace, M. Nardi, G. Pagliara, and V. Chandra. A study of vorticity formation in high energy nuclear collisions. _Eur. Phys. J. C_, 75(9):406, 2015. [Erratum: Eur.Phys.J.C 78, 354 (2018)].
+* [96] Yuri B. Ivanov. Directed flow in heavy-ion collisions and its implications for astrophysics. _Universe_, 3(4):79, 2017.
+* [97] Lipei Du, Chun Shen, Sangyong Jeon, and Charles Gale. Probing initial baryon stopping and equation of state with rapidity-dependent directed flow of identified particles. _Phys. Rev. C_, 108(4):L041901, 2023.
+* [98] Ze-Fang Jiang, C. B. Yang, and Qi Peng. Directed flow of charged particles within idealized viscous hydrodynamics at energies available at the BNL Relativistic Heavy Ion Collider and at the CERN Large Hadron Collider. _Phys. Rev. C_, 104(6):064903, 2021.
+* [99] Karen McNulty Walsh. Rhic gets ready to smash gold ions for run 23. [https://www.bnl.gov/newsroom/news.php?a=221190](https://www.bnl.gov/newsroom/news.php?a=221190), 2023. [Online; accessed 29-November-2023].
+* [100] M. Anderson et al. The Star time projection chamber: A Unique tool for studying high multiplicity events at RHIC. _Nucl. Instrum. Meth. A_, 499:659-678, 2003.
+* [101] Joseph Adams et al. The STAR Event Plane Detector. _Nucl. Instrum. Meth. A_, 968:163970, 2020.
+
+- 39 GeV. _Phys. Rev. C_, 86:054908, 2012.
+* [103] Rene Brun, F. Bruyant, Federico Carminati, Simone Giani, M. Maire, A. McPherson, G. Patrick, and L. Urban. GEANT Detector Description and Simulation Tool. 10 1994.
+* [104] Xin-Nian Wang and Miklos Gyulassy. HIJING: A Monte Carlo model for multiple jet production in p p, p A and A A collisions. _Phys. Rev. D_, 44:3501-3516, 1991.
+* [105] Roger Barlow. Systematic errors: Facts and fictions. In _Conference on Advanced Statistical Techniques in Particle Physics_, pages 134-144, 7 2002.
+* [106] B. Alver et al. Phobos results on charged particle multiplicity and pseudorapidity distributions in Au+Au, Cu+Cu, d+Au, and p+p collisions at ultrarelativistic energies. _Phys. Rev. C_, 83:024913, 2011.
+* [107] Iu. Karpenko, P. Huovinen, and M. Bleicher. A 3+1 dimensional viscous hydrodynamic code for relativistic heavy ion collisions. _Comput. Phys. Commun._, 185:3016-3027, 2014.
+* [108] B. Kellers and G. Wolschin. Centrality dependence of limiting fragmentation. _Eur. Phys. J. A_, 57(2):47, 2021.
+* [109] Kayman J. Goncalves, Andre V. Giannini, David D. Chinellato, and Giorgio Torrieri. Limiting fragmentation as an initial state probe in heavy ion collisions. _Phys. Rev. C_, 100(5):054901, 2019.
+* [110] Jamal Jalilian-Marian. Limiting fragmentation from the color glass condensate. _Phys. Rev. C_, 70:027902, 2004.
+* [111] P. Brogueira, J. Dias de Deus, and C. Pajares. Limiting fragmentation in heavy-ion collisions and percolation of strings. _Phys. Rev. C_, 75:054908, 2007.
+* [112] J. Benecke, T. T. Chou, Chen-Ning Yang, and E. Yen. Hypothesis of Limiting Fragmentation in High-Energy Collisions. _Phys. Rev._, 188:2159-2169, 1969.
+* [113] B. B. Back et al. The Significance of the fragmentation region in ultrarelativistic heavy ion collisions. _Phys. Rev. Lett._, 91:052303, 2003.
+* [114] I. G Bearden et al. Charged particle densities from Au+Au collisions at s(NN)**(1/2) = 130-GeV. _Phys. Lett. B_, 523:227-233, 2001.
+* [115] I. G. Bearden et al. Forward and midrapidity like-particle ratios from p + p collisions at s**(1/2) = 200-GeV. _Phys. Lett. B_, 607:42-50, 2005.
+* [116] B. B. Back et al. Energy dependence of elliptic flow over a large pseudorapidity range in Au+Au collisions at RHIC. _Phys. Rev. Lett._, 94:122303, 2005.

@@ -1,0 +1,874 @@
+Univerzita Karlova v Prozze
+
+Matematicko-fyzikalni fakulta
+
+**DIPLOMOVA PRACE**
+
+Jan Kapit\(\acute{a}\)n
+
+Ustav casticove a jaderne fyziky
+
+Vedouci diplomove prace : Michal Sumbera, CSc.
+
+Ustav jaderne fyziky - AV CR
+
+Studijni obor : Jaderna a subjaderna fyzika
+
+[MISSING_PAGE_EMPTY:2]
+
+Charles University in Prague, Czech Republic
+
+Faculty of Mathematics and Physics
+
+**DIPLOMA THESIS**
+
+Jan Kapit\(\acute{a}\)n
+
+**Study of proton-proton collisions at RHIC**
+
+Institute of Particle and Nuclear Physics
+
+Supervisor : Michal Sumbera, CSc.
+
+Nuclear Physics Institute - AS CR
+
+Study field : Nuclear and Subnuclear Physics
+
+[MISSING_PAGE_EMPTY:4]
+
+## Acknowledgements
+
+I would like to thank my supervisor Michal Sumbera for leading my thesis, for his guidance and help. Also, I would like to thank Petr Chaloupka and Michal Bystersky for their help. Foremost, I would like to thank my parents for their unconditional support.
+
+Prohlasuji, ze jsem swou diplomovou praci napsal samostatne a vyhradne s pouzitim citovanych pramenu. Souhlasim se zapujcovanim prace.
+
+V Praze dne 28.8.2006 Jan Kapitan
+
+[MISSING_PAGE_EMPTY:6]
+
+###### Contents
+
+* 1 Introduction
+* 2 Theoretical concepts
+	* 2.1 Perturbative QCD
+	* 2.2 Jets and Mini-Jets
+	* 2.3 Soft processes
+		* 2.3.1 Exchange forces
+		* 2.3.2 String model
+	* 2.4 Models of high-energy hadron interactions
+		* 2.4.1 Pythia
+		* 2.4.2 Hijing
+		* 2.4.3 Multiple scattering formalism (VENUS/NeXus)
+	* 2.5 Cross sections definitions
+	* 2.6 Event charged multiplicity
+	* 2.7 Transverse momentum spectra
+* 3 Experimental setup
+	* 3.1 The accelerator
+	* 3.2 STAR detector
+		* 3.2.1 Time Projection Chamber (TPC)
+		* 3.2.2 Trigger detectors
+		* 3.2.3 STAR operations
+* 4 Data analysis
+	* 4.1 Event reconstruction
+		* 4.1.1 TPC tracking
+4.1.2 Primary vertex finding and event pile-up
+	* 4.2 Corrections to the Data
+		* 4.2.1 Vertex finding efficiency
+		* 4.2.2 Tracking efficiency
+		* 4.2.3 Charged multiplicity correction
+* 5 Results
+	* 5.1 Data selection
+	* 5.2 Pseudorapidity spectra
+	* 5.3 Transverse momentum
+		* 5.3.1 Comparison between different cuts
+		* 5.3.2 Fits of the \(p_{\mathrm{T}}\) spectra
+		* 5.3.3 Comparison to other experiments and to Hijing model
+	* 5.4 Event charged multiplicity
+		* 5.4.1 General properties of multiplicity distributions
+		* 5.4.2 Fits of the multiplicity distributions
+		* 5.4.3 Comparison to other experiments and to Hijing model
+		* 5.4.4 Low multiplicity events
+* 6 Conclusion
+* A STAR and RHIC rates
+* B Kinematics
+* C Luminosity and pile-up
+* D Hijing settings
+
+Nazev prace:Studium proton-protonovych srazek na RHIC
+
+**Autor:**
+
+Jan Kapitan
+
+**Katedra:**
+
+Ustav casticove a jaderne fyziky
+
+**Vedouci diplomove prace:**
+
+Michal Sumbera, CSc.
+
+**e-mail vedouciho:**
+
+sumbera@ujf.cas.cz
+
+**Abstrakt:**
+
+Byly studovany proton-protonove srazky merene detektorem STAR na urychlovaci RHIC pri energii \(\sqrt{s}=200\) GeV. Minimum bias srazky byly rozdeleny do dvou trid, podle pittomnosti shluku castic s vysokou priconu hybnosti ("jetu"). Vlasnosti obou vyslednych trid, mekkych a tvrdych eventu, byly porovnany pomoci jejich \(p_{\rm T}\) spekter a rozdeleni multiplicit nabitych castic. Pred tim byly rozdeleni opraveny na efekty detektoru (efektivita registrace drah castic a hledani primarniho vertexu). Byla provedena analyzza rozdeleni priconych hybnosti a multiplicit, vectne jejich fitu pomoci "powerlaw" (\(p_{\rm T}\) spektra) a Negativinho Binomickeho rozdeleni (multiplicita). Rozdeleni byla porovnana s vysledky z antiproton-protonovych urychlovacu.
+
+**Klicova slova:** proton-protonove srazky, \(p_{\rm T}\) spektra, rozdeleni multiplicit nabitych castic, mekke a tvrde eventy
+
+**Title:**
+
+Study of proton-proton collisions at RHIC
+
+**Author:**
+
+Jan Kapitan
+
+**Department:**
+
+Institute of Particle and Nuclear Physics
+
+**Supervisor:**
+
+Michal Sumbera, CSc.
+
+**Supervisor's e-mail address:**
+
+sumbera@ujf.cas.cz
+
+**Abstract:**
+
+Proton-proton collisions at \(\sqrt{s}=200\) GeV measured by the STAR detector at RHIC collider were studied. Minimum bias events were divided into two classes, based on the presence or absence of high-\(p_{\rm T}\) particle cluster ("jet"). Properties of the two resulting event classes, soft and hard, were compared in terms of their transverse momentum spectra and charged particle multiplicities. Prior to this, measured distributions were corrected for detector effects (tracking and primary vertex finding efficiency). Analysis of the transverse momentum and charged multiplicity distributions was performed, including "power-law" (\(p_{\rm T}\) spectra) and Negative Binomial Distribution (multiplicity) fits. Spectra were compared to the results from antiproton-proton colliders.
+
+**Keywords:** proton-proton collisions, transverse momentum spectra, charged multiplicity distributions, hard and soft events
+
+[MISSING_PAGE_EMPTY:10]
+
+## Chapter 1 Introduction
+
+The Relativistic Heavy Ion Collider (RHIC) [1] was built mainly to study the hot and dense strongly interacting matter, created in heavy ion collisions. Under sufficiently extreme conditions, a transition to quark-gluon plasma (QGP), a new form of matter in which quarks and gluons act as free particles, is expected [2, 3].
+
+As a reference a smaller system - proton-proton (p+p) collisions are studied, at the same center of mass energy and using the same detector. The characteristic observables of a possibly created QGP include the enhancement of strange hadron and low-mass dilepton yields and measured \(J/\Psi\)-suppression [3], when compared to the sum of binary nucleon-nucleon collisions.
+
+A large data set of p+p interactions has been taken since RHIC start-up in the year 2000. Besides comparison to heavy ion collisions, it's highly desirable to study their inclusive properties like for example \(p_{T}\) spectra and also event-wise variables like charged particle multiplicity.
+
+The aim of this thesis is to obtain and analyze \(p_{\rm T}\) and charged multiplicity distributions (including necessary corrections to the data) and explore the differences between soft and hard events. The latter contain mini-jets from hard parton-parton scattering.
+
+In the past, hadron collisions have been studied at the ISR (p+p) and at the SppS (\(\bar{\rm p}\)+p) colliders at CERN. At Tevatron, \(\bar{\rm p}\)+p collisions are studied. Compared to ISR and SppS, experiments at RHIC and Tevatron are able to record much higher amount of events. More information about RHIC operations, delivered luminosity and numbers of events recorded can be found in appendix A.
+
+For this analysis, I have used minimum bias data from RHIC's first p+p run in 2001-2002, collected by the STAR detector at \(\sqrt{s}=200\) GeV, the first p+p data available at this center-of-mass energy.
+
+After a brief introduction into p+p collisions in chapter 2, the RHIC and STAR detector setup will be described in chapter 3. In chapter 4 the methods used in data analysis are explained. My results are presented in chapter 5, together with a comparison to other experiments and Hijing Monte Carlo model.
+
+## Chapter 2 Theoretical concepts
+
+In the following, I will describe high-energy hadron interactions, i.e. hadron collisions with centre of mass energy (\(\sqrt{s}\)) greater than \(\approx 10\) GeV.
+
+Hadrons are composite objects, the constituents of which are quarks and gluons. These are strongly interacting, presumably structureless and point-like objects. There are three families of quarks, (u,d), (c,s), (t,b). Quarks have non-integer charge and are fermions. A nice review of hadron interactions can be found in [4].
+
+The theory describing the _strong force_ is _quantum chromodynamics_ (QCD) [5]. The QCD started to emerge in early nineteen sixties, when Gell-Mann [6] and Ne'eman [7] introduced the Eightfold way, arranging mesons and baryons into multiplets of SU(3) group. For prediction of \(\Omega^{-}\), discovered in 1964 in Brookhaven, Gell-Mann was awarded a Nobel price in 1969. The quark model was established in 1964 by Gell-Mann [8] and Zweig [9]. It was yet not known, whether quarks were real constituents of hadrons, or a pure mathematical concept. In 1965, Nambu [10] laid the foundation to QCD, giving quarks _color_ (quarks formed SU(3)\({}_{C}\) triplet) and suggesting that the strong force is mediated by 8 gauge bosons.
+
+Deep inelastic scattering (DIS) experiments were used to probe inner structure of hadrons. In DIS, leptons scatter off hadrons1 and the kinematics is reconstructed by measuring the scattered lepton. In 1968, Feynman developed basic ideas of _parton model2_ - describing DIS as scattering of leptons at quasi-free point-like constituents of hadrons. Partons' quantum numbers (spin \(\frac{1}{2}\), charge) turned out to be identical with constituent quarks of the quark model, giving rise to quark-parton model (QPM), where partons were identified with quarks.
+
+Footnote 1: mainly protons
+
+Footnote 2: parton = PART of protON
+But although quarks are real objects (point-like fermions), a free quark was never observed (one of the signatures would be its non-integer electric charge). This is due to the _confinement_. As two quarks move apart, the energy of colour field (a string [11]) between them increases and when their distance \(\approx 1\) fm, it's energetically advantageous to create a quark-antiquark pair.
+
+### 2.1 Perturbative QCD
+
+In QPM, hadrons are described by _parton distribution function_ (PDF) \(q(x)\). That is a probability density of finding a parton inside the hadron, carrying fraction \(x\) of its momenta. PDFs cannot be predicted from first principles, and can be measured in DIS experiments. Quarks turned out to carry only half of the hadron momenta, the remaining half is carried by gluons. These can't be "seen" by leptons in DIS, as they only interact strongly (which leptons don't).
+
+In DIS processes with large 4-momentum (\(Q^{2}\)) transfer, hadrons behave as if they consist of _free_ partons. This feature of QCD is called _asymptotic freedom_. This is caused by color charge screening effects of QCD vacuum. The effective QCD coupling \(\alpha_{s}\) decreases with \(Q^{2}\):
+
+\[\alpha_{s}(Q^{2})=\frac{4\pi}{(11-\frac{2}{3}n_{f})\log(Q^{2}/\Lambda_{QCD}^{2})} \tag{2.1}\]
+
+Here \(n_{f}\) is the number of quark flavors (assumed to be 6) and \(\Lambda_{QCD}\) is an important perturbative scale variable, which is determined experimentally: \(\Lambda_{QCD}\approx 0.2\ {\rm GeV}\). The theoretical discovery of asymptotic freedom in 1973 by Gross, Politzer and Wilczek [12, 13] was awarded with Nobel price in 2004.
+
+A hadron-hadron interaction with a sufficiently large \(Q^{2}\) can be factorized, dividing the interaction into three parts, separated in time: parton distributions, hard processes and hadronization. The inclusive invariant cross section for process \({\rm A+B\to C+X}\) is given in the first order by
+
+\[\frac{d\sigma}{dy}=\sum_{\rm a,b}\int\limits_{0}^{1}dx_{\rm a}dx_{\rm b}dz_{ \rm c}f_{\rm a}(x_{\rm a},Q^{2})f_{\rm b}(x_{\rm b},Q^{2})\frac{D_{\rm C/c}(z_ {\rm c},Q^{2})}{z_{\rm c}}\frac{d\sigma_{\rm ab\to cd}}{dy} \tag{2.2}\]
+
+where \(f_{\rm a}(x_{\rm a},Q^{2})\) is a PDF of hadron A (containing parton a) and \(D_{\rm C/c}(z_{\rm c},Q^{2})\) is a _fragmentation function_, a probability of parton c to produce hadron C, carrying fraction \(z\) of its momenta. This comes from the model of independent fragmentation_[5]. The \(Q^{2}\) dependence is given by QCD evolution equations (see [5] for details).
+
+The cross section for process \(\mathrm{ab}\to\mathrm{cd}\) is calculated using the Feynman rules of QCD and experimentally determined QCD coupling constant \(\alpha_{s}\). Hadronization is a non-perturbative process and can be described by independent fragmentation or by _string model_ (to be discussed later).
+
+### 2.2 Jets and Mini-Jets
+
+Events with hard scattering are very rare at \(\sqrt{s}<100\mathrm{~{}GeV}\). They give rise to _jets_, narrow clusters of particles with high transverse energy, first observed by UA2 experiment at CERN SppS collider [14]. In hard scattering, partons interact at small impact parameter and scatter at wide angles. Hence high transverse energy.
+
+More evidence for jets in high energy p+p collisions comes from the mean number of produced charged particles (\(\langle N_{ch}\rangle\)). This number is proportional to the cross-section and at lower energies, i.e. less than 100 GeV, it has logarithmic dependence on \(\sqrt{s}\) as shown by Thome et al [15] in the nineteen seventies. SppS experiments at energies \(200-900\mathrm{~{}GeV}\) measured cross-sections which are clearly above the values by Thome's 'law' and thus signal new phenomena creating additional particles [16]. Also violation of the so called KNO scaling (to be discussed later) in multiplicity distributions has been attributed to the creation of jets in hadronic collisions.
+
+A mini-jet is a jet whose transverse momentum \(p_{\mathrm{T}}\) is large if compared with the nucleon mass but much less than \(\sqrt{s}\). According to some authors [17] perturbative calculations are possible down to \(p_{\mathrm{T}}\) of the order of \(\Lambda_{QCD}\). In this semi-hard momentum regime it would be possible to compute the inclusive jet cross section down to \(p_{\mathrm{T}}>p_{\mathrm{T}min}\simeq 1\mathrm{~{}GeV}/c\). However, when \(p_{\mathrm{T}}\) is not very large, there are theoretical and experimental difficulties in distinguishing the particles in the mini-jet from the other particles in the reaction.
+
+### 2.3 Soft processes
+
+The overwhelming part of p+p cross section is due to "soft" processes with small transverse momentum transfer. They are associated with coherence effects among (already) interacting partons. Even in soft p+p interactions at high enough energies, tens to hundreds of particles in final state can be produced. As no short distance (high \(Q^{2}\)) interaction is involved and the typical length scale of the dynamics is \(\approx 1\) fm, the corresponding strong coupling constant is of the order of unity. Alternative non perturbative description must be adopted. Unlike perturbative QCD, we are not able to describe a soft process from the first principles. Instead, phenomenological models are used, most of which are QCD-inspired.
+
+#### Exchange forces
+
+A theory of exchange forces [4], inspired by the old one-pion-exchange (OPE) 3 approximation to the nuclear force, describes hadron-hadron scattering by means of Reggeons and Pomerons exchanges. To preserve color neutrality of hadrons, the object exchanged must be colorless. Hence, any hadron, meeting the required quantum numbers (spin, charge, parity,...) can be exchanged. These particles lie on the so called _Regge trajectories_, where their spin is a linear function of the square of their mass.
+
+Footnote 3: In 1934, Yukawa found relationship between the range of nuclear force and mass of its carrier and predicted its mass to be about \(100~{}{\rm MeV}\). Pions were only discovered experimentally in the late nineteen fourties.
+
+The Pomeron is an object with vacuum quantum numbers, which can be described as a multiple gluon exchange. Pomeron exchange is the dominant particle production mechanism, with particles being produced from gluons radiated either from the exchanged gluons or from the valence quarks, between which the gluons (Pomeron) were exchanged [4].
+
+#### String model
+
+String model [11] is an effective description of strong interaction phenomena in large-distance processes, such as low-momentum-transfer interactions and hadron mass spectra. A string is a relativistic object, a color flux tube stretched between two quarks. The string tension, that holds the two quarks together, is \(\approx~{}1~{}{\rm GeV/fm}\).
+
+Mesons are formed of a mass-less quark-antiquark pair, connected with a string. Regge trajectories can be described in the model of spinning string. The mass then arises as the kinetic energy of the string, whereas spin is determined by string's angular momentum.
+
+There are four different models to form a baryon [18]: a) quark and diquark connected with one string (q-qq); b) the "three-string" model or Y configuration with three strings from three quarks joined in the fourth mass-less point; c) the "triangle" model or \(\Delta\)-configuration with pair-wise connection of three quarks by three strings; d) the linear configuration (q-q-q) with quarks connected in series.
+
+String theory describes particle production by means of string breaking. One of the models of string breaking mechanism is The Symmetric Lund Model [19]. Another model is Artru-Mennessier Off-shell Resonance model (AMOR) [20]. Unlike Lund model, AMOR permits off-shell resonances to be produced, avoiding otherwise necessary correction procedures to force particles on their mass shells.
+
+### 2.4 Models of high-energy hadron interactions
+
+In most models particle production is assumed to have two components. The hard interaction is described by perturbative QCD. The soft component is usually described as separation of color charges resulting, through different mechanisms, in low-\(p_{\mathrm{T}}\) production. At higher energies many of the changes in the event characteristics can be described by increasing the number of strings.
+
+#### Pythia
+
+Pythia [21] is a Monte Carlo generator developed by the Lund University group. The parton cross section is approximated by \(2\to 2\) processes and the associated leading order Feynman diagrams. PDFs and fragmentation functions are user-defined from a list of currently available parametrizations. The default hadronization mechanism in Pythia is the Symmetric Lund Model.
+
+In Pythia the simplest possible way to produce a soft event is to have an exchange of a very soft gluon between the two colliding hadrons. Without initially affecting momentum distributions of partons, the hadrons become color octet objects. If only valence quarks are considered, the color octet state of a baryon can be decomposed into a color triplet quark and an antitriplet diquark. Strings are stretched between the quarks and diquarks and as they move apart, the strings fragment.
+
+Pythia assumes that different pairwise interactions can take place independently so that the number of scatterings in the collision, for a fixed hadron-hadron impact parameter, is given by a Poisson distribution. Radial hadronic matter distribution in the hadron is assumed to be double gaussian.
+
+#### Hijing
+
+HIJING (Heavy Ion Jet INteraction Generator) [22] Monte Carlo model uses the successful implementation of pQCD processes of Pythia and is in many ways similar to this model. Compared to Pythia, it enhances mini-jet production. It's currently the only model describing hard scattering and at the same time able to describe nuclear effects, like nuclear shadowing and jet quenching. Therefore it has been widely used by RHIC experiments, to describe and compare p+p, d+Au and Au+Au collisions.
+
+#### Multiple scattering formalism (VENUS/NeXus)
+
+The VENUS model by Klaus Werner [20] is based on Gribov-Regge theory (GRT) [23]. This theory allows multiple interactions between partons to happen 'in parallel' - opposed to Pythia, where the parton interactions are mainly \(2\to 2\) processes. Elementary interactions are described by Pomeron exchanges.
+
+VENUS model was further extended and renamed into NeXus model [24]. It uses a parton-based GRT framework where parton-parton scattering processes are described in a consistent way as'soft', 'hard' or'semi-hard'.
+
+Hadronization is achieved by string fragmentation, using a model similar to AMOR, rather than the Lund framework. String breaking points are defined in a covariant and gauge invariant way by an area law [25].
+
+### 2.5 Cross sections definitions
+
+Hadronic processes can be divided into elastic and inelastic collisions. In inelastic collisions, the incident particles transform a part of their energy to create new particles. Inelastic collisions can be subdivided into diffractive and non-diffractive processes.
+
+In diffractive processes one nucleon acts as a region of absorption and the interference of scattering amplitudes gives rise to diffraction pattern in the forward and backward regions. A nucleon suffering a diffractive scattering will become excited and lose a small amount of energy when breaking up into a few particles at a small emission angle. This can occur in one (singly diffractive) or both of the nucleons (doubly diffractive).
+
+In non-diffractive processes the nucleons hit 'head-on' and both disintegrate creating large particle multiplicities at mid-rapidity. For experimental reasons, non-singly diffractive (NSD) cross section is often measured. This consists of doubly-diffractive and non-diffractive inelastic collisions. According to STAR measurement at \(\sqrt{s}=200\) GeV, \(\sigma_{NSD,proton-proton}=31.3\pm 3.7\) mb [26] and represents about 70 % of inelastic p+p cross section.
+
+A frequent object of study are reactions \(\mathrm{p+p\to C+X}\), commonly named _one particle inclusive processes_. The invariant cross section of this type of interaction is defined by:
+
+\[\sigma_{\rm pp}^{\rm C}=E_{\rm C}\frac{d^{3}\sigma}{dp_{\rm C}^{3}} \tag{2.3}\]
+
+where \(\frac{d^{3}\sigma}{dp_{\rm C}^{3}}\) is the differential cross section, i.e. the probability per unit incident flux, of detecting particle C within the phase space element \(dp_{\rm C}^{3}\); \(E_{\rm C}\) is included to ensure the Lorentz invariance. In a general case invariant cross section is a function of three independent variables (i.e. the components of momentum vector).
+
+This expression can be simplified using _rapidity_\(y\), definitions and details can be found in appendix B. Rapidity can be approximated by _pseudorapidity_\(\eta\):
+
+\[\eta=-\ln\tan\frac{\theta}{2} \tag{2.4}\]
+
+where \(\theta\) is the angle between particle's momentum and beam axis. In case of azimuthal symmetry the invariant cross section 2.3 is a function of two independent variables - transverse momentum \(p_{\rm T}\) and pseudorapidity \(\eta\).
+
+### 2.6 Event charged multiplicity
+
+One of the basic global event observables is its charged multiplicity (\(N_{ch}\)). Sometimes called simply'multiplicity', it's defined as the number of charged secondary particles plus resonance decay products in the final state, on the other hand weak decay products (of K\({}^{0}\), \(\Lambda\),...) are not counted.
+
+Multiplicity distributions in p+p collisions were measured at SPS and ISR facilities at CERN, up to energies of \(\sqrt{s}=62\) GeV. The distribution shape showed independence of collision energy, so called KNO scaling [27]. If \(P_{N}\) is the probability to have multiplicity \(N\) and \(\langle N\rangle\) is the mean multiplicity, KNO scaling states that \(\langle N\rangle P_{N}=\psi(z)\) is a function of the scaled multiplicity \(z=\frac{N}{\langle N\rangle}\) with no further dependence other than that implied from the relation between \(\langle N\rangle\) and \(\sqrt{s}\).
+
+At higher energies, however, KNO scaling is broken, as discovered by the UA5 collaboration at SppS [28]. Instead, multiplicity distributions were shown [28] to follow a two-parameter Negative Binomial Distribution (NBD):
+
+\[P(N;\langle N\rangle,k)=\binom{N+k-1}{k-1}\left(\frac{\langle N\rangle/k}{1+ \langle N\rangle/k}\right)^{N}\frac{1}{(1+\langle N\rangle/k)^{k}} \tag{2.5}\]
+
+[MISSING_PAGE_FAIL:20]
+
+## Chapter 3 Experimental setup
+
+### 3.1 The accelerator
+
+The Relativistic Heavy Ion Collider [1] (RHIC) is currently the world's highest energy accelerator of heavy nuclei and the world's first polarized proton collider. It's situated at Brookhaven National Laboratory (BNL), New York, USA.
+
+Figure 3.1: The RHIC accelerator complex.
+
+The collider consists of two independent concentric acceleration and storage rings with a circumference of 3.8 km, which are made of 1740 superconducting magnets. There are six intersection points, four of which are currently instrumented with experiments. The layout of the RHIC accelerator complex is shown in Fig. 3.1.
+
+RHIC can store and collide nuclei with masses ranging from protons to Au and due to the independence of the storage rings it can collide beams of unequal masses, such as deuterons with Au nuclei. The top energy for Au+Au collisions is \(\sqrt{s_{\rm NN}}=200\) GeV per nucleon, for p+p it's \(\sqrt{s}=500\) GeV.
+
+Gold ion beams originate from a pulsed sputter-source that provides negatively charged gold ions to the Tandem Van de Graaf accelerator. They are partially stripped of their electrons by passing through a carbon foil and further accelerated to 1 MeV/\(u\). Now with a charge \(Q=+32\) they're delivered to Booster synchrotron and then accelerated to 95 MeV/\(u\) (95 MeV per nucleon). Next the beam is injected into the AGS (Alternating Gradient Synchrotron) with a charge of \(Q=+77\). The ions are stripped of the two remaining electrons and brought up to the RHIC injection energy (10.8 GeV/\(u\)). Once in the RHIC ring, they are accelerated to 100 GeV/\(u\) and stored for up to 10 hours.
+
+For the p+p running the injection procedure is different. Protons originate from the 200 MeV LINAC, pass through the booster to the AGS. Accelerated here to 24.3 GeV, they're injected into the RHIC.
+
+In the RHIC rings the protons are stored in so-called 'bunches' with \(100\times 10^{9}\) protons per bunch. The main reason for storing the ions in discrete bunches is to allow for optimized acceleration in the RF cavities. Furthermore, by tracking the location of the bunches, the experiments can be informed of their location and triggering is facilitated. Up to 120 bunches can be stored, resulting in the beam crossing rate of 10 MHz.
+
+The six intersection regions of the RHIC storage rings allow the beams to be steered into head-on collisions. Currently, four intersection regions are instrumented with two major detectors, STAR and PHENIX, and two smaller ones, BRAHMS and PHOBOS.
+
+### 3.2 STAR detector
+
+The Solenoidal Tracker at RHIC (STAR) [32] is a detector located at the 6 o'clock position at the RHIC collider ring. STAR is designed to study the behavior of strongly interacting matter at high energy density and to search for signatures of Quark Gluon Plasma (QGP) formation. Besides, it's well equipped to study spin-dependent asymmetries in polarised proton collisions,due to its Endcap Electromagnetic Calorimeter (EEMC) (not present in year 2001-2002 running).
+
+STAR is an azimuthally symmetric, solenoidal detector, shown in Fig. 3.2. Its unique feature is the large Time Projection Chamber (TPC) with a full azimuthal and a large pseudorapidity coverage. The large acceptance of the detector enables measurement of a large fraction of the thousands of charged hadrons produced in a heavy ion collision. Thus, very high multiplicity p+p events can be detected and reconstructed with high tracking efficiency, avoiding track merging. Figure 3.3 shows the subsystems the detector is built of.
+
+A solenoidal magnet with a uniform magnetic field of 0.5 Tesla surrounds the whole detector and provides for charged particle momentum analysis. A brief description of the detector subsystems, starting from the beamline:
+
+* Beam Beam Counters (BBC) (not shown): Trigger detector sensitive to forward charged tracks used in p+p triggering.
+* Zero Degree Calorimeters (ZDC): Trigger detector sensitive to very forward spectator neutrons (neutral, so are not steered into the beam pipe). Used for Au+Au triggering.
+* Forward Time Projection Chambers (FTPC): Tracking detector at for
+
+Figure 3.2: A perspective view of the STAR detector.
+
+ward pseudorapidities (\(2.7<|\eta|<3.9\)). Still in commissioning during the 2001-2002 running.
+* Silicon Vertex Tracker (SVT): High precision measurement of tracks close to the interaction vertex.
+* Time Projection Chamber (TPC): Measures charged tracks and specific energy loss (\(dE/dx\)), allowing for identification of \(\pi^{\pm},\mathrm{K}^{\pm},\mathrm{p},\bar{\mathrm{p}}\) and \(\mathrm{e}^{\pm}\).
+* Time Of Flight (TOF): Measures identified charged particles in the intermediate momentum range.
+* Central Trigger Barrel (CTB): Fast scintillator detector to estimate charged particle multiplicity (proportional to ADC sum). Used in Au+Au triggering (centrality selection).
+* Ring Imaging CHerenkov counter (RICH): Particle identification at high transverse momenta.
+* Barrel Electromagnetic Calorimeter (EMC or BEMC): Measures energy of electrons, positrons and gammas, partly of (charged as well as neutral) hadrons.
+
+Figure 3.3: Cutaway side view of the STAR detector as configured in 2001-2002 running.
+
+STAR detector has been further upgraded, including the EEMC (covering \(1<\eta<2\) with full azimuth angle), Silicon Strip Detector (SSD), Photon Multiplicity Detector (PMD) and Forward Pion Detector (FPD), on the other hand the RICH is no longer part of STAR detector.
+
+There's a major upgrade ongoing, a large-acceptance (\(|\eta|<1.0\) and full azimuth) Time Of Flight (TOF) detector, that will allow for PID at intermediate momenta, together with separating pions from electrons at low momenta. It's currently in mass-production and testing stage. A significant R&D is being done for STAR, including the HFT, a hybrid silicon pixel detector, to replace the SVT.
+
+#### Time Projection Chamber (TPC)
+
+STAR TPC [33] is a large cylindrical gas chamber. With a length of 4.2 m it's the largest TPC in the world. Its inner and outer radii are 50 cm and 200 cm, respectively. TPC setup is shown in figure 3.4.
+
+The TPC is filled with P10 gas (10% methane, 90% argon) regulated at 2 mbar above atmospheric pressure. Its primary
+
+Figure 3.4: STAR Time Projection Chamber.
+
+velocity (typically \(5.45~{}\mathrm{cm}\cdot\mathrm{\mu s^{-1}}\)) which peaks at a low electric field. As charged particles pass through the TPC gas, they ionize its molecules and secondary electrons are released.
+
+A uniform electric field of 28 kV between the central membrane and TPC endcaps drives these electrons to anode pad planes at the TPC endcaps. The total drift time is approximately 40 \(\mathrm{\mu s}\) and depends on the actual drift velocity. This has to be calibrated during the run with lasers, disposed around the outer radius of the TPC.
+
+The anode pad plane where the electrons are read out is divided into 12 sectors in azimuth. Each sector is equipped with 5692 read-out pads in 45 padrows. A view of a TPC sector with description is shown in figure 3.5.
+
+Multi-wire proportional chambers (MWPC) are used for the electron signal amplification. The gating grid is used to prevent electrons from untriggered event from reaching the read-out pads and to prevent positively charged ions from drifting into the TPC volume. When the charge is collected, the pad location in \((r,\phi)\) plane plus the drift time information is used to reconstruct the 3D position of the hit (the coordinate along the beam line is \(z\) in STAR).
+
+The trigger + gating grid opening cause a \(2\mathrm{\mu s}\) delay, which means a drift path of 11 cm at the typical drift velocity at both sides of the TPC, so the effective TPC length is \(420-2\cdot 11=398\) cm.
+
+Figure 3.5: TPC sector (in one of the two anode planes) with read-out pads.
+
+The TPC is capable of measuring charged tracks within \(|\eta|<1.8\) and with transverse momenta greater than 0.1 GeV/\(c\). Particle identification is achieved by measuring \(dE/dx\). The dependence of \(dE/dx\) on particle's momentum is displayed in figure 3.6. PID based on \(dE/dx\) in the TPC can be used for momenta up to 1 GeV/\(c\). In the future, STAR will be instrumented with a new Time Of Flight (TOF) detector, which will increase the PID capability of the TPC into higher momenta.
+
+The acceptance of the TPC is 96 % for high momentum tracks travelling perpendicular the beamline. The 4 % inefficiency is caused by the spaces between the sectors which are required to mount the wires on the sectors. Also, any space points that fall on the last two pads of a pad row are ignored. This fiducial cut is applied to avoid position errors that result from tracks not having symmetric pad coverage on both sides of the track. This fiducial cut reduces the total acceptance to 94 %.
+
+The TPC hit resolution for vertical tracks normal to a padrow is between \(0.4-0.7\) mm in the transverse direction and between \(0.7-1.2\) mm in the drift direction. Another important quantity is the \(p_{\rm T}\) resolution. It increases roughly linearly from 2% for \(p_{\rm T}=0.5\) GeV/\(c\) to 7% at \(p_{\rm T}=9.25\) GeV/\(c\)[26].
+
+Figure 3.6: Ionazition energy loss in the TPC (\(dE/dx\)) for different particle species. The shaded area shows identified pions.
+
+#### Trigger detectors
+
+Since the crossing rate of 10 MHz is much higher than the maximum read-out rate of the slow detectors (for example TPC: \(\approx 100\) Hz, given by its front end electronics), trigger detectors have to be used. They have to tell whether there was an interaction within given beam crossing and whether this interaction is of interest and the event should be read out. As a trigger, the calorimeters (EEMC, BEMC, ZDC) are often used. During the p+p running of 2001/2002 trigger detectors used were the BBC and the CTB.
+
+The Beam Beam Counters (BBC) are used to provide minimum bias trigger for p+p running. They are installed \(\approx 4\) m away from the interaction point and cover the pseudorapidity region \(3.3<|\eta|<5.0\). To reject background interactions (such as interactions with beam pipe gas), the signals are required in coincidence. This dual-arm topology makes the BBC coincidence trigger sensitive to Non Single Diffractive (NSD) part of inelastic cross-section. Its efficiency has been estimated 86% during the 2001/2002 run [26]. BBC coincidence rate is the primary luminosity measure in STAR. In the 2001/2002 run, it ranged from 1 kHz to 20 kHz with average value \(\approx 6\) kHz.
+
+The Central Trigger Barrel (CTB) consist of 240 scintillator slats arranged cylindrically around the outer TPC radius and covering \(|\eta|<1.0\). The CTB is read out every beam-crossing, so it can be used to identify TPC tracks that have matching hits in the CTB. This is useful for identifying tracks from pile-up events which will be discussed further in detail.
+
+#### STAR operations
+
+The last running of RHIC so far was in the period of 20 weeks from February to June 2006. Polarised protons were collided at \(\sqrt{s}=200\) GeV and for the last 3 weeks, at \(\sqrt{s}=62\) GeV.
+
+During this run, I've had an opportunity to participate in data taking. As a shift crew, I served one week of daily shifts in STAR control room. The main task of the shift crew person is so called fast-offline Quality Assurance (QA), observing the main detector-related quantities and assuring data quality.
+
+I was also responsible for monitoring of TPC gas system and water cooling system. Being a run-time operator, I took part in starting and stopping runs, both for physics data taking and for detector system calibrations (pedestal and laser runs).
+
+## Chapter 4 Data analysis
+
+### 4.1 Event reconstruction
+
+After the event is triggered, all detectors are read out and signals are converted into ADC-counts by the read-out electronics. Digitized data are collected in a standard DAQ (Data Acquisition) format and stored into the HPSS (High Performance Storage System), a tape library.
+
+When the run is finished, raw data is passed through an offline reconstruction chain, and stored on disks in the so called MuDst compressed format, making it accessible for physics analyses. MuDst files are ROOT [34] files, containing TTree objects with branches corresponding to various objects, like tracks, kinks, vertices, calorimeter cells, etc.
+
+ROOT4STAR [35] framework is used in both reconstruction chain and physics analyses. It's basically ROOT with STAR-specific classes (objects). Classes called makers are used to run an analysis, like for example StMuDstMaker for reading MuDst files and accessing their content.
+
+The reconstruction process and most of the analyses in STAR are performed at RHIC Computing Facility (RCF), a computer farm located at BNL. Other important (besides ROOT4STAR) parts of STAR analysis framework are Scheduler (a program used to make analysis jobs and run them at RCF) and FileCatalog, a database of all files stored at RCF, which is described in more detail in appendix A.
+
+#### TPC tracking
+
+During the TPC drift time the 5690 read-out pads of its each sector are sampled 512 times, thus give a total of \(\approx 70\) million of pixels in 3D. Due to diffusion of secondary electron in TPC gas, charge from one hit is distributed between multiple pads and time bins, so a clustering algorithm has to beapplied to determine the center and the amplitude of the hit. There are 45 padrows in each TPC sector, so a track can have a maximum of 45 hits.
+
+Once the hits are found, the TPT (TPC Tracker) algorithm is used (starting from the outermost padrow) to construct segments of tracks. In the second step, a helical extrapolation is used to add more points to track segments and extend them inwards and outwards. Once all hits have been associated to tracks, a procedure of helix-merging is performed to identify low \(p_{\mathrm{T}}\) tracks, that have been wrongly identified as two separate tracks. TPC tracking efficiency will be discussed in the next section.
+
+Tracks reconstructed in the TPC are called global tracks. They include tracks from the triggered event, tracks from pile-up events and background tracks, such as particles from cosmic ray showers. The data volume from TPC of one p+p event is \(\approx\) 10 kB. Global tracks having \(\geq\) 15 hits are called 'good global tracks' and are used for further analysis.
+
+#### Primary vertex finding and event pile-up
+
+As the probability of two interactions in a single beam crossing is very low, it can be neglected. However since the TPC read-out rate is 25 kHz, there is a high probability of more interactions happening during the read out of triggered event. Details on pile-up rates and luminosities can be found in appendix C. Tracks from the pile-up event will be shifted in \(z\) (due to the time difference) and some of them will be split into two parts by the central membrane. There's no usable method based on these tracks' topology to distinguish between the triggered and the pile-up event.
+
+However, the CTB detector contains the time information. So only those global tracks, having a matching hit in the CTB, are guaranteed to come from the triggered event. As the average multiplicity of charged tracks in a p+p event is low, pile-up tracks could easily smear the primary vertex ('vertex') finding. Therefore only good global tracks with a matching hit in the CTB are used to find the vertex.
+
+The position of the beam in the \((x,y)\) plane is known with high precision and the \(z\) position of the primary vertex is determined by minimizing the \(\chi^{2}\) value, using distance of closest approach (\(DCA\)) of the tracks to the vertex. In some special cases, when there's no good global track with a CTB-matching hit, the vertex can still be found, but the probability of finding the vertex in such cases is much lower than with the CTB-matching algorithm.
+
+Once the primary interaction vertex is found, all global tracks having a \(DCA<3\) cm are refitted to pass through it and unless the'refit' fails, they are marked primary tracks. For my analysis I used good primary tracks. Note: primary tracks are _primary_ from the detector's point of view, from the p+p collision point of view, they are tracks of _secondary_ particles (primary particles are protons that collide).
+
+### 4.2 Corrections to the Data
+
+Minimum bias sample (events triggered by the BBC coincidence trigger) was used for this analysis. To better understand any measured quantity and to be able to compare to other experiments it's necessary to correct the data for detector effects, i.e. to estimate, what an ideal detector would measure.
+
+I have used a simulation, made by my STAR colleagues Eric Hjort and Jon Gans. Particles from Hijing [22] generated p+p events were filtered through a GEANT model of the STAR detector and the electron drift and readout pads were further simulated. The primary vertices of Hijing events were randomly generated to meet Gaussian shape in \(z\) coordinate with \(\sigma\approx 40\) cm, which is shown in the left panel of figure 4.1. Details on Hijing setting can be found in appendix D.
+
+These events were embedded into zerobias1 events to simulate background. Afterwards the same reconstruction software was used, that is used for the data reconstruction.
+
+Footnote 1: randomly fired trigger, not synchronized to beam crossing
+
+#### Vertex finding efficiency
+
+If the vertex finding algorithm (i.e. \(\chi^{2}\) minimization) fails, vertex is not found. Although such an event is still recorded for physics analysis, it has no primary tracks. The distribution of \(z\) position of generated and reconstructed vertices ('\(VertexZ\)') is plotted in the left panel of figure 4.1. As the right panel of figure 4.1 shows, vertex finding efficiency is independent of its original position, so this doesn't constrain the \(VertexZ\) range we'll be able to use.
+
+Vertex finding efficiency depends on the number of CTB-matched good global tracks ('\(goodglCTB\)'), that were used to find it. This information can be obtained directly from the data, because events without found vertex have global tracks too. We denote the vertex finding efficiency \(vtx\_found\). See the left panel of figure 4.2. To correct for events with lost vertices, each event is weighed by \(1/vtx\_found[goodglCTB]\). Within statistical error the weight is 100% for \(goodglCTB>11\).
+
+The right panel of figure 4.2 shows distribution of \(goodglCTB\). The average vertex finding efficiency in the data is \(86.8\pm 0.1\) %, close to the MC value. The discrepancy is caused by slightly different multiplicity distributions (to be discussed in the next chapter).
+
+#### Tracking efficiency
+
+The efficiency of detecting given charged particle (its track) within the TPC acceptance depends mainly on its \(p_{\mathrm{T}}\). Given the magnetic field, TPC inner radius and the minimum of 15 hits required, the lowest measurable \(p_{\mathrm{T}}\approx 0.1\) GeV/\(c\), which is around what one would expect. Tracking is further affected with multiple scattering), causing the efficiency to drop at low \(p_{\mathrm{T}}\). In the mid-rapidity (\(\eta\approx 0\)) \(p\approx p_{\mathrm{T}}\), so the \(\beta\gamma\) factor is approximately proportional to \(p_{\mathrm{T}}\). This is shown in equation 4.1, where \(\tau\) is particle's mean life time and \(l\) its mean path before it decays.
+
+\[l=\beta\gamma\cdot c\tau \tag{4.1}\] \[\beta\gamma=\frac{p}{m}\] (4.2) \[l\approx\frac{p_{\mathrm{T}}}{m}\cdot c\tau \tag{4.3}\]
+
+Therefore, as \(\langle p_{\mathrm{T}}\rangle\approx 0.4\) GeV/\(c\), a considerable number of weakly decaying particles (mainly K\({}^{\pm}\)) decays before they can be detected.
+
+Single-particle tracking efficiency turns out to depend on event multiplicity, in the following \(N_{ch}\) is MC multiplicity in the acceptance of \(|\eta|<0.5\) and \(p_{\mathrm{T}}>0.15\) GeV/\(c\). The left panel of figure 4.3 shows an obvious rise
+
+Figure 4.1: Left: Vertex \(z\) position from MC simulation and reconstructed by vertex finder. Right: vertex finding probability versus its \(z\) position. The dashed line shows the average \(85.6\pm 0.4\) %.
+
+of tracking efficiency with \(p_{\rm T}\). For \(p_{\rm T}>1\) GeV/\(c\) it's constant within statistical errors. We observe lower efficiency of tracking in events with low multiplicity, caused by the vertex finding efficiency (in a non-trivial manner) and possibly other effects, which are beyond the scope of this analysis. In the right panel of figure 4.3 the actual (MC generated) \(p_{\rm T}\) distribution is shown. Given these two plots, the \(N_{ch}\) and \(p_{\rm T}\) averaged tracking efficiency is 78 % for \(p_{\rm T}>0.1\) GeV/\(c\) and 86 % for \(p_{\rm T}>0.5\) GeV/\(c\).
+
+The dependence of tracking efficiency on particle's \(p_{\rm T}\) changes the shape of the \(p_{\rm T}\) spectrum, that is observed. Therefore, using this \(p_{\rm T}\)-dependent tracking efficiency, the \(p_{\rm T}\) spectrum can be corrected. Bin-to-bin correction was used to correct the \(p_{\rm T}\) spectra. To correct the measured \(p_{\rm T}\) spectrum, it's divided by a correction histogram (efficiency), similar to that in figure 4.3. Given the \(p_{\rm T}\) resolution of the TPC and choosing reasonable binning, inter-bin migration is negligible, so this method can be used [36]. As the simulation used only has limited statistics, in the end we decided to use only \(p_{\rm T}\) (not \(N_{ch}\)) dependent correction factor.
+
+Single-particle tracking efficiency depends also on its pseudorapidity and event (primary) vertex position. The left panel of figure 4.4 shows \(\eta\) dependence of tracking efficiency. In \(VertexZ\) we decided to use 25 cm-wide bins. Displacement of primary vertex in \(z\) direction causes a sort of shift of the plot in \(\eta\). For this plot, only tracks with \(p_{\rm T}>0.15\) GeV/\(c\) were included (at both MC input and reconstructed levels).
+
+Since the \(\eta\) dependence is approximately flat, we decided to average all
+
+Figure 4.2: Left: vertex finding efficiency. Right: distribution of CTB-matched good global tracks.
+
+[MISSING_PAGE_FAIL:34]
+
+(observed multiplicity). \(M\) distributions are obtained for the three vertex bins as well as the correction factors, each of the three is corrected separately and the results are summed.
+
+##### Input for corrections
+
+Using simulations, one must first obtain the conditional probability of detecting \(M\) particles, when \(N\) were generated (passed through the detector): \(P(M|N)\). This is shown in the left panel of figure 4.5 by the means of a two-dimensional histogram filled with \((N,M)\). In the right panel of figure 4.5, the average tracking efficiency (\(\langle M\rangle/N\)) is plotted as a function of \(N\).
+
+As the single-particle tracking efficiency depends strongly on particle's \(p_{\rm T}\) (as shown in figure 4.3), \(P(M|N)\) is determined mainly by the \(p_{\rm T}\) spectrum in events with multiplicity \(N\). This may differ between simulation and reality
+
+\begin{table}
+\begin{tabular}{|l||c|c|} \hline \(VertexZ\) bin number & \(|z|\) from & \(|z|\) to \\ \hline \hline
+1 & 0 cm & 25 cm \\ \hline
+2 & 25 cm & 50 cm \\ \hline
+3 & 50 cm & 75 cm \\ \hline \end{tabular}
+\end{table}
+Table 4.1: \(VertexZ\) bins
+
+Figure 4.4: Left: Tracking efficiency dependence on \(\eta\), for \(p_{\rm T}>0.15\) GeV/\(c\). TPC can only detect good primary tracks with \(|\eta|<1.3\). Right: \(p_{\rm T}\) spectra ratios - certain \(|\eta|\) range / full eta range (\(|\eta|<1.0\)), shifted successively by 0, 1, 2, 3, 4. For \(|VertexZ|<25\) cm.
+
+(experiment), as will be shown in the following chapter. So we had to check, using \(p_{\rm T}\) spectra and corrections, whether the average tracking efficiency for events with multiplicity \(N\) is the same in simulation and experiment.
+
+The integral of the raw \(p_{\rm T}\) spectrum gives average multiplicity times number of events. Therefore, the ratio of integrals of uncorrected and corrected spectra gives the efficiency. For each measured multiplicity \(M_{STAR}\) we obtain uncorrected \(p_{\rm T}\) spectrum, which is then corrected using a bin-to-bin correction. The ratio of their intervals is the efficiency, i.e. \(\frac{M_{STAR}}{\langle N_{STAR}\rangle}\). The same procedure is applied to \(p_{\rm T}\) spectra from the simulation (MC), yielding \(\frac{M_{MC}}{\langle N_{MC}\rangle}\). We found, that these two efficiencies equal within the statistical errors for all multiplicities. So, although the \(p_{\rm T}\) spectra are different between the simulation and STAR data, this doesn't influence \(P(M|N)\).
+
+In the previous charged multiplicity study in STAR [26], \(P(M|N)\) was taken binomial, with the probability independent of \(N\), which implies constant \(\langle M\rangle/N\). As we can see (right panel of figure 4.5), this is not correct, especially for vertex bin 3. I also studied \(M\) distribution for fixed \(N\) and even this is not binomial (\(p_{binom}=\langle M\rangle/N\); tested by \(\chi^{2}\) test). One of the reasons is that it can be \(M>N\), due to \(p_{\rm T}\) and \(\eta\) resolution and some contamination. We decided to use \(P(M|N)\) obtained from simulation, as it's the best correction input available.
+
+Figure 4.5: Left: Distribution of \((N,M)\) for vertex bin 1. Right: Average tracking efficiency dependence on \(N\). Both for \(\eta_{c}=0.5\), \(p_{\rm T}{}_{c}=0.15\) GeV/\(c\).
+
+[MISSING_PAGE_FAIL:37]
+
+1. calculate \(P(N_{i}|M_{j})\) and \(P(N)\)
+2. make a \(\chi^{2}\) comparison between \(P(N)\) and \(P_{0}(N)\) (errors are estimated here by Poisson errors)
+3. replace \(P_{0}(N)\) by \(P(N)\) and start again, until the value of \(\chi^{2}\) is small enough.
+
+My experience is that this procedure converges in 5 to 10 cycles, using the \(\chi^{2}\) probability of 0.99 or 0.999999 to stop the iteration, without a significant difference (\(\pm 1\) iteration cycle). It's obvious from equation 4.5, that the correction is achieved by multiplying the measured distribution by an unfolding matrix: \(U_{ij}\equiv P(N_{i}|M_{j})\), defined by equation 4.4. Therefore, it's easy to estimate statistical errors on the resulting \(P(N)\) distribution, due to limited statistics of events in both simulation and data. Details can be found in [36].
+
+In figure 4.6 the result of the correction are presented, together with measured (experimental) multiplicity distribution. Around \(N_{ch}=17\) there is a strong fluctuation and within the errors, corrected distribution is not smooth as it should be. Therefore, something has to be added into the iterative algorithm to avoid this.
+
+One of the options is to fit the distribution in each iterative cycle. We tested Negative Binomial Distribution (NBD), which turned out to constrain the data too much (we don't know whether the resulting distribution must
+
+Figure 4.6: Uncorrected and corrected multiplicity distribution, without smoothing. \(\eta_{c}=0.5\), \(p_{\mathrm{T}c}=0.15\) GeV/\(c\)
+
+follow the NBD). Next, a fit using a superposition of two independent NBDs was used, being more general. However, this sometimes prevents the iterative process from converging.
+
+Finally, we decided to simply smooth the histogram (using
+
+TH1::Smooth() [34]), to avoid these problems. The resulting corrected distribution is in figure 4.7. Smoothing was applied in each cycle before calculating \(P(N_{i}|M_{j})\) and \(P(N)\), so it affects \(U_{ij}\) and not \(P(N)\) directly, so \(U_{ij}\) can be further used for example for error estimation.
+
+To test the whole unfolding procedure, it was applied to simulation. We corrected the reconstructed (\(M\)) distribution and compared the result of correction to the original (\(N\)) distribution. The two were identical (in terms of a \(\chi^{2}\) test), therefore we expect this procedure to work well on the data, too.
+
+Figure 4.7: Uncorrected and corrected multiplicity distribution, with smoothing. \(\eta_{c}=0.5\), \(p_{\rm{T}c}=0.15\) GeV/\(c\)
+
+## Chapter 5 Results
+
+### 5.1 Data selection
+
+I've used minimum bias (BBC coincidence trigger) p+p data from year 2001-2002. For efficiency studies and corrections, the already described Hijing+GEANT simulation (MC) was used. In table 5.1, corresponding numbers of events are shown. The \(VertexZ\) distribution in the data is approximately Gaussian with \(\sigma\approx 65\) cm.
+
+Given the available statistics in simulation, we decided to use 3 vertex bins within 75 cm off the TPC center, as described in the previous chapter. We only use events with vertex found, and corrected for vertex finding efficiency, where necessary.
+
+We would like to divide the events into two classes, _soft_ and _hard_. As was described in section 2.2, events with hard parton-parton scattering contain jets or mini-jets coming from parton fragmentations. To find these jets, a track clustering algorithm was used. A high-\(p_{\rm T}\) cluster ('mini-jet') is defined as one track with \(p_{\rm T}>0.7\) GeV/\(c\) with another track (\(p_{\rm T}>0.4\) GeV/\(c\)) in a cone of radius \(R=0.7\). The cone radius is defined by means of pseudorapidity \(\eta\) and azimuth angle \(\phi\) as \(R=\sqrt{\Delta\eta^{2}+\Delta\phi^{2}}\). These two trigger tracks are good primary tracks, taken within full TPC acceptance (no cutting on \(|\eta|\)).
+
+\begin{table}
+\begin{tabular}{|l||c|c|} \hline number of events & data & MC \\ \hline \hline all & 10498 K & 721 K \\ \hline vertex found & 9107 K & 612 K \\ \hline vertex found in \(\pm 75\) cm & 6350 K & 556 K \\ \hline \end{tabular}
+\end{table}
+Table 5.1: Number of events used for this analysis_Hard_ event is event containing at least one high-\(p_{\rm T}\) cluster, the remaining events are marked as _soft_.
+
+A similar algorithm has been used by the CDF collaboration at Tevatron [37]. Here, the clusters have been searched for using a calorimeter with acceptance \(|\eta|<2.4\). In some limited phase space regions (calorimeter cracks) the above described track clustering algorithm has been used. I assume, that the parameters of calorimeter algorithm (\(E_{\rm T}\) threshold,...) were chosen so, that the two algorithms are comparable.
+
+To estimate the difference between the two approaches, I used the simulation. I made two different soft/hard selection criteria in it, both using track clustering algorithm. The difference is in what tracks are used. The first hard selection criterion, denoted as "TPC primaries", uses reconstructed good primary tracks in the TPC acceptance (the same that is used for the data). The second uses Hijing generated charged tracks within \(|\eta|<2.4\).
+
+In table 5.2 I present the fractions of soft and hard events in the minimum bias sample. The CDF results are presented for the two energies they've used, 630 corresponds to \(\sqrt{s}=630\) GeV, 1800 to \(\sqrt{s}=1800\) GeV. Based on the difference between the two triggers used for Hijing, STAR hard fraction would have been bigger, had the calorimeter algorithm been used. A clear rise of hard fraction with collision energy is observed, at \(\sqrt{s}=200\) GeV (STAR), vast majority of events are soft events.
+
+### 5.2 Pseudorapidity spectra
+
+A bin-to-bin correction was used, the effect of which can be seen in figure 4.4. Unlike corrections to \(p_{\rm T}\) spectra and multiplicity, here we had to use \(6\;VertexZ\) bins, as the \(\eta\) spectra are obviously not symmetrical in \(\pm z\).
+
+We used \(p_{\rm Tc}=0.15\) GeV/\(c\) cut here, the same that was used in the examples in the previous chapter. As the left panel of figure 4.4 shows, in the outermost \(VertexZ\) bin, good primary tracks with \(p_{\rm T}>0.15\) GeV/\(c\) are
+
+\begin{table}
+\begin{tabular}{|l|c|c|} \hline \% of events & hard & soft \\ \hline STAR & 20 & 80 \\ \hline Hijing, TPC primaries hard sel. & 13 & 87 \\ \hline Hijing, \(|\eta|<2.4\) hard sel. & 28 & 72 \\ \hline CDF 630 & 43 & 57 \\ \hline CDF 1800 & 56 & 44 \\ \hline \end{tabular}
+\end{table}
+Table 5.2: Fraction of soft and hard events in STAR data, MC and CDFonly detected for \(\eta<1.0\), and vice versa for the bin \(-75\) cm to \(-50\) cm. Therefore, the corrected \(\eta\) spectrum is only valid for \(|\eta|<1.0\).
+
+In the left panel of figure 5.1 the corrected pseudorapidity spectrum (STAR) is compared to the simulation. Unlike STAR data, the simulation doesn't exhibit a central plateau. The ratio of the two spectra is shown in the right panel of figure 5.1, it's approximately flat in \(|\eta|<0.8\). As the two data samples (STAR and MC) have different mean multiplicities, the normalizations are different, so obviously the ratio can't be unity.
+
+No differences have been observed in the \(\eta\) spectra between the soft and hard data sample. We've observed no dependence on multiplicity, either. Obviously, the different collision dynamics between the soft and hard events, affects event \(p_{\rm T}\) spectra and multiplicity, rather than pseudorapidity distribution.
+
+### 5.3 Transverse momentum
+
+As with the pseudorapidity spectra, we used a bin-to-bin correction, here with \(3~{}VertexZ\) bins. Correction histograms were obtained separately for the two pseudorapidity cuts (\(\eta_{c}=0.5,\eta_{c}=1.0\)), as the efficiencies are lower for higher \(|\eta|\). All presented spectra are normalized to unity, so different mean multiplicities won't be seen here.
+
+Figure 5.1: Left: Pseudorapidity spectra comparison, \(p_{\rm Tc}=0.15\) GeV/\(c\). Right: Ratio of the two spectra.
+
+#### Comparison between different cuts
+
+First, the \(p_{\rm T}\) spectra for the three event samples are compared. We expect the \(p_{\rm T}\) spectrum of hard events to contain a lot more high-\(p_{\rm T}\) tracks. In figure 5.2 the corrected \(p_{\rm T}\) spectra from STAR are plotted for minimum bias, soft and hard event sample. The steep rise of hard spectra at \(p_{\rm T}=0.7\) GeV/\(c\) is caused by the trigger particle, defining the mini-jet. Starting at \(p_{\rm T}\approx 0.7\) GeV/\(c\), the ratio between hard and soft spectra is rising and saturating at about 3 GeV/\(c\).
+
+In figure 5.3 the ratios of \(p_{\rm T}\) spectra (for \(\eta_{c}=0.5\) / for \(\eta_{c}=1.0\)) are plotted. Except for a small difference at high \(p_{\rm T}\), the shapes of the spectra are independent of pseudorapidity cut used. As the error bars are mostly smaller than the markers, a \(\chi^{2}\) test was performed, showing good agreement between the two \(\eta_{c}\) used.
+
+Transverse momentum spectra are known to get harder (higher \(\langle p_{\rm T}\rangle\)) at higher multiplicities, one of the reasons being obviously a rising fraction of hard events. Figure 5.4 shows \(p_{\rm T}\) spectra for three multiplicity bins.
+
+#### Fits of the \(p_{\rm T}\) spectra
+
+We fitted the \(p_{\rm T}\) spectra using the 'power-law' function (equation 2.8). Here, \(\eta_{c}=0.5\) and inclusive spectrum for all multiplicities was used. A strong dependence of fit quality (in terms of \(\chi^{2}/ndf\)) on fit range was observed.
+
+Figure 5.2: Corrected experimental \(p_{\rm T}\) spectra for \(\eta_{c}=0.5\)First, soft and hard spectrum could only be fitted from \(p_{\rm T}=0.7\) GeV/\(c\) (to get reasonably low1\(\chi^{2}/ndf\)), because of the structure at lower \(p_{\rm T}\) caused by trigger particles (figure 5.2).
+
+Footnote 1: \(\approx 1\), fitting from 0.65 GeV/\(c\) gives \(\chi^{2}/ndf=5\)
+
+Fit results in range \(0.7-6.0\) GeV/\(c\) are shown in table 5.3. The \(\langle p_{\rm T}\rangle\) is computed from extrapolating power-law function to zero and infinity - see equation 5.1. Note, that this value is a rough estimate - we don't know, how the spectra behave outside the fit range.
+
+\[\langle p_{\rm T}\rangle=\frac{\int_{0}^{\infty}p_{\rm T}\frac{dN}{dp_{\rm T}} dp_{\rm T}}{\int_{0}^{\infty}\frac{dN}{dp_{\rm T}}dp_{\rm T}}=\frac{\int_{0}^{ \infty}p_{\rm T}{}^{2}\left(1+\frac{p_{\rm T}}{p_{0}}\right)^{-n}dp_{\rm T}}{ \int_{0}^{\infty}p_{\rm T}\left(1+\frac{p_{\rm T}}{p_{0}}\right)^{-n}dp_{\rm T }}=\frac{2p_{0}}{n-3} \tag{5.1}\]
+
+To see whether power-law describes the low \(p_{\rm T}\) part of the spectrum, minimum bias spectrum was fitted, with varying fit range \((p_{\rm Tmin}-p_{\rm Tmax})\).
+
+Figure 5.3: Ratios of \(p_{\rm T}\) spectra, different pseudorapidity cuts.
+
+\begin{table}
+\begin{tabular}{|l|c|c|c|c|} \hline spectrum & \(\chi^{2}/ndf\) & \(p_{0}\)[GeV/\(c\)] & n & \(\langle p_{\rm T}\rangle\)[GeV/\(c\)] \\ \hline minbias & 1.3 & \(1.85\pm 0.07\) & \(11.8\pm 0.3\) & \(0.42\pm 0.02\) \\ \hline soft & 1.3 & \(1.81\pm 0.07\) & \(12.6\pm 0.3\) & \(0.38\pm 0.02\) \\ \hline hard & 1.1 & \(2.16\pm 0.09\) & \(12.2\pm 0.3\) & \(0.47\pm 0.02\) \\ \hline \end{tabular}
+\end{table}
+Table 5.3: Fits to power-law, fit range \(0.7-6.0\) GeV/\(c\).
+
+The resulting fit parameters are shown in table 5.4. At lowest \(p_{\rm T}\) power-law can't describe the data properly, and even for \(p_{\rm T}>0.5\) GeV/\(c\) fit parameters strongly depend on fit range used, therefore extrapolating the fit to lower \(p_{\rm T}\) brings about a high systematic error.
+
+For further analysis, we only use minimum bias \(p_{\rm T}\) spectrum and the fit range \(0.3-6.0\) GeV/\(c\) was chosen, as an optimum to minimize both \(\chi^{2}/ndf\) and statistical errors of fit parameters. To see fit behaviour in more details, relative fit residuals \((data-fit)/\sigma_{data}\) are plotted in figure 5.5. Between 1.5 and 4 GeV/\(c\), the fit systematically underestimates the data and at highest \(p_{\rm T}\), power-law very likely breaks down. However, on the average power-law can describe STAR data well.
+
+Next, we used fit ranges 0.3-6.0, 0.3-1.0 and 1.0-6.0 GeV/\(c\) and extrapolated to the measured \(p_{\rm T}\) range \((0.15-6.0\) GeV/\(c)\). The ratios (data/fit) are plotted in figure 5.6. The fit parameters are shown at the bottom of table 5.4. It's remarkable, that the fit in range \(0.3-1.0\) GeV/\(c\) doesn't deviate substantially from the data even at highest \(p_{\rm T}\). In conclusion, power-law fit describes STAR data rather well.
+
+Figure 5.4: Transverse momentum spectra dependence on event multiplicity. \(N_{uncor}\) is uncorrected multiplicity, \(\eta_{c}=0.5\), \(p_{\rm Tc}=0.15\) GeV/\(c\).
+
+[MISSING_PAGE_FAIL:46]
+
+there's a clear rise of \(\langle p_{\rm T}\rangle\) with center-of-mass collision energy. On the other hand, the slope (\(n\)) of the spectra at high \(p_{\rm T}\) is decreasing, as well as \(p_{0}\) parameter. Unfortunately, there are no high-statistics p+p data at different collision energy from STAR available yet. Therefore a more detailed comparison is not possible.
+
+Comparison to Hijing is shown in figure 5.7. The selection criterion for hard events in Hijing is "TPC primaries". For the minimum bias and soft event sample, Hijing is clearly unable to describe STAR results properly. The agreement (except the lowest \(p_{\rm T}\) bins) is relatively good for the hard sample, suggesting that mini-jet fragmentation in Hijing model is well tuned to the data.
+
+We also tried fitting power-law to Hijing \(p_{\rm T}\) spectrum, but for any reasonable fit range, \(\chi^{2}/ndf\) was always bigger than 2, therefore we conclude that Hijing cannot be described by power-law functional form at all.
+
+### 5.4 Event charged multiplicity
+
+In the following analysis good primary tracks in the following kinematic cuts: \(p_{\rm Tc}=0.15,0.4\) GeV/\(c\) and \(\eta_{c}=0.5,1.0\) were used. To correct for detector efficiency the unfolding method was applied, which was described in the previous chapter. Again, the events were divided into 3 \(VertexZ\) bins. The
+
+Figure 5.5: Relative fit residuals, fit range \(0.3-6\) GeV/\(c\). The hatched band corresponds to \(\chi^{2}/ndf=1.6\).
+
+corrections differ between different cuts (single-particle tracking efficiencies depend on \(p_{\rm T}\) and \(\eta\)) and between event classes (Soft, Hard, MinBias) - the \(p_{\rm T}\) spectra are different. In table 5.6 the averaged (over \(VertexZ\) bins and over all multiplicities) tracking efficiencies are shown. Therefore, for each kinematic cut and event class, correction factors were taken separately from simulation.
+
+To compare to results by UA5 collaboration (to be shown later), we had to get corrected multiplicity without a \(p_{\rm T}\) cut. As an input to unfolding procedure we used matrix \(P(M|N)\), with \(N\) being number of particles from Hijing without a \(p_{\rm T}\) cut and \(M\) number of reconstructed good primary tracks with \(p_{\rm T}>0.15\) GeV/\(c\). We measured good primary tracks with \(p_{\rm T}>0.15\) GeV/\(c\), and applying unfolding to \(P(M|N)\), corrected multiplicity without a \(p_{\rm T}\) cut was obtained.
+
+Figure 5.6: Data / fit for different fit ranges.
+
+\begin{table}
+\begin{tabular}{|l|c|c|} \hline average tracking & \(p_{\rm T}c=0.15\) GeV/\(c\) & \(p_{\rm T}c=0.4\) GeV/\(c\) \\ efficiency & \(\eta_{c}=0.5\) & \(\eta_{c}=1.0\) \\ \hline Soft & 0.81 & 0.81 \\ \hline Hard & 0.86 & 0.88 \\ \hline MinBias & 0.82 & 0.84 \\ \hline \end{tabular}
+\end{table}
+Table 5.6: Average tracking efficiencies for different kinematic cuts and event classes.
+
+The output of correction is multiplicity for \(p_{\rm Tc}=0.0\) GeV/\(c\), however it's only a rough estimate: there's no way to get the shape of the \(p_{\rm T}\) spectrum from STAR down to \(p_{\rm T}=0.0\) GeV/\(c\). It would be more precise, if we could use low-\(p_{\rm T}\) tracks measured by SVT detector (which is between the interaction point and the TPC), but SVT was not fully commissioned during the 2001-2002 running. Neither, is there any high-statistics data sample available at so called HalfField (magnetic field only 0.25 T, compared to standard 0.5 T), which would allow for low momentum tracking.
+
+#### General properties of multiplicity distributions
+
+In the left panel of figure 5.8 the comparison between three event classes (minbias, soft, hard) is shown for \(p_{\rm Tc}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\). The tail of minimum bias multiplicity distribution is dominated by hard events, whereas low multiplicity events are mostly soft. To see the actual shape of the distribution, regardless of its mean value, KNO variables are used in the right panel of figure 5.8. The soft events can achieve much higher values of \(z=\frac{N_{ch}}{\langle N_{ch}\rangle}\) than the hard ones.
+
+In table 5.7 mean multiplicities (\(\langle N_{ch}\rangle\)) are shown for different cuts and event classes. Their errors are of order of \(10^{-3}\). There's about 10% rise of \(\langle N_{ch}\rangle\) from \(p_{\rm Tc}=0.0\) GeV/\(c\) to \(p_{\rm Tc}=0.15\) GeV/\(c\), so the effect of using the above described "extrapolation" to \(p_{\rm Tc}=0.0\) GeV/\(c\) is not negligible.
+
+Figure 5.7: Comparison of \(p_{\rm T}\) spectra to Monte Carlo model (Hijing), \(\eta_{c}=0.5\).
+
+Comparison between kinematic cuts for minimum bias is displayed in figure 5.9. The abrupt fall at \(N_{ch}=20\) for \(p_{\rm Tc}=0.0\) GeV/\(c\) is due to correction instability, showing that for this particular cut the correction is not working very well.
+
+In figure 5.10 the same distributions are plotted in terms of the KNO variables. For low \(z\) there's an approximate scaling, which is broken at \(z>3\). Again we observe, that the higher \(\langle N_{ch}\rangle\), the steeper is fall of \(\langle N_{ch}\rangle P(z)\) with \(z\). This regularity has been reported also by the UA5 collaboration [40]. Quantitatively, this can be expressed with "relative dispersion" \(\frac{\sigma}{\langle N\rangle}\). This gives (for cuts as in figure 5.10 from top to bottom): 1.10, 0.90, 0.87, 0.85, 0.76. Relative dispersion is related to \(k\) parameter of Negative Binomial Distribution (equation 2.5) (NBD): \(k^{-1}=\frac{\sigma^{2}-\langle N\rangle}{\langle N\rangle^{2}}\).
+
+\begin{table}
+\begin{tabular}{|l|c|c|c|c|} \hline \(p_{\rm Tc}\) [GeV/\(c\)] & \(\eta_{c}\) & Soft & Hard & MinBias \\ \hline
+0.0 & 0.5 & - & - & 3.197 \\ \hline
+0.15 & 0.5 & 2.309 & 5.356 & 2.861 \\ \hline
+0.15 & 1.0 & 4.584 & 10.54 & 5.662 \\ \hline
+0.4 & 0.5 & 1.011 & 3.055 & 1.384 \\ \hline
+0.4 & 1.0 & 2.047 & 5.929 & 2.754 \\ \hline \end{tabular}
+\end{table}
+Table 5.7: Mean multiplicity for different kinematic cuts and event classes.
+
+#### Fits ot the multiplicity distributions
+
+For this part, we've chosen \(p_{\rm Tc}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\) as it gives the best results, suggesting that the correction method works better than for other cuts. Negative binomial distribution was used for fitting. We've tried fitting this distribution for minimum bias event sample in the full range (\(N_{ch}=0-23\)). However, this fit gave \(\chi^{2}/ndf\approx 4500\), so we decided to change the fit range (\(N_{min}-N_{max}\)) - see the top of table 5.8.
+
+We've decided to use \(N_{min}=2\) from now on. It seems that at \(N_{ch}=0,1\) NBD can't describe this data. Optimizing \(N_{max}\) to get better \(\chi^{2}/ndf\), we
+
+Figure 5.9: Comparison between kinematic cuts, minimum bias event sample. The distributions are scaled by 1,10,10\({}^{2}\),10\({}^{3}\), 10\({}^{4}\), from bottom to top.
+
+found that the best fit range to use is \(N_{ch}=2-11\). The fit result are shown at the bottom of table 5.8. The resulting fit function is plotted in figure 5.11, extrapolated to the whole \(N_{ch}\) range (0-23). NBD overestimates the number of events with \(N_{ch}=0\) by a factor of \(\approx 2.5\). On the other hand, even this extrapolated function can approximately describe the tail of multiplicity distribution.
+
+Let us note, that \(N_{ch}=11\) in this cut corresponds on average to \(N_{ch}=12\) for \(p_{\rm Tc}=0.0\) GeV/\(c\) (viz table 5.7), and this is the maximum multiplicity measured (and fitted) by the UA5 collaboration [41]. We'll compare our results to UA5 later. It's possible, that multiplicity distribution can have another component, which is significant at high multiplicities.
+
+A straightforward generalization of NBD fit would be fit with two independent NBD functions ("double-NBD"):
+
+\(\alpha NBD(\langle N\rangle_{1},k_{1})+(1-\alpha)NBD(\langle N\rangle_{2},k_{2})\). One could expect the two components to coincide with soft and hard events, with \(NBD(\langle N\rangle_{1}=\langle N\rangle_{soft},k_{1}=k_{soft})\) corresponding to the soft part.
+
+Without constrains, this fit (still in the range 2 - 23) gives an excellent \(\chi^{2}/ndf=1.13\). While \(\alpha=0.97\), one would expect it to be about 0.8 (fraction of soft events - see table 5.2). Keeping \(\alpha=0.8\) fixed and fitting only the 4 remaining parameters \((\langle N\rangle_{1},k_{1},\langle N\rangle_{2},k_{2})\) gives \(\chi^{2}/ndf=1.18\), which is only slightly worse.
+
+Figure 5.10: Comparison between kinematic cuts, minimum bias event sample, KNO variables.
+
+Another option is to fit NBD to multiplicity distributions separately for soft and hard events. Again, we fitted starting from \(N_{ch}=2\) and going to the maximum \(N_{ch}\) (23 for hard, 14 for soft). The results are shown in table 5.9.
+
+The fits are not good (in terms of \(\chi^{2}/ndf\)), therefore our hypothesis is not completely correct, one can't interpret results of this fit as anything more than a rough approximation. Instead, we took the two \(\langle N\rangle\) parameters from these fits and put them into a double-NBD function as constraints. The resulting \(\chi^{2}/ndf=1.7\) is remarkable, although it's worse than for previously performed double-NBD fits. Moreover, \(\alpha=0.84\) is not far from the fraction of soft events (80 %). The result of this fit is plotted in figure 5.12. See table 5.10 for the summary of double-NBD fits.
+
+Parameters \(k_{1}\) and \(k_{2}\) of the third fit are in a good agreement with those of NBD fits to soft and hard (shown in table 5.9). Therefore we conclude, that minimum bias \(N_{ch}\) distribution _can_ be divided into two parts, described by
+
+Figure 5.11: NDB fit to multiplicity distribution, minbias, \(p_{\rm Tc}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\). Fit range 2–11.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|} \hline data sample & \(N_{min}\) & \(N_{max}\) & \(\chi^{2}/ndf\) & \(\langle N\rangle\) & k \\ \hline soft & 2 & 14 & 25 & \(2.117\pm 0.004\) & \(2.45\pm 0.02\) \\ \hline hard & 2 & 23 & 5.6 & \(5.355\pm 0.005\) & \(6.48\pm 0.04\) \\ \hline \end{tabular}
+\end{table}
+Table 5.9: Fits to NBD for \(p_{\rm Tc}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\).
+
+NBD. These two parts are very similar to our selection of soft and hard events, the difference may be caused by hard event selection that we use. When we tried to fit soft and hard by NBD in \(p_{\mathrm{T}c}=0.4\) GeV/\(c\), \(\eta_{c}=1.0\), the resulting \(\chi^{2}/ndf\) were even worse than those shown in table 5.9. Here, \(N_{ch}\) distribution almost always contains the "trigger" high-\(p_{\mathrm{T}}\) particles. Therefore, we suggest using a narrow window in pseudorapidity to avoid this bias.
+
+To conclude, at low multiplicities (\(N_{ch}=0,1\)) we found a strong disagreement between our results and theoretical expectations, based on NBD fit. The reason is unknown, although there is a possible explanation. This will be discussed in section 5.4.4. We found, that minimum bias multiplicity distribution for \(p_{\mathrm{T}c}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\) is well described by double-NBD function, fitting in the range \(N_{ch}\geq 2\).
+
+Figure 5.12: Double-NBD fit to multiplicity distribution, minbias, \(p_{\mathrm{T}c}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\).
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline fit & \(\chi^{2}/ndf\) & \(\langle N\rangle_{1}\) & \(k_{1}\) & \(\langle N\rangle_{2}\) & \(k_{2}\) & \(\alpha\) \\ \hline
+1 & 1.13 & \(2.45\pm 0.07\) & \(1.83\pm 0.06\) & \(6.5\pm 0.6\) & \(12\pm 7\) & \(0.97\pm 0.02\) \\ \hline
+2 & 1.18 & \(2.043\pm 0.008\) & \(2.25\pm 0.09\) & \(4.98\pm 0.06\) & \(5.4\pm 0.2\) & 0.80 fixed \\ \hline
+3 & 1.76 & 2.117 fixed & \(2.35\pm 0.06\) & 5.355 fixed & \(6.50\pm 0.06\) & \(0.836\pm 0.003\) \\ \hline \end{tabular}
+\end{table}
+Table 5.10: Fits to double-NBD for \(p_{\mathrm{T}c}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\). For minimum bias event sample.
+
+#### Comparison to other experiments and to Hijing model
+
+In the following, our multiplicity distribution at cut \(p_{\rm Tc}=0.0\) GeV/\(c\) and \(\eta_{c}=0.5\) is compared to results by UA5 collaboration. These were taken at \(\sqrt{s}=546\) GeV [40] and at \(\sqrt{s}=200,900\) GeV [41]. The main sub-detectors of UA5 experiment were two large streamer chambers, placed above and under the interaction point. As there was no magnetic field, they were able to measure even the lowest-\(p_{\rm T}\) particles with good accuracy.
+
+In figure 5.13 the comparison is presented. Due to the already mentioned problem with \(N_{ch}=0\) in the data (STAR), the average multiplicity for STAR is overestimated. Otherwise, we observe an obvious rise of \(\langle N_{ch}\rangle\) with center-of-mass energy. The slope of multiplicity distribution for UA5/200 GeV and Hijing is steeper than for STAR.
+
+To compare shapes of \(N_{ch}\) distributions, they're plotted in figure 5.14 in KNO form. To avoid problems with \(N_{ch}=0\), a truncated mean \(\langle N^{\prime}_{ch}\rangle\) is used here: mean value is evaluated not in the range 0-maximum, but 1-maximum:
+
+\[\langle N^{\prime}_{ch}\rangle\equiv\frac{\sum_{N_{ch}=1}^{\infty}N_{ch}P(N_{ ch})}{\sum_{N_{ch}=1}^{\infty}P(N_{ch})} \tag{5.2}\]
+
+Figure 5.13: Comparison to Hijing and UA5. UA5 546 (900) GeV scaled by 10 (100).
+
+Values for \(N_{ch}=0\) are not plotted, either. Also here \(\langle N^{\prime}_{ch}\rangle\) of STAR is higher than that of UA5/200 GeV, caused by steeper slope of UA5/200 GeV described above. An approximate scaling holds at intermediate values of \(z\) (at lowest \(z\) the error bars are much smaller than the markers in the graph).
+
+In the already mentioned analysis by CDF collaboration [37], the multiplicity distributions were studied in acceptance \(p_{\rm Tc}=0.4\) GeV/\(c\), \(\eta_{c}=1.0\). We compare our \(N_{ch}\) distribution in this acceptance to CDF results and to Hijing (using two hard events selection criteria, "TPC primaries" and "\(|\eta|<2.4\)" described in section 5.1). KNO form with truncated means is used.
+
+In figure 5.15 one can see an approximate KNO scaling for minimum bias sample. The comparison for hard sample is displayed in figure 5.16. The discrepancy between STAR and CDF is caused by different hard events selection criteria - for STAR at \(\eta_{c}=1.0\) the two high-\(p_{\rm T}\) tracks are almost always included in hard event multiplicity, whereas in the CDF algorithm (\(|\eta|<2.4\)) there are a lot more hard events with \(N_{ch}=1\) (and \(N_{ch}=0\), not shown).
+
+STAR results for hard event sample are in a good agreement with Hijing, "TPC primaries". Similarly to the case of \(p_{\rm T}\) spectra we conclude, that Hijing is able to describe STAR results well for the hard event sample. The difference in Hijing between the two hard selection criteria and the small
+
+Figure 5.14: Comparison to Hijing and UA5 in KNO variables. Truncated means are used.
+
+difference between Hijing, "\(|\eta|<2.4\)" and CDF 630 GeV suggests, that if there had been a calorimeter with acceptance \(|\eta|<2.4\) in STAR experiment, the results for hard event sample at 200 GeV would be compatible with CDF measurements (i.e. weakly broken KNO scaling).
+
+In figure 5.17 the same comparison is shown, but for the soft event sample. Different shape of STAR \(N_{ch}\) distribution is again due to different event selection criteria. KNO scaling holds between the two CDF energies, which was already mentioned in their publication [37]. Together with only a very weak energy dependence of \(\langle N_{ch}\rangle\) (or \(\langle N^{\prime}_{ch}\rangle\), respectively), this suggests that dynamics of soft interactions is almost energy-independent from RHIC to Tevatron energies.
+
+#### Low multiplicity events
+
+For \(p_{\rm Tc}=0.0\) GeV/\(c\), \(\eta_{c}=0.5\) we've observed too few events with \(N_{ch}=0\) - figure 5.13. A similar behaviour (\(P(N_{ch}=0)\ll P(N_{ch}=1)\)) can be seen for other kinematic cuts (figure 5.9). Also, for \(p_{\rm Tc}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\) Negative binomial distribution (figure 5.11) would predict much more events with \(N_{ch}=0\) than our results show.
+
+As both the corrections used (vertex finding efficiency correction and unfolding of the measured \(N_{ch}\) distribution) were successfully tested at Hijing
+
+Figure 5.15: Minbias comparison to Hijing and CDF. Truncated means are used.
+
+simulation, we don't expect this effect to be an artifact of these corrections.
+
+A possible explanations would a lower sensitivity of STAR minimum bias trigger (used in 2001-2002 p+p running) to events with very low multiplicity in the TPC. This trigger employs 2 BBC detectors (described in Chapter 3) in coincidence, with acceptance \(3.3<|\eta|<5.0\). This explanation would assume a long-range correlation between "multiplicity" (in a given kinematic cut, here we'll use \(p_{\mathrm{T}c}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\)) and number of tracks at forward rapidities (in BBC acceptance).
+
+Unfortunately, FTPC detectors, which could help estimate this forward multiplicity (their acceptance is \(2.7<|\eta|<3.9\)) were not fully commissioned during the 2001-2002 p+p running. Therefore, Hijing simulation was used. Here, however, only tracks with \(|\eta|<3.0\) are recorded, but it can serve as an approximation2. In figure 5.18 mean number \(\langle N_{forward}\rangle\) of charged primary tracks from Hijing with \(2.4<|\eta|<3.0\) is plotted versus Hijing multiplicity (\(p_{\mathrm{T}c}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\)).
+
+Footnote 2: if there is a correlation in multiplicity between TPC acceptance and BBC acceptance, there is likely to be a correlation between TPC acceptance and \(2.4<|\eta|<3.0\)
+
+There is a strong correlation, so there could be substantial fraction of low multiplicity events have with no charged particles in BBC acceptance (i.e. in both detectors - for coincidence, to fire a minimum bias trigger), causing these events not to be recorded. The overall BBC coincidence trigger efficiency to detect a Non-Singly-Diffractive event is estimated 86% [26].
+
+Figure 5.16: Hard comparison to Hijing and CDF. Truncated means are used.
+
+In order to reproduce the 86% efficiency, the following approximation was made using a threshold: events with \(N_{forward}<N_{forward,thr.}\) will not fire BBC coincidence trigger, and those with \(N_{forward}\geq N_{forward,thr.}\) will always fire it. To achieve (\(N_{forward}\)-averaged) efficiency of 86%, \(N_{forward,thr.}\) has to be 1 with a good precision (the fraction of events with \(N_{forward}=0\) is \(14\%=100\%-86\%\)). The ratio of \(N_{ch}\) distribution for \(N_{forward}\geq 1\) to \(N_{ch}\) distribution for all \(N_{forward}\) gives the efficiency of BBC coincidence trigger, estimated in this approximation. This is plotted in figure 5.19.
+
+The efficiency for \(N_{ch}=0\) is much lower than for \(N_{ch}>0\), so this could at least qualitatively explain, why we observe so few events with \(N_{ch}=0\). However, more elaborate analysis of forward multiplicities in STAR with respect to BBC coincidence trigger efficiency would be needed to make this more than an approximation. In future a similar method could be used to correct multiplicity distributions.
+
+Figure 5.17: Soft comparison to Hijing and CDF. Truncated means are used.
+
+Figure 5.19: Estimated BBC coincidence trigger efficiency as a function of \(N_{ch}\) (\(p_{\rm Tc}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\)). For \(N_{ch}>10\) it’s constant within the error.
+
+Figure 5.18: Hijing: mean number of tracks in \(2.4<|\eta|<3.0\) versus \(N_{ch}\) (\(p_{\rm Tc}=0.15\) GeV/\(c\), \(\eta_{c}=0.5\)).
+
+## Chapter 6 Conclusion
+
+In this thesis, I have analysed 10.5 million minimum bias p+p events taken by the STAR experiment at RHIC collider in 2001-2002. The center-of-mass energy used (200 GeV) is currently the highest energy achieved in p+p collisions. A much higher energy will be delivered by the LHC p+p collider at CERN, currently under construction. Previous experiments at SppS collider (among them UA1, UA5) and at Tevatron (CDF, D0) studied proton-antiproton collisions.
+
+My analysis was performed at RHIC Computing Facility, using standard STAR analysis framework, namely the FileCatalog, Scheduler and ROOT4STAR.
+
+A GEANT model of STAR detector was used to estimate TPC tracking efficiency. Particles from Hijing simulated events were traced through this model and the output was embedded into background signal. Standard reconstruction algorithms were used to find tracks from hits produced in GEANT model. These tracks are compared to Hijing input, giving the efficiency.
+
+The inclusive spectra and charged multiplicity distributions measured by STAR Time Projection Chamber were corrected for vertex finding efficiency and for tracking efficiency. The Central Trigger Barrel detector was used to reject tracks from pile-up events.
+
+Bin-to-bin correction method was applied to pseudorapidity and transverse momentum spectra, as there's no significant inter-bin migration. To correct charged multiplicity distributions the unfolding method [36] based on Bayes' theorem was used.
+
+For further analysis, events were divided into soft and hard classes, based on high-\(p_{\mathrm{T}}\) track clustering algorithm. Hard events contain at least one high-\(p_{\mathrm{T}}\) cluster, which may be due to underlying hard parton-parton scattering. Unlike pseudorapidity, transverse momentum spectra of charged particlesdiffer between soft and hard events.
+
+For all considered event classes, transverse momentum spectra don't depend on pseudorapidity cut used. They are well described by "power-law" functional form, except for the lowest (0.1-0.3 GeV/c), consistently with results by UA1 collaboration [38]. spectrum of hard events is in a good agreement with Hijing model, which fails to describe the spectra from soft events.
+
+Charged multiplicity distributions exhibit too few events with zero multiplicity, compared to Negative Binomial Distribution (NBD) fit prediction and to results by UA5 collaboration [40, 41]. This could be due to a lower sensitivity of STAR minimum bias trigger to events with zero multiplicity. This effect doesn't influence inclusive \(\eta\) and distributions, as low multiplicity events don't contribute to these substantially.
+
+For the multiplicity distribution from minimum bias events can be fitted by NBD, except for the high multiplicity tail (). A composite fit using two NBDs can describe even this tail and the two components coincide approximately with multiplicity distributions of soft and hard event samples.
+
+STAR multiplicity distribution of hard events is well described by Hijing model. Except for the discrepancy due to different hard event selection criteria, it's compatible with results by CDF collaboration [37]. The multiplicity distribution of soft events shows KNO scaling with energy, when compared to CDF results.
+
+## Bibliography
+
+* [1] M. Harrison, T. Ludlam and S. Ozaki, _RHIC project overview_, Nucl. Instrum. Meth. A **499** (2003) 235.
+* [2] P. Jacobs and X. N. Wang, _Matter in extremis: Ultrarelativistic nuclear collisions at RHIC_, Prog. Part. Nucl. Phys. **54** (2005) 443 [arXiv:hep-ph/0405125].
+* gluon plasma_, Cambridge Monogr. Part. Phys. Nucl. Phys. Cosmol. **18** (2002) 1.
+* [4] P. B. D. Collins, _Hadron Interactions_, Adam Hilger Ltd., 1984
+* [5] J. Chyla, _Quarks, partons and Quantum Chromodynamics_, Lecture notes, available at [http://www-hep2.fzu.cz/](http://www-hep2.fzu.cz/) chyla/talks/mytalks/lecture.pdf.
+* [6] M. Gell-Mann, _Symmetries of baryons and mesons_, Phys. Rev. **125** (1962) 1067.
+* [7] Y. Ne'eman, _Derivation of strong interactions from a gauge invariance_, Nucl. Phys. **26** (1961) 222.
+* [8] M. Gell-Mann, _A Schematic Model Of Baryons And Mesons_ Phys. Lett. **8** (1964) 214.
+* [9] G. Zweig, _An SU3 model for strong interaction symmetry and its breaking_, CERN preprint CERN-TH-401.
+* [10] Y. Nambu, in _Preludes in theoretical physics_, eds. A. de-Shalit, H. Feschbach and L. van Hove, North Holland, Amsterdam 1966, p. 133
+* [11] C. Y. Wong, _Introduction to High-Energy Heavy-Ion Collisions_, World Scientific Publishing Co. Pte. Ltd. (1994).
+
+* [12] D. J. Gross and F. Wilczek, _Ultraviolet behavior of non-abelian gauge theories_, Phys. Rev. Lett. **30** (1973) 1343.
+* [13] H. D. Politzer, _Reliable perturbative results for strong interactions_, Phys. Rev. Lett. **30** (1973) 1346.
+* [14] M. Banner _et al._ [UA2 Collaboration], _Observation Of Very Large Transverse Momentum Jets At The Cern Anti-P P Collider_, Phys. Lett. B **118** (1982) 203.
+* [15] W. Thome _et al._ [Aachen-CERN-Heidelberg-Munich Collaboration], _Charged Particle Multiplicity Distributions In P P Collisions At Isr Energies_, Nucl. Phys. B **129** (1977) 365.
+* Anti-Proton Collider_, Phys. Lett. B **107** (1981) 320 [Erratum-ibid. **109B** (1982) 510].
+* [17] L. V. Gribov, E. M. Levin and M. G. Ryskin, _Semihard Processes In QCD_, Phys. Rept. **100** (1983) 1.
+* [18] X. Artru, _String Model With Baryons: Topology; Classical Motion_, Nucl. Phys. B **85** (1975) 442.
+* [19] B. Andersson, G. Gustafson and B. Soderberg, _A General Model For Jet Fragmentation_, Z. Phys. C **20** (1983) 317.
+* [20] K. Werner, _Strings, Pomerons, and the VENUS model of hadronic interactions at ultrarelativistic energies_, Phys. Rept. **232** (1993) 87.
+* [21] H. U. Bengtsson and T. Sjostrand, _The Lund model for hadronic processes: Pythia version 4.8_, Comput. Phys. Commun. **46** (1987) 43.
+* [22] X. N. Wang and M. Gyulassy, _HIJING: A Monte Carlo model for multiple jet production in p p, p A and A A collisions_, Phys. Rev. D **44** (1991) 3501.
+* [23] V. N. Gribov, _A reggeon diagram technique_, Sov. Phys. JETP **26** (1968) 414 [Zh. Eksp. Teor. Fiz. **53** (1967) 654].
+* [24] H. J. Drescher, M. Hladik, S. Ostapchenko, T. Pierog and K. Werner, _Parton-based Gribov-Regge theory_, Phys. Rept. **350** (2001) 93 [arXiv:hep-ph/0007198].
+
+* [25] X. Artru and G. Mennessier, _String model and multiproduction_, Nucl. Phys. B **70** (1974) 93.
+* [26] J. Gans, _Inclusive Charged Hadron Transverse Momentum Spectra at Center of Mass Energy of 200 GeV for p+p and d+Au Collisions at the Relativistic Heavy Ion Collider_, PhD. Thesis, Yale University, 2004; available at [http://www.star.bnl.gov/STAR/central/theses/2004/gans_jon.pdf](http://www.star.bnl.gov/STAR/central/theses/2004/gans_jon.pdf).
+* [27] Z. Koba, H. B. Nielsen and P. Olesen, _Scaling Of Multiplicity Distributions In High-Energy Hadron Collisions_, Nucl. Phys. B **40** (1972) 317.
+* [28] G. J. Alner _et al._ [UA5 Collaboration], _A New Empirical Regularity For Multiplicity Distributions In Place Of Kno Scaling_, Phys. Lett. B **160**, 199 (1985).
+* [29] G. Arnison _et al._ [UA1 Collaboration], _Transverse Momentum Spectra For Charged Particles At The Cern Proton Anti-Proton Collider_, Phys. Lett. B **118** (1982) 167.
+* [30] G. Pancheri and Y. Srivastava, _Jets In Minimum Bias Physics_, Phys. Lett. B **159** (1985) 69.
+* [31] L. Van Hove, _Multiplicity dependence of p(t) spectrum as a possible signal for a phase transition in hadronic collisions_, Phys. Lett. B **118** (1982) 138.
+* [32] K. H. Ackermann _et al._ [STAR Collaboration], _STAR detector overview_, Nucl. Instrum. Meth. A **499** (2003) 624.
+* [33] M. Anderson _et al._, _The STAR time projection chamber: A unique tool for studying high multiplicity events at RHIC_, Nucl. Instrum. Meth. A **499** (2003) 659, arXiv:nucl-ex/0301015.
+* [34] R. Brun and F. Rademakers, _ROOT: An object oriented data analysis framework_, Nucl. Instrum. Meth. A **389** (1997) 81, available at [http://root.cern.ch](http://root.cern.ch).
+* [35] The ROOT4STAR project, available at [http://www.star.bnl.gov/STAR/comp/root/index2.html](http://www.star.bnl.gov/STAR/comp/root/index2.html).
+* [36] G. D'Agostini, _A Multidimensional unfolding method based on Bayes' theorem_, Nucl. Instrum. Meth. A **362** (1995) 487.
+
+* [37] D. Acosta _et al._ [CDF Collaboration], _Soft and hard interactions in \(p\bar{p}\) collisions at \(\sqrt{s}=\) 1800-GeV and 630-GeV_, Phys. Rev. D **65** (2002) 072005.
+* anti-proton collisions at \(\sqrt{s}=0.2\) TeV to \(0.9\) TeV_, Nucl. Phys. B **335** (1990) 261.
+* [39] N. Moggi, _Soft multiparticle production in \(p\bar{p}\) interactions at 1800 and 630 GeV_, PhD. Thesis, Universita Degli Studi di Pavia, available at [http://www-cdf.fnal.gov/thesis/cdf5329_soft_multiparticle.ps.gz](http://www-cdf.fnal.gov/thesis/cdf5329_soft_multiparticle.ps.gz).
+* [40] G. J. Alner _et al._ [UA5 Collaboration], _An Investigation Of Multiplicity Distributions In Different Pseudorapidity Intervals In Anti-P P Reactions At A Cms Energy Of 540-GeV_, Phys. Lett. B **160** (1985) 193.
+* [41] R. E. Ansorge _et al._ [UA5 Collaboration], _Charged particle multiplicity distributions at 200 GeV and 900 GeV center-of-mass energy_, Z. Phys. C **43** (1989) 357.
+* [42] S. Aronson, _The future of RHIC_, Nucl. Phys. A **774** (2006) 369.
+* [43] STAR FileCatalog, available at [http://www.star.bnl.gov/STAR/comp/sofi/FileCatalog/user.html](http://www.star.bnl.gov/STAR/comp/sofi/FileCatalog/user.html).
+
+## Appendix A STAR and RHIC rates
+
+Table A.1 shows the summary of RHIC operation from its start-up until year 2005.
+
+For p+p almost all RHIC runs have been at center-of-mass energy of 200 GeV, the same energy at which most of heavy ion runs have been performed. Recently, there's a tendency to reach higher energies in p+p, in connection with RHIC spin program. For heavy ions and d+Au there are two main energies used, namely 200 GeV and 62 GeV.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|} \hline Year & Run plan & \(\sqrt{s}_{NN}\) & Sample & Running period \\ \hline
+2000 & Au+Au & 130 GeV & 20 \(\mu\)b\({}^{-1}\) & 6 weeks \\ \hline
+2001/ & Au+Au & 200 GeV & 260 \(\mu\)b\({}^{-1}\) & 16 weeks \\
+2002 & p+p & 200 GeV & 1.4 pb\({}^{-1}\) & 5 weeks \\  & Au+Au & 19 GeV & 0.4 \(\mu\)b\({}^{-1}\) & 1 day \\ \hline
+2003 & d+Au & 200 GeV & 74 nb\({}^{-1}\) & 10 weeks \\  & p+p & 200 GeV & 5 pb\({}^{-1}\) & 6 weeks \\ \hline
+2004 & Au+Au & 200 GeV & 3740 \(\mu\)b\({}^{-1}\) & 12 weeks \\  & Au+Au & 62 GeV & 67 \(\mu\)b\({}^{-1}\) & 3 weeks \\  & p+p & 200 GeV & 100 pb\({}^{-1}\) & 7 weeks \\ \hline
+2005 & Cu+Cu & 200 GeV & 42 nb\({}^{-1}\) & 8 weeks \\  & Cu+Cu & 62 GeV & 1.5 nb\({}^{-1}\) & 12 days \\  & Cu+Cu & 22 GeV & 18 \(\mu\)b\({}^{-1}\) & 39 hours \\  & p+p & 200 GeV & 30 pb\({}^{-1}\) & 10 weeks \\  & p+p & 410 GeV & 0.1 pb\({}^{-1}\) & 1 day \\ \hline \end{tabular}
+\end{table}
+Table A.1: Summary of RHIC runs 1 through 5 (2000-2005). Taken from [42]. \(\sqrt{s}_{NN}\) is the center-of-mass energy per nucleon–nucleon pair.
+
+Both raw data and reconstructed ROOT files for physics analysis (MuDst) are stored in RCF storage systems. STAR uses FileCatalog [43] software to keep information about all files and to enable queries. The criteria for searching the files for given physics analysis are: collision system (p+p, Au+Au etc), energy, year, reconstruction software version, triggers, detectors used in data taking etc.
+
+Table A.2 shows total number of events from years 2000-2005, stored in MuDst files, as found by FileCatalog in August 2006. More than 95 % of these events were taken when the TPC was ON, except for p+p 200 GeV, where about a half of all events was taken only using the fast detectors (mainly calorimeters). In August 2006, the data from 2006 running wasn't fully reconstructed, it's not included in table A.2.
+
+\begin{table}
+\begin{tabular}{|l|r|r|} \hline Collision & \(\sqrt{s}_{NN}\) & total \# of \\ system & [GeV] & events (millions) \\ \hline p+p & 200 & 324 \\ p+p & 410 & 2 \\ \hline d+Au & 200 & 82 \\ \hline Cu+Cu & 22 & 3 \\ Cu+Cu & 62 & 40 \\ Cu+Cu & 200 & 93 \\ \hline Au+Au & 19 & 0.3 \\ Au+Au & 62 & 17 \\ Au+Au & 130 & 1 \\ Au+Au & 200 & 119 \\ \hline \end{tabular}
+\end{table}
+Table A.2: Total number of events in MuDst files, as in August 2006.
+
+## Appendix B Kinematics
+
+In experiments with colliding beams, Lorentz boosts are most important along the beam axis (\(z\)). Therefore, it's convenient to introduce _rapidity_\(y\) defined as:
+
+\[y=\frac{1}{2}\ln\left(\frac{E+p_{z}}{E-p_{z}}\right)=\frac{1}{2}\ln\left(\frac{E+ p\cos\theta}{E-p\cos\theta}\right)\] (B.1)
+
+Rapidity is Lorentz additive with respect to boosts along \(z\) axis, in other words, interval in rapidity \(\Delta y\) is Lorentz-invariant. _Pseudorapidity_\(\eta\) is an approximation of rapidity for mass-less particles:
+
+\[\eta=\lim_{m\to 0}y=-\ln\tan\frac{\theta}{2}\] (B.2)
+
+and \(\eta\approx y\) in mid-rapidity (\(y\approx 0\)).
+
+Using rapidity, one can simplify equation for invariant cross section 2.3, shown here again:
+
+\[\sigma_{\rm pp}^{\rm C}=E_{\rm C}\frac{d^{3}\sigma}{dp_{\rm C}^{3}}\] (B.3)\[dp^{3} = dp_{z}p_{\rm T}dp_{\rm T}d\phi\] (B.4) \[dp_{z} = \left(\frac{dp_{z}}{dy}\right)dy\] (B.5) \[\frac{dy}{dp_{z}} = \frac{1}{2}\frac{E-p_{z}}{E+p_{z}}\left(\frac{\left(E-p_{z}\right) \left(1+\frac{dE}{dp_{z}}\right)-\left(E+p_{z}\right)\left(-1+\frac{dE}{dp_{z} }\right)}{(E-p_{z})^{2}}\right)\] (B.6) \[\frac{dE}{dp_{z}} = \frac{d\left(\sqrt{m^{2}+{p_{\rm T}}^{2}+p_{z}^{2}}\right)}{dp_{ z}}=\frac{1}{2}\left(\frac{1}{\sqrt{m^{2}+{p_{\rm T}}^{2}+p_{z}^{2}}}\right)2p_{z}= \frac{p_{z}}{E}\] (B.7) \[\frac{dy}{dp_{z}} = \frac{1}{E}\] (B.8) \[E\frac{d^{3}\sigma}{dp^{3}} = \frac{1}{p_{\rm T}}\frac{d^{3}\sigma}{d\phi dydp_{\rm T}}\] (B.9)
+
+where \(p_{\rm T}\) is transverse momentum and \(m\) is the rest mass. For unpolarized beams, one has azimuthal symmetry, therefore \(\phi\) can be integrated out, giving \(2\pi\).
+
+## Appendix C Luminosity and pile-up
+
+In STAR, the primary luminosity measure in p+p running are the BBC detectors, used in coincidence to trigger Non-Singly-Diffractive (NSD) minimum bias events. The corresponding cross section is \(\sigma_{NSD}=31\) mb and the efficiency of BBC coincidence trigger is 86%. Therefore, \(\sigma_{BBC}\approx 27\) mb. Then, the luminosity can be obtained as:
+
+\[\mathcal{L}=\frac{f_{BBC}}{\sigma_{BBC}}\] (C.1)
+
+where \(f_{BBC}\) is the BBC coincidence rate. In 2001-2002 p+p running, the average value of BBC coincidence rate was 6 kHz, which corresponds to luminosity \(\mathcal{L}\approx 0.2\cdot 10^{30}\) cm\({}^{-2}\)s\({}^{-1}\).
+
+The beam crossing rate for p+p running at RHIC is \(f_{cros}=10\) MHz. So the probability of given beam crossing producing an interaction triggered by BBC coincidence is:
+
+\[p=\frac{f_{BBC}}{f_{cros}}\] (C.2)
+
+During 2001-2002 p+p running this was on average \(p=6\) kHz/10 MHz \(\approx 0.06\%\). Therefore, even at peak luminosity (which was about four times higher than the average luminosity), the probability to have more than one interaction in single beam crossing is negligible.
+
+However, as the TPC readout time is 40 \(\mu\)s, another interaction can happen before the TPC is read out. Actually, the data read out from the TPC can contain tracks from pile-up events happening in time window \(\pm 40\)\(\mu\)s around the triggered event. Therefore, the number of these pile-up events in the TPC is approximately:
+
+\[N_{pile-up}=80\ \mu\mathrm{s}\cdot f_{BBC}\] (C.3)which gives on average \(N_{pile-up}=80\ \mu{\rm s}\cdot 6\ {\rm kHz}\doteq 0.48\). This cannot be neglected. Note, that this is for average luminosity - at peak luminosity there are tracks from two more events present in the TPC, in addition to the triggered event. Therefore, the Central Trigger Barrel (CTB) detector has to be used in primary vertex finding, which is described in section 4.1.2.
+
+## Appendix D Hijing settings
+
+Hijing version 1.328 has been used, to simulate proton collisions with center-of-mass energy of \(\sqrt{s}=200\) GeV.
+
+Other important parameters were set this way:
+
+*'Impact parameter min/max (fm)'0. 5.0
+*'Jet quenching (1=yes/0=no)'0
+*'Hard scattering/pt jet'0 -2.25
+*'Max # jets per nucleon (D=10)'10
+*'Set ihpr2(11) and ihpr2(12)'1 1
+*'Set ihpr2(21) and ihpr2(18)'1 0
+*'set B production'1.5

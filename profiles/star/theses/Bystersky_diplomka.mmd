@@ -1,0 +1,715 @@
+Univerzita Karlova v Prozze
+
+Matematicko-fyzikalni fakulta
+
+**DIPLOMOVA PRACE**
+
+Michael Bystersky
+
+**Modelovani a studium korelaci**
+
+**identickych castic**
+
+**v proton-protonovych**
+
+**a jadro-jadernych srazkach merenych**
+
+**experimentem STAR na RHIC**
+
+Ustav casticove a jaderne fyziky
+
+Vedouci diplomove prace : Michal Sumbera, CSc.
+
+Ustav jaderne fyziky - AVCR
+
+Studijni obor : Jaderna a subjaderna fyzikaCharles University in Prague, Czech Republic
+
+Faculty of Mathematics and Physics
+
+**DIPLOMA THESIS**
+
+Michal Bystersky
+
+**Modeling and studying the identical particle correlations in proton-proton and nucleus-nucleus collisions measured in the experiment STAR at RHIC**
+
+Institute of Particle and Nuclear Physics
+
+Supervisor : Michal Sumbera, CSc.
+
+Nuclear Physics Institute - ASCR
+
+Study field : Nuclear and Subnuclear Physics
+
+## Acknowledgements
+
+I would like to thank my supervisor Michal Sumbera for leading my thesis, for his guidance and help. I am very grateful to Richard Lednicky for the fruitful discussions and many helpful comments. Also, I would like to thank Petr Chaloupka for his help.
+
+Prohlasuji, ze jsem svou diplomovou praci napsal samostatne a vyhradne s pouzitim citovanych pramenu. Souhlasim se zapujcovanim prace.
+
+V Praze dne 31.8.2004 Michal Bystersky
+
+###### Contents
+
+* 1 The Relativistic Heavy Ion Collider
+	* 1.1 The accelerator
+	* 1.2 STAR detector
+	* 1.3 Probing the QGP
+* 2 Particle interferometry
+	* 2.1 HBT and GGLP
+	* 2.2 BEC
+	* 2.3 The two-particle correlation function
+		* 2.3.1 The wave-function approach
+		* 2.3.2 Classical current formalism
+	* 2.4 Gaussian parametrization
+		* 2.4.1 1D \(q_{\rm inv}\) parametrization
+		* 2.4.2 3D Bertsch-Pratt parametrization
+	* 2.5 Construction of the correlation function in the experiment
+		* 2.5.1 The two-particle correlation function
+		* 2.5.2 The three-particle correlation function
+* 3 Simulating p-p and Au-Au collisions
+	* 3.1 UrQMD
+		* 3.1.1 Configuration and event simulation
+		* 3.1.2 Particle selection
+		* 3.1.3 UrQMD dynamics
+		* 3.1.4 UrQMD output
+* 4* 4 Modeling Bose-Einstein correlations
+	* 4.1 Numerical modeling of BEC
+		* 4.1.1 Weighting method
+		* 4.1.2 Charge reassigning algorithm
+	* 4.2 \(k_{\top}\) dependence of the interferometry parameters
+	* 4.3 The three-particle correlations
+* 5 Conclusions and summary
+
+**Nazev prace:**: Modelovani a studium korelaci identickych castic v proton-protonovych a jadro-jadernych srazkach merenych experiment STAR na RHIC
+**Autor:**: Michal Bystersky
+**Katedra:**: Ustav casticove a jaderne fyziky
+**Vedouci diplomove prace:**: Michal Sumbera, CSc.
+**e-mail vedouciho:**: sumbera@ujf.cas.cz
+**Abstrakt:**: Na koncovych casticovych stavech ze srazek Au-Au a p-p produkovanych mikroskopickym transportnim modelem UrQMD bylo provedeno srovnani dvou ruznych metod modelovani Bose-Einstein-ovych korelaci. Se standartni vahnovou metodou byl srovnan novy algoritmus, ktery zamenuje naboje vzniklych castic, jejich cityhynost dana generatorem srazek vsak zustava beze zmeny. Byly vytvoreny dvojcasticove korelacni funkce \(C_{2}(\vec{q},\vec{k})\) s \(q_{inv}\) a Bertsch-Prattovou parametrizaci, u nichz byla studovana jejich zavislost na picne hybnosti. Studovana byla take trojcasticova korelacni funkce.
+**Klicova slova:**: mnohocasticove Bose-Einsteinovy korelace, dvojcasticova korelacni funkce, UrQMD transportni model, srazky tezkych iontu
+**Title:**: Modeling and studying the identical particle correlations in proton-proton and nucleus-nucleus collisions measured in the experiment STAR at RHIC
+**Author:**: Michal Bystersky
+**Department:**: Institute of Particle and Nuclear Physics
+**Supervisor:**: Michal Sumbera, CSc.
+**Supervisor's e-mail address:**: sumbera@ujf.cas.cz
+**Abstract:**: Using Au-Au and p-p collisions simulated by the microscopic transport model UrQMD, two different methods of introducing Bose-Einstein correlations among final state particles are studied. New algorithm which reassigns charges of produced particles but does not alter the original four-momenta provided by event generator is compared to standard weighting method. Two-particle correlation functions \(C_{2}(\vec{q},\vec{k})\) in \(q_{inv}\) and Bertsch-Pratt parametrisations are constructed and their transverse momentum dependence is studied. Three-particle correlation function is constructed.
+**Keywords:**: multi-particle Bose-Einstein correlations, two-particle correlation function, UrQMD transport model, heavy ion collisions
+
+## Chapter 1 The Relativistic Heavy Ion Collider
+
+### 1.1 The accelerator
+
+The Relativistic Heavy Ion Collider [1] (RHIC) at Brookhaven National Laboratory is currently the world's highest energy accelerator of heavy nuclei and the world's first polarized proton collider. It began operation in the year 2000, following 10 years of development and construction. The collider consists of two independent concentric acceleration and storage rings with a circumference of 3.8 km, which are made of 1740 super-conducting magnets. There are six intersection points, of which four are currently instrumented with experiments. RHIC can store and collide nuclei with masses ranging from protons to Au and due to the independence of the storage rings it can collide beams of unequal masses, such as deuterons with Au ions. The top energy for Au-Au collisions is \(\sqrt{s_{\rm NN}}=200\) GeV per nucleon pair.
+
+The layout of the RHIC accelerator complex is shown in Fig. 1.1. Heavy ion beams originate as partially ionized Au atoms that are emitted from a source, such as a high temperature gold filament. The positively charged ions are accelerated by the Tandem van de Graaff accelerator and are passed through thin sheets of gold foil which further ionize Au atoms. Successively accelerated by the Booster Accelerator, heavy ion beams enter the Alternating Gradient Synchrotron (AGS), where they are accelerated to 10.8 GeV per nucleon. The AGS employs a strong focusing technique with its 240 magnets situated along the acceleration ring, focusing the beam in both the horizontal and vertical direction. Here, ions are fully stripped of their electrons and once at full AGS energy, they are injected into the main RHIC ring in both the clockwise and counterclockwise direction. Once in the RHIC ring, Au
+
+[MISSING_PAGE_EMPTY:8]
+
+which can produce a magnetic field of 0.5 Tesla, for charged particle momentum analyses.
+
+The main tracking detector is a large Time Projection Chamber (TPC). It is located in the solenoidal magnet. The TPC is a gas chamber filled with a mixture of 90% argon and 10% methane. It is 4.2 m long and it's inner and outer radii are 50 cm and 200 cm, respectively. The acceptance of the TPC detector in the pseudo-rapidity is \(|\eta|<1.8\) and it has a full azimuthal coverage \(-\pi<\phi<\pi\). Particles with momenta ranging from 100 MeV/\(c\) to around 1 GeV/\(c\) can be identified here. The TPC is put in a uniform electric field. As charged particles pass through the TPC, they interact with the gas molecules and release secondary electrons. These electrons then drift to the readout system at the both ends of the chamber, where the induced charge is used to reconstruct the original position of the particle trajectories.
+
+Additional tracking of charged particles is provided at mid-rapidity by a Silicon Vertex Detector (SVT), surrounding the interaction region close to the beam pipe, and two forward TPCs (FTPC) for tracking charged particles at large rapidity \(2.5<|\eta|<1.8\).
+
+Other subsystems include the Barrel and Endcap Electromagnetic Calorimeters (EMC) for measuring photons, electrons and the total transverse energy of events, a Ring Imaging Cherenkov (RICH) for particle identification at high transverse momenta.
+
+Figure 1.2: A perspective view of the STAR detector.
+
+Triggering is provided by the fast detectors, the Zero Degree Calorimeters (ZDC) and a Central Trigger Barrel (CTB). ZDCs are compact hadronic calorimeters, capable of detecting uncharged particles emitted in the beam direction. They are located near the beam axis, 18 m on either side from the interaction region. ZDCs detect the beam fragmentation neutrons, called the spectator neutrons, as they do not interact with other nucleons but instead pass through the collision region. Measuring the number of spectator neutrons allows to trigger events on collision centrality. CTB is a barrel of scintillators surrounding the TPC. The signal from the scintillators is proportional to the charged particle multiplicity. The Central trigger is based on accepting events with high CTB signal and low ZDC signal.
+
+My experience with the STAR detector is based on the opportunity that I have had to participate in the STAR Run4 data-taking during the year 2004. I have taken two gas shifts during the pre-run commissioning of the STAR detector, when P-10 (90% argon, 10% methane) was reintroduced into the STAR TPC. In the course of 15 shifts at the beginning of the Run4 data-taking period, during the Au-Au run at full RHIC energy \(\sqrt{s_{\rm NN}}=200\) GeV, I participated in operation and monitoring of the STAR detector as a shift crew, where my responsibilities were monitoring the run-time indicators for all subsystems of the detector. Also, being a runtime operator, I took part in energizing STAR detector components and triggering events.
+
+Figure 1.3: Cutaway side view of the STAR detector as configured in 2001.
+
+### 1.3 Probing the QGP
+
+Ultra-relativistic heavy ion collisions at RHIC not only produce matter at the highest energy density ever achieved, but also provide a number of rare observables that have not been accessible previously. Under sufficiently extreme conditions, a transition to QGP, a new form of matter in which quarks and gluons act as free particles, is expected [3, 4]. According to the QCD lattice simulations, the transformation shall occur at a temperature of approximately 170 MeV [3, 4].
+
+Detector STAR is able to measure many observables simultaneously to study signatures of a possible QGP phase transition. Only a very few particle species, mainly leptons, can provide direct information about the initial partonic stage of the collision, therefore the experimental confirmation of a possibly created QGP is difficult. The characteristic observables of QGP include the observed enhancement of strange hadron and low-mass dilepton yields and measured \(J/\Psi\)-suppression [4].
+
+In order to successfully determine whether or not the QGP is being formed in the ultra-relativistic heavy ion collisions, a more detailed understanding of the space-time geometry and dynamics of the evolving reaction zone is required. This can be achieved with two- and three-particle correlations, which provide the only known way to obtain directly information about the space-time structure of the source from the measured particle momenta. The size and shape of the reaction zone, evolution time and the emission duration can then become accessible [5].
+
+## Chapter 2 Particle interferometry
+
+Interferometry is an experimental method based on wave interference effects and can be used to gain information about source of radiation which is unreachable by other means. In astrophysics, Michelson amplitude interferometry and HBT intensity interferometry are used to study the angular size of distant stars. When applied to particle physics, GGLP interferometry, the analogy to HBT interferometry, is being successfully used to probe the geometry of the particle emitting source established in the collisions of elementary particles and heavy ions.
+
+### 2.1 HBT and GGLP
+
+The intensity interferometry, known as HBT, was proposed and developed by the radio astronomers Robert Hanbury Brown and Richard Twiss to measure angular size of distant stars in the 1950's [6]. Their aim was to overcome the technical limitations of Michelson amplitude interferometry at that time, where the resolution at a given wavelength is limited by the separation over which amplitudes can be compared. While Michelson amplitude interferometry measures the square of the sum of the two amplitudes \(\psi_{A}\) and \(\psi_{B}\) falling on two detectors \(A\) and \(B\), see Fig. 2.1,
+
+\[\langle I_{A+B}\rangle=\langle|\psi_{A}+\psi_{B}|^{2}\rangle\,, \tag{2.1}\]
+
+HBT intensity interferometry measures the average product of two intensities \(I_{A}\) and \(I_{B}\),
+
+\[\langle I_{A}I_{B}\rangle=\langle|\psi_{A}|^{2}|\psi_{B}|^{2}\rangle\,. \tag{2.2}\]
+
+To demonstrate the technique, Hanbury Brown and Twiss measured the intensity correlations between two photon beams separated from a mercury vapor lamp and they thus showed that photons in an apparently uncorrelatedthermal beam tend to be detected in close-by pairs [7]. This photon bunching is known as the HBT effect in optics. The increased or decreased probability to measure particle pairs can be considered as an analogue to the interference patterns in amplitude interferometry.
+
+The particle physics analogy of the HBT effect in optics was discovered by G. Goldhaber, S. Goldhaber, W. Y. Lee and A. Pais in 1960 and is known as the GGLP effect [8]. In the \(p\bar{p}\) annihilation experiments they studied the angular correlations between identical pions. Fig. 2.2 shows the numerical evaluation of the distribution functions of the pion pair angles for identical and non-identical pions with comparison to the experimental distributions of angles between pion pairs, as measured by the GGLP experiment [8]. For the case of identical pions, the effect of raising the distribution of the pion pair angles for small pair angles can be seen. The observed enhancement of pairs at small relative momenta was explained in terms of the spatial extent of the \(p\bar{p}\) system [8].
+
+In the sequel of this work, it was gradually realized that the correlations of identical particles emitted by highly excited nuclei are sensitive not only to the geometry of the system, but also to its lifetime. G. I. Kopylov and M. I. Podgoretsky [9, 10] suggested to study the interference effect in terms of the correlation function and they settled the method of construction of the correlation function. They clarified the role of the space-time characteristics of particle production and analyzed the parametrizations of the correlation function in various physical situations.
+
+In ultra-relativistic heavy ion collisions, two-particle interferometry, as proposed by GGLP, is a useful tool to study the the space-time geometry of the particle emitting source. However, when going from HBT method in
+
+Figure 2.1: The amplitude (a) and intensity (b) interferometry set-up schematically.
+
+optics to its analogy in particle physics, the GGLP effect, the following point needs to be considered. In particle physics one does not measure relative distances \(r\) in order to deduce relative momenta \(q\) and thus angular sizes, but one measures rather momenta in order to deduce distances [11].
+
+### 2.2 Bec
+
+Both the HBT and the GGLP effects are based on Bose-Einstein correlations (BEC). Bose-Einstein correlation effects can be viewed as a consequence of the symmetry properties of the wave function with respect to permutations of two identical particles with integer spin and are thus intrinsic quantum phenomena. Subsequently Fermi-Dirac correlations for nucleons have also been observed, but due to the fact that the quantum coherence appears only in BEC and that pions are the most abundantly produced secondaries in high-energy reactions, BEC present the important heuristic and methodological advantages over Fermi-Dirac correlations [12].
+
+BEC are thus the identical particle momentum-spatial correlations which
+
+Figure 2.2: The numerical evaluation of the distribution functions of the pion pair angles \(\theta\) for like (a) and unlike (b) pions with comparison to the experimental distributions of angles between pion pairs. Also shown is the statistical distribution SM without the effect of Bose–Einstein correlations. Figure taken from [8].
+
+are of quantum statistical origin. As already mentioned, the basic concept of GGLP interferometry is to draw conclusions about spatial component of the phase space distribution of emitted particles by measuring its momentum component. Therefore it is important to extract correlations due to quantum statistics only. The main sources for other than quantum statistical correlations are energy-momentum conservation constraints on momentum distribution for low multiplicity reactions, final state interactions due to the strong force between pions, long-range Coulomb interactions between two pions and correlations due to the decay products of resonances [5].
+
+### 2.3 The two-particle correlation function
+
+The two-particle momentum correlation function of identical particles is defined [5] as a normalized ratio of corresponding two- and single-particle distributions
+
+\[C_{2}(p_{i},p_{j})={\cal N}\,\frac{P_{2}(p_{i},p_{j})}{P_{1}(p_{i})P_{1}(p_{j })}\,, \tag{2.3}\]
+
+where the normalization factor \({\cal N}\) guarantees the behavior of the correlator at large relative momenta \(q=p_{i}-p_{j}=\infty\) as \(C_{2}=1\). The Lorentz invariant two-particle distribution
+
+\[P_{2}(p_{i},p_{j})=E_{i}E_{j}\,\frac{dN}{d^{3}p_{i}\,d^{3}p_{j}} \tag{2.4}\]
+
+indicates the probability to measure two particles with momenta \(p_{i}\) and \(p_{j}\) and it contains any two-particle momentum correlation of the production process in a heavy ion reaction. The denominator in the ratio (2.3) is the reference spectrum \(P_{1}(p_{i})P_{1}(p_{j})\) and it is the probability to measure two particles with momenta \(p_{i}\) and \(p_{j}\) derived from single-particle distribution
+
+\[P_{1}(p_{i})=E_{i}\,\frac{dN}{d^{3}p_{i}}\,. \tag{2.5}\]
+
+The reference spectrum appears like the two-particle distribution except for any two-particle correlations. Therefore, if there were no two-particle momentum correlations in the event, which is not true for the case of identical pions satisfying the Bose-Einstein statistics, the correlation function would have a constant value of 1 even for small relative momenta \(q\).
+
+The theory of the BE interferometry can be studied in the simplified case using the wave-function approach. The more advanced way of approaching the theory of BE interferometry is the classical current approach based on quantum field theoretical formalism.
+
+#### The wave-function approach
+
+In the following example, the principle of the GGLP experiment [8] is demonstrated. Assume two identical particles, pions, with momenta \(p_{i}\) and \(p_{j}\) are incoherently produced at points \(x\) and \(y\) within a source volume characterized by its density distribution of the emission points \(\rho(x)\). After their emission, the particles are detected in the registration points \(r_{i}\) and \(r_{j}\) so that in \(r_{i}\) only particles of momentum \(p_{i}\) and in \(r_{j}\) only particles of momentum \(p_{j}\) are registered, as illustrated in Fig. 2.3. Because the particles are identical one cannot decide which particle originates from \(x\) and which from \(y\). This is illustrated as particle paths that follow either full or dashed lines in Fig. 2.3.
+
+Under the assumption that the particle propagation between the emission and detection points can be described by a plane wave, the wave function of particle with momentum \(p_{i}\) emitted at point \(x\) and detected at point \(r_{i}\) can be written as
+
+\[\Psi_{i}=A(x,p_{i})e^{ip_{i}\cdot(x-r_{i})}\,, \tag{2.6}\]
+
+where \(A(x,p_{i})\) describes the emission amplitude of particle \(i\) at point \(x\). The total probability to observe particle \(i\) carrying momentum \(p_{i}\) which was emitted from the source can then be written as
+
+\[P_{1}(p_{i})=\int d^{4}x\,\rho(x)\,|\Psi_{i}|^{2}=\int d^{4}x\,\rho(x)\,|A(x,p_ {i})|^{2}. \tag{2.7}\]
+
+Similarly, the two-particle distribution (2.4) of identical particles obeying Bose-Einstein statistics can be written as
+
+\[P_{2}(p_{i},p_{j})=\int d^{4}x\,d^{4}y\,\rho(x)\rho(y)|\Psi_{ij}|^{2}\,, \tag{2.8}\]
+
+Figure 2.3: The GGLP measurement schematically.
+
+where the two-particle wave function,
+
+\[\Psi_{ij} = \frac{1}{\sqrt{2}}\Big{(}A(x,p_{i})e^{ip_{i}\cdot(x-r_{i})}A(y,p_{j} )e^{ip_{j}\cdot(y-r_{j})} \tag{2.9}\] \[\qquad\quad+A(y,p_{i})e^{ip_{i}\cdot(y-r_{i})}A(x,p_{j})e^{ip_{j} \cdot(x-r_{j})}\Big{)}\,,\]
+
+is a symmetrized product of single-particle wave functions (2.6), see Fig. 2.3.
+
+The calculation of integral (2.8) greatly simplifies if we use the smoothness approximation, which assumes that the emission amplitude \(A(x,p_{i})\) has a smooth momentum dependence,
+
+\[A(x,p_{i})A(y,p_{j})=A(x,k+\frac{1}{2}q)A(y,k-\frac{1}{2}q)\approx A(x,k)A(y,k )\,, \tag{2.10}\]
+
+where \(k=\frac{1}{2}\left(p_{i}+p_{j}\right)\) and \(q=p_{i}-p_{j}\) are the average pair momentum and the relative momentum, respectively. This allows us to write the square modulus of the two-particle wave function (2.9) in the form
+
+\[\left|\Psi_{ij}\right|^{2}=\left|A(x,k)\right|^{2}\left|A(y,k)\right|^{2} \left(1+\frac{e^{iq\cdot(x-y)}+e^{-iq\cdot(x-y)}}{2}\right)\,. \tag{2.11}\]
+
+Now, using (2.11) with the two-particle distribution, Eq. (2.8), one obtains
+
+\[P_{2}(p_{i},p_{j})=\int d^{4}x\,d^{4}y\,\rho(x)\rho(y)\left|A(x,k)\right|^{2} \left|A(y,k)\right|^{2}\left(1+\cos(q\cdot r)\right)\,, \tag{2.12}\]
+
+where \(r=x-y\) is the distance between emission points of pions.
+
+The two-particle distribution, Eq. (2.12), leads to the two-particle correlation function for bosons written as
+
+\[C_{2}(p_{i},p_{j})=\frac{P_{2}(p_{i},p_{j})}{P_{1}(p_{i})P_{1}(p_{j})}=1+ \left\langle\cos(q\cdot r)\right\rangle, \tag{2.13}\]
+
+where the averaging \(\left\langle\ldots\right\rangle\) in the last term is understood over space-time coordinates \(x\) and \(y\). Eq. (2.13) is the basic relation for the standard method of introducing Bose-Einstein correlations among identical bosons generated via classical Monte Carlo simulations, the weighting method, discussed in Ch. 4.
+
+Equivalently, using (2.11) with (2.8), the following relation can be written for the two-particle distribution,
+
+\[P_{2}(p_{i},p_{j})=P_{1}(p_{i})P_{1}(p_{j})+\left|\int d^{4}x\,e^{iq\cdot x} \rho(x)|A(x,k)|^{2}\right|^{2}\,. \tag{2.14}\]Introducing the effective source density distribution,
+
+\[\rho_{\rm eff}(x,k)=\rho(x)\,\frac{|A(x,k)|^{2}}{P_{1}(k)}\,, \tag{2.15}\]
+
+and its Fourier transform with the relative four-momentum \(q\),
+
+\[\tilde{\rho}_{\rm eff}(q,k)=\int d^{4}x\,e^{iq\cdot x}\rho_{\rm eff}(x,k)\,, \tag{2.16}\]
+
+yields the two-particle distribution, Eq. (2.14), in the form
+
+\[P_{2}(p_{i},p_{j})=P_{1}(p_{i})P_{1}(p_{j})\left(1+|\tilde{\rho}_{\rm eff}(q,k )|^{2}\right)\,. \tag{2.17}\]
+
+Eq. (2.17) enables us to relate the second-order correlation function (2.3) for bosons to the source density. Assuming that the individual emission points of the source act incoherently, the two-particle correlation function can be written as
+
+\[C_{2}(p_{i},p_{j})=\frac{P_{2}(p_{i},p_{j})}{P_{1}(p_{i})P_{1}(p_{j})}=1+| \tilde{\rho}_{\rm eff}(q,k)|^{2}\,\,. \tag{2.18}\]
+
+Extracting the spatial information of the source \(\rho_{\rm eff}(x)\) from the measured relative momentum spectra is then a Fourier inversion problem. Therefore, Eq. (2.18) is the basic relation of Bose-Einstein interferometry and it shows how momentum correlation measurements in particle physics can provide information about the space-time structure of the particle emitting source [12].
+
+It is known from quantum optics, that in spite of Bose-Einstein statistics, the HBT effect does not exist for particles emitted with phase coherence, but only for chaotic sources [5]. As a consequence of coherent emission of particles from the source, the correlation function decreases at small relative momenta \(q\) below the maximum value \(C_{2}=2\) permitted by Eq. (2.18). To take this effect empirically into account, a correction factor \(\lambda\) is introduced into the correlation function, which is then modified into form
+
+\[C_{2}(p_{i},p_{j})=1+\lambda\left|\tilde{\rho}_{\rm eff}(q,k)\right|^{2}\,. \tag{2.19}\]
+
+Because formally this generalization offers also the possibility to describe partially coherent sources, the corresponding parameter \(\lambda\) is often referred to as the correlation strength or the coherence parameter. By postulation the correlation strength \(\lambda\) is limited by \((0,1)\), where indeed \(\lambda=0\) leads to a totally coherent source and \(\lambda=1\) to a totally chaotic particle emitting source.
+
+Note however that there is a number of other reasons leading to the correlation strength \(\lambda<1\)[13]. Taking aside the purely experimental reasons,like particle impurities and detector resolution, these include the decays of the long-lived particles or resonances and the presence of the production processes characterized by quite different radii.
+
+Even though the wave-function formalism allows a simplified and perhaps a more intuitive understanding of concepts of the theory of interferometry, it has several shortcomings [12]. The wave-function formalism is not appropriate for high average multiplicities reactions in high-energy physics, because Eq. (2.9) is just a wave function of the two-boson system. The assumption that only two bosons are produced is satisfied at low energies or low average multiplicities, as was the case of the exclusive reactions in the GGLP experiment [8], contrary to the high-energy nuclear collisions containing several thousands of particles in final states. Moreover, this formalism cannot treat adequately the coherence. The correlation function derived by the wave-function approach refers to chaotic or incoherent sources and takes the effect of coherence into account only empirically with correction factor \(\lambda\) in the ad hoc parametrization (2.19).
+
+A more complete and more correct treatment of BEC is provided by the following space-time formalism of classical currents.
+
+#### Classical current formalism
+
+The most satisfactory approach to BEC at present is the classical current formalism which is based on quantum field theory, where the pion production in the nuclear collision is described by the the field equations for the pion field \(\phi(x)\),
+
+\[\left(\Box+m^{2}\right)\hat{\phi}(x)=\hat{J}(x)\,. \tag{2.20}\]
+
+In this equation, \(\hat{J}(x)\) represents the nuclear current operator acting as the source of pions and \(m\) is the pion mass.
+
+The classical current parametrization [14] approximates the nuclear current operator \(\hat{J}(x)\) defining sources of pions at freeze-out by a classical space-time function \(J(x)\). This model is based on the assumption that at kinetic freeze-out, when pions stop loosing their kinetic energy and the shape of their transverse momentum spectrum does not change anymore, the particle emitting source is not affected by the emission of a single pion. The final pion state for a classical source \(J(x)\) is a coherent state \(|J\rangle\) which is by definition an eigenstate of the annihilation operator \(\hat{a}_{\vec{p}_{i}}\,,\)
+
+\[\hat{a}_{\vec{p}_{i}}|J\rangle=i\tilde{J}(\vec{p}_{i})|J\rangle\,, \tag{2.21}\]
+
+where \(\tilde{J}(\vec{p}_{i})\) is the Fourier transform of the classical current \(J(x)\) satisfying the on-shell constraint \(E_{i}=\sqrt{m^{2}+\vec{p}_{i}^{\,2}}\,\) for all emitted particles.
+
+The single- and two-particle momentum distributions for pions are defined by
+
+\[P_{1}(\vec{p}_{i}) = E_{i}\,\frac{dN}{d^{3}p_{i}}=E_{i}\langle\hat{a}^{\dagger}_{\vec{p} _{i}}\hat{a}_{\vec{p}_{i}}\rangle\,, \tag{2.22}\] \[P_{2}(\vec{p}_{i},\vec{p}_{j}) = E_{i}E_{j}\,\frac{dN}{d^{3}p_{i}\,d^{3}p_{j}}=E_{i}E_{j}\langle \hat{a}^{\dagger}_{\vec{p}_{i}}\hat{a}^{\dagger}_{\vec{p}_{j}}\hat{a}_{\vec{p}_{ j}}\hat{a}_{\vec{p}_{i}}\rangle\,, \tag{2.23}\]
+
+where \(\hat{a}^{\dagger}_{\vec{p}_{i}}\) and \(\hat{a}_{\vec{p}_{i}}\) represent the creation and annihilation operators for a particle with momentum \(\vec{p}_{i}\) acting on the coherent state \(|J\rangle\), the solution to Eq. (2.20). While the single-particle spectrum is normalized to the average number of particles, \(\langle N\rangle\), per collision,
+
+\[\int\frac{d^{3}p_{i}}{E_{i}}\,P_{1}(\vec{p}_{i})=\langle N\rangle\,, \tag{2.24}\]
+
+the two-particle spectrum is normalized to the number of particles in pairs, \(\langle N(N-1)\rangle\), per event,
+
+\[\int\frac{d^{3}p_{i}}{E_{i}}\,\frac{d^{3}p_{j}}{E_{j}}\,P_{2}(\vec{p}_{i},\vec {p}_{j})=\langle N(N-1)\rangle\,. \tag{2.25}\]
+
+In order to calculate the effect of pions emitted from a chaotic source, it is necessary to use a superposition of classical sources. The classical current \(\tilde{J}(\vec{p}_{i})\) is approximated by a superposition of \(N\) independent elementary source functions \(J_{0}\) centered around phase-space points \(x_{k}\), \(p_{k}\) with phases \(\phi_{k}\),
+
+\[\tilde{J}(\vec{p}_{i})=\sum_{k=1}^{N}e^{i\phi_{k}}e^{ip_{i}\cdot x_{k}}\tilde{ J}_{0}(p_{i}-p_{k})\,, \tag{2.26}\]
+
+where the assumed chaotic particle emission from the source is characterized by random phases \(\phi_{k}\)[14]. On the other hand, in more general settings one may choose a distribution of the phases \(\phi_{k}\) which is not completely random, thereby mimicking the partial coherence of the particle emitting source. In the extreme case of completely coherent source, the correlation strength \(\lambda\) drops to 0 and correlations vanish. Alternatively, the effect of partially coherent source can be described by classical current \(J(x)\) which is a composition of a chaotic component \(J_{\rm cha}(x)\) and a coherent component \(J_{\rm coh}(x)\),
+
+\[J(x)=J_{\rm cha}(x)+J_{\rm coh}(x)\,. \tag{2.27}\]
+
+The correlation strength \(\lambda\) can be written in the form [5]
+
+\[\lambda(\vec{k})=1-\left(\frac{n_{\rm coh}(\vec{k})}{n_{\rm cha}(\vec{k})+n_{ \rm coh}(\vec{k})}\right)^{2}\,, \tag{2.28}\]where \(n_{\rm cha}(\vec{k})\) and \(n_{\rm coh}(\vec{k})\) are the number of chaotically and coherently emitted particles with momentum \(\vec{k}\), respectively. It can be seen, that as the number of coherently emitted particles increases, the correlation strength \(\lambda\) decreases below unity.
+
+By averaging over the chaotic superposition of large number \(N\) of elementary sources of particle emission, the two-particle momentum distribution (2.23) can be factorized as
+
+\[P_{2}(\vec{p}_{i},\vec{p}_{j})=E_{i}E_{j}\langle\hat{a}^{\dagger}_{\vec{p}_{i}} \hat{a}^{\dagger}_{\vec{p}_{j}}\hat{a}_{\vec{p}_{j}}\hat{a}_{\vec{p}_{i}} \rangle=E_{i}E_{j}\left(\langle\hat{a}^{\dagger}_{\vec{p}_{i}}\hat{a}_{\vec{p}_ {i}}\rangle\langle\hat{a}^{\dagger}_{\vec{p}_{j}}\hat{a}_{\vec{p}_{j}}\rangle+ \langle\hat{a}^{\dagger}_{\vec{p}_{i}}\hat{a}_{\vec{p}_{j}}\rangle\langle\hat {a}^{\dagger}_{\vec{p}_{i}}\hat{a}_{\vec{p}_{i}}\rangle\right)\,. \tag{2.29}\]
+
+Now, using the single- and two-particle distributions (2.22) and (2.29), respectively, one can obtain according to (2.3) the two-particle correlator for the chaotic source,
+
+\[C_{2}(\vec{p}_{i},\vec{p}_{j})=\frac{P_{2}(\vec{p}_{i},\vec{p}_{j})}{P_{1}( \vec{p}_{i})P_{1}(\vec{p}_{j})}=1+\frac{\left|\langle\hat{a}^{\dagger}_{\vec{p }_{i}}\hat{a}_{\vec{p}_{j}}\rangle\right|^{2}}{\langle\hat{a}^{\dagger}_{\vec{p }_{i}}\hat{a}_{\vec{p}_{i}}\rangle\langle\hat{a}^{\dagger}_{\vec{p}_{j}}\hat{a} _{\vec{p}_{j}}\rangle}\,. \tag{2.30}\]
+
+The quantum mechanical analogues of classical phase-space particle distribution functions are the Wigner functions. In the Wigner formalism, the single-particle momentum spectrum is determined as the space-time integral of the emission function \(S(x,p_{i})\),
+
+\[P_{1}(\vec{p}_{i})=E_{i}\langle\hat{a}^{\dagger}_{\vec{p}_{i}}\hat{a}_{\vec{p} _{i}}\rangle=\int d^{4}x\,S(x,p_{i})\,. \tag{2.31}\]
+
+The corresponding two-particle momentum distribution (2.29) can be written as
+
+\[P_{2}(\vec{p}_{i},\vec{p}_{j})=P_{1}(\vec{p}_{i})P_{1}(\vec{p}_{j})+\left| \bar{S}_{J}(\vec{p}_{i},\vec{p}_{j})\right|^{2}\,, \tag{2.32}\]
+
+where the covariant quantity \(\bar{S}_{J}(\vec{p}_{i},\vec{p}_{j})\) is given by
+
+\[\bar{S}_{J}(\vec{p}_{i},\vec{p}_{j})=\sqrt{E_{i}E_{j}}\,\langle\hat{a}^{ \dagger}_{\vec{p}_{i}}\hat{a}_{\vec{p}_{j}}\rangle=\sqrt{E_{i}E_{j}}\,\langle \tilde{J}^{*}(\vec{p}_{i})\tilde{J}(\vec{p}_{j})\rangle=\int d^{4}x\,S(x,k)e^{ iq\cdot x}\,, \tag{2.33}\]
+
+where \(k=\frac{1}{2}\left(p_{i}+p_{j}\right)\) and \(q=p_{i}-p_{j}\) are the average pair momentum and the relative momentum of the pion pair, respectively. The covariant quantity \(\bar{S}_{J}(\vec{p}_{i},\vec{p}_{j})\) is the Wigner transform of the density matrix associated with the classical currents [5]. In the Eq. (2.33), the emission function \(S(x,k)\), that is the Fourier transform of \(\bar{S}_{J}(\vec{p}_{i},\vec{p}_{j})\), can be identified with the Wigner phase-space density of the particle emitting source.
+
+The equations for single- and two-particle momentum distributions (2.31) and (2.32), respectively, can be used with Eq. (2.30) in order to express the two-pion correlation function in terms of the Wigner phase-space density,
+
+\[C_{2}(\vec{q},\vec{k})=1+\frac{\left|\int d^{4}x\,S(x,k)e^{iq\cdot x}\right|^{2}} {\int d^{4}x\,S(x,p_{i})\int d^{4}y\,S(y,p_{j})}\,. \tag{2.34}\]
+
+Using the smoothness approximation, which assumes that the emission function has a sufficiently smooth momentum dependence
+
+\[S(x,p_{i})S(y,p_{j})=S(x,k+\frac{1}{2}q)S(y,k-\frac{1}{2}q)\approx S(x,k)S(y,k )\,, \tag{2.35}\]
+
+the two-particle correlation function (2.34) can be reduced to expression [5]
+
+\[C_{2}(\vec{q},\vec{k})=1+\frac{\left|\int d^{4}x\,S(x,k)e^{iq\cdot x}\right|^{ 2}}{\left|\int d^{4}x\,S(x,k)\right|^{2}}\,. \tag{2.36}\]
+
+The on-shell and mass-shell constraints for the identical particle production
+
+\[E_{i} = \sqrt{m^{2}+\vec{p_{i}}^{2}}\,, \tag{2.37}\] \[k\cdot q = \frac{1}{2}\left(p_{i}^{2}-p_{j}^{2}\right)=\frac{1}{2}\left(m_{i }^{2}-m_{j}^{2}\right)=0\,, \tag{2.38}\]
+
+respectively, imply that only three of the four relative momentum components are kinematically independent. Therefore, the dependence of the two-particle correlation function \(C_{2}(\vec{q},\vec{k})\) on the relative momentum \(q\) allows to test only three of the four independent space-time directions of the emission function [5].
+
+The main aim of the particle interferometry is to extract as much information as possible about the emission function \(S(x,k)\) found in the Eq. (2.36), which is the Wigner phase-space density of the particle emitting source created in the heavy ion collision.
+
+### 2.4 Gaussian parametrization
+
+In order to connect the theoretical form of the correlator (2.36) to the experiment one usually uses various Gaussian parametrizations of the correlation function, generally written in the form
+
+\[C_{2}(\vec{q},\vec{k})=1+\lambda(\vec{k})\exp\left(-\sum_{ij}R_{ij}^{2}(\vec{ k})q_{i}q_{j}\right)\,, \tag{2.39}\]where the radius parameters \(R_{ij}(\vec{k})\) equal the space-time variances of the emission function \(S(x,k)\). As a result of elimination of one of the four relative momentum components via the mass-shell constraint (2.38), \(q_{i}\) denote the different choices of the three kinematically independent components of the relative momentum \(q\). The relation (2.39) is based on a Gaussian approximation to the true space-time dependence of the emission function \(S(x,k)\)[5].
+
+In general, radii \(R_{ij}(\vec{k})\), which are the RMS widths of the effective source of particles with average pair momentum vector \(\vec{k}\), do not characterize the total extension of the source established in heavy ion collision. They can be better identified with the sizes of the region of homogeneity, the region from which particle pairs with average pair momentum \(\vec{k}\) are most likely emitted.
+
+#### 2.4.1 1D \(q_{\rm inv}\) parametrization
+
+In practice, the functional dependence of the correlator \(C_{2}(\vec{q},\vec{k})\) on relative momentum \(q\) is most often described by the one-dimensional \(q_{\rm inv}\) parametrization of the correlation function [5, 8, 12]
+
+\[C_{2}(\vec{q},\vec{k})=1+\lambda(\vec{k})\exp\left(-R_{\rm inv}^{2}(\vec{k}) q_{\rm inv}^{2}\right)\,, \tag{2.40}\]
+
+where \(q_{\rm inv}^{2}=-q^{2}=(\vec{p}_{i}-\vec{p}_{j})^{2}-(E_{i}-E_{j})^{2}\) and \(\lambda(\vec{k})\) are the squared invariant momentum difference and the correlation strength, respectively. The parameter \(R_{\rm inv}(\vec{k})\) characterizes the width of the source distribution function. Traditionally, this \(q_{\rm inv}\) parametrization is being used since the pioneering two-particle correlations measurement by the GGLP experiment [8].
+
+Among the advantages of the \(q_{\rm inv}\) parametrization of the correlation function is the fact that \(q_{\rm inv}\) is a relativistic invariant which involves all four components of the relative momentum \(q\). This allows to obtain the correlation strength \(\lambda(\vec{k})\) as a fit parameter that coincides with the intercept of the correlation function at \(q_{\rm inv}=0\). By fitting the experimental correlation function with Eq. (2.40) one can obtain the fit parameter \(R_{\rm inv}(\vec{k})\). Since the correlation function is one-dimensional, very few statistics are needed to obtain a high quality fit to the data. However, the main disadvantage of the \(q_{\rm inv}\) parametrization is that the parameter \(R_{\rm inv}(\vec{k})\) is neither a radius nor a lifetime, but a combination of these. There is no possibility to unfold the spatial and temporal information of the source emission function which is mixed in a single variable \(R_{\rm inv}(\vec{k})\) and therefore it is difficult to to draw a conclusion about the properties of the source.
+
+#### 3D Bertsch-Pratt parametrization
+
+More general description of \(C_{2}(\vec{q},\vec{k})\) is based on the so-called Bertsch-Pratt parametrization [15, 16, 17], which uses decomposition of the relative momentum vector of the pair \(\vec{q}\) into the out-side-longitudinal coordinate system, \(\vec{q}=(q_{\rm out},q_{\rm side},q_{\rm long})\) with the three Cartesian spatial components
+
+\[q_{\rm out}=\frac{|\vec{q}_{\top}\cdot\vec{k}_{\top}|}{|\vec{k}_{\top}|}\,, \qquad q_{\rm side}=\frac{|\vec{q}_{\top}\times\vec{k}_{\top}|}{|\vec{k}_{ \top}|}\,,\qquad q_{\rm long}=p_{z,i}-p_{z,j}\,, \tag{2.41}\]
+
+where \(\vec{k}_{\top}=\frac{1}{2}(\vec{p}_{\top i}+\vec{p}_{\top j})\) and \(\vec{q}_{\top}=\vec{p}_{\top i}-\vec{p}_{\top j}\) are transverse pair momentum and transverse relative momentum, respectively. Fig. 2.4 illustrates the decomposition of the transverse components. In this parametrization the vector \(\vec{q}\) is decomposed into a longitudinal direction along the beam axis, \(q_{\rm long}\), an outward direction parallel to the transverse pair momentum, \(q_{\rm out}\), and a sideward direction perpendicular to those two, \(q_{\rm side}\). Choosing the Bertsch-Pratt parametrization leads to the three-dimensional correlation function of the form
+
+\[C_{2}(\vec{q},\vec{k}) = 1+\lambda(\vec{k})\exp\Big{(}-R_{\rm out}^{2}(\vec{k})q_{\rm out }^{2}-R_{\rm side}^{2}(\vec{k})q_{\rm side}^{2} \tag{2.42}\] \[\qquad\qquad\qquad-R_{\rm long}^{2}(\vec{k})q_{\rm long}^{2}-2R_{ \rm ol}^{2}(\vec{k})q_{\rm out}q_{\rm long}\Big{)}\,.\]
+
+Corresponding width parameters \(R_{\rm out}(\vec{k})\), \(R_{\rm side}(\vec{k})\) and \(R_{\rm long}(\vec{k})\) are referred as interferometry radii and they are related with the space-time structure of the source.
+
+Figure 2.4: The composition of relative momentum \(\vec{q}=(q_{\rm out},q_{\rm side},q_{\rm long})\) components in transverse plane.
+
+In the experiment, the interferometry radii can be obtained as fit parameters by fitting the measured correlation function with Eq. (2.42). In an azimuthally integrated analyses, the parameter \(R_{\rm ol}(\vec{k})\) is small and can be neglected. While the radius \(R_{\rm side}(\vec{k})\) can be interpreted as a width of the emission region in the side direction, the radius \(R_{\rm out}(\vec{k})\) measures the corresponding width in the out direction plus a contribution from the emission duration. The longitudinal radius \(R_{\rm long}(\vec{k})\) can be described in the longitudinal comoving system (LCMS) frame of the particle pair as a longitudinal extension of the region of homogeneity [5].
+
+Figure 2.5: One-dimensional \(q_{\rm inv}\) parametrization of two-particle correlation function constructed separately for positive, negative and neutral pion pairs with \(k_{\top}\in(0.1,0.2)\) GeV/\(c\) for Au–Au collisions. Correlations are modeled from the output of classical Monte Carlo simulations via weighting method (4.1) described in Ch. 4.
+
+### 2.5 Construction of the correlation function in the experiment
+
+#### The two-particle correlation function
+
+Experimentally, two-particle correlations are studied by constructing the correlation function as a ratio
+
+\[C_{2}(\vec{q})=\frac{A(\vec{q})}{B(\vec{q})}\,, \tag{2.43}\]
+
+where \(A(\vec{q})\) is the measured distribution of the momentum difference \(\vec{q}=\vec{p}_{i}-\vec{p}_{j}\) for the so-called real pairs of particles and \(B(\vec{q})\) is the corresponding reference distribution for mixed pairs of particles [5].
+
+Starting point is the selection of events from the primary data set. Here one can apply selection criteria that selected events have to pass, including cuts on collision vertex position and cuts on centrality that is characterized by measured multiplicity of charged hadrons at mid-rapidity.
+
+The real pairs are pairs of particles that belong to the same event. In the analysis, one goes through all of the selected events, choosing all particle pairs that satisfy the particle selection criteria for each selected event. The particle selection criteria include particle identification cut that selects pions only, cuts on pseudo-rapidity and pair cuts, where pion pairs are divided into four \(k_{\top}\) bins according to their average transverse momentum \(k_{\top}=\frac{1}{2}|\vec{p}_{\top i}+\vec{p}_{\top j}|\). Each pair of such selected particles is characterized by relative momentum vector \(\vec{q}\). If one wants to describe the functional dependence of the correlation function on relative momentum \(q\) by the one-dimensional \(q_{\rm inv}\) parametrization with Eq. (2.40), relative momentum invariant \(q_{\rm inv}=\sqrt{-q^{2}}\) is computed and filed in the corresponding one-dimensional histogram. For the case of the three-dimensional Bertsch-Pratt parametrization of the correlation function, Eq. (2.42), one computes the out-side-longitudinal components of the relative momentum vector \(\vec{q}=(q_{\rm out},q_{\rm side},q_{\rm long})\) according to (2.41) and fills the corresponding three-dimensional histogram. This measured distribution of momentum difference for real particle pairs is noted as \(A(\vec{q})\) in Eq. (2.43).
+
+The so-called mixed pairs are particle pairs, where partners are picked randomly from different events within the set of events that yielded the real pairs. Firstly, a buffer with capacity of holding 100 events is created and filled with the first 100 events from the set of selected events. The mixed particle pair is constructed by choosing two random particles within the events in the buffer. This is done via four random numbers, where the two are used to choose the two different events and the remaining two random numbers are used to choose a particle from each random event. Of course, mixed pairs ofparticles must satisfy the same conditions of using the same set of cuts and particle selection criteria as the real pairs mentioned above. The number of mixed pairs for each real pair is the so-called mixing factor and it is typically between 10 and 50. To ensure a statistically independent reference mixed pair sample, the mixing factor has to be chosen sufficiently large, while for the numerical implementation it still has to be chosen sufficiently small. Same as for real pairs, for each mixed pair one has the relative momentum vector \(\vec{q}\), which is used to compute the relative momentum invariant \(q_{\rm inv}\) and relative momentum vector components \(q_{\rm out}\), \(q_{\rm side}\) and \(q_{\rm long}\) that are filled in the corresponding one- and three-dimensional histograms. One continues to choose mixed pairs over and over, until the number of entries in the histogram, that contains the relative momentum distribution, reaches the number of entries per 100 events in the histogram of the real pairs multiplied by the mixing factor. All of the events in the buffer are then replaced with the next 100 events, until the whole set of selected events is used. This process leads to the distribution of momentum difference for mixed particle pairs, noted as \(B(\vec{q})\) in Eq. (2.43).
+
+In order to construct the ratio (2.43), relative momentum distributions \(A(\vec{q})\) and \(B(\vec{q})\) need to be appropriately normalized. Each of the histograms that contain the relative momentum distributions is separately normalized to the number of entries in the bins ranging from 2/3 to the end of the histogram axis range.
+
+Finally, the correlation function is constructed by taking the ratio, bin by bin, of the distribution \(A(\vec{q})\) of the real pairs with the distribution \(B(\vec{q})\) of the mixed pairs. The normalization at the end of the axis range ensures that the correlation function is properly normalized to unity in the range excluding the correlation peak, satisfying the condition \(C_{2}(\vec{q})=1\) for large relative momenta \(\vec{q}\).
+
+There is a reasonable agreement between the results for correlation functions constructed using positively charged pion pairs, negatively charged pion pairs, and correlation functions constructed out of neutrally charged pion pairs, see Fig. 2.5. Therefore, the correlation functions for the positive, negative and neutral pions can be added together in order to improve statistics. This is done by adding the histograms of positive, negative and neutral real pairs in the numerator and similarly adding the reference histograms of mixed pairs in the denominator of (2.43).
+
+#### The three-particle correlation function
+
+In this thesis, a new algorithm that provides multi-particle Bose-Einstein correlations is tested. Therefore, we try to construct the three-particle cor relation function in addition to the previously mentioned two-particle correlation function. These three-particle correlations are sensitive to asymmetries in the particle production mechanism, which cannot be studied by two-particle correlations. The combination of the two- and three-particle correlation analyses gives access to the degree of coherence of pion production by means of the correlation strength \(\lambda(\vec{k})\). This is difficult to investigate from the two-particle correlations alone due to the effect of decay contributions from long-lived resonances on the correlation function [18].
+
+The three-particle momentum correlation function of identical particles can be defined as a normalized ratio of corresponding three- and single-particle momentum distributions
+
+\[C_{3}(p_{i},p_{j},p_{k})={\cal N}\,\frac{P_{3}(p_{i},p_{j},p_{k})}{P_{1}(p_{i} )P_{1}(p_{j})P_{1}(p_{k})}\,. \tag{2.44}\]
+
+Assuming totally incoherent source with space-time density distribution of emission points \(\rho(x)\) and neglecting the momentum dependence of the emission amplitude \(A(x)\), the two-particle, three-particle and genuine three-particle Bose-Einstein correlation functions are related to the source density, respectively, by [18]
+
+\[C_{2}(q_{ij}) = 1+|\tilde{\rho}_{\rm eff}(q_{ij})|^{2}\, \tag{2.45}\] \[C_{3}(q_{ij},q_{jk},q_{ki}) = 1+|\tilde{\rho}_{\rm eff}(q_{ij})|^{2}+|\tilde{\rho}_{\rm eff}( q_{jk})|^{2}+|\tilde{\rho}_{\rm eff}(q_{ki})|^{2}\] (2.46) \[\mbox{}+2{\rm Re}\,\{\tilde{\rho}_{\rm eff}(q_{ij})\tilde{\rho} _{\rm eff}(q_{jk})\tilde{\rho}_{\rm eff}(q_{ki})\}\,\] \[C_{3}^{\rm gen}(q_{ij},q_{jk},q_{ki}) = 1+2{\rm Re}\,\{\tilde{\rho}_{\rm eff}(q_{ij})\tilde{\rho}_{\rm eff }(q_{jk})\tilde{\rho}_{\rm eff}(q_{ki})\}\, \tag{2.47}\]
+
+where \(q_{ij}=p_{i}-p_{j}\) is the relative momentum between two particles and \(\tilde{\rho}_{\rm eff}(q_{ij})\) is the Fourier transform of the effective source density (2.15).
+
+For the computation of the three-particle correlations in the experiment, each possible triplet of identical pions \(i\), \(j\) and \(k\) is used to compute the variable
+
+\[q_{3}=\sqrt{-(q_{ij}^{2}+q_{jk}^{2}+q_{ki}^{2})}\,. \tag{2.48}\]
+
+In analogy with the two-particle ratio (2.43), three-particle Bose-Einstein correlations are studied by constructing the three-particle correlation function as a ratio
+
+\[C_{3}(q_{3})=\frac{A(q_{3})}{B(q_{3})}\,, \tag{2.49}\]
+
+where \(A(q_{3})\) is the measured distribution of the invariant three-particle momentum difference \(q_{3}\) as defined by (2.48) for the real triplets of identical pions and \(B(q_{3})\) is the corresponding reference distribution for mixed triplets of identical pions [18].
+
+The measured three-particle momentum difference distribution for real triplets is obtained via choosing all possible triplets of identical pions that pass the particle selection cuts for each selected event and computing variable \(q_{3}\) for each selected triplet, filling it in the one-dimensional histogram \(A(q_{3})\).
+
+The reference distribution of \(q_{3}\) for mixed triplets \(B(q_{3})\) is determined by the same event mixing technique, as defined for mixed pairs in previous section. The only modification is that now we need to randomly select three identical pions from different events for which the variable \(q_{3}\) is calculated.
+
+After separately normalizing real and mixed distributions \(A(q_{3})\) and \(B(q_{3})\), respectively, the three-particle momentum correlation function can be constructed as their ratio, bin by bin. The normalization to the number of entries is done for the bins ranging from \(2/3\) to the end of the histogram axis range, in a region where the correlation peak is not expected. The three-particle correlator \(C_{3}(q_{3})\) is then normalized to unity for large \(q_{3}\).
+
+What is more, the three-particle correlation function \(C_{3}(q_{3})\) defined by Eq. (2.44) and experimentally obtained as a ratio (2.49) contains also a contribution from the two-particle correlations that are present among identical particle triplets. In order to obtain the genuine three-particle Bose-Einstein correlation function \(C_{3}^{\rm gen}(q_{3})\), one needs to subtract all possible two-particle correlations first. The genuine three-particle Bose-Einstein correlation function is obtained via [18]
+
+\[C_{3}^{\rm gen}(q_{3})=C_{3}(q_{3})-C_{1,2}(q_{3})+1\,, \tag{2.50}\]
+
+where \(C_{1,2}(q_{3})\) is the contribution due to two-particle correlations, as may be seen from Eqs. (2.45) and (2.46). The contribution due to two-particle correlations \(C_{1,2}(q_{3})\) to the three-particle correlator can be written using the two- and single-particle momentum distributions in the form
+
+\[C_{1,2}(q_{3})={\cal N}\,\frac{P_{2}(p_{i},p_{j})P_{1}(p_{k})+P_{2}(p_{j},p_{k })P_{1}(p_{i})+P_{2}(p_{k},p_{i})P_{1}(p_{j})}{P_{1}(p_{i})P_{1}(p_{j})P_{1}(p_ {k})}-2\,. \tag{2.51}\]
+
+The products of two- and single-particle momentum distributions in the numerator of the first term in Eq. (2.51) are determined by a similar mixing procedure, as defined earlier, where two identical pions from the same event are combined with one random pion having the same charge from a different event. Thus for each real triplet of particles \(i\), \(j\) and \(k\) with invariant three-particle relative momentum difference \(q_{3}\), three combined triplets are produced. For each combined triplet, variable \(q_{3}\) is calculated and filled in the corresponding one-dimensional histogram that contains the distribution of the momentum difference \(q_{3}\) for combined triplets. One ends with three-particle distributions of \(q_{3}\) which are the combination of real pairs mixed with a third particle.
+
+The reference three-particle momentum distribution present in the denominator of the first term in Eq. (2.51) is equivalent to \(B(q_{3})\) in Eq. (2.49) and it is the reference distribution of \(q_{3}\) for mixed triplets of identical pions.
+
+Normalization of the ratio in Eq. (2.51) is done in the region excluding the correlation peak, for the bins ranging from \(2/3\) to the end of the histogram axis range, satisfying the condition \(C_{1,2}(q_{3})=1\) for large \(q_{3}\).
+
+## Chapter 3 Simulating p-p and Au-Au collisions
+
+### 3.1 UrQMD
+
+The Ultra-relativistic Quantum Molecular Dynamics (UrQMD) model [19] is a microscopic transport model, which has an application in simulating heavy ion collisions in the wide range of energies from the SIS energy region, \(\sqrt{s_{\rm NN}}\approx 2\) GeV, to the RHIC energy, \(\sqrt{s_{\rm NN}}=200\) GeV.
+
+A microscopic dynamics description of heavy ion collisions is usually based on transport theory, where a sequence of particle propagations is simulated numerically. This sequence is represented by individual hadron-hadron collisions. In such a hadron-hadron collision, particles can be produced and can further interact with each other. This model attempts to describe the full time-evolution from the initial state of the heavy ion reaction up to the freeze-out of all initial and produced particles after the reaction, yielding the observables.
+
+The theory of UrQMD model is based on the covariant propagation of all hadrons on classical trajectories in combination with stochastic binary scatterings, color string formation and resonance decay [19]. The model represents a Monte Carlo solution of a large set of coupled partial integro-differential equations for the time evolution of the phase-space densities of various particle species. At low and intermediate energies, \(\sqrt{s_{\rm NN}}<5\) GeV, UrQMD model describes hadron-hadron and nucleus-nucleus collisions in terms of the interactions between known hadrons and their excited states, resonances. For higher energies, where the quark and gluon degrees of freedom cannot be neglected, UrQMD model introduces a concept of color string excitations with their subsequent fragmentation into hadrons [19, 20].
+
+The basic input into the microscopic transport models are the cross-sections of hadron-hadron interactions and decay widths. In the UrQMD model, the total cross-section \(\sigma_{\rm tot}\) of hadron-hadron interaction depends on the isospin of colliding particles, their flavor and CMS energy. Total cross-section is interpreted geometrically, which means that a collision between two hadrons will occur if \(b<\sqrt{\sigma_{\rm tot}/\pi}\), where \(b\) is the impact parameter of two hadrons. The relative weights for different channels of the collision are then calculated via partial cross-sections. In order to describe more than 99% of the total number of hadron-hadron collisions predicted in the UrQMD model, several thousand different hadron-hadron combinations and corresponding cross-sections are needed. Since only a few of these hadronic cross-sections are experimentally measured, one relies on extrapolations of known processes.
+
+Designed as a multipurpose tool, UrQMD can be used for studying a wide variety of heavy ion related effects, including particle production and correlations. UrQMD transport code does not model Bose-Einstein correlations, their eventual modeling is usually based on modifying the UrQMD output of the four-momenta and freeze-out coordinates of particles in order to account for the correlation effects.
+
+#### Configuration and event simulation
+
+This thesis aims at modeling Bose-Einstein correlations among identical pions produced in heavy ion collisions at RHIC energy. In order to do so, we had to simulate a set of p-p and Au-Au events first. We choose the UrQMD event generator, because of its ability to model heavy ion reactions at RHIC energy. The advantage of the UrQMD transport model is its event output, compliant with the well defined OSCAR 1997A format, containing particle identification code, four-momenta and freeze-out coordinates for each one of the produced particles. These particle entries are used as the main input for the algorithm that models BEC.
+
+The UrQMD source code, available for a download at [21], is written in FORTRAN programing language and it needs to be compiled in order to obtain the executable binary. Running the UrQMD model requires defining the running parameters with an input configuration file. A typical UrQMD configuration file is shown in Fig. 3.1, the same input file is used in this thesis for simulating Au-Au collisions.
+
+For the task of modeling Au-Au events, following configuration of the UrQMD transport model was used. Central Au-Au collisions were simulated at CMS energy per nucleon pair \(\sqrt{s_{\rm NN}}=200\) GeV with maximum impact parameter \(b_{\rm max}=3\) fm, where the impact parameter is defined as a minimal distance between the centers of colliding nuclei. The maximum CMS evolution time was set to \(t_{0}=500\) fm/\(c\)[22]. This is a maximum time that the UrQMD model calculates the evolution from the beginning of each heavy ion reaction up to the freeze-out of all secondaries. Up to this maximum evolution time, all of the particles and resonances created in the reaction are propagated in the space-time with numerous rescatterings and resonance decays, their four-momenta are being computed and together with their freeze-out coordinates written in the output file. The total number of 4000 central Au-Au events was generated. Because we experienced a few computational problems when running UrQMD, where the model would take unusual long time in the order of days to calculate an event and finally had to be aborted, the simulation of 4000 events was for easier manipulation divided in 40 independent sessions per 100 simulated events in a row.
+
+The UrQMD transport model was also configured to simulate p-p events
+
+Figure 3.1: Sample UrQMD input file. Configured for simulating 100 events of central Au-Au collisions at \(\sqrt{s_{\rm NN}}=200\) GeV with impact parameter \(b\leq 3\) fm, evolution time \(t_{0}=500\) fm/\(c\). The output to files other than OSCAR 1997A format is suppressed.
+
+at CMS energy per nucleon pair \(\sqrt{s_{\rm NN}}=200\) GeV. Here, the impact parameter was set to \(b=0\) fm, and the maximum CMS evolution time was set to \(t_{0}=500\) fm/\(c\). For the case of simulating p-p collisions, the total number of \(21.2\times 10^{6}\) UrQMD events was generated. The p-p collisions were simulated in sessions per \(10^{5}\) events.
+
+For a comparison of a complexity of numerical calculation of heavy ion collision to a collision of two protons, note that when using a PC equipped with dual Intel Xeon 3.06 GHz CPU, the CPU time to generate one central Au-Au event was about 300 s compared to average 0.025 s for a simulation of the p-p event.
+
+#### Particle selection
+
+Firstly, a set of single-particle cuts is applied to all secondary particles at freeze-out that are produced in p-p and Au-Au collisions. The particle identification cut makes sure that we select only pions from the produced secondaries in the event. There is a large number of pions, almost 80%, among secondaries. A cut on pseudo-rapidity is applied, where only pions in the mid-rapidity region \(|\eta|<1\) are selected. This pseudo-rapidity cut further reduces pion multiplicity for p-p collisions by 81%, which results in an average number of 4 pions per one p-p event. For the case of central Au-Au collisions, the pseudo-rapidity cut results in 75% reduction of the pion multiplicity. Here, the average multiplicity of pions is reduced to 1851 pions per event.
+
+The following pair cuts are applied for the two-particle analysis. Like-charged pairs of identical pions are constructed from the set of previously selected pions. In order to study the \(k_{\top}\) dependence of the correlation function, we divide pion pairs into four \(k_{\top}\)-bins with transverse pair momentum \(k_{\top}\in(0.1\)-\(0.2,0.2\)-\(0.3,0.3\)-\(0.4,0.4\)-\(0.5)\) GeV/\(c\). Moreover, an additional cut \(|r|<50\) fm is used for all pion pairs. This cut limits the maximum space-time distance between pions that can possibly have their momenta correlated and therefore it lowers the background of uncorrelated pions.
+
+The pion triplets that contribute to the three-particle correlation function are required to pass the following cuts. Pions are constrained to have the transverse momentum \(p_{\top}\) in the range \(0.125<p_{\top}<0.5\) GeV/\(c\). Identically charged pion triplets are then selected in the range \(q_{3}<0.24\) GeV/\(c\). Additionally, the cut on the maximum space-time distance \(|r|<50\) fm between pions is applied.
+
+Figure 3.2: Multiplicity distribution for central Au–Au collisions (\(b\leq 3\) fm) at \(\sqrt{s_{\rm NN}}=200\) GeV.
+
+Figure 3.3: Multiplicity distribution for p–p collisions \(\sqrt{s_{\rm NN}}=200\) GeV.
+
+Figure 3.4: Pseudo-rapidity distributions of pions for central Au–Au (solid line) and p–p (dashed line) collisions. Both distributions are normalized to the unit area.
+
+Figure 3.5: Pseudo-rapidity distributions of pions in the mid-rapidity region for central Au–Au (solid line) and p–p (dashed line) collisions.
+
+Figure 3.6: Transverse momentum distributions of pions in mid-rapidity region for central Au–Au (solid line) and p–p (dashed line) collisions. Both distributions are normalized to the corresponding number of events \(N_{\rm ev}\).
+
+Figure 3.7: Ratio of transverse momentum distributions, \(R_{\rm AuAu/pp}\), of pions for central Au–Au events to p–p events.
+
+Figure 3.8: Mean freeze-out proper time \(\langle\tau\rangle\) of pions in mid-rapidity as function of their transverse momentum \(p_{\top}\) for central Au–Au events.
+
+Figure 3.9: Distribution of freeze-out proper time \(\tau\) of pions in the mid-rapidity region for central Au–Au events, normalized to the unit area.
+
+#### UrQMD dynamics
+
+Fig. 3.2 shows the particle multiplicity distribution for simulated central Au-Au collisions. We find that the UrQMD model gives an average multiplicity of 9531 particles at freeze-out per one central Au-Au event at the CMS energy per nucleon pair \(\sqrt{s_{\rm NN}}=200\ {\rm GeV}\). Pions outnumber kaons, which are the second most frequent among particle species at freeze-out, with the average pion multiplicity of 7435 pions per event. That is 78% of the total particle multiplicity. Among pions, each charge is represented with 1/3 of the total pion multiplicity.
+
+Simulated p-p events have their particle multiplicity distribution shown in Fig. 3.3. The p-p event is characterized with average multiplicity of 28 particles at freeze-out. Out of these particles, pions make the largest fraction, 75%, resulting in the average pion multiplicity of 21 pions per event. Negative, positive and neutral pion multiplicities each equal 1/3 of the total pion multiplicity.
+
+One of the key kinematic variables that relate particle momentum to the dynamics that is occurring in the heavy-ion reaction is the rapidity \(y\), defined as \(y=\frac{1}{2}\ln(\frac{E+p_{z}}{E-p_{z}})\). The introduction of the rapidity \(y\) allows to considerably simplify the selection and changing of the reference frame, due to the fact that rapidity \(y\) is additive under successive Lorentz transformations along the same direction. When the mass of the particle is small relative to the
+
+Figure 3.10: Mean number of inelastic collisions \(\langle N_{\rm inel}\rangle\) simulated by UrQMD for central Au–Au events as function of evolution time \(t_{0}\).
+
+momentum, \(E\approx p\), a simpler variable, the pseudo-rapidity \(\eta\) is considered, defined as \(\eta=\frac{1}{2}\ln(\frac{p+p_{z}}{p-p_{z}})\). Fig. 3.4 shows the pseudo-rapidity distribution of pions at freeze-out for central Au-Au and p-p collisions, normalized to the unit area. The pseudo-rapidity distribution exhibits a general feature, a plato at mid-rapidity. Fig. 3.5 shows the pseudo-rapidity distribution of selected pions for central Au-Au and p-p events. Pions are selected in the mid-rapidity region \(|\eta|<1\).
+
+The transverse momentum distributions of selected pions for central Au-Au and p-p collisions, normalized to the number of simulated events, are shown in Fig. 3.6. Fig. 3.7 shows the ratio of these transverse momentum distributions, defined as \(R_{\rm AuAu/pp}(p_{\top})=(\frac{1}{2\pi p_{\top}N_{\rm ev}}\frac{d^{2}N}{dp_{ \top}dy})_{\rm AuAu}/(\frac{1}{2\pi p_{\top}^{\top}N_{\rm ev}}\frac{d^{2}N}{ dp_{\top}dy})_{\rm pp}\), where the distribution for Au-Au events is divided by the distribution for p-p events. The ratio exhibits an enhancement of pions at low- and high-\(p_{\top}\) regions. While the low-\(p_{\top}\) enhancement can be accounted to the pions that origin in the decay of resonances, the high-\(p_{\top}\) enhancement is due to the pion rescattering, which is present in the model.
+
+Using the space-time four-coordinates of pions, one can calculate the freeze-out proper time \(\tau\), defined as \(\tau=\sqrt{t^{2}-(x^{2}+y^{2}+z^{2})}\), that can be interpreted as the freeze-out time in the pion rest frame. Fig. 3.8 displays the mean freeze-out proper time \(\langle\tau\rangle\) of selected pions as a function of their transverse momentum \(p_{\top}\), though revealing the dependence of the invariant which involves space-time coordinates on momentum of the particle. It can be seen that the hard pions with high transverse momenta \(p_{\top}\) origin sooner since the beginning of the collision than soft pions in the low-\(p_{\top}\) region. A distribution of the freeze-out proper time \(\tau\) of selected pions is plotted in Fig. 3.9.
+
+By running the UrQMD simulations of central Au-Au collisions for different values of the evolution time \(t_{0}\), the time of the collision duration, we are able to plot Fig. 3.10. Here, the dependence of the mean number of inelastic collisions \(\langle N_{\rm inel}\rangle\) on the evolution time \(t_{0}\) is shown, as it is simulated by UrQMD for central Au-Au events. A plato ranging from the evolution time \(t_{0}\approx 0.2\) fm/\(c\), that coincides with the time from the beginning of the reaction until the Lorentz contracted nuclei passed through each other, up to the evolution time \(t_{0}\approx 2.5\) fm/\(c\) can be seen with the mean number of inelastic collisions \(\langle N_{\rm inel}\rangle\approx 1000\), which is in agreement with the number of binary collisions \(N_{\rm bin}\) for central Au-Au events (\(b\leq 3\) fm). A plato at the rightmost region of the evolution time \(t_{0}>200\) fm/\(c\) signals that the source created in the collision is not expanding anymore and that all of the secondaries are already created. Therefore, our choice of the evolution time \(t_{0}=500\) fm for UrQMD simulations is justified [22].
+
+#### UrQMD output
+
+Several different output files are provided by the UrQMD model. For our purpose of modeling correlations among produced particles, where the output from the event generator is further used as the input for the correlation algorithm, we found the OSC output file being the most convenient choice. OSC output file is compliant with OSCAR 1997A format [23], which is a standard format for the output of the transport models. One can choose between different output formats in the UrQMD configuration file, see Fig. 3.1. Each format of the output files is well documented in the UrQMD user guide [21].
+
+The OSC output file contains information about particles at freeze-out from the UrQMD model. It is an ASCII file which has an easy readable structure fixed by the OSCAR 1997A requirements. Particle entries of the event-body, line by line, contain the particle listing number, particle ID adopted from the Particle Data Group name scheme for Monte Carlo event generators [24], four-momentum vector \((p_{x},p_{y},p_{z},E)\), mass \(m\), all in GeV, and freeze-out four-coordinates of the particle \((x,y,z,t)\), in fm and fm\(/c\).
+
+In order to facilitate further processing within ROOT [25], an object oriented data analyses framework, a small code was written to convert the output OSCAR-file into the ROOT-file. This conversion between two different output formats is performed by the program O2Root.cxx [34]. By reading the ASCII file line by line, the gathered particle information is copied to the simultaneously created MyParticle objects. This MyParticle object is an inherited TParticle[25] object, that is designed to serve as a data storage for description of one particle and it is especially convenient to store information taken from event generators. It has been modified to carry an extra information of the particle pseudo-rapidity, the polar angle of the particle momentum and Bose-Einstein weight assigned to the particle in the correlation algorithm. All of the particles created in the same event, an array of MyParticle objects, are then saved as the contents of the MyEvent object. This object also stores some information at the level of the event, including event multiplicity and collision impact parameter. Additionally, all of the simulated events with secondaries are stored in the newly created TTree[25] object that has an easily accessible tree structure of objects and represents the set of simulated events.
+
+A storage capacity of 2.7 Gb is needed to store ROOT-files of 4000 Au-Au UrQMD events. The ROOT-files containing \(21.2\times 10^{6}\) UrQMD simulated p-p events require 34.3 Gb disk space.
+
+## Chapter 4 Modeling Bose-Einstein correlations
+
+### 4.1 Numerical modeling of BEC
+
+The probabilistic structure of Monte Carlo event generators prevents occurring of genuine Bose-Einstein correlations, which are of purely quantum statistical origin. This can be seen in Fig. 4.1, where the two-particle correlation function of identical pions is constructed using the output of UrQMD transport model for simulations of central Au-Au and p-p events. In this figure, the characteristic peak in the correlation function, the signal of BEC, is missing. The best one can do is to model Bose-Einstein correlations by changing the output of the generator in such a way as to reproduce the characteristic signals of BEC obtained experimentally, the correlation function.
+
+#### Weighting method
+
+The standard method of introducing Bose-Einstein correlations among identical pions generated via classical Monte Carlo simulations is the weighting method [26, 27] with the two-particle weight based on Eq. (2.12),
+
+\[w_{ij}=1+\cos(q\cdot r)\,, \tag{4.1}\]
+
+where \(q=p_{i}-p_{j}\) and \(r=x_{i}-x_{j}\) are the relative momentum of the pion pair and the space-time distance between two pions, respectively. The input variables for the weighting method are thus the particle momenta and coordinates at the freeze-out, found in the output file from the UrQMD transport model simulations.
+
+In order to introduce position-momentum correlations to the otherwise uncorrelated UrQMD events, Fig. 4.1, the corresponding two-particle momentum distribution of real pairs constructed from the UrQMD output needs to be appropriately weighted to reflect the form of the distribution (2.12) where BEC are present. This is done by binning the corresponding distribution of relative momentum for the real pairs in the histogram with the two-particle weight, Eq. (4.1), which is computed for each real pair of pions.
+
+The two-particle correlation function can be experimentally constructed as a ratio (2.43) of the distribution of the relative momentum for the real pairs of pions to the reference distribution of the relative momentum for the mixed pairs of pions, as it is explained in detail in Sec. 2.5.1. The difference between real and mixed pairs is that the former is made of pions from the same event wile the latter is made of pions from different events. Distributions of relative momentum for real and mixed pairs of pions that we need for constructing the two-pion correlation function are computed by the programs CF2real.cxx and CF2mixed.cxx[34], respectively.
+
+The results of introducing BEC among pions for central Au-Au events via weighting method are shown in Fig. 4.2 in the form of the \(q_{\rm inv}\) and Bertsch-Pratt parametrizations of the two-particle correlation function. Fig. 4.3 shows the results of modeling BEC via weighting method for p-p collisions, where the \(q_{\rm inv}\) and Bertsch-Pratt parametrizations are used to plot the correlation functions. These results are summarized in Tab. 4.1 in the form of the fit parameters, correlation strength \(\lambda\) and radii, obtained by fitting
+
+Figure 4.1: Correlations function obtained directly from the UrQMD transport model simulations of central Au–Au (a) and p–p (b) events, showing no BEC correlations among identical pions.
+
+Figure 4.2: Two-particle correlations obtained via weighting method (4.1) for central Au–Au collisions. One-dimensional \(q_{\rm inv}\) (a) parametrization and \(|q_{\rm out}|\) (b), \(q_{\rm side}\) (c), \(|q_{\rm long}|\) (d) projections of three-dimensional Bertsch–Pratt parametrization (cut \(0<|q_{out}|,q_{side},|q_{long}|<0.03\) GeV/\(c\) is applied to each unprojected variable) of the correlation function for identical pions in the \(k_{\top}\in(0.1,0.2)\) GeV/\(c\) bin. Shown are parameters of one- and three-dimensional Gaussian fit, Eq. (2.40) and (2.42), respectively.
+
+Figure 4.3: Two-particle correlations modeled via weighting method (4.1) for p–p events. \(q_{\rm inv}\) (a) parametrization and \(|q_{\rm out}|\) (b), \(q_{\rm side}\) (c), \(|q_{\rm long}|\) (d) projections of Bertsch–Pratt parametrization (cut \(0<|q_{out}|,q_{side},|q_{long}|<0.03\) GeV/\(c\) is applied to each unprojected variable) of the correlation function for identical pions in the \(k_{\top}\in(0.1,0.2)\) GeV/\(c\) bin. Shown are fit parameters of Eq. (2.40) and (2.42).
+
+\(q_{\rm inv}\) and Bertsch-Pratt parametrizations of the one- and three-dimensional two-particle correlation function by Eq. (2.40) and (2.42), respectively.
+
+The correlation function, a signal of BEC, is a consequence of the two-pion weight. Our use of the weighting method is well justified, because the phase-space densities generated by transport models are rather low. However, the main drawback of this method is that it can not simulate multi-boson correlations.
+
+#### Charge reassigning algorithm
+
+Recently, a new algorithm has been suggested [28], which claims to overcome this limitation. It makes direct use of the fact that the identical bosons have, by definition, very strong tendency to bunch themselves in a maximal possible way in the same cells in phase-space.
+
+Among all particles produced by the event generator one can always find clusters of pions located near each other in phase-space in a way resembling, to a some degree, Bose-Einstein statistics. In general, pions in such cluster have different charges allocated to them by the event generator. Identical pions are thus uniformly distributed in phase-space and show no BEC pattern. Therefore, in order to implement the character of identical bosons one has to equalize charges of as many as possible pions in each such cluster.
+
+This algorithm is based on reassigning charges of produced pions and results in formation of quantum BE cells in phase-space, in which the number of identical bosons is enhanced [28]. It conserves the energy-momenta, total charge and does not alter any single particle inclusive distribution. These cannot be changed, because they are direct observables in the experiment. However, the charge distribution among particles in event can be altered as
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline events & \(\lambda\) & \(R_{\rm inv}\) (fm) \\ \hline Au–Au & \(0.52\pm 0.01\) & \(6.81\pm 0.04\) \\ p–p & \(0.41\pm 0.03\) & \(5.44\pm 0.19\) \\ \hline \end{tabular} 
+\begin{tabular}{|c|c|c|c|} \hline events & \(\lambda\) & \(R_{\rm out}\) (fm) & \(R_{\rm side}\) (fm) & \(R_{\rm long}\) (fm) \\ \hline Au–Au & \(0.60\pm 0.01\) & \(6.89\pm 0.06\) & \(4.45\pm 0.04\) & \(7.01\pm 0.07\) \\ p–p & \(0.47\pm 0.03\) & \(5.21\pm 0.21\) & \(2.65\pm 0.12\) & \(6.19\pm 0.27\) \\ \hline \end{tabular}
+\end{table}
+Table 4.1: Modeling BEC among pions for central Au–Au and p–p events via weighting method with two-particle weight \(w_{ij}=1+\cos(q\cdot r)\), Eq. (4.1). Shown are fit parameters, correlation strength \(\lambda\) and interferometry radii, for \(q_{\rm inv}\) parametrization (top) and Bertsch–Pratt parametrization (bottom) of the correlation function.
+
+Figure 4.4: Flow diagram for the charge reassigning algorithm.
+
+Figure 4.5: Two-particle correlation function obtained via charge reassigning algorithm with Gaussian weight (4.2) (full circles) compared to the correlations modeled via weighting method (open circles) for central Au–Au collisions. Shown are \(q_{\rm inv}\) (a) parametrization and \(|q_{\rm out}|\) (b), \(q_{\rm side}\) (c), \(|q_{\rm long}|\) (d) projections of Bertsch–Pratt parametrization (cut \(0<|q_{out}|,q_{side},|q_{long}|<0.03\) GeV/\(c\) is applied to each unprojected variable) of the correlation function for identical pions in the \(k_{\top}\in(0.1,0.2)\) GeV/\(c\) bin. Fit parameters correspond to one- and three-dimensional Gaussian fit, Eq. (2.40) and (2.42), respectively.
+
+being not directly observable.
+
+Briefly, the proposed charge reassigning algorithm consists of the following procedure. For each event, the event generator provides a number of charged and neutral pions with their energy-momenta \(p_{i}\) and space-time coordinates \(x_{i}\) at freeze-out. Pion (\(i\)) is chosen randomly and \(+\), \(-\) or 0 charge is assigned to it randomly with weights proportional to \(P_{+}=n_{+}/n\), \(P_{-}=n_{-}/n\) and \(P_{0}=n_{0}/n\), where \(n=n_{+}+n_{-}+n_{0}\) is total multiplicity of pions \(\pi^{+}\), \(\pi^{-}\) and \(\pi^{0}\) in event. This pion defines a new phase-space cell. Distances in momenta \(|q|=|p_{i}-p_{j}|\) between the chosen pion (\(i\)) and all other pions (\(j\)) which are still without signs are calculated and pions (\(j\)) are arranged in order of ascending \(|q|\). The additional pions (\(j\)) are then added to the cell with Gaussian weight [28]
+
+\[P_{ij}=\exp\left(-\frac{1}{2}\,|q^{2}||r^{2}|\right)\,, \tag{4.2}\]
+
+where \(r=x_{i}-x_{j}\) and \(q=p_{i}-p_{j}\) are the space-time distance between two
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline id & \(c\) & \(\lambda\) & \(R_{\rm inv}\) (fm) \\ \hline (a) & 1 & \(1.10\pm 0.01\) & \(8.19\pm 0.03\) \\ (b) & \(\sqrt{2}\) & \(0.97\pm 0.01\) & \(8.67\pm 0.04\) \\ (c) & 2 & \(0.84\pm 0.01\) & \(9.18\pm 0.05\) \\ (d) & 3 & \(0.67\pm 0.01\) & \(9.69\pm 0.07\) \\ (e) & 3.2 & \(0.65\pm 0.01\) & \(9.82\pm 0.08\) \\ (f) & 3.8 & \(0.58\pm 0.01\) & \(9.94\pm 0.09\) \\ (g) & 5 & \(0.49\pm 0.01\) & \(10.21\pm 0.11\) \\ \hline \end{tabular} 
+\begin{tabular}{|c|c|c|c|c|} \hline id & \(c\) & \(\lambda\) & \(R_{\rm out}\) (fm) & \(R_{\rm side}\) (fm) & \(R_{\rm long}\) (fm) \\ \hline (a) & 1 & \(1.09\pm 0.01\) & \(6.30\pm 0.04\) & \(7.36\pm 0.04\) & \(7.45\pm 0.05\) \\ (b) & \(\sqrt{2}\) & \(0.97\pm 0.01\) & \(6.73\pm 0.05\) & \(7.77\pm 0.06\) & \(7.94\pm 0.06\) \\ (c) & 2 & \(0.83\pm 0.01\) & \(7.25\pm 0.07\) & \(8.12\pm 0.07\) & \(8.18\pm 0.08\) \\ (d) & 3 & \(0.68\pm 0.01\) & \(7.81\pm 0.11\) & \(8.43\pm 0.10\) & \(8.84\pm 0.11\) \\ (e) & 3.2 & \(0.66\pm 0.01\) & \(8.03\pm 0.12\) & \(8.44\pm 0.11\) & \(9.01\pm 0.12\) \\ (f) & 3.8 & \(0.58\pm 0.01\) & \(8.10\pm 0.13\) & \(8.60\pm 0.13\) & \(8.86\pm 0.14\) \\ (g) & 5 & \(0.49\pm 0.01\) & \(8.40\pm 0.17\) & \(8.62\pm 0.15\) & \(9.36\pmpions and relative momentum of the pion pair, respectively. All accepted pions in the cell are assigned the same charge as pion (\(i\)). The process of adding the pions to the cell continues until first failure, i.e. when generated random number \(r\in(0,1)\) becomes \(r>P_{ij}\), after which the new cell is formed.
+
+In the charge reassigning algorithm, we select pions in a wider pseudo-rapidity region \(|\eta|<2\), which allows for a possible fluctuation of the charge among pions in the mid-rapidity cut \(|\eta|<1\) that is used for constructing the correlation function. The algorithm of producing new cells proceeds until all pions in event are used, event by event. In this way four-momenta, freeze-out coordinates and total charge of the system provided by the event generator are kept intact, but the individual charges of particles are not.
+
+For better understanding, the above mentioned procedure can be visualized as the flow diagram for the charge reassigning algorithm, illustrated in Fig. 4.4. The charge reassigning algorithm is performed by the program BEC.cxx[34]. The input for the code is a ROOT-file with the UrQMD output. BEC.cxx contains the algorithm for numerical modeling of BEC via charge reassignment. The output of the program is a ROOT-file with modified UrQMD events, where BEC are present.
+
+The only place where dynamics can enter the charge reassigning algorithm
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline id & \(c\) & \(\lambda\) & \(R_{\rm inv}\) (fm) \\ \hline (a) & \(0.5\) & \(0.65\pm 0.01\) & \(3.44\pm 0.05\) \\ (b) & \(1\) & \(0.49\pm 0.02\) & \(3.84\pm 0.09\) \\ (c) & \(2\) & \(0.38\pm 0.03\) & \(4.47\pm 0.19\) \\ (d) & \(3\) & \(0.34\pm 0.03\) & \(5.04\pm 0.28\) \\ (e) & \(5\) & \(0.23\pm 0.03\) & \(4.72\pm 0.38\) \\ \hline \end{tabular} 
+\begin{tabular}{|c|c|c|c|c|} \hline id & \(c\) & \(\lambda\) & \(R_{\rm out}\) (fm) & \(R_{\rm side}\) (fm) & \(R_{\rm long}\) (fm) \\ \hline (a) & \(0.5\) & \(0.60\pm 0.01\) & \(2.18\pm 0.04\) & \(3.11\pm 0.06\) & \(2.85\pm 0.05\) \\ (b) & \(1\) & \(0.45\pm 0.02\) & \(2.37\pm 0.07\) & \(3.55\pm 0.11\) & \(3.18\pm 0.09\) \\ (c) & \(2\) & \(0.33\pm 0.02\) & \(2.53\pm 0.15\) & \(3.88\pm 0.20\) & \(3.56\pm 0.19\) \\ (d) & \(3\) & \(0.27\pm 0.03\) & \(2.83\pm 0.25\) & \(4.20\pm 0.33\) & \(3.92\pm 0.25\) \\ (e) & \(5\) & \(0.17\pm 0.02\) & \(2.43\pm 0.24\) & \(3.44\pm 0.46\) & \(3.36\pm 0.30\) \\ \hline \end{tabular}
+\end{table}
+Table 4.3: Modeling BEC among pions for p–p events via charge reassigning algorithm with Gaussian weight \(P_{ij}=\exp(-c\,|q^{2}||r^{2}|)\). Dependence of correlation strength \(\lambda\) and interferometry radii, the fit parameters of one- (top) and three-dimensional (bottom) correlation function, on the constant \(c\) used in Gaussian weight.
+
+is the weight \(P_{ij}\) that depends on the output of the event generator. Weight \(P_{ij}\) is proportional to the probability that a given pion likes to enter the cell formed already by other pion of the same charge. The form of the weight, Eq. (4.2), is suggested by [28] and it is the so-called minimal weight constructed from the output information provided by the cascade hadronization model.
+
+The results of introducing BEC among identical pions for central Au-Au events using this algorithm are shown in Fig. 4.5, where one- and three-dimensional two-particle correlation function is plotted using the \(q_{\rm inv}\) and Bertsch-Pratt parametrizations, respectively. By comparing the results of the new charge reassigning algorithm with the standard weighting method, the correlation functions and their fit parameters, it can be seen that the correlation strength \(\lambda\) acquires unphysical value above unity. That is a consequence of the over-bunching of identical pions in phase-space cells, introduced by Gaussian weight \(P_{ij}\), Eq. (4.2). The over-bunching may be due to the too shallow decrease of the weight. Therefore, we find that the suggested Gaussian weight, Eq. (4.2), does not reproduce BEC correctly, when it is used in the proposed charge reassigning algorithm to model BEC of identical pions for central Au-Au collisions. This conclusion in drawn in [35], where the partial results of modeling BEC among identical pions using the charge reassigning method with suggested Gaussian weight (4.2) are presented.
+
+Since the suggested Gaussian weight (4.2) substantially overestimates the correlation strength \(\lambda\) and radii and therefore does not properly model the BEC effect of identical pions for central Au-Au collisions, we consider using different choices of weight \(P_{ij}\) in the charge reassigning algorithm, trying to reproduce the results of the weighting method. The criterion for the successful weight is chosen to be the correlation strength parameter \(\lambda\), which needs to reproduce the correlation strength obtained by the weighting method.
+
+In addition to the Gaussian weight (4.2) it is also suggested to use different most natural choices of weights, which use only the available information provided by event generator [28]. For modeling BEC via charge reassigning algorithm, we decide to use weight \(P_{ij}\) of the Gaussian and exponential form,
+
+\[P_{ij}=\exp\left(-c\,|q^{2}||r^{2}|\right) \tag{4.3}\]
+
+and
+
+\[P_{ij}=\exp\left(-c\,|q\cdot r|\right)\,, \tag{4.4}\]
+
+respectively, where constant \(c\) is the free parameter. The BEC effect is in this case given entirely by the number of identical pions in a phase-space cell and by the number of such cells, therefore it depends entirely on the weight \(P_{ij}\) present in the charge reassigning algorithm. Tab. 4.2 and 4.3 show the results
+
+[MISSING_PAGE_FAIL:52]
+
+reproduce correlations from the weighting method, with respect to all different choices of parameter \(c\) present in the argument of the weight. Here, the results are diverging from those obtained by weighting method in the means of unphysical values of the correlation strength \(\lambda\).
+
+After application of the charge reassigning algorithm, identical pions show strong tendency to occur in bunches, occupying cells in the phase-space, which results in the BEC pattern. These cells are of varying sizes, both in momenta and in space, where the sizes of the cells depend on the values of weights \(P_{ij}\). Because the number of pions that can be put in a given cell \(n_{\rm cell}\) is not restricted, this algorithm automatically models multi-boson correlations of all orders. The highest order of BEC is limited by the maximum occupation one can reach in a single cell in a given event. The majority of cells contain only a single pion, though. For small multiplicities the number of cells is smaller and their occupation lower. This can be clearly seen when comparing the cell occupancy plots, direct results of the charge reassigning algorithm, for central Au-Au collisions versus p-p collisions. See Fig. 4.9 and Fig. 4.10, respectively. These results show that for 4000 central Au-Au events, multi-boson correlations up to 6-th order are present, while for \(21.2\times 10^{6}\) correlated p-p events reach at maximum 4-th order BEC. The occupancy of identical pions in cells follows the geometrical (Bose-Einstein) distribution
+
+\[P(n_{\rm cell})=(1-P)P^{n_{\rm cell}-1}\,, \tag{4.5}\]
+
+where \(P(n_{\rm cell})\) is the probability distribution of cell occupancy \(n_{\rm cell}\) and \(P\) is the probability \(P(n_{\rm cell}>1)=\sum_{n_{\rm cell}=2}^{\infty}P(n_{\rm cell})=P\) that the cell contains two or more identical pions.
+
+It is believed, that the hot and dense nuclear matter formed in the collision, while going through the expansion and cooling stage, may relax into a vacuum state oriented quite differently from the normal ground state. This results in the formation of what are known as disoriented chiral condensates (DCC) which finally decay producing an imbalance in pion production [29]. The basic difference between the events with DCC and those without any DCC formation lies in the probability distribution of the neutral pion fraction \(f=n_{0}/n\), where \(n=n_{+}+n_{-}+n_{0}\) is total multiplicity of pions \(\pi^{+}\), \(\pi^{-}\) and \(\pi^{0}\) in event. The probability distribution of the neutral pion fraction is given by \(P(f)=\frac{1}{2}f^{-1/2}\) for events with DCC and by a Gaussian with \(\langle f\rangle=1/3\) for non-DCC events. An effective probe for the DCC production can be the event-by-event fluctuation study of the neutral to charged pion ratio [30]. The fluctuation \(D\) in the neutral to charged pion ratio \(R=n_{0}/(n_{+}+n_{-})\) is given as
+
+\[D=\frac{\langle\delta R^{2}\rangle}{\langle R\rangle^{2}}=\frac{\langle R^{2} \rangle-\langle R\rangle^{2}}{\langle R\rangle^{2}}\,, \tag{4.6}\]Figure 4.7: Correlation function obtained via charge reassigning algorithm using exponential weight Tab. 4.2(f) (full circles) compared to the correlations modeled via weighting method (open circles) for central Au–Au collisions. \(q_{\rm inv}\) (a) parametrization and \(|q_{\rm out}|\) (b), \(q_{\rm side}\) (c), \(|q_{\rm long}|\) (d) projections of Bertsch–Pratt parametrization (cut \(0<|q_{out}|,q_{side},|q_{long}|<0.03\) GeV/\(c\) is applied to each unprojected variable) of the correlation function for identical pions in the \(k_{\top}\in(0.1,0.2)\) GeV/\(c\) bin. Shown are parameters of one- and three-dimensional Gaussian fit, Eq. (2.40) and (2.42), respectively.
+
+Figure 4.8: Two-particle correlations modeled via charge reassigning algorithm using Gaussian weight Tab. 4.3(c) (full circles) compared to the correlations obtained via weighting method (open circles) for p–p events. Shown are \(q_{\rm inv}\) (a) parametrization and \(|q_{\rm out}|\) (b), \(q_{\rm side}\) (c), \(|q_{\rm long}|\) (d) projections of three-dimensional Bertsch–Pratt parametrization (cut \(0<|q_{out}|,q_{side},|q_{long}|<0.03\) GeV/\(c\) is applied to each unprojected variable) of the two-pion correlation function in the \(k_{\top}\in(0.1,0.2)\) GeV/\(c\) bin. Fit parameters correspond to Eq. (2.40) and (2.42).
+
+Figure 4.10: Cell occupancy of identical pions, \(n_{\rm cell}\), for p–p collisions. Multi-boson correlations are obtained via charge reassigning algorithm using Gaussian weight Tab. 4.3(c). Shown with the fit using Eq. (4.5). Small multiplicities of p–p events result in smaller number of cells and their lower occupancy than of Au–Au events.
+
+Figure 4.9: Cell occupancy of identical pions, \(n_{\rm cell}\), for central Au–Au collisions. Here, multi-boson correlations up to 6-th order are modeled via charge reassigning algorithm using exponential weight Tab. 4.2(f). Also shown is the fit with Eq. (4.5).
+
+where the averaging \(\langle\ldots\rangle\) is over events. To be sure that the charge reassigning algorithm does not artificially mimic DCC formation, we have checked the values of the fluctuation in the neutral to charged pion ratio (4.6) for Au-Au and p-p events, see Tab. 4.4. For our case, the fluctuation in the ratio is way below the value 1.8 obtained for DCC [30] and we conclude that the charge reassigning algorithm does not mimic DCC production.
+
+### 4.2 \(k_{\top}\) dependence of the interferometry parameters
+
+The radius parameters, obtained by fitting the correlation function, measure the sizes of the regions emitting particles of a given momentum, the homogeneity regions. Hence, for an expanding source, depending on the average momenta \(k\) of the pion pairs entering the correlation function, different parts of the source are measured. Therefore, the dependence of the transverse radii on the transverse momentum \(k_{\top}\) contains dynamical information of the particle emitting source [5].
+
+Fig. 4.11 shows the \(k_{\top}\) dependence of \(\lambda\) and \(R_{\rm inv}\), parameters of the \(q_{\rm inv}\) parametrization (2.40) of the correlation function, and \(\lambda\), \(R_{\rm out}\), \(R_{\rm side}\) and \(R_{\rm long}\), parameters of Bertsch-Pratt parametrization (2.42) of the two-particle correlation function of identical pions for central Au-Au events. Here, our results of modeling BEC via charge reassigning algorithm using the exponential weight best matching the weighting method, Tab. 4.2(f), are compared with results obtained via weighting method. For the \(q_{\rm inv}\) parametrization, an agreement can be seen in parameter \(\lambda\). That is due to our choice of the exponential weight \(P_{ij}\) in the charge reassigning algorithm, where we demand the correlation strength parameter \(\lambda\) to reproduce the weighting method. The invariant radius \(R_{\rm inv}\) is overestimated by the charge reassigning method
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline events & \(D\) \\ \hline Au–Au UrQMD & 0.022 \\ Au–Au BEC & 0.024 \\ p–p UrQMD & 0.039 \\ p–p BEC & 0.039 \\ DCC & 1.8 \\ \hline \end{tabular}
+\end{table}
+Table 4.4: Fluctuation \(D\) in the neutral to charged pion ratio for UrQMD simulations of Au–Au and p–p events and the same events after introducing BEC via charge reassigning algorithm. DCC value is obtained from [30].
+
+Figure 4.11: \(k_{\top}\) dependence of interferometry parameters for the \(q_{\rm inv}\) (a, b) and Bertsch–Pratt (c, d, e, f) parametrization of the correlation function for central Au–Au events. Charge reassigning algorithm using exponential weight Tab. 4.2(f) (full circles) is compared to weighting method (open circles). Shown are preliminary data [31] by the STAR experiment (full stars).
+
+[MISSING_PAGE_FAIL:59]
+
+real and mixed triplets of pions are computed by the programs CF3real.cxx and CF3mixed.cxx[34], respectively.
+
+Our results for the three-particle correlation function (2.44), the contribution due to the two-particle correlations (2.51) and the genuine three-particle correlation function (2.50) for central Au-Au events are shown in Fig. 4.12. After subtracting from the three-particle correlation function \(C_{3}(q_{3})\) the contribution due to the two-particle correlations \(C_{1,2}(q_{3})\) we obtain the genuine three-particle correlation function \(C_{3}^{\rm gen}(q_{3})\), where the characteristic peak at low \(q_{3}\) is not visible. The shape of \(C_{3}(q_{3})\) is built up of products of two-pion correlations with the effect of true three-pion correlations being not noticeable. This may be due to the very low statistics of 4000 simulated UrQMD events that we use for modeling BEC, when compared to the experimental data. In the three-pion correlations analysis by the STAR collaboration [33], in fact, it is only with the very high statistics available from STAR, \(3\times 10^{5}\) Au-Au events at \(\sqrt{s_{\rm NN}}=130\) GeV, that the calculation of the three-particle correlation function can be considered in the range \(q_{3}<0.12\) GeV/\(c\).
+
+[MISSING_PAGE_EMPTY:61]
+
+## Chapter 5 Conclusions and summary
+
+To summarize, in this thesis we presented the results of numerical modeling of Bose-Einstein correlations among identical pions produced in nucleus-nucleus and proton-proton collisions at RHIC energies using recently proposed charge reassigning algorithm [28]. BEC among final state pions were introduced into Au-Au and p-p simulated events.
+
+Using the UrQMD transport model, we simulated 4000 central Au-Au events with impact parameter \(b\leq 3\) fm and \(21.2\times 10^{6}\) minimum bias p-p events at \(\sqrt{s_{\rm NN}}=200\ {\rm GeV}\). A routine converting the UrQMD output compliant with the OSCAR 1997A format into the ROOT-file was written. The source code O2Root.cxx is available at [34]. All simulated UrQMD events were converted into ROOT-files using the above routine and the dynamics of the UrQMD transport model was studied. It was shown that mean freeze-out proper time of pions for central Au-Au collisions at \(\sqrt{s_{\rm NN}}=200\ {\rm GeV}\) is a monotonous function of pion transverse momentum, reaching a maximum \(\langle\tau\rangle=36\ {\rm fm}/c\) at \(p_{\top}=0\ {\rm GeV}/c\) and declining to \(\langle\tau\rangle=18\ {\rm fm}/c\) at \(p_{\top}>1.5\ {\rm GeV}/c\). Contrary to this, distribution of \(\tau\) itself is peaked at about \(10\ {\rm fm}/c\) and for \(\tau<1\ {\rm fm}/c\) and \(\tau>40\ {\rm fm}/c\) it is almost negligible. However, mean number of inelastic collisions \(\langle N_{\rm inel}\rangle\) saturates at much later proper time \(\tau\geq 200\ {\rm fm}/c\).
+
+The software used for the analysis of the two-particle and three-particle correlation function was developed [34]. Two-particle relative momentum distributions for real and mixed pairs of pions were computed by the programs CF2real.cxx and CF2mixed.cxx, respectively. The three-particle momentum distributions were computed using codes CF3real.cxx and CF3mixed.cxx, respectively.
+
+Using two-particle cosine weight (4.1) the two-particle correlation function of identical pions for Au-Au and p-p collisions was extracted from the UrQMD generated events. Then, using a code BEC.cxx[34] that containsthe charge reassigning algorithm for numerical modeling of BEC, multi-particle Bose-Einstein correlations among identical pions were introduced into UrQMD generated events and new BEC correlated UrQMD events were produced. The two-particle correlation function of identical pions for BE correlated central Au-Au events was compared with the standard weighting method. It was found that with the originally proposed Gaussian weight, given by Eq. (4.2), the charge reassigning algorithm leads to the over-bunching of identical pions in phase-space cells. As a result, the correlation strength acquires an unphysical value \(\lambda>1\).
+
+Trying to reproduce the results of the correlation function by the weighting method we have used in the charge reassigning algorithm exponential \(P_{ij}=\exp(-c\left|q\cdot r\right|)\) and Gaussian weight \(P_{ij}=\exp(-c\left|q^{2}\right|\left|r^{2}\right|)\) with different choices of the parameter \(c\). For central Au-Au and p-p minimum bias collisions the best matching values of the parameter \(c\) for exponential and Gaussian weights have been found, Tab. 4.2(f) and Tab. 4.3(c), respectively.
+
+The multi-particle correlations of identical pions modeled via charge reassigning algorithm were found to persist up to 6-th and 4-th order for central Au-Au and p-p collisions, respectively. The probability that the average cell contains at least three pions was found to be \(P(n_{\rm cell}\geq 3)=(4.38\pm 0.05)\times 10^{-3}\) and \(P(n_{\rm cell}\geq 3)=(1.32\pm 0.02)\times 10^{-4}\) for central Au-Au and p-p collisions, respectively.
+
+The fluctuation (4.6) of the neutral to charged pion ratio from BE correlated events was studied, Tab. 4.4. It was found that the charge reassigning algorithm does not artificially produce fluctuations expected from the formation of disoriented chiral condensate.
+
+The \(k_{\top}\) dependence of the two-particle correlation function and corresponding interferometry radii \(R_{\rm out}\), \(R_{\rm side}\) and \(R_{\rm long}\) for BE correlated central Au-Au events were compared to results from the STAR experiment at RHIC. While the charge reassigning algorithm resulted in a steeper decrease of transverse and longitudinal radii, the weighting method produced rather accurate description of \(R_{\rm long}\) but overestimated \(R_{\rm out}\) and underestimated \(R_{\rm side}\).
+
+The three-particle correlation function of identical pions for central Au-Au events was constructed. The contribution due to the two-particle correlations was identified and subtracted. However, due to the low statistics of simulated Au-Au events the genuine three-particle correlations were not observed.
+
+## Bibliography
+
+* [1] M. Harrison, T. Ludlam and S. Ozaki, _RHIC project overview_, Nucl. Instrum. Meth. A **499** (2003) 235.
+* [2] K. H. Ackermann _et al._ [STAR Collaboration], _STAR detector overview_, Nucl. Instrum. Meth. A **499** (2003) 624.
+* [3] P. Jacobs and X. N. Wang, _Matter in extremis: Ultrarelativistic nuclear collisions at RHIC_, arXiv:hep-ph/0405125.
+* gluon plasma_, Cambridge Monogr. Part. Phys. Nucl. Phys. Cosmol. **18** (2002) 1.
+* [5] U. A. Wiedemann and U. Heinz, _Particle interferometry for relativistic heavy-ion collisions_, Phys. Rept. **319** (1999) 145.
+* [6] R. Hanbury Brown and R. Q. Twiss, _A New Type Of Interferometer For Use In Radio Astronomy_, Phil. Mag. **45** (1954) 663.
+* [7] R. Hanbury Brown and R. Q. Twiss, Nature **177** (1956) 27; _ibid._**178** (1956) 1046; Proc. Roy. Soc. A **242** (1957) 300; _ibid._**243** (1957) 291; _ibid._**248** (1958) 199; _ibid._**248** (1958) 222.
+* [8] G. Goldhaber, S. Goldhaber, W. Y. Lee and A. Pais, _Influence Of Bose-Einstein Statistics On The Antiproton Proton Annihilation Process_, Phys. Rev. **120** (1960) 300.
+* [9] G. I. Kopylov and M. I. Podgoretsky, _Correlations Of Identical Particles Emitted By Highly Excited Nuclei_ Sov. J. Nucl. Phys. **15** (1972) 219.
+* [10] G. I. Kopylov, _Like Particle Correlations As A Tool To Study The Multiple Production Mechanism_, Phys. Lett. B **50** (1974) 472.
+* [11] G. I. Kopylov and M. I. Podgoretsky, _Interference Of Two-Particle States In Elementary-Particle Physics And Astronomy_, Sov. Physics JETP **42** (1975) 211.
+
+* [12] R. M. Weiner, _Boson interferometry in high energy physics_, Phys. Rept. **327** (2000) 249.
+* [13] R. Lednicky and M. I. Podgoretsky, _The Interference Of Identical Particles Emitted By Sources Of Different Sizes_, Sov. J. Nucl. Phys. **30** (1979) 432.
+* [14] M. Gyulassy, S. K. Kauffmann and L. W. Wilson, _Pion Interferometry Of Nuclear Collisions. I. Theory_, Phys. Rev. C **20** (1979) 2267.
+* [15] M. I. Podgoretsky, _On The Comparison Of Identical Pion Correlations In Different Reference Frames_, Sov. J. Nucl. Phys. **37** (1983) 272.
+* [16] S. Pratt, _Coherence And Coulomb Effects On Pion Interferometry_, Phys. Rev. D **33** (1986) 72.
+* [17] G. F. Bertsch, _Pion Interferometry As A Probe Of The Plasma_, Nucl. Phys. A **498** (1989) 173C.
+* [18] P. Achard _et al._ [L3 Collaboration], _Measurement of genuine three-particle Bose-Einstein correlations in hadronic Z decay_, Phys. Lett. B **540** (2002) 185.
+* [19] S. A. Bass _et al._, _Microscopic models for ultrarelativistic heavy ion collisions_, Prog. Part. Nucl. Phys. **41** (1998) 225.
+* [20] K. Werner, _Strings, Pomerons, and the VENUS model of hadronic interactions at ultrarelativistic energies_, Phys. Rept. **232** (1993) 87.
+* [21] The UrQMD Collaboration, [http://www.th.physik.uni-frankfurt.de/~urqmd/](http://www.th.physik.uni-frankfurt.de/~urqmd/)
+* [22] S. A. Bass, private communication.
+* [23] Open Standard Codes and Routines, [http://nt3.phys.columbia.edu/people/molnard/OSCAR/](http://nt3.phys.columbia.edu/people/molnard/OSCAR/)
+* [24] K. Hagiwara _et al._ [Particle Data Group Collaboration], _Review of particle physics_, Phys. Rev. D **66** (2002) 010001.
+* [25] R. Brun and F. Rademakers, _ROOT: An object oriented data analysis framework_, Nucl. Instrum. Meth. A **389** (1997) 81.
+* [26] S. Pratt, T. Csorgo and J. Zimanyi, _Detailed predictions for two pion correlations in ultrarelativistic heavy-ion collisions_, Phys. Rev. C **42** (1990) 2646.
+
+* [27] J. P. Sullivan _et al._, _Bose-Einstein correlations of pion pairs and kaon pairs from relativistic quantum molecular dynamics_, Phys. Rev. Lett. **70** (1993) 3000.
+* [28] O. V. Utyuzh, G. Wilk and Z. Wlodarczyk, _Numerical modelling of Bose-Einstein correlations_, Phys. Lett. B **522** (2001) 273.
+* [29] K. Rajagopal and F. Wilczek, _Static and dynamic critical phenomena at a second order QCD phase transition_, Nucl. Phys. B **399** (1993) 395.
+* [30] B. Mohanty, D. P. Mahapatra and T. K. Nayak, _A fluctuation probe of disoriented chiral condensates_, Phys. Rev. C **66** (2002) 044901.
+* [31] M. Lopez Noriega [STAR Collaboration], _Pion interferometry in Au Au collisions at \(\sqrt{s_{\rm NN}}=200\)_ GeV, arXiv:nucl-ex/0401037.
+* [32] U. A. Wiedemann, P. Scotto and U. W. Heinz, _Transverse momentum dependence of Hanbury-Brown-Twiss correlation radii_, Phys. Rev. C **53** (1996) 918.
+* [33] J. Adams _et al._ [STAR Collaboration], _Three-pion HBT correlations in relativistic heavy-ion collisions from the STAR experiment_, Phys. Rev. Lett. **91** (2003) 262301
+* [34] M. Bystersky, software developed for analysis of the two- and three-particle correlation function, [http://www.star.bnl.gov/~bystersk/resultsBEC/data/O2Root/](http://www.star.bnl.gov/~bystersk/resultsBEC/data/O2Root/)
+* [35] M. Bystersky, _Modeling Bose-Einstein correlations in heavy ion collisions at RHIC_, to be published in proceedings of the Second Warsaw Meeting on Particle Correlations and Resonances in Heavy Ion Collisions, Warsaw 15-18 Oct 2003, Nukleonika (2004) in print.

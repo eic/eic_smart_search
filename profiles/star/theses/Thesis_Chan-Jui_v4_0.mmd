@@ -1,0 +1,669 @@
+Measurements of the production cross sections of \(J/\psi\) and \(\psi\)(2S) in p\({}^{+}\)p collisions at \(\sqrt{s}=510\) GeV from the STAR experiment
+
+[MISSING_PAGE_EMPTY:2]
+
+[MISSING_PAGE_EMPTY:3]
+
+**Abstract**
+
+Measurements of the production cross sections of charmonia, namely \(J/\psi\) and \(\psi(2S)\), in hadron\(+\)hadron collisions provide valuable information about yet unsolved questions on the production cross section mechanisms of quarkonium. The Solenoid Tracker At RHIC (STAR) is one of the major high-energy nuclear physics experiment at the Relativistic Heavy Ion Collider. The Muon Telescope Detector, which provides trigger and identification capability for muons, enables to study quarkonia in the \(\mu^{+}\)\(\mu^{-}\) decay channel which is less affected than the \(e^{+}\)\(e^{-}\) channel by bremsstrahlung energy loss in the detector material, this feature allows us to measure the signal more accurately. In this thesis, we report on the measurements of production cross section, as well as their ratio as a function of \(p_{T}\) in p+p collisions at \(\sqrt[]{\mathrm{s}}=510\) GeV using data recorded in 2017 by the STAR experiment. It is the first differential measurement of the \(\psi(2S)\) differential cross section and \(\psi(2S)\) to the \(J/\psi\) yield ratio as a function of \(p_{T}\) from STAR. The results are compared with the prediction from the Non-Relativistic Quantum Chromodynamics and Improved Color Evaporation Model.
+
+## Acknowledgements
+
+Thanks to many people for their help and support. First and foremost, I am grateful to Professor Yang for giving a clear research direction and various nice suggestions in analysis. He let me join the STAR experiment and gave me a chance to visit Brokhaven national laboratory(BNL). The experiences have benefited me a lot.
+
+I also would like to thank Zhangbu Xu the former spokesperson of STAR group, Lijuan Ruan the leader of MTD group and the current spokesperson, them take a chance on me to study in the BNL. I did also like to thank the MTD group manber Dr. Rongrong Ma, Dr. Qian Yang, Mr. Pengfei Wang, Mr. Zhen Wang and everyone in the group, they gave me many good advice on my analysis. Thanks to everyone I met at BNL, both in life and research, them have given me great help. I really enjoyed that time in BNL.
+
+Finally, I want to thank the members of the NCKU group. Most of my analysis methods or coding are taught by Te-Chuan Huang, I am so appreciated. Han-Sheng Li told me many interesting things and knowledges about the AMS, Feng-Han Chang and Pu-Kai Wang taught me how to use Linux, ROOT and C syntax when I was confused at the beginning of the research. Zhe-Jia Zhang and I have been sharing and discussing the results with each others. And others in the NCKU group, everyone makes this group more lively.
+
+###### Contents
+
+* 1 Introduction
+* 2 Theoretical Overview
+	* 2.1 Review of the Standard Model
+	* 2.2 Quarkonium particles of \(J/\psi\) and \(\psi(2S)\)
+	* 2.3 Quantum Chromodynamics and Quark-Gluon Plasma
+* 3 STAR experiment
+	* 3.1 Relativistic Heavy Ion Collider
+	* 3.2 STAR Experiment
+	* 3.3 Vertex Position Detector (VPD)
+	* 3.4 Magnet
+	* 3.5 Time Projection Chamber (TPC)
+
+### Time-of-Flight (TOF)
+
+#### 3.7 Muon Telescope Detector (MTD)
+
+4 Analysis setup 4.1 Vertex and track selection 4.2 Bad runs rejection 4.3 Muon identification 4.4 Likelihood ratio method
+
+5 Production Cross-sections 5.1 The \(J/\psi\) and \(\psi(2S)\) invariant cross sections 5.2 \(J/\psi\) and \(\psi(2S)\) kinematic acceptance 5.3 MTD geometry acceptance 5.4 Vertex finding efficiency 5.5 TPC tracking efficiency 5.6 MTD trigger efficiency 5.7 MTD response efficiency 5.8 MTD matching efficiency 5.9 Muon identification efficiency 5.10 Closure test 5.11 The efficiency-corrected yields of \(J/\psi\) and \(\psi(2S)\)
+
+6 Systematics uncertainty 6.1 Signal extraction	* 6.2 TPC tracking efficiency
+	* 6.3 MTD related efficiencies
+	* 6.4 Muon identification efficiency
+	* 6.5 Total uncertainties
+* 7 Results
+* 8 Future works
+
+List of Tables
+
+### 4.1 The summary of the vertex and track selections.
+
+#### 4.2 The summary of the selections for the muon candidates.
+
+2.1 The efficiency-corrected number of \(J/\psi\) at each \(p_{T}^{J/\psi}\) bin. The second term of the error is statistical uncertainty and the third term is the systematic uncertainty from the signal extraction.
+
+2.2 The efficiency-corrected number of \(\psi(2S)\) at each \(p_{T}^{\psi(2S)}\) bin. The second term of the error is statistical uncertainty and the third term is the systematic uncertainty from the signal extraction.
+
+#### 4.2.3 The combinations of all track level quality selections.
+
+2.4 The detailed values of systematic uncertainty from each track level quality cut and the total uncertainty from the TPC tracking efficiency.
+
+#### 4.2.5 Variation of the Likelihood cut and the corresponding efficiencies.
+
+2.6 The detailed values of systematic uncertainty from the muon identification efficiency with different Likelihood Ratio cuts.
+
+2.7 The values of the statistics, total systematic, and total uncertainties in each \(J/\psi\)\(p_{T}\) bins.
+
+2.8 The values of the statistics, the total systematic, and total uncertainties in each \(\psi(2S)\)\(p_{T}\) bins.
+
+List of Figures
+
+### 2.1 Standard Model of fundamental particles [1]
+
+#### 2.2 Spectroscopic diagram for charmonium states [2].
+
+3 The \(J/\psi\) cross sections from CDF experiment data are compared with the Colour-singlet and colour-octet contribution [3].
+
+4 The \(J/\psi\) cross sections from CMS experiment data are compared with the Next-to-leading order (NLO) NRQCD contribution [4].
+
+5 The coefficient of the \(J/\psi\) polarization from the ALICE experiment data are compared with the different models [5].
+
+6 The full differential production cross sections of \(J/\psi\) as a function of \(p_{T}^{J/\psi}\)[6].
+
+7 The cross-section ratio of \(\psi(2S)\) over \(\bar{J}/\psi\) as a function of their \(p_{T}\)[6].
+
+#### 2.8 QCD phase diagram for nuclear matter [7].
+
+#### 2.9 The nuclear modification factor for \(J/\psi\)[8].
+
+#### 2.10 Nuclear modification factors for \(\Upsilon(1S)\), \(\Upsilon(2S)\) and \(\Upsilon(3S)\)[9].
+
+#### 3.1 The top view of the RHIC complex [10].
+
+#### 3.2 The configuarion of STAR detector [11].
+
+3 The schematic of VPD assembly (left panel) and the photograph of the two assemblies (right panel) [12].
+The 2-dimensions plot of primary vertex along the beamline measured by the VPD \((Z^{VPD}_{vtx})\) and TPC \((Z^{TPC}_{vtx})\) in 510 GeV p+p (left panel) and 200 GeV Au+Au (right panel) collisions. The definition of \(DeltaZ\) is \((Z^{VPD}_{vtx})-(Z^{TPC}_{vtx})\) which can extraction of the VPD resolution [12].
+* 3.6 Perspective view of TPC [13].
+* 3.7 The events trajectory records by TPC [14].
+* 3.8 Energy loses as a function of momenta [15].
+* 3.9 Structure of MRPC module in STAR TOF with long side view [16].
+* 3.10 Particle identification using the \(1/\beta\) provides by the TOF [16].
+* 3.11 A side view of the STAR detector. Backleg l is mounted at \(\pi\)/2, and follows clockwise [17].
+* 3.12 The module of MTD trays [17].
+* 3.13 A schematic view of the MTD trigger system [17].
+* 4.1 The demonstration of the QA plot: the mean \(p_{T}\) as a function of run
+* 4.2 The dimuon mass spectrum
+* 4.3 The muon identification variables (a) \(DCA\), (b) \(\Delta y\times q\), (c) \(\Delta z\), (d) \(\Delta TOF\) and (e) \(n\sigma_{\pi}\). Details can be found in content.
+* 4.4 The R variable distribution for the signal (red) and background (blue).
+* 4.5 (a) The \(\varepsilon_{s}\times(1-\varepsilon_{B})\) as a function of R and (b) background rejection versus the signal efficiency
+* 4.6 The \(J/\psi\) and \(\psi(2S)\) signals from the dimuon mass distribution
+* 5.1 The \(J/\psi\) signals from various dimuon \(p_{T}\) bins.
+* 5.2The \(\psi(2S)\) signals from various dimuon \(p_{T}\) bins.
+
+### The coordinate system for defining the quarkonium polarization.
+
+The \(J/\psi\) kinematics acceptance maps for (a) un-polarized (\(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (b) longitudinal (\(\lambda_{\theta}=\) -1, \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (c) zero transverse (\(\lambda_{\theta}\) = 1, \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (d) positive transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=1\), \(\lambda_{\theta\phi}=0\)), (e) negative transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=\) -1, \(\lambda_{\theta\phi}=0\)), (f) off-plane positive \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0.5\)) and (g) off-plane negative \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=\) -0.5)...
+
+The \(\psi(2S)\) kinematics acceptance maps for (a) un-polarized (\(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (b) longitudinal (\(\lambda_{\theta}=\) -1, \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (c) zero transverse (\(\lambda_{\theta}\) = 1, \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (d) positive transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=1\), \(\lambda_{\theta\phi}=0\)), (e) negative transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=\)-1, \(\lambda_{\theta\phi}=0\)), (f) off-plane positive \(\lambda_{\theta}=0\), \(\lambda_{\theta\phi}=0\), \(\lambda_{\theta\phi}=\) -0.5)...
+
+The \(J/\psi\) MTD geometry acceptance maps for (a) un-polarized (\(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\)), (b) longitudinal (\(\lambda_{\theta}=\) -1, \(\lambda_{\phi}=0\)* 5.11 The blue arrows are the global tracks and the blue lines between the global tracks represent the DCA between the global track pair. The red arrows are associated primary track pair and the blue point indicates the primary vertex for this primary track pair.
+* 5.12 The dimuon mass spectrum in various dimuon \(p_{T}\) bins. The black point are from the global track pairs and the blue open circle are requiring the associated primary tracks from the same primary vertex.
+* 5.13 The vertex efficiency as a function of mass in different dimuon \(p_{T}\) bins.
+* 5.14 The vertex efficiency as a function the dimuon \(p_{T}\) bins.
+* 5.15 TPC tracks distributions as a function of \(\eta\) and \(\phi\).
+* 5.16 Additional correction factor for inefficiency of TPC sector 20 as a function of \(p_{T}\) and \(|\phi|\).
+* 5.17 The TPC tracking efficiency of the as a funtion of \(\eta\) and \(\phi\).
+* 5.18 The electronic efficiency, fit by the \(0^{th}\)-order polynomials
+* 5.19 The \(\Delta TacSum\) distributions from different muon \(p_{T}\) bins in Run17 data and the red line is the fitting function of Double-sided Crystal-Ball function.
+* 5.20 The \(\Delta TacSum\) distributions from different muon \(p_{T}\) bins in Run15 data and the red line is fitting function of Double-sided Crystal-Ball function.
+* 5.21 MTD online time window cut trigger efficiency is fitted by the error function (red line).
+* 5.22 The schematic diagram of the positions of MTD backlegs. The top modules are inside the red line and the bottom module are inside the blue line.
+* 5.23 The 2-D map of the MTD response efficiency where the x-axis is the \(p_{T}^{\mu}\) and the y-axis is the MTD modules.
+* 5.24 The MTD response efficiiecny as a function of \(p_{T}\) on MTD backleg 1.
+* 5.25
+
+[MISSING_PAGE_EMPTY:15]
+
+[MISSING_PAGE_EMPTY:16]
+
+* 5.60 The closure test for the \(J/\psi\) MTD matching efficiency (a) The truth \(p_{T}^{J/\psi}\) distribution and the efficiency corrected distribution and (b) the ratio of the \(p_{T}^{J/\psi}\) corrected distribution to the truth \(p_{T}^{J/\psi}\) distribution.
+* 5.61 The closure test for the \(\psi(2S)\) MTD matching efficiency (a) the truth \(p_{T}^{\psi(2S)}\) distribution and the efficiency-corrected distribution and (b) the ratio of the \(p_{T}^{\psi(2S)}\) corrected distribution to the truth \(p_{T}^{\psi(2S)}\) distribution.
+* 5.62 All the efficiencies as a function of dimuon \(p_{T}\).
+* 5.63 Efficiency-corrected yields of \(J/\psi\) signals in different dimuon \(p_{T}\) bins.
+* 5.64 Efficiency-corrected yields of \(\psi(2S)\) signals in different dimuon \(p_{T}\) bins.
+* 5.65 Efficiency-corrected yields of \(J/\psi\) and \(\psi(2S)\) as a function of dimuon \(p_{T}\).
+* 6.1 (a) The \(J/\psi\) efficiency-corrected yields from-different models and (b) the systematic uncertainty of the signal extraction as a function of \(J/\psi\)\(p_{T}\).
+* 6.2 (a) The \(\psi(2S)\) efficiency-corrected yields from different models and (b) the systematic uncertainty of the signal extraction as a function of \(\psi(2S)\)\(p_{T}\).
+* 6.3 The ratios of the TPC tracking efficiency-corrected numbers with different track level quality cuts to the default.
+* 6.4 The efficiencies of the MTD trigger online time window cut using three sources.
+* 6.5 Systematic uncertainty for the MTD trigger efficiency as a function of \(J/\psi\)\(p_{T}\).
+* 6.6 Systematic uncertainty for the MTD response efficiency as a function of \(J/\psi\)\(p_{T}\). The uncertainty is less than 1% which can be negligible.
+* 6.7 (a) The muon identification efficiency corrected number of \(J/\psi\) from different Likelihood Ratio cuts. (b) The Ratios of the muon identification efficiency corrected number from different track level quality cuts to the default.
+
+Systematic uncertainty for the muon identification efficiency as a function of \(J/\psi\;p_{T}\).
+* 6.9 Total systematics uncertainties, statistical uncertainty and total uncertainties as a function of (a) \(J/\psi\;p_{T}\) and (b) \(\psi(2S)\;p_{T}\).
+* 7.1 Total (red solid stars), fiducial (black open stars) and the STAR published results (solid blue stars) cross sections multiplied by the branching ratio as a function of \(p_{T}\). The bars are the statistical uncertainties and the boxes are the systematic uncertainties. The gray shaded band is the polarization envelope. The orange shaded band, green shaded band and purple shaded band are CGC+NRQCD [18], NLO+NRQCD [19] and ICEM models [20], respectively.
+* 7.2 The total (blue solid stars) and fiducial (black open stars) cross sections multiplied by the branching ratio as a function of \(p_{T}\). The bars are the statistical uncertainties and the boxes are the systematic uncertainties. The gray shaded band is the polarization envelope.
+* 7.3 (a) Total (solid blue stars) and the STAR published results from the dielectron channel (solid red points) cross sections multiplied by the branching ratio as a function of \(p_{T}\). The bars are the statistical uncertainties and the boxes are the systematic uncertainties. The gray shaded band is the polarization envelope. (b, c, d) Ratios of the function of fitting data to different model calculations
+* 7.4 The cross section ratio of \(\psi(2S)\) to \(J/\psi\) as a function of their \(p_{T}\). The red solid star is from our analysis and the blue star is measured by the dielectron channel from the STAR published result [6]. The STAR results are compared with the CDF [21], PHENIX [22], HERA-B [23], and the prediction from the ICEM model [20].
+
+## Chapter 1 Introduction
+
+Particle physics, also known as high-energy physics, is mainly to study the basic interactions between particles in Nature. Before the mid-20th century, the knowledge of fundamental particles are only proton, neutron, and electron. However at about the 1960s, due to the evolution of the collider technology. A variety of particles began to be discovered, it was called the "particle zoo". This situation ends after the advent of the Standard Model (SM) of Particle physics.
+
+Nowadays there are still many collider experiments around the world, to understand the unsolved questions of particle physics. For example, what is the dark matter? Can we use a single theory to describe the four fundamental interactions? What is the source of the asymmetry? The Solenoid Tracker At RHIC (STAR) experiment at the Relativistic Heavy Ion Collider (RHIC) is one of the most important high energy nuclear physics experiments in the world. The goal of STAR experiments is to study the Quark Gluon Plasma (QGP). Why we would like to study the QGP? Because physicists believe that the QGP state exists in the initial state of the universe after the Big Bang. To generate QGP, physicists should generate the surroundings with a high temperature and extreme energy density. Therefore, physicists built the RHIC and they believe that the collisions of two heavy-ions would create QGP which can help us understand the mysteries of the early universe.
+
+In our group, I am studying the heavy quarkonia production in the proton-proton collisions, mine specifically focusing on the \(J/\psi\) and \(\psi(2S)\) production cross-sections.
+
+The arrangement of my thesis as follows: In Chapter 2, I will present the theoretical review of the SM of particle physics, the particles of \(J/\psi\) and \(\psi(2S)\), and the brief introduction of Quantum Chromodynamics (QCD). The brief introduction of the STAR experiment will be shown in Chapter 3. In Chapter 4, the dataset we use in the analysis and the raw signal of \(J/\psi\) and \(\psi(2S)\) will be discussed. Chapter 5 will present the detector efficiencies and acceptance. The systematics uncertainties and statistical uncertainty will be presented in Chapter 6. The result and conclusion will be shown in Chapter 7. Finally, the future work will be presented in Chapter 8.
+
+## Chapter 2 Theoretical Overview
+
+### 2.1 Review of the Standard Model
+
+Over the years, physicists committed to describing all fundamental forces by a single mathematics framework. Nowadays the Standard Model of particle physics (SM) is one of the most successful theories to describe the fundamental force. SM can describe the electromagnetic interaction, strong and weak iteration. The elementary particles in the SM are summarized in Fig 2.1[1] and they can be divided into two categories - boson and fermion. The difference between boson and fermion is "spin". Fermions have half-integer spin and the bosons have integer spin. Another important property of fermions is they that follow the Fermi-Dirac statistics and obey the Pauli exclusion principle.
+
+To further investigate the elementary particles, fermions can be divided into two categories-leptons and quarks. For the fermions, it has three generations and there are two quarks and two leptons in each generation. The only differences between different generations are the mass and flavour quantum number. In our universe, all matters are composed of the first generation of fermions. All these fermions can experience the weak forces including the neutral particle - neutrinos. However, the charged leptons are different from the neutrinos and can also participate in the electromagnetic interactions.
+
+Another category of elementary particles is bosons. The characteristics of bosons are carrying an integer number of spin and obeying the Bose-Einstein statistics. There are 5 species of the elementary bosons - photon, \(W^{\pm}\), \(Z^{0}\), gluon and Higgs boson [24]. Photon, \(W^{\pm}/Z^{0}\) bosons, and gluons carry the force of electromagnetic, weak, and strong force, respectively [1]. Higgs boson is the special one that differs from the other bosons, it is not a force carrier. Higgs boson gives masses to the fundamental particles via the Higgs mechanics and it was discovered by the ATLAS and CMS experiments in 2012 [24].
+
+From the gauge theory, SM of particle physics can be described by the symmetry group \(SU(3)_{color}\times SU(2)\times U(1)\). The electromagnetic, weak, and strong force are invariant under the by U(1), SU(2), and SU(3) gauge transformation, respectively.
+
+### 2.2 Quarkonium particles of \(J/\psi\) and \(\psi(2S)\)
+
+Quarkonium means the particle which is flavorless constituents by the heavy quark and its antiquark, for example, charmonium and bottomonium are the bound states of \(c\bar{c}\) and \(b\bar{b}\), respectively. The family of the charmonium is shown in Fig 2.2[2]. The \(J/\psi\) and \(\psi(2S)\) mesons belong to the charmonium family and their masses are 3.096 GeV/\(c^{2}\) and 3.68 GeV/\(c^{2}\)[1], respectively. The \(J/\psi\) meson was first discovered by Professor Samuel C.C. Ting at Brookhaven National Laboratory (BNL) [25] and Professor Burton Richter at Standford Linear Accelerator Center in 1974 [26], and this discovery won the Nobel Price in 1976. Even though \(J/\psi\) was discovered almost 50 years ago, we still do not fully understand the mechanism of quarkonium formation in hadron\(+\)hadron collisions. \(\psi(2S)\) is one of the excited states of \(J/\psi\) which has been discovered by Professor Burton Richter together with the \(J/\psi\) meson via the dielection final state [27]. Nowadays on the market, there are several popular models to describe the mechanism of quarkonium formation: Color Octet Mechanism (COM) [28], Color Singlet Model (CSM) [29] and Improved Color Evaporation Model (CEM) [30]. Non-Relativistic Quantum Chromodynamics (NRQCD) can predict the quarkonium production very well in the CDF [21] and CMS [31] experiments and the results are shown in Fig. 2.3, and 2.4. However, NRQCD also predicts quarkonium polarization. Figure 2.5 shows the ALICE [32] results of the polarization coefficients from the data which are compared with the prediction from different NRQCD models. It is clear that
+
+Figure 2.1: Standard Model of fundamental particles [1]\(J/\psi\) is unpolarized from the measurements, while the NRQCD models predict significant non-zero polarization of \(J/\psi\). Therefore, high-precision measurements of quarkonium production cross sections are indispensable for discrimination between different models. Figure 2.6 and 2.7 show the \(J/\psi\) differential cross section and the \(\psi(2S)\) to \(J/\psi\) ratio measured by STAR and compared with various models [6], respectively.
+
+Figure 2.3: The \(J/\psi\) cross sections from CDF experiment data are compared with the Colour-singlet and colour-octet contribution [3].
+
+Figure 2.2: Spectroscopic diagram for charmonium states [2].
+
+Figure 2.4: The \(J/\psi\) cross sections from CMS experiment data are compared with the Next-to-leading order (NLO) NRQCD contribution [4].
+
+Figure 2.5: The coefficient of the \(J/\psi\) polarization from the ALICE experiment data are compared with the different models [5].
+
+Figure 2.6: The full differential production cross sections of \(J/\psi\) as a function of \(p_{T}^{J/\psi}\)[6].
+
+### 2.3 Quantum Chromodynamics and Quark-Gluon Plasma
+
+Quantum Chromodynamics (QCD) is the mathematics framework to describe the action of the strong force. A special characteristic of QCD is that the strong interaction between two quarks is stronger when the distance between two quarks is large, and vice versa. This characteristic restricts that quarks can not be existed in Nature alone. Nevertheless, in extremely high temperature and energy-dense environment, quarks and gluons will be deconfined and form a new state, so called the Quark-Gluon Plasma (QGP). One of the main theoretical tools to explore the theory of the QGP is the lattice QCD [33], and its calculations predict a phase transition from the hadronic phase into the QGP phase. Figure 2.8 shows the phase diagram of temperature and the baryon chemical potential [7]. We believe that QGP existed in the early universe a few microseconds after the Big Bang. Therefore, studying the QGP can help us to understand the evolution of the early Universe. To understand the QGP, from the QGP phase diagram, the location of the phase boundary and the critical point are dependent on different models. The Beam Energy Scan (BES) at RHIC is to map the phase diagram and search for the turn-off of the QGP signatures, first-order phase transition, and the critical point. There
+
+Figure 2.7: The cross-section ratio of \(\psi(2S)\) over \(J/\psi\) as a function of their \(p_{T}\)[6].
+
+are some expected properties of the QGP; suppression, recombined, jet quenching effect, and flow. Quarkonium suppression which means is all quarkonium will be separated by the color screening effect in the QGP state. This effect is usually called as dissociation or melting. After the dissociation of quarkonium, a part of quarks will be recombined with other quarks from the dissociation of the other quarkonium to form a new quarkonium state, and it is also called regeneration. Under the suppression and the regeneration mechanism, the number of quarkonium can be increased or decreased. To quantitatively study this effect, Nuclear Modification Factor (\(R_{AA}\)) is defined as:
+
+\[R_{AA}=\frac{1}{T_{AA}}\frac{d^{2}N_{AA}/dp_{T}d\eta}{d^{2}\sigma_{pp}/dp_{T}d \eta}, \tag{2.1}\]
+
+where \(d^{2}N_{AA}\) is the quarkonium yields in the A+A collisions and \(d^{2}\sigma_{pp}\) is the quarkoium cross section in p+p collisions. \(T_{AA}\) is \(<N_{coll}>/\sigma_{inel}^{pp}\), where \(<N_{coll}>\) is the average number of A+A collisions and \(\sigma_{inel}^{pp}\) is the inelastic cross section in the p+p collisions. If \(R_{AA}\) is larger than one which means that the production of particles in A+A collisions is larger than production of particles in p+p collisions, and it is must possible from regeneration effect. If \(R_{AA}\) equals to one, and it means production of particles is independent from this type collisions. Figure 2.9 shows the \(R_{AA}\) measurements of the \(J/\psi\) and \(\Upsilon(1S)\), \(\Upsilon(2S)\) and
+
+Figure 2.8: QCD phase diagram for nuclear matter [7].
+
+\(\Upsilon(3S)\) from the CMS and ALICE experiments [8][9]. Obviously, the charmonium will be recombined at low centrality and suppressed at high centrality, and the bottomonium will be suppressed in all centrality.
+
+Figure 2.10: Nuclear modification factors for \(\Upsilon(1S)\), \(\Upsilon(2S)\) and \(\Upsilon(3S)\)[9].
+
+Figure 2.9: The nuclear modification factor for \(J/\psi\)[8].
+
+## Chapter 3 STAR experiment
+
+### 3.1 Relativistic Heavy Ion Collider
+
+Relativistic Heavy Ion Collider (RHIC) located at Brookhaven National Laboratory (BNL) is one of the most important particle colliders in the world. The RHIC complex consists of a long chain of particle accelerators: Electron Beam Ion Source (EBIS), Linear Accelerator (Linac), Booster Synchrotron, Alternating Gradient Synchrotron, AGS-to-RHIC Line, and RHIC. EBIS is the start of the pre-injector system for the RHIC complex. The ion beams will be accelerated by two small linear accelerators then transferred to the Booster. For the experiments using protons, the protons are accelerated by the Linac then transferred to the Boost Synchrotron. Booster Synchrotron is a circular accelerator that provides more energy to the ions. The ions will be accelerated through the circular accelerator to closer and closer to the speed of light. When the ions enter the AGS, they will be accelerated at the AGS until their speed are closed to the 99:7% of the speed of light. When the ion beam is moving at the highest speed, it is taken down to another beamline which called the AGS to RHIC (AtR) transfer line. At the end of this line, the beamline will be divided into clockwise and counter-clockwise directions by the magnets. The beams are accelerated in the RHIC ring, as in the Booster and AGS, and they will be collided in the six interaction points. Figure 3.1 shows the structure of the RHIC complex accelerators [10].
+
+### 3.2 STAR Experiment
+
+The STAR detector is the only detector currently operating on RHIC. The goal of the STAR experiments is to study the properties of the QGP. The STAR detector is composed several subsystems which such as the magnetic system, Time Projection Chamber (TPC), Vertex Position Detector (VPD), Event Plane Detector (EPD), Barrel Electromagnetic Calorimeter (BEMC), Time of Flight (TOF), and Muon Telescope Detector (MTD). The structure of the STAR detector is shown in Figure 3.2[11].
+
+Figure 3.2: The configuration of STAR detector [11].
+
+Figure 3.1: The top view of the RHIC complex [10].
+
+Vertex Position Detector (VPD)
+
+The Vertex Position Detector (VPD) is used to measure the position of the primary vertex along the beamline (\(\hat{z}\)-direction) and able to provide the minimum-bias trigger in STAR. The VPD assemblies installed on the two sides of STAR, east and west, which consists of two rings and nineteen VPD readout detectors. The structure of VPD assembly, and the VPD detectors are shown in Fig. 3.3 and Fig. 3.4, respectively [12]. Each VPD detectors are composed of a Pb converter and a fast plastic scintillator which is read out by a photomultiplier tube (PMT).
+
+The two VPD assemblies are installed symmetrically at a distance of 5.7 m from the center of STAR and the nineteen detectors coverage in the pseudo-rapidity range of \(4.24\leq\eta\leq 5.1\). The formula to measure the location of the collision primary vertex (\(Z_{vtx}\)) is:
+
+\[Z_{vtx}=c(T_{east}-T_{west})/2, \tag{3.1}\]
+
+Figure 3.4: The structure of the VPD detector [12].
+
+Figure 3.3: The schematic of VPD assembly (left panel) and the photograph of the two assemblies (right panel) [12].
+
+where \(T_{east}\) and \(T_{west}\) are the times from two sides of VPD assemblies and \(c\) is the speed of light. The correlation of the location of primary vertex along the beam pipe measured by the TPC and VPD is shown in Fig. 3.5. By fits the \(\Delta Z\) in Fig. 3.5 to obtain the VPD resolution, in these plots, the Vertex resolution is 2.3 cm and 0.9 cm in 510 GeV p+p and 200 GeV Au+Au, respectively.
+
+### 3.4 Magnet
+
+The magnet is cylindrical in geometry and consist of 30 backlegs for retaining the flux, four end rings, and two pole-tips. The inner end rings have an inner diameter of 5.27 m with 30 chord surfaces on the 6.28 m outer diameter to fix each flux return bar. The total weight is about 1100 tons. The magnet provides a uniform magnetic field and this field is parallel to the beamline with 0.5 Telsa. With this magnetic field, charged particles will be bent due to the Lorentz force and the bending direction will provide the information to determine the sign of the charge [34].
+
+Figure 3.5: The 2-dimensions plot of primary vertex along the beamline measured by the VPD (\(Z^{VPD}_{vtx}\)) and TPC (\(Z^{TPC}_{vtx}\)) in 510 GeV p+p (left panel) and 200 GeV Au+Au (right panel) collisions. The definition of \(DeltaZ\) is (\(Z^{VPD}_{vtx}\))\(\leftarrow\)(\(Z^{TPC}_{vtx}\)) which can extraction of the VPD resolution [12].
+
+### 3.5 Time Projection Chamber (TPC)
+
+TPC is the heart of the STAR detector whose main role is the reconstruction of the particle trajectory. TPC is 4m in diameter by 4.2m long and its can record the tracks of particles, measure their momenta, and identify the particles by their ionization energy loss (\(dE/dx\)). The acceptance of the TPC is 0 to 2\(\pi\) in azimuthal angle and middle pseudorapidity with (\(|\eta|<1.0\)). Figure 3.6 shows the schematic diagram of the TPC structure [13].
+
+TPC is a type of gas detector, which fills the P10 gas (10% methane, 90% argon) regulated at 2 mbar above atmospheric pressure. The charged particle passing the TPC loses the
+
+Figure 3.6: Perspective view of TPC [13].
+
+Figure 3.7: The events trajectory records by TPC [14].
+
+energy by excitation and ionization of the detector gas. This energy loss helps us identify the particles. Fig. 3.8 shows the energy losses as a function of momenta for various particles. Obviously, in the low momentum region, the result of the particle identification is pretty well. However, in the high momentum region, the result of the particle identification is not good due to similar the trajectories of different particles.
+
+### 3.6 Time-of-Flight (TOF)
+
+To identify particles, in addition to using TPC, TOF is another detector with particle identification capability. The TOF system based on the Multi-gap Resistive Plate chambers (MRPCs) technology [16]. In the high energy and luminosity environment, it is necessary to use the TOF to precisely identify the particles. Beside of STAR, the ALICE experiment in the LHC also used the MRPCs system [35]. The structure of the MRPCs module in STAR is shown in Fig. 3.9. It usually uses the variable \(1/\beta\) which has different values for different particles (different mass) to identify particles. The \(1/\beta\) distribution as a function of
+
+Figure 3.8: Energy loses as a function of momenta [15].
+
+momentum is shown in the Fig. 3.10.
+
+\[\frac{1}{\beta}/=\sqrt{(\frac{mc}{p})^{2}+1} \tag{3.2}\]
+
+Figure 3.10: Particle identification using the \(1/\beta\) provides by the TOF [16].
+
+Figure 3.9: Structure of MRPC module in STAR TOF with long side view [16].
+
+Muon Telescope Detector (MTD)
+
+The shape of MTD is cylindrical about 4m long in radius and includes the 5 modules in each backleg and 30 backlegs (as mentioned in Sec. 3.4). The MTD covers a range of the pseudo-rapidity about (\(|\eta|<0.5\)) and 45% in \(\phi\) direction and it was completely installed in 2014. The MTD system is installed behind the magnet because the backlegs can effectively absorb the background hadrons and thus improve the purity of muons. A side view of the MTD is shown in Fig. 3.11 and the MTD module is shown in Fig. 3.12. Like TOF, MRPC technology is also used in the MTD detector. The gas in the MTD includes the 95% \(C_{2}H_{2}F_{4}\) and 5% \(HC(CH_{3})_{3}\). The MTD records the signal when charged particles passing, called as the hits. By these hits, MTD can effectively trigger the events. For example, in our analysis, we used the dimuon trigger which mean that at least two MTD hits were found in an event. A schematic view of the MTD trigger algorithm is shown in Fig. 3.13. In this plot, the number from 1 to 30 stands for the backleg number. The steps of recording the dimuon trigger are the following: (1) Read the two fastest signals from the double-sided of MRPC then go into the trigger QT boards. (2) There are 8 channels in each QT board. In the QT channel, a minimum cut of the TAC is applied to select the good signals. The TAC signals from both sides are summed up to form the "MtdTacSum". The two fastest signals corresponding to the two largest "MtdTacSum" are fed in MT101. (3) All the "MtdTacSum" signals in the MT101 are compared to the starting time from the VPD, it also called "VpdTacSum". Applied the online trigger window cut on the "MtdTacSum" signals, the definition of the online trigger window cut is "\(\Delta TacSum=MtdTacSum-VpdTacSum\)". If the signals which is satisfied this cut are counted as muon candidates and passed this signal to the TF201. (4) The final step on trigger selection is made in TCU with input TF201.
+
+Figure 3.11: A side view of the STAR detector. Backleg 1 is mounted at \(\pi\)/2, and follows clockwise [17].
+
+Figure 3.12: The module of MTD trays [17].
+
+Figure 3.13: A schematic view of the MTD trigger system [17].
+
+## Chapter 4 Analysis setup
+
+In this thesis, we used the dataset taken by STAR in 2017 (Run17). In order to the study the \(J/\psi\rightarrow\mu^{+}\mu^{-}\) and \(\psi(2S)\rightarrow\mu^{+}\mu^{-}\) final state, we required the dimuon trigger events, which is defined in chapter 3. The total number of events with the dimuon trigger is about 723.5 M and the corresponding luminosity is 187.2 \(pb^{-1}\).
+
+### 4.1 Vertex and track selection
+
+In our analysis, we required the primary vertices and primary tracks which reconstructed by the TPC detector. For the selection of the primary vertex, we chose the primary vertex which with the minimum value of the \(|\text{VPD}\,V_{z}\) - TPC\(\,V_{z}\) in an event, where the VPD \(V_{z}\) and TPC \(V_{z}\) are the primary vertex position measured by the Vertex Position Detector (VPD) [12] and TPC in the z direction, respectively. To make sure the quality of the tracks, we applied some basic track level selections in our analysis, such as the transverse momentum (\(p_{T}\)) should be greater than 1.3 \(GeV/c\) and the pseudorapidity (\(\eta\)) should be smaller than 0.5 for the MTD kinematics acceptance, the distance of the closest approach (DCA) to the collisions vertex should be smaller than 3 cm to reduce the secondary-decayed events; the number of the TPC clusters used in reconstruction should be greater than 15 to make sure the good resolution of the momentum determination; the number of the TPC clusters used for the \(dE/dx\) measurement is greater than 10 to make sure the good resolution of the energy loss estimation; the ratio of the number of used TPC clusters over the number of possible clusters should be small than 0.52 to reject the split tracks; the track should be matched to an MTD hit. The basic vertex abd track selections are summarized in Table 4.1.
+
+### 4.2 Bad runs rejection
+
+In addition to the basic event selections, the data quality assurance (QA) for the events is also necessary. It is because that detector might encounter some issues resulting nonreasonable data. Therefore, we should do the QA to reject the bad runs and bad events in our analysis. An iterative procedure was used to identify the bad runs for given variables and the steps are listed as following:
+
+1. Remove the Run with the number of events less than 10,000.
+2. Obtain the mean value and the standard deviation distribution of each run from the different variables.
+3. According to the mean and run distribution, the run will be identified as a bad run if the mean value of a certain variable is 4 \(\times\) standard deviation away from the average mean.
+4. Since the bad runs remove, we recalculation of standard deviation and mean according to the step2 and step3 until it converges.
+
+The demonstration of the QA plot for the variable \(p_{T}\) is shown in Fig. 4.1. We used 21 variables for the QA as follows:
+
+* The number of events: The number of events in a run.
+
+\begin{table}
+\begin{tabular}{c} \hline \hline Primary vertices \\ Primary tracks \\ \(p_{T}\geq 1.3GeV/c\) \\ \(|\eta|<0.5\) \\ \(DCA<3cm\) \\ \(\#\:of\:hits\:of\:fit\geq 15\) \\ \(\#\:of\:hits\:of\:dedx\geq 10\) \\ \(Fit\:hit\:fraction\geq 0.52\) \\ \hline \hline \end{tabular}
+\end{table}
+Table 4.1: The summary of the vertex and track selections.
+
+* The Zero Degree Calorimeter (ZDC) [36] and Beam-Beam Counter (BBC) [37] coincidence rate: the events rate be measured by the ZDC and BBC detector which used to determine the luminosity.
+* The TPC \(V_{x}\), \(V_{y}\), and \(V_{z}\): the vertex position be measured by the TPC in the x, y and z-direction.
+* The VPD \(V_{z}\): the vertex position be measured by the VPD in the z-direction.
+* The NHitsFit, NHitsDedx, NHitsposs, NGoodTrk and DCA: about the track informations which definition are shown in Sec. 4.1.
+* The \(p_{T}\), \(\eta\) and \(\phi\): the transverse momentum, pseudorapidity, and azimuthal angle are from the TPC track.
+* The \(\Delta y\times q\), \(\Delta z\), \(\Delta TOF\) and \(n\sigma_{\pi}\), the variables we used to identify the muon, which the details shows in the Sec. 4.3.
+* The \(p_{T}\), \(\eta\) and \(\phi\) with matched to MTD track: The transverse momentum, pseudorapidity, and azimuthal angle are from the track with matched to MTD.
+
+After the QA procedure, we rejected about 3.8% events corresponding 27M events. After applying all the sections and rejection all the bad runs in our analysis, we reconstructed the dimuon mass spectrum as shown in Fig 4.2. The black points are the invariant mass spectrum of dimuon pairs with opposite-sign charges and the red line is the fitting function using Gaussian plus the sixth-order polynomial. We have a clear signal of \(J/\psi\) and the number of \(J/\psi\) is 38,706. However, the \(\psi(2S)\) signal is not clear, so further selections for the muon candidates are needed.
+
+### 4.3 Muon identification
+
+To improve the significances of the \(J/\psi\) and \(\psi(2S)\) signal, we should increase the muon purity by rejecting more background. MTD and TPC provide some information to help us find the muon candidates. We used three variables from the MTD and two variables from the TPC for the muon selection as follows:
+
+* DCA: Distance of the closest approach of muon to the collision vertex.
+* \(\Delta y\times q\): Distance difference between the position of MTD hit and extrapolated position from the track on the MTD in \(r\phi\) plane, multiplying by the charge to elmnets the charge dependence.
+* \(\Delta z\): Distance difference between the position of MTD hit and extrapolated position from the track on the MTD in z direction.
+* \(\Delta TOF\): Time difference between the time-of-flight recorded by the TOF and MTD.
+* \(n\sigma_{\pi}\): Difference between the measured dE/dx and the theoretical calculation for pion normalized by the resolution of the dE/dx measurements, as defined: \[n\sigma_{\pi}=\frac{(log(\frac{dE}{dx}))_{measured}-(log(\frac{dE}{dx}))_{\pi, theory}}{\sigma(log(\frac{dE}{dx})}\] (4.1)
+
+The probability density functions (PDFs) of these variables are shown in Fig. 4.3. The black points are the signal PDFs using from the data normalized opposite-sign distribution
+
+Figure 4.1: The demonstration of the QA plot: the mean \(p_{T}\) as a function of run
+
+Figure 4.2: The dimuon mass spectrum
+
+subtracted by the normalized same-sign distribution, and the blue open circles are the background PDFs from using the normalized same-sign distribution. The red line is a fitting function for the signal distribution and the blue line is the fitting function for the background distribution.
+
+### 4.4 Likelihood ratio method
+
+We used the Likelihood-Ratio method to discriminate the signal events and background events. A new variable called as "R" is defined as R = (1-Y) / (1+Y), where Y \(=\prod_{i}y_{i}\) and each \(y_{i}=PDF_{i}^{bkgd}/PDF_{i}^{sig}\) which is the ratio between background to signal PDFs of five variables as described above, DCA, \(\Delta y\times q\), \(\Delta z\), \(\Delta TOF\) and \(n\sigma_{\pi}\). According to this definition, the R variable for a signal-like events is closed to 1. On the other hand, the R variable for a background-like events is closed to -1. The distribution of the R variable for signals and backgrounds is shown in Fig. 4.4. The blue and red histograms are the data-driven signal and background R variables, receptively. We determined the optimized cut by the maximum value of \(\varepsilon_{s}\times(1-\varepsilon_{B})\) based on these distributions. The \(\varepsilon_{s}\times(1-\varepsilon_{B})\) as a function of R is shown in Fig. 4.5(a) and the best cut is R \(>\) 0.06. The relation between the background rejection and signal efficiency is shown in Fig. 4.5(b). The table 4.2 summarized the selections cut of muon candidates. After applying all the selections, the \(\psi(2S)\) signal is getting more clear as shown in Fig. 4.6. The red line is the fitting function with double Gaussians plus the sixth-order polynomials, and the raw number of \(J/\psi\) is about 21,203 and the \(\psi(2S)\) is about 708.
+
+\begin{table}
+\begin{tabular}{c} \hline Track matched to MTD hits \\ MTD hits fired dimuon trigger \\ \(p_{T}\geq 1.3GeV/c\) \\ \(|\eta|<0.5\) \\ \(DCA<3cm\) \\ Likelihood ratio cut (R \(>\) 0.06) \\ \hline \end{tabular}
+\end{table}
+Table 4.2: The summary of the selections for the muon candidates.
+
+Figure 4.3: The muon identification variables (a) \(DCA\), (b) \(\Delta y\times q\), (c) \(\Delta z\), (d) \(\Delta TOF\) and (e) \(n\sigma_{\pi}\). Details can be found in content.
+
+Figure 4.4: The R variable distribution for the signal (red) and background (blue).
+
+Figure 4.5: (a) The \(\varepsilon_{s}\times(1-\varepsilon_{B})\) as a function of R and (b) background rejection versus the signal efficiency
+
+Figure 4.6: The \(J/\psi\) and \(\psi(2S)\) signals from the dimuon mass distribution
+
+## Chapter 5 Production Cross-sections
+
+### 5.1 The \(J/\psi\) and \(\psi(2S)\) invariant cross sections
+
+Since the statistics is high in the Run17 data taking, it allows us to study the \(J/\psi\) and \(\psi(2S)\) in details. We divided the \(J/\psi\) signal into twenty-two \(p_{T}\) bins as: [0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 12.0, 15.0] and divide the \(\psi(2S)\) signal into three \(p_{T}\) bins as: [0, 1.0, 5.0, 10.0]. We used the function of Gaussian plus the polynomial to fit the dimuon spectra to obtain the \(J/\psi\) and \(\psi(2S)\) signals. The width of the \(\psi(2S)\) signal is fixed to the same as \(J/\psi\). The \(J/\psi\) and \(\psi(2S)\) signals in different dimuon \(p_{T}\) bins are shown in Fig. 5.1 and Fig. 5.2. The definition of invariant differential cross-section is:
+
+\[BR(meson\rightarrow\mu^{+}\mu^{-})\times\frac{d^{2}\sigma}{2\pi p_{T}^{meson}dp_{T}^{ meson}dy}=\frac{N_{meson\rightarrow\mu^{+}\mu^{-}}^{corrected}}{(2\pi p_{T}^{meson})\cdot\int{\cal L}dt \cdot\Delta p_{T}^{meson}\cdot\Delta y^{meson}}, \tag{5.1}\]
+
+where \(Br(meson)\) is the branching ratio of the meson decaying into dimuon channel and the meson represents \(J/\psi\) and \(\psi(2S)\); \(p_{T}^{meson}\) and \(y^{meson}\) are the transverse momentum and rapidity of the meson, respectively; \({\cal L}dt\) is the integrated luminosity; \(\Delta p_{T}^{meson}\), \(\Delta y^{meson}\) are the bin widths in \(p_{T}^{meson}\) and \(y^{meson}\), respectively; and the \(N_{meson}^{corrected}\) is the candidate-by-candidate efficiency corrected number of meson in individual meson \(p_{T}\) and rapidity bins and it is defined as:
+
+\[N_{meson}^{corrected}=\sum_{i}^{N_{meson}^{i}}w_{i}, \tag{5.2}\]
+
+where \(w_{i}\) is the weight of the detector acceptance multiplied by the total reconstruction efficiency (\({\cal A}\times\varepsilon_{reco.}\)) for each candidate "i".
+
+The detector acceptance (\({\cal A}_{meson}\)) contains two parts. The first one is the kinematic acceptance of meson comes from the kinematic cuts on the muons from \(J/\psi\), which are \(p_{T}^{\mu}\)\(>\) 1.3 GeV and \(|\eta^{\mu}|\)\(<\) 0.5. The second one is the MTD geometry acceptance which comes from the limited coverage in the \(\phi\) direction of MTD, about 45%. The total reconstructionefficiency is defined as:
+
+\[\varepsilon_{reco.}=\varepsilon_{dimuon}^{VPD}\times\varepsilon_{vtx.}(p_{T}^{meson },y^{meson})\times\varepsilon_{TPC}^{2}(\eta^{\mu},\phi^{\mu})\times\varepsilon_{ MTD}^{2}(p_{T}^{\mu},Bkg^{\mu},Mod^{\mu})\times\varepsilon_{\mu ID}^{2}(p_{T}^{\mu}), \tag{5.3}\]
+
+where \(\varepsilon_{dimuon}^{VPD}\) is the VPD efficiency in dimuon triggered events; \(\varepsilon_{vtx.}\) is the vertex finding efficiency; \(\varepsilon_{TPC}\) is the TPC tracking efficiency for the muon candidates; \(\varepsilon_{MTD}\) is the MTD related efficiencies and they include (1) the electronic trigger efficiency as a constant, (2) the time window cut trigger efficiency as a function of \(p_{T}\), \(\varepsilon_{MTD}^{trig.}\) (\(p_{T}^{\mu}\)), (3) the MTD response efficiency as a function of \(p_{T}\), MTD backleg, and MTD module, \(\varepsilon_{MTD}^{resp.}\) (\(p_{T}^{\mu}\),\(Bkg^{\mu}\),\(Mod^{\mu}\)) which takes care of the MTD responding to a particle passing though a MTD module, (4) the MTD matching efficiency as a function of \(p_{T}\), \(\varepsilon_{MTD}^{match.}\) (\(p_{T}^{\mu}\)), and it is the efficiency for the track can matching to the MTD hits, and (5) \(\varepsilon_{\mu ID}\) is the muon identification efficiency as a function of \(p_{T}^{\mu}\), \(\varepsilon_{MTD}^{match.}\) (\(p_{T}^{\mu}\)), due to the Likelihood ratio cut on the muon candidates. The \(\varepsilon^{2}\) represent the product of the efficiencies of the two decaying muons.
+
+### 5.2 \(J/\psi\) and \(\psi(2S)\) kinematic acceptance
+
+The polarization of quarkonium will affect the kinematic acceptance of the detector, as known as the "spin-alignment" effect. The angular distribution for the quarkonium decaying to the dimuon in the quarkonium rest frame is given by:
+
+\[\frac{d^{2}N}{\cos\theta^{*}d\phi^{*}}\propto 1+\lambda_{\theta}\cos^{2} \theta^{*}+\lambda_{\phi}\sin^{2}\theta^{*}\cos 2\phi+\lambda_{\theta\phi}\sin 2 \theta^{*}\cos\phi^{*} \tag{5.4}\]
+
+The coordinate system is shown in Fig 5.3. Due to the different polarizations, we should consider several scenarios for the kinematics acceptance maps. We generated high statistics 2-dimensional acceptance maps for several cases in the helicity frame using a particle gun Toy Monte Carlo generator which was used in the ATLAS experiments [38]. The polarization configurations used in the acceptance maps are:
+
+1. Un-polarized (\(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\))
+2. Longitudinal (\(\lambda_{\theta}=\) -1, \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\))Figure 5.2: The \(\psi(2S)\) signals from various dimuon \(p_{T}\) bins.
+
+Figure 5.1: The \(J/\psi\) signals from various dimuon \(p_{T}\) bins.
+
+3. Zero transverse (\(\lambda_{\theta}=1,\lambda_{\phi}=0,\)\(\lambda_{\theta\phi}=0\))
+4. Positive transverse (\(\lambda_{\theta}=1,\lambda_{\phi}=1,\lambda_{\theta\phi}=0\))
+5. Negative transverse (\(\lambda_{\theta}=1,\lambda_{\phi}=1,\lambda_{\theta\phi}=0\))
+6. Off-plane positive (\(\lambda_{\theta}=0,\)\(\lambda_{\phi}=0,\)\(\lambda_{\theta\phi}=0,\)\(5\))
+7. Off-plane negative (\(\lambda_{\theta}=0,\lambda_{\phi}=0,\)\(\lambda_{\theta\phi}=-0.5\))
+
+The \(J/\psi\) and \(\psi(2S)\) acceptance maps are shown in Fig. 5.4 and Fig. 5.5, respectively. The maximum variations of different polarization scenarios in the \(J/\psi\) and \(\psi(2S)\) kinematics acceptance are shown in Fig. 5.6. We used the un-polarized map to calculate the central values of the differential cross section.
+
+### 5.3 MTD geometry acceptance
+
+The coverage of the MTD in \(\phi\) direction is about 45% because of the gaps between the two MTD backlegs, therefore we should consider this influence in our analysis. We built the 3-dimensional single muon acceptance map as a function of \(p_{T}^{\mu}\), \(\eta^{\mu}\), and \(\phi^{\mu}\) from the Monte Carlo (MC) samples. The definition of the MTD geometry acceptance is the probability that
+
+Figure 5.3: The coordinate system for defining the quarkonium polarization.
+
+Figure 5.4: The \(J/\psi\) kinematics acceptance maps for (a) un-polarized (\(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (b) longitudinal (\(\lambda_{\theta}=\) -1, \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (c) zero transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (d) positive transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=1\), \(\lambda_{\theta\phi}=0\)), (e) negative transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=\) -1, \(\lambda_{\theta\phi}=0\)), (f) off-plane positive \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0.5\)) and (g) off-plane negative \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=\) -0.5).
+
+Figure 5.5: The \(\psi(2S)\) kinematics acceptance maps for (a) un-polarized (\(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (b) longitudinal (\(\lambda_{\theta}\) = -1, \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (c) zero transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (d) positive transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=1\), \(\lambda_{\theta\phi}=0\)), (e) negative transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=\) -1, \(\lambda_{\theta\phi}=0\)), (f) off-plane positive \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0.5\)) and (g) off-plane negative \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=\) -0.5).
+
+[MISSING_PAGE_EMPTY:52]
+
+Figure 5.7: Single muon MTD acceptance as a \(\eta\) and \(\phi\) in different muon \(p_{T}\) bins.
+
+Figure 5.8: The \(J/\psi\) MTD geometry acceptance maps for (a) un-polarized (\(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (b) longitudinal (\(\lambda_{\theta}=\) -1, \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (c) zero transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (d) positive transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=1\), \(\lambda_{\theta\phi}=0\)), (e) negative transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=\) -1, \(\lambda_{\theta\phi}=0\)), (f) off-plane positive \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0.5\)) and (g) off-plane negative \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=\) -0.5).
+
+Figure 5.9: The \(\psi(2S)\) MTD geometry acceptance maps for (a) un-polarized (\(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0\)), (b) longitudinal (\(\lambda_{\theta}\) = -1, \(\lambda_{\phi}\) = 0, \(\lambda_{\theta\phi}=0\)), (c) zero transverse (\(\lambda_{\theta}\) = 1, \(\lambda_{\phi}\) = 0, \(\lambda_{\theta\phi}\) = 0), (d) positive transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}=1\), \(\lambda_{\theta\phi}=0\)), (e) negative transverse (\(\lambda_{\theta}=1\), \(\lambda_{\phi}\) = -1, \(\lambda_{\theta\phi}=0\)), (f) off-plane positive \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=0.5\)) and (g) off-plane negative \(\lambda_{\theta}=0\), \(\lambda_{\phi}=0\), \(\lambda_{\theta\phi}=\) -0.5).
+
+Figure 5.11: The blue arrows are the global tracks and the blue lines between the global tracks represent the DCA between the global track pair. The red arrows are associated primary track pair and the blue point indicates the primary vertex for this primary track pair.
+
+Figure 5.10: The maximum variation of the MTD geometry.acceptance maps between different polarization cases for (a) \(J/\psi\) and (b) \(\psi(2S)\).
+
+to the beamline should be smaller than 5 cm, and the distance in the z-direction to the vertex point should be smaller than 4 cm. We also require the cut of the muon candidates to make sure the tracks come from the muons. Firstly, we paired all the global tracks and then we tried to find the associated primary tracks. If the global tracks pairs successfully find the associated primary tracks and these primary tracks must come from the primary vertex which we used in our analysis, then we identified this pair as the "passed" pair. The definition of the vertex finding efficiency is the ratio of the numbers of the "passed" pairs to the number of all the global tracks pairs. We used the global track pairs and the associated primary track pairs to reconstruct the mass spectrum in various dimuon \(p_{T}\) bins. In Fig. 5.12, the black points are the invariant mass from all global track pairs and the blue open circles are the global track pairs with associated primary tracks from the primary vertex we using in our analysis.
+
+Fig. 5.13 shows the vertex efficiencies in different \(p_{T}\) bins and this result also shows that the vertex efficiency is not affected by the events from \(J/\psi\) since the efficiency is mass-independent in all dimuon \(p_{T}\) bins. The final result of the vertex finding efficiency is about 98.9% \(\pm\) 0.2% obtained from the \(0^{th}\)-order polynomial fitting as shown in Fig. 5.14.
+
+Figure 5.12: The dimuon mass spectrum in various dimuon \(p_{T}\) bins. The black point are from the global track pairs and the blue open circle are requiring the associated primary tracks from the same primary vertex.
+
+Figure 5.13: The vertex efficiency as a function of mass in different dimuon \(p_{T}\) bins.
+
+Figure 5.14: The vertex efficiency as a function the dimuon \(p_{T}\) bins.
+
+[MISSING_PAGE_FAIL:59]
+
+Figure 5.16: Additional correction factor for inefficiency of TPC sector 20 as a function of \(p_{T}\) and \(|\phi|\).
+
+Figure 5.17: The TPC tracking efficiency of the as a funtion of \(\eta\) and \(\phi\).
+
+[MISSING_PAGE_FAIL:61]
+
+the interval of 977 to 1065 for the Run17 data. Figure 5.19 shows the \(\Delta TacSum\) in Run17 data and it is obvious that the tails in the left-handed side is missed. Therefore, we used the Run15 distribution 5.20 to estimate the trigger online time window cut since Run17 and Run15 used the similar configuration. We first smeared the Run15 distributions to match the Run17 distributions then used the double-sided Crystal-Ball function to fit the Run15 distributions. Then, we applied the \(\Delta TacSum\) cut of 977 to 1065 on this fitting function to evaluate the online time window cut efficiency. Figure 5.21 is the trigger online window cut efficiency as a function of muon \(p_{T}\) and the plateau efficiency is 93.1%.
+
+### 5.7 MTD response efficiency
+
+We estimated the MTD response efficiency by the Run17 cosmic ray data. When the cosmic rays pass through the MTD backlegs, the cosmic ray is come from the opposite direction compared with the particle collisions data. To the top side of the MTD backlegs, the
+
+Figure 5.19: The \(\Delta TacSum\) distributions from different muon \(p_{T}\) bins in Run17 data and the red line is the fitting function of Double-sided Crystal-Ball function.
+
+Figure 5.21: MTD online time window cut trigger efficiency is fitted by the error function (red line)
+
+Figure 5.20: The \(\Delta TacSum\) distributions from different muon \(p_{T}\) bins in Run15 data and the red line is fitting function of Double-sided Crystal-Ball function.
+
+[MISSING_PAGE_FAIL:64]
+
+### 5.8 MTD matching efficiency
+
+The MTD matching efficiency is the probability of the TPC track which can be projected to an MTD module and this track can be matched to a MTD hit. We used the MC sample to evaluate the MTD matching efficiency as defined:
+
+\[\varepsilon^{\mu}_{MTD\ matched}\ =\ \frac{N^{\mu}_{matched}}{N^{\mu}_{proj.}}, \tag{5.6}\]
+
+where \(N^{\mu}_{matched}\) is the number of muon candidate tracks matched to MTD hits and the \(N^{\mu}_{proj.}\) is the number of muon candidate tracks which can be projected to an MTD module. The MTD matching efficiency as a function of muon \(p_{T}\) is shown in Fig. 5.52 where the black points are the efficiency from the Run17 MC sample and the red line is the fitting function of the error function. The MTD matching efficiency is about 63.8% to plateau.
+
+Figure 5.23: The 2-D map of the MTD response efficiency where the x-axis is the \(p_{T}^{\mu}\) and the y-axis is the MTD modules.
+
+Figure 5.28: The MTD resposne efficiiecny as a function of \(p_{T}\) on MTD backleg 5.
+
+Figure 5.29: The MTD resposne efficiiecny as a function of \(p_{T}\) on MTD backleg 6.
+
+Figure 5.24: The MTD resposne efficiiecny as a function of \(p_{T}\) on MTD backleg 1.
+
+Figure 5.27: The MTD resposne efficiiecny as a function of \(p_{T}\) on MTD backleg 3.
+
+Figure 5.28: The MTD resposne efficiiecny as a function of \(p_{T}\) on MTD backleg 4.
+
+Figure 5.29: The MTD resposne efficiiecny as a function of \(p_{T}\) on MTD backleg 6.
+
+Figure 5.30: The MTD resposne efficiiecny as a function of \(p_{T}\) on MTD backleg 7.
+
+[MISSING_PAGE_EMPTY:67]
+
+Figure 5.43: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 21.
+
+Figure 5.44: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 22.
+
+Figure 5.42: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 20.
+
+Figure 5.43: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 21.
+
+Figure 5.39: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 17.
+
+Figure 5.40: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 18.
+
+Figure 5.45: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 24.
+
+Figure 5.46: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 25.
+
+Figure 5.47: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 26.
+
+Figure 5.48: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 27.
+
+Figure 5.49: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 28.
+
+Figure 5.50: The MTD response efficiency as a function of \(p_{T}\) on MTD backleg 29.
+
+### 5.9 Muon identification efficiency
+
+The definition of the muon identification efficiency is the probability of the muon candidates passing the Likelihood Ratio selection.
+
+\[\varepsilon_{\mu ID}^{\mu}=\frac{N_{ID}^{\mu}}{N_{matched}^{\mu}}, \tag{5.7}\]
+
+where \(N_{ID}^{\mu}\) is the number of muon candidates satisfied the Likelihood Ratio selection and the \(N_{matched}^{\mu}\) is the number of muon candidates before the Likelihood Ratio selection (tracks matched to MTD hits). We used the Run17 data to estimate the muon identification efficiency by the tag-and-probe method using \(J/\psi\rightarrow\mu^{+}\mu^{-}\) events. The steps of the calculation of the muon identification efficiency as follows, firstly, we tagged a track with the tight muon identification cut to ensure that the track has a high probability to be a muon. Secondly, we probed another track with two conditions, one is without applying any muon identification cut on this track, and another is applying the muon identification cut on the track. In the other words, we had two kinds to pair tracks, (1) track with basic cuts and \(\mu ID\) cut \(+\) track only with basic cut, (2) track with basic cuts and \(\mu ID\) cut. Fig. 5.53 shows the cartoon picture of the tag-and-probe method. We fitted the mass spectra in different muon \(p_{T}\) bins to extract the numbers of \(J/\psi\) (muon) and Fig. 5.54 shows the mass
+
+Figure 5.52: MTD matching efficiency as a function of \(p_{T}^{\mu}\)spectra from different muon \(p_{T}\) bins, where the black points are from the muon candidates \(+\) muon candidates and the blue open circles are from the muon candidates \(+\) tracks. We estimated the efficiency by the ratio of the number of \(J/\psi\) from these two kinds of track pairs. Figure. 5.55 shows the muon identification efficiency as a function of \(p_{T}^{\mu}\), at low \(p_{T}^{\mu}\) the efficiency is about 60% and the efficiency is about 95% at plateau.
+
+### 5.10 Closure test
+
+We performed the closure test to ensure that the efficiencies are correct. We tested three kinds of efficiency and acceptance, including kinematic acceptance, the MTD geometry acceptance, and the MTD matching efficiency. The results of the closure test are shown in Fig. 5.56 - 5.61 as the kinematic acceptance, the MTD geometry acceptance, and the MTD matching efficiency, respectively. We used \(0^{th}\)-order polynomials to fit the ratios and the results are consistent to unify.
+
+Figure 5.53: The cartoon picture of Tag-and-probe method.
+
+Figure 5.54: The tag-and-probe method in different muon \(p_{T}\) bins. The black points are the pairs of muon candidates \(+\) muon candidates and the blue open circles are the muon candidates \(+\) tracks.
+
+Figure 5.56: The closure test for the \(J/\psi\) kinematic acceptance (a) the truth \(p_{T}\) distribution and the efficiency-corrected distribution and (b) the ratio of the \(p_{T}^{J/\psi}\) corrected distribution to the truth \(p_{T}^{J/\psi}\) distribution.
+
+Figure 5.55: Muon identification efficiency as a function of \(p_{T}^{\mu}\).
+
+[MISSING_PAGE_EMPTY:74]
+
+[MISSING_PAGE_EMPTY:75]
+
+[MISSING_PAGE_EMPTY:76]
+
+Figure 5.62: All the efficiencies as a function of dimuon \(p_{T}\).
+
+Figure 5.63: Efficiency-corrected yields of \(J/\psi\) signals in different dimuon \(p_{T}\) bins.
+
+Figure 5.64: Efficiency-corrected yields of \(\psi(2S)\) signals in different dimuon \(p_{T}\) bins.
+
+Figure 5.65: Efficiency-corrected yields of \(J/\psi\) and \(\psi(2S)\) as a function of dimuon \(p_{T}\).
+
+## Chapter 6 Systematics uncertainty
+
+We have two major sources of the systematic uncertainties including signal extraction and the efficiencies.
+
+### 6.1 Signal extraction
+
+We used the different combinations of signal and background to fit the mass spectra to extract the number of \(J/\psi\) and \(\psi(2S)\). The mean values used in the cross section measurement are the average from all the combinations of signal and background models, and the systematic uncertainty of the signal extraction is determined by the maximum deviation from the average for each dimuon \(p_{T}\) bin. Figure. 6.1 and 6.2 show the efficiency-corrected yields of \(J/\psi\) and \(\psi(2S)\) as a function of dimuon \(p_{T}\) using various models. We used the Gaussian, Double-Gaussian and ExpGauss[39] to fit the signals, and polynomial and same-signed templates to fit the background. There are six combinations of signal and background models. The numbers of \(J/\psi\) and \(\psi(2S)\) are summarized in Table 6.1 and Table. 6.2, respectively.
+
+Figure 6.1: (a) The \(J/\psi\) efficiency-corrected yields from different models and (b) the systematic uncertainty of the signal extraction as a function of \(J/\psi\)\(p_{T}\).
+
+[MISSING_PAGE_EMPTY:81]
+
+\begin{table}
+\begin{tabular}{c|c} \hline \hline \(p_{T}^{\psi(2S)}\) bins & Signal numbers \\ \hline \(0.0<p_{T}^{\psi(2S)}<1.0\) GeV/c & 25548 \(\pm\) 9055 \(\pm\) 2539 \\ \hline \(1.0<p_{T}^{\psi(2S)}<5.0\) GeV/c & 107732 \(\pm\) 28196 \(\pm\) 17726 \\ \hline \(5.0<p_{T}^{\psi(2S)}<10.0\) GeV/c & 11463 \(\pm\) 3285 \(\pm\) 1746 \\ \hline \hline \end{tabular}
+\end{table}
+Table 6.2: The efficiency-corrected number of \(\psi(2S)\) at each \(p_{T}^{\psi(2S)}\) bin. The second term of the error is statistical uncertainty and the third term is the systematic uncertainty from the signal extraction.
+
+Figure 6.2: (a) The \(\psi(2S)\) efficiency-corrected yields from different models and (b) the systematic uncertainty of the signal extraction as a function of \(\psi(2S)\).
+
+### 6.2 TPC tracking efficiency
+
+The systematic uncertainty from the TPC tracking efficiency is estimated by varying the track level quality selections, such as DCA, NHitsFit, and NHitsDEdx. We compared each varied number of \(J/\psi\) with the corresponding TPC tracking efficiencies. We have five combinations of various the track level quality selections which summarized in the Table 6.3. Figure 6.3 shows the ratios of the TPC tracking efficiency corrected number from different track level quality cuts to the default. The systematic uncertainty from the TPC tracking efficiency is determined by a linear fit of the ratios and the detailed values are shown in Table 6.4.
+
+\begin{table}
+\begin{tabular}{c|c|c|c} \hline \hline  & DCA & \# of hit fits & \# of dEdx hits \\ \hline Default & \(<\)3.0 cm & \(<\)15 & \(<\) 10 \\ \hline
+1 & \(<\) 2.5 cm & \(\leq\) 15 & \(<\) 10 \\ \hline
+2 & \(<\) 2.0 cm & \(\leq\) 15 & \(<\) 10 \\ \hline
+3 & \(<\)3.0 cm & \(\leq\) 25 & \(<\) 10 \\ \hline
+4 & \(<\) 3.0 cm & \(<\) 15 & \(<\) 15 \\ \hline \hline \end{tabular}
+\end{table}
+Table 6.3: The combinations of all track level quality selections.
+
+Figure 6.3: The ratios of the TPC tracking efficiency-corrected numbers with different track level quality cuts to the default.
+
+### 6.3 MTD related efficiencies
+
+The MTD related efficiencies include the MTD trigger efficiency and MTD response efficiency. Three sources are considered for estimating the systematic uncertainty of the MTD trigger efficiency:
+
+1. Use double-sided Crystal ball function to fit the \(\Delta TACSum\) distribution in the Run17.
+2. Shift the Run17 the \(\Delta TACSum\) cut then applied on the Run15 \(\Delta V_{z}\) distribution to estimate the MTD online time window cut efficiency.
+3. Smear the Run17 the \(\Delta TACSum\) cut then applied on the Run15 \(\Delta V_{z}\) distribution to estimate the MTD online time window cut efficiency.
+
+The efficiencies from these three sources are shown in Fig. 6.4. The systematic uncertainty for the MTD trigger efficiency is calculated by comparing with each corrected number of \(J/\psi\) with the corresponding MTD trigger efficiencies correction and it is about 1.5% for all the \(J/\psi\)\(p_{T}\) bins.
+
+The source for MTD response efficiency is from the difference between each backleg efficiency, and the efficiency template in individual MTD module is used to estimate the systematic uncertainty for the MTD response efficiency. The systematics uncertainty from the MTD response efficiency is shown in Fig 6.6 and it is less than 1%, which can be negligible.
+
+\begin{table}
+\begin{tabular}{c|c} \hline \hline Track level quality cuts & Systematics uncertainty \\ \hline DCA & 1.97\% \\ \hline \# of hit fits & 6.76\% \\ \hline \# of dEdx hits & 2.28\% \\ \hline Total & 7.43\% \\ \hline \hline \end{tabular}
+\end{table}
+Table 6.4: The detailed values of systematic uncertainty from each track level quality cut and the total uncertainty from the TPC tracking efficiency.
+
+Figure 6.4: The efficiencies of the MTD trigger online time window cut using three sources.
+
+Figure 6.5: Systematic uncertainty for the MTD trigger efficiency as a function of \(J/\psi\)\(p_{T}\).
+
+### 6.4 Muon identification efficiency
+
+Systematic uncertainty of the muon identification efficiency can be estimated by varying the Likelihood ratio cut and then compared the ratio of efficiency-corrected numbers of \(J/\psi\) to the default cut. The default muon identification efficiency under the inclusive \(p_{T}\) is about 73%, the Likelihood Ratio cut is varied to have different efficiencies, 85%, 80%, and 65%. The variations of the Likelihood Ratio cuts are summarized in Table 6.5.
+
+The yields and the ratios of efficiency-corrected the number of \(J/\psi\) to the default are shown in Fig. 6.7(a) and 6.7(b), respectively. The systematic uncertainty as a function of
+
+\begin{table}
+\begin{tabular}{c|c|c} \hline \hline  & \(\mu ID\) efficiency & Likelihood Ratio cut \\ \hline Default & 73\% & R \(>\) 0.06 \\ \hline
+1 & 85\% & R \(>\) -0.2 \\ \hline
+2 & 80\% & R \(>\) -0.1 \\ \hline
+3 & 65\% & R \(>\) 0.14 \\ \hline \hline \end{tabular}
+\end{table}
+Table 6.5: Variation of the Likelihood cut and the corresponding efficiencies.
+
+Figure 6.6: Systematic uncertainty for the MTD response efficiency as a function of \(J/\psi\)\(p_{T}\). The uncertainty is less than 1% which can be negligible.
+
+\(J/\psi\)\(p_{T}\) is shown in Fig. 6.8. The detailed values are summarized in Table 6.6.
+
+Figure 6.7: (a) The muon identification efficiency corrected number of \(J/\psi\) from different Likelihood Ratio cuts. (b) The Ratios of the muon identification efficiency corrected number from different track level quality cuts to the default.
+
+Figure 6.8: Systematic uncertainty for the muon identification efficiency as a function of \(J/\psi\)\(p_{T}\).
+
+[MISSING_PAGE_EMPTY:88]
+
+[MISSING_PAGE_EMPTY:89]
+
+[MISSING_PAGE_EMPTY:90]
+
+## Chapter 7 Results
+
+Figure 7.1 and Figure 7.2 show the invariant cross sections of the \(J/\psi\) and \(\psi(2S)\) meson, respectively, as a function of dimuon \(p_{T}\) from our analysis. The black open stars show the cross section measured in a restricted phase space (fiducial volume), so-called the "fiducial cross section", which means the dimuon kinematic acceptance were not corrected, and also means no specific assumption about dimuon polarization. The red solid stars show the total invariant cross section with the correction of kinematic acceptance. Therefore, the total cross-section can access of quarkonium the full phase space of dimuon decay and was measured with the assumption of no polarization (unpolarized). The gray shaded area is the polarization envelope obtained from the maximum spread with the different cases of polarization assumptions. The \(J/\psi\) differential cross section follows the STAR published results. From the precise measurement in the low \(J/\psi\).\(p_{T}\) region, it shows the new capability for discriminating between different models. Figure 7.3 shows the \(J/\psi\) differential cross section from the dimuon channel and published the dielectron channel compare with the model calculations. At \(J/\psi\).\(p_{T}\) less than \(3\) GeV/c region, the Color Glass Condensate (CGC) + Non-Relativistic Quantum Chromodynamics (NRQCD) [18] and Improved Color Evaporation Model (ICEM) [20] models can not describe the data very well. However, for \(3\leq p_{T}\leq 15\) GeV/c region, the model calculations can describe the data pretty well and are consistent with the dielectron channel and the Next-Leading-Order (NLO) + NRQCD model calculations. Figure 7.4 shows the cross section ratio of \(\psi(2S)\) to \(J/\psi\) ratio, and it is the first \(p_{T}\) differential measurement of the \(\psi(2S)\) to \(J/\psi\) ratio by STAR, and the result follows the world-data trend.
+
+Figure 7.1: Total (red solid stars), fiducial (black open stars) and the STAR published results (solid blue stars) cross sections multiplied by the branching ratio as a function of \(p_{T}\). The bars are the statistical uncertainties and the boxes are the systematic uncertainties. The gray shaded band is the polarization envelope. The orange shaded band, green shaded band and purple shaded band are CGC+NRQCD [18], NLO+NRQCD [19] and ICEM models [20], respectively.
+
+Figure 7.2: The total (blue solid stars) and fiducial (black open stars) cross sections multiplied by the branching ratio as a function of \(p_{T}\). The bars are the statistical uncertainties and the boxes are the systematic uncertainties. The gray shaded band is the polarization envelope.
+
+Figure 7.3: (a) Total (solid blue stars) and the STAR published results from the dielectron channel (solid red points) cross sections multiplied by the branching ratio as a function of \(p_{T}\). The bars are the statistical uncertainties and the boxes are the systematic uncertainties. The gray shaded band is the polarization envelope. (b, c, d) Ratios of the function of fitting data to different model calculations
+
+Figure 7.4: The cross section ratio of \(\psi(2S)\) to \(J/\psi\) as a function of their \(p_{T}\). The red solid star is from our analysis and the blue star is measured by the dielectron channel from the STAR published result [6]. The STAR results are compared with the CDF [21], PHENIX [22], HERA-B [23], and the prediction from the ICEM model [20].
+
+## Chapter 8 Future works
+
+In our analysis, we used the VPD trigger efficiency which equals to 66% from the STAR 2013 analysis [6] and the luminosity equals to 187.2 \(pb^{-1}\) from the STAR preliminary estimation. Therefore we have to recalculate the VPD efficiency and the luminosity by the zero-bias embedding data for publication. For the systematic uncertainties, we also need to consider the in-bunch pileup effect in our analysis.
+
+## References
+
+* [1] K. Olive _et al._, "Review of Particle Physics," _Chin. Phys. C_, vol. 38, p. 090001, 2014.
+* [2] A. Mocsy, P. Petreczky, and M. Strickland, "Quarkonia in the Quark Gluon Plasma," _Int. J. Mod. Phys. A_, vol. 28, p. 1340012, 2013.
+* [3] M. Kramer, "Quarkonium production at high-energy colliders," _Prog. Part. Nucl. Phys._, vol. 47, pp. 141-201, 2001.
+* [4] S. Chatrchyan _et al._, "\(J/\psi\) and \(\psi_{2S}\) production in \(pp\) collisions at \(\sqrt{s}=7\) TeV," _JHEP_, vol. 02, p. 011, 2012.
+* [5] S. Acharya _et al._, "Measurement of the inclusive J/ \(\psi\) polarization at forward rapidity in pp collisions at \(\sqrt{\mathbf{s}}=\mathbf{8}\) TeV," _Eur. Phys. J. C_, vol. 78, no. 7, p. 562, 2018.
+* [6] J. Adam _et al._, "Measurements of the transverse-momentum-dependent cross sections of \(J/\psi\) production at mid-rapidity in proton+proton collisions at \(\sqrt{s}=510\) and 500 GeV with the STAR detector," _Phys. Rev. D_, vol. 100, no. 5, p. 052009, 2019.
+* [7] "The Frontiers of Nuclear Science, A Long Range Plan," 9 2008.
+* [8] J. Adam _et al._, "J/\(\psi\) suppression at forward rapidity in Pb-Pb collisions at \(\sqrt{\mathbf{s}_{\mathrm{NN}}}=\mathbf{5.02}\) TeV," _Phys. Lett. B_, vol. 766, pp. 212-224, 2017.
+* [9] A. M. Sirunyan _et al._, "Measurement of nuclear modification factors of T(1S), \(\Upsilon\)(2S), and \(\Upsilon\)(3S) mesons in PbPb collisions at \(\sqrt{s_{\mathrm{{}_{NN}}}}=5.02\) TeV," _Phys. Lett. B_, vol. 790, pp. 270-293, 2019.
+* an electron-ion collider at BNL," _PoS_, vol. SPIN2018, p. 158, 2019.
+* [11] D. Arkhipkin and J. Lauret, "Star online meta-data collection framework: Integration with the pre-existing controls infrastructure," _Journal of Physics: Conference Series_, vol. 898, p. 032023, 10 2017.
+* [12] W. Llope _et al._, "The STAR Vertex Position Detector," _Nucl. Instrum. Meth. A_, vol. 759, pp. 23-28, 2014.
+* [13] M. Anderson _et al._, "The Star time projection chamber: A Unique tool for studying high multiplicity events at RHIC," _Nucl. Instrum. Meth. A_, vol. 499, pp. 659-678, 2003.
+* [14]_TPC_, [https://www.star.bnl.gov/public/tpc/tpc.html](https://www.star.bnl.gov/public/tpc/tpc.html).
+* [15] P. Krizan, "Overview of particle identification techniques," _Nucl. Instrum. Meth. A_, vol. 706, pp. 48-54, 2013.
+* [16] Y. Wang, Q. Zhang, D. Han, F. Wang, Y. Yu, P. Lyu, and Y. Li, "Status of technology of MRPC time of flight system," _JINST_, vol. 14, no. 06, p. C06015, 2019.
+
+[MISSING_PAGE_FAIL:97]
+
+* [32] K. Aamodt _et al._, "The ALICE experiment at the CERN LHC," _JINST_, vol. 3, p. S08002, 2008.
+* [33] R. Gupta, "Introduction to lattice QCD: Course," in _Les Houches Summer School in Theoretical Physics, Session 68: Probing the Standard Model of Particle Interactions_, 7 1997, pp. 83-219.
+* [34] F. Bergsma _et al._, "The STAR detector magnet subsystem," _Nucl. Instrum. Meth. A_, vol. 499, pp. 633-639, 2003.
+* [35] A. Akindinov _et al._, "Performance of the ALICE Time-Of-Flight detector at the LHC," _Eur. Phys. J. Plus_, vol. 128, p. 44, 2013.
+* [36] Y.-F. Xu, J.-H. Chen, Y.-G. Ma, A.-H. Tang, Z.-B. Xu, and Y.-H. Zhu, "Physics performance of the STAR zero degree calorimeter at relativistic heavy ion collider," _Nucl. Sci. Tech._, vol. 27, no. 6, p. 126, 2016.
+* [37] C. Whitten, "The beam-beam counter: A local polarimeter at STAR," _AIP Conf. Proc._, vol. 980, no. 1, pp. 390-396, 2008.
+* [38] G. Aad _et al._, "Measurement of the differential cross-sections of inclusive, prompt and non-prompt \(J/\psi\) production in proton-proton collisions at \(\sqrt{s}=7\) TeV," _Nucl. Phys. B_, vol. 850, pp. 387-444, 2011.
+* [39] S. Das, "A simple alternative to the Crystal Ball function," 2016.

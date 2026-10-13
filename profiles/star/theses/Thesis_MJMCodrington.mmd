@@ -1,0 +1,1263 @@
+LONG-RANGE PSEUDORAPDITY CORRELATIONS AT HIGH \(P_{T}\) IN
+
+\(\sqrt{S_{NN}}=200\) GEV AU+AU COLLISIONS WITH STAR
+
+A Dissertation
+
+by
+
+MARTIN JOHN MICHAEL CODRINGTON
+
+Submitted to the Office of Graduate Studies of
+
+Texas A&M University
+
+in partial fulfillment of the requirements for the degree of
+
+DOCTOR OF PHILOSOPHY
+
+August 2012
+
+Major Subject: ChemistryLONG-RANGE PSEUDORAPIDITY CORRELATIONS AT HIGH \(P_{T}\) IN
+
+\(\sqrt{S_{NN}}=200\) GEV AU+AU COLLISIONS WITH STAR
+
+A Dissertation
+
+by
+
+MARTIN JOHN MICHAEL CODRINGTON
+
+Submitted to the Office of Graduate Studies of
+
+Texas A&M University
+
+in partial fulfillment of the requirements for the degree of
+
+DOCTOR OF PHILOSOPHY
+
+Approved by:
+
+Co-Chairs of Committee,
+
+Saskia Mioduszewski
+
+Joseph Natowitz
+
+Sherry Yenello
+
+Ralf Rapp
+
+Carl Gagliardi
+
+Charles Folden
+
+David Russell
+
+August 2012
+
+Major Subject: Chemistry
+
+###### Abstract
+
+Long-Range Pseudorapidity Correlations at High \(p_{T}\) in \(\sqrt{S_{NN}}=200\) GeV Au+Au Collisions with STAR. (August 2012)
+
+Martin John Michael Codrington, B.S., Morgan State University
+
+Co-Chairs of Advisory Committee: Dr. Saskia Mioduszewski Dr. Joseph Natowitz
+
+The Quark Gluon Plasma (QGP) is a form of matter in which quarks and gluons are deconfined, and was suggested to be formed in high-energy heavy-ion collisions. Since the discovery of high-\(p_{T}\) hadron suppression in central Au+Au collisions at the Relativistic Heavy Ion Collider (RHIC), and the related discovery of the quenching of the away-side jet in these collisions, the role of jets as key probes of the QGP was re-affirmed. The Solenoidal Tracker At RHIC (STAR) detector system, which is suited for jet studies because of its large solid-angle coverage, has produced a number of interesting jet measurements in recent years, including \(\gamma\)-jet measurements, attempts at full heavy-ion jet reconstruction, and two-dimensional correlations. A long-range correlation in pseudorapidity (the "Ridge") was studied (with statistical significance) out to \(p_{T}^{trig.}<\sim 7~{}GeV/c\) and was assumed to have an integrated yield independent of \(p_{T}^{trig.}\). Further studies out to higher \(p_{T}\) were limited by the minimum biased statistics taken in Run 4 (2004) with STAR. This work presents results of a ridge analysis with (non-reconstructed) \(\pi^{0}\)s and direct-\(\gamma\)-rich triggers out to \(\sim\)13.5 \(GeV/c\) in \(p_{T}^{trig.}\) using triggered data from Run 7 (2007) and Run 10 (2010) Au+Au collisions detected with STAR. Preliminary results seem to indicate that the ridge yield decreases with \(p_{T}^{trig.}\), and that the ridge yield for direct-\(\gamma\)-rich triggers is consistent with zero.
+
+To Rosalind Wilson (In Memoriam)
+
+## Acknowledgments
+
+Thanks to God for all his blessings and to my parents (and especially my mother) for their support, encouragement, and patience.
+
+Thanks to my advisor Saskia Mioduszewski from whom I learned an immeasurable lot, and for which I will always be grateful. Thank to my Committee for their helpful comments and suggestions over the years as this project progressed. I would like to especially thank Carl Gagliardi for his insightful discussions (particularly on the \(\gamma\)-jet analysis and BSMD calibrations) and Joseph Natowitz for his exceptional mentorship during the time I spent in his group, and for his advice over the years.
+
+Special mention must go to the following people: First to Ahmed Hamed, I am very grateful for your mentorship and friendship over the years. I remember those days (that now seems so distant), when I would come to your office frustrated that some piece of code or the other was not doing what I wanted it to do. You would quietly remind me that although I was convinced that the computing farm had evil intentions against me, the computers were merely following instructions that I had given them, and that the only person I should be angry with is myself. I will also always fondly remember our discussions at the front of the cyclotron that were a mix of physics, scientific philosophy, general personal grievances, and Arabic proverbs.
+
+Second, I must thank Christine Nattrass, you were one of the first STAR collaborators I met back in 2006 (at the GRC in New London), our conversations then (along with those with Helen, Roy, Rene and others) were influential to me joining the RHIC program. Thank you especially for our physics discussions via email and Skype (I always feel that I learn something whenever we chat) and for our conversations in general; conversations with you are always interesting. And lastly, thanks for encouraging me to roast my own coffee! That was a skill that I called upon a fewtimes during the writing of this document.
+
+I would also like to thank Marco van Leeuwen, you were very helpful to me in the early days as I began my work in STAR: You always provided detailed responses to all of my physics and computing questions. And Jan Balewski: Thank you for your meaningful discussions about the STAR BSMD and the Transverse Shower Profile calculation in simulation and data.
+
+Thanks to (in no intentional order) Jorn Putschke, Gene Van Buren, Jerome Lauret, Lanny Ray, Fuqiang Wang, Rene Bellwied, Nu Xu, James Dunlop, Bedanga Mohanty, Helen Cains, Will Jacobs, Robert Burch, Murad Sarsour, Thomas Materna, Kris Hagel, Che-Ming Ko, Justin Stevens, Pibero Djawotho, Roy Lacey, Peter Jacobs, Jeff Porter, Wendy Keeney-Kennicutt.
+
+Thanks to the STAR collaboration, the BEMC/EEMC detector group, the Jet-like correlations working group, the high-\(p_{T}\) working group, the STAR group at the Lawrence Berkeley National Laboratory, the Cyclotron Institute at Texas A&M. And to the RHIC community and the Texas A&M Chemistry Department.
+
+To my undergraduate research mentors Alvin Kennedy and Angie Winstead: I cannot thank you enough for all the effort you put in my education; from pushing me to explore different types of research, to making sure that I saw the important of good scientific communication- and of course the main lesson you were trying to teach me (which I only fully realized and put into practice years later); that being a student is not fundamentally about getting good grades or other similar accomplishments, but about becoming educated (and defining for one's self what it means to be educated). Alvin and Angie your help went far beyond the classroom; you taught me that humility is a precursor to true understanding, and that patience and perseverance are essential skills for success.
+
+TABLE OF CONTENTS
+
+Chapter
+
+Page
+
+I INTRODUCTION I: RELATIVISTIC HEAVY-ION COLLISIONS
+
+I.1 Overview I.2 The Quark-Gluon Plasma I.3 Relativistic Heavy-Ion Collisions I.3.1 The Stages of a Collision I.3.2 Centrality and Impact Parameter I.3.2.1 Elliptic Flow I.4 Jets and Jet Quenching II INTRODUCTION II: THEORETICAL MODELS OF RIDGE FORMATION II.1 Overview of the Theoretical Models II.2 Medium-Induced Gluon Radiation II.2.1 Gluon Radiation due to Collective Flow II.2.2 Gluon Radiation due to Turbulent Color Fields II.2.3 Longitudinal Momentum Broadening in an Anisotropic QGP II.3 Interaction of the Jet with the Medium II.3.1 The Momentum Kick Model and Ridge Structure II.3.2 Medium Heating, Recombination, and Ridge Structure II.4 Ridge Formation due to Transverse Radial Flow II.5 Triangular Flow in Heavy-Ion Collisions II.6 A More Recent Calculation & Conclusion III EXPERIMENTAL FACILITIES AND DETECTORS III.1 The Relativistic Heavy-Ion Collider III.2 The Solenoidal Tracker at RHIC (STAR) Detector III.2.1 Structure and Sub-Systems III.2.2. The STAR Detector Magnet III.3 The STAR Time Projection Chamber (TPC) III.3.1 The TPC Structure III.3.2 The TPC Gas System* III.3.3. The TPC Laser System III.4. The STAR Barrel Electro-Magnetic Calorimeter (BEMC) III.4.1. The BEMC Structure III.4.2. The Barrel Shower-Maximum Detector (BSMD) III.5. The STAR Trigger System III.5.1. The RHIC Zero Degree Calorimeters (ZDCs) III.5.2. The Level 0 (L0), Level 1 (L1) and the Level 2 (L2) Triggers IV DETECTOR CALIBRATION AND DIRECT/DECAY PHOTON DISCRIMINATION IV.1. BSMD Calibration IV.1.1. BSMD Strip Gains Before Calibration IV.1.2. BSMD Strip Gains After Calibration IV.2 Direct/Decay Photon Discrimination V DATA ANALYSIS: AZIMUTHAL 2-PARTICLE CORRELATIONS V.1. Two-Particle Correlation Technique V.1.1. Overview of Two-Particle Correlations V.2 Analysis Details and Corrections V.2.1 Data Selection, Analysis Cuts and Histogram Binning V.2.2 Pair Acceptance Correction V.2.3 Single Particle Efficiency Correction V.3 Ridge Yield Extraction V.3.1 \(v_{2}\) Subtraction V.3.2 Yield Extraction V.3.2.1 Yield Extraction Method 1 V.3.2.2.Yield Extraction Method 2 V.4 Error Determination V.4.1. Statistical Error V.4.1.1 Method 1 V.4.1.2.Method 2 V.4.2 Systematic Error VI RESULTS AND DISCUSSION VI.1 Consistency Check: Ridge Yields in Charged-particle Triggered Correlations
+
+[MISSING_PAGE_EMPTY:9]
+
+List of Tables
+
+TABLE
+
+Page
+
+III.1 Comparison of the inner and outer TPC subsector geometries[1].
+* III.2 TPC gas system parameters[2].
+* V.1 The five \(p_{T}\) bins, their corresponding \(p_{T}\) ranges and triggers.
+* V.2 \(\langle v_{2}^{trigger}\rangle\) and \(\langle v_{2}^{associated}\rangle\) values for all 5 \(p_{T}\) bins.
+* VI.1 Run 7 charged-particle ridge yield systematic error calculations.
+* VI.2 Run 10 charged-particle ridge yield systematic error calculations.
+* VI.3 Ridge yields (Run 7, method 1) with their associated statistical and systematic errors.
+* VI.4 Ridge yields (Run 7, method 2) with their associated statistical and systematic errors.
+* VI.5 Ridge yields (Run 10, method 1) with their associated statistical and systematic errors.
+* VI.6 Ridge yields (Run 10, method 2) with their associated statistical and systematic errors.
+* VI.7 Expected yield values (\(E_{i}\)) from fit to charged-particle triggered yield values.
+* VI.8 \(\chi_{f}^{2}\) values for charged-particle triggered ridge yields in Run 7 & Run 10.
+* VI.9 \(\chi_{0}^{2}\) values for charged-particle triggered ridge yields in Run 7 & Run 10.
+* VI.10 \(\chi_{f}^{2}\) values for \(\gamma\)-triggered ridge yields in Run 7.
+* VI.11 \(\chi_{0}^{2}\) values for \(\gamma\)-triggered ridge yields in Run 7.
+
+[MISSING_PAGE_EMPTY:11]
+
+List of Figures
+
+FIGURE
+
+Page
+
+I.1 Lattice QCD calculations[3] of energy density divided by \(T^{4}\) as a function of \(T/T_{C}\). The degrees of freedom rise sharply at \(T_{C}\). Arrows indicate the Stefan-Boltzmann limit (ideal gas values for \(\epsilon/T^{4}\)). I.2 Illustration of the five main stages in relativistic heavy ion collisions[4]. See text for a full description of these stages. I.3 The space-time evolution of relativistic heavy ion collisions[5]. \(T_{c}\) is the critical transition, \(T_{ch}\) is the chemical freeze-out point, and \(T_{fo}\) indicates kinetic freeze-out. I.4 Figure illustrating the impact parameter of two colliding nuclei. Nucleons that participate in the collision are called participants, those that do not are called spectators. I.5 Diagram of a non-central collision (beam-axis perspective) with the hydrodynamic density contours in the elliptical overlap region.[6]. I.6 Illustration of the non-central overlap region; spatial anisotropy is being transferred to a momentum-space anisotropy (indicated by the arrows showing particle emission under the influence of a pressure gradient)[7]. I.7 \(v_{2}\) (elliptic flow) as a function of \(p_{T}\) for identified pions, kaons, protons and lambdas in minimum-biased Au+Au collisions measured with the STAR and PHENIX detectors at RHIC[8]. The hydrodynamic model fits (which assume QGP formation) are overlayed. I.8 An illustration of a \(p+p\) hard-scattering event that produces a di-Jet I.9 An actual STAR \(p+p\) event, clearly showing the di-Jet structure...
+
+* [12] I.10 \(p+p\), d+Au, and Au+Au di-hadron correlations at 200 \(GeV/c\). With 4.0 \(<\)\(p_{T}^{trig.}\)\(<\) 6.0 \(GeV/c\)and 2.0 \(<\)\(p_{T}^{assoc.}\)\(<\) 4.0 \(GeV/c\)[9] (a) Correlations for \(p+p\), minimum-biased d+Au and central d+Au collisions with no background subtraction and (b) Correlations for \(p+p\), d+Au and central Au+Au after background subtraction. Notice the quenching of the away-side Jet in the Au+Au data.
+* [13] I.11 d+Au long-range rapidity correlation. With 4.0 \(<\)\(p_{T}^{trig.}\)\(<\) 6.0 \(GeV/c\)and 2.0 \(<\)\(p_{T}^{assoc.}\)\(<\) 4.0 \(GeV/c\)[10].
+* [14] I.12 Au+Au long-range rapidity correlation. With 4.0 \(<\)\(p_{T}^{trig.}\)\(<\) 6.0 \(GeV/c\)and 2.0 \(<\)\(p_{T}^{assoc.}\)\(<\) 4.0 \(GeV/c\)[10]. Notice the pronounced structure in \(\Delta\eta\); this is referred to as the Ridge.
+* [15] I.13 \(R_{AA}\) as a function of \(p_{T}\) for d+Au, peripheral Au+Au and central Au+Au collisions[11].
+* [16] II.1 Distortion of jet energy distributions. The upper part show a sketch of this distortion, and the lower part shows the calculated distortion in the \(\eta-\phi\) plane for a 100 \(GeV/c\) jet[12].
+* [17] II.2 Jet asymmetries as a function of rapidity for jets symmetric in pseudorapidity[12]. Vacuum and medium contributions (and their sum) are denoted by the different curves (as indicated in the figure).
+* [18] II.3 Near-side \(\Delta\eta\) and \(\Delta\phi\) widths of unidentified charged hadrons with 4.0 \(<\)\(p_{T}^{trig.}\)\(<\) 6.0 \(GeV/c\) and 2.0 \(<\)\(p_{T}^{assoc.}\)\(<\) 4.0 \(GeV/c\) from [10] plotted with theoretical bands from [12].
+* [19] II.4 Illustration of the Gluon Radiation due to Turbulent Color Fields theory; multiple soft rescatterings preceded by a hard scatterings[13].
+* [20] II.5 Gluon distribution in \(\eta\) and \(\phi\) for a total jet momentum of 10 \(GeV/c\)[13]. Final item on legend is presumably an error and should read \(\eta=0\).
+* [21] II.6 An illustration of the coordinate system used in theoretical calculations of longitudinal broadening in an anisotropic QGP[14].
+
+FIGURE 1.7 d+Au 40 - 100% centrality (left) and Au+Au 0 - 5% centrality (right) \(\Delta\eta\) and \(\Delta\phi\) correlations, with theoretical calculations from [14] plot as the black ellipse on top of the Au+Au data. II.8 Theoretical results of the momentum kick model, for the yield in \(\Delta\eta-\Delta\phi\) of ridge particles. On top is the distribution varying the value of \(q\) while keeping the other two parameters constant, and on the bottom is the distribution varying the value of \(\sigma_{y}\) while keeping the other two parameters constant[15]. II.9 \(\Delta\eta\) and \(\Delta\phi\) particle distributions fit with theoretical calculations using the momentum-kick model. The solid circles are STAR data, the solid curves are theoretical ridge particle yields for \(p_{T}=2GeV\), \(q=0.8GeV\), \(\sigma_{y}=5.5\), and \(T=0.47GeV\) (all fixed from fits to the data), which are normalized by matching to the data at \((\Delta\phi,\Delta\eta)=(0,-1.7)\). The dashed and dotted curves are the momentum theoretical calculation results obtained by varying \(q\) (left plot) and \(\sigma_{y}\) (right plot)[15]. II.10 STAR \(\Delta\eta\) (left) and \(\Delta\phi\) (right) data with normalized theoretical calculations from the recombination-based model of jet production[16]. With \(4.0<p_{T}^{trig.}<6.0~{}GeV/c\) and \(2.0<p_{T}^{assoc}<4.0~{}GeV/c\). The solid lines are the calculations, and the dashed line in the right plot is the ridge-effect in \(\Delta\phi\) that is forced to vanish by the ZYAM procedure (see Chapter V for details of this). II.11 Blast wave calculation of mean transverse momentum (left) and two-particle correlation (right) from [17]. II.12 Comparison of blast wave calculation with STAR data[17]. II.13 Correlation function, calculated using Eq. 2.21 (solid curves)[18] plot with Au+Au 0 - 10% most central STAR data II.14 Eccentricity, \(epsilon_{2}\) (left) and triangularity, \(epsilon_{3}\) (right) distributions; as a function of \(N_{part}\) in 200 GeV Au+Au collisions[19].
+
+[MISSING_PAGE_EMPTY:15]
+
+FIGUREE
+
+* \(\quad\) ADC distributions \(BSMD\)-\(\eta\) Module 12, 2D (left) and 1D projection of strip #8 in Module 12, strip ID \(\eta\)-1658 (right).
+* \(\quad\) ADC distributions for all 120 \(BSMD\)-\(\eta\) Modules (150 strips per module).
+* \(\quad\) ADC distributions for all 120 \(BSMD\)-\(\phi\) Modules (150 strips per module).
+* \(\quad\) ADC distributions and fits with equation 4.1 (black line) for the 8\({}^{th}\) strip in each of the first 20 \(BSMD\)-\(\eta\) modules. Empty spaces correspond to dead strips.
+* \(\quad\) ADC distributions and fits with equation 4.1 (black line) for the 8\({}^{th}\) strip in each of the first 20 \(BSMD\)-\(\phi\) modules. Empty spaces correspond to dead strips.
+* linear fit to extract \(\alpha\) shown as black line.
+* \(P_{1}\) (strip gain) profile histogram before calibration for \(BSMD\)-\(\eta\) (top) and \(BSMD\)-\(\phi\) (bottom).
+* \(\quad\) Calibration constants for \(BSMD\)-\(\eta\) (top) and \(BSMD\)-\(\phi\) (bottom).
+* \(P_{1}\) (strip gain) profile histogram after calibration for \(BSMD\)-\(\eta\) (top) and \(BSMD\)-\(\phi\) (bottom). Notice the reduction in the RMS as compared to figure IV.7. See figure IV.10 for a plot of these RMS values.
+* \(\quad\) Gain RMS before (triangles) and after (stars) calibration for \(BSMD\)-\(\eta\) (top) and \(BSMD\)-\(\phi\) (bottom).
+* \(\quad\)\(BSMD\)-\(\eta\) Monte-Carlo simulated Transverse Shower Profile (TSP) for electrons (triangles) and \(\pi^{0}\)s (squares) with \(6.0\leq p_{T}\leq 8.0\ GeV/c\).
+* 70% pure \(\gamma\)-rich sample and a 95% pure \(\pi^{0}\)-rich sample.
+* [14] J. Alwall et al., "The CMS experiment at the CERN LHC", _JINST_ **3** (2008) S08004, doi:10.1088/1748-0221/3/08/S08004.
+
+[MISSING_PAGE_POST]
+
+[MISSING_PAGE_EMPTY:18]
+
+[MISSING_PAGE_EMPTY:19]
+
+[MISSING_PAGE_EMPTY:20]
+
+[MISSING_PAGE_EMPTY:21]
+
+## Chapter I Introduction I: Relativistic Heavy-Ion Collisions
+
+### I.1 Overview
+
+This dissertation presents results of a correlation analysis, investigating a long-range structure observed in pseudorapidity, with high \(p_{T}\)\(\pi^{0}\), and a sample of direct-\(\gamma\)-rich, triggers; using data taken in Runs 7 and 10 of the Relativistic Heavy Ion Collider (RHIC) using the Solenoidal Tracker At RHIC (STAR) detector system. The work is divided into seven chapters with one supplemental appendix. The first chapter is an overview of relativistic heavy ion collisions, with particular emphasis placed on those experimental and theoretical concepts that directly relate to this analysis, such as the Quark Gluon Plasma (QGP), collision geometry and centrality, elliptic flow, and jets and jet quenching. The second chapter discussed some theoretical calculations that seek to explain the existence of the ridge. The third chapter introduces RHIC and STAR in detail, emphasizing the trigger and detector systems used in this analysis. Chapter IV discusses the calibration of the STAR Barrel Shower-Maximum Detector (BSMD) in detail, and outlines its role in distinguishing between direct photons and \(\pi^{0}\)s. Chapter V is the analysis chapter, in which details of analysis methods and cuts are discussed. Chapter VI is the results chapter and presents the most interesting results from this analysis. The final chapter, Chapter VII summarizes these results, draws conclusions, and suggests possible future analysis objective for \(\pi^{0}\) and \(\gamma\) - triggered long-range pseudorapidity correlations. Following the last chapter is one appendix that list analysis details not appropriate for the main text.
+
+### The Quark-Gluon Plasma
+
+Quantum Chromodynamics (QCD)[28][29][30] is the underlying theory of the strong interaction, and the most successful theory in describing the behavior of nuclear matter at high densities and temperatures. One of the first QCD-based predictions of a new phase of nuclear matter was a 1975 prediction[31] that stated that in the center of neutron stars, because of the reduction of the coupling constant at small distances, there should exist a new type of matter composed entirely of deconfined quarks and gluons. Although this prediction was focused on the high-density, low-temperature regime, the authors suggested that a similar phase of matter may have existed in the high-temperature environment of the early universe. It was not until 1980 however, that a detailed exploration of this idea was provided in a review paper by Shuryak[32], who coined the phrase Quark-Gluon Plasma (QGP) to describe this state of deconfined quarks and gluons. The transition from hadronic nuclear matter, to this new partonic nuclear matter, was predicted to occur at a critical energy density, \(\epsilon_{C}\), of \(\sim\)1 GeV/fm\({}^{3}\), at a critical temperature, \(T_{C}\), of \(\sim\)170 MeV; this is a region where the coupling constant is still large, making it difficult to do perturbative QCD calculations. The development of lattice QCD[33][34] allowed calculations (albeit for an idealized matter) to be made. Figure I.1 shows such a calculation of \(\epsilon/T^{4}\) versus \(T/T_{C}\); the rapid rise in the number of degrees of freedom at \(T_{C}\) indicates a phase transition[3]. The system then equilibrates to a \(\epsilon/T^{4}\) value less than the Stefan-Boltzmann limit for a non-interacting ideal gas, indicating that the new state present after the transition is interacting.
+
+Although lattice QCD predicts (and experimental observations seem to show) a new state of matter being formed in relativistic heavy ion collisions, there is no definitive answer as to what the order of this transition from hadronic matter is[35].
+
+Figure I.1: Lattice QCD calculations[3] of energy density divided by \(T^{4}\) as a function of \(T/T_{C}\). The degrees of freedom rise sharply at \(T_{C}\). Arrows indicate the Stefan-Boltzmann limit (ideal gas values for \(\epsilon/T^{4}\)).
+
+In lattice calculations where pure gauge theory (gluons only) is used, the transition is predicted to be first order; adding an up and down quark to this framework, changes the transition to second order; and adding a strange quark to the up and down, creates a smooth crossover. These calculations indicate that, in the real GQP, the order is unlikely to be first or second order; this makes the task of experimentally observing the QGP more difficult, because there will not be any obvious changes in behavior of the matter that will serve to indicate a transition. Experimental signatures of QGP formation will likely come from observed final-state effects in produced hadrons, or from prompt probes (such as the direct photon) that are created early in the collision dynamics.
+
+### Relativistic Heavy-Ion Collisions
+
+Relativistic heavy-ion collisions, as the name suggests, are collisions between heavy ions in the relativistic regime (typically at speeds of \(\sim\)99.995% the speed of light). It is with such collisions energies that the QGP is expected to form. This section begins with a brief overview of the stages in these collisions and puts in perspective the theoretical and experimental considerations for each stage. Next, the geometry of the collision, specifically the impact parameter and its experimental signatures, is described. Lastly, the bulk behavior of the medium is described by discussing flow, specifically elliptic flow.
+
+#### i.3.1 The Stages of a Collision
+
+Figure I.2[4] is a model illustration of the five stages of relativistic heavy-ion collisions. The theoretical stages can be described as follows.
+
+**Stage I - Incoming Nuclei:** The first stage shows the incoming nuclei which are Lorentz contracted (in the direction parallel to the beam axis) because of their relativistic speeds. Experimentally, this phase corresponds to the acceleration of bunches of heavy ions to 99.995% the speed of light, in the presence of a magnetic field. The acceleration of heavy ions is discussed in detail in the next chapter, in the context of the Relativistic Heavy Ion Collider (RHIC).
+
+**Stage II - Collision Occurs:** In the second stage, collisions occur among the constituent quarks and gluons; hard-scatterings (see next section) occur during this stage. This is the stage with the highest temperature and energy density. However, it is not directly observable experimentally; except by detecting prompt non-interacting probes (such as the direct photon) that may be produced in the hard scatterings that occur in this stage.
+
+**Stage III - QGP Formation:** In the figure the QGP is labeled sQGP; for strongly-interacting quark gluon plasma. This is the stage of theoretical interest in these types of collisions, but it also is not observable experimentally. Only Stage V is directly observable.
+
+Figure I.2.: Illustration of the five main stages in relativistic heavy ion collisions[4]. See text for a full description of these stages.
+
+**Stage IV - Mixed Phase:** This stage is the mixed phase of hadron and partons, neither chemical nor kinetic freeze-out have occurred. New hadrons are being produced, existing hadrons may undergo transmutation, and collisions occur between hadrons and partons.
+
+**Stage V - Hadron Gas Formation:** The final stage is the hadron gas stage; all partons are now bound in hadrons and chemical and kinetic freeze-out have occurred. These hadronic products now enter the detector volume and those with trajectories that overlap the detector acceptance will be detected (with some known efficiency) and their momentum, position, and identification can be used (in combination with similar information from all detected particles) to make inferences about the nature of the matter created in Stage III.
+
+The chemical and kinetic freeze-out discussed in the description of Fig. I.2, are more clearly illustrated in Fig. I.3, an illustration of the space-time evolution of a collision. In the figure, the color gradient from red to blue indicates a cooling of the system as it expands.
+
+#### i.3.2 Centrality and Impact Parameter
+
+In Stage II of fig. I.2, the collision between the contracted nuclei is illustrated. Experimentally, it is useful to have a general idea of the collision geometry; i.e. to know if the incoming nuclei were exactly aligned and experienced a full head-on collision (central collision) where all of the nucleons in both ions participated in the collision, or (at the other extreme) if only a small fraction of the ionic surface areas align and therefore only few nucleons participate in the collision (peripheral collision). As hinted at in the description of the problem, one possible way to estimate thisFig. I.3.: The space-time evolution of relativistic heavy ion collisions[5]. \(T_{c}\) is the critical transition, \(T_{ch}\) is the chemical freeze-out point, and \(T_{fo}\) indicates kinetic freeze-out.
+
+collision geometry (what is commonly referred to as the centrality of the collision) is to quantify the number of non-interacting nucleons after every collision. Indeed this is done in many experiments (including STAR as described in the next chapter) to obtain a rough online estimate of centrality for triggering purposes. However, a more accurate offline estimate is needed for analysis purposes. Before discussing the experimental estimate of centrality, a more formal definition of the problem is needed.
+
+Figure I.4 is an illustration of two Lorentz-contracted nuclei, nucleus A and nucleus B, just before collision. The distance from the center of nucleus A to that of nucleus B is called the _impact parameter, b_. The greater the overlap (i.e. the more central the collision is) the smaller the distance from center-to-center and hence the smaller the impact parameter. The nucleons participating in the collision are called the participants, those that do not are called the spectators.
+
+Figure I.4: Figure illustrating the impact parameter of two colliding nuclei. Nucleons that participate in the collision are called participants, those that do not are called spectators.
+
+Although \(b\) exists and corresponds to centrality, it is not directly observable experimentally, this is because (as mentioned) Stage II is not accessible experimentally. Each experiment determines centrality differently, in STAR, charged particle reference multiplicity at mid-rapidity (\(|\Delta\eta|<0.5\)) is used along with Monte-Carlo simulation based on the Glauber Model[36] to divide the set of events into multiple subsets of different centrality classes. For example the data presented in this work are all in the subset of the 0 - 10% most central events.
+
+#### i.3.2.1 Elliptic Flow
+
+In non-central collisions (collisions where there is only a partial overlap of the two nuclei) the overlap region is asymmetric in the plane perpendicular to beam direction (the transverse plane); this is illustrated in fig. I.5. This spatial anisotropy creates directional pressure gradients that creates a experimentally observable momentum-space anisotropy. A cartoon of this anisotropy relative to the reaction plane is shown in fig. I.6; this anisotropy can be well described mathematically using a Fourier expansion:
+
+\[{d^{3}N\over p_{T}dp_{T}dyd\phi}={d^{2}N\over p_{T}dp_{T}dy}\left[1+2\sum_{ \alpha}v_{\alpha}cos(\alpha[\phi\ -\Psi_{RP}]\right]\]
+
+where \(p_{T}\), \(y\), and \(\phi\) are the transverse momentum, the rapidity, and the azimuthal angle and \(v_{\alpha}\) are the harmonic coefficients. One harmonic co-efficient in particular, \(v_{2}\), dominates the sum; it is referred to as _elliptic flow_.
+
+Elliptic flow measured with the relativistic heavy ion collider (RHIC) is on average \(\sim\)70% higher than flow measured at SPS energies. Indeed, the hydrodynamic models fit the data if and only if the initial equation of state condition reflects a transition to a QGP (rather than pure hadronic degrees of freedom)[8].
+
+Figure I.6: Illustration of the non-central overlap region; spatial anisotropy is being transferred to a momentum-space anisotropy (indicated by the arrows showing particle emission under the influence of a pressure gradient)[7].
+
+Figure I.5: Diagram of a non-central collision (beam-axis perspective) with the hydrodynamic density contours in the elliptical overlap region.[6].
+
+Figure I.7: \(v_{2}\) (elliptic flow) as a function of \(p_{T}\) for identified pions, kaons, protons and lambdas in minimum-biased Au+Au collisions measured with the STAR and PHENIX detectors at RHIC[8]. The hydrodynamic model fits (which assume QGP formation) are overlayed.
+
+Hard scatterings ('hard' refers to processes with large momentum transfer) are rare processes that are of great interest experimentally, because they occur early in the collision (Stage II, as discussed in Sec. I.3.1) and experience the full collision dynamics, serving as probes of the medium formed. Hard-scattered partons lead to the formation of di-jets and \(\gamma\)-jets, which can be used as probes experimentally.. This section starts with a discussion of jet formation (including \(\gamma\)-Jets and the Ridge) and two-particle correlations, then discusses the phenomenon of Jet quenching.
+
+When two partons undergo a hard scattering, conservation of momentum causes the partons to be separated by \(\sim\)180\({}^{\circ}\) in azimuth. This angular separation is essentially maintained in hadrons produced during fragmentation of these partons (which are emitted in narrow cones centered around the trajectory of the parent parton). This creates two back-to-back streams of hadrons called _Jets_. This process of Jet formation is illustrated, for a \(p+p\) collision, in fig. I.8. The process of hadronization is well described by fragmentation functions, which represent the probability that a parton fragments into a specified hadron.
+
+In proton-proton collisions, this di-Jet structure is easy to identify, because the partons fragment without traversing a medium. An example of an actual STAR \(p+p\) event is shown in Fig. I.9, visually (and analytically) each charged-particle track in the TPC can be resolved and their origin traced back to the interaction point. The relative ease of Jet reconstruction in \(p+p\) (and d+Au) means that Jets have been well-studied in these collision systems. Their modification in heavy ion collisions can therefore be quantified, relative to the 'pure' \(p+p\) Jet.
+
+In heavy ion collisions, Jets are not produced in a vacuum, but rather are part of a larger set of produced particles that constitute the dense medium associated Fig. I.8.: An illustration of a \(p+p\) hard-scattering event that produces a di-Jet
+
+Fig. I.9.: An actual STAR \(p+p\) event, clearly showing the di-Jet structure.
+
+with these collisions. Jet reconstruction is therefore difficult in these collisions, and is replaced by a particle correlation analysis. In a correlation analysis, a high \(p_{T}\) particle (the _trigger_) is associated with all other (charged) particles (in some \(p_{T}\) range) in that event by constructing an angular correlation function \(1/(N_{trig.}dN/d\Delta\phi)\). Here, \(N_{trig.}\) denotes the number of trigger particles selected, so that the correlation function represents a statistical measure of jet-particle yields.. The particles correlated at small angular separation (close to zero) from the selected trigger are said to comprise the _near-side_ Jet; particles correlated \(\sim\)180\({}^{\circ}\) from the near-side Jet, are said to comprise the _away-side_ Jet. Examples of \(p+p\) and d+Au two-particle correlations are shown in fig. I.10 (a).
+
+The first Jet correlation studies published by STAR were charged-particle correlation analyses, where charged triggers were combined with charged associated particles. These correlations attempt to probe di-Jets. However, also of interest are those hard-scatterings that produce a direct photon angularly correlated with a single Jet; since these photons do not interact via the strong force, they are expected to be unmodified by the QGP medium created at RHIC. Measurements of these special \(\gamma\)-jet events, were therefore expected to provide an internal standard by which to compare the modification of the hadronic away-size jet. STAR has published results from \(\gamma\)-Jets[37] produced in heavy ion collisions.
+
+Correlations described thus far, have all looked at one-dimensional angular separation; STAR has also explored[10] correlations of particles in \(\eta\) as well as \(\phi\). For correlations in d+Au (fig. I.11) this added dimension produces no interesting additional information about jet production, it shows the near-side as a relatively narrow cone, and the away-side more broad. In Au+Au collisions however (fig. I.12), a new structure is observed; in addition to the near-side Jet peak, there is a broad near-side \(\Delta\eta\) structure. This structure was called the _Ridge_ because of its resemblance to a Figure I.10: \(p+p\), d+Au, and Au+Au di-hadron correlations at 200 \(GeV/c\). With \(4.0<p_{T}^{trig.}<6.0\)\(GeV/c\)and \(2.0<p_{T}^{assoc.}<4.0\)\(GeV/c\)[9] (a) Correlations for \(p+p\), minimum-biased d+Au and central d+Au collisions with no background subtraction and (b) Correlations for \(p+p\), d+Au and central Au+Au after background subtraction. Notice the quenching of the away-side Jet in the Au+Au data.
+
+mountain ridge. Early results from these long-range rapidity correlations have indicated that while the Jet yield increases as a function of \(p_{T}^{trig.}\) the ridge yield remains constant[10].
+
+As alluded to before, jets are expected to be modified in Au+Au collisions relative to \(p+p\) or d+Au collisions, because of another interesting RHIC result: high \(p_{T}\) hadron suppression. If Au+Au were just a scaled-up version of \(p+p\) collisions, i.e. if there were no phenomena unique to heavy ion collisions, the ratio of the hadron yields in heavy-ion compared to \(p+p\) should reach unity (after scaling by \(N_{bin}\), the number of binary collisions) at high \(p_{T}\); this ratio has been defined[] as \(R_{AA}\) the _Nuclear Modification Factor_:
+
+\[R_{AA}=\frac{d^{2}N_{AA}/dP_{T}d\eta}{T_{AA}d^{2}\sigma^{pp}/dP_{T}d\eta} \tag{2}\]
+
+In Fig. I.13\(R_{AA}\) as a function of \(p_{T}\) is shown for d+Au, peripheral Au+Au and central Au+Au collisions. At high \(p_{T}\) the \(R_{AA}\) for d+Au and peripheral Au+Au is unity (within the errors), suggesting (as previously discussed) that in cases where Figure I.12: Au+Au long-range rapidity correlation. With \(4.0<p_{T}^{trig.}<6.0~{}GeV/c\)and \(2.0<p_{T}^{assoc.}<4.0~{}GeV/c\)[10]. Notice the pronounced structure in \(\Delta\eta\); this is referred to as the Ridge.
+
+Figure I.13: \(R_{AA}\) as a function of \(p_{T}\) for d+Au, peripheral Au+Au and central Au+Au collisions[11].
+
+one does not expect the QGP to form, there is little modification in hadronic yield compared to \(p+p\) collisions[11]. However, in the central Au+Au data, there is a clear _suppression_ of the hadronic yield[11]. This suppression is the explanation for another interesting RHIC result: the disappearance of the away-side Jet. In fig. 10 (b) \(p+p\), d+Au, and Au+Au two-particle correlations are plot; the \(p+p\) and d+Au correlations are very similar on the near and the away-side, however, the Au+Au away-side is consistent with zero and we say that that Jet has been _quenched_. A detailed, quantitative understanding on jet quenching will allow for a better understanding of the nature of this new phase of matter created at RHIC. A powerful tool for doing so is the one-dimensional and two-dimensional two-particle correlation.
+
+## Chapter II Introduction II: Theoretical Models of Ridge Formation
+
+### 1 Overview of the Theoretical Models
+
+The ridge phenomenon is a relatively recent experimental observation[10], our early understanding of its features was shaped by a measurement of the ridge yield in Au+Au collisions in a limited trigger \(p_{T}\) range. Based on this measurement, the ridge was assumed to be a \(\Delta\eta\) feature of heavy-ion collisions with a yield essentially independent of trigger \(p_{T}\). Most early theoretical calculations attempting to explain the existence of the ridge were largely based on these assumptions. However, recent CMS measurements[26][27] (and the results presented in this work), suggest these assumptions are not correct; as the ridge has been observed in \(p+p\) collisions, and appears to decrease with increasing trigger \(p_{T}\) at very high \(p_{T}\). Given the incomplete state of our experimental knowledge of the ridge, it is understandable that many early theoretical models will fall short in convincingly explaining the origin of these preliminary experimental observations. In this chapter, some of the most popular, early theoretical calculations are discussed (as well as a more recent one[20]); they can be categorized into three main categories, 1) those based on medium-induced gluon radiation[12][13][14]; 2) interaction of the jet with the medium[15][16]; or 3) transverse radial flow[17][18][38]. There is also a discussion of the concept of triangularity and triangular flow[19], which is an emerging theoretical concept that awaits further development by its proponents. There are numerous problems with the core assumptions or the methodology of all the theories presented in this chapter. For example, the calculations based on gluon radiation are unable to fully account for the extent of the pseudorapidity broadening; the calculations based on the jet-medium interactionmatch the data, but do so as a result of numerous fits to the data; and the transverse radial flow calculation are unable to reproduce the experimentally observed features of the ridge, and are based on problematic assumptions that restrict their ability to explain general features of the data.
+
+### Medium-Induced Gluon Radiation
+
+#### ii.2.1 Gluon Radiation due to Collective Flow
+
+The collective flow theory assumes that the ridge formation is due to radiated gluons that are broadened in pseudorapidity, and that this broadening does not only depend on the energy density of the medium, but also on the collective flow. The warrant for this assertion is the fact that high-\(p_{T}\) partons are not produced in an isotropic rest frame, i.e., a rest frame in which there is isotropic momentum transfer from the medium in the transverse (with respect to the direction of propagation) plane, but in an environment where they interact with a medium that shows strong transverse collective flow[12]. This difference is illustrated in Fig. II.1.
+
+The contour plot in Fig. II.1 (lower part) show two significant medium-induced deviations. The first deviation is the observed broadening of the jet structure; this broadening is due to the Brownian motion (induced by the medium) of the partonic jet fragments. The second deviation is a significant rotational asymmetry (in the \(\eta-\phi\) plane) in the jet shape; this asymmetry is a characteristic effect of collective flow. This second deviation is hard to verify experimentally, because the asymmetry is broken (in random directions in the \(\eta-\phi\) plane) because of multiplicity fluctuations.
+
+The difference in rapidity between the jet and the part of the medium that the jet passes through, determines the magnitude of the (collective flow induced) jet asymmetries. Plotting the asymmetries as a function of rapidity, R, should therefore Figure 1: Distortion of jet energy distributions. The upper part show a sketch of this distortion, and the lower part shows the calculated distortion in the \(\eta-\phi\) plane for a 100 \(GeV/c\) jet[12].
+
+provide a better understanding of the experimentally observed pseudorapidity broadening. Figure II.2 shows such a plot, of jet asymmetry vs. rapidity for jets centered at mid-rapidity, and that are symmetric across negative and positive pseudorapidity. The double-humped structure observed in the plotted distributions is of qualitative interest, because it supportss that the author's[12] claims that the asymmetry of the jet energy distribution can be quantitatively inferred from measuring its rapidity width. However, large uncertainties in the calculations prohibit a more quantitative assessment of this jet width.
+
+Figure II.2: Jet asymmetries as a function of rapidity for jets symmetric in pseudorapidity[12]. Vacuum and medium contributions (and their sum) are denoted by the different curves (as indicated in the figure).
+
+The jet asymmetries that are described in Fig. II.2 are still present in the particle correlation distributions, as illustrated in Fig. II.3. This figure shows the STAR near-side \(\Delta\eta\) and \(\Delta\phi\) widths from [10], plot on top of the calculations from [12]; the STAR data show a significant broadening of the \(\Delta\eta\) widths, the calculations also describe a broadening, but with a smaller magnitude than the data. This suggest that while this theory hints at the existence of a broadening in pseudorapidity, it is unable to fully describe the extent to which this is experimentally the case; i.e. it cannot account for the existence of the ridge.
+
+#### 2.2.2 Gluon Radiation due to Turbulent Color Fields
+
+The longitudinal broadening by turbulent color fields theory, claims that the near-side jet broadening is due to a final state effect; the deflection of radiated gluons by a soft, transverse, turbulent color field; which is formed under the influence of the instabilities in the QCD plasma. A description of this theory can be found in [13], the authors (Majumder et al.) assume that the ridge is composed of hadrons that are produced in the fragmentation of radiated gluons (before or after these gluons are absorbed by the medium); therefore, they believe that the ridge shape will be determined by the final (after medium traversal) kinematic distribution of the radiated gluons. The authors also highlight the fact that no quantitative explanation of the ridge shape had thus far been provided by other theorists (namely Armesto[12] (see Sec. II.2.1), and Hwa[16] (see Sec. II.3.2)) who have proposed longitudinal expansion as the cause of the ridge. Furthermore, Majumder et al. argues that Romatschke's[14] (Sec. II.2.3) proposal that the ridge can be explained by the fact that the momentum of a transversely propagating heavy-quark is broadened by the elastic collisions in the expanding medium preferentially in the longitudinal direction; is likely not correct, as the ridge is composed mostly of light quarks.
+
+The authors approach is based on work[39][40][41] that show that in an expanding medium, color fields are formed under the influence of the instabilities in the plasma, and can be described conceptually as follows: A transversely (with respect to the beam direction) scattered hard parton will radiate soft gluons which are them deflected by the turbulent color field. Since the instabilities in the plasma are not random, the deflection pattern is not isotropic with respect to the jet axis, but rather are deflected (preferentially) in the transverse direction. This expansion then results in a final particle distribution that features an elongated structure along the beam axis; theridge.
+
+Figure II.4 is an illustration of the process of gluon radiation proposed by Majumder et al. The dark ellipse represents the distance over which the produced parton undergoes multiple scatterings in-medium, then emits a hard gluon, this includes the hard-hard and hard-soft double scattering processes. The in-medium soft scattering of the gluon and parent parton that follows are described as being independent of the processes described by the dark ellipse (the production and radiation). The rectangular boxes in the figure represent the factorization.
+
+The authors calculates the gluon distribution (before broadening) by taking the ratio of the cross-section \(\sigma_{qg}\) for radiating a gluon with momentum \((p_{T_{2}},\mathbf{l}_{\perp})\) (left-hand rectangle in Fig. II.4) and the quark (with momentum \(p_{T_{1}}\) and rapidity \(y\)) production inclusive cross-section \(\sigma_{q}\). The distribution is given by Eq. 2:
+
+\[\frac{d^{2}\sigma_{qg}(p_{T_{2}},\mathbf{l}_{\perp})}{d\sigma_{q}}=C( p_{T_{1}},p_{T_{2}})\frac{\alpha_{s}}{2\pi}\frac{1}{l_{\perp}^{4}}\times\int_{0}^{ \zeta_{max}(\mathbf{r})}d\zeta p(\mathbf{r}+\hat{n}\zeta) \frac{\zeta_{0}}{\zeta}\times[2-2cos(\eta_{L}\zeta)]. \tag{1}\]
+
+* Jet axis.
+
+Figure II.4: Illustration of the Gluon Radiation due to Turbulent Color Fields theory; multiple soft rescatterings preceded by a hard scatterings[13].
+
+- Distance traveled by the produced partons from the primary vertex along \(\hat{n}\).
+* Maximum allowed value for \(\zeta\); the distance from \(r\) to the surface.
+* \(l_{\perp}^{2}/(2p_{T_{2}}z_{1})\) the inverse formation time of a gluon with momentum \(l_{\perp}\) transverse to \(\hat{n}\).
+* A constant that accounts for the fact that the final parton momentum in the numerator and denominator of the equation are different.
+
+The results of the calculation are shown in Fig. II.4, where the dotted and dashed lines show the output from Eq. 2.1; and the solid lines show the distribution at the moment that the gluon leaves the medium. The figure shows a broadening of the gluon distribution in the \(\eta\) but not in \(\phi\). However, two important points must be noted; first, these calculations assume an ideal, ultra-relativistic liquid to calculate the soft gluon density; and second, although the results show some broadening it (like the other theoretical description of the ridge based on gluon radiation) is not sufficient to account for the shape and extent of the the ridge as observed experimentally.
+
+#### Longitudinal Momentum Broadening in an Anisotropic QGP
+
+A large number of relativistic heavy ion theoretical calculations (including all the theoretical calculations discussed in this chapter) assume a thermalized and homogeneous QGP. Romatschke's theoretical calculation[14] is different, in that it seeks to explain the existence of the ridge by assuming a homogeneous but locally anisotropic system. The calculation, like the work by Moore and Teaney[42] on which it is based, focuses on a heavy-quark with momentum \(p\), moving in a thermal medium with a Figure 1.5: Gluon distribution in \(\eta\) and \(\phi\) for a total jet momentum of 10 \(GeV/c\)[13]. Final item on legend is presumably an error and should read \(\eta=0\).
+
+temperature \(T\), and with a broadened momentum distribution described by Eqs. 2.3 from [42].
+
+\[\eqalign{{d\over dt}\langle p\rangle=-p\eta_{D}(p)\cr{d\over dt}\langle(\Delta p_ {\parallel})^{2}\rangle=\kappa_{\parallel}(p)\cr{d\over dt}\langle(\Delta p_{ \perp})^{2}\rangle\rangle=\kappa_{\perp}(p)\cr{d\over dt}\langle(\Delta p_{z})^ {2}\rangle\rangle=\kappa_{z}(p)\cr}\]
+
+The kinetic theory based functions \(\eta_{D}\), \(\kappa_{\parallel}\), \(\kappa_{\perp}\), and \(\kappa_{z}\) describe the momentum loss as well as fluctuations (transverse and longitudinal). They are given as Eqs. 2.3.
+
+\[\eqalign{{d\over dt}\langle p\rangle={1\over 2v}\int_{k,q}|{\cal M}|^{2}q^{0} \{f(k)[1\pm f(k-q^{0})]-f(k-q^{0})[1\pm f(k)]\}\cr{d\over dt}\langle(\Delta p_ {\parallel})^{2}\rangle=\int_{k,q}|{\cal M}|^{2}q_{\parallel}^{2}f(k)[1\pm f (k-q^{0})]\cr{d\over dt}\langle(\Delta p_{\perp})^{2}\rangle\rangle=\int_{k,q}| {\cal M}|^{2}q_{\perp}^{2}f(k)[1\pm f(k-q^{0})]\cr{d\over dt}\langle(\Delta p _{z})^{2}\rangle\rangle=\int_{k,q}|{\cal M}|^{2}q_{z}^{2}f(k)[1\pm f(k-q^{0})] \cr}\]
+
+* \(v=p/p^{0}\)
+* Gluon (quark) distribution function.
+* Scattering matrix.
+* \(\int_{k}=\int d^{3}k/(2\pi)^{3}\)
+
+The coordinate system is shown in Fig. II.6, the heavy-quark moves in a direction that coincides with the anisotropic direction.
+
+Particles move in all directions with equal probability in an isotropic system. In an anisotropic system however, this is not the case; there must be at least one preferred direction in the system, which in this theoretical calculation is conveniently chosen to be the z direction (along the beam axis). This is, of course, a problematic assumption as it first assumes that if the system is anisotropic, it has only one preferred direction, then assumes that that direction is the longitudinal one. The warrant for this assumption, is the spatial anisotropy that exists in collisions with a non-zero impact parameter. However, it must be noted that this anisotropy exists independently on the thermodynamic properties of the medium, and therefore it is doubtful whether this is a strong enough warrant for the assumption of a preferred direction in an anisotropic system.
+
+The author concludes that for an anisotropic system \(k_{z}/k_{\perp}\) is always larger than 1 (to leading log accuracy). This mean that a heavy-quark jet in an anisotropic QGP (that undergoes only collisional broadening) will preferentially experience longitudinal broadening. That ratio, \(k_{z}/k_{\perp}\) is interpreted by the author as approximating the ratio of the \(\eta\) and \(\phi\) jet correlation width; \(\langle\Delta\eta\rangle/\langle\Delta\phi\rangle\).
+
+Figure II.6: An illustration of the coordinate system used in theoretical calculations of longitudinal broadening in an anisotropic QGP[14].
+
+The author's calculation with a \(k_{z}/k_{\perp}\) ratio of \(\sim 3\) is plot (as the black ellipse) on top of STAR[43]. The ellipse quantitatively accounts for the \(\Delta\eta\) broadening. It is not clear, however, the author's reasoning for choosing this particular value of the ratio (other than the fact that it well fits the data).
+
+In general the theoretical calculation discussed in this section is interesting for the fact that it does not assume a thermalized system. However, the arguments in favor of longitudinal broadening, and the ability of the theory to reproduce the \(\Delta\eta\) broadening (let alone the 3D shape of the ridge) are both very much in doubt. In addition the leading-order accuracy and the heavy-quark focus add further caveats to the conclusions of the calculations.
+
+### Interaction of the Jet with the Medium
+
+#### ii.3.1 The Momentum Kick Model and Ridge Structure
+
+In the theoretical calculation by Wong [15], the momentum kick model is used to explain the ridge structure; the ridge particles are identified as medium particles that undergo collisions with the jet and experience a momentum kick along the jet direction. The theory is based on the following three assumptions about the ridge yield:
+
+1. The yield is nearly independent of the flavor content of the associated particles.
+2. The meson/hyperon nature of the associated particles.
+3. The trigger particle \(p_{T}\).
+
+This last assumption has been questioned by recent CMS results[27] and by conclusion from this dissertation analysis (see Chapter VI).
+
+The momentum kick model employed by Wong can be summarized conceptually as follows;
+
+1. A near-side jet is produced near the surface of the medium and its constituent particles collide with medium partons as it makes its way to the detectors.
+2. The momentum distribution of the collided medium partons is sampled at the moment of the jet-parton collision. Each collided parton undergoes at most one collision with the jet (because of the production near the surface requirement on the jet).
+3. The collided parton experiences a momentum kick \(q\), from the jet-parton collision. The parton's initial momentum distribution \(P_{i}(\mathbf{p_{i}})\) is modified by themomentum kick into its final momentum distribution \(P_{f}(\mathbf{p_{f}})\). These collided partons then hadronize (retaining the collided parton's final momentum distribution) and materialize as ridge particles.
+
+The final momentum distribution of the collided partons is given by Eq. 2.4:
+
+\[P_{f}(\mathbf{p_{f}})=\int\frac{d\mathbf{p}_{i}}{E_{i}}\int d\mathbf{q}P_{i}(\mathbf{p_{i}}E_{f} \sigma(\mathbf{p_{f}}-\mathbf{p_{i}}-\mathbf{q}). \tag{2.4}\]
+
+The momentum kick distribution \(P_{q}(\mathbf{q})\) can be normalized as described in Eq. 2.5;
+
+\[\int d\mathbf{q}P_{q}(\mathbf{q})=1, \tag{2.5}\]
+
+The numbers of collided partons before and after the jet-parton collision are conserved by the kinetic quantities \(E_{i}\) and \(E_{f}\) and are given by Eq. 2.6;
+
+\[N_{f}=\int\frac{d\mathbf{p}_{f}}{E_{f}}P_{f}(\mathbf{p}_{f})=\int\frac{d\mathbf{p}_{i}}{E_{ i}}P_{i}(\mathbf{p}_{i})=N_{i}. \tag{2.6}\]
+
+The momentum kick \(P_{q}(\mathbf{q})\), is not a quantity that can be obtained from first principles of QCD, and in the calculations described in Wong[15], the momentum kick is only generally explored; a single parameter \(\mathbf{q}\) is used to describe the momentum kick distribution, as shown in Eq. 2.7;
+
+\[P_{q}(\mathbf{q})=\sigma(\mathbf{q}-q\mathbf{e}_{jet}), \tag{2.7}\]
+
+[MISSING_PAGE_FAIL:54]
+
+Figure 8: Theoretical results of the momentum kick model, for the yield in \(\Delta\eta-\Delta\phi\) of ridge particles. On top is the distribution varying the value of \(q\) while keeping the other two parameters constant, and on the bottom is the distribution varying the value of \(\sigma_{y}\) while keeping the other two parameters constant[15].
+
+compared to the fixed value essentially flattens (not just the ridge structure, but) the entire particle distribution, while changing \(\sigma_{y}\) by a factor of \(1/2\) skews the ridge shape into a steep slope that departs from the shape observed in experimental data. The \(\Delta\phi\) and \(\Delta\eta\) projections of the particle are shown in Fig. II.9. In addition to the fits to extract the parameters, the theoretical calculations are further matched to the data by normalizing them at \((\Delta\phi,\Delta\eta)=(0,-1.7)\) (as shown in the figure).
+
+Another aspect of the model that cast doubts on the validity of its claims to describe the data, is its assumption that the initial rapidity distribution is Gaussian with a standard deviation of \(\sigma_{y}\) (which, as previously mentioned, is set by fitsto the STAR data). The real distribution, however, may be multi-centered or non-Gaussian; further theoretical justification of a Gaussian with a standard deviation of 5.5 is needed. The author further points out another issue with the momentum kick model as applied to low \(p_{T}\) partons: The calculation is based on the idealization of parton-hadron duality in which the momentum and energy losses caused by absorbing a sea quark (or anti-quark) and that of emitting a soft gluon are neglected[15]. However, these processes have a greater effect on low \(p_{T}\) parton and cannot be ignored; they must be accounted for before the momentum kick model can be accepted as a reasonable theoretical description of \(\Delta\eta\) - \(\Delta\phi\) particle distributions.
+
+#### Medium Heating, Recombination, and Ridge Structure
+
+The phenomenological calculations by Chiu and Hwa[16] introduces the parton recombination/Coalescence model[44][45] to the study of the 2D \(\Delta\eta\) and \(\Delta\phi\) jet structure (pedestal and peak structure), extending the work done by Fries et al.[46] from one dimension (\(\Delta\phi\)) to two. The paper claims that the ridge structure originates from the longitudinal expansion of thermal partons which are enhanced by the energy loss processes of hard partons as they traverse the medium. The calculated correlation depends only on the correlation among shower partons, and is affected (primarily in the intermediate-\(p_{T}\) range) by recombination between thermal and shower partons.
+
+The main assumption of this calculation is that the shower partons in a jet, while they are dynamically independent, are kinematically constrained (please see [47] for a detailed exploration of the consequences of this assumption on the particle correlations). Another assumption made in [16] is that the shower partons have a Gaussian angular distribution (relative to the jet axis), which is the same in both \(\Delta\eta\) and \(\Delta\phi\). The two main parameters in this treatment are the width of the angular distribution in the jet cone, and the magnitude of the thermal enhancement: Theseare both fixed by fits to the data.
+
+The formalization of single and two-particle distributions in the recombination model framework is given by the following equations[44][45][48][47]:
+
+\[{dN_{\pi_{1}}\over p_{1}dp_{1}}={1\over p_{1}^{2}}\int{dq_{1}\over q_{1}}{dq_{2} \over q_{2}}F_{2}(q_{1},q_{2})R_{\pi_{1}}(q_{1},q_{2},p_{1}),\]
+
+\[{dN_{\pi_{1}\pi_{2}}\over p_{1}p_{2}dp_{1}dp_{2}}={1\over p_{1}^{2}p_{2}^{2}} \int\Bigg{(}\prod_{j=1}^{4}{dq_{j}\over q_{j}}\Bigg{)}F_{4}(q_{1},q_{2},q_{3}, q_{4})\times R_{\pi_{1}}(q_{1},q_{3},p_{1})R_{\pi_{2}}(q_{2},q_{4},p_{2}),\]
+
+the recombination function for a pion is[49]
+
+\[R_{\pi}(q_{1},q_{2},p)={q_{1}q_{2}\over p^{2}}\delta\Bigg{(}{q_{1}\over p}+{q_ {2}\over p}-1\Bigg{)}.\]
+
+\(F_{2}\) and \(F_{4}\) (the two- and four-parton distributions) can be written as
+
+\[F_{2}(1,2)=({\cal T}{\cal T}+{\cal T}{\cal S}+{\cal S}{\cal S})_{12},\]
+
+\[F_{4}(1,2,3,4)=({\cal T}{\cal T}+{\cal T}{\cal S}+{\cal S}{\cal S})_{13}({\cal T }{\cal T}+{\cal T}{\cal S}+{\cal S}{\cal S})_{24}.\]
+
+The thermal parton distribution is given as
+
+\[{\cal T}(q)=Cqe^{-q/T},\]and the shower partons in a jet have the form
+
+\[{\cal S}(q)=\xi\sum_{i}\int dkkf_{i}(k)S_{i}^{j}(q/k), \tag{2.16}\]
+
+where \(f_{i}(k)\) is the distribution of hard parton \(i\) in a heavy-ion collision and \(\xi\) is the average fraction of hard partons that emerge from the thermal medium to hadronize. For two shower partons (\({\cal S}{\cal S}\)), their joint distribution is
+
+\[({\cal S}{\cal S})(q_{1},q_{2})=\xi\sum_{i}\int dkkf_{i}(k)\Biggl{\{}{\cal S}_{ i}^{j}(\frac{q_{1}}{k}),{\cal S}_{i}^{j^{{}^{\prime}}}(\frac{q_{2}}{k-q_{1}}) \Biggr{\}}, \tag{2.17}\]
+
+where the quantity of the curly braces has the form;
+
+\[\Biggl{\{}{\cal S}_{i}^{j}(x_{1}),{\cal S}_{i}^{j^{{}^{\prime}}}(\frac{x_{2}}{ 1-x_{1}})\Biggr{\}}=\frac{1}{2}\left[{\cal S}_{i}^{j}(x_{1}){\cal S}_{i}^{j^{{ }^{\prime}}}(\frac{x_{2}}{1-x_{1}})+{\cal S}_{i}^{j^{{}^{\prime}}}(\frac{x_{1 }}{1-x_{2}}){\cal S}_{i}^{j}(x_{2})\right]. \tag{2.18}\]
+
+These equations can then be used (as described in [16]) to extend this formulation to \(\Delta\eta\), which results in the following distribution equation;
+
+\[\frac{dN_{\pi^{+}\pi^{-}}^{TSTS}}{p_{1}dp_{1}d\eta_{1}d\phi_{1}p_ {2}dp_{2}d\eta_{2}d\phi_{2}}=\frac{1}{(p_{1}p_{2})^{3}}\xi\sum_{i}\int dkkf_{i }(k)\int dq_{1}\int dq_{2}\theta(k-q_{1}-q_{2})\] \[\times\sum_{j,j^{{}^{\prime}}}{\cal T}(p_{1}-q_{1},\eta_{1}) \Biggl{\{}{\cal S}_{i}^{j}(\frac{q_{1}}{k}),{\cal S}_{i}^{j^{{}^{\prime}}}( \frac{q_{2}}{k-q_{1}})\Biggr{\}}\] \[\times{\cal T}(p_{2}-q_{2},\eta){\cal G}(\psi,\frac{q_{2}}{k}) \Biggr{|}_{\psi=2tan^{-1}g(\eta,\eta_{1})}, \tag{2.19}\]
+
+The authors conclude that the ridge is related to \(\Delta T\) in the local distribution, and that it is a consequence of the recombination of the thermal and shower partons;Fig. 10.: STAR \(\Delta\eta\) (left) and \(\Delta\phi\) (right) data with normalized theoretical calculations from the recombination-based model of jet production[16]. With \(4.0<p_{T}^{trig.}<6.0~{}GeV/c\) and \(2.0<p_{T}^{assoc.}<4.0~{}GeV/c\). The solid lines are the calculations, and the dashed line in the right plot is the ridge-effect in \(\Delta\phi\) that is forced to vanish by the ZYAM procedure (see Chapter V for details of this).
+
+i.e. the ridge is not part of the jet, but is associated with jet production. Calculating only \(\pi^{+}\pi^{-}\) production, the authors were able to reproduce the \(\Delta\eta\) and \(\Delta\phi\) particle distribution peaks (see Fig. II.10), however, like Wong's calculations in the previous section, the numerous fits to the data reduces the strength of the authors' claim to a theoretical understanding of the ridge. With regards to this data fitting, the authors make the following statement;
+
+What we do here is to fix all the extra free parameters of the problem by the experimental features of the data. Since our aim is to reproduce the observed characteristics of the data which are presented with specific cuts, it is impossible to do so without incorporating those cuts. However, it does not imply that we are merely fitting the data... it is by no means trivial that the data can be fitted so well.[16].
+
+A more recent quark coalescence study is the paper by L. Ravagli and R. Rapp[50], in which the authors present a reformation of quark coalescence models in heavy-ion collisions by calculating meson production via resonance formation in quark-antiquark scattering based on a transport equation. Their work explicitly includes energy conservation in the calculations and employs a well-defined thermal equilibrium limit.
+
+### Ridge Formation due to Transverse Radial Flow
+
+In this section, transverse radial flow (and its proposed effects on particle correlations) is discussed, referencing three main works, papers by Voloshin[17], Shuryak[18] and Pruneau, Gavin and Voloshin[38].
+
+In [17], Voloshin proposes that the interaction between partons produced in heavy-ion collisions, causes a buildup in the pressure of the system, leading to longitudinal and transverse expansion, with the transverse radial expansion resulting in an increase in the particle final transverse momenta and characteristic rapidity and azimuthal two-particle correlation. These characteristic features in the correlation are explained by the reasoning that all particles produced in the same NN collision have the same initial transverse spatial position and get on average the same push which results in a correlation.
+
+These calculations use a thermal model, in which particles are produced by freeze-out of the thermalized matter at a temperature T, which is approximated by a boosted Boltzman distribution. In the model, the following assumptions are made[17]:
+
+1. Boost-invariant longitudinal expansion
+2. Freeze-out at constant proper time
+3. Uniform matter density
+4. A power law transverse rapidity flow profile
+5. During the expansion time (before freeze-out) the particles produced originally at the same spatial position, do not diffuse far from each other (compared to the system size)
+
+The two-particle spectrum is given by the following expression[17];
+
+\[\frac{dn_{pair}}{d\mathbf{p}_{t,1}d\mathbf{p}_{t,2}}\sim\, \int dp_{t}d\phi_{b}p_{t}^{2/n-1}J(\mathbf{p}_{t,1};T,p_{t}\phi_{b})J (\mathbf{p}_{t,2};T,p_{t}\phi_{b}), \tag{2.20}\]
+
+and the results of the calculation are shown in Fig. II.11 (as a function of \(\langle p_{t}^{2}\rangle=\langle p_{t}\rangle^{2}(4n+4)/(2+n)^{2}\));
+
+The calculations are compared to STAR data in Fig. II.12. The two-particle correlations were not explored in detail in this paper, and no estimates of ridge shape or yield were given.
+
+Fig. 11.: Blast wave calculation of mean transverse momentum (left) and two-particle correlation (right) from [17].
+
+Fig. 12.: Comparison of blast wave calculation with STAR data[17].
+
+The calculation by Shuryak[18], also suggest that the ridge is formed as a result of jet quenching and transverse radial flow; specifically by QCD bremsstrahlung along the beam (longitudinally) boosted by transverse flow. Unlike the Voloshin calculation, Shuryak provides a comparison of the 2-particle correlation (\(\Delta\phi\)) from data with that from his calculation. However, the theory ultimately fails at matching the data.
+
+The correlation function generated in Shuryak's calculation is given as
+
+\[C(p_{t},\phi)=\int P_{prod}(r)P_{quench}(r,\phi_{1})\times F(p_{t},v(r),\phi_{ 1}-\phi)rdrd\phi_{1}. \tag{2.21}\]
+
+The results of this function, \(\Delta\phi\) distribution (for absorption lengths of 1, 0.5, 0.25 \(fm\)), are shown in Fig. II.13 and compared with the STAR data. This correlation function does not do a good job of matching the width of the data; the author concluded that more complicated models for quenching would produce better agreement with the data, but that this mechanism of ridge production "basically works"[18]. It is, however, difficult to justify this statement based on the strength of the calculations presented in [18].
+
+A more detailed exploration of the transverse radial flow effect on two-particle correlations, is presented in [38]; these calculations use a transverse radial boost incorporated in PYTHIA events to show how this flow can affect two- and three-particle correlations.
+
+The model (unlike previous models discussed in this chapter) uses vacuum \(p+p\) events and thus neglect effects such as jet quenching, diffusion processes and string melting. The produced particles are boosted radially in the transverse plane at fixed velocity in a random \(\phi\) direction. The jets are assumed to be maximally coupled to the transverse radial flow. The authors describe two scenarios to explain the conceptual Figure 13: Correlation function, calculated using Eq. 2.21 (solid curves)[18] plots with Au+Au 0 - 10% most central STAR data
+
+basis for this theoretical interpretation[38]:
+
+1. Two incoming partons are subject to transverse kicks before they collide to produce jets. The jet production in the rest frame of the parton pair is essentially the same as if the partons were not radially boosted, but the produced hadrons are boosted in the lab frame.
+2. Two incoming partons interact as if in vacuum, but their collision products are subject to a transverse boost due to momentum kicks by the dense medium: Jet hadronization proceeds quickly within the medium and sufficient medium-flow builds up to radially push hadrons produced by parton fragmentation.
+
+The authors conclude that the near side jet peak amplitude increases with increasing radial velocity due to the kinematical focusing produced by the radial boost on the trigger and associated particles. They further conclude that the away-side ridge is deflected and defocused away.
+
+There are two major issues that must be highlighted: First, since the simulations use one boosted \(p+p\) collision per simulated event, momentum conservation is globally violated; second, they assume that parton-parton collisions in a dense medium proceed exactly as those in vacuum. It should also be noted, that the authors base their conceptual understanding of ridge formation on the experimental results that initially predicted that the ridge yield is flat with trigger \(p_{T}\), which (as mentioned earlier in this chapter) is likely not the case. In spite of these deficiencies in the model, the authors invite us to consider the "spirit of the model"[38] seriously as it explains many different phenomena simultaneously.
+
+[MISSING_PAGE_FAIL:67]
+
+Similar equations can be defined for the third coefficient giving triangularity \(\epsilon_{3}\) and triangular flow \(v_{3}\)[19]
+
+\[\epsilon_{3}\equiv\frac{\sqrt{\langle r^{2}cos(3\phi_{part})\rangle^{2}+\langle r ^{2}sin(3\phi_{part})\rangle^{2}}}{\langle r^{2}\rangle}, \tag{2.25}\]
+
+\[v_{3}\equiv\langle cos(3(\phi-\psi_{3}))\rangle. \tag{2.26}\]
+
+The minor axis of the participant triangularity, \(\psi_{3}\) is given by[19]
+
+\[\psi_{3}=\frac{atan2(\langle r^{2}sin(3\phi_{part})\rangle^{2},\langle r^{2} cos(3\phi_{part})\rangle^{2})+\pi}{3}. \tag{2.27}\]
+
+This axis is uncorrelated with both the reaction plane angle and \(\psi_{2}\), and therefore is calculated as zero with respect to these angles.
+
+Calculated values of \(\epsilon_{2}\) and \(\epsilon_{3}\) are shown in Fig. II.14, these values are calculated with a PHOBOS Glauber Monte Carlo implementation.
+
+The authors then make use of an AMPT model to study \(v_{2}\) and \(v_{3}\). The model consists of four components; initial conditions; parton cascade; string fragmentation; relativistic transport model[52]. The initial conditions for the model are obtained from Heavy Ion Jet Interaction Generator (HIJING). This AMPT model underestimates the \(v_{2}\) magnitude, so for comparisons with the data, the ratio of the third to the second coefficient is calculated, for data this is given as[19]
+
+\[\frac{\mathbf{V_{3\Delta}}}{\mathbf{V_{2\Delta}}}=\frac{ \int C(\Delta\phi)cos(3\Delta\phi)d\Delta\phi}{\int C(\Delta\phi)cos(2\Delta \phi)d\Delta\phi}. \tag{28}\]
+
+The ratio for STAR and PHOBOS data and for the calculation is shown in Fig. II.15. There is a qualitative agreement between the data and the calculation, the authors claim that since the \(v_{3}\) component is related to triangular anisotropy, that it suggest that "triangular flow may play an important role in understanding the ridge and broad away-side structures in data"[19].
+
+In this paper the authors introduce a new idea, and suggested that it may be useful in understanding the ridge. There is little that can be criticized in the discus sion, because no qualitative or quantitative assertions were made about the ridge as interpreted through this theory: There were no attempts to reproduce the ridge magnitude or shape, it's yield, its variation with trigger \(p_{T}\) or its variation with centrality (to name a few quantitative features of the ridge). A more detailed treatment of this theoretical idea is needed so that it can be evaluated on the strength of it ability not just to match the data, but to explain the ridge and all its quantitative features.
+
+### A More Recent Calculation & Conclusion
+
+There have been many recent theoretical studies that attempt to explain various features of the ridge, some by introducing new theoretical ideas, others by assuming the validity of an existing theory and extending that to the explanation of these features. I will close this chapter with an exploration of one such calculation; the work of Sorensen et. al[20] which focuses on the centrality dependence of the ridge amplitude and attempts to explain it by relating it to density inhomogeneities in the initial overlap region. The work used measured \(v_{2}\) and single particle rapidity density \(dN/dy\) with a Monte-Carlo Glauber model for the initial density to calculate the ridge amplitude (\(A_{1}\)) as a function of centrality.
+
+The model is based on the following three assumptions[20]:
+
+1. The expansion of the fireball in heavy-ion collisions converts anisotropies from coordinate-space into momentum-space.
+2. The conversion efficiency increases with density.
+3. The relevant expansion plane is the participant plane.
+
+To model the eccentricity fluctuations, the authors calculate the quantity \(\epsilon_{n,part}^{2}\)\[\epsilon_{n,part}^{2}=\frac{\langle r^{2}cos(n\phi)\rangle^{2}+\langle r^{2}sin(n \phi)\rangle^{2}}{\langle r^{2}\rangle}; \tag{29}\]
+
+This is show in II.16 for different values of \(n\) (the \(n^{th}\) harmonic) for central Au+Au collisions. The different curves in the figure correspond to different values of \(r_{part}\), which represents the radius of a disk that is used to represent the spatial distribution of the participants.
+
+To calculate the Gaussian amplitude \(A_{1}\) from the predicted correlation for the \(2^{nd}\) harmonic, the authors use the following equation (similar calculations can be made for higher harmonics);
+
+\[\frac{1}{2\pi}\int_{-\pi}^{+\pi}\frac{\Delta\rho}{\sqrt{\rho_{ref}}}cos(2 \Delta\phi)d\Delta\phi=0.11A_{1}. \tag{30}\]
+
+The estimate of the ridge amplitude \(A_{1}\) based on \(\epsilon_{n,part}^{2}\) vs. centrality parameter \(\nu=2N_{bin}/N_{part}\) (\(N_{bin}\) and \(N_{part}\) are the number of binary collisions and the number of participants) is shown for these collision systems for the \(2^{nd}\) and \(3^{rd}\) harmonics.
+
+The authors' estimate of \(A_{1}\) agrees with what has been observed at 200 and 62.4 GeV (see Fig. II.17). \(A_{1}\) increases from a small initial value, at a rate greater than the rate expected from scaled \(p+p\) collisions. The maximum is reached at \(\nu\sim 5\) after which it decreases.
+
+The authors' claim that the rise and fall of the ridge amplitude with centrality is as a result of initial geometry fluctuations and that they "know of no other plausible scenarios to explain the rise and fall of the ridge other than this explanation"[20]. However, this argument is a weak argument because it is based on two major logical fallacies. The first, and more obvious, fallacy is that it is a form of _argumentum ad ignorantiam_; the assertion of a premise justified by the fact that no other explanation is known. The second fallacy is the _post hoc ergo propter hoc_ fallacy, or as it is more commonly phrased in a scientific context; _correlation does not equal causation_, the authors could be identifying another effect of some other (currently unknown) cause. This criticism of their argument is not to assert that it is wrong, but that it is not justified, and that their claims are not properly supported by sound reasoning. What is absent from this paper, is a discussion on exactly how these initial state fluctuations result in the ridge formation. In fairness, the authors never claimed to be supplying an explanation for the existence of the ridge, but for the variation of its amplitude with centrality.
+
+Throughout this chapter we have explored many theoretical calculations that all sought to explain the existence of the ridge by various mechanisms. These mechanisms were broadly group into three parent categories; broadening due to gluon radiation, interactions of the jet with the medium and transverse radial flow. None of the calculations stand out as being the likely explanation for the ridge formation. Although we have focused on the more popular calculations, it is clear that more theoretical work is needed in this area; and more experimental measurements are needed to further describe the properties of the ridge. We have also explored a recent theoretical study that attempts to explain features of the ridge rather than explore its formation, which is an emerging trend as previous theories are not yet discounted by experimental observations.
+
+## Chapter 1 Experimental Facilities and Detectors
+
+This chapter describes the Relativistic Heavy-Ion Collider (RHIC) and the Solenoidal Tracker at RHIC (STAR) detector system, with particular emphasis placed on the detectors and trigger algorithms used in this study. The chapter starts with an overview of RHIC, followed by an outline of the STAR detector system (including the star magnet design and function). The next sections explore, in more detail, the Time Projection Chamber (TPC) and the Barrel Electro-Magnetic Calorimeter (BEMC). This exploration is followed by a brief discussion of the Zero-Degree Calorimeters (ZDCs) and the Beam-Beam Counters (BBCs); two detectors used in the STAR triggering system (which is discussed in the last three sections of this chapter).
+
+### 1.1 The Relativistic Heavy-Ion Collider
+
+In 1991, the Alternating Gradient Synchrotron (AGS) Survey and Alignment Group was given the task of aligning the components for the Relativistic Heavy-Ion Collider (RHIC). The site of the canceled ISAbelle Accelerator was chosen for the new collider. The RHIC rings are large (2.4 miles in diameter), and the entire RHIC facility is a complex of accelerators and beam transfer equipment linking them[53]. It is capable of colliding heavy ions (described in detail in this work) and protons.
+
+Heavy ions originate from the Tandem Van de Graaff (TVG) ion source. They are accelerated (using static electricity) through a foil on the positive terminal of the TVG, which strips them of some of their electrons. The now positively charged ions are accelerated to the negative terminal of the TVG and then to the exit where they lose further electrons (to give an \(Au^{32+}\) ion) as they pass into the 0.8 km Tandem to Booster Line (TTB), also called the Heavy Ion Transfer Line (HITL) with an energyper nucleon of 1 MeV/u. The TTB is a vacuum line with steering magnets that injects the ions into the Booster Synchrotron. At this stage, the ions are travelling at 5% the speed of light. Protons, conversely, originate from the linear accelerator (Linac), where they are injected into the Booster Synchrotron (stacked in betatron phase space with an energy per nucleon of 200 MeV/u.
+
+The Booster Synchrotron further accelerates the gold ions to 37% the speed of light, with an energy per nucleon of 95 MeV/u and removes additional electrons yielding \(Au^{77+}\) ions. The ions are then transferred to the AGS, which accelerates them to 99.7% of the speed of light, with an energy of 10.8 GeV/u (28.1 GeV for protons). As the ions leave the AGS and are transferred to the AGS-to-RHIC Line, the K-shell electrons are stripped off producing an \(Au^{79+}\) ion. The ions are then injected into the AGS-to-RHIC (ATR) transfer line and are directed (by a switch magnet) either left to the clockwise RHIC ring or right to travel counter-clockwise in the second RHIC ring.
+
+The RHIC rings are hexagonally shaped, with a circumference of 3833.8 meters. The bunches of ions are steered by the 1,740 superconducting magnets. There are six places where the beams cross (these are called the RHIC intersection points), two of which correspond to the active experimental collaborations; the Pioneering High Energy Nuclear Interaction Experiment (PHENIX) and the Solenoidal Tracker At RHIC (STAR). The STAR detector system is described in detail in the following section.
+
+### The Solenoidal Tracker at RHIC (STAR) Detector
+
+#### 3.2.1 Structure and Sub-Systems
+
+The STAR detector[21] was designed to be able to operate in both the low-multiplicity \(p+p\) collision environment, and in the heavy-ion collision environment where particle multiplicities are of the order of thousands per event. It is in these heavy-ion collisions that the QGP (see Sec. I.2)[31] is predicted to be formed. The study of the QGP, and its interactions with and effect on particles produced in these collisions, is one of the main goals of STAR. However, STAR is also suited for studying physics in p+p, polarized p+p, and d+Au collisions; including the spin structure function of the proton, the contributions from the preferential orientation of gluon spins to the overall spin of the proton, and the initial parton distribution function of the incident nucleus (in d+Au). This dissertation will focus on the components of the STAR detector system that make it suitable for studying the QGP in heavy-ion collisions.
+
+Figure 1: Schematic of the RHIC complex (not drawn to scale).
+
+An illustration of the STAR detector system is shown in figure III.2.
+
+One of the main tasks for this detector system is to provide particle tracking for all produced charged particles. STAR uses a 0.5 T room-temperature solenoidal magnet, with a uniform magnetic field (the magnet design considerations and structure are outlined in the following section). In the run 7 data presented in this work, tracking near the interaction region was provided by the Silicon Vertex Tracker (SVT); a detector consisting of 216 silicon drift detectors arranged in three cylindrical layers at distances of approximately 7, 11 and 15 cm from the beam axis[54]. This detector was removed after run 7 because it was unable to effectively assist in a more accurate collision vertex determination near the interaction region, in addition, less material near the interaction point would result in lower background.
+
+More important for particle tracking and identification is the STAR TPC[1]. This 4 m long detector is located at a radial distance of 50 - 200 cm from the beam axis. The TPC covers a pseudorapidity range of \(|\eta|\leq~{}1.8\), and the complete azimuthal
+
+Figure III.2: Illustration of the STAR detector system, showing the main component detector[21].
+
+range of \(|\phi|=2\pi\). The TPC helps to identify particles by their ionization energy loss; its energy loss resolution (\(dE/dx\)) is approximately 7% and its momentum resolution (\(\delta p/p\)) is 0.02 for a majority of the tracks. This momentum resolution increases as the particle momentum decreases. In the forward region, there is also a radial drift TPC, the Forward TPC (FTPC), with an \(\eta\) coverage of \(2.5<|\eta|<4\) and full azimuthal coverage. The FTPC is not used in this analysis and will therefore not be discussed further. However, additional information about the STAR FTPC can be found in [55].
+
+For the measurement of electromagnetic particles, STAR uses the BEMC. This calorimeter is a sampling calorimeter with alternating stacks of lead and plastic scintillator, and has an \(\eta\) coverage of \(|\eta|<1.0\) and full azimuthal coverage. Apart from measuring the transverse energy of particles such as photons and electrons, the BEMC is also used to trigger on high-energy electromagnetic particles in the STAR trigger system. A forward calorimeter, the Endcap Electro-Magnetic Calorimeter (EEMC), is also part of the STAR detector setup; that detector is not discussed in this work, but is well-documented in [56].
+
+In a heavy-ion RHIC run, beam-crossings at the interaction point occur approximately every 107 ns. However, only a small sample of these collisions are of interest for a physics analysis. In addition, the slowest detectors (i.e. the TPC) have readout times on the order of a few hundred Hz. The STAR data acquisition system (DAQ), must therefore only be completed on those events that are likely to be of interest in a physics analysis. This targeted readout of the detector system is achieved using the STAR trigger system[23]. The STAR trigger system is a 10 MHz system that uses the fast detectors to select events of interest before the slower detectors are read-out. The Level 0 trigger is the fastest trigger while Level 1 and Level 2 are slower but allow for additional selection criteria. The Level 3 trigger[57] makes use of tracking and includes an online display by which a sample of the events can be visually inspected. The fast detectors that are used in the trigger system are the BEMC, the BBC, the ZDC, the Central Trigger Barrel (CTB) (Run 7) and the Time of Flight (TOF) (Run 10).
+
+#### The STAR Detector Magnet
+
+There were several factors that influenced the STAR magnet[58] design. Two of these factors were the TPC structure (and the requirements for the tracking of charged particles) and the BEMC position outside the TPC.
+
+The STAR TPC, described in the next section, is a large cylindrical tracking detector, that spans the pseudo-rapidity range of \(|\eta|<1.8\) and the full azimuthal range of \(0<\phi<2\pi\). The TPC is divided into two halves (each 210 cm in length along the z axis) by a central membrane at z = 0. The nearly-uniform electric field in each half (East and West) is aligned in an opposite direction to the other half. Charged particles are tracked by the TPC, as they create clusters of ionization, which drift (under the influence of the electric field) to cathode plates at the end of the cylinder.
+
+One of the main measurements taken with the STAR detector is the momentum measurement of charged tracks. The electron, in particular, is problematic; requirements on the magnetic field to ensure a well understood electron drifts are the limiting consideration, in the determination of the magnetic field homogeneity. The field homogeneity requirement was determined by combining the tracking accuracy requirement for these electrons (\(\sim\)200 \(\mu m\)), with estimates of the position reconstruction accuracy due to uncertainties in the magnetic field.
+
+The STAR BEMC, described in Sec.III.4(68), sits outside the TPC area, this fact poses an additional constraint on the magnet design: There must be sufficient space inside the magnet coils for the BEMC detector components, and space between the coils for the BEMC electronics. A final design constraint is the need for the measurement of particles at large pseudo-rapidity ( \(|\eta|>2.0\)).
+
+The STAR magnet is approximately cylindrical in geometry and consists of 30 flux return bars (backlegs), four end rings, and two poletips. The three types of magnetic coils used are: Main, Space Trim, and Poletip Trim. The Main and Space Trim coils are built from two layer pancakes wound in a bifilar fashion (13 turns per coil), while the Poletip Trim coils contain six layers wound in a trifilar fashion (118 turns per coil). There are five separate power supplies that power the STAR magnet; a main power supply (828 V, 5300 A), two booster power supplies (50 V, 600 A), and two poletip trim power supplies (140 V, 1600 A). These supplies (with the exception of the booster supplies) are in two parts; transformer and rectifier control sections, and they all supply a negative voltage, with the exception of the main supply, which supplies both positive and negative.
+
+In the case of overheating of any of the power supplies, the currents are run down over an interval of 2 minutes, if this fails to lower the temperature, the power supplies are immediately shutdown. This overheating procedure ensures that the magnet system is protected, and that the stress on the system is minimized. The temperature of the magnet coils is maintained at a mean of \(29\,^{\circ}\)C, by a closed-loop water cooling system (supply temp. = \(24\,^{\circ}\)C, return temp. = \(29\,^{\circ}\)C, pressure = 200 PSI, flow rate 1200 GPM), which dissipates approximately 3.5 MW of power. This closed-loop system is in turn cooled by an open-loop system with a cooling tower.
+
+### The STAR Time Projection Chamber (TPC)
+
+#### iii.3.1 The TPC Structure
+
+The STAR TPC[1] operates in a high multiplicity environment, with typical heavy-ion multiplicities of 1000 particles per unit pseudorapidity, with an average \(p_{T}\) of approximately 500 MeV/c. Additionally, a significant number of secondary particles are produced from the decay of short-lived hadrons, and primary particle interactions with detector material. In this environment the TPC must serve as the primary tracking detector and effectively record tracks of all produced particles, measure their momenta (from 100 MeV/c to 30 GeV/c) and identify the particles (from 100 MeV/c to \(\sim\)1 GeV/c) by measuring their ionization energy loss (\(dE/dx\)). The TPC has a relatively large acceptance \(\pm\) 1.8 units of pseudorapidity, and full azimuthal coverage.
+
+The TPC is 4.2 m in length, with a diameter of 4.0 m. The TPC is essentially a large cylindrical gas-filled detector with a uniform electric field of \(\sim\)135 V/cm. As primary ionization particles pass through the gas in the detector, their paths arereconstructed via the secondary electrons they release that drift in the electric field (defined by the thin conductive Control Membrane (CM) at the center of the TPC) to the readout endcaps at the end of the chamber.
+
+The TPC readout system is based on Multiwire Proportional Chambers (MWPC) with readout pads. The drifting electrons are amplified on avalanche by a factor of 100 - 3000, at the 20 \(\mu\)m anode wires. Several adjacent pads share the induced charge from the avalanche, so the original track position can be reconstructed to a fraction of a pad width. In total, there are 136, 608 pads in the TPC readout system.
+
+The TPC CM is operated at 28 KV with the end caps at ground. The CM cathode is made of 70 \(\mu\)m thick carbon-loaded Kapton film with 230 \(\Omega\) per square surface resistance.
+
+The TPC is designed with an inner field cage (IFC) and an outer field cage (OFC). The material in the inner radius was limited because this is where multiple coulomb scattering is most important for accurate tracking and accurate momentum reconstruction. Aluminum was therefore used in the IFC limiting it to 0.5% radiation length (\(X_{\circ}\)). Copper was used for the OFC (because of the need for electrical connectivity) giving it a thickness of 1.3% \(X_{\circ}\).
+
+The TPC readout planes are MWPC chambers with pad readout that are mounted on aluminum support wheels. The readout modules are arranged as on a clock with 12 sectors around the circle. There are only 3 mm spaces between the sectors which translates to a small dead area between the chambers. The chamber consist of a pad plane on one side, the ground wire plane on the other, and a gating grid. A comparison of the inner and outer subsector geometries is given in table 1.
+
+Real TPC tracks may not cross all 45 pad rows. The number of rows crossed depends on the radius of curvature of the track, the track pseudorapidity, fiducial cuts near sector boundaries, and other details about the particle's trajectory. The overall tracking efficiency is about 80 - 90%. The track of a primary particle passing through the TPC is reconstructed by finding ionization clusters along the track. These clusters are found separately in x, y and z space.
+
+#### The TPC Gas System
+
+The STAR TPC gas system[2] has two main functions; the first is to provide one of two gas mixtures (P10- Ar 90% + CH\({}_{4}\) 10%, or He 50% C\({}_{2}\)H\({}_{6}\), the former is the favored mixture in STAR) to the TPC, and the second is to cool the outer field cage resistor strings which are located at the top of the drift volume. The system (which is normally a closed circuit gas system) can be operated as an open system for purging. The gas circulated at a rate of 36,000 L/h which allows for one volume change of the 50,000 L TPC every 1.4 h. Additional gas system parameters are given in the table III.2.
+
+The purity and composition of the gas mixture is monitored with O\({}_{2}\), H\({}_{2}\)O and
+
+\begin{table}
+\begin{tabular}{|l|l|l|} \hline  & Inner subsector & Outer subsector \\ \hline Pad size & 2.85 mm x 11.5 mm & 6.20 mm x 19.5 mm \\ \hline Isolation gap between pads & 0.5 mm & 0.5 mm \\ \hline Pad rows & 13 (\#1 - \#13) & 32 (\#14 - \#45) \\ \hline Number of pads & 1750 & 3942 \\ \hline Anode wire to pad plane spacing & 2 mm & 4 mm \\ \hline Anode voltage & 1170 V & 1390 V \\ \hline Anode gas gain & 3770 & 1230 \\ \hline \end{tabular}
+\end{table}
+Table III.1: Comparison of the inner and outer TPC subsector geometries[1].
+
+\begin{table}
+\begin{tabular}{|l|l|} \hline TPC Volume & 50,000 L \\ \hline Gas Mixture 1 & (10 \(\pm\)0.1\%) CH\({}_{4}\) in Ar \\ \hline Gas Mixture 2 & (50 \(\pm\)0.1\%) C\({}_{2}\)H\({}_{6}\) in He \\ \hline Compressor Pressure & 90 - 120 mbar \\ \hline Supply Pressure & 2.2 - 2.4 mbar \\ \hline Return Pressure & 0.5 - 1.6 mbar \\ \hline Internal TPC Pressure & 2.0 \(\pm\)0.03 mbar \\ \hline Recirculation Flow & 36,000 L/h \\ \hline Purge Flow & 12,000 L/h \\ \hline Make-up Gas Flow & 3.0 - 33 L/h \\ \hline Oxygen Content & \(<\) 25 ppm \\ \hline Water Content & \(<\) 20 ppm \\ \hline \end{tabular}
+\end{table}
+Table III.2.: TPC gas system parameters[2].
+
+CH\({}_{4}\) (or C\({}_{2}\)H\({}_{6}\)) monitors which are distributed in such a way that each section of the gas system can be selected separately for monitoring. If the percentage of O\({}_{2}\) in the mixture exceeds 0.1% the flow of flammable gas is immediately shut off and replaced by an inert gas. For CH\({}_{4}\), if the percentage in the mixture exceeds 11%, its flow is immediately shut off. The mixture is decontaminated with a dryer and purifier that withdraw about 40 - 45 L/min of the upstream flow. The purifier is filled with a catalyzer that catalyzes the incomplete oxidation, at 210 - 220 \({}^{\circ}\)C, of the hydrocarbon (CH\({}_{4}\) or C\({}_{2}\)H\({}_{6}\)) by O\({}_{2}\) forming their respective alcohols. This alcohol can then be removed by the dryer. The catalyzer is in continuous use in order to maintain the acceptable 19 - 22 ppm O\({}_{2}\) level. Without the catalyzer the equilibrium O\({}_{2}\) level is 60 ppm.
+
+In addition to monitoring and regulating gas composition, it is very important to monitor and regulate the TPC pressure. The TPC pressure must track the atmospheric pressure as accurately as possible. Because of the location of the detector in the Long Island, NY, area, it is common to have frequent storms, which are often preceded by rapid changes in atmospheric pressure. In the gas system, there are two sources of pressure; the first is a compressor located at the TPC exit, and the second is the flow of fresh gas through the mixing manifold. Maintaining a constant pressure downstream and regulating the amount of gas shunted from the compressor output to intake help to achieve normal pressure regulation.
+
+In the event of rapid fluctuations of the atmospheric pressure additional measures are needed. For example, when the internal TPC pressure is greater than 2.0 mbar above the atmospheric pressure, the gas control system will close the solenoid valves in the gas supply lines and open a vent valve, allowing the TPC to vent directly to the atmosphere. If the pressure difference exceeds 3.0 mbar, the TPC is vented to the atmosphere through a bubbler. Equally undesirable is TPC under pressure; if the pressure falls too low, the flow of flammable gas is shut off by the compressor and inert gas is allowed to flow into the system. This system can account for a maximum rate of increase of atmospheric pressure of up to 6 mbar/min.
+
+The TPC gas system is controlled by a DAQ subsystem which is composed of three separate devices:
+
+1. A barometer to measure atmospheric pressure
+2. A commutator for temperature measurement
+3. A custom I/O board
+
+All data are kept in a Microsoft Access database, which allows for easy access and analysis.
+
+#### The TPC Laser System
+
+Any large gas detector needs to have a system for testing, calibrating, and monitoring its function during a physics run. Typically these gas detectors use an ultraviolet (UV) laser system to generate beams that mimic straight particle tracks. UV-laser beams are used, because they produce ionization in gaseous detectors via a two-photon ionization process of the ppb level organic compounds usually present in the detector volume. A Nd-YAG (Neodymium-doped Yttrium Aluminum Garnet) frequency-quadrupled laser (\(\lambda\) = 266 nm) produces equivalent ionization to a mip in common detector volume gas mixtures, without the need for additives. This allows it to be easily integrated into the detector system, as it does not need a modified setup to be run.
+
+In general, laser systems help to reduce the uncertainties on track measurement in a gas detector. For the STAR TPC specifically, there are 5 main sources[59] of track coordinate measurement uncertainty that require an independent method of calibrating and monitoring this detector:
+
+1. Variation in drift velocity caused by gas mixture, temperature, pressure and electric field variation.
+2. TPC misalignment in the magnet and existence of the global E \(\times\) B effect.
+3. Radial inhomogenities of magnetic and electric field.
+4. Space charge buildup due to high multiplicity in Au + Au collisions.
+5. TPC endcap wheel displacement and inclination.
+
+TPC track distortion varies along the length of the detector. In order to accurately monitor all of these distortions, the desired number of laser beams per TPC half is 100 - 400. This issue (as well as the sources of track coordinate measurement uncertainties listed above) lead to the following 6 specifications[59]:
+
+1. Number of laser tracks \(\sim\)100 - 400 in each half of the TPC.
+2. Laser beams should fill the TPC volume uniformly.
+3. Electron density along the laser beam in any point must be higher than ionization from relativistic particles.
+4. The accuracy of the position and stability during operation of each laser beam at any point must be smaller than \(\sim 200\mu\) in azimuthal and radial directions and smaller than \(\sim 700\mu\) in axial direction.
+5. Synchronization of the time of the laser beams appearance in the TPC volume to the RHIC clock within \(\sim\)5 ns error to provide \(\sim\)0.01% accuracy in drift velocity measurements.
+
+6. Laser system must provide alignment, steering and stable position of laser beams with the accuracy specified above.
+
+Because of these requirements (in particular the requirement on the number of desired laser tracks), the STAR laser system had to employ a novel design, as older-generation system designs would have been inadequate. The STAR design produces a large number of narrow laser beams by splitting a wide laser beam (of diameter \(\sim\)20 - 30mm) with many small-diameter mirrors. These small mirrors are made from glass rods cut at 45\({}^{\circ}\), polished and covered by dielectric coating with 100% reflectivity. The mirrors are grouped in bundles with seven mirrors per bundle, with each mirror in the bundle rotated in a different direction.
+
+The diameter of each mirror was chosen to be 1 mm, because mirrors smaller than 1mm in diameter are more difficult to produce and align and also create significant divergence. And mirrors with longer diameters require wider beams and increased laser power.
+
+The total number of laser beams is determined by the wide laser beam area and the number of bundles occupying it. In the STAR TPC, bundles are installed along the z-axis 30 cm apart.
+
+The STAR TPC laser can be operated remotely using the global TPC operations slow control infrastructure. A graphical user interface (GUI) is accessible on a PC in the STAR control room. The laser beam image can also be visually monitored. This is done using a miniature CMOS CCD Camera (lens and fluorescence screen are \(\sim\)20 mm in diameter). This camera is designed to be operated in a high magnetic field environment (up to 1.0 T). STAR detectors are synchronized with the RHIC clock (10 MHz) and the laser trigger system can accept the external RHIC clock signal; which allows for easy integration in the system during a physics run.
+
+During a RHIC run, the laser trigger is implemented to interleave laser events in a physics run. The drift velocity from the physics run, and from the laser system are then calculated and compared. Laser drift velocity is determined using the Z position difference of the mirror position for the set of laser tracks closest to and furthest from the pad plane. This drift velocity is affected by several factors; barometric pressure, cathode voltage, temperature, clock frequency, methane concentration, and unknown additives in TPC gas. However the methane concentration is the most influential parameter.
+
+### The STAR Barrel Electro-Magnetic Calorimeter (BEMC)
+
+#### iii.4.1 The BEMC Structure
+
+The STAR TPC is less effective for identifying charged particles with momenta above \(\sim\)2 \(GeV/c\). The STAR physics program requires that the detector system is able to distinguish between electrons and hadrons at high transverse momenta. In addition, momentum measurements using a magnetic field only work for charged particles. For photon and neutral meson (such as \(\pi^{0}s\) and \(\eta s\), both of which primarily decay into two photons) measurements, both of which are an important part of the STAR physics program, a new type of detector is needed.
+
+In STAR, this role is filled by an electromagnetic calorimeter. Calorimeters measure the energy of electromagnetic particles via a destructive process (this is why they are usually located behind tracking detectors). They can be used for Particle Identification (PID) to trigger on interesting events (because of their relatively fast readout times). Calorimeters are usually made up of two types of material, an active material responsible for generation of a signal (e.g. ionization, light), and a passive material, which is responsible for creating the shower. In STAR's BEMC, the active material is a plastic scintillator, and the passive material is lead.
+
+In an electromagnetic shower, the original particle interacts with the passive layers creating many lower energy particles. These lower energy particles deposit energy (via ionization in the active layers); the amount of ionization is proportional to the amount of energy deposited in the calorimeter.
+
+The STAR BEMC[22] is a sampling calorimeter; it does not directly measure the full energy of the incident particle, but rather it can be used to calculate this energy based on the shower energy that it supplies. It is located inside the aluminum coil of the STAR solenoid and has coverage in \(\eta\) of \(|\eta|\leq 1.0\), and full coverage in \(\phi\). The BEMC largely matches the TPC tracking coverage. This layout is shown in figure III.4.
+
+The BEMC is comprised of 120 calorimeter modules, of dimension 6\({}^{\circ}\) in \(\phi\) (\(\sim\)0.1 rad) and 1.0 unit in \(\eta\). They are mounted 60 in \(\phi\), by 2 in \(\eta\). Each module is segmented
+
+Figure III.4: Cross sectional views of the STAR detector system, showing the relative position of the BEMC[22].
+
+into 40 towers, 2 in \(\phi\) and 20 in \(\eta\); to give a total of 4800 towers. Each tower has dimensions of 0.05 in \(\phi\) and 0.05 in \(\eta\), and is projective, i.e. pointing back to the center of the interaction diamond. Each calorimeter module consists of a lead-scintillator stack and a shower maximum detector (see next section) situated approximately 5.0 \(X_{\circ}\) from the front of the stack. There are 20 layers of 5 mm thick lead, 19 layers of 5 mm thick scintillator and 2 layers of 6 mm thick scintillator. The thicker scintillator layers are used in the preshower portion of the detector. The BEMC is under a fixed internal pressure of 15 psi.
+
+#### The Barrel Shower-Maximum Detector (BSMD)
+
+The width of the towers in the BEMC is larger than the width of an electromagnetic shower. Therefore, in order to provide a precise spacial description of the shower width, and to discriminate between one (direct-\(\gamma\) candidates) and two closely spaced electromagnetic showers (\(\pi^{0}\) decay-photon candidates), a detector with a much finer segmentation is needed. This functionality is provided by the STAR Barrel Shower-Maximum Detector (BSMD)[22].
+
+The BSMD is a wire proportional counter, strip readout detector that makes use of gas amplification; it has two independent planes of proportional wires, and two independent cathode planes with strips in both \(\eta\) and \(\phi\). These two planes allow for a two-dimensional spacial description of an electromagnetic shower. The BSMD is located at variable depths within the BEMC modules varying from 4.6 - 7.1 \(X_{\circ}\) as \(\eta\) varies from 0 to 1. The position of the BSMD within a tower can be found in Fig. III.5, a schematic illustration of the detector can be found in Fig. III.6 and a cross-section view can be found in Fig. III.7.
+
+The \(BSMD\)-\(\eta\) strips are perpendicular to the anode wires, and provide an image of the shower spatial distribution in the \(\eta\) direction. These strips span 30 wires and 
+
+[MISSING_PAGE_EMPTY:92]
+
+Figure 3.7: Cross-section of the STAR BCMD detector showing the 50 \(\mu m\) gold-plated tungsten anode wires and cathode strips that sense the induced charge from the amplification near the wires[22].
+
+Figure 3.6: Schematic illustration of the STAR BSMD detector showing the two (\(\eta\) and \(\phi\) detector planes[22].
+
+have size of 0.1 rad in \(\phi\) (one module width) and 0.0064 in \(\eta\). The \(\phi\) strips are parallel to the anode wires and have size of 1.33 cm in width and 0.1 \(\eta\) units in length. In total there are 36,000 strips in the full BCMD detector, and 120 wire channels in the BEMC. Each of the 1200 distinct areas, approximately 0.1 by 0.1 in \(\eta-\phi\), has 15 \(\phi\) strips and 15 \(\eta\) strips.
+
+More information about the BSMD can be found in [22]; additionally, BSMD calibration and \(\pi^{0}/\gamma\) discrimination is discussed in detail in Chapter VI (page 77).
+
+### The STAR Trigger System
+
+RHIC beam crossings occur approximately every 107 ns. Not all of these crossings, however, result in collisions; so it is firstly important for STAR to quickly detect when collisions occur, and secondly for STAR to make a decision on whether or not the collisions are useful for achieving the STAR analysis goals for that running period. Additionally, being able to "label" certain collisions as more useful for one analysis goal versus another (or for multiple goals) will allow more selectivity in the production process. All of these objectives are achieved by the STAR trigger system[23]; a pipelined system in which digitized signals are analyzed at every RHIC beam crossing to determine whether to begin the amplification-digitization-acquisition (ADA) cycle for the slower detectors. This section describes the STAR trigger detectors that are most important in heavy ion collisions and the general logic of the Level 0, Level 1, and Level 2 triggers. An outline of the data flow through the STAR trigger is illustrated in figure III.8 (page 74). A full discussion of all the STAR trigger detectors and trigger logic can be found in [23] and [57].
+
+[MISSING_PAGE_EMPTY:95]
+
+#### The RHIC Zero Degree Calorimeters (ZDCs)
+
+In a 200 \(GeV/c\) Au+Au collision at RHIC, evaporation neutrons diverge by less than 2 milli-radians from the beam axis; in this 'zero degree' region, collision products and secondary products deposit negligible energy compared with that of the beam fragmentation neutrons. The accurate detection of these neutrons can be used to calculate event multiplicity, which can be related to event geometry and used as a basis of a fast trigger decision (see following section) for the STAR DAQ system.
+
+The RHIC ZDCs[24] (identical design for all original RHIC experiments) were designed to detect these neutrons and measure their energy; they are longitudinally segmented hadron calorimeters (see Fig. 39). Since the spatial distribution of neutrons emitted in the fragmentation region carries very limited information about the collision, the ZDCs are not built with transverse segmentation. The ZDCs are composed of modules which consist of a tungsten absorber with undoped fiber optical ribbons in the sampling layer.
+
+#### The Level 0 (L0), Level 1 (L1) and the Level 2 (L2) Triggers
+
+All detectors channels in the STAR Level 0 trigger system, are digitized for each RHIC crossing and these data are transferred first to the Data Storage and Manipulation (DSM) board and from there into the Trigger Control Unit (TCU) where the status of each detector is used to construct a 18 bit address to a lookup table (LUT), which each address corresponds to a trigger word that is itself an address to an Action Word LUT that tells the detector system what action is to be taken and what detectors are to be involved. Level 0 is designed to issue a decision within 1.5 \(\mu s\)
+
+If the L0 algorithm decides to accept the event, the slower detectors begin to start amplifying and digitizing the signal, the trigger detectors information is aggregated(by VME processors) and examined in a coarse pixel array (CPA) at Level 1. The cells of this CPA are of dimensions \(\delta\eta\sim 0.5\) and \(\delta\phi\sim\pi/2\), which help to identify gross spatial symmetries in particle distributions that are indicative of beam-gas events.
+
+If not aborted, the data acquisition cycle continues and the trigger information is passed to the L2 farm where both the coarse and fine pixel arrays are analyzed to determine whether the event fits certain higher-level analysis-oriented standards. If an event is accepted at L2, the trigger systems hands control of the event to the central Data Acquisition (DAQ) system. The L2 decision time is 5 ms.
+
+Figure 3.9: Schematic of the collision region (drawn to scale), highlighting the ZDC position and showing the deflection of protons and charged fragments[24].
+
+## Chapter 4 Detector Calibration and Direct/Decay Photon Discrimination
+
+As discussed in the previous chapter, the Barrel ElectroMagnetic Calorimeter (BEMC) (see Sec. 3.4) is a sampling calorimeter, with alternating layers of a plastic scintillating material and lead. This calorimeter spans the entire azimuthal angle (\(\phi\)) range and extends from -1 to +1 in pseudorapidity (\(\eta\)). The BEMC is divided into 4800 sections, called towers, which project towards the point of interaction. At a depth of \(\sim\)5.6 radiation lengths in each tower, sits the Barrel Shower Maximum Detector (BSMD)(III.4.2, page 70); two perpendicular planes (\(\eta\) and \(\phi\)) of 36,000 (18,000 in each plane) proportional strips that vary in thickness across \(\eta\).
+
+The STAR BSMD measures the energy of an electromagnetic shower, typically extending over a few strips (in both planes) in the detector, initiated when an electromagnetic particle hits a section of the detector. If these 36,000 strips do not give a uniformed digital response to an electromagnetic shower of constant energy, then the detector cannot be relied upon to provide any accurate (or precise) quantitative descriptions of that shower. It is therefore necessary to force as uniform a response as possible, by scaling the raw digitized signals from each strip by a set of 36,000 constants mapped to each strip ID in the detector. This section discusses the first complete calibration of the STAR BSMD, using 3.1 million minimum biased Au+Au events from Run 7, and also discusses the role that this detector plays in discriminating between direct and two close photons from a symmetric decay.
+
+### BSMD Calibration
+
+The first step in the calibration is to obtain the raw digitized signal in each strip, for each event in which the BSMD is read-out. This digitized signal must be obtained before the STAR ADC-to-energy conversion algorithm is run because this algorithm anticipates a difference in detector response and attempts to correct for it by applying a set of calibration constants determined solely by Monte-Carlo simulation. The only mathematical manipulation done on these raw ADC values is a pedestal subtraction in which the pedestal mean, recorded for that strip during that period of the run, as well as 5 times the pedestal RMS value, are subtracted from the raw ADC to give a pedestal-subtracted ADC value.
+
+Running over 3.1 million events, and aggregating the pedestal-subtracted ADC values for each of the 18,000 \(BSMD\)-\(\eta\) and 18,000 \(BSMD\)-\(\phi\) detector channels, should ideally give a response biased only by the natural pseudorapidity dependence of electromagnetic particle distributions. These ADC values are stored in two two-dimensional histogram of pedestal-subtracted ADC versus strip ID, which can be projected to give the one-dimensional ADC distribution of each strip as illustrated in Fig. IV.1.
+
+#### iv.1.1 BSMD Strip Gains Before Calibration
+
+The 2D histograms for all 120 modules in \(\eta\) and \(\phi\) are shown in Fig. IV.2 and IV.3. The empty plots correspond to modules that were turned off for the entire running period. These histograms are projected for each strip to yield 150 1D histograms of strip ADC values. These histograms must be fit with a function where one parameter (related to the slope of the distribution) can be extracted and interpreted as the gain for that strip. A simple exponential of the form \(e^{(C_{0}+C_{1}x)}\) does not give a very goodfit (based on initial trials) and consequently does not describe the detector strip gain. A higher order exponential was therefore needed, but by including additional term in the fit function, the goal of having one value to interpret as the gain became more difficult to achieve. The solution is therefore to first fit the ADC distributions with a function of the form of Eq. 4.1.
+
+\[e^{(C_{0}+C_{1}x+C_{2}x^{2})}\]
+
+A sample of these fits are shown in Fig. IV.4 and Fig. IV.5.
+
+The next step is to assume that the ratio of the \(3^{rd}\) to the \(2^{nd}\) parameter of these fits (\(\alpha=C_{2}/C_{1}\)) should be constant, and to fill this value in a profile histogram with 300 pseudorapidity bins in the case of \(BSMD\)-\(\eta\) and 20 in the case of \(BSMD\)-\(\phi\) (from -1 to +1, corresponding to the detector construction as outlined in the previous chapter) a ROOT histogram class (TProfile) that averages the y-value for all entries in a particular x-bin, (optionally) weighted by the error on each individual x-value in a particular bin. In this case the profile averages \(\alpha\), weighted by the error on the fit, and with an RMS defined as the spread in values for that pseudorapidity bin. This
+
+Figure IV.1: ADC distributions \(BSMD\)-\(\eta\) Module 12, 2D (left) and 1D projection of strip #8 in Module 12, strip ID \(\eta\)-1658 (right).
+
+Figure 13: ADC distributions for all \(120\)\(BSMD\)-\(\eta\) Modules (\(150\) strips per module).
+
+Figure 4.3: ADC distributions for all \(120\)\(BSMD\)-\(\phi\) Modules (\(150\) strips per module).
+
+Fig. IV.4.: ADC distributions and fits with equation 4.1 (black line) for the \(8^{th}\) strip in each of the first \(20\)\(BSMD\)-\(\eta\) modules. Empty spaces correspond to dead strips.
+
+Fig. IV.5.: ADC distributions and fits with equation 4.1 (black line) for the \(8^{th}\) strip in each of the first \(20\)\(BSMD\)-\(\phi\) modules. Empty spaces correspond to dead strips.
+
+profile histogram is then fit with a line to find the average value of this ratio to yield the values \(\alpha_{\eta}\) and \(\alpha_{\phi}\). These profiles are shown in Fig. IV.6.
+
+After \(\alpha\) is extracted from the linear fit, the strips are fit again, with a function that uses this constant, where the \(2^{nd}\) parameter, \(P_{1}\) is taken as the strip gain (Fig. IV.7).
+
+\[e^{(P_{0}+P_{1}(x+\alpha x^{2}))} \tag{4.2}\]
+
+The shape of the \(BSMD\)-\(\eta\) gains (Fig. IV.7) corresponds to the shape expected (from simulation) due to the natural acceptance distribution of electromagnetic particles across the calorimeter (and the higher than average voltage in the the modules in which the 4 bins separated from the bulk of the other bins in the plot correspond Figure 13: \(P_{1}\) (strip gain) profile histogram before calibration for \(BSMD\)-\(\eta\) (top) and \(BSMD\)-\(\phi\) (bottom).
+
+to). This shape is used as the ideal gain distribution in \(BSMD\)-\(\eta\); in the \(BSMD\)-\(\phi\) however, a pseudorapidty dependence is not expected, and therefore the ideal gain value is taken as a constant (0.03) across all 20 pseudorapidity bins. The relative calibration constants for all 36,000 strips are calculated by dividing the extracted gain by the ideal gain; these calibration constants are shown as a function of strip number in Fig. IV.8. The constants are then applied to the strips and their effect on the strip gain tested.
+
+#### Bsmd Strip Gains After Calibration
+
+After applying the calibration constants to the ADC values of each strip, the new calibration can be tested by fitting the new ADC values with the same functional form as equation 4.2. The new extracted gains can then be compared to determine if they are closer to the ideal gain than they were pre-calibration (the strips that did not get closer, or that got worst are assigned a calibration constant of 0 in the generation of the final constants). In total, 86% of the \(BSMD\)-\(\eta\), and 78% of the \(BSMD\)-\(\phi\) strips were successfully calibrated. Profile histograms for the gains (after calibration) are shown in Fig. IV.9. Figure IV.10 illustrates the improvement in the detector after calibration, by isolating the RMS values of the gains before and after calibration, showing a clear reduction in the magnitude in the latter case. The reduced spread on the gain RMS is important for direct/decay photon discrimination, which is described in the following section.
+
+### Direct/Decay Photon Discrimination
+
+Above 5.5 \(GeV/c\) the opening angle between the two photons resulting from the symmetric decay of a \(\pi^{0}\) is less than 0.05 radians, and therefore these photons likely hit the detector within the same BEMC tower (dimensions 0.05 x 0.05 rad); and will be impossible to distinguish (using this detector alone), from a single photon. This ability to distinguish between direct and two close decay photons is essential to this analysis, so the BSMD is used to provide additional spatial information about the electromagnetic shower.
+
+Electromagnetic showers are identified in the detector with the help of a clustering algorithm. The clustering algorithm used in this analysis was designed by A.M. Hamed and is documented in his dissertation [60]. The algorithm starts at a \(BSMD\)-\(\eta\) strip and compares the energy of that strip with the energy of the 7 preceding strips, and the energy of the 7 strips that follow; if the energy of each of these 14 strips is less than the energy of the first strip (the cluster seed), then the algorithm Figure IV.9: \(P_{1}\) (strip gain) profile histogram after calibration for \(BSMD\)-\(\eta\) (top) and \(BSMD\)-\(\phi\) (bottom). Notice the reduction in the RMS as compared to figure IV.7. See figure IV.10 for a plot of these RMS values.
+
+Figure 10: Gain RMS before (triangles) and after (stars) calibration for \(BSMD\)-\(\eta\) (top) and \(BSMD\)-\(\phi\) (bottom).
+
+identifies that collection of 15 strips as a \(BSMD\)-\(\eta\) cluster. The algorithm then looks in the same region in \(BSMD\)-\(\phi\) and tries to identify a similarly defined \(\phi\) cluster, if a cluster is found, the algorithm then identifies the BEMC tower in which the cluster lies and uses the energy of this tower as the cluster energy. The distribution of the percentage of the cluster energy in each of the 15 strips, when plot versus the position of that strip relative to the cluster seed (which has a position of 0) is called the Transverse Shower Profile (TSP) of that electromagnetic shower. In principle, the TSP should be qualitatively different for a single photons, than for two photons that hit the detector in the same tower. Figure 11 shows this difference by looking at the TSP for Monte-Carlo generated electrons (the BSMD produces a similar response for electrons as photons) and \(\pi^{0}\)s simulated (one electron or \(\pi^{0}\) per event) in the STAR detector using the geometry of the detector for Run 7.
+
+The difference between the two TSPs can be exploited with a quantitative cut that separates a sample of data into two sets, a \(\gamma\)-rich and a \(\pi^{0}\)-rich set. This is done by inputting the strip energies into equation 4.3[37], where \(e_{i}\) and \(r_{i}\) are the energy of the strip and the distance of the strip from the cluster seed (respectively); the value 1.5 was chosen (from a MC simulation analysis) because it provided the best separation between electrons and \(\pi^{0}\)s.
+
+\[\frac{E_{cluster}}{\sum_{i}e_{i}r_{i}^{1.5}}. \tag{4.3}\]
+
+A diagram of this quantity is shown in Fig. 12, plotted are the embedded \(\pi^{0}\)s and \(\gamma\)s distributions; acceptable cuts generate a 65 - 70% pure \(\gamma\)-rich sample and a 95% pure \(\pi^{0}\)-rich sample.
+
+The TSP for electrons in data (from all three collision systems Au+Au, d+Au and \(p+p\)), is not as narrow as expected from simulation, this was thought to be due to the uncalibrated BSMD; a final test of a calibration of that detector therefore, is Figure 11: \(BSMD\)-\(\eta\) Monte-Carlo simulated Transverse Shower Profile (TSP) for electrons (triangles) and \(\pi^{0}\)s (squares) with \(6.0\leq p_{T}\leq 8.0\ GeV/c\).
+
+to compare the electron TSP before and after calibration. This comparison is shown in Fig. IV.13; the detector calibration reduces the width of the TSP, but not to the level of the MC simulation. This suggests that there are other effects on the width of the TSP than are included in simulation.
+
+Figure IV.12: Transverse shower profile quantity for embedded \(\pi^{0}\)s and \(\gamma\)s. In central Au+Au, cuts on this quantity yield a 65 - 70% pure \(\gamma\)-rich sample and a 95% pure \(\pi^{0}\)-rich sample.
+
+Figure 13: \(BSMD\)-\(\eta\) electron Transverse Shower Profile (TSP) from the Au+Au 2007 L2Upsilon trigger set before calibration (triangles) and after calibration (circles) with \(6.0\leq p_{T}\leq 8.0~{}GeV/c\).
+
+## Chapter 5 Data Analysis: Azimuthal 2-Particle Correlations
+
+In this chapter, the details of the two-particle correlation analysis are discussed. The chapter starts with an overview of the two-particle correlation algorithm, next, Sec. V.2 deals with specific analysis cuts applied to both the photon triggers and the associated tracks, as well as an outline of the method of pair acceptance correction (a procedure that corrects for the finite detector acceptance), and ends with a brief discussion of single-particle efficiency correction. In Sec. V.3, the \(v_{2}\) background subtraction and the ridge-yield determination methods are explained in detail. Finally, the method of statistical and systematic error determination are outlined.
+
+### 5.1 Two-Particle Correlation Technique
+
+#### Overview of Two-Particle Correlations
+
+Two-particle correlations reveal the angular relationship between particles in a sample of events; they display the frequency of pairs as a function of angular pair separation distance. These correlations are used as an indirect method to study di-jets, as they measure jet-particle production on a statistical basis (averaged over many events), and do not require event-by-event jet identification.
+
+The algorithm is the same for all data sets. The event is first classified into one of 22 vertex bins of equal width (from -55 cm to 55 cm), because of the need for pair acceptance correction (see Sec. V.2.2). Only events meeting the selection criteria in Sec. V.2.1 are selected. Next, the highest \(p_{T}\) trigger (that passed these criteria) for that event is selected as the trigger particle, then the \(\Delta\eta\) and \(\Delta\phi\) values for this trigger and each associated particle which pass the cut for associated particles arecalculated as follows:
+
+\[\Delta\eta =\eta^{assoc.}-\eta^{trig.} \tag{5.1}\] \[\Delta\phi =\phi^{assoc.}-\phi^{trig.} \tag{5.2}\]
+
+The \(\Delta\eta\) and \(\Delta\phi\) values distributions are filled in a histogram (as described in Sec. V.2.1), and the final distribution is corrected by the single associated particle efficiency, and by the number of triggers (so no correction by the trigger efficiency is needed).
+
+### Analysis Details and Corrections
+
+#### v.2.1 Data Selection, Analysis Cuts and Histogram Binning
+
+Data discussed in this work are from Au+Au collisions at \(\sqrt{S_{NN}}=200\ GeV\), detected with the STAR detector, from RHIC's Run 7 (2006 - 2007) and Run 10 (2009 - 2010). These data satisfy either a High Tower (HT) trigger or both the High Tower and the L2Gamma trigger. In Run 7, the BHT2 trigger is the HT trigger used; this requires a ZDC coincidence, and a high energy tower in the BEMC (\(E_{T}>5.5\ GeV/c\), 5.75 in some cases). The L2Gamma set in this run satisfies the BHT2 but imposes a higher \(E_{T}\) cut on the cluster (of 1 or 2 towers) of \(8.0\ GeV/c\).
+
+All events accepted for this analysis have a well-defined vertex, within 55 cm of the center of the TPC (along the z-axis) and are in the events with the 10% most central impact parameter values. Centrality, in this case, is measured by Reference Multiplicity, and in Run 7, the 10% most central events are defined as those with a reference multiplicity greater than or equal to 399, and in Run 10, the cut is 375. The lower reference multiplicity cut in Run 10, can be explained by the dead sector in the TPC during this run (see figure V.2, bottom left and right plots, on page 99).
+
+In addition to the event-level cuts, there are also cuts on the photon candidates accepted as triggers, and on the charged tracks accepted as associated particles. For the triggers, the following cuts are made;
+
+1. _BSMD Threshold Cut:_ The photon candidate must deposit at least 0.25 \(GeV/c\) in the \(BSMD\)-\(\eta\) and the \(BSMD\)-\(\phi\) cluster seed (see Chapter III).
+2. _Charge-Rejection Cut:_ No track with \(p_{T}\) higher than 1.375 \(GeV/c\) for (BHT2) and 2.0 \(GeV/c\) for (L2Gamma) is allowed to point to the tower that triggered the event.This cut is put into place to eliminate electrons, positrons, and high-\(p_{T}\) hadrons from the trigger sample, as they deposit energy in the calorimeter and leave charged tracks in the TPC.
+3. _Trigger \(p_{T}\) Cut:_ The trigger \(p_{T}\) is restricted to 5.5 - 8.0 \(GeV/c\) for BHT2 data, and 8.0 - 16.0 \(GeV/c\) for L2Gamma data.
+4. _Tower \(\eta\) Cut:_ The \(|\eta|\) of the tower of the trigger particle must be less than 0.9.
+5. _Triggers Per Event Cut:_ Only one trigger is selected per event. This is the trigger with the highest \(p_{T}\) (among the triggers that passed all trigger cuts).
+6. _Hot Towers Cut:_ All towers with hit frequency greater than 5\(\sigma\) (2\(\sigma\) in run 10) above the mean are masked. (See Appendix A for list of masked towers) For the associated tracks, the following cuts are made;
+
+1. _Track Flag Cut:_ Only good tracks from the TPC (STAR Track Flag = 301) and, in run 7, the SVT (STAR Track Flag = 601) are accepted.
+2. _Fit Points Cut:_ The number of track fit points exceeds 20.
+
+3. _DCA Cut:_ The track Distance of Closest Approach (DCA) to the primary vertex is less than 3.0.
+4. _Fit Point Ratio Cut:_ The ratio of the track fit points to the possible points is greater than 0.52.
+5. _Track \(p_{T}\) Cut:_ The track \(p_{T}\) is greater than or equal to 2.0 \(GeV/c\) and is less than the trigger \(p_{T}\).
+6. _Track \(\eta\) Cut:_ The \(|\eta|\) is less than or equal to 1.0.
+
+The triggers and tracks that pass these cuts are used to calculate the \(\Delta\eta\) and \(\Delta\phi\) values which are filled in a 2D histogram (ROOT Class TH2D), with \(\Delta\eta\) filled in the y-axis bins and \(\Delta\phi\) filled in the x-axis bins (see Fig. V.1 and Fig. V.2). There are 96 \(\Delta\eta\) bins spanning from -2.00 on the left-edge of bin 1 (bin numbering begins at 1 in ROOT) to +2.00 on the right-edge of bin 96; giving a \(\Delta\eta\) bin width of 0.04167. For \(\Delta\phi\), there are 48 bins spanning from -3.14159 on the left-edge of bin 1 to +3.14159 on the right-edge; giving a bin width of 0.1309. The z-axis in all 2D histograms is \(1/N_{trig}(d^{2}N/d\Delta\phi d\Delta\eta)\) and \(1/N_{trig}(dN/dx)\) for 1D histograms (where \(x\) is either \(\eta\) or \(\phi\)).
+
+#### 5.2.2 Pair Acceptance Correction
+
+As discussed in Chapter II, the STAR BEMC (Sec. III.4) and TPC (Sec. III.3) have pseudo-rapidity coverage from \(|\eta|\leq\) 1.0. However, their pair acceptance in \(\Delta\phi\) and \(\Delta\eta\) (the ratio of detected to produced particles) varies over this range. The largest acceptance (\(\sim\)1.0) is found at the center of the detector at \(\eta\) = 0, and the acceptance decreases as you move outward from the center to its lowest value at the edges of the Figure V.1: Run 7 \(\eta-\phi\) distributions for mixing. For \(\gamma\)-rich trigger(top left), \(\pi^{0}\)-rich trigger(top right), associated tracks for \(\gamma\)-rich triggers (bottom left), associated tracks for \(\pi^{0}\)-rich triggers (bottom right) for the 5.5 - 7.0 \(GeV/c\) bin.
+
+Figure V.2: Run 10 \(\eta-\phi\) distributions for mixing. For \(\gamma\)-rich trigger(top left), \(\pi^{0}\)-rich trigger(top right), associated tracks for \(\gamma\)-rich triggers (bottom left), associated tracks for \(\pi^{0}\)-rich triggers (bottom right) for the 5.5 - 7.0 \(GeV/c\) bin.
+
+detector at \(|\eta|\) = 1.0. These detectors have a near uniform acceptance in \(\phi\) with the exception of the 0 acceptance in the boundaries between the \(\phi\) sectors in the TPCs.
+
+Because of the unique acceptance of the STAR TPC and BEMC, any data analysis dependent on an accurate measure of relative particle multiplicities, in different sectors of the \(\eta-\phi\) space (such as a correlation analysis), will be biased towards particles produced near the center of the detector volume (where the acceptance approaches unity). Such an analysis will therefore need to be corrected to account for this varying acceptance. This correction is called pair acceptance correction, because it uses a distribution of uncorrelated pairs of particles to correct for the acceptance shape.
+
+Mixed pairs are generated by randomly sampling separate histograms of trigger and associated particle \(\eta-\phi\) distributions, filled in 22 vertex bins of 5 cm width (from -55 to 55 cm) and in the 5 \(p_{T}\) bins described in table V.1. Both the trigger and associated distribution histograms are filled simultaneously with the real pairs, so they are subject to the same trigger and associated cuts outlined in Sec. V.2.1.
+
+A trigger is then randomly selected, from the \(\eta-\phi\) distributions, in the \(p_{T}\) bin
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|} \hline \(p_{T}\) Bin & \(p_{T}\) Range (\(GeV/c\)) & Trigger (2007) & Trigger (2010) \\ \hline
+1 & 5.5 - 7.0 & BHT2 & BHT \\ \hline
+2 & 7.0 - 8.0 & BHT2 & BHT \\ \hline
+3 & 8.0 - 10.0 & L2Gamma & L2Gamma \\ \hline
+4 & 10.0 - 12.0 & L2Gamma & L2Gamma \\ \hline
+5 & 12.0 - 16.0 & L2Gamma & L2Gamma \\ \hline \end{tabular}
+\end{table}
+Table V.1: The five \(p_{T}\) bins, their corresponding \(p_{T}\) ranges and triggers.
+
+in which the mixed pair would be generated. Then the \(\Delta\eta\) and \(\Delta\phi\) are calculated, by mixing this trigger with randomly chosen associated particles from the corresponding associated \(p_{T}\) bin. The number of associated particles mixed with the trigger is sampled from a histogram (Fig. V.3) filled with the number of associated particles for each real trigger. The average number of associated particles is \(\sim\)10.
+
+A total of 100 million triggers are mixed with the randomly selected number of associated particles in each of the 5 \(p_{T}\) bins for each trigger sample. The mixed pair distribution (see Fig. V.4 and V.5) is then normalized to give a maximum acceptance of 1.0, and used to correct the raw correlation; by dividing the raw correlation by the acceptance histogram. Uncorrected and corrected correlations for the first \(p_{T}\) bin (5.5
+
+Figure V.3: The number of associated charged-particles per event for trigger sets ”L2gamma 2007”(top left), ”HighTower 2007”(top right), ”L2gamma 2010”(bottom left), and ”HighTower 2010”(bottom right).
+
+- \(7.0~{}GeV/c\)), for both \(\gamma\) and \(\pi^{0}\) triggers are shown in figures 6 and 7 (Run 7), and in Fig. 8 and 9 (Run 10). Figures for all the \(p_{T}\) bins are found in Chapter V.
+
+#### Single Particle Efficiency Correction
+
+The yield of correlated trigger and associated hadron pairs in a given region of the \(\Delta\phi\)-\(\Delta\eta\) phase-space, is dependent on the distribution of charged hadrons in that region. This distribution reflects the real particle distribution, modified by the reconstruction efficiency of the detector (specifically the TPC (section III.3). Since all final correlation distributions in this analysis are scaled (divided) by the number of reconstructed triggers, only the efficiency of the associated hadrons affects the correlation yield in a given region of the phase-space.
+
+The efficiency correction used in this analysis, is a parameterization, taken from Figure V.5: Run 10 mixed-pair(acceptance) distributions for \(\gamma\)-rich triggered 2D(top left), its \(\Delta\eta\) projection(top right),\(\pi^{0}\) triggered 2D(bottom left), and its \(\Delta\eta\) projection(bottom right) for the 5.5 - 7.0 \(GeV\)/\(c\) bin.
+
+Figure V.6: \(\gamma\)-rich triggered Run 7 uncorrected correlations. 2D(top left), its \(\Delta\eta\) projection(top middle), its \(\Delta\phi\) projection(top right) and the acceptance-corrected correlations for \(\gamma\)-rich triggered 2D(bottom left), its \(\Delta\eta\) projection(bottom middle), its \(\Delta\phi\) projection(bottom right) for the 5.5 - 7.0 \(GeV\)/\(c\) bin.
+
+[MISSING_PAGE_EMPTY:125]
+
+Figure V.8: \(\gamma\)-rich triggered Run 10 uncorrected correlations. 2D(top left), its \(\Delta\eta\) projection(top middle), its \(\Delta\phi\) projection(top right) and the acceptance-corrected correlations for \(\gamma\)-rich triggered 2D(bottom left), its \(\Delta\eta\) projection(bottom middle), its \(\Delta\phi\) projection(bottom right) for the 5.5 - 7.0 \(GeV/c\) bin.
+
+Figure V.9: \(\pi^{0}\)-triggered Run 10 uncorrected correlations. 2D(top left), its \(\Delta\eta\) projection(top middle), its \(\Delta\phi\) projection(top right) and the acceptance-corrected correlations for \(\pi^{0}\) triggered 2D(bottom left), its \(\Delta\eta\) projection(bottom middle), its \(\Delta\phi\) projection(bottom right) for the 5.5 - 7.0 \(GeV/c\) bin.
+
+a study which made use of data and simulation to determine the charged-hadron efficiency. This efficiency was calculated under the assumption that the detector response to unidentified charged-hadrons is the same as the detector response to charged pions. This is a reasonable assumption because charged pions are the most abundantly produced charged-hadrons in relativistic ion collisions. Furthermore, the response of the protons (also abundantly produced in these collisions) is similar to that of the pions.
+
+The first step in this efficiency analysis, is to simulate the interaction of pure single-tracks, with the specific geometry and detector material of the STAR TPC. This simulation is done using GEANT [61][62], a software package that contains libraries of the cross sections for the interactions of different types of particles in various materials, in a specific 3D detector shape (which is encoded by the user). Input particle distributions are Monte-Carlo sampled, and each type of particle (charged pions in this instance) is simulated as it passes through the STAR detector system. All interactions of the particle (and its daughters) with the detector volume, and any change in its energy or trajectory is recorded. The particle's energy loss in the TPC, can then be determined.
+
+In the next step, the single particle Monte-Carlo sampled signals are added to the distribution of particles in a real event in a process called embedding. For this analysis, particles are embedded into Run 7 data files. The STAR track reconstruction algorithm is then run over this embedded event, and the reconstructed hits and tracks are associated with the simulated hits and tracks. One of the parameters used to measure the hit reconstruction efficiency is the distance between the reconstructed and simulated hit. For tracks, one of the parameters used to study the efficiency is the number of reconstructed hits for that track.
+
+The results of this study show that the reconstruction efficiency of single particlesdepends on the collision system, center-of-mass energy, \(p_{T}\), and centrality. For this analysis, a single centrality bin, in a single collision system, for a single center-of-mass energy is used, and since the efficiency is essentially flat for \(p_{T}>2\ GeV/c\) (the lowest \(p_{T}\) accepted in this analysis); a single efficiency factor is used for each run year: 0.85 in Run 7 with Run 10 assumed to have the same efficiency. The correlation yield is then uniformly scaled (divided) by this efficiency.
+
+### Ridge Yield Extraction
+
+#### v.3.1 \(v_{2}\) Subtraction
+
+In addition to the correction for the finite detector acceptance, the raw correlations must also be background corrected to remove non jet-like correlations. If this background only consisted of uncorrelated pairs, a simple background constant could be subtracted from the correlation histograms. However, all particles are correlated to the reaction plane, which creates a \(\cos(2\Delta\phi)\) modulation of the background. This background, B(\(\Delta\phi\),\(p_{T}\)), is described[8] by Eq. 5.3; where \(\langle v_{2}^{trigger}v_{2}^{associated}\rangle\) is \(v_{2}\) per pair, \(\phi\) is the azimuthal angle, and \(C\) is a constant determined from normalization to the \(\Delta\phi\) projection of the correlation, see Sec. V.3.2 for details.
+
+\[B(\Delta\phi,p_{T})=C(1+2\langle v_{2}^{trigger}v_{2}^{associated}\rangle cos2 \Delta\phi) \tag{5.3}\]
+
+This modulation is a function of the azimuthal distribution, of the \(p_{T}\) of the trigger and the associated particles, and of the centrality. In STAR, there is a common parameterization of this modulation [63] that is used in this analysis. In this parameterization, \(\langle v_{2}^{trigger}v_{2}^{associated}\rangle\) is approximated as \(\langle v_{2}^{trigger}\rangle\langle v_{2}^{associated}\rangle\), and the modulation is calculated per centrality bin (see Table V.2, and Fig. V.10).
+
+Ideally, it is most accurate to perform this subtraction on a pair-wise basis.
+
+However, because of the large systematic errors on \(\langle v_{2}^{trigger}\rangle\) and \(\langle v_{2}^{associated}\rangle\), this is not practical. The constant C is fixed using an assumption of zero yield at minimum (ZYAM) [64]. Two methods of fixing the constant are outlined in the following section on ridge yield extraction.
+
+#### v.3.2 Yield Extraction
+
+##### v.3.2.1 Yield Extraction Method 1
+
+Method 1 depends on the assumption that the near-side jet yield is contained in \(|\Delta\eta|\)\(\leq\) 0.7 (because of histogram binning, the value used in this analysis is 0.7083). Any non-zero yield (after acceptance and background subtraction) in the \(\Delta\phi\) near-side region (\(|\Delta\phi|\)\(\leq\) 0.7854) is then assumed to be the ridge yield.
+
+The first step in this method therefore, is to project the range 0.7083 \(\leq|\Delta\eta|\)\(\leq\) 1.4167 onto the full \(\Delta\phi\) to create a 1D \(\Delta\phi\) correlation histogram (Fig. V.11). The'minimum' range used for ZYAM assumption is 0.9163 \(\leq|\Delta\phi|\)\(\leq\) 1.309 (bins 15 - 17
+
+Figure V.10: \(v_{2}\) values for the associated charged-hadrons (first 3 bins) and for trigger particle (assuming a \(\pi^{0}\)). Errors are systematic.
+
+and 32 - 34) and their \(v_{2}\) modulation is scaled by the constant necessary to reduce the yield in this region to zero when the \(v_{2}\) modulation is subtracted.
+
+\[\begin{array}{c}B_{\Delta\phi}^{m1}[-0.7854,0.7854]\equiv b_{\Delta\phi}^{m1} \int_{-0.7854}^{0.7854}d\Delta\phi(1+2\langle v_{2}^{trigger}\rangle\\ \langle v_{2}^{associated}\rangle cos2\Delta\phi\rangle\bigg{|}_{0.7083\leq| \Delta\eta|\leq 1.4167}\end{array} \tag{5.4}\]
+
+After the \(v_{2}\) modulation subtraction, the resulting background-corrected histogram is integrated in the range \(|\Delta\phi|\leq 0.7854\), and this value is then scaled over the entire \(\Delta\eta\) range (\(|\Delta\eta|\leq 1.7\)) to give the scaled integrated ridge yield.
+
+\[\begin{array}{c}Y_{ridge}^{m1}=\frac{3.5000}{1.4167}\left[\int_{-0.7854}^{0.7 854}d\Delta\phi\frac{dN}{d\Delta\phi}\bigg{|}_{0.7083\leq|\Delta\eta|\leq 1.4167} -B_{\Delta\phi}^{m1}[-0.7854,0.7854]\right]\end{array} \tag{5.5}\]
+
+#### v.3.2.2 Yield Extraction Method 2
+
+Method 2 is the method used in the first published STAR ridge paper[10]. The first step in this method is to project \(|\Delta\phi|\leq 0.7854\) onto \(\Delta\eta\) to give a 1D histogram (Fig. V.12). This histogram is then integrated over \(0.9583\leq|\Delta\eta|\leq 1.4167\), to extract the Figure V.11: Yield Extraction Method 1: \(\Delta\phi\) projection (\(0.7083\leq|\Delta\eta|\leq 1.4167\)) of corrected correlations (\(p_{T}\) bin 1) showing the \(v_{2}\) modulation (Eq. 5.3) that is subtracted, for triggers: \(\gamma\)-rich 2007(top left), \(\pi^{0}\) 2007(top right), \(\gamma\)-rich 2010(bottom left), and \(\pi^{0}\) 2010(bottom right).
+
+flat background. This integral value is then scaled to represent the interval over \(|\Delta\eta|\)\(\leq\) 1.4167 by the value of \(b_{\Delta\eta}^{m2}\), which is defined as
+
+\[b_{\Delta\eta}^{m2}={2.8334\over 0.9168}\left[\int_{-1.4167}^{-0.9583}d\Delta\eta{ dN\over d\Delta\eta}\Bigg{|}_{|\Delta\phi|\leq 0.7854}+\int_{0.9583}^{1.4167}d\Delta\eta{ dN\over d\Delta\eta}\Bigg{|}_{|\Delta\phi|\leq 0.7854}\right].\]
+
+The next step is to scale the \(v_{2}\) modulation function described in method 1 to a \(\Delta\phi\) 1D histogram that was created by projecting the \(\Delta\eta\) range \(|\Delta\eta|\)\(\leq\) 1.4167 (Fig. V.13). ZYAM is assumed in the same range as previously described, the \(v_{2}\) function is scaled, and then integrated over the range \(|\Delta\phi|\leq\) 0.7854. This integrated value is \(B_{\Delta\phi}^{m2}\).
+
+Figure V.12: Yield Extraction Method 2: \(\Delta\eta\) projection (\(|\Delta\phi|\leq\) 0.7854) of corrected correlations (\(p_{T}\) bin 1) used to calculate \(b_{\Delta\eta}^{m2}\), for triggers; \(\gamma\)-rich 2007(top left), \(\pi^{0}\) 2007(top right), \(\gamma\)-rich 2010(bottom left), and \(\pi^{0}\) 2010(bottom right)
+
+\[B_{\Delta\phi}^{m2}[-0.7854,0.7854]\equiv b_{\Delta\phi}^{m2}\int_{-0.7854}^{0.7854} d\Delta\phi(1+2\langle v_{2}^{trigger}\rangle\langle v_{2}^{associated}\rangle cos2\Delta\phi) \Bigg{|}_{|\Delta\eta|\leq 1.4167} \tag{5.7}\]
+
+The ridge yield is then taken as \(b_{\Delta\eta}^{m2}\)\(-\)\(B_{\Delta\phi}^{m2}\), and is scaled to the full \(\Delta\eta\) range (\(|\Delta\eta|\leq 1.7500\)).
+
+\[Y_{ridge}^{m2}=b_{\Delta\eta}^{m2}-B_{\Delta\phi}^{m2}[-0.7854,0.7854] \tag{5.8}\]
+
+[MISSING_PAGE_FAIL:135]
+
+#### v.4.1.1 Method 1
+
+The two sources of statistical error in the ridge yield determination for method 1 are the errors on the 6 bins used to set the ZYAM point for subtracting the \(v_{2}\) function, and from the errors on the 12 bins over which the ridge yield is integrated. The functional form used to calculate the total error is;
+
+\[\sigma_{Total}^{m1}=\sqrt{(\sigma_{Yield}^{m1})^{2}+(\sigma_{B_{\Delta\phi}}^{m1 })^{2}} \tag{5.12}\]
+
+The values \(\sigma_{Yield}^{m1}\) and \(\sigma_{B_{\Delta\phi}}^{m1}\) were determined from the bin errors on the \(\Delta\phi\) correlation (see figure V.11, page 111). \(\sigma_{Yield}^{m1}\) was calculated as follows:
+
+\[\sigma_{Yield}^{m1}=\frac{3.5000}{1.4167}\left[d\Delta\phi\sqrt{\sum_{i=19}^{ 30}\sigma_{bin\,i}^{2}}\right] \tag{5.13}\]
+
+The first step in calculating \(\sigma_{B_{\Delta\phi}}^{m1}\) is to add the errors on the 6 bins in quadrature, then divide by the number of bins, to obtain \(\sigma_{b_{\Delta\phi}}^{m1}\):
+
+\[\sigma_{b_{\Delta\phi}}^{m1}=\frac{1}{6}\sqrt{\sum_{i=15}^{17}\sigma_{bin\,i} ^{2}+\sum_{j=32}^{34}\sigma_{bin\,j}^{2}} \tag{5.14}\]
+
+The mean value, \(m\), of the absolute value of \(\Delta\phi\) of the 6 bins is then calculated, and the \(v_{2}\) function is evaluated at \(m\) to give the value \(v_{2}^{m1}\)(m):
+
+\[v_{2}^{m1}(m)=(1+2\langle v_{2}^{trigger}\rangle\langle v_{2}^{associated} \rangle cos2m)\bigg{|}_{0.7083\leq|\Delta\eta|\leq 1.4167} \tag{5.15}\]
+
+Finally, \(\sigma_{B_{\Delta\phi}}^{m1}\) is calculated, by multiplying the integral of the \(v_{2}\) function (over the near-side \(\Delta\phi\) range) by the ratio of \(\sigma_{b_{\Delta\phi}}^{m1}\) to \(v_{2}^{m1}\)(m):\[\sigma^{m1}_{B_{\Delta\phi}}=\frac{\sigma^{m1}_{b_{\Delta\phi}}}{v^{m1}_{2}(m)} \left[\int^{0.7854}_{-0.7854}d\Delta\phi(1+2\langle v^{trigger}_{2}\rangle \langle v^{associated}_{2}\rangle cos2\Delta\phi)\right|_{0.7083\leq|\Delta\eta| \leq 1.4167}] \tag{5.16}\]
+
+#### v.4.1.2 Method 2
+
+In method 2, the two contributing errors to the total statistical error are the errors on \(b^{m2}_{\Delta\eta}\) and on \(B^{m2}_{\Delta\phi}\). There is no other source of statistical error, because the yield is given as the difference between these two background values. The functional form is;
+
+\[\sigma^{m1}_{Total}=\sqrt{(\sigma^{m1}_{b_{\Delta\eta}})^{2}+(\sigma^{m1}_{B_ {\Delta\phi}})^{2}} \tag{5.17}\]
+
+The values \(\sigma^{m2}_{b_{\Delta\eta}}\) and \(\sigma^{m2}_{B_{\Delta\phi}}\) are determined from the errors in the specified bins in the \(\Delta\eta\) and \(\Delta\phi\) correlations respectively. \(B^{m2}_{\Delta\phi}\) is calculated as follows;
+
+\[\sigma^{m1}_{B_{\Delta\phi}}=\left.\frac{\sigma^{m1}_{b_{\Delta\phi}}}{v^{m2 }_{2}(m)}\left[\int^{0.7854}_{-0.7854}d\Delta\phi(1+2\langle v^{trigger}_{2} \rangle\langle v^{associated}_{2}\rangle cos2\Delta\phi)\right|_{|\Delta\eta| \leq 1.4167}\right] \tag{5.18}\]
+
+\(\sigma_{b^{m2}_{\Delta\phi}}\) is calculated in the same way as it is in method 1 (equation 5.14), and \(v^{m2}_{2}\)(m) is calculated as follows;
+
+\[v^{m2}_{2}(m)=(1+2\langle v^{trigger}_{2}\rangle\langle v^{associated}_{2} \rangle cos2m)\Bigg{|}_{|\Delta\eta|\leq 1.4167} \tag{5.19}\]
+
+\(\sigma^{m2}_{b_{\Delta\eta}}\) is calculated according to the following equation;
+
+\[\sigma^{m2}_{b_{\Delta\eta}}=\left.\frac{d\Delta\phi(2.8334)}{0.9168}\left[ \sum^{25}_{i=15}\sigma^{2}_{bin\,i}\right|_{19\leq\Delta\phi b\leq 30}+\sum^{ 82}_{j=72}\sigma^{2}_{bin\,j}\right|_{19\leq\Delta\phi b\leq 30}\right] \tag{5.20}\]
+
+#### Systematic Error
+
+The dominant contribution to the systematic error on the calculated yield(in most \(p_{T}\) bins), comes from the error on the \(v_{2}\) calculation. The parameterization used[63] outputs a high, a low and an average \(v_{2}\) estimate for each combination of trigger and associated particle \(p_{T}\) and for each centrality bin (in 5% increments, in this case the 0-5% and the 5-10% values are averaged to give a \(v_{2}\) value for the 0-10% bin; which all the data in this dissertation occupy) of which the average is used as the \(v_{2}\) value, and the difference between either of the two extreme estimates and the average is taken as the systematic error on the yield.
+
+However, an additional error analysis was conducted to verify that there were no additional sources of error that contributed beyond statistical uncertainties. If the percent systematic error associated with varying the number of bins (from 1 to 3) used to set the ZYAM point was greater than or equal to 3 standard deviations of the independent portion of the statistical error associated with switching from one number of bins to the next, then this systematic error was added in quadrature to the systematic error from the \(v_{2}\) estimation to give a total systematic error for that bin. A significant systematic error from this analysis was observed in very few of the trigger and \(p_{T}\) bins. Please see the following chapter for a discussion of the full results of this analysis.
+
+## Chapter 6 Results and Discussion
+
+In this chapter the full results from the analysis methods described in the previous chapter will be presented and discussed. The first section is concerned with a charged-particle triggered analysis that was done on data from Runs 7 and 10; this analysis serves as a consistency check against the data from Run 4 that were presented in the original ridge analysis[10]. The following section is concerned with the \(\gamma\)-triggered results from Runs 7 and 10 that are the central focus of this dissertation; and the final section details the results of a \(\chi^{2}\) analysis of the \(\gamma\)-triggered ridge yields, that tests the previous conclusion[10] that the ridge yield is independent of trigger \(p_{T}\).
+
+### 6.1 Consistency Check: Ridge Yields in Charged-particle Triggered Correlations
+
+One reason why a consistency check is needed, is that the STAR detector system has continually evolved since the first Run ended in 2000. Upgrades to detector components, triggering algorithms, data acquisition hardware, and the periodic decommissioning and removal of detectors means that, in each running year, the STAR geometry and components have significantly changed. It the case of the two data sets used in this dissertation (Au+Au collisions Runs 7 and 10) and the one to which they are compared (Au+Au collisions Run 4), there have been several changes in particular. Between Runs 4 and Runs 7, the remaining 1/2 of the Barrel Electro-Magnetic Calorimeter (BEMC) and the Barrel Shower-Maximum Detector (BSMD) were added to the detector system, and after Run 7 the Silicon Vertex Tracker (SVT) was removed and an upgrade was made to the STAR DAQ system that increased the number of collisions the DAQ was able to process in a given period of time, the Central Trigger Barrel (CTB) was replaced by the Time of Flight (TOF) detectorafter Run 4; in addition, there was an entire module in the Time Projection Chamber (TPC) that was not operational in Run 10. Similar analyses using data sets from multiple years should yield consistent results (after correction for single-particle efficiencies, acceptance, and multiplicity); differences usually point to unsolved problems unique to that running year. For example, in 2004 most charged-charged analyses used a vertex cut of \(\pm\)30 cm, however in 2007, charged particles from events with vertices greater than \(\pm\)15 cm were found to have skewed pseudorapidity distributions and were therefore excluded from this analysis. The reason for this difference has not been completely identified, but for consistency purposes, the same cut is made in the Run 10 data presented here.
+
+The second reason why a consistency check is needed is that the main analysis presented in this dissertation (\(\gamma\)-triggered 2D correlation analysis) is new, and it would be hard to interpret any difference in the ridge yield compared to a charged-particle triggered analysis, without first verifying that the method used in this analysis can convincingly reproduce the results obtained by the primary investigators in their previous work[10]. Furthermore, although low-level code (code that accesses the raw event and converts the raw digital detector signals to physical quantities) is commonly used and maintained collaboration-wide, higher level analysis code is typically written, used, and maintained within specific institutions or individual research groups within those institutions. New results using a new analysis code are therefore compared to older results, to add confidence to conclusions made from new results.
+
+#### 11.1 Charged-Particle Triggered Correlation Histograms
+
+The uncorrected correlations are shown in Fig. 11 and 12; the analysis cuts on the fit points, DCA, and pseudorapidity are similar to those described in Sec. 11. The trigger charged-particle was required to be within the \(p_{T}\) ranges of 3.0 - 4.0,4.0 - 5.0, and 5.0 - 6.0 \(GeV/c\) for the three trigger \(p_{T}\) bins, associated particles with \(2.0<p_{T}^{assoc.}<p_{T}^{trig.}\) were factored into the correlation. This associated particle \(p_{T}\) range differs from the published Run 4 results; those results show data with accepted associated particles similar to the method of this analysis, but also with associated particle \(p_{T}\) between 2.0 and 4.0 \(GeV/c\) independent of the trigger \(p_{T}\). Another difference between those results and these, is that this analysis accepts only one trigger particle per event.
+
+The acceptance distributions are found in Figs. VI.3 and VI.4, and the corrected correlations are shown in Figs. VI.6 and VI.5; Fig. VI.7 shows one \(p_{T}\) bin for Run 4, Run 7 and Run 10. These figures visually confirm that the ridge is observed in all Figure VI.2: Uncorrected charged-particle correlations (Run 10). Columns from top to bottom show plots for the 3 \(p_{T}\) bins, 3.0 – 4.0, 4.0 – 5.0, and 5.0 – 6.0 \(GeV/c\), and rows from left to right show the 2D correlations, the \(\Delta\eta\) and the \(\Delta\phi\) projections.
+
+three runs. The next section compares the yields and discusses the systematic error determination.
+
+#### Charged-Particle Triggered Yields and Systematic Error Analysis
+
+Figures VI.8 (Run 7) and VI.9 (Run 10) show the \(\Delta\phi\) projection of the ridge region (before \(v_{2}\) subtraction) and the \(v_{2}\) modulation after it has been normalized to the 3 bins (as described in the previous chapter). Figures VI.10 (Run 7) and VI.11 (Run 10) show two sets of histograms; the first is a \(\Delta\eta\) projection of the entire \(\Delta\phi\) range and the second is the \(\Delta\phi\) projection of the full \(\Delta\eta\) range (as well as the ZYAM-normalized \(v_{2}\) functions).
+
+Figure 10: Charged-particle acceptance (Run 10). Figures are arranged in the same manner as described above.
+
+the same manner as described above.
+
+Figure VI.5: Corrected charged-particle correlations (Run 7). Figures are arranged in the same manner as described above.
+
+Figure VI.6: Corrected charged-particle correlations (Run 10). Figures are arranged in the same manner as described above.
+
+[MISSING_PAGE_EMPTY:147]
+
+Figure VI.12 shows the ridge yields for the three \(p_{T}\) bins from both methods in both runs. The four yields in each \(p_{T}\) bin all agree within the statistical errors, with the exception of one yield in the first bin; and they all agree within the scope of the systematic errors. Figure VI.13 shows the published Run 4 yields; again the yields agree statistically with the exception of the first bin (a difference in the same bin was also observed by another collaborator who attempted to reproduce these results).
+
+The data used for the calculation of the systematic error for Run 7 and Run 10 are found in Tables. VI.1 and VI.2. Rows 1 - 3 show the ridge yields calculated using 3, 2 and 1 histogram bins to set ZYAM for \(v_{2}\) subtraction (described in Sec. V.4.2) these are referred to in the table as \(Y^{3bins}\), \(Y^{2bins}\), and \(Y^{1bin}\); the next 3 rows (rows 4 - 6) show the total statistical error associated with the yield values (\(\sigma_{Y}^{3}\), \(\sigma_{Y}^{2}\), and \(\sigma_{Y}^{1}\)); rows 7 - 9 show the percent systematic error between yields calculated with ZYAM determined by 3 bins and 1 bin (\(S_{Z}^{3,1}\)), 3 bins and 2 bins (\(S_{Z}^{3,2}\)), and the systematic error due to \(v_{2}\) uncertainties(\(S_{Z}^{v_{2}}\)); finally, the last 2 rows (10 and 11) show the independent Figure VI.12: Charged-particle triggered ridge yields for Run 7 method 1 magenta open (up) triangle, Run 7 method 2 navy-blue open (down) triangle,Run 10 method 1 magenta full (up) triangle, Run 10 method 2 navy-blue full (down) triangle. Error bars are statistical, braces are systematics.
+
+Figure VI.13: Ridge yields, charged-particle correlations. Run 4 published data[10] (black triangles) plot with the data from this dissertation (see Fig. VI.12) and with data from Run 4 (red circles) from another STAR collaborator (Christine Nattrass, Private Communication). The yellow bars are systematic errors for the Nattrass data, the black lines for the published data (the systematics for the data in this dissertation are omitted for clarity).
+
+\begin{tabular}{|l|l|l|l|l|l|l|} \hline  & \({M1\atop 3-4GeV}\) & \({M1\atop 4-5GeV}\) & \({M1\atop 5-6GeV}\) & \({M2\atop 3-4GeV}\) & \({M2\atop 4-5GeV}\) & \({M2\atop 5-6GeV}\) \\ \hline \(Y^{3bins}\) & 0.13 & 0.13 & 0.13 & 0.12 & 0.12 & 0.11 \\ \hline \(Y^{2bins}\) & 0.14 & 0.14 & 0.11792 & 0.13 & 0.12 & 0.12 \\ \hline \(Y^{1bin}\) & 0.15 & 0.15 & 0.098 & 0.14 & 0.13 & 0.12 \\ \hline \(\sigma_{Y}^{3}\) & 0.0050 & 0.011 & 0.025 & 0.0049 & 0.011 & 0.024 \\ \hline \(\sigma_{Y}^{2}\) & 0.0056 & 0.013 & 0.028 & 0.0051 & 0.012 & 0.026 \\ \hline \(\sigma_{Y}^{1}\) & 0.0072 & 0.017 & 0.036 & 0.0058 & 0.013 & 0.029 \\ \hline \(\%S_{Z}^{3,1}\) & **14.5** & 11.6 & 23.3 & 16.0 & 11.4 & 12.3 \\ \hline \(\%S_{Z}^{3,2}\) & 8.4 & 5.3 & 7.4 & 9.4 & 3.0 & 14.7 \\ \hline \(\%S_{Z}^{v_{2}}\) & 27.3 & 26.8 & 24.4 & 28.2 & 28.4 & 27.1 \\ \hline \(\%\sigma_{Z}^{3,1}\) & **4.06** & 9.2 & 20.6 & 2.7 & 6.3 & 14.7 \\ \hline \(\%\sigma_{Z}^{3,2}\) & 2.0 & 4.6 & 10.3 & 1.3 & 3.1 & 7.3 \\ \hline \end{tabular}
+
+The \(\%\sigma_{Z}^{3,1}\) and \(\%\sigma_{Z}^{3,2}\) are the same as in the \(\%\sigma_{Z}^{3,1}\) and \(\%\sigma_{Z}^{3,2}\). The \(\%\sigma_{Z}^{3,2}\) are the same as in the \(\%\sigma_{Z}^{3,1}\) and \(\%\sigma_{Z}^{3,2}\). The \(\%\sigma_{Z}^{3,2}\) are the same as in the \(\%\sigma_{Z}^{3,2}\) and \(\%\sigma_{Z}^{3,2}\). The \(\%\sigma_{Z}^{3,2}\) are the same as in the \(\%\sigma_{Z}^{3,2}\) and \(\%\sigma_{Z}^{3,2}\).
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|l|} \hline \(\boldsymbol{P_{T}bin}\) & \(\boldsymbol{<P_{T}>}\) & **No. of Trig.** & **Yield** & **Stat. Err.** & **\% Sys. Err.** \\ \hline
+3.0 – 4.0 & 3.3 & 3,195,087 & 0.13 & 0.0050 & 30.9 \\ \hline
+4.0 – 5.0 & 4.4 & 613,366 & 0.13 & 0.011 & 26.8 \\ \hline
+5.0 – 6.0 & 5.4 & 128,948 & 0.13 & 0.025 & 24.4 \\ \hline \end{tabular}
+\end{table}
+Table 6.3: Ridge yields (Run 7, method 1) with their associated statistical and systematic errors.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|l|} \hline  & \(\begin{array}{c}M1\\ 3-4GeV\\ \end{array}\) & \(\begin{array}{c}M1\\ 4-5GeV\\ \end{array}\) & \(\begin{array}{c}M1\\ 5-6GeV\\ \end{array}\) & \(\begin{array}{c}M2\\ 5-4GeV\\ \end{array}\) & \(\begin{array}{c}M2\\ 3-4GeV\\ \end{array}\) & \(\begin{array}{c}M2\\ 4-5GeV\\ \end{array}\) & \(\begin{array}{c}M2\\ 5-6GeV\\ \end{array}\) \\ \hline \(Y^{3bins}\) & 0.11 & 0.13 & 0.090 & 0.094 & 0.13 & 0.0804 \\ \hline \(Y^{2bins}\) & 0.11 & 0.13 & 0.084 & 0.097 & 0.13 & 0.071 \\ \hline \(Y^{1bin}\) & 0.11 & 0.14 & 0.064 & 0.099 & 0.14 & 0.061 \\ \hline \(\%\sigma_{Y}^{3}\) & 0.0047 & 0.011 & 0.025 & 0.0046 & 0.011 & 0.025 \\ \hline \(\%\sigma_{Y}^{2}\) & 0.0053 & 0.012 & 0.028 & 0.0048 & 0.012 & 0.026 \\ \hline \(\%\sigma_{Y}^{1}\) & 0.0068 & 0.016 & 0.036 & 0.0054 & 0.013 & 0.029 \\ \hline \(S_{Z}^{3,1}\) & 3.2 & 1.6 & 29.1 & 5.6 & 10.7 & 24.0 \\ \hline \(S_{Z}^{3,2}\) & 0.7 & 0.1 & 6.6 & 3.4 & 3.7 & 12.2 \\ \hline \(S_{Z}^{v_{2}}\) & 27.5 & 22.4 & 30.2 & 30.0 & 22.7 & 31.7 \\ \hline \(\%\sigma_{Z}^{3,1}\) & 4.5 & 8.8 & 29.3 & 3.1 & 5.7 & 19.8 \\ \hline \(\%\sigma_{Z}^{3,2}\) & 2.2 & 4.4 & 14.6 & 1.6 & 2.8 & 9.9 \\ \hline \end{tabular}
+\end{table}
+Table 6.2: Run 10 charged-particle ridge yield systematic error calculations.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|} \hline \(\mathbf{P_{T}bin}\) & \(\mathbf{<P_{T}>}\) & **No. of Trig.** & **Yield** & **Stat. Err.** & **\% Sys. Err.** \\ \hline
+3.0 – 4.0 & 3.3 & 3,255,214 & 0.094 & 0.0046 & 30.0 \\ \hline
+4.0 – 5.0 & 4.4 & 575,726 & 0.13 & 0.011 & 22.7 \\ \hline
+5.0 – 6.0 & 5.4 & 117,601 & 0.080 & 0.025 & 31.7 \\ \hline \end{tabular}
+\end{table}
+Table VI.4.: Ridge yields (Run 7, method 2) with their associated statistical and systematic errors.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|} \hline \(\mathbf{P_{T}bin}\) & \(\mathbf{<P_{T}>}\) & **No. of Trig.** & **Yield** & **Stat. Err.** & **\% Sys. Err.** \\ \hline
+3.0 – 4.0 & 3.3 & 3,195,087 & 0.12 & 0.0049 & 28.2 \\ \hline
+4.0 – 5.0 & 4.4 & 613,366 & 0.12 & 0.011 & 28.4 \\ \hline
+5.0 – 6.0 & 5.4 & 128,948 & 0.11 & 0.024 & 27.1 \\ \hline \end{tabular}
+\end{table}
+Table VI.5.: Ridge yields (Run 10, method 1) with their associated statistical and systematic errors.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|} \hline \(\mathbf{P_{T}bin}\) & \(\mathbf{<P_{T}>}\) & **No. of Trig.** & **Yield** & **Stat. Err.** & **\% Sys. Err.** \\ \hline
+3.0 – 4.0 & 3.3 & 3,255,214 & 0.094 & 0.0046 & 30.0 \\ \hline
+4.0 – 5.0 & 4.4 & 575,726 & 0.13 & 0.011 & 22.7 \\ \hline
+5.0 – 6.0 & 5.4 & 117,601 & 0.080 & 0.025 & 31.7 \\ \hline \end{tabular}
+\end{table}
+Table VI.6.: Ridge yields (Run 10, method 2) with their associated statistical and systematic errors.
+
+### Ridge Yields in \(\gamma/\pi^{0}\)-Triggered Correlations
+
+This section presents the yield correlation plots for the \(\pi^{0}\)-rich triggers, and the integrated yield for both the \(\gamma\)-rich and the \(\pi^{0}\)-rich triggers. A detailed analysis of these yields follows in Sec. VI.3. The systematic error calculations for both methods and triggers in both runs can be found in Appendix B.
+
+#### vi.2.1 \(\gamma/\pi^{0}\)-Triggered Yields
+
+The \(\gamma/\pi^{0}\)-triggered correlation plots for the ridge yield methods 1 and 2 are shown, for Run 7 in Fig. VI.14, and for Run 10 in Fig. VI.15.
+
+The \(\pi^{0}\)-triggered ridge yields from methods 1 and 2, from Runs 7 and 10 are shown in Fig. VI.16.
+
+Although the focus of this this is the \(\pi^{0}\)-triggered correlations and ridge yields, the \(\gamma\)-triggered correlations and yields are presented for completeness. However there are three main issues with this sample that prohibit us from using them to draw conclusions about the nature of the \(\gamma\)-triggered ridge:
+
+1. The same \(v_{2}\) values for the \(\pi^{0}\)- rich triggers are used for the \(\gamma\)-rich triggers. This leads to an over subtraction of the background in this sample.
+2. The statistics in this set are lower than in the \(\pi^{0}\)-triggered set; resulting in large statistical uncertainties.
+3. A more meaningful measurement would be of background subtracted direct \(\gamma\)-triggered correlations. This measurement will be calculated after the solution for the statistic woes (see Chapter VII) is implemented.
+
+The \(\gamma\)-triggered yields are show in Fig. VI.17. Although they appear consistent with zero, this conclusion cannot be made, as a result of the three issues previouslyFigure VI.14: \(\gamma\)-triggered (\(\pi^{0}\)-rich sample) yield extraction plots Run 7. Method 1: \(\Delta\phi\) projection (of \(|\Delta\eta|\leq 1.4167\)) showing the \(v_{2}\) modulation (left column). Method 2: \(\Delta\eta\) projection (of \(|\Delta\phi|\leq\ 0.7854\)) used to calculate \(b_{\Delta\eta}^{m2}\) (middle column), and \(\Delta\phi\) projection (of \(|\Delta\eta|\leq 1.4167\)) showing the \(v_{2}\) modulation (right column). Rows are the 5 \(p_{T}\) bins from lowest to highest.
+
+Figure VI.15: \(\gamma\)-triggered (\(\pi^{0}\)-rich sample) yield extraction plots Run 10. Method 1: \(\Delta\phi\) projection (of \(|\Delta\eta|\leq\) 1.4167) showing the \(v_{2}\) modulation (left column). Method 2: \(\Delta\eta\) projection (of \(|\Delta\phi|\leq\ 0.7854\)) used to calculate \(b_{\Delta\eta}^{m2}\) (middle column), and \(\Delta\phi\) projection (of \(|\Delta\eta|\leq\) 1.4167) showing the \(v_{2}\) modulation (right column). Rows are the 5 \(p_{T}\) bins from lowest to highest.
+
+Figure VI.16: \(\gamma\)-triggered (\(\pi^{0}\)-rich sample) triggered ridge yields for Run 7 method 1 dark-orange open stars, Run 7 method 2 dark-red open diamonds,Run 10 method 1 dark-orange full stars, Run 10 method 2 dark-red full diamonds. Error bars are statistical, braces are systematics.
+
+discussed.
+
+### \(\chi^{2}\) Analysis of Ridge Yields
+
+The conclusion from the initial ridge results[10] is that the ridge yield is constant (and non-zero) for all trigger \(p_{T}\) values. Certainly at low \(p_{T}\) (in the charged-particle triggered correlations) this appears to be a fair assumption, however in light of the new results presented in this work, it is not clear that that conclusion remains valid for the \(\pi^{0}\)-triggered correlations at higher \(p_{T}\). But, because of the relatively large statistical and systematic uncertainties in these new results; it is difficult to make a definitive statement about trends in the ridge yields at higher \(p_{T}\). A quantitative measure of how the data trends is therefore needed. This quantitative measure can be defined as a variation of a \(\chi^{2}\) sum, in which a weighted (by the variance on this error) sum-of-the-squares of the"error" (the difference between the observed yield value and the expected yield value) is calculated.
+
+The first step in this analysis is to fit, with a constant value, the ridge yields in the charged-particle triggered correlation. This best estimate of a constant yield will be used as the expected value in the \(\chi^{2}\) calculation at higher \(p_{T}\). To allow for independent assessment of the different yield determination methods, and of the impact on the increased statistics of Run 10; a separate expected yield value is extracted for each method in each running year. These values and the percent error of the fit are tabulated in Table VI.7.
+
+The expected values from Tab. VI.7 are used as the value \(E_{i}\) in the \(\chi^{2}\) "goodness-of-fit" equation,
+
+\[\chi^{2}_{f}=\sum_{i}{(O_{i}-E_{i})^{2}\over\sigma_{i}^{2}},\]\[\chi_{0}^{2}=\sum_{i}{O_{i}^{2}\over\sigma_{i}^{2}},\]
+
+where \(O_{i}\) is the observed value (the yield for that \(p_{T}\) bin), and \(\sigma_{i}\) is the error on \(O_{i}\) (which is assumed to be normally distributed). The second \(\chi^{2}\) equation (Eq. 6.2) is used to test how consistent with zero the yield values are.
+
+Before the \(\gamma/\pi^{0}\)-charged yield values are analyzed, the two \(\chi^{2}\) equations are applied to the charged-particle triggered yield. These results are shown in Tables VI.8 and VI.9. As predicted by the small \(\sim\)3.8% fit error, these data should show a strong agreement with the expected value, and a weak agreement with 0. To get a more detailed mathematical description of how these data tend, 3 \(\chi^{2}\) values are calculated, one up to 4 \(GeV/c((\chi_{f/0}^{2})^{4})\),using the first \(p_{T}\) bin, the next up to 5 \(GeV/c((\chi_{f/0}^{2})^{5})\), using the first and second \(p_{T}\) bins and the last up to 6 \(GeV/c((\chi_{f/0}^{2})^{7})\), using all the \(p_{T}\) bins.
+
+For the \(\gamma\)-triggered correlations, 5 \(\chi^{2}\) values are calculated to show how the the yields trend with increasing trigger \(p_{T}\) (the super-script \(p_{T}\) is the right edge of that \(p_{T}\) bin); \((\chi^{2})^{7}\), \((\chi^{2})^{8}\), \((\chi^{2})^{10}\), \((\chi^{2})^{12}\) and \((\chi^{2})^{16}\). These values can be found in Tables VI.10 and VI.11, and Tables VI.12 & VI.13; they are also plot in Figs. VI.18 and VI.19.
+
+The results of this \(\chi^{2}\) analysis can be summarized in the following two points
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|} \hline
+**Run** & **Method** & \((\chi_{0}^{2})^{4}\) & \((\chi_{0}^{2})^{5}\) & \((\chi_{0}^{2})^{6}\) \\ \hline
+7 & 1 & 663 & 397 & 273 \\ \hline
+7 & 2 & 579 & 343 & 235 \\ \hline
+10 & 1 & 548 & 345 & 235 \\ \hline
+10 & 2 & 425 & 277 & 188 \\ \hline \end{tabular}
+\end{table}
+Table 6: \(\chi_{0}^{2}\) values for charged-particle triggered ridge yields in Run 7 & Run 10.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|} \hline
+**Trigger Set** & \(\mathbf{(\chi_{f}^{2})^{7}}\) & \(\mathbf{(\chi_{f}^{2})^{8}}\) & \(\mathbf{(\chi_{f}^{2})^{10}}\) & \(\mathbf{(\chi_{f}^{2})^{12}}\) & \(\mathbf{(\chi_{f}^{2})^{16}}\) \\ \hline \(\mathbf{\gamma-rich\ M1}\) & 1.94 & 3.35 & 10.16 & 10.40 & 13.02 \\ \hline \(\mathbf{\gamma-rich\ M2}\) & 7.47 x \(10^{-3}\) & 4.07 x \(10^{-1}\) & 5.49 & 5.57 & 7.43 \\ \hline \(\mathbf{\pi^{0}-rich\ M1}\) & 8.21 & 9.50 & 9.51 & 9.59 & 9.97 \\ \hline \(\mathbf{\pi^{0}-rich\ M2}\) & 5.91 & 6.05 & 6.96 & 6.99 & 7.01 \\ \hline \end{tabular}
+\end{table}
+Table 6: \(\chi_{f}^{2}\) values for \(\gamma\)-triggered ridge yields in Run 7.
+
+(strongly indicates a \(\chi^{2}\) value less than 2):
+
+1. \(\pi^{0}\) -rich sample (Run 7): The yields strongly tend to zero for trigger \(p_{T}\) less than 8 GeV/c and weakly tend to zero for trigger \(p_{T}\) greater than 8 GeV/c using Method 1, and strongly tend to zero for all trigger \(p_{T}\)s with Method 2.
+2. \(\pi^{0}\) -rich sample (Run 10): The yields strongly tend to the fit for the first bin (trigger \(p_{T}\) less than 7 GeV/c), but only weakly tend to the fit for all other \(p_{T}\) bins with Method 1, and weakly tend to zero for all \(p_{T}\) bins with Method 2.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|l|} \hline
+**Trigger Set** & \(\boldsymbol{(\chi_{0}^{2})^{7}}\) & \(\boldsymbol{(\chi_{0}^{2})^{8}}\) & \(\boldsymbol{(\chi_{0}^{2})^{10}}\) & \(\boldsymbol{(\chi_{0}^{2})^{12}}\) & \(\boldsymbol{(\chi_{0}^{2})^{16}}\) \\ \hline \(\boldsymbol{\gamma-rich\ M1}\) & 1.26 x \(10^{-1}\) & 9.82 x \(10^{-1}\) & 1.03 & 2.36 & 2.87 \\ \hline \(\boldsymbol{\gamma-rich\ M2}\) & 5.48 & 7.31 & 11.08 & 11.09 & 11.10 \\ \hline \(\boldsymbol{\pi^{0}-rich\ M1}\) & 16.45 & 16.46 & 19.29 & 20.22 & 20.53 \\ \hline \(\boldsymbol{\pi^{0}-rich\ M2}\) & 3.45 & 3.48 & 6.97 & 10.09 & 11.03 \\ \hline \end{tabular}
+\end{table}
+Table VI.13: \(\chi_{0}^{2}\) values for \(\gamma\)-triggered ridge yields in Run 10.
+
+## Chapter 7 Conclusion and Outlook
+
+### 7 Summary and Conclusions
+
+This work explored \(\gamma/\pi^{0}\) triggered long-range rapidity correlations in \(\sqrt{S_{NN}}=200\)\(GeV\) Au + Au collisions with the STAR detector system. The neutral particle triggered events were separated into two groups: direct-\(\gamma\)-rich photons and \(\pi^{0}\)-rich photons. The separation of photons into these two groups was accomplished by making a cut on the transverse shower profile (TSP) of the photon candidate in the STAR's Barrel Shower-Maximum Detector (BSMD) (which was calibrated in an attempt to improve this photon discrimination) in the Barrel Electromagnetic Calorimeter (BEMC).
+
+The first question that this work attempted to address was the question of the dependence of the ridge yield on trigger \(p_{T}\), i.e. how far the ridge extend in trigger \(p_{T}\). The assumption in the first published study[10] was that the ridge was independent of trigger \(p_{T}\). These data show a statistically significant ridge signal in two of the \(p_{T}\) bins for the \(\pi^{0}\)-rich trigger sample. Figure 7 (the \(\chi^{2}\) results presented in the previous chapter) seems to indicate that the ridge yield actually decreases from the first \(p_{T}\) bin to some minimum value in the other bins (the first bin strongly tends towards the expected yield values from the fit, while the other bins tend away from this value). However, this analysis can only suggest that the assumption of constant ridge yield may not be true, but because of the lack of statistics, a conclusive statement that it is false cannot be made. The other question that this analysis aimed to confront was the question of whether or not the ridge is observed in direct-\(\gamma\)-triggered jet-like events, however, the lack of statistics prohibits an answer to this question.
+
+[MISSING_PAGE_FAIL:166]
+
+in the statistics for events that satisfy the L2Gamma trigger, should yield statistically significant data out to \(\sim\)13.5 in trigger \(p_{T}\).
+
+The acceptance correction employed in this analysis serves as a justification for the claim that these datasets can be combined. The mixed-events sample corrects for the effect of the finite detector acceptance in the correlations. This is seen in the fact that the acceptance for the direct-\(\gamma\)-rich + charged particles and the \(\pi^{0}\)-rich + charged particles samples for each \(p_{T}\) bin have different shapes that describe features in the \(\Delta\eta\)- \(\Delta\phi\) space unique to these different trigger sets. In addition, the acceptance changes between runs for the charged particle triggered correlations.
+
+The following method can be used for combining data from each of the 3 most recent Au+Au runs;
+
+1. For each run (and in each trigger \(p_{T}\) bin), construct a raw correlation.
+2. Create an acceptance distribution and correct for the acceptance (also in each of these bins).
+3. Add the corrected histograms together and calculate the ridge yield.
+4. Determine statistical and ZYAM systematic errors from the combined histogram.
+5. Determine additional systematic errors (as described below)
+
+For the error analysis in the combined data correlations, the statistical error method does not need to be modified; these errors can be calculated from the combined histograms as long as the errors were correctly propagated. Three components to the systematic error should be considered. The first component is the systematic from \(v_{2}\) subtraction, which is independent of the statistics of the correlation to which it is applied (it is of course not independent of the data that was used in the parameterization) so it can be added as systematic on the combined corrected histogram. The second component to the systematic error is the choice of minimum in the ZYAM procedure. This error can also be easily calculated in a combined correlation; run dependent systematic effects were not dominant. With combined statistics, the systematic error can be studied in more detail.
+
+### Future Outlook
+
+STAR (by combining data from Runs 7, 10 and 11) should be able to make a statistically significant measurement of a direct-\(\gamma\)-rich versus a \(\pi^{0}\)-rich ridge yield in the very near future. If the ridge is not present in the direct-\(\gamma\)-rich case (which these results seem to indicate) that fact would lead one to believe, that the ridge arises from some interaction of the near-side associated particles with the medium. However, in the long term, the LHC is anticipated to be the source of the many new ridge results. Already two interesting recent results from the CMS experiment at the LHC have raised a few questions about the nature of the ridge phenomenon. The first result[26] is an untriggered correlation analysis in high-multiplicity \(p+p\) collisions with \(1.0<p_{T}<3.0GeV/c\) that shows a weak associated yield (Figs. VII.3 and VII.4) in the highest multiplicity bins. The only background subtraction done was a random background subtraction generated by mixing all particles from one event with all particles from another event in the same multiplicity range (and vice-versa). It is expected that future publications will address this observation in more detail.
+
+The second interesting result is the long-range correlations reported in [27] in Pb + Pb collisions at \(\sqrt{S_{NN}}=2.76~{}TeV\) (Figs. VII.5 and VII.6). Their results show a ridge signal over twice the pseudorapidity range (up to \(\pm\) 4) that STAR can measure and consequently shows that the ridge structure persists at higher \(\sqrt{S_{NN}}\). More importantly, the results also show (as the data in this dissertation seem to indicate) that the yield decreases with increasing trigger \(p_{T}\).
+
+Because of the higher luminosity of LHC runs, there is the potential for the LHC to produce some interesting results for \(\gamma\)-triggered correlations in the future. These results presented in this dissertation represent the first step in the direction of using photon triggered correlations in two-dimensions, to understand more about the effect of the jet on the medium.
+
+Fig. 7.5: CMS Pb + Pb (\(\sqrt{S_{NN}}=2.76~{}TeV\)) long-range rapidity correlation (0 - 5% most central events). With \(4.0<p_{T}^{trig.}<6.0\) and \(2.0<p_{T}^{assoc.}<4.0\)[27].
+
+## References
+
+* [1] M. Anderson, J. Berkovitz, W. Betts, R. Bossingham, and F. Bieser et al., "The STAR time projection chamber: a unique tool for studying high multiplicity events at RHIC," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 659-678, March 2003.
+* [2] L. Kotchenda, S. Kozlov, P. Kravtsov, A. Markov, and M. Strikhanov et al., "STAR TPC gas system," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 703-712, March 2003.
+* [3] F. Karsch, "Lattice QCD at high temperature and density," Lecture Notes in Physics, vol. 583, pp. 209-249, March 2002.
+* [4] S. Bass, "Collision dynamics and cascades," Talk at Quark Matter 2001 (unpublished), 2001.
+* an overview of recent results," J. Phys. G, vol. 31, no. 4, pp. S101-S118, March 2005.
+* [6] P. F. Kolb and U.W. Heinz, "Hydrodynamic description of ultra-relativistic heavy ion collisions," nucl-th/0305084 (pre-print server, unpublished), 2003.
+* what we have learned," Talk at Colliders to Cosmic Rays 2007 (unpublished), 2007.
+* [8] J. Adams, M. M. Aggarwal, Z. Ahammed, J. Amonett, and B. D. Anderson et al. (STAR Collaboration), "Azimuthal anisotropy in au+au collisions at \(\sqrt{S_{NN}}=200\) GeV," Phys. Rev. C, vol. 72, no. 1, pp. 014904, July 2005.
+
+* [9] J. Adams, C. Adler, M. M. Aggarwal, Z. Ahammed, and J. Amonett et al. (STAR Collaboration), "Evidence from d + Au measurements for final-state suppression of high \(p_{T}\) hadrons in Au + Au collisions at RHIC," Phys. Rev. Lett., vol. 91, no. 7, pp. 072304, August 2003.
+* [10] B. I. Abelev, M. M. Aggarwal, Z. Ahammed, A. V. Alakhverdyants, and B. D. Anderson et al. (STAR Collaboration), "Long range rapidity correlations and jet production in high energy nuclear collisions," Phys. Rev. C, vol. 80, no. 6, pp. 064912, December 2009.
+* [11] K. Adcoxb, S.S. Adler, S. Afanasiev, C. Aidala, and N.N. Ajitanand et al. (PHENIX Collaboration), "Formation of dense partonic matter in relativistic nucleus-nucleus collisions at RHIC: Experimental evaluation by the PHENIX collaboration," Nuclear Physics A, vol. 757, no. 1, pp. 184-283, June 2005.
+* [12] N. Armesto, C.A. Salgado, and U.A. Wiedemann, "Measuring the collective flow with jets," Phys. Rev. Lett., vol. 93, no. 24, pp. 242301, December 2004.
+* [13] A. Majumder, B. Muller, and S. A. Bass, "Longitudinal broadening of quenched jets in turbulent color fields," Phys. Rev. Lett., vol. 99, no. 4, pp. 042301, July 2007.
+* [14] P. Romatschke, "Momentum broadening in an anisotropic plasma," Phys. Rev. C, vol. 75, no. 1, pp. 014901, January 2007.
+* [15] C. Wong, "Ridge structure in the \(\Delta\eta\)-\(\Delta\phi\) correlation function associated with a near-side jet," Phys. Rev. C, vol. 76, no. 5, pp. 054908, November 2007.
+* [16] C. B. Chiu and R. C. Hwa, "Pedestal and peak structure in jet correlation," Phys. Rev. C., vol. 72, no. 3, pp. 034903, September 2005.
+
+* [17] S.A. Voloshin, "Two particle rapidity, transverse momentum, and azimuthal correlations in relativistic nuclear collisions and transverse radial expansion," Nucl. Phys. A, vol. 749, pp. 287-290, November 2005.
+* [18] E. Shuryak, "Origin of the "ridge" phenomenon induced by jets in heavy ion collisions," Phys. Rev. C, vol. 76, no. 4, pp. 047901, October 2007.
+* [19] B. Alver and G. Roland, "Collision-geometry fluctuations and triangular flow in heavy-ion collisions," Phys. Rev. C, vol. 81, no. 5, pp. 054905, May 2010.
+* [20] P. Sorensen, B. Bolliet, A. Mocsy, Y. Pandit, and N. Pruthi, "The rise and fall of the ridge in heavy-ion collisions," Phys. Lett. B, vol. 705, no. 1, pp. 71-75, February 2011.
+* [21] K.H. Ackermann, N. Adams, C. Adler, Z. Ahammed, and S. Ahmad et al., "STAR detector overview," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 624-632, March 2003.
+* [22] M. Beddo, E. Bielick, T. Fornek, V. Guarino, and D. Hill et al., "The STAR barrel electromagnetic calorimeter," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 725-739, March 2003.
+* [23] F.S. Bieser, H.J. Crawford, J. Engelage, G. Eppley, and L.C. Greiner et al., "The STAR trigger," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 766-777, March 2003.
+* [24] C. Adler, A. Denisov, E. Garcia, M. Murray, and H. Stroebele et al., "The RHIC zero degree calorimeters," Nucl. Instrum. Meth. A, vol. 470, no. 3, pp. 488-499, September 2001.
+
+* [25] W. Fischer, "RHIC luminosity measurements Run 1 through Run 11," Location: rhicchome.bnl.gov/RHIC/Runs/index.html, 2011.
+* [26] V. Khachatryan, A. M. Sirunyan, A. Tumasyan, W. Adam, and T. Bergauer et al. (CMS Collaboration), "Observation of long-range, near-side angular correlations in proton-proton collisions at the LHC," Journal of High Energy Physics, vol. 91, no. 9, pp. 1-37, September 2010.
+* [27] S. Chatrchyan, V. Khachatryan, A. M. Sirunyan, A. Tumasyan, and W. Adam CMS Collaboration, "Long-range and short-range dihadron angular correlations in central PbPb collisions at \(\sqrt{S_{NN}}=2.76\) TeV," Journal of High Energy Physics, vol. 07076, no. 7, pp. 1-32, July 2011.
+* [28] G.F. Chapline, M.H. Johnson, E. Teller, and M.S. Weiss, "Highly excited nuclear matter," Phys. Rev. D, vol. 8, no. 12, pp. 4302-4308, December 1973.
+* [29] T.D. Lee and G.C. Wick, "Vacuum stability and vacuum excitation in a spin-0 field theory," Phys. Rev. D, vol. 9, no. 8, pp. 2291-2316, April 1974.
+* [30] T.D. Lee, "Abnormal nuclear states and vacuum excitation," Rev. Mod. Phys., vol. 47, no. 2, pp. 267-543, April 1975.
+* [31] J.C. Collins and M.J. Perry, "Superdense matter: Neutrons or asymptotically free quarks?," Phys. Rev. Lett., vol. 34, no. 21, pp. 1353-1356, May 1975.
+* [32] E.V. Shuryak, "Two scales and phase transitions in quantum chromodynamics," Phys. Rep., vol. 61, no. 2, pp. 71-158, December 1980.
+* [33] K.G. Wilson, "Confinement of quarks," Phys. Rev. D, vol. 10, no. 8, pp. 2445-2459, October 1974.
+
+* [34] M. Creutz, "Gauge fixing, the transfer matrix, and confinement on a lattice," Phys. Rev. D, vol. 15, no. 4, pp. 1128-1136, February 1977.
+* [35] K. Rajagopal, "The phases of QCD in heavy ion collisions and compact stars," Acta Phys. Pol. B, vol. 31, no. 12, pp. 3021-3052, December 2000.
+* [36] M.L. Miller, "Measurement of jets and jet quenching at RHIC," Ph.D. dissertation, Yale University, New Haven, CT, 2004.
+* [37] B. I. Abelev, M. M. Aggarwal, Z. Ahammed, A. V. Alakhverdyants, and B. D. Anderson et al. (STAR Collaboration), "Parton energy loss in heavy-ion collisions via direct-photon and charged-particle azimuthal correlations," Phys. Rev. C, vol. 82, no. 3, pp. 034909, September 2010.
+* [38] C.A. Pruneau, S. Gavin, and S.A. Voloshin, "Transverse radial flow effects on two- and three-particle angular correlations," Nucl. Phys. A, vol. 802, no. 1, pp. 107-121, January 2008.
+* [39] J. Randrup and S. Mrowczynski, "Chromodynamic Weibel instabilities in relativistic nuclear collisions," Phys. Rev. C, vol. 68, no. 3, pp. 034909, September 2003.
+* [40] P. Romatschke and M. Strickland, "Collective modes of an anisotropic quark-gluon plasma," Phys. Rev. D, vol. 68, no. 3, pp. 036004, August 2003.
+* [41] P. Arnold, J. Lenaghan, and G. D. Moore, "QCD plasma instabilities and bottom-up thermalization," J. High Energy Phys., vol. 08, pp. 002, September 2003.
+* [42] G. D. Moore and D. Teaney, "How much do heavy quarks thermalize in a heavy ion collision?," Phys. Rev. C, vol. 71, no. 6, pp. 064904, June 2005.
+
+* [43] J. Putschke for the STAR Collaboration, "Near-side \(\Delta\eta\) correlations of high \(p_{T}\) hadrons from STAR," Nucl. Phys. A, vol. 783, pp. 507-510, February 2007.
+* [44] R. C. Hwa and C. B. Yang, "Recombination of shower partons at high \(p_{T}\) in heavy-ion collisions," Phys. Rev. C, vol. 70, no. 2, pp. 024905, August 2004.
+* [45] R. C. Hwa and C. B. Yang, "Final-state interaction as the origin of the cronin effect," Phys. Rev. Lett., vol. 93, no. 8, pp. 082302, August 2004.
+* [46] R. J. Fries, S. A. Bass, and B.Muller, "Correlated emission of hadrons from recombination of correlated partons," Phys. Rev. Lett., vol. 94, no. 12, pp. 122301, March 2005.
+* [47] R. C. Hwa and Z. Tan, "Parton and hadron correlations in jets," Phys. Rev. C, vol. 72, no. 2, pp. 024908, August 2005.
+* [48] R. C. Hwa and C. B. Yang, "Inclusive distributions for hadronic collisions in the valon-recombination model," Phys. Rev. C, vol. 70, no. 5, pp. 054902, August 2004.
+* [49] R. C. Hwa and C. B. Yang, "Dihadron correlation in jets produced in heavy-ion collisions," Phys. Rev. C, vol. 66, no. 2, pp. 025205, November 2002.
+* [50] L. Ravagli and R. Rapp, "Quark coalescence based on a transport equation," Phys. Lett. B, vol. 655, no. 3, pp. 126-131, July 2007.
+* [51] J. Takahashi, B. M. Tavares, W. L. Qian, R. Andrade, and F. Grassi et al., "Topology studies of hydrodynamics using two-particle correlation analysis," Phys. Rev. Lett., vol. 103, no. 24, pp. 242301, December 2009.
+
+* [52] Z.-W. Lin, B.-A. Li C. M. Ko, and S. Pal, "Multiphase transport model for relativistic heavy ion collisions," Phys. Rev. C, vol. 72, no. 6, pp. 064901, December 2005.
+* [53] M. Anderson, T. Ludlam, and S. Ozaki, "RHIC project overview," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 235-244, March 2003.
+* [54] R. Bellwied, R. Beuttenmuller, H. Caines, W. Chen, and D. DiMassimo et al., "The STAR silicon vertex tracker: A large area silicon drift detector," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 640-651, March 2003.
+* [55] K.H. Ackermann, F. Bieser, F.P. Brady, D. Cebra, and J.E. Draper et al., "The forward time projection chamber in STAR," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 713-719, March 2003.
+* [56] C.E. Allgower, B.D. Anderson, A.R. Baldwin, J. Balewski, and M. Belt-Tonjes et al., "The STAR endcap electromagnetic calorimeter," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 740-750, March 2003.
+* [57] C. Adler, J. Berger, M. Demello, T. Dietel, and D. Flierl et al., "The STAR level-3 trigger system," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 778-791, March 2003.
+* [58] F. Bergsma, C.O. Blyth, R.L. Brown, W. Dieffenbach, and A. Etkin et al., "The STAR detector magnet subsystem," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 633-639, March 2003.
+* [59] J. Abele, J. Berkovitz, J. Boehm, A. Brandin, and E. Gushin et al., "The laser system for the STAR time projection chamber," Nucl. Instrum. Meth. A, vol. 499, no. 2, pp. 692-702, March 2003.
+
+* [60] A.M. Hamed, "Elliptic flow measurements of inclusive photons and neutral pion reconstructions," Ph.D. dissertation, Wayne State University, Detroit, MI, 2006.
+* [61] S. Agostinelli, J. Allison, K. Amako, J. Apostolakis, and H. Araujo et al., "GEANT4 a simulation toolkit," Nuclear Instruments and Methods in Physics Research Section A: Accelerators, vol. 506, no. 3, pp. 250-303, July 2003.
+* [62] J. Allison, K. Amako, J. Apostolakis, H. Araujo, and P. Arce Dubois et al., "GEANT4 developments and applications," Nuclear Science, IEEE Transactions, vol. 53, no. 1, pp. 270-278, March 2006.
+* [63] Marco van Leeuwen, "\(v_{2}\) overviews Au+Au collisions," Private Communication, 2009.
+* [64] S. S. Adler, S. Afanasiev, C. Aidala, N. N. Ajitanand, and Y. Akiba et al. (PHENIX Collaboration), "Dense-medium modifications to jet-induced hadron pair distributions in au+au collisions at \(\sqrt{S_{NN}}=200\) GeV," Phys. Rev. Lett., vol. 97, no. 5, pp. 052301, August 2006.
+
+[MISSING_PAGE_FAIL:180]
+
+[MISSING_PAGE_FAIL:181]
+
+[MISSING_PAGE_FAIL:182]
+
+[MISSING_PAGE_FAIL:183]
+
+[MISSING_PAGE_FAIL:184]
+
+[MISSING_PAGE_EMPTY:185]
+
+[MISSING_PAGE_EMPTY:186]
+
+[MISSING_PAGE_EMPTY:187]
+
+[MISSING_PAGE_EMPTY:188]
+
+[MISSING_PAGE_EMPTY:189]
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline  & \(\begin{array}{c}M2\\ 5.5-7.0GeV\end{array}\) & \(\begin{array}{c}M2\\ 7.0-8.0GeV\end{array}\) & \(\begin{array}{c}M2\\ 7.0-8.0GeV\end{array}\) & \(\begin{array}{c}M2\\ 8.0-10.0GeV\end{array}\) & \(\begin{array}{c}M2\\ 10.0-12.0GeV\end{array}\) & \(\begin{array}{c}M2\\ 12.0-16.0GeV\end{array}\) \\ \hline \(Y^{3bins}\) & 0.070 & 0.081 & 0.096 & 0.010 & 0.0067 \\ \hline \(Y^{2bins}\) & 0.085 & 0.095 & 0.076 & -0.022 & 0.048 \\ \hline \(Y^{1bin}\) & 0.13 & 0.092 & 0.073 & 0.049 & -0.039 \\ \hline \(\sigma^{3}_{Y}\) & 0.030 & 0.060 & 0.049 & 0.088 & 0.12 \\ \hline \(\sigma^{2}_{Y}\) & 0.031 & 0.062 & 0.052 & 0.092 &
+
+[MISSING_PAGE_EMPTY:191]
+
+[MISSING_PAGE_EMPTY:192]

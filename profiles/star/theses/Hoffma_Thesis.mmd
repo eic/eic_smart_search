@@ -1,0 +1,1128 @@
+**Longitudinal Double-Spin Asymmetry and Cross Section for Inclusive Neutral Pion Production in Polarized Proton Collisions at \(\sqrt{s}\) = 200 GeV.**
+
+by
+
+Alan Michael Hoffman
+
+B.A. Physics, University of Chicago (2004)
+
+Submitted to the Department of Physics
+
+in partial fulfillment of the requirements for the degree of
+
+Doctor of Philosophy in Physics
+
+at the
+
+MASSACHUSETTS INSTITUTE OF TECHNOLOGY
+
+June 2009
+
+C Massachusetts Institute of Technology 2009. All rights reserved.
+
+Author................................................................................
+
+Department of Physics
+
+May 12, 2009
+
+Certified by................................................................
+
+Richard Milner
+
+Professor of Physics; Director, Laboratory for Nuclear Science
+
+Thesis Supervisor
+
+Accepted by................................................................................
+
+Thomas J. Greytak
+
+Associate Department Head for Education
+
+[MISSING_PAGE_EMPTY:2]
+
+**Longitudinal Double-Spin Asymmetry and Cross Section for**
+
+**Inclusive Neutral Pion Production in Polarized Proton**
+
+**Collisions at \(\sqrt{s}\) = 200 GeV.**
+
+by
+
+Alan Michael Hoffman
+
+Submitted to the Department of Physics
+
+on May 12, 2009, in partial fulfillment of the
+
+requirements for the degree of
+
+Doctor of Philosophy in Physics
+
+**Abstract**
+
+Twenty years of polarized lepton-nucleon scattering experiments have found that the contribution from quark spins (\(\frac{1}{2}\Delta\Sigma\)) to the spin of the proton is only \(\sim 35\%\). This has lead researchers to look elsewhere, specifically to gluon spin (\(\Delta G\)) for a large contribution to proton spin. \(\Delta G\) has been only loosely constrained in polarized DIS and SIDIS experiments. Polarized proton-proton collisions at RHIC provide sensitivity to \(\Delta G\) through measurements of the longitudinal double-spin asymmetry, \(A_{LL}\).
+
+This work presents a measurement of \(A_{LL}\) for inclusive \(\pi^{0}\) production in polarized proton-proton collisions using the STAR detector and data from RHIC Run 6. \(\pi^{0}\)s are abundantly produced at mid-rapidity in proton-proton collisions, making them natural candidates for studies of \(\Delta G\). Novel techniques for reconstructing \(\pi^{0}\)s at STAR are discussed, and a measurement of the unpolarized cross section presented. Finally, the measured \(A_{LL}\) is compared to perturbative QCD predictions and from this comparison constraints are placed on \(\Delta G\).
+
+Thesis Supervisor: Richard Milner
+
+Title: Professor of Physics; Director, Laboratory for Nuclear Science
+
+[MISSING_PAGE_EMPTY:4]
+
+## Acknowledgments
+
+First, I would like to acknowledge and thank the members of my committee. To my advisor Richard Milner for his wisdom and guidance over the years, and for helping to shape this thesis. To Bernd Surrow for his energy and passion and for helping me carve out an analysis I could call my own, not an easy task in a collaboration of 500 scientists. Finally to Bob Jaffe who, after I had wrongly written down the Schrodinger equation in an oral exam, told me to calm down, think for a second, and start again. My deepest gratitude to all three of you.
+
+I am deeply indebted to all those who helped me develop and refine the measurements presented here. Thanks to the junior members of MIT-RHIC spin: graduate students Tai Sakuma, Ross Corliss, Willie Leight, Matt Walker, Mike Betancourt (for the filtered MC!), Chris Jones and Jim Hays-Wehle, and postdocs Renee Fatemi, Mike Miller (who edited this thesis more than once), Frank Simon, and Joe Seele. Thanks to all the members of the STAR collaboration, especially those advancing the spin physics program. I'd be remiss if I did not make special mention of Adam Kocoloski who taught me everything I know about C++ and spent countless hours over the last 5 years neglecting his analysis to help me better understand my own. I only hope I get the chance to repay him.
+
+There are dozens of people who helped keep me sane throughout this whole journey. Thanks to my brothers Andy and Eddie, the Fred family, especially Morrie and Carol, my friends both in Boston and elsewhere, all the former residents (official and otherwise) of 402 Broadway #2, the members of team My Pet Scapegoat, the MIT smoking club, the incoming physics grad class of 2004, and many many others.
+
+I cannot express how much I owe to my father, one of the foremost scholars I know, and to my mother, for her endless optimism.
+
+Last, but in no way least, to my wife Sara, who moved to Boston in the dead of winter, during a blizzard, to be with me. She celebrated with me during the highs and bolstered me during the lows. It is safe to say this thesis would never have been written without her. For this and for so much more, thank you.
+
+## This Page Internationally Left Blank
+
+###### Contents
+
+* 1 Introduction and Theory
+	* 1.1 Quarks, Gluons, and QCD
+	* 1.2 QCD and Proton Structure at a Collider
+	* 1.3 A Brief Review of the Spin Structure of the Proton
+		* 1.3.1 Simple Quark Models for Spin
+		* 1.3.2 First Measurements and Birth of the Spin Crisis
+	* 1.4 Constraining \(\Delta G\) with a Hadron Collider
+		* 1.4.1 The \(\pi^{0}\)
+	* 1.5 Structure of This Thesis
+* 2 Experimental Overview
+	* 2.1 Relativistic Heavy Ion Collider
+	* 2.2 RHIC and Polarized Protons
+		* 2.2.1 Polarization Tools: Siberian Snakes and Polarimeters
+		* 2.2.2 Performance
+	* 2.3 Solenoidal Tracker At RHIC
+		* 2.3.1 Barrel Electromagnetic Calorimeter
+		* 2.3.2 Barrel Shower-Max Detector
+		* 2.3.3 Time Projection Chamber
+		* 2.3.4 Beam-Beam Counters
+		* 2.3.5 Zero Degree Calorimeters
+* 3Data Acquisition and Reconstruction
+* 3.1 Run Overview
+	* 3.2 Triggering System
+		* 3.2.1 Minimum Bias Trigger
+		* 3.2.2 Level-2 Gamma Trigger
+	* 3.3 The STAR Simulation environment
+	* 3.4 Event Reconstruction
+		* 3.4.1 BEMC Calibration
+		* 3.4.2 Clustering
+		* 3.4.3 \(\pi^{0}\) Candidates
+		* 3.4.4 Event and Candidate Selection
+	* 3.5 Background Sources
+	* 3.6 Comparison Between Data and Simulation
+		* 3.6.1 Kinematic Variables
+		* 3.6.2 \(p_{T}\)-Dependent Mass Peak
+		* 3.6.3 Invariant Mass Distribution
+* 4 Cross Section
+	* 4.1 Data Selection and QA
+	* 4.2 Signal Extraction
+	* 4.3 Luminosity
+	* 4.4 Efficiency Correction
+	* 4.5 Results
+		* 4.5.1 Statistical Uncertainty
+	* 4.6 Systematic Uncertainties
+		* 4.6.1 Yield Extraction and Reconstruction Efficiency
+		* 4.6.2 BEMC Energy Scale
+		* 4.6.3 Yield Stability
+* 5 Asymmetry
+	* 5.1 Run Selection
+	* 5.2 Polarization
+	* 5.3 Relative Luminosity
+	* 5.4 Spin Sorted Yields
+	* 5.5 Uncertainties and Cross Checks
+		* 5.5.1 Statistical Uncertainties
+		* 5.5.2 Relative Luminosity Uncertainty
+		* 5.5.3 Non Longitudinal Beam Components
+		* 5.5.4 Single Spin Asymmetries
+	* 5.6 Results
+* 6 Results and Discussion
+	* 6.1 Cross Section Results
+	* 6.2 Asymmetry Results
+		* 6.2.1 Interpretation
+	* 6.3 Global Analysis Including RHIC Data
+* A Previous Measurements
+* A.1 Inclusive Jet Production at STAR
+* B BEMC Energy Scale Uncertainty
+* B.1 Tower Calibration Uncertainty
+* B.2 Clustering
+* C STAR Coordinates and Kinematic Variables
+* D Summary of Cross Section Systematic Errors
+
+## This Page Internationally Left BLANKList of Figures
+* 1DIS scattering diagram. An incoming electron (\(e^{-}\)) exchanges a virtual photon (\(\gamma\)) with a proton (\(p\)). The electron probes the substructure of the proton which fragments (\(X\)) as a result of the interaction [10]...
+* 2Schematic of inclusive \(\pi^{0}\) production in \(pp\) collisions. \(f_{1}\) and \(f_{2}\) are the nonperturbative parton distribution functions for the two interacting protons. The central partonic hard-scattering cross section (\(\hat{\sigma}\)) is calculable in perturbative QCD. The fragmentation function, \(D_{f}^{\pi}\), is a measure of the probability of a parton \(f\) fragmenting into a \(\pi^{0}\). All other material coming from the interaction (generically labeled \(X^{\prime}\)) is integrated over. [17].
+* 3Several theoretical predictions for \(A_{LL}^{pp\to\pi^{0}+X}\). The different predictions corresponds to different functions of \(\Delta g(x,Q^{2})\) calculated under different assumptions for the shape of \(\Delta G\). For more details see [26][25][22].
+* 4Polarized parton distributions at \(Q^{2}=10GeV^{2}\) by De Florian, Navarro, and Sassot [20]. The green (yellow) uncertainty band correspond to \(\Delta\chi^{2}=1\) (\(\Delta\chi^{2}=2\%\).) Note the tightly-constrained quark distributions, left and center, compared to the loosely-constrained gluon distribution, right.
+* 2The RHIC complex at BNL. The salient features for polarized operations are identified. STAR is located at the "six o'clock" position at RHIC.
+* 2.2 Precession of the spin vector as it traverses a full Siberian snake. The blue line indicates the direction of the beam.
+* 2.3 Left: Schematic of the pC CNI polarimeter used in RHIC. The red dot in the middle represents the beam whose direction is into (or out of) the page. Right: Schematic of the \(pp\) jet polarimeter. The purple cylinder represents the polarized \(H^{-}\)-jet target.
+* 2.4 A cutaway view of the STAR detector.
+* 2.5 BEMC with no other STAR detectors.
+* 2.6 Cross section of two BEMC towers side by side. The alternating grey and white bands show the layers of lead and scintillator. The SMD is visible in this cross section, sits 10 layers up from the bottom.
+* 2.7 Partial cross section of a single BSMD module
+* 2.8 Schematic of the BSMD. The position of EM showers can be reconstructed by matching signals in both BSMD planes as seen here.
+* 2.9 STAR TPC [6]
+* 2.10 STAR BBC. The "B" in the center represents the beam pipe.
+* 2.11 Location of the STAR ZDC (red) with respect to the nominal interaction point.
+* 3.1 3x3 tower "trigger patch" showing configuration of L2\(\gamma\) trigger condition.
+* 3.2 Typical pedestal subtracted ADC spectrum for MIPs in a single tower. The MIP peak is fit to a gaussian+background and the mean is extracted.
+* 3.3 E/p spectrum for electron response in a single eta ring. The spectrum is fit to a gaussian and the mean is extracted. From this mean a gain correction is calculated and applied to the towers in that ring.
+* 3.4 Problematic point-making situation. Clearly \(\phi_{1}\) could be mapped to either \(\eta_{1}\) or \(\eta_{2}\) SMD clusters; and the same for \(\phi_{2}\). The clustering energy asymmetry is used to disentangle these states and match proper clusters into points [42].
+
+* Typical two-photon invariant mass spectrum. A tall narrow \(\pi^{0}\) mass peak centered around.135 \(GeV/c^{2}\) emerges from a broad background distribution. Also visible is the mass peak for the \(\eta\) meson, centered around.550 \(GeV/c^{2}\).
+* Illustration of event rotating procedure undertaken in modeling the combinatoric background. Different events are rotated by \(\Delta\eta\) and \(\Delta\phi\) to mimic the underlying jet structure in a single event [27].
+* Mixed event simulation of combinatoric background (in green) compared to data (in black). The "humped" shape of the mixed mass distribution is the consequence of properly rotating the mixed events to mimic the underlying jet study. The mixed event sample clearly matches the data in the high mass region and between the \(\pi^{0}\) and \(\eta\) peaks.
+* Illustrations of artificial cluster splitting in the SMD. Red and green bars represent energy responses of neighboring SMD strips. Statistical fluctuations and missing strips can cause erroneous cluster splitting.
+* Data and MC distributions for \(\pi^{0}\) pseudorapidity.
+* Data and MC distributions for \(\pi^{0}\) transverse momentum.
+* Data and MC distributions for \(\pi^{0}\)\(Z_{\gamma\gamma}\).
+* Mean reconstructed \(\pi^{0}\) mass for data (black) and simulation (red) vs. \(p_{T}\). The PDG mass of the \(\pi^{0}\) is shown in blue.
+* Left: Two photon invariant mass distribution for data (black points) and various simulation components (see legend) illustrating the method of simultaneously fitting all contributions to the data. Right: Same data distribution compared to combined simulation (red.)
+* Average number of good \(\pi^{0}\) candidates per triggered event. The arrows show the stable run region used in the cross section analysis.
+** 4-2 Cumulative \(Z_{\gamma\gamma}\) distributions for data (black) low mass background (red) and combinatoric background (blue). The background samples are sharply peaked towards high \(Z_{\gamma\gamma}\).
+* 4-3 Raw invariant mass distributions for the nine bins used in this cross section analysis. The \(\pi^{0}\) and \(\eta\) peaks are visible over a wide background.
+* 4-4 Background subtracted invariant mass distributions for each of the 9 \(p_{T}\) bins.
+* 4-5 Generalized correction factor for acceptance, triggering, and reconstruction efficiencies vs. reconstructed \(\pi^{0}\)\(p_{T}\).
+* 4-6 Simulated pseudo experiment. Reconstructed data sample corrected using simulation. Note the excellent agreement between "Truth" and "Corrected Data."
+* 4-7 a) Invariant cross section for inclusive \(\pi^{0}\) production. b) Statistical uncertainties.
+* 4-8 Relative uncertainty on the cross section as a function of \(p_{T}\). The inner error bars indicate show statistical uncertainties and the outer error bars show the quadrature sum of statistical and efficiency systematic uncertainties.
+* 4-9 Nominal cross section (black) along with cross sections calculated with gain tables shifted by +2% (blue) and -2% (red).
+* 4-10 \(\Delta\sigma/\sigma\) for cross sections calculated with gain tables shifted by +2% (blue) and -2% (red.) These ratios are fit with flat and linear functions, respectively, above the trigger threshold to estimate the systematic uncertainty stemming from the BEMC energy uncertainty.
+* 4-11 Summary of yield stability systematics. Key (from left to right): 4\(\sigma\) acceptance on \(M_{inv}\) window; \(Z_{\gamma\gamma}\)+10%; \(|Z_{vertex}|\)+10%; 2\(\sigma\) acceptance on \(M_{inv}\) window; \(Z_{\gamma\gamma}\)-10%; \(|Z_{vertex}|\)-10%. The dashed-dotted line in the center separates cuts that increase raw yield (left) from cuts that decrease raw yield (right).
+
+* 4.12 Systematic and statistical errors for cross section measurement. The grey band shows the BEMC energy scale systematic. The inner error bars show the statistical uncertainties and the outer error bars show the quadrature sum of systematic errors as described in Section 4.6.3.
+* 5.1 Left (Right): Average polarization measurement values for the blue (yellow) beam by fill.
+* 5.2 Invariant mass distribution for candidates. The grey portion of the mass peak is what is accepted for the asymmetry analysis.
+* 5.3 Left (Right): single spin asymmetry (\(A_{L}\)) for the blue (yellow) beam per run vs. run index. Points are fit to a constant value, shown upper left, and are consistent with zero.
+* 5.4 Invariant mass distribution with mixed event background shown (in red.) The "contamination," or portion of the background that falls within the mass window is shown filled in.
+* 5.5 \(A_{LL}\) for inclusive \(\pi^{0}\) production between 5.2 and 16.0 GeV/c in \(p_{T}\). Statistical uncertainties are plotted as error bars on the points. The systematic uncertainties are represented by the shaded band beneath the points. An 8.3% normalization uncertainty from polarization values is not included.
+* 6.1 Cross section for inclusive \(\pi^{0}\) production. a) The unpolarized cross section vs. \(p_{T}\). The cross section points are plotted along with pQCD predictions made using DSS and KKP fragmentation functions. b) Statistical and systematic uncertainties for the cross section measurement. c) Comparison of measured values to theoretical predictions. Predictions are shown for three different fragmentation scales to give an idea of theoretical uncertainties.
+* 6.2The double longitudinal spin asymmetry, \(A_{LL}\) vs \(p_{T}\) for inclusive \(\pi^{0}\) production. The error bars are purely statistical. The systematic uncertainty is represented by the shaded band beneath the points. The measurement is compared to a number of pQCD predictions for different input value of \(\Delta G\). See the text for further explanation.
+* 6-3 The current \(A_{LL}\) measurements from STAR (black) and PHENIX (green) [12]. Note that in the measured range, the precision of the two measurements are comparable.
+* 6-4 The STAR run 6 \(A_{LL}^{\pi^{0}}\) measurement (black) and the STAR run 5 \(A_{LL}^{\pi^{0}}\) measurement (blue) [44]. The Run 6 measurement represents a large increase in precision as well \(p_{T}\) range.
+* 6-5 NLO calculations for x\(\Delta\)G(x) at a Q\({}^{2}\) of 4 GeV\({}^{2}\) by Gehrmann and Stirling. Of particular interest is the "C" parameterization, as it affords a large integral value of \(\Delta G\) while still have a small integral value in STAR's measurable x region (shown shaded.)
+* 6-6 Measured \(A_{LL}\) with a number of theory curves based on a variety of predictions for \(\Delta G\).
+* 6-7 "Confidence Level" vs \(\Delta G\) at \(Q^{2}=1\ GeV^{2}\). This plot exhibits a peak at GRSV-Std (\(\Delta G=.42\).) Large positive values of \(\Delta G\) are clearly excluded, while small positive and negative values are still consistent with the data. The dotted lines show the uncertainty stemming from the 9.4% polarization uncertainty.
+* 6-8 Polarized gluon PDF from DSSV fit. The best fit to RHIC, DIS, and SIDIS data is the solid line. Error bands for \(\Delta\chi^{2}=1\) (green) and \(\Delta\chi^{2}/\chi^{2}=2\%\) (yellow) are shown [22]. Data from this thesis are not included in the DSSV fit. Results from previous fits are also shown.
+* A-1 \(A_{LL}\) for inclusive jet production at STAR for Run 5. The error bars indicate statistical uncertainties and the grey bands indicate systematic uncertainties.
+* A-2 \(A_{LL}\) for inclusive jet production at STAR for Run 6. The error bars indicate statistical uncertainties and the grey bands indicate systematic uncertainties.
+
+* A\({}_{LL}\) for inclusive jet production at STAR for Run 6. The error bars indicate statistical uncertainties and the grey bands indicate systematic uncertainties.
+* A-3 Confidence levels for different integral values of \(\Delta G\) based on the Run 5 inclusive jet production data. The yellow band represents the uncertainty from the absolute polarization measurement.
+* B-1 Comparison of true and reconstructed \(\pi^{0}\) energies. Reconstructed energies are biased 0.8% low.
+* C-1 Left: Schematic of STAR, viewed from the side, with coordinates marked. Right: Schematic of STAR, viewed from the end, with coordinates marked.
+
+[MISSING_PAGE_EMPTY:18]
+
+[MISSING_PAGE_EMPTY:19]
+
+[MISSING_PAGE_EMPTY:20]
+
+## Chapter 1 Introduction and Theory
+
+More than 70 years have passed since Stern's discovery of the proton's anomalous magnetic moment first hinted at the proton's complex nature. In the time since, studies of the proton have provided a window to the fundamental particles and interactions that govern the universe. Proton scattering experiments lead to the discovery of the quark and helped increase our understanding of the strong interaction and hadron structure. But our understanding of the strong interaction is far from complete. Indeed the distribution of proton's angular momentum ("spin") among its constituents remains a mystery. Twenty years of lepton-proton scattering experiments have indicated that the quark's spins account for only a small fraction of the proton's spin. This has lead to searches for the "missing" spin elsewhere, in the quark and gluon orbital angular momenta and the gluon spin. In this thesis we focus on the contribution from gluon spin (\(\Delta G\)) to the spin of the proton. By measuring the production of \(\pi^{0}\)s in polarized proton-proton (\(pp\)) collisions we will constrain \(\Delta G\) and further our understanding of the proton's spin structure. Before delving into the measurement, we briefly discuss proton structure formalism and the theory related to the spin structure, as well as provide historical context.
+
+Quarks, Gluons, and QCD
+
+The existence of an anomalous magnetic moment of the proton indicated that it must be a composite object. Prominent theorists such as Gell-Mann and Zweig proposed models in which the proton was composed of constituent fundamental particles. Gell-Mann called these particles quarks and described hadrons as static bound states of these quarks, organizing them into various groupings according to their up, down, and strange quark (and antiquark) content. The bound quark model was a tremendous phenomenological success, providing a natural and intuitive taxonomy for the known mesons and baryons of the day and predicting the existence of the yet undiscovered \(\Omega^{-}\). Later on, Feynman independently proposed a dynamical theory in which the proton was composed of nearly free particles (in contrast to Gell-Mann's strongly bound states). He called these particles partons, and posited that the proton could be quantitatively modeled in terms of _parton distribution functions_ (PDFs) which will be discussed in more detail in section 1.2. The first observation of quarks came from deep inelastic scattering (DIS) experiments at SLAC in the late 1960s [10]. In DIS, highly-energetic leptons are scattered from nucleons in a fixed target. At high enough energies, these leptons are able to probe the internal structure of the nucleon. Figure 1-1 shows a schematic of a DIS interaction. Three physicists, Kendall, Friedman, and Taylor observed a scaling of the measured structure functions consistent with protons being composed of spin 1/2 quarks [11][13].1
+
+Footnote 1: Kendall, Friedman, and Taylor were awarded the nobel prize for this discovery in 1990
+
+While Feynman and Gell-Mann used different terminologies and formalisms, they were fundamentally describing the same physical phenomena, the nature of strongly-bound matter. Both approaches were phenomenologically successful, and yet they seemed incompatible. A new theory was needed to reconcile the static bound-quark model of Gell-Mann and the free-parton model of Feynman. The unifying theory that emerged was called quantum chromodynamics (QCD). Like quantum electrodynamics (QED), QCD is a fully relativistic quantum field theory, built solely on symmetry and local gauge invariance. In QCD, quarks interact with each other via exchange particles called gluons (the analog to the photon in QED) that couple to a new charge dubbed "color." Unlike in QED, in QCD there are three types of charge.2 Further, in QCD the exchange particles themselves carry charge. Thus, gluons are able to couple directly to other gluons. This direct gluon-gluon coupling has profound implications for how we study QCD.
+
+Footnote 2: Often denoted _red, blue,_ and _green_.
+
+Another stark contrast between QCD and QED can be found in the scale dependence of the QCD coupling constant \(\alpha_{s}\). Unlike the electromagnetic coupling constant, (\(\alpha_{EM}\)) \(\alpha_{s}\) decreases at smaller distance scales and increases at larger distance scales.3 At large distance scales (low momentum transfer) \(\alpha_{s}\) is large and the strong interaction is tightly binding. But at small scales (large momentum transfer) \(\alpha_{s}\) decreases and quarks behave as if they are weakly bound (asymptotically free). The discovery of the running coupling and asymptotic freedom marked a dramatic leap forward in our understanding of the physical world. It allowed for a theory in which quarks can be strongly-bound in hadrons and yet behave as quasi-free. This resolved the long standing puzzle between Gell-Mann's strongly confined quark model and Feynman's weakly-interacting parton model. It also opened the door for development of perturbative methods in the region where \(\alpha_{s}<1\). It's discoverers, Wilczek, Politzer, and Gross were awarded the 2004 Nobel Prize [28][41]. An encompassing
+
+Figure 1.1: DIS scattering diagram. An incoming electron (\(e^{-}\)) exchanges a virtual photon (\(\gamma\)) with a proton (\(p\)). The electron probes the substructure of the proton which fragments (\(X\)) as a result of the interaction [10].
+
+review of QCD theory, including asymptotic freedom and confinement, can be found in [14].
+
+### 1.2 QCD and Proton Structure at a Collider
+
+The measurements described in this thesis take place at an accelerator that collides two beams of protons at high energies. For hard scattering at high energies the \(pp\) cross section can be written in terms of initial PDFs, a hard partonic subprocess cross section, and (if applicable) final state fragmentation functions (FFs). The three parts of the interaction are "factorized" into long-range and short-range interactions. The PDFs used to describe the initial state of the proton and the FFs used to describe the final state are universal. If measured in one process they can be applied in another process. The predictive power of QCD stems from these two characteristics: factorization and universality. The fundamental process studied herein, \(pp\rightarrow\pi^{0}+X\), is shown schematically in Figure 1-2. The total cross section can be calculated as [17]
+
+\[\frac{d\sigma^{pp\rightarrow\pi^{0}X}}{dP}=\sum_{f=q,\hat{q},g} \int dx_{1}dx_{2}dzf_{1}^{p}(x_{1},\mu^{2})f_{2}^{p}(x_{2},\mu^{2})\] \[\times\frac{d\hat{\sigma}^{f_{1}f_{2}\to fX^{\prime}}}{dP}(x_{1}p_{1}, x_{2}p_{2},p_{\pi^{0}}/z,\mu)D_{f}^{\pi^{0}}(z,\mu^{2}),\]
+
+where \(P\) is an appropriate set of kinematic variables. We have introduced \(f_{i}^{p}(x,\mu^{2})\), as an example of Feynman's PDF, which can be thought of as the probability of finding a parton of type \(i\) inside the proton with a momentum fraction \(x\) at a factorization scale \(\mu^{2}\). \(D_{f}^{\pi^{0}}\) is a FF, the probability for an outgoing parton \(f\) to fragment into a \(\pi^{0}\) where the ratio of \(\pi^{0}\) momentum to parton momentum is \(z\) and evaluated at a scale \(\mu^{2}\). Finally we introduce \(\hat{\sigma}^{f_{1}f_{2}\to fX^{\prime}}\), which is the partonic hard-scattering cross section for \(f_{1}f_{2}\) creating a parton \(f\) plus other products.
+
+A key point is that the total cross section is factorized into three parts. The initial and final parts, the PDFs and FFs, are long-range phenomena and thus cannot be calculated in the perturbative QCD (pQCD) framework. However, we can take advantage of universality in QCD, measuring PDFs and FFs in other processes (such as \(ep\) scattering) and evolving the results perturbatively to other scales. The middle piece, the partonic cross section, represents a short distance phenomenon and can be calculated from first principles using pQCD. Since the measurements described in this thesis are either cross sections or ratios of cross sections, we will make substantial use of this formalism. Indeed, one of our goals is to verify the applicability of pQCD in the case of \(\pi^{0}\) production in the measured energy regime.
+
+### 1.3 A Brief Review of the Spin Structure of the Proton
+
+The proton is a fermion - if the spin is measured along any axis it will yield a result of \(\frac{1}{2}\hbar\). Since the proton is a composite particle, made up of quarks, antiquarks, and gluons, its spin should be equal to the combined spin and angular momenta of its
+
+Figure 1.2: Schematic of inclusive \(\pi^{0}\) production in \(pp\) collisions. \(f_{1}\) and \(f_{2}\) are the nonperturbative parton distribution functions for the two interacting protons. The central partonic hard-scattering cross section (\(\hat{\sigma}\)) is calculable in perturbative QCD. The fragmentation function, \(D_{f}^{\pi}\), is a measure of the probability of a parton \(f\) fragmenting into a \(\pi^{0}\). All other material coming from the interaction (generically labeled \(X^{\prime}\)) is integrated over. [17]
+
+constituents. The proton's spin structure accounts for how the proton's spin is carried by all possible pieces such that they add up to \(\frac{1}{2}\).4
+
+Footnote 4: The spin structure of the proton is not known to be a spin structure.
+
+#### Simple Quark Models for Spin
+
+A naive non-relativistic quark model assumes that the spin of the proton is carried entirely by three valence quarks. Heuristically speaking, of the three spin-\(\frac{1}{2}\) valence quarks, two will have their spin vectors aligned with the proton and one anti-aligned, yielding an overall value of \(\frac{1}{2}\) for the proton. A more realistic version of the simple quark model recognizes that the quark-antiquark sea also contributes to the spin. In this model, the proton spin measured along the z-axis (\(\langle S_{p}^{3}\rangle\)) can be written as
+
+\[\langle S_{p}^{3}\rangle=\frac{1}{2}=\frac{1}{2}\Delta\Sigma(Q^{2}), \tag{1.1}\]
+
+where5
+
+Footnote 5: In this sum rule we suppress the independent \(Q^{2}\) variable. However, it should be noted that the relative values of the various contributions change as a function of \(Q^{2}\) but that the sum is always \(1/2\).
+
+\[\Delta\Sigma=\int_{0}^{1}dx\sum_{q=u,d,s..}\{\Delta q(x)+\Delta\bar{q}(x)\}. \tag{1.2}\]
+
+The summation runs over all six quark flavors [24]. We introduced the polarized quark PDF \(\Delta q(x)\) defined as
+
+\[\Delta q(x)\equiv q_{+}(x)-q_{-}(x). \tag{1.3}\]
+
+The polarized quark PDF can be thought of as the probability of finding a quark with momentum fraction \(x\) with its spin aligned with that of the proton (\(q_{+}(x)\)) minus the probability of finding a quark with momentum fraction \(x\) with its spin anti-aligned with that of the proton (\(q_{-}(x)\)). Note
+
+\[q(x)\equiv q_{+}(x)+q_{-}(x), \tag{1.4}\]is the unpolarized quark PDF.
+
+This model neglects contributions from quark orbital angular momentum. Quark motion relative to the spin vector of the proton will contribute to its spin. Modifying eqn 1.1 to account for angular momentum we obtain
+
+\[\langle S_{p}^{3}\rangle=\frac{1}{2}=J_{z}^{q}=\frac{1}{2}\Delta\Sigma+L_{z}^{q}. \tag{1.5}\]
+
+where \(L_{z}^{q}\) is the orbital angular momentum contribution to the proton spin. Models that acknowledged this orbital motion predicted the value of \(\Delta\Sigma\), (the sum total of quark spin) to be less than unity. In 1974 Ellis and Jaffe, using a relativistic quark model and assuming no strange quark polarization, calculated that \(\Delta\Sigma\) ought to be reduced to \(\sim 0.6\), with the remainder being attributed to \(L_{z}^{q}\)[23].
+
+#### First Measurements and Birth of the Spin Crisis
+
+The first measurements of the proton's spin structure involved scattering polarized leptons (electrons and muons) on polarized hadron targets at facilities such as SLAC and the SPS at CERN. The first high-precision measurements of the different spin contributions from the European Muon Collaboration (EMC) indicated that Ellis and Jaffe's prediction for \(\Delta\Sigma\) did not hold [7], reporting a smaller value of \(\Delta\Sigma\) than expected [33]:
+
+\[\Delta\Sigma(Q^{2}=10.7~{}GeV^{2})=0.13\pm 0.19. \tag{1.6}\]
+
+In short, the quark spins did not seem contribute significantly to the proton spin. This marked the birth of the "spin crisis." Recall that the simple quark model predicts \(\Delta\Sigma=1\) and the best theoretical predictions indicate \(\Delta\Sigma\sim 0.6.\) Experiment showed much lower contribution from quark spin than expected. Where is the spin of the proton located? Do gluons and sea quarks (so called "silent partners"[48]) dominate the spin structure of the proton? Resolution of these question requires a more detailed understanding of quark spin (\(\Delta\Sigma\)) and orbital momentum (\(L_{q}\)), and also gluon spin and angular momentum. A more complete spin sum rule can be formulatedincorporating quarks, gluons and angular momentum in terms of an integral over their respective PDFs as
+
+\[\frac{1}{2}=\int_{0}^{1}dx\{\frac{1}{2}\Delta q(x,Q^{2})+L_{q}(x,Q^{2})+\Delta g(x,Q^{2})+L_{g}(x,Q^{2})\}, \tag{1.7}\]
+
+or
+
+\[\frac{1}{2}=\frac{1}{2}\Delta\Sigma+L_{q}+\Delta G+L_{g}. \tag{1.8}\]
+
+We introduce \(\Delta g(x,Q^{2})\), the polarized gluon distribution function and its first moment \(\Delta G\), as well as the gluon orbital angular momentum \(L_{g}\)[32]. This sum rule is formulated in a particular gauge (\(A^{+}=0\)) in the light cone frame and valid only in that gauge. It should be noted that currently we lack an experimental means of measuring the gluon orbital angular momentum (\(L_{g}\)). A more robust discussion of this spin sum rule can be found in [24] and [32]. This thesis will focus on constraining \(\Delta G\), the first moment of the polarized gluon distribution function and its contribution to the proton's spin.
+
+Before we proceed further, we stress that understanding the spin decomposition of the proton is far more than an exercise in understanding the structure of a specific hadron. Instead, it is a deep exploration of a strongly interacting gauge theory. Indeed, QCD is the only strongly interacting gauge theory manifested in nature. Understanding QCD in it's fullest extent is very likely a critical step in any attempt at a unified theory of fundamental particles and interactions.
+
+### 1.4 Constraining \(\Delta G\) with a Hadron Collider
+
+A thorough review of previous experiments designed to study proton spin (and specifically the gluon contribution \(\Delta g(x,Q^{2})\)) can be found in [31]. Because photons do not couple to the gluon, lepton-nucleon scattering measurements rely on higher-order interactions to probe gluon distributions. A far more direct approach involves probing quark-gluon and gluon-gluon scattering (where the gluon is probed at leading order) in direct collisions of polarized protons at high energies, the subject of this work.
+
+[MISSING_PAGE_FAIL:29]
+
+Figure 1-4: Polarized parton distributions at \(Q^{2}=10GeV^{2}\) by De Florian, Navarro, and Sassot [20]. The green (yellow) uncertainty band correspond to \(\Delta\chi^{2}=1\) (\(\Delta\chi^{2}=2\%\).) Note the tightly-constrained quark distributions, left and center, compared to the loosely-constrained gluon distribution, right.
+
+Figure 1-3: Several theoretical predictions for \(A_{LL}^{pp\to\pi^{0}+X}\). The different predictions corresponds to different functions of \(\Delta g(x,Q^{2})\) calculated under different assumptions for the shape of \(\Delta G\). For more details see [26][25][22].
+
+#### The \(\pi^{0}\)
+
+The \(\pi^{0}\) is an electromagnetically neutral particle composed of an admixture of \(u\bar{u}\) and \(d\bar{d}\) quark-antiquark pairs (\(\pi^{0}=\frac{1}{\sqrt{2}}(|u\bar{u}\rangle-|d\bar{d}\rangle)\)). The \(\pi^{0}\), at \(\sim 135\ MeV/c^{2}\), is the lightest known meson. It decays electromagnetically and has a mean lifetime of \(8.4\times 10^{-17}\) seconds, which corresponds to \(c\tau=25.1\ nm.\) The primary decay mode, with a branching fraction of \(98.8\%\), is \(\pi^{0}\to 2\gamma\)[52]. As we will discuss extensively in Chapter 3, we identify \(\pi^{0}s\) through this decay channel, by reconstructing both daughter photons. The lifetime of the \(\pi^{0}\) is exceedingly small so for our experimental purposes its decay is approximately instantaneous.
+
+### 1.5 Structure of This Thesis
+
+In the remainder of this thesis we report a measurement of \(A_{LL}^{pp\rightarrow\pi^{0}+X}\), the double longitudinal spin asymmetry for inclusive neutral pion production in polarized \(pp\) collisions at \(\sqrt{s}=200\) GeV center of mass energies with the STAR detector and then use that result to constrain the gluon polarization \(\Delta G\). Chapter 2 discusses the experiment in detail, focusing on polarized proton collisions and the subdetectors of principle interest in this analysis. Chapter 3 describes \(\pi^{0}\) identification as well as the many simulation tools used throughout the analysis. Chapter 4 focuses on the inclusive, unpolarized cross section measurement, which will be used to validate our theoretical framework. Chapter 5 describes the \(A_{LL}\) measurement in all its detail. The last chapter is reserved for interpretation and discussion. Here we relate measurement to theory and use our results to ascertain the veracity of pQCD as the proper framework for describing our experiment. Further we use the \(A_{LL}\) measurement from chapter 5 to constrain \(\Delta G\) within the theoretical framework described.
+
+## This Page Internationally Left Blank
+
+## Chapter 2 Experimental Overview
+
+### 2.1 Relativistic Heavy Ion Collider
+
+The Relativistic Heavy Ion Collider (RHIC) was designed and built at Brookhaven National Lab (BNL) to probe QCD in two rich programs:
+
+1. The hot, dense state of matter created in the collisions of heavy ions at energies reaching 100 GeV/nucleon.
+2. The spin structure of the nucleon through the collisions of high-energy polarized protons.
+
+In this work we are concerned solely with the latter program and will examine data only from polarized proton collisions at a center-of-mass energy (\(\sqrt{s}\)) of 200 GeV.1 RHIC is the world's only polarized proton collider. RHIC thus provides unique access to the underlying spin structure of the nucleon. The Solenoidal Tracker at RHIC (STAR) detector is one of two currently operating experiments at RHIC. We will focus this chapter on the elements of RHIC and STAR relevant to the spin physics program.
+
+### 2.2 RHIC and Polarized Protons
+
+Figure 2-1 shows the RHIC complex consisting of a polarized proton source, linear accelerator (LINAC), booster accelerator, Alternating Gradient Synchotron (AGS) and the RHIC accelerator [29]. Polarized protons are created in an optically pumped polarized \(H^{-}\) source (OPPIS). Hydrogen gas is ionized and the unpolarized \(H^{+}\) ions are extracted. The \(H^{+}\) ions then acquire polarized electrons from an optically pumped rubidium vapor. The polarization of the electron is transferred to the proton. The atoms then attract a second electron, forming an \(H^{-}\) ion. The hydrogen ions, produced with 80% polarization, are stripped of their electrons then sent through the LINAC, where they are accelerated to 200 MeV. The proton bunches are injected into a booster ring where they reach energies of 2 GeV and then into the AGS where they reach energies of \(\sim\)23 GeV. Finally, they are split and injected into the two RHIC rings where they are accelerated to their final energies of 100 GeV.
+
+RHIC consists of two storage rings, referred to as the blue and yellow rings. Each ring has a total of 120 fillable bunches. During Run 6, 111 of these bunches were
+
+Figure 2-1: The RHIC complex at BNL. The salient features for polarized operations are identified. STAR is located at the “six o’clock” position at RHIC.
+
+filled with protons. Nine consecutive bunches are left empty as an "abort gap" to allow for clean beam dumping. Bunches from the two different rings can collide at any of six possible interaction regions at RHIC, although during the portion of Run 6 dedicated to 200 GeV running only two of the interaction regions were used. More information regarding accelerating and storing polarized protons can be found in [5] and [30].
+
+#### Polarization Tools: Siberian Snakes and Polarimeters
+
+Maintaining beam polarization while accelerating proton bunches to 100 GeV is a nontrivial exercise. We draw particular attention to two integral components that differentiate "polarized" operations: Siberian snakes and polarimetry.
+
+A Siberian snake is a helical dipole magnet designed to prevent loss of beam polarization during acceleration and store of proton bunches. A detailed review of Siberian snakes can be found in [39]. The stable polarization configuration is that with the spin vector perpendicular (transverse) to the beam direction. Polarization is lost in depolarizing resonances, when the frequency of the spin procession matches the frequency of a perturbation of the spin. Such perturbations arise either as a natural side-effect of acceleration, when the betatron oscillation period matches that of the spin precession, or out of imperfections in the magnetic field. Snakes protect against the effects of these depolarizing resonances. They create a magnetic field that rotates the spin vector \(180^{\circ}\) in the polar plane so that it exits the magnet with its transverse component opposite from the way it entered. Thus any depolarizing effects felt by a proton during one revolution will be cancelled by the effects felt in the next. A snake that flips the spin vector the full \(180^{\circ}\) is called a _full_ snake. Figure 2-2 shows the evolution of the spin vector as it passes through a full snake. Partial snakes rotate the spin vector in the polar plane by some fraction of \(180^{\circ}\). In this case, the polarization vector is flipped over a number of revolutions. Siberian snakes are unique components in RHIC; they are not installed in other hadron colliders such as the Tevatron or LHC. In Run 6, due to space considerations, a 15% snake was used in the AGS and two full snakes were used in each RHIC ring. Special magnetscalled _spin rotators_ rotate the spin vector \(90^{\circ}\) before entering the IR, and then back afterward.
+
+We also must be able to accurately measure the polarization of the beams to interpret our results. RHIC uses two types of polarimeters to measure the absolute polarizations of the beams: a Coulomb-nuclear interference polarimeter and a hydrogen jet gas polarimeter.
+
+The first polarimeter takes advantage of Coulomb-nuclear interference (CNI) effects in elastic proton-Carbon (pC) scattering. A schematic of this polarimeter is shown in Figure 2-3. A thin carbon target is inserted into the beam. Protons scatter off of carbon atoms, which are collected by six silicon strip detectors surrounding the beam. A left-right asymmetry, with respect to the beam, in scattered carbon atoms is sensitive to the polarization of the beam. The main advantage of the measurement technique is the high event rates observed in the elastic pC scattering. Within \(\sim\)2 minutes of the strip being inserted in the beam, enough statistics are recorded to make a \(\pm\)1% measurement of the asymmetry. The speed of this measurement allows for periodic monitoring of the beam polarization. Both the blue and yellow rings, as well as the AGS, have their own CNI polarimeters. More details about CNI polarimetry
+
+Figure 2-2: Precession of the spin vector as it traverses a full Siberian snake. The blue line indicates the direction of the beam.
+
+can be found in [51].
+
+The CNI polarimeter is calibrated by scattering the beam off of polarized protons in a hydrogen jet (H-jet) target. Figure 2-3 shows a schematic of this polarimeter. Silicon strip detectors on either side of the beam capture the scattered protons. As in CNI polarimeters, the left-right scattering asymmetry with respect to the beam is sensitive to the beam polarization. This is a standard technique in measuring the polarization of proton beams. Since the target's polarization is measured with a Breit-Rabi polarimeter and known in this case, the analyzing power of the interaction can be measured at the same time as the scattering asymmetry. This allows for an absolute measurement of the beam polarization to within \(\pm 3\%\). Unfortunately, this apparatus has a low scattering rate due to the low density of the target gas. This makes the H-jet polarimeter impractical for fill-by-fill polarization monitoring. Instead, we use the results from dedicated H-jet runs to calibrate the CNI polarimeters. The two types of polarimetry, taken together, allow real-time absolute polarization monitoring with 5% precision for the entire RHIC run. More information about the H-Jet polarimeter at RHIC can be found in [40].
+
+Figure 2-3: Left: Schematic of the pC CNI polarimeter used in RHIC. The red dot in the middle represents the beam whose direction is into (or out of) the page. Right: Schematic of the \(pp\) jet polarimeter. The purple cylinder represents the polarized \(H^{-}\)-jet target.
+
+#### Performance
+
+Table 2.1 shows the performance of RHIC in polarized mode over its lifetime. The uncertainty in \(A_{LL}\) is
+
+\[\sigma_{A_{LL}}\sim\ \frac{1}{P^{2}*\sqrt{\int Ldt}}. \tag{2.1}\]
+
+Thus, the figure of merit (FOM) for determining the potential sensitivity of a data set is
+
+\[FOM=P^{4}*\int Ldt, \tag{2.2}\]
+
+where \(P\) is the average beam polarization and the integral term represents the total integrated luminosity for the data set. From this equation we can see why the Run 6 data set is so promising for a precise asymmetry measurement. The integrated luminosity (in longitudinal mode) is more than twice that of Run 5 and the average polarization is increased from 46% to 55%. Since the average polarization is taken to the fourth power, even a modest increase in polarization yields a large gain in FOM.
+
+### 2.3 Solenoidal Tracker At RHIC
+
+The STAR detector is shown in Figure 2-4. It is equipped with various sub-detectors designed for tracking charged particles, vertexing the event, particle identification, and calorimetry. A detailed description of STAR and all its components can be found in [1] and references therein. This section will focus primarily on the sub-detectors used in identifying mid-rapidity \(\pi^{0}s\), most notably the Barrel Electromag
+
+\begin{table}
+\begin{tabular}{c c c} \hline \hline RHIC Run & \(\mathcal{L}\) [\(pb^{-1}\)] & \(\langle P\rangle\) \\ \hline
+2 & 0.35 & 15\% \\
+3 & 1.0 & 30\% \\
+4 & 0.4 & 40\% \\
+5 & 3.4 & 46\% \\
+6 (long.) & 7.5 & 55\% \\
+6 (trans.) & 3.2 & 55\% \\ \end{tabular}
+\end{table}
+Table 2.1: RHIC Performance in Polarized Operationsnetic Calorimeter (BEMC) and Barrel Shower Maximum Detector (BSMD), but also to a lesser degree the Time Projection Chamber (TPC), Beam-Beam Counters (BBC), and Zero-Degree Calorimeter (ZDC).
+
+#### Barrel Electromagnetic Calorimeter
+
+The BEMC [8], a lead-scintillator sampling calorimeter, is the most important sub-detector of STAR used in this analysis. It resembles a large hollow cylinder with an inner radius of \(\sim\)225 cm and an outer radius of \(\sim\)265 cm. It sits outside the TPC (described in section 2.3.3.) The active volume covers an azimuthal angle, \(0<\phi<2\pi\), and pseudorapidity range, -1 \(<\eta<\) 1. Figure 2-5 shows a drawing of the BEMC. The BEMC is a "fast" detector; the energy depositions it measures are digitized faster than the bunch crossing rate. BEMC-based triggers are the primary triggers used to
+
+Figure 2-4: A cutaway view of the STAR detector.
+
+tag rare hard-scattering processes in STAR. The triggers used in this analysis will be discussed in detail in section 3.2.
+
+The BEMC is divided into equal sized halves, each \(\sim\)300 cm long along the beam axis. Run 6 is the first RHIC Run in which the entire BEMC was commissioned for data taking. Each half barrel is made up of 60 identical modules of dimension \(\Delta\eta\times\Delta\phi=1.0\times 6^{\circ}\). Each module is further divided into 40 towers, each one projecting towards the center of the STAR detector. A cross section of two towers side by side can be seen in Figure 2-6. Two halves with 60 modules and 40 towers per module yields 4800 towers in the whole BEMC. Each tower is broken up into an inner and outer tower, separated by the BSMD, which will be discussed later. The inner tower consists of 5 layers of lead and five layers of Kuraray SCSN82 scintillator. The outer layer consists of 15 layers of lead and 16 layers of scintillator. Each layer is 5 mm thick, except the first 2 scintillator layers which are 6 mm thick and make up the pre-shower detector used for \(e^{-}/\gamma\) separation. The BEMC sampling fraction \(f_{samp.}\) is parameterized as [37]
+
+Figure 2-5: BEMC with no other STAR detectors.
+
+\[f_{samp.}^{-1}=14.69-0.1022*\eta+0.7484*\eta^{2}. \tag{2.3}\]
+
+The scintillator layers are read out with an embedded wavelength shifting fiber which is routed outside the STAR magnet. The light from all 21 layers is gathered and collected in a single Electron Tube Inc. model 9125B photomultiplier tube (PMT). The scintillator layers are machined in "megatiles" which are the size of a BEMC module. A single scintillator layer covers all 40 towers in a module. Optical isolation between towers is obtained by machining grooves 95% of the way through the scintillator sheet between the individual tiles and filling those grooves with an opaque epoxy. This ensures that the leakage of scintillator light between tiles in a megatile is negligible; the level of cross-talk between individual tiles is \(<0.5\%\). Test beam data, as well as _in situ_ cosmic ray tests have shown the nominal energy resolution of the
+
+Figure 2.6: Cross section of two BEMC towers side by side. The alternating grey and white bands show the layers of lead and scintillator. The SMD is visible in this cross section, sits 10 layers up from the bottom.
+
+BEMC to be [8]
+
+\[\frac{\delta E}{E}=\frac{14\%}{\sqrt{E~{}[GeV]}}\bigoplus 1.5\%. \tag{2.4}\]
+
+The BEMC measures the positions and energies of particles traversing its active layers, analyzing the electromagnetic showers, or cascades, caused by these particles. Photons interact with the lead layers through electron-positron pair production. The resultant electrons and positrons will lose energy via bremsstrahlung and the photons created therein will also pair-produce. This continues until the energies of the cascading particles are low enough for atomic absorption at which time the shower will die out. The cascading particles create scintillation photons which are collected as described above. Showers extend both longitudinally (in the direction of the incident particle) and transversely. Towers are \(\sim\)21 radiation lengths (\(X_{0}\)) deep and \(\sim\)9 Moliere radii (\(R_{M}\)) wide (in both \(\eta\) and \(\phi\) directions).2 For our energy range, the large size helps prevent showers from leaking into neighboring towers or exiting the back of a tower. Unfortunately, the large transverse size of the towers limits the position resolution of the BEMC and prevents the BEMC from resolving two showers contained in a single tower. This task is handled by the Barrel Shower Max Detector (BSMD), which is discussed below.
+
+Footnote 2: \(R_{M}\) for Pb \(\approx 1.6\) cm.
+
+The BEMC is not designed to fully contain hadronic showers. The interaction length (\(\lambda_{I}\)) in Pb is \(\sim\)17 cm, large compared to the active depth of a tower (\(\sim\)10 cm). The amount of material needed to contain a fixed percent of the energy in a hadronic shower is proportional to the incident energy. In our energy range (\({\cal O}(1-10~{}GeV)\)), the BEMC would have to be \(\sim\)10x deeper to contain 95% of the energy in a hadronic shower [52]. Most hadrons will pass through the calorimeter without showering and will deposit only a minimal amount of energy in the scintillator layers. These minimum ionizing particles (MIPs) are used to calibrate the BEMC as will be discussed later.
+
+#### Barrel Shower-Max Detector
+
+The BSMD [8] is designed to provide fine-grain position resolution for electromagnetic showers within a single BEMC tower and \(e^{-}/\gamma\) separation. More specifically for this analysis, it separately identifies two decay photons from a \(\pi^{0}\) within a single tower. It consists of a multi-wire proportional counter with gas amplification and two-dimensional cathode strip readout. For an electromagnetic shower, the distance between first interaction and point of maximum transverse extent grows logarithmically with incident particle energy. The BSMD sits a the nominal point of maximum transverse extent of an electromagnetic shower ("shower max"). This corresponds to \(4.6X_{0}\) at \(\eta=0\) and \(7.1X_{0}\) at \(\eta=1.\) A (partial) cross section of the BSMD is shown in Figure 2-7 and some relevant parameters are shown in table 2.2. In total, there are 36000 readout strips in the BSMD. A \(2\times 2\) group of towers, covering \(0.1\times 0.1\) in \(\eta-\phi\) space contains 15 \(\phi\)-strips and 15 \(\eta\)-strips.
+
+The BSMD is filled with a 90/10 mixture of argon and carbon-dioxide gas. Charged particles leave a trail of ionization electrons as they traverse the detector's cavity. The ionization electrons then drift towards the high voltage wires. As they approach the wires, the strength of the electric field induces secondary ionization and an avalanche of electrons impinging on the wire. This in turn causes an image charge on the read
+
+\begin{table}
+\begin{tabular}{l r} \hline \hline Chamber Depth in BEMC & \(\sim 5X_{0}\) at \(\eta=0\) \\ Rapidity Coverage (single module) & \(\Delta\eta=1\) \\ Azimuthal Coverage (single module) & \(\Delta\phi=6^{\circ}\) \\ Occupancy (p+p) & \(\sim 1\%\) \\ Chamber Depth & 20.6 mm \\ Wire Diameter & 50 \(\mu\)m \\ Gas Amplification & 3000 \\ Signal Length & 110 ns \\ BSMD\(\eta\) Strip Width (Pitch) & 1.46 (1.54) cm for \(|\eta|<0.5\) \\  & 1.88 (1.96) cm for \(|\eta|>0.5\) \\ BSMD\(\phi\) Strip Width (Pitch) & 1.33 (1.49) cm \\ Strips per Module & 300 \\ Modules & 120 \\ Total Readout Channels & 36000 \\ \end{tabular}
+\end{table}
+Table 2.2: BSMD ParametersFigure 2-7: Partial cross section of a single BSMD module
+
+Figure 2-8: Schematic of the BSMD. The position of EM showers can be reconstructed by matching signals in both BSMD planes as seen here.
+
+out strips closest to the wires. The total ionization on the wires is proportional to the original number of ionization electrons liberated by the charged particle, as is the image charge on the cathode strip readouts. The inner strips, closest to the beam line, run in the \(\phi\) direction and are thus sensitive to \(\eta\) position of the shower. The outer strips run in the \(\eta\) direction and are sensitive to the \(\phi\) position of the shower. Figure 2-8 shows the BSMD using both planes in concert to reconstruct the transverse profile of an electromagnetic cascade. The readout strips provide much finer position resolution than possible with the BEMC alone. In the relevant direction, the strips are separated by \(\sim\)0.006 rad. Test beam data shows the position resolution, \(\delta x\) to be
+
+\[\delta x=\frac{5.6}{\sqrt{E~{}[GeV]}}\oplus 2.4~{}mm, \tag{2.5}\]
+
+for the inner plane and
+
+\[\delta x=\frac{5.8}{\sqrt{E~{}[GeV]}}\oplus 3.2~{}mm, \tag{2.6}\]
+
+in the outer plane. The energy resolution of the BSMD has also been measured in a test beam environment and shown to be
+
+\[\delta E/E=\frac{86\%}{\sqrt{E~{}[GeV]}}\oplus 12\%, \tag{2.7}\]
+
+for the inner plane and 3-4% worse for the outer plane [8].
+
+#### Time Projection Chamber
+
+The large-volume, large-acceptance Time Projection Chamber (TPC) is a gas-filled cylinder providing charged-particle tracking and momentum determination as well as particle identification through \(dE/dx\), over \(\Delta\eta=\pm 1.8\) and full azimuthal angle. The technical details and analytical power of the TPC has been written about extensively in [6] and [43]. This section will provide only a brief overview of the TPC as relevant to the \(\pi^{0}\) analysis. Figure 2-9 shows a drawing of the TPC.
+
+The volume of the cylinder is filled with a 90/10 mixture of argon and methane gas. Charged particles traversing the TPC will liberate electrons via ionization. These electrons drift in the uniform electric field towards readout planes on the endcaps. Equipotential field cage cylinders maintain a uniform electric field gradient between the central membrane, which is held at 28 kV, and the TPC endcaps which are held at ground. The electron drift velocity in the TPC is \(\sim\)5.5 cm/\(\mu\)s, and maximum drift time from the center to the endcap is 40 \(\mu s\). Readout pads on the endcaps provide radial and azimuthal position information for the ionization electrons, and drift time provides axial position information. The TPC can image and reconstruct the 3-dimensional trajectories of charged particles produced by \(pp\) and heavy-ion collisions.
+
+The TPC's primary uses in this analysis are for vertex finding and charged particle vetoing. It reconstructs all of the charged tracks emanating from a collision and extrapolates the tracks in either direction, locating the event vertex. The uncertainty on the position of the vertex is less than 1 mm, even for events with relatively few charged tracks.
+
+Figure 2.9: STAR TPC [6]
+
+The second task of the TPC in this analysis is vetoing charged-particle depositions in the BEMC. While the BEMC/SMD combination provides excellent energy and position information for incident particles, they yield little particle identification information. TPC tracks are extrapolated to the BEMC and associated with energy signatures in the towers. This allows us to discriminate between charged and neutral energy signatures. Since this analysis is only interested in photon signatures, particles with charged tracks reconstructed in the TPC are thrown out.
+
+#### Beam-Beam Counters
+
+The STAR Beam-Beam Counters (BBCs) are not pictured in Fig 2-4 as they sit surrounding the beam pipe 374 cm on either side of the interaction point [35]. Each BBC consists of two sets of hexagonal scintillation tiles as shown in Figure 2-10. The tiles cover the full azimuthal angle and a \(\eta\) range of \(2.1<|\eta|<5.0\) (the outer tiles cover \(2.1<|\eta|<3.6\) and the inner tiles cover \(3.4<|\eta|<5.0\)) [34]. Like in the BEMC, wavelength shifting fibers imbedded in the scintillator tiles carry the signal to PMTs. An inelastic collision in STAR's interaction region will yield fragments that travel down the beam pipe very slightly perturbed from the original beam path. These fragments will interact with the tiles of the BBCs on either side of STAR.
+
+Figure 2-10: STAR BBC. The “B” in the center represents the beam pipe.
+
+Coincident signals in the inner tiles of both BBCs signify a collision and are used as an event trigger. The BBCs also monitor luminosity and beam polarization.
+
+#### Zero Degree Calorimeters
+
+The Zero Degree Calorimeters (ZDC)) [3] are hadronic calorimeters designed to detect neutral beam remnants and measure their energies. They sit 18 meters up- and downstream of the interaction point on either side of STAR, beyond the dipole magnets that steer the charged beam back into the pipe. Each ZDC consists of three identical modules of alternating layers of tungsten-alloy and scintillator, tilted at 45\({}^{\circ}\) angle to the beam pipe. The location of the ZDC is shown in Figure 2-11. Most of the charged remnants are diverted by the beam-line magnets and do not deposit energy in the ZDCs. The scintillation light from the ZDCs is collected in an array of PMTs. While they are often used for triggering on collisions, in this analysis the ZDCs will act as an independent measure of the relative luminosity, providing an important check on the BBCs.
+
+Figure 2-11: Location of the STAR ZDC (red) with respect to the nominal interaction point.
+
+## Chapter 3 Data Acquisition and Reconstruction
+
+This chapter details data collection and analysis. We begin by introducing the terminology surrounding data collection at STAR. We discuss the process of converting raw detector information into meaningful physics data and then detail the myriad selections and optimizations we apply to enhance data quality and reduce backgrounds. We then introduce the simulation framework used to validate our understanding of the STAR detector. We describe the analysis algorithm used to identify \(\pi^{0}\) candidates in the post-collision environment. Finally, we present a comparison between data and simulation.
+
+### 3.1 Run Overview
+
+The 2006 polarized \(pp\) run began in February of 2006 and ended in June of 2006. The data collection was divided into three segments: an initial period of longitudinally-polarized proton collisions, a middle period of transversely-polarized proton collisions, and a subsequent second period of longitudinally-polarized proton collisions. All of the data discussed in these studies were recorded during the second period of longitudinal running (Long2) which began in May of 2006 and ended at the conclusion of Run 6.
+
+The Long2 running period is broken down into shorter time periods called fills and runs. A fill is the lifetime of a single beam fill in RHIC. At the beginning of a fill new proton bunches are injected into both rings. As the beams collide their intensities degrade exponentially over time. Normally a fill will last for six hours before the beam is dumped and refilled. Fills are further segmented into runs, which demarcate the time periods when subdetectors are live and taking data. They can last anywhere from 1 minute to 2 hours, but are optimally 30 minutes long. The triggering system, described in the next section, selects proton-proton collisions of various topologies. An event consists of all the information that is digitized following a trigger. The data used in this study are comprised of \(\sim\)2.4M triggered events from 306 runs in 39 fills.
+
+### 3.2 Triggering System
+
+At RHIC, every 109 ns two bunches containing \(\mathcal{O}(10^{11})\) protons each cross paths in the interaction region at the center of STAR. The majority of these events are rejected. For this analysis we are concerned with the production of high-\(p_{T}\)\(\pi^{0}s\) and we would like to discard, as early as possible in the data collection stream, any event that has a low probability of containing one.
+
+STAR employs a set of triggers to filter out unwanted events. These trigger conditions are based on information gathered in STAR's fast detectors, including the BEMC and BBCs1[9]. Digitized signals from these detectors are sent through a decision tree encoded with the logic for all trigger conditions. The decision tree outputs a 16 bit signal indicating which, if any, trigger conditions are satisfied and how the rest of the Data Acquisition System (DAQ) should proceed in collecting the event data.
+
+Footnote 1: Also the Endcap Electromagnetic Calorimeter, Central Trigger Barrel, Time-of-flight, and Forward Muon Spectrometer, not discussed in this thesis.
+
+The entire trigger decision process occurs at a rate faster than the bunch crossing frequency (\(\sim\)10MHz). In Run 6, the maximum rate that events could be written to tape was \(\sim\)100Hz,2 limited by electron drift time in the TPC. Thus, the trigger system must reduce the data stream by a factor of \(10^{5}\) so it can be managed. Common triggers can be "prescaled" such that only one event out of a specified number satisfying the trigger is written to tape. This prevents common triggers from dominating the bandwidth and allows rare events to be recorded in full. While STAR uses a number of different triggering algorithms to select interesting events, two are of particular interest to this analysis: the minimum bias and level-2 gamma triggers.
+
+#### Minimum Bias Trigger
+
+The minimum bias (MB) trigger condition is the most inclusive of the triggers employed in Run 6. It accepts any event that causes BBC signals coincident in time. After a collision, beam fragments and forward scattered particles travel in the direction of the beam pipe until impinging on BBC tiles. Coincident signals in both the east and west BBCs indicates a collision has occurred. The BBC coincident cross section has been measured by Van der Meer scan [47] to be \(26.1\pm 0.2_{stat.}\pm 1.8_{sys.}\) mb. In Run 6 a pre-scale factor was applied to the MB trigger. Only a fraction of events satisfying MB were written to tape, allowing more bandwidth to be conserved for rarer triggers.
+
+#### Level-2 Gamma Trigger
+
+The MB trigger will by design accept the majority of events in which there is a collision. We need, in addition to MB, a trigger that will select the rare events containing high-\(p_{T}\)\(\pi^{0}s\). The level-2 gamma (\(L2\gamma\)) trigger was designed to be a high-\(p_{T}\)\(\pi^{0}\) and photon trigger.
+
+For an event to satisfy the \(L2\gamma\) trigger condition it must satisfy the MB condition plus two energy requirements in the BEMC. First, at least one tower in the BEMC must have an energy deposition greater than a set threshold. Second, the 3x3 tower patch, centered on the central high tower, must have an energy deposition greater than a second, larger, threshold. A schematic of the trigger conditions can be seen in fig 3-1. This trigger is better able to identify events where the energy of the decay photons is spread over more than one tower. Over the first \(\sim\)100 runs of the Long2 period, the tower and patch thresholds were adjusted to optimize the trigger rates. Values of 3.8 GeV (tower) and 5.2 GeV (patch) were settled on as the optimum thresholds.
+
+### 3.3 The STAR Simulation environment
+
+The STAR collaboration developed a sophisticated Monte Carlo (MC) simulation suite to determine efficiencies of our detector and reconstruction algorithms. We use this MC suite to correct our data so our results can be meaningfully compared those from other RHIC Runs and other experiments.
+
+The cornerstones of the STAR simulation (STARSIM) package are the PYTHIA event generator [46] and the geometry and tracking software, GEANT [15], both standard tools in high energy physics. PYTHIA simulates the QCD interactions that underly the \(pp\) collisions in RHIC and the particles produced therein. GEANT simulates the passage of those particles through the STAR detector using a detailed software model of STAR. GEANT simulates physical processes such as bremsstrahlung, Compton scattering, and ionization, and has the ability to accurately reproduce elec
+
+Figure 3.1: 3x3 tower “trigger patch” showing configuration of L2\(\gamma\) trigger condition.
+
+tromagnetic showers and the passage of charged particles through gaseous detectors. GEANT tracks and records the energy depositions from simulated QCD events in all of the various subdetectors within STAR. With these two pieces of highly-tuned software we are able to accurately simulate the detector response and data collection process at STAR. Simulated events are subjected to the same reconstruction algorithm, described in 3.4, as the data.3
+
+Footnote 3: The data itself is also subject to the simulated, or software, trigger algorithm. Hot and cold towers are masked in the software trigger, removing “false” triggers caused by hardware malfunctions.
+
+This analysis uses a filtering system in PYTHIA designed to more efficiently utilize STAR's computing resources. Events generated in PYTHIA ("true" events) are sent through a filter to check for the presence of a high-\(p_{T}\)\(\pi^{0}\). Any true event without at least one \(\pi^{0}\) with \(p_{T}\geq 3\) GeV is aborted before being sent to GEANT and our reconstruction algorithms ("reco" events), which are the most computationally expensive part of STARSIM. The filter cutoff is set at 3 GeV, well below the trigger threshold, to avoid turn-on effects that would introduce a bias in the simulation. With this method, STAR can simulate orders of magnitude more high-\(p_{T}\)\(\pi^{0}\)s than previously available, significantly reducing the statistical uncertainty in "reco" MC events.
+
+### 3.4 Event Reconstruction
+
+Once an event satisfies a trigger condition, the detector information is recorded on disk. The details of the DAQ are discussed thoroughly in [38]. Analog signals from the detectors are read out and digitized by the front end electronics. Detector information such as ionization signals in gaseous detectors or the PMT voltages in calorimeters is collected and converted to digital form and written to tape. The STAR reconstruction team then analyzes these raw DAQ files and converts them to the Micro Data Summary Tape format (MuDST). This file format stores and gives access to physical event-level quantities such as TPC tracks, interaction vertices, and calorimeter information. Raw digital spectra (in what are called analog-to-digital conversions or ADCs) are also saved in the MuDSTs. This information is integral to offline calibration and detector QA efforts.
+
+#### BEMC Calibration
+
+The BEMC is the most vital detector for this analysis. We rely on the BEMC to detect the daughter photons from \(\pi^{0}\) decays and accurately reconstruct the energies and positions of these photons along with any other collision product that interacts electromagnetically. Before any data from the BEMC can be used for physics, the detector needs to be properly calibrated. We determine the relationship between ADC count and deposited energy for each of the 4800 individual towers. This task, which is done _in situ_, is made difficult by a number of factors. There is limited test beam data for the BEMC. The high-voltage settings on the BEMC PMTs were changed between Runs 5 and 6 to increase the dynamic energy range of the towers. Thus, the Run 6 calibration procedure was unable to iterate on previous efforts and had to start from scratch. Finally, the number of calibration "standard candles," such as \(J/\psi\), \(v\) and \(Z\) bosons, in this data set is insufficient for calibration purposes.
+
+The first step in calibrating the BEMC is setting the high-voltage for each of the tower PMTs. The desired full-scale energy was changed from 30 GeV in run 5 to 60 GeV in Run 6. Each tower's high voltage setting is initially determined using reference LEDs. The high-voltages are then adjusted in an iterative process designed to equalize the energy response of all of the towers to the LED pulse. The ADC spectrum is recorded for each tower and then fit, in a window above the pedestal peak, to a falling exponential function. The slope of this fit is used to measure the tower's gain. The high-voltages of the towers are adjusted to equalize slopes. Finally a factor of \(\frac{1}{sin\theta}\), where \(\theta\) is the polar angle measured from the beam pipe, is applied to each tower to obtain a constant transverse energy response (\(E_{T}\)) across the barrel. This procedure is repeated iteratively until the towers converge on uniform \(E_{T}\) response.
+
+Offline, an absolute calibration is performed using physics data [18]. The procedure makes use of two probes, MIPs and electrons, to test and correct the energy response of the individual towers. MIPs are charged hadrons that do not shower in the BEMC, but instead passes through it depositing a predictable amount of energy (250-300 MeV) from ionization loss. The energy signature of a MIP is independent of the true energy of the particle and has been measured for the BEMC in test beam experiments. Because they are abundantly produced in \(pp\) collisions, MIPs are an excellent tool for calibrating the BEMC at low energies [19]. MIPs are identified as isolated tracks in the TPC associated with BEMC energy depositions. Figure 3-2 shows a typical MIP ADC spectrum. The MIP peak is fit to a gaussian plus background distribution. The MIP spectrum is measured for each tower and the gains are adjusted to equalize all the towers' energy responses within an eta ring. The MIPs are only used as a relative calibration tool. Towers within an eta ring are adjusted to have identical energy responses to MIPs but the absolute scale of the response is set later.
+
+A second step in the calibration is required to set the absolute scale of the towers' energy response. This method uses electrons, which are identified by their \(dE/dx\)
+
+Figure 3-2: Typical pedestal subtracted ADC spectrum for MIPs in a single tower. The MIP peak is fit to a gaussian+background and the mean is extracted.
+
+signature in the TPC. Electrons, which are produced in the semi-leptonic decays of heavy flavor quarks as well as in photon conversions in the TPC, are less abundant than MIPs but they shower fully in the BEMC, providing a calibration benchmark in the 1-10 GeV energy range. In the case of ideal calibration for both the TPC and the BEMC the ratio of electron energy to its momentum (\(E/p\)) would be unity. In this way, we can use the TPC, previously calibrated, to calibrate the BEMC. There are a number limits to this approach. First, the number of high-\(p_{T}\) electrons produced is small, not nearly enough for a tower-by-tower calibration. Second, electron showers that begin in a single tower may leak into neighboring towers, which introduces uncertainty in the energy measurement, especially when the towers are in different modules. Also, detector material between the event vertex and the BEMC can induce the creation of secondary electrons. To combat these effects, towers are grouped in rings of constant \(\eta\) and the leakage is modeled in simulation and corrected for. For each \(\eta\) ring, the \(E/p\) distribution is plotted and fit to a gaussian. An example plot showing \(E/p\) for one \(\eta\) ring is seen in Figure 3-3. The same correction factor is applied to all the towers in each eta region. The uncertainty on the gain calibration for the BEMC is estimated to be \(\sim\)2%.4
+
+Footnote 4: The derivation of this uncertainty is found in Appendix X.
+
+#### Clustering
+
+Ultimately, \(\pi^{0}s\) are identified by their decay photons that shower and deposit energy in the BEMC. These showers usually deposit energy in multiple BCMD strips and sometimes in multiple towers. Signals from multiple channels and detectors are analyzed and combined to reconstruct incident photons ("clustering"). This clustering algorithm is also responsible for splitting closely spaced clusters, resolving ambiguities in detector combinatorics, and identifying multiple photons in a single tower.
+
+Initial clustering takes place in each of the three detectors5 separately. For each event a list of the energies recorded in each channel (tower or strip) is created. The algorithm searches for channels, starting with the most energetic, that are above a user-defined seed threshold (\(E_{seed}\)). Once a cluster has been identified, the algorithm searches for any adjacent channels with energies that are above a second, lower, threshold (\(E_{add}\)). For each BSMD, an adjacent channel is simply the strip directly on either side of the seed strip. For the two-dimensional tower plane, adjacent channels are any towers sharing a border with the seed tower. Strips and towers are added iteratively in this manner until either 1) the adjacent channel energy falls below \(E_{add}\), 2) the adjacent channel energy is greater than it's neighbor's, or 3) the cluster size reaches its user-defined maximum size, \(N_{max}\). Table 3.1 lists relevant clustering parameters. The resultant channels make a fully formed cluster, with characteristic energy and position, and are subsequently removed from the list.
+
+The clustering algorithm is iterated until all clusters are found in all subdetectors for an event. The next step is to combine clusters from different subdetectors to
+
+\begin{table}
+\begin{tabular}{l c c c} \hline \hline Detector & \(E_{seed}\) [\(GeV\)] & \(E_{add}\) [\(GeV\)] & \(N_{max}\) \\ \hline Towers & 0.4 & 0.05 & 4 \\ BSMD\(\eta\) & 0.4 & 0.005 & 5 \\ BSMD\(\phi\) & 0.4 & 0.005 & 5 \\ \end{tabular}
+\end{table}
+Table 3.1: Clustering Parameters
+
+Figure 3.3: E/p spectrum for electron response in a single eta ring. The spectrum is fit to a gaussian and the mean is extracted. From this mean a gain correction is calculated and applied to the towers in that ring.
+
+create single photon candidates we call BEMC points. Points are rejected unless they contain clusters from the BEMC, BCMD-\(\eta\), and BCMD-\(\phi.\) For the range of \(\pi^{0}\) momenta we are interested in, the minimum separation between decay photons is smaller than the size of a tower and both decay photons regularly strike the same tower. Requiring proper clusters in both BCMD planes allows us to separate and identify both photons in a single tower.
+
+Combining clusters into points is a nontrivial exercise in the case where one tower cluster can be mapped to more than one cluster in either (or both) BCMD planes. A problematic clustering state is illustrated in Figure 3-4. Clearly, the either BCMD-\(\eta\) cluster could be mapped to either BCMD-\(\phi\) cluster. The algorithm calculates the energy asymmetry,
+
+\[A_{energy}=\frac{|E_{\eta}-E_{\phi}|}{E_{\eta}+E_{\phi}}, \tag{3.1}\]
+
+for all possible combinations of \(E_{\eta}\) and \(E_{\phi}\). Since a single photon should deposit roughly the same energy in both planes, the algorithm form points for the combination that minimizes this asymmetry.
+
+Figure 3-4: Problematic point-making situation. Clearly \(\phi_{1}\) could be mapped to either \(\eta_{1}\) or \(\eta_{2}\) SMD clusters; and the same for \(\phi_{2}.\) The clustering energy asymmetry is used to disentangle these states and match proper clusters into points [42].
+
+The algorithm splits the tower cluster energy according to the fractional contribution to the total SMD energy from each point. That is for a single point i,
+
+\[E_{i}=E_{tower}*\frac{E_{\eta i}+E_{\phi i}}{\sum_{j}E_{\eta j}+\sum_{j}E_{\phi j }}, \tag{3.2}\]
+
+where \(E_{tower}\) is the sum of the energies in all of the towers in the tower cluster. The position of each point in \(\eta(\phi)\) is given by the energy weighted average of SMD-\(\eta(\phi)\) strips. For a point with j strips in \(\eta\) and k strips in \(\phi\) the position \(\vec{x}=(\eta,\phi)\) is given by
+
+\[\eta=\frac{\sum_{j}E_{j}*\eta_{j}}{\sum_{j}E_{j}}, \tag{3.3}\]
+
+and
+
+\[\phi=\frac{\sum_{j}E_{j}*\phi_{j}}{\sum_{j}E_{j}}. \tag{3.4}\]
+
+Finally, the algorithm must veto events from charged particles that shower in the BEMC and would otherwise mimic a photon response. This is done by applying a charged track isolation. Any BEMC point with an associated TPC track is thrown out as a photon candidate. A TPC track is considered associated to a BEMC point if
+
+\[\sqrt{\Delta\eta^{2}+\Delta\phi^{2}}<.04, \tag{3.5}\]
+
+where \(\Delta\eta=\eta_{track}-\eta_{point}\) and \(\Delta\phi=\phi_{track}-\phi_{point}\).
+
+#### \(\pi^{0}\) Candidates
+
+Lastly, the photons are associated into \(\pi^{0}\) candidates. Candidates are formed from all photon pairs in an event. Many photons are produced in each event, thus \(\pi^{0}s\) cannot be directly identified. Instead \(\pi^{0}\) are counted statistically using the \(\gamma\gamma\) invariant mass, which manifests itself over many runs and fills as a narrow and intense peak above a wide background. The invariant mass \(M_{inv}\) of a pion is calculated from its two decay photons as
+
+\[M_{inv}=\sqrt{E_{1}E_{2}(1-cos~{}\psi)}, \tag{3.6}\]where \(E_{1,2}\) are the energies of the two decay photons and \(\psi\) is the opening angle between them. Figure 3-5 shows an example \(\gamma\gamma\) invariant mass spectrum. Background candidates contribute to a long combinatoric tail as seen in Figure 3-5. Background subtraction and signal extraction techniques are described in sections 4.2 and 5.4. The pertinent characteristics of each \(\pi^{0}\) candidate, including kinematic quantities (\(\eta\), \(\phi\), \(p_{T}\), etc.) and event-level quantities (run number, beam polarizations, spin state, etc.), are calculated and the information is stored in a custom object class within the ROOT framework [16] which are in turn written to ROOT trees. These trees provide an added abstraction layer to the data, enabling rapid analyses.6
+
+Footnote 6: For example, the Run 6 MuDSTs require more than 10 TB of space and must be stored on multiple servers at RCF while the candidate trees require less than 5 GB of storage space.
+
+#### Event and Candidate Selection
+
+A certain level of quality assurance (QA) is performed to find and remove unstable runs or events. Initially, we examine every run in Long2. Runs with known issues are
+
+Figure 3-5: Typical two-photon invariant mass spectrum. A tall narrow \(\pi^{0}\) mass peak centered around \(.135~{}GeV/c^{2}\) emerges from a broad background distribution. Also visible is the mass peak for the \(\eta\) meson, centered around \(.550~{}GeV/c^{2}\).
+
+identified and removed from analysis. Specific metrics such average vertex position, trigger rate, and \(\pi^{0}\) rate, are calculated. Runs with outlying values of these metrics are also removed. The remaining 306 runs comprise the "golden" run list used in this thesis.
+
+Further selections are made on the individual \(\pi^{0}\) candidates to arrive at a pure sample. We optimize these selection criteria, or cuts, based on the requirements of the measured quantity (\(A_{LL}\) or cross section).
+
+A fiducial volume cut and an event vertex cut are introduced avoid edge effects in the detector. A lower bound is set for single photon energy to reduce backgrounds. Only \(\pi^{0}s\) with \(p_{T}s\) above the trigger threshold are selected for. This ensures that all \(\pi^{0}\) candidates would pass the trigger requirement and avoids trigger bias in the measurement. A mass window is placed around.135 GeV. Finally we select a range of energy asymmetries, \(Z_{\gamma\gamma}\) defined as
+
+\[Z_{\gamma\gamma}=\frac{|E_{1}-E_{2}|}{E_{1}+E_{2}}, \tag{3.7}\]
+
+where \(E_{1,2}\) are the energies of the daughter photons. A \(\pi^{0}\) is equally likely to decay with any energy configuration and theoretically the measured \(Z_{\gamma\gamma}\) distribution should be flat between 0 and 1. In our energy range, however, the \(L2\gamma\) trigger preferentially selects events with a large asymmetry, since a higher energy photon has a better chance of depositing enough energy in the BEMC to satisfy the trigger condition. The measured \(Z_{\gamma\gamma}\) distribution is peaked towards unity. But the background distribution of uncorrelated photons is even more sharply peaked towards unity. An upper bound is placed on \(Z_{\gamma\gamma}\) to optimize signal over background. This upper bound also acts as a \(p_{T}\) dependent minimum energy selection criterion on individual photons, reducing the split-cluster background that is discussed in section 3.5.
+
+[MISSING_PAGE_FAIL:62]
+
+where
+
+\[\Delta\phi(\Delta\eta)=\phi(\eta)_{2}-\phi(\eta)_{1}. \tag{3.10}\]
+
+Figure 3-6 shows a cartoon of this rotation procedure. To minimize error from detector effects, only events with similar z vertices and similar jet axes are mixed. The result is an invariant mass distribution for the background, which can then be normalized to the high mass tail of the data where we expect only combinatoric events. An example of the results of the mixing algorithm is shown in Figure 3-7. The model matches the background shape well in the high mass region and in the region between \(\pi^{0}\) and \(\eta\) peaks. The procedure for rotating jets in mixed events was devised by Oleksandr Grebenyuk at NIKEF; more information can be found in [27].
+
+The second background contribution, the "low mass" background, is an artifact of inefficiencies in the detector and the clustering algorithm. For some small fraction of photons, the clustering algorithm will fail for one of the BSMD planes, resulting in an artificially split cluster. The algorithm will subsequently reconstruct two photons instead of one. These two photons will in turn be reconstructed as a single \(\pi^{0}\) candidate with an uncharacteristically low mass. The algorithm splits clusters for a
+
+Figure 3-6: Illustration of event rotating procedure undertaken in modeling the combinatoric background. Different events are rotated by \(\Delta\eta\) and \(\Delta\phi\) to mimic the underlying jet structure in a single event [27].
+
+Figure 3-8: Illustrations of artificial cluster splitting in the SMD. Red and green bars represent energy responses of neighboring SMD strips. Statistical fluctuations and missing strips can cause erroneous cluster splitting.
+
+Figure 3-7: Mixed event simulation of combinatoric background (in green) compared to data (in black). The “humped” shape of the mixed mass distribution is the consequence of properly rotating the mixed events to mimic the underlying jet study. The mixed event sample clearly matches the data in the high mass region and between the \(\pi^{0}\) and \(\eta\) peaks.
+
+[MISSING_PAGE_FAIL:65]
+
+Figure 3-10: Data and MC distributions for \(\pi^{0}\) transverse momentum.
+
+Figure 3-9: Data and MC distributions for \(\pi^{0}\) pseudorapidity.
+
+algorithm. The invariant mass of a \(\pi^{0}\) is proportional to the energies of the individual photons as well as the opening angle between them (see Eq. 3.6). Any bias towards higher values of either of these parameters will artificially increase the reconstructed mass.
+
+At least three different effects, jet background, wrongly-measured di-photon opening angle, and BEMC energy resolution, combine to cause this \(p_{T}\)-dependence. First, events that produce high-\(p_{T}\) particles are from rare hard scatters. The overall \(E_{T}\) content of these events tends to be greater than softer events, and thus more particles tend to be created adding energetic background. Second, the BCMD strips have a finite distance between them. Because the clustering algorithm requires two separate BCMD clusters to reconstruct a \(\pi^{0}\) and those clusters must have at least one strip between them (or they would be merged) it is biased towards larger-than-average opening angles. In other words, the angle between two photons will be artificially increased to the incremental strip size, biasing \(\pi^{0}\) reconstruction to larger mass. Finally, intrinsic fluctuations in the BEMC energy response cause \(\pi^{0}\) candidates to shift 
+
+[MISSING_PAGE_FAIL:68]
+
+of the four different pieces that contribute to the distribution. The backgrounds contributions are described in section 3.5. The \(\eta\) meson peak is measured using single particle simulation. The pion peak is reconstructed from identified \(\pi^{0}\)s in the filtered PYTHIA full event simulation. These four pieces are simultaneously fit to the data. Figure 3-13 (right) shows the combined MC compared to data. They agree well over a large range in \(M_{inv}\), indicating that the spectrum is well understood in terms of its constituent parts.
+
+Figure 3-13: Left: Two photon invariant mass distribution for data (black points) and various simulation components (see legend) illustrating the method of simultaneously fitting all contributions to the data. Right: Same data distribution compared to combined simulation (red.)
+
+[MISSING_PAGE_EMPTY:70]
+
+## Chapter 4 Cross Section
+
+The invariant differential cross section for inclusive \(\pi^{0}\) production in \(pp\) collisions is [44]
+
+\[E\frac{d^{3}\sigma^{p+p\rightarrow\pi^{0}+X}}{d^{3}p}=\frac{1}{2\pi}\frac{1}{p_{ T}}\frac{1}{\Delta p_{T}\Delta\eta}\frac{1}{\Gamma_{\gamma\gamma}/\Gamma}\frac{1}{C_{ trig+reco}}\frac{N_{raw}}{\mathcal{L}}, \tag{4.1}\]
+
+where:
+
+* \(N_{raw}\) is the background-subtracted raw yield for a particular \(p_{T}\) bin,
+* \(p_{T}\) is the mean \(p_{T}\) of all \(\pi^{0}\)s in a bin,
+* \(\Delta p_{T}\) is a correction for the finite width of the bin,
+* \(\Delta\eta\) is the pseudorapidity coverage (\(\Delta\eta=1.4\) this measurement),
+* \(C_{trig+reco}\) is a correction for finite triggering and reconstruction efficiency,
+* \(\Gamma_{\gamma\gamma}/\Gamma\) = 98.79%, the branching fraction for \(\pi^{0}\rightarrow\gamma\gamma\)[52],
+* \(\mathcal{L}\) is the sampled luminosity.
+
+In this chapter we will detail how each of these quantities is calculated. Then we will show results for the cross section using the Run 6 data. We will conclude with a discussion of systematic uncertainties affecting the cross section measurement.
+
+### 4.1 Data Selection and QA
+
+Previous measurements of inclusive \(\pi^{0}\) production at STAR have shown that the limiting factor in the precision of the measured cross section is systematic uncertainty [27][44]. In these analyses, the systematic uncertainty was up to an order of magnitude greater than the statistical uncertainty. We thus optimize our data selection to control systematics. As was discussed in Chapter 3, the status of towers and BSMD strips change over time. In addition, at the beginning of Long2, \(L2\gamma\) thresholds and pre-scale factors were adjusted to optimized trigger rates. We can reduce our systematics by limiting ourselves to a range of runs corresponding to a stable detector configuration. The average number of \(\pi^{0}\) candidates found per event is a good indicator of stability, since it is sensitive to both the towers and BSMD strips. Figure 4-1 shows the average number of candidates per event as a function of run index. Changes in trigger threshold and pre-scale can be seen in the early running period (the first \(\sim\)100 runs). Changes in tower and BSMD status can be seen throughout the running period, but are most severe in late running (run indices 250+). This cross section measurement is restricted to 85 runs between 7139017 and 7143025, highlighted in Figure 4-1, that correspond to a stable detector configuration.
+
+Figure 4-1: Average number of good \(\pi^{0}\) candidates per triggered event. The arrows show the stable run region used in the cross section analysis.
+
+Signal Extraction
+
+For this set of runs, all \(\pi^{0}\) candidates are identified using the process described in Chapter 3. They are then subjected to a series of selection criteria designed to increase the signal to background ratio of the sample. With the exception of a mass window cut, described later, all selection criteria used for this analysis are listed below:
+
+* Event passes both hardware and software \(L2\gamma\) trigger conditions,
+* Candidate \(p_{T}\geq\) 5.5 GeV/c,
+* Event vertex is found and \(|Z_{vtx}|\leq 60cm\),
+* \(\eta_{cand.}\leq 0.7\),
+* \(Z_{\gamma\gamma}\leq 0.7\), and
+* Charged track veto.
+
+The \(p_{T}\) cut removes trigger bias by ensuring all \(\pi^{0}\) candidates should fire \(L2\gamma\). The vertex cut combined with the \(\eta\) cut form a _de facto_ fiducial volume cut, removing the two tower rings at the outermost edges of the BEMC. These tower rings are difficult to calibrate and are obstructed by more material than the rest of the BEMC. A straight detector \(\eta\)1 cut is not appropriate for this measurement because the cross section is defined over a specified range in _particle_\(\eta\). A detector \(\eta\) cut would leave us with a poorly-defined particle \(\eta\) range. The \(Z_{\gamma\gamma}\) cut serves to reduce backgrounds which tend to be more peaked towards high \(Z_{\gamma\gamma}\). This is shown in Figure 4-2, the cumulative \(Z_{\gamma\gamma}\) distributions for signal (candidates lying within the mass window cut) and background. The \(Z_{\gamma\gamma}\) cut also provides an implicit, \(p_{T}\)-dependent cut on minimum photon energy. Ignoring low-energy photons serves two purposes: increasing signal-to-background ratio, as low-energy photons tend to be from noise (e.g. brehmstrahlung from conversion electrons), and decreasing the BEMC energy-scale systematic, as the BEMC energy resolution decreases with energy.
+
+The surviving \(\pi^{0}\) candidates are separated into nine \(p_{T}\) bins between 5.5 and 21 GeV/c. The bin boundaries and the mean \(p_{T}\) for each of the nine bins is listed in Table 4.1. The \(\gamma\gamma\) invariant mass plots for each of the nine bins are seen in Figure 4-3.
+
+Next, we must subtract from the raw yields the backgrounds, which are modeled as described in Section 3. The background candidates, both for split clusters and combinatorics, are also separated into nine \(p_{T}\) bins. This results in a background "shape" for each bin, the scale of which is determined by the amount of MC produced. Added
+
+\begin{table}
+\begin{tabular}{c c c} \hline \hline Bin Number & \(p_{T}\) Range [GeV/c] & Mean \(p_{T}\) [GeV/c] \\ \hline
+1 & 5.5 - 6.0 & 5.76 \\
+2 & 6.0 - 6.75 & 6.37 \\
+3 & 6.75 - 7.5 & 7.10 \\
+4 & 7.5 - 8.25 & 7.84 \\
+5 & 8.25 - 9.25 & 8.69 \\
+6 & 9.25 - 11.0 & 9.96 \\
+7 & 11.0 - 13.0 & 11.8 \\
+8 & 13.0 - 16.0 & 14.1 \\
+9 & 16.0 - 21.0 & 17.7 \\ \hline \end{tabular}
+\end{table}
+Table 4.1: Cross Section Bins
+
+Figure 4-2: Cumulative \(Z_{\gamma\gamma}\) distributions for data (black) low mass background (red) and combinatoric background (blue). The background samples are sharply peaked towards high \(Z_{\gamma\gamma}\).
+
+Figure 4-3: Raw invariant mass distributions for the nine bins used in this cross section analysis. The \(\pi^{0}\) and \(\eta\) peaks are visible over a wide background.
+
+to these background shapes are invariant mass shapes from MC \(\pi^{0}\)s and \(\eta\)-mesons. The MC \(\pi^{0}\)s are taken from the filtered Pythia sample. The true \(\pi^{0}\)s are associated with reconstructed \(\pi^{0}\) candidates, where association indicates \(\sqrt{\Delta\eta^{2}+\Delta\phi^{2}}\leq 0.01\) where \(\Delta\eta\) and \(\Delta\phi\) are the differences in the positions of reconstructed and true \(\pi^{0}s\). The \(\eta\) mesons are taken from single particle MC. The simulated distributions are then simultaneously scaled to best fit the data. The resulting simulated invariant mass distribution describes the data well over a large range in \(M_{inv.}\). Finally, the normalized background distributions are subtracted from the data. What remains is a mass distribution of pure \(\pi^{0}\)s, centered approximately around \(135~{}MeV/c^{2}\).
+
+To calculate the background-subtracted raw yield, the mass spectrum is fit to a gaussian function in the region surrounding the peak. We calculate the integral of the \(M_{inv}\) spectrum from \(\mu-3\sigma\) to \(\mu+3\sigma\), where \(\mu\) is the mean of the gaussian fit. Figure 4-4 shows the background subtracted invariant mass spectra. From these distributions we can extract \(N_{raw}\) from equation 4.1.
+
+### 4.3 Luminosity
+
+The luminosity quoted in Table 2.1 is the _delivered_ luminosity, that is, the luminosity provided by RHIC to the experiments. The \(\cal L\) in eq. 4.1 is the _sampled_ luminosity, that is the integrated luminosity totaling from all events in the used data sample. The total number of \(L2\gamma\) triggered events (\(N_{trig.}\)) is weighted by the minimum bias cross section for \(pp\) collisions.
+
+\[{\cal L}=\frac{N_{trig.}*C_{ps}}{\sigma_{MB}} \tag{4.2}\]
+
+where \(C_{ps}\) is the trigger prescale factor and \(\sigma_{MB}\) is the minimum bias cross section. The MB trigger, as described in section 3.2.1, is sensitive to the non-singly diffractive (NSD) \(pp\) cross section. The BBCs capture \(87\pm 8\%\) of all NSD events. \(\sigma_{MB}\) has been measured to be \(26.1~{}\pm.2\) mb [2]. The \(L2\gamma\) prescale factor was set to unity for all of the cross-section data sample.
+
+Figure 4-4: Background subtracted invariant mass distributions for each of the 9 \(p_{T}\) bins.
+
+### 4.4 Efficiency Correction
+
+A correction factor, calculated in simulation, is introduced to account for acceptance, triggering and reconstruction inefficiencies. This correction is \(p_{T}\)-dependent and given by
+
+\[C_{trig+reco}=\frac{N_{reco}^{\pi^{0}}(p_{T}^{reco})}{N_{true}^{\pi^{0}}(p_{T}^{ true})}, \tag{4.3}\]
+
+where \(N_{true}^{\pi^{0}}(p_{T}^{true})\) is the number of true \(\pi^{0}\)s generated in simulation at a specific value of \(p_{T}\) and passing the selection filter. \(N_{reco}^{\pi^{0}}(p_{T}^{reco})\) is the number of \(\pi^{0}\)s reconstructed at a specific \(p_{T}\) passing all selection criteria. Candidates are generated from \(-1.3\leq\eta\leq 1.3\) and 3 GeV/c \(\leq p_{T}\leq\) 35 GeV/c in PYTHIA and reconstructed using GEANT. The simulated events are processed identically to data, and thus \(C_{trig+reco}\) will contain implicit corrections for detector effects such as bin shifting, vertex reconstruction efficiency, energy resolution, and cluster merging.
+
+\(C_{trig+reco}\) is calculated using the same binning as the cross section itself, thus the correction can be applied on a bin-by-bin level to the background subtracted yields.
+
+Figure 4.5: Generalized correction factor for acceptance, triggering, and reconstruction efficiencies vs. reconstructed \(\pi^{0}\)\(p_{T}\).
+
+Figure 4-5 shows the correction factor \(C_{trig+reco}\) between 5.5 and 21 GeV/c. Note the characteristic rise of the trigger "turn on" below \(\sim 8\ GeV/c\) followed by a region of relatively constant efficiency between 8 and 21 \(GeV/c\).
+
+The good agreement between data and simulation, discussed in 3.6, indicates that our acceptance, triggering, and reconstruction are well-modeled and that we are justified in using simulation to correct the data. As an additional check, we perform a pseudo-experiment in which the simulated sample is split into two samples, "data" and "true." The "data" sample is reconstructed as if it were real data and the "true" sample is used to calculate an efficiency correction. That correction is then applied to the reconstructed "data" set. Figure 4-6 shows the results. The fully-corrected "data" sample matches the "true" sample well over our entire \(p_{T}\) range, further justifying our use of simulation to correct the data.
+
+Figure 4-6: Simulated pseudo experiment. Reconstructed data sample corrected using simulation. Note the excellent agreement between “Truth” and “Corrected Data.”
+
+Figure 4-7: a) Invariant cross section for inclusive \(\pi^{0}\) production. b) Statistical uncertainties.
+
+Results
+
+Figure 4-7a shows the fully corrected invariant cross section for inclusive \(\pi^{0}\) production in \(pp\) collisions at \(\sqrt{s}=200~{}GeV\), measured at the STAR detector at RHIC. The errors shown in 4-7b are purely statistical.
+
+#### Statistical Uncertainty
+
+The statistical uncertainty in the raw \(\pi^{0}\) yields is not simply the square-root of the number of \(\pi^{0}\) candidates found because we do not directly measure \(N_{\pi^{0}}\) but \(N_{cand}\), which is the sum of signal and background. The uncertainty on the signal, \(\delta N_{\pi^{0}}\) can be approximated as
+
+\[(\delta N_{\pi^{0}})^{2}=(\delta N_{cand.})^{2}+(\delta N_{bg})^{2}, \tag{4.4}\]
+
+where \(N_{bg}\) is the number of background counts found. Assuming that \(\delta N_{bg}=\sqrt{N_{bg}}\) we reach a final determination of the statistical error on the yield:
+
+\[\delta N_{\pi^{0}}=\sqrt{N_{\pi^{0}}+2N_{bg}}. \tag{4.5}\]
+
+### 4.6 Systematic Uncertainties
+
+The overall uncertainty in the cross section is dominated by a few sources: raw yield extraction, reconstruction efficiency, and BEMC energy scale. The sources of these uncertainties and their effect on the cross section measurement are discussed below.
+
+#### Yield Extraction and Reconstruction Efficiency
+
+For each bin, we are attempting to determine \(p(N)\), the probability distribution function for a given cross section value \(N\). But what we measure is \(p(N|\vec{x})\), the probability distribution function for \(N_{i}\) given some set of parameters \(\vec{x}=(\alpha,\beta,\gamma,C)\), defined as
+
+\[p(N|\vec{x})=\frac{N^{raw}(\alpha,\beta,\gamma)}{C}, \tag{4.6}\]where, the background subtracted yield \(N^{raw}\) is calculated as described in Section 4.2, the bin-by-bin efficiency correction \(C\) is calculated as described in Section 4.4 and \(\alpha\), \(\beta\), and \(\gamma\) are fit parameters describing the background distributions. Each parameter has an associated uncertainty \(\delta\alpha\), \(\delta\beta\), and \(\delta\gamma\) determined from the fitting procedure. \(C\) also has an associated uncertainty \(\delta C\) from finite MC statistics.
+
+The systematic uncertainties for yield extraction and efficiency are incorporated into the final measurement using Bayesian marginalization [45]. The true distribution function \(p(N)\) can be calculated from \(p(N|\vec{x})\) as
+
+\[p(N)=\int d\vec{x}p(N|\vec{x})p(\vec{x}), \tag{4.7}\]
+
+where \(p(\vec{x})\) is the probability distribution function for the parameters \(\vec{x}\). For a single parameter, this is taken to be a gaussian with mean and width given by the fitting procedure. For example
+
+\[p(\alpha)=\frac{1}{(\delta\alpha^{\prime})\sqrt{2\pi}}\exp\left[-\frac{( \alpha-\alpha^{\prime})^{2}}{2(\delta\alpha^{\prime})}\right], \tag{4.8}\]
+
+Figure 4.8: Relative uncertainty on the cross section as a function of \(p_{T}\). The inner error bars indicate show statistical uncertainties and the outer error bars show the quadrature sum of statistical and efficiency systematic uncertainties.
+
+where \(\alpha^{\prime}\) and \(\delta\alpha^{\prime}\) are the measured parameter and its uncertainty, respectively. The integral in Eq. 4.7 is not always analytically possible. We approximate it in monte carlo as
+
+\[p(N)\approx\frac{1}{m}\sum_{i=1}^{imax}p(N|\vec{x}_{i}) \tag{4.9}\]
+
+where \(\vec{x_{i}}\) are sampled from \(p(\vec{x})\) and \(imax\) is some large number (\(10,000\) in our case).
+
+The resulting distribution \(p(N)\) is then fit to a gaussian and the width is extracted. That width is taken as the one-sigma systematic uncertainty on \(N_{i}\). The point to point systematic uncertainty is shown in Figure 4-8. A key point to take away is that since we integrate over all parameters \(\vec{x_{i}}\) at the same time, which implicitly accounts for the correlations between the parameters.
+
+#### BEMC Energy Scale
+
+As noted in section 3.4.1 the BEMC calibration is accurate to \(\sim\)2%. When coupled with the steeply-falling \(\pi^{0}\) cross section, this relatively small uncertainty becomes a large effect. To estimate the effect this uncertainty has on the cross section measurement the entire cross section analysis is repeated with the BEMC energy scale shifted by \(\pm\)2%. The data is reproduced with every tower's energy response shifted up or down by 2%. It is analyzed with all the same cuts and conditions as the true data. Simulated samples are also reproduced with shifted BEMC gain tables. Correction factors and efficiencies are recalculated. The gain-shifted cross sections are shown with the true cross section in Figure 4-9. The ratio of true and shifted results are plotted in Figure 4-10. For the lower points, where the reconstruction efficiency is changing rapidly, the maximum difference between the nominal and shifted values is taken as a conservative estimate for the systematic uncertainty on the cross section. After the third point, when the efficiencies are constant, these distributions are fit to linear functions. The values of the fits are taken to be a conservative estimate on the systematic uncertainty from BEMC energy scale.
+
+Figure 4-10: \(\Delta\sigma/\sigma\) for cross sections calculated with gain tables shifted by +2% (blue) and -2% (red.) These ratios are fit with flat and linear functions, respectively, above the trigger threshold to estimate the systematic uncertainty stemming from the BEMC energy uncertainty.
+
+Figure 4-9: Nominal cross section (black) along with cross sections calculated with gain tables shifted by +2% (blue) and -2% (red).
+
+#### Yield Stability
+
+Throughout the determination of the cross section, we have placed selection criteria on our data sample. For instance, we place a maximum \(Z_{\gamma\gamma}\) cut of 0.7. These cuts are motivated by our understanding of the detector and the underlying physics of the measurements, but the specific location of each cut is somewhat arbitrary. The cuts could move by some small amount and still be well-motivated. We would like our measurement to be stable with respect to changing analysis cuts. To test this we take vary our three most important cuts, \(Z_{\gamma\gamma}\), \(M_{inv}\) window, and z vertex, in both directions. We then repeat the analysis from start to finish to discern the effect (if any) these cut changes have on the final cross section. The \(Z_{\gamma\gamma}\) and z vertex cuts are varied by 10% in both directions. The mass window cut is varied by 1\(\sigma\) of a gaussian fit in both directions. Figure 4-11 shows nine plots, one for each of our \(p_{T}\) bins. The \(p_{T}\) range for each plot is shown in the upper right-hand corner. Plotted on each canvas are the change in cross section after the shift divided by the nominal cross section value (\(\Delta\sigma/\sigma\)) for each of the six cut variations. Note the solid lines showing the statistical uncertainty of the nominal cross section measurement in that bin. The change in cross section values for all cuts in either direction are relatively small (on order of the statistical uncertainty.) The bin by bin shift in measured cross section for each cut variation is taken as a systematic uncertainty. All systematic errors are added in quadrature with the exception of the BEMC energy scale systematic. The results are shown in Figure 4-12Figure 4.11: Summary of yield stability systematics. Key (from left to right): 4\(\sigma\) acceptance on \(M_{inv}\) window; \(Z_{\gamma\gamma}\)+10%; \(|Z_{vertex}|\)+10%; 2\(\sigma\) acceptance on \(M_{inv}\) window; \(Z_{\gamma\gamma}\)-10%; \(|Z_{vertex}|\)-10%. The dashed-dotted line in the center separates cuts that increase raw yield (left) from cuts that decrease raw yield (right).
+
+Figure 4-12: Systematic and statistical errors for cross section measurement. The grey band shows the BEMC energy scale systematic. The inner error bars show the statistical uncertainties and the outer error bars show the quadrature sum of systematic errors as described in Section 4.6.3.
+
+## Chapter 1 Introduction
+
+## Chapter 5 Asymmetry
+
+The longitudinal double spin asymmetry, \(A_{LL}\), is defined as
+
+\[A_{LL}=\frac{\sigma^{++}-\sigma^{+-}}{\sigma^{++}+\sigma^{+-}}=\frac{1}{P_{1}P_{ 2}}\frac{N^{++}-RN^{+-}}{N^{++}+RN^{+-}}, \tag{5.1}\]
+
+where \(\sigma^{++,(+-)}\) are the helicity-dependent cross sections for like-sign (opposite-sign) beam configurations, \(P_{1,2}\) are the polarizations of the two beams, \(N^{++,(+-)}\) are the helicity dependent \(\pi^{0}\) yields, and \(R\) is the relative luminosity between like-sign and opposite-sign helicity states. The remainder of this chapter will be devoted to the measurement of each of these quantities and the determination of \(A_{LL}\), followed by a discussion of systematic uncertainties.
+
+### 5.1 Run Selection
+
+Unlike in the cross section measurement described in the previous chapter, the uncertainty in \(A_{LL}\) is dominated by statistical effects. The dominating sources of uncertainty in the cross section, including BEMC calibration uncertainty and efficiency concerns, are negligible in the asymmetry measurement. These systematic uncertainties affect the like- and opposite-sign cross sections identically, and thus cancel out in the ratio of terms. The systematics that remain are small compared to statistical error. Whereas maintaing detector stability is of primary concern in the cross sectionmeasurement, maximizing event count is most important in the asymmetry measurement. Thus every Long2 run that passes initial QA (as described in section 4.1) is incorporated in measuring \(A_{LL}\). The final run list for this measurement spans 306 runs between 7132005 and 7156028.
+
+### 5.2 Polarization
+
+The RHIC CNI and H-Jet polarimeters were described in detail in section 2.2.1. The CNI polarimeters measure the polarization of the RHIC beams at the beginning of each fill and every \(\sim\)2 hours during a fill.
+
+In addition to overall beam polarization measured by the RHIC CNI and H-Jet polarimeters, STAR measures the radial and vertical polarization components of the beam locally using the BBCs. Since the BBCs surround the beam pipe, they can simultaneously measure left-right and up-down asymmetries with respect to the beam. The vertical polarization (\(P_{V}\)) can be extracted using
+
+\[\epsilon_{BBC}=\frac{r_{ij}-1}{r_{ij}+1}=A_{N}^{BBC}\times P_{v}\times\langle cos \phi\rangle\ \ i,j=Left,Right, \tag{5.2}\]
+
+Figure 5.1: Left (Right): Average polarization measurement values for the blue (yellow) beam by fill.
+
+and the radial polarization (\(P_{r}\)) can be extracted using
+
+\[\epsilon_{BBC}=\frac{r_{ij}-1}{r_{ij}+1}=A_{N}^{BBC}\times P_{r}\times\langle sin \phi\rangle\ \ i,j=Up,Down, \tag{5.3}\]
+
+where \(r_{ij}=\sqrt{(N_{i}^{\uparrow}N_{j}^{\downarrow})/(N_{i}^{\downarrow}N_{j}^{ \uparrow})}\) and \(N_{i(j)}^{\uparrow(1)}\) are the spin dependent yields on either side of the beam and \(\phi\) is the azimuthal angle of the scattered partical. \(A_{N}^{BBC}\) has been measured by comparing to CNI polarization measurements. Local polarimetry provides an important crosscheck on the RHIC polarimeters as well as gives access to the radial polarization of the beam which could lead to uncertainty in \(A_{LL}\) as will be discussed in 5.4.3.
+
+### 5.3 Relative Luminosity
+
+This relative luminosity factor, \(R\), is defined as
+
+\[R=\frac{L^{++}}{L^{+-}}, \tag{5.4}\]
+
+where \(L^{++(+-)}\) is the measured luminosity for like(opposite)-sign helicity states of the proton bunches. \(R\) is measured using the the STAR BBCs, which record each collision event. The number of coincident signals in the two BBCs are counted with the STAR Scaler Boards, a set of 10 MHz, 24-bit VME histogramming boards. The spin pattern of each bunch crossing is set as the proton bunches are injected into the accelerator. Four quantities, representing the four possible bunch configurations configurations (\(N^{++}\), \(N^{+-}\), \(N^{-+}\), and \(N^{--}\)) are recorded with the Scaler Boards. After each fill, the ratio
+
+\[R_{s}=\frac{N^{++}+N^{--}}{N^{+-}+N^{-+}} \tag{5.5}\]
+
+is calculated.
+
+### 5.4 Spin Sorted Yields
+
+Finally, we must count the number of final state \(\pi^{0}s\) produced in each collision. We can separate raw yields by spin configuration. The procedure for counting the final state \(\pi^{0}s\) for the asymmetry analysis is similar to that outlined in section 4.2 for the cross-section. However, the two measurements are not identical and it is worthwhile to describe the relevant differences in the two procedures. \(\pi^{0}\) candidates are reconstructed using the same procedure detailed in chapter 3. These candidates are run through the following selection criteria:
+
+* Event passes both hardware and software \(L2\gamma\) trigger conditions,
+* Candidate \(p_{T}\geq 5.2\) GeV/c and \(p_{T}\leq 16.0\) GeV/c,
+* Event vertex found,
+* \(\eta_{detector}<.95\),
+* \(Z_{\gamma\gamma}\leq 0.8\), and
+* Charged track veto.
+
+The trigger condition serves to identify events with a high probability of containing a final state \(\pi^{0}\). The lower momentum cut ensures that each candidate itself could have fired the trigger, eliminating any trigger bias effects. The upper momentum selection is dictated by the decrease in statistics above 16 GeV/c. A vertex is required to accurately reconstruct the invariant mass of the \(\pi^{0}\). Instead of making a hard vertex cut as is done in the cross section measurement, timing information from the BBC is used to ensure that the collision occurs within the detector volume. The \(A_{LL}\) analysis does not require a stringent vertex requirement as long as whatever requirement is made is applied consistently across helicity configurations. Nor does it require a strict _particle_\(\eta\) cut. Instead, a _detector_\(\eta\) cut is made to remove untrusted portions of the BEMC. Any corrections made to the spin-dependent cross sections would be independent of the bunch helicity configuration, and thus would cancel out when
+
+[MISSING_PAGE_FAIL:93]
+
+of the events. The uncertainty on \(N_{cand}\) is given by
+
+\[\delta N_{cand}=\sqrt{\frac{\langle k^{2}\rangle}{\langle k\rangle}N_{cand}}. \tag{5.7}\]
+
+The effect of properly accounting for multi-particle statistics increases the statistical uncertainty on \(A_{LL}\) by 1-3% in each bin.
+
+#### Relative Luminosity Uncertainty
+
+We estimate the uncertainty due to relative luminosity by measuring \(R\) (from eq. 5.2) using two different methods. The nominal \(R\) values are measured using the BBCs as described in section 5.3. A second, independent measure of the relative luminosities was made using the ZDCs. The uncertainty on R will be dominated by the statistical uncertainty in the ZDC which counts at a much lower rate than the BBCs. We then calculated \(A_{LL}\), on a run-by-run basis, using the two sets of \(R\) values. A weighted average of \(A_{LL}\) was taken over all runs for both methods and the difference between
+
+Figure 5-2: Invariant mass distribution for candidates. The grey portion of the mass peak is what is accepted for the asymmetry analysis.
+
+those averages was taken to be the uncertainty \(\delta A_{LL}^{rel.lum.}\). We assign an uncertainty of 9.4x10\({}^{-4}\), which is negligible when compared to the statistical uncertainty in \(A_{LL}\). For more information on the relative luminosity see [35].
+
+#### Non Longitudinal Beam Components
+
+We also estimate the effect of non-longitudinal beam components on the \(A_{LL}\) measurement. It is possible that the beam will have some net transverse and radial polarization. The uncertainty from non-longitudinal components is determined according to:
+
+\[\delta A_{LL}^{non-long.}=|tan(\theta_{Y})tan(\theta_{B})cos(\phi_{Y}-\phi_{ B})*A_{\Sigma}|, \tag{5.8}\]
+
+where \(\theta\) and \(\phi\) represent the magnitude of the transverse and radial components of the beam in the longitudinal data set for the yellow (\(Y\)) and blue (\(B\)) beams and \(A_{\Sigma}\) is the _transverse_ double spin asymmetry. The angles are calculated using left/right and up/down asymmetries, with respect to the beam, in the BBCs. A conservative estimate of the angular component of Eq. 6.5 (\(\delta A_{LL}^{non-long.}/A_{\Sigma}\)) is 0.0102 \(\pm\) 0.0002. Note that determining \(A_{\Sigma}\) for inclusive \(\pi^{0}\) production is not feasible due to a lack of statistics. Instead, we make a conservative estimate using \(A_{\Sigma}\) measured for inclusive jet production. From these pieces we estimate the systematic uncertainty from non-longitudinal beam components as \(\delta A_{LL}^{non-long.}=\) 1.0x10\({}^{-3}\), which is dominated by the statistical uncertainties on \(A_{LL}\).
+
+#### Single Spin Asymmetries
+
+We perform an important crosscheck by measuring the single longitudinal spin asymmetries, \(A_{L}\) for each bin. These parity-violating asymmetries are expected to be zero in QCD reactions. \(A_{L}\) can be written as
+
+\[A_{L}^{Y(B)}=\frac{1}{P_{Y(B)}}\frac{N^{+}-R_{1}N^{-}}{N^{+}+R_{1}N^{-}}, \tag{5.9}\]where \(P\) is the polarization, \(R_{1}\) is the relative luminosity, \(N\) is the helicity-sorted yield, and the \(+,-\) refer to the helicity configuration of the beam in question. The opposite beam is treated as unpolarized by averaging over its spin states. Figure 5-3 shows the single spin asymmetries, measured on a run-by-run basis, for yellow and blue beams. The points are plotted against run index and then fit to a flat line. In both cases the fit is consistent with zero as expected.
+
+### 5.6 Results
+
+With the polarization, relative luminosity information, and spin sorted yields measured, we calculate \(A_{LL}\). \(A_{LL}\) is calculated as a sum over fills as
+
+\[A_{LL}=\frac{\Sigma(P_{Y}P_{B})(N^{++}-RN^{+-})}{\Sigma(P_{Y}P_{B})^{2}(N^{++ }+RN^{+-})}, \tag{5.10}\]
+
+We also account for the presence of background in the helicity-sorted yields. The two types of backgrounds (combinatoric and "low mass") have been described in detail in section 3.5. These backgrounds are treated differently in the \(A_{LL}\) mea
+
+Figure 5-3: Left (Right): single spin asymmetry (\(A_{L}\)) for the blue (yellow) beam per run vs. run index. Points are fit to a constant value, shown upper left, and are consistent with zero.
+
+surement than they are in the cross section. For the asymmetry measurement, the backgrounds dilute \(A_{LL}\). Instead of subtracting the backgrounds, we calculate the amount of "false positives" that fall into the signal region. From this we can calculate the background fraction in each of the \(p_{T}\) bins and the subsequent dilution of \(A_{LL}\). An illustration of this can be seen in Figure 5-4. The portion of the combinatoric background falling in the allowed mass region is highlighted. Once we have the background fraction, we calculate an \(A_{LL}\) for each background type. For the combinatoric background this means calculating \(A_{LL}\) in the high-mass region (1.2 GeV/\(c^{2}\)\(\leq M_{inv}\leq\) 2.0 GeV/\(c^{2}\).) For the split-cluster background this means calculating \(A_{LL}\) in the low-mass region (0 GeV/\(c^{2}\)\(\leq M_{inv}\leq\) 0.7 GeV/\(c^{2}\).) The measured \(A_{LL}\) values, integrated from 5.2 \(\leq\)\(p_{T}\)\(\leq\) 16.0 \(GeV/c\) for the background sources are
+
+\[A_{LL}^{combinatoric}=-0.0084\pm 0.014, \tag{5.11}\]
+
+and
+
+\[A_{LL}^{lowmass}=-0.020\pm 0.020. \tag{5.12}\]
+
+Because both background sources are algorithmic in nature, any asymmetry should not be \(p_{T}\)-dependent. It is thus appropriate to integrate over all measured values of \(p_{T}\).
+
+With both \(A_{LL}^{bg}\) and background fraction, we proceed to correct \(A_{LL}^{\pi^{0}}\) to account for each background source. We calculate \(A_{LL}^{measured}\), the true values of \(A_{LL}\) according to the formula
+
+\[A_{LL}^{measured}=(1-f_{l}^{bg}-f_{c}^{bg})*A_{LL}^{true}+f_{l}^{bg}*A_{LL}^{bg, l}+f_{c}^{bg}*A_{LL}^{bg,c}. \tag{5.13}\]
+
+\begin{table}
+\begin{tabular}{c c c} \hline \hline \(p_{T}\) Range [\(GeV/c^{2}\)] & \(f_{bg}^{lowmass}\) & \(f_{bg}^{comb.}\) \\ \hline
+5.2 - 6.75 & 3.6\% & 5.8\% \\
+6.75 - 8.25 & 3.9\% & 5.9\% \\
+8.25 - 10.5 & 9.3\% & 5.3\% \\
+10.5 - 16.0 & 8.6\% & 5.9\% \\ \end{tabular}
+\end{table}
+Table 5.1: Background Fractions
+
+[MISSING_PAGE_FAIL:98]
+
+Figure 5-5: \(A_{LL}\) for inclusive \(\pi^{0}\) production between 5.2 and 16.0 GeV/c in \(p_{T}\). Statistical uncertainties are plotted as error bars on the points. The systematic uncertainties are represented by the shaded band beneath the points. An 8.3% normalization uncertainty from polarization values is not included.
+
+[MISSING_PAGE_EMPTY:100]
+
+## Chapter 6 Results and Discussion
+
+We have presented a measurements of \(E\frac{d^{3}\sigma}{dp^{3}}(pp\rightarrow\pi^{0}+X)\), the cross section for inclusive \(\pi^{0}\) production in proton-proton collisions at \(\sqrt{s}=200\ GeV,\) and a measurement of \(A_{LL}^{pp\rightarrow\pi^{0}+X}\), the double longitudinal spin asymmetry for inclusive \(\pi^{0}\) production in polarized \(pp\) collisions. We have described the equipment used to collect the data as well as the techniques used to analyze the data, to separate signal from background, and minimize uncertainty. We have performed crosschecks and QA on the data and compared measured data to simulation in an attempt to demonstrate our understanding of the experimental environment and to assure the validity of our results. These measurements enable us to better understand the fundamental nature of QCD in the nucleon. This chapter is dedicated to comparing our results to theoretical predictions and showing where our measurements fit in the larger picture of QCD spin physics.
+
+### 6.1 Cross Section Results
+
+\(\Delta G\) can only be extracted from \(A_{LL}\) within the pQCD framework. Comparing the measured unpolarized cross section to pQCD predictions at \(\sqrt{s}=200\) validates the use of pQCD in the energy regime of our asymmetry measurement.
+
+Figure 6-1a shows the invariant cross section for inclusive \(\pi^{0}\) production as a function of \(p_{T}\) as described in Chapter 4. Two theoretical calculations are plotted with the measurement. The two NLO pQCD predictions have been calculated usingFigure 6-1: Cross section for inclusive \(\pi^{0}\) production. a) The unpolarized cross section vs. \(p_{T}\). The cross section points are plotted along with pQCD predictions made using DSS and KKP fragmentation functions. b) Statistical and systematic uncertainties for the cross section measurement. c) Comparison of measured values to theoretical predictions. Predictions are shown for three different fragmentation scales to give an idea of theoretical uncertainties.
+
+fragmentation functions from DSS [21] and KKP [36]. 6-1b shows the statistical and systematic uncertainties of the measurement. Comparison between measured values and theory can be seen in panel 6-1c where the relative difference between data and theory is plotted for both predictions. Also shown in 6-1c is the fractional difference between data and DSS predictions at two different factorization scales, \(\mu=2p_{T}\) and \(\mu=p_{T}/2\), indicated by the dashed and dash-dotted lines, respectively. These different scales represent an estimate of the theoretical uncertainty for the cross section measurement. The numeric results are shown in table 6.1.
+
+The data match theory quite well for both sets of FFs. This agreement indicates that indeed pQCD is a viable framework in which to interpret our \(A_{LL}\) results. We can use measured \(A_{LL}\) to extract \(\Delta G\) and increase our understanding of nucleon spin. Previous measurements of this same cross section performed both at STAR [44] and PHENIX [4] show similar results.
+
+### 6.2 Asymmetry Results
+
+Now that we have verified that theoretical predictions from pQCD describe the data well, we can proceed to compare our measured \(A_{LL}\) results to theoretical predictions. Figure 6-2 shows \(A_{LL}\) vs \(p_{T}\) between 5.2 and 16.0 GeV/c. The numerical results are given in Table 6.2. Figures 6-3 and 6-4 show a comparison of \(A_{LL}^{p+p\to\pi^{0}+X}\) as presented
+
+\begin{table}
+\begin{tabular}{c c c c c} \hline \hline \(p_{T}\) & \(E\)\(d^{3}\sigma/dp^{3}\) & Statistical & Point-to-Point & Energy Scale \\ \([GeV]\) & [mb \(GeV^{-2}\)\(c^{3}\)] & Uncert. & Syst. upper/lower (\%) & Syst upper/lower (\%) \\ \hline
+5.76 & 1.13x\(10^{-5}\) & 2.8x\(10^{-7}\) & 15.4/15.3 & 28.0/16.7 \\
+6.37 & 4.21x\(10^{-6}\) & 8.5x\(10^{-8}\) & 10.4/9.9 & 17.6/19.9 \\
+7.10 & 1.57x\(10^{-6}\) & 3.3x\(10^{-8}\) & 10.6/11.0 & 20.4/8.1 \\
+7.84 & 7.12x\(10^{-7}\) & 1.9x\(10^{-8}\) & 10.8/13.8 & 20.5/8.9 \\
+8.69 & 3.18x\(10^{-7}\) & 1.0x\(10^{-8}\) & 14.1/14.2 & 20.5/9.9 \\
+9.96 & 1.29x\(10^{-7}\) & 4.3x\(10^{-9}\) & 14.9/16.1 & 20.5/11.3 \\
+11.8 & 3.41x\(10^{-8}\) & 2.0x\(10^{-9}\) & 14.9/19.2 & 20.5/13.4 \\
+14.1 & 6.28x\(10^{-9}\) & 6.4x\(10^{-10}\) & 18.1/22.0 & 20.5/16.0 \\
+17.7 & 8.58x\(10^{-10}\) & 1.7x\(10^{-10}\) & 35.0/36.5 & 20.5/20.1 \\ \end{tabular}
+\end{table}
+Table 6.1: Cross Section Results
+
+\begin{table}
+\begin{tabular}{c c c c} \hline \hline \(p_{T}\) Range & \(A_{LL}\) & Stat. Error & Syst. Error \\ \([GeV]\) & (\(10^{-2}\)) & (\(10^{-2}\)) & (\(10^{-2}\)) \\ \hline
+5.2 - 6.75 & 0.85 & 1.1 & 0.13 \\
+6.75 - 8.25 & 0.22 & 1.38 & 0.13 \\
+8.25 - 10.5 & 2.85 & 1.91 & 0.13 \\
+10.5 - 16.0 & -0.50 & 3.13 & 0.13 \\ \hline \end{tabular}
+\end{table}
+Table 6.2: \(A_{LL}\) Results
+
+Figure 6.2: The double longitudinal spin asymmetry, \(A_{LL}\) vs \(p_{T}\) for inclusive \(\pi^{0}\) production. The error bars are purely statistical. The systematic uncertainty is represented by the shaded band beneath the points. The measurement is compared to a number of pQCD predictions for different input value of \(\Delta G\). See the text for further explanation.
+
+Figure 6-3: The current \(A_{LL}\) measurements from STAR (black) and PHENIX (green) [12]. Note that in the measured range, the precision of the two measurements are comparable.
+
+Figure 6-4: The STAR run 6 \(A_{LL}^{\pi^{0}}\) measurement (black) and the STAR run 5 \(A_{LL}^{\pi^{0}}\) measurement (blue) [44]. The Run 6 measurement represents a large increase in precision as well \(p_{T}\) range.
+
+in this thesis with measurements from PHENIX in Run 6 [12] and STAR in Run 5 [44], respectively.
+
+#### Interpretation
+
+In Figure 6-2 the measured \(A_{LL}\) values are plotted along side various predictions for different models of \(\Delta G\). Two curves to note in particular are the black curve (DSSV) and the grey curve (GRSV Standard). GRSV Standard shows the prediction for \(A_{LL}\), within the GRSV framework, based on the best global fit to polarized DIS results. As discussed in Chapter 1, these experiments yield a best fit with large uncertainty on \(\Delta g(x)\). DSSV shows the prediction for \(A_{LL}\) based on the best global fit to not just pDIS data, but also two recent RHIC results as well.1 The red, green, and blue curves show predictions within in the GRSV framework for maximum, maximum negative, and null values of \(\Delta G\) respectively. The pink curve (GS-C) is of particular interest because it illustrates a known shortcoming of this analysis, namely that it only probes
+
+Figure 6-5: NLO calculations for x\(\Delta\)G(x) at a Q\({}^{2}\) of 4 GeV\({}^{2}\) by Gehrmann and Stirling. Of particular interest is the “C” parameterization, as it affords a large integral value of \(\Delta G\) while still have a small integral value in STAR’s measurable x region (shown shaded.)
+
+a limited range in \(x_{gluon}\). The GS-C prediction for \(x\Delta g(x)\) can be seen in Figure 6-5. The \(x_{gluon}\) range of this measurement is also shown. GS-C predicts a large integral value of \(\Delta G\). Because of the node in \(\Delta g(x)\), however, the predicted value in the measured \(x\)-range (and consequently, the predicted value of \(A_{LL}\)) is small. Thus, a large integral value of \(\Delta G\) is still possible with a small \(A_{LL}\).
+
+We use our measurement of \(A_{LL}\) to constrain \(\Delta G\). To this end, a series of fits in the GRSV framework were performed by Marco Stratmann and Werner Vogelsang [49]. For each fit a specific integral value of \(\Delta G\) was chosen at the input scale and a new set of polarized parton PDFs were calculated. For each of these calculations a corresponding prediction for \(A_{LL}^{pp\rightarrow\pi^{0}+X}(p_{T})\) was also made. Figure 6-6 shows fifteen of these \(A_{LL}\) predictions along with the measured values of \(A_{LL}\) from this thesis. For each prediction we calculate the \(\chi^{2}\) for the measured data using only the statistical uncertainties on the data points. From the \(\chi^{2}\) and number of degrees-of-freedom we can calculate, for each value of \(\Delta G\), the "Confidence Level," (CL) defined as
+
+\[CL=1-\int_{0}^{\hat{\chi}^{2}}f(x,k)dx, \tag{6.1}\]
+
+Figure 6-6: Measured \(A_{LL}\) with a number of theory curves based on a variety of predictions for \(\Delta G\).
+
+where \(f(x,k)\), defined as
+
+\[f(x,k)=\frac{1}{2^{k/2}\Gamma(k/2)}x^{(k/2)-1}e^{-x/2}, \tag{6.2}\]
+
+is the \(\chi^{2}\) probability density function for \(k\) degrees of freedom. The CL represents the probability that an observed \(\chi^{2}\) will, by chance, exceed \(\hat{\chi}^{2}\). The resulting CL profile, as a function of \(\Delta G\), is shown in Figure 6-7. Larger CL values indicate a higher degree of consistency between data and prediction. From the Run 6 \(A_{LL}^{pp\rightarrow\pi^{0}+X}\) we constrain \(\Delta G\), calculated in the GRSV framework, to be
+
+\[\Delta G_{GRSV}(Q^{2}=1~{}GeV^{2})=0.42^{+0.085}_{-0.435}, \tag{6.3}\]
+
+based on a deviation of \(\Delta\chi^{2}_{min}+1\).
+
+One definitive conclusion we can take from this measurement is that the gluons are not maximally polarized. The maximum \(\Delta G\) scenario, codified in the GRSV-Max prediction is excluded at the 99.5% level based on these results. In this respect,
+
+Figure 6-7: “Confidence Level” vs \(\Delta G\) at \(Q^{2}=1~{}GeV^{2}\). This plot exhibits a peak at GRSV-Std (\(\Delta G=.42\).) Large positive values of \(\Delta G\) are clearly excluded, while small positive and negative values are still consistent with the data. The dotted lines show the uncertainty stemming from the 9.4% polarization uncertainty.
+
+this measurement reinforces previous STAR and PHENIX measurements that have excluded the maximum scenario. At the current level of precision the data disfavor large positive values of \(\Delta G\). The data are consistent with small positive or negative values of \(\Delta G\). But we can find assurance in that this measurement is currently limited only by statistical uncertainty. The methods we have developed in making this measurement are applicable to future runs. At this point, making precision measurements of \(\Delta G\) becomes a matter of running the experiment for long enough. Gains in luminosity, average beam polarization, and stable running at \(\sqrt{s}=500\) will lead to large increases in figure of merit and shrink the error bars to the point where we can better distinguish between theoretical predictions.
+
+### 6.3 Global Analysis Including RHIC Data
+
+For the sake of completeness we finish by offering a snapshot of the current understanding of the proton's spin structure. A recent global analysis carried out by De Florian, Sassot, Stratmann, and Vogelsang (DSSV) included for the first time \(A_{LL}\) results from the inclusive jet and \(\pi^{0}\) measurements by STAR and PHENIX respectively. This analysis examined polarized \(pp\) scattering results along with those from DIS and SIDIS. This global analysis indicated that \(A_{LL}\) results from RHIC can and indeed do constrain polarized PDFs [22].
+
+Figure 6-8 shows the DSSV best fit for \(x\Delta g(x)\) as a function of \(x\). The result is plotted at \(Q^{2}=10\) GeV. The uncertainty from the fit, shown as \(\Delta\chi^{2}=1\) (the green band) represents the one-sigma uncertainty on the measurement. The yellow band represents \(\Delta\chi^{2}/\chi^{2}=2\%\). Unlike the previous global analysis by GRSV, this new fit exhibits a node at \(x\sim 0.1.\) This node is a direct reflection of the small \(A_{LL}\) results coming from RHIC. If we compare this plot with its corresponding plot in Figure 1-4 we see that the uncertainty on the gluon PDF has shrunk significantly. We do not yet have the precision in polarized PDFs for gluons that we do for the valence quarks, but alea iacta est. The DSSV global analysis shows that \(\Delta G\) can be constrained using results from polarized \(pp\) collisions. Significant progress can be made at RHIC
+
+by expanding the \(x\)-range. In RHIC Run 9, the polarized \(pp\) program will expand to center of mass energy to 500 GeV, lowering the x range accessed. In addition, correlation measurements (di-jet and photon-jet) are being explored as a way to map the x-dependency of \(\Delta g\). These techniques, along with future experimental facilities like the EIC, will give us the opportunity to make precision measurements of the gluon polarization and the nucleon's spin structure.
+
+Figure 6-8: Polarized gluon PDF from DSSV fit. The best fit to RHIC, DIS, and SIDIS data is the solid line. Error bands for \(\Delta\chi^{2}=1\) (green) and \(\Delta\chi^{2}/\chi^{2}=2\%\) (yellow) are shown [22]. Data from this thesis are not included in the DSSV fit. Results from previous fits are also shown.
+
+## Appendix A Previous \(A_{ll}\) Measurements
+
+### A.1 Inclusive Jet Production at STAR
+
+STAR has also measured \(A_{LL}\) for inclusive jet production in both Runs 5 and 6. The measured values of \(A_{LL}\) are shown in the figures below along with a number of theoretical predictions. For Run 5, STAR calculated the Confidence Level for a number of \(\Delta G\) values within the GRSV framework. These Confidence Levels are plotted as a function of \(\Delta G\) in Fig A.3.
+
+Figure A-1: \(A_{LL}\) for inclusive jet production at STAR for Run 5. The error bars indicate statistical uncertainties and the grey bands indicate systematic uncertainties.
+
+Figure A-3: Confidence levels for different integral values of \(\Delta G\) based on the Run 5 inclusive jet production data. The yellow band represents the uncertainty from the absolute polarization measurement.
+
+[MISSING_PAGE_EMPTY:114]
+
+## Appendix B BEMC Energy Scale Uncertainty
+
+Previous measurements of \(\pi^{0}\) production at star have shown that the cross section is sensitive to the energy calibration in the BEMC. A 5% uncertainty in energy determination can lead to as high as \(\sim\)30% uncertainty in the cross section. Thus, it behooves us to accurately determine the uncertainty in the BEMC energy scale. Broadly speaking, there are two sources of uncertainty in the BEMC energy scale. The first is an uncertainty in the tower gain calibration, which is common to all analyses using the BEMC. The second is the uncertainty in the energy of tower clusters (described in Section 3.4.2). This is unique to the \(\pi^{0}\) analysis. Our estimate is that both sources combine to yield a 2% uncertainty in the BEMC energy scale. The procedure for obtaining that estimate is detailed below.
+
+### B.1 Tower Calibration Uncertainty
+
+The energy from a tower is calculated to be
+
+\[E=G*(ADC)\] (B.1)
+
+where \(ADC\) is a number representing the digitized charge output from the PMT and \(G\) is a proportionality constant called gain. Calibrating the BEMC amounts to setting the correct value of \(G\). Recall (Section 3.4.1) that the gains are set by identifyingelectrons by their \(dE/dx\) signature in the TPC and setting setting the value of electron \(E/p\) to unity. To maximize statistics, this procedure uses every electron found during the entirety of Run 6. This calibration procedure has a number of potential sources of bias. For example, we know that the high tower triggers preferentially bias the sample towards high values of \(E/p\) near threshold. This bias could potentially skew our determination of \(E/p\) and thus bias G.
+
+To estimate the uncertainty in G, we recalibrate the BEMC using a minimally biased subset of electrons. We identify the primary sources of bias in the electron sample and make a series of stringent cuts on the data to remove these biases. The primary effects studies were:
+
+* Energy leakage between towers. Electrons striking a tower near its border will deposit energy in neighboring towers. This leakage is modeled in simulation and corrected for. To remove any bias that may be introduced in this simulation a fiducial volume is placed on each individual tower. Electrons not striking the tower center (\(\sqrt{\Delta\eta+\Delta\phi}<0.04\)) are rejected. This ensures that all of the electron's energy is deposited in a single tower. Electron \(E/p\) is constant within the chosen radius (see Figure X).
+* Trigger bias. Near threshold, high-tower triggers preferentially pick out electrons with high \(E/p\) (by ignoring events with energies just under threshold). To minimize this bias, we removed high-tower trigger events from our sample. This left only events with jet-patch triggers.
+* Hadronic background. Long lived charged hadrons can mimic electrons. They will manifest themselves in our \(E/p\) distribution as a peak at low \(E/p\) with a long tail that fall under the electron peak, biasing it toward lower values. This background shape was parameterized in background rich sample and incorporated in the recalibration electron sample.
+
+Because of the strict cuts placed on recalibration sample, the whole barrel was calibrated at once (in contrast to the original calibration, which was performed within eta rings). The deviation between \(E/p\) calculated using the pure electron sample and the nominal calibration sample is 1.6%, which is taken to be the uncertainty in \(G\). Details can be found in [50].
+
+### B.2 Clustering
+
+The first source of uncertainty accounts for accurately measuring the energy deposited in a tower. But we must also worry that our energy determination at the BEMC point level (see Section 3.4.2) does not reflect nature. It is possible for energy to be lost. for example, in gaps between modules. This effect is highly dependent on the clustering algorithm and is analysis specific.
+
+To estimate this uncertainty we look to simulation. We demonstrate throughout this thesis (see e.g. Sections 3.6 and 4.4) that the reconstructed simulation events match the data. The question then becomes whether the reconstructed simulation matches "truth" for the energies of BEMC points. Unfortunately we are unable perfectly associate PYTHIA-level \(\pi^{0}\) candidates with GEANT-level reconstructed pions candidates. Instead we perform a pseudo-association by requiring the reconstructed \(\pi^{0}\) has the same location (\(\sqrt{\Delta\eta+\Delta\phi}<0.001\)) as the "true" \(\pi^{0}\). With this cut we arrive at a pure sample of \(\pi^{0}\)s for which we know their true characteristics. Wethen compare the energy of the reconstructed \(\pi^{0}\) with the true \(\pi^{0}\). Figure B-1 shows \((E^{reco}-E^{true})/E^{true}\) for this limited sample. The resulting distribution is fit to a gaussian. The mean of this gaussian deviates from zero by \(\sim 0.8\%\), which we take as an estimate of the uncertainty in the BEMC point energy reconstruction.
+
+To arrive at a conservative estimate, we treat the clustering and gain uncertainties as completely independent. Adding the effects together in quadrature we arrive at \(1.8\%\) uncertainty. Thus we can confidently use \(2\%\) as an estimate of the uncertainty in the BEMC energy scale.
+
+[MISSING_PAGE_EMPTY:119]
+
+Figure C-1: Left: Schematic of STAR, viewed from the side, with coordinates marked. Right: Schematic of STAR, viewed from the end, with coordinates marked.
+
+## Appendix D Summary of Cross Section Systematic Errors
+
+\begin{table}
+\begin{tabular}{c c c c c c} \hline \hline \(p_{T}\) & BEMC Energy Scale & Efficiency & \(Z_{\gamma\gamma}\) & \(M_{inv}\) Window & Z Vertex \\ \([GeV]\) & (+2\%/-2\%) & & (+10\%/-10\%) & (4\(\sigma/2\sigma\)) & (+10\%/-10\%) \\ \hline
+5.76 & 28.1/16.7\% & 14.7\% & 3.1/1.2\% & 2.4/1.4\% & 2.1/2.0\% \\
+6.37 & 17.6/19.9\% & 8.2\% & 4.8/3.8\% & 1.6/0.5\% & 3.9/3.2\% \\
+7.10 & 20.4/8.1\% & 10.2\% & 1.3/0.5\% & 3.3/1.7\% & 0.3/1.6\% \\
+7.84 & 20.5/8.9\% & 9.6\% & 1.3/2.4\% & 6.2/3.0\% & 2.9/5.3\% \\
+8.69 & 20.5/9.9\% & 12.3\% & 4.2/2.7\% & 5.6/4.5\% & 0.46/2.3\% \\
+9.96 & 20.5/11.3\% & 11.6\% & 6.8/1.5\% & 10.6/4.8\% & 2.6/0.4\% \\
+11.8 & 20.5/13.4\% & 12.0\% & 4.0/9.2\% & 10.3/5.3\% & 1.7/2.0\% \\
+14.1 & 20.5/16.0\% & 13.2\% & 8.0/2.0\% & 13.5/2.3\% & 0.8/5.9\% \\
+17.7 & 20.5/20.1\% & 25.0\% & 15.2/14.5\% & 10.1/0.62\% & 0.01/4.9\% \\ \hline \end{tabular}
+\end{table}
+Table D.1: Summary of Systematic Errors
+
+## Chapter 1 Introduction
+
+## Bibliography
+
+* [1] K. H. Ackermann et al. STAR detector overview. _Nucl. Instrum. Meth._, A499:624-632, 2003.
+* [2] J. Adams et al. Transverse-momentum and collision-energy dependence of high-\(pt\) hadron suppression in \(au+au\) collisions at ultrarelativistic energies. _Phys. Rev. Lett._, 91(17):172302, Oct 2003.
+* [3] Clemens Adler et al. The RHIC zero degree calorimeters. _Nucl. Instrum. Meth._, A470:488-499, 2001.
+* [4] Stephen Scott Adler et al. Mid-rapidity neutral pion production in proton proton collisions at \(\sqrt{s}\) = 200-GeV. _Phys. Rev. Lett._, 91:241803, 2003.
+* [5] I. Alekseev et al. Polarized proton collider at rhic. _Nuclear Inst. and Meth._, Jan 2003.
+* [6] M. Anderson et al. The STAR time projection chamber: A unique tool for studying high multiplicity events at RHIC. _Nucl. Instrum. Meth._, A499:659-678, 2003.
+* [7] J. Ashman et al. An investigation of the spin structure of the proton in deep inelastic scattering of polarized muons on polarized protons. _Nucl. Phys._, B328:1, 1989.
+* [8] M. Beddo et al. The STAR barrel electromagnetic calorimeter. _Nucl. Instrum. Meth._, A499:725-739, 2003.
+* [9] F. S. Bieser et al. The STAR trigger. _Nucl. Instrum. Meth._, A499:766-777, 2003.
+* [10] Elliott D. Bloom et al. High-Energy Inelastic e p Scattering at 6-Degrees and 10- Degrees. _Phys. Rev. Lett._, 23:930-934, 1969.
+* [11] Elliott D. Bloom et al. High-Energy Inelastic e p Scattering at 6-Degrees and 10- Degrees. _Phys. Rev. Lett._, 23:930-934, 1969.
+* [12] Kieran Boyle. _Measurements of the Double Helicity Asymmetry in Pion Production in Proton Collisions at s = 200 GeV and the Resulting Constraints on the Polarized Gluon Distribution in the Proton_. PhD thesis, Stony Brook University, 2008.
+
+* [13] Martin Breidenbach et al. Observed Behavior of Highly Inelastic electron-Proton Scattering. _Phys. Rev. Lett._, 23:935-939, 1969.
+* [14] Raymond Brock et al. Handbook of perturbative QCD: Version 1.0. _Rev. Mod. Phys._, 67:157-248, 1995.
+* [15] R. Brun, R. Hagelberg, M. Hansroul, and J. C. Lassalle. GEANT: SIMULATION PROGRAM FOR PARTICLE PHYSICS EXPERIMENTS. USER GUIDE AND REFERENCE MANUAL. CERN-DD-78-2-REV.
+* [16] R. Brun and F. Rademakers. ROOT: An object oriented data analysis framework. _Nucl. Instrum. Meth._, A389:81-86, 1997.
+* [17] Gerry Bunce, Naohito Saito, Jacques Soffer, and Werner Vogelsang. Prospects for spin physics at rhic. _Annual Review of Nuclear and Particle Science_, 50(1):525-575, 2000.
+* [18] G. Van Buren et al. Report from the star emc calibrations workshop.
+* [19] T. M. Cormier et al. STAR Barrel Electromagnetic Calorimeter absolute calibration using'minimum ionizing particles' from collisions at RHIC. _Nucl. Instrum. Meth._, A483:734-746, 2002.
+* [20] D. de Florian, G. A. Navarro, and R. Sassot. Extraction of polarized parton densities from polarized DIS and SIDIS. _AIP Conf. Proc._, 792:921-924, 2005.
+* [21] Daniel de Florian, Rodolfo Sassot, and Marco Stratmann. Fragmentation functions for pions, kaons, protons and charged hadrons. _J. Phys. Conf. Ser._, 110:022045, 2008.
+* [22] Daniel de Florian, Rodolfo Sassot, Marco Stratmann, and Werner Vogelsang. Global Analysis of Helicity Parton Densities and Their Uncertainties. _Phys. Rev. Lett._, 101:072001, 2008.
+* [23] John R. Ellis and R. L. Jaffe. A Sum Rule for Deep Inelastic Electroproduction from Polarized Protons. _Phys. Rev._, D9:1444, 1974.
+* [24] B. W. Filippone and Xiang-Dong Ji. The spin structure of the nucleon. _Adv. Nucl. Phys._, 26:1, 2001.
+* [25] T. Gehrmann and W. J. Stirling. Polarized Parton Distributions in the Nucleon. _Phys. Rev._, D53:6100-6109, 1996.
+* [26] M. Gluck, E. Reya, M. Stratmann, and W. Vogelsang. Models for the polarized parton distributions of the nucleon. _Phys. Rev._, D63:094005, 2001.
+* [27] Oleksandr Grebenyuk. _Neutral Meson production in d+Au and p+p collisions at Sqrt(s) = 200 GeV in STAR._ PhD thesis, NIKEF, 2007.
+
+* [28] D. J. Gross and Frank Wilczek. Ultraviolet Behavior of Non-Abelian Gauge Theories. _Phys. Rev. Lett._, 30:1343-1346, 1973.
+* 263, 2003.
+* [30] H. Huang et al. Polarized Proton Acceleration at the Brookhaven AGS and RHIC. Particle Accelerator Conference (PAC 03) 12-16 May 2003, Portland, Oregon.
+* [31] E. W. Hughes and R. Voss. Spin structure functions. _Ann. Rev. Nucl. Part. Sci._, 49:303-339, 1999.
+* [32] R. L. Jaffe. The theory of the nucleon spin. _Phil. Trans. Roy. Soc. Lond._, A359:391-404, 2001.
+* [33] R. L. Jaffe and Aneesh Manohar. The G(1) Problem: Fact and Fantasy on the Spin of the Proton. _Nucl. Phys._, B337:509-546, 1990.
+* [34] J. Kiryluk. Relative luminosity measurement in STAR and implications for spin asymmetry determinations. _AIP Conf. Proc._, 675:424-428, 2003.
+* [35] J. Kiryluk. Local polarimetry for proton beams with the STAR beam beam counters. _hep-ex/0501072_, 2005.
+* [36] Bernd A. Kniehl, G. Kramer, and B. Potter. Fragmentation functions for pions, kaons, and protons at next-to-leading order. _Nucl. Phys._, B582:514-536, 2000.
+* [37] Adam Kocoloski. Tunable parameters for bemc slow simulator. [http://drupal.star.bnl.gov/STAR/blog-entry/kocolosk/2007/aug/26/tunable-parameters-bemc-slow-simulator](http://drupal.star.bnl.gov/STAR/blog-entry/kocolosk/2007/aug/26/tunable-parameters-bemc-slow-simulator).
+* [38] J. M. Landgraf et al. An overview of the STAR DAQ system. _Nucl. Instrum. Meth._, A499:762-765, 2003.
+* [39] S.Y. Lee. _Spin Dynamics and Snakes in Synchotrons_. World Scientific, Singapore, 1997.
+* [40] Hiromi Okada. _Measurement of the Analyzing Power in pp Elastic Scattering in the CNI Region with a Polarized Atomic Hydrogen Gas Jet Target_. PhD thesis, Kyoto University, 2006.
+* [41] H. David Politzer. Reliable Perturbative Results for Strong Interactions? _Phys. Rev. Lett._, 30:1346-1349, 1973.
+* [42] Martijn Russcher. _Direct Photon Measurement in Proton-Proton and Deuteron-Gold Collisions_. PhD thesis, NIKEF, 2008.
+* [43] M. Shao et al. Extensive particle identification with TPC and TOF at the STAR experiment. _Nucl. Instrum. Meth._, A558:419-429, 2006.
+
+* [44] Frank Simon. Longitudinal spin asymmetry and cross section of inclusive pi0 production in polarized p + p collisions at RHIC. _AIP Conf. Proc._, 915:343-346, 2007.
+* [45] D. S. Sivia and J. Skilling. _Data Analysis_. Oxford Science Publications, 2nd edition, 2006.
+* [46] Torbjorn Sjostrand, Stephen Mrenna, and Peter Skands. PYTHIA 6.4 Physics and Manual. _JHEP_, 05:026, 2006.
+* [47] S van der Meer. Calibration of the effective beam height in the isr. _internal report CERN-ISR-PO/68-31_, 1968.
+* [48] Steve Vigdor. Private communication.
+* [49] W. Voglesang and M. Stratmann. Private communication.
+* [50] Matthew Walker. Calibration uncertainty calculation. [http://drupal.star.bnl.gov/STAR/subsys/bemc/calibrations/run6/btow/calibration-uncertainty-calculation](http://drupal.star.bnl.gov/STAR/subsys/bemc/calibrations/run6/btow/calibration-uncertainty-calculation).
+* [51] Jeff Wood. _Polarimetry at the Brookhaven AGS Using Proton-Carbon Coulomb-Nuclear Interference_. PhD thesis, UCLA, 2005.
+* [52] W. M. Yao et al. Review of particle physics. _J. Phys._, G33:1-1232, 2006.

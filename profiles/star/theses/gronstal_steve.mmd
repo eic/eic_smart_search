@@ -1,0 +1,984 @@
+## Integrating Detector Functionality into Slow Controls at STAR
+
+**By Steve Gronstal**
+
+[MISSING_PAGE_EMPTY:2]
+
+Thesis Approved
+
+by
+
+Major AdvisorIntegrating Detector Functionality into Slow Controls at STAR
+
+by
+
+Steve Gronstal
+
+-
+
+-
+
+A THESIS
+
+Submitted to the faculty of the Graduate School of Creighton University in partial fulfillment of the requirements for the degree of Master of Science in the Department of Physics.
+
+Omaha, NE (Dec 1, 2003)
+
+###### Abstract
+
+The Solenoidal Tracker At RHIC (STAR) experiment at Brookhaven National Laboratory studies the physics of nuclear matter at high temperatures and densities. Models predict that a state of matter, the Quark-Gluon Plasma (QGP), existed only milliseconds after the Big Bang. In the QGP, individual quarks are not bound in traditional particles. STAR searches for signatures of the QGP in the aftermath of heavy ion collisions. To improve the ability to identify these signatures, the STAR experiment is incorporating more detectors for the tracking of neutral particles. Using the Experimental Physics and Industrial Controls Systems (EPICS), controls for the Electro-Magnetic Calorimeter (EMC) systems have been integrated into the STAR Slow Controls system.
+
+## Acknowledgements
+
+First of all, I would like to take this moment to thank the Dean of the Graduate School and the faculty of the Creighton University Physics Department. It has been my privilege to study under such esteemed and knowledgeable educators. Their support has extended beyond the classroom to create a wonderful community for faculty and students alike. I also want to express gratitude to my thesis committee members, Dr. Michael Cherney, Dr. Janet Seger, and Dr. David Sidebottom, whose support and dedication were invaluable in this difficult graduate experience.
+
+I also want to thank Fr. Thomas McShane and Dr. Bill Waggoner. Both of whom were excellent mentors, guiding me in my endeavors at Brookhaven National Laboratory. I will never forget the enjoyable and treasured times we spent living together. I share many extraordinary memories of our good times together. Thank you.
+
+My development throughout my experiences at Creighton University was greatly influenced by Dr. Michael Cherney. His incredible motivation and infinite patience have allowed me to develop a genuine love of knowledge and an excellent work ethic. I am honored to have worked with him.
+
+Finally, I would like to thank my family. My parents, Robert & Marianne Gronstal have supported me through the good times and the bad. They have given me their confidence, love, and respect. If I ever have some success, it will be theirs.
+
+[MISSING_PAGE_FAIL:7]
+
+## Chapter 5 Relativistic Heavy Ion Collider
+
+	* 5.1 Introduction to RHIC
+	* 5.2 RHIC Accelerators
+		* 5.2.1 The Tandem Van de Graaff Accelerator
+		* 5.2.2 The Linear Accelerator
+		* 5.2.3 The Booster Synchrotron
+		* 5.2.4 The Alternating Gradient Synchrotron
+		* 5.2.5 The RHIC Accelerator Ring
+	* 5.3 The Relativistic Heavy Ion Collider
+		* 5.3.1 BRAHMS
+		* 5.3.2 PHOBOS
+		* 5.3.3 PHENIX
+		* 5.3.4 STAR
+	* 5.4 Summary
+
+## Chapter 6 Star
+
+	* 6.1 Introduction
+	* 6.2 The Time Projection Chamber
+		* 6.2.1 Basic Operation
+		* 6.2.2 The Field Cage
+		* 6.2.3 The TPC Gas
+		* 6.2.4 The Endcap
+	* 6.3 The Silicon Vertex Tracker
+	* 6.4 The Forward Time Projection Chamber
+	* 6.5 Time of Flight
+	* 6.6 The Solenoid Magnet
+	* 6.7 The Barrel Electromagnetic Calorimeter
+	* 6.8 The EndCap Electromagnetic Calorimeter
+	* 6.9 Trigger
+* 6.10 Experiment Operations
+
+## Chapter 7 Slow Controls
+
+	* 7.1 Introduction
+	* 7.2 EPICS
+		* 7.2.1 Distributed Databases
+		* 7.2.2 Operator Interfaces
+		* 7.2.3 Real-Time Coding
+		* 7.2.4 The Alarm Handler
+	* 7.3 The Archiver Engine
+	* 7.4 The Author's Contributions
+	* 7.5 Conclusions
+
+## Appendices
+
+* A: The Barrel PMT HV Software
+* B: The Barrel SMD Software
+* C: The Barrel EMC Software
+* D: The CANbus Software
+* E: The EEMC Laser Software
+* F: The MAPMT Diagnostic Software
+* G: The EEMC MAPMT Software
+
+[MISSING_PAGE_EMPTY:10]
+
+E.1 EEMC Laser Controls Screen E.2 The Laser's Startup Script F.1 The MAPMT Diagnostics Screen F.2 Glossary of MAPMT Parameters F.3 The MAPMT Diagnostics' Startup Script F.4 Startup Steps for HDLC Communication G.1 The MAPMT Controls Screen G.2 The MAPMT Configuration Screen G.3 The MAPMT Controls' Startup Script G.4 Startup Steps for HDLC Communication
+
+## Chapter 1 Introduction
+
+Since the start of civilization, philosophers have pondered the composition of matter. According to the Greek philosopher Aristotle, matter is composed of four elements: Fire, Water, Earth, & Air [1]. Aristotle arrived at this conclusion by observing the basic properties of matter. This observational process later evolved into the scientific method. Today, scientists use the scientific method to understand the revised constituents of matter: quarks and leptons.
+
+The STAR collaboration studies quarks in a highly excited state known as the quark-gluon plasma. Before describing my work in slow controls at STAR, I describe the quark-gluon plasma, emphasizing its role within the evolution of our universe according to the Big Bang Model. A discussion of the methods for studying the quark-gluon plasma follows. From this point, I elaborate on how the STAR detectors function in the analysis of quarks and their interactions. After reviewing these detectors, I explain my contributions to Slow Controls at STAR.
+
+## Chapter 2 The Big Bang
+
+### 2.1 Introduction to the Big Bang
+
+People have always wondered about the origin of our universe. Science has followed this question backward in time, almost to an absolute beginning. In a culmination of today's knowledge and with the analysis of current experiments, scientists hope to further study the beginning of the universe and the Big Bang model.
+
+What is the origin of the universe? To answer such a grand question, scientists look to the stars. With the law of gravity, science can predict the movements of planets, the interactions of solar systems, and the evolution of galaxies. Through observations of these distant entities scientists followed the universe's evolution.
+
+While studying stars, astronomers observed a strange phenomenon in the spectra of radiation from distant stars. The characteristic wavelengths within these spectra are longer than is observed in a laboratory on earth. This is known as a red shift. This phenomenon is believed to be a direct consequence of the Doppler Effect (see Figure 2.1). The implication of a Doppler shift to larger wavelengths is that distant stars are moving away from the earth. Careful analysis of these wavelength shifts give the relative speeds of distant stars. In 1920, Edwin Hubble gave the next major clue concerning the evolution of the universe. Hubble's observations of distant galaxies showed a relationship between the distance to a star and the amount of shift in the spectral lines coming from that star. This proportional relationship is known as Hubble's Law [25]. The conclusion drawn from this relationship was that the
+
+[MISSING_PAGE_EMPTY:14]
+
+time. Extrapolating this expansion back in time, this conclusion yields a moment when the entire universe originated from a single infinitesimal region. The evolution of the universe from this single point is described by the Big Bang Model.
+
+**Evidence that stars are receding from us is not definitive proof of the Big Bang; more evidence is necessary. In 1965, the next piece of the puzzle was unveiled. Astronomers Penzias and Wilson discovered the universe is filled with blackbody radiation, emitted from the unseen background of space. A blackbody ( a perfect radiator and absorber) comes to equilibrium with its surroundings, eventually absorbing and reradiating energy at the same rate. This radiation's near isotropy contradicts the seemingly discontinuous distribution of matter. The peak wavelength of blackbody radiation is inversely proportional to the average temperature of the object according to Wien's displacement law. Using the measurements of the intensity of various wavelengths, a temperature of approximately 2.7\({}^{\circ}\) K can be associated this radiation [20]. The universe's
+
+Figure 2.1: [13]. The Doppler Effect: When radiation emitted at a constant frequency is observed at a different frequency depending on the relative movement of the source and observer.
+
+temperature and the recession speed of distant stars are two phenomena understood through the Big Bang.**
+
+### Evolution of the Big Bang
+
+Fig 2. As the universe cooled, it underwent several phase transitions. This logarithmic plot of temperature vs. time highlights the various phases of matter as the universe cooled. [Eu03]In the Big Bang model, it is hypothesized that the universe started with all its matter in a small space. This matter existed in an extremely hot and dense phase. Throughout this initial state, matter was too energetic to exist in the forms found under today's conditions, where quarks are confined in the protons and neutrons of the atomic nucleus. Instead, quarks and leptons, the fundamental constituents of matter, were free to roam about in a quark-gluon plasma. In order to create this highly energetic state of matter, a particle's energy must exceed the binding energy of the strong force (150 \(\sim\) 250 MeV) [14]. Two very important processes occurred before this stage ended. The first process involved the divergence of the forces. Near the universe's beginning, it is theorized that all forces were indistinguishable from one grand force, which diverged into the four forces observed today: Gravity, Electromagnetism, Strong, and Weak. The second process of this stage was inflation. In these few microseconds, the universe underwent a rapid growth. It expanded in volume over 27 orders of magnitude to almost a kilometer in size [15]. The universe has taken the remaining 15 billion years to duplicate an expansion of this order of magnitude. The energy dissipated in this expansion enabled the universe to eventually enter the age of hadronization.
+
+The age of hadronization is marked by confined quarks. For this confinement to occur, particles must have cooled to a state where their kinetic energies are less than the binding energy of the strong force. Hadrons are particles consisting of quarks, bound by the strong force through its mediating particle, the gluon. The most common hadrons in the universe today are protons and neutrons.
+
+After the age of hadronization, free quarks are found only in the deep cores of neutron stars and in black holes. In these liberated states, quarks and gluons are free to move about in a much larger hadronic region. The stage of hadronization lasted almost 4 minutes; during this time, energy was present to a significant extent as both matter and light. By the end of this stage, the universe was composed almost entirely of photons. The ratio of photons to neutrons and protons at this time was over a billion to 1 [25]. Leptons, particles unaffected by the strong force, are also present during this stage of the universe. Enough leptons (i.e. electrons, muons, and tau particles) exist to keep the universe electrically neutral. Through absorption, re-emission, and scattering, the photons from this stage of development eventually became the blackbody radiation of space. The discovery of this radiation by Penzias and Wilson provided significant evidence for the Big Bang. No other explanations so easily explain this nearly isotropic phenomenon.
+
+The Age of Nucleosynthesis
+
+As the universe continued to cool, it entered the age of nucleosynthesis. The strong force was still the dominant force guiding its evolution. Nucleosynthesis is the combining of protons, neutrons, and other hadrons to produce larger nuclei. Through this process, protons and neutrons eventually began to form deuterons, tritium, and alpha particles. The heaviest nuclei created from these reactions were those of lithium, but this happened only in extremely rare cases [25]. By the end of this stage the composition of matter was approximately 76% hydrogen and 24% helium [25]. In spite of billions of years of further development, the composition of the known universe is approximately unchanged. The Big Bang, unlike other cosmological theories, explains why the universe is so overwhelmingly composed of hydrogen and helium.**
+
+#### The Formation of Atoms
+
+**After approximately a million years, the universe's temperature had fallen to about 2000 K [23]. The average energy per nucleon dropped below that of the Coulomb binding energy (approximately 13.6 eV for an electron in the ground state of a hydrogen atom) [14]. Nuclei started to retain the electrons they captured, and neutral atoms became prevalent. Even though the universe's chemical composition did not change considerably, there has been a dramatic change in its structure because of gravity. It is at this point that the amplified effects of previous quantum undulations became evident as the distribution of matter became locally non-homogeneous.**
+
+#### The Universe Today
+
+**Today, the universe continues to cool. Now the particle density in the universe is sufficiently sparse for gravity to act as a dominant force, allowing the formation of planets, stars, and galaxies. The stars, composed of helium and hydrogen atoms, are capable of continued nucleosynthesis. During this fusion process, hydrogen and helium are combined into heavier atoms, creating the trace amounts of oxygen, silicon, and iron currently found. Since this fusion produces energy, these processes also give stars the fuel to radiate energy. As stars age, some explode in huge supernovae while others simply lose their luminescence. The energy from these supernovae allows the formation of elements heavier than iron [14].**
+
+As this 10 billion year old stage continues, old stars burn out and new stars form, all 
+
+**while the universe continues to expand and cool. It is in this state that scientists strive to map out the evolution of the universe.**
+
+### 2.3 Summary
+
+**The Big Bang Theory incorporates the quark-gluon plasma within the early evolution of the universe. The desire to understand the early universe has contributed to making the quark-gluon plasma an active area of particle physics research. The quark-gluon plasma currently exists naturally only in the deepest cores of neutron stars and in black holes. Since these very distant and exotic entities are out of reach to modern science, other methods must be implemented to study the quark-gluon plasma. Before explaining these methods, it is appropriate to investigate the fundamentals of particle physics.**
+
+## Chapter 3 Particle Physics Today
+
+### 3.1 Introduction to Particle Physics
+
+**Over the last century, particle physics has developed from an ambiguous understanding of the electron, the positive charge carrier, and light, to the standard model predicting the complex set of fundamental particles observed today. This new branch of physics has revolutionized the understanding of the interactions of matter. In order to understand the quark-gluon plasma, a foundation based on the history of particle physics is necessary.**
+
+### 3.2 History of Particle Physics
+
+**Shortly after the start of the twentieth century, physicists were trying to understand matter on an atomic scale. They had recently discovered the electron, the proton, and various forms of radiation. A breakthrough occurred in scattering experiments between 1909 and 1911. In these experiments, Rutherford provided evidence of an atom's nucleus. This discovery of the nucleus paved the way for understanding the structure of atoms. It explained the charge and mass distributions of atoms. Scientists had trouble explaining components of the nucleus' mass until 1932, when, through kinematic scattering, Chadwick confirmed the existence of the neutron [25]. At this point, some scientists believed they had identified the complete set of elementary particles: the electron, proton, neutron, and photon. In the eyes of these physicists, they were approaching the pinnacle ofunderstanding. However, these elementary particles were just the tip of the iceberg.
+
+Between 1930 and 1960, cosmic ray detectors unveiled an entire catalog of new particles, varying in mass and charge. The concept of a small set of fundamental particles was seemingly obliterated.
+
+The categorization of these particles became a long, drawn-out process. The first methods of categorization were based upon mass. These methods quickly became obsolete as scientists discovered these particles varied in everything from mean lifetime to their interactive properties. The current method sorts particles according to the nuclear forces by which they interact. This created two categories of particles: leptons and hadrons. Leptons are particles, like electrons and neutrinos, that do not interact by the strong force. They are considered to be point-like fundamental particles. Hadrons are particles, like protons and neutrons, that do interact via the strong force. The category of hadrons is further divided into baryons, which obey Fermi-Dirac statistics, and mesons, which obey Bose-Einstein statistics. Fermi-Dirac statistics imply two particles cannot occupy the same state, whereas any number of particles can in Bose-Einstein statistics. It was in 1964 that two prominent scientists, Murray Gell-Mann of California Institute of Technology and George Zweig at the European Center for Particle Physics (CERN), independently proposed that hadrons are composed of yet smaller particles [13]. These particles became known as quarks.
+
+**Quarks are considered to be fundamental particles, just like leptons. All quarks and leptons are spin-\(\nicefrac{{1}}{{2}}\) particles, known as fermions, that obey Fermi-Dirac statistics (see Table 3.1). Quarks themselves combine to form the two classes of hadrons. Mesons are hadrons composed of a quark-antiquark pair. With an even number of spin \(\nicefrac{{1}}{{2}}\) constituents, these particles have whole-integer spins, meaning they obey Bose-Einstein statistics. Baryons, the other category of hadrons, are composed of three primary quarks. Due to the odd number of quarks, these are spin 1/2 or 3/2 particles. The most commonly found baryons are protons and neutrons.**
+
+**Fermions**
+
+Spin = \(\nicefrac{{1}}{{2}}\)
+
+**Leptons**
+
+**Clar
+
+\begin{tabular}{|l|l|l|l|l|l|l|l|} \hline
+**e** & Electro & 0.000511 & -1 & **u** & Up & 0.0036 & 2/3 \\  & n & & & & & & \\ \hline \(\boldsymbol{\mathsf{V_{\mu}}}\) & Muon & \(<0.0005\) & 0 & **s** & Strange & 0.15 & -1/3 \\  & Neutrin & & & & & & \\  & o & & & & & & \\ \hline \(\boldsymbol{\mathsf{\mu}}\) & Muon & 0.107 & -1 & **c** & Charm & 1.5 & 2/3 \\ \hline \(\boldsymbol{\mathsf{V_{\pi}}}\) & Tau & \(<0.250\) & 0 & **b** & Bottom & 5 & -1/3 \\  & Neutrin & & & & & & \\  & o & & & & & & \\ \hline \(\boldsymbol{\mathsf{\tau}}\) & Tau & 1.784 & -1 & **t** & Top & 173 & 2/3 \\ \hline \end{tabular}
+
+**Table 3.1:** The 12 fundamental particles known today. Each particle has an associated antiparticle with the same mass but opposite charge [Se96].
+
+Over the last four decades particle physicists have developed quantum mechanical descriptions to explain different types of nuclear interactions. Two predominant theories are Quantum Electro-Weak Dynamics (QED) and Quantum Chromo Dynamics (QCD).
+
+Today, QED provides extremely accurate predictions for electro-weak interactions. QCD explains strong interactions using a new property known as color. Both of these theories rely on the existence of yet more particles, the gauge bosons.
+
+## GAUGE BOSONS
+
+The Force Carriers: Spin = 0, 1, 2,...
+
+\begin{tabular}{|l|l|l|l|l|l|l|} \hline
+**Weak** & & & & **Strong (color)** & \\ Spin = 1 & & & & Spin = 1 & & \\ \hline Name & Mass & Electric & Name & Mass & Electric \\  & (GeV/c\({}^{2}\)) & charge & & & (GeV/c\({}^{2}\)) & Charge \\ \hline \(\mathbf{W^{\ast}}\) & 80.4 & -1 & **G** & Gluon & 0 & 0 \\ \hline \(\mathbf{W^{\ast}}\) & 80.4 & +1 & & & & \\ \hline \(\mathbf{Z^{0}}\) & 91.187 & 0 & & & & \\ \hline \multicolumn{6}{|l|}{**Electromagnetic**} & & **Gravity** & \\ Spin = 1 & & & & Spin = 2 & & \\ \hline \(\boldsymbol{\gamma}\) & Photon & 0 & 0 & **G** & Gravit & 0 & 0 \\  & & & & & on & & \\ \hline \end{tabular}
+
+Table 3.2: The 6 gauge bosons accepted today. The gauge bosons are particles that mediate the forces of nature [25].
+
+Gauge bosons are particles that mediate the fundamental forces (see Table 3.2). Gluons are the gauge bosons that act as carriers for the strong force. Photons are the force carriers for the electromagnetic force. The weak force is mediated by three bosons, the W\({}^{+}\), W\({}^{-}\), and Z\({}^{0}\). The graviton is the theoretical conveyer of the gravitational force. The graviton has never been detected. The 6 bosons, together with the 6 leptons and 6quarks (Leptons and quarks have 6 particles and 6 anti-particles each), form the complete set of fundamental particles known today [25].
+
+### 1.4 Summary
+
+**To further understand this set of fundamental particles, physicists wish to observe particle interactions with reference to the four forces. The strong force has become an area of interest due to its predominant role within matter around us. To study the strong force, physicists must study all types of quark-gluon interactions. This is accomplished in many types of experiments, from cosmic ray detectors to particle colliders. The current goal of many particle physicists is to understand quark interactions free from their hadronic confinement, within the quark-gluon plasma. To do this, particle physicists are trying to recreate the quark-gluon plasma in the world's largest supercolliders.**
+
+## Chapter 4 The Quark-gluon Plasma
+
+### 4.1 The Search for the Quark-gluon Plasma
+
+**The significance of the quark-gluon plasma extends beyond the Big Bang Model. Quarks and gluons are the building blocks of nuclear matter. In normal matter, quarks and gluons are bound to each other in hadrons. Within the extended space of the quark-gluon plasma, it is possible to free quarks and gluons from their confinement in individual particles. To liberate quarks and antiquarks from hadronic confinement, they need more energy than the strong force binding energy. The dilemma is, the strong force binding energy is greater than the quark-antiquark creation threshold. This means before separation occurs, the energy given to the original quarks is consumed in the spontaneous creation of another quark-antiquark pair (see Figure 4.1). Because of this, scientists look for different ways to free quarks and gluons.**
+
+**The quark-antiquark creation threshold is exceeded, two new quarks are crated.**Figure 4.1: To separate quarks, a large source of energy is required. However, prior to seperation, the input energy is consumed in the creation of a new quarks [QJ 97].
+
+### 4.2 Deconfinement of Quarks & Gluons
+
+To study quarks' interactions physicists use the principles of Quantum-Chromo-Dynamics (QCD). According to QCD, the strong force is mediated by gluons. Gluons, unlike any other gauge boson, have the ability to interact with other gluons. This causes the strong force to initially increase and then become constant with distance, and leads directly to the inability to separate quarks using the classical methods. An important corollary to this property exists. At the limit of an infinitely small distance between quarks, the strong force interaction between the quarks approaches zero. Thus, in extremely dense states, quarks screen each other, causing this asymptotic freedom [Yi03]. Using this principle, many particle physicists attempt to study liberated quarks within the laboratory. This freedom occurs naturally deep in the cores of neutron stars and in black holes, where a large amount of hadronic matter is compressed into an extremely small region. In these ultra-dense materials, the borders between individual hadrons cease to exist.
+
+**Instead, the hadrons combine into a large hadronic region as their wave functions overlap. The quarks and gluons are able to roam about within this hadronic region.**
+
+**By colliding massive nuclei at relativistic speeds, physicists create an extremely dense and energetic region in the attempt to create a quark-gluon plasma.**
+
+**Unfortunately, the laboratory lifetime of this plasma is about a trillionth of a trillionth of a second (\(\sim\)10\({}^{-24}\)s) [Le01]. This is far too short a time period to directly probe the plasma. Scientists must look at the particles emerging from this region to understand the quark-gluon plasma.**
+
+### 4.3 The Nuclear Collision
+
+**Before discussing the residual particles from the quark-gluon plasma, it is necessary to understand how matter evolves from the quark-gluon plasma.**
+
+**Particles collide in the interaction region at the center of this nuclear fireball. In order to create the quark-gluon plasma, a very dense energetic region of space must be created within the interaction region. In this process, hundreds to thousands of quarks are compacted into a very small region of space. Due to the enormous number of interacting particles, "global variables" like those of thermodynamics are used to describe the interactions. Thermo-Quantum-Chromo-Dynamics (TQCD) is the theory incorporating these global variables to explain the interactions between the formation and eventual freeze-out of the quark-gluon plasma. At freeze-out, inelastic collisions cease; hence the particle composition of the system remains unchanged.**
+
+### 4.4 Signatures of the Quark-gluon Plasma
+
+Detectors cannot directly observe the quark-gluon plasma. They observe the many signatures of this state. Four of the signatures currently used in the search for the quark-gluon plasma are the enhancement of the strange particle production, the energy distribution of emerging photons and dilepton pairs, a reduction in the observation of charmonium, and the decrease in the number of particle jets observed.
+
+#### Strangeness Enhancement
+
+The detection of the particles carrying strangeness is one method of searching for the quark-gluon plasma. Theory predicts that strange and antistrange particles willbecome more abundant in the aftermath of the quark-gluon plasma for three reasons: the reduction of threshold energy, the higher energy density of the medium, and the Pauli-blocking of low energy up and down states. These reasons are all based on the principle that the less energy necessary for a process, the easier, and hence the more likely, it is that the process will occur.
+
+The first reason for the abundance of strange particles is less energy is required to create matter in the quark-gluon plasma. This is because inside the quark-gluon plasma, a gluon can produce a quark/antiquark pair in a single interaction. The energy required for this process is just twice the mass of the quark being created. This is about 300 MeV for strange quarks [10]. Outside of the quark-gluon plasma a more complicated annihilation/creation process occurs. Two hadrons must interact to produce the strange quarks. In these collisions, the spectator quarks contribute to a larger mass difference between allowed states. As a result, 0.67-2.23 GeV of energy is required to create the strange/antistrange pair outside of the quark-gluon plasma [10]. The lower threshold energy results in more strange/antistrange particles expected in the aftermath of the quark-gluon plasma.
+
+The probability of producing a particle is related to the energy of the particle and the temperature of its system. At larger temperatures the probability of a particle being found with an energy, E, in a collection of particles with temperature, T, can be approximated by a Boltzman distribution, P(T,E)\(\propto\)e\({}^{-\text{E/kT}}\). Up quark creation is more probable than strange quark creation, because up quarks can be in a lower energy state (lower energy threshold). For high temperature states, where the threshold energy is significantly less than the Boltzmann energy (kT), the probability of any particle being produced becomes nearly equal. This means that there will be almost as many strange quarks as there are up and down quarks. While equal production probabilities are not achieved, the increased temperature does result in a larger fraction of strange quarks in the mixture than at lower temperatures.
+
+The final reason for enhanced production of strange particles is the Pauli exclusion principle. Since quarks are fermions (spin-\(\nicefrac{{1}}{{2}}\) particles) no two bound quarks can occupy the same quantum state. Due to the large number of initial state up and down quarks (from the colliding nuclei), a saturation of low energy up and down quark states occurs. The difference in the production probabilities between low energy strange quarks and high-energy up/down quarks is no longer significant [15].
+
+Given these three mechanisms, the presence of strange quarks is greatly enhanced. It is estimated that within the quark-gluon plasma, the production of strange/anti-strange pairs is 10 - 30 times greater than in a hadron gas [16]. As a direct consequence, production of rare multistrange hadrons increases 15 fold [15]. With such a large increase in the production of strange quarks, this enhancement is considered one of the primary signatures of the quark-gluon plasma.
+
+#### Photons & Dilepton pairs
+
+Another signature of the quark-gluon plasma is found in the energy distribution of photons and dilepton pairs. The photons and dilepton pairs of interest are the highly energetic particles coming directly from the interaction region. The dilepton pairs produced are primarily electrons and positrons or muons and antimuons. Because these particles do not interact by the strong force, they often do not interact with other particlesafter their production within the quark-gluon plasma. As a result they provide direct information about the energy and temperature of the quark-gluon plasma.
+
+There are several difficulties in studying these particles. Because they do not interact with the strong force, they are much harder to detect. Furthermore, the decay products from the most abundantly produced particles, neutral and charged pions, obscure much of the information the photons and dilepton pairs offer, because the pions decay exclusively into low energy photons and leptons. Products of these background decays may interact with detectors, making it difficult for many detectors to study the particles of interest [15]. In spite of these difficulties, many experiments use these particles as the primary method of studying the quark-gluon plasma.
+
+#### Charmonium Suppression
+
+A third signature for detecting the quark-gluon plasma involves the observation of charmed hadrons. Charmed hadrons are particles containing a charm or anticharm quark. Charm quarks are much more massive than up, down, or strange quarks, and thus require much more energy to create. Like strange quarks, these very massive particles are more easily created at the high energies necessary to create the quark-gluon plasma. The production of charmed hadrons is still dramatically less than that of even strange hadrons. The evidence for the quark-gluon plasma comes from a peculiarity in the creation of these charmed particles. The signature here is not the presence of charmed hadrons, but how they are present.
+
+The J/\(\Psi\) meson is the state of charmonium with the lowest rest energy.
+
+Charmonium particles consist of a charm and an anticharm quark. However, due to overlapping wave functions and the large number of lighter quarks within a quark-gluonplasma, the probability of a charm/anti-charm pair remaining together as a J/P particle is significantly less than if it was produced in free space [Yi03]. This suppression of observed J/P particles, despite the increase in the number of charmed hadrons, is considered to be distinguishing evidence the quark-gluon plasma formed [Ar02] [Go02].
+
+#### Unpaired Particle Jets
+
+**The suppression of particle jets is another signature of the quark-gluon plasma. A high momentum quark will produce large numbers of quark-antiquark pairs in its wake by the process outlined in section 4.1. Jets are bunches of particles emitted in nearly the same direction from the interaction region. Due to the conservation of momentum, two high momentum particles (traveling in opposite directions) are produced. Within the quark-gluon plasma, energy loss for a quark is more rapid due to the high likelihood of quarks interacting strongly within it. Because of this, one of the high momentum particles produced occasionally loses its energy as it passes through the quark-gluon plasma, while the other leading particle may have a shorter path in the plasma. This causes the suppression of one jet, resulting in the observation of single jets of particles. The unpaired jets (monojets) are an indicator that the quark-gluon plasma may have been formed [Le01].**
+
+### 4.5 Summary
+
+**Given the extreme conditions necessary to create the quark-gluon plasma, particle physicists must use supercolliders to study this state of matter. The Relativistic Heavy Ion Collider (RHIC) is one of the world centers for quark-gluon plasma research. Its various detectors and a collection of physics signatures (including
+
+**Figure 5.1**: A layout of the RHIC Accelerator Ring showing the seven components used in accelerating particles [Sc03].
+
+At RHIC, physicists accelerate massive gold ions to speeds approaching the speed of light to create the quark-gluon plasma. The detectors are located at four of the six collision points around the 3.8-km ring. The energy of particles in the RHIC beam is on the order of 100 GeV per nucleon. At these relativistic speeds, it is estimated the energy of the collision will be sufficient to form the quark-gluon plasma [14].
+
+### 5.2 The Brookhaven Accelerators
+
+In the acceleration process, particles start in either the Tandem Van de Graaff Accelerator or the Linear Accelerator. From these devices, particles enter the Booster Synchrotron, then the Alternating Gradient Synchrotron, and finally the RHIC ring (see Figure 3.1). By incrementally increasing the beam energy, the Brookhaven accelerators create a high-energy particle beam used for making hot, dense nuclear matter.
+
+#### The Tandem Van de Graaff Accelerator
+
+Heavy ions, such as gold, start their acceleration process in the Tandem Van de Graaff accelerator. This machine was completed in 1970 and, for almost 10 years, was the world's largest electrostatic accelerator facility. It is composed of two fifteen million-volt electrostatic accelerators [15]. The Tandem Van de Graaff Accelerator uses negatively ionized atoms and accelerates them toward a positively charged target.
+
+Passing through the target, enough electrons are stripped to positively ionize the atoms. At this point the particles are then re-accelerated away from the terminal (giving the "tandem" acceleration). These ions are accelerated up to 1 MeV per nucleon via this process. They then enter the Tandem to Booster (TTB) Line, completed in 1986, where almost half of their electrons are stripped off en route to the Booster Synchrotron [14].
+
+#### The Linear Accelerator
+
+RHIC is capable of accelerating and storing nearly all ion species. Brookhaven's Linear Accelerator (LINAC) is the starting point for protons and light ions. This accelerator can accelerate 35 mA beams of protons to energies up to 200 MeV [1]. To accomplish this, the LINAC uses nine radio-frequency cavities that span the 140 m tunnel. Radio waves oscillate in the cavities so protons and electrons, particles that interact with the electric field, are accelerated. The radio waves are timed to push protons or electrons in a way similar to that in which a wave pushes a surfer. By using different radio frequencies, these particles are accelerated in steps as they traverse the nine cavities. These particles are then transferred to the Booster Synchrotron.
+
+The Booster Synchrotron pre-accelerates the ions before they enter the Alternating Gradient Synchrotron (AGS). It uses electric fields applied at intervals timed to the ions' orbits to boost the energy of the ions. By the time the Booster Synchrotron has completed its acceleration process, the kinetic energy per heavy nucleon is about 95 MeV [14]. At this point, the gold ions are travelling at 33% the speed of light [2]. From here they enter the Booster-to-AGS transfer line, where all but 2 electrons are stripped away from massive nuclei.
+
+#### The Alternating Gradient Synchrotron
+
+The Alternating Gradient Synchrotron (AGS) is the primary accelerator at Brookhaven National Lab. It accelerates gold ions up to 0.997 c. To accelerate ions, they are directed through a series of electromagnetic fields that alternate in field gradients. This process, referred to as alternating gradient focusing, simultaneously accelerates and bunches these heavy ions. This method of alternating electromagnetic field gradients was first developed at Brookhaven National Laboratory, and is currently used by almost every supercollider in the world [1]. By the end of this process, the AGS will have separated the beam into 57 distinct bunches. These bunches fill the RHIC rings one beam at a time via the AGS To RHIC, or ATR, line [1].
+
+#### The RHIC Accelerator Ring
+
+Prior to entering the RHIC ring, foils in the ATR strip the remaining electrons from the ions. Then 3.6-km RHIC ring accelerates ions up to 0.99995 c. By colliding such energetic beams, physicists attempt to create the quark-gluon plasma at RHIC.
+
+### 5.3 The Relativistic Heavy Ion Collider
+
+At the Relativistic Heavy Ion Collider (RHIC), scientists strive to understand the quark-gluon plasma using various detector experiments. There are currently four experimental detectors: BRAHMS, PHOBOS, PHENIX, and STAR (see Figure 5.2).
+
+Each detector looks for the quark-gluon plasma using various signatures.
+
+This shows the layout of the four detectors currently commissioned at the RHIC ring. Two positions are currently available for new projects [12].
+
+Figure 5.2: The RHIC Accelerator Ring.
+
+#### BRAHMS
+
+The Broad RAnge Hadronic Magnetic Spectrometer (BRAHMS) is located in the 2 o'clock position on the RHIC ring. As one of the two smaller detectors, its acceptance is limited to particles coming from very specific angles. Using its spectrometers, BRAHMS measures the momentum distribution of the detected particles. BRAHMS consists of two branches of detectors, the forward spectrometer and the mid-rapidity spectrometer (see Figure 5.3). Rapidity is a dimensionless measurement of a particle's forward momentum along the beam line. By measuring \(\theta\) from the beamline, the forward spectrometer covers \(2.3^{\circ}<\theta<30^{\circ}\)[15], and is composed of a long array of calorimeters and tracking detectors. The mid rapidity spectrometer covers \(30^{\circ}<\theta<90^{\circ}\)[15]. It is composed of two Time Projection Chambers (TPC's), which allow the identification of charged hadrons. The primary goal of BRAHMS is to study charged hadrons emitted from the RHIC collisions, and correlate transverse momentum (the
+
+Figure 5.3: A schematic diagram of the BRAHMS detector [14]momentum component perpendicular to the beamline) with centrality (the degree of overlap between colliding particles).
+
+#### 5.3.2 Phobos
+
+The PHOBOS detector was built to study the rare and unusual collisions at RHIC, paying particular attention to the ratios of the production rate of the different particle types. This small detector is located in the 10 o'clock position of the RHIC ring.
+
+PHOBOS is composed almost entirely of silicon detectors, which completely surround the interaction region (see Figure 5.4). With these detectors, they accurately measure the total number of charged particles produced. The number of particles produced is known as the multiplicity. With PHOBOS, physicists study fluctuations in particle distributions and correlate them with energy, centrality, and azimuthal angle [Ol01].
+
+Figure 5.4: **A schematic diagram of the PHOBOS detector [Sc03]**
+
+#### 5.3.3 Phenix
+
+The Pioneering High Energy Nuclear Interaction eXperim (PHENIX) is the heaviest of the RHIC experiments, weighing 4000 tons (see Figure 5.5). It is located at the 8 o'clock position on the RHIC ring. The PHENIX experiment is designed for the study of photons and dilepton pairs emitted directly from the interaction region. A central component of PHENIX is its multiplicity vertex tracker which measures the charged particle distribution. The PHENIX detectors are designed to identify and measure all types of leptons, particles that do not interact via the strong force. By studying these particles, PHENIX hopes to acquire direct measurements of the interior temperature of the quark-gluon plasma. As charm meson decay has a large branching ratio to leptons, the detector should be particularly useful in the study of charmonium suppression.
+
+Figure 5.5: **A diagram of the PHENIX detector [50]**
+
+### 5.3.4 Star
+
+The Solenoidal Tracker At RHIC (STAR) is found at the 6 o'clock position and weighs about 1,200 tons. The three-story tall STAR detector (see Figure 5.6) was designed to study two aspects of hadron production: correlations between global observables on an event-by-event basis and the use of the hard scattering of partons to probe the quark-gluon plasma. To accomplish this, STAR simultaneously measures global parameters (like temperature, flavor composition, and collision geometry) while studying particle trajectories (with the TPC) and energy flow (using segmented Electromagnetic Calorimetery) [14]. Named after its large solenoidal magnet, STAR's main attribute is the ability to track charged particles emitted from the collisions. To
+
+Figure 5.6: The STAR detector [14].
+
+accomplish this, one of the world's largest time projection chambers surrounds the collision region.
+
+### Summary
+
+All four of these detectors play important roles in studying the nuclear interactions at RHIC. Each offers unique perspectives for understanding the quark-gluon plasma. From this point, a more detailed look at the STAR detector is required prior to explaining the author's contributions.
+
+[MISSING_PAGE_FAIL:45]
+
+Calorimeter (EEMC). By incorporating all of these components, STAR provides data for studying a number of signatures of the quark-gluon plasma.
+
+### 6.2 The Time Projection Chamber
+
+#### Basic Operation
+
+The Time Projection Chamber is one of the baseline detectors for STAR. The TPC is a cylindrical detector with readout electronics on the cylinder caps (see Figure 6.2), offering tracking capabilities for thousands of charged particles. As a particle travels through the TPC, it leaves a trail of ionized particles, similar to a bubble chamber.
+
+Figure 6.2: A schematic diagram of STAR’s Time Projection Chamber. It is the principle detector used in reconstructing the paths of charged particles.
+
+The electrons and ions that are separated in this process drift following the electric field lines to the positions of greatest potential (for electrons) or least potential (for ions). The liberated electrons drift to one of the endcaps, where front-end electronics record their position in two dimensions. Because the TPC maintains a constant drift velocity, the third spatial dimension can be determined by accurately measuring the drift time. By combining this information, online computers connect these space-points fitting a track to each particle's trajectory.
+
+#### The Field Cage
+
+In order for the TPC to get accurate spatial measurements, an extremely uniform electric field parallel to the beamline is necessary. To accomplish this, the TPC contains ring-shaped inner and outer electric field cage electrodes. These electrodes, aligned perpendicular to the drift direction, are connected together by a chain of resistors. These electrodes create equally spaced equipotential planes perpendicular to the beam axis, producing the desired uniform electric field parallel to the beam. The thickness of the inner and outer walls of these field cage cylinders is a compromise between a minimum of material to prevent particle deflection and insulation capable of handling voltage differences of up to 10-kV [1].
+
+#### The TPC Gas
+
+An important element of the TPC is the gas used to produce ionization tracks.
+
+The TPC uses a mixture of 90% Argon with 10% methane, known as P-10, regulated at 2 mbars above atmospheric pressure. This mixture provides the capability for charged tracks to produce sufficient ionization while simultaneously allowing the detector to operate in a safe (non-explosive) environment. Argon is chosen for two reasons. As a noble gas, it does not react with the detector. Furthermore, its mass is comparable to that of methane. As a result, it produces similar scattering effects, making the electron drift more uniform. Methane is an easily ionizable gas. Its use leads to larger signals from the charged particles passing through the TPC [1].
+
+#### The Endcap
+
+The endcap is the principle detector within the TPC. It allows for a quick electronic readout of the ionization trails created by particles passing through the TPC's gas. To accomplish this, the TPC contains an anode to attract electrons. As the electrons come near the high field anode region, they are accelerated towards the anode gaining a kinetic energy between collisions, which is larger than the atomic binding energies. These electrons knock off more electrons, which also start to rapidly accelerate toward the anodes. This effect, known as an avalanche, frees enough electrons around the anode wire to create a usable signal [10]. This signal induces an image charge on the array of pads located behind the anode wires (see Figure 6.3). The pads record the particle's vertical and horizontal position. By recording the induced signals as a function of time,
+
+Figure 6.3: An electron avalanche induced by the high field near an anode wire [12].
+
+and by incorporating the 40 microsecond chamber drift time, the third spatial dimension can be extrapolated. The STAR endcaps also have a gating grid, located near the anode wires, that helps to prevent the build up of charge at the anodes by only letting electrons into the amplification region when the detector readout is initiated by the collision selection trigger. It provides full azimuthal coverage of collisions, enabling the detection, identification, and measurement of momenta for \(\mid\eta\mid\) < 1.0. The Psuedo-rapidity (\(\eta\)) is the angle between a particle's momentum and the beam line. Tracking alone, for the purpose of studying particle spectra, flavor composition, and momentum distributions, is performed for 1.0 < \(\mid\eta\mid\) < 2.0 [1].
+
+### 6.3 The Silicon Vertex Tracker
+
+Figure 6.4: The Silicon Vertex Tracker (SVT) surrounds the beampipe at the center of the STAR detector. It is composed of 216 Silicon Drift Detectors [1].
+
+The Silicon Vertex Tracker (SVT) is located very close to the region where the collisions occur. The SVT increases the tracking capabilities to low momentum and short-lived particles, as short-lived particles decay before reaching the TPC, and low momentum particles do not have enough transverse momentum to reach the TPC in a \(\mathrm{\char 37}\) Tesla magnetic field. The SVT is of particular importance in determining which particles are from decays, and which particles are from the interaction region.
+
+To detect particles, the SVT incorporates Silicon Drift Detector (SDD) technology. The SVT consists of three concentric circles containing a total of 226 SDD's (see Figure 6.4). A 10 cm, high resistivity n-type silicon wafer is used as a substrate. Strips of p-type material are implanted symmetrically as field-shaping electrodes. A high voltage gradient (up to 600 V/cm) is applied to these shaping electrodes which fully depletes the silicon, thereby creating a deep potential well [1]. Free electrons produced by the passage of charged particles through the detector are attracted to this potential well. Because of the electrostatic field, electrons drift toward the edge of the detector where signals are read out on a segmented anode. The SVT is capable of identifying the vertices of charm and strange hadrons that decay before reaching the TPC.
+
+### 6.4 The Forward Time Projection Chamber
+
+The two Forward Time Projection Chambers (FTPC's) are located at each end of the SVT, concentric with and between the TPC and the RHIC beampipe. These detectors measure the momentum and production rates of charged particles emitted at small angles (along the beampipe) from the interaction region.
+
+The FTPC is a mini-TPC with its own gas vessel, field cage, and electronics readout (see Figure 6.5). It uses a cooled gas mixture of 50% CO\({}_{2}\) and 50% Argon. This non-flammable combination offers a very low deflection angle, improving tracking precision. Unlike most TPC's, the FTPC incorporates micro-strip gas readout pads located along its outer cylinder. It aligns an electric field perpendicular to the solenoid
+
+Figure 6.5: A schematic diagram of one of the Forward Time Projection Chambers (FTPC) at STAR [1].
+
+magnetic field, guiding the drift of free electrons radially to one of its 9,600 readout pads. The radial drift configuration was chosen to improve two-track separation very close to the beampipe [1].
+
+### 6.5 The Time of Flight
+
+The Time of Flight (TOF) detector determines the time it takes for a charged particle to reach a cylindrical detector array just outside the TPC. After reconstructing particle tracks with the TPC and SVT, the distance a particle traveled to the TOF detector can be obtained. This length, combined with the time of flight (at a 100 picosecond resolution), will give the velocity of a particle. By using the momentum determined from the curvature of the path (see section 6.6), the particle's mass can be determined.
+
+The Time of Flight subsystem currently incorporates two types of detectors. The original design for the TOF was to incorporate a shingle structure of scintillators around the TPC. Funds are not available to cover the entire TPC with this shingle structure. A less costly alternative has recently been implemented using Multigap Resistive Plate Chamber (MRPC) technology. This is a gas-type detector containing 90% Freon, 5% isobutane, and 5% Sulfur Hexafluoride (SF\({}_{6}\)) [10]. These newer, inexpensive TOF detectors, composed of glass and graphite, offer high resolution of a charged particle's flight time. A large electric field is uniform over the gaseous volume of the MRPC. Any ionization produced by a charged particle passing through the detector will start an electron avalanche, which generates signals on the pick-up electrodes [11].
+
+### 6.6 The Solenoid Magnet
+
+The solenoidal magnet establishes a uniform magnetic field inside the detector, along the beam pipe. The bending in the magnetic field provides a measure of the transverse momentum and sign of the charge for each particle. Considering the magnetic force, a relation between velocity and acceleration can be determined (**F** = q**v** x **B** = ma). The centripetal acceleration (a = v\({}_{\mathrm{T}}^{2}\)/r) can be expressed in terms of the component of the velocity perpendicular to the magnetic field. A relationship for momentum can be established (p\({}_{\mathrm{T}}\) = mv\({}_{\mathrm{T}}\) = qBr). From the information about a particle's time of flight, from the TOF, and a measurement of the distance traveled from the tracks in the TPC, a particle's velocity (v\({}_{\mathrm{T}}\) = d\({}_{\mathrm{T}}\)/t) can be calculated. Combining transverse momentum and transverse velocity information, the particle's mass can be determined (m = p\({}_{\mathrm{T}}\)/d).
+
+The STAR magnet is normally operated at a field of 12 Tesla. A second operating point of 14 T is occasionally used for periods of operation intended to study low momentum charged particles. The field is created using 10 main coils, 2 space trim coils, and 2 pole tip coils. The main coils, with a current of 4500 A, provide the primary field for the magnet. The space trim and pole tip coils, with a current up to 1330 A, serve to maintain a uniform magnetic field around the endcaps. The total power consumption in the coils exceeds 3.5 MW. In addition to the coils there is a large iron yoke, surrounding the coils, to redirect flux and reduce the stray field near the electronics platform. These magnet components have a weight which exceeds 1100 tons of aluminum and stainless steel [1].
+
+The uniform magnetic field must be aligned with the electric field. Electrons will spiral along the magnetic field lines aiding spatial resolution if alignment is correct, and distorting the drift path if the fields are not parallel.
+
+### 6.7 The Barrel Electromagnetic Calorimeter
+
+A calorimeter is a device that measures energy flow. Energy from high energy particle collisions often takes the form of electromagnetic radiation. The
+
+Figure 6.6: A diagram of the Barrel Electromagnetic Calorimeter, located between the TOF detector and the magnetic coils. This beam line view also displays the SVT and TPC [We03].
+
+Electromagnetic Calorimeter (EMC) measures the electromagnetic energy radiated from the collision.
+
+The EMC performs two important tasks at STAR. First, the amount of energy deposited in the EMC is directly related to the amount of nuclear stopping that occurred. This information is strongly correlated to the collision centrality. The other important contribution is the EMC gives an excellent estimate of the energy density of the fireball. The energy density is an indicator of whether the conditions necessary for the quark-gluon plasma are present.
+
+The EMC detects approximately 50% of the total energy flow in a direction perpendicular to the beam from a collision. It is estimated that 40% of the deposited energy is from low energy hadrons, and 60% is from neutral electromagnetic energy. Neutral electromagnetic energy is most abundantly produced by the \(\pi^{0}\) decay. Half of the particles produced in collisions are neutral and the \(\pi^{0}\) is the most abundant of these. The \(\pi^{0}\) decays almost immediately into two photons. The EMC is then able to provide a picture of the flow of energy from neutral particles while complementing the picture of the flow of energy from charged particles (provided by the TPC) [1].
+
+The EMC is located between the TOF detector and the magnet coils (see Figure 6.6). The EMC is composed of alternating layers of lead and scintillator material.
+
+Energetic photons interacting with matter often produce electron-positron pairs. As these electrons and positrons pass through matter, they lose energy in the Bremsstrahlung process [10]. These secondary photons again produce more electron-positron pairs, and the process is repeated. This cascading effect, known as a shower, continues until almost all of the energy is deposited within the calorimeter. As this shower of electronsand positrons pass through the scintillator material, atoms in the material become excited. As they return to lower energy states these atoms emit photons, which are detected by photomultiplier tubes (PMT's).
+
+The EMC also contains a Shower Maximum Detector (SMD) strategically located at a 5.6 radiation length depth (see Figure 6.7). The electron-positron shower from electromagnetic radiation is greatest at this depth, providing high-precision measurements. The SMD is a wire-proportional counter - strip detector using gas amplification. The detector strips sense induced charges, with the help of gas amplification, on a wire readout grid. The SMD allows precise measurements of the energy deposition within a particle jet, improved hadron rejection (as electromagnetic showers tend to start earlier in the detector than hadronic showers), and \(\pi^{0}\)/\(\gamma\) separation. This helps identify how many neutral particles were produced, and the transverse momentum of those particles.
+
+Once completed in 2004, the EMC will have 60 tower modules covering \(|\eta|<1\) and \(2\pi\) in azimuth. Each tower module contains 80 different PMT readout boxes (channels) each reading data from the 21 layers of lead and scintillator. Besides these 4800 tower channels, it will have 36,000 SMD channels. Each SMD channel corresponds to one of 30 wire strips (in a 15 x 15 grid) contained in an SMD segment (there are 1200 distinct segments) [1].
+
+Figure 6.7: **The Shower Max Detector (SMD) is located between the tower’s layers of lead/scintillator material [12]**
+
+### 6.8 The Endcap Electromagnetic Calorimeter
+
+The Endcap Electromagnetic Calorimeter (EEMC) is located at one end of the barrel EMC, mounted onto the magnetic pole tip (see Figure 6.8). The EEMC will provide full azimuthal coverage for high-p\({}_{\mathrm{T}}\) photons, electrons, and decaying pions over the range of \(1<\eta<2\). It also includes a Shower Maximum Detector (SMD) to distinguish electrons and photons from charged hadrons.
+
+Figure 6.8: A schematic of the EEMC Tower lead/scintillator layers. Finely segmented into 720 channels, each 24 layers deep. Embedded within the tower layers are the 2 SMD layers, and a pre & post shower layer [1].
+
+The EEMC is composed of 24 segmented scintillator layers, two shower maximum layers and one post & pre-shower layer (see Figure 6.8). Each scintillator segment (24 layers deep) is read into one of the EEMC Tower's 720 PMT tubes. The SMD and pre/post shower layers are read into Multi-Anode Photo Multiplier Tubes (MAPMT's). These MAPMT's allow up to 16 channels to be individually recorded, increasing the detector resolution while efficiently using the available space. In the EEMC, the SMD's are located about five radiation lengths deep to distinguish between directly produced photons and the lower energy photon pairs characteristic of the \(\pi^{0}\) decay [1].
+
+### 6.9 Trigger
+
+The Trigger system of STAR enables the experiment to discard or record data based on event characteristics. This system is composed of several smaller detectors (Central Trigger Barrel, the Zero Degree Calorimeters, and the MultiWire proportional Counters) that can be reconfigured to fit the current operation characteristics. The trigger detectors offer fast real-time decisions as to the physics value of a particular collision. The trigger quickly determines whether an event is potentially useful for future analysis.
+
+The trigger system makes decisions at four levels. First trigger (level zero) issues an acceptance trigger within 1.5 microseconds of the interaction. It uses the fast readout detectors, trigger detectors and the EMC & EEMC calorimeters, to quickly determine if an event (collision) exceeds the predefined threshold. A small subset of the trigger data taken is then analyzed. This level 1 trigger process takes less than 100 microseconds to accept or reject an event. The complete set of trigger data is analyzed in the level 2trigger before sending the data to Data Acquisition (DAQ) system. The time required to fully accept or reject an event is under 5 milliseconds [14]. The data acquisition system reconstructs the event for the purposes of data reduction as part of the level 3 trigger.
+
+### 6.10 Experiment Operations
+
+Two subsystems are used for the operation of the STAR experiment as a data collecting device. The first of these subsystems is the data acquisition system. This system collects all the digitized output from the detectors, compresses it in size, and transfers the data to a storage medium. For a central Au + Au event, 96 MB of data is expected per event. Currently, DAQ is capable of processing 200 MB events at a rate of up to 100Hz. After data reduction the average event size is 10 MB; events are written for storage at 30MB/s via ethernet to the RHIC computing facility. This is sufficient as the trigger rejects most of the unsuitable events prior to writing [1].
+
+The second subsystem is slow controls, which monitors and configures all of the detector systems within STAR. The majority of the author's contributions are to the slow controls systems (discussed in chapter 7).
+
+The human interface to these operations subsystems is equally important. Many people are required to operate the STAR detector. Every week of operation, three four-person crews work to keep the detector running. These positions are: the shift crew member, who monitors the gas system; the detector operator, who remotely operates and troubleshoots all detector systems; the run-time assistant, who starts, records, and configures the triggers for each run; and the shift leader, who manages detector operation according to the physics plan. Part of my work with STAR was to serve several weeks as a shift crew member, a detector operator, and a run-time assistant.
+
+### 7.1 Introduction
+
+Operation of a large and complex detector system like STAR requires an extensive experiment controls system. The trigger and data acquisitions systems handle the high-speed collection and initial processing of physics data. Hardware control functions are handled by the slow controls system. Slow controls systems set, monitor, and control all experimental parameters to ensure the recording of accurate and reliable data.
+
+The RHIC accelerator ring hosts many experiments, including STAR. During normal operations, these experiments sit in inaccessible, high radiation areas. To prevent stopping every RHIC experiment, these experiments must spend months operating remotely. The STAR Slow Controls system provides user-friendly operator interfaces to allow the remote, real-time monitoring and controls of all detector subsystems.
+
+The Experimental Physics and Industrial Controls System (EPICS) is used for the STAR slow controls software. The EPICS package was designed at Los Alamos National Laboratory and the Advanced Photon Source at Argonne National Laboratory. It is used to operate devices in particle accelerators, large experiments, telescopes, and utility plants. Further development is currently being done in collaboration with institutions from around the world.
+
+### 7.2 Epics
+
+The EPICS package operates using a distributed database networked by channel access servers and clients. The contents of the database are called records. Each record consists of several fields that contain information for that record. Each record, stored on one of the channel access servers, is accessed by name. A channel access server is a network monitoring program that listens for database calls from channel access clients. At STAR, channel access servers are mainly located on Versa Module Europa (VME) processors running the VxWorks real-time operating system. Individual workstations running UNIX utilize channel access clients to control and monitor device specific programs.
+
+#### Distributed Databases
+
+EPICS uses a distributed database system. Multiple operator interfaces are able to simultaneously display real-time changes. To accomplish this, Input Output Controllers (IOC's) communicate to the user interface over an ethernet network. At STAR an IOC consists of a processing CPU located in a VME crate. The VME crate houses the processing CPU and all necessary application-specific hardware interfaces. At boot-up, these IOCs use an ASCII file to specify which database records and parameters to load. These database records then become available to all channel access clients. These clients (the end users interfaces) listen for updates of record datafields to be broadcast by nameover the ethernet network. The two requirements for this system are: all records on the network must have unique names and the network has to be capable of supporting the large amounts of traffic created in this process. Using EPICS tools, such as the Graphical Database Configuration Tool (GDCT, shown in Figure 7.1), databases are created and configured. These tools simplify database creation by displaying all the options available to each record type. For simple databases, databases can be created using generic text editor programs like EMACS or VI. GDCT is a Computer-Aided Drafting (CAD)-type program that allows programmers to diagram a database. This means the connections between EPICS records are documented, allowing others to quickly understand how information flows through the database.
+
+To handle the creation of databases containing hundreds or thousands of records, template functionality has been implemented. Templates are database files in which record names contain a placeholder. When loading the template into a processor's memory, a value must be specified to complete the record name. This expedites the creation of multiple records with the same attributes.
+
+[MISSING_PAGE_EMPTY:64]
+
+#### Operator Interfaces
+
+The ability of the non-expert to control electronics is essential to slow controls systems. The operator is usually unaware of the complex processes required to complete the tasks desired. To accomplish the desired tasks, EPICS provides user interfaces to change the values of database records. The EPICS tool used to construct the user interface is the Motif Editor and Display Manager (MEDM). MEDM acts as an access client to monitor and control database parameters. With this tool, programmers can create graphical user interfaces for the end user. MEDM incorporates virtual slide bars, meters, dials, and buttons. Interfaces are often designed to look like the equipment being operated. One of the most important features of MEDM is the ability to structure displays. Rather than clutter a single display with indicators for thousands of parameters, a tree-like structure is incorporated to allow orderly access to all parameters. Since certain functions should only be available to the expert user, these controls are located on separate interfaces. The display is color coded, making warnings and error messages apparent.
+
+Figure 2: A top-level user-interface. Created with the Motif Editor and Display Manager (MEDM). This screen allows control of the EMC’s 60 Towers, 8 Shower Max Modules, and the Tower Digitizer Crate (TDC). From this top level, operators can quickly pinpoint which of the 15 thousand parameters are out ofoperational range. To accomplish this, a tree of displays takes the user successively closer to the problematic parameter. These secondary displays also allow experts to use advanced control features.
+
+#### Real-Time Coding
+
+EPICS incorporates computer programming into the slow controls environment. There are two methods used to communicate directly with the detector electronics. The first method involves a "subroutine" record type. When these subroutine records are processed, they execute a function usually written in C. These functions are specified in a field of the subroutine record. To communicate with the database, these functions are passed a self-pointing structure representing its record's fields. This enables the retrieval and manipulation of data from the record's fields. This manipulation varies from saving information to a file to writing ASCII strings out a serial port. The second tool EPICS provides for coding is the sequencer. The sequencer generates real-time code written in State Notation Language (SNL), a programming language very similar to C. To use SNL, a series of states must be defined. Each of these states incorporates a programmed function. Sequencer programs are typically set up to loop infinitely through its states. By monitoring various record parameters, real-time implementation of this code is utilized. Sequencer programs have the ability to monitor and manipulate multiple records and can incorporate data from multiple IOC's. Using these programming methods, EPICS is able to access front end electronics through a variety of protocols including HDLC, CANbus, and RS232.
+
+#### The Alarm Handler
+
+The Alarm Handler is a tool that allows critical database records to be monitored. It audibly alerts system operators whenever a parameter exceeds its given operating limits. Accompanying this alert, a color-coding scheme provides the operator with the severity of alarms. There are three severities of alarms issued. A major severity alarm is indicative of a problem that needs immediate attention. If a parameter is approaching a problematic level, a minor severity alarm is issued to warn the operator of potential difficulties. In the case of a loss of communication with the IOC's, a validity alarm is issued. This alarm usually implies an IOC has been reset. The alarm handler is arranged in a tree-structure. By following branches, the shift supervisors and detector operators are able to locate the alarms in the context of the detector systems (see Figure 7.3).
+
+### The Archiver Engine
+
+The Archiver Engine interfaces with the EPICS package to provide web accessible archive data. This archiver offers two levels of record keeping. The most important of these is the monitoring of global experimental parameters that are fed into STAR's experimental database. These parameters, like magnetic field information, are important for event reconstruction during offline analysis. The second level is for monitoring individual detector parameters. The various detectors of STAR record parameters important for online analysis and troubleshooting. These parameters are usually accessed through the web. The archiver allows storage and retrieval of
+
+Figure 7.3: The Alarm Handler provides an overview of the slow controlsexperimental parameters from an HTML based web page. The page graphically displays the evolution of these parameters throughout a desired time interval. It also enables comparisons between multiple parameters to aid in the debugging of hardware and software problems at STAR.
+
+### 7.4 The Author's Contributions
+
+My work with STAR focused on the development and integration of the EMC systems. The Barrel EMC tripled in size between 2001 and 2003, creating the need for global software to replace software created for hardware testing. The introduction of the EEMC in 2003 required the development of original software to control the new hardware. This upgrade of the Barrel EMC included: integration the PMT High Voltage (HV) controls into the STAR Alarm Handler, integration of the SMD's into the STAR Alarm Handler, configuration controls for the Tower Data Collector (TDC), and configuration controls for the EMC Towers. Development work for the EEMC included: controls for the power supplies, controls for the laser, configuration controls for the EEMC Towers, and configuration controls for the EEMC MAPMT's. In addition to writing these programs, I have provided support in troubleshooting detector software at STAR.
+
+My work on the Barrel EMC involved the integration of non-EPICS controls into the STAR standard EPICS environment. Monitoring functions needed to be provided for the PMT high voltage system. The Barrel HV program, which was written in LabView, monitors the demand voltage, actual voltage, and temperature of all 80 PMT's in each PMT Module. The LabView HV program was modified to use file swapping to exchange information with EPICS. I wrote an EPICS program which loaded the file information into relevant EPICS records. Using these records, all relevant information was incorporated into the STAR Alarm Handler.
+
+A program was written to monitor parameters on the SMD FEE's of the Barrel EMC. Each SMD module contains 15 FEE's. Each FEE monitors three voltages, two currents, and a temperature. Communication with these FEE's uses a High-level DataLink Control (HDLC) protocol over an RS-483 connection. The HDLC link is interfaced to EPICS through a Radstone PME SBCC-1 VME board. I wrote the program for HDLC control which monitored the SMD FEE's, allowing their full integration into the STAR Alarm Handler.
+
+The SMD's and Towers both communicate through the same Radstone board. Multiple programs cannot communicate simultaneously with the FEE's through the same Radstone board without generating errors. To prevent these errors, I incorporated the Tower configuration software (originally written in TCL/TK) into the SMD program. The Tower Data Collector configuration functions were then added to complete the conversion of Barrel TCL/TK software to EPICS.
+
+The addition of the EEMC into STAR required the development of new controls software. The EEMC used a low voltage Wiener PL-500 dual power supply to power the EEMC Towers. Communication with these power supplies uses Controller Area Network bus (CANbus) protocol over a 9-pin serial cable. The CANbus link is interfaced to EPICS using a Greenspring CANbus card. I reconfigured the EPICS CANbus software to setup and control the EEMC dual power supplies.
+
+The original EEMC tower control program was developed from the Barrel's TCL/TK tower control software. I converted the EEMC TCL/TK software into EPICS to bring it into conformity with the rest of the STAR experiment. This year the EEMC incorporated Shower Maximum Detectors into their system. These SMD's used MAPMT's for signal detection. Both the Tower and SMD systems communicate through the same EEMC Radstone board. Again, to avoid communication problems, I expanded the EEMC Tower software to configure the EEMC MAPMT's.
+
+The EEMC uses a New Wave Nb:YAg laser to calibrate the Towers and MAPMT's. Communication with the laser uses an RS-232 serial line. The EPICS IOC communicates through the serial ports of a Motorola 712 Module. Since the PMT/MAPMT high voltage software also uses serial protocol, I developed a method to communicate with multiple serial ports. After incorporating the EPICS-based EEMC High Voltage control software into the STAR Alarm Handler, the entire EEMC met the STAR EPICS software standard.
+
+In addition to the calorimeters, I have contributed to numerous smaller projects. These projects range from helping debug FTPC controls to retrieving gas and voltage information for the new TOF detectors (including their installation in the Alarm Handler). I also upgraded the web pages allowing access to the new information I added to the web archiver. These slow controls programs have allowed the calorimeters to function as an integrated part of the STAR experiment.
+
+### 7.5 Conclusions
+
+The STAR detector receives data from many different detectors with the hope of being able to identify the decay products of the quark-gluon plasma. My work with the STAR experiment has permitted the slow controls system to function in a fully operational state in which operating parameters of the calorimeters can be monitored, set,and controlled. The STAR detector has been collecting data for the last 2 years, and will continue to produce physics results for the next decade.
+
+## Appendix A The Barrel PMT HV Software Purpose:
+
+The Barrel Electro Magnetic Calorimeter (EMC) High Voltage (HV) software monitors the temperatures and voltages for the 4,800 Photo Multiplier Tubes (PMTs) in the EMC.
+
+Files:
+
+\begin{tabular}{|l|l|l|l|l|l|} \hline  & Startup & User & Database Files & Source Code & Data Files \\  & Scripts (for & Interfaces & & & \\  & IOCs) & (MEDM & & & \\  & & files) & & & \\ \hline Path: & ioc/EMChdlc/ & EMCApp/op/adl & EMCApp/EMCDb & EMCApp/src/ & EMCApp/ \\ \hline Files: & st.emc & EMCcode.adl & EMCtemplate & EMCcode.st & EmcFile.log \\  & & EMCcode1.adl & EMCtemp.db & & \\  & & EMCcode2.adl & EMCcode.db & & \\ \hline \end{tabular}
+
+Background:
+
+The Barrel EMC PMT HV control software is written in LabView to control the high voltage on 60 PMT Boxes, containing 80 PMTs each. The LabView program lacks fundamental tools that are common to EPICS based programs, namely the ability to archive control parameters, and alarm handling ability. Further, this program can only run one computer in the STAR control room, and offers only one interface for STAR operators to monitor program parameters. This software compensates for these limitations, makes use of the EPICS alarm handler, and makes use of the EPICS dataachiver. This is accomplished by having the LabView write data to a logfile, which is then read into an EPICS database for alarming and archiving.
+
+### Program Operations:
+
+The user interface for the barrel's HV monitoring program is accessed by logging onto sc3.starp and executing the alias command "emc_hvmon". This alias runs the EPICS MEDM interface tool, loading "EMCcode.adl" in an "execute only" mode. The MEDM tool will then display the interface in Figure A.1. This screen displays the alarm status of all 60 PMT boxes. A red light indicates when a PMT tube of a box has its voltages or temperatures outside alarm limits. To determine which PMT tube in a PMT box is causing an alarm, the user can click a box's button to bring up its related display (Figure A.2).
+
+Figure A.1: The PMT HV Monitoring Program displaying all 60 PMT boxes.
+
+A typical box interface is shown in Figure A.2 for box 2. The display shows the alarm status of each PMT tube in that box. Either a red or green light indicates alarms. A red alarm indicates the difference between the demand and current voltages exceeds 20 V, or the temperature is too high. An operator may click on a PMT tube to display its demand voltage, actual voltage, and temperature. Figure A.3 shows such a display for a PMT in slot 52 of box 2.
+
+Figure A.3: A PMT display showing its temperature, demand voltage, and voltage.
+
+Figure A.2: An individual PMT box display for Box #2 showing its 80 PMTs.
+
+### Program Setup:
+
+The PMT HV monitoring program runs on stargate.starp, a MVME 167 processor. Loading this program requires the processor's startup script, "st.emc", to perform several additional steps. Several of these steps are shown in Figure A.4. After EPICS support is setup, the object code "EEMCcode.o" must be loaded by the script.
+
+Next the script will load the appropriate database files, "EMCcode.db" and "EMCtemplate". "EMCtemplate" is a template file that loads "EMCtemp.db" for each box. After "iocInit" is executed, the final step that the startup script performs is to run the command "seq &EMCcode".
+
+``` #LOADMOULES %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* % added to PMT HV program cd "/star/sc/users/sysuser/epics/R3.12.2-LR.4/EMCApp/src/0.uv167" 1d < EMcode.o %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* % This (default,dctsdr) is used by gdct. cd "/star/sc/users/sysuser/epics/R3.12.2-LR.4/EMCApp/EMClb" % dbLoad "default.dctsdr" % The PMT HV database cd "/star/sc/users/sysuser/epics/R3.12.2-LR.4/EMCApp/EMClb" % dbLoadRecords("EMCcode.db") % dbLoadTemplate "EMCtemplate" %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* %%%%%%%%%%%%%%%%* cd "/star/sc/users/sysuser/epics/R3.12.2-LR.4/EMCApp/EMClb" % iocInit % seq %EMCcode
+
+Figure A.4: Additional steps included in the Barrel HV startup script.
+
+**Troubleshooting:**
+
+The only problem that has been observed for this software occurs when the LabView program fails to write out the PMT parameters. To alert the operator to this problem, the date and time of the last update is displayed on the main screen. This problem can only be corrected by one of the EMC experts who can then update the information.
+
+## Appendix B The Barrel SMD Software
+
+### Purpose:
+
+The Barrel Shower Maximum Detector (SMD) software monitors the voltages, currents, and temperatures for the Barrels SMD's Front End Electronics (FEEs).
+
+### Files:
+
+\begin{tabular}{|p{56.9pt}|p{56.9pt}|p{56.9pt}|p{56.9pt}|p{56.9pt}|} \hline  & Startup Scripts (for IOCs) & User Interfaces (MEDM files) & Database Files & Source Code \\ \hline Path: & ioc/EMChdlc/ & EMCApp/op/adl & EMCApp/EMCDb/ & EMCApp/src/ \\ \hline Files: & st.smdnew & SMDmain.adl & smdtemplate & SMDseq.st \\  & & SMDmain1.adl & thesmd.db & SMDsource.c \\  & & & smd2.db & \\ \hline \end{tabular}
+
+### Background:
+
+The Barrel EMC uses a gas detector for its Shower Maximum Detector (SMD). Once completed, the SMD detector will have a total of 8 SMD boxes (or crates), each box containing 15 FEE boards. Currently there are 4 boxes installed. The signals from the SMD are read out to Front End Electronics boards (FEE boards). These FEE boards have voltages, currents, and temperatures that need to be monitored..
+
+The EPICS software interface with the SMD boxes uses a High-level Data Link Control (HDLC) protocol. The FEE boards monitor and configure the detector electronics hardware. HDLC communication passes through a Radstone microprocessor board to a crate's memory. When reading and writing to a crate, the crate is specifiedwith a unique channel, node, and memory address. The channel identifies which Radstone branch (HDLC cable) is used for communication and the node identifies which crate is accessed. The memory address specifies which parameter is accessed for monitoring and configuration. Only one SMD box may communicate per Radstone branch (HDLC channel) due to an unknown limitation with the FEE boards in the Barrel SMD.
+
+The HDLC communication link passes function specific commands using parameters and routines defined within program code (the source files) and database files. The program code details how changes to the database records cause the execution of program functions. The HDLC link is interfaced with EPCIS software to allow communication between program code, database, and operator interfaces. These operator interfaces were created using the EPICS MEDM tool, and they monitor and manipulate database record values.
+
+### Program Operations:
+
+The primary purpose of this software is to monitor the voltages, currents, and temperatures for each FEE board within an SMD box. To access the EMC's SMD monitoring display a user executes the alias command "emc_smdmon". This alias runs the EPICS MEDM interface tool, loading the file "SMDmain.adl" in an "execute only" mode. This main interface (see Figure B.1) displays a red or green status light for each SMD box. If the status light is red a problem exists for that SMD box (also called crate). The main interface displays several buttons, including the "Pause", "Unpause", "In", and "Out" buttons. Unless paused, the program routinely checks the voltages and currents on 
+
+[MISSING_PAGE_FAIL:79]
+
+processor. Loading this program requires adding several steps to the processor's startup script, "st.EEMCgpib167". Several important steps are shown in Figure 3. After the EPICS support is setup, the object codes "SMDseq.o" and "SMDsource.o" are loaded. The program used to periodically check the SMD boxes is defined in "SMDseq.o". The file "SMDsource.o" contains the database subroutine functions for HDLC communication. Next the startup script must load the appropriate database template file "smdttemplate" (from EMCApp/EMCDb/). This template calls "thesmd.db" for each specified SMD box. Currently there are five, and upon completion there will be eight. To start the program, run the command "seq &SMDseq" after iocInit in the startup script.
+
+The program must incorporate Radstone drivers into its startup script. The steps involved are outlined in Figure 4. The drivers are loaded from, "hdlcRoutines.o" and "testRoutines.o", located in the "radstone/ql2/src" directory on sc3. Once the drivers are loaded, the Radstone microprocessor is initialized with the command "radstoneInitialize address_in_hex, radstone_module_number". The address_in_hex must correspond to the base address encoded in the Radstone module. For the SMD program, the radstone_module_number is zero for the first module, one for the second, and so forth.
+
+Once initialized, the Radstone microprocessor is ready for communication.
+
+[MISSING_PAGE_EMPTY:81]
+
+same Radstone microprocessor. Loading a false channel & node address may also give this error. The HDLC error causes all the voltages, temperatures, and currents to read extremely large values.
+
+## Appendix C The Barrel EMC Software Purpose:
+
+The Barrel Electro Magnetic Calorimeter (EMC) software has been written to power on and configure the run-time parameters for the 30 EMC Tower crates, power up and monitor the 8 EMC Shower Maximum Detector (SMD) electronics crates, and program the Tower Data Collector's (TDC's) Field Programmable Gate Array (FPGA) cards.
+
+Files:
+
+\begin{tabular}{|p{56.9pt}|p{56.9pt}|p{56.9pt}|p{56.9pt}|p{56.9pt}|} \hline  & Startup Script (IOCs) & User Interfaces & Database Files & Source Code & Data Files \\  & & & & \\  & & (MEDM files) & & & \\ \hline Path: & ioc/EMCgpib/ & EMCApp/op/adl/ & EMCApp/EMCDb/ & EMCApp/src & EMCApp/ \\ \hline Files: & st.EMCgpib167 & EMCmainctl.adl & emc\_maincontrol.db & emcbuild.st & EMCConfig.dat \\  & & crateConfig.adl & db\_emc\_control\_file & EMCtest2.c & \\  & & twrConfig.adl & twrcntrItemp.db & & \\  & & smdConfig.adl & smdcntrItemp.db & & \\  & & tdcConfig.adl & smdmontemp.db & & \\  & & smdMonitor.adl & & & \\  & EMCAlarms.adl & & & \\  & EMCstatus.adl & & & \\  & EMCcrate.adl & & & & \\ \hline \end{tabular}
+
+Background:
+
+This software was originally known as the Barrel Tower software. It was first developed to replace the EMC Tower's TCL/TK software "tower_qa.tcl" (located in the "radstone/unix/" directory). After incorporating the necessary TCL/TK functionality, several other features were added for the Barrel SMD and the Barrel TDC. It was at this point that the Barrel Tower program became the Barrel Main Control program.
+
+This program provides functions for the Tower, SMD, and TDC EMC systems. The Tower system consists of 30 Tower electronics crates housing the electronics that configure the 4,800 Photo Multiplier Tubes used by the EMC. These electronics need to be configured with latencies, delays, and masks. The Barrel EMC uses a gas detector for its SMD. Each SMD electronics crate powers 15 FEE cards. The TDC is responsible for the flow of data between the Towers and Data Acquisitions system.
+
+This Main Control program is used to power on and off FEE cards, and to monitor and configure the FEE cards. It also programs the Output FPGA card and the 5 Input FPGA Cards used by the TDC.
+
+The EPICS software interface with the electronics crates uses a High-level Data Link Control (HDLC) protocol. The FEE cards monitor and configure the detector electronics hardware. HDLC communication passes through a Radstone microprocessor board to a memory of a crate. When reading and writing to a crate, the crate is specified with a unique channel, node, and memory address. The channel identifies which Radstone branch (HDLC cable) is used for communication and the node identifies which crate is accessed. The memory address specifies which parameter is accessed for monitoring and configuration. Only one SMD box may communicate per Radstonebranch (HDLC channel) due to an unknown limitation with the FEE boards in the Barrel SMD. As a result multiple Radstone boards are used to provide the necessary channels for the SMD boxes.
+
+The HDLC communication link passes function specific commands using parameters and routines defined within program code (the source files) and database files. The program code details how changes to the database records cause the execution of program functions. The HDLC link is interfaced with EPCIS software to allow communication between program code, database, and operator interfaces. These operator interfaces were created using the EPICS MEDM tool, and they monitor and manipulate database record values.
+
+### Program Operations:
+
+To access the EMC main control program, a user executes the alias command "emc_control" on the sc3.starp SUN workstation. This alias runs the EPICS MEDM interface tools, loading "EMCmainctl.adl" in an "execute only" mode and displays the main interface. The main interface (see Figure C.1) allows access to each of the subsystems as well as alarm and configuration screens.
+
+The first subsystem controlled by Barrel Main Control is the EMC Tower system. The Tower boxes configure the Photo-Multiplier Tube (PMT) FEEs for data collection. From the main interface (see Figure C.1), global commands are issued to all Tower boxes. These commands including: powering on and configuring all Tower boxes, powering off all Tower boxes, configuring all Tower boxes' parameters, and reading the configuration parameters from all Tower boxes. To configure a specific Tower box, click on its orange button to bring up its associated configuration screen (see Figure C.2). The Tower configuration screen allows the configuration parameters to be changed. These parameters may also be saved to a file, loaded from a file, written to the Tower crate, and read from the Tower crate.
+
+Figure C.1: The Main EMC Controls Screen
+
+In addition to configuring the Tower system, the EMC Controls software controls the SMD crates' power. From the main interface (see Figure C.1) global commands are issued to all SMD crates. These commands include: powering off all SMD FEE cards and then SMD crates, powering on all SMD crates and then SMD FEE cards, and powering on all the SMD FEE cards. To configure a specific SMD crate click on its purple button to bring up its associated configuration screen (Figure C.3). Any of the 15 FEE cards within an SMD box can be powered on or off from the SMD crate configuration display. An important feature available is the ability of any FEE card to be included or excluded from a global command. The "Save Data File" button stores the
+
+Figure C.2: The Tower Configuration Screen.
+
+configuration of the included FEE cards for later retrieval with the "Load Data File" button. By clicking the "Monitor" button, a new display will show the temperatures, voltages, and currents for every FEE card.
+
+The EMC control program can also configure the TDC's FPGA cards. From the main interface (see Figure 1), the "Program TDC" button programs the TDC's input and output FPGA cards. Clicking on the "TDC" button will bring up the TDC display (Figure 4). From the TDC display, the TDC FPGA cards may be included or excluded with the "In" and "Out" buttons. If an FPGA card is excluded, there will be no attempts to program it. The "Save to File" button stores the configuration of included FPGAs for later retrieval with the "Load Data File" button.
+
+Figure 3: The SMD Setup Screen
+
+The "Configuration" button from the main interface loads a crate configuration display (see Figure C.5). The crate configuration display allows all essential crate parameters to be set. This includes specifying the channel and node of every crate. This configuration display also allows any crate to be included or excluded. If a crate is excluded, it ignores all global commands. The "Save current configuration" button saves every configuration parameter in the entire program for later retrieval. The "Load file configuration" button loads the entire configuration file. Different filenames may be specified in the filename textbox.
+
+Figure C.4: The TDC Setup Screen.
+
+There are several other important features available on the main interface screen. The main interface has "Pause" and "Unpause" buttons. Unless the program is paused the voltages, temperatures, and currents of the SMD FEE cards will be routinely monitored. The pause buttons stop all routine HDLC communication so other programs can operate, uninhibited, via HDLC. On the main interface, the "CANbus" button brings up the interface to the EMC CANbus program. The "Status" button brings up a display to show the current status and error messages from this software.
+
+Figure C.5: The Program Configuration Screen
+
+### Program Setup:
+
+The EMC main control software runs on creighton5.starp (a MVME 167 processor). Loading this program requires executing several additional steps in the processor's startup script "st.EMCgpib167". These steps are given in Figure C.6. After EPICS support is setup, the object codes "emcbuild.o" and "EMCtest2.o" (both from EMCApp/src/O.mv167/) must be loaded. The file "emcbuild.o" contains the main sequencer program. "EMCtest2.o" contains four functions called by the sequencer program for HDLC communication and TDC configuration. The next step is to load the database files: "emc_maincontrol.db" and "db_emc_control_file" (both from EMCApp/EMCDb/). Global records necessary for operations are contained in "emc_maincontrol.db". The template "db_emc_control_file" calls twrcntrltemp.db for each specified Tower crate (30 upon completion) and calls both "smdcntrltemp.db" & "smdmontemp.db" for each specified SMD crate (8 upon completion). The final step to start the EMC program is to run the command "seq &SMDseq" after iocInit in the startup script.
+
+[MISSING_PAGE_FAIL:92]
+
+address in hex, radstone module_number". The address_in hex must correspond to the base address encoded in the Radstone module. For the MAPMT program, the radstone_module_number is zero for the first module, one for the second, and so forth. Once initialized, the Radstone microprocessor is ready for communication.
+
+### Troubleshooting:
+
+The most common problem with this program is an HDLC error. Trying to read or write to a crate without power causes this error. This error also occurs if multiple programs try to simultaneously communicate through the same Radstone microprocessor. Loading a false channel and node address may also give this error.
+
+Figure C.7: The setup steps for HDLC communication through the Radstone microprocessor board.
+
+The user interfaces for the EMC main controls software are color-coded. Every crate has a status light on the main interface (see Figure C.1). If a Tower's status light is red, it means an HDLC communication error occurred during a read or write command. Every Tower read command compares the value recently written with the value just read. If these values don't match, the new value is updated to the display and the crate's status light turns yellow. If values match the new value is updated on the display and the crate's status light turns green. If there was an HDLC communication error while monitoring a SMD's FEE cards, the SMD's status light is red. A red light also occurs if a FEE cards temperature, voltage, or current is severely out of range. If the SMD crate's FEE cards are off, the crate's status light will be yellow. A yellow status light could also mean that a FEE has a temperature, voltage, or current a little out of its appropriate range. Green means its FEE cards are powered on. If the TDC has a red status light, one of its FPGA cards failed to program. A yellow TDC status light implies its FPGA cards have not been programmed. A green TDC light means its FPGA's have been programmed, and the TDC is ready for data taking. To aid in deciphering errors, this program has an error/status string that reports any problems it encounters.
+
+## Appendix D The CANbus Software Purpose:
+
+Controller Area Network bus (CANbus) is a serial bus system used to control the low voltage power supplies powering most of STAR's Motorola Versa Module Eurocard (MVME) crates. The CANbus software has been expanded to control power to the Barrel and End-cap Electro-Magnetic Calorimeter's (EMC & EEMC) electronics crates.
+
+Files:
+
+\begin{tabular}{|l|c|c|c|c|c|} \hline  & Startup & User Interfaces & Database Files & Source Code & Data Files \\  & Scripts (for & (MEDM files) & & & \\  & IOC's) & & & & \\ \hline Path: & ioc/starme/ & STARvmeApp/op/adl/ & canbusApp/canbusDb/ & canbusApp/src & canbusApp/src/O.mv167/ \\ \hline Files & st.plat\_167 & vme\_1a\_plat.adl & db\_can\_sub\_fileN\_plat & vme\_canbus.st & auto\_settings.req \\ (STAR): & & vme\_2ad\_plat.adl & canbus\_macroN.db & vme\_canbus\_6u.st & auto\_settings.sav \\  & & vme\_ps\_*.adl & cansvcd\_macroN.db & vme\_trig\_link.st & \\  & & & & vme\_global\_trig.st & \\ \hline Files & st.emc\_162 & vme\_emc.adl & db\_can\_sub\_fileN\_EMC & emc\_canbus.st & auto\_settings1.req \\ (EMC): & & vme\_eemc.adl & canbus\_ultimate.db & eemc\_canbus.st & auto\_settings1.sav \\  & & emc\_ps\_*.adl & cansvcd\_emcN.db & canbus\_iotest.st & \\  & & eemc\_ps\_*.adl & cansvcd\_eemcN.db & & \\ \hline \end{tabular}
+
+## Appendix E Background:
+
+The CANbus protocol allows serial communication with multiple power supplies daisy chained together by 9-pin straight-through serial cables. These daisy chains must end with a special CANbus terminator. To efficiently direct communication, each power supply is programmed with a unique 7-bit CANbus address. Communication with these power supplies is handled by EPICS record support routines, defined in "devCan.c". TheSTAR Slow Controls group maintains two independent CANbus networks, each with its own MVME processor, and CANbus controller. Multiple user interfaces have been developed to control power supplies on either of the two networks.
+
+The STAR CANbus network primarily controls the power supplies to the VME crates located on the STAR platforms. The EMC CANbus network mainly controls the power supplies to the Barrel EMC, the EEMC, and west Forward Pion Detector (FPD and FPW) electronics crates. These crates are located on the STAR magnet backlegs and poletip, and in racks near the west pole tip of the STAR magnet.
+
+### Program Operations:
+
+Loading the user interfaces for the STAR CANbus network is accomplished by logging onto sc3.starp and executing the alias commands "vme_plat1" and "vme_plat2". These aliases run the EPICS MEDM interface tool, loading "vme_1st_plat.adl" (see Figure D.1) and "vme_2nd_plat.adl" (see Figure D.2) in an "execute only" mode. Loading the user interfaces for the EMC CANbus network is accomplished by executing the alias commands "emc_canbus" and "eemc_canbus". These aliases load the files "vme_emc.adl" and "vme_eemc.adl" seen in figures D.3 and D.4 respectively.
+
+Figure D.1: STAR CANbus 1rst Floor Platform.
+
+Figure D.2: STAR CANbus 2\({}^{\rm nd}\) Floor Platform.
+
+Figure D.3. EMC CANbus Control.
+
+On any these interfaces, there are only 2 controls that should be used by the non-expert operator: "ON" and "OFF". They turn on and off the corresponding power supply. With the purple buttons, users can also access the "vme-##" displays (see Figure D.5) from the main screen to monitor a power supply's voltages, temperatures, currents, and fan speeds. All fan speeds should be set to maximum. This is accomplished by moving the slider as far right as possible. The error status screen may provide some useful information when troubleshooting unexplained power-downs.
+
+Figure D.4: EEMC CANbus Control.
+
+The EEMC user interface, shown in figure D.4, differs from other interfaces in that it offers a unique related display for controlling the EEMC's dual power supplies. This display is known as a STAR "experts only" page (Figure D.6). It allows the reading ("R" buttons) and writing ("W" buttons) of voltages, current limits, and voltage limits. These parameters are stored in the power supplies' non-volatile memory. Experts from the EEMC group (such as the head of the group) should be the only operators changing these values!
+
+Figure D.5: An advanced CANbus Configuration Screen.
+
+### Program Setup:
+
+Two different processors communicating through two different GreenSpring CANbus controller cards control the two CANbus networks. The STAR CANbus chain operates on grant.starp (a MVME 167 processor) and the EMC CANbus chain operates on vtpc1.starp (a MVME 162 processor). The two startup scripts, "st.plat_167" and "st.emc_162", are used to load control software onto these respective processors. Both startup scripts have almost the exact same structure (see Figure D.7).
+
+Figure D.6: EEMC Dual Power Supply Expert Configuration Screen.
+
+As with all EPICS startup files, drivers are first to be loaded. The drivers loaded for the CANbus VME modules are "drvIpac.o" and "devCan.o" (found in the "canbusApp/src/" directory). These include record and device support routines to communicate via CANbus. Three files are loaded to initiate an auto-restore system: "save_restore.o", "dbrestore.o", & "initHooks.o". When the CANbus program is rebooted, the auto-restore system returns each supply to its last known state (ON or OFF). After the auto-restore files are loaded, two commands must be executed to enable communication. The first, "ipacAddCarrier &vipc610, "0x6000" sets up the module for communication, and the second "t810Create "can1", 0, 2, 250" sets the parameters
+
+Figure D.7: An excerpt of the EMC canbus startup script.
+
+(CANbus identifier, Card number, slot number, and baud rate) for communication through the module. At this point CANbus should be fully operational.
+
+Once CANbus communication is initialized, EPICS programs are loaded to communicate with the power supplies. Several sequencer programs are loaded to provide any necessary advanced features, like configuring the EEMC's dual power supplies. Then the databases templates are loaded. Using the record support functions, the database records directly communicate commands to the power supplies. The database thereby provides most of the control functionality. The final step within the startup scripts, is to start the sequencer programs. After iocInit, issue the appropriate "seq" command, specifying the sequence program, name, and CANbus ID.
+
+Three things must be done to add new power supplies to the CANbus programs,. Lines must be added to the database template files for the new power supplies. The data files need to be updated to include these supplies in the auto_restore function. Finally, the user interfaces must be updated to display the new crates. A reboot, taking 10-15 minutes, is necessary for changes to take effect.
+
+### Troubleshooting:
+
+Communication problems do occasionally occur with the CANbus network, but for the most part, it has very few problems. The most common issue is that some power supplies wont report all available information after they have booted. Usually it is the information related to the power supply status that is not communicated. This problem is most prevalent for the power supplies in the EMC CANbus network. Often the only solution to this problem requires rebooting the CANbus processor until there is an acceptable level of communication (i.e. all the fan speeds, voltages, and currents are communicating).
+
+This bug affects the status bits. Status bits are used for debugging problems and are rarely used. Hence, this bug is usually ignored. In general, problems are most severe when a new crate is added to the network. In this case, a solution may exist. For example if a new power supply continually fails to report a voltage, current, or fanspeed, changing the record SCAN settings sometimes corrects the problem.
+
+Two other communication problems that occur when using CANbus are both caused by hardware. One occurs when a single power supply completely fails to communicate any information. The second problem is observed when most or all of the CANbus program fails to communicate with the crates.
+
+The first problem is a hardware problem with a specific crate. Known causes include no power to the power supply, a crate set to the wrong baud rate (usually 250 kbps), or a crate is set with an incorrect CANbus address. The CANbus address is specified in the database template file, and must match the address set directly at the power supply. A malfunctioning CANbus port has been the cause of this problem with EMC's tower crates.
+
+The second problem indicates a problem with the CANbus chain. When this problem occurs, the CANbus processor will usually enter a state where it continually reboots. This problem can be caused by a break in the CANbus chain or an improperly terminated CANbus line. The only method for debugging this problem is to terminate the chain early, and methodically add in more crates until the broken link has been found.
+
+There is no need to change the software to test a broken chain; however, decreasing the database size greatly reduces the time necessary for rebooting.
+
+## E: The EEMC Laser Software
+
+### Purpose:
+
+The Endcap Electro-Magnetic Calorimeter's (EEMC's) Laser software has been written to remotely operate the EEMC's laser.
+
+### Files:
+
+\begin{tabular}{|l|l|c|c|c|} \hline  & Startup Scripts (for IOCs) & User Interfaces & Database Files & Source Code \\  & & (MEDM files) & & \\ \hline Path: & eemc-sc.starp.bnl.gov: & EEMCApp/op/adl/Indiana/ & EEMCApp/EEMCDb/ & EEMCApp/src/ \\  & /home/online/VxWorks/Indiana/ & & & \\ \hline Files: & startbnl\_new.cmd & EEMCLaser.adl & EEMCLaser.db & lasernew.st \\ \hline \end{tabular}
+
+### Background:
+
+The EEMC's laser program is used to illuminate the individual calorimeter tiles and test and calibrate the Tower photo-multiplier tubes. The software to operate the laser utilizes a standard RS-232 serial protocol to communicate with the laser. The EEMC's laser program started as a command line interface, allowing basic controls of the laser. It has evolved to incorporate a user interface displaying available control parameters.
+
+The serial communication link passes function specific commands using parameters and routines defined within program code (the source files) and database files. The program code details how changes to the database records cause the execution of program functions. The communication link is interfaced with EPCIS software to allow communication between program code, database, and operator interfaces. These operator interfaces were created using the EPICS MEDM tool, and they monitor and manipulate database record values
+
+**Program Operations**:
+
+To access EEMC laser control program, a user executes the alias command "eemc_laser". This alias starts the EPICS MEDM interface tool, loading "EEMCLaser.adl" in an "execute only" mode. The operator will see the corresponding display (see Figure E.1) in an MEDM window. The laser program is not in constant communication with the laser. Several necessary steps must be taken to enable communication. The first step is to open the serial port with the "open" button. This enables the laser software to send commands to the laser. After opening the serial port, "Port control" must be enabled with the "enable" button. "Port control" configures the laser for serial communication. At this point, the program automatically retrieves the power status, attenuator settings, and flashlamp settings. The "Get Laser Status" button will also retrieve these settings. To change the power settings, hit the "On" or "Off" button. The "Reset" button does a quick power cycle to reset the laser. To change the attenuator or flashlamp settings adjust their sliders or type in a new value. To fire the laser, hit the "Fire" button. To stop firing, simply hit the "Stop" button.
+
+### Program Setup:
+
+The EEMC Laser program runs on eemc-vxvme.starp (a MVME 167 processor). Loading this program requires the processor's startup script, "startbnl_new.cmd", to perform several additional steps beyond those in a normal startup script. Figure E.2 shows these steps. After the EPICS support is setup, the object code "lasernew.o" (from EEMCApp/src/O.mv167) must be loaded. Next the startup script must load the database file "EEMCLaser.db". After "iocInit" is executed, the final step that the startup script performs is to run the command "seq &EEMCLaser".
+
+Figure E.1: EEMCLaser.adl
+
+### Troubleshooting:
+
+This program is a work in progress. Currently when the program attempts to read the data from the laser, the program completely freezes. This problem is not understood. The assumption is the code attempts to read the information before the laser issues a response. As such, the code implements a method for probing the data stream to determine if return data is present. This implementation has not been tested yet. Once tested, further tweaks will be performed, and new features will be added.
+
+Figure 2: An outline of the startup script’s essential components.
+
+## F The MAPMT Diagnostic Software Purpose:
+
+The Endcap Electro Magnetic Calorimeter (EEMC) Multi-Anode Photo Multiplier Tube (MAPMT) diagnostic software has been written to configure the EEMC's MAPMT's runtime parameters. These parameters include box delays, reset delays, trigger latencies, and many more.
+
+Files:
+
+\begin{tabular}{|l|l|l|l|l|l|} \hline  & Startup Scripts (for IOCs) & User Interfaces & Database Files & Source Files & Data Files \\  & & (MEDM files) & & & \\ \hline Path: & eemc-sc.starp.bnl.gov: & EEMCapp/op/adl/ & EEMCApp/EEMCDb/ & EEMCApp/src/ & eemc-sc.starp.bnl.gov: \\  & /home/online/VxWorks/Indiana/ & & & /home/online/mini/tcl/towerdat/ \\ \hline Files: & startbnl\_new.cmd & MAPMTdiagnose.adl & EEMCdiag.db & mapmtdiag.st & diagnose\_smdinit.dat \\ \hline \end{tabular}
+
+### Background:
+
+The MAPMT's are used by the EEMC to read out the Shower Maximum Detectors (SMD) and Pre- and Post-Shower Detectors. The MAPMT and associated electronics are housed in magnetically shielded boxes; the EEMC has a total of 48 MAPMT boxes. These boxes house the electronics for 12 different MAPMT's. Each MAPMT has 16 channels, read out to 4 different Front End Electronic (FEE) boards. Each board has a separate gated integrator and digitizer for each of its 4 channels. Hence the MAPMT boxes are each housing a total of 48 FEE boards or 192 channels. To ensure accurate data taking, the MAPMT boxes must be configured with appropriate latencies, delays, and control bits. These values depend on factors such as the position of a MAPMT within the EEMC readout and controls chain.
+
+A High-level Data Link Control (HDLC) protocol is used by the EPICS software to interface with the electronics crates, each containing multiple Front End Electronic (FEE) cards. The FEE cards monitor and configure the detector electronics hardware. HDLC communication passes through a Radstone microprocessor board to a memory of a crate. When reading and writing to a crate, the crate is specified with a unique channel, node, and memory address. The channel identifies which Radstone branch (HDLC cable) is used for communication and the node identifies which crate is accessed. The memory address specifies which parameter is accessed for monitoring and configuration.
+
+The HDLC communication link passes function specific commands using parameters and routines defined within program code (the source files) and database files. The program code details how changes to the database records cause the execution of program functions. The HDLC link is interfaced with EPCIS software to allow communication between program code, database, and operator interfaces. These operator interfaces were created using the EPICS MEDM tool, and they monitor and manipulate database record values.
+
+### Program Operations:
+
+To access the EEMC's MAPMT diagnostic program, a user executes the alias command "eemc_mapmtdiag" on the sc3.starp SUN workstation. This alias starts the EPICS MEDM interface tool, loading "MAPMTdiagnose.adl" in an "execute only" mode. The operator will see the corresponding display (see Figure F.1) in an MEDM window. When a channel number and node number is entered into the corresponding entry fields, communication with the desired MAPMT box is enabled. A map of 
+
+## Chapter 7 Appendix
+
+Figure F.1: The MAPMT diagnostic’s Screenfrom files with the "Save to File" and "Load from File" buttons. The "Reconfigure MAPMT" button reconfigures the MAPMT box to its default settings. The MAPMT program can be "paused" with the Pause/Unpause buttons. "Pausing" the program prevents it from communicating via HDLC, allowing other programs HDLC communication. Unless paused, the MAPMT box's voltages, currents, and temperatures will be periodically checked.
+
+Glossary of Parameters:
+
+Box Parameters:
+
+Box Name:
+
+EEMC name for MAPMT box
+
+Status Register: Box Control and Status Register (To Be Defined)
+
+Box Delay:
+
+Offsets the phase of the RHIC strobe as used by the MAPMT box
+
+Reset Delay:
+
+Controls the phase of the reset pulse with respect to the ADC clock.
+
+Reset Width:
+
+The width of the reset pulse.
+
+PT Latency:
+
+Delay in cycles between the readout board issuing a pulse
+
+command to the FEE boards and it issuing a subsequent readout
+
+trigger command to the FEE boards.
+
+LED Delay:
+
+Like PT Latency but LED Pulsers use LED delay rather than PT
+
+Latency.
+
+FEE Parameters:
+
+**Unique ID for FEE board (0-47).**
+
+Trigger Latency:
+
+In response to a trigger, how many cycles back in time to
+
+pull data.
+
+Status Register: FEE Control and Status Register (To Be Defined) [bit7]...[bit0]
+
+Bit0 = A "1" value enables temperature output, adding its temp to
+
+FEE Temperature Readout.
+
+Bit1 = A "1" value enables the FEE for data readout
+
+**Pulse Charge:**
+
+Magnitude of charge injected for a test pulse 
+
+### Program Setup:
+
+The MAPMT diagnostics program runs on eemc-vxvme.starp (a MVME 167 processor). Loading this program requires adding several steps to the processor's startup script, "startbnl_new.cmd", to perform several steps. These steps are shown in Figure F.3. After EPICS support is setup, the object code "mapmtdiag.o" (from EEMCApp/src/O.mv167/) are loaded by the script. Next the script will load the appropriate database file "MAPMTdiag.db" (from EEMCApp/EMCDb/). After the command "iocInit", two more commands are necessary to start the MAPMT program. This program reads files on eemc-sc.starp. As a result, the startup script must mount eemc-sc.starp using the command "cd "eemc-sc:VxWorks/Indiana/"". The final step in starting the MAPMT diagnostics program is to execute the command "seq &mapmtdiagnose" at the end of the startup script.
+
+Figure F.2: A glossary of MAPMT screen parameters.
+
+The program must incorporate Radstone drivers into its startup script. The steps involved are outlined in figure F.4. These are loaded from, "hdlcRoutines.o" and "testRoutines.o", located in the "radstone/q12/src" directory on sc3. Once the drivers are loaded, the Radstone microprocessor is initialized with the command "radstoneInitialize address in hex,
+
+Figure F.3: Additional components found in the MAPMT diagnostic startup script.
+
+## 6.2 Traubleshooting:
+
+The most common problem with this program is an HDLC error. This occurs anytime it tries to read or write to a MAPMT box without setting the correct node and channel. This error will also occur if a MAPMT box is completely powered off, or when multiple programs try to simultaneously communicate through the same Radstone microprocessor.
+
+Figure 4. The setup steps for HDLC communication through the Radstone microprocessor.
+
+[MISSING_PAGE_EMPTY:117]
+
+## G The EEMC MAPMT Software Purpose:
+
+The Endcap Electro-Magnetic Calorimeter's (EEMC's) Multi-Anode Photo-Multiplier-Tube (MAPMT) software has been written to synchronously configure the run-time parameters on all 48 MAPMT boxes of the EEMC. The parameters include box delays, reset delays, trigger latencies, and many more.
+
+Files:
+
+\begin{tabular}{|l|l|l|l|l|l|} \hline  & Startup Scripts (for IOCs) & User Interfaces & Database Files & Source Code & Data Files \\  & & (MEDM files) & & & \\ \hline Path: & eemc-sc.starp.bnl.gov: & EEMCApp/op/adl/ & EEMCApp/EEMCDb/ & EEMCApp/src/ & eemc-sc.starp.bnl.gov \\  & /home/online/VxWorks/Indiana/ & & & & /home/online/mini/tlc/towerda/ \\ \hline Files: & startbnl\_new.cmd & EEMCMAPMT.adl & maincntrl.db & mapmtsart.st & mapmt-ID-config.dat \\  & & MAPMTtemp.adl & mapmctcntrItemp.db & & \\  & & (c=crcateninumber) & & & \\ \hline \end{tabular}
+
+## Background:
+
+The MAPMT's are used by the EEMC to read out Shower Maximum Detector (SMD) and Pre- and Post-Shower Detector signals. The EEMC has a total of 48 MAPMT boxes, each housing the electronics for 12 different MAPMT assemblies. Each MAPMT assembly consists of a MAPMT and 4 different Front End Electronic (FEE) boards. Each board has a separate gated integrator and digitizer for each of its 4 channels. Hence the MAPMT boxes are each housing a total of 48 FEEs or 192 channels. To ensure accurate data taking, the MAPMT boxes must be configured with appropriate latencies, delays, and control bits. These values are based on several factors such as each MAPMT's position within the EEMC readout and controls chain.
+
+The EPICS software interface with the MAPMT boxes uses a High-level Data Link Control (HDLC) protocol. The FEE cards monitor and configure the detector electronics hardware. HDLC communication passes through a Radstone microprocessor board to a crate's memory. Reading and writing to a crate is specified with a unique channel, node, and memory address. The channel identifies which Radstone branch (HDLC cable) is used for communication and the node identifies which crate is accessed. The memory address specifies which parameter is accessed for monitoring and configuration.
+
+The HDLC communication link passes function specific commands using parameters and routines defined within program code (the source files) and database files. The program code details how changes to the database records cause the execution of program functions. The HDLC link is interfaced with EPCIS software to allow communication between program code, database, and operator interfaces. These operator interfaces were created using the EPICS MEDM tool, and they monitor and manipulate database record values.
+
+### Program Operations:
+
+To access the EEMC's MAPMT program, a user executes the alias command "eemc_mapmt" on the sc3.starp SUN workstation. This alias starts the EPICS MEDM interface tool, loading "EEMCMAPMT.adl" in an "execute only" mode. The operator will see the corresponding display (see Figure G.1) in an MEDM window. From this main interface, commands are issued synchronously to all MAPMT boxes.
+
+From the main interface, several functions are available to the users. The first function "Load from Files", loads box parameters for every box. A default data configuration file for every MAPMT is loaded at booting when the software is loaded into the IOC. This function allows the user to change configuration files. The file for a given MAPMT is identified by its position on the end-cap. For example MAPMT 12S1 uses the file "mapmt-12S1-config.dat". Different configurations may be loaded and saved by changing the filename (the default name is "config"). These files specify the MAPMT box's node and channel, which are necessary for communication.
+
+Figure G.1: The EEMC MAPMT Screen
+
+The "Save to Files" command writes the database record values back out to the files. The "Write to Boxes" command configures every MAPMT box with the parameter values specified in its corresponding database records. The "Read from Boxes" updates the database records to values read from the MAPMT boxes. The main interface also has "Pause" and "Unpause" buttons. When the program is "unpaused", it will routinely monitor the MAPMT box's voltages, temperatures, and currents. The point of the pause feature is to stop all HDLC communication so other programs can operate, uninhibited, via HDLC. On the main interface, there are buttons for every MAPMT box. These buttons open up another configuration screen (see Figure G.2) used to configure a single box.
+
+This single box configuration screen details all configuration parameters (explained in glossary below). It also allows all the main functions to be performed on just one MAPMT. These include: loading data from a file ("Load from File"), saving data to a file ("Save to File"), writing data to a box ("Write to box"), reading data from a box ("Read from Box"), and pausing/unpausing the program. The single box configuration screen has several additional functions too. The button "Reconfigure Box" reconfigures the box back to its default settings. The install/uninstall button designates the MAPMT box as installed/uninstalled. If a box is uninstalled, there will be no attempts to read or write to it. Another available function is the ability to mask out parameters by using the "M" (mask) & "U" (unmask) buttons (see Figure G.2). This masking feature is available because some MAPMT boxes may not be fully functional. These masks prevent configuration parameters from alarming a MAPMT box. To alert an operator of masks, masked parameters which are active are highlighted with a red box.
+
+Figure G.2: The MAPMT Configuration Screen
+
+Glossary of Parameters:
+
+Box Parameters:
+
+**Box Name:**
+
+**EEMC name for MAPMT box (read only)**
+
+**Status Register:**
+
+**Box Control and Status Register (To Be Defined)**
+
+**Trigger-Readout Latency:**
+
+**In response to a trigger, how many cycles back in time to pull data.**
+
+**Pulser-Trigger Latency:**
+
+**Delay in cycles between the readout board issuing a pulse command to the FEE boards and it issuing a subsequent readout trigger command to the FEE boards.**
+
+**LED-Trigger Latency:**
+
+**Same as Pulser-Trigger Latency, but LED Pulsers use LED-Trigger Latency rather than Pulser-Trigger Latency.**
+
+**Box Delay:**
+
+**Offsets the phase of the RHIC strobe as used by the MAPMT box**
+
+**Reset Delay:**
+
+**Controls the phase of the reset pulse with respect to the ADC clock.**
+
+**Reset Width:**
+
+**The width of the reset pulse.**
+
+Assembly Parameters:
+
+**Pulse Charge:**
+
+**Magnitude of charge injected for a test pulse of FEEs (a zero value disables charge injection).**
+
+**Status Register: FEE Control and Status Register (4 FEE's per assembly)**
+
+**[bit7]...[bit0]**
+
+**Bit0 = A "1" value enables temperature output, adding its temp to FEE Temperature Readout.**
+
+**Bit1 = A "1" value enables the FEE for data readout Bit2-7 = To be defined.**
+
+### Program Setup:
+
+The MAPMT program runs on eemc-vxvme.starp (a MVME 167 processor). Loading this program requires the processor's startup script, "startbnl_new.cmd", to perform several steps. A sample of these steps is outlined in Figure 3. After the EPICS support is setup, the object code "mapmtstart.o" (from EEMCApp/src/O.mv167/) must be loaded. Next the script must load the database files: "maincntrl.db" (shared with other EEMC control programs), and "mapmtcntrltemp.db". The file
+
+"mapmtcntrltemp.db" is a template file that must have the value for crate number, "c=#", specified. After the command "iocInit", two more commands are necessary to start the MAPMT program. Since this program reads files on eemc-sc, the startup script must mount eemc-sc.starp using the command "cd "eemc-sc:VxWorks/Indiana/"". The final step in starting the MAPMT program is to execute the command "seq & mapmtroutines" at the end of the startup script.
+
+As an HDLC program, the program must incorporate Radstone drivers into its startup script. The steps involved are outlined in Figure 4. The drivers are loaded from, "hdlcRoutines.o" and "testRoutines.o", located in the
+
+Figure 3: An outline of the startup script’s essential components.
+
+radstone/ql2/src" directory on sc3. Once the drivers are loaded, the Radstone microprocessor must be initialized with the command "radstoneInitialize address_in_hex, radstone_module_number". The address_in_hex must correspond to the base address encoded in the Radstone module. For the MAPMT program, the radstone_module_number is zero for the first module, one for the second, and so forth. Once initialized, the Radstone microprocessor is ready for communication.
+
+## "radstone"
+
+* LOAD MODULES
+
+## "
+
+* added to monitor smd data cd "/star/sc/users/sguuser/epics/R3.12:2-LR.4/radstone/ql2/src"
+
+ld < hdlcRoutines.o ld < testRoutines.o
+
+radstoneInitialize 0x88000000, 0
+
+## "
+
+Figure G.4. The setup steps for HDLC communication through the Radstone microprocessor.
+
+The most common problem with this software is an HDLC communication error. This occurs anytime the software tries to read or write to a MAPMT box that is not powered. This error will also occur if multiple programs try to simultaneously communicate through the same Radstone microprocessor. Loading an incorrect channel and node address may also give this error.
+
+The MAPMT diagnostics program is color-coded. Colors on the main display reflect the overall box "status" as viewed on the individual screens. On the individual box screens, if a parameter displays red, there was an HDLC communication error when trying to read or write that parameter. One reason for displaying a parameter in yellow is its value is out of the appropriate range. This is checked on all read and write commands. If a parameter is out of range, its value is updated to the maximum allowed value. There is one more reason for displaying a parameter in yellow. Every read compares the value currently displayed with the value just read. If these values don't match, the new value is updated to the display in a yellow color. If they do match, the new value is updated to the display in a green color. To aid in deciphering errors, this program has an error string that reports any problems.
+
+## References
+
+* [Ac03] K.H. Ackermann et al., "The Foreward Time Projection Chamber in STAR", Nucl. Instrum. Meth. A 499, 713 (2003).
+* [Ag03] Cegpa, "Alternating Gradient Synchrotron", Brookhaven National Laboratory, May 15, 2003. <[http://www.bnl.gov/bnlweb/facilities/AGS.html](http://www.bnl.gov/bnlweb/facilities/AGS.html)>
+* [Al03] C.E. Allgower et al., "The STAR Endcap Electromagnetic Calorimeter", Nucl. Instrum. Meth. A 499, 740 (2003).
+* [An03] M. Anderson et al., "The STAR Time Projection Chamber, a unique tool for studying high multiplicity events at RHIC", Nucl. Instrum. Meth. A 499, 659 (2003).
+* [Ar02] Fraineois Arleo, et al. _Charmonium Suppression in p-A collisions at RHIC_. Phys. Rev C65 (2002).
+* [Ar39] Aristotle, _On the Heavens, with an English translation by WKC Guthrie_, Harvard University Press (1939).
+* [Bd03] M. Beddo et al., "The STAR Barrel Electromagnetic Calorimeter", Nucl. Instrum. Meth. A 499, 725 (2003).
+* [Be03] R. Bellwied et al., "The STAR Silicon Vertex Tracker: A large Area Silicon Drift Detector", Nucl. Instrum. Meth. A 499, 640 (2003).
+* [Bi03] F.S. Bieser et al., "The STAR Trigger", Nucl. Instrum. Meth. A 499, 766 (2003).
+* [Bl03] Cegpa, "Brookhaven's Linear Accelerator", Brookhaven National Laboratory, May 15, 2003. <[http://www.bnl.gov/bnlweb/facilities/LINAC.html](http://www.bnl.gov/bnlweb/facilities/LINAC.html)>
+* [Bs03] Cegpa, "The Booster Synchrotron", Brookhaven National Laboratory, May 15, 2003. <[http://www.bnl.gov/bnlweb/facilities/Booster.html](http://www.bnl.gov/bnlweb/facilities/Booster.html)>
+* [Br03] F. Bergsma et al., "The STAR Detector Magnet Subsystem", Nucl. Instrum. Meth. A 499, 633 (2003).
+* [Co03] T.M. Cormier et al., "The STAR Barrel Electromagnetic Calorimeter", Nucl. Instrum. Meth. A 483, 734 (2002).
+* [De03] Eleni Adrian, "The Doppler Effect" NCSA, 1995, University of Illinois, April 5, 2003. <[http://archive.ncsa.uiuc.edu/Cyberia/Bima/doppler.html](http://archive.ncsa.uiuc.edu/Cyberia/Bima/doppler.html)>.
+
+* [Eu03] "The Evolution of the Universe Chart", BNL, March 20, 2003. <[http://www.bnl.gov/RHIC/OGP.htm](http://www.bnl.gov/RHIC/OGP.htm)>.
+* [Go02] M.I.Gorenstein, et al. _J/Psi Suppression and Enhancement in Au+Au Collisions at the BNL RHIC._ Phys. Lett. B524 265-272 (2002).
+* [Ha03] H. Hahn, et al., _The RHIC Design Overview_, Nucl. Instrum. Meth. A 499, 245 (2003).
+* [Hl03] Chris Hall, "Gas Detectors", Daresbury Laboratory, Oct 22, 2003. <[http://detserv1.dl.ac.uk/Herald/detectors_gas_detectors.htm](http://detserv1.dl.ac.uk/Herald/detectors_gas_detectors.htm)>
+* [La03] J.M. Landgraf et al., "An Overview of the STAR DAQ System", Nucl. Instrum. Meth. A 499, 762 (2003).
+* [La96] E. Laermann, _1996 Quark Matter '96 Proc_, Nucl. Phys. A 610 1c (1996)
+* [Le01] J. H. Lee, Notes from "Workshop on Thermalization and Chemical Equilibration in Heavy Ions  Collisions at RHIC", BNL (2001).
+* [Le87] W.R. Leo, _Techniques for Nuclear and Particle Physics and Experiments, A How to Approach_, Springer-Verlag New York, Inc. (1987).
+* [Li01] John Lilly, _Nuclear Physics, Principles and Applications,_ John Wiley & Sons, Ltd. (2001).
+* [Ll03] W.J. Llope, "MRPC Time of Flight Development", W.J. Llope for the STAR TOF Group RHIC Detector Advisory Committee Meeting, Dec 19-20, 2002 BNL
+* [Me96] John Chester Meier, _Development of a Slow Controls Alternate Data Acquisition Interface for the Solenoidal Tracker At Rhic (STAR)_, Masters Thesis, Creighton University, (1996).
+* [Ol01] Andrzej Olszewski, "Overview of Results from PHOBOS Experiment at RHIC", Strange Quarks in Matter, Frankfurt (2001).
+* [Pi03] Berti Pichat, "MWPC technology at ALICE", Instituto Nazionale di FisicaNuleare Sezione de Bologna. June 10, 2003. <[http://www.bo.infn.it/alice/tof-over/](http://www.bo.infn.it/alice/tof-over/)>
+* [Re95] David J. Rees, _Strangeness Production at Target Rapidity in S+Pb Collisions at Ultra-Relativistic Energies_, Masters Thesis, Creighton University (1995).
+* [Sc03] G. Schroeder, "RHIC Experiments", Brookhaven National Lab, April 10, 2003, <[http://www.bnl.gov/RHIC/experiments.htm](http://www.bnl.gov/RHIC/experiments.htm)>* [Se96] Raymond Serway, _Physics for Scientists and Engineers_, Saunders College Publishing (1996).
+* [St92] STAR Collaboration, _Conceptual Design Report_, Lawrence Berkeley Laboratory, Technical Information Dept. PUB-5347 (1992).
+* [Ti99] Paul A. Tipler, _Physics for Scientists and Engineers_, 4\({}^{\rm th}\) edition, W.H.Freeman & Co (1999).
+* [Tv03] Cegpa, "Tandem Van de Graaff", Brookhaven National Laboratory, May 15, 2003. <[http://www.bnl.gov/bnlweb/facilities/TVdG.html](http://www.bnl.gov/bnlweb/facilities/TVdG.html) >
+* [We03] Gary Westfall, "Pictures of the STAR EMC", Brookhaven National Lab, April 10, 2003. <[http://www.star.bnl.gov/STAR/html/emc](http://www.star.bnl.gov/STAR/html/emc) 1/emc pictures.html>
+* [Wi97] W. Williams, _Nuclear & Particle Physics_, Clarendon Press (1997).
+* [Wo95] Richard Wolfson & Jay M. Pasachoff, _Physics_, 2\({}^{\rm nd}\) edition, HarperCollins College Publishers (1995).
+* [Yi03] Jale Yilmazkaya, _Quark-gluon Plasma Signals_, Eur. J. Phys. Vol. 24, #4, 341 (2003).

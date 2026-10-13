@@ -1,0 +1,1456 @@
+[MISSING_PAGE_EMPTY:2]
+
+A dissertation for Doctor of Philosophy in Physics
+
+**Proton and Anti-Proton Production at mid-Rapidity from \({}^{197}Au\) + \({}^{197}Au\) Collisions at \(\sqrt{s_{NN}}\) = 200 GeV**
+
+**The Physics of Flow, Stopping and Baryon Transfer in High Energy Nuclear Collisions**
+
+by
+
+Zhixu Liu
+
+**Co-supervisor: Professor Feng Liu Co-supervisor: Professor Nu Xu**
+
+Central China Normal University
+
+June 9, 2005
+
+[MISSING_PAGE_EMPTY:4]
+
+## Dedicate to my family for
+
+their infinite support
+
+[MISSING_PAGE_EMPTY:6]
+
+[MISSING_PAGE_EMPTY:7]
+
+[MISSING_PAGE_EMPTY:9]
+
+## Abstract
+
+The mid-rapidity proton and anti-proton yields are presented for the \(\sqrt{s_{NN}}\!=\!200\) GeV Au+Au data sets which were taken by the Solenoidal Tracker at RHIC (STAR) in 2001 run. The results are from transverse momentum range \(0.4\!<\!p_{t}\!<\!1.05\) GeV\(/c\) and rapidity range \(|y|\!<\!0.5\) by using the energy loss in the Time Projection Chamber (TPC). The measured transverse momentum distribution becomes more convex from peripheral to central collisions for both proton and anti-proton implying the strong collective expansion at the early stage of the collision. The measured rapidity distributions of both proton and anti-proton are flat within \(|y|\!<\!0.5\) indicating a boost invariant region around mid-rapidity. \(\bar{p}/p\!\approx\!0.8\) is independent of the measured rapidity region \(|y|\!<\!0.5\) and decreases slightly from peripheral collision (\(\approx\!0.85\)) to central collisions (\(\approx\!0.80\)). It's still not net baryon free at RHIC energy. The slight decrease in the \(\bar{p}/p\) ratio reflects the rich collision dynamics at RHIC: both initial baryon transfer and final stage hadronic rescatterings are important for the observation.
+
+The kinetic freeze-out conditions are extracted by applying a thermal + radial flow fit to the proton data and \(\langle p_{t}\rangle\) are calculated by extrapolating the measured spectra with the model. The kinetic freeze-out temperature decreases from peripheral (\(\approx\!135\) MeV) to most central collision (\(\approx\!89\) MeV). They are all smaller than the chemical freeze-out temperature (\(\approx\!160\!\pm\!5\) MeV) indicating an additional hadronic rescattering phase after the chemical freeze-out in Au + Au collisions at RHIC. The transverse flow velocity increases from peripheral to central collision. The centrality dependence of \(\langle p_{t}\rangle\) for different particles (\(\pi,K,P\)) confirm this conclusion. The difference between the \(\langle p_{t}\rangle\) of different particles (\(\pi,K,P\)) increases as centrality increases, this indicates that the development of collective flow is stronger in central collisions than in peripheral collisions.
+
+The same results are also calculated by employing a transport model: Relativistic Quantum Molecular Dynamics (RQMD). The spectra of different particles (\(\pi,K,P\)) are not following the so called \(m_{t}\) scaling. While the \(\langle p_{t}\rangle\) of them show similar trend with the experiment data despite of the underestimation of the absolute value. Furthermore, the underestimation of the absolute value might indicate early flow development. The earlier freeze-out of multi-strange particles (\(\phi,\Xi,\Omega\)) is demonstrated with this model from the freeze-out time and radius distribution of these particles. The measurements of these particles are necessary to confirm this. By applying thermal model fit to the spectra from this model, the same trend of kinetic freeze-out condition as in data is observed. The effects of resonance decay on the thermal fit parameters are also studied by letting the resonance particles decay with Pythia. The effect is small under this model's framework. Afterswitch off the rescattering in this model, the violation of \(m_{t}\) scaling and centrality dependence of \(\langle p_{t}\rangle\) disappear. This indicates the importance of rescattering in heavy-ion collisions. However, only hadronic interactions are included in RQMD. Such hadronic interaction does not generate enough collective flow comparing to data. This demonstrates that partonic collectivity is needed in the heavy ion collisions at RHIC. The realization of the partonic collectivity is important toward the understanding of the partonic equation of state in high-energy nuclear collisions.
+
+**Keywords:** Relativistic Heavy Ion Collisions, Quark Gluon Plasma, Collective Flow, Stopping, Baryon Transfer, Proton and Anti-Proton Yields
+
+[MISSING_PAGE_FAIL:12]
+
+#### 4.2.2 Event Selection
+
+34
+
+4.2.3 Extract the Raw Yield of Proton and Anti-proton with Energy Loss in TPC
+
+35
+
+4.2.4 Extract the proton background
+
+39
+
+4.3 Efficiency Correction
+
+41
+
+4.4 Proton and Anti-Proton yields
+
+4.4.1 Transverse Momentum Distribution
+
+4.4.2 Systematic Uncertainty
+
+44
+
+5 RQMD Simulation and Results
+
+5.1 RQMD Introduction
+
+5.2 Analysis of RQMD Data
+
+5.3 Particle Spectra
+
+5.4 Net baryon in RQMD
+
+6 Discussion
+
+6.1 Kinetic Freeze-out Conditions
+
+6.1.1 \(dN/dy\) and \(\langle p_{t}\rangle\)
+
+6.2 \(\bar{p}/p\) ratio and Energy Dependence
+
+55
+
+7 Summary
+
+A Data Table
+
+B Relativistic Kinematics
+
+B.1 Lorentz Transformation
+
+69 B.2 Kinetic Variables
+
+69 B.2.1 Transverse Momentum
+
+69 B.2.2 Rapidity
+
+70 B.2.3 Pseudorapidity
+
+70 B.3 Jacobian Effect
+
+70 B.4 Phase Space and Invariant Yield
+
+C Mini Computing Farm at IOPP
+
+C.1 Hardware
+
+C.2 Software
+
+75 C.2.1 System Installation
+
+75 C.2.2 Base Services Configuration
+
+76 C.2.3 File Services
+
+78 C.2.4 Batch System and Parallel Processing
+
+79 C.2.5 Monitoring and Administration
+
+80 C.2.6 User Support
+
+D STAR Collaboration
+
+Bibliography
+
+List of Publications
+
+Acknowledgements
+
+[MISSING_PAGE_FAIL:14]
+
+2.7 Space-time evolution of the high-energy nuclear collisions. Beams are in the z-direction and time is in the t-direction. Light-cone are indicated by the 45-degree-arrows. Different stages of the high-energy nuclear collisions, namely the initial stage, chemical freeze-out, and thermal freeze-out, are indicated by \(T_{int}\), \(T_{ch}\), and \(T_{tf}\), respectively. Figure from [25].
+2.8 Left: \(v_{2}(p_{t})\) for \(K^{0}_{S}\), \(\Lambda\) + \(\bar{\Lambda}\), \(p\), \(\bar{p}\), and \(\pi^{\pm}\) at RHIC (\(\sqrt{s_{NN}}\) = 200 GeV). Hydrodynamical calculations of \(v_{2}\) for pions, kaons, protons, and lambdas are also plotted. Right: Transverse momentum from central Au + Au collisions at RHIC (\(\sqrt{s_{NN}}\) = 130 GeV). At \(p_{t}\sim 2\) GeV/\(c\) heavier particle yields are approaching the lighter ones which indicating a strong collective expansion. Figure from [53].
+2.9 Left: \(R_{AB}\) for central Au + Au collisions, minimum bias and central d + Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV. The minimum bias d + Au data are displaced 100 MeV/\(c\) to the right for clarity. The bands show the normalization uncertainties, which are highly correlated point-to-point and between the two d + Au distribution; right: Comparison of two-particle azimuthal distributions for central d + Au collisions and central Au + Au collisions to those seen in p + p collisions. The respective pedestals have been subtracted. Figures from [60].
+3.1 RHIC acceleration scenario for Au beams. The Tandem Van de Graaff accelerator serves for the initial ion acceleration. The ions (with kinetic energy of \(\sim\) 1 MeV/\(u\)) will then traverse an \(\sim\) 850 m long heavy ion transfer line to the Booster synchrotron and exit the Booster with kinetic energy of \(\sim\) 95 MeV/\(u\). They will be further accelerated in the AGS. At the exit of the AGS they are full stripped and transported in the AGS to RHIC beam line to RHIC storage rings where they will be accelerated to the energy required. Figure from [75].
+3.2 Location of the four detectors at RHIC. Figure from [http://www.bnl.gov/RHIC](http://www.bnl.gov/RHIC)..
+
+3.11 The momentum dependence of the particle identification capabilities of a TOF system with a timing resolution of 100 ps in the STAR geometry and with the STAR TPC's resolution on the track momentum and path length.
+3.12A scale drawing of the locations of pVPD and TOFp detectors in relation to the STAR TPC and the RHIC beam pipe. For clarity, the TPC is cut away, while the STAR magnet and other subsystems are not drawn.
+3.13The schematic of the hardware components of the TOFp DAQ system. The arrows denote the direction of the signals or directives.
+3.15The schematic of the software components of the local TOFp DAQ system. The arrows denote the direction of the signals or directives or data transfer.
+3.14The Schematic of the TOFp/pVPD Local Trigger system.
+4.1 STAR Coordinate System.
+4.2 Schematic of the STAR TPC Software Chain.
+4.3 A TPC Event at hit level.
+4.4 The energy loss distribution for primary and secondary particles in the STAR TPC as a function of the \(p_{t}\) of the primary particle. Figure from [75].
+4.5 Illustration of impact parameter \(\vec{b}\). Left is side view and right is end view.
+4.6 Charged multiplicity distribution for Au+Au collisions @ \(\sqrt{s_{NN}}=200\) GeV. The 9 centrality bins used in this analysis are illustrated too.
+4.7 Z distribution for a, 50 MeV wide, \(p_{t}\) and, 0.1 unit wide, rapidity bin. Three particle species are labelled. Each peak can be fit with a Gaussian function. The plot is fit with a 3-Gaussian function.
+4.8 The shift away from zero vs number of fit points for pion \(Z\) distribution, Line represents parabola fit.
+4.9 Difference (times sine of the dip angle \(\theta\)) of the reconstructed momentum (\(p\)) and the initial momentum (\(p_{MC}\)) due to energy loss in detector materials, versus momentum (\(p\)). Determined using a Geant simulation.
+4.10Middle-rapidity particle yields as a function of \(Z=\log\{\left[\frac{dE}{dx}\right]_{\exp}/\left[\frac{dE}{dx}\right]_{BB(proton \ mass)}\}\), left plots and right plots are for protons and anti-protons, respectively. Black points are the multi-Gaussian fits to the measured distributions.
+4.11 Proton and anti-proton _dca_ distributions for different \(p_{t}\) bin, the background (line start from the origin) is strongly dependent on the transverse momentum.
+4.12The ratio of background proton over total proton vs \(p_{t}\) for different rapidity bin.
+4.13Efficiencies for protons and anti-protons as a function of transverse momentum from the 9 centrality bins used in this analysis. Line represent the fit to the data points.
+4.14* 4.14 Mid-rapidity (\(|y|\leq 0.1\)) proton (right) and anti-proton (left) transverse momentum distributions for 9 centrality bins. From bottom to top, the centrality increase. Inner histograms are the systematic errors for the most central collision. Dashed line represent the thermal fit results. 4.15 Ratio of invariance yield compare to STAR published results in [129]. Our results are consistent with the published results. The different colors denote different centrality bin. 4.15 Impact parameter vs. charged particle (\(\bar{p},K^{+},K^{-},\pi^{+},\pi^{-}\)) multiplicity in \(|\eta/Y_{beam}|<0.2\). 4.16 Invariant cross section of charged pions, kaons and protons as a function of transverse mass \(m_{t}\) for the most central Au + Au collisions at \(\sqrt{s_{NN}}=200\) GeV with RQMD model. Data are extracted from mid-rapidity only \(|y|<1.0\). Plots (a) and (b), respectively, represent results with and without rescatterings. The normalization of the distributions is arbitrary. 4.17
+* 5.3 Midrapidity mean transverse momentum \(\langle p_{t}\rangle\) of charged pions, charged kaons and protons vs collision centrality for Au + Au collisions at \(\sqrt{s_{NN}}=200\) GeV. The symbol shows data from the PHENIX collaboration [113] (\(|y|\leq 0.35\)) and the errors are statistical only. The dashed bands represent the results from RQMD (\(|y|\leq 0.5\)). The top part of the figure list the values of impact parameters from the model. 4.18
+* 5.4 Transverse momentum dependence of the mid-rapidity particle ratios of charged kaons over charged pions (\(K/\pi\)), \(\phi\) mesons over charged pions (\(\phi/\pi\)), (anti)protons over charged pions (\(p/\pi\)), and (anti)lambdas over charged pions (\(\Lambda/\pi\)), from Au + Au collisions at \(\sqrt{s_{NN}}=200\) GeV by RQMD. The results are from the 10% most central (\(b\leq 3\) fm) collisions. 4.19
+* 5.5 The RQMD transverse freeze-out radius (a) and freeze-out time (b) for charged pions (\(\pi\)), (anti)protons (p), \(\phi\) mesons (\(\phi\)), and the multistrange baryon \(\Omega\). The results shown are from 10% most central (\(b<3fm\)) \({}^{197}Au~{}+~{}^{197}Au\) collisions at \(\sqrt{s_{NN}}=200\) GeV. The normalization of the distributions is arbitrary. 5.6 Rapidity spectra of net baryons \(\langle B-\bar{B}\rangle\) in most central (top 5%) collisions calculated by RQMD. At middle rapidity, from top to bottom, the curve corresponding to CMS energy (\(\sqrt{s_{NN}}\) ) 5 GeV, 10 GeV, 20 GeV, 60 GeV, 130 GeV, 200 GeV, respectively. The abscissa has been scaled by \(1/y_{beam}\). 5.0
+* 6.1 (a): Kinetic freeze-out temperature \(T_{fo}\), mean transverse flow velocity \(\langle\beta\rangle\) and the velocity profile \(\alpha\) as a function of number of participants (\(N_{part}\)) extracted from a simultaneous fit to \(\pi^{\pm}\), \(K^{\pm}\), \(p\) and \(\bar{p}\) spectra from \(\sqrt{s_{NN}}=200\) GeV Au + Au collisions. (b): The \(\chi^{2}\) contours for \(\pi\), K and p. The yellow dashed band denotes the chemical freeze-out temperature [129]. 5.2* 6.2 The kinetic freeze-out parameters \(T_{fo}\) (left) and \(\langle\beta\rangle\) (right) extracted from the RQMD model. The plot shows the results without resonance decay and after resonance decay. The resonance decay has less effect on the kinetic freeze-out conditions.
+* 6.3 Rapidity distributions of the integrated yields for anti-proton (left) and proton (right) from most peripheral (bottom) to most central (top) collisions in \(\sqrt{s_{NN}}=200\) GeV Au + Au collisions at RHIC. The bands denote the systematic error.
+* 6.4 Midrapidity \(\langle p_{t}\rangle\) of the anti-proton (left) and proton (right) as a function of the number of participants in the collision from \(\sqrt{s_{NN}}=200\) GeV Au + Au collisions at RHIC. The bands denote the results from RQMD with same collision energy and species.
+* 6.5 \(\bar{p}/p\) as a function of rapidity within \(0.45<p_{t}<1.05\) GeV\(/c\) (left) and as a function of centrality within \(|y|<0.1\) and \(0.45<p_{t}<1.05\) GeV\(/c\) (right). The left plot is for most central collision.
+* 6.6 Midrapidity \(\bar{p}/p\) ratio in central heavy-ion collisions (filled symbols) and elementary p + p collisions (open symbols).
+* 6.1 Effects of the Jacobian transformations from rapidity density distributions to pseudorapidity density distributions for pion, kaon and proton in selected \(p_{t}\).
+* 6.1 The schematic diagram of the local computing farm.
+* 6.2 Farm system status statistics.
+* 6.3
+
+[MISSING_PAGE_EMPTY:19]
+
+[MISSING_PAGE_EMPTY:20]
+
+* 19 Integrated yield of anti-proton (top) and proton (bottom) for different rapidity bins in 30-40%, 20-30%, 10-20%, 5-10%, 0-5% Au+Au collisions.
+	* 11.5 Suggested partition layout for Linux
+
+## Chapter 1 Introduction
+
+We human beings are always full of curiosity, and this curiosity is driving us to ask the same question over the history: what are the ultimate building blocks of matter? Thousands of years ago, people believed that different types of matter were made of different combinations of 4 things: earth, fire, air, and water. Around 400 B.C., the Greek philosopher Democitus suggested that matter was actually composed of tiny particles. He called these particles _atomos_ (means indivisible). This is only a philosophical viewpoint, however. The primal atomic theory gets developed with strong experimental support until 1803. First the British scientist John Dalton improved upon Democitus's idea of atomos and developed the first "atomic" theory. Then, in 1897, J.J. Thomson dramatically changed the modern view of the atom with his discovery of the electron [1]. So the atom was not an "indivisible" particle. Subsequently, Ernest Rutherford found the existence of atomic nucleus [2] from the experiment scattering \(\alpha\)-particles off gold foil in 1911. Atomic nucleus in turn are made of protons and neutrons which are called _nucleons_. Nucleon and many other latter found particles such as pion, kaon are called "_elementary particle_", but as the number of the so called "elementary particle" increase, people begun to doubt: is elementary particle really elementary? Then, in 1964, Gell-Mann and G. Zweig suggest that these particles may be composed of more elementary particles, \(i.e.\), _quarks_[3, 4]. Soon, in 1969, during the experiment probing the internal structure of nucleons via deep inelastic electron scattering (DIS) in Stanford Linear Accelerator Center, people got the first evidence for the existence of quarks [5] (partons in Feynman's model [6]). We believe that the fundamental building blocks of matter are quarks and leptons as show in Fig. 1.1(a).
+
+Besides these building blocks of matter, it is nature to ask the question: what holds them together? This is due to the underlying interactions of the particles. Practically according the so-called _Standard Model_, all the matter are built from the fundamental spin \(\frac{1}{2}\) particles, or _fermions_, the interactions between the fermions are described as exchange of characteristic _bosons_ (particles with integral spin). All the bosons are listed in Fig. 1.1(b) and table 1.1. The relative magnitudes of the four types of interaction are shown in the table too. (Please note that gravity is not included into the Standard Model.)
+
+There are four types of fundamental interactions. Strong interactions are responsible for binding the quarks in the nucleons, and the protons and neutrons within nuclei. The force is mediated by _gluon_, a massless particle. Electromagnetic interactions are responsible for virtually all the phenomena in extra-nuclear physics. _Photon_ is the mediator. Weak interactions appeared in decay process such as \(\beta\) decay. The mediators for weak interactions are the \(\mathit{W}^{\pm}\) and \(\mathit{Z}^{0}\) bosons. Gravitational interactions act between all particles. Gravity is by far the weakest of the four interactions, although it is the dominant role of our universe. The mediator for gravity is supposed to be a spin 2 boson, the _graviton_. There are still no experimental evidences for the existence of graviton. Of the four types of interactions, gravity and electromagnetic are long ranged, the other two are short ranged.
+
+Just have a glance at the history, who can say that the quarks/leptons are the most fundamental particles? Maybe they have internal structures too, see, for example, Ref. [7] amd [8]. Moreover, we still don't know much detail about them! This is the reason why we do experiments of relativistic heavy-ion collisions with high energy accelerators and detectors. In fact, all the high energy collision experiments can be regarded as the modern versions of Rutherford's scattering experiment. Let's do an analogy with an optical microscope. The resolution of mi
+
+\begin{table}
+\begin{tabular}{c c c c c} \hline \hline \multirow{2}{*}{Interaction} & \multirow{2}{*}{Mediator} & Spin & relative & interaction \\  & & Parity & magnitudes & range \\ \hline \hline \multirow{2}{*}{strong} & gluon, \(g\) & \(1^{-}\) & \(1\) & \(\sim\!10^{-13}\) cm \\ \cline{2-5}  & photon, \(\gamma\) & \(1^{-}\) & \(10^{-2}\) & \(\infty\) \\ \cline{2-5}  & weak & \(W^{\pm},Z^{0}\) & \(1^{-},1^{+}\) & \(10^{-12}\) & \(\sim\!10^{-16}\) cm \\ \cline{2-5}  & gravity & graviton, \(\mathbf{g}\) & \(2^{+}\) & \(10^{-38}\) & \(\infty\) \\ \hline \hline \end{tabular}
+\end{table}
+Table 1.1: Summary of interaction mediators.
+
+Figure 1.1: The known fundamental building block of matter (left) and the interactions between them (right), graviton is not shown, figure from [http://particleadventure.org](http://particleadventure.org).
+
+croscope is given by \(\Delta r\!\simeq\!\lambda/sin\theta\), where \(\lambda\) is the wavelength of light beam, \(\theta\) is the angular aperture of the light beam used to view the object. The larger the angle of scatter \(\theta\) and the smaller the wavelength \(\lambda\) the better the resolution is. For high energy collisions, we substitute the light beam for high energy particles and employ the de Broglie relation \(\lambda\!=\!h/p\) (\(p\) is the momentum and \(h\) is Planck's constant), the resolution becomes \(\Delta r\!\simeq\!h/(p\sin\theta)\!\simeq\!h/q\), \(q\) is the momentum transferred to the object scattered by the target. Thus, the bigger \(q\) the better resolution is. However, the analysis of the data from this kind of "microscope" is a very complicated process! People build detectors to take data from these microscopes, and then use computers to analyze the data. Figure 2 shows a typical event recorded by one of such kind of detectors.
+
+For an excellent introduction on all the materials presented here, please refer to [http://particleadventure.org/](http://particleadventure.org/) and also Ref. [9], [10], [11] and [12].
+
+This dissertation starts with a general introduction for the physics of quark-gluon plasma (chapter 2), followed by a description of the STAR experiment (both RHIC collider and STAR detector, chapter 3). The analysis software, method and results are presented in chapter 4. Comparisons of the results to a Monte-Carlo event generator RQMD are presented in chapter 5. Finally with the discussion (chapter 6) of the physics results and a summary (chapter 7).
+
+Figure 1.2: Front (top) and side (bottom) view of the first \(\sqrt{s_{NN}}=200\) GeV \({}^{197}Au+^{197}Au\) collision at RHIC from STAR detector. The different colors represent different momenta. The grey rectangle which can be seen in both views is a schematic representation of the RICH detector.
+
+## Chapter 2 Physics of Quark-Gluon Plasma
+
+As discussed in chapter 1, quarks and leptons are by far the most fundamental building blocks of matter. Leptons have no strong interactions, and they all have point-like structures under current experimental investigation. Gluon is the mediator for quark interactions. The main interactions between quarks and gluons are strong interactions. Particles consisting of quarks and gluons are called '_hadrons_' and they are classified as '_baryons_' (a baryon is built of three quarks) and '_mesons_' (a meson is built of a quark and an anti-quark).
+
+### 2.1 From Hadronic Matter to Quark-Gluon Plasma
+
+However, we have never seen free quarks. We first know its existence from DIS experiments. In these experiments, an electron (or a muon) scatters from a single quark (or anti-quark) inside the proton and transfers a large fraction of its energy to the quark. The electron exquisitely probes the quark substructure of the proton with a known spatial resolution. It is found that with high momentum transfer, the quarks and gluons inside the proton act as almost free particles. However, they are interacted with each another exceedingly strong in low-energy experiments (where only small momentum transfer), which implies the confinement at large length scale. Quantum chromodynamics (QCD) is the basic theory of strong interactions. Confinement at large distance or low-momentum interactions and asymptotically freedom [13, 14, 15]1 in short-distance or high-energy interactions are well described by QCD.
+
+Footnote 1: 2004 Nobel Prize in Physics
+
+In quark model, quarks are point-like particles and confined in the hadron by a binding potential \(V_{0}(r)\) which increases linearly with the quark separation \(r\),
+
+\[V_{0}(r)\sim\sigma r \tag{2.1}\]
+
+where the string tension \(\sigma\) measures the energy per unit separation distance. Thus, to isolate a quark, infinite amount of energy are needed.
+
+So it's not possible to split an isolated hadron into its quark constituents, \(i.e.\), the quarks are confined in the hadrons! Confinement is a long-range feature. Now let us image what will happen if we compress the hadron matter toward higher density, \(i.e.\), not trying to break them apart but push them together. We assume the nucleon with their intrinsic spatial extension is both elementary and incompressible, then a state of close packing will constitute the high-density limit of matter (Fig. 2.1(a)). Since the nucleons are built of point-like quarks, they will start to overlap with higher density, then each quark will see a considerable number of other quarks around itself (Fig. 2.1(b)). In such state, it has no way to identify which quark belongs to which hadron in the low-density state. So hadron loses its meaning, only a medium whose basic constituents are unbounded quarks. This new matter is called _Quark Gluon plasma_ (QGP). In fact, let us take an analogy between QED and QCD. In QED, a so called Debye screening radius will exist in a high charge density environment which will change the Coulomb potential between the electric charges, the insulating matter will undergo a phase transition and become conducting. In QCD, the interaction of quarks is based on colour charge. Thus colour screening is expected to emerge, so the potential 2.1
+
+Figure 2.1: Strongly interacting matter as nuclear matter at density of closely packed nucleons (a) and as quark matter at much higher density (b), figure from [16].
+
+Figure 2.2: Colour screening of the confining potential, colour screening mass \(\mu\) is also the inverse of the screening radius for colour charges. Figure from [16]
+
+becomes
+
+\[V(r)\simeq\sigma r\left(\frac{1-exp(-\mu r)}{\mu r}\right) \tag{2.2}\]
+
+where \(\mu\) is the colour screening mass and also the inverse of the screening radius for colour charges. See Fig. 2.2. When \(\mu=0\), the potential increase linearly, as in equation 2.1. When \(\mu\neq 0\), the potential tend to saturate as \(r\) increasing. So under colour screening, the interaction between the quarks and gluons will be short-range. The colour insulator becomes the colour conductor, the hadron matter becomes the quark-gluon plasma [16].
+
+### 2.2 Lattice Treatment of QGP
+
+QCD is a non-Abelian gauge field theory which describes the strong interactions of colored quarks and gluons. The Lagrangian of QCD is
+
+\[\mathcal{L}_{QCD}=-\frac{1}{4}F_{\mu\nu}^{a}F_{a}^{\mu\nu}-\sum_{f}\overline{ \psi}_{a}^{f}(i\gamma^{\mu}\partial_{\mu}+m_{f}-g\gamma^{\mu}A_{\mu})^{\alpha \beta}\psi_{\beta}^{f} \tag{2.3}\]
+
+with
+
+\[F_{\mu\nu}^{a}=(\partial_{\mu}A_{\nu}^{a}-\partial_{\nu}A_{\mu}^{a}-gf_{bc}^{ a}A_{\mu}^{b}A_{\nu}^{c}) \tag{2.4}\]
+
+Here \(A_{\mu}^{a}\) denotes the gluon field of colour \(a\) (\(a=1,2,...,8\)) and \(\psi_{a}^{f}\) the quark field of colour \(a\) (\(\alpha=1,2,3\)) and flavour \(f\); the input (bare') quark masses are given by \(m_{f}\). \(g\) is a free parameter to be determined from experiment. \(\alpha_{s}=g^{2}/4\pi\) is the coupling constant. While \(\alpha_{s}\) is related to the scale of the momentum transfer [17]. When distance scale of the interaction is small, \(\alpha_{s}\) is small. This is the case of 'asymptotic freedom'. In such case, a perturbative treatment is a good description
+
+Figure 2.3: Lattice QCD results, (a) shows the energy density vs the temperature, arrows indicate the ideal gas value, figure from [20], (b) shows the energy density deviation from idea gas (\((\varepsilon-3P)/T^{4}\)) vs the temperature (\(T/T_{c}\)) at different baryon chemical potential \(\mu_{B}=0,210,410,530\) MeV, figure from [21].
+
+of the process. However, when the distance scale is large, a perturbative treatment based on an expansion in powers of the coupling constant is no longer applicable. The constituent quarks are subject to be confined and a nonperturbative treatment is needed. A phenomenological model, bag model [19], is such kind of treatment. _Lattice gauge theory_ is another nonperturbative treatment of QCD formulated on a discrete lattice of space-time coordinates from the first principle.
+
+Lattice QCD calculations based on 2 (and 3) light quark flavors and (2+1) (2 light and 1 heavier quark) quark flavors predict a cross over from hadron to QGP take place at a temperature \(T_{c}\) around \(150\!\sim\!170\) MeV [20]. Fig. 2.3(a) shows the energy density, \(\varepsilon\) scaled by \(T^{4}\), vs. temperature, \(T\) scaled by \(T_{c}\), for 2, 3 and 2+1 flavors. At high temperature, it is expected that \(\varepsilon/T^{4}\) will asymptotically approach the idea gas limit (Stefan-Boltzmann limit) which is roughly proportional to the number of particle degrees of freedom. We can see a sharp transition of energy density around \(T_{c}\) from the plot. However, lattice results clearly deviate from the idea gas limit until \(3T_{c}\), Fig. 2.3(b) shows the deviations for different baryon chemical potential. This indicates strong interactions among the partons even above the cross over temperature \(T_{c}\).
+
+### 2.3 Relativistic Heavy Ion Collisions
+
+QCD predicts a new state of matter QGP at extreme temperature and/or density. QGP is expected to exist in early universe, in neutron stars and high energy heavy ion collisions.
+
+According to the Big-Bang theory of cosmology, our universe was born during the big-bang from a hot and dense fire ball about 15 billion years ago. The universe has been cooling and expanding since then. A phase transition from the QGP phase to hadron phase happened about \(10^{-5}\) seconds after the big-bang. See Fig. 2.4. The neutron stars have high baryon density, a cold QGP is expected to
+
+Figure 2.4: Evolution of the universe after the big bang. As you can see by the purple arrow on right plot, RHIC will recreate (on a small scale) the temperatures that existed at the dawn of the universe, this corresponding to the region before \(10^{-5}\) seconds on left plot. Figures from [http://particleadventure.org](http://particleadventure.org) and [http://www.bnl.gov/RHIC](http://www.bnl.gov/RHIC).
+
+exist there. However, they happened either in the past time or too far to reach. In laboratory, as illustrated in Fig. 2.5, by colliding two high energy heavy ion beam with each other, a large volumes of matter with high temperature and/or high energy density would be created. QGP might be created in such environments. This is why we're doing experiments beginning at Bevalac of Berkeley2 and continuing at CERN3 SPS4, BNL5 AGS6, BNL RHIC7 and the future CERN LHC8. This is the only way to search and confirm the existence of QGP in a laboratory. Also, _'confirming its existence would have a major impact on fundamental questions common to nuclear physics, particle physics, astrophysics, and cosmology'_[9].
+
+Footnote 2: [http://www.lbl.gov](http://www.lbl.gov)
+
+Footnote 3: [http://www.cern.ch](http://www.cern.ch)
+
+Footnote 4: [http://greybook.cern.ch/programmes/SPS.html](http://greybook.cern.ch/programmes/SPS.html)
+
+Footnote 5: [http://www.bnl.gov/](http://www.bnl.gov/)
+
+Footnote 6: [http://www.bnl.gov/bnlweb/facilities/AGS.asp](http://www.bnl.gov/bnlweb/facilities/AGS.asp)
+
+Footnote 7: [http://www.bnl.gov/RHIC/](http://www.bnl.gov/RHIC/)
+
+Footnote 8: [http://lhc.web.cern.ch/](http://lhc.web.cern.ch/)
+
+Fig. 2.6 shows the phase diagram of strong interact matter. From this figure, we can see where normal nuclear matter sit and where the phase transition curve lie on. The area RHIC can detect is similar to the environment in the early universe. Neutron stars lie on the area with high baryon potential and low temperature.
+
+Figure 2.5: Illustration of the phase transition from hadronic matter to QGP. The red, green and blue circles are quarks, connected by black lines representing gluons. At the beginning, trios of quarks and gluons are packaged in protons and neutrons, which are held together in the nucleus of an atom. As the pressure and temperature rise, new particles called pions (made of a quark and an anti-quark, shown in pastels) arise. Finally, the conditions are just right for the phase transition to happen, and quark-gluon plasma is produced. The quarks, gluons and anti-quarks are liberated from their usual bonds, and bond with one another freely. Figure from [http://www.bnl.gov/hic](http://www.bnl.gov/hic).
+
+#### The Space-Time evolution of Heavy Ion Collisions
+
+Because of Lorentz contraction, the normal nuclei will look like a thin discus. In a low energy nucleus-nucleus collision, the two nuclei will remain intact and simply 'bounce off' each other. With increasing energy, they will penetrate each other more and more, leading to highly excited nuclear matter, which rapidly breaks up into nuclear fragments with the production of many mesons concentrating mostly at mid-rapidity. If the collision energy is increased still further, nuclear transparency begins to set in: the two colliding nuclei pass through each other, leaving behind them a 'vapour trail' of deposited energy, which eventually decays into hadrons [26, 27, 28, 16].
+
+The dynamics of the collision can be illustrated in the space-time diagram with the longitudinal coordinate \(z\) and the time coordinate \(t\), as shown in Fig. 2.7. The trajectories of the projectile nucleus and target nucleus are shown as thick lines.
+
+The evolution of this picture is as following:
+
+* The two lorentz-contracted nucleus interpenetrate each other. The energy density and the temperature of the system are expected to be maximum. The creation of a state of deconfined hadrons, \(i.e.\), QGP, is possible in this stage. Also, hard processes with large momentum transfer occur, which will produce hadrons with high momentum.
+* The interaction of the particles drives the system towards chemical and thermal equilibrium. If QGP forms, the individual parton-parton scattering is expected to play an important role in thermalizing the system during this stage. The development of collective flow is also originated. Rapid expansion (both longitudinal and transverse direction, mainly former) lowers the temperature of the system and eventually approaches the cross over temperature \(T_{c}\).
+* As the temperature smaller than \(T_{c}\), hadronization takes place, system (_chemical freeze-out,_\(T\sim 160-170\) MeV) freeze-out, \(i.e.\), inelastic collisions have
+
+Figure 2.6: Sketch of the QCD phase diagram, temperature \(T\) vs. baryonic chemical potential \(\mu_{B}\), figure from [22].
+
+ceased, no more new particles will be produced and the particle ratio is fixed at this point. As the system continues to cool down, elastic interactions cease finally, the momentum spectra of the particles do not change further (_kinetic or thermal freeze-out,_ the hadrons can propagate freely.).
+
+We can only measure the final state particles in experiment. These particles provide the very useful information to determine the initial conditions such as centrality, initial spatial volume and possible energy density. Some hardronic observables are thought to be sensitive to the early stage too, such as the azimuthal anisotropy flow, \(v_{2}\). Signals such as direct photons and dilepton pairs can also provide information for the early stages because of their much smaller cross section in interactions with other hadrons.
+
+### 2.4 Signatures of QGP and Selected Results at RHIC
+
+Before further discussion, it's important to give a definition of QGP. "We take the QGP to be **a (locally) thermally equilibrated state of matter in which quarks and gluons are deconfined from hadrons, so that color degrees of freedom become manifest over _nuclear,_ rather than merely nucleonic, volumes" [34]. What we see from the relativistic heavy ion collisions are just the final state particles. If QGP does exist, these final particles will provide valuable information concerning the state of the plasma despite of the possible modification by the final-state interactions in the hadronic level. However, it is generally recognized that there is no single unique signal which allows an unequivocal identification of the quark-gluon phase. Simultaneous observations of multiple hadronic observables in the final state serve as strong evidence of QGP formation [27]. In this section, we'll briefly describe some of experimental signals that have been proposed, and selected results at RHIC will also be presented. For a review on the signatures of QGP, see [29, 30]. The new experimental results and theory progress can be found at [31, 32, 33, 34, 35, 36, 37].
+
+Figure 2.7: Space-time evolution of the high-energy nuclear collisions. Beams are in the z-direction and time is in the t-direction. Light-cone are indicated by the 45-degree-arrows. Different stages of the high-energy nuclear collisions, namely the initial stage, chemical freeze-out, and thermal freeze-out, are indicated by \(T_{int}\), \(T_{ch}\), and \(T_{tf}\), respectively. Figure from [25].
+
+#### Collective Flow
+
+Two heavy nuclei with head-on collisions with each other will produce lots of particles which will then expand and freeze-out subsequently. The underlying properties of such kind of large system will be reflected on the macroscopic quantities of the final system such as flow. Here, flow means the collectivity, \(i.e.\), a common feature such as the velocity or direction observed for many particles. Historically, it's first suggested by Landau [38] to use the fluid dynamical models to describe the collisions of the nucleons and nuclei, shock waves were predicted later based on hydrodynamical calculations, and then it is argued that the particles are pushed in the transverse direction. For a review of the collective flow in heavy-ion collisions, see [39, 40] and references therein. A detail review of the hydrodynamical calculations at RHIC energy is presented in [41, 42].
+
+The most studied flow are defined as follows: "longitudinal flow" describes the collective phenomena in the direction defined by the beam; "radial flow" means the particle emission are spherical symmetry, \(i.e.\), independent of the direction; "transverse flow" denotes the azimuthal angle independence and "elliptic flow" describes the azimuthal distribution of the particles. Different flow reflects the different part of the global picture of the collisions. By assuming the system reaches thermalization, hydrodynamical model can be employed to describe the evolution of system. By using different equations of state and initial condition [43], one can predict what will happen at RHIC and then do a comparison with the experiment.
+
+Elliptic flow (or \(v_{2}\)) describes the azimuthal distribution of the final particles in momentum space. For non-central collision, the initial overlap region in coordinate space is an almond like shape, and large anisotropy in momentum space can be observed only with large rescattering in the early stage of the collisions [45]. While, elliptic flow is also self-quenching [47] as the system continues to expand. Thus elliptic flow reflects the early stage information of the system. In RHIC, \(v_{2}\) of different identified particles have been measured. Fig. 2.8 left shows the results.
+
+We can see that the \(v_{2}\) of the identified particles are consistent with the hydrodynamical calculations and have mass dependence in low \(p_{t}\) region, this might suggest the system reaches thermalization very fast which means strong interaction and so very short mean free path at the early stage. While at intermediate \(p_{t}\) (not shown in the figure), hydrodynamics no longer works and \(v_{2}\) saturates. Baryon saturates later and has larger value than meson. If we scale the \(p_{t}\) and \(v_{2}\) by the number of constituent quarks (n), \(v_{2}/n\) vs \(p_{t}/n\) is the same for both baryon and meson above \(p_{t}/n\sim 0.7\) GeV/\(c\)[55]. This is consistent with the prediction of coalescence or recombination models [48, 49, 50, 51]. More statistics are required to support this. Fig. 2.8 right shows the transverse momentum distribution from \(\sqrt{s_{NN}}=130\) GeV Au + Au collisions. We can see that the yields of the heavier particles are approaching to that of the lighter ones while has nothing to do with the number of constituent quarks. The mass dependence here clearly indicates a strong transverse collective expansion (transverse flow) at RHIC energy [53]. Hydrodynamical inspired blast wave + transverse radial flow model [56] was employed to fit the spectra to extract the kinetic parameter of the system such as the \(\langle p_{t}\rangle\), flow velocity, etc. This will be discussed in chapter 6. Unlike elliptic flow which is sensitive to the early stage information, transverse flow is the integral over the whole period of evolution.
+
+#### Hard Probes: Jet Quenching
+
+It is well known that a fast charge particle will lose energy because of medium effect or radiation when traverse matter. Applying this to the QCD matter, a fast parton will suffer similar effect which is called jet quenching [57, 58]. Reflected on the final particle distribution, the transverse momentum
+
+Figure 2.9: Left: \(R_{AB}\) for central Au + Au collisions, minimum bias and central d + Au collisions at \(\sqrt{s_{NN}}\!=\!200\) GeV. The minimum bias d + Au data are displaced \(100\) MeV/\(c\) to the right for clarity. The bands show the normalization uncertainties, which are highly correlated point-to-point and between the two d + Au distribution; right: Comparison of two-particle azimuthal distributions for central d + Au collisions and central Au + Au collisions to those seen in p + p collisions. The respective pedestals have been subtracted. Figures from [60].
+
+compared to the appropriately scaled distributions from pp collisions will show a suppression at moderate \(p_{t}\) region. In experiment, this is shown by using the ratio
+
+\[R_{AB}(p_{t})=\frac{d^{2}N/dp_{t}\,d\eta}{T_{AB}d^{2}\sigma^{pp}/dp_{t}\,d\eta} \tag{2.5}\]
+
+where \(d^{2}N/dp_{t}\,d\eta\) is the differential yield per event in the nuclear collision A + B, \(T_{AB}=\langle N_{bin}\rangle/\sigma_{inel}^{pp}\) describes the nuclear geometry, \(\langle N_{bin}\rangle\) is the mean number of binary nucleon-nucleon collisions, and \(d^{2}\sigma^{pp}/dp_{t}\,d\eta\) for p + p inelastic collisions is determined from the measured p + p differential cross section. In addition, a quark or gluon jet propagating through a dense medium will not only lose energy, it will also be deflected. This will lead to an asymmetry of the high \(p_{t}\) particle azimuthal distribution in contrast to pp collisions. All these effects have been observed at RHIC [63, 62, 59, 60, 61]. Fig. 2.9 shows the \(R_{AB}\) and the two particle azimuthal distribution at \(\sqrt{s_{NN}}\) = 200 GeV. We can see both the high \(p_{t}\) suppression and the disappearance of away-side two-hadron correlation in central Au + Au collisions. While the d + Au results prove that the observed high-\(p_{t}\) suppression in Au + Au collisions are not initial effects such as the saturation of gluon densities in the incoming nuclei [64].
+
+#### Direct Photons and Thermal Dileptons
+
+From the cosmic microwave background radiation [66], we can get some essential information such as the temperature and evolution of the universe. The photon (both real and virtual) emission from the QGP (direct photon) is proposed as a promising signal. Because they participate in only electro-magnetic interaction, so their mean free path is large compared to the fireball. Thus they are not likely to interact with other particles and leave the reaction zone undisturbed. The dominated process of direct photon production is the compton processes (\(qg\) \(\rightarrow\) \(q\gamma\)) and quark-antiquark annihilation process (\(q\bar{q}\) \(\rightarrow\) \(q\gamma\)). Unfortunately, there are quite large background photon emission, such as the thermal photons from the hadron gas by hadron decay (mainly \(\pi^{0}\) and \(\eta\)) and prompt photons [67] from initial hard collisions which make the measurements of direct photon rather difficult. However, the ratio of signal over background is predicted to be visible at a window near or above \(p_{t}\) = 2 GeV/\(c\) region. For a excellent review, see [68]. Similar properties (participate only electro-magnetic interaction and large mean-free-path) of direct photon can be applied to dileptons (created by \(q\bar{q}\) annihilation) too. They carry similar information as direct photon. Same difficulty of direct photon also applied to dilepton: the large background! Recently, PHENIX presented their preliminary results [69] which show the evidence of direct photon. STAR has published the photon spectra by reconstructed of \((\gamma\to e^{+}e^{-})\) and \(\pi^{0}\) spectra via \(\pi^{0}\rightarrow\gamma\gamma\)[70]. The results are helpful to understand the background better and to improve the measurements of the direct photons!
+
+## Chapter 3 STAR Experiment
+
+The Solenoidal Tracker at RHIC (STAR)1[73] is one of the four experiments currently set up at the Relativistic Heavy Ion Collider (RHIC) at Brookhaven National Laboratory (BNL), USA. The other three are BRAHMS2[78], PHOBOS3[79] and PHENIX4[80]. STAR is one of the two large detector systems. STAR was constructed to search for signatures of quark-gluon plasma (QGP) formation and to investigate the behavior of strongly interacting matter at high energy density. The key features of the nuclear environment at RHIC are a large number of produced particles (up to approximately one thousand per unit pseudorapidity) and high momentum particles from hard parton-parton scattering. STAR will measure many observables simultaneously to study signatures of a possible QGP phase transition and to understand the space-time evolution of the collision process in ultra-relativistic heavy ion collisions. The goal is to obtain a fundamental understanding of the microscopic structure of these hadronic interactions at high energy densities.
+
+Footnote 1: [http://www.star.bnl.gov](http://www.star.bnl.gov)
+
+Footnote 2: [http://www.hic.bnl.gov/brahms/](http://www.hic.bnl.gov/brahms/)
+
+Footnote 3: [http://www.phobs.bnl.gov](http://www.phobs.bnl.gov)
+
+Footnote 4: [http://www.phenix.bnl.gov](http://www.phenix.bnl.gov)
+
+More details about the RHIC collider, all the experiments as well as the (sub-)detectors and the computing facility can be found in a special volume of Nucl. Instrum. and Methods in Phys. Res., Sect. A [72].
+
+### 3.1 The Relativistic Heavy Ion Collider
+
+The Relativistic Heavy Ion Collider (RHIC) is located at Brookhaven National Laboratory in Long Island, New York. The basic design parameters of the collider are given in Table 3.1. The top energy for heavy ion beams (e.g., for gold ions) is \(100\leavevmode\nobreak\ \mathrm{GeV}/u\) and that for protons is \(250\leavevmode\nobreak\ \mathrm{GeV}\). Counter-rotating beams collide head-on at six interaction points. The collider consists of two quasi-circular concentric accelerator/storage rings on a common horizontal plane, one ("Blue ring") for clockwise beams and the other ("Yellow Ring") for counter-clockwise beams. Each ring possess a total number of 870 superconducting magnets andare installed in a tunnel of 3.8 km circumference. Having these two rings completely independent, collisions of unequal ion species can also be studied at RHIC.
+
+Figure 3.1: RHIC acceleration scenario for Au beams. The Tandem Van de Graaff accelerator serves for the initial ion acceleration. The ions (with kinetic energy of \(\sim\!1\) MeV/\(u\)) will then traverse an \(\sim\!850\) m long heavy ion transfer line to the Booster synchrotron and exit the Booster with kinetic energy of \(\sim\!95\) MeV/\(u\). They will be further accelerated in the AGS. At the exit of the AGS they are full stripped and transported in the AGS to RHIC beam line to RHIC storage rings where they will be accelerated to the energy required. Figure from [75].
+
+\begin{table}
+\begin{tabular}{c c c} \hline \hline Parameter & \multicolumn{2}{c}{**For Au-Au**} & **For p-p** \\ \hline Beam energy & \(100\!\rightarrow\!30\) GeV/\(u\) & \(250\!\rightarrow\!30\) GeV \\ Luminosity & \(2\!\times\!10^{26}\)\(cm^{-2}s^{-1}\) & \(1.4\!\times\!10^{31}\)\(cm^{-2}s^{-1}\) \\ Number of bunches/ring & 60 & 60 \\ Luminosity lifetime & \(\sim\!10\) h & \(>\!10\) h \\ \(\beta^{*}\) at collision points & 10 m & 10 m \\ \hline \hline \end{tabular}
+\end{table}
+Table 3.1: Physical parameters and performance specifications for RHIC, data from [74, 75].
+
+Three accelerators in the injector chain will successively boost the energy of ions and strip electrons from the atoms. The schematic overview of RHIC complex with the acceleration scenario for Au ion beams is shown in Fig. 3.1. More details can be found at [74, 75].
+
+The location of the 4 currently operating detectors are arranged as shown in Fig. 3.2. Two of the six interaction regions are not currently in use. If RHIC's ring is thought of as a clock face, the four current experiments are at 6 o'clock (STAR), 8 o'clock (PHENIX), 10 o'clock (PHOBOS) and 2 o'clock (BRAHMS). There are two additional intersection points at 12 and 4 o'clock where future experiments may be placed. The data presented in this thesis was taken by STAR detector. More detail about the STAR detector will be described in the following sections.
+
+### 3.2 The Zero Degree Calorimeters
+
+In order to provide universal characterization of heavy ion collisions for all the RHIC experiments, all the four detectors have one common detector subsystem, namely a pair of ZDCs [76, 77] that are located behind the beam splitting point outside the DX magnets( \(\sim\) 18 m away from the interaction point, \(\theta\) \(<\) 2 \(mrad\), so comes the name Zero Degree, see Fig. 3.3). Each ZDC module is a hadron calorimeter consisting of tungsten plates alternating with layers of undoped optical fibers, sampling the energy of spectator neutrons deposit through Cherenkov light produced by shower electrons in the fibers. The energy is known to be well correlated with the event geometry (impact parameter) of
+
+Figure 3.3: Plan view of the collision region and (section A-A) “beam’s eye” view of the ZDC location indicating deflection of protons and charged fragments with \(Z=A\) \(\sim\) 1 downstream of the “DX” Dipole magnet, figures from [77].
+
+Figure 3.2: Location of the four detectors at RHIC. Figure from [http://www.bnl.gov/RHIC](http://www.bnl.gov/RHIC)
+
+pair at each crossing point is also used as a luminosity monitor in steering the beams to collide. Thus, having identical sets of these detectors for all the RHIC experiments has proved to be invaluable both for machine operation, providing a ready means of monitoring and tuning the collision rate at each experimental area, and for physics analysis, providing a comparable measure of the impact parameter among the experiments for heavy-ion collisions.
+
+### 3.3 The STAR Detector
+
+STAR is located at 6 o'clock direction at the RHIC ring. To accomplish the physics goals, STAR was designed for measurements of hadron production over a large solid angle, featuring detector systems for high precision tracking, momentum analysis and particle identification at the middle rapidity.
+
+The perspective view of the detector is shown in Fig. 3.4.
+
+The STAR detector consists of several sub systems. A room temperature solenoidal magnet [81] with a uniform magnetic field of maximum value 0.5 T provides for charge particle momentum analysis. A Time Projection Chamber (TPC) [82] is the main tracking device. A Silicon Vertex Tracker(SVT) [83] and a Silicon Strip Detectors (SSD) [84] makes the charged particle tracking close to the interaction region possible. A radial-drift TPC (FTPC) [86] is available to extend the tracking to the forward region. To extend the particle identification capabilities to high transverse momenta, a full time-of-flight (TOF) detector will cover the outer
+
+Figure 3.4: Perspective view of the STAR detector, with a cutaway for viewing inner detector systems.
+
+surface of TPC. A electromagnetic calorimeter (EMC) [87, 88] is used to measure and trigger on the total (\(E_{t}\)) and local (\(d^{2}E_{t}/d\eta d\phi\)) transverse energy deposition. In year 2001 running period, the TPC, the FTPCs, the SVT and part of the EMC was available. A small TOF patch (TOFp) [95] was installed for test of the detector system too. The schematic side view of the detector configured for year 2001 is shown in Fig. 3.5.
+
+The results shown in this dissertation are obtained by using STAR TPC. Also, the author has done some work for the TOFp Data Acquisition (DAQ) system [98]. So, in the following sections, I\(\Pi\) focus on the TPC detector, the trigger and DAQ system, the TOFp detector and the TOFp local DAQ system.
+
+### 3.4 The Time Projection Chamber
+
+TPC is the main tracking detector of STAR. It measures tracks and momenta of charged particles and provides particle identification by detecting the ionization energy loss dE/dx along the particle trajectory. The acceptance covers \(\pm 1.8\) units of pseudo-rapidity through the full azimuthal angle and over the full range of multiplicities. Particles are identified over a momentum range from 100 MeV/\(c\) to greater than 1 GeV/\(c\), and momenta are measured over a range of from 100 MeV/\(c\) to 30 GeV/\(c\). One can consider the TPC as a large 3D digital camera with a corresponding number of 70 million pixels which records the very detailed picture of the heavy-ion collisions.
+
+The TPC is shown schematically in Fig. 3.6. It sits in a large solenoidal magnet that operates at 0.5 T axial magnetic field. The TPC is 4.2 m long and 4 m (1 m)
+
+Figure 3.5: Cutaway side view of the STAR detector as configured in 2001.
+
+in outer (inner) diameter. The central membrane separates the detector into two parts. Each half is then divided into 12 sectors.
+
+The TPC is an empty cylindric shaper filled with P10 gas (\(10\%\) methane, \(90\%\) argon) [94] regulated at 2mbar above atmospheric pressure in a well-defined, uniform, electric field of \(\approx 135\) V/cm. Charged particles passing through here will ionize the gas molecules. The secondary electrons drift in the electrical field to the readout end caps at the ends of the chamber. The drift paths are up to 2.1 m. So the electric field uniformity is critical. The electric field is generated by the central membrane which is operated at -28 kV. The two end caps are grounded. The field cage cylinders provide a series of equi-potential rings that divide the space between the central membrane and the anode planes into 182 equally spaced segments. The rings are biased by resistor chains of 193 precision 2 \(M\Omega\) resistors which provide a uniform gradient between the central membrane and the grounded end caps. The laser system [85] is used to measure the drift velocity with \(\sim 0.02\%\) accuracy. The velocity was measured as 5.45 cm/\(\mu\)s.
+
+The readout is based on a Multi Wire Proportional Chamber (MWPC) with readout pads. Fig. 3.7 is the schematic view of the readout system. There are three wire planes. The first plane is the so-called "Gating Grid" which can control the electron in or not. Set all the wires to the same potential (typically 110 V), the drifting electron is able to enter the read-out system. Setting the wires to alternat
+
+Figure 3.6: The Time Projection Chamber of the STAR Detector.
+
+ing \(\pm 75\) V of the nominal value will disable the electron in and clean the read-out plane for the next event. The next two wire planes and the pad plane construct the MWPC. The electric signal is amplified by the anode wire and a temporary image charge is induced on the pads. This image charge is then measured by a pre-amplifier/shaper/waveform digitizer system with a sampling rate of 100 MHz, binned into 512 time buckets. The signal location in the pad plane gives the position in x,y plane. The z position can be located with the drift time of the signal and the known drift velocity. Thus the 3D picture of a particle track is reconstructed.
+
+The pad plane layout for one sector is show in Fig. 3.8. This layout is separated into an outer part with full pad coverage, optimized for the dE/dx resolution, and an inner part with smaller pad size to improve two-track and momentum resolution for low momentum tracks. There are 13 padro
+
+Figure 3.7: Schematic cross-section view of the TPC read-out plane.
+
+Figure 3.8: The anode pad plane with one full sector of STAR TPC.
+
+32 in the outer subsector. A particle track can be sampled with up to 45 points. There are total 5692 pads in the 24 sectors.
+
+### 3.5 The Trigger and DAQ
+
+#### The Trigger
+
+The STAR trigger system [90] is a pipelined system in which digitized signals from the fast trigger detectors are examined at the RHIC crossing rate5. Data flow through the system is shown in Fig. 3.9.
+
+Footnote 5: Typically 9.37 MHz
+
+The system is divided into 4 layers. Level 0 is the fastest level and is used to trigger on the collision geometry and interaction vertex. The next level (Level 1 and Level 2) will apply more sophisticated constraints on the event selection. STAR has a Level 3 trigger system [91] which issues a trigger decision upon a complete online reconstruction of the collisions on a dedicated farm. An online display is included in the level 3 trigger system. Individual events can be visually inspected in real time. Fig. 1.2 shows two such plots of the first Au+Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV.
+
+The fast detectors that provide input to the trigger system are the Central Trigger Barrel (CTB) which covers the outer shell of the TPC and two Zero Degree Calorimeters (ZDCs). The CTB is a scintillator array with 240 scintillator arrays and measures the charged particle multiplicity with pseudorapidity \(|\eta|<1\) and azimuth in \(2\pi\). In run 2001, one of the CTB trays was removed and replaced with a TOFp tray. The ZDCs measure the neutron multiplicity in a small solid angle near zero degree with respect to the RHIC beam axis. The correlation between
+
+Figure 3.9: DAQ Flow through the trigger.
+
+the sum of the ZDC pulse heights and that of the CTB is shows in Fig. 3.10 for AuAu events with successfully reconstructed primary TPC tracks. A minimum bias trigger requires the pulse height is larger than that of one neutron in each of the ZDCs. The central trigger is implemented by selecting events with less energy in the forward ZDCs but with sufficient CTB sum signal.
+
+Besides CTB(which will be completely replaced by TOF) and ZDC, there are many other detectors can be used in trigger system to select particular physics events. Such as EMC, TOF, etc. Indeed, during year 2002, the TOFr (one TOF trap based on multiple resistive plate chambers technology) [96, 97] is added to trigger system to select events with enough hits on the tof detector system, and many important physics results have been obtained.
+
+#### The DAQ
+
+The STAR DAQ system [89] is driven by the characteristics of STAR's main detectors, TPC, and to a lesser degree two smaller FTPCs and a SVT. These detectors produce 80 MB of data per event and are able to read out events at 100 Hz. The storage of raw data is managed by RCF (RHIC Computing Facility)6 using HPSS7, the limit for STAR is 30MB/s. So the task of DAQ is then to read data from the detectors at rates up to 8,000 MB/s to reduce the data rate to 30MB/s, and to store the data in the HPSS facility. There are many other detectors that need to be read out too, but all with smaller data volumes. Thus, STAR DAQ system is a modular design.
+
+Footnote 6: [http://www.rhic.bnl.gov/RCF](http://www.rhic.bnl.gov/RCF)
+
+Footnote 7: [http://www4.clearlake.ibm.com/hpss/index.jsp](http://www4.clearlake.ibm.com/hpss/index.jsp)
+
+The large input data is processed parallel at the DAQ front end. Multiple receiver boards (RBs) receive data in parallel on separate optical fibers from the detectors. The RBs are grouped together in VME crates. Each crate is controlled by a Detector Broker CPU (DET). Two strategies (zero-suppress and l3 for physical filter) are used to reduce the data volume. Events from small detectors are read into MVME processors over private, point-to-point 100MB/s ethernet. The internal implementation of the detector broker is different for each detector. The detector
+
+Figure 3.10: STAR trigger scheme for central (left) and minimum-bias (right) triggers. Figures from [http://www.star.bnl.gov/STAR/html/all_1/trigger2001/index.html](http://www.star.bnl.gov/STAR/html/all_1/trigger2001/index.html).
+
+[MISSING_PAGE_EMPTY:45]
+
+pulses arrive at equally spaced detectors on each side of STAR provides the location of the collision vertex along the beam pipe. The average of these two arrival times is the event start time, which with the TOFp stop times provides the time interval measurements of interest. To perform this function we implemented another new detector for STAR called the Pseudo Vertex Position Detector (pVPD). The design of this detector is based on the conventional technology of plastic scintillator read-out by photomultiplier tubes. There are three pVPD detector elements on each side of STAR at a distance of approximately 5 m from the intersection region.
+
+The detector measuring the particles of interest - the stop detector - is the Time of Flight Patch (TOFp). The goal of the system is to provide direct particle identification for the formation of the rates and spectra of charged hadrons produced in RHIC in a small acceptance but over many events. The detector design is also based on the conventional technology. A total of forty-one detector assemblies are arranged as one row of five slats and nine rows of four slats inside the TOFp tray, which in total cover approximately one unit of pseudorapidity and \(\sim\)1/60 of the full azimuth of the STAR TPC.
+
+The signal processing of the system is following: starting from the outputs of the PMT bases on the detectors, the signal will pass the Front-End Electronics (FEE), the platform discriminators, and the signal cabling, finally to the inputs of the digitizers which are the ADCs and TDCs on the platform.
+
+The STAR trigger system will issue a Level-0 trigger which is issued no later than 1.5 \(\mu\)s after the collision. However, the signals from the TOFp and pVPD detectors are available on the platform \(\sim\)240ns after the collision, and it is not practical to delay the digitization of these signals for the additional \(\sim\)\(1.3\mu\)s needed to check if this event is later accepted by the STAR Level-0 trigger. Thus, the digitization of the TOFp and pVPD data is begun earlier, after a local decision based on the information from the pVPD itself. As the pVPD, CTB, and ZDC detectors cover different non-overlapping pseudorapidity regions, and as there may be gates placed on the CTB and ZDC information for Level-0 decisions by the trigger system, it is possible that collision events that fire the pVPD may not be later accepted by the Level-0 trigger, and _vice versa_. In order to properly interface with the STAR trigger and DAQ systems, despite these possibilities, a "Local Trigger" system for
+
+Figure 3.12: A scale drawing of the locations of pVPD and TOFp detectors in relation to the STAR TPC and the RHIC beam pipe. For clarity, the TPC is cut away, while the STAR magnet and other subsystems are not drawn.
+
+the TOFp and pVPD digitization was implemented in NIM logic. The schematic of the TOFp/pVPD Local Trigger system is shown in Fig. 3.14 on Page 28. The DAQ software used to locally read out the resulting TOFp and pVPD data and properly transmit it to the STAR DAQ system is described in next section.
+
+#### TOFp DAQ
+
+The local DAQ system controls the digitization hardware and reads out the detector data, reformats the data and sends it properly to the STAR DAQ system, controls I/O modules to properly communicate with the TOFp Local Trigger and the STAR Trigger, and visualizes the raw data. It is a conventional approach based on front-end electronics that are NIM and CAMAC modules with control by a PC running the Linux operating system. An overview of the local DAQ system is shown in Figure 3.13.
+
+There are four LeCroy 2249A ADCs and six LeCroy 2228A TDCs in the CAMAC crate. A Kinetics Systems 3922 parallel bus crate controller communicates with a Kinetics 2915 PCI Interface in the PC's PCI bus. The local DAQ system also needs to communicate with both the local trigger system and the STAR trigger. A Bira model 2601 24-bit I/O register accepts the token and other control information from the STAR Trigger, while a Jorway 41 output register and a custom "LAMG" module handle the communication with the local trigger system. The LAMG module is a single width CAMAC module which can accept a trigger signal and generate a LAM signal on the CAMAC bus after a preset delay. The detector and cable path temperatures, as well as the read-back values of the remote threshold system, are read out using a Kinetics model 3516 32-channel scanning A/D converter. A spare ADC channel is also used as a 60 Hz clock as described in Ref. [99].
+
+The data readout and transfer is done by the PC with a Kinetics model 2915 PCI card (the daq pc is running with a Linux 2.2 kernel, so the driver been developed at KEK [100] and JNAL for 2.0 kernel has been ported to 2.2 kernel) and two network interface cards (NIC). The function of the KS2915 is to communicate with the CAMAC crate and read out all the data on the CAMAC backplane. One of the NICs is used to communicate with the STAR DAQ system on DAQ's private subnet, while the other is used for monitoring and operator control via the general STAR subnet.
+
+Figure 3.13: The schematic of the hardware components of the TOFp DAQ system. The arrows denote the direction of the signals or directives.
+
+Custom software written in C performs the functions outlined in Figure 3.15. There are five programs running on the PC. To simplify the operate procedure, they are spawned by one program called tofpMother. The five programs are RunControl, GetData, SendData, StarDAGMonitor and LocalDAGMonitor. RunControl communicates with STAR DAQ, gets the DAQ command, and notifies the other programs, then returns the execute status to STAR DAQ. It also updates generic status information for the system. GetData reads out the data and saves it in a shared buffer (let's say the total physical RAM of the PC is 128 M, by append "mem=120M" to the kernel boot parameter will let the operating system see only the first 120 M RAM, so the rest about 8 M RAM can be used for the event buffer by a _mmap_ system call to /dev/mem. The actual size is related to the hardware, for the PC share video memory with the system memory, the size will smaller, so one need to check how much actual size available before use it.), so SendData can send it to the STAR DAQ. GetData communicates with both the STAR Trigger and the TOFp local trigger system. In case the event buffer becomes full, GetData will keep and hold the system busy, so the STAR Trigger won't send further trigger information to TOFp. Each time an event arrives or is sent out, GetData and SendData update the information stored in the shared memory segments. A round-robin scheduling algorithm8 is applied, so these programs have a higher priority than all other programs. StarDAGMonitor sends run-time status information of the TOFp DAQ system to the STAR DAQ run-time system. LocalDAGMonitor sends a fraction of the raw data, typically every tenth event, to the local monitoring system. This allows the display of histograms of the raw data as it is arriving for diagnostics. The LocalDAGMonitor system is running on another PC in the STAR control room called the ControlPC. A local monitor server program runs as a daemon and receives the data from the local DAQ system, and saves it into histograms in a shared mapped root[111] file. Another program called local monitor display displays these histograms.
+
+Footnote 8: _man sched_setscheduler_ on Linux system
+
+There are only one CAMAC crate for TOFp. In 2002, another TOFr tray was added in which has more readout channels. The system is upgraded with 3 CAMAC crates. The 2915 PCI card can support up to 8 CAMAC crates. The software can been easily ported to cope with this situation after modify the readout part of program GetData. Indeed the TOFr detector has been success running which provide a very food foundation for the barrel Time-of-Flight detector[101].
+
+Figure 3.15: The schematic of the software components of the local TOFp DAQ system. The arrows denote the direction of the signals or directives or data transfer.
+
+[MISSING_PAGE_EMPTY:49]
+
+## Chapter 4 Data Analysis and Results
+
+In this chapter, the data analysis processes and results are presented. We start from a quick view of the offline simulation and reconstruction software, then go to the analysis of proton and anti-proton, the correction to the spectra is discussed too, and finally, the results of this analysis are presented.
+
+### 4.1 Offline Simulation and Reconstruction Software
+
+Offline simulation and reconstruction software is the major component of STAR experiment. The offline simulation software will simulate the physical and electronic response of each active detector in STAR to all types of particle production processes anticipated during the development and operation of STAR. We'll discuss them in following sections.
+
+The offline reconstruction software will convert the raw input pixel data from either simulation or the real experiment into a reconstructed version of the particle production which is a list of particles corresponding to the triggered event and includes the momentum, energy, charge and/or particle identification (PID) of the individually identified tracks. By combining the simulation and reconstruction software, we can get the physical results, evaluate and visualize the results to check the adequacy and correctness, get the acceptance and efficiency tables, and do many other things. All the sub-detectors are included in the offline software. Only TPC is used in this analysis, thus we'll focus on the reconstruction and simulation processes in the TPC. Other detectors such RICH, SVT, FTPC, TOFp were included in the run too. You may find the detail of their offline software from the STAR web page. The design for the STAR offline simulation and analysis software is given in [118].
+
+Before discussing the following procedure, we first introduce the standard
+
+Figure 4.1: STAR Coordinate System.
+
+STAR coordinate system [120]. As show in Fig. 4.1, it's a right-handed Cartesian system. The origin of the coordinate system is located at the center of the solenoid (iron).
+
+#### Event Reconstruction in the TPC
+
+TPC is the main track detector of STAR. The goal of TPC tracking software is to associate the raw space points (nearly 7 million) taken in an event to form geometrical tracks and fit the points on a track with a track model to extract information such as the particle momentum. The flow chart of different TPC offline software modules is shown in Fig. 4.2. The chain is designed to cope with both simulated data and real data. There are no differences for the reconstruction part. The software starts from the pixel information.
+
+#### Cluster/Hit Finder
+
+The cluster/hitfinder [119] is designed to extract the raw data pad-row crossing positions ("hits") for charged particles that traverse the active volume of the TPC. It is the first offline analysis (non-calibration) software that will process the TPC data. Almost all the other offline software are built on the output of cluster/hitfinder. During this stage, the local x-y positions are obtained by looking for ionization on adjacent pads rows with similar drift times, and the z position is found by looking for ionization in adjacent time bins (time buckets) on the same pad. The ionization of two crossed tracks will form a merged cluster and is divided evenly between them. This cluster is used only for tracking. Once all the local x-y and z positions are found, they will be transformed into TPC space points with the drift velocity. These space points contain the information about the hits in the STAR global coordinates and the energy deposited by the particle.
+
+Figure 4.2: Schematic of the STAR TPC Software Chain.
+
+Fig. 4.3 shows a typical TPC event at hit level. During this stage, the gain corrections are applied, the channels tagged by DAQ or previous offline runs as bad, noisy or dead are removed too. The relative timing corrections between pads are also applied. It is likely that two particles will hit the padrows with very close distance. Thus, a pass is made to find single hits and multiple hits in a cluster too. The multiple hit finder may deconvolve the cluster into individual hits. Finally, the hits will be transformed into TPC space points. With drift velocity, trigger time offsets, sector geometry and electronic shaper response, the space points contain information of the position and the energy deposited by the track.
+
+##### Track Finding and Global Event Reconstruction
+
+After get all the space points information, the tracking finding algorithm is employed to reconstruct the space points into particle tracks and determine the 3-momentum.
+
+The track model is a helix include the energy loss in the gas which causes a particle trajectory to deviate slightly from the helix [123]. Kalman Filter method [121] is used for tracking. The tracking efficiency depends on the acceptance of the detector, the electronics detection capability and the two-hit separation capability.
+
+TPC is the main tracking detector in STAR. However, many other tracking detectors are added to the system too. It is the task of the global tracking to match the track and hit information from all the different sub-detectors.
+
+##### Primary Vertex Finding
+
+Immediately after get all the track information, it is necessary to find out the collision vertex of the event. By knowing the primary vertex we can find where a track is a primary track or a secondary track (tracks resulting from decays of primary particles, interactions with detectors, etc...), we can also refit the track with this vertex included to improve the momentum resolution. In STAR, this is done by the event vertex reconstruction package [122]. A Least Squares Method (LSM) is used.
+
+##### Primary Track Fit
+
+Once the primary vertex is found, the global tracks with the 3-dimensional distance of closest approach (\(dc\alpha\)) less than 3 cm are chosen for a refit by including the vertex as a additional space points. The new tracks are called _primary_ tracks. This procedure increase the momentum resolution of the tracks because of the
+
+Figure 4.3: A TPC Event at hit level.
+
+error assigned to the primary vertex is much smaller than those associated with TPC space points.
+
+#### Particle Identification with dE/dx
+
+The charge collected for each hit on a track is proportional to the energy loss of the charge particle which pass through the gas in the TPC. For a particle with charge \(z\) (in units of \(e\)) and speed \(\beta=v/c\) passing through a medium with density \(\rho\), the mean energy loss it suffers can be described by the Bethe-Bloch formula:
+
+\[\left\langle\frac{dE}{dx}\right\rangle=2\pi N_{0}r_{e}^{2}m_{e}c^{2}\rho\frac{ Zz^{2}}{A\beta^{2}}\left[\ln\frac{2m_{e}\gamma^{2}v^{2}E_{M}}{I^{2}}-2\beta^{2}\right] \tag{4.1}\]
+
+where \(N_{0}\) is Avogadro's number, \(m_{e}\) is the electron mass, \(r_{e}\) (\(=\frac{e^{2}}{m_{e}}\)) is the classical electron radius, \(c\) is the speed of light, \(Z\) is the atomic number of the absorbing material, \(A\) is the atomic weight of the absorbing material, \(\gamma\!=\!1/\sqrt{1\!-\!\beta^{2}}\), \(I\) is the mean excitation energy, and \(E_{M}\) (\(=\!2m_{e}c^{2}\beta^{2}/(1\!-\!\beta^{2})\)) is the maximum transferable energy in a single collision [124]. From this formula, we can see that the different charge particle (different mass) with the same momentum \(p\) pass through the TPC gas can result in different energy loss. Fig. 4.4 shows the energy loss for particles in the TPC as a function of the particle momentum for both primary and secondary particles. From this figure, we can also see that as the particle energy rise, the energy loss becomes less mass dependent. Pion and kaon can be identified up to \(0.75\) GeV/\(c\), proton and anti-proton can be identified up to \(1.1\) GeV/\(c\).
+
+### 4.2 Raw Yield of Proton and Anti-Proton
+
+In this section, the analysis procedure of raw yield of proton and anti-proton will be presented. I'll start with the event selection and centrality definition, then
+
+Figure 4.4: The energy loss distribution for primary and secondary particles in the STAR TPC as a function of the \(p_{t}\) of the primary particle. Figure from [75].
+
+discuss the cuts condition used, followed by the particle identification using energy loss in TPC, finally, the procedure of how to extract proton background is explained.
+
+#### Centrality Definition
+
+For this analysis, both minimum bias (minbias) data and central trigger data set taken from Au+Au collisions at 2001 are used. The collision centrality is defined by the impact parameter \(b\) (see Fig. 4.5). Smaller \(b\) corresponds to more central collisions. However, we cannot measure the impact parameter experimentally, so we must rely on some other experimental observable that correlates with the impact parameter. For this analysis, we chose the number of uncorrected charged particle (multiplicity)1. These are the primary tracks which were reconstructed in TPC, have at least 10 hits and pass through following cut: \(dca\)\(<\)\(3\) cm, \(-0.5\)\(<\)\(\eta\)\(<\)\(0.5\). The events are then divided into 9 centrality bins which are defined by the percentage of the total multiplicity. Fig. 4.6 shows the multiplicity distribution with the centrality bins used in this analysis.
+
+Footnote 1: [http://www.star.bnl.gov/protected/common/common2002/centrality/](http://www.star.bnl.gov/protected/common/common2002/centrality/)
+
+Let's image during the collision process, each of the nucleons in the nuclei that participate in the collision process produces (on average) a certain number of particles, then we can calculate the average number of nucleons that participants in the collision (\(\langle N_{part}\rangle\)) at a given impact parameter b with a geometrical model (Glauber Model). Thus, there is a statistical mapping of \(\langle N_{charge}\rangle\rightarrow\langle N_{part}\rangle\rightarrow\langle b\rangle\)[125, 126]. The particle productions are found to be proportional to the number of elementary nucleon-nucleon collisions (number of binary collisions: \(N_{coll}\)), especially for large
+
+Figure 4.5: Illustration of impact parameter \(\bar{b}\). Left is side view and right is end view.
+
+Figure 4.6: Charged multiplicity distribution for Au+Au collisions @ \(\sqrt{s_{NN}}\) = 200 GeV. The 9 centrality bins used in this analysis are illustrated too.
+
+momentum transfer (hard) processes. Table 4.1 shows the corresponding value for these parameters in different centrality.
+
+#### Event Selection
+
+In order to have a good quality control to the analysis results presented here, several cut conditions were applied to this analysis. These include both event-wise variables and track related variables.
+
+##### Primary Vertex
+
+Normally, collisions will take place over a wide range of values along the _z-axis_. However, if the collisions take place around the center of TPC \((x\!=\!y\!=\!z\!=\!0)\), most of the particles will travel the greatest distance inside the TPC, the event shape will be symmetric and have maximum coverage on pseudo-rapidity range \(|\eta|\!<\!1\). The reason is that TPC is a symmetric detector around the central. For \(\sqrt{s_{NN}}\!=\!200\) GeV Au+Au run in 2001, a vertex cut was already applied to some of the trigger type, considerate that the supporting structure of the SVT starting at \(\pm 25\) cm, we choose a primary vertex cut of \(|Z|\!<\!25\) cm. Also, \(|X|\!<\!3.5\) cm and \(|Y|\!<\!3.5\) cm were applied to the data.
+
+##### Track Selection
+
+For this analysis, we require there are at least 23 hits out of maximum 45 hits in the TPC for each track used. Also, we require that all the primary tracks pass
+
+\begin{table}
+\begin{tabular}{c c c c c c c} \hline \hline
+**Centrality** & \((\%)\) & \(N_{charge}\) (\(>\)) & \(dN_{ch}/d\eta\) & \(N_{part}\) & \(N_{bin}\) & \(\langle b\rangle\) (\(fm\)) \\ \hline
+1 & \(70\!-\!80\) & 14 & 22. & \(14.0^{+4.0}_{-5.2}\) & \(12.3^{+4.8}_{-5.1}\) & \(12.9^{+0.6}_{-0.6}\) \\
+2 & \(60\!-\!70\) & 30 & 45. & \(26.9^{+6.6}_{-5.5}\) & \(29.1^{+9.6}_{-8.6}\) & \(12.0^{+0.5}_{-0.6}\) \\
+3 & \(50\!-\!60\) & 56 & 78. & \(47.3^{+8.1}_{-7.5}\) & \(62.4^{+16.3}_{-15.7}\) & \(11.1^{+0.5}_{-0.5}\) \\
+4 & \(40\!-\!50\) & 94 & 126. & \(76.2^{+9.0}_{-9.1}\) & \(120.6^{+25.1}_{-24.5}\) & \(10.0^{+0.5}_{-0.4}\) \\
+5 & \(30\!-\!40\) & 146 & 195. & \(114.5^{+10.7}_{-8.6}\) & \(214.3^{+36.2}_{-33.2}\) & \(8.8^{+0.4}_{-0.4}\) \\
+6 & \(20\!-\!30\) & 217 & 287. & \(165.7^{+10.0}_{-8.3}\) & \(358.4^{+46.3}_{-43.6}\) & \(7.5^{+0.3}_{-0.3}\) \\
+7 & \(10\!-\!20\) & 312 & 421. & \(233.6^{+7.4}_{-8.4}\) & \(575.8^{+54.5}_{-85.1}\) & \(5.8^{+0.3}_{-0.2}\) \\
+8 & \(5\!-\!10\) & 431 & 558. & \(298.3^{+5.2}_{-7.1}\) & \(804.6^{+65.4}_{-64.0}\) & \(4.1^{+0.2}_{-0.2}\) \\
+9 & \(0\!-\!5\) & 510 & 691. & \(351.5^{+3.4}_{-3.8}\) & \(1020.3^{+73.2}_{-68.0}\) & \(2.2^{+0.2}_{-0.2}\) \\ \hline \hline \end{tabular}
+\end{table}
+Table 4.1: Listed for \(\sqrt{s_{NN}}\!=\!200\) GeV for each Centrality bin are the rage of the % most central of the hadronic cross section, \(dN_{ch}/d\eta\), the estimated mean number of participants, the estimated number of binary collisions, and the estimated mean impact parameter. Data from [126].
+
+within 3 cm of the primary vertex, \(i.e.\), \(dca<3\) cm. Other kinds of \(dca\) cut was applied to extract the systematic error.
+
+#### Extract the Raw Yield of Proton and Anti-proton with Energy Loss in TPC
+
+As has been discussed before, the energy loss of charge particle when pass through TPC can be used for particle identification. However, it's not possible to do this identification on a track-by-track basis in the full \(p_{t}\) range. As can be seen in Fig. 4.4, different particles have similar energy loss around \(p_{t}\approx 1\) GeV. We use a fitting process over many events in the same class to extract the yield of the proton and anti-proton. We construct a quantity \(Z=\log\left(\left[\frac{dE}{dx}\right]_{\text{exp}}/\left[\frac{dE}{dx}\right] _{BB(proton\ mass)}\right)\), where \(\left[\frac{dE}{dx}\right]_{BB(proton\ mass)}\) is the expected ionization for proton and anti-proton from the Bethe-Bloch formula. For a pure sample of proton, this quantity should be well described by a Gaussian centered at zero. However, there are many different particle species such as pions, kaons etc in the sample. These particles will be seen as Gaussian shapes offset from zero. Fig. 4.7 shows an example \(Z\) distribution for one transverse momentum and rapidity bin. So we can use a multi-Gaussian fit to extract the raw yield of proton and anti-proton.
+
+The statements above are based on that the Bethe-Bloch formula we used can describe the energy loss in the experiment well, \(i.e.\), the parameters are perfect. However, this is unlikely to happen, reflect on the results of Z distribution, we see the mean value of the particle to be identified is not zero, \(i.e.\), the central position of Gaussian shape is shifted away from zero. Fig. 4.8 shows such shift for pion, we can see the shift is dependent on the number of fit points too. A parabola fit is employed to fit this dependence, then the parameters from the fit are applied into
+
+Figure 4.7: Z distribution for a, 50 MeV wide, \(p_{t}\) and, 0.1 unit wide, rapidity bin. Three particle species are labelled. Each peak can be fit with a Gaussian function. The plot is fit with a 3-Gaussian function.
+
+the corrected \(Z\) variable formula:
+
+\[Z=\log\left(\frac{\left[\frac{dE}{dx}\right]_{exp}}{\left[\frac{dE}{dx}\right]_{ BB(proton\ mass)}*\left(a_{0}+a_{1}*fitpts+a_{2}*fitpts^{2}\right)}\right) \tag{4.2}\]
+
+where \(a_{0},a_{1},a_{2}\) are parameters from the parabola fit, \(fitpts\) are the number of fit points of the track.
+
+##### Energy Loss Correction
+
+When a particle traverses through the detector material, it must have energy loss. Due to this effect, the momentum recorded by the detector is less than the initial momentum when the particle freeze-out. A Geant[102] simulation with Anti-protons and protons is done to study this effect. The momentum difference (\(\Delta p\)) between the reconstructed momentum (\(p\)) and the initial momentum (\(p_{MC}\)) due to energy loss is shown in Fig. 4.9. The dependence of the momentum difference is fit by
+
+\[\Delta p=p-p_{MC}=a/\beta^{c}\cdot\frac{1}{\sin\theta} \tag{4.3}\]
+
+Figure 4.8: The shift away from zero vs number of fit points for pion \(Z\) distribution, Line represents parabola fit.
+
+Figure 4.9: Difference (times sine of the dip angle \(\theta\)) of the reconstructed momentum (\(p\)) and the initial momentum (\(p_{MC}\)) due to energy loss in detector materials, versus momentum (\(p\)). Determined using a Geant simulation.
+
+where \(\beta\) is the relativistic velocity of (anti-)protons, \(\theta\) is the dip angle between beam axis and particle trajectory. The fit parameter are \(\alpha\!=\!-0.0032888\) and \(c\!=\!2.43938\). The energy loss correction is applied to the reconstructed global tracks used in this analysis.
+
+##### Multi-Gaussian Fit
+
+For this analysis, we have 9 centrality bins. Each centrality bin is further divided into \(50\) MeV/\(c\) per transverse momentum from \(0.4\) GeV/\(c\) to \(1.05\) GeV/\(c\) and \(0.1\) unit wide per rapidity bin from \(-1.0\) to \(1.0\). Thus we have a Z distribution for each bin. A multi-Gaussian fit was applied to this distribution then. From Fig. 4.4
+
+Figure 4.10: Middle-rapidity particle yields as a function of \(Z=\log\{\left[\frac{dE}{dx}\right]_{\rm exp}/\left[\frac{dE}{dx}\right]_{BB(proton \ mass)}\}\), left plots and right plots are for protons and anti-protons, respectively. Black points are the multi-Gaussian fits to the measured distributions.
+
+we can see as the momentum increases, the energy loss becomes less sensitive to the particle species. Reflecting on the Z plots, the peak of pion, kaon and proton will merge. See Fig. 4.10. So we need to apply different limits on the fit parameter. We can also see for higher momentum bin, it's hard to tell the peak position and width of pion and kaon, so we let pion and kaon have the same width for the multi-Gaussian function when \(p_{t}\!>\!600\) MeV\(/c\). In brief, the multi-Gaussian functions we
+
+\begin{table}
+\begin{tabular}{l c c c c} \hline \hline \multicolumn{1}{|c}{**Particle**} & \multicolumn{1}{c}{**Name**} & \multicolumn{1}{c}{**Parameter**} & \multicolumn{1}{c}{**Range**} & \multicolumn{1}{c}{**Initial Value**} \\ \hline  & Area & \(par[0]\) & \(1,10^{4}\) & **n/a** \\ \hline Pion & Mean & \(par[1]\) & \(dEdxPion\pm 0.1\) & \(dEdxPion\) \\ \hline  & Width & \(par[2]\) & \(0.05,0.2\) & **n/a** \\ \hline  & Area & \(par[6]\) & \(1,10^{4}\) & **n/a** \\ \hline Proton & Mean & \(par[7]\) & \(-0.08,0.05\) & 0 \\  & Width & \(par[8]\) & \(0.05,0.1\) & **n/a** \\ \hline \hline \end{tabular}
+\end{table}
+Table 4.2: Limit of Initial Fit Parameter for Pion and Proton, where \(dEdxPion=\left[\frac{dE}{dx}\right]_{BB(pion\ mass)}/\left[\frac{dE}{dx}\right]_{ BB(proton\ mass)}\), n/a means no initialization
+
+\begin{table}
+\begin{tabular}{l c c||c c c} \hline \hline \multicolumn{1}{|c}{**Range**} & \multicolumn{1}{c||}{**Initial Value**} & \multicolumn{3}{c}{**Range**} & \multicolumn{1}{c}{**Initial Value**} \\ \hline
+[0] & \(1,10^{4}\) & \(par[0]/2\) & [0] & \(1,10^{4}\) & \(par[0]/2\) \\ \hline
+[1] & \(dEdxPion\pm 0.1\) & \(par[1]\) & [1] & \(dEdxPion\pm 0.1\) & \(par[1]\) \\ \hline
+[2] & \(par[2]\pm 0.1\) & \(par[2]\) & [2] & **see**1  & \(par[2]\pm 0.1\) & \(par[2]\) \\ \hline
+[3] & \(1,par[0]\) & \(par[0]/2\) & [3] & \(1,10^{4}\) & \(par[0]/2\) \\ \hline
+[4] & **see**2  & \(dEdxKaon\) & [4] & **see**3  & \(dEdxKaon\) \\ \hline
+[5] & \(par[2]\pm 0.1\) & \(par[2]\) & [5] & \(1,10^{4}\) & \(par[6]\) \\ \hline
+[6] & \(1,10^{4}\) & \(par[6]\) & [6] & \(\pm 0.05\) & \(par[7]\) \\ \hline
+[7] & \(-0.08,0.05\) & \(par[7]\) & [7] & \(0.06,0.1\) & \(par[8]\) \\ \hline
+[8] & \(0.
+
+used for fit are:
+
+\[\frac{[0]}{[2]\times\sqrt{2\pi}}e^{\frac{-(x-[1])^{2}}{2[2]^{2}}}+ \frac{[3]}{[5]\times\sqrt{2\pi}}e^{\frac{-(x-[4])^{2}}{2[5]^{2}}}+\frac{[6]}{[8] \times\sqrt{2\pi}}e^{\frac{-(x-[7])^{2}}{2[8]^{2}}}\leavevmode\nobreak\ \leavevmode\nobreak\ for\leavevmode\nobreak\ p_{t} \!<\!600\leavevmode\nobreak\ \mathrm{MeV}/c \tag{4.4}\] \[\frac{[0]}{[2]\times\sqrt{2\pi}}e^{\frac{-(x-[1])^{2}}{2[2]^{2}}}+ \frac{[3]}{[2]\times\sqrt{2\pi}}e^{\frac{-(x-[4])^{2}}{2[2]^{2}}}+\frac{[5]}{[7] \times\sqrt{2\pi}}e^{\frac{-(x-[6])^{2}}{2[7]^{2}}}\leavevmode\nobreak\ \leavevmode\nobreak\ for\leavevmode\nobreak\ p_{t} \!>\!600\leavevmode\nobreak\ \mathrm{MeV}/c\]
+
+where \([0]\), \([1]\), \(\cdots\) are the parameters to be fit, the first Gaussian denotes Z distribution for pion and the second for kaon, the third for proton. Before the multi-Gaussian fit, we also apply two Gaussian fits (with equation 4.5,
+
+\[\frac{[0]}{[2]\times\sqrt{2\pi}}e^{\frac{-(x-[1])^{2}}{2[2]^{2}}} \tag{4.5}\]
+
+where [0],[1],[2] denotes the area, mean and width of Gaussian function) to the spectra around the expected \(Z\) value for pion and proton to get a rough estimate for the initial value of multi-Gaussian fit. These initial values were then applied to the multi-Gaussian fit. For discussion purpose, we refer these initial values for pion as \(par[0],par[1],par[2]\) and for proton as \(par[6],par[7],par[8]\). The limits of the parameters for this initial fit are listed in Table 4.2.
+
+Finally, all the limits applied to the multi-Gaussian fits are listed in Table 4.3. We can see the major concern for the limit is the mean and width of the Gaussian function. For some particular bins (most in high pt region), the fit will be sensitive to the limit used and will fail. Fine-tuning is needed in this case.
+
+Fig. 4.10 shows the multi-Gaussian fit results to the \(Z\) distributions. The area of the third Gaussian function in equation 4.4 is the raw yield of (anti-)protons.
+
+#### Extract the proton background
+
+Before the particles produced in a collision are detected by TPC, they must traverse the beam pipe and different kinds of detector material, they will have hadronic interactions with beam pipe and the detector materials, thus produce secondary particles (including secondary protons). Primary protons have a small \(dca\) since they are produced from the event vertex, while this is not true for the secondary protons since they are not produced at the main event vertex. The \(dca\) distribution of proton and anti-proton for different \(p_{t}\) bin is shown in Fig. 4.11. The distribution is peaked at small \(dca\) and has a flat tail from secondary production.
+
+Since the background shape of the \(dca\) distribution at small \(dca\) (\(\leq\!3\leavevmode\nobreak\ \mathrm{cm}\)) is not known, a Monte Carlo simulation (Geant) was employed by using the particles generated by both HIJING and RQMD models as input. An empirical form was found for the background:
+
+\[\mathit{background}(dca)\propto\left(1+\exp\Bigl{(}\frac{-dca}{a}\Bigr{)} \right)^{-1} \tag{4.6}\]
+
+where \(a\) is a parameter to be determined which is both momentum and rapidity dependent. We have the same binning when extract the raw yield of (anti-)proton. The \(dca\) distributions of proton and anti-proton for each bin are plotted. We can 
+
+### 4.2 Raw yield of proton and anti-proton
+
+Figure 4.11: Proton and anti-proton \(dca\alpha\) distributions for different \(p_{t}\) bin, the background (line start from the origin) is strongly dependent on the transverse momentum.
+
+see from equation 4.6, there is a scale factor which is dependent on the \(dca\) distribution of the non-background proton. We assume the non-background proton and anti-proton have similar \(dca\) distribution, then fit the proton \(dca\) distribution by using
+
+\[P(dca)=N_{1}*\left(1+\exp\Bigl{(}\frac{-dca}{a}\Bigr{)}\right)^{-1}+N_{0}*\bar{ P}(dca) \tag{4.7}\]
+
+where \(N_{1}\) and \(N_{0}\) are scale factors. The background protons (line start from the origin) distributions, shown in Fig. 4.11, are gotten from above fit procedure. We can also see that a large amount of background protons are concentrated at low \(p_{t}\) region. This can be seen from Fig. 4.12 where the ratios of background protons over total protons vs \(p_{t}\) are shown at different rapidity bins.
+
+The net-proton then was obtained by multiplying the total proton a factor \(\bigl{(}1-ratio(y,p_{t})\bigr{)}\).
+
+### 4.3 Efficiency Correction
+
+If the detector and the reconstruction software are perfect, \(i.e.\), the detector has full acceptance and can record everything correctly, the software can reconstruct the 3D image from the hit point information with 100% accuracy, the analysis is done with the procedures in previous sections. However, nothing can be perfect. First, the detector have no full acceptance, \(i.e.\), some of the particles may hit the dead region (such as the support structure,...) of the detector, thus can't be detected. Second, the particle will suffer energy loss when travel through the detector or annihilate (such as anti-proton will annihilate with proton in the detector
+
+Figure 4.12: The ratio of background proton over total proton vs \(p_{t}\) for different rapidity bin.
+
+material or beam pipe). And at last, it's not possible for the software to reconstruct the full 3 dimensional image of the event correctly from the hit point information.
+
+So, in order to get the corrected yield of proton and anti-proton, it's necessary to include the correction of these factors. They are determined by a procedure called _embedding_. The idea is to take a real event and embed into the raw data file the signal from a few simulated tracks at the level of ADC counts. The simulated signal is obtained via a Geant Monte Carlo simulation of the detector response as been detailedly described in [125]. The acceptance, energy loss, particle (anti-proton, for this analysis) annihilation etc. are all be simulated during this process. The final simulated ADC signal is then merged into the raw data from the real event and then processed by the STAR reconstruction software chain. Since we have the full information of the embed tracks, we can then associate the reconstructed tracks to the corresponding Monte Carlo track. This association is done at the hit level.
+
+The efficiency then can be obtained by comparing the reconstructed Monte Carlo tracks to the embedded Monte Carlo tracks. Fig. 4.13 shows the transverse momentum dependence of efficiency for the most central and peripheral collisions. For \(p_{t}\!>\!400\) MeV/\(c\), the efficiency tends to be a constant. We use function
+
+\[\mathit{Effi}(p_{t})=(a_{0}-a_{1}\times p_{t})\times\left(1-exp\!\left(-\frac{p _{t}-a_{2}}{a_{3}}\right)\right) \tag{4.8}\]
+
+to fit the data points where \(a_{0},a_{1},a_{2},a_{3}\) are the parameters. The results from this function are used for the correction in this analysis to remove unnecessary fluctuations.
+
+Figure 4.13: Efficiencies for protons and anti-protons as a function of transverse momentum from the 9 centrality bins used in this analysis. Line represent the fit to the data points.
+
+### 4.4 Proton and Anti-Proton yields
+
+Now we can calculate the proton and anti-proton yields with following equations:
+
+\[\begin{split} Yield_{\bar{p}}(y,p_{t})&=\frac{\textit{ Raw Yield}_{\bar{p}}(y,p_{t})}{\textit{Efli}(y,p_{t})*N_{Event}}\\ Yield_{p}(y,p_{t})&=\frac{\textit{Raw Yield}_{p}(y,p_{t})*(1-\textit{RatioOfBackground}(y,p_{t}))}{\textit{Efli}(y,p_{t})*N_{Event}} \end{split} \tag{4.9}\]
+
+where \(N_{Event}\) is the number of events.
+
+#### Transverse Momentum Distribution
+
+The invariant yields \(d^{2}N/(2\pi p_{t}\,dp_{t}\,dy)\) (see App. B.4) of proton and anti-proton are shown in Fig. 4.14. The plots are arranged in the way that from bottom to top, the collision centrality increases: the top and bottom distributions correspond to top \(5\%\) and \((70-80)\%\) of the measured cross section, respectively. It is evident that for both proton (right panel) and anti-proton (left panel) distributions become more
+
+Figure 4.14: Mid-rapidity \((|y|\!\leq\!0.1)\) proton (right) and anti-proton (left) transverse momentum distributions for 9 centrality bins. From bottom to top, the centrality increase. Inner histograms are the systematic errors for the most central collision. Dashed line represent the thermal fit results.
+
+concave from peripheral to central collisions indicating an increase in transverse radial flow. We'll come back to this issue in chapter 6.
+
+STAR has published the spectra of \(\pi\)/K/P in Au + Au and pp collisions on Phys. Rev. Lett. [129]. We did a comparison by dividing our results by the PRL results, see Fig. 4.15. We can see our results are consistent with the published results within 10% errors.
+
+#### Systematic Uncertainty
+
+The bin to bin systematic uncertainties on the spectra are estimated by varying the event and track selection and analysis cuts. The estimated uncertainties are less than \(15\%\). An additional systematic error on the proton spectra due to background subtraction is estimated to \(5\%\) at low \(p_{t}\) and negligible at high \(p_{t}\)[128]. The two inner histograms in Fig. 4.14 show the systematic errors for the most central collisions.
+
+Figure 4.15: Ratio of invariance yield compare to STAR published results in [129]. Our results are consistent with the published results. The different colors denote different centrality bin.
+
+## Chapter RQMD Simulation and Results
+
+The interactions between nucleus nucleus collisions are complex processes that involve strong and electro-weak phenomena. Although we have QCD, however, "knowing the equation is not the same as having the solutions" [103]. By employ the effective theory such as perturbative QCD and electro-weak theory, we can describe some exotic parts of the processes such as the production of high \(p_{t}\) jets or \(W\), \(Z\) particles involving a large mass scale. However, the bulk of the event structure is non-perturbative in nature and cannot yet be calculated from the first principles. Thus, we have to seek for help from phenomenological models, such as the string model. The Monte Carlo implementations of such models are particularly useful for us to test various theoretical ideas. They are also invaluable to the implementations of an actual experiments from the initial design (help choose detector material,...) to the final data analysis (comparison between the experiment and Monte Carlo results).
+
+There are many good Monte Carlo event generators available for relativistic heavy ion collisions, such as HIJING [105], RQMD [71], UrQMD [106], AMPT [107], EPOS (formerly NEXUS) [108], etc. Each of them can describe part of the experiment results well and help us to understand the underly mechanism of the collision. For a review, see Ref. [109]. In this chapter, I will focus on the RQMD model.
+
+### 1 RQMD Introduction
+
+Relativistic Quantum Molecular Dynamics (RQMD) is a semiclassical microscopic model which combines classical propagation with stochastic interactions. Within the framework of RQMD, a typical heavy ion collision may be schematically divided into three stages, \(i.e.\)pre-hadronic stage, hadronic pre-equilibrium stage and the stage from hadronic kinetic equilibrium to freeze-out. The pre-hadronic stage is determined by the initial excitation and fragmentation of color strings and ropes. This stage lasts about \(1.5\) fm/\(c\) and the effective transverse pressure is rather soft. During the late hadronic stage, the hadronic system reaches local kinetic equilibrium followed by a break-down of equilibrium due to dilution of the hadronic gas and finite size of the system [110, 115]. A more detail description ofthe model can be found at Ref. [71]. RQMD is not a partonic-based model. However, it's believed that there are partonic interactions at RHIC energy. The reason we select this hadronic-based model is to study only the effects of the hadronic processes which will show the difference to partonic processes. We use RQMD version 2.4 in our analysis.
+
+### 5.2 Analysis of RQMD Data
+
+The raw output of RQMD is a text-based file. In this file, each event is recorded by some event-wise variables following with each particle's PID, charge, 4-vector, 4-momentum, mass etc. in this event. Several events are stored in one file orderly. The first procedure to analysis the RQMD data is to read this file. However, sometimes we only need to read the selected (not all) variables for each event. This is not possible with this text-based file because of no pointer in this file to locate the variables. ROOT [111] based file has pointer. It provides a TTree class which can be used to organize the events into a tree-like structure. One can access only the interested data members. Also, reading the root-based file is more convenient and faster than reading the text-based file. Programs1 have been developed for this purpose. This idea (programs) can be easily ported to other Monte-Carlo event generators (depends on the output is a text based file).
+
+Footnote 1: Contact me if interested.
+
+The impact parameter in a Monte Carlo event generator is known. In experiment, we're using the charged particle multiplicity as an estimate of the impact parameter since there are no ways to measure it. Fig. 5.1 shows the scatter plot of impact parameter vs. multiplicity in \(|\eta/Y_{beam}|\!<\!0.2\). An approximate linear relation exists between them. This relation also proves that the method we define the centrality with multiplicity in experiment is reasonable. In the analysis, we use the same method in the analysis of RQMD data. The centrality definition is same as in experiment, _i.e._, we divide the multiplicity by top 0-5%, 5-10%, 10-20%, 20-30%, 30-40%, 40-50%, 50-60%, 60-70%, 70-80%, 80-100%, corresponding to total 10 centrality bins. Top 0-5% is the most central collisions.
+
+In this analysis, we've generated several data sets for different CMS energy(\(\sqrt{s_{NN}}=\)): 5 GeV, 10 GeV, 20 GeV, 60 GeV, 130 GeV, 200 GeV. In order to study the effect of rescattering, events with both rescattering on and off are generated for each energy.
+
+### 5.3 Particle Spectra
+
+Fig. 5.2 shows the mid-rapidity (\(|y|<1.0\)) invariant cross section distribution for charged pions, kaons and protons as a function of transverse mass for the most central Au + Au collisions at \(\sqrt{s_{NN}}=200\) GeV. As for the case of without rescatterings, the invariant cross sections for different particles have similar shapes. This behavior is often called "\(m_{t}\)_scaling_" [27]. Please note, the original meaning of \(m_{t}\) scaling is that identified particle spectra can be described by a "universal" parameterization of the form shown in Eq. 5.1:
+
+\[E\frac{d\sigma}{d^{3}p}=A\frac{e^{-m_{t}/T}}{m_{t}^{\lambda}} \tag{5.1}\]
+
+Here the spectra of different particles have been scaled by arbitrary factors to achieve the best overlap. However, for collision with rescattering on, the scaling is broken! This is a clear evidence for collective transverse expansion.
+
+More clear evidence can be seen from the mass dependence of the mean transverse momentum \(\langle p_{t}\rangle\). Fig. 5.3 shows the mid-rapidity mean \(p_{t}\) of charged pions, charged kaons and protons as a function of collision centrality for Au + Au collisions at \(\sqrt{s_{NN}}=200\) GeV. Data from the PHENIX Collaboration [113] are given by the symbols and RQMD results are shown as hatched bands. With increasing centrality the values of \(\langle p_{t}\rangle\) increase and the difference between particles also increases, indicating the development of stronger collective motion in more central collisions. The RQMD model reproduces this trend although it underestimates the
+
+Figure 5.2: Invariant cross section of charged pions, kaons and protons as a function of transverse mass \(m_{t}\) for the most central Au + Au collisions at \(\sqrt{s_{NN}}=200\) GeV with RQMD model. Data are extracted from mid-rapidity only \(|y|<1.0\). Plots (a) and (b), respectively, represent results with and without rescatterings. The normalization of the distributions is arbitrary.
+
+absolute values for kaons throughout the whole centrality range. Again, switching off rescattering among produced particles in RQMD results in flat distributions of \(\langle p_{t}\rangle\) as a function of centrality for pions and kaons. The variation for (anti-)protons is less than 10%. All values correspond to the most peripheral collisions, \(i.e.\), \(\langle p_{t}\rangle\approx 0.38\), \(0.47\), \(0.58\) GeV/\(c\) for charged pions, charged kaons, and (anti-)protons, respectively. These results demonstrate the importance of rescattering in high energy nuclear collisions. The RQMD model does not include partonic degrees of freedom. However, at RHIC energies the rescattering needed to describe the \(\langle p_{t}\rangle\) and ratios of particles might occur at an earlier stage. The fact that RQMD underpredicts [44, 45] the value of \(\langle v_{2}\rangle\) suggests that interactions among partons at the early stage of the collision are important at RHIC.
+
+As shown in right of Fig. 2.8, a new observations at the RHIC is that the mid-rapidity yields of protons are approaching or are equal to that of negatively charged pions at moderately high transverse momentum \(p_{t}\sim 2-3\) GeV/\(c\)[131]. This observation has been interpreted as the result of either baryon junction [46] or parton coalescence [51, 52]. In the former case, the novel mechanism of baryon transport, the existence of topological gluon field configurations in high energy collisions, is invoked. The junction model predicts long-range baryon number transport over rapidity and considerable transverse momentum \(p_{t}\) enhancement. In the latter case, the observed strong enhancement in the proton to pion ratio is discussed in the framework of quark coalescence. As a consequence, collectivity at the partonic level becomes important. Fig.5.4 shows several particle ratios as a function of \(p_{t}\) from calculations with RQMD. The solid lines and dashed lines represent the baryon over pion and meson over pion ratios, respectively. All ratios increase as \(p_{t}\) increases, but the ratios from protons reach much higher values than those of \(\phi\) mesons. In RQMD, the enhancement is mainly due to multiple rescattering among produced particles. In the limit of frequent rescattering, the hydrodynamical behavior is expected to appear [54].
+
+In the calculations, the strong enhancement of protons over pions as a function of transverse momentum comes from the rescattering at the late hadronic stage. On the other hand, the collectivity may have developed at the early partonic
+
+Figure 5.3: Midrapidity mean transverse momentum \(\langle p_{t}\rangle\) of charged pions, charged kaons and protons vs collision centrality for Au + Au collisions at \(\sqrt{s_{NN}}=200\) GeV. The symbol shows data from the PHENIX collaboration [113] (\(|y|\leq\!0.35\)) and the errors are statistical only. The dashed bands represent the results from RQMD (\(|y|\leq\!0.5\)). The top part of the figure list the values of impact parameters from the model.
+
+stage in high energy collisions at the RHIC. Pions and protons might dominantly participate in rescattering at the late hadronic stage. Since collectivity is cumulative, one cannot unambiguously identify the dominant origin of the collectivity from the measurement of pions and protons only. The study of other particle species with much smaller hadronic cross sections will allow us to identify and characterize collectivity at the partonic stage.
+
+As shown in Fig. 5.4, the ratio of mesons over charged pions () is much lower than that of either (anti)protons over charged pions or (anti)lambdas over charged pions (). This is due to the small hadronic cross section of mesons as implemented in RQMD. The -meson shows only little interaction in the hadron gas leading to an early freeze-out time at small transverse radius, as can be seen in Fig. 5.5. The meson might freeze-out as soon as it formed. Therefore, eventual collective motion of the meson might have been dominantly built up during the prehadronic, or in other words, partonic stage. At the maximum SPS energy (), the multistrange baryon might be less sensitive to hadronic rescattering [115]. It seems that multistrange particles freeze-out earlier compared with nonstrange ones. So in order to identify and study partonic collectivity, a systematic study of the distributions of mesons and other multistrange particles, including both elliptical and radial flow, is essential.
+
+### 5.4 Net baryon in RQMD
+
+As discussed in Ref. [117], the mid-rapidity ratio is increasing as collision energy increasing which means the system in the middle rapidity is approaching to net-baryon free. This can be seen more clear from the net baryon rapidity distribution for different CMS energy as shown in Fig. 5.6. The net baryon is calculated as. Please note that in order to have a clear picture with the results from different CMS energy, the abscissa in Fig. 5.6 has been scaled by. In the full stopping limit, the projectiles and target baryons will lose all the memory of their initial state. The produced particles will then be spherical distribution. In the case of nuclear transparent, the two colliding nuclei will just pass through each other and leave the trail of energy between the
+
+Figure 5.4: Transverse momentum dependence of the mid-rapidity particle ratios of charged kaons over charged pions (), mesons over charged pions (), protons over charged pions (), and (anti)lambdas over charged pions (), from Au + Au collisions at. The results are from the 10% most central () collisions.
+
+[MISSING_PAGE_EMPTY:71]
+
+## Chapter 6 Discussion
+
+### 6.1 Kinetic Freeze-out Conditions
+
+A thermal + transverse radial flow model [56] is often used to extract the kinetic freeze-out conditions of the system. The model assumes the system is local thermal equilibrated and boost the thermal source in both longitudinal and transverse direction, thus the invariant momentum spectrum of the particle can be described by
+
+\[\frac{dN}{m_{t}\,dm_{t}}\propto\int_{0}^{R}r\,dr\,m_{t}\,K_{1}\Big{(}\frac{m_{ t}\cosh\rho}{T_{fo}}\Big{)}\,I_{0}\Big{(}\frac{p_{t}\sinh\rho}{T_{fo}}\Big{)} \tag{6.1}\]
+
+where \(I_{0}\) and \(K_{1}\) are modified Bessel functions, \(T_{fo}\) is interpreted as the kinetic freeze-out temperature, and \(\rho=\tanh^{-1}\beta_{r}(r)\) is the boost rapidity. \(\beta_{r}(r)\) is the transverse velocity distribution in the region \(0\!\leq\!r\!\leq\!R\) by a self-similar profile, which is parameterized by the surface radial velocity \(\beta_{S}\):
+
+\[\beta_{r}(r)=\beta_{S}\,\Big{(}\frac{r}{R}\Big{)}^{\alpha} \tag{6.2}\]
+
+The exponent \(\alpha\) describes the evolution of the flow velocity (flow profile).
+
+By fitting the transverse spectrum of one particle one can extract \(\beta_{S}\) and \(T_{fo}\). The mean transverse velocity \(\langle\beta\rangle\) can be calculated by [114]:
+
+\[\langle\beta\rangle=\frac{\int_{0}^{R}r\,dr\,\beta_{r}(r)}{\int_{0}^{R}r\,dr}= \Big{(}\frac{2}{2+\alpha}\Big{)}\beta_{S} \tag{6.3}\]
+
+However, as already discussed in Ref. [114], a strong anticorrelation exist between these two parameters, thus several possible combinations of \(\beta_{S}\) and \(T_{fo}\) may describe the data well. By simultaneously fitting the transverse spectra of different particles may help to remove this ambiguity.
+
+Fig. 6.1(a) shows the fit results of the spectra of \(\pi\), K, proton and anti-proton from \(\sqrt{s_{NN}}\!=\!200\) GeV Au + Au collisions. The spectra of \(\pi\) and K are taken from Ref. [129], (anti-)proton are from this analysis. The top plot shows the kinetic freeze-out temperature. The yellow dashed band is the chemical freeze-out temperature extracted by a chemical-equilibrium (statistical) model. As centrality increase, the temperature \(T_{fo}\) decrease, while the chemical freeze-out temperature\(T_{ch}\) is independent of the collision centrality. This can be understood as following: although the Au + Au collisions in different centrality might have different initial conditions, they all evolve to the same chemical freeze-out condition and then expand because of elastic collision. However, the system in central collision have more particles than in peripheral collision, they will require more time to reach kinetic freeze-out, thus the temperature at this stage must be smaller than in peripheral collision. Also, the expansion of the system in central collision is stronger than in peripheral collision, this will lead to larger collective flow. This can be seen in the middle plot of Fig. 6.1(a). The mean transverse velocity increase with centrality. Fig. 6.1(b) shows the \(\chi^{2}\) contours of the kinetic freeze-out temperature parameter and transverse velocity parameter.
+
+The bottom plot of Fig. 6.1(a) shows the centrality dependence of the velocity profile parameter \(\alpha\). We can see \(\alpha\) decrease as centrality increase, the value is larger than 1 for peripheral collision and less than 1 for central collision. From Eq. 6.2, the differential of \(\beta_{r}(r)\) is \(d\beta_{r}(r)=\alpha\beta_{S}r^{\alpha-1}dr/R^{\alpha}\). \(\alpha=1\) means the acceleration respect to the radius is a constant, while \(\alpha>1\) means the acceleration is increase, \(\alpha<1\) means decrease. While the velocity profile extracted from RQMD (Fig. 1 of Ref. [114]) shows a mixture of these three components. The acceleration respect to the radius at first increase, then constant, and decrease as the radius increase. So the profile used in our fit is an average of these three stages. The system size in different centrality then will determine this final average
+
+Figure 6.1: (a): Kinetic freeze-out temperature \(T_{fo}\), mean transverse flow velocity \(\langle\beta\rangle\) and the velocity profile \(\alpha\) as a function of number of participants (\(N_{part}\)) extracted from a simultaneous fit to \(\pi^{\pm}\), \(K^{\pm}\), \(p\) and \(\bar{p}\) spectra from \(\sqrt{s_{NN}}=200\) GeV Au + Au collisions. (b): The \(\chi^{2}\) contours for \(\pi\), K and p. The yellow dashed band denotes the chemical freeze-out temperature [129].
+
+is small in peripheral collision compared to in central collision, thus the velocity profile parameter \(\alpha\) will be larger. As we can see that in the bottom plot of Fig. 6.1(a).
+
+Also, because of many of the detected particles are not originate from the thermal source but from resonance decays, it is suggested in Ref. [56], we must be careful when interpreting the spectrum fits made without feed-down correction from resonance decay. We did some model study by employing the RQMD model. We first get the spectra of \(\pi\), K, P, \(\Lambda\), \(\Xi\), \(\Omega\), \(\phi\) (all the corresponding anti-particles are included too), then apply the thermal model fit to these particles. We classify the particles into two groups when applying the fit. \(\pi\), K, P and \(\Lambda\) belong to one group; the multi-strange particles \(\Xi\), \(\Omega\) and \(\phi\) belong to the other group. It's believed the particles in the later group will freeze-out earlier [115, 116], thus have different kinetic freeze-out condition. Then we extract all the resonance particles out from RQMD, and simulate the decay of these particles by using the Pythia[104] event generator. The branch ratio of the different decay channel is already considered in Pythia. The decay products are merged into the initial produced particle. Then we fit the spectra again. The results of the both fits are shown in Fig. 6.2. As can be seen from the plot, RQMD results have similar trend as seen in data although the absolute value is larger than data. Also the effect on the extracted fit parameters after applying feed-down correction is small under the framework of RQMD.
+
+#### 6.1.1 \(dN/dy\) and \(\langle p_{t}\rangle\)
+
+We only measured the yield in \(p_{t}\) range \(0.45-1.05\) GeV/\(c\). The yield not covered in this range was extracted from the thermal model fit. The fiducial yields are shown in table A.6 and A.7, while the integrated yields are shown in table A.8 and A.9. We can see from the table that about 50% of the integrated yields are measured. The proton and anti-proton rapidity distributions for different central
+
+Figure 6.2: The kinetic freeze-out parameters \(T_{fo}\) (left) and \(\langle\beta\rangle\) (right) extracted from the RQMD model. The plot shows the results without resonance decay and after resonance decay. The resonance decay has less effect on the kinetic freeze-out conditions.
+
+ity bin are shown in Fig. 6.3. For both proton and anti-proton, dN/dy is found to be uniform as a function of rapidity within \(|y|<0.5\). This indicating that a boost invariant region of at least one unit of rapidity has developed for all the centrality. Also, it's interesting to study the rapidity distribution (or other characteristic parameters, such as \(v_{2}\)) of different mass hadrons at higher rapidity regions to test the validity of the boost invariant region.
+
+The \(\langle p_{t}\rangle\) of proton and anti-proton are also extracted by extrapolating the mea
+
+Figure 6.4: Midrapidity \(\langle p_{t}\rangle\) of the anti-proton (left) and proton (right) as a function of the number of participants in the collision from \(\sqrt{s_{NN}}\!=\!200\) GeV Au + Au collisions at RHIC. The bands denote the results from RQMD with same collision energy and species.
+
+Figure 6.3: Rapidity distributions of the integrated yields for anti-proton (left) and proton (right) from most peripheral (bottom) to most central (top) collisions in \(\sqrt{s_{NN}}\!=\!200\) GeV Au + Au collisions at RHIC. The bands denote the systematic error.
+
+sured yields with thermal fit. The centrality dependence of \(\langle p_{t}\rangle\) within \(|y|<0.1\) is shown in Fig. 6.4. RQMD results are shown in the plot too. Our results are consistent with the PHENIX results, so the discussion in chapter 5 can be applied to our data too. Also, as discussed in [116], the increase of \(\langle p_{t}\rangle\) for different particles as the function of collision centrality is reflected by the development of the collective flow, or more specific, in the values of the mean transverse velocity \(\langle\beta\rangle\).
+
+### \(\bar{p}/p\) ratio and Energy Dependence
+
+Fig. 6.5 shows the \(\bar{p}/p\) ratio as a function of rapidity and collision centrality. For the rapidity distribution, the plot is for most central collision. The ratio is about 0.8 and is constant within the measured rapidity region. The centrality dependence of the \(\bar{p}/p\) ratio is integrated over rapidity region \(|y|<0.1\) and \(p_{t}\) region \(0.45-1.05\) GeV/\(c\). The ratio is almost a constant within the error bar. However, there is a trend of a systematic drop from peripheral collisions to central collisions. This is consistent with that more annihilation of protons and anti-protons in central collisions relative to peripheral collisions. The results from RQMD shows the same trend, however, RQMD underpredicts the absolute value of the \(\bar{p}/p\) ratio which may be due to too much final stage rescattering in the model.
+
+Finally, Fig. 6.6 shows the energy dependence of \(\bar{p}/p\) ratio for both central heavy-ion collisions and elementary p + p collisions. We can see that there is a dramatic increase of the \(\bar{p}/p\) ratio from AGS to SPS and to RHIC. It means the middle rapidity region is approaching to net baryon free, but not at RHIC.
+
+Figure 6.5: \(\bar{p}/p\) as a function of rapidity within \(0.45<p_{t}<1.05\) GeV/\(c\) (left) and as a function of centrality within \(|y|<0.1\) and \(0.45<p_{t}<1.05\) GeV/\(c\) (right). The left plot is for most central collision.
+
+[MISSING_PAGE_EMPTY:77]
+
+## Chapter 7 Summary
+
+In summary, the mid-rapidity proton and anti-proton yields are presented for the \(\sqrt{s_{NN}}=200\) GeV Au+Au data sets which were taken by the STAR detector in 2001 run. The results are from transverse momentum range \(0.4<p_{t}<1.05\) GeV\(/c\) and rapidity range \(|y|<0.5\). The transverse momentum distributions of both proton and anti-proton become more convex from peripheral to central collisions implying the strong collective expansion at the early stage of the collision. The measured rapidity distribution are flat within \(|y|<0.5\) indicating a boost invariant region around mid-rapidity. \(\bar{p}/p\) is independent of rapidity region \(|y|<0.5\), and decreases slightly from peripheral collision (\(\approx 0.85\)) to central collision (\(\approx 0.80\)). It's still not yet net baryon free at RHIC energy. The slight decrease in the \(\bar{p}/p\) ratio reflects the rich collision dynamics at RHIC: both initial baryon transfer and final stage hadronic rescatterings are important for the observation.
+
+By applying a thermal + radial flow fit to the proton data, the kinetic freeze-out condition are extracted. \(\langle p_{t}\rangle\) are calculated by extrapolating the measured spectra with thermal model. The kinetic freeze-out temperature decreases from peripheral (\(\approx 135\) MeV) to most central collision (\(\approx 89\) MeV). They are all smaller than the chemical freeze-out temperature(\(\approx 160\pm 5\) MeV) indicating an additional hadronic rescattering phase after the chemical freeze-out in Au + Au collisions at RHIC. The transverse flow velocity increase from peripheral to central collision. The centrality dependence of \(\langle p_{t}\rangle\) for different particles (\(\pi,K,P\)) confirm this conclusion.
+
+The same results are also calculated by employing a transport model Relativistic Quantum Molecular Dynamics (RQMD). The spectra of different particles (\(\pi,K,P\)) are not following the so called \(m_{t}\) scaling. While the \(\langle p_{t}\rangle\) of them show similar trend with the experiment data despite of the underestimation of the absolute value. The fact that multi-strange particles (\(\phi,\Xi,\Omega\)) freeze-out earlier is demonstrated with this model from the freeze-out time and radius distribution. The measurement of these particles are necessary to confirm this conclusion. By applying thermal model fit to the spectra from this model, the same trend of kinetic freeze-out condition as in data is observed. While after switch off the rescattering in this model, the violation of \(m_{t}\) scaling and the centrality dependence of \(\langle p_{t}\rangle\) disappear. This indicates the importance of rescattering in heavy-ion collisions. However, only hadronic interactions are included in RQMD. Such hadronic interaction does not generate enough collective flow comparing to data. This demonstrates thatpartonic collectivity is needed in the heavy ion collisions at RHIC. The realization of the partonic collectivity is important toward the understanding of the partonic equation of state in high-energy nuclear collisions.
+
+[MISSING_PAGE_EMPTY:80]
+
+[MISSING_PAGE_EMPTY:81]
+
+[MISSING_PAGE_EMPTY:82]
+
+[MISSING_PAGE_EMPTY:83]
+
+[MISSING_PAGE_EMPTY:84]
+
+[MISSING_PAGE_EMPTY:85]
+
+[MISSING_PAGE_EMPTY:86]
+
+[MISSING_PAGE_EMPTY:87]
+
+[MISSING_PAGE_EMPTY:88]
+
+[MISSING_PAGE_EMPTY:89]
+
+## Appendix B Relativistic Kinematics
+
+In relativistic heavy-ion collisions and in many other high-energy reaction processes, it is convenient to use kinematic variables which are Lorentz invariant under Lorentz 'boost' (a transformation with one of the three \((x,y,z)\) Cartesian coordinate directions are employed as the reference axis for the transformation).
+
+We use the natural units \(c\!=\!\hbar\!=\!1\).
+
+### Lorentz Transformation
+
+The space-time coordinates of a point \(\mathbf{x}\) are denoted by a 4-vector: \(x^{\mu}\!=\!(t,\overrightarrow{r})\). The 4-momentum of a particle of mass \(m\) is \(p^{\mu}\!=\!(p^{0},\overrightarrow{p})\), where \(p^{0}\!=\!\sqrt{(\overrightarrow{p})^{2}\!+\!m^{2}}\) (\(p^{0}\!=\!E\)). The square of \(p^{\mu}\) is \(p^{\mu}p_{\mu}\!=\!(p^{0})^{2}-(\overrightarrow{p})^{2}=m^{2}\). The velocity of the particle is \(\beta\!=\!\overrightarrow{p}/E\). The 4-momentum viewed from a frame moving with a velocity \(\beta\) are given by
+
+\[\left(\begin{array}{c}E^{*}\\ p_{\!\!\!/}^{*}\end{array}\right)=\left(\begin{array}{cc}\gamma&\gamma \beta\\ -\gamma\beta&\gamma\end{array}\right)\left(\begin{array}{c}E\\ p_{\!\!\!/}\end{array}\right),\ p_{t}^{*}=p_{t}\] (B.1)
+
+where \(\gamma\!=\!1/\sqrt{1-\beta^{2}}\), and \(p_{t}\) (\(p_{\!\!\!/}\)) are the components of \(\overrightarrow{p}\) perpendicular (parallel) to \(\beta\). This transformation is called Lorentz transformation. Other 4-vectors can be transformed in the same manner.
+
+### Kinetic Variables
+
+We Define \(z\) axis as the direction of the beam.
+
+#### b.2.1 Transverse Momentum
+
+The transverse momentum of a particle is defined as:
+
+\[p_{t}=\sqrt{p_{x}^{2}+p_{y}^{2}}\] (B.2)
+
+\(p_{t}\) is Lorentz invariant variable since both \(p_{x}\) and \(p_{y}\) are the two components of \(p_{\!\!\!/}\) which is unchanged under a Lorentz boost along \(z\) axis.
+
+The transverse mass of a particle of mass \(m\) is defined as
+
+\[m_{t}=\sqrt{p_{t}^{2}+m^{2}}\] (B.3)
+
+and the transverse energy of the particle is given by \(E_{t}\!=\!m_{t}\!-\!m\).
+
+#### B.2.2 Rapidity
+
+As the name implies, rapidity is related to the velocity. It is defined as
+
+\[\begin{split} y&\equiv\frac{1}{2}\ln\left(\frac{ E+p_{z}}{E-p_{z}}\right)\\ &=\ln\left(\frac{E+p_{z}}{m_{t}}\right)\\ &=\tanh^{-1}\left(\frac{p_{z}}{E}\right)\end{split}\] (B.4)
+
+where \(p_{z}\!=\!p_{\bar{f}}\) is the longitudinal momentum of the particle. So rapidity is a scalar associated with the \(z\) axis.
+
+Under a Lorentz transformation from a reference system \(S\) to a system \(S^{\prime}\) moving with velocity \(\beta\) with respect to \(S\) in the longitudinal direction, the rapidity \(y^{\prime}\!=\!y\!-\!y_{\beta}\), where \(y^{\prime}\) (\(y\)) is the rapidity in the \(S\) (\(S^{\prime}\)) frame and \(y_{\beta}\) is the rapidity of the moving frame.
+
+\[y_{\beta}=\frac{1}{2}\ln\left(\frac{1+\beta}{1-\beta}\right)\] (B.5)
+
+#### B.2.3 Pseudorapidity
+
+In the experiments, the detected particles are often not identified, and we do not know their masses which are required to determine the rapidity. However, the momentum and the dip angle \(\theta\) of the detected particles relative to the \(z\) axis are known. In this case, it is convenient to the pseudorapidity variable as defined as:
+
+\[\begin{split}\eta&=-\ln(\tan(\theta/2))\\ &=\frac{1}{2}\ln\left(\frac{p+p_{z}}{p-p_{z}}\right).\end{split}\] (B.6)
+
+Compare with Eq. B.4, it is easy to see that \(\eta\) coincides with \(y\) when the momentum is large, that is, when \(p\!\approx\!E\).
+
+### 3 Jacobian Effect
+
+By comparing Eq. B.4 and Eq. B.6, it is easy to see that for massless particles, \(y\!=\!\eta\), and for particles with large momenta (\(\beta\!\approx\!1\)), \(y\!\approx\!\eta\).
+
+From Eq. B.4 and Eq. B.6, we can also get following relations:
+
+\[p_{z}=m_{t}\sinh y,\ E=m_{t}\cosh y\] (B.7)\[p_{z}=p_{t}\sinh\eta,\ p=p_{t}\cosh\eta.\] (B.8)
+
+If the particles have a distribution \(dN/dy\,dp_{t}\) in terms of the rapidity, then the distribution in the pseudorapidity is
+
+\[\frac{\mathrm{d}N}{\mathrm{d}\eta\,\mathrm{d}p_{t}}=\sqrt{1-\frac{m^{2}}{m_{t}^ {2}\cosh^{2}y}}\frac{\mathrm{d}N}{\mathrm{d}y\,\mathrm{d}p_{t}}\] (B.9)
+
+The above expression is a Jacobian transformation. From Eq. B.9 we can also see that the Jacobian factor depends on the particle mass and/or \(p_{t}\). The effects are shown in Fig. B.1. We assume a flat unit \(dN/dy\,dp_{t}\) distributions within \(-2<y<2\) for particle pion, kaon and proton in selected \(p_{t}=1,2,3,4\)
+
+Figure B.1: Effects of the Jacobian transformations from rapidity density distributions to pseudorapidity density distributions for pion, kaon and proton in selected \(p_{t}\).
+
+the corresponding \(dN/d\eta\,dp_{t}\) distributions as the curves in Fig. B.1. The largest difference occurs in the most central rapidity region, for the heaviest particle, and at the lowest \(p_{t}\). The effect is less than 10% event for protons when \(p_{t}\!>\!2\) GeV/\(c\).
+
+### 8 Phase Space and Invariant Yield
+
+The differential yields are corresponding to the number of particles emitted into a particular region in momentum space per interaction. It is nature to refer to an object such as \(d^{3}N/dp^{3}\). The total yield of a particular particle is the total number of such particles emitted into any point in momentum space per interaction,
+
+\[N=\int\frac{d^{3}N}{dp^{3}}d^{3}p\] (B.10)
+
+which intuitively must be Lorentz invariant. However, the momentum-space volume element, \(d^{3}p\), is not invariant since the differential momentum element along the direction of a boost between frames transforms as \(dp^{\prime}\!=\!\gamma dp\). We must be careful to state the frame in which they are measured when report the differential yields as in Eq. B.10. Also, we would have to explicitly transform the differential yields when comparing the results from different experiments.
+
+Such complexities can be avoided if we can find an expression for the differential yield which is manifestly invariant. Such expression do exist as discussed in Appendix B of [130]. The expression for total yields can be written as:
+
+\[N=\int\frac{d^{3}N}{2\pi p_{t}\,dp_{t}\,dy}2\pi p_{t}\,dp_{t}\,dy,\qquad p_{t} \,dp_{t}=m_{t}\,dm_{t}\] (B.11)
+
+The integrand of Eq. B.11 is Lorentz invariant for boosts along the collision axis since \(N\) is dimensionless and \(p_{t}\), \(dp_{t}\), and \(dy\) are invariant for such boosts. With \(y\) and \(p_{t}\) defined relative to the boost axis, the expression is invariant for boost in any direction.
+
+[MISSING_PAGE_EMPTY:94]
+
+about the design and implementation of the local farm under such requirement. I'll first discuss the hardware briefly and then the software in detail. This farm can be easily adapted to other purpose farm too. For example, the implementation of BESIII2 online test farm [132] is based on the idea presented here.
+
+Footnote 2: [http://bes.ihep.ac.cn/bes3/index.html](http://bes.ihep.ac.cn/bes3/index.html)
+
+The schematic diagram of the farm is show in Fig. C.1.
+
+### Hardware
+
+The hardware subsystem of the local farm can be categorized as network, storage device, file servers, analysis nodes, backup device, etc.
+
+The network fabric of the farm consists of a two-stack ethernet switch (other technology such as Myrinet3 can be used too, that's depend on the specific computing requirements) with two Gb ports and 48 100Mb ports. Gb ports are connected with the file servers because of the large data transfer from them. The 100Mb ports are connected with the analysis nodes. In general, the network should base on at least Layer-2 switch. Layer-3 switch can be used for large farm, so one can isolate the server and analysis nodes by VLAN (Virtual Local Area Network) division. The selection of the port speed is depend on the services of the computer provided. For file servers, network should not be a bottleneck, so a fast port is best.
+
+Footnote 3: [http://www.myri.com/](http://www.myri.com/)
+
+Footnote 4: [http://www.snia.org/](http://www.snia.org/)
+
+All the data files and users' files are stored in the storage devices, generally the disk arrays. Raid 5 is applied to the array to ensure the stability and better performance. Both Directed Attach Storage (DAS) and Network Attach Storage (NAS) are used in this local farm. SAN (Storage Area Network)4 is another good choice which only available if have enough budget. However, by employing a Fibre Channel array connected with a server with a HBA (Host Bus Adapter) can provide a chance to upgrade to SAN easily later.
+
+Footnote 4: [http://www.snia.org/](http://www.snia.org/)
+
+All the file servers and analysis nodes are Intel5 X86 based PC. Other architecture can be used too if there are strong software support. Each PC is equipped with at least 2 processors, 1GB memory, a NIC card (better if w/ PXE6 boot available) and local disk. One can reach each PC through a KVM (Keyboard/Video/Mouse) switch which is connected with all the PCs. The detail hardware configuration can be varied and can be easily scaled as the requirement change.
+
+Footnote 5: [http://www.intel.com](http://www.intel.com)
+
+A DLT7000 tape driver is connected with one of the file servers. This made the backup and transfer of large important data possible. Again, a tape library (such as HPSS7) is possible only with enough budget.
+
+Footnote 7: [http://www4.clearlake.ibm.com/hpss/index.jsp](http://www4.clearlake.ibm.com/hpss/index.jsp)
+
+In general, there are less thing can tunable for hardware devices compare to the software. So we should choose stable hardware at the very start. Both the performance of the hardware and the services provided by the vendor should be carefully considered before making decision. Otherwise, it will be the biggest impact to the stabilization of the farm!
+
+### Software
+
+The first item on software is the choose of the operating system. The candidates are limited, however. Only Windows8 or UNIX9, indeed. Windows is discard because of non-free and the limited software support in HEP field.
+
+Footnote 8: [http://www.microsoft.com/windows/](http://www.microsoft.com/windows/)
+
+Footnote 9: [http://www.unix.org/](http://www.unix.org/)
+
+Although there are many variants of UNIX, Linux10 and Solaris11 are the operating systems supported by most of the high-energy physics experiments. However, Linux is playing more and more important role because of its free of charge and high performance. In this local farm, except a SUNE450 server is running Solaris, all the other PCs are running Linux. Also, there are many free software12 available.
+
+Footnote 10: [http://www.kernel.org/](http://www.kernel.org/)
+
+Footnote 11: [http://www.sun.com/solaris/](http://www.sun.com/solaris/)
+
+#### c.2.1 System Installation
+
+The installation of the operating system for a cluster is boring and tedious. Fortunately, there are many technologies available which can be combined to solve this problem, such as kickstart13, Intl Preboot Execution Environment (PXE), DHCP14, SystemImager15. Following are the detail procedures used for the installation of this farm. Please note they are based on RedHat16 distribution, for other distributions, the path location etc. may be different. Also, consult the manual for the details of the software used.
+
+Footnote 12: [http://www.gnu.org/,http://www.sourceforge.net](http://www.gnu.org/,http://www.sourceforge.net),...
+
+Footnote 13: **/usr/share/doc/anaconda-x.x/kickstart-docs.txt**
+
+Footnote 14: [http://www.dhcp.org](http://www.dhcp.org)
+
+Footnote 15: [http://www.systemimager.org](http://www.systemimager.org)
+
+Footnote 16: [http://www.redhat.com](http://www.redhat.com)
+
+Footnote 17: [http://www.rfc-editors.org](http://www.rfc-editors.org)
+
+#### Collect the MAC address
+
+This procedure is only available for the PC which can support PXE boot. So for a bare system, one can reboot the PC w/ PXE boot, then the pc will send out the DHCP query trying to get an ip (The IP addresses for this farm are taken from the three reserved blocks of the addresses as defined by IANA (Internet Assigned Numbers Authority) in RFC17 3330: 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16) address from the DHCP server, corresponding, the Media Access Control (MAC) address will show during this stage. For computer w/o PXE available, one can only get the address from a running operating system. Boot the system with the RedHat Linux CD to rescue mode is one possible solution.
+
+Footnote 17: [http://www.rfc-editors.org](http://www.rfc-editors.org)
+Install Linux on this server with normal procedure. A suggested partition layout is listed in Table C.1. For the partition type, Logical Volume Management (LVM18) can be used, so we can change the space of specific partition easily!
+
+Footnote 18: [http://sources.redhat.com/lvm2/](http://sources.redhat.com/lvm2/)
+
+All the site specific software will be installed in the AFS area after the AFS server is set up.
+
+Create file _/etc/dhcpd.conf_ and config the DHCP server to allocate ip address based on MAC address. Then edit _/etc/pxe.conf_ to add corresponding boot item to the server. Install SystemImager server software on this server too.
+
+Put a copy of the RedHat install CD on the server, and export this directory to NFS clients.
+
+**Create kickstart file**:
+
+Create a kickstart config file with custom configuration, and put it on some place where can be reached by the client, such as the web area. The configuration depends on the type of the machine to be installed.
+**Setup all the other servers**:
+
+If there are any other servers, install all of them use the kickstart method. For example, after the install cd or PXE boot the system, a prompt will display and wait for user input. One can type _linux_ ks=_http://xxx/ks.cfg_ (where xxx can be ip address or host name of the server where the file is stored in), the rest of the setup will be done automatically.
+**Setup the first client**:
+
+Install the first client use the same method as previous step. Install all the necessary software on this system, and configure the client to be a full production system. Set up SystemImager client on this client, and prepare this client available to be fetched as an image.
+**Prepare the image**:
+
+Switch to the server with SystemImager server installed, fetch the image from the just configured client.
+**Setup all the other clients**:
+
+Boot all other clients from PXE, select the boot item with SystemImager. All the rest will be done automatically. For system without PXE, one can made a bootable floppy disk or cdrom with SystemImager.
+
+With this method, except for the servers which need to configure for different purpose, all the clients can be kept in synch easily.
+
+#### Base Services Configuration
+
+Domain Name Service (DNS)19 is installed to provide resolution of the machines' name and ip address. We use the most popular software BIND20. To keep the system friendly to user, a DNS alias is setup for all the available interactive nodes. So user only need to remember this name to access the farm.
+
+It's very important to keep the system time in synch for a large cluster, otherwise some software such as make21 will not work correctly. NTP (Network Time Protocol)22 service is installed for this purpose.
+
+Footnote 21: [http://www.gnu.org/software/make/](http://www.gnu.org/software/make/)
+
+Footnote 22: [http://www.ntp.org/](http://www.ntp.org/)
+
+System log is very useful for the regular maintenance of the system and the diagnosis in case of something wrong. However, it's not wise to login into every PC in the farm to check them. So one of the servers is configured as a log server which can accept log information coming from the network, the other machines will then write the log information to this configured server. Thus, one can get all the log information from only one place!
+
+Email services are provided too. However, it's not necessary to provide a formal email service on this local farm. So this service are configured as all the email message will be passed to the formal email server of the institution and then passed to the user's formal email address.
+
+Web services (provided by Apache23) is set up on the farm to provide information such as the system status and usage statistics to the users. Some kind of administer interfaces are provided too. For instance, LDAP and MySQL database can be managed by phpLDAPadmin24 and phpMyadmin25 from the web.
+
+Footnote 23: [http://www.apache.org](http://www.apache.org)
+
+Footnote 24: [http://phpldapadmin.sourceforge.net/](http://phpldapadmin.sourceforge.net/)
+
+Footnote 25: [http://www.phmyadmin.net/home_page/](http://www.phmyadmin.net/home_page/)
+
+Footnote 26: [http://www.netfilter.org/](http://www.netfilter.org/)
+
+The security of the system is another very important topic for today's computer system. lptables26 is the built-in firewall in Linux kernel. All the machines in the farm are configured to limit access from outside. Only the specified services
+
+\begin{table}
+\begin{tabular}{l l l} \hline \hline
+**Mount point** & **MBytes** & **comment** \\ \hline swap & 1024 & first partition if possible \\ _/_ & 512 & \\ _/usr_ & 5120 & \\ _/var_ & 2048 & \\ _/tmp1_ & \textgreater{}1024 & \\ _/usr/vice/cache_ & 512 & **if** afs client \\ _/vicepa_ & \textgreater{}10240 & **if** afs server \\ _/home or /u_ & limited by disk space & maximum \\ \hline \hline \end{tabular}
+
+Footnote 1: In the farm, the system is configured as a log server which can accept log information coming from the network, the other machines will then write the log information coming from the network.
+
+\end{table}
+Table C.1: Suggested partition layout for Linuxare opened for outside. For cluster with Layer-3 switch available, one can also configure a firewall on the L3 switch to enforce the security.
+
+NIS is a name service for UNIX directories like the passwd map, ethers map, etc. NIS is easy to setup and administer, scales reasonably well, is supported by nearly all forms of UNIX, and is thus very popular. Unfortunately, it is also completely insecure. Weakly encrypted passwords, as well as everything else, are sent over the network in the clear. NIS is difficult to firewall. Clients have no way to ensure that the server they are talking to is actually an official server. The Lightweight Directory Access Protocol (LDAP)27 was designed as a way to access directories containing all matter of information. All the information stored in NIS (user ids, group ids, home directories, autofs maps etc.) can be stored in LDAP database. Users with different roles can access the information they needed. All the information are stored in a central database. It support pretty good security through SSL28 for authentication and transport encryption, fine grained access controls, etc.
+
+Footnote 27: [http://www.openldap.org](http://www.openldap.org)
+
+Footnote 28: [http://www.openssl.org/](http://www.openssl.org/)
+
+Although we can store the encrypted passwords in LDAP and access the databases through SSL, but it's still not a good idea to store the private information into a directory which is designed to hold public data. Kerberos29 is designed to solve this problem. Kerberos is useful for securing NFS (in NFSv4) too.
+
+Footnote 29: [http://web.mit.edu/kerberos/www/](http://web.mit.edu/kerberos/www/)
+
+In this local farm, LDAP+Kerberos are chosen as the user authentication system.
+
+#### File Services
+
+All the unused space of the local disk on the computing nodes are used as scratch area. User's can put their temporary data here.
+
+NFS is by far the most widely used file services used in the cluster systems. Generally, large amount of the data and user's files are stored on NFS area. The mount/amount of the NFS file system is controlled by automount.
+
+AFS30 is another distributed file system. It's not suit for large data transfer, however. But it can be used to store the software, which are accessed and write not so frequently. Another advantage of AFS is that it can make the software for different system version transparent to the user. This is done by a sys variable, which will point to the system used. All the software we used are stored on the AFS server using the same directory structure. From the user's point, there are no difference between this local farm and RCF when using the software.
+
+Footnote 30: [http://www.opendfs.sourceforge.net/](http://www.opendfs.sourceforge.net/)
+
+There are also some other kinds of file system solutions available which are specific to SAN environment, such as Open Global File System (OpenGFS)31 or GFS32 from RedHat and GPFS33 from IBM.
+
+Footnote 31: [http://opengfs.sourceforge.net/](http://opengfs.sourceforge.net/)
+
+Footnote 32: [http://sources.redhat.com/cluster/gfs/](http://sources.redhat.com/cluster/gfs/)
+
+Footnote 33: [http://www.ibm.com/servers/eserver/clusters/software/gpfs.html](http://www.ibm.com/servers/eserver/clusters/software/gpfs.html)
+
+Besides these kind of centralized disk model, STAR is using distributed disk model too. By combining with use of the Scheduler34 software and the FileCatalog database, the files can be accessed from local nodes too. Also, there are many other different kind of object-based storage solution available too, such as Lustre35, ActiveScale36. More investigations and tests are needed before adopting them.
+
+Footnote 34: [http://www.star.bnl.gov/STAR/comp/Grid/scheduler/index.html](http://www.star.bnl.gov/STAR/comp/Grid/scheduler/index.html)
+
+Footnote 35: [http://www.clusterfs.com/](http://www.clusterfs.com/)
+
+Footnote 36: [http://www.panasas.com/activescaleos.html](http://www.panasas.com/activescaleos.html)
+
+Footnote 37: [http://www.samba.org/](http://www.samba.org/)
+
+Footnote 38: [http://www.platform.com](http://www.platform.com)
+
+Footnote 39: [http://www.openpbs.org](http://www.openpbs.org)
+
+Footnote 40: [http://www.clusterresources.com/products/maui/](http://www.clusterresources.com/products/maui/)
+
+Footnote 41: [http://gridengine.sunsource.net/](http://gridengine.sunsource.net/)
+
+Footnote 42: [http://www.cs.wisc.edu/condor/](http://www.cs.wisc.edu/condor/)
+
+Footnote 43: [http://www.globus.org/](http://www.globus.org/)
+
+Footnote 44: [http://www.csm.ornl.gov/pvm/pvm_home.html](http://www.csm.ornl.gov/pvm/pvm_home.html)
+
+Footnote 45: [http://www-unix.mcs.anl.gov/mpi/](http://www-unix.mcs.anl.gov/mpi/)
+
+#### Batch System and Parallel Processing
+
+In the field of high-energy physics experiment, the data volume is very large because of the statistics purpose. In general, there are millions of events to be processed, the procedure to process each event is the same. The difficulty here is just the large scale. Thus, a batch system is appropriate for the farm. LSF38 from platform computing corporation is a good choice, but the price is too high for the small farm. Fortunately, there are many other open source batch system available. Such as OpenPBS39+Maui40, SGE41, Condor42. For this farm, these three software are installed for comparison. Also, to prepare a possible upgrade to a member of a grid, and to make full use of the available computing resource in the local institutions, Globus43 is set up for test too.
+
+Footnote 38: [http://www.platform.com](http://www.platform.com)
+
+Footnote 41: [http://www.openpbs.org](http://www.openpbs.org)
+
+Footnote 42: [http://www.clusterresources.com/products/maui/](http://www.clusterresources.com/products/maui/)
+
+Footnote 43: [http://gridengine.sunsource.net/](http://gridengine.sunsource.net/)
+
+Footnote 42: [http://www.cs.wisc.edu/condor/](http://www.cs.wisc.edu/condor/)
+
+Footnote 43: [http://www.globus.org/](http://www.globus.org/)
+
+Footnote 44: [http://www.csm.ornl.gov/pvm/pvm_home.html](http://www.csm.ornl.gov/pvm/pvm_home.html)
+
+Footnote 45: [http://www-unix.mcs.anl.gov/mpi/](http://www-unix.mcs.anl.gov/mpi/)
+
+Parallel processing has emerged as a key enabling technology in modern computing. The main idea is to have many small tasks to solve one large problem. Currently, there are two major developments: massively parallel processors (MPPs) and the widespread use of distributed computing. MPPs are based on the hardware level: a few hundred to a few thousand CPUs were combined in a single large cabinet connected to hundreds of gigabytes of memory. So generally, MPPs cost too much! Distributed computing is the second major development. It is a process whereby a set of computers connected by a network are used collectively to solve a single large problem. As many general-purpose workstations (or MPPs) are connected with the high-speed local area networks, the combined computational resources may exceed the power of a single high-performance computer. Distributed computing is based on software level. PVM44 (Parallel Virtual Machine) and MPI45 (Message Passing Interface) are two of the most popular packages used. They are all come with the Linux distribution (RedHat) we used.
+
+#### c.2.5 Monitoring and Administration
+
+To keep the system under control, several monitoring functions are implemented. Both "mon"46 program and "nagios"47 can be used to monitor the availability of different kinds of services. Once a failure is detected, an email will be sent out to the administrator. We chosen nagios for this farm.
+
+Footnote 46: [http://www.kernel.org/pub/software/admin/mon](http://www.kernel.org/pub/software/admin/mon)
+
+Footnote 47: [http://www.nagios.org](http://www.nagios.org)
+
+Footnote 48: [http://www.mrtg.org/](http://www.mrtg.org/)
+
+Have the whole system's usage and status available can provide a base for further decision on the upgrade of the farm. SNMP+MRTG48 can provide the usage statistics of the system, such as CPU load, network traffic, memory usage, disk usage etc. Orca49 can be used to collect more detailed status of the machines too. Ganglia50 is another open-source tool which have the same function. Recently, we found another software Cacti51 which can provide more advanced and flexible graphing functionality by using the power of RRDTool52 and SNMP. We'll finally employ Cacti as the detail usage and statistical interface and Ganglia as a auxiliary interface because of its easy to installed and configured. Awstats53 is used for the web and email usage statistics, it can be applied to other statistics too. All these statistical data are stored in the web server. Administrators or users can get the status of the system quickly. See Fig. C.2 for an example.
+
+Footnote 48: [http://www.mrtg.org/](http://www.mrtg.org/)
+
+Footnote 49: [http://www.orcaware.com/orca](http://www.orcaware.com/orca)
+
+Footnote 50: [http://ganglia.sourceforge.net](http://ganglia.sourceforge.net)
+
+Footnote 51: [http://www.cacti.net](http://www.cacti.net)
+
+#### c.2.6 User Support
+
+The discussion of above are all focused on the system administrator's side. To make full use of the farm, it's important to provide training to the user! However, this is not a easy task. We try to implement this by setup a Groupware and Content Management System (CMS) using a Wiki software: tikiwiki54. Both system administrators and users can post their experiences of using the farm on the web and clean them up as FAQs (Frequently Asked Questions). The system also provide a forum where users can discuss conveniently.
+
+Footnote 52: [http://www.rrdtool.org/](http://www.rrdtool.org/)
+
+Footnote 53: [http://awstats.sourceforge.net/](http://awstats.sourceforge.net/)
+
+#### c.2.7
+
+Figure C.2: Farm system status statistics.
+
+## Appendix D STAR Collaboration
+
+J. Adams\({}^{3}\), M.M. Aggarwal\({}^{29}\), Z. Aharmed\({}^{43}\), J. Amonett\({}^{20}\), B.D. Anderson\({}^{20}\), D. Arkhipkin\({}^{13}\), G.S. Averichev\({}^{12}\), S.K. Badyal\({}^{19}\), Y. Bai\({}^{27}\), J. Bolewski\({}^{17}\), O. Baronnikova\({}^{32}\), L.S. Barmby\({}^{3}\), J. Baudot\({}^{18}\), S. Bekele\({}^{28}\), V.V. Belogq\({}^{12}\), R. Bellwied\({}^{46}\), J. Berger\({}^{14}\), B.I. Bezervhny\({}^{48}\), S. Bharadwoj\({}^{33}\), A. Bhasin\({}^{19}\), A.K. Bhatt\({}^{29}\), V.S. Bhatia\({}^{29}\), H. Bichsel\({}^{45}\), A. Billmeier\({}^{46}\), L.C. Bland\({}^{4}\), C.O. Blyth\({}^{3}\), B.E. Bonner\({}^{34}\), M. Bolje\({}^{27}\), A. Boucham\({}^{38}\), A.V. Brandin\({}^{25}\), A. Bravor\({}^{4}\), M. Bystersky\({}^{11}\), R.V. Cadman\({}^{1}\), X.Z. Cai\({}^{37}\), H. Caines\({}^{48}\), M. Calderon de la Barca Sanchez\({}^{17}\), J. Cactilho\({}^{21}\), D. Cebro\({}^{7}\), Z. Chajecki\({}^{44}\), P. Chaloupka\({}^{11}\), S. Chattopadhyay\({}^{43}\), H.F. Chen\({}^{36}\), Y. Chen\({}^{8}\), J. Cheng\({}^{41}\), M. Cherney\({}^{10}\), A. Chikanian\({}^{48}\), W. Christie\({}^{4}\), J.P. Coffin\({}^{18}\), T.M. Cormier\({}^{46}\), J.G. Cramer\({}^{45}\), H.J. Crawford\({}^{6}\), D. Das\({}^{43}\), S. Dus\({}^{43}\), M.M. de Moura\({}^{35}\), A.A. Derevschikov\({}^{31}\), L. Didenko\({}^{4}\), T. Dietel\({}^{14}\), S.M. Dogra\({}^{19}\), W.J. Dong\({}^{8}\), X. Dong\({}^{36}\), J.E. Draper\({}^{7}\), F. Du\({}^{48}\), A.K. Dubey\({}^{15}\), V.B. Dunin\({}^{12}\), J.C. Dunlop\({}^{4}\), M.R. Dutta Mazumdar\({}^{43}\), V. Eckardt\({}^{23}\), W.R. Edwards\({}^{21}\), L.G. Efimov\({}^{12}\), V. Emelianov\({}^{25}\), J. Engelage\({}^{6}\), G. Eppley\({}^{34}\), B. Etzmus\({}^{38}\), M. Estienne\({}^{38}\), P. Fochini\({}^{4}\), J. Fabre\({}^{18}\), R. Fatemi\({}^{17}\), J. Fedorisin\({}^{12}\), K. Filimonov\({}^{21}\), P. Filip\({}^{11}\), E. Finch\({}^{48}\), V. Fine\({}^{4}\), Y. Fisyot\({}^{4}\), K. Fomenko\({}^{12}\), J. Fu\({}^{41}\), C.A. Gagliardi\({}^{39}\), J. Gans\({}^{48}\), M.S. Ganti\({}^{43}\), L. Gaudichet\({}^{38}\), F. Geurts\({}^{34}\), V. Ghazikhanian\({}^{8}\), P. Ghosh\({}^{43}\), J.E. Gonzalez\({}^{8}\), O. Grachov\({}^{46}\), O. Grebenyuk\({}^{27}\), D. Grosnick\({}^{42}\), S.M. Guerfin\({}^{8}\), Y. Guo\({}^{46}\), A. Gupta\({}^{19}\), T.D. Gutierrez\({}^{7}\), T.J. Hallman\({}^{4}\), A. Harmed\({}^{46}\), D. Hardike\({}^{21}\), J.W. Harris\({}^{48}\), M. Heinz\({}^{2}\), T.W. Henry\({}^{39}\), S. Hepplemamn\({}^{30}\), B. Hippolyte\({}^{48}\), A. Hirsch\({}^{32}\), E. Hjort\({}^{21}\), G.W. Hoffmann\({}^{40}\), H.Z. Huang\({}^{8}\), S.L. Huang\({}^{36}\), E.W. Hughes\({}^{5}\), T.J. Humancik\({}^{28}\), G. Igo\({}^{8}\), A. Ishihara\({}^{40}\), P. Jacobs\({}^{21}\), W.W. Jacobs\({}^{17}\), M. Jonik\({}^{44}\), H. Jiang\({}^{8}\), PG. Jones\({}^{3}\), E.G. Judd\({}^{6}\), S. Kobano\({}^{2}\), K. Kang\({}^{41}\), M. Kaplon\({}^{9}\), D. Keane\({}^{20}\), V.Yu. Khodyrev\({}^{31}\), J. Kiryluk\({}^{22}\), A. Kisiel\({}^{44}\), E.M. Kislov\({}^{12}\), J. Klay\({}^{21}\), S.R. Klein\({}^{21}\), A. Kyachko\({}^{17}\), D.D. Koetke\({}^{42}\), T. Kolegger\({}^{14}\), M. Kopyline\({}^{20}\), L. Kotchenda\({}^{25}\), M. Kramer\({}^{26}\), P. Krovtsov\({}^{25}\), Vl. Kravtsov\({}^{31}\), K. Krueger\({}^{1}\), C. Kuhn\({}^{18}\), A.K. Kulikov\({}^{12}\), A. Kumar\({}^{29}\), C.L. Kunz\({}^{9}\), R.Rh. Kutaev\({}^{13}\), A.A. Kuznetsov\({}^{12}\), M.A.C. Lamont\({}^{48}\), J.M. Landgraf\({}^{4}\), S. Lange\({}^{14}\), F. Laue\({}^{4}\), J. Laurent\({}^{4}\), A. Lebedev\({}^{4}\), R. Lednicky\({}^{12}\), S. Lehocka\({}^{12}\), M.J. LeVine\({}^{4}\), C. Li\({}^{36}\), Q. Li\({}^{46}\), Y. Lu\({}^{41}\), S.J. Lindenbourn\({}^{26}\), M.A. Lisa\({}^{28}\), F. Lu\({}^{47}\), L. Liu\({}^{47}\), Q.J. Liu\({}^{45}\), Z. Lu\({}^{47}\), T. Ljubicic\({}^{4}\), W.J. Llope\({}^{34}\), H. Long\({}^{8}\), R.S. Longacre\({}^{4}\), M. Lopez-Noriega\({}^{28}\), W.A. Love\({}^{4}\), Y. Lu\({}^{47}\), T. Ludlam\({}^{4}\), D. Lynn\({}^{4}\), G.L. Mo\({}^{37}\), J.G. Ma\({}^{8}\), Y.G. Ma\({}^{37}\), D. Magestro\({}^{28}\), S. Mahbjan\({}^{19}\), D.P. Mohapatra\({}^{15}\), R. Majk\({}^{48}\), L.K. Mangoftra\({}^{19}\), R. Manweiler\({}^{42}\), S. Margetis\({}^{20}\), C. Markert\({}^{48}\), L. Martin\({}^{38}\), J.N. Marx\({}^{21}\), H.S. Moris\({}^{21}\), Yu.A. Matulenko\({}^{31}\), C.J. McClain\({}^{1}\), T.S. McShane\({}^{10}\), F. Meissner\({}^{21}\), Yu. Melnicki\({}^{31}\), A. Meschannini\({}^{31}\), M.L. Miller\({}^{22}\), Z. Milosevich\({}^{9}\), N.G. Minaev\({}^{31}\), C. Mironov\({}^{20}\), A. Mischke\({}^{27}\), D.K. Mishra\({}^{15}\), J. Mitchell\({}^{34}\), B. Mohuny\({}^{43}\), L. Molnar\({}^{32}\), C.F. Moore\({}^{40}\), D.A. Morozov\({}^{31}\), M.G. Munhoz\({}^{35}\), B.K. Nandi\({}^{43}\), S.K. Nayak\({}^{19}\), T.K. Nayak\({}^{43}\), J.M. Nelson\({}^{3}\), PK. Netrakanti\({}^{43}\), V.A. Nikitin\A.H. Tong\({}^{27}\), T. Tornowsky\({}^{22}\), D. Thein\({}^{8}\), J.H. Thomas\({}^{21}\), S. Timoshenko\({}^{25}\), M. Tokorev\({}^{12}\), T.A. Trainor\({}^{45}\), S. Trentolongo\({}^{8}\), P.E. Tribble\({}^{39}\), O.D. Tsai\({}^{8}\), J. Uery\({}^{32}\), I. Ullrich\({}^{4}\), D.G. Underwood\({}^{41}\), A. Urithbov\({}^{12}\), G. Van Buren\({}^{4}\), M. van Leeuwen\({}^{21}\), A.M. Vander Molen\({}^{24}\), R. Vorma\({}^{16}\), I.M. Vasilev\({}^{13}\), A.N. Vosiliev\({}^{13}\), R. Verner\({}^{18}\), S.E. Vydori\({}^{17}\), Y.P. Vryogdi\({}^{43}\), S. Vokol\({}^{12}\), S.A. Voloshin\({}^{46}\), M. Varnzdovev\({}^{25}\), W.I. Wogogoner\({}^{10}\), F. Wang\({}^{32}\), G. Wong\({}^{26}\), G. Wang\({}^{5}\), X.L. Wang\({}^{36}\), Y. Wong\({}^{40}\), Y. Wang\({}^{41}\), Z.M. Wang\({}^{36}\), H. Ward\({}^{40}\), J.W. Watson\({}^{20}\), J.C. Webb\({}^{17}\), R. Wells\({}^{28}\), G.D. Westfall\({}^{24}\), A. Wetzler\({}^{21}\), C. Whitten Jr.\({}^{8}\), H. Wiemon\({}^{21}\), S.W. Wissink\({}^{17}\), R. Witt\({}^{29}\), J. Wood\({}^{8}\), J. Wu\({}^{36}\), N. Xu\({}^{21}\), Z. Xu\({}^{4}\), Z.Z. Xu\({}^{36}\), E. Yamamoto\({}^{21}\), P. Yepes\({}^{34}\), Vl. Yurevich\({}^{12}\), V.Y. Zonevsky\({}^{12}\), H. Zhang\({}^{4}\), W.M. Zhong\({}^{20}\), Z.P. Zhong\({}^{36}\), PA Zolnierczuk\({}^{17}\), R. Zoulkarneev\({}^{13}\), Y. Zoulkarneev\({}^{13}\), and A.N. Zubarev\({}^{12}\)
+
+\({}^{1}\)Argonne National Laboratory, Argonne, Illinois 60439
+
+\({}^{2}\)University of Bern, 3012 Bern, Switzerland
+
+\({}^{3}\)University of Birmingham, Birmingham, United Kingdom
+
+\({}^{4}\)Brookhaven National Laboratory, Upton, New York 11973
+
+\({}^{5}\)California Institute of Technology, Pasadena, California 91125
+
+\({}^{6}\)University of California, Berkeley, California 94720
+
+\({}^{7}\)University of California, Davis, California 95616
+
+\({}^{8}\)University of California, Los Angeles, California 90095
+
+\({}^{9}\)Carnegie Mellon University, Pittsburgh, Pennsylvania 15213
+
+\({}^{10}\)Creighton University, Cmacha, Nebraska 68178
+
+\({}^{11}\)Nuclear Physics Institute AS CR, Rez/Prague, Czech Republic
+
+\({}^{12}\)Laboratory for High Energy (JINR), Dubna, Russia
+
+\({}^{13}\)Particle Physics Laboratory (JINR), Dubna, Russia
+
+\({}^{14}\)University of Frankfurt, Frankfurt, Germany
+
+\({}^{15}\)Institute of Physics, Bhubaneswar 75100, India
+
+\({}^{16}\)Indian Institute of Technology, Mumbai, India
+
+\({}^{17}\)Indiana University, Bloomington, Indiana 47408
+
+\({}^{18}\)Institut de Recherches Subatomiques, Strasbourg, France
+
+\({}^{19}\)University of Jammu, Jammu 180001, India
+
+\({}^{20}\)Kent State University, Kent, Ohio 44242
+
+\({}^{21}\)Lawrence Berkeley National Laboratory, Berkeley, California 94720
+
+\({}^{22}\)Massachusetts Institute of Technology, Cambridge, MA 02139-4307
+
+\({}^{23}\)Max-Planck-Institut fur Physik, Munich, Germany
+
+\({}^{24}\)Michigan State University, East Lansing, Michigan 48824
+
+\({}^{25}\)Moscow Engineering Physics Institute, Moscow Russia
+
+\({}^{26}\)City College of New York, New York City, New York 10031
+
+\({}^{27}\)INKHEF Amsterdam, The Netherlands
+
+\({}^{28}\)Ohio State University, Columbus, Ohio 43210
+
+\({}^{29}\)Panjab University, Chandigarh 160014, India
+
+\({}^{30}\)Pennsylvania State University, University Park, Pennsylvania 16802
+
+\({}^{31}\)Institute of High Energy Physics, Protvino, Russia
+
+\({}^{32}\)Purdue University, West Lafayette, Indiana 47907
+
+\({}^{33}\)University of Rajsathan, Jaipur 302004, India
+
+\({}^{34}\)Rice University, Houston, Texas 77251
+
+\({}^{35}\)Universidade de Sos Paulo, Sao Paulo, Brazil
+
+\({}^{36}\)University of Science & Technology of China, Anhui 230027, China
+
+\({}^{37}\)Shanghai Institute of Applied Physics, Shanghai 201800, China
+
+\({}^{38}\)SUBATECH, Nantes, France
+
+\({}^{39}\)Texas A&M University, College Station, Texas 77843
+
+\({}^{40}\)University of Texas, Austin, Texas 78712
+
+\({}^{41}\)Tsinghua University, Beijing 100084, China
+
+\({}^{42}\)Valparaiso University, Valparaiso, Indiana 46383
+
+\({}^{43}\)Variable Energy Cyclotron Centre, Kolkata 700064, India
+
+\({}^{44}\)University of Technology, Warsaw, Poland
+
+\({}^{45}\)University of Washington, Seattle, Washington 98195
+
+\({}^{46}\)Wayne State University, Detroit, Michigan 48201
+
+\({}^{47}\)Institute of Particle Physics, CCNU (HZNU), Wuhan 430079, China
+
+\({}^{48}\)Yale University, New Haven, Connecticut 06520
+
+\({}^{49}\)University of Zagreb, Zagreb, HR-10002, Croatia
+
+[MISSING_PAGE_FAIL:104]
+
+* [17] S. Bethke, J. Phys. G: Nucl. Part. Phys. **26**, R27 (2000); [arXiv:hep-ex/0004021].
+* [18] PDG group, Phys. Rev. D **66**, 010001 (2002); Phys. Lett. B **592**, 1 (2004).
+* [19] C. D. DeTar and J. F. Donoghue, Ann. Rev. Nucl. Part. Sci. **33**, 235 (1983); L. Wilets, _Bag Model of Nucleus_, World Scientific, Singapore, (1989).
+* [20] Frithjof Karsch, Nucl. Phys. A **698**, 199c (2002); [arXiv:hep-ph/0103314].
+* [21] Zoltan Fodor, Nucl. Phys. A **715**, 319 (2003); [arXiv:hep-lat/0209101].
+* [22] U. W. Heinz, AIP Conf. Proc. **602**, 281 (2001); [arXiv:hep-ph/0109006].
+* [23] Simon Hands, Contemp. Phys. **42**, 209 (2001); [arXiv:physics/0105022].
+* [24] J. D. Bjorken, Phys. Rev. D **27**, 140 (1983).
+* [25] Jens Berger, Ph.D. Thesis, University of Frankfurt, (2003).
+* [26] B. Muller, The Physics of the Quark Gluon Plasma, Lecture Notes in Physics, Vol. 225, Springer, Berlin, (1985).
+* [27] C.Y. Wong, Introduction to High-Energy Heavy-Ion Collisions, World Scientific, Singapore (1994).
+* [28] Jean Letessier, Johann Rafelski, Hadrons and Quark-Gluon Plasma, Cambridge University Press (2002).
+* [29] J. W. Harris and B. Muller, Ann. Rev. Nucl. Part. Sci. **46**, 71 (1996), and references therein.
+* [30] S. A. Bass, M. Gyulassy, and H. Stocker and W. Greiner, J. Phys. G: Nucl. Part. Phys. **25**, R1 (1999), and references therein; [arXiv:hep-ph/9810281].
+* [31] M. Marx _et al._, Proceedings of the 15th Int. Conference on Ultra-Relativistic Nucleus-Nucleus Collisions. (Stony Brook, New York, USA, Nucl. Phys. A **698**, 2002).
+* [32] H. H. Gutbrod _et al._, Proceedings of the 16th Int. Conference on Ultra-Relativistic Nucleus-Nucleus Collisions. (Nantes, France, Nucl. Phys. A **715**, 2003).
+* [33] H. G. Ritter _et al._, Proceedings of the 17th Int. Conference on Ultra-Relativistic Nucleus-Nucleus Collisions. (Oakland, California, USA, J. Phys. G: Nucl. Part. Phys. **30**, S633, 2004).
+* [34] STAR WhitePaper, [arXiv:nucl-ex/0501009].
+* [35] PHENIX WhitePaper, [arXiv:nucl-ex/0410003].
+* [36] PHOBOS WhitePaper, [arXiv:nucl-ex/0410022].
+* [37] BRAHMS WhitePaper, [arXiv:nucl-ex/0410020].
+* [38] L. D. Landau and E. M. Lifshitz, Fluid Mechanics, 2nd ed., World Publishing Corp., (1999).
+* [39] W. Reisdorf and H. G. Ritter, Ann. Rev. Nucl. Part. Sci. **47**, 663 (1997).
+
+* [40] N. Herrmann, J. P. Wessels and T. Wienold, Ann. Rev. Nucl. Part. Sci. **49**, 581 (1999).
+* [41] P. F. Kolb and U. Heinz, Hydrodynamic description of ultrarelativistic heavy-ion collisions, _Quark Gluon Plasma, 3_ edited by R.C. Hwa and X.N. Wang, World Scientific, Singapore (2004); [arXiv:nucl-th/0305084].
+* [42] P. Huovinen, Hydrodynamic description of collective flow, _Quark Gluon Plasma, 3_ edited by R.C. Hwa and X.N. Wang, World Scientific, Singapore (2004); [arXiv:nucl-th/0305064].
+* [43] D. Teaney, J. Lauret, and E.V. Shuryak, Phys. Rev. Lett. **86**, 4783 (2001); [arXiv:nucl-th/0011058].
+* [44] R. Snellings _et al._, STAR Collaboration, Nucl. Phys. A **698**, 193c (2002).
+* [45] Y. Lu _et al._, RQMD \(v_{2}\), in preparation.
+* [46] I. Vitev and M. Gyulassy, Phys. Rev. C **65**, 041902 (2002).
+* [47] H. Sorge, Phys. Rev. Lett. **78**, 2309 (1997); Phys. Rev. Lett. **82**, 2048 (1999).
+* [48] Z. Lin and C.M. Ko, Phys. Rev. Lett. **89**, 202302 (2002).
+* [49] D. Molnar and S.A. Voloshin, Phys. Rev. Lett. **91**, 092301 (2003).
+* [50] R.C. Hwa and C.B. Yang, Phys. Rev. C **67**, 064902 (2003).
+* [51] R.J. Fries, B. Muler, C. Nonaka, and S.A. Bass, Phys. Rev. Lett. **90**, 202303 (2003).
+* [52] V. Greco, C.M. Ko, and p. Levai, Phys. Rev. Lett. **90**, 202302 (2003).
+* [53] N. Xu and Z. Xu, Nucl. Phys. A **715**, 587c (2003); [arXiv:nucl-ex/0211012].
+* [54] D. Teaney, J. Lauret, E.V. Shuryak, Nucl. Phys. A **698**, 479c (2002); [arXiv:nucl-th/0110037].
+* [55] J. Adams _et al._, STAR Collaboration, Phys. Rev. Lett. **92**, 052302 (2004); [arXiv:nucl-ex/0306007].
+* [56] E. Schnedermann, J. Sollfrank and U. Heinz, Phys. Rev. C **48**, 2462 (1993).
+* [57] X.N. Wang and M. Gyulassy, Phys. Rev. Lett. **68**, 1480 (1992); X.N. Wang, Phys. Rev. C **58**, 2321 (1998).
+* [58] X.N. Wang, Proceedings of RIKEN BNL Research Center Workshop, Vol. **62**; Nucl. Phys. A **750**, 98 (2005).
+* [59] J. Adams _et al._, STAR Collaboration, Phys. Rev. Lett. **90**, 082302 (2003); [arXiv:nucl-ex/0210033].
+* [60] J. Adams _et al._, STAR Collaboration, Phys. Rev. Lett. **91**, 072304 (2003); [arXiv:nucl-ex/0306024].
+* [61] S. S. Adler _et al._, PHENIX Collaboration, Phys. Rev. Lett. **91**, 072303 (2003).
+* [62] I. Arsene _et al._, BRAHMS Collaboration, Phys. Rev. Lett. **91**, 072305 (2003).
+
+* [63] B. B. Back _et al._, PHOBOS Collaboration, Phys. Rev. Lett. **91**, 072302 (2003).
+* [64] D. Kharzeev, E. Levin, and L. McLerran, Phys. Lett. B **561**, 93 (2003).
+* [65] N. Xu, Prog. in Part. and Nucl. Phys. **53**, 165 (2004).
+* [66] R. W. Wilson, Rev. Mod. Phys. **51**, 433 (1979).
+* [67] T. Ferbel and W. R. Molzon, Rev. Mod. Phys. **56**, 181 (1984).
+* [68] T. Peitzmann and M. H. Thoma, Phys. Rep. **364**, 175-246 (2002); [arXiv:hep-ph/0111114].
+* [69] J. Frantz (fot the PHENIX collaboration), J. Phys. G: Nucl. Part. Phys. **30**, S1003 (2004); [arXiv:nucl-ex/0404006].
+* [70] J. Adams _et al._, STAR Collaboration, Phys. Rev. C **70**, 044902 (2004); [arXiv:nucl-ex/0401008].
+* [71] H. Sorge, Phys. Rev. C **52**, 3291 (1995); [arXiv:nucl-th/9509007].
+* [72] Special Issue: The Relativistic Heavy Ion Collider Project: RHIC and its Detectors, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, v (2003).
+* [73] K.H. Ackermann _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 624 (2003).
+* [74] M. Harrison _et al._, Ann. Rev. Nucl. Part. Sci. **52**, 452 (2002).
+* [75] M. Harrison _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 235 (2003).
+* [76] C. Adler _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 433 (2003).
+* [77] C. Adler _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **470**, 488 (2001).
+* [78] M. Adamczyk _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 437 (2003).
+* [79] B.B. Back _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 603 (2003).
+* [80] K. Adcox _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 469 (2003).
+* [81] F. Bergsma _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 633 (2003).
+* [82] M. Adnerson _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 659 (2003).
+* [83] R. Bellwied _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 640 (2003).
+* [84] L. Arnold _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 652 (2003).
+* [85] J. Abele _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 633 (2003).
+* [86] K.H. Ackermann _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 713 (2003).
+* [87] M. Beddo _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 725 (2003).
+
+* [88] C.E. Allgower _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 740 (2003).
+* [89] J.M. Landgraf _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 762 (2003).
+* [90] F.S. Bieser _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 766 (2003).
+* [91] C. Adler _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 778 (2003).
+* [92] B.G. Gibbard, T.G. Throwe, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 814 (2003).
+* [93] A.W. Chan _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 819 (2003).
+* [94] L. Kotchenda _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, 703 (2003).
+* [95] W.J. Llope _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **522**, 252 (2004).
+* [96] B. Bommer _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **508**, 181 (2003).
+* [97] L.J. Ruan, Ph.D. Thesis, USTC, (2004); [arXiv:nucl-ex/0503015]
+* [98] Zhixu Liu _et al._, High Energy Physics and Nuclear Physics, **27**, 72 (2003).
+* [99] W.J. Llope _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **443**, 451 (2000).
+* [100] Y. Tanaka _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **425**, 323 (1999).
+* [101] The STAR TOF Collaboration, _Proposal for a Large Area Time of Flight System for STAR_.
+* [102] CERN Program Library Long Writeup W5013, Detector Description and Simulation Tool. See also [http://wwwasd.web.cern.ch/wwwasd/geant/](http://wwwasd.web.cern.ch/wwwasd/geant/).
+* [103] T. D. Lee, Proceedings of RIKEN BNL Research Center Workshop, Vol. **62**; Nucl. Phys. A **750**, 1 (2005).
+* [104] T. Sjotrand _et al._, Computer Physics Commun. **135**, 238 (2001).
+* [105] X.N. Wang _et al._, Phys. Rev. D **44**, 3501 (1991).
+* [106] S. A. Bass _et al._, Prog. in Part. and Nucl. Phys. **41**, 255 (1998), [arXiv:nucl-th/9803035]; M. Bleicher _et al._, J. Phys. G: Nucl. Part. Phys. **25**, 1859 (1999), [arXiv:hep-ph/9909407].
+* [107] Z.W. Lin _et al._, Phys. Rev. C **64**, 011902(R) (2001); [arXiv:nucl-th/0011059].
+* [108] F.M. Liu _et al._, Phys. Rev. D **67**, 034011 (2003); H.J. Drescher _et al._, Phys. Rep. **350**, 93-289 (2001).
+* [109] K. Werner, J. Phys. G: Nucl. Part. Phys. **27**, 625 (2001).
+
+* [110] N. Xu and M. Kaneta, Nucl. Phys. A **698**, 306c (2001).
+* [111] R. Brun _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **389**, 81 (1997). See also [http://root.cern.ch/](http://root.cern.ch/).
+* [112] F. Videbaek _et al._, Phys. Rev. C **52**, 2684 (1995).
+* [113] S.S. Adler _et al._, Phys. Rev. C **69**, 034909 (2004); [arXiv:nucl-ex/0307010].
+* [114] S. Esumi _et al._, Phys. Rev. C **55**, R2163 (1997).
+* [115] H. van Hecke, H. Sorge, N. Xu, Phys. Rev. Lett. **81**, 5764 (1998); [arXiv:nucl-th/9804035].
+* [116] Y. Cheng _et al._, Phys. Rev. C **68**, 034910 (2003).
+* [117] Y. Cheng _et al._, Mod. Phys. Lett. A, Vol. 18, No. 16 (2003) 1107-1112.
+* [118] R. Bossingham _et al._, STAR Note 281, STAR Offline Simulation and Analysis Software Design (unpublished).
+* [119] M.A. Lisa, STAR Note 238, The STAR-TPC Clusterfinder/Hitfiner (unpublished).
+* [120] Howard Matis, STAR Note 121, STAR Coordinate System (unpublished).
+* [121] Dietrich Liko, STAR Note 87, Track Fitting in the STAR Detector using the Kalman Filter Method (unpublished).
+* [122] S. Margetis and D. Cebra, STAR Note 89, Main Vertex Reconstruction in STAR (unpublished).
+* [123] Jeffery T. Mitchell and Iwona M. Sakrejda, STAR Note 190, Tracking for the STAR TPC, Documentation and User's Guide (unpublished).
+* [124] A. Tang, Ph.D. Thesis, Kent University, (2002).
+* [125] Manuel Calderon de la Barca Sanchez, Ph.D. Thesis, Yale University, (2001).
+* [126] J. Adams _et al._, STAR Collaboration, [arXiv:nucl-ex/0133017].
+* [127] Masashi Kaneta, Ph.D. Thesis, Hiroshima University, (1999).
+* [128] J. Adams _et al._, STAR Collaboration, [arXiv:nucl-ex/0306029]; C. Adler _et al._, Phys. Rev. Lett. **86**, 4778(2001); **90**, 119903(2003).
+* [129] J. Adams _et al._, STAR Collaboration, Phys. Rev. Lett. **92**, 112301 (2004); [arXiv:nucl-ex/0310004].
+* [130] Eugene Toyonari Yamamoto, Ph.D. Thesis, UCLA, (2001).
+* [131] K. Adcox _et al._, PHENIX Collaboration, Phys. Rev. Lett. **88**, 242301 (2002).
+* [132] Zhixu Liu _et al._ "The Design and Implementation of BESIII Online Test Farm (in Chinese)" _report on NED2004_.
+
+## List of Publications
+
+* [1]**Zhixu Liu**, Jinghua Fu & Lianshou Liu, High Energy Physics and Nuclear Physics, **24** (2000) 787, _"Influence of Multiplicity Fluctuation on the Erraticity Behaviour in High Energy Collisions"_.
+* [2] C. Adler, _et al._, STAR Collaboration, Phys. Rev. Lett. **87**, 262302 (2001), _"Measurement of Inclusive Antiprotons from Au + Au Collisions at \(\sqrt{s_{NN}}\!=\!130\) GeV"_, [arXiv:nucl-ex/0110009].
+* [3] C. Adler, _et al._, STAR Collaboration, Phys. Rev. Lett. **89**, 092301 (2002), _"Midrapidity \(\Lambda\) and \(\bar{\Lambda}\) Production in Au + Au Collisions at \(\sqrt{s_{NN}}\!=\!130\) GeV"_, [arXiv:nucl-ex/0203016].
+* [4] C. Adler, _et al._, STAR Collaboration, Phys. Rev. Lett. **89**, 132301 (2002), _"Azimuthal Anisotropy of \(K^{0}_{S}\) and \(\Lambda\) + \(\bar{\Lambda}\) Production at Midrapidity from Au + Au Collisions at \(\sqrt{s_{NN}}\!=\!130\) GeV"_, [arXiv:hep-ex/0205072].
+* [5] C. Adler, _et al._, STAR Collaboration, Phys. Rev. Lett. **89**, 202301 (2002), _"Centrality Dependence of High-\(p_{T}\) Hadron Suppression in Au + Au Collisions at \(\sqrt{s_{NN}}\!=\!130\) GeV"_, [arXiv:nucl-ex/0206011].
+* [6] C. Adler, _et al._, STAR Collaboration, Phys. Rev. Lett. **89**, 272302 (2002), _"Coherent \(\rho^{0}\) Production in Ultraperipheral Heavy-Ion Collisions"_, [arXiv:nucl-ex/0206004].
+* [7] C. Adler, _et al._, STAR Collaboration, Phys. Rev. C **66**, 034904 (2002), _"Elliptic flow from two- and four-particle correlations in Au + Au collisions at \(\sqrt{s_{NN}}\!=\!130\) GeV"_, [arXiv:nucl-ex/0206001].
+* [8] C. Adler, _et al._, STAR Collaboration, Phys. Rev. C **66**, 061901(R) (2002), _"\(K^{*}(892)^{0}\) production in relativistic heavy ion collisions at \(\sqrt{s_{NN}}=130\) GeV"_, [arXiv:nucl-ex/0205015].
+* [9] C. Adler, _et al._, STAR Collaboration, Phys. Rev. Lett. **90**, 032301 (2003), _"Azimuthal Anisotropy and Correlations in the Hard Scattering Regime at RHIC"_, [arXiv:nucl-ex/0206006].
+* [10] C. Adler, _et al._, STAR Collaboration, Phys. Rev. Lett. **90**, 082302 (2003), _"Disappearance of Back-To-Back High-\(p_{T}\) Hadron Correlations in Central Au + Au Collisions at \(\sqrt{s_{NN}}\!=\!200\) GeV"_, [arXiv:nucl-ex/0210033].
+
+* [11] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **90**, 172301 (2003), _"Narrowing of the Balance Function with Centrality in Central Au + Au Collisions at \(\sqrt{s_{NN}}\!=\!130\) GeV"_, [arXiv:nucl-ex/0301014].
+* [12] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **91**, 072304 (2003), _"Evidence from d + Au Measurements for Final-State Suppression of High-\(p_{T}\) Hadrons in Au + Au Collisions at RHIC"_, [arXiv:nucl-ex/0306024].
+* [13] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **91**, 172302 (2003), _"Transverse-Momentum and Collision-Energy Dependence of High-\(p_{T}\) Hadron Suppression in Au + Au Collisions at Ultrarelativistic Energies"_, [arXiv:nucl-ex/0305015].
+* [14] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **91**, 262301 (2003), _"Three-Pion Hanbury Brown-Twiss Correlations in Relativistic Heavy-Ion Collisions from the STAR Experiment"_, [arXiv:nucl-ex/0306028].
+* [15] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **91**, 262302 (2003), _"Pion-Kaon Correlations in Central Au + Au Collisions at \(\sqrt{s_{NN}}=130\) GeV"_, [arXiv:nucl-ex/0307025].
+* [16] J. Adams, _et al._, STAR Collaboration, Phys. Lett. B **567**, (2003), 167-174, _"Strange antiparticle-to-particle ratios at mid-rapidity in \(\sqrt{s_{NN}}\!=\!130\) GeV Au + Au collisions"_, [arXiv:nucl-ex/0211024].
+* [17] Y. Cheng, F. Liu, **Z. Liu**, K. Schweda, N. Xu, Phys. Rev. C **68**, 034910 (2003), _"Transverse expansion in \({}^{197}\!Au\ +\ ^{197}\!Au\) collisions at RHIC"_.
+* [18] J. Adams, _et al._, STAR Collaboration, Phys. Rev. C **68**, 044905 (2003), _"Net charge fluctuations in Au + Au collisions at \(\sqrt{s_{NN}}=130\) GeV"_, [arXiv:nucl-ex/0307007].
+* [19]**Zhixu Liu**, Feng Liu & Bingyun Zhang, High Energy Physics and Nuclear Physics, **27**, 253 (2003), _"A PC-Linux Based Data Acquisition System for the STAR TOFp Detector"_.
+* [20] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **92**, 052302 (2004), _"Particle-Type Dependence of Azimuthal Anisotropy and Nuclear Modification of Particle Production in Au + Au Collisions at \(\sqrt{s_{NN}}\!=\!200\) GeV"_, [arXiv:nucl-ex/0306007].
+* [21] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **92**, 062301 (2004), _"Azimuthal Anisotropy at the Relativistic Heavy Ion Collider: The First and Fourth Harmonics"_, [arXiv:nucl-ex/0310029].
+* [22] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **92**, 092301 (2004), _"\(\rho^{0}\) Production and Possible Modification in Au + Au and p + p Collisions at \(\sqrt{s_{NN}}\!=\!200\) GeV"_, [arXiv:nucl-ex/0307023].
+* [23] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **92**, 112301 (2004), _"Identified Particle Distributions in pp and Au + Au Collisions at \(\sqrt{s_{NN}}=200\) GeV"_, [arXiv:nucl-ex/0310004].
+
+* [24] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **92**, 171801 (2004), _"Cross Sections and Transverse Single-Spin Asymmetries in Forward Neutral-Pion Production from Proton Collisions at \(\sqrt{s_{NN}}=200\) GeV"_, [arXiv:hep-ex/0310058].
+* [25] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **92**, 182301 (2004), _"Multistrange Baryon Production in Au + Au Collisions at \(\sqrt{s_{NN}}=130\) GeV"_, [arXiv:nucl-ex/0307024].
+* [26] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **93**, 012301 (2004), _"Azimuthally Sensitive Hanbury Brouon-Twiss Interferometry in Au + Au Collisions at \(\sqrt{s_{NN}}\!=\!200\) GeV"_, [arXiv:nucl-ex/0312009].
+* [27] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **93**, 252301 (2004), _"Azimuthally Anisotropy and Correlations at Large Transverse Momenta in \(p\) + \(p\) and Au + Au Collisions at \(\sqrt{s_{NN}}\!=\!200\) GeV"_, [arXiv:nucl-ex/0407007].
+* [28] C. Adler, _et al._, STAR Collaboration, Phys. Lett. B **595**, (2004), 143-150, _"Kaon production and kaon to pion ratio in Au + Au collisions at \(\sqrt{s_{NN}}=130\) GeV"_, [arXiv:nucl-ex/0206008].
+* [29] J. Adams, _et al._, STAR Collaboration, Phys. Rev. C **70**, 031902(R) (2004), _"Production of \(e^{+}e^{-}\) pairs accompanied by nuclear dissociation in ultraperipheral heavy-ion collisions"_, [arXiv:nucl-ex/0404012].
+* [30] J. Adams, _et al._, STAR Collaboration, Phys. Rev. C **70**, 041901(R) (2004), _"Rapidity and centrality dependence of proton and antiproton production from \({}^{197}\!Au\ +\ ^{197}\!Au\) collisions at \(\sqrt{s_{NN}}\!=\!130\) GeV"_, [arXiv:nucl-ex/0306029].
+* [31] J. Adams, _et al._, STAR Collaboration, Phys. Rev. C **70**, 044901 (2004), _"Centrality and pseudorapidity dependence of charged hadron production at intermediate \(p_{T}\) in Au + Au collisions at \(\sqrt{s_{NN}}\!=\!130\) GeV"_, [arXiv:nucl-ex/0404020].
+* [32] J. Adams, _et al._, STAR Collaboration, Phys. Rev. C **70**, 044902 (2004), _"Photon and neutral pion production in Au + Au collisions at \(\sqrt{s_{NN}}=130\) GeV"_, [arXiv:nucl-ex/0401008].
+* [33] J. Adams, _et al._, STAR Collaboration, Phys. Rev. C **70**, 054907 (2004), _"Measurements of transverse energy distributions in Au + Au collisions at \(\sqrt{s_{NN}}\!=\!200\) GeV"_, [arXiv:nucl-ex/0407003].
+* [34] J. Adams, _et al._, STAR Collaboration, Phys. Rev. C **70**, 064907 (2004), _"Pseudorapidity asymmetry and centrality dependence of charged Hadron spectra in d + Au collisions at \(\sqrt{s_{NN}}\!=\!200\) GeV"_, [arXiv:nucl-ex/0408016].
+* [35] K.H. Ackermann, _et al._, STAR Collaboration, Nucl. Instrum. Methods Phys. Res., Sect. A **499**, (2003) 624-632, _"STAR detector overview"_.
+* [36] W.J. Llope, F. Geurts, J.W. Mitchell, **Z. Liu**, _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A **522**, (2004) 252-273, _"The TOFp/pVPD time-of-flight system for STAR"_, [arXiv:nucl-ex/0308022].
+
+* [37] J. Adams, _et al._, STAR Collaboration, Phys. Rev. Lett. **94**, 062301 (2005), _"Open Charm Yields in \(d\) + Au collisions at \(\sqrt{s_{NN}}=200\) GeV"_, [arXiv:nucl-ex/0407006].
+* [38]**Zhixu Liu**, Feng Liu, Kejun Zhu, Fei Li, _"The Design and Implementation of BESIII Online Test Farm (in Chinese)", report on NED2004, KunMing; submitted to Nuclear Electronics and Detection Technology.
+* [39] J. Adams, _et al._, STAR Collaboration, Phys. Rev. C **71**, 031901(R) (2005), _"Transverse-momentum dependent modification of dynamic texture in central Au + Au collisions at \(\sqrt{s_{NN}}\) = \(200\) GeV"_, [arXiv:nucl-ex/0407001].
+
+###### Acknowledgements.
+
+Thanks go to lots of people!
+
+At first, I would like to thank Professor Liu Lianshou who guide me to the way of high energy physics experiment. He provides the chance and strong support for me to participate in the STAR TOFp DAQ project in 1999, which is a challenge for me as a undergraduate student and is very interesting too! Besides the job, his religious attitude on the studying and research will influence me forever! I always feel lucky to meet such a best and respectful teacher!
+
+I'm grateful to my supervisor Professor Liu Feng and Professor Xu Nu too. Only with Liu Feng's guide, support and trust I can made the success on TOFp DAQ project and the later physics analysis. Xu Nu provides a chance for me doing some physics analysis on the most exciting experiment facility in the world and choose this nice topic for me. During the stage, they are always so kind and patient in guiding me, both on research and living.
+
+Thanks to Dr. Xu Zhangbu, he gave me lots of help both on the work and life when I stayed in BNL. Thanks to Dr. K. Schweda for the valuable discussions and help on the topic of this thesis.
+
+Thanks to all the professors, staffs and classmates in IOPP.
+
+Thanks to all my friends! A bosom friend afar brings distance near!,
+
+Thanks to every member of the STAR collaboration and the RHIC operations group. Only with their intelligence and hard work, we have such a successful hardware and software which help us to investigate the universe we're living in!
+
+Thanks to Linux, the most excellent operating system, which provide great help on our work and bring many joys to our life too! Thanks to LaTeX which make the writing of this dissertation smooth and full of pleasure!
+
+Finally, I'd like to thank my parents and young sister. Without their sacrifice and support, I won't be here.

@@ -1,0 +1,909 @@
+RICE UNIVERSITY
+
+**Search for Muonic Atoms and Dimuon Production**
+
+**in Heavy-Ion Collisions**
+
+by
+
+**Kefeng Xin**
+
+A Thesis Submitted
+
+in Partial Fulfillment of the
+
+Requirements for the Degree
+
+**Doctor of Philosophy**
+
+Approved, Thesis Committee:
+
+\begin{tabular}{l} \hline Frank Geurts \\ Associate Professor of Physics and \\ Astronomy \\ \hline Paul Padley \\ Professor of Physics and Astronomy \\ \hline David Scott \\ Noah Harding Professor of Statistics \\ Houston, Texas \\ Dec, 2015 \\ \hline \end{tabular}
+
+ABSTRACT
+
+Search for Muonic Atoms and Dimuon Production in Heavy-Ion Collisions
+
+by
+
+Kefeng Xin
+
+Leptons, e.g. muons, are ideal tools to explore the hot and dense matter created at heavy-ion collider experiments, because they have minimal final state interactions and as a result are able to preserve information of the hot medium. This thesis focuses on two leptonic physics results of the STAR experiment at Brookhaven National Lab - dimuons and muonic atom production.
+
+The first measurement of dimuon production at low invariant mass is presented, using data collected from Au + Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV. An excess of the dimuon yield over known hadronic contributions in the mass region 0.2 - 0.55 GeV/\(c^{2}\) is found. This excess might be sensitive to the modified \(\rho\) meson spectrum in a hot medium, which has been proposed to be related to chiral symmetry restoration.
+
+This thesis also presents the first search results for muonic atoms in heavy-ion collisions. Femtoscopic correlations indicate hadrons and muons arise from the ionization of a muonic atom in the beam pipe. Invariant mass signals are observed for \(K\mu\) and \(p\mu\) atoms and their antimatter counterparts. Calculations in a simple coalescence model do not agree with the yields from the data, suggesting significant other sources in the calculations may be needed.
+
+**Acknowledgments**
+
+Firstly I would like to thank my advisor, Prof. Frank Geurts, for providing me this opportunity of doing research in heavy-ion physics during my doctoral work. Prof. Geurts has been very passionate, encouraging, and supportive in the past six years. He provided numerous suggestions and ideas for this study.
+
+I would like to thank Zhangbu Xu, who introduced this topic to me. Zhangbu taught me so much about lepton physics in heavy-ion experiments, and about muonic atoms. I still remember that we sat together many times and went through the very preliminary data while I was making plots. I learned to be a true scientist you need to have the big picture and to get your hands dirty.
+
+I would like to thank everyone at Bonner Lab at Rice, especially people in the STAR group, David, Geary, Bill, Joey, Daniel B., Daniel M., Ted, Jay, Pablo. Special thanks to Ted for his help on the TOF calibration set up. I would like to thank friends at Brookhaven Lab. Special thanks go to Aihong, who lead the anti-proton correlation paper. Special thanks go to Nu. It was always a great pleasure talking with him, about research and everything else. Special thanks go to my shift leader and shift crew. Special thanks go to Masayuki Wada, who was a student of University of Texas. Masa taught me about basic PID.
+
+I would like to thank the embedding team, led by Xianglei, especially Kunsu, Jinlong, Yifei, and Chanaka. They have helped me with countless embedding requests. Thanks also go to the computing and software team, Gene, Yuri, Linda, Jason, Jerome, and Jeff.
+
+Finally I thank my thesis committee, Prof. Paul Padley and Prof. David Scott. Special thanks to Prof. Jay Roberts for his editing and English suggestions.
+
+###### Contents
+
+* 1 Introduction
+* 2 Heavy-Ion Physics and Muon Physics
+	* 2.1 Relativistic Heavy-Ion Physics
+	* 2.2 Chiral Symmetry Restoration and Dimuon Physics
+	* 2.3 A Brief History of the Muonic Atom Searches
+* 3 Experimental Setup
+	* 3.1 The Relativistic Heavy-Ion Collider
+	* 3.2 The Solenoidal Tracker at RHIC
+	* 3.3 Particle Identification
+		* 3.3.1 Particle Identification with the TPC
+		* 3.3.2 Particle Identification with TOF
+* 4 Low Mass Dimuon Production at Au+Au \(\sqrt{s_{NN}}\) = 200 GeV
+	* 4.1 Data Set and Cuts
+	* 4.2 Data Analysis
+	* 4.3 Results and Discussion
+* 5* 5 Muonic Atoms in Heavy-ion Collisions
+	* 5.1 Data Set and Triggers
+	* 5.2 Track Selections
+	* 5.3 Particle Identification
+* 6 Muonic Atom Femtoscopy
+	* 6.1 \(K\)-\(\mu\) and \(p\)-\(\mu\) Correlations
+	* 6.2 \(\pi\)-\(\pi\) and \(\pi\)-\(\mu\) Correlations
+	* 6.3 Systematic Uncertainties for Correlations
+* 7 Muonic Atom Invariant Mass Spectra
+	* 7.1 Invariant Mass Spectrum
+	* 7.2 Systematic Uncertainties for Invariant Mass Spectra
+	* 7.3 Muonic Atom Yields from Measurement
+* 8 Comparison with Measured Hadron and Muon Yields
+* 9 Summary and Outlook
+
+## Illustrations
+
+### 2.1 Measurements of the strong coupling constant \(\alpha_{s}\).
+
+2.1 The left panel shows the dimuon mass spectrum before (dots) and after subtraction of the known decays (triangles). Transposed to the right panel shows the data compared to theoretical predictions. Figures taken from [27].
+
+3.1 \(\alpha\) distribution from the BNL[9] (left) and Fermilab[10] (right) \(K_{L}^{0}\) to \(\pi\)-\(\mu\) atom experiment.
+
+4.1 Figure taken from [6]. Filled blue circles, number of events in the laser time window normalized to the number of 'prompt' events as a function of the laser frequency. The fit (red) is a Lorentzian on top of a flat background. The predictions for the line position using the proton radius from other measurements are indicated (yellow data points, top left). The result from reference [6] is also shown ('our value').
+
+5.2 Left panel: muonic atom yields from STAR and Kapusta & Mocsy [32]; right panel: muonic atom yields with muon transverse momentum \(0.17<p_{T}<0.30\) GeV/\(c\). Plots taken from [33].
+
+6.3 Energy levels, cascade and experimental principle series in muonic hydrogen. Figure taken from [6].
+
+An aerial picture of RHIC [37]. The lines represent the beam path. The STAR detector is locate at six o'clock, and the PHENIX detector is located at nine o'clock.
+* 3.2 STAR sub-detectors (produced by Alex Schmah). EEMC: Endcap Electromagnetic Calorimeter; BEMC: Barrel Electromagnetic Calorimeter; VPD: Vertex Position Detector; TPC: Time Projection Chamber; BBC: Beam-Beam Counter.
+* 3.3 A schematic view of the STAR TPC.
+* 3.4 Primary vertex resolution in the transverse plane (taken from [45]). The resolution decreases as the square root of the number of tracks used in the calculation.
+* 3.5 On the left is a schematic front view of a VPD assembly, and on the right is a photograph of the two VPD assemblies. A one foot long ruler is shown for scale on the right. Figure taken from [44].
+* 3.6 Two side views of an MRPC module [52].
+* 3.7 An example of dE/dx vs momentum measured by STAR TPC. The solid lines represent the expected energy loss as a function of momentum.
+* 3.8 The momentum dependence of particle mass distributions (taken from [50]). The lines represent the 2\(\sigma\)region. The solid lines corresponding to tracks at midrapidity, and the dashed lines corresponding to tracks at forward rapidity. As we can see, the mass resolution increases at higher momentum.
+* 3.9 The momentum dependence of \(\Delta\beta^{-1}/\beta^{-1}\) distributions for kaons at \(\sqrt{s_{NN}}=200\) GeV/\(c\). The \(\Delta\beta^{-1}/\beta^{-1}\)resolution is nearly a constant at higher momentum.
+
+Reference multiplicity distribution in Au+Au at \(\sqrt{s_{NN}}\) = 200 GeV. The vertical line selects the top 5% most central events.
+* 4.2 The \(\Delta 1/\beta\) distribution for muons after TPC \(-0.5<N_{\sigma_{\mu}}<3\) cut for minimum bias Au+Au at \(\sqrt{s_{NN}}=200\) GeV/\(c\). The first panel shows \(\Delta\beta^{-1}\) vs p. The two lines are fit results based on cuts obtained from each momentum slices, which are shown in the following panels. The red lines represent the fit for the muon peak; the blue lines represent the fit to the pion; the yellow lines represent background; the black lines represents the fit to the total distributions.
+* 4.3 Dimuon invariant mass spectra from different combinations.
+* 4.4 Dimuon acceptance correction.
+* 4.5 Dimuon unlike-sign and like-sign (acceptance corrected) distributions in Au + Au at \(\sqrt{s_{NN}}=200\) GeV/\(c\).
+* 4.6 Track splitting. a) shows a small \(SL=-0.5\); b) and c) show a large \(SL=1\); d) shows in between \(SL=0.8\).
+* 4.7 Splitting level distribution of dimuon pairs. The distributions for different foreground/backgrounds have been shifted by a fixed number for better visualization, noted on the plot.
+* 4.8 Fraction of merged hits distribution of dimuon pairs. The distributions for different foreground/backgrounds have been shifted by a fixed number for better visualization, noted on the plot.
+* 4.9 Dimuon efficiency corrections in Au + Au at \(\sqrt{s_{NN}}\) = 200 GeV/\(c\). An example of tracking efficiency shown in Fig. 4.9a; an example of TOF matching efficiency shown in Fig. 4.9b; an example of TOF PID efficiency shown in Fig. 4.9c.
+
+- 0.55 GeV/\(c^{2}\). The data-to-cocktails ratio is shown in the right panel. The uncertainties are statistics only.
+* 4.11 Dimuon excess in minimum bias data at \(\sqrt{s_{NN}}\) = 200 GeV. The uncertainties only include statistical uncertainties from data (shown by the error bars), and 30% uncertainty in cocktail simulations (shown by the orange band), which is estimated from previous STAR measurement [5]. The integrated excess between 0.40-0.55 GeV/\(c^{2}\) has an significance of 3.5\(\sigma\).
+* 5.1 A sketch of a muonic atom event at STAR detector (not to scale, the radius of the beam pile is enlarged for better demonstration). An atom was produced well after the kinetic freeze-out, and then it travels straight to the beam pipe. After the interaction with the beam pipe, the hadron and the muon are disassociated and detected in the TPC and the TOF.
+* 5.2 The Y-axis is the observable that will be discussed in Sect. 7.1. The effect from momentum shift is found to be a smaller than the bin size 2.5 MeV/\(c^{2}\)[61].
+* 5.3 \(Z^{TPC}_{vertex}\) vs. \(Z^{VPD}_{vertex}\) (left) and \(Z^{TPC}_{vertex}-Z^{VPD}_{vertex}\) (right).
+* 5.4 Number of events change with cuts ( note y-axis not starting form 0). Cuts are applied from left to right. The percentage numbers show the fractions of valid number of events after each cut.
+
+Reference multiplicity distributions from central trigger events in AuAu200 collisions from Run 10.
+* 5.6 Number of TPC hits, dE/dx hits, and nHits/nPossible distributions for primary muon candidates.
+* 5.7 The \(\Delta 1/\beta\) distribution for muons after a TPC cut \(-0.5<N_{\sigma_{\mu}}<3\) for central Au+Au at \(\sqrt{s_{NN}}=200\) GeV/\(c\). The red lines represent the fit for the muon peak; the blue lines represent the fit for the pion peak; the black lines represents the fit to the total distributions.
+* 5.8 The \(\Delta 1/\beta\) distribution for kaons and protons after a TPC cut \(-2<n_{\sigma_{K/p}}<2\). The colors represent Z-axis in log scale. The TOF lower cuts, represented by the black curves, are determined by similar technique as in Fig. 5.7, and the upper cuts are 0.04.
+* 6.1 The correlation functions calculated from \(K\)-\(\pi\) system [56]. In the \(K\)-\(\pi\) system, the interactions are dominated by Coulomb interactions. From the figure, we see the interactions are stronger at low \(k^{*}\) and gets weaker at higher \(k^{*}\) where they have very different momentum. The lower panels show the double ratios deviates from unity, which indicates the space-time asymmetry for the production of kaons and pions.
+* 6.2 A sketch illustrating two cases. Case (a): particle 1 is produced closer to the center of the system, and travels faster than particle 2. Particle 1 tends to "catch up" with particle 2, resulting smaller distance and stronger correlations shown in (c). Case (b): particle 1 travels slower than particle 2. Particle 1 tends to "move away" from particle 2, resulting larger distance and weaker correlations shown in (d). As a result the double ratio is larger than unity as shown in (e).
+
+The correlation functions for \(K\)-\(\pi\) pairs in AuAu200 GeV central triggered events.
+* 6.4 The correlation functions for \(K\)-\(\mu\) pairs.
+* 6.5 Correlation function according to pair directions in Au + Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV. \(C_{+}\) stands for the case when the leading particle is faster, \(C_{-}\) stands for the case when the leading particle is slower. Panel (a) shows like-sign pairs; panel (b) shows unlike-sign pairs.
+* 6.6 The double ratio of the \(K\)-\(\pi\) and \(K\)-\(\mu\) systems show significant difference at low \(k^{*}\). The convergence to unity of \(K\)-\(\mu\) suggests the ionization at the beam pipe after the production of muonic atoms. We can see the non-unity double ratio due to space time asymmetry of \(K\) and \(\mu\) production.
+* 6.7 Measured \(\pi\)-\(\mu\) correlation functions. The like-sign correlation function is above unity about 0.02 GeV/\(c\) to 0.05 GeV/\(c\), which cannot be explained by Coulomb interactions alone. The remaining of this section will explain how the \(\pi\)-\(\pi\) correlations contribute to this shape.
+* 6.8 Measured \(\pi\)-\(\pi\) correlation functions. In like-sign, the two contributions from Coulomb and quantum effect from identical particles are mixed, and give the correlation function an enhancement, making it exceed unity.
+* 6.9 The simulation process for \(\pi\)-\(\mu_{A}\) correlations. The dashed line represents the correlation between pions and muons from weak decays.
+* 6.10 \(\pi\)-\(\mu_{A}\) correlation functions show the correlations between pions and muons purely from weak decays. The like-sign correlation functions show the enhancement which is passed from pion decay kinematics.
+
+[MISSING_PAGE_POST]
+
+* 6.12 Check the linear relation between \(C_{B}C^{\prime}_{C}\) and \(C_{A}C^{\prime}_{C}\). The black line is a linear fit to the data points.
+* 6.13 \(\pi\)-\(\mu\) from data: measured \(\pi\)-\(\mu\) correlation function; 1/C: reversed \(\pi\)-\(\pi\) correlation function; A: simulated \(\pi\)-\(\mu_{\rm decay}\); the fit parameters \(\alpha\) is the fraction of primordial muons.
+* 6.14 DCA variation for \(K\)-\(\mu\) double ratios, like-sign on the left and unlike-sign on the right. The solid markers represent stand DCA cut; the open circles represent restricted DCA cut; the open squares represent wider DCA cut; the absolute differences of the two variations from the standard DCA cut is averaged and represented by the grey bands.
+* 6.15 Double ratio changes from TOF cut variations, like-sign on the left and unlike-sign on the right. The differences from the two cuts will be included in systematic uncertainties.
+* 6.16 TPC-hit-point (nHits) variation for \(K\)-\(\mu\) double ratios, like-sign on the left and unlike-sign on the right. The solid markers represent stand nHits cut; the open circles represent restricted nHits cut; the open squares represent wider nHits cut; the absolute differences of the two variations from the standard nHits cut is averaged and represented by the grey bands.
+* 6.17 Systematic uncertainties for double ratios of \(K\)-\(\mu\) system (left), and antimatter \(K\)-\(\mu\) system (right), like-sign on the left and unlike-sign on the right. Solid circles represent individual contributions from DCA, TOF contamination, and TPC hits. Open squares represents the total systematic uncertainties, which are are from quadrature sum of individual contributions.
+* 6.18 Double ratios for \(K\mu\)(left) and \(p\mu\)(right) system, statistical errors are shown by bars, systematic uncertainties represented by shaded bands.
+
+* 6.19\(N_{\sigma}\) from unity for the double ratios of \(K\mu\) (left) and \(p\mu\)(right).
+* 6.20 Measured \(\pi\)-\(\mu\) correlation function, fitted by reduced mass scaling of the \(\pi\)-\(\pi\) correlation function. A fit function was first obtained from fitting the data points; then scaled by the mass factor 1.16 along x-axis.
+* 6.21 Reduced mass scaling of the correlation function. The correlation function is first corrected by the mass factor 1.16, and then used for fitting \(\pi\)-\(\mu\) correlation function.
+* 6.22 Measured \(\pi\)-\(\mu\) correlation function, fitted by \(\pi\)-\(\pi\) correlation function and simulated \(\pi\)-\(\mu_{\rm decay}\) in a different fitting range shown in the figure.
+* 6.23 Measured \(\pi\)-\(\mu\) correlation function, fitted by \(\pi\)-\(\pi\) correlation function and simulated \(\pi\)-\(\mu_{\rm decay}\) in a different fitting range shown in the figure.
+* 7.1 The raw counts of different types of hadron muon invariant mass distributions. SE stands for Same-Event; ME stands for Mixed-Event; LS stands for Like-Sign; the lower case letters p/n stands for the charge, positive/negative of the hadron and muons.
+* 7.2 The same-event \(K^{+}\mu^{-}\) distribution and its like-sign background (acceptance corrected). The signal hides in the differences between the two distributions.
+* 7.3 The acceptance correction factors for atoms, i.e. positive-hadron and negative-muon pairs, and anti atoms, i.e. negative-hadron and positive-muon pairs.
+* 7.4 The like-sign and mixed-event backgrounds are compared. The shapes have less than 2% differences, which will be discussed in the next section.
+* 7.5Ratios in \(K\)-\(\mu\) pairs. Method 1, represented by the red markers, shows the signal-to-background ratio from like-sign method; method 2, represented by the blue markers, shows the signal-to-background ratio from mixed-event method.
+* 7.6 The difference between two background methods, normalized by mixed-event in \(K\)-\(\mu\) pairs. The difference indicates the existence of Coulomb effects.
+* 7.7 The pair invariant mass signal-to-background distributions of \(\Theta\) show peaks at the atom masses. The left panel shows the signal to background ratio from like-sign method and mixed-event method for \(K\)-\(\mu^{+}\) pairs. The right panel shows the difference of like-sign method and mixed-event method for \(p\)-\(\mu^{+}\) pairs.
+* 7.8 The \(\Theta\) distributions show peaks at the atom masses for \(p\)-\(\mu^{-}\) and \(\bar{p}\)-\(\mu^{+}\) pairs (left panel) and for \(K^{-}\)-\(\mu^{+}\) and \(K^{+}\)-\(\mu^{-}\) pairs (right panel). The x-axis is the mass difference between the pair invariant mass and the sum of hadron and muon mass: \(\delta m=m_{pair}-m_{hadron}-m_{muon}\).
+* 7.9 The changes of \(\Theta(\delta m)\) of \(K\)-\(\mu\) system from DCA variation. Atom system is shown on the left and antimatter atom system on the right. The solid markers represent stand DCA cut; the open circles represent restricted DCA cut; the open squares represent wider DCA cut; the absolute differences of the two variations from the standard DCA cut is averaged and represented by the grey bands.
+* 7.10 \(\Theta(\delta m)\) changes from TOF cut variations. Atom system is shown on the left and antimatter atom system on the right. The differences from the two cuts will be included in systematic uncertainties.
+* 7.117.11 The changes of \(\Theta(\delta m)\) of \(K\)-\(\mu\) system from TPC-hit-point (nHits) variation. Atom system is shown on the left and antimatter atom system on the right. The solid markers represent standard nHits cut; the open circles represent restricted nHits cut; the open squares represent wider nHits cut; the absolute differences of the two variations from the standard nHits cut is averaged and represented by the grey bands.
+7.12 Systematic uncertainties of \(\Theta\) in \(K\)-\(\mu\) system from DCA, TOF, and Hit Points variations. Atom system is shown on the left and antimatter atom system on the right. The Total uncertainty (solid circles) is the quadrature some of the individual contributions. We can see that number of hit points contributes the most at low \(\delta m\)...
+7.13 \(\Theta\) distributions for \(K\)-\(\mu\) atoms (left) and \(p\)-\(\mu\) atoms (right). The error bars stand for statistical uncertainties, and the color bands stand for systematic uncertainties.
+7.14 The \(\Theta\) distributions for Coulomb residual (in blue); the \(\Theta\) distributions for \(K\)-\(\mu\) system, before (black) and after (red) residual subtraction.
+7.15 The \(\Theta\) distributions for antimatter Coulomb residual (in blue); the \(\Theta\) distributions for antimatter \(K\)-\(\mu\) system, before (black) and after (red) residual subtraction.
+7.16 The mixed-event distributions for \(K^{+}\)-\(\mu^{-}\) and \(K^{-}\)-\(\mu^{+}\).
+7.17 The \(K\)-\(\mu\) atoms and antimatter atom mass spectra. The bars represent statistical uncertainties, and the bands represent systematic uncertainties.
+7.18 Invariant mass distributions for proton-\(\pi\) pairs. The peak around 35 MeV/\(c^{2}\) is from \(\Lambda\) to \(p\pi\) decay.
+
+[MISSING_PAGE_FAIL:16]
+
+## Chapter 1 Introduction
+
+It is believed that our universe started with a Big Bang. A few microseconds after the Big Bang, very hot, dense, and strongly intercting matter evolved [1]. While normal matter exists in the form of nucleons, it is expected that at higher temperature and density, like in the very early universe, the strong interaction weakens [2, 3], and nucleons are "boiled" into a plasma of their constituent quarks and gluons, known as the quark-gluon plasma (QGP). It was proposed that ultra-relativistic collisions between heavy ions can release the energy in a finite volume within a short period of time, and can create the QGP. Then the QGP adiabatically expands and cools down. Below certain temperature, known as the "freeze-out temperature", quarks and gluons form baryons and mesons that can be detected experimentally. Throughout the evolution of the hot and dense system, leptons are produced and escape not strongly affected by the medium. Therefore leptons can serve as electromagnetic probes and provide direct information about the various stages of the system's evolution. This thesis focuses on two leptonic measurements, dimuons and muonic atoms, in Au + Au collisions at center of mass energy 200 GeV per nucleon pair, i.e. \(\sqrt{s_{NN}}=200\) GeV.
+
+Dimuons are muon and anti-muon pairs from virtual photon decays. In this thesis,we study dimuon production in the low invariant mass region, between 0.2 GeV/\(c^{2}\) and 0.55 GeV/\(c^{2}\). This mass region is believed to be sensitive to the the modification of \(\rho\) spectrum in a hot medium. This modification may be a signature of chiral symmetry restoration of the \(\rho\) meson and the \(a_{1}\) meson, which is predicted by phenomenological models in hot nuclear matter. This thesis presents the muon identification method at low momentum from the TOF detector, and the invariant mass construction with combinatorial methods. STAR's first dimuon measurement using the TOF system at low mass region is presented. While the uncertainty in this measurement is large, we confirm an excess over known hadronic contributions in this range, similar to previous dielectron measurements [4, 5].
+
+Muonic atoms essentially are atoms in which the electron is replaced with a muon. These atoms have been studied in several fundamental measurements, such as precision measurements of the proton size [6, 7] and nuclear quadrupole moments [8]. Muonic atoms with pions in the core have been produced from intense \(K_{L}^{0}\) beam at Brookhaven National Lab [9] and Fermilab [10]. However, muonic atoms with different hadrons in their cores, e.g. kaons or antiprotons, have never been observed. Heavy-ion experiments, with large amount of thermal muons and hadrons produced, make an ideal environment for the production of such exotic atoms. This high multiplicity environment increases the probability of atom formation, and provides us a great opportunity to further study the production of such systems. This thesis presents the search results for muonic atoms in Au+Au collisions at \(\sqrt{s_{NN}}=200\)GeV. Two particle correlations suggest that hadrons and muons are from atom ionization. The invariant mass spectra are reconstructed and clear signals of \(p\mu\) and \(K\mu\) atoms are observed at the expected atom masses.
+
+This dissertation is organized as follows: Chapter 2 briefly introduces relativistic heavy-ion physics, where it highlights chiral symmetry restoration, as well as presents a short review of previous muonic atom measurements. Chapter 3 introduces the experimental setup, with a specific focus on the detectors and the particle identification that is used in this thesis; Chapter 4 presents the dimuon data set, the analysis methods, and the proof of principle dimuon mass spectrum. An excess over known hadronic contributions is seen. Chapter 5 discusses the muonic atom production in heavy-ion collisions, as well as the the data set that is used. Chapter 6 shows a study of femtoscopic correlations. The correlations functions are used to probe the atom ionization at the beam pipe. The fraction of primordial muons from inclusive muons is determined. Chapter 7 presents invariant mass spectra of several muonic atom systems. Signals of \(K\mu\) and \(p\mu\) atoms and their antimatter counterparts are found and yields are extracted. The yields are compared with the calculations from a simple coalescence model in Chapter 8. And finally in Chapter 9, a summary and outlook is given.
+
+[MISSING_PAGE_FAIL:20]
+
+One of the main goals of heavy-ion experiments is to study the properties of QGP [16]. The bulk properties of QGP may influence the particle production spectra. The QGP matter can be treated as fluid with collective hydrodynamic flow [17]. Parton energy loss was proposed by Bjorken [18] to be useful to study bulk properties. The gluon radiation induced by the QCD matter may be quite sizable and cause "jet quenching" [19]. Chiral symmetry was predicted to be restored in heavy-ion collisions [20], and model calculations can be compared with experimental data [21]. After creation, the QGP expands and cools down. When the particle production ceases, the system reaches "chemical freeze-out". The freeze-out temperatures and chemical potentials were extracted from particle spectra [22]. When elastic interactions cease, the system reaches "kinetic freeze-out". The freeze-out temperatures and
+
+Figure 2.1: Measurements of the strong coupling constant \(\alpha_{s}\).
+
+[MISSING_PAGE_FAIL:22]
+
+which shows their is no coupling between left-hand and right-hand components, meaning a conservation of quark handedness. In a two quark model, up and down, they can be considered as two components of an isospin spinor. The Lagrangian is symmetric under this rotation in isospin space:
+
+\[\begin{pmatrix}u^{\prime}_{L,R}\\ d^{\prime}_{L,R}\end{pmatrix}=U_{L,R}\begin{pmatrix}u_{L,R}\\ d_{L,R}.\end{pmatrix} \tag{2.5}\]
+
+In other words, the QCD Lagrangian has a chiral symmetry \(U(2)_{L}\times U(2)_{R}\) for massless particles. As a consequence of this symmetry, we expect the three isospin vector pion sates should have a isospin scalar partner.
+
+However, many experiments did not find full chiral symmetry. For instance, the three pion states should have a scalar partner \(\sigma\) to form an irreducible representation of the chiral group, while the \(\sigma\) particle was not observed experimentally. Thus we know that the chiral group \(SU_{L}(2)\times SU_{R}(2)\) breaks spontaneously to isospin subgroup \(SU(2)\). This is called chiral symmetry breaking. The rest of this section will show in certain circumstances, such as the early stage of heavy-ion collisions, the chiral symmetry can be restored, and experimental observables can be compared with model calculation that includes chiral symmetry restoration.
+
+The pair production energy increases at high temperature due to increasing effective potential, i.e. the thermodynamical potential, from the hot medium, where there are finite chemical potential [20]. If it is above the binding energy of \(q\bar{q}\) pairs, the pairs do not have the potential that causes the symmetry breaking. The broken chiral symmetry in this case is restored at high temperature. This restoration, bringing in modified hadron contributions, could be observed in relativistic heavy-ion collisions which creates extremely hot medium.
+
+In heavy-ion experiments, dilepton production is a good way to investigate chiral symmetry restoration, because leptons are almost not affected by final-state interactions [21]. At SPS, the NA60 collaboration studied dimuon production [27]. They showed the net dimuon mass spectrum for 158 A GeV In-In collisions in the low mass regime (LMR), see Fig. 2.2a. All known sources from hadronic decays were included. A clear excess were observed. The excess dimuon can be described by in-medium modified \(\rho\) contributions, as shown in Fig. 2.2b. This modification implies that the chiral partner of the \(\rho\), the \(a_{1}(1260)\) meson, becomes broad. Chiral symmetry restoration merges the vector (\(\rho\)) and axialvector (\(a_{1}\)) correlators into a flat continuum. Both in-medium broadened function [28] and dropping mass function [29] were developed to explain the data. The broadening function can better describe the excess.
+
+At measured mass regime 0.2 GeV \(<M<\) 1.4 GeV/\(c^{2}\), thermal dielectron production has a large contribution from the \(\rho\) meson. The mass broadening of \(\rho\) has been considered as a signature of chiral symmetry restoration [30]. One of the experimental observables is the dilepton excess at LMR. \(e^{+}e^{-}\) pairs should show a strong excess below the free \(\rho\) mass through the \(\pi\pi\)-annihilation channel. Because of much larger mass, the advantage of dimuon over dielectron is that the gamma conversion contamination is largely suppressed.
+
+### 2.3 A Brief History of the Muonic Atom Searches
+
+Muonic atoms are atoms that consist of a hadron and a proton, bound by Coulomb force. Thus the structure of a muonic atom is similar to an ordinary hydrogen atom, but with a much smaller radius due to the large mass difference between a muon and an electron. The radii can be calculated from a Bohr model, which is a few hundred fm. The binding energy can also be calculated from a Bohr model, which is a few keV (exact values depends on the hadron mass, e.g. for the \(p\mu\) state \(E_{bind}\) = 2.53 keV).
+
+Muonic atoms have been studied over decades. Previous experiments at Brookhaven
+
+Figure 2.2: The left panel shows the dimuon mass spectrum before (dots) and after subtraction of the known decays (triangles). Transposed to the right panel shows the data compared to theoretical predictions. Figures taken from [27].
+
+National Lab [9] and Fermilab [10] have successfully produced \(\pi\)-\(\mu\) atoms from very intense \(K^{0}_{L}\) beams. Large numbers of pions and muons are produced from \(K^{0}_{L}\) decays. When the produced \(\pi\) and \(K\) have similar velocities, the Coulomb force bound them together as bound states and form \(\pi\)-\(\mu\) muonic atoms. In these experiment, the atoms then pass through a thin aluminum foil before the end of the vacuum channel. An aluminum foil, 0.030 inch thick, was shown to be enough to ionize the atoms. The daughter pions and kaons then exit the foil at the same velocity. The candidate events should form a sharp peak in the distribution of \(\alpha=\frac{p_{\pi}-p_{\mu}}{p_{\pi}+p_{\mu}}\) at \(\frac{m_{\pi}-m_{\mu}}{m_{\pi}+m_{\mu}}\). The two experiments measured 33 events (BNL) and 320 candidates (Fermilab), as shown in Fig. 2.3. This method, however cannot be used to produce other muonic atoms like \(p\mu\) or \(K\mu\), because we cannot produce an high luminosity beam whose decay products are \(p/K\) and \(\mu\).
+
+The muonic hydrogen, i.e. the \(p\mu\) atom, recently becprecise measurement of proton structure [7]. These studies took advantage of the larger wave function overlap of a proton and a muon in muonic atoms, as a result of the smaller radius. As shown in Fig. 2.4, reference [6] achieved very high precision in the measurement of proton size using Lamb shift in muonic atoms. The discrepancy between the result from this method ("Our value" in Fig. 2.4) and from the scattering experiments ("e-p scattering" in Fig. 2.4) remains as an open problem to be resolved.
+
+In heavy-ion collisions, although leptons can be a very good probe of QCD matter,
+
+Figure 2.4: Figure taken from [6]. Filled blue circles, number of events in the laser time window normalized to the number of ‘prompt’ events as a function of the laser frequency. The fit (red) is a Lorentzian on top of a flat background. The predictions for the line position using the proton radius from other measurements are indicated (yellow data points, top left). The result from reference [6] is also shown (‘our value’).
+
+leptons are copiously produced from hadronic decays at the very late stage of the collision. The decay kinematics smear the information of the fireball that the particles carry, and makes inclusive leptons not very sensitive to the hot medium.
+
+Mel Schwartz first proposed measuring muonic atoms at heavy-ion collision experiments. It is predicted by theorists [31] that only muons in early stage of collisions, from thermal emission or resonance decays, can be captured by a hadron and form a muonic atom. The muonic atom becomes a perfect filter to select early muons. At relativistic heavy-ion experiments, various kinds of hadrons are produced along with muons. If a hadron and a muon are close in phase space, they could form a muonic atom, and the rate has been calculated [32] for \(p\mu\), \(K\mu\) and \(\pi\mu\) atoms, as shown in Fig. 2.5. Many of these exotic atoms, such as the \(\bar{p}\mu\) atom and the \(K\mu\) atom were very difficult to produce. Heavy-ion collisions provide us a unique opportunity to search and potentially measure muonic atoms. The atom production mechanism is explain in [31], where a coalescence model is used. The hadron and the muon can form a Coulomb bound state when they are close in phase space. Details of the derivation will be further dicussed in Chapter 8.
+
+This paragraph will discuss a few other exotic atom production scenarios in heavy-ion collider experiments. The collision product \(K_{L}^{0}\) may also form \(\pi-\mu\) atoms similarly to what was found in the previous fixed target experiments. However, the \(K_{L}^{0}\) intensity is orders of magnitude lower than previous experiment, making the production rate very low. And because \(K_{L}^{0}\) has a long life time (\(>5\times 10^{-8}\)) s, most of them decay outside of detectors and will not be detected. Other possible exotic atoms include pionic atoms, such as \(K\pi\), \(p\pi\), and \(\pi\pi\). These atoms can be produced when a hadron captures a \(\pi\). Because of the strong interactions inside of these pionic atoms, charged K/p and \(\pi\) decay quickly into neutral particles in about \(2.5\times 10^{-15}\) s [34]. These neutral particles will not be detected by many trackers like the STAR detector, and as a result these pionic atoms cannot be identified. Another simple idea is to measure the photon emission spectrum of muonic atoms. Figure 2.6 shows energy levels, cascade, and experimental principle series in muonic hydrogens. These principle series, e. g. K-series X-rays, have fixed energies about 2 keV that can be calculated. Thus these photons with energy of 2 keV can be a strong evidence of muonic atoms. The
+
+Figure 2.5: Left panel: muonic atom yields from STAR and Kapusta & Mocsy [32]; right panel: muonic atom yields with muon transverse momentum \(0.17<p_{T}<0.30\) GeV/\(c\). Plots taken from [33].
+
+disadvantage is that in heavy-ion collisions, soft photons can be emitted from many electromagnetic sources, e. g. detector material interactions. These large backgrounds make this study not feasible. Secondly, most relativistic collider detectors are not designed to measure photons as low as a few keV. In this thesis, we will focus on the direct production of muonic atoms from particle coalescence mechanism, as suggested in [31].
+
+Figure 2.6: Energy levels, cascade and experimental principle series in muonic hydrogen. Figure taken from [6].
+
+## Chapter 3 Experimental Setup
+
+### 3.1 The Relativistic Heavy-Ion Collider
+
+The Relativistic Heavy-Ion Collider (RHIC) [35, 36] is located at Brookhaven National Lab in Upton, New York, United States. An aerial picture is shown in Fig. 3.1. The two main active experiments at RHIC are STAR (for Solenoidal Tracker at RHIC) and PHENIX (for Pioneering High Energy Nuclear Interaction eXperiment). The STAR experiment is located on the main ring close to the injection position on the main ring as shown in the picture. The beams start from the linear accelerator LINAC, then is injected to the BOOSTER, then AGS, and finally RHIC ring. The main RHIC ring has beams from two opposite directions. The clock-wise ring is called the "Blue ring", and the counter clock-wise ring is called the "Yellow ring".
+
+By colliding ions or protons, RHIC is able to explore the quark-gluon plasma (QGP) [14, 15], which is a new state of matter with the degree of freedom from quasi-free quarks and gluons. It is believed that QGP can be created after the collisions, and that QGP has existed a few milliseconds after the Big Bang [1]. RHIC is very flexible at accelerating different particle species. It can collide heavy ions, such as gold, uranium, and copper, which allows for system size and energy density comparisonsacross results from QGP. It can also collide deuterons (\(D\)) or helium-3 (\({}^{3}\)He) with heavy ions, which allows the direct comparison between hot and cold matters. RHIC is able to accelerate heavy-ion beams up to 100 GeV per nucleon, producing center of mass collision energy of \(\sqrt{s_{NN}}\) = 200 GeV per nucleon-nucleon collision in Au + Au system. The beam energy scan program successfully extended the colliding energy from \(\sqrt{s_{NN}}\) = 200 GeV to as low as 7.7 GeV, allowing the study of QCD phase transition and possible critical point. RHIC is the only collider in the world that can collide polarized protons, allowing the study of the origin of proton spin. For proton beams, RHIC is able to produce 250 GeV beams, i.e. \(\sqrt{s}\) = 500 GeV proton-proton beams, and the PHENIX detector is located at nine \(\sqrt{s_{NN}}\) = 200 GeV per nucleon-nucleon collision in Au + Au system. The PHENIX detector is located at nine \(\sqrt{s_{NN}}\) = 200 GeV per nucleon-nucleon collision in Au + Au system.
+
+collisions.
+
+### 3.2 The Solenoidal Tracker at RHIC
+
+The Solenoidal Tracker at RHIC (i.e. STAR detector) [39] consists of many sub-detectors, as shown in Fig. 3.2. A sophisticated trigger system [40] was designed to select interesting events, and a Data Acquisition System (DAQ) [42] was used to collect data.
+
+The trigger detectors include the Zero Degree Calorimeter (ZDC) [43], the Beam-Beam Counter (BBC), and the Vertex Position Detector (VPD) [44]. The
+
+Figure 3.2: STAR sub-detectors (produced by Alex Schmah). EEMC: Endcap Electromagnetic Calorimeter; BEMC: Barrel Electromagnetic Calorimeter; VPD: Vertex Position Detector; TPC: Time Projection Chamber; BBC: Beam-Beam Counter.
+
+particle tracking and identification detectors include the Time-Projection Chamber (TPC) [45], the Electro-Magnetic Calorimeters (EMC) [46, 47], and the Time Of Flight (TOF) [50]. The main detectors used in this analysis are the TPC, the VPD, and the TOF.
+
+The TPC [45] detector, shown in Fig. 3.3 is the primary tracking detector at STAR.
+
+The collisions take place around the center of the chamber, so that most of the produced particles pass through it. It is a large cylindrical gas chamber, 4.2 m long and 4.0 m in diameter, filled with P10 gas*. It is surrounded by magnetic system [48], which provides 0.5 Tesla magnetic field along the beam direction. The magnetic field bends charged particle trajectories to measure their momenta, which will be discussed in the next paragraph. A uniform electric field of 135 V/cm is
+
+Figure 3.3: A schematic view of the STAR TPC.
+
+generated between central membrane cathode and end cap anodes. This electric field is used to drift ionized electrons produced by charged particles passing the gas. The TPC has a full azimuthal coverage, and a mid rapidity coverage of \(-1<\eta<1\).
+
+The readout system at the end caps is based on multi-wire proportional chamber technology. A total of 136,608 readout pads can reconstruct the ionization position (hit position). A helix model was used to fit the TPC hit positions to get a particle track in the magnetic field, called a global track. The primary collision vertices can be reconstructed by extrapolating all global track to the center direction. Its resolution improves with the square root of the number of tracks used for the measurement. At top energy Au + Au \(\sqrt{s_{NN}}=200\) GeV collisions, the resolution in the transverse plane (with respect to the beam direction) is better than 1 mm, as shown in Fig. 3.4. The distance between a global track and the primary vertex is called DCA (Distance of Closest Approach). If a global track has a DCA smaller than 3 cm, the track is re-fitted including the primary vertex. The resulting track is call a primary track. The curvature of a helix can be associated with the transverse momentum, \(p_{T}\kappa=Bq\), where \(p_{T}\) is the transverse component of particle momentum, \(\kappa=1/r\) is the curvature of the helix, \(B\) is the magnetic field, and \(q\) is the charge of the particle. The TPC also measures the energy loss of a particle (dE/dx) [49], and use it for particle identification, to be discussed in Sect. 3.3.1.
+
+The VPD detector [44] consists of two assemblies on two sides (east and west) of STAR around the beam. Each assembly has 19 independent detectors (also called"tubes"). Figure 3.5 shows a schematic front view of a VPD assembly (left), and a photograph of the two VPD assemblies (right). Each tube has a Pb converter followed
+
+Figure 3.5 : On the left is a schematic front view of a VPD assembly, and on the right is a photograph of the two VPD assemblies. A one foot long ruler is shown for scale on the right. Figure taken from [44].
+
+Figure 3.4: Primary vertex resolution in the transverse plane (taken from [45]). The resolution decreases as the square root of the number of tracks used in the calculation.
+
+by a plastic scintillator and a photomultiplier tube (PMT). The first signal the VPD collects for each collision comes predominantly from \(\pi^{0}\)-decayed photons. The signals are digitized independently by two sets of electronics. The VPD has an online signal path, which is part of the trigger system, e.g. "VPD minimum bias" trigger uses VPD. It also has an offline signal path, which is used to measure the longitudinal position of a collision primary vertex, and provides "start time" (collision time) and vertex information. Because the TPC has a more precise vertex measurement due to high multiplicities in most collisions at RHIC, it is usually only used to reject events when the longitudinal vertex positions measured from the two detector have a large difference. The location of the primary vertex measured by the VPD is
+
+\[Z_{vertex}^{VPD}=c(T_{east}-T_{west})/2, \tag{3.1}\]
+
+where \(T_{east}\) and \(T_{west}\) are the times from the east and west VPD assembly, respectively, and \(c\) is the speed of light. The VPD also provides the "start time", which is the collision time, to be used by the TOF. The start time is given by:
+
+\[T_{start}=(T_{east}+T_{west})/2-L/c, \tag{3.2}\]
+
+where \(L=5.7\) m is the distance from either assembly to the center of TPC. Then the space and timing resolution can be derived as:
+
+\[\sigma(Z_{vertex})=(c/2)\sigma_{\Delta T}=(c/\sqrt{2})\sigma_{T}=(c/\sqrt{2}) \sigma_{0}/\sqrt{N}, \tag{3.3}\]
+
+where \(\sigma_{0}\) is the time resolution of a single VPD tube, \(N\) is number of valid tubes.
+
+Hence the timing and vertex position resolution will improve in high multiplicity events, where \(N\) is larger than low multiplicity events.
+
+The TOF detector surrounds the TPC chamber, and measures the "stop time" (the time when a particle reaches TOF) of a particle, for the purpose to improve the particle identification (to be discussed in Sect. 3.3.2) capability [50, 51] at intermedium momentum range. The TOF modules were built based on the MRPC (Multi-gap Resistive Plate Chamber) technology [52]. Side views of an MRPC module is shown in Fig. 3.6.
+
+A group of 32 modules form a tray. There are 60 trays on each side of STAR. The full system was commissioned in 2009, in time for 2010 run which saw
+
+Figure 3.6: Two side views of an MRPC module [52].
+
+the start of RHIC Beam Energy Scan, as well as the data set used in thesis of Au + Au collisions at top RHIC energies.
+
+Each module is a stack of glass plates with uniform gas gaps. Electrodes is applied to the outer surfaces of the two outer plates. When a charged particle goes through the chamber, avalanches will be produced. Since plates are resistive they are transparent to signal induced by avalanches, a signal induced in the pickup pad is the sum of signals from all the gas gaps. The calibration process involves Integral Nonlinearity (INL) correction, offset, alignment, slewing correction, and a hit position correction [53]. After the calibration, the timing resolution after offset and slewing correction can be better than 100 ps.
+
+### Particle Identification
+
+Particle identification (PID) is essential to many heavy-ion analyses. Good PID allows us to study the chemistry of heavy-ion collisions, such as meson-baryon difference, heavy flavor particles, lepton physics. The main sub-detectors at STAR for PID are the TPC, fTPC (forward TPC), the TOF, EEMC, and BEMC. With these sub-detectors, STAR is able to cover all charged particles at mid-rapidity, and also able to perform second vertex construction from long life time decays, such as from \(K_{S}^{0}\) and \(\Lambda\). In this chapter, we will focus on the most relevant identification method, particularly in this thesis, the TPC and TOF identification.
+
+#### Particle Identification with the TPC
+
+As discussed in Sect. 3.2, the TPC measures the energy loss of a particle when it passes through the gas in the TPC chamber. The \(dE/dx\) is determined from up to 45 pad rows. The most probable energy loss is measured by truncated mean method, or by fitting all valid clusters. A unique \(dE/dx\) vs \(p\) distribution can be obtained for each particle species, which is used for particle identification shown in Fig. 3.7.
+
+For a particular detector setup, the expected energy loss is a function of momentum and mass of the particle. This can be estimated by Bichsel functions [49]. Each run STAR will calibrate the correct energy loss and save the corrected Bichsel functions in STAR database for data production. The lines in Fig. 3.7 show the expected energy loss used in STAR production for data collected in year 2011.
+
+Due to finite resolution of the \(dE/dx\) measurement from the TPC, each particle
+
+Figure 3.7: An example of dE/dx vs momentum measured by STAR TPC. The solid lines represent the expected energy loss as a function of momentum.
+
+will form a band around the expected values, as shown in Fig. 3.7. The distribution of dE/dx for a small momentum range can be considered as a Gaussian distribution. The likelihood of a particle being a certain particle species can be how far its \(dE/dx\) is from the expected value, i.e. \(N_{\sigma_{dE/dx}}=\log\frac{dE/dx}{dE/dx_{expected}}/R\), where \(R\) is the resolution of energy loss.
+
+While \(N_{\sigma_{dE/dx}}\) for electrons, pions, kaons, and protons are calculated in standard data production, the \(N_{\sigma_{dE/dx}}\) for muons need to be calculated at the analysis stage.
+
+Note that the resolution of dE/dx improves by number of dE/dx hits, i.e. number of independent measurements. The signal track resolution need to be obtained first. We do this by averaging over resolution from \(n\sigma_{\pi}\) and \(n\sigma_{e}\):
+
+\[N_{\sigma_{\pi}}=\log\frac{dE/dx}{dE/dx_{Bichsel}^{\pi}}/R, \tag{3.4}\]
+
+\[N_{\sigma_{e}}=\log\frac{dE/dx}{dE/dx_{Bichsel}^{e}}/R, \tag{3.5}\]
+
+\[\Rightarrow\frac{1}{R}=\frac{\log\frac{dE/dx}{dEdx_{Bichsel}^{\pi}}\times N_ {\sigma_{\pi}}+\log\frac{dE/dx}{dE/dx_{Bichsel}^{e}}\times N_{\sigma_{e}}}{ \log^{2}\frac{dE/dx}{dEdx_{Bichsel}^{\pi}}+\log^{2}\frac{dEdx}{dEdx_{Bichsel}^ {e}}}. \tag{3.6}\]
+
+Then
+
+\[N_{\sigma_{\mu}}=\log\frac{dE/dx}{dE/dx_{Bichsel}^{\mu}}/R. \tag{3.7}\]
+
+#### Particle Identification with TOF
+
+At STAR, a software associates a particle's TPC track and TOF hit. First a track-to-hits matching is established by extrapolating a track to a TOF hit. If more than one track is associated with one TOF hit, all such associations will be abandoned; If one track is associated with multiple TOF hits, the highest ranked matching will be used. In the TOF matching software, So called the "matching flag", mMatchFlag, which will be used in Chap. 5, is determined as follows: mMatchFlag = 0 indicates no match; mMatchFlag = 1 indicates one-to-one matching; mMatchFlag = 2 indicates one-to-two matching to TOF hits that have the highest TOT (time over threshold); mMatchFlag = 3 indicates one-to-two matching and that these TOF hits have the closest distance to the pickup wire.
+
+For a pair construction analysis, the particles need to be identified track-wise. In this analysis, to reject all background very high purity should be required. The timing information measured from the VPD and the TOF can be used to calculate particle mass,. An example of momentum dependence of the mass distribution is shown in Fig. 3.8. As we can see, the resolution diverges as the momentum increases. This behavior increase the difficult of good fitting at high momentum when particles start to merge.
+
+An alternative way is to use, defined as:
+
+(3.8)
+
+where is the speed of the particle measured from TOF, is the speed ofthe particle measured from the TPC, \(m\) is the mass of the particle that we would like to identify, and \(p\) is the momentum of the particle measured by the TPC. From this equation, we can derive that the expectation value for a candidate is 0, and the resolution depends on:
+
+\[\delta\left(\frac{\Delta\beta^{-1}}{\beta^{-1}}\right)^{2}=\gamma^{-4}\left( \frac{\delta p^{-1}}{p^{-1}}\right)^{2}+\left(\frac{\delta t}{t}\right)^{2}+ \left(\frac{\delta L}{L}\right)^{2}, \tag{3.9}\]
+
+where \(\gamma=\frac{1}{\sqrt{1-\beta^{2}}}\) is Lorentz factor. The first term on the right hand side will converge at higher momentum due to the \(\gamma^{-4}\) factor. This results in nearly constant resolution to the variable \(\Delta\beta^{-1}/\beta^{-1}\) at higher momentum, as shown in Fig. 3.9. This
+
+Figure 3.8: The momentum dependence of particle mass distributions (taken from [50]). The lines represent the 2\(\sigma\)region. The solid lines corresponding to tracks at midrapidity, and the dashed lines corresponding to tracks at forward rapidity. As we can see, the mass resolution increases at higher momentum.
+
+property gives a good constrain on the fitting parameters at higher momentum, where different particle species begin to merge and statistics begin to drop. The details of muon PID will be discussed in Sect. 4.1 and Sect. 5.3. The disadvantage of using \(\Delta\beta^{-1}/\beta^{-1}\) is that we have to assume different particle masses. For unknown particles whose masses are within a wide range, this method is not suitable.
+
+Figure 3.9 : The momentum dependence of \(\Delta\beta^{-1}/\beta^{-1}\) distributions for kaons at \(\sqrt{s_{NN}}=200\) GeV/\(c\). The \(\Delta\beta^{-1}/\beta^{-1}\)resolution is nearly a constant at higher momentum.
+
+## Chapter 4 Low Mass Dimuon Production at Au+Au \(\sqrt{s_{NN}}\) = 200 GeV
+
+The invariant mass method is commonly used in particle and nuclear physics. Two daughter particles' kinetic information is combined to reconstruct the invariant mass of the parent particle. In this chapter, the dimuon invariant mass spectrum is constructed from the data collected in 2011 are analyzed. The next sections show a proof of principle of low mass dimuon spectra, reconstructed from low momentum muons that are identified by the TOF and the TPC. Improved, future measurements may help understand the mechanism of chiral symmetry restoration, discussed in Sect. 2.2.
+
+### 4.1 Data Set and Cuts
+
+A "minimum bias" trigger (MB), which triggered the largest data set of Au+Au at \(\sqrt{s_{NN}}=200\) GeV in 2011, is used in this study. The MB trigger requires a signal coincidence between the two ZDC detectors, ZDCE and ZDCW (East and West, respectively). The signals refer to the analog sum of the three PMT signals from the East and West detectors, requiring the threshold typically about 40% of the single neutron peak [40].
+
+To select event that are suitable for physics signal extraction, "Event cuts", listed
+
+[MISSING_PAGE_EMPTY:46]
+
+518 million events.
+
+Track selection cuts are listed in Tab. 4.2. A low momentum limit \(>0.15\) GeV/c is required by TOF for PID purpose, because lower momentum muons have larger curvature and can not reach TOF. It should be noted that these muons are not accessible to the MTD due to low momentum [41]. A non-zero TOF matching flag (see Sect. 3.2) is required, meaning a valid TOF match. nHitsFit means the number of hit points that are used for fitting a track. \(nHitsFit\geq 25\) is used to insure good momentum resolution and to reduce track splitting [5]. nHitsDedx means number of hit points that are used to determining the energy loss. A commonly used value 15 was found to be sufficient in physics analyses [5]. A rather small DCA cut \(<1\) cm is used to increase the probability of a track being primary tracks. The centrality,
+
+Figure 4.1: Reference multiplicity distribution in Au+Au at \(\sqrt{s_{NN}}=200\) GeV. The vertical line selects the top 5% most central events.
+
+which indicates the overlap size of two ions, is estimated from a Glauber model [55] simulation. Uncorrected charged particle multiplicity within \(\eta<0.5\), called reference multiplicity (i.e. refMult), is compared with Glauber calculation to delineate the centrality [5]. STAR's software routine (called StRefMultCorr) calculates the centrality up to 80%. The most peripheral centralities (\(>\) 80%) are not calculated due to trigger bias.
+
+Muon PID cuts are listed in Tab. 4.3. First half of the pion candidates are removed from muon candidates by the TPC dE/dx requirement \(N_{\sigma_{\pi}}<0\). The distribution of \(\Delta\beta^{-1}/\beta^{-1}\) vs momentum are shown in Fig. 4.2 (a). For each small momentum slice, the 2-D plot is then projected to Y-axis, as shown in Fig. 4.2 (b - f). A double Student's-T + background fit function was used to fit the distribution. In
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline Cuts & Range \\ \hline \hline \(p\) & \(>\) 0.15 GeV/\(c\) \\ TOFpathLength & \(\geq\) 100 cm \\ TOFmatchFlag & \(>\) 0 \\ nHitsFit & \(\geq\) 25 \\ nHitsDedx & \(\geq\)15 \\ DCA & \(\geq\) 1 \\ \(|\eta|\) & \(<\) 1 \\ \hline \end{tabular}
+\end{table}
+Table 4.2: Track Selection
+
+[MISSING_PAGE_EMPTY:49]
+
+are given by
+
+\[-7.7\times 10^{-1}-1.2\times 10^{1}x+5.8\times 10^{1}x^{2}-9.1\times 10^{1}x^{3}, \tag{4.1}\]
+
+\[2.0\times 10^{-1}-2.7\times 10^{-1}x-6.4\times 10^{0}x^{2}+1.7\times 10^{1}x^{3}, \tag{4.2}\]
+
+for the lower and upper limits, respectively.
+
+Figure 4.2 : The \(\Delta 1/\beta\) distribution for muons after TPC \(-0.5<N_{\sigma_{\mu}}<3\) cut for minimum bias Au+Au at \(\sqrt{s_{NN}}=200\) GeV/\(c\). The first panel shows \(\Delta\beta^{-1}\) vs p. The two lines are fit results based on cuts obtained from each momentum slices, which are shown in the following panels. The red lines represent the fit for the muon peak; the blue lines represent the fit to the pion; the yellow lines represent background; the black lines represents the fit to the total distributions.
+
+### Data Analysis
+
+In the invariant mass analysis, the four-momenta of the two muons will be added first to get the pair four-momentum. Then the invariant mass of the pair is given by:
+
+\[m_{inv}=\sqrt{E^{2}-|{\bf p}|^{2}}, \tag{4.3}\]
+
+where \(E\) is the pair energy, and \({\bf p}\) is the pair three-momentum. The dimuon invariant mass spectrum is constructed by pairing a \(\mu^{+}\) and a \(\mu^{-}\) in a same event and calculate their pair invariant mass with Eq. 4.3. During this process, \(\mu^{+}\) and \(\mu^{-}\) not from a virtual photon are also paired and contribute to the pair mass spectrum. These contributions from random pairing are called "combinatorial background", which is estimated by "like-sign" method, described later in this section. The muon candidates are paired in three ways according to electric charges, unlike-sign, "++" like sign, and "\(--\)" like sign. The pairing is also done in mixed events. Mixed events are used to correct acceptance differences for different charges, which will be discussed in the next paragraph. All events are categorized into 9 centrality bins, 20 vertex bins along z direction, and 2 magnetic field settings. Only muons from similar events are paired. The pair invariant mass distributions are shown in Fig. 4.3.
+
+Because of the different bending directions of particles with different charges in the magnetic field inside the detector. the opening angles of the pair lost at the TPC sector boundaries or dead TPC readout units depend on the charge combination. This leads to acceptance reduction in different mass regions. The like-sign pair mass needs correction for the acceptance difference between positive and negative chargedparticles. The correction for positively charged hadron and negatively charged muon, is the ratio of unlike-sign to like-sign geometric mean in mixed-event. The formula for the correction is:
+
+\[LS_{\rm corrected}=2\sqrt{LS_{++}\cdot LS_{--}}\cdot\frac{ME_{\rm unlike-sign}}{2 \cdot\sqrt{ME_{++}\cdot ME_{--}}}, \tag{4.4}\]
+
+where "LS" stands for Like-Sign, "ME" stands for Mixed-Event, and the \(-/+\) indices stand for the charges of the two muons in a pair. All unlike-sign, mixed-event and like-sign before and after corrections are shown in Fig. 4.4. The unlike-sign and like-sign (acceptance corrected) muon distributions are plotted in Fig. 7.2. The difference between the two will be used for signal extraction.
+
+Track splitting happens when the tracking software does not fit the hit points correctly. The hits from one track should be reconstructed to one track, but in
+
+Figure 4.3: Dimuon invariant mass spectra from different combinations.
+
+[MISSING_PAGE_EMPTY:54]
+
+(splitting level) can be defined to quantify the degree of splitting:
+
+\[SL\equiv\frac{\sum_{i}S_{i}}{N_{1}^{\rm hits}+N_{2}^{\rm hits}}, \tag{4.5}\]
+
+Figure 4.7: Splitting level distribution of dimuon pairs. The distributions for different foreground/backgrounds have been shifted by a fixed number for better visualization, noted on the plot.
+
+Figure 4.6: Track splitting. a) shows a small \(SL=-0.5\); b) and c) show a large \(SL=1\); d) shows in between \(SL=0.8\).
+
+where
+
+\[S_{i}=\left\{\begin{array}{ll}+1:&\mbox{one track leaves a hit on pad row}\\ -1;&\mbox{both tracks leave a hit on pad row}\\ 0:&\mbox{neither track leaves a hit on pad row},\end{array}\right. \tag{4.6}\]
+
+and where i is the TPC read-out pad row number and \(N_{1}^{\rm hits}\) and \(N_{2}^{\rm hits}\) are the total number of hits associated to each track. By construction, \(SL\) has a value between -0.5 (when both tracks have exactly the same pad rows with hits, shown in Fig. 4.6(a) and 1 (when two tracks have no hits on a same pad row, shown in Fig. 4.6 (b, c). \(SL<0.6\) was found to remove the splitting effect [57] sufficiently. We can see from Fig. 4.7 that only a small amount of pairs have \(SL>0.6\). The contribution to the
+
+Figure 4.8: Fraction of merged hits distribution of dimuon pairs. The distributions for different foreground/backgrounds have been shifted by a fixed number for better visualization, noted on the plot.
+
+final spectra is found to be negligible.
+
+Another possible bias from the TPC track reconstruction is track merging, where two tracks are reconstruct as one track. This causes a reduction of pairs at low relative momentum, an opposite effect as in track splitting. A variable \(FMH\) (Fraction of Merged Hits) was defined:
+
+\[FMH=\frac{N_{\rm merged}^{\rm hits}}{N^{\rm hits}}, \tag{4.7}\]
+
+where \(N_{\rm merged}^{\rm hits}\) is the number of hits that are considered as merged hits by the TPC. Two hits are considered as merged if the closeness is beyond the TPC resolution. The TPC spacial resolution in the inner sector is 0.8 cm in the X-Y plane, 3.0 cm in the Z direction; The TPC spacial resolution in the outer sector is 1.4 cm in the X-Y plane, 3.2 cm in the Z direction. Different \(FMH\) cuts were compared, and it was found that when \(FMH\) is below 10%, the merging contribution is negligible, indicating it is sufficient to eliminate track merging effect [57]. Pair-wise cuts are summarized in Tab. 4.4.
+
+Table 4.4 : Muon Pair Selection
+
+\begin{tabular}{|c|c|} \hline Cuts & Range \\ \hline \hline \(|\eta_{pair}|\) & \(<\) 1 \\ Splitting Level & \(<\) 0.6 \\ Fraction of Merged Hits & \(<\) 10\% \\ \hline \end{tabular}
+
+### 4.3 Results and Discussion
+
+The dimuon invariant mass spectra was compared with contributions from hadronic simulations, also know as the "cocktail simulations". The cocktail includes the contributions from the following decay channels, \(\eta\rightarrow\mu\mu\gamma\), \(\eta\rightarrow\mu\mu\), \(\eta^{\prime}\rightarrow\mu\mu\gamma\), \(\omega\rightarrow\mu\mu\pi^{0}\), and \(\phi\rightarrow\mu\mu\gamma\). The efficiencies are evaluated for each \(p_{T}\) and \(\eta\) bin. The tracking efficiency is estimated from embedding simulated, Monte Carlo muons into real event, and compares the number of constructed muons and the number of embedded muons. An example plot is shown in Fig. 4.9a. The TOF matching efficiency is estimated from comparing the number of muons before TOF matching with number of muons after TOF matching. An example is shown in Fig. 4.9b. The PID efficiency is estimated from fit functions and PID cuts, shown in Fig. 4.9c. These efficiencies are calculated as a function of pseudorapidity and transverse momentum, and folded into cocktail simulation shown in Fig. 4.10a.
+
+We can see that the major component in the mass range is from \(\eta\) Dalitz decay and dimuon decay channels, as shown by the purple curves. The second contribution, which is from \(\omega\rightarrow\mu\mu\pi^{0}\) is an order of magnitude smaller than from \(\eta\). Figure 4.10b shows the data to cocktail ratio, from which we can see the data has an excess at \(\sqrt{s_{NN}}=200\) GeV/\(c\). The data are consistent with the data, but the data are consistent with the data.
+
+Figure 4.9: Dimuon efficiency corrections in Au + Au at \(\sqrt{s_{NN}}=200\) GeV/\(c\). An example of tracking efficiency shown in Fig. 4.9a; an example of TOF matching efficiency shown in Fig. 4.9b; an example of TOF PID efficiency shown in Fig. 4.9c.
+
+mass region 0.40 - 0.55 GeV/\(c^{2}\).
+
+Figure 4.10 : Dimuon invariant mass spectrum was obtained from STAR minimum bias data at \(\sqrt{s_{NN}}\) = 200 GeV in year 2011, shown by the red markers in the left panel. The dashed lines show the hadronic contributions [58], from \(\eta\), \(\eta^{\prime}\), \(\omega\), \(\phi\) respectively. The solid line shows the total contribution, without the \(\rho\) meson. As expected the data show an excess over cocktails at 0.40 - 0.55 GeV/\(c^{2}\). The data-to-cocktails ratio is shown in the right panel. The uncertainties are statistics only.
+
+Based on the previous STAR publication [5], the \(\eta\) input in the cocktails has about 30% uncertainty. We use this as an estimated cocktail uncertainty, and get the excess of data over hadronic cocktails, shown in Fig. 4.11. The integrated excess at 0.40-0.55 GeV/\(c^{2}\) has an significance of 3.5\(\sigma\).
+
+This is a first attempt to investigate dimuon production at low mass region using the TOF. Because muons have much less contribution from photon conversionscompared to electrons, dimuons are better tools to study the low mass excess than dielectrons. In this proof of principle measurement, we indeed see an excess at the low mass region. This excess might be related to the in-medium modified \(\rho\) contribution, which has been related to chiral symmetry restoration at high temperature [59]. It should be noted that systemic uncertainty study and better understanding on the cocktails are still needed.
+
+Figure 4.11: Dimuon excess in minimum bias data at \(\sqrt{s_{NN}}\) = 200 GeV. The uncertainties only include statistical uncertainties from data (shown by the error bars), and 30% uncertainty in cocktail simulations (shown by the orange band), which is estimated from previous STAR measurement [5]. The integrated excess between 0.40-0.55 GeV/\(c^{2}\) has an significance of 3.5\(\sigma\).
+
+## Chapter 5 Muonic Atoms in Heavy-ion Collisions
+
+As discussed in Sect. 2.1, in heavy-ion collisions, charged particles with high multiplicity are produced. The produced particles cease elastic interactions and freeze-out when the inter-particle distance becomes large enough. In this high multiplicity environment, oppositely charged hadrons and muons were predicted to be bound by Coulomb force and form muonic atoms [31], if they have very similar velocities. The binding energies, which can be calculated from a hydrogen model with mass scaling, are a few keV, e.g. 2.5 keV for \(p\mu\), 2.3 keV for \(K\mu\), and 1.6 keV for \(\pi\mu\). The bound states, being electrically neutral, travel in a straight line, unaffected by the magnetic field, and then hit the beam pipe. The effective radiation length for a given material consisting of a single type of nuclei can be approximated by the following expression:
+
+\[R_{length}=\frac{716.4\times A}{Z(Z+1)ln\frac{287}{\sqrt{Z}}}/\rho, \tag{5.1}\]
+
+where \(A\) is the atomic mass number, \(Z\) is the atomic number of the nucleus, \(\rho\) is the density of the material. STAR beam pipe is made of beryllium, which has the effective radiation length is 35 cm. Aluminum has the effective radiation length of 9.0 cm (8.89 cm in PDG [13]). So the STAR beam pipe (0.030 inch) has about thesame ionization power (0.0022) as the 0.0088 inch Aluminum foils (0.0025) [60]. The beryllium beam pipe at STAR thus serves the same purpose as the aluminum foil in the previously experiments mentioned in Sect. 2.3 -- to disassociate hadrons and muons in an atom. This disassociation process is shown in Fig. 5.1.
+
+For a \(V^{0}\) reconstruction at STAR, for instance \(K^{0}_{S}\) reconstruction, where the decay length is exponentially distributed, the reconstruction efficiency at very low \(p_{T}\) is \(\approx\) 1%. For beam pipe disassociation events from muonic atoms, the decay length is not exponentially distributed, and thus will result in a even lower efficiency, making \(V^{0}\) method not feasible. In this analysis, we use the proximation that treats the hadron and muon tracks from muonic atoms as primary tracks. The reason is that the largest distance between the primary vertex and the muon helix in our kinetic range is 0.8mm, which is beyond the TPC resolution. The invariant mass shift was simulated and was found to be about 0.5 MeV/\(c^{2}\) (see Fig. 5.2), which is much less than the granularity which we use in the next chapters (bin size 2.5 MeV/\(c^{2}\)).
+
+In this and the following chapters, we will discuss the muonic atom search in centrally triggered data from Au + Au at \(\sqrt{s_{NN}}\) = 200 GeV.
+
+### 5.1 Data Set and Triggers
+
+The dataset used in the muonic search is from Au+Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV collected by the STAR detector in 2010. Centrally triggered [40] events are used to select events that have high charged particle multiplicities and thus maximize the 
+
+[MISSING_PAGE_FAIL:64]
+
+from momentum shift is found to be a smaller than the bin size 2.5 MeV/\(c^{2}\)[61].
+
+Figure 5.2 : The Y-axis is the observable that will be discussed in Sect. 7.1. The effect from momentum shift is found to be a smaller than the bin size 2.5 MeV/\(c^{2}\)[61].
+
+the \(Z_{vertex}^{TPC}\) vs. \(Z_{vertex}^{VPD}\) distributions. The distribution between the vertical lines on the right panel of Fig. 5.3 is mainly from VPD resolution, which is tens of picoseconds, corresponding to a few centimeters. The distributions outside of the lines are likely from pileups. To reject possible pileup events, for a same event the \(Z_{vertex}\) measured from the TPC and the VPD need to be close: \(|Z_{vertex}^{TPC}-Z_{vertex}^{VPD}|\leq 3\) cm. Events that are not at the center of the chamber on the X-Y plane are rejected by requiring \(\sqrt{(X_{vertex}^{TPC})^{2}+(Y_{vertex}^{TPC})^{2}}<2\) cm, to reduce events from beam pipe interactions. All event-level cuts are listed in Tab. 5.1.
+
+Table 5.1 : Event Selection
+
+\begin{tabular}{|c|c|} \hline Cuts & Range \\ \hline \hline \(|Z_{vertex}^{TPC}|\) & \(<50\) cm \\ \(|Z_{vertex}^{TPC}-Z_{vertex}^{VPD})|\) & \(\leq 3\) cm \\ \(\sqrt{(X_{vertex}^{TPC})^{2}+(Y_{vertex}^{TPC})^{2}}\) & \(<2\) cm \\ refMult & \(\geq 20\) \\ \hline \end{tabular}
+
+Figure 5.4 lists the number of events after the cuts are applied. We can see more than 98% of the total events passed these cuts, and a total of 220 million events contributed to the results. The reference multiplicity (refMult, discussed in Sect. 4.1) distribution is shown in Fig. 5.5. As we can see, different from MB triggered events, Central events have higher charged particle multiplicities. The small peak around 0 might be from trigger bias. We use refMult \(<20\) to remove the small peak. Due to
+
+low reference multiplicity, muons are not likely to be found in these events. We found the final result is not affected with/without this cut.
+
+### Track Selections
+
+Track-wise cuts are listed in Tab. 5.2. The TPC hit distributions are shown in Fig. 5.6. We can see that the number of TPC hits per track (\(nHitsFit\)) has an upper limit of 45, which is set by the number of TPC pad rows. The number of hits used for \(dE/dx\) determination (\(nHitsDedx\)) ranges from about 10 to 31, because the "truncated mean" method was used in this data production [45]. \(nHitsMax\) is the number of possible hits on pad rows, given a helix fit on that track. The ratio
+
+Figure 5.4: Number of events change with cuts ( note y-axis not starting form 0). Cuts are applied from left to right. The percentage numbers show the fractions of valid number of events after each cut.
+
+of \(nHitsFit\) to \(nHitsMax\) is required to be between 0.52 and 1.02, to reject track splitting and to reject bad track fitting. The "comb-like" structures come from finite number of hits, whose ratios will also have finite values and thus will be unevenly distributed.
+
+### 5.3 Particle Identification
+
+Particles are identified based on energy-loss measurement from the TPC and the timing measurement from the TOF together. The muon momentum is limited to 0.15 - 0.25 GeV/\(c\) to ensure the purity of the sample. First a TPC cut \(-3<N_{\sigma_{\mu}}<-0.5\)
+
+Figure 5.5: Reference multiplicity distributions from central trigger events in AuAu200 collisions from Run 10.
+
+is applied. The normalized \(\Delta 1/\beta\) distribution is calculated as follows: \(\frac{\Delta\beta^{-1}}{\beta^{-1}}=\frac{\beta_{TOF}^{-1}-\beta_{ TPC}^{-1}}{\beta_{TOF}^{-1}}=1-\beta\sqrt{1-m^{2}/p^{2}}\), where \(\beta_{TPC}^{-1}\) is the TPC calculated \(\beta^{-1}\) by assuming a mass m for a particular particle species. It was found that the Student's-T function can better describe the shape of \(\Delta 1/\beta\), possibly due to different number of VPD tubes are mixed in the data. The \(1/\beta\) distributions are then fitted with two Student's-T distributions for each momentum slice in Fig. 5.7. The Student's-T distribution is defined as:
+
+\[f_{Student^{\prime}s-T}(t)=\frac{\Gamma\left(\frac{\nu+1}{2}\right)}{(\sqrt{ \mu\pi})\Gamma\left(\frac{\nu}{2}\right)}\left(1+\frac{t^{2}}{\nu}\right)^{- \frac{\nu+1}{2}}\,, \tag{5.2}\]where \(\nu\) is the number of degrees of freedom and \(\Gamma\) is the gamma function. The lower limit for \(\dfrac{\Delta\beta^{-1}}{\beta^{-1}}\) is set to be -0.04, and the upper limit is set so that the purity of the sample, estimated from the fitting curves, is 99%. The upper limits are calculated for five momentum slices, evenly distributed from 0.15 - 0.25 GeV/\(c\). Then a polynomial function of momentum is used to fit these upper limits. The procedure is similar to what is used in Sect. 4.1. The obtained function is
+
+\[\Delta(1/\beta)_{upper-limit}(p)=-1.2\times 10^{-2}p^{2}+9.1\times 10^{-1}p-3.6, \tag{5.3}\]
+
+as shown in the last panel of Fig. 5.7, represented by the curve. The tight cut at higher momentum ( \(\sim\) 0.22 GeV/\(c\) and above) is to insure the purity of the muon sample.
+
+The kaon and proton PID is similar to muon PID described in the previous paragraph. By requiring similar velocities, the corresponding momenta for kaons and protons/antiprotons are 0.7 - 1.17 GeV/\(c\) and 1.33 - 2.22 GeV/\(c\) respectively. Figure 5.8 shows the \(\Delta 1/\beta\) distribution as a function of momentum after a TPC cut \(-2<n_{\sigma_{K/p}}<2\) for kaons and protons. The upper cut is set to be 0.04, and the lower cut is set to be -0.04 if the purity is larger than 99%, except that at high momentum, where the purity of the sample between (-0.04, 0.04) is lower than 99%, the upper cut is then set base on the 99% purity requirement. All the point for different momentum are then fitted with polynomial functions.
+
+Figure 5.7 : The \(\Delta 1/\beta\) distribution for muons after a TPC cut \(-0.5<N_{\sigma_{\mu}}<3\) for central Au+Au at \(\sqrt{s_{NN}}=200\) GeV/\(c\). The red lines represent the fit for the muon peak; the blue lines represent the fit for the pion peak; the black lines represents the fit to the total distributions.
+
+Figure 5.8 : The \(\Delta 1/\beta\) distribution for kaons and protons after a TPC cut \(-2<n_{\sigma_{K/p}}<2\). The colors represent Z-axis in log scale. The TOF lower cuts, represented by the black curves, are determined by similar technique as in Fig. 5.7, and the upper cuts are 0.04.
+
+## Chapter 6 Muonic Atom Femtoscopy
+
+The femtoscopic correlation method, which is used in this thesis, was first developed by astronomers Hanbury-Brown and Twiss in 1950s [62]. In 1960, this technique, also know as HBT method, was introduced to particle physics, to study the pion wave-function symmetrization [63]. In heavy-ion physics, femtoscopic correlations have been used to study the particle emission source size, for instance in references [64, 65]. In this chapter, we will discuss in detail how this correlation method is used to study the muonic atom ionization, and determine the fraction of primordial muons from the inclusive muons.
+
+### \(K\)-\(\mu\) and \(p\)-\(\mu\) Correlations
+
+Femtoscopic correlations are studied as functions of \(k^{*}\), which is defined as the magnitude of the momentum of either particle in the pair rest frame. \(k^{*}\) can be calculated as follows. We boost one of the two particles, with four-momentum \({\bf p_{1}}\), to pair velocity \(\beta\), with Lorentz factor \(\gamma=\frac{1}{\sqrt{1-\beta^{2}}}\)[66], using the following equation:
+
+\[{\bf p_{1}}^{\prime}=L(\beta){\bf p_{1}}, \tag{6.1}\]where the Lorentz boost matrix \(L(\beta)\) is:
+
+\[L(\beta)=\begin{bmatrix}\gamma&-\gamma\beta_{x}&-\gamma\beta_{y}&-\gamma\beta_{z} \\ -\gamma\beta_{x}&1+\frac{\gamma^{2}}{1+\gamma}\beta_{x}^{2}&\frac{\gamma^{2}}{1+ \gamma}\beta_{x}\beta_{y}&\frac{\gamma^{2}}{1+\gamma}\beta_{x}\beta_{z}\\ -\gamma\beta_{y}&\frac{\gamma^{2}}{1+\gamma}\beta_{x}\beta_{y}&1+\frac{\gamma^ {2}}{1+\gamma}\beta_{y}^{2}&\frac{\gamma^{2}}{1+\gamma}\beta_{y}\beta_{z}\\ -\gamma\beta_{z}&\frac{\gamma^{2}}{1+\gamma}\beta_{x}\beta_{z}&\frac{\gamma^ {2}}{1+\gamma}\beta_{y}\beta_{z}&1+\frac{\gamma^{2}}{1+\gamma}\beta_{z}^{2} \end{bmatrix}, \tag{6.2}\]
+
+Then \(k^{*}\) is the magnitude of the new three-momentum, i.e. \(k^{*}=|\vec{p}_{1}^{\,\prime}|\).
+
+The smaller the value of \(k^{*}\) is, the closer the two particles are in phase space. The correlation function is defined as the ratio of the \(k^{*}\) distributions in a same event, to the \(k^{*}\) distributions in the mixed event, for which without explicit correlations. The correlation as a function of \(k^{*}\) shows how the interactions of the two particles change with respect to their distance in phase space. The STAR collaboration has thoroughly studied the \(K\)-\(\pi\) system [56] in Au + Au at \(\sqrt{s_{NN}}\) = 130 GeV, in which only the Coulomb interaction dominates, as shown in the upper panels of Fig. 6.1. The correlation function of unlike-sign \(K\)-\(\pi\) is enhanced, approaching unity at lower \(k^{*}\); the correlation function of like-sign \(K\)-\(\pi\) is supressed, approaching unity at lower \(k^{*}\).
+
+For non-identical particles, a leading particle can be selected. If the leading particle travels faster than the pair velocity, this case is denoted as \(C_{+}(k^{*})\), see Fig. 6.2. The sign in the index is determined by the sign of \(\vec{v}_{pair}\cdot\vec{p}_{\pi}\). If the leading particle travels slower than the pair velocity, the sign of \(\vec{v}_{pair}\cdot\vec{p}_{\pi}\) is negative, and this case is denoted as \(C_{-}(k^{*})\). If the average space-time emission points of the two particle 
+
+[MISSING_PAGE_EMPTY:76]
+
+[MISSING_PAGE_EMPTY:77]
+
+tions tend to be suppressed. Then in this scenario, the double ratio of the correlation functions, \(C_{+}(k^{*})/C_{-}(k^{*})\), is not unity, and the deviation from unity is expected to be similar (i.e. greater or smaller than unity) as the correlation function \(C(k^{*})\) itself.
+
+In the second scenario, the leading particle is produced further from the center than the other particle. Using the the similar method, \(C_{+}(k^{*})\) and \(C_{-}(k^{*})\) are calculated. However in this scenario, if the leading particle travels faster, \(C_{+}(k^{*})\) is suppressed because the two particles tend to move away from each other. If the leading particle travels slower, \(C_{-}(k^{*})\) is enhanced at low \(k^{*}\). So in this scenario, the double ratio \(C_{+}(k^{*})/C_{-}(k^{*})\) also deviates from unity, but the trend, larger or smaller than unity, is different from the correlation function itself.
+
+This method was successfully used in previous measurements to probe the space-time asymmetry of the emission of pions and kaons [56], as shown in the lower four panels of Fig. 6.1. The correlation functions indicate the Coulomb interactions between the pion and the kaons, and it was found the pions are produced closer to the center of the collisions than kaons. Similarly, in central Au + Au at \(\sqrt{s_{NN}}\), the correlation in the \(K\)-\(\pi\) system, as a reference for the \(K\)-\(\mu\) system, is calculated from the same dataset and in a kinetic region similar as that of the \(K\)-\(\mu\) system, shown in Fig. 6.3. The procedures will be discussed in the following paragraph.
+
+The distributions of \(k^{*}\) for same events are obtained by pairing all possible \(K\)-\(\mu\) pairs within a given event. Mixed-event technique is similar to what has been used in the invariant mass analysis. An event pool is generated by randomly selecting eventswith similar characteristics and cycling new events in the pool as the data processing continues. When processing a new event, all candidate tracks in this event were paired with candidates from the event pool. As a result, the number of pairs from mixed events will be greater than the number of pairs from same events. This non-physics enhancement is treated by normalizing \(k^{*}\) distributions in a non-signal region. The scale factor is the ratio of integrated same-event \(k^{*}\) distribution to mixed-event \(k^{*}\) distribution. With the correlation functions \(C(k^{*})\) well defined, the double ratios \(C_{+}/C_{-}\) are calculated as described in before. The \(K\)-\(\pi\) system shows an enhancement in the double ratio from like-sign correlations, and a suppression in the double ratio from unlike-sign as expected. As was already explained, the origin of the non-unity in double ratio comes from the Coulomb interactions between the kaons and pions, which we find enhanced in \(C_{+}(k^{*})\) and suppressed in \(C_{-}(k^{*})\) because of the space-time emission asymmetry of kaons and pions.
+
+The correlation functions of the \(K\)-\(\mu\) system are shown in Fig. 6.4. An enhancement in unlike-sign pairs is observed, as is an suppression in like-sign. These indicate the attractive Coulomb force in unlike-sign pairs and repulsive Coulomb in like-sign pairs, respectively.
+
+In the double ratio of \(K\)-\(\mu\) system, overlaid on top of \(K\)-\(\pi\) system, we can distinguish two regions as shown in Fig. 6.6. On the right of the dashed line, where only Coulomb interactions are expected [56] in both systems, the double ratios of the two systems are consistent. This agrees with the existence of a Coulomb force, which is a events.
+
+Figure 6.4 : The correlation functions for \(K\)-\(\mu\) pairs.
+
+Figure 6.3 : The correlation functions for \(K\)-\(\pi\) pairs in AuAu200 GeV central triggered events.
+
+[MISSING_PAGE_FAIL:81]
+
+of the correlation functions for like-sign pairs was observed, as shown in Fig. 6.7. The reason is that a large amount of muons from weak decays can pass the track selections, and mix with the primordial muons. The \(\pi\)-\(\pi\) correlation functions were calculated in Fig. 6.8. The enhancement in like-sign pairs from identical boson quantum effect is observed and the behavior agrees with previously published STAR results. [57].
+
+To study the influence of \(\pi\)-\(\pi\) correlations to \(\pi\)-\(\mu\) correlations, we first calculate the \(\pi\)-\(\pi\) correlation functions. In Fig. 6.8, we observe the strong enhancement in like-sign, which comes from the quantum effect of identical particles.
+
+The measured \(\pi\)-\(\mu\) correlation has two contributions. One is from the correlation between pions and primordial muons. The other is from the correlation between pions and weak decay muons. The latter can be simulated from real data. This simulation process is demonstrated in Fig. 6.9: one pion, taken from the real data, is weakly decayed based on energy momentum conservation. Its artificial daughter particle \(\mu\) is denoted as \(\mu_{A}\). Then we calculate the correlation function between this \(\mu_{A}\) and another pion from the real data. The correlation functions of \(\pi\)-\(\mu_{A}\) are shown in Fig. 6.10.
+
+As a summary, these \(\pi\)-\(\mu\) interactions inherit the interactions from \(\pi\)-\(\pi\) interactions, which have two major sources, the electrostatic Coulomb interactions and quan 
+
+[MISSING_PAGE_EMPTY:84]
+
+tions as the follows:
+
+* \(C_{A}\) for correlations between pions and muons based on simulated weak decays from real pions.
+* \(C_{B}\) for correlations between pions and inclusive muons, as is measured from data.
+* \(C_{C}\) for correlations between pions and primordial muons.
+
+The three contributions should satisfy the linear relationship: \(C_{B}=\alpha C_{C}+\beta C_{A}\), where \(\alpha\) stands for the fraction of primordial muons from inclusive muons produced from the collisions, and \(\beta\) stands for the fraction of other muons. correlations between
+
+Figure 6.10: \(\pi\)-\(\mu_{A}\) correlation functions show the correlations between pions and muons purely from weak decays. The like-sign correlation functions show the enhancement which is passed from pion decay kinematics.
+
+pions and primordial muons, \(C_{C}\), is then estimated by \(\pi\)-\(\pi\) correlations, because of the fact that pion mass and muon mass are fairly close. To avoid identical quantum statistics enhancement, the correlation function from Coulomb between like-sign pairs is estimated from reversed unlike-sign pairs \(1/C_{C}^{\prime}\). The relationship then becomes:
+
+\[C_{B}=\alpha/C_{C}^{\prime}+\beta C_{A}. \tag{6.3}\]
+
+The three contributions to the correlation functions are shown in Fig. 6.11.
+
+The relationship can be further verified by checking if the following linear relationship between \(C_{B}C_{C}^{\prime}\) and \(C_{A}C_{C}^{\prime}\) holds: \(C_{B}C_{C}^{\prime}=\alpha+\beta C_{A}C_{C}^{\prime}\). This relation is checked in Fig. 6.12, the read line represents a linear fit to the data points.
+
+The minimum \(\chi^{2}\) fitting can be performed, with \(\alpha\) and \(\beta\) being fitting parameters. While the two parameters \(\alpha\) and \(\beta\) should have an implicit requirement of \(\alpha+\beta=1\)
+
+Figure 6.11: Three correlation functions.
+
+[MISSING_PAGE_EMPTY:87]
+
+they are constructed from the time projection chamber. If two particles have similar trajectories, implying that they are close in momentum space, the detector may not have enough spacial resolution to distinguish them and thus merge the two tracks. When the simulated pion-to-muon decays are performed, missing pions from such track merging cannot be recovered by any means. Consequently, by trying different fitting ranges, we could not get a good fitting below 0.02 GeV/\(c\). Thus the fitting range is selected between 0.02-0.20 GeV/c, discarding the very low \(k^{*}\) where the missing track problem is significant. The fit results show the \(\pi\)-\(\mu\) correlation function from data, the two contributions, the fit result, i.e. fraction of primordial muons is 22.0\(\pm\)0.4%, shown in Fig. 6.13. The systematic uncertainties from different binning, fit range, mass differences between \(\pi\) and \(\mu\) will be discussed in the next section.
+
+### Systematic Uncertainties for Correlations
+
+The systematic uncertainties were estimated from varying the independent parameters used in various selections. The differences among the data from different cuts were combined to get a total uncertainty. The cuts that were studied are Distance of Closest Approach (DCA) between tracks and primary vertices, TPC hit points (\(nHitsFit\)), TOF PID cut, and TPC energy loss points (\(nHitsDedx\)). Because the TPC hit point cuts, \(nHitsFit\) and \(nHitsDedx\), are positively correlated, changing one cut will implicitly change the other cut. Instead these two cuts are changed simultaneously in order to obtain one combined contribution to the systematic error.
+
+A detailed list of these cuts can be found in Tab. 6.1.
+
+The correlation function change from different DCA cuts are shown in Fig. 6.14, the absolute differences of the two variations from the standard DCA cut is averaged and represented by the grey bands. These grey bands will be considered as systematic uncertainties contributed from DCA selections. And other changes from cut variations are shown in Fig. 6.15 and Fig. 6.16. The TOF identification (see Sect. 3.3.2) cuts were varied to study the effect from hadron contamination. The loose TOF cut was obtained from Gaussian model fits to the \(\Delta 1/\beta\) distributions. The Gaussian model has a smaller tail compared to data and thus will bring in more contamination. The distributions calculated from both cuts are shown in Fig. 6.15. The differences
+
+Figure 6.13: \(\pi\)-\(\mu\) from data: measured \(\pi\)-\(\mu\) correlation function; 1/C: reversed \(\pi\)-\(\pi\) correlation function; A: simulated \(\pi\)-\(\mu_{\rm decay}\); the fit parameters \(\alpha\) is the fraction of primordial muons.
+
+\begin{tabular}{|c|c|} \hline Cuts & Range \\ \hline \hline Standard DCA & \(<\) 1.0 cm \\ Tight DCA & \(<\) 0.8 cm \\ Loose DCA & \(<\) 1.2 cm \\ \hline Standard \(nHitsFit\) & \(>\) 20 \\ Standard \(nHitsDedx\) & \(>\) 15 \\ Tight Hit Points & \(nHitsFit>\) 25, \(nHitsDedx>\) 17 \\ Loose Hit Points & \(nHitsFit>\) 18, \(nHitsDedx>\) 13 \\ \hline Standard \(1/\beta\) & From Student's-T fit \\ Loose \(1/\beta\) & From Gaussian Fit \\ \hline \end{tabular}
+
+Table 6.1 : Cut variations.
+
+between the two cuts will be included in the total uncertainty. As mentioned the two hit-point cuts are highly correlated, i.e. a track with a large \(nHitsDedx\) cut tends to have a large \(nHitsFit\) cut, and vice versa. To deal with these positive correlations, the two cuts were varied at the same time, as shown in Fig. 6.16.
+
+The total relative uncertainties are then added in quadrature: \(\sigma_{total\ sys.}=\sum_{i}\sigma_{i,sys}^{2}\), where different index represents a different set of cuts. The contributions from each cuts and the total uncertainties are shown in Fig. 6.17.
+
+The double-ratio correlation functions with systematic errors (shaded bands) are
+
+Figure 6.14: DCA variation for \(K\)-\(\mu\) double ratios, like-sign on the left and unlike-sign on the right. The solid markers represent stand DCA cut; the open circles represent restricted DCA cut; the open squares represent wider DCA cut; the absolute differences of the two variations from the standard DCA cut is averaged and represented by the grey bands.
+
+shown in Fig. 6.18a. The correlation functions for p-\(\pi\) and p-\(\mu\) pairs are plotted in Fig. 6.18b. For each \(K\)-\(\mu\) data point, the number of standard deviations (i.e. \(\sigma\)) away from unity (\(N_{\sigma}\)) is plotted as a function of \(k^{*}\), shown in the left panel of Fig. 6.19. Smaller \(N_{\sigma}\) indicates the double ratio is closer to unity; larger \(N_{\sigma}\) indicates the double ratio is far away from unity. As we can see in the left panel, for \(K\mu\) system, the \(N_{\sigma}\) shows that the double ratios are initially close to unity (i.e. small \(N_{\sigma}\)) at low \(k^{*}\), then deviates from unity (larger \(N_{\sigma}\)) at higher \(k^{*}\). Due to limited number of protons, we obtained larger error bars for \(p\mu\) atoms in Fig. 6.18a. So we do not observe a clear result whether the \(p\)-\(\mu\) double ratios converge or diverge. As a result, there is no obvious hump around \(k^{*}=\)0.02 GeV/\(c\) as in \(K\)-\(\mu\).
+
+The sources of systematic uncertainty for the fraction study (discussed in Sect. 6.2)
+
+Figure 6.15: Double ratio changes from TOF cut variations, like-sign on the left and unlike-sign on the right. The differences from the two cuts will be included in systematic uncertainties.
+
+[MISSING_PAGE_EMPTY:93]
+
+with mass scaled correlation function is shown in Fig. 6.21. We vary the fitting range at higher \(k^{*}\), as shown in Fig. 6.22. The fitting with doubled bin numbers is also performed, as shown in Fig. 6.23. The changes from these varied cuts to standard cuts will be taken into account as systematic uncertainties.
+
+We choose \(\alpha\) as the value 22.6%, which appears most frequently in the fit results from all these cases. The statistical uncertainties are quadrature sum of individual statistical uncertainties. The systematic uncertainty are chosen so that the \(\alpha\) values in all these cases fall within the upper and lower limits. Combining all these cases, we found the fraction of primordial muons is 22.6 % \(\pm\) 0.9 %(stat.) \({}^{-0.6}_{+4.5}\) %(sys.).
+
+Figure 6.17: Systematic uncertainties for double ratios of \(K\)-\(\mu\) system (left), and antimatter \(K\)-\(\mu\) system (right), like-sign on the left and unlike-sign on the right. Solid circles represent individual contributions from DCA, TOF contamination, and TPC hits. Open squares represents the total systematic uncertainties, which are are from quadrature sum of individual contributions.
+
+Figure 6.18 : Double ratios for \(K\mu\)(left) and \(p\mu\)(right) system, statistical errors are shown by bars, systematic uncertainties represented by shaded bands.
+
+Figure 6.20 : Measured \(\pi\)-\(\mu\) correlation function, fitted by reduced mass scaling of the \(\pi\)-\(\pi\) correlation function. A fit function was first obtained from fitting the data points; then scaled by the mass factor 1.16 along x-axis.
+
+Figure 6.21 : Reduced mass scaling of the correlation function. The correlation function is first corrected by the mass factor 1.16, and then used for fitting \(\pi\)-\(\mu\) correlation function.
+
+Figure 6.22 : Measured \(\pi\)-\(\mu\) correlation function, fitted by \(\pi\)-\(\pi\) correlation function and simulated \(\pi\)-\(\mu_{\rm decay}\) in a different fitting range shown in the figure.
+
+Figure 6.23 : Measured \(\pi\)-\(\mu\) correlation function, fitted by \(\pi\)-\(\pi\) correlation function and simulated \(\pi\)-\(\mu_{\rm decay}\) in a different fitting range shown in the figure.
+
+## Chapter 7 Muonic Atom Invariant Mass Spectra
+
+The muonic atom invariant mass can be reconstructed from the hadrons' and the muons' 'kinetic information. In this chapter, we will discuss in details the invariant mass reconstruction, combinatorial background subtraction, Coulomb rejection, and yield measurement.
+
+### 7.1 Invariant Mass Spectrum
+
+The atom invariant mass spectrum is constructed by pairing hadrons and muons and calculate their pair invariant mass with Eq. 4.3. The "combinatorial background" from random pairing is estimated similarly as in Sect. 4.2, except here a hadron and a muon are used.
+
+The raw mass spectrum, including combinatorial background, is constructed by pairing a hadron and a muon with opposite electric charges (unlike-sign method) from the same event. The background is constructed in two ways: a mixed-event method, in which a hadron and a muon with opposite electric charges from two different events are paired; and a like-sign method, in which a hadron and a muon with the same electric charge from a same event are paired. Events with different vertices pass different geometry of the detector. Thus only events with similar vertex positions
+
+[MISSING_PAGE_FAIL:99]
+
+in same event are corrected by this factor to get the corrected like-sign background:
+
+\[LS_{+-}(\mbox{corrected})=\sqrt{LS_{++}LS_{--}}\frac{ME_{+-}}{\sqrt{ME_{++}ME_{--}}}, \tag{7.3}\]
+
+where the notations are similar as in Eq. 7.1. Similarly, for anti-matter atoms, the corrected like-sign background is:
+
+\[LS_{-+}(\mbox{corrected})=\sqrt{LS_{++}LS_{--}}\frac{ME_{-+}}{\sqrt{ME_{++}ME_{-- }}}. \tag{7.4}\]
+
+Figure 7.1: The raw counts of different types of hadron muon invariant mass distributions. SE stands for Same-Event; ME stands for Mixed-Event; LS stands for Like-Sign; the lower case letters p/n stands for the charge, positive/negative of the hadron and muons.
+
+After the acceptance correction, the two backgrounds are compared in Fig. 7.4, and are found to be roughly consistent. The differences between the two will be discussed in the next section.
+
+As discussed in Chap. 5, the binding energy for muonic hydrogen is orders of magnitude lower than the kinetic energy in heavy-ion experiments. When the atoms are ionized by the beam pipe, the binding energy is canceled by the excitation from atom-beam pipe interaction. As a result, the peak from the two daughter particles are expected to appear at zero net mass, i.e. \(\delta m=m_{pair}-m_{\mu}-m_{hadron}=0\) GeV/\(c^{2}\).
+
+In Fig. 7.5, method 1, represented by the red markers, shows the signal-to
+
+Figure 7.2 : The same-event \(K^{+}\mu^{-}\) distribution and its like-sign background (acceptance corrected). The signal hides in the differences between the two distributions.
+
+background ratio from the like-sign method; and method 2, represented by the blue markers, show the signal-to-background ratio from mixed-event method. Sharp peaks are observed at zero net mass for both methods. From this figure, we can see that the signal-to-background ratio extracted from like-sign method is systematically higher than the signal extracted from mixed-event method. This is explained by the Coulomb effect. In the unlike-sign method, two particles carry opposite charges, which results in an attractive Coulomb force and thus enhances the mass distribution (larger than if there were no Coulomb), especially at the low mass region. In contrast, in the like-sign method, the repulsive Coulomb force from the same charge suppresses the Coulomb force from the same charge.
+
+Figure 7.3: The acceptance correction factors for atoms, i.e. positive-hadron and negative-muon pairs, and anti atoms, i.e. negative-hadron and positive-muon pairs.
+
+mass distributions at the low mass region. In the mixed-event method, there is no Coulomb effect for hadron-muon pairs. As a result, when the signal-to-background ratio is calculated, like-sign is subtracted from the unlike-sign and the results gets enhanced compared to mixed-event. The difference of the two methods are shown by the black markers in Fig. 7.6. We can see the distribution between 0 and 0.2 GeV/\(c\) is systematically greater than 0, which indicates the existence of Coulomb effects.
+
+Similarly, the signal to background ratio and the background difference for \(p\)-\(\mu\) pairs are shown in Fig. 7.7. The \(p\)-\(\mu\) system possibly has additional contributions from hadronic resonance decays such as \(\Delta\to p+\pi\to p+\mu+\nu\), and thus is more
+
+Figure 7.4: The like-sign and mixed-event backgrounds are compared. The shapes have less than 2% differences, which will be discussed in the next section.
+
+the signal-to-background ratio from like-sign method; method 2, represented by the blue markers, shows the signal-to-background ratio from mixed-event method.
+
+Figure 7.6 : The difference between two background methods, normalized by mixed-event in \(K\)-\(\mu\) pairs. The difference indicates the existence of Coulomb effects.
+
+Figure 7.5 : Ratios in \(K\)-\(\mu\) pairs. Method 1, represented by the red markers, shows the signal-to-background ratio from like-sign method; method 2, represented by the blue markers, shows the signal-to-background ratio from mixed-event method.
+
+complicated.
+
+As previously discussed, the Coulomb effect in like-sign pairs and unlike-sign pairs has opposite effects on the mass distributions. As a result, the following observable \(\Theta(\delta m)\) is adopted to cancel the Coulomb effect and preserve the signal:
+
+\[\Theta(\delta m)=UL(\delta m)LS(\delta m)/ME(\delta m)^{2}-1 \tag{7.5}\]
+
+where \(UL(\delta m)LS(\delta m)\) stands for the product of unlike-sign and like-sign, which cancels the Coulomb effect, and \(ME(\delta m)\) stands for mixed-event for normalization. In Fig. 7.8, we observe a sharp peaks at zero net mass after Coulomb cancelation. The error bars show the statistical uncertainties only (systematic uncertainties will be discussed in the following section). The signal is remains persistent after Coulomb
+
+Figure 7.7 : The pair invariant mass signal-to-background distributions of \(\Theta\) show peaks at the atom masses. The left panel shows the signal to background ratio from like-sign method and mixed-event method for \(K\)-\(\mu^{+}\) pairs. The right panel shows the difference of like-sign method and mixed-event method for \(p\)-\(\mu^{+}\) pairs.
+
+rejection in both \(K\)-\(\mu\) and \(p\)-\(\mu\) systems and their antimatter systems. The distribution at higher mass is flat, indicating a good background determination from the methods described above.
+
+### 7.2 Systematic Uncertainties for Invariant Mass Spectra
+
+The systematic uncertainties are estimated similarly as in Sect. 6.3. The list of these cuts can be found in Tab. 6.1. The signals from DCA variations are shown in Fig. 7.9. The average of the absolute values of the differences, which are shown by the grey bands, will be quoted as systematic uncertainties. The effect from hadron contamination from TOF PID is studied by choosing different fit functions, Gaussian or Student's-T function. The differences between the two cuts will be included in the total uncertainties. The contribution from the number of TPC hits is as shown in Fig. 7.11. The grey bands are from the average of absolute differences between varied cuts and the default cuts, and will be included in the systematic uncertainties.
+
+Figure 7.9 : The changes of \(\Theta(\delta m)\) of \(K\)-\(\mu\) system from DCA variation. Atom system is shown on the left and antimatter atom system on the right. The solid markers represent stand DCA cut; the open circles represent restricted DCA cut; the open squares represent wider DCA cut; the absolute differences of the two variations from the standard DCA cut is averaged and represented by the grey bands.
+
+The uncertainties from different variations are considered to be independent, and are added in quadrature to get the total uncertainties, shown in in the left panel of Fig. 7.12 by the solid circles. The same uncertainty study is performed for antimatter atoms, shown in the right panel of Fig. 7.12. We can see at the low \(\delta m\) region, the number of hit points contributes the most to the total systematic uncertainties. The \(\Theta(\delta m)\) distributions with the statistical uncertainties (bars) and the systematic uncertainties (bands) are presented in Fig. 7.13.
+
+Figure 7.10: \(\Theta(\delta m)\) changes from TOF cut variations. Atom system is shown on the left and antimatter atom system on the right. The differences from the two cuts will be included in systematic uncertainties.
+
+Figure 7.11 : The changes of \(\Theta(\delta m)\) of \(K\)-\(\mu\) system from TPC-hit-point (nHits) variation. Atom system is shown on the left and antimatter atom system on the right. The solid markers represent standard nHits cut; the open circles represent restricted nHits cut; the open squares represent wider nHits cut; the absolute differences of the two variations from the standard nHits cut is averaged and represented by the grey bands.
+
+Figure 7.12 : Systematic uncertainties of \(\Theta\) in \(K\)-\(\mu\) system from DCA, TOF, and Hit Points variations. Atom system is shown on the left and antimatter atom system on the right. The Total uncertainty (solid circles) is the quadrature some of the individual contributions. We can see that number of hit points contributes the most at low \(\delta m\).
+
+### 7.3 Muonic Atom Yields from Measurement
+
+In this section, we determine the yield of produced atoms from invariant mass study in Sect. 7.1. The \(\Theta(\delta m)\) distribution, essentially the signal-to-background distribution, of \(K\)-\(\mu\) ("Before residual substraction") pairs and \(K\)-\(\pi\) ("Residual distribution") pairs is shown in Fig. 7.14. \(K\)-\(\pi\) system is flat in most of the signal region, except the first bin. Because \(K\)-\(\pi\) system is known to have only Coulomb interactions, we treat the \(\Theta(\delta m)\) in \(K\)-\(\pi\) system as the residual from Coulomb cancelation. After the residual is subtracted, the atom signal ("Signal") is shown by the red markers in Fig. 7.14; the antimatter signal is shown by the red markers in Fig. 7.15.
+
+Since the combinatorial distributions in mixed events have no physics correlations, the mixed-event distributions can be used as a pure background for the yield extrac
+
+Figure 7.13: \(\Theta\) distributions for \(K\)-\(\mu\) atoms (left) and \(p\)-\(\mu\) atoms (right). The error bars stand for statistical uncertainties, and the color bands stand for systematic uncertainties.
+
+tion. The mixed-event distributions are shown in Fig. 7.16. The \(\Theta\) distribution after residual correction is then multiplied by the mixed-event background to get the atom yield, shown in Fig. 7.17.
+
+Figure 7.14: The \(\Theta\) distributions for Coulomb residual (in blue); the \(\Theta\) distributions for \(K\)-\(\mu\) system, before (black) and after (red) residual subtraction.
+
+Figure 7.15: The \(\Theta\) distributions for antimatter Coulomb residual (in blue); the \(\Theta\) distributions for antimatter \(K\)-\(\mu\) system, before (black) and after (red) residual subtraction.
+
+With a total of 220 million central events, equivalent to 220 million top 10% most central events, the number of \(K^{+}\) - \(\mu^{-}\) candidates we get from this measurement is \((1.87\pm 0.62(stat.)\pm 0.74(sys.))\times 10^{3}\), with the significance of \(1.9\sigma\), and the number of antimatter K - \(\mu\) candidates is \((2.12\pm 0.41(stat.)\pm 0.53(sys.))\times 10^{3}\), with the significance of \(3.2\sigma\).
+
+Figure 7.16 : The mixed-event distributions for \(K^{+}\)-\(\mu^{-}\) and \(K^{-}\)-\(\mu^{+}\).
+
+Figure 7.17 : The \(K\)-\(\mu\) atoms and antimatter atom mass spectra. The bars represent statistical uncertainties, and the bands represent systematic uncertainties.
+
+In the invariant mass distribution of the \(p\)-\(\pi\) system, see Fig. 7.18), we observe a peak around \(\delta m\) around 35 MeV/\(c^{2}\), which is due to the \(\Lambda\) baryon decay to a proton and a pion. Following the similar procedure as in \(K\)-\(\mu\), we subtract the residual background in Fig. 7.19 (for \(p\mu\) atoms), and in Fig. 7.20 (for antimatter \(p\mu\) atoms). Similarly as in \(K\)-\(\mu\), the residual subtracted signal is then multiplied by mixed-event to get the atom candidates.
+
+The mass spectra are shown in Fig. 7.17.
+
+The number of muonic hydrogen candidates in 220 million events from this measurement is \((1.97\pm 0.48(stat.)\pm 0.64(sys.))\times 10^{3}\), with the significance of \(2.5\sigma\), and the number of antimatter muonic hydrogen candidates is \((1.28\pm 0.27(stat.)\pm 0.38(sys.))\times 10^{3}\), with the significance of \(2.7\sigma\). Except for \(K^{+}\)-\(\mu-\) atoms, the significance for all the atoms is above \(2\sigma\). It should further be noted that these atom yields are all within the STAR acceptance and have not been corrected for any efficiency losses due to e.g. particle
+
+Figure 7.18: Invariant mass distributions for proton-\(\pi\) pairs. The peak around 35 MeV/\(c^{2}\) is from \(\Lambda\) to \(p\pi\) decay.
+
+[MISSING_PAGE_EMPTY:114]
+
+Figure 7.21 : The \(p\)-\(\mu\) atoms and antimatter atom mass spectra.
+
+\begin{table}
+\begin{tabular}{|c|c c c|c|} \hline  & & \multicolumn{3}{c|}{Uncertainty/\(10^{-6}\)} \\  & Yield/\(10^{-6}\) & & \\ Muonic atom & & stat. & syst. & Significance \\ \hline \(p\mu^{-}\) & 9.0 & 2.2 & 2.9 & 2.5\(\sigma\) \\ \(\overline{p}\mu^{+}\) & 5.8 & 1.2 & 1.3 & 2.7\(\sigma\) \\ \(K^{+}\mu^{-}\) & 8.5 & 2.8 & 3.4 & 1.9\(\sigma\) \\ \(K^{-}\mu^{+}\) & 9.6 & 1.9 & 2.4 & 3.2\(\sigma\) \\ \hline \end{tabular}
+\end{table}
+Table 7.1: Normalized muonic atom yields per central Au+Au event at \(\sqrt{s_{NN}}=200\) GeV within STAR acceptance. These results have not been corrected for efficiency losses.
+
+## Chapter 8 Comparison with Measured Hadron and Muon Yields
+
+We discussed in Sect. 2.3 that it was proposed that atom yields can be estimated from hadron and muon yield. Estimations for Au+Au at \(\sqrt{s_{NN}}=200\) GeV has been done by Kapusta and Mocsy [32], and also by STAR in the Decadal Plan [33]. It should be noted that these estimations can only be a guidance because the muon spectra are from pion spectra scaled by arbitrary factors. In the first half of this chapter, we conduct the yield relation between atom and individual particles, following references [31, 32]. The second half of this chapter uses the actually measured hadron and muon yield as the input spectra, and obtains predicted muonic atom yields. If we ignore the interactions between the collision point and the beam pipe, the hadrons and muons from muonic atoms are expected to suffer from exactly the same efficiency loss as those particle not from atoms. This allows us to directly compare the results in Sect. 7.3 to the calculations in this chapter.
+
+Assuming \(A_{atom}=a_{atom}/\sqrt{\epsilon_{atom}}\) is the quantum mechanical amplitude of the atom, \(a_{atom}\) is the Lorentz invariant amplitude, and \(\epsilon_{atom}\) is the energy of the atom, we get the invariant yield distribution:
+
+\[\frac{d^{2}N}{2\pi p_{T,atom}dp_{T,atom}dy_{atom}}=\frac{1}{(2\pi)^{3}}|a_{atom} |^{2} \tag{8.1}\]Similarly, the joint distribution of hadrons and leptons are given by
+
+\[\frac{d^{2}N_{h}}{2\pi p_{T,h}dp_{T,h}dy_{h}}\frac{d^{2}N_{\mu}}{2\pi p_{T,\mu}dp _{T,\mu}dy_{\mu}}=\frac{1}{(2\pi)^{6}}|a_{h\mu}|^{2} \tag{8.2}\]
+
+where \(a_{h\mu}=A_{h\mu}\sqrt{\epsilon_{h}\epsilon_{\mu}}\) is the invariant joint amplitude of hadrons and a muons. Take the ratio of Eq. 8.1 and Eq. 8.2
+
+\[(\frac{d^{2}N_{atom}}{2\pi p_{T,atom}dp_{T,atom}dy_{atom}})/(\frac{d^{2}N_{h}}{2 \pi p_{T,h}dp_{T,h}dy_{h}}\frac{d^{2}N_{\mu}}{2\pi p_{T,\mu}dp_{T,\mu}dy_{\mu}}) = (2\pi)^{3}\frac{|a_{atom}|^{2}_{2}}{|a_{h\mu}|^{2}}. \tag{8.3}\]
+
+The amplitude for a hadron and a muon to form an atomic state n and a total momentum \(\vec{p}\) is given by [31]
+
+\[A_{atom}(n,\vec{p})=\sum_{\vec{q}}A_{h\mu}(m_{h}\vec{p}/m_{atom}+\vec{q},m_{\mu }\vec{p}/m_{\mu}-\vec{q})\Psi_{n}^{L}(\vec{q})^{*} \tag{8.4}\]
+
+Where \(\Psi_{n}^{L}(\vec{q})^{*}\) is the Fourier transform of the spatial wave function \(\Psi_{n}^{L}(\vec{r})\) of the relative coordinate in atomic state n in the laboratory frame, and \(m_{atom}=m_{\pi}+m_{\mu}\) is the rest mass of the atom (neglecting the small binding energy). Considering the relative momenta is small \(|\vec{q}|\ll|\vec{p}|\)
+
+\[A_{atom}(n,\vec{p})\approx A_{h\mu}(m_{h}\vec{p}/m_{atom},m_{\mu}\vec{p}/m_{\mu })\Psi_{n}^{L}(\vec{r}=0)^{*} \tag{8.5}\]
+
+Note that the collision volume (a few fm) is much smaller than the radius of the atoms (hundreds of fm). Only s-states can be formed with appreciable probability [31]. The wave function at the origin in the atom center-of-mass frame with principal quantum number n is given by
+
+\[\psi_{n}(0)=\psi_{n}^{L}(\vec{r}=0)\sqrt{m_{atom}/\epsilon_{atom}}=(m_{red} \alpha/n)^{3/2}/\sqrt{\pi}, \tag{8.6}\]where \(m_{red}=\frac{m_{h}m_{\mu}}{m_{h}+m_{\mu}}\) is the reduced mass of the hadron-muon system.
+
+Note that in a hydrogen-like atom, the relative velocity \(v_{rel}\) of the hadron and the muon is the Bohr velocity \(\alpha c/n\) (\(\alpha\) being fine structure constant), which is much smaller than typical velocity of a particle in heavy-ion collisions. Thus the relative velocity of the two satisfies \(\lesssim ac\). This gives the approximation
+
+\[\vec{p_{h}}/\sqrt{p^{2}+m^{2}}\approx\vec{p_{\mu}}/\sqrt{p^{2}+m_{\mu}^{2}}, \tag{8.7}\]
+
+which gives \(\epsilon_{h}\epsilon_{\mu}/\epsilon_{atom}^{2}=m_{h}m_{\mu}/m_{atom}^{2}=m_{ red}/m_{atom}\). So we get
+
+\[A_{atom}=A_{h\mu}\frac{(m_{red}\alpha/n)^{3/2}/\sqrt{\pi}}{\sqrt{m_{atom}/ \epsilon_{atom}}} \tag{8.8}\]
+
+\[\frac{a_{atom}}{a_{h\mu}}=\sqrt{\frac{\epsilon_{atom}}{\epsilon_{h}\epsilon_{ \mu}}}\frac{(m_{red}\alpha/n)^{3/2}/\sqrt{\pi}}{\sqrt{m_{atom}/\epsilon_{atom}}} \tag{8.9}\]
+
+Substitute Eq. 8.9 into Eq. 8.3:
+
+\[(\frac{dN_{atom}}{2\pi p_{T,atom}dp_{T,atom}dy_{atom}})/(\frac{dN_ {h}}{2\pi p_{T,h}dp_{T,h}dy_{h}}\frac{dN_{\mu}}{2\pi p_{T,\mu}dp_{T,\mu}dy_{ \mu}}) \tag{8.10}\] \[=(2\pi)^{3}\frac{\epsilon_{atom}^{2}}{\epsilon_{h}\epsilon_{\mu} }\frac{(m_{red}\alpha/n)^{3}/\pi}{m_{atom}}\] (8.11) \[=8\pi^{2}\frac{m_{atom}^{2}}{m_{h}m_{\mu}}\frac{(m_{red}\alpha/n) ^{3}}{m_{atom}}\] (8.12) \[=8\pi^{2}m_{red}^{2}(\alpha/n)^{3} \tag{8.13}\]
+
+Sum over \(n\) to take into account of all states:
+
+\[\frac{dN_{atom}}{2\pi p_{T,atom}dp_{T,atom}dy}=8\pi^{2}\zeta(3)m_{red}^{2} \alpha^{3}\frac{dN_{h}}{2\pi p_{T,h}dp_{T,h}dy_{h}}\frac{dN_{\mu}}{2\pi p_{T, \mu}dp_{T,\mu}dy_{\mu}} \tag{8.14}\]
+
+where \(\zeta(3)=\sum_{n}n^{-3}=1.202\)Using the measured muon and kaon yields that pass our track selections as input, we can use the Eq. 8.14 to get the expected yield of atoms. The product on the right-hand side needs to be calculated bin-by-bin. The \(y\) dimension has the same binning, and the \(p_{T}\) binning is different for the three distributions, with the \(p_{T}\) bin widths proportional to their masses, as required by Eq. 8.7.
+
+First we fill the histogram of \(p_{T}\) vs. rapidity distribution of negatively charged muons, weighted by \(\frac{1}{2\pi p_{T,\mu}}\). The distribution is scaled by \(N_{event}dp_{T}dy\) to get the muon factor \(\frac{1}{N_{event}}\frac{dN_{\mu}}{2\pi p_{T,\mu}dp_{T,\mu}dy_{\mu}}\) shown on the left hand side in Eq. 8.14. The plot is shown in Fig. 8.1a. There are 500 \(\times\) 500 bins in this plot, within \(-1<y<1\) and 0.15 GeV/\(c<p_{T}<\)0.25GeV/\(c\). The requirement of each track having a TOF hit caused the lower boundary around \(p_{T}=0.16\) GeV/\(c\). The cut on momentum less than 0.25 GeV/c causes the upper boundary. The projected plots to \(p_{T}\) is shown in Fig. 8.2b. Similarly, the \(K^{+}\) distribution in phase space \(\frac{1}{N_{event}}\frac{dN_{h}}{2\pi p_{T,h}dp_{T,h}dy_{h}}\) is shown in Fig. 8.2a, and its \(p_{T}\) spectra is shown in Fig. 8.2b.
+
+The last term in Eq. 8.14\(2\pi p_{T,atom}dp_{T,atom}dy\) is determined by the \(p_{T}\) of the atom in current bin, the bin width in the atom histogram, and the rapidity width in the atom histogram. The contents and errors are taken and multiplied bin-by-bin with the coefficient factor calculated above. The results were filled in a new histogram shown in Fig. 8.3a, which is the left term in Eq. 8.14. Note that this histogram has 500 \(\times\) 500 bins within \(-1<y<1\) and 0.85 GeV/\(c<p_{T}<1.42\) GeV/\(c\), based on the same momentum relation.
+
+Figure 8.1 : phase space, weighted by \(\frac{1}{2\pi p_{T,\mu}}\). The left panel shows \(p_{T}\) vs. rapidity distribution. The right panel shows \(p_{T}\) distribution.
+
+The distribution \(dN_{atom}\) is then scaled by \(N_{event}\) to get the count distribution \(dN_{atom}\) for atoms, shown in Fig. 8.3a and Fig. 8.3b. The sum over all non-zero bins give the yield from \(K^{+}\)-\(\mu^{-}\) atoms: 50.7\(\pm\)0.4 from a total number of 220 million central events. Taking into account of the fraction of primordial muons (see Sect. 6.3), the expected yield for \(K^{+}\)-\(\mu^{-}\) atoms is 11.4 \(\pm\) 0.4 (stat.) \({}^{-0.3}_{+2.3}\) (sys.). Similarly, \(dN_{anti-atom}\) is shown in Fig. 8.4a and Fig. 8.4b. The integral over the whole range give the yield from \(K^{-}\)-\(\mu^{+}\) atoms: 37.1\(\pm\)0.3. Taking into account of the fraction of primordial muons, the yield for \(K^{-}\)-\(\mu^{+}\) atoms is 8.3 \(\pm\) 0.3 (stat.) \({}^{-0.2}_{+1.7}\) (sys.).
+
+The proton spectrum has a contribution from weak decay feed down, mainly from \(\Lambda\). These protons from weak decays cannot form atoms. Previous publication shows that feed-down contributions decrease rapidly as a function of \(p_{T}\)[69]. The proton
+
+Figure 8.3: \(K\mu\) atom spectra. The left panel shows \(p_{T}\) vs. rapidity distribution. The right panel shows \(p_{T}\) distribution.
+
+feed-down in d+Au at \(\sqrt{s_{NN}}\) = 200 GeV is 0.04\(\pm\)0.04 at \(p_{T}\) = 0.975 GeV/\(c\), in Au+Au 62.4 GeV is 0.01\(\pm\)0.01 at \(p_{T}\) = 0.975 GeV/\(c\). The proton range in this measurement is at even higher \(p_{T}\), 1.33-2.22 GeV/c. The feed-down contribution should be on the order of 1% or less. Similarly as the previous kaons, the distributions for protons are shown in Fig. 8.5a and Fig. 8.5b. The proton yields are lower than the kaon yields, and shape also shows a larger slope at lower \(p_{T}\), which results in lower \(p\mu\) atom yields: 5.5\(\pm\)0.6 for \(p\mu\) atoms, 4.4\(\pm\)0.5 for antimatter \(p\mu\) atoms from a total number of 220 million central events. The atom and antimatter atom yields are shown in Fig. 8.6 and Fig. 8.7. Considering previously mentioned fraction of primordial muons, we get the yields 1.2 \(\pm\) 0.1 (stat.) \({}^{-0.0}_{+0.2}\) (sys.) and 1.0 \(\pm\) 0.1 (stat.) \({}^{-0.0}_{+0.2}\) (sys.) for \(p\mu\) atom and antimatter \(p\mu\) atom, respectively. The yields are summarized in Tab. 8.1. Note that the \(\pi^{0}\) and \(\pi^{0}\) decay rates are very similar to those of the \(\pi^{0}\) and \(\pi^{0}\) decay rates.
+
+Figure 8.4: Antimatter \(K\mu\) atom spectra. The left panel shows \(p_{T}\) vs. rapidity distribution. The right panel shows \(p_{T}\) distribution.
+
+that the production rate, normalized to the number of events (200M) is in the order of \(10^{-8}\) to \(10^{-7}\) based on a basic estimate of the detection efficiencies *. This is of the same order of magnitude as the previous estimates in [31, 32]. However, these estimates are still 2-3 orders of magnitude lower than our muonic atom measurements shown in Sect. 7.3, and summarized in Table 7.1.
+
+Footnote *: The order of magnitude for the combined efficiency which involves track reconstruction and particle identification is \((0.5)^{2}[\text{TOF}]\times(0.5)^{2}[\text{TPC}]\times 0.3[\mu\text{ TPC~{}pid}]\times 1.0[\text{hadron~{}TPC~{}pid}]\times 0.5[\mu\text{ TOF~{}pid}]\times 1.0[\text{hadron~{}TOF~{}pid}]\approx 1 0^{-2}\).
+
+In this chapter, we calculated \(K\mu\) atom yield based on a simplified wave function overlap picture. The calculation is found to be orders of magnitude lower than the actual measurement in Sect. 7.3. This calculation has the assumption that hadrons
+
+Figure 8.5: Proton phase space, weighted by \(\dfrac{1}{2\pi p_{T,\mu}}\). The left panel shows \(p_{T}\) vs. rapidity distribution. The right panel shows \(p_{T}\) distribution.
+
+Figure 8.6 : \(p\mu\) atom spectra. The left panel shows \(p_{T}\) vs. rapidity distribution. The right panel shows \(p_{T}\) distribution.
+
+Figure 8.7 : Antimatter \(p\mu\) atom spectra. The left panel shows \(p_{T}\) vs. rapidity distribution. The right panel shows \(p_{T}\) distribution.
+
+and muons are independently produced in a same event. This might suggests that we may need to reconsider the original assumptions that lead to Eq. 8.14. For instance, due to radial flow, or jet physics, the momentum of the hadron and the muon could be highly correlated on a event-by-event basis, and thus the production rate is highly enhanced.
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline Muonic atom & Yield \\ \hline \(p\mu^{-}\) & 1.2 \(\pm\) 0.1 (stat.) \({}^{-0.0}_{+0.2}\) (sys.) \\ \(\overline{p}\mu^{+}\) & 1.0 \(\pm\) 0.1 (stat.) \({}^{-0.0}_{+0.2}\) (sys.) \\ \(K^{+}\mu^{-}\) & 11.4 \(\pm\) 0.4 (stat.) \({}^{-0.3}_{+2.3}\) (sys.) \\ \(K^{-}\mu^{+}\) & 8.3 \(\pm\) 0.3 (stat.) \({}^{-0.2}_{+1.7}\) (sys.) \\ \hline \end{tabular}
+\end{table}
+Table 8.1: Muonic atom yields in central Au+Au event at \(\sqrt{s_{NN}}\) = 200 GeV from a coalescence calculation.
+
+## Chapter 9 Summary and Outlook
+
+Leptons, such as muons, do not have final state strong interactions, and therefore can carry more direction information about the hot nuclear matter. This thesis focuses on low momentum muon physics with the TPC/TOF detector at the STAR experiment.
+
+This thesis presents the first STAR's low mass dimuon spectrum from the Au+Au minimum bias dataset at \(\sqrt{s_{NN}}=200\) GeV collected in 2011. Low momentum muons identified by the TOF detector, which are outside of what the MTD can reach, are used in this study. Although limited by statistics, the data show a possible excess over hadronic cocktail simulations, similarly as the result from NA60 experiment. The excess might be explained by model calculations that include in-medium \(\rho\) and \(a_{1}\) chiral symmetry restoration. Encouraged by this proof of principle measurement, several improvements are needed, ranging from better understanding the hadron cocktail simulations, systematic uncertainty study, and more statistics.
+
+This thesis also presents the search results on the muonic hydrogen and the \(K\mu\) atom from Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV, based on a dataset of 220 centrally triggered events. This is the first measurements of antimatter \(p\mu\) atom and the \(K\mu\) atom. The muons in these muonic atoms could be helpful with revealing the properties of the hot medium because they are produced in early stages of the collision. Thecorrelation functions and invariant mass spectra of the atoms have been studied. The correlation functions suggest muonic-atom ionization occurs at the beam pipe. A strong quantum effect between pions largely influences \(\pi\)-\(\mu\) correlation functions. And these correlation functions are used to to extract the fraction of primordial muons. The invariant mass signals for \(K\mu\) and \(p\mu\) atoms are observed. The yields of these atoms are measured with significances ranging from \(1.9\sigma\) to \(3.2\sigma\). The measured yields are found not in agreement with calculations based on a coalescence model. This suggests significant other sources may be needed to account for the atom yields in heavy-ion collisions. To improve the statistical uncertainties, centrally triggered events, with higher muon multiplicities, are found to be more helpful than minimum bias events. The largest contribution to systematic uncertainties is from the number of TPC hit points. STAR has proposed an iTPC upgrade [68], in which the inner sector of the TPC will be equipped with more channels. The iTPC will improve both \(dE/dx\) and tracking performance, and thus can improve the systematic uncertainties.
+
+With the recently installed MTD, we will be able to detect \(\pi\mu\) atoms but possibly not \(p\mu\) or \(K\mu\) atoms, because the associated hadrons in p\(\mu\) and \(K\mu\) in muonic atoms have much higher momenta, and therefore detection at the STAR experiment will not be favorable.
+
+## Bibliography
+
+* [1] B. V. Jacak and B. Muller, Science 337, 310 (2012).
+* [2] D. J. Gross and F. Wilczek, Phys. Rev. Lett. 30, 1343-1346 (1973).
+* [3] H. D. Politzer, Phys. Rev. Lett. 30, 1346-1349 (1973).
+* [4] A. Adare, _et al._, Phys. Rev. C **81** 5 (2010).
+* [5] L. Adamczyk, _et al._, Phys. Rev. C **92** 024912 (2015).
+* [6] R. Pohl, _et al._, Nature **466** 09250 (2010).
+* [7] Aldo Antognin, _et al._, Science **339** 417 (2013).
+* [8] Y. Tanaka and B. M. Steffen, Phys. Rev. Lett. **51** 18 (1983).
+* [9] R. Coombes, _et al._, Phys. Rev. Lett. **37** 5 (1976).
+* [10] S. H. Aronson, _et al._, Phys. Rev. Lett. **48** 16 (1982).
+* [11] E. Kolb and M. Turner, The Early Universe, Addison-Wesley, Redwood City, (1990).
+* [12] Harald Fritzsch and Murray Gell-Mann, eConf, C720906V2 135-165, (1972), arXiv:hep-ph/0208010 (2002).
+
+* [13] K.A. Olive _et al._, (Particle Data Group), Chin. Phys. C38 090001 (2014).
+* [14] J. Adams _et al._, Nucl. Phys. A 757, 102 (2005).
+* [15] USA-NSAC, Long Range Plans (2012).
+* [16] STAR Collaboration, arXiv:nucl-ex/0501009 (2005).
+* [17] P. Kolb _et al._, arXiv:nucl-th/0305084.
+* [18] J.D. Bjorken, FERMILAB-PUB-82-59-THY and erratum (unpublished).
+* [19] M. Gyulassy, _et al._, arXiv:nucl-th/0302077.
+* [20] N. Billic and H. Nikolic, Eur. Phys. J. C 6, 515-523 (1999).
+* [21] R. Rapp and J. Wambach, arXiv:hep-ph/9909229 (1999).
+* [22] B. I. Abelev _et al._, Phys.Rev. C **79**, 034909 (2009).
+* [23] The STAR Collaboration, Nature **473**, 353-356, (2011).
+* [24] The STAR Collaboration, Science **328** 5974, (2010).
+* [25] L. Adamczyk, _et al._, Phys. Rev. Lett. **114**, 022301, (2015).
+* [26] X. Ji, Phys 741, A Modern Introduction to Nuclear Physics, University of Maryland.
+* [27] R. Arnaldi, _et al._, Eur. Phys. J. C 61 711-720 (2009).
+* [28] R. Rapp and J. Wambach, Adv. Nucl. Phys. 25, 1, (2000).
+
+* [29] G.E. Brown and Mannque Rho, Phys. Rept. 363 85171, (2002).
+* [30] K. Dusling, D. Teaney, and I. Zahed, Phys.Rev. C **75** 024908 (2007).
+* [31] G. Baym, G. Freidman, R. J. Hughes, and B. Jack, Phys. Rev. **D48** 9 (1993).
+* [32] J. Kapusta and A. Mocsy, Phys. Rev. C **59** 5 (1999).
+* [33] The STAR Collaboration, STAR Collaboration Decadal Plan, (2010).
+* [34] D. Goldin, International Journal of Modern Physics **A 20** 321-330 (2005).
+* [35] M. Harrison, T. Ludlam, and S. Ozaki, Nucl. Instr. and Meth. A 499, 235244 (2003).
+* [36] T. Ludlam, Nucl. Instr. and Meth. A 499, 428432 (2003).
+* [37][https://www.bnl.gov/rhic/news2/news.asp?a=1781&t=pr](https://www.bnl.gov/rhic/news2/news.asp?a=1781&t=pr) (2015).
+* [38] J. D. Bjorken, _et al._, Phys. Rev., **D80** 075018 (2009).
+* [39] K. H. Ackermann _et al._., Nucl. Instr. and Meth. A 499, 624632 (2003).
+* [40] F.S. Bieser, _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A, 499 (2003).
+* [41] The STAR Collaboration, [http://www.star.bnl.gov/](http://www.star.bnl.gov/) ruanlj/MT-Dreview2010/MTD_proposal_v14.pdf
+* [42] J. M. Landgraf, _et al._, Nucl. Instrum. Meth., A499, 762-765 (2003).
+* [43] C. Adler, _et al._, Nucl. Instr. and Meth. A470, 488 (2001).
+
+* [44] W.J. Llope, _et al._, Nucl. Instrum. Methods Phys. Res., Sect. A, Accel. Spectrom. Detect. Assoc. Equip., 759 (2014).
+* [45] M. Anderson, _et al._, Nucl. Instrum. Meth. Phys. Res., Sect. A, Accel. Spectrom. Detect. Assoc. Equip., 499 (2003).
+* [46] M. Beddo _et al._, Nucl. Instrum. Meth. A499 725-739 (2003).
+* [47] C.E. Allgower, _et al._, Nucl. Instr. and Meth. A 499 736(2003).
+* [48] F. Bergsma, _et al._, Nucl. Instrum. Meth. A499 633-639 (2003).
+* [49] H. Bichsel, Nucl. Instrum. and Meth. in Physics Research A 562 154-197 (2006).
+* [50] W. J. Llope, Nucl. Instrum. Meth., B241 306-310 (2005).
+* [51] Xin Dong, AIP Conf. Proc. 865 332-337 (2006).
+* [52] E. C. Zeballos _et al._, Nucl. Instr. and Meth. **A 374**, 132-135 (1996).
+* [53] Ming Shao et al, Measur. Sci. Tech., 20:025102 (2009).
+* [54] M. Shao, _et al._, Nucl. Instrum. Meth., A558 419-429, (2006).
+* [55] M. Miller, _et al._, Annu. Rev. Nucl. Part. Sci. 57, 205-43 (2007).
+* [56] J. Adams, _et al._, Phys. Rev. Lett. **91** 26 (2003).
+* [57] J. Adams, _et al._, Phys. Rev. C **71** 044906 (2005).
+* [58] Y. Zhang, private communication.
+
+* [59] P. M. Hohler and R. Rapp, Phys. Lett. B, 731, 103-109 (2005).
+* [60] M. Prasad, Acta Phys. Pol. **10** 635 (1979).
+* [61] L. Zhou, private communication.
+* [62] R. Hanbury-Brown and R. Q. Twiss, Nature 178, 1046 (1956).
+* [63] G. Goldhaber _et al._, Phys. Rev. 120, 300 (1960).
+* [64] W. Bauer, _et al._, Annu. Rev. Nucl. Part. Sci. 42, 77 (1992).
+* [65] U. Heinz and B. V. Jacak, Ann. Rev. Nucl. Sci. 49, 529 (1999).
+* [66] B. Smith, Symmetry and Relativity, University of Oxford (2015).
+* [67] R. Feynman, The Feynman Lectures on Physics, Volume III, (1963).
+* [68] The STAR Collaboration, [https://drupal.star.bnl.gov/STAR/files/STAR_iTPC](https://drupal.star.bnl.gov/STAR/files/STAR_iTPC) _proposal_06_09_2015.pdf (2015).
+* [69] B. I. Abelev, _et al._, Phys. Rev. C **79** 034909, (2009).

@@ -1,0 +1,869 @@
+RICE UNIVERSITY
+
+**Construction of a New Detector, and Calibration Strategies, for Start**
+
+**Timing in the STAR Experiment at RHIC**
+
+by
+
+**Jianhang Zhou**
+
+A THESIS SUBMITTED
+
+IN PARTIAL FULFILLMENT OF THE
+
+REQUIREMENTS FOR THE DEGREE
+
+**Master of Science**
+
+Approved, Thesis Committee:
+
+Dr. Jabus B. Roberts, Chair
+
+Professor of Physics and Astronomy
+
+Dr. William J. Llope
+
+Senior Faculty Fellow of Physics and Astronomy
+
+Dr. Gordon S. Mutchler
+
+Professor of Physics and Astronomy
+
+Dr. Christopher M. Johns-Krull
+
+Assistant Professor of Physics and Astronomy
+
+Houston, Texas
+
+October 2006
+
+###### Abstract
+
+**Construction of a New Detector, and Calibration Strategies, for Start Timing in the STAR Experiment at RHIC**
+
+**by**
+
+**Jianhang Zhou**
+
+The Time of Flight (TOF) system of the Solenoidal Tracker at RHIC (STAR) at the Relativistic Heavy Ion Collider (RHIC) consists of two different subsystems: the start detector and the stop detector. Described in this thesis is the design, construction, and operation of a new start detector for STAR. This new start detector, called the Upgraded Pseudo Vertex Position Detector (upVPD) provides many improvements to the old start detector, called the Pseudo Vertex Position Detector (pVPD). The upVPD is expected to have better efficiency per event and better start timing and primary vertex location resolution compared to the pVPD, which will improve the performance of the STAR TOF and STAR Trigger systems.
+
+Timing offsets and the slewing effect smear the raw data read-out by the detectors and require offline calibration. The general approach and a few possible algorithms for such calibrations are also described. The analysis results from both the pVPD and the upVPD detectors are presented. Additional cosmic ray tests of the upVPD detectors were also performed, and the calibration results from these data are also discussed.
+
+**Acknowledgements**
+
+As I started this project about a year ago, although I did some work in STAR TOF group, I was still looking for a good project for a masters thesis. So, first, I am mostly grateful to Dr. William J. Llope, who offered me this great opportunity to study, and to build the start detector, the upVPD, by my own hands. I also thank him very much for offering me this great project for my masters thesis. Under his patient direction and instruction, I learned a lot about the experimental physics research, from the mechanical work to the data analysis, from the hardware to the software. He even taught me a lot about the English language.
+
+Dr. Jerry Hoffman and his colleagues of the University of Texas - Austin Machine Shop, built all the aluminum parts of the detector for free. I thank them very much for their invaluable help.
+
+Many thanks to Dr. Vahe Ghazikhanian at the University of California, Los Angeles, for building the bases for our phototubes. Although the MOSFET bases had problems, he quickly built new linear bases and shipped to us. Without those new bases, we could not have completed the cosmic ray tests, and we would not be able to put the new start detector back into STAR runs. Ted Nussbaum, engineer at Rice, nicely taught me some knowledge about electronics. Whenever I had problems about electronics, I went to ask him and each time he explained to me in detail. I really appreciate his help.
+
+Dr. Jing Liu helped me in C++ and ROOT programming. Dr. Geary Eppley, Dr.
+
+Jo Schambach, an other people in TOF group, were also very helpful in this project. I am very grateful to them.
+
+I should specially thank Dr. Jinghua Liu, who is also in Bonner Lab but not in the TOF group. He gave me important help in code debugging, which saved me a lot of time and made the debugging jobs less painful.
+
+Prof. Jabus B. Roberts, my official advisor, encouraged me when I felt upset. I thank him very much.
+
+I thank Dr. Gordon Mutchler from Bonner Lab and Dr. Christopher M. Johns-Krull from the Department of Physics and Astronomy, as well as Prof. Roberts and Llope for reviewing my thesis and being a committee member for my defense.
+
+Finally, I should give many thanks to my parents on the other side of the Pacific Ocean. They gave me steady support, in my mind. Without their support and encouragement I cannot complete my studies in this project.
+
+###### Contents
+
+* 1 Introduction
+	* 1.1 The Theory of TOF Systems
+		* 1.1.1 The Theory of TOF Particle Identification
+		* 1.1.2 The Theory of Start Timing, and pVPD in STAR
+		* 1.1.3 Introduction to Offline Calibrations
+	* 1.2 Examples of Start Detectors in Other Experiments
+		* 1.2.1 The PHENIX Beam-Beam Counter
+		* 1.2.2 The PHOBOS Time Zero Detector
+		* 1.2.3 The ALICE Start Detector
+	* 1.3 General Design of the STAR upVPD
+* 2 Detector Construction
+	* 2.1 Mechanical Design of the upVPD Detector
+	* 2.2 Construction Procedure
+	* 2.3 Phototube Testing
+	* 2.4 Installation and Operation
+		* 2.4.1 Installation
+		* 2.4.2 Operation
+* 3 Detector Performance
+	* 3.1 Data Acquisition System
+	* 3.2 General Description of the Slewing Effect and Offline Calibrations
+	* 3.3 The "1-\(\langle 2\rangle\)" Calibration Procedure
+	* 3.4 The "1-\(\langle 2\rangle\)" Calibration Results for the pVPD in Run-V
+	* 3.5 The "1-1" Calibration Procedure
+	* 3.6 The "1-1" Calibration Results for the pVPD in Run-V
+	* 3.7 Bouncing Offsets in the "1-1" Algorithm
+	* 3.8 Summary of Detector Resolution of Run-V
+	* 3.9 Run-VI upVPD Data Analysis
+* 3.10 Cosmic Ray Tests of upVPD Detectors
+* 4 Summary and Conclusions
+
+List of Figures
+	* 1.1 A scale drawing of the the position of pVPD and the TOF tray installed in STAR
+	* 1.2 The mass resolution for pions, Kaons, protons and deuterons versus the momentum. The solid lines depict pseudorapidities close to 0, and the dashed lines depict pseudorapidities close to 1.
+	* 1.3 Schematic detector positioning with respect to collision vertex.
+	* 1.4 Shown in this figure are two PMT pulses starting at the same time. The bigger pulse crosses the threshold earlier, and appears at an earlier time than does the smaller signal.
+	* 1.5 PHENIX Beam-Beam Counter
+	* 1.6 On the left is the photograph of PHOBOS time zero detector. On the right is a sketch of a single read-out channel.
+	* 1.7 The upper left shows the installation positions of the ALICE start detector. The upper right shows a picture of the "T0-C" detector. On the bottom is the sketch of one read-out channel.
+	* 1.8 The efficiency per event for the various designs of the pVPD and up-VPD as simulated for minimum bias Au+Au events. The horizontal axis is the impact parameter, b, in fm. The design "pVPD Y2005" is the pVPD as used in Run-V, and "upVPD Y2006A" is the upVPD used in Run-VI.
+	* 1.9 The efficiency per event of the various designs of the pVPD and upVPD as simulated for p+p events. The horizontal axis is the Z-position of the primary collision vertex in cm.
+	* 2.1 A schematic side view of the mechanical structure of a upVPD detector assembly.
+	* 2.2 Some of the components of a pVPD detector before assembly.
+	* 2.3 On the left side are the shells, and on the right hand side are the front and back caps of the upVPD mechanical assembly.
+	* 2.4 The base for the upVPD PMTs.
+	* 2.5 A upVPD PMT shown wrapped by the aluminum sheet that becomes the electrostatic shield. The lead wire can also be seen in this figure.
+	* 2.6 On the left hand side is the shielded PMT and two pieces of Pb. On the right hand side is the PMT assembly wrapped with the aluminum sheet and the outer copper tape.
+	* 2.7 Two nearly completed PMT assemblies. The left one is wrapped in Kapton tape, and the right one is not yet wrapped.
+	* 2.8 A PMT and a base connected together.
+The foam tape attached to the wrapped PMT. This assembly is ready to be installed into the aluminum shell.
+* 10 A PMT assembly inside its aluminum shell. The front cap is not yet attached.
+* 11 On the left hand side is a back cap with the SHV and BNC connectors not yet installed. On the right is the back cap with these two connectors installed.
+* 12 The back cap after the wiring connections to the base are made.
+* 13 A completed upVPD detector assembly.
+* 14 The front view of the upVPD detectors. The one foot long ruler in the figure provides the scale.
+* 15 Shown in this figure is the side view of both of the upVPD detectors.
+* 16 Shown in this figure is the absolute value of the high voltage settings versus the PMT number. The red squares show the high voltage settings determined from the pulse height approach. The blue triangles shows the settings determined from the pulse area approach.
+* 17 The pulse height (left frames) and area (right frames) for each PMT at its own operating high voltage. The horizontal axis in the two upper frames are the PMT serial numbers and the vertical axis indicate the average pulse height and area, respectively. The lower two frames show the Y-projection of the upper two plots. The vertical axes in each of these two frames are the count numbers and the horizontal axes are the pulse height (lower left) and area (lower right), respectively.
+* 18 The west upVPD as installed in STAR.
+* 19 The close-up view of the west upVPD as installed in STAR. Red high voltages cables and black signal cables can also be seen.
+* 10 The calibration results from the first three passes for the Run-V east side pVPD data from day 34.
+* 11 The calibration results of the last three passes for the Run-V east side pVPD data from day 34.
+* 12 The calibration results of the last three passes for the Run-V east side pVPD data from day 34.
+* 13 The mean value, \(\mu\), and standard deviation value, \(\sigma\), versus the pass number, from day 34 data, for the east side pVPD.
+* 14 The mean value, \(\mu\), and resolution, \(\sigma\), versus the pass number, from day 34 data, for the west side pVPD.
+* 15 The mean value, \(\mu\), and resolution, \(\sigma\) versus the pass number, for the "\(\langle 2\rangle-\langle 4\rangle\)" evaluation, from day 34 data.
+* 16 The mean value, \(\mu\), and the resolution, \(\sigma\), versus the pass number, for the east side pVPD, from the day 34 data.
+* 17 The mean value, \(\mu\), and the resolution, \(\sigma\), versus the pass number, for the west side pVPD, from the day 34 data.
+* 18 The mean value, \(\mu\), and resolution, \(\sigma\), versus the pass number, for the "\(\langle 2\rangle-\langle 4\rangle\)" evaluation, from day 34 data.
+
+The time differences versus pass number for the day 34 data during the "1-1" calibration for the west pVPD. The blue squares depict the quantity \(\Delta_{1-2}\), the red up triangles depict \(\Delta_{2-3}\), and the purple down triangles depict \(\Delta_{3-1}\).
+* 3.10 The ToT distribution for the day 34 data. The ToT extends to about 30 nanoseconds.
+* 3.11 The ToT distribution for the day 48 data.
+* 3.12 Shown in this figure is the summary of the single detector resolutions for different calibration methods. The horizontal axis indicates the single detector resolution, \(\sigma_{0}\), in ps. The vertical axis shows different evaluations.
+* 3.13 The number of hits for each channel versus the day number. The vertical axis is the upVPD channel number. Channels 0 to 18 are the east upVPD, and channels 19 to 37 are the west upVPD.
+* 3.14 The ToT values for each detector channel. The vertical axis is the ToT value in ns, and the horizontal axis is the upVPD channel number.
+* 3.15 The ToT values versus the detector channel number after the ToT offset correction.
+* 3.16 The ToT distribution histogram over all upVPD channels. The horizontal axis is the ToT value in ns.
+* 3.17 The ToT distributions of three example channels from the upVPD during Run-VI.
+* 3.18 The leading time difference versus ToT for a typical upVPD channel with a very narrow ToT distribution in the Run-VI data.
+* 3.19 The results from the first three passes of the "1-1" calibration of upVPD channel numbers 4, 6, and 9, on the east side.
+* 3.20 The mean values of the time difference distribution versus the pass number in the "1-1" calibration of the upVPD east channels 4, 6, and 9. The lower panel shows the timing resolution in ps.
+* 3.21 The mean values and resolutions versus the pass number of the "1-\(\langle 2\rangle\)" calibration of upVPD channels 4, 6, and 9 on the east side.
+* 3.22 The mean values and resolutions versus the pass number for each pass of the "1-1" calibration of upVPD channels 15, 6, and 9 on the east side.
+* 3.23 On the left side is a picture of the cosmic ray tests setup. On the right is a sketch of the tests. The dash line indicates a possible path of a cosmic ray particle which will fire all three PMTs.
+* 3.24 The schematic of the trigger logic for the cosmic ray tests.
+* 3.25 The results from the first three calibration passes of the cosmic ray test. The two channels used were upVPD channels 16 and 31 with new linear bases. The time unit used in this figure is number of TDC bins (50 ps/bin).
+* 3.26 The calibration results from the cosmic ray tests of channels 16 and 31.
+
+3.27 The time difference between the two upVPD channels in the last pass of calibration.3.28 The cosmic ray test calibration results for the upVPD channels 8 and 33.3.29 The time difference between two calibrated channels from the cosmic ray tests of channels 8 and 33.
+
+List of Tables
+	* 2.1 Weight of the components of a detector channel in grams
+	* 3.1 A summary of the timing resolutions for the various Run-V calibration algorithms. These results are shown graphically in Figure 3.12.
+	* 3.2 Timing resolution results of cosmic ray tests for different calibration parameters. The values are expressed in ps.
+
+## Chapter 1 Introduction
+
+Time of Flight (TOF) systems are important Particle Identification (PID) systems in modern collider experiments. At colliders, two beams of high energy particles are accelerated in opposite directions and collide near the locations of detector systems. A TOF system measures the flight time of particles produced in these collisions. All TOF systems consist of two basic parts: a "start detector" and a "stop detector". The particles' time of flight is defined up to a trivial overall offset as the stop time minus the start time. Discussed in this thesis is the construction and calibration of a new "upgraded" start detector for the Solenoidal Tracker at RHIC (STAR).
+
+The Relativistic Heavy Ion Collider (RHIC) [1] at Brookhaven National Laboratory (BNL) is composed of two concentric rings of 2.4 miles in circumference. Heavy ions, such as Au or Cu, can be accelerated to a momentum of 100 GeV/c per nucleon. The beams travel along the two rings in opposite directions. There are six collision regions around the ring where the two rings "cross". The resulting collisions can result in nuclear matter at high temperatures and high densities, and quarks and gluons may be deconfined in a quark-gluon-plasma (QGP). Understanding the existence andfeatures of a QGP is very important for the advanced study of quantum chromodynamics (QCD) and the behavior of the very early universe [2]. Besides the study of a QGP, RHIC is also capable of accelerating polarized protons with momenta up to 500 GeV/c. Collisions of polarized protons up are very useful for understanding spin physics.
+
+STAR is a large wide-acceptance detector at RHIC [3]. The main tracking detector in STAR is the Time Projection Chamber (TPC). The TPC is a hollow cylinder that is \(\sim\)4 meters in diameter by \(\sim\)4.2 meters long. It provides the momentum vectors and trajectories for the charged particles emerging from the collision within a pseudorapidity1 range of \(\pm\)1.8. The TPC also provides PID capabilities using the particles' specific ionization energy loss \(dE/dx\), which is measured in units of MeV/cm. With the TPC \(dE/dx\), particles can be identified over the momentum range from \(\sim\)0.1 GeV/c to \(\sim\)0.7 GeV/c for charged pions, Kaons, and protons, and \(\sim\)1.0 GeV/c for pions plus Kaons versus protons [4].
+
+Footnote 1: The pseudorapidity \(\eta\) is related to the polar angle \(\theta\) via \(\eta=-\ln\left(\tan\frac{\theta}{2}\right)\). So a pseudorapidity acceptance of \(\pm\)1.8 implies a polar angle coverage ranging from 18.8\({}^{\circ}\) to 161.2\({}^{\circ}\) with respect to the Z axis (beam pipe).
+
+However, TPC is not capable of identifying particles with momenta greater than these limits, so an additional PID system is needed to extend the PID coverage to higher momenta. This is the practical purpose of the TOF system for STAR. This system is capable of identifying charged hadrons with momenta up to a factor of 2-3 greater than those for which \(dE/dx\) PID is efficient [5].
+
+The previously installed start detector, the so-called Pseudo Vertex Position Detector (pVPD), demonstrated good performance in STAR Runs II through V. But the performance is not ideal in proton+proton (p+p) runs, due to its low channel count (hence low efficiency). So a new start detector called the Upgraded Pseudo Vertex Position Detector (upVPD), was designed and built to replace the pVPD.
+
+This thesis is organized as follows. In Chapter 1 is the introduction to the start detector theory, design, and data analysis. The construction procedure, installation, and operation of the upVPD detector are described in Chapter 2. The calibration strategies, and the results these algorithms obtain for both the pVPD and upVPD, are discussed in Chapter 3. The summary and conclusions are in Chapter 4.
+
+The remainder of this chapter presents an introduction and is organized as follows. The theory of TOF measurements, and the theory of start detectors are discussed in Section 1.1. Examples of start detectors used in other collider experiments, namely PHENIX, PHOBOS, and ALICE, are discussed in Section 1.2. The motivation and general design of the upVPD is described in Section 1.3. Also discussed in this section are the results from simulations comparing the efficiency of the upVPD to the pVPD.
+
+### The Theory of TOF Systems
+
+In this section the theory of TOF systems will be described. The general idea of TOF systems is described in Subsection 1.1.1, and the TOF systems used in STAR are introduced. The start and stop detectors of the STAR TOF will also be discussed. In Subsection 1.1.2, the STAR start detector is discussed in detail. The componentsand mechanical structure will be described. The offset and slewing effects requiring calibration are discussed in Subsection 1.1.3.
+
+#### The Theory of TOF Particle Identification
+
+The basic concepts involved in TOF PID are described in this subsection. A TOF detector consists of two main components: a start detector and a stop detector. The flight path and momentum components of a charged particle are recorded and reconstructed by TPC. The start time is recorded by the start detector, and the stop time is recorded by the stop detector. The time of flight is then defined as the stop time minus the start time, _i.e._\(TOF=t_{stop}-t_{start}\).
+
+In the collisions of heavy ions in STAR, there are large pulses of high energy photons coming out from the collision vertex in ion-ion collisions. The start detector concentrates on measuring these photons as well as similarly forward highly relativistic charged particles. The existing start detector, the pVPD, consists of two identical parts, the east pVPD and the west pVPD, which are installed on the east and west sides of STAR, respectively. Each is as close as possible to the beam pipe at a distance of \(|Z|\)=5.6 m from the center of the STAR. The detectors cover about 20% of the pseudorapidity range of 4.43\(<\)\(\eta\)\(<\)4.94 on each side. These limits imply angles in the range 0.82\({}^{\circ}\)\(<\)\(\theta\)\(<\)1.48\({}^{\circ}\)[6]. The pVPD measures the start time for collision events, as well as the position of the primary vertex along the beam line, as described below.
+
+The stop detector consists of so-called TOF "trays". In the "TOFp" stop detector originally used in STAR Run-II, the tray enclosed many channels of plastic scintilllator plus Hamamatsu mesh dynode PhotoMultiplier Tubes (PMTs) as the read-out detectors. In STAR Run-V, a new kind of tray, called "TOFr" was implemented along with the TOFp tray. A TOFr tray is made up of 32 Multi-gap Resistive Plate Chamber (MRPC) [7] modules. A full system of 120 similar trays, called the STAR TOF system, will cover the entire cylindrical surface of the TPC and is now under construction.
+
+Shown in Figure 1.1 is a scale drawing of the start and stop detectors installed in STAR during Run-II. The TPC is cut away in this picture.
+
+When a particle with a momentum (known from the TPC), passes a known distance (also known from the TPC), and a time of flight is measured by a TOF system, the mass of the particle can be calculated. This is the definition of "PID". Defining the path length as \(s\), the time of flight as \(t\), and the momentum of the particle as \(p\), the velocity is then obtained from \(v=s/t\).
+
+Figure 1.1: Shown in this figure is a scale drawing of the position of the pVPD and the TOF tray installed in STAR. Figure obtained from Ref. [6].
+
+From the the theory of relativity,
+
+\[p=\gamma M\beta c={Mv\over\sqrt{1-v^{2}/c^{2}}}\]
+
+where \(M\) is the mass of the particle, \(c\) is the speed of light, \(\beta=v/c\), and \(\gamma=1/\sqrt{1-\beta^{2}}\). Then the mass can be measured from the TPC+TOF data via:
+
+\[M=p\sqrt{{t^{2}\over s^{2}}-{1\over c^{2}}}\.\]
+
+The TOF PID resolution depends on the experimental resolutions of the quantities \(p\), \(s\), and \(t\). The resolution of the particle mass resulting from the resolutions on \(p\), \(s\), and \(t\) is given by,
+
+\[{\Delta M\over M}={\Delta p\over p}\oplus\gamma^{2}\left({\Delta s\over s} \oplus{\Delta t\over t}\right)\,\]
+
+where the circled addition symbols, \(\oplus\), denote addition in quadrature.
+
+In STAR, the TPC provides a momentum resolution of roughly \(\Delta p/p\)\(\sim\)0.013, a path length resolution of\(\Delta s/s\)\(\sim\)0.002. Also assume a TOF system with a timing resolution, \(\Delta t\), of 100 ps. Shown in Figure 1.2 are \(M+\Delta M\) and \(M-\Delta M\) in GeV/c\({}^{2}\) versus the momentum, \(p\) in GeV/c. Plotted for each particle are two pairs of lines marking the range of the mass uncertainty. For each pair of lines, the upper line is the upper limit \(M+\Delta M\), and the lower line is the lower limit, \(M-\Delta M\). The solid lines correspond to flight paths near \(\eta\)=0, and the dashed lines correspond to flight paths near \(\eta\)=1. It is seen from this figure that the lower solid line for Kaons meetsthe upper solid line for pions near a momentum of \(\sim\)1.7 GeV/c, which means the TOF can provide "2\(\sigma\)" \(\pi\)/K/P identification up to this momenta for \(\eta\)\(\sim\)0. The upper solid line for Kaons meets the lower solid line for protons at a momentum near \(\sim\)2.6 GeV/c, so (\(\pi\)+K)/p extends to \(\sim\)2.6 GeV/c for \(\eta\)\(\sim\)0.
+
+For tracks near \(\eta\)=1, "2\(\sigma\)" identification of \(\pi\)/K/p extends to 1.9 GeV/c, and p versus (\(\pi\)+K) identification is possible up to 3.1 GeV/c. Deuterons can be identified up to 4.0 GeV/c for \(\eta\)\(\sim\)0, and 4.7 GeV/c for \(\eta\)\(\sim\)1. The higher momentum limits for PID for tracks near \(\eta\)\(\sim\)1 compared to those near \(\eta\)\(\sim\)0 is due to the longer flight path in the TPC for \(\eta\)\(\sim\)1.
+
+**Figure 1.2:** The mass resolution for pions, Kaons, protons and deuterons versus the momentum. The solid lines depict pseudorapidities close to 0, and the dashed lines depict pseudorapidities close to 1. This figure was obtained from reference [5].
+
+#### The Theory of Start Timing, and pVPD in STAR
+
+The STAR start detector measures the very forward photons generated in a heavy-ion collision to infer the start time. These photons travel along the beam pipe at \(v\)=\(c\), reach the east and west pVPD, and the resulting detector pulses are then recorded. The east time, \(t_{east}\), is defined as the average time of all of the east channels that fired, and the west time, \(t_{west}\), is defined as the average time of all of the west channels that fired in the event,
+
+\[t_{east}=\frac{1}{N_{east}}\sum_{i}t_{i}^{east}\,, \tag{1.4}\]
+
+\[t_{west}=\frac{1}{N_{west}}\sum_{i}t_{i}^{west}\,\,. \tag{1.5}\]
+
+Here \(N_{east}\) and \(N_{west}\) are the number of channels that fired in the east and west start detectors, respectively. The start time, needed for TOF PID, is defined as the average of the east and west time, _i.e._
+
+\[t_{start}=\frac{1}{2}\left(t_{east}+t_{west}\right)\,\,. \tag{1.6}\]
+
+Shown in Figure 1.3 is a schematic side view of the positioning of the STAR start and stop detectors. The very forward photons generated from the collision vertex hit the east and west start detectors. The time of which the photons reach the east and west start detectors is given by,
+
+\[t_{east}=t_{0}+\frac{L+Z_{vertex}}{c}\,\,, \tag{1.7}\]\[t_{west}=t_{0}+\frac{L-Z_{vertex}}{c}. \tag{1.8}\]
+
+Here the absolute time of the collision is \(t_{0}\), and the actual (and unknown) Z-position of the primary vertex _i.e._ the position of the collision along the beam pipe, is \(Z_{vertex}\). The distance from the center point of the STAR chamber to either start detector is defined as \(L\). The start time is thus,
+
+\[t_{0}=\frac{t_{east}+t_{west}}{2}-\frac{L}{c}\, \tag{1.9}\]
+
+and the position of the collision vertex is,
+
+\[Z_{vertex}=\frac{c}{2}(t_{east}-t_{west}). \tag{1.10}\]
+
+According to equation 1.8,
+
+\[t_{start} = (t_{east}+t_{west}) \tag{1.11}\] \[= \frac{1}{2}\left(t_{0}+\frac{L+Z}{c}\right)+\frac{1}{2}\left(t_{ 0}+\frac{L-Z}{c}\right)\] \[= t_{0}+\frac{L}{c}\,\]
+
+which is just a constant away from the absolute time of the collision. This constant, and additional contributions to it from electronic effects, can be determined easily during the subsequent stop-side analyses.
+
+By operating all detector channels at the same gain, the timing resolution of each channel is often assumed for discussion to be the same across detector channels and equal to a quantity called the "single detector resolution," or, \(\sigma_{0}\). Then the resolution of the east start time is given by,
+
+\[\sigma_{east}=\sigma_{0}/\sqrt{N_{east}}\, \tag{1.12}\]
+
+and the resolution of west start time is given by,
+
+\[\sigma_{west}=\sigma_{0}/\sqrt{N_{west}}. \tag{1.13}\]
+
+The start time resolution is then,
+
+\[\sigma_{start} = \frac{1}{2}\left(\sigma_{east}\oplus\sigma_{west}\right) \tag{1.14}\] \[= \frac{1}{2}\left(\frac{\sigma_{0}}{\sqrt{N_{east}}}\oplus\frac{ \sigma_{0}}{\sqrt{N_{west}}}\right)\] \[= \frac{\sigma_{0}}{2}\sqrt{\frac{1}{N_{east}}+\frac{1}{N_{west}}}\.\]
+
+Figure 1.3: This figure shows how the pVPD measures the start time of a collision. This figure is not to scale.
+
+The resolution of the Z-position of the collision vertex is,
+
+\[\sigma_{zvtx} = \frac{c}{2}\left(\sigma_{east}\oplus\sigma_{west}\right) \tag{1.15}\] \[= \frac{c\sigma_{0}}{2}\sqrt{\frac{1}{N_{east}}+\frac{1}{N_{west}}}\] \[= c\sigma_{start}\;\;. \tag{1.16}\]
+
+The typical performance of the pVPD and upVPD detectors with respect to these equations is now described. In full-energy Au+Au or Cu+Cu collision events, all six channels of the pVPD fire in every event of interest to STAR. In this case, \(N_{east}\)=\(N_{west}\)=3, \(\sigma_{east}\)=\(\sigma_{west}\)=\(\sigma_{0}/\sqrt{3}\), the resolution on the start time is \(\sigma_{start}\)=\(\sigma_{0}/\sqrt{6}\), and the \(Z_{vertex}\) resolution is \(\sigma_{zvtx}\)=c\(\sigma_{0}/\sqrt{6}\). If for discussion \(\sigma_{0}\)=120 ps, then \(\sigma_{start}\)=49 ps, and \(\sigma_{zvtx}\)=1.5 cm. In the 2002 RHIC run, for central full-energy Au+Au collisions, the start resolution attained by the pVPD was 24 ps, and the single detector resolution was 58 ps [6]. This implies a Z\({}_{vertex}\) resolution, \(\sigma_{zvtx}\), of 0.71 cm.
+
+For a given single detector timing resolution, \(\sigma_{0}\), the more channels that fire in an event in the start detector, then according to equation 1.14 and 1.15, the better the start time and Z-vertex resolutions will be.
+
+In p+p collisions, very few forward photons or charged particles are generated, so the pVPD efficiency is relatively lower and the resolution is relatively poorer. In order to improve the efficiency and resolution, a start detector with more read-out channels is needed. This is the motivation for a new start detector for STAR called the "upVPD". In the upVPD, there are 19 detector channels on each side in the same space once occupied by the pVPD. Thus in Au+Au collisions, and assuming \(N_{east}\)=\(N_{west}\)=19, and \(\sigma_{0}\)=120 ps, then \(\sigma_{start}\)=27.5 ps, and \(\sigma_{zvtx}\)=0.83 cm.
+
+#### 1.1.3 Introduction to Offline Calibrations
+
+The pVPD (upVPD) consists of two identical detectors, each containing 3 (19) read-out channels. In the pVPD, each read-out channel consists of a Hamamatsu R2083 PMT with base, a Bicron BC420 scintillator, and a 1/4 inch Pb converter layer. When a primary photon hits the Pb layer, some electrons will be generated through pair production process and enter the scintillator, causing scintillation light to be produced. Some of this scintillation light reaches the PMT producing an electronic signal. The signal cables coming out of the detectors are connected to the read-out electronics. These are a connection board called "TPMT", and a Time DIGitizing (TDIG) board. Each TDIG board has four High Precision Time to Digital Converter (HPTDC) chips [8], which convert pulse arrival times into digital data.
+
+One main source of electronic smearing to the start timing is the slewing effect [9]. The slewing effect is intrinsic to PMT-based and MRPC-based detector systems and causes a correlation between the time recorded for a pulse and the size of the pulse. The pulse size can be estimated based on an experimental measurement of the pulse height, area, or width. Even of two pulses arrive at two detectors at the same time, the time measured for the larger pulse is earlier than the time measured for the smaller pulse. In the STAR start detector, a threshold voltage is set on the TDIG board. Particle hits result in a negative pulse, and when the earlier edge, called the "leading edge," crosses the threshold from above, a "leading edge time" is marked. The pulse then reaches a "peak" and then begins to fall back towards ground. This later side of the pulse is called the "trailing edge." The time at which the trailing edge crosses the threshold from below is marked as a "trailing edge time." The time interval between the leading edge and the trailing edge times is called the "Time over Threshold" (ToT). The ToT value measured from the TDIG data for each pulse is thus the measure of the pulse size needed to correct for the slewing effect.
+
+Shown in Figure 1.4 are two pulses from the same detector and starting at the same time in two different events. The bigger pulse has steeper leading edge, and crosses the threshold earlier than the smaller pulse crosses the threshold. This effect is purely detector-related and must be corrected for the data analyses.
+
+Because different PMTs have different transit times, as well as different cable
+
+Figure 1.4: Shown in this figure are two PMT pulses starting at the same time. The bigger pulse crosses the threshold earlier, and appears at an earlier time than does the smaller signal.
+
+lengths to the TPMT+TDIG boards, the time observed for different channels are not the same, even if the particles themselves reached the detector at the same time. These trivial electronic contributions to the measured times are called "offsets". These offsets must also be calibrated out through offline calibration.
+
+The slewing effect and offsets move the time differences (between different channels) that should be zero away from zero, and they smear the resolution on each of the channels used to provide the time differences. The task of the offline calibration analysis is to bring the offsets to zero and the resolution as small as possible. The calibration algorithms look at the time differences and their dependence on the variable related to the pulse size (ToT), then fits the trends and uses the fit parameters in the subsequent passes through the data to remove the offsets and slewing from each read-out channel. In each pass, the time difference is only related to a set of channels, and only one channel will be modified after this pass while the other channels remain unchanged. The sets of the channels involved and the channel being modified differ from pass to pass, according to a specific cycling order. The multiple pass calibration algorithms go through all of the channels and will remove the slewing and offsets for each. The detailed description and discussion of the calibration algorithms are presented in Chapter 3.
+
+### Examples of Start Detectors in Other Experiments
+
+The designs of three start detectors used in other collider experiments at BNL RHIC and at the Large Hadron Collider (LHC) at European Council for Nuclear Research (CERN) [10] are described below. First described in Subsection 1.2.1 is the "Beam-Beam counter" of the the Pioneering High Energy Nuclear and Ion eXperiment (PHENIX) experiment at RHIC. The "Time-Zero Detector" of the PHOBOS experiment at RHIC is described in Subsection 1.2.2. Finally, the start detector for A Large Ion Collider Experiment (ALICE) at CERN is described in Subsection 1.2.3. For each of these, comparisons will be made to the STAR pVPD and upVPD detectors.
+
+#### The PHENIX Beam-Beam Counter
+
+The start detector used in the PHENIX is called the Beam-Beam Counter (BBC) [11], and is shown on the upper left side of the Figure 1.5. There are two sets of detector channels on both sides of PHENIX located very close to the beam pipe at a distance of 144 cm from the center of PHENIX. Each set of detectors covers a pseudorapidity range of 3.0\(<\)\(|\eta|\)\(<\)3.9, and consists of 64 Cherenkov quartz counters. The Cherenkov effect occurs when a charged particle travels in a medium at a speed faster than the speed of light in the same medium. This causes the particle to radiate "Cherenkov" light [12]. The advantage of the Cherenkov radiator is the instantaneous light production from the passage of charged particles and its good radiation hardness.
+
+Quartz is widely used as a Cherenkov radiator.
+
+Each read-out channel consists of the components shown on the upper right side of Figure 1.5, and a schematic side view is shown on the bottom of this figure. The hexagonally-shaped quartz Cherenkov radiators have a diameter of one inch and a length of 3.0 cm. A Hamamatsu R3432 fine mesh dynode PMT transduces the Cherenkov light. This PMT has 15 layers of fine mesh dynode and is thus capable of operation in strong magnetic fields.
+
+The prototype tests with 1.6 GeV/c pion beams and in a magnetic field of 0.3 T showed a single detector resolution of 100 ps before any corrections, and a resolution of 50 ps after standard slewing corrections. The tests of an array of seven channels with a 14.5 GeV/c Au beam indicated a single detector resolution of 54 ps after the slewing corrections [11]. The fully implemented and installed BBC of 128 channels showed a single detector timing resolution of 52\(\pm\)4 ps at RHIC for 130 GeV per nucleon Au+Au collisions [13].
+
+Compared to the pVPD and upVPD, the BBC has more detector channels. And it uses Cherenkov radiators instead of plastic scintillators. The PMTs used are also the Hamamatsu mesh dynode type, which is similar to the upVPD. The reason of using plastic scintillator in the upVPD design is because the scintillators usually provide stronger signal (more light) than Cherenkov radiators do. Considering that the upVPD is hoped to have a good performance in p+p collisions where the number of particles reaching the detector is small, scintillation light should lead to slightly better timing performance compared to Cherenkov light.
+
+#### The PHOBOS Time Zero Detector
+
+Shown on the left hand side of Figure 1.6 is the Time-zero Cherenkov detectors [14] in the PHOBOS experiment, which are located at \(|Z|=\)5.3 m and consist of four read-out channels on each side. The detectors are installed on a circle of diameter 15.1 cm around the beam line. Shown on the right hand side of this figure is the
+
+Figure 1.5: On the upper left is the overview of a PHENIX BBC detector. On the upper right is a picture of one read-out channel. On the bottom is a schematic side view of a read-out channel.
+
+basic design of one read-out channel. Each read-out channel consists of a Bicron BC800 Cherenkov radiator of 2.5 cm thickness and 5.0 cm diameter and a fast 5.0 cm diameter Hamamatsu R2083 PMT like in the pVPD and the PHENIX BBC detectors. The radiators are attached to the PMTs by glue and tape.
+
+The resolution of each read-out channel was about 60 ps after slewing corrections. It was measured with cosmic rays and with RHIC beams, by comparing the vertex positions extracted from the T0 counters with the vertex distribution obtained from the other detectors.
+
+The PHOBOS start detector is the most similar to the pVPD. The Z-position of installation is similar, the number of channels on each side is similar, and the same model of PMTs are used. The difference is that the PHOBOS start detector uses quartz radiators, compared to the plastic scintillators used in the pVPD.
+
+**Figure 1.6:** On the left is the photograph of PHOBOS time zero detector. On the right is a sketch of a single read-out channel.
+
+#### The ALICE Start Detector
+
+The ALICE experiment is a heavy ion experiment at the LHC. Shown on the upper left of Figure 1.7 is a photograph of the 1:1 prototype of the ALICE start detector called "T0" [15]. Two T0 arrays, each consisting of 12 PMTs are located such that on one side (the muon absorber side) of ALICE, the so-called "T0-C" is at a distance of 70 cm from the interaction point, covering the pseudorapidity range of 2.9\(<\)\(\eta\)\(<\)3.3. On the opposite side of ALICE is the "T0-A" detector at 370 cm from the interaction point, covering the pseudorapidity range from -5\(<\)\(\eta\)\(<\)-4.5. The asymmetric positioning of the ALICE T0 detector is because of the presence of the hadronic absorber on the same side as T0-C [15]. A picture of the T0-C detector is shown on the upper right of Figure 1.7. The pipe in the center is the beam line and the flat structure on the right is a cutaway of the muon absorber.
+
+A schematic view of the structure of one read-out channel is shown at the bottom of Figure 1.7. The PMT-187 fine mesh dynode PMT is 3.0 cm in diameter and 5.0 cm long. The 3.0 cm-long quartz Cherenkov radiators are optically coupled to the PMTs.
+
+Two measurements of the T0 performance were made at CERN in the summers of 2003 and 2004 with a beam of 6 GeV/c negative pions and Kaons. With the 3.0 cm diameter Cherenkov radiator, a timing resolution of 37 ps was obtained. With newer smaller radiators (diameter 2.0 cm) better timing resolution of 28 ps was obtained [16].
+
+The design of the ALICE T0 detector is quite different from the designs of the start detectors for STAR. It has asymmetric positioning and the distance from each T0 detector to the interaction point also much shorter than in STAR. Cherenkov radiators are used, which is different from the scintillators used in the STAR start detectors.
+
+Figure 1.7: The upper left shows the installation positions of the ALICE start detector. The upper right shows a picture of the “T0-C” detector. On the bottom is the sketch of one read-out channel. This figure was obtained from Ref. [16].
+
+### General Design of the STAR upVPD
+
+The new start detector in STAR is the "upgraded pVPD" called the "upVPD". The goal of the new start detector is to increase the number of read-out channels on each side of STAR. This will increase the sizes of the event samples of STAR events for which TOF PID is possible. An improved start timing resolution also improves the overall TOF resolution in quadrature, hence extending upwards the momentum range for which good TOF PID is possible.
+
+The PMTs used in the pVPD are not capable of operating in strong magnetic field, so thick and heavy magnetic shields were used in the pVPD. In the upVPD, there are 38 channels. In order to contain as many as 19 channels on each side, each channel must be smaller and lighter. The big and heavy shields of the pVPD are replaced by small and light aluminum shells due to the use of Hamamatsu fine mesh dynode PMTs, which are capable of operating in magnet fields.
+
+The upVPD detectors are installed at the same STAR Z-position where the pVPD was originally installed. A new mechanical structure is used to hold the 19 channels of each upVPD subdetector.
+
+According to simulations [17], the upVPD will have a significantly better efficiency than the pVPD in STAR p+p collisions. Shown in Figure 1.8 is the efficiency per event versus the impact parameter,2 b, in femtometers (fm).3 This simulation is forminimum bias Au+Au events. The design labelled "pVPD Y2005" and "upVPD Y2006" correspond to the pVPD and the upVPD detectors, respectively. The dashed lines at b=14 fm indicate the hard sphere sum of the radii of two Au ions. The left frame is under the condition that either the east or the west start detector has at least one hit. According to this frame, for b\(<\)11 fm, the pVPD and the upVPD show a very similar efficiency, but for b\(>\)11 fm, the upVPD shows a better efficiency than the pVPD. At b=14 fm, the efficiency of the pVPD is about 81%, and the efficiency of the upVPD is about 94%. The right frame is for the condition that both sides have at least one hit. In this frame, the upVPD also shows similar efficiency for impact parameters b\(<\)11 fm, but at b=14 fm the efficiency of the upVPD is about 82% while the efficiency of the pVPD is about 40%.
+
+Shown in Figure 1.9 is the efficiency versus the Z-position of the collision vertex, for the simulated p+p collisions. The left frame is under the condition that either the east or the west detector has at least one hit. In this frame, the pVPD has an efficiency of about 40%, and the upVPD shows an efficiency of about 62%, which implies an improvement of about 50%. The right frame is for the condition that both sides have at least one hit. In this frame, the pVPD has an efficiency of about 8%, and the upVPD has an efficiency greater than 20%, so the efficiency is improved by a factor of \(\sim\)3 in this case.
+
+Figure 1.8: The efficiency per event for the various designs of the pVPD and upVPD as simulated for minimum bias Au+Au events. The horizontal axis is the impact parameter, b, in fm. The design “pVPD Y2005” is the pVPD as used in Run-V, and “upVPD Y2006A” is the upVPD used in Run-VI. This figure was obtained from Ref. [17].
+
+Figure 1.9: The efficiency per event of the various designs of the pVPD and upVPD as simulated for p+p events. The horizontal axis is the Z-position of the primary collision vertex in cm. This figure was obtained from Ref. [17].
+
+## Chapter 2 Detector Construction
+
+In this chapter, the construction, installation in STAR, and operation of a new start detector for STAR called the upVPD is described. First, the mechanical structure and the components of each read-out channel are described in Section 2.1. Then the construction procedure for the assembly of each detector channel is described chronologically in Section 2.2. The PMT testing and the "gain-matching" is described in Section 2.3. In Section 2.4, the installation of upVPD and the operation in STAR during RHIC Run-VI are discussed.
+
+### 2.1 Mechanical Design of the upVPD Detector
+
+The upVPD detector consists of 38 identical read-out channels, 19 on the east of STAR and 19 on the west. Shown in Figure 2.1 is the mechanical structure of one read-out channel. Each detector assembly consists of the following separate parts: an aluminum shell with a back cap and a front cap, a fine mesh PMT, an electrostatic shield, a high-voltage base, plastic scintillator, two pieces of Pb, as well as tape, and high voltage and wiring and connectors.
+
+The PMT, scintillator, and Pb pieces are all cylinders with a 1.5-inch diameter. The thickness of the scintillator is 1 cm, and the total thickness of the two pieces of Pb is 1/4 inch (\(\sim\)1.13 radiation length). When the photons coming from the collision point hit the Pb, electrons and positrons are created via the pair production process, and these pass through the scintillator, generating optical photons. Some of these photons enter the PMT and generate an electronic pulse. The PMT is wrapped by a 2-inch-wide and 6-inch-long aluminum sheet as a so-called "electrostatic shield". The shield is connected via a lead wire to the pins which feed the negative high voltage to the PMT. So the photoelectrons generated at the photocathode will go through all the layers of the mesh dynodes to get multiplied, without being attracted to the glass wall of the PMT. The Pb pieces are held in position by 1-inch-wide copper tape that surrounds both the Pb and the scintillator. This copper tape is electrically conductive
+
+Figure 2.1: A schematic side view of the mechanical structure of a upVPD detector assembly.
+
+on both sides. It overlaps the aluminum sheet of the electrostatic shield, which makes the Pb layer also a part of the electrostatic shield. The scintillator is glued to the PMT. The whole combination of the PMT, the scintillator, the Pb layers, and the electrostatic shield are wrapped by two layers of electrically insulating Kapton tape. A piece of 1 mm thick plastic is placed between the Pb and the front cap as another insulating layer. Two pieces of foam tape are attached around the PMT to hold it in position inside the aluminum shell.
+
+Table 2.1 shows the weight of all of the components of a single read-out channel. The total weight per detector is 382 g. This weight is considerably less than the \(\sim\)4500 g weight of a single pVPD detector. Thus the weight of the total of 19 channels (\(\sim\)7300 g) in the upVPD is still only about half of the weight of three pVPD channels (\(\sim\)13500 g).
+
+The Hamamatsu R5946 PMT [18] consists of 16 layers of fine mesh dynodes,
+
+\begin{table}
+\begin{tabular}{|l|r|} \hline Signal connector & 7.2 \\ HV connector & 11.6 \\ Back cap & 34.8 \\ Front cap & 45.6 \\ Shell & 92.8 \\ Phototube & 51.3 \\ Scintillator & 12.5 \\ Base & 29.5 \\ Lead & 40.5 \(\times 2\) \\
+6-32 screws & 0.80 \(\times 6\) \\
+10-32 screws & 2.69 \(\times 4\) \\ \hline Total weight of one assembly & 381.86 \\ \hline \end{tabular}
+\end{table}
+Table 2.1: Weight of the components of a detector channel in gramswhich make it capable of operating in strong magnetic fields and allows the light outer structure. The PMT is shown in Figure 2.2. In this figure, a round piece of plastic scintillator which is painted black has been glued to the top of the PMT. The Pb pieces, a piece of aluminum sheet for the electrostatic shield, and two pieces of conductive copper tape are also shown in this figure.
+
+Shown in Figure 2.3 are the main components of the aluminum body of a read-out detector channel. Shown on the left side are the aluminum shells, and on the right hand side are the back and front caps. There are holes on the back cap for an SHV high voltage connector and a BNC signal connector to be mounted. The caps are fitted into and bolted to the two ends of the shell with 6-32 screws, three on each side.
+
+The PMT base which is used to apply high voltage to the pins of the PMT, and
+
+Figure 2.2: Some of the components of a pVPD detector before assembly.
+
+receive signals from the PMT, is shown in Figure 2.4. Three wires come out of the base. The red one carries the high voltage, the white one is a ground wire, and the black one is a coaxial signal wire (the center conductor carries the signal, and the outer layer is at ground and acts as a shield).
+
+Figure 2.4: The base for the upVPD PMTs.
+
+Figure 2.3: On the left side are the shells, and on the right hand side are the front and back caps of the upVPD mechanical assembly.
+
+### Construction Procedure
+
+In this section, the construction procedure is described chronologically. The procedure is generally these steps: preparing the PMTs, painting and gluing the scintillators, shielding and wrapping the PMTs/scintillators/Pb, connecting the bases, installing these components into the shells, and finally soldering the wires. These steps are described in this section.
+
+The PMTs used in the upVPD were recycled from the TOFp detector, which already demonstrated stable operation and good timing resolution in STAR Run-II through Run-IV [19]. Each TOFp detector assembly consists of a PMT glued to a 20 cm long scintillator bar, wrapped by two layers of Tyvek UV-treated paper and a layer of black photographer's plastic. Black PVC shrink tubing covers the glue joint section between the PMT and the scintillator bar [6]. In order to prepare the TOFp PMTs for the new detector, first the shrink tubing was cut and removed. Then the photographer's plastic and Tyvek paper were removed. To remove the PMTs, the scintillators were cut close to the PMTs, so as to be easily dipped into chemical solvent. The remaining part of the scintillator which was still attached to the PMT after cutting was about 1 cm long. Then it was dipped into a cup of dichloromethane to dissolve the remaining plastic.
+
+In order to keep the scintillator from touching the bottom of the cup (which will decrease the contact area to the dichloromethane solvent), the plastic was placed on top of a mylar foil ring. This mylar foil band was about 2 cm wide and in a ringshape. The PMT sat on top of this ring, at a distance of 2 cm from the bottom of the cup. The scintillator was thus totally immersed in the solvent, but not pressed against the bottom of the cup. As the plastic scintillator was being dissolved by the dichloromethane, the remained plastic part still remained in good contact with the solvent and the PMT could also remain standing straight and steady on the mylar ring seat. It usually took about a whole day to dissolve the plastic. A couple of PMTs could be put into different cups at the same time and left alone overnight. They would be all ready in the next morning. After the plastic was removed, the glass surface of the PMT was cleaned by isopropyl alcohol. Any remaining remnants of the plastic or glue could be easily removed with a razor blade. Then the PMTs were ready to be used in the upVPD detectors.
+
+The next step was to clean the mechanical components -- the aluminum shells and front and back caps. These parts were built at the U. T. Austin machine shop [20]. The machine oil was cleaned off with soap and water.
+
+The Eljen EJ-204 plastic scintillators [21] are 1 cm thick and 1.5 inches in diameter. Two pieces of paper were attached on both the top and bottom sides of the plastic by the manufacturer. Each scintillator piece was painted black on the top and side to absorb the internally reflecting photons, which widen the pulse and deteriorate the timing resolution. One piece of paper covering the scintillator (called "top") was removed, while the other piece on the bottom kept untouched. The top and round sides were cleaned with isopropyl alcohol.
+
+The Liquitex acrylic high-viscosity black paint was used to paint the scintillators. The first coat of paint was put on the top and side of each scintillator using a flat brush. It took a half-day for each to dry. The bottom remained clean and unpainted during this time. After the first coat was dry, a second coat was applied in a brush direction perpendicular to the previous coat.
+
+Then the painted scintillator was glued to the PMT. First, the unpainted bottom side of the scintillator was carefully cleaned with isopropyl alcohol. A thin coat of GE SS4120 primer was applied to both surfaces. The primer was allowed to dry for 30 minutes. While waiting for the primer to dry, the GE RTV615 two-part silicone glue [22] was mixed. The glue was prepared as follows. First one mixes the two components (part A and part B) together with a mixing ratio of 10:1 by weight. A triple-beam scale was used to accurately measure the weight of the two parts to respect the required mixing ratio. Many tiny air bubbles were generated during the mixing process, so it was necessary to "pump them out". To do this, a cup of the glue mixture was placed into a bell jar, which was connected to an electric vacuum pump. A number (\(\sim\)10) of pumping, then opening the jar, iterations were required to make sure all air bubbles were removed.
+
+The glue was then applied to the surface of the PMT with a plastic syringe. Then the piece of scintillator was placed onto the top of the PMT, with the unpainted clean surface meeting the PMT. In order to prevent the scintillator piece from "skiing" on the glue layer, scotch tape was used to keep the plastic in place while the glue dried.
+
+This unit was then put aside to allow the glue to cure for at least 24 hours. Shown in Figure 2.2 is such an assembly at this point of the procedure.
+
+Aluminum foil and copper tape were then used to electrostatically shield the PMTs and scintillators. Shown in Figure 2.5 is a 6-inch by 2-inch aluminum foil that was wrapped around the PMT. One edge of the foil just reaches the top of the scintillator. Pressure was applied to the foil against the PMT while wrapping the aluminum shield, in order to make good contact. The lead wire was separated from the glass surface of the PMT and brought outside the aluminum foil layer. After the foil is attached, a small piece of kapton tape was used to attach the lead wire to the foil. This puts this aluminum foil layer at the photocathode potential as part of the electrostatic shield.
+
+Two pieces of 5-inch by 1-inch copper tape were wrapped around both the bottom and the top sides of the wrapped PMT to complete the electrostatic shield. The edge
+
+Figure 2.5: A upVPD PMT shown wrapped by the aluminum sheet that becomes the electrostatic shield. The lead wire can also be seen in this figure.
+
+of the bottom tape was kept at a distance of about 4mm from the PMT pins. The lead wire was placed between the aluminum foil and the copper tape, and pressure was applied to the tape to assure good electrical contact. The other piece of copper tape was taped so as to leave a 1/3 inch wide overlap with the aluminum foil to extend past the scintillator. This extended part is seen on the left hand side of Figure 2.6. The two Pb pieces were then placed inside and pressed down on the scintillator. Ten or so radial cuts were then made in the still extended part of the copper tape, and these flaps were then folded down against the Pb. From above, the shielded PMT assembly looked like the shutter of a camera lens, as seen on the right hand side of Figure 2.6. The adhesive of the cooper tape is electrically conductive. This makes the Pb pieces part of the electromagnetic shield.
+
+In order to electrically insulate the PMTs assemblies from the aluminum shell, the PMT assemblies were then wrapped with 2 layers of Kapton tape. Figure 2.7 shows the PMT assemblies before and after this step.
+
+Figure 2.6: On the left hand side is the shielded PMT and two pieces of Pb. On the right hand side is the PMT assembly wrapped with the aluminum sheet and the outer copper tape.
+
+The PMT assemblies and outer shells were labeled. Kapton tape was used to protect the labels from being scratched off.
+
+Before sliding the PMTs into the shells, the bases were attached. Figure 2.8 shows a base attached to a PMT. The circular edge of the base was wrapped with Kapton tape to electrically insulate it from the aluminum shell. Shown in Figure 2.9 is a PMT being slipped into a shell. Two pieces of foam tape (5 inch long and half inch wide) were attached around the PMT, making two rings, which serve as an elastic cushion between the PMT and the shell's inner surface.
+
+As shown in Figure 2.10, the PMT assembly, together with the foam rings, was then gently pushed into the shell. A piece of 0.1 cm thick plastic was placed on top of the PMT as a insulating layer between the PMT and the front cap. Then the front cap was attached the shell via three 6-32 screws.
+
+Figure 2.7: Two nearly completed PMT assemblies. The left one is wrapped in Kapton tape, and the right one is not yet wrapped.
+
+The last step was to connect and solder the internal wiring. The SHV high voltage connector and BNC signal connector are shown on the left hand side of Figure 2.11. The right hand side of this figure shows both connectors fastened to a back cap. Heat-shrink tubing was put around the red high voltage and white ground wires coming
+
+Figure 2.8: A PMT and a base connected together.
+
+Figure 2.9: The foam tape attached to the wrapped PMT. This assembly is ready to be installed into the aluminum shell.
+
+out of the base. The red high voltage wire was soldered to the center pin of the SHV connector, and the white wire (ground) was soldered to the tab of the SHV connector. The black wire (signal output) was then soldered to the BNC connector. In order to protect this connection, a small piece of fusion tape was wrapped around it. Figure 2.12 shows a back cap with all of the wires connected. After the connections were checked with an Ohmmeter, the shrink tubing was heated and shrunk to fit by a hot air gun. Then the back cap was attached with three screws. A completed detector assembly is shown in Figure 2.13.
+
+After all 38 assemblies were assembled, they were installed into the mechanical support structure. At this point the construction of the upVPD detector was complete, and the system was ready for testing and installation. The front and side views of the whole detector are shown in Figures 2.14 and 2.15.
+
+Figure 2.10: A PMT assembly inside its aluminum shell. The front cap is not yet attached.
+
+Figure 2.11: On the left hand side is a back cap with the SHV and BNC connectors not yet installed. On the right is the back cap with these two connectors installed.
+
+Figure 2.12: The back cap after the wiring connections to the base are made.
+
+Figure 2.13: A completed upVPD detector assembly.
+
+Figure 2.14: The front view of the upVPD detectors. The one foot long ruler in the figure provides the scale.
+
+Figure 2.15: Shown in this figure is the side view of both of the upVPD detectors.
+
+### Phototube Testing
+
+Different PMTs have different gains. This means that at a given high voltage setting, different PMTs will produce differently sized pulses on average. It is desirable to equalize this output by carefully selecting the high voltage value at which to run each PMT. The procedure by which the high voltage setpoints for each PMT were determined is described in this section.
+
+A dark box, a Tektronix TDS7154B oscilloscope, and PC were used. The PMT (with the painted scintillator glued on) was placed in the dark box. A radioactive source was placed in front of the scintillator. After the dark box was closed, the HV power was applied. The output signals were fed into the oscilloscope. The measurements of interest are the pulse amplitude and pulse area versus the high voltage for each PMT separately. The computer recorded the data from the oscilloscope and saved it to a text file. Three hundred pulses were collected versus the high voltage (in steps of 300 V from 1200 V to 2100 V) for each PMT.
+
+The data saved to text files were then read into a CINT macro in ROOT [23] for more detailed analysis. The average pulse height and pulse area for each PMT and high voltage setting were calculated. Then the average pulse height and area were plotted versus high voltage and fit with a power law.
+
+There are two ways to use these results to set the operating voltage. One way is to set the high voltage such that a common pulse height 400 mV is obtained for all PMTs. The result of this approach is shown in Figure 2.16 by the red squares.
+
+The other way is to set the high voltage such that a common pulse area 4.5 V\(\cdot\)ns is achieved for all PMTs. The operating voltage settings obtained from this method are shown by the blue triangles in the same figure. The two approaches result in very similar high voltage setpoints. The final high voltage setting was chosen to be the average of the voltages from the two different approaches.
+
+After the high voltage settings were determined, the PMTs were set at these operating voltages and then the gain curves (pulse area and height versus the high voltage for radioactive source events) were remeasured. The results from this remeasurement are shown in Figure 2.17. The upper two plots are the average pulse height and area versus the read-out channel number. The lower two plots show these distributions as histograms of the Y-projection of the plots in the two
+
+Figure 2.16: Shown in this figure is the absolute value of the high voltage settings versus the PMT number. The red squares show the high voltage settings determined from the pulse height approach. The blue triangles shows the settings determined from the pulse area approach.
+
+left frame of this figure shows that the mean value of the pulse height distribution is \(\sim\)0.48, while the deviation is \(\sim\)0.047, which is 10% of the mean value. Similarly, the lower right frame indicates a mean value of \(\sim\)5.5 and a deviation of \(\sim\)0.72, which is 13% of the mean value. All the PMTs are operated at these voltage settings when running in STAR.
+
+Figure 2.17: The pulse height (left frames) and area (right frames) for each PMT at its own operating high voltage. The horizontal axis in the two upper frames are the PMT serial numbers and the vertical axis indicate the average pulse height and area, respectively. The lower two frames show the Y-projection of the upper two plots. The vertical axes in each of these two frames are the count numbers and the horizontal axes are the pulse height (lower left) and area (lower right), respectively.
+
+### 2.4 Installation and Operation
+
+#### Installation
+
+The upVPD start detector was fully assembled at Rice on March 3rd, 2006. It was shipped to BNL on March 6th. It was installed in STAR during RHIC Run-VI. Figure 2.18 shows the west side upVPD as installed. In this figure, the start detector can be seen encircling the beam pipe. The axis of each upVPD detector assembly is parallel to the axis of the beam pipe, with the front caps facing the center of the STAR.
+
+Figure 2.19 shows a closer view of the west upVPD. The red cables are the high voltage cables, and the black cables are the signal cables. The RHIC beam pipe goes through the center of each upVPD.
+
+**Figure 2.18:** The west upVPD as installed in STAR.
+
+Figure 2.19: The close-up view of the west upVPD as installed in STAR. Red high voltages cables and black signal cables can also be seen.
+
+#### 2.4.2 Operation
+
+The upVPD was installed on March 15th, 2006 and was uninstalled on March 28th, 2006. In this run RHIC was delivering the polarized proton-proton beams. Due to certain DAQ-Trigger interface problems, when the TOF read-out was included in the STAR data stream together with other STAR detectors, errors would happen and the run would pause unexpectedly. The TOF DAQ could be run successfully alone, _i.e._ as the only detector in the STAR data stream. Event rates above 4000 Hz were achieved, a record for the TOF group. Approximately 10 million events were collected from the upVPD in total during these two weeks.
+
+However, not long after the upVPD was installed and powered up, it was observed that some channels were becoming unable to hold high voltage. In a later access, those channels were connected to different high voltage supply outputs to explore the source of the problem. It was observed that those same detector channels still kept tripping, so the problem was on-detector. After the run, the upVPD was uninstalled from STAR, and the bad channels were disassembled. It was found that in those bad channels, the main load resistors of the bases were burned. This was caused by failures of single MOSFET components in the bases. All these bases of the MOSFET design are now replaced with new bases that use a more conventional resistor chain optimized for high rates.
+
+## Chapter 3 Detector Performance
+
+In this chapter, the offline calibration of the data and the resulting detector performance will be discussed. The most important performance measure for a start detector is the time resolution. To achieve the required resolution, "slewing" and "offset" corrections are necessary. The procedure and algorithm used to remove these effects will be discussed. The calibrations algorithms are applied for the RHIC Run-V data and the results are described.
+
+In Section 3.1, the data acquisition system will be introduced. In Section 3.2, the concept of the slewing effect will be discussed. The procedure of the so-called "1-\(\langle 2\rangle\)" calibration algorithm is described in Section 3.3, and the results from applying this algorithm to the Run-V pVPD data are presented in the following Section 3.4. Then the procedure and results of the so-called "1-1" algorithm are described in Sections 3.5 and 3.6, respectively. An interesting effect in the offsets is seen in the "1-1" method, and is investigated in Section 3.7. The timing resolutions results from the Run-V pVPD calibrations are summarized in Section 3.8. Analyses of the upVPD data from RHIC Run-VI are described in Section 3.9. The results from cosmic raytests of the upVPD detectors are described in Section 3.10.
+
+### Data Acquisition System
+
+In the STAR experiment, the signals from all of the detector subsystems are collected and sent to the STAR computing room via optic fibers. Each detector subsystem included in the run contributes its own data to the STAR data stream. In RHIC Run-V, the TOF system was included in the data stream. In Run-VI, it was run separately as the only detector in STAR, in short but high-rate runs.
+
+The STAR raw data from all of the detectors is stored in the High Performance Storage System (HPSS) of the RHIC Computing Facility (RCF). A web-based script makes it possible for users to get the location of each data file in each run and to retrieve these files from the HPSS to the local computers of RCF users.
+
+The analyses of the data are performed in C and C++ software. The ROOT framework [23] provides many C++ classes for particle physics data analysis, such as histograms, profiles, functions, trees, and other useful classes. It also provides powerful graphical classes for making plots. The ROOT "TTree" class is very efficient for storing data from millions of events. C++ codes can derive from the ROOT classes to build stand-alone applications. ROOT also has its own integrated CINT (C interpreter) environment, within which simple macros can be run directly.
+
+The raw data files containing the data from all of the STAR detectors are retrieved from the HPSS to a local machine. Then a special unpacking code called a "reader"is used to read these raw data files and extract the TOF data. This code also applies so-called "INL 1 corrections", and stores these data to another ROOT file.
+
+Footnote 1: Integral NonLinearity (INL) describes the deviation of digitization’s transfer function from a straight line. INL correction is added to the digitized data to maintain the linearity of the transfer function.
+
+TOF data words are in a 32 bit hexadecimal form [24]. The highest 4 digits are the "packet ID," which indicates whether the data type is a leading-edge word, a trailing-edge word, a header, or some other kind of data. For a pulse leading-edge word or pulse trailing-edge data word, the next 28 bits encode the TDC ID number, TDC channel number, and the time stamp. Then the INL correction can be applied to the time stamps. After the INL correction, all of this information is stored in a ROOT "TTree" structure in a ROOT file that is ready for further analysis and calibration.
+
+### 3.2 General Description of the Slewing Effect and Offline Calibrations
+
+A hit is generated and a "leading edge time stamp" is recorded when a pulse leading edge voltage exceeds an electronic threshold from below with respect to ground (see Figure 1.4). When the pulse crosses back over the threshold from above with respect to ground, a "trailing edge time stamp" is recorded. The Time over Threshold (ToT), is defined as the difference between the leading edge time and the trailing edge time. For two signals of different sizes, the one with larger pulse height and area also has larger width, which results in a larger ToT. For two signals starting at the same time, the one with larger ToT will cross the threshold earlier. This time dependence has nothing to do with the pulse time of interest and must be calibrated out. This effect is called "slewing."
+
+The general approach for a slewing correction is to use an iterative procedure. The idea is to define specific time-differences between different channels, and plot these values versus the slewing measure, _i.e._ the ToT. Then one fits these trends and applies the fit functions in subsequent passes through the data as corrections.
+
+In the following sections, two different calibration algorithms will be explored. In the first algorithm, the quantity of interest is the time difference between one channel and the average of two other channels on the same side of STAR. This method is thus called the "1-\(\langle 2\rangle\)" method. In the second algorithm, the quantity of interest is the time difference between two different channels in the same start detector, _i.e._ twohits on the same side of STAR. This method is thus called the "1-1" method. Both methods will be applied to the data from the pVPD and upVPD detectors.
+
+### The "1-\(\langle 2\rangle\)" Calibration Procedure
+
+The "\(1-\langle 2\rangle\)" calibration procedure requires three channels are hit per event and is described in this section. This method looks at the time difference between one channel and the average of two other channels on the same side of STAR. Because of the existence of slewing and time offsets, these differences are not zero. The aim of the calibration is to bring these values to zero.
+
+The algorithm passes through all the data a number of times. During each pass, a "time difference" involves three channels in the order of A, B, and C, and it is defined as the time difference between the first channel (A) and the average of the other two (B and C). A profile histogram of the time difference versus the ToT of channel A is filled. The projection of this profile onto the time difference axis is also filled. This projection is fit with a Gaussian distribution function, and the mean value \(\mu\) and deviation \(\sigma\) are obtained. Then the profile histogram is fit by a function \(f(TOT_{A})\). After this pass and in all the subsequent passes, the time of channel A is subtracted by this fitting function. So in this pass, channel A is modified once, and the other channels are unchanged. After applying this correction in this pass, both the \(\mu\) value and the \(\sigma\) value of channel A become smaller. In different passes, there are different sets or different orders of the channels involved to define the time differences. For the pVPD, there are only three channels total on each side, so in each pass all of the channels are involved, but in different orders in different passes. For the upVPD, because there are 19 channels on each side, the three channels involved in differentpasses may change. After each pass, one channel is subtracted by a fitting function, and this modification will be used in all the subsequent passes. After the correction of each pass, the \(\mu\) and \(\sigma\) value of the modified channel become smaller. After many passes, all channels are corrected several times, and the \(\mu\) and \(\sigma\) values for all of the channels are getting smaller and smaller, which is the very purpose of the offline calibration.
+
+More specifically, three east channels of the pVPD, named east 1, 2, and 3, are the set to be involved. Before the calibration, the time of these three channels are called \(E_{1}^{(0)}\), \(E_{2}^{(0)}\), and \(E_{3}^{(0)}\), where the notation "(0)" means the zero-th pass, _i.e._ before calibration. Then before the first pass, the "1-\(\langle 2\rangle\)" time difference is therefore defined as,
+
+\[\Delta^{(0)}=E_{1}^{(0)}-\frac{1}{2}\left(E_{2}^{(0)}+E_{3}^{(0)}\right). \tag{3.1}\]
+
+During the first pass, while passing through all the data, each set of the value \(\left(ToT_{1},\Delta^{(0)}\right)\) for every event is filled into a profile histogram: \(\Delta^{(0)}\) versus \(ToT_{1}\), in which \(ToT_{i}\) denotes the ToT value of channel \(E_{1}\). In the whole iteration process, the ToT values for each channel are not changed, _i.e._ the calibration does not apply to ToT values. The profile shows a slewing curve with a wide width. If this histogram or profile is projected onto the Y axis (_i.e._\(\Delta-axis\)), a \(\Delta^{(0)}\) distribution is shown. This projection, which is a 1-dimensional histogram, can be fit with a Gaussian distribution, the mean value, \(\mu\), and standard deviation, \(\sigma\), are obtained. These two values are very crucial for the calibration, because the main goal of calibration is to bring them to zero. The profile of \(\Delta^{(0)}\) versus \(ToT_{1}\) is fit by a specific function, which can be chosen freely. In this thesis, polynomial functions are used. The fitted function is called \(f^{(1)}\). Then \(E_{1}\) is subtracted by \(f^{(1)}\) while \(E_{2}\) and \(E_{3}\) are left unchanged. So, after the first pass,
+
+\[E_{1}^{(1)} = E_{1}^{(0)}-f^{(1)}\, \tag{3.2}\] \[E_{2}^{(1)} = E_{2}^{(0)}\,\] (3.3) \[E_{3}^{(1)} = E_{3}^{(0)}. \tag{3.4}\]
+
+The time difference is now,
+
+\[\Delta^{(1)}=E_{2}^{(1)}-(E_{3}^{(1)}+E_{1}^{(1)})/2. \tag{3.6}\]
+
+During the second pass, the operation is similar. The only difference is that the three channels are used in a different order. By fitting the profile of \(\Delta^{(1)}=E_{2}^{(1)}-(E_{3}^{(1)}+E_{1}^{(1)})/2\) versus \(ToT_{2}\), the function \(f^{(2)}\) is obtained. Then \(E_{2}\) is subtracted by \(f^{(2)}\). So, after the second pass, \(E_{1}^{(2)}=E_{1}^{(1)}\), \(E_{2}^{(2)}=E_{2}^{(1)}-f^{(2)}\), \(E_{3}^{(2)}=E_{3}^{(1)}\).
+
+During the third pass, channel 3 will be touched. By fitting the profile of \(\Delta^{(2)}=E_{3}^{(2)}-(E_{1}^{(2)}+E_{2}^{(2)})/2\) versus \(ToT_{3}\), the function \(f^{(3)}\) is obtained. Then \(E_{3}\) is subtracted by \(f^{(3)}\). So, \(E_{1}^{(3)}=E_{1}^{(2)}\), \(E_{2}^{(3)}=E_{3}^{(2)}\), \(E_{3}^{(3)}=E_{3}^{(2)}-f^{(3)}\).
+
+From the fourth pass, another cycle is started. This kind of filling histograms and profiles, fitting profiles and projections, and subtracting, are repeated the same way in each pass. This iteration procedure attempts to reduce the \(\mu\) value and the \(\sigma\) value. When \(\mu\)=0 and \(\sigma\) is as small as possible, the offsets and the slewing are removed and the resulting calibrated times are at the best possible resolution.
+
+The value called "\(\langle 2\rangle\)-\(\langle 4\rangle\)" can also be calculated as an evaluation of the performance of all six pVPD channels at once. It is defined as the average of 2 channels on opposite sides of STAR minus the average of the other four channels:
+
+\[\langle 2\rangle-\langle 4\rangle=\frac{E_{1}+W_{1}}{2}-\frac{E_{2}+E_{3}+W_{2} +W_{4}}{4}. \tag{3.7}\]
+
+It can be represented as,
+
+\[\langle 2\rangle-\langle 4\rangle=\frac{E_{1}+W_{1}}{2}-\frac{1}{2}\left[ \left(\frac{E_{2}+W_{2}}{2}\right)+\left(\frac{E_{3}+W_{3}}{2}\right)\right]\, \tag{3.8}\]
+
+which is the start time from one pair of detectors minus the average of the start times from the other two pairs in the same event. It is thus a "1-\(\langle 2\rangle\)" evaluation but with start times.
+
+[MISSING_PAGE_FAIL:68]
+
+before calibration are shown by the red dots and again the solid line is the polynomial fit. The values of \(E_{2}^{(2)}\)-\(\left(E_{1}^{(2)}+E_{3}^{(2)}\right)/2\) versus \(ToT_{2}\) after the calibration are shown by the blue points. In the lower middle panel, the corresponding Y-projections are shown. The upper and lower right panels show the results from the third pass. Shown in the upper right panel are the "1-\(\left\langle 2\right\rangle\)" evaluation for east channel 3, before and after the third pass. The lower panel shows the Y-projections.
+
+Shown in Figure 3.2 are the calibration results of the last three passes of this calibration. In the upper left panel, the red points show the profile of \(E_{1}^{(9)}\)-\(\left(E_{2}^{(9)}+E_{3}^{(9)}\right)/2\) versus \(ToT_{1}\). The solid line is the polynomial fit to this profile. The blue points show
+
+Figure 3.1: The calibration results from the first three passes for the Run-V east side pVPD data from day 34.
+
+the profile of \(E_{1}^{(10)}-\left(E_{2}^{(10)}+E_{3}^{(10)}\right)/2\) versus \(ToT_{1}\), indicating the validity of the fitting. The lower left panel shows the Y-projections of the upper left profiles, _i.e._ the red line shows the distribution of \(E_{1}^{(9)}\)-\(\left(E_{2}^{(9)}+E_{3}^{(9)}\right)/2\) while the blue line shows the distribution of \(E_{1}^{(10)}\)-\(\left(E_{2}^{(10)}+E_{3}^{(10)}\right)/2\). This plot shows that the latter one has a higher and narrower peak than the former one. The upper and lower middle panels show the 10\({}_{th}\) pass results, and the upper and lower right panels show the 11\({}_{th}\) pass results. The mean value, \(\mu\), of the time difference \(E_{1}\)-\(\left(E_{2}+E_{3}\right)/2\) shown in the lower left panel of this figure is \(\sim\)50 ps, and the deviation, \(\sigma\) is \(\sim\)230 ps. The same time difference before any calibrations shows a \(\mu\) absolute value of \(\sim\)1 ns and a \(\sigma\) value of \(\sim\) 470 ps. So after the calibration, the \(\mu\) value is closer to zero and the \(\sigma\) value was reduced by a factor of 2.
+
+Shown in Figure 3.3 is the calibration results for all 12 passes for the east side pVPD using "1-(2)" method. In the upper panel, the red up triangles show the mean value of the time difference before each calibration pass, while the blue down triangles show the mean value of the time difference after each pass. It demonstrates that the \(\mu\) values are declining to zero (from \(\sim\)-1 ns to \(\sim\)-160 ps ). The lower panel shows the resolution, \(\sigma\), for each pass, which also gets smaller. However, after five or six passes, these quantities remain stable and no more improvements are made with additional passes. After the calibration, the resolution, \(\sigma\), was improved from \(\sim\)480 ps to \(\sim\)220 ps. This implies a single detector resolution \(\sigma_{0}\)=180 ps, a start time resolution of \(\sigma_{start}\)=73 ps, and Z-vertex position resolution of \(\sigma_{zvtx}\)=2.2 cm.
+
+Shown in figure 3.4 are the same calibration results and in the same day 34 data but for the west pVPD. The line and point styles for this figure are the same as in Figure 3.3. The behavior of the west side pVPD is quite similar to the east side, but with a smaller resolution, \(\sigma\), of \(\sim\)180 ps, implying \(\sigma_{0}\)=147 ps, \(\sigma_{start}\)=60 ps, and \(\sigma_{zvtx}\)=1.8 cm.
+
+Shown in Figure 3.5 is the "\(\langle 2\rangle-\langle 4\rangle\)" evaluation summary of these same data, which now combines the east and west calibration results onto the same figure. The upper panel shows the mean value for each pass and the lower panel shows the de
+
+Figure 3.2: The calibration results of the last three passes for the Run-V east side pVPD data from day 34.
+
+viation. The \(\mu\) value is improved from \(\sim\)-600 ps to \(\sim\)-150 ps, and the \(\sigma\) is improved from \(\sim\)350 ps to \(\sim\)150 ps. The equivalent single channel resolution, \(\sigma_{0}\), is 173 ps, the start time resolution, \(\sigma_{start}\), is 71 ps, and the Z-vertex position resolution, \(\sigma_{zvtx}\), is 2.1 cm.
+
+Figure 3.3: The mean value, \(\mu\), and standard deviation value, \(\sigma\), versus the pass number, from day 34 data, for the east side pVPD.
+
+Figure 3.4: The mean value, \(\mu\), and resolution, \(\sigma\), versus the pass number, from day 34 data, for the west side pVPD.
+
+Figure 3.5: The mean value, \(\mu\), and resolution, \(\sigma\) versus the pass number, for the “\(\langle 2\rangle-\langle 4\rangle\)” evaluation, from day 34 data.
+
+[MISSING_PAGE_FAIL:75]
+
+with a polynomial function, named \(f^{(1)}\). Then in the next pass through the data \(E_{1}\) is subtracted by \(f^{(1)}\), while \(E_{2}\) and \(E_{3}\) are not changed, _i.e._\(E_{1}^{(1)}=E_{1}^{(0)}-f^{(1)}\), \(E_{2}^{(1)}=E_{2}^{(0)}\), \(E_{3}^{(1)}=E_{3}^{(0)}\). The time difference of interest during this next pass is is \(\Delta^{(1)}=E_{2}^{(1)}-E_{3}^{(1)}\).
+
+During the second pass, the operation is the same as above. By fitting the profile of \(\Delta^{(1)}=E_{2}^{(1)}-E_{3}^{(1)}\) versus \(ToT_{2}\), function \(f^{(2)}\) is obtained. Then \(E_{2}\) is subtracted by \(f^{(2)}\). So, after the second pass, \(E_{1}^{(2)}=E_{1}^{(1)}\), \(E_{2}^{(2)}=E_{2}^{(1)}-f^{(2)}\), \(E_{3}^{(2)}=E_{3}^{(1)}\).
+
+During the third pass, the calibration focuses on channels 3 and 1. By fitting the profile of \(\Delta^{(2)}=E_{3}^{(2)}-E_{1}^{(2)}\) versus \(ToT_{3}\), function \(f^{(3)}\) is achieved. Then \(E_{3}\) is subtracted by \(f^{(3)}\). So, after the third pass, \(E_{3}^{(3)}=E_{3}^{(2)}-f^{(3)}\), \(E_{1}^{(3)}=E_{1}^{(2)}\), \(E_{2}^{(3)}=E_{3}^{(2)}\).
+
+In the fourth pass, the calibration goes back to channels 1 and 2, and the same cycle is repeated. These iterations are repeated until the resolution no longer improves.
+
+### 3.6 The "1-1" Calibration Results for the pVPD in Run-V
+
+Shown in this section are the results of the "1-1" calibration method as applied to the data from the same day 34. Shown in Figure 3.6 is the results for all 12 passes in the data from the east side pVPD. In the upper panel, the red up triangles show the mean value of the time difference, \(\mu\), before each calibration pass, and the blue down triangles show the mean value of the time difference, \(\mu\), after each pass. The lower panel shows the standard deviation (the \(\sigma\) value) for each pass. In this figure, the \(\mu\) value before calibration is seen to be \(\sim\)-1.0 ns, and is improved to \(\sim\)-100 ps after the calibration. The \(\sigma\) value is improved from \(\sim\)580 ps to \(\sim\)210 ps. This implies a start timing resolution of \(\sigma_{start}\)=61 ps, and a Z-vertex position resolution of \(\sigma_{zvtx}\)=1.8 cm.
+
+Figure 3.7 shows the results for the west side. The behavior is similar to the east side. However, the upper panel showing the mean value versus the pass number has a bouncing behavior between positive and negative constants. This does not happen to show up in the east side data (Figure 3.6). This problem will be studied and explained in the next section. Although the offset is not removed by the fit functions, the \(\sigma\) value is improved from \(\sim\)600 ps to \(\sim\)200 ps, implying \(\sigma_{start}\)=57 ps, and \(\sigma_{zvtx}\)=1.7 cm. The resolution results are slightly better than the east side, which is consistent to the "1-\(\langle 2\rangle\)" results.
+
+Figure 3.8 shows the "\(\langle 2\rangle\)-\(\langle 4\rangle\)" evaluation for the "1-1" method. Because the offset of the west side is not removed after the calibration, the \(\mu\) value of the "\(\langle 2\rangle\)-\(\langle 4\rangle\)" evaluation also has an offset. The lower panel of this figure shows that the \(\sigma\)values are improved from \(\sim\)350 ps to \(\sim\)150 ps. It can thus be inferred that \(\sigma_{start}\)=71 ps, and \(\sigma_{zvtx}\)=2.1 cm.
+
+Figure 3.6: The mean value, \(\mu\), and the resolution, \(\sigma\), versus the pass number, for the east side pVPD, from the day 34 data.
+
+Figure 3.7: The mean value, \(\mu\), and the resolution, \(\sigma\), versus the pass number, for the west side pVPD, from the day 34 data.
+
+Figure 3.8: The mean value, \(\mu\), and resolution, \(\sigma\), versus the pass number, for the “\(\langle 2\rangle-\langle 4\rangle\)” evaluation, from day 34 data.
+
+[MISSING_PAGE_FAIL:81]
+
+Then, after the first pass,
+
+\[\langle E_{1}^{(1)}\rangle=\langle E_{1}^{(0)}\rangle-f^{(1)}=\frac{\langle t_{2} \rangle+\langle t_{3}\rangle}{2}\,\ \langle E_{2}^{(1)}\rangle=\langle t_{2}\rangle\,\ \langle E_{3}^{(1)}\rangle=\langle t_{3}\rangle\ \, \tag{3.11}\]
+
+which implies
+
+\[\Delta^{(1)}=E_{2}^{(1)}-\frac{E_{1}^{(1)}+E_{3}^{(1)}}{2}\,\ \langle\Delta^{(1)} \rangle=\frac{3}{4}\left(\langle t_{2}\rangle-\langle t_{3}\rangle\right)\ . \tag{3.12}\]
+
+During the second pass, \(\Delta^{(1)}\) versus \(Tot_{2}\) is fitted by \(f^{(2)}\). So for the mean value, is,
+
+\[\langle\Delta^{(1)}\rangle=\frac{3}{4}(\langle t_{2}\rangle+\langle t_{3} \rangle)=f^{(2)}\, \tag{3.13}\]
+
+and,
+
+\[\langle E_{2}^{(2)}\rangle=\langle E_{2}^{(1)}\rangle-f^{(2)}=\frac{\langle t _{2}\rangle+\langle t_{3}\rangle}{4}. \tag{3.14}\]
+
+Then, after the second pass,
+
+\[\langle E_{1}^{(2)}\rangle=\frac{\langle t_{2}\rangle+\langle t_{3}\rangle}{ 2}\,\ \langle E_{2}^{(2)}\rangle=\frac{\langle t_{2}\rangle+\langle t_{3}\rangle}{4} \,\ \langle E_{3}^{(2)}\rangle=\langle t_{3}\rangle\ \, \tag{3.15}\]
+
+which implies
+
+\[\Delta^{(2)}=E_{3}^{(2)}-\frac{E_{1}^{(2)}+E_{2}^{(2)}}{2}\, \tag{3.16}\]
+
+and
+
+\[\langle\Delta^{(2)}\rangle=\frac{1}{8}\left(5\langle t_{3}\rangle-3\langle t _{2}\rangle\right). \tag{3.17}\]Using the same calculation as above, the results for the subsequent passes are shown below. The process by which the mean values of time differences of interest get closer to zero will be demonstrated.
+
+After the third pass,
+
+\[\langle E_{1}^{(3)}\rangle=\frac{5}{16}\left(\langle t_{2}\rangle+\langle t_{3} \rangle\right)\,\ \langle E_{2}^{(3)}\rangle=\frac{1}{4}\left(\langle t_{2}\rangle+\langle t_{3} \rangle\right)\,\ \langle E_{3}^{(3)}\rangle=\frac{3}{8}\left(\langle t_{2} \rangle+\langle t_{3}\rangle\right)\, \tag{3.18}\]
+
+so,
+
+\[\langle\Delta^{(3)}\rangle=\frac{3}{16}\left(\langle t_{2}\rangle+\langle t_{ 3}\rangle\right). \tag{3.19}\]
+
+After the fourth pass,
+
+\[\langle E_{1}^{(4)}\rangle=\frac{5}{16}\left(\langle t_{2}\rangle+\langle t_{ 3}\rangle\right)\,\ \langle E_{2}^{(4)}\rangle=\frac{11}{32}\left(\langle t_{2}\rangle+\langle t_{ 3}\rangle\right)\,\ \langle E_{3}^{(4)}\rangle=\frac{3}{8}\left(\langle t_{2} \rangle+\langle t_{3}\rangle\right)\, \tag{3.20}\]
+
+so,
+
+\[\langle\Delta^{(4)}\rangle=-\frac{3}{32}\left(\langle t_{2}\rangle+\langle t_ {3}\rangle\right). \tag{3.21}\]
+
+After the fifth pass,
+
+\[\langle E_{1}^{(5)}\rangle=\frac{5}{16}\left(\langle t_{2}\rangle+\langle t_ {3}\rangle\right)\,\ \langle E_{2}^{(5)}\rangle=\frac{11}{32}\left(\langle t_{2} \rangle+\langle t_{3}\rangle\right)\,\ \langle E_{3}^{(5)}\rangle=\frac{21}{64}\left( \langle t_{2}\rangle+\langle t_{3}\rangle\right)\, \tag{3.22}\]
+
+so,
+
+\[\langle\Delta^{(5)}\rangle=\frac{3}{64}\left(\langle t_{2}\rangle+\langle t_ {3}\rangle\right). \tag{3.23}\]It can be seen that the \(\langle\Delta\rangle\) value gets smaller as the iterations continue, and eventually approaches zero:
+
+\[\langle\Delta\rangle:\left(\langle t_{1}\rangle-\frac{\langle t_{2}\rangle+ \langle t_{3}\rangle}{2}\right)\rightarrow\frac{3}{4}\left(\langle t_{2} \rangle-\langle t_{3}\rangle\right)\rightarrow\frac{1}{8}\left(5\langle t_{3} \rangle-3\langle t_{2}\rangle\right)\rightarrow\frac{3}{16}\left(\langle t_{ 2}\rangle+\langle t_{3}\rangle\right)\]
+
+\[\rightarrow-\frac{3}{32}\left(\langle t_{2}\rangle+\langle t_{3}\rangle \right)\rightarrow\frac{3}{64}\left(\langle t_{2}\rangle+\langle t_{3} \rangle\right)\rightarrow\cdots\cdots \tag{3.24}\]
+
+The same calculation can be applied to the "1-1" method. The results are shown below. The difference of the two methods in terms of their treatment of the offsets is then apparent.
+
+During the first pass, \(\Delta^{(0)}=t_{1}-t_{2}\) versus \(ToT_{1}\) is fitted by \(f^{(1)}\). So the mean value, is,
+
+\[\langle\Delta^{(0)}\rangle=\langle t_{1}-t_{2}\rangle=f^{(1)}\, \tag{3.25}\]
+
+which implies,
+
+\[\langle E_{1}^{(1)}\rangle=\langle E_{1}^{(0)}\rangle-f^{(1)}=\langle t_{2} \rangle. \tag{3.26}\]
+
+Then, after the first pass,
+
+\[\langle E_{1}^{(1)}\rangle=\langle E_{1}^{(0)}\rangle-f^{(1)}=\langle t_{2} \rangle\,\ \langle E_{2}^{(1)}\rangle=\langle t_{2}\rangle\,\ \langle E_{3}^{(1)}\rangle=\langle t_{3} \rangle\, \tag{3.27}\]
+
+so,
+
+\[\Delta^{(1)}=E_{2}^{(1)}-E_{3}^{(1)}\,\ \langle\Delta^{(1)}\rangle=\langle t_{2} \rangle-\langle t_{3}\rangle. \tag{3.28}\]During the second pass, \(\Delta^{(1)}\) versus \(ToT_{2}\) is fitted by \(f^{(2)}\). So for the mean value,
+
+\[\langle\Delta^{(1)}\rangle=\langle t_{2}\rangle-\langle t_{3}\rangle=f^{(2)}\;\;, \tag{3.29}\]
+
+\[\langle E_{2}^{(2)}\rangle=\langle E_{2}^{(1)}\rangle-f^{(2)}=\langle t_{3} \rangle\;\;. \tag{3.30}\]
+
+Then, after the second pass,
+
+\[\langle E_{1}^{(2)}\rangle=\langle t_{2}\rangle\;,\;\langle E_{2}^{(2)} \rangle=\langle t_{3}\rangle\;,\;\langle E_{3}^{(2)}\rangle=\langle t_{3} \rangle\;\;, \tag{3.31}\]
+
+then,
+
+\[\Delta^{(2)}=E_{3}^{(2)}-E_{1}^{(2)}\;,\;\langle\Delta^{(2)}\rangle=\langle t _{3}\rangle-\langle t_{2}\rangle\;\;. \tag{3.32}\]
+
+After the third pass,
+
+\[\langle E_{1}^{(3)}\rangle=\langle t_{2}\rangle\;,\;\langle E_{2}^{(3)} \rangle=\langle t_{3}\rangle\;,\;\langle E_{3}^{(3)}\rangle=\langle t_{2} \rangle\;,\;\langle\Delta^{(3)}\rangle=\langle t_{2}\rangle-\langle t_{3} \rangle\;\;. \tag{3.33}\]
+
+After the fourth pass,
+
+\[\langle E_{1}^{(4)}\rangle=\langle t_{3}\rangle\;,\;\langle E_{2}^{(4)} \rangle=\langle t_{3}\rangle\;,\;\langle E_{3}^{(4)}\rangle=\langle t_{2} \rangle\;,\;\langle\Delta^{(4)}\rangle=\langle t_{3}\rangle-\langle t_{2} \rangle\;\;. \tag{3.34}\]
+
+[MISSING_PAGE_EMPTY:86]
+
+To show the trends more explicitly, one can assume \(\langle t_{1}\rangle-\langle t_{2}\rangle=U\), and \(\langle t_{2}\rangle-\langle t_{3}\rangle=V\), then the time differences defined above have the following progressions:
+
+\[\Delta : U\to V\rightarrow-V\to V\rightarrow-V\to V\rightarrow\cdots \tag{3.40}\] \[\Delta_{1-2} : U\to 0\to V\to V\to 0 \rightarrow-V\rightarrow\cdots\] (3.41) \[\Delta_{2-3} : V\to V\to 0\rightarrow-V\rightarrow-V\to 0\rightarrow\cdots\] (3.42) \[\Delta_{3-1} : -(U+V)\rightarrow-V\rightarrow-V\to 0\to V \to V\rightarrow\cdots \tag{3.43}\]
+
+So, all the "1-1" differences show regular trends. The trend of \(\Delta\) in equation 3.40 has already been seen in Figure 3.7. From this figure, \(\Delta\) bounces between -2.2 ns and 2.2 ns, which means, the constant V=2.2 ns. The first marker where the pass number equals 0 has a time difference of -1.2 ns, which means the constant U=-1.2 ns.
+
+The trends of \(\Delta_{1-2}\), \(\Delta_{1-2}\), and \(\Delta_{1-2}\) are shown in Figure 3.9, for the same data set. The blue squares which depict \(\Delta_{1-2}\), show the trend indicated in equation 3.41. The first point is at pass number equals 0 and time difference equals -1.2, which indicates the constant U=-1.2 ns, and the whole set of points oscillate between -2.2 ns and 2.2 ns, which indicates the constant V=2.2 ns. The red up triangles which depict \(\Delta_{2-3}\) demonstrate the trend of equation 3.42, and the purple down triangles which depict \(\Delta_{3-1}\) demonstrate the trend shown in equation 3.43.
+
+Although the offsets are not necessarily contained in the fit functions in the "1-1" approach, they are very well defined and can be simply accounted for during the subsequent TOF calibrations. For example, as shown above, after the fifth pass,\(\langle E_{1}^{(5)}\rangle=\langle t_{3}\rangle\), \(\langle E_{2}^{(5)}\rangle=\langle t_{2}\rangle\), \(\langle E_{3}^{(5)}\rangle=\langle t_{2}\rangle\), and \(\langle\Delta^{(5)}\rangle=\langle t_{2}\rangle-\langle t_{3}\rangle\)=\(V\). The offset \(V\) can be added to \(E_{1}^{(5)}\), then this effect is eliminated for all subsequent TOF analysis.
+
+Figure 3.9: The time differences versus pass number for the day 34 data during the “1-1” calibration for the west pVPD. The blue squares depict the quantity \(\Delta_{1-2}\), the red up triangles depict \(\Delta_{2-3}\), and the purple down triangles depict \(\Delta_{3-1}\).
+
+### Summary of Detector Resolution of Run-V
+
+The calibration results from the "1-1" and "1-\(\langle 2\rangle\)" methods are compared in this section. The "1-1" method only uses 2 channels on the same side of STAR while the "1-\(\langle 2\rangle\)" method uses 3 channels, so the available events for the "1-1" and "1-\(\langle 2\rangle\)" methods are not the same. In order to compare, a cut requiring that all six channels fired in each event was added to select the same events for both methods, and for both the east and west sides.
+
+So far only the calibration results for day 34 data have been described. But during Run-V Cu+Cu collisions, there was a change in the hardware. There is a protective circuitry in the Front End Electronics (FEE) to protect it from large pulses. When a large pulse reaches the FEE, the protection circuit chops the top of the pulse to protect the FEE. This also changes the input impedance of the circuit to zero. So the pulse is inverted and reflected back to the PMT side. When this reflected pulse reaches the PMT side, and there is no termination resistors there, the pulse is reflected back again to the FEE side and superimposed on the original pulse. To avoid this, the termination resistors were installed on the PMT side, in order not to let the pulses reflect back to the FEE. These resistors also made the PMT gain lower, and the ToT distribution was changed as a result. Figure 3.10 shows the ToT distribution of day 34 data. Because it is before the installation of the termination resistors, the ToT range is wide, extending up to about 30 nanoseconds. There are some unexpected peaks at 25 ns, and that is the just the time for the pulses to travel from the FEEto the PMT and then back to FEE again. Figure 3.11 shows that the range of ToT after the new termination only extends to about 7 nanoseconds, but the reflections are gone. Day 48 data is representative of the bulk of the 200 GeV Cu+Cu data and is discussed below. Run-V proton-proton collision calibration results will also be described.
+
+The equivalent single detector resolution, \(\sigma_{0}\), is shown in Table 3.1 for the different data sets. In the first column, the data types used for the calibration are specified. In the second column ("method" column), "AF" means all channels are required, while "NAF" means that not all channels are required. The next five following columns show the \(\sigma_{0}\) values for different evaluations, which are specified in the first line of each column. The abbreviation "E" means "east", "W" means "west". The single
+
+Figure 3.10: The ToT distribution for the day 34 data. The ToT extends to about 30 nanoseconds.
+
+detector resolution values shown in this table are in ps.
+
+Shown in Figure 3.12 is a summary plots of these resolutions for the different data sets and different calibration methods. For easy comparison, all resolution results shown in this figure are converted to the single detector resolution, \(\sigma_{0}\). The Cu+Cu calibration results before termination (day 34 data) are shown by the red squares, using "1-\(\langle 2\rangle\)" method, and the blue up triangles show the results for the "1-1" method. The purple down triangles show the Cu+Cu results after the new termination (day 48 data) using the "1-\(\langle 2\rangle\)" method, and the green circles show the "1-1" results for the day 48 data. The cyan crosses and violet diamonds show the p+p data results, for the "1-\(\langle 2\rangle\)" and "1-1" methods, respectively. This figure shows that the Cu+Cu data after the new terminators (day 48 data) has the best resolution of around 130\(\pm\)5
+
+Figure 3.11: The ToT distribution for the day 48 data.
+
+ps, which is very consistent through all of the different calibration methods and the different evaluations. The Cu+Cu data before the new terminators (day 34 data) show a resolution of about 170\(\pm\)10 ps for the east side pVPD. The west side calibration results of the day 34 data are better, near 135\(\pm\)3 ps, which is kind of in the overlap of the day 48 results. The p+p data results show much poorer resolution of about 200\(\pm\)10 ps, which is because of the lower number of detector hits in p+p collisions compared to the Cu+Cu collisions.
+
+\begin{table}
+\begin{tabular}{|l|c|c c|c c|c|} \hline Data & Method & “1-1”E & “1-1”W & “1-\(\langle 2\rangle\)”E & “1-\(\langle 2\rangle\)”W & “\(\langle 2\rangle\)-\(\langle 4\rangle\)” \\ \hline \hline day34 & “1-\(\langle 2\rangle\)”AF & 159 & 135 & 170 & 134 & 166 \\  & “1-1”AF & 159 & 127 & 175 & 126 & 168 \\  & “1-\(\langle 2\rangle\)”NAF & 170 & 140 & 184 & 141 & 176 \\  & “1-1”NAF & 165 & 135 & 178 & 134 & 167 \\ \hline day48 & “1-\(\langle 2\rangle\)”AF & 120 & 123 & 123 & 124 & 135 \\  & “1-1”AF & 120 & 123 & 123 & 125 & 136 \\  & “1-\(\langle 2\rangle\)”NAF & 124 & 128 & 128 & 128 & 135 \\  & “1-1”NAF & 127 & 130 & 128 & 129 & 135 \\ \hline p+p & “1-\(\langle 2\rangle\)”NAF & 204 & 188 & 214 & 202 & 280 \\  & “1-1”NAF & 201 & 185 & 214 & 202 & 274 \\ \hline \end{tabular}
+\end{table}
+Table 3.1: A summary of the timing resolutions for the various Run-V calibration algorithms. These results are shown graphically in Figure 3.12.
+
+Figure 3.12: Shown in this figure is the summary of the single detector resolutions for different calibration methods. The horizontal axis indicates the single detector resolution, \(\sigma_{0}\), in ps. The vertical axis shows different evaluations.
+
+### Run-VI upVPD Data Analysis
+
+The upVPD was installed in STAR in Run-VI in March 2006. Nearly 10 million events were collected during polarized proton-proton beam collisions. Discussed in this section is the analysis of these data.
+
+The failure of many (more than half) MOSFET bases in the upVPD detectors made the Run-VI data not very useful for calibration. However, the calibration algorithms are still applied on these data to investigate the detector performance. Figure 3.13 shows an overview of the data. The horizontal axis depicts the day number, and the vertical axis represents the upVPD detector channel number, from 0 to 37. The density of spots in this plot shows the data counts for each detector channel in each day. It shows that most data came from day 84. Some channels got hits at the first couple of days and then died (for example, channel 31).
+
+Shown in Figure 3.14 is a scatter-plot of the ToT in ns versus the detector channel number. An important feature of this plot is that the first 7 channels of the east upVPD (channels 0 to 6), and the first 7 channels of the west upVPD (channels 19 to 25 ), have a width offset of about 25 nanoseconds. This is due to a trivial effect in the clock distribution to the TDIG boards and is corrected by using a ToT offset in the offline software for these channels. After this trivial ToT value correction, the new ToT values versus the channel number is shown in Figure 3.15.
+
+Figure 3.16 shows the ToT distribution over all detector channels. This plot has a lot of unexplained structure. The ToT distributions from each single channelwere then checked. Figure 3.17 shows three typical ToT distributions in individual channels. The left ToT distribution plot shows just one single sharp spike, which has a width of about 4 ns. The right plot shows a wide continuous distribution which extends to 50 ns. The plot in the middle contains both of these features: a wide distribution superimposed by a sharp narrow spike at low ToT values.
+
+Although the narrow spikes seem to be very ideal for slewing correction, they are actually not. Figure 3.18 shows the "1-1" leading time difference versus ToT of one channel. The two channels in this plot are channels east 0 and 2, both of which have the narrow spike distribution in ToT. However, this does not look like a normal slewing curve (_e.g._ see the upper left of Figure 3.1). It shows several distinct bands
+
+Figure 3.13: The number of hits for each channel versus the day number. The vertical axis is the upVPD channel number. Channels 0 to 18 are the east upVPD, and channels 19 to 37 are the west upVPD.
+
+which extend almost parallel to the ToT-axis. The detector channels with these very narrow ToT distributions are thus interpreted as failed channels now firing "in the noise".
+
+Figure 3.14: The ToT values for each detector channel. The vertical axis is the ToT value in ns, and the horizontal axis is the upVPD channel number.
+
+Figure 3.16: The ToT distribution histogram over all upVPD channels. The horizontal axis is the ToT value in ns.
+
+Figure 3.15: The ToT values versus the detector channel number after the ToT offset correction.
+
+Figure 3.17: The ToT distributions of three example channels from the upVPD during Run-VI.
+
+Figure 3.18: The leading time difference versus ToT for a typical upVPD channel with a very narrow ToT distribution in the Run-VI data.
+
+Then, an attempt was made to calibrate those channels with wide and continuous ToT distributions. The channels 4, 6, and 9 on the east side were chosen to start. The standard "1-1" calibration procedure was applied to these channels. The results from the first three passes are shown in Figure 3.19.
+
+After 12 passes, the final results are shown in Figure 3.20. The plot is similar to those plots of Run-V calibration which are already shown in previous discussions. The upper panel of the mean value plot shows the now understood bouncing behavior of the "1-1" offsets described in Section 3.7. But the lower panel depicting the resolution values does not show a converging result. The best resolution achieved is rather poor, \(\sim\)400 picoseconds. This corresponds to a single detector resolution of \(\sigma_{0}\)=283 ps, a
+
+Figure 3.19: The results from the first three passes of the “1-1” calibration of upVPD channel numbers 4, 6, and 9, on the east side.
+
+start timing resolution of \(\sigma_{start}\)=115 ps, and a Z-vertex resolution of \(\sigma_{zvtx}\)=3.5 cm. Experience would imply much better results. The degradation is taken to be the result of the MOSFET base failure issue.
+
+The "1-\(\langle 2\rangle\)" algorithm was also applied to these same three east channels, and the results are shown in Figure 3.21. The mean value, \(\mu\) decreases from 8 ns to about -1.8 ns, which is still very high. The \(\sigma\) plot still shows a similarly poor timing resolution of \(\sim\)800 ps, which is even worse than the "1-1" result shown above, probably due to the less number of available events.
+
+In Figure 3.20, it seems that the pair of detector channels 6 and 9 has better timing resolution that the other two "1-1" pairs, so it could be quite possible that solely channel 4 has a poor timing resolution. So, channel 4 was replaced by channel 5. The "1-\(\langle 2\rangle\)" algorithm was used to generate the "1-\(\langle 2\rangle\)" algorithm. The "1-\(\langle 2\rangle\)" algorithm was used to generate the "1-\(\langle 2\rangle\)" algorithm.
+
+15, and another 12 passes of the "1-1" calibration algorithm was applied. The results are shown in Figure 3.22. In this figure, the results are better. The \(\sigma\) plot shows a decreasing result. However the best timing resolution is still about 380 ps, which is much worse than the Run-V results.
+
+The bad ToT distributions and bad timing resolutions result from the failures of the MOSFET bases. Those MOSFET bases were proved to be quite vulnerable to large transient pulses. All MOSFET bases are now replaced by high-rate linear bases.
+
+Figure 3.21: The mean values and resolutions versus the pass number of the “1-\(\langle 2\rangle\)” calibration of upVPD channels 4, 6, and 9 on the east side.
+
+Figure 3.22: The mean values and resolutions versus the pass number for each pass of the “1-1” calibration of upVPD channels 15, 6, and 9 on the east side.
+
+### 3.10 Cosmic Ray Tests of upVPD Detectors
+
+After the failure of the MOSFET bases during Run-VI, new linear bases were built for the upVPD. In this section, cosmic ray tests of the upVPD detectors with the new bases are described.
+
+The test setup is shown in Figure 3.23. Two upVPD assemblies were placed vertically facing each other, with a paddle scintillator in between. Inside these upVPD detectors, the Pb pieces were removed to increase the event rates by bringing the 2 scintillator layers closer together. When a cosmic ray particle passes through all three scintillators, as indicated in the figure by the dashed line, all three PMTs produce signals. This fires the trigger logic shown in Figure 3.24, which accepts the event.
+
+Figure 3.23: On the left side is a picture of the cosmic ray tests setup. On the right is a sketch of the tests. The dash line indicates a possible path of a cosmic ray particle which will fire all three PMTs.
+
+The signal from each PMT channel is sent to a LeCroy 428F linear fan. One output of this fan is sent to a LeCroy 2249A ADC unit with a 25 ns delay, and another output of this fan is connected to a Phillips Scientific 704 discriminator. One output from the discriminator is sent to a LeCroy 2228A TDC unit for timing, and the other output is connected to a LeCroy 365ALP logic unit to perform the level-3 coincidence of all 3 scintillators. When all three PMTs fire, the level-3 coincidence will provide a start time for the timing measurements in the TDC unit, and a gate for the ADC unit. The analog signals from the three channels go into the ADC. Both the ADC and TDC data were read-out via a LeCroy 8901A GPIB interface to a PC computer. A custom C++ DAQ program was used on the PC to save data to files available for subsequent analysis.
+
+The crucial part of this setup is the scintillator paddle in the middle of the 2 upVPD detectors. Because a 3-detector coincidence is required, the latest signal among these three PMTs sets the start time. If no middle paddle is included (_i.e._ only two upVPD PMTs used), the latest of the two upVPD channels sets the start time. Suppose the upper channel is always later than the lower channel, then the upper channel always sets the start time. So the histogram of the time of the upper channel \(t_{\rm upper}\) versus the ADC\({}_{\rm upper}\), will be just a flat line, which does not allow us any way to correct the slewing. Although the histogram of the time of the lower channel \(t_{\rm lower}\) versus the ADC\({}_{\rm lower}\) will show a slewing curve, it contains not only the its own slewing information, but also the slewing information from the upper channel, which cannot be measured or separated. So the paddle must be inserted in the middle as a third detector that, by definition using delay, always sets the coincidence. If the delays shown in Figure 3.24 is set properly, the time of the paddle \(t_{paddle}\) could always be later than \(t_{upper}\) and \(t_{lower}\). So the \(t_{paddle}\) sets the start time. Although the slewing curve in \(t_{upper}\) versus \(ADC_{upper}\) contains the slewing effect of the paddle, (and so does \(t_{lower}\) versus \(ADC_{lower}\)), the histogram of \((t_{upper}-t_{lower})\) versus \(ADC_{upper}\) (or versus \(ADC_{lower}\)).
+
+Figure 3.24: The schematic of the trigger logic for the cosmic ray tests.
+
+\(ADC_{lower}\)) is independent of the slewing effect of \(t_{paddle}\). That is why the paddle is needed. This allows a calibration of the 2 upVPD detectors via their time difference in a "1-1" approach.
+
+The first pair of upVPD channels used in the cosmic ray test were number 16 and 31. The event rate was rather low, about 1 event per minute. About 3000 events were collected. The time differences versus the ToT plots for the first three passes of the calibration of these data are shown in Figure 3.25.
+
+Figure 3.26 shows the results versus the pass number. The mean value decreases quickly to zero. After only two or three passes, the resolution already reaches its minimum value. The results from the last pass are shown in Figure 3.27. The average resolution of the last four passes is 3.45 time bins, which is equivalent to a
+
+Figure 3.25: The results from the first three calibration passes of the cosmic ray test. The two channels used were upVPD channels 16 and 31 with new linear bases. The time unit used in this figure is number of TDC bins (50 ps/bin).
+
+single detector resolution of 122 ps. This is a completely acceptable performance for the new detectors.
+
+Variations to this calibration algorithm were explored. Besides the 10\({}_{\mathrm{th}}\) order polynomial fitting function, 7\({}_{\mathrm{th}}\) and 13\({}_{\mathrm{th}}\) polynomial functions were also tried. Also different numbers of bins along the ToT axis in the upper frames of Figure 3.25 were used and compared. The results are shown in Table 3.2. The resolution values shown in the table are in picoseconds. From this table, it can be seen that the final resolution is not sensitive to the different number of ToT bins, nor is it very sensitive to the different orders of the polynomial fit functions used.
+
+Data was also collected from another pair of upVPD channels. Channels 8 and 33 were tested in the same way. About 6000 events were collected for these channels. The
+
+Figure 3.26: The calibration results from the cosmic ray tests of channels 16 and 31.
+
+same calibration algorithm was applied. The results are shown in Figure 3.28. After four passes the mean value \(\mu\) reaches zero, and the \(\sigma\) value also reaches a minimum. The results from the final pass are shown in Figure 3.29. The average resolution for the last four passes is 3.41 time bins, which implies a single detector resolution of 121 picoseconds. The result is in nice consistency with the results from using channels 16 and 31.
+
+Assuming the single detector resolution of 120 ps also applies to the STAR data, one would then expect the following upVPD performance. In full-energy Au+Au collisions, and for the 19 channels of the upVPD on each side, one would then expect \(\sigma_{start}\)=120/\(\sqrt{38}\)=20 ps, and \(\sigma_{zvtx}\)=0.58 cm.
+
+Figure 3.27: The time difference between the two upVPD channels in the last pass of calibration.
+
+Figure 3.28: The cosmic ray test calibration results for the upVPD channels 8 and 33.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline  & 30 bins & 40 bins \\ \hline \hline \(7_{\rm th}\) polynomial & 122 & 123 \\ \hline \(10_{\rm th}\) polynomial & 124 & 122 \\ \hline \(13_{\rm th}\) polynomial & 121 & 123 \\ \hline \end{tabular}
+\end{table}
+Table 3.2: Timing resolution results of cosmic ray tests for different calibration parameters. The values are expressed in ps.
+
+Figure 3.29: The time difference between two calibrated channels from the cosmic ray tests of channels 8 and 33.
+
+## Chapter 4 Summary and Conclusions
+
+The upVPD detector is intended to improve the efficiency, start timing, and Z-vertex position resolution for the STAR TOF. It consists of 19 channels on each side of STAR. Each read-out channel is mechanically smaller in size and lighter in weight compared to the existing pVPD.
+
+Because of intrinsic detector effects, namely the offsets and the slewing effect, the start timing data must be calibrated offline. The theory of these calibrations and a few possible algorithms were described. The methods investigated here are called the "1-1" and "1-\(\langle 2\rangle\)" methods. These methods were applied to the pVPD Run-V data and the results were described.
+
+The results from the Run-V Cu+Cu data after the new terminators show a single detector resolution around 130\(\pm\)5 ps for all different calibration methods. The results from the Cu+Cu data before the new terminators show a resolution of about 170\(\pm\)10 ps for the east pVPD, and 135\(\pm\)3 ps for the west pVPD. The p+p data shows a timing resolution of about 200\(\pm\)10 ps, because of the lower number of particle hits in p+p collisions.
+
+The upVPD was constructed and operated in STAR during RHIC Run-VI. Almost 10 million events were collected. However, due to unforeseen failures of the original MOSFET bases, the Run-VI data is not useful. Subsequent tests of the upVPD detectors with new linear bases were performed using cosmic rays. The result was 122 ps for the single detector resolution.
+
+The upVPD detector with the new linear bases is now reassembled and ready for installation in STAR in time for the coming RHIC Run-VII.
+
+## Bibliography
+
+* [1] RHIC Website. [http://www.bnl.gov/rhic/](http://www.bnl.gov/rhic/).
+* [2] David Voss. "Making the Stuff of the Big Bang". _Science_, 285(5431):1194-1197, (1999).
+* [3] K. H. Ackermann, _et al_. "STAR detector overview". _Nuclear Instruments and Methods in Physics Research_, A 499:624-632, (2003).
+* [4] M. Anderson, _et al_. "The STAR time projection chameber: a unique tool for studying high multiplicity events at RHIC". _Nuclear Instruments and Methods in Physics Research_, A 499:659-678, (2003).
+* [5] The STAR TOF Collaboration. "Proposal for a Large Area Time of Flight System for STAR", (2003).
+* [6] W. J. Llope, _et al._ "The TOFp/pVPD time-of-flight system for STAR". _Nuclear Instruments and Methods in Physics Research_, A 522:252-273, (2004).
+* [7] F. Guerts, _et al._. "Performance of the prototype MRPC detectors for STAR". _Nuclear Instruments and Methods in Physics Research_, A 533:60-64, (2004).
+* [8] J. Christiansen. "High Performance Time to Digital Converter". CERN/EP-MIC, Mar (2004). Version 2.2.
+
+* [9] B. Bengtson and M. Moszynski. "Timing properties of scintillation counters". _Nuclear Instruments and Methods in Physics Research_, 81:109-120, (1970).
+* [10] CERN Website. [http://public.web.cern.ch/](http://public.web.cern.ch/).
+* [11] K. Ikematsu, _et al._. "A start-timing detector for the collider experiment PHENIX at RHIC-BNL". _Nuclear Instruments and Methods in Physics Research_, A 411:238-248, (1998).
+* [12] Richard C. Fernow. _"Introduction to experimental particle physics"_. Cambridge University Press, (1986).
+* [13] M. Allen, _et al._. "PHENIX inner detectors". _Nuclear Instruments and Methods in Physics Research_, A 499:549-559, (2003).
+* [14] B. B. Back, _et al._. "The PHOBOS detector at RHIC". _Nuclear Instruments and Methods in Physics Research_, A 499:603-623, (2003).
+* [15] M. Bondila, _et al._ "ALICE T0 Detector". _IEEE Transactions on Nuclear Science_, 52, Oct (2005).
+* [16] ALICE Collaboration. "The T0 Detector". ALICE TDR 011, CERN-LHCC-2004-025, Sep (2004).
+* [17] W. J. Llope. "Forward Simulation", (2005).
+* [18] S. Ahmad, B.E. Bonner, W. Gere, G.S. Mutchler, P. Rambo, and S. Toshkov.
+
+"In-beam tests of proximity mesh dynode tubes for the STAR TOF subsystem". _Nuclear Instruments and Methods in Physics Research_, A 330:416-421, (1993).
+* [19] B. E. Bonner, G. S. Mutchler _et al_. "Progress Report to the Department of Energy", (2002).
+* [20] Jerry Hoffman, Allan Schroeder, and Danny Boyd. Private communication.
+* [21] Eljen EJ-204 Plastic Scintillator. [http://www.eljentechnology.com/ej-204.htm](http://www.eljentechnology.com/ej-204.htm).
+* [22] GE silicone glue. [http://www.gesilicones.com/gesilicones/](http://www.gesilicones.com/gesilicones/).
+* An Object Oriented Data Analysis Framework". _Nuclear Instruments and Methods in Physics Research_, A 389:81-86, (1997).
+* [24] Jo Schambach. "TOF Fiber Data Format". Private communication, Nov. 2004. Version 2.2.

@@ -1,0 +1,909 @@
+Three-Pion HBT Interferometry at the STAR Experiment
+
+ DISSERTATION
+
+Presented in Partial Fulfillment of the Requirements for
+
+the Degree Doctor of Philosophy in the
+
+Graduate School of The Ohio State University
+
+By
+
+Robert Willson, B.S., M.S.
+
+The Ohio State University
+
+2002
+
+Dissertation Committee: Approved by
+
+Thomas J. Humanic, Adviser
+
+Michael A. Lisa
+
+Richard J. Furnstahl
+
+Gregory Lafyatis
+
+###### Abstract
+
+During the first year of Au+Au collisions at the Relativistic Heavy-Ion Collider (RHIC) at Brookhaven National Laboratory, 130 A\(\cdot\)GeV collisions were observed and analyzed in the hopes of finding some signal of a new state of matter. This new state of matter, the quark-gluon plasma or QGP, can be described as a deconfined state of freely interacting quarks and gluons within a certain volume of the collision fireball. Since the lifetime and size of this state are both small (\(\sim 10\) fm) a direct observation is not possible. Instead, many different indirect methods are used in order to extract specific information about the source from the final state particles which are eventually detected.
+
+One of these methods, HBT interferometry, provides a means of determining the spatial extent and dynamical properties of the freeze-out region, after which the final-state particles have stopped interacting, by examining correlations between pairs of particles within an event. Two-particle interactions include those caused by the Coulomb and strong nuclear forces, however it is the quantum statistics governing the behavior of identical particles which leads to a relationship between the spatial properties of the source and the momentum correlations between pairs of particles.
+
+In this thesis, one of the central assumptions of HBT interferometry is examined, that of the chaoticity of the freeze-out region. Particles emitted from the freeze-out region carry an intrinsic quantum particle production phase, much like the initialphase of an electromagnetic wave. If these phases are random for each outgoing particle, the source is said to be fully chaotic. Using three-particle HBT interferometry, it is possible to obtain a measure of this chaoticity, and in so doing verify the results of two-particle HBT.
+
+**ACKNOWLEDGMENTS**
+
+An endeavor of this magnitude would never have been possible without genuine personal support. From 1999 to 2001, I had the privelege to work with an incredibly professional and talented group of people in the SVT group at Brookhaven National Laboratory. The lessons I will take away from that experience are priceless. To Rolf Beuttenmuller, Sanjeev Pandey, Bill Leonhardt, Jun Takahashi, David Lynn, and Bob Soja, I owe all my knowledge about the detector itself. Thanks to Marcelo Munhoz, Selemon Bekele, and Helen Caines, I finally understand the immense difficulty that goes into extracting physics data from such a novel detector system. My understanding of heavy-ion nuclear physics would not be what it is today without the help of Mike Lisa, Ulrich Heinz, and my faithful advisor, Tom Humanic.
+
+Working at a world class collider experiment at Brookhaven meant working with world class people, and I found their help invaluable in developing the SVT control systems. My thanks go out to Jo Schambach and Jerry Hoffmann at Texas, Dennis Reichhold, Tonko Ljubicic and Gaspare LoCurto at Brookhaven, and Mike Cherney and Rev. Tom McShane, S.J. at Creighton.
+
+To my friends at the Van de Graaff Laboratory and Smith Lab, including Florence Shanks, Mary Smith, Howard Dyke, Ivan Kotov, Randy Wells, Mercedes Lopez Noriega, Selemon Bekele, and Bjorn Nielson, I offer my sincerest gratitude for making my time at OSU productive and interesting.
+
+**VITA**
+
+January 28, 1974 Born - Dayton, Ohio, USA
+
+1996 B.S. Physics, Mathematics
+
+The University of Dayton
+
+Dayton, OH
+
+1997-1998 Graduate Teaching Assistant
+
+Department of Physics
+
+The Ohio State University
+
+Columbus, OH
+
+1998-present Graduate Research Associate
+
+Department of Physics
+
+The Ohio State University
+
+Columbus, OH
+
+**PUBLICATIONS**
+
+**Mid-rapidity \(\phi\) production in Au+Au collisions at \(\sqrt{s_{NN}}\) = 130 GeV**, C. Adler, _et al._, Phys. Rev. **C65**, 041901(R) (2002).
+
+**The silicon drift vertex detector for the STAR experiment at RHIC**, S.U. Pandey, _et al._, Nuc. Instr. and Meth. **A477**, 88 (2002).
+
+**Measurement of Inclusive Antiprotons from Au+Au Collisions at \(\sqrt{s_{NN}}\) = 130 GeV**, C. Adler, _et al._, Phys. Rev. Lett. **87**, 262302-1 (2001).
+
+\(\overline{d}\) **and \({}^{3}\overline{\bf He}\) Production in Au+Au Collisions at \(\sqrt{s_{NN}}\) = 130 GeV**, C. Adler, _et al._, Phys. Rev. Lett. **87**, 262301-1 (2001).
+
+**Identified Particle Elliptic Flow in Au+Au Collisions at \(\sqrt{s_{NN}}\) = 130 GeV**, C. Adler, _et al._, Phys. Rev. Lett. **87**, 182301 (2001).
+
+**Multiplicity Distribution and Spectra of Negatively Charged Hadrons in Au+Au Collisions at \(\sqrt{s_{NN}}\) = 130 GeV**, C. Adler, _et al._, Phys. Rev. Lett. **87**, 112303 (2001).
+
+**Pion Interferometry of \(\sqrt{s_{NN}}\) = 130 GeV Au+Au Collisions at RHIC**, C. Adler, _et al._, Phys. Rev. Lett. **87**, 082301 (2001).
+
+**Midrapidity Antiproton-to-Proton Ratio from Au+Au \(\sqrt{s_{NN}}\) = 130 GeV**, C. Adler, _et al._, Phys. Rev. Lett. **86**, 4778 (2001).
+
+**Elliptic Flow in Au+Au Collisions at \(\sqrt{s_{NN}}\) = 130 GeV**, K.H. Ackermann, _et al._, Phys. Rev. Lett. **86**, 402 (2001).
+
+**Silicon drift detectors, present and future prospects**, J. Takahashi, _et al._, Nucl. Instr. and Meth. **A461**, 139 (2001).
+
+**The STAR Silicon Vertex Tracker: a Large Area Silicon Drift Detector**, D. Lynn, _et al._, Nucl. Instr. and Meth. **A447**, 264 (2000).
+
+**Silicon drift detectors as tracking devices**, J. Takahashi, _et al._, Nucl. Instr. and Meth. **A453**, 131 (2000).
+
+**Radiation Damage Studies with STAR Silicon Drift Detectors**, J. Takahashi, _et al._, IEEE Trans. Nucl. Sci. **47**, No. 3, 903 (2000).
+
+**Novel Applications of PIN-Photodiodes in Relativistic Heavy Ion Collisions**, R.M. Willson, _et al._, IEEE Trans. Nuc. Sci. **47**, No. 3, 851 (2000).
+
+**FIELDS OF STUDY**
+
+Major Field: Physics
+
+**TABLE OF CONTENTS**
+
+**Page**
+
+Abstract
+
+Acknowledgments
+
+Vita
+
+List of Figures
+
+List of Tables
+
+Chapters:
+
+1. Introduction
+
+2. The Relativistic Heavy-Ion Collider and the STAR Experiment
+
+2.1 RHIC
+
+2.2 STAR Magnet
+
+2.3 Trigger
+
+2.3.1 Central Trigger Barrel
+
+2.3.2 Zero Degree Calorimeters
+
+2.3.3 Trigger Types
+
+2.4 Time Projection Chamber
+
+2.4.1 Detector Operation
+
+2.4.2 \(\frac{dE}{dx}\)
+
+2.4.3 Effect of Magnetic Field on Electron Diffusion
+
+2.5 Silicon Vertex Tracker
+
+2.5.1 Silicon Drift Detector Technology
+
+2.5.2 Description of the SVT2.5.3 Drift Velocity Calibrations * 2.5.4 Slow Controls * 2.5.5 Year-1 Results
+* 3. HBT Interferometry
+	* 3.1 Early Work
+		* 3.1.1 Radio astronomy
+		* 3.1.2 Pion correlations from the Bevatron
+	* 3.2 Theory of Identical Boson Interferometry
+		* 3.2.1 Pion field operators
+		* 3.2.2 Correlation Function Parameterizations
+	* 3.3 Experimental Procedures
+		* 3.3.1 Experimental Correlation Function
+		* 3.3.2 Detector Effects
+		* 3.3.3 Final State Interactions
+		* 3.3.4 Event Centrality
+	* 3.4 Two-Particle HBT Results
+		* 3.4.1 1D and 3D Correlation Functions
+		* 3.4.2 Centrality and \(m_{T}\) Dependence
+		* 3.4.3 Comparison to Previous Data
+* 4. Three-Pion HBT
+	* 4.1 Derivation of Three-Particle Correlator and Chaotic Fraction
+		* 4.1.1 Factorization of Momentum Distributions
+		* 4.1.2 Phase Factor
+	* 4.2 Method of Calculation
+		* 4.2.1 Three Pion \(Q_{3}\) Correlation Function
+		* 4.2.2 Phase Space Cuts
+		* 4.2.3 Coulomb Correction
+		* 4.2.4 Experimental Cuts
+		* 4.2.5 Momentum Sectoring
+	* 4.3 Results from Year-1
+		* 4.3.1 C\({}_{3}\) Correlation Function
+		* 4.3.2 Normalized Three-Particle Correlator
+		* 4.3.3 Chaotic Fraction
+		* 4.3.4 Fitting Method for \(r_{3}\) Intercept
+* 5. Conclusion
+
+## Bibliography
+
+**LIST OF FIGURES**
+
+**Page**
+
+1.1 Phase diagram of nuclear matter. The points represent experimental measurements of the temperature and baryonic chemical potential for three experiments. As the collision system expands and cools, it follows the likely path given by the lines connecting the points. The hatched area represents a transition region between a deconfined QGP state and a hadron gas state. 4
+
+2.1 The STAR Detector. The primary detector used in the Year-1 HBT analysis was the Time Projection Chamber. 7
+
+2.2 The RHIC Complex, starting from the heavy-ion source at the Tandem Van de Graaff to the main RHIC ring at top, where ions circulate around a 2.4 mi beamline at energies of up to 100 GeV/nucleon. 8
+
+2.3 Locations of various experiments on the RHIC ring. 10
+
+2.4 Central Trigger Barrel (CTB) in STAR 13
+
+2.5 Plot of Coincidence ZDC signal vs. CTB summed signal. The central event trigger accepted only events with a large (\(>\) 6000 counts) CTB signal. 15
+
+2.6 Time Projection Chamber (TPC) - The main tracking detector at STAR 16
+
+2.7 \(\frac{dE}{dx}\) vs. momentum for tracks reconstructed in the STAR TPC during Year-1. 20
+
+2.8 Schematic of an SVT wafer, showing cathode lines and charge collection anodes. 24Cathode line layout on SVT wafer. Guard anode lines connect every \(10^{\text{th}}\) cathode in order to create a controlled voltage gradient from the high voltage cathode to the edge of the wafer. This requires the cathode lines to be placed in a trapezoidal arrangement on the wafer.
+* 2.10 Field mapping in the SVT. The coordinate system corresponds to the standard STAR coordinate system in which Z represents the beam direction. As a particle passes through the wafer, it ionizes charge in the silicon bulk, which drift toward the anodes under the influence of a parabolic potential as shown in the plot in the lower left. When the ionization is close to the anodes, it experiences the potential seen in the lower right plot which forces the ionization into the anodes at the surface of the wafer.
+* 2.11 Simulation of the PASA response function. The leading peak measures the amount of ionization entering a single PASA channel, and its height is equal to 7.2 \(\mu\)V/e\({}^{-}\). Note the characteristic undershoot that occurs after the initial signal has passed.
+* 2.12 7-wafer SVT ladder. Individual wafers are split into two drift regions, with ionized charge moving toward either the top or bottom hybrid, where the charge is converted to a voltage pulse by the PASA (gold chips on hybrid) and stored by the SCA (blue chips) for later retrieval.
+* 2.13 Diagram of ladder assembly into two half-shells. The ladders edges are shown in blue surrounding the beam pipe in black. Pictured here are the transition boards (labeled with a _TR_), which provide an additional resistor chain for the cathode high voltage, and the the readout boxes (labeled with an _RDO_), which convert the analog data from the front end electronics to digital signals and provide power and monitoring for the SVT.
+* 2.14 Picture of completed Silicon Vertex Tracker. The hybrids are attached to separate water-cooled carriers.
+* 2.15 Drift velocity curves for an SVT detector. The upper left plot shows the actual time vs. position curve, while the upper right plot shows the difference to a linear fit. A difference to a \(10^{\text{th}}\) order polynomial fit is shown in the lower left plot. The lower right plot is the same as the upper right plot with a different y-scale.
+
+* 2.16 Drift velocity curves for a particularly non-linear SVT detector. The plots are ordered in the same way as in Figure 2.15.
+* 2.17 Laser injected hit drift times as a function of anode position of the laser. The laser is positioned at a constant drift distance of about 2.5 cm from the anodes, and moves in the anode direction in steps of 300 \(\mu\)m.
+* 2.18 Hit distribution on single SVT wafer during Year-1 operations.
+* 2.19 Example of zero-suppression algorithm
+* 2.20 Year-1 hit clusters on a single hybrid, with TPC extrapolated tracks shown as X's
+* 2.21 Z-residual distribution for Year-1 data. TPC tracks were matched to unique SVT hits by finding the closest hit on the wafer to where the extrapolated TPC track hits the wafer. The distance was then calculated in the _anode_ direction.
+* 2.22 X-residual distribution for Year-1 data. TPC tracks were matched to unique SVT hits by finding the closest hit on the wafer to where the extrapolated TPC track hits the wafer. The distance was then calculated in the _drift_ direction.
+* 3.1 Diagram of a Michelson interferometer used to detect the angular diameter of a radio source.
+* 3.2 HBT intensity interferometry diagram. Waves emitted from source points **a** and **b** can go two possible routes to detectors **1** and **2**.
+* 3.3 Bertsch-Pratt or cartesian parameterization of the two-pion correlation function.
+* 3.4 Opaque source, in which \(R_{side}\) measures the homogeneity length of the source, but \(R_{out}\) is sensitive only to the surface thickness, denoted by \(\langle x\rangle\).
+
+Using TPC pad hit information to determine split pairs. In the left figure, two tracks have several hits which share TPC pad rows, and some which do not, hence it is not a split pair. A purely split pair, as shown in the middle figure, would not share any pad rows among hits between the two tracks.
+* 3.6 Distribution of negatively charged hadrons, normalized such that the integral under the curve equals the total hadronic cross section of Au+Au collisions at \(\sqrt{s_{NN}}\) = 130 GeV. Obtained from Ref. [1].
+* 3.7 \(Q_{inv}\) (a) and 3-dimensional Bertsch-Pratt (b,c,d) correlation functions for \(\pi^{-}\) data. The open diamonds show the uncorrected correlation functions while the stars represent the Coulomb corrected correlation functions. Obtained from Ref. [2].
+* 3.8 Centrality and \(m_{T}\) dependence of the Bertsch-Pratt parameterization fit values. For the centrality study, the lowest \(p_{T}\) bin was used, 0.125 \(<p_{T}<\) 0.225 GeV/c. Data points in the \(m_{T}\) study used the highest centrality bin. Statistical error bars are given, with systematic error shown as a shaded bar under the points. Obtained from Ref. [2].
+* 3.9 Excitation function showing HBT results from four previous experiments and STAR's. The last plot is a measure of the lifetime of the source as given by equation (3.19). Obtained from Ref. [2].
+* black curve) and 6 fm (green curve). The lower black curve is the \(C_{3}\) correlation function with no Coulomb correction.
+* 4.2 Simulation of effect of mis-applying the Coulomb correction to pions emitted from the decay of long-lived resonances. The upper plot shows the result with the Coulomb potential turned off, and the lower plot shows the result of applying the Coulomb correction to all pions, including those emitted from \(\eta\), \(\eta^{\prime}\), \(K_{S}^{0}\) and \(\Omega^{-}\) decays.
+* 4.3Effect on \(r_{3}\) of varying the entrance separation cut on pion pairs and triplets. The curves show entrance separation cuts of 1.5 cm (red), 2.0 cm (black), 2.5 cm (standard value - green), 3.0 cm (blue) and 3.5 cm (purple). The variation of the datapoints was used to calculate the systematic error.
+* 4.4 Example of the effect of momentum sectoring on the \(C_{3}\) correlation function. The black curve shows the sectored result and the grey curve shows the non-sectored result.
+* **(a)**, \(\pi^{+}\)
+- **(b)**), mid-central (\(\pi^{-}\)
+- **(c)**, \(\pi^{+}\)
+- **(d)**) and peripheral (\(\pi^{-}\)
+- **(e)**, \(\pi^{+}\)
+- **(f)**) events. Statistical and statistical+systematic errors are shown.
+* 4.6 \(r_{3}\) calculation for (a) peripheral, (b) mid-central, and (c) central \(\pi^{-}\) events. The fits shown use equation (4.10) to determine the intercept. Statistical and statistical+systematic errors are shown.
+* 4.7 \(r_{3}\) calculation for (a) peripheral, (b) mid-central, and (c) central \(\pi^{+}\) events. The fits shown use equation (4.10) to determine the intercept. Statistical and statistical+systematic errors are shown.
+* 4.8 Asymptotic value of \(r_{3}\) from STAR and two other experiments [3, 4]. For STAR, peripheral (a), mid-central (b), and central (c) results are shown for \(\pi^{-}\) (circular markers) and \(\pi^{+}\) (square markers) data. The other experiments use \(\pi^{-}\) data only.
+* 4.9 Chaotic fraction, calculated from equation (4.9), and plotted for the same experiments as in Figure 4.8. For STAR, peripheral (a), mid-central (b), and central (c) results are plotted for \(\pi^{-}\) (circular markers) and \(\pi^{+}\) (square markers) data.
+
+**LIST OF TABLES**
+
+**Page**
+
+4.1 Fit value of the intercept for various fit ranges using the fit function of equation (4.10). In each row, the fit range begins at 0 MeV. An entry of _Fit Failed_ signifies that the quadratic curve was inverted (turned up). The results are for events. 93
+* 4.2 Same as Table 4.1 for events. 93
+* 4.3 intercept values using equation (4.11) as the fit function and using the fit range  MeV. 94
+
+## Chapter 1 Introduction
+
+The U.S. department of energy budget in 2001 was $21 billion [5], out of which more than $1 billion was spent on particle collider projects. One of these particle colliders is located at Brookhaven National Laboratory on Long Island, New York. Called the Relativistic Heavy-Ion Collider (RHIC), its purpose is to accelerate fully ionized gold atoms to an energy of 100 GeV/nucleon, or about 0.99995 times the speed of light, and steer the ions into two counterclockwise beams. The resulting collisions, several thousand of which occur every second and vary from head-on to just grazing, results in a high energy density fireball which produces up to several thousand subatomic particles. This residual radiation is viewed through the use of specialized detectors which detect several different types of particles. The reconstructed tracks of these particles give information about their momenta after being emitted from the collision region and interacting with other particles, as well as the energy deposited (\(\frac{dE}{dx}\)) by the particles as they pass through the detection medium. It is up to the experimental physicist to extrapolate from this collection of particle momenta and \(\frac{dE}{dx}\) data, and reconstruct the earliest times after the collision, when nucleons from the gold ions were compressed and heated to extreme levels.
+
+Hadronic matter (protons and neutrons) consists of fundamental particles called quarks. Quarks interact through the electromagnetic force and the strong force, the latter of which is governed by the laws of quantum chromodynamics (QCD). One of the most surprising results of QCD is that the color strong field between individual quarks increases in energy as the distance of separation of the quarks is increased. Quarks can therefore only exist as composite hadrons, as the energy to separate two quarks would be infinite. Current nuclear theory suggests that at high enough energy densities, the nucleon overlap puts a large number of quarks within a small enough distance that they behave as free particles [6]. At high temperatures, colored gluons form a plasma which Debye screens the color of the quark [7]. Debye screening of color charge is similar to that of electromagnetic charge. In the electromagnetic case the Coulomb potential draws electrons close to a positive ion, thus screening the charge of that ion from other neighboring ions. In the case of color charges, colored quarks and gluons effectively screen the charge of other quarks, thus reducing the long-range confining potential of the strong force. It is predicted that a combination of high energy and density can be produced in a high-energy heavy-ion collision sufficient to form a state of matter, termed a Quark-Gluon Plasma (QGP), in which quarks and gluons act as free particles.
+
+Figure 1.1 shows the phase diagram of nuclear matter with respect to temperature and density (also represented as baryon chemical potential \(\mu_{B}\)). The boundary between hadronic matter and the QGP state is given by lattice QCD simulations, which predict a critical temperature for a phase transition at \(\sim\)170 MeV for \(\mu_{B}=0\). Phenomenology must be used to extend the graph beyond \(\mu_{B}=0\). Two natural phenomena are believed to have crossed this phase boundary: Just after the Big
+
+Bang, in which the temperature and energy density of the universe far exceeded that of normal nuclear matter; and in neutron stars, whose cores consist of highly dense nuclear matter. Relativistic heavy-ion collisions will hopefully provide a reproducible method to create QGP matter. Successful confirmation of the creation of a QGP is of great interest to physicists as it will confirm some of our understanding of QCD. Although theory predicts that current particle colliders should be powerful enough to create a QGP, if only for a short period of time, experimental methods to confirm its observation are still being debated. Heavy-ion collider programs have been running since the 1980s at experiments such as the AGS at Brookhaven National Lab and the SPS at CERN, with the goal of increasing the energy of colliding particles and determining conclusively the successful detection of the QGP.
+
+At RHIC, a QGP is expected to last less than \(10^{\mbox{-}21}\) seconds. As the QGP expands and cools, quarks and gluons "freeze" into hadrons and are expelled outward. At the same time, the energy density inside the QGP decreases, and soon the binding energy between quarks and gluons becomes the dominant potential. This results in a mixed phase of quarks and hadrons, which finally freezes out completely into hadrons. One goal of heavy-ion physics is to determine the properties of this freeze-out surface, such as its spatial extent and momentum profile. This can be accomplished with Hanbury-Brown Twiss (HBT) interferometry, a type of intensity interferometry in which momentum correlations between particles are used to extract a parameterization of the freeze-out surface as a function of space and time.
+
+Chapter 2 describes the STAR experiment and main tracking detector, the TPC. Another detector, the SVT, is the focus of SS2.5. Although this detector was only operational during the second year of physics running, its importance to many physics Figure 1.1: Phase diagram of nuclear matter. The points represent experimental measurements of the temperature and baryonic chemical potential for three experiments. As the collision system expands and cools, it follows the likely path given by the lines connecting the points. The hatched area represents a transition region between a deconfined QGP state and a hadron gas state.
+
+programs, as well as this author's extensive involvement during its construction, warrant a closer look. Chapter 3 highlights the theory of HBT interferometry, its implementation in an experimental heavy-ion physics setting, and the processing that is involved in extracting the signal from other final-state interactions and detector effects. Some results from the two-pion analysis performed by the STAR HBT group are shown. Chapter 4 continues the analysis of two-particle HBT correlations to develop the theory of three-pion correlations and their link to source chaoticity. Results from the first year of STAR data are shown. Chapter 5 finishes with some conclusions.
+
+## Chapter 2 The Relativistic Heavy-Ion Collider and the Star Experiment
+
+All analysis herein used data collected from the first of two separate run periods at the Relativistic Heavy-Ion Collider (RHIC) at Brookhaven National Laboratory. This collider was designed to accelerate and collide gold ions to a total energy of \(\sqrt{s}_{NN}\) = 200 GeV at four locations around a 1 km diameter ring of superconducting magnets. From June to September 2000, approximately one million minimum-bias triggered events were recorded from a Au+Au beam of \(\sqrt{s}_{NN}\) = 130 GeV at the STAR (Solenoidal Tracker at RHIC) detector [8]. This detector consists of a large conventional solenoidal magnet with a maximum field strength of 0.5 T, and several detector systems. During the first year, the magnet was run at half-strength, or 0.25 T. The detector systems during Year-1 consisted of the Time Projection Chamber (TPC), which was the main tracking detector used in all the Year-1 analysis, the Ring Imaging Cherenkov Hodoscope (RICH), and one prototype detector (ladder) for the Silicon Vertex Tracker (SVT). A picture of the full detector can be seen in Figure 2.1. Year-2 operation began in July 2001 with the first collisions at \(\sqrt{s}_{NN}\) = 200 GeV, and was completed at the end of January 2002. During the month of January, the collider program switched to running polarized protons instead of gold. The detector systemsthat were in use at this time included the complete SVT, which will be discussed at length in SS2.5, a forward TPC (FTPC), a partial installation of electromagnetic calorimeters (BEMC), and a time-of-flight detector (TOF). Twenty million collision events were recorded during this run, greatly increasing Year-1 statistics.
+
+Figure 2.1: The STAR Detector. The primary detector used in the Year-1 HBT analysis was the Time Projection Chamber.
+
+### Rhic
+
+The accelerator complex at Brookhaven has a long history, from the pioneering achievements at the Alternating Gradient Synchrotron (AGS) to the installation of a high-energy particle collider system in RHIC. The components of this machine reflect the history of collider development at BNL. In Figure 2.2, the layout of RHIC is shown from the production of a gold beam at the Tandem Van de Graaff (TVDG) to acceleration to full energy at the main RHIC ring.
+
+Partially ionized gold atoms are emitted from a source, such as a high temperature gold filament. The positively charged ions are accelerated through the Tandem Van de Graaff's two 15 million volt electrostatic accelerators, and are passed through thin sheets of gold foil, which further ionize the gold atoms.
+
+Figure 2.2: The RHIC Complex, starting from the heavy-ion source at the Tandem Van de Graaff to the main RHIC ring at top, where ions circulate around a 2.4 mi beamline at energies of up to 100 GeV/nucleon.
+
+[MISSING_PAGE_FAIL:24]
+
+the solenoid. The purpose of the flux return is to keep the field uniform within the volume of the solenoid, where the main detector components of STAR are located.
+
+The STAR magnet serves two purposes with regard to the experimental mission of detecting particles emanating from a heavy-ion collision. First, it allows the momenta and sign of charged particles to be calculated by measuring the curvature of the particle track as it passes through the field volume. Second, the B-field produced by the STAR magnet is oriented in the beam direction, as is the drift field used in the TPC. As explained in the next section, this reduces the dispersion in ionization produced in the TPC, increasing the position resolution of that detector.
+
+Figure 2.3: Locations of various experiments on the RHIC ring.
+
+During Year-1 running, the STAR magnet was run at half field, or 0.25 T. Year-2 operations used several different field settings, including full field at 0.5 T, half field, and reversed full field.
+
+### 2.3 Trigger
+
+Au+Au bunch crossings during Year-1 running occurred at around 9.37 MHz, which for the highest luminosity beams was close to the interaction rate. Several factors precluded the possibility of recording events at this high frequency, including the speed at which the physics detectors could begin their digitization and acquisition cycles, and the bandwidth restrictions imposed by the data acquisition infrastructure. The maximum rate at which events can be acquired and stored onto tape due to these limitations is \(\sim\)100 Hz (though during Year-1 the rate was typically 5 Hz).
+
+To trigger on the events of use to the heavy-ion physics program, specialized high speed detectors are employed which select Au+Au collisions based upon the number and distribution of particles created. The two main trigger detectors used during Year-1 are the Central Trigger Barrel (CTB) and the Zero Degree Calorimeter (ZDC).
+
+#### Central Trigger Barrel
+
+The CTB is a cylindrical arrangement of 240 scintillator slats positioned just outside the outer diameter of the TPC, as seen in Figure 2.4. The scintillators are connected to photomultiplier tubes which give a response proportional to the number of charged particles which interact with the scintillator medium. This provides a means of selecting events of a certain multiplicity, or number of outgoing particles generated in the collision (as defined within the solid angle that is covered by the CTB). The full CTB covers \(360^{\circ}\) in \(\phi\) and from \(-1<\eta<1\) in pseudorapidity. In heavy-ion physics, the rapidity parameter \(y\) describes the momentum of particles in the direction of the beam via the following equation:
+
+\[y=\frac{1}{2}ln\left(\frac{E+p_{z}}{E-p_{z}}\right). \tag{2.1}\]
+
+Here, \(p_{z}\) is the momentum of the particle in the beam direction, and \(E\) is the total energy of the particle. In a beam-on-beam collision, where the center-of-momentum (COM) frame is the same as the lab frame, particles with a positive \(p_{z}\) have a positive rapidity, and vice-versa. Particles moving perpendicular to the beam have zero rapidity. Under a Lorentz boost, the rapidity is easily recalculated by adding the rapidity of the boost frame. For this reason, rapidity differences are invariant under a Lorentz transformation. The pseudorapidity \(\eta\) provides a more convenient way to calculate an approximation to \(y\) in the limit that the momentum of the particle is much greater than its mass. It is defined as
+
+\[\eta=-ln\;tan\left(\frac{\theta}{2}\right), \tag{2.2}\]
+
+where \(\theta\) is simply the angle of the particle track relative to the beam axis (also called the polar angle). Equation (2.2) is obtained from equation (2.1) by setting the mass of the particle to zero.
+
+#### Zero Degree Calorimeters
+
+All detectors at RHIC are outfitted with a pair of calorimeters capable of detecting uncharged particles emitted in the beam direction [9]. These ZDCs are placed 18 meters on either side of the interaction region along the beam pipe, and use the Cherenkov light generated by particles passing through tungsten plates to create a 
+
+## Chapter 2 Central Trigger Barrel
+
+Figure 2.4: Central Trigger Barrel (CTB) in STARsignal in photomultiplier tubes. Since the ZDCs are located along a line tangent to the beam at the interaction region, they are sensitive mostly to the neutrons dislodged from the Au nuclei during a collision. Protons from the nuclei are swept away by the same magnets which hold the beam in the collider ring. These neutrons are called _spectator neutrons_, as they do not interact with other nucleons but instead pass through the collision region, following the same momentum direction as that of the colliding nuclei.
+
+As in the CTB, the signals from the ZDCs are proportional to the number of neutrons interacting with the detection medium, and these signals can be used as a way to trigger on collision centrality by measuring the number of spectator neutrons. A central head-on collision is characterized by a large number of nucleon-nucleon interactions, which leave very few spectators. In contrast, a peripheral collision would leave many spectators to be detected by the ZDCs, producing an anti-correlated signal to the number of protons and neutrons interacting in the Au+Au collision. By comparing the arrival times of signals coming from the two ZDCs, it is also possible to determine the location of the interaction vertices in the beam direction.
+
+#### Trigger Types
+
+The two main trigger types used during Year-1 were named "Hadronic Min Bias" and "Central". The Min Bias trigger employed only the signals from the two ZDCs, ZDC East and ZDC West, and issued a trigger when the coincidence signal from the two ZDCs exceeded a certain threshold, \(\sim\)40% of the single neutron peak. The Central trigger used the CTB as well as the ZDC, providing a means to cut on the total event multiplicity. As seen in Figure 2.5, a low signal from the CTB (lowmultiplicity, or high impact parameter) would still produce a large coincidence signal in the ZDC due to spectator neutrons continuing undeflected down the beam pipe. Small impact parameter collisions mean more of the Au nucleons interact, reducing the signal in the ZDC but increasing the overall multiplicity (and thus the CTB signal). Accepting events with high CTB signal and low ZDC signal constituted the basis for the Central trigger. For this trigger it was still necessary to have a minimum ZDC coincidence signal due to beam-gas events, which occur at a rate of \(\sim\)100 Hz at maximum luminosity.
+
+Figure 2.5: Plot of Coincidence ZDC signal vs. CTB summed signal. The central event trigger accepted only events with a large (\(>\) 6000 counts) CTB signal.
+
+### Time Projection Chamber
+
+The main tracking detector used during the first year of physics running at STAR was the Time Projection Chamber, or TPC. This detector, shown schematically in Figure 2.6, consists of a cylindrical gas vessel 4.2 meters long, with an outer radius of 2 meters, and an inner radius of 0.5 meters. The chamber is split in the middle (longitudinally) by a central membrane cathode, which is charged to 28 kV during operation. The inner and outer cylindrical surfaces have conducting rings which run from the cathode to either end of the TPC, and are connected together with a resistor chain which steps the voltage from 28 kV down to 0 V at the end cap. A particle passing through the detector ionizes the P10 (10% methane) gas in the TPC, producing electrons along the path the particle takes through the detector.
+
+Figure 2.6: Time Projection Chamber (TPC) - The main tracking detector at STAR
+
+#### Detector Operation
+
+Due to the electric field gradient, ionization electrons produced when a particle passes through the TPC drift toward either end cap of the TPC, depending on which side of the central membrane the ionization is located. At the end cap are located several multi-wire proportional chambers (MWPCs) arranged in segments. The MWPC consists of several small diameter (20 \(\mu\)m) wires placed parallel to each other, and oriented such that a straight track in the radial direction would be perpendicular to the wires. These wires are held at a high electric potential, and as the drift electrons approach these wires they are accelerated to such high energies that they ionize atoms in the surrounding gas, producing an avalanche cascade of electron-ion pairs. The avalanche charge is proportional to the initial amount of ionization, allowing the energy loss per unit distance of the initial particle (SS2.4.2) to be measured along the length of the track.
+
+The original track position is calculated by measuring the signal on readout pads located behind the anode wire grid. The positive ions produced in the avalanche create an image charge on adjacent pads, which are used collectively to locate the 2-dimensional position of that portion of the particle track. Pads are grouped in circular "rows" at constant radial distances. Each row is capable of acquiring one 2-dimensional position for a single track, and this position is called a "hit". The TPC has a total of 45 pad rows extending from the 0.5 m inner radius to the 2.0 m outer radius, so that no track can have more than 45 hits. The third dimension of each hit is determined by measuring the drift time of the ionization electrons to the TPC end caps.
+
+#### 2.4.2 \(\frac{dE}{dx}\)
+
+Particles emitted from the freeze-out surface of the interaction region eventually stop interacting with other particles and move along trajectories with relatively constant momentum. Aside from particles that decay before exiting the detector, these particles can be completely described by their momentum and charge. Using the curvature of the tracks due to the Lorentz force, the transverse momenta are calculated, and a helical fit to the tracks gives the remaining longitudinal component to the momenta.
+
+Particle identification requires knowledge of both the mass and charge. Since nearly all charged particles observed in the TPC are of charge +1 or -1, it is a simple matter of identifying the charge of a particle via the direction that the particle bends in the magnetic field. The mass of a particle is measured indirectly through the energy loss of the particle as it interacts with the TPC gas. Using a classical model of a charged particle interacting through the electrostatic force with an atomic electron, the energy lost by the particle as it passes an electron is found to be [10]
+
+\[\Delta E\left(b\right)=\frac{2z^{2}e^{4}}{m_{e}v^{2}b^{2}}, \tag{2.3}\]
+
+where \(z\) is the charge of the interacting particle, \(b\) is the distance between the atomic electron and the particle trajectory and \(v\) is the particle velocity. The key in equation (2.3) is that energy loss is only dependent on the particle's velocity. When relativistic effects are taken into account, the differential energy loss of a particle moving through an absorbing material is found through the Bethe-Block formula:
+
+\[-\frac{dE}{dx}=2\pi N_{a}r_{e}^{2}m_{e}c^{2}\rho\frac{Z}{A}\frac{z^{2}}{\beta^ {2}}\left[ln\left(\frac{2m_{e}\gamma^{2}v^{2}W_{max}}{I^{2}}\right)-2\beta^{2 }-\delta-2\frac{C}{Z}\right]. \tag{2.4}\]Here, \(\rho\), \(Z\), and \(A\) are the density, atomic number and atomic weight of the absorbing medium, respectively. \(r_{e}\) is the classical electron radius and \(N_{a}\) is Avogadro's number. \(\delta\) is a density correction that accounts for those atomic electrons which are shielded from the electric field due to polarization of atoms along the path of the particle. \(I\) represents the mean excitation potential, an empirical constant that gives the average orbital frequency of the absorbing medium. \(W_{max}\) is the maximum energy transfer in a single collision. Finally, \(C\), the shell correction, modifies the value of the Bethe-Bloch formula for those incident particles whose velocity are on the order of or smaller than the orbital velocity of bound electrons of the absorbing medium. Again, equation (2.4) is dependent only on the velocity of the incident particle, so that particles with the same momentum but different mass can be distinguished by how much energy they deposit in the absorbing medium according to equation (2.4).
+
+The TPC records \(\frac{dE}{dx}\) information by measuring the avalanche charge generated in the MWPC as described in SS2.4.1 along the length of the particle track. A plot of \(\frac{dE}{dx}\) vs. momentum is shown in Figure 2.7. Plotted in this figure are the curves obtained from equation (2.4) assuming the masses for the particles listed. From this plot the various particle types are easily distinguished at low momentum. Particle ID in software is accomplished by accepting only those particles which are within a certain number of standard deviations of the predicted Bethe-Block curve for the chosen particle type. High momentum particles are impossible to distinguish via this method since as a particle moves faster through an absorbing medium, it looses less energy per distance until it reaches a point of _minimum ionizing_, in which all particles of the same charge have the same \(\frac{dE}{dx}\) loss for a given momentum.
+
+#### Effect of Magnetic Field on Electron Diffusion
+
+As noted in SS2.2, the main STAR magnet is instrumental in reducing electron ionization diffusion in the TPC. The magnetic field is oriented in the same direction as the drift E-field, so that ionization electrons which drift through the volume of the TPC are confined to helical trajectories about the drift direction. This has the effect of reducing diffusion by up to a factor of \(\frac{1}{10}\). Diffusion in the drift electrons results in a loss of hit position resolution, and thus a loss in momentum resolution.
+
+### 2.5 Silicon Vertex Tracker
+
+During the installation period in February 2001 the innermost detector in STAR was installed inside the inner radius of the TPC. The active area of this detector is
+
+Figure 2.7: \(\frac{dE}{dx}\) vs. momentum for tracks reconstructed in the STAR TPC during Year-1.
+
+composed of square silicon wafers which act as solid state drift detectors. By virtue of its location, the SVT is designed to accurately measure particles close to the primary vertex. Although total volumetric coverage is less with silicon than with gas drift detectors such as the TPC, the SVT has much finer spatial resolution (20 \(\mu\)m ) and does not require extensive control systems for operation, such as is needed in a gas detector.
+
+As a complement to the TPC, the SVT was installed in STAR as a high spatial resolution detector that could extend the tracking from the inner radius of the TPC (50 cm) to the outer radius of the beam pipe (5 cm). In addition, the close proximity to the interaction vertex allows the SVT to increase the momentum resolution of tracks at STAR, especially at low momenta where track helices may not intersect the active area of the TPC. While the name suggests one of its main purposes, the SVT will also be beneficial in locating secondary decay vertices, useful in studies involving such particles as the \(\Lambda\) and \(\Omega\).
+
+#### Silicon Drift Detector Technology
+
+When silicon is doped with certain materials, it can be made to have an excess (n-type) or deficiency (p-type) of free electrons [11]. Highly doped silicon is termed n\({}^{+}\) or p\({}^{+}\). If a strip of n-type silicon is put into contact with a strip of p-type silicon, the resulting junction creates an imbalance in local charge carrier concentration. This forces electrons to move from the n-side to the p-side, and an electric field is set up between the negatively charged p-side and the positively charged n-side. This electric field, though small, is enough to create a _depletion region_ within the small area surrounding the junction, in which free electrons and holes are forced by the field out of the junction.
+
+The depletion region thickness can be quite small, on the order of a few microns. However, with the application of an external electric field in the direction of the depletion field, the depletion region can be extended throughout the entire width of the silicon. This _pn-junction diode_, as it is called, is useful in high energy experiments, where the primary experimental goal is to measure positions of outgoing particles from a collision vertex. Particles which pass through a section of depleted silicon will ionize valence electrons (and holes) in the silicon, which will then be forced out of the depletion region by the electric field and into a detection array.
+
+There are a variety of ways in which to use such a system of depleted silicon detectors. The simplest method is to have strips of p-n junctions spaced a certain distance apart, and measure the charge coming from each strip separately to obtain 1-dimensional information about the position of an incoming track. By superimposing many layers of these "strip detectors" (SSD) one can obtain multidimensional information. However, one of the problems with strip detectors is that if the occupancy in any single detector is too high, it becomes difficult to uniquely determine the individual hits due to the large number of possible combinations. Pixel detectors eliminate this problem by assigning indisputable 2-dimensional positions to hits, but in this case the number of readout channels scales with the number of pixels. This is a technical problem when trying to design front-end electronics for a small detector close to the interaction vertex.
+
+A novel application of silicon detector technology was proposed by Gatti and Rehak [12] which uses the concept of a silicon drift chamber within the depletedregion. Ionized charges within the depleted silicon would be forced by a separate electric field through the bulk of the silicon, and this charge would eventually end up at detection points along the surface of the silicon. This type of detector is called the silicon drift detector, or SDD, and an array of these detectors was constructed to be used as the Silicon Vertex Tracker at STAR.
+
+#### Description of the SVT
+
+**Silicon Detector Characteristics**
+
+A single SVT wafer is a 6.3 x 6.3 cm square of bulk n-type NTD (neutron transmutation doped) silicon 280 \(\mu\)m thick, cut from a 4 inch diameter raw wafer of resistivity 3 k\(\Omega\cdot\)cm (See Figure 2.8). 220 p+ (highly doped) cathode strips are implanted on both sides of the wafer at a 135 \(\mu\)m pitch, and a voltage divider implanted in the wafer connects all cathode strips with 500 k\(\Omega\) resistors. Across the midplane of each SVT wafer is a central cathode called the _continental divide_ held at -1500 V. Ionized charge created in the wafer will always drift away from the continental divide, creating two independent drift directions within a single wafer. For this reason, front-end electronics must be attached to two edges of each wafer. Cathode strips are overlaid with aluminum to reduce the resistivity, and in so doing produce a more uniform potential across the cathode strip. [13]. Guard anode lines connect every 10\({}^{\textrm{th}}\) cathode in order to lower the voltage at the edge of the detector (Figure 2.9). The arrangement of the above components, and in particular the trapezoidal geometry of the cathodes, bring the total active area of a single SVT wafer to 94.5%.
+
+From the central cathode which is powered to -1500 V, the voltage is stepped down linearly in either drift direction toward the edge of the wafer which is held at 0 V. The same voltage is applied to both the top and bottom cathodes, and it is this Figure 2.8: Schematic of an SVT wafer, showing cathode lines and charge collection anodes.
+
+bias voltage across the p+/n junction that creates the depleted region throughout the thickness (bulk) of the silicon. Since the voltage is the same on both sides of the wafer for a particular cathode, a parabolic electric field is created perpendicular to the plane of the wafer, with a minimum potential in the center (Figure 2.10).
+
+With the silicon fully depleted, the linear decrease in voltage from the midplane of the wafer to the edges creates two drift fields (one toward each of the two edges of the wafer) which force any free electrons toward the anode collection point. Here, a separate voltage divider provides a focussing field, forcing the drift electrons into the charge collection area. The potential mapping can be seen more clearly in Figure 2.10, where the graph on the bottom left shows that the potential gradient in the bulk of the silicon has a minimum at the midpoint of the wafer thickness. Ionized electrons are forced to the center of the silicon bulk, and then subsequently forced down the orthogonal potential gradient toward the edge of the wafer. The graph at the bottom right of Figure 2.10 shows the potential distribution near the collection anodes. Here, the field is adjusted so that electrons are forced to the surface of the wafer, where the anodes are located.
+
+The charge collection area consists of 240 n+ implanted anodes, 200 \(\mu\)m x 200 \(\mu\)m. A cathode surrounds each anode in order to shield the anode from surface currents and assist in focussing charge. The anodes connect to front-end electronics via a 25 \(\mu\)m wire bond. The small size of the anode pads results in a smaller capacitive load to the preamplifier. This is important for SDD's since the large drift length (3 cm) results in a substantial diffusion in the charge cloud by the time it reaches the anodes [14]. As a result, the charge is spread out over many anodes, and as SDD's require temporal information about the charge distribution in order to extract the Figure 2.9: Cathode line layout on SVT wafer. Guard anode lines connect every 10\({}^{\text{th}}\) cathode in order to create a controlled voltage gradient from the high voltage cathode to the edge of the wafer. This requires the cathode lines to be placed in a trapezoidal arrangement on the wafer.
+
+Figure 2.10: Field mapping in the SVT. The coordinate system corresponds to the standard STAR coordinate system in which Z represents the beam direction. As a particle passes through the wafer, it ionizes charge in the silicon bulk, which drift toward the anodes under the influence of a parabolic potential as shown in the plot in the lower left. When the ionization is close to the anodes, it experiences the potential seen in the lower right plot which forces the ionization into the anodes at the surface of the wafer.
+
+2-dimensional position information, the charge cannot be integrated as it would be in SSD (silicon strip detector) devices. Therefore, much less charge is measured per channel in an SDD device as compared to an SSD, and hence the overall noise in the system is more critical for the success of the SDD.
+
+**Front-end Electronics**
+
+Ionization from the detectors is conducted from the anodes to the front-end electronics, a thick-film MultiChip Module (MCM, or hybrid) fabricated on a beryllia substrate. Attached to each MCM are two sets of 15 IC chips: The Pre-Amplifier ShAper (PASA); and the Switched Capacitor Array (SCA). Hybrids measure 63 mm x 20.5 mm x 0.65 mm, and two of these devices are connected to every SVT wafer, one at the end of each drift region. Due to the barrel geometry of the detector, hybrids are located in the active volume of STAR. As a result, very little maintenance is possible with these electronics, since modification would involve a total disassembly of the detector. Additionally, the fact that these electronics are in the interaction volume means they must be designed with materials of long radiation length. Using beryllia as the principle substrate, the radiation length of the hybrid is 1.4%.
+
+The PASA is a high gain charge-sensitive amplifier that outputs a bipolar-shaped voltage pulse in response to a charge pulse arriving from the anode [15]. It has a gain of 7.2 \(\mu\)V/e\({}^{-}\) and a large dynamic range of 2000-25,000 e\({}^{-}\) rms. Such a large dynamic range is necessary in order to accommodate the large charge depositions (\(\sim\)10 minimum ionizing) expected from the lower momenta particles the SVT was designed to detect. PASAs also implement a bi-polar shaping function in order to prevent baseline shifts which can occur during high-occupancy events. A simulation of this PASA response function is shown in Figure 2.11. Baseline shifts are preventedby virtue of the fact that the total area under the curve is zero, and therefore multiple PASA responses initiated by multiple hits on the detector do not change the zero level, or baseline of the PASA. If baseline shifts were allowed, the average pedestal value (baseline response of the front-end electronics) of a wafer would scale as the number of hits on that detector, and so subsequent pedestal subtraction and zero-suppression (SS2.5.5) would not be able to extract the hits.
+
+The output of the PASA is sampled by the SCA, which sequentially stores the PASA's voltage on one of the 128 capacitors in the array provided for each channel. These capacitors sequentially sample the PASA output at a rate of 25 MHz. The total drift time which can be recorded through 3 cm of SDD wafer is therefore \(\frac{128}{25\mathrm{MHz}}=5\)\(\mu\)s. Since the sampling is continuous, the SCA capacitors are constantly overwritten
+
+Figure 2.11: Simulation of the PASA response function. The leading peak measures the amount of ionization entering a single PASA channel, and its height is equal to 7.2 \(\mu\)V/e\({}^{-}\). Note the characteristic undershoot that occurs after the initial signal has passed.
+
+with new data from the wafer. At the onset of a trigger signal, the SCA samples for the total drift time, after which it connects its capacitors to an output driver, which transmits the capacitor values onto an analog signal line at the rate of 1.6 MHz. Each line accommodates 80 channels, which are read out in series. This results in a total readout time of \(\frac{128*80}{1.6\mathrm{MHz}}=7\) ms.
+
+**Detector Assembly**
+
+Assembly of the SVT begins with attaching 4, 6, or 7 individual wafers to linear arrays, termed ladders. Each ladder is split in the middle into two electrically isolated sections. Power and signal lines are connected from the front-end electronics to either end of the ladder, depending on which half of the ladder the wafer is located. A completed ladder is shown in Figure 2.12.
+
+Figure 2.12: 7-wafer SVT ladder. Individual wafers are split into two drift regions, with ionized charge moving toward either the top or bottom hybrid, where the charge is converted to a voltage pulse by the PASA (gold chips on hybrid) and stored by the SCA (blue chips) for later retrieval.
+
+Completed ladders are then arranged in a polygonal barrel geometry by attaching them to beryllium end rings. The barrels are constructed in such a way that ladders with the same number of wafers overlap slightly, allowing 360\({}^{\circ}\) azimuthal coverage. The inner, middle and outer barrels are composed of 4-wafer, 6-wafer, and 7-wafer ladders, respectively, giving a constant pseudorapidity coverage of \(-1<\eta<1\). The completed detector is split into two half-shells so that it can be attached around the RHIC beam line as seen in Figure 2.13. Figure 2.14 shows a pictures of the fully completed detector before installation.
+
+When fully powered, the SVT consumes 2.5 kW of power, 2 kW of which is used to power the hybrids. Without appropriate cooling, the hybrids would reach temperatures over 60 \({}^{\circ}\)C, resulting in circuit breakdown. Primary cooling for the hybrids is provided by a negative-pressure water system which circulates through carbon-fiber electronics carriers. The hybrids are glued to these carriers with a heat-conductive epoxy, allowing optimum cooling of the front-end electronics. Although the power dissipated through the silicon wafers is small, air is passed through the volume of the SVT in order to keep the wafers at a constant temperature. The negative-pressure water system is necessary since the SVT is located inside the inner field cage (IFC) of the TPC, where the voltages can be as high as 28 kV. Any leak in the SVT water system would only suck air into the system instead of dripping water out on the high voltage elements on the TPC.
+
+#### Drift Velocity Calibrations
+
+**Primary Contributors to the Drift Velocity Profile**
+
+Several parameters determine the drift velocity of free electrons in the drift field, as well as the linearity of the drift region. The most important effect on drift velocity Figure 2.13: Diagram of ladder assembly into two half-shells. The ladders edges are shown in blue surrounding the beam pipe in black. Pictured here are the transition boards (labeled with a _TR_), which provide an additional resistor chain for the cathode high voltage, and the the readout boxes (labeled with an _RDO_), which convert the analog data from the front end electronics to digital signals and provide power and monitoring for the SVT.
+
+comes from the voltage gradients themselves. From the continental divide at the center of the wafer to about 2 mm from the anodes, the drift field remains constant with the aid of an external voltage divider attached to a separate transition board outside the detector. The last 2 mm of drift length before reaching the anodes consists of a focussing field which is nonlinear in the drift direction. This field is necessary to force the electrons up to the anode pads at the surface of the wafer where they are read by external front-end electronics. The focussing field increases the in-plane drift velocity in the focussing region.
+
+Temperature affects the drift velocity globally due to scattering of electrons via lattice vibrations, which reduces electron mobility [16]. The inverse relationship of drift velocity to temperature is given by equation (2.5), where \(\alpha\) is an empirical constant. From results obtained through laser tests, \(\alpha\sim 2.5\). For the purposes of calibrating the detector, a measured temperature change is translated into a scale
+
+Figure 2.14: Picture of completed Silicon Vertex Tracker. The hybrids are attached to separate water-cooled carriers.
+
+factor for the drift velocity parameterization, based on measurements explained in the section on calibration methods explained below.
+
+\[\frac{dv_{drift}}{v_{drift}}=-\alpha\cdot\frac{dT}{T} \tag{2.5}\]
+
+Finally, a third effect results from the accumulation of charge in the SiO\({}_{2}\)/Si interfaces that are present in the silicon wafer. When the surfaces of the wafer are exposed to air they oxidize, producing layers of SiO\({}_{2}\) surrounding a pure silicon core. The net positive charge in the oxide forces electrons from the central Si layer to migrate toward the SiO\({}_{2}\)/Si interface when the bias voltage is applied. This accumulation of charge can produce distortions in the drift field that result in nonlinearities in the drift velocity profile. After the bias voltage on the wafer has been activated for a long period of time (on the order of a few days), the charge saturates at the interface, and the drift profile becomes constant. However once the bias voltage is turned off the drift profile reverts to its original shape as the electrons move away from the interfaces. Humidity also has a strong effect on the accumulation of charge at these interfaces, since water collecting on the wafer surface affects the local charge distribution.
+
+**Calibration Methods**
+
+Several methods of calibrating the individual SVT wafers with respect to drift velocity are utilized, one of which uses a design feature of the SDD. Eight MOS-type charge injection lines are implanted parallel to the anodes at distances of 0.2, 1.0, 2.0, and 3.0 cm from either edge of the wafer, in the drift direction. When a voltage pulse is applied to these lines, charge is injected into the silicon bulk, and drifts toward the collection anodes. By measuring the timing of the injector charge over time, the drift velocity of an individual wafer can be monitored as a function of time.
+
+In the wafers used for the SVT, only a small fraction of the 1728 injector lines proved reliable in generating charge in the silicon bulk. For this reason, the calibration lines can only be used to describe global detector properties, such as temperature changes and electron accumulation at SiO\({}_{2}\)/Si interfaces.
+
+Comprehensive drift velocity characterization was accomplished via a prototype data acquisition and calibration system. Using Labview, a computer-controlled x-y stage with a mounted laser scanned across completed ladders, while a separate DAQ system read out the resulting SCA information from the firing of the laser. The laser light ionized the depleted silicon in much the same way that a charged particle from a collision event would, creating a charge pulse in the detector that could be read out as a localized hit. The Labview system employed Gaussian cluster-finding techniques to locate the laser spot spatially within the detector as a function of anode position and time bucket. _Time bucket_ refers to which of the 128 capacitors the PASA output was saved. By saving this information along with the x-y stage position, the relationship between drift time and drift position was obtained, and entered into a database to be used in offline analysis.
+
+Figure 2.15 shows a typical result of a calibration measurement. In the upper left plot, the Y-position of the stage is plotted vs. the measured drift time of the laser pulse. The correlation is close to linear, as seen in the upper right plot where the difference to a linear fit is shown. For the purposes of offline calibration, and in order to be as accurate as possible, a 10\({}^{\textrm{th}}\) order polynomial fit is used in the final offline calibration. The difference of this fit to the data is shown in the lower
+
+left plot. Calibration of all drift detectors showed noticeable differences in the drift velocity profiles, as can be seen in Figure 2.16. For some detectors, a linear drift velocity model would produce large errors in the hit positions, hence the need for a polynomial fit.
+
+Drift velocity measurements of this kind suffer from several problems, which inevitably must be addressed in offline analysis of the data. For one, the drift velocity
+
+Figure 2.15: Drift velocity curves for an SVT detector. The upper left plot shows the actual time vs. position curve, while the upper right plot shows the difference to a linear fit. A difference to a \(10^{\text{th}}\) order polynomial fit is shown in the lower left plot. The lower right plot is the same as the upper right plot with a different y-scale.
+
+Figure 2.16: Drift velocity curves for a particularly non-linear SVT detector. The plots are ordered in the same way as in Figure 2.15.
+
+is dependent on temperature. Although the air temperature in the calibration environment was measured, the temperature profile on a wafer can be quite complex. For example, the embedded resistors connecting the cathodes are the main source of heat generation on the surface of the silicon, resulting in a higher temperature along the edges of the wafer than in the middle. Figure 2.17 shows this effect in a plot of laser spot position vs. X (or anode position). The laser is set to move across the wafer at a constant drift distance from the anodes. Due to misalignment of the wafer with respect to the laser stage, an overall slope is seen in this figure which amounts to a 0.11\({}^{\circ}\) rotation of the wafer. Of more importance are the rises in the plot at both edges of the wafer. Higher temperatures near the resistor chains reduce the drift velocity and thus increase the total drift time for ionization moving in these areas of the wafer. After adjusting for alignment, the difference in drift time between electrons in the middle of the wafer and on the edges is a maximum of 15 \(\mu\)s in Figure 2.17. For typical drift velocities of \(\sim\)7 \(\mu\)m/ns, this results in a \(\sim\)100 \(\mu\)m error in the position of hits on the edges of a wafer, in the drift direction, if a linear profile is used.
+
+The second problem involves the aforementioned electron accumulation in the SiO\({}_{2}\)/Si interfaces inside the wafer. This charge migration can affect the drift velocity profile as a whole. There is currently no way to parameterize this effect. Instead, the accepted procedure is to analyze the drift velocity profile through offline analysis, and over time measure the change in drift time associated with calibration injector lines and an external laser system attached to the full detector. Thus the actual recorded data is used to apply an ad hoc correction as a function of time.
+
+Figure 2.17: Laser injected hit drift times as a function of anode position of the laser. The laser is positioned at a constant drift distance of about 2.5 cm from the anodes, and moves in the anode direction in steps of 300 \(\mu\)m.
+
+#### Slow Controls
+
+Design of the slow controls operating system for the SVT detector was based on several established principles and methods already incorporated by the various other subsystems at STAR [17]. The main purpose of the slow controls system is to control, monitor and log hardware parameters for all hardware support systems involved with the SVT. This includes power supplies connected to the detector, monitoring of the cooling system, safety interlocks, and other control systems. In addition, slow controls can interface to the data acquisition system located at the detector to readout and/or modify raw data values which are subsequently sent to the STAR DAQ system. Successful operation of the slow controls system is critical, not only in regards to the potentially catastrophic consequences of operating support equipment improperly, but also in that the debugging of a specific support system often requires a thorough understanding of what the full system is doing at any particular time. This means accurate logging of data coming from the rest of the system, a slow controls requirement, is crucial in solving any specific problem.
+
+At the heart of the slow controls system is a VME computing system using a Motorola MVME167 processor. The processor is programmed and controlled remotely using the Experimental Physics and Industrial Control System (EPICS) software package, which manages a multitude of driver software used to control specific equipment such as power supplies and multimeters. EPICS works by connecting a user-defined database of hardware system properties, such as voltages, machine states, and temperatures, to relevant driver software which performs the specified task. At the same time, this database is made available over the network to be read or modified.
+
+Secondary programs utilize this by monitoring values to check for alarm states, logging the values in an archive, and providing a graphical user interface to the database. The latter is the most direct connection between the end user and the SVT detector, allowing shift personnel to operate the detector and monitor its condition.
+
+#### Year-1 Results
+
+During the first year of Au-Au running at RHIC, the SVT group installed a single 7-wafer ladder in order to test control systems, identify problems in the data acquisition chain, and check offline analysis of the resulting data. Although no physics analysis used this data, it was extremely useful in identifying the main problems in those three areas. The discussion in this section will be limited to the results that had an immediate impact on second run, in which the full SVT detector was installed.
+
+Fig 2.18 shows a single hybrid from the Year-1 ladder during the 130 GeV Au-Au run in the summer of 2000. Hit distributions such as these typically occurred in high multiplicity events (\(>\) 2000 tracks in the TPC), and gave first-principle verification of the detector operability and DAQ transfer. The dark tails of the hits are the result of the PASA bi-polar response function, which produces an undershoot in the voltage profile after the large voltage spike produced from the actual hit.
+
+Normally, data would be converted online into cluster sequences through the use of a zero-suppression algorithm. Figure 2.19 shows how the zero-suppression algorithm is implemented. First, a pedestal file consisting of nominal ADC count values for every pixel in the detector is subtracted form the raw data. Using two different thresholds, a group of adjacent local [anode,time] points in the pedestal-subtracted event is designated as a cluster if a certain number of pixels have an ADC count that exceeds the threshold values. For Year-1 operations, cluster finding was done offline, without any online zero-suppression. This required every [anode,time] ADC value to be saved for every event, and was necessary due to noise problems and to allow optimization of the thresholds to be used in subsequent runs.
+
+After the hits are located, the next step is to assign global STAR spatial coordinates to each hit. This requires a parameterization of the drift velocity curves as well as information about the alignment of the SVT ladders with respect to STAR global coordinates. Attempts were made to make use of the drift velocity curves measured on the bench, however it turned out that the studies made on Year-1 data were not significantly improved between use of calibration curves and the use of a drift velocity profile that assumed a constant drift velocity. This is due to the fact that the overall
+
+Figure 2.18: Hit distribution on single SVT wafer during Year-1 operations.
+
+[MISSING_PAGE_FAIL:58]
+
+the wafer, or along one of the two orthogonal dimensions on the wafer: The anode direction, which in STAR coordinates is the Z-direction; and the drift direction, which in STAR coordinates is \(\Phi\), or if the ladder is positioned such that the wafers are parallel to the ground (the case for the Year-1 ladder), the X-direction.
+
+In Figures 2.21 and 2.22, the residual calculation is shown for many high multiplicity events for distances calculated in the anode and drift direction, respectively. The matching is done using the radial distance on the wafer surface. In both figures two separate Gaussian distributions are apparent. The narrow distributions are assumed to consist of true matches, while the broader distribution is assumed to be noise. The first conclusion from these plots is that the residual widths are larger in the range of \(\Phi\) and \(\Phi\). The second conclusion is that the residual widths are larger in the range of \(\Phi\) and \(\Phi\).
+
+Figure 2.20: Year-1 hit clusters on a single hybrid, with TPC extrapolated tracks shown as X’s
+
+the anode direction (\(\sim\) 300 \(\mu\)m) than in the drift direction (\(\sim\) 100 \(\mu\)m), a result that is not immediately obvious considering that the anodes are in fixed positions along Z, while the drift direction depends on many factors. The reason for this discrepancy stems from the fact that the TPC's drift direction is in the SVT's anode direction. Since the TPC's track position error is largest in its drift direction, this translates into a larger residual in the TPC's drift direction. Another fact that can be drawn from the figures is that the residual widths are much larger than the design resolution of the detector. Again, many factors are attributable to this result, including the possible misalignment of the detector, detector calibration, and TPC track position resolution.
+
+Further analysis of Year-1 data revealed many of the problems which would have to be solved during Year-2. Use of the drift velocity curves measured on the bench showed no appreciable benefit to the residual studies, and in fact gave a larger Gaussian width than studies using a constant drift velocity ansatz. Detector noise was not a large problem, even though it was twice as large as expected (\(\sim\)1100 as opposed to 550 e\({}^{-}\) rms). Instead, track matching suffered most from poor detector calibration and alignment. These would be the main issues heading into Year-2.
+
+Figure 2.21: Z-residual distribution for Year-1 data. TPC tracks were matched to unique SVT hits by finding the closest hit on the wafer to where the extrapolated TPC track hits the wafer. The distance was then calculated in the _anode_ direction.
+
+Figure 2.22: X-residual distribution for Year-1 data. TPC tracks were matched to unique SVT hits by finding the closest hit on the wafer to where the extrapolated TPC track hits the wafer. The distance was then calculated in the _drift_ direction.
+
+## Chapter 3 HBT Interferometry
+
+HBT interferometry (named after the radio astronomer Robert Hanbury-Brown and mathematician Richard Twiss) is the study of waveform intensity interference, be it from optical, electromagnetic, or quantum waves. It differs from standard Michelson interferometry, which examines the interference of the amplitudes of waves impinging on a single location.
+
+### 3.1 Early Work
+
+The history of HBT begins in astrophysics when, in the late 1950s, Robert Hanbury-Brown and Richard Twiss began to experiment with the idea of measuring the size of stars from the interference in the intensities of radio waves coming from opposite edges of the star to two detectors (radio telescopes) [18]. Typical radio interferometry involves the interference pattern set up when two sources of electromagnetic radiation interfere at a single point far from the source. This type of interference occurs due to a phase or path difference between the amplitudes of two incoming light waves. In intensity interferometry, two detectors measure the light arriving from two separate emission points on the star (for many different emission point pairs). Since the light waves consist of photons, which are indistinguishable, there are actually two possibleroutes the light waves can traverse in order to reach the detectors on Earth. This uncertainty means that both possibilities must be used when defining the state of the photons, and it is this combination which imparts a correlation, which in turn gives a measure of the star's size.
+
+#### Radio Astronomy
+
+Michelson interferometry was first used (and ironically, is still used) to determine the apparent angular diameter of stars. The setup, shown in Figure 3.1, consists of two receivers at some distance apart, called the _baseline_. When the star is directly between the two receivers, the path difference between the incoming light waves to the two detectors is zero, and so except for the phase difference, the waves interfere constructively producing a maximum. As the earth rotates, the path difference changes, and eventually the waves destructively interfere to produce a minimum. These minima and maxima are reproduced until the noise overwhelms the system, and the resulting interference pattern is used to find the angular diameter of the source.
+
+The separation of the interference fringes (and thus the resolving power of the interferometer) is inversely dependent on the length of the baseline and the diameter of the star. Resolving power is higher when the fringes are close together, so the obvious way to increase resolution would be to increase the baseline. This however became a significant technical problem during the time Hanbury Brown and Twiss were making their measurements, since there was no reliable way of transmitting phase information across very large distances. In order to circumvent this limitation, they decided to use a method which would not require phase stability, but rather use the wave intensity.
+
+In Figure 3.2 a schematic is shown of the HBT intensity interferometer. Here, waves emitted from sources \({\bf a}\) and \({\bf b}\) impinge on detectors \({\bf 1}\) and \({\bf 2}\). The resulting amplitudes seen at each detector are given by:
+
+\[A_{1} =\frac{1}{L}\left(\alpha e^{i(pr_{1a}+\phi_{a})}+\beta e^{i(pr_{1b} +\phi_{b})}\right)\] \[A_{2} =\frac{1}{L}\left(\alpha e^{i(pr_{2a}+\phi_{a})}+\beta e^{i(pr_{2b }+\phi_{b})}\right), \tag{3.1}\]
+
+where \(\alpha\) and \(\beta\) represent the emission strengths at source points \({\bf a}\) and \({\bf b}\), respectively, and \(\phi_{a}\) and \(\phi_{b}\) are the starting phases of the two waves as they are emitted from the two source points. In this example, both waves are assumed to have been emitted with the same momentum \(p\).
+
+The difference between Michelson and HBT interferometry comes about in how the intensities measured at detectors \({\bf 1}\) and \({\bf 2}\),
+
+\[I_{1} =|A_{1}|^{2} =\frac{1}{L^{2}}\left(|\alpha|^{2}+|\beta|^{2}+2Re\left[\alpha^{ *}\beta e^{i[p(r_{1b}-r_{1a})+(\phi_{b}-\phi_{a})]}\right]\right)\] \[I_{2} =|A_{2}|^{2} =\frac{1}{L^{2}}\left(|\alpha|^{2}+|\beta|^{2}+2Re\left[\alpha^{ *}\beta e^{i[p(r_{2b}-r_{2a})+(\phi_{b}-\phi_{a})]}\right]\right), \tag{3.2}\]
+
+Figure 3.1: Diagram of a Michelson interferometer used to detect the angular diameter of a radio source.
+
+are used in the experiment. If the intensity is examined for a short time, the initial interference pattern will show itself due to the phase variation in the last term of equation (3.2). If the intensity is averaged over long times, these phases cancel due to the randomness in \(\phi_{a}\) and \(\phi_{b}\), and the interference fringes seen at the single detectors vanish:
+
+\[\langle I_{1}\rangle=\langle I_{2}\rangle=\frac{1}{L^{2}}\left(\left|\alpha \right|^{2}+\left|\beta\right|^{2}\right). \tag{3.3}\]
+
+Examination of the coincidence rate, \(\langle I_{1}I_{2}\rangle\), again averaged over long times, gives the product of the two single intensity measurements at the two detectors, plus an extra term which depends on the physical extent of the source. Normalizing the coincidence rate by the product of the single intensities gives the correlation function,
+
+Figure 3.2: HBT intensity interferometry diagram. Waves emitted from source points **a** and **b** can go two possible routes to detectors **1** and **2**.
+
+a direct link between the property of the source that is to be measured, namely its physical extent, and the observed data, or the measured intensities at two detectors:
+
+\[C\left(\overrightarrow{R},\overrightarrow{d}\right)=\frac{\left\langle I_{1}I_{2 }\right\rangle}{\left\langle I_{1}\right\rangle\left\langle I_{2}\right\rangle} =1+\frac{2\left|\alpha\right|^{2}\left|\beta\right|^{2}}{\left(\left|\alpha \right|^{2}+\left|\beta\right|^{2}\right)^{2}}Cos\left[p\left(r_{1a}-r_{2a}-r_ {1b}+r_{2b}\right)\right]. \tag{3.4}\]
+
+Equation (3.4) demonstrates that correlations still exist even in time-averaged intensity measurements. Although this would (temporarily) prove useful in the astronomical measurements made by Hanbury Brown and Twiss, its most consequential impact would be in the realm of particle physics. Eventually, techniques were developed that allowed the amplitudes from widely spaced radio telescopes to be combined without loss of phase information, and Michelson interferometry soon emerged again as the primary method of determining angular diameters of stellar objects.
+
+#### Pion Correlations from the Bevatron
+
+In 1959 measurements at the Bevatron showed a propensity for like-signed pions to be measured at a smaller relative angle than was ascribed by energy-momentum conservation and Fermi statistics [19]. At the time it was believed that the discrepancy was due to "other pion-pion correlations", and one year later the foundation for HBT as it is used today was laid by identifying Bose-Einstein statistics as the major contributor to the Bevatron results [20].
+
+Under the rules of Bose-Einstein statistics, two pions emitted from two separate locations in the source can arrive at two detectors, exactly as in the astronomical case of Figure 3.2. Since the pions, being bosons, are indistinguishable, their wavefunctionis a superposition of the two possible paths for the pions to follow [20]:
+
+\[\phi^{S}\left(1,2\right)=\frac{1}{\sqrt{2}}\left[e^{i\mathbf{p_{1}\cdot r_{1}}}e^ {i\mathbf{p_{2}\cdot r_{2}}}+e^{i\mathbf{p_{1}\cdot r_{2}}}e^{i\mathbf{p_{2} \cdot r_{1}}}\right]. \tag{3.5}\]
+
+Here, \(\mathbf{r}_{1}\) and \(\mathbf{r}_{2}\) are the distances between the source and detectors \(\mathbf{1}\) and \(\mathbf{2}\), respectively. Integrating the square of \(\phi^{S}\left(1,2\right)\) gives the probability distribution of simultaneously finding two pions with momenta \(\mathbf{p_{1}}\) and \(\mathbf{p_{2}}\). Normalizing this distribution by the volume (assumed spherical) of the source results in the correlation function:
+
+\[\psi\left(1,2\right)=1+9\left(\frac{\cos t}{t^{2}}-\frac{\sin t}{t^{3}}\right) ^{2},t=\left|\mathbf{p_{1}}-\mathbf{p_{2}}\right|\rho, \tag{3.6}\]
+
+where \(\rho\) represents radius of the integration volume. Just as in equation (3.4), the pion correlation function is fit to experimental data, in this case the \(t\) distribution of pion pair momenta, and a parameter related to the size of the interaction volume, \(\rho\), is extracted.
+
+Although the formalism used here is useful to develop an intuitive understanding of HBT, in the next section a more comprehensive analysis is used employing pion field operators. This analysis lends itself to a simpler understanding of the main topic of this thesis, three-pion HBT correlations.
+
+### Theory of Identical Boson Interferometry
+
+Pions emitted from a heavy-ion collision behave according to the QED equation of state for free-traveling particles, the Klein-Gordon equation:
+
+\[\left(\frac{\partial^{2}}{\partial t^{2}}+\nabla^{2}+m_{\pi}^{2}\right)\Phi \left(x\right)=J\left(x\right). \tag{3.7}\]In this equation, \(J\left(x\right)\) represents the nuclear current operator acting as the source of pions [21], \(m_{\pi}\) is the mass of a pion and \(\Phi\left(x\right)\) is the pion field. If pion-nucleon rescattering is ignored, then the pion and nuclear field equations can be decoupled from equation (3.7), and the problem is reduced to solving for the pion field. The single and two-particle momentum distributions are calculated directly from the resulting field equations, providing a link between the experimentally observed distributions and the source dynamics at freeze-out.
+
+#### Pion field Operators
+
+The single and two-particle coincidence momentum probability distributions for pions are given below:
+
+\[P_{1}\left(p\right)= E_{p}\frac{dN}{d^{3}p} =E_{p}\left\langle a_{p}^{\dagger}a_{p}\right\rangle \tag{3.8}\] \[P_{2}\left(p_{1},p_{2}\right)= E_{p_{1}}E_{p_{2}}\frac{dN}{d^{3}p_{1}d^{3}p_{2}} =E_{p_{1}}E_{p_{2}}\left\langle a_{p_{1}}^{\dagger}a_{p_{2}}^{ \dagger}a_{p_{2}}a_{p_{1}}\right\rangle. \tag{3.9}\]
+
+In the above equation, \(E_{p}\) is the energy of a pion with momentum \(p\), and \(a_{p}^{\dagger},a_{p}\) represent the creation and annihilation operators acting on a coherent state \(\left|J\right\rangle\), the solution to equation (3.7). One of the properties of \(\left|J\right\rangle\) is that it is an eigenstate of \(a_{p}\), so that
+
+\[a_{p}\left|J\right\rangle=iJ\left(p\right)\left|J\right\rangle. \tag{3.10}\]
+
+Equation (3.10) allows an immediate computation of the the probability distributions in equations (3.8) and (3.9). The two-pion _correlation function_\(C\left(p_{1},p_{2}\right)\) is the experimentally measured ratio of the two-pion coincidence momentum distribution to the single pion distribution, and for the above coherent state \(\left|J\right\rangle\) it is found to be:
+
+\[C\left(p_{1},p_{2}\right)=\frac{P_{2}\left(p_{1},p_{2}\right)}{P_{1}\left(p_{ 1}\right)P_{1}\left(p_{2}\right)}=\frac{\left\langle a_{p_{1}}^{\dagger}a_{p_ {2}}^{\dagger}a_{p_{2}}a_{p_{1}}\right\rangle}{\left\langle a_{p_{1}}^{ \dagger}a_{p_{1}}\right\rangle\left\langle a_{p_{2}}^{\dagger}a_{p_{2}}\right\rangle }=\frac{\left|J\left(p_{1}\right)\right|^{2}\left|J\left(p_{2}\right)\right|^{2 }}{\left|J\left(p_{1}\right)\right|^{2}\left|J\left(p_{2}\right)\right|^{2}}=1 \tag{3.11}\]Thus, for pions behaving under the nuclear current operator in equation (3.7), there are no momentum correlations between pairs. In order to calculate the effect of pions emitted from a chaotic source, it is necessary to use a superposition of classical sources distributed in phase space. By averaging over these sources, the two-particle momentum probability distribution (Equation 3.9) can be factorized as [22]:
+
+\[P_{2}\left(p_{1},p_{2}\right)=E_{p_{1}}E_{p_{2}}\left\langle a_{p_{1}}^{\dagger }a_{p_{2}}^{\dagger}a_{p_{2}}a_{p_{1}}\right\rangle=E_{p_{1}}E_{p_{2}}\left[ \left\langle a_{p_{1}}^{\dagger}a_{p_{1}}\right\rangle\left\langle a_{2}^{ \dagger}a_{p_{2}}\right\rangle+\left\langle a_{p_{1}}^{\dagger}a_{p_{2}} \right\rangle\left\langle a_{2}^{\dagger}a_{p_{1}}\right\rangle\right]. \tag{3.12}\]
+
+This factorization assumes independent particle emission, or full source chaoticity. It is one of the central assumptions of HBT, and testing it will be the primary focus of Chapter 4. Another name for the factorization in equation (3.12) is the generalized Wick Theorem. Heuristically it can be seen as a description of the two possible paths two identical particles can take after being emitted from two source points and arriving at two detection points. The Wick Theorem will be expanded for the three-particle case in the next chapter.
+
+Using equation (3.12), the two-pion correlation function can be calculated for a chaotic source:
+
+\[C_{2}\left(p_{1},p_{2}\right)=\frac{P_{2}\left(p_{1},p_{2}\right)}{P_{1}\left( p_{1}\right)P_{1}\left(p_{2}\right)}=1+\frac{\left|\left\langle a_{p_{1}}^{ \dagger}a_{p_{2}}\right\rangle\right|^{2}}{\left\langle a_{p_{1}}^{\dagger}a_{ p_{1}}\right\rangle\left\langle a_{p_{2}}^{\dagger}a_{p_{2}}\right\rangle}. \tag{3.13}\]
+
+The expectation values can be computed and related to the Wigner phase-space density, \(S\left(x,K\right)\), the quantum mechanical analogue of the classical phase-space density [23] which is a function of both space \(x\) and total momentum \(K\). The resulting expression is [24]:
+
+\[\sqrt{E_{p_{i}}E_{p_{j}}}\left\langle a_{p_{i}}^{\dagger}a_{p_{j}}\right\rangle =\int S\left(x,K_{ij}\right)e^{iq_{ij}x}d^{4}x. \tag{3.14}\]In this equation, \(K_{ij}=\frac{p_{i}+p_{j}}{2}\) is the average momentum of a pair of pions \(i\) and \(j\), and \(q_{ij}=\left|p_{i}-p_{j}\right|\) is the invariant momentum difference of the pair. Using equation (3.14) with equation (3.13) gives the expression for the two-pion correlation function in terms of the Wigner phase-space density:
+
+\[C_{2}\left(p_{1},p_{2}\right)=1+\frac{\left|\int d^{4}xS\left(x,K\right)e^{iq \cdot x}\right|^{2}}{\int d^{4}xS\left(x,p_{1}\right)\int d^{4}xS\left(x,p_{2} \right)}. \tag{3.15}\]
+
+In order to parameterize the two-pion correlation function in terms of the physical observables of pion momenta, the Wigner phase-space emission function \(S\left(x,K\right)\) can be approximated by a Gaussian distribution [25]. This results in a Gaussian correlation function in terms of the momentum difference \(\mathbf{q}=\mathbf{p_{1}}-\mathbf{p_{2}}\):
+
+\[C_{2}\left(\mathbf{q},\mathbf{K}\right)=1+e^{-q_{\mu}q_{\nu}\langle\tilde{x}^ {\mu}\tilde{x}^{\nu}\rangle\left(\mathbf{K}\right)}. \tag{3.16}\]
+
+\(\tilde{x}^{\mu}\) describes the rms widths of effective sources of particles with total momentum \(\mathbf{K}\). Different parameterizations can obtain these widths in a particular coordinate system to describe the size of the freeze-out region, however the widths obtained only describe the length of a "region of homogeneity" where particle pairs with momentum \(\mathbf{K}\) are emitted.
+
+#### Correlation Function Parameterizations
+
+\(\mathbf{Q}_{inv}\)
+
+The simplest Gaussian parameterization folds all length and time information into one length scale, extracted from a distribution of invariant four-momentum differences (\(Q_{inv}=\sqrt{\left|\mathbf{p_{1}}-\mathbf{p_{2}}\right|^{2}-\left(E_{1}-E_{ 2}\right)^{2}}\)). Once the correlation function has been computed, it is fit to the following equation:
+
+\[C_{2}\left(\mathbf{q},\mathbf{K}\right)=1+\lambda\left(\mathbf{K}\right)e^{-Q _{inv}^{2}\cdot R_{inv}^{2}\left(\mathbf{K}\right)}. \tag{3.17}\]The \(\lambda\) parameter in equation (3.17) represents the degree of contamination in the particle sample being studied, as well as a measure of the degree of chaoticity in the system. In a pure particle sample with full chaoticity its value would be unity. Since the correlation function is one-dimensional, very few statistics are needed to obtain a high quality fit to the data, however since the fit parameter \(R_{inv}\left(\mathbf{K}\right)\) folds so much information into one variable, it is difficult draw a substantial conclusion about the properties of the source.
+
+**Bertsch-Pratt Parameterization**
+
+A 3-dimensional cartesian parameterization, first used by S. Pratt and G. Bertsch [26, 27], uses a coordinate system based on the pair momentum \(\mathbf{k}\). Looking at Figure 3.3, for every pair, the momentum of each track is projected along the beam direction and the transverse direction. The transverse momenta are further split into two components, one in the direction of \(\mathbf{k_{T}}\) of the pair and the other in the orthogonal direction. From these projections, the invariant momentum difference is calculated for each direction: \(\mathbf{k_{T}}\) (out); \(\bot\) to \(\mathbf{k_{T}}\) (side); and parallel to the beam (long). These quantities are then used to produce a 3-dimensional correlation function, which can be fit to:
+
+\[C_{2}\left(\mathbf{q},\mathbf{K}\right)=1+\lambda\left(\mathbf{K}\right)e^{- q_{out}^{2}\cdot R_{out}^{2}\left(\mathbf{K}\right)-q_{side}^{2}\cdot R_{side}^{2} \left(\mathbf{K}\right)-q_{long}^{2}\cdot R_{long}^{2}\left(\mathbf{K} \right)}. \tag{3.18}\]
+
+Although all three radius parameters describe lengths of homogeneity along the three axes, \(R_{out}\left(\mathbf{K}\right)\) contains additional information about the lifetime of the source, due to the fact that this parameter is sensitive to pions which are created at a later time, traveling in the direction of \(\mathbf{k}\) of the pion pair, whereas \(R_{side}\left(\mathbf{K}\right)\) is sensitive only to those pions created at the periphery of the freeze-out region, at the onset of hadronization, and not to those created at later time.
+
+The difference in sensitivity between \(R_{out}\left(\mathbf{K}\right)\) and \(R_{side}\left(\mathbf{K}\right)\) to the pions with delayed emission allows in a simplified picture for an estimate of the lifetime of the freeze-out source [25]:
+
+\[R_{out}^{2}\left(\mathbf{K}\right)-R_{side}^{2}\left(\mathbf{K}\right)\approx \beta_{\perp}^{2}\left\langle\!\left.\tilde{t}^{2}\right\rangle. \tag{3.19}\]
+
+In this equation, \(\beta_{\perp}^{2}\) is the transverse velocity of pair, and \(\left\langle\!\left.\tilde{t}^{2}\right\rangle\right\) is the average emission duration of the source. Estimating the lifetime with equation (3.19) assumes that \(R_{out}\left(\mathbf{K}\right)\) and \(R_{side}\left(\mathbf{K}\right)\) measure approximately the same physical homogeneity length of the source. This can be a faulty assumption if the source is opaque (See figure 3.4), in which case \(R_{side}\left(\mathbf{K}\right)\) would measure a much larger homogeneity length than \(R_{out}\left(\mathbf{K}\right)\), resulting in an imaginary emission lifetime [28].
+
+Figure 3.3: Bertsch-Pratt or cartesian parameterization of the two-pion correlation function.
+
+### 3.3 Experimental Procedures
+
+Reconstructed TPC track data from the Year-1 run were stored on DST (data storage tape) files, and were subsequently reduced to a smaller microDST format for use within the HBT working group. These files contained only those track parameters which were necessary for performing the HBT analysis, such as particle momentum, \(\frac{dE}{dx}\) and topological information for use in correcting detector effects (SS3.3.2).
+
+#### Experimental Correlation Function
+
+Correlation functions are generated in the HBT code by creating two separate histograms. The Numerator histogram uses particle pairs that pass certain track cuts based on acceptance, topology and kinematics. These pairs are used to calculate a
+
+Figure 3.4: Opaque source, in which \(R_{side}\) measures the homogeneity length of the source, but \(R_{out}\) is sensitive only to the surface thickness, denoted by \(\langle x\rangle\).
+
+particular quantity related to the correlation function parameterization that is being studied, which is then subsequently recorded in the histogram. All pairs in the Numerator histogram come from the same collision event, and thus are called _real_ pairs. The Denominator histogram accepts pairs of particles in which one track comes from the event being used to generate pairs for the Numerator histogram, and the other track from a separate event. The Denominator or mixed-event histogram uses several events previously used by the Numerator histogram to increase statistics. Quantities calculated in the mixed-event histogram are corrected to account for the Coulomb effect as described in SS3.3.3.
+
+Once all events which pass certain event cuts are used, the two histograms are divided, Numerator by Denominator, bin by bin in the histograms, to generate a Ratio histogram. This constitutes the final experimental correlation function, which can be fit to the parameterized curves described in SS3.2.2 to extract source parameters.
+
+#### Detector Effects
+
+Tracks used to generate correlation function histograms must pass certain cuts before being used. Kinematic cuts are applied as required by the parameterization chosen and the physics being investigated. In addition, the physical limitations of the TPC requires certain cuts to increase track quality. These detector related cuts and corrections are described in the sections below.
+
+**Acceptance**
+
+The active volume of the TPC extends 4.2 meters in the beam direction (Z), and from 0.5 to 2 meters radially. This gives an acceptance coverage of 360\({}^{\circ}\) in \(\phi\), the azimuthal angle about the beam direction, and \(|\eta|<1.8\) in pseudorapidity. Eventsthat do not occur in the middle of the TPC have some of their tracks lying in a smaller volume of the TPC, reducing the number of hits recorded (SS2.4.1) by the TPC along the length of the track and thus reducing the track momentum resolution. To overcome this, events are selected which have their primary vertex within 75 cm of the center of the TPC. Since the mixed-event histogram uses different events, the mixed event buffer groups events according to primary vertex location, and only mixes those events which have similar primary vertex locations to avoid biasing the data with events which have different phase space acceptances.
+
+Maximum TPC coverage can also be attained by reducing the rapidity window in which tracks are accepted, however this reduces statistics. For the two-pion analysis, the accepted rapidity for tracks was \(|y|<0.5\). The transverse momenta of tracks must also be restricted, since at low momentum tracks will bend so tightly that they do not enter the 0.5 m inner radius of the TPC, and at high momentum tracks appear as straight lines and their curvature is not resolvable by the TPC. In addition, as described in SS2.4.2 higher momentum tracks are not able to be identified using the \(\frac{dE}{dx}\) of the track. In the two-pion analysis three p\({}_{T}\) ranges were used: 0.125 \(<p_{T}<\) 0.225; 0.225 \(<p_{T}<\) 0.325; and 0.325 \(<p_{T}<\) 0.450 GeV/c.
+
+**Split Tracks**
+
+In the reconstruction of tracks from the TPC hit information it is possible for a single track to be mistakenly identified as two tracks. This happens if several hits along the track are used to reconstruct a second phantom track. Normally this occurs if a track passes a dead area of the detector or crosses a sector boundary, causing the track reconstruction software to get confused and erroneously split one track into two. Pairs of tracks created by split tracks create an enhancement in the invariant momentum difference distribution at the lowest \(q\) bin, as the tracks forming the split pair each have the same momentum. In order to eliminate this effect, track pairs are tested to see what percentage of hits from one track share a TPC pad row with a hit from the other track. This method is detailed in Figure 3.5. A purely split pair would not share any pad rows between their hits, while a true pair, in which both tracks are composed of the maximum 45 TPC hits, would share all TPC pad rows. By allowing only those track pairs with a minimum pad row sharing percentage, most split track pairs can be removed.
+
+Figure 3.5: Using TPC pad hit information to determine split pairs. In the left figure, two tracks have several hits which share TPC pad rows, and some which do not, hence it is not a split pair. A purely split pair, as shown in the middle figure, would not share any pad rows among hits between the two tracks.
+
+In order to quantify the degree of splitting between two tracks, a value is calculated for every pair according to this formula:
+
+\[Quality=\frac{\sum_{\text{pads with 1 hit}}-\sum_{\text{pads with 2 hits}}}{\sum_{\text{ hits}}}, \tag{3.20}\]
+
+where the number of hits on a pad is calculated only for the two tracks of interest, and the sum of hits factor in the denominator corresponds to the total number of hits among the two tracks. For a purely split track, there would be no pads with two hits, only pads with 1 hit, and so equation (3.20) would give a value of 1. For two distinct tracks, each with a hit on every pad, there would be only pads with 2 hits, however when dividing by the number of hits, since there are two hits on each pad this would give a quality value of -0.5. So the range of values are from -0.5 to 1.0, with -0.5 corresponding to perfectly distinct tracks and 1.0 corresponding to 100% split tracks. For the purposes of this analysis, all pairs which had \(quality>0.6\) were rejected. Rejecting tracks with a lower quality value does not significantly affect the shape of the correlation function, but instead only reduces statistics.
+
+**Merged Tracks**
+
+A separate, and more insidious, detector effect occurs when two real tracks lie close to one another in coordinate space. Due to the finite two-hit resolving power in the TPC pad rows, two close real tracks can be merged into one during software reconstruction. This produces the opposite effect of split tracks, a de-enhancement of the correlation function at low \(Q_{inv}\), since tracks from particles coming from different events can be very close in coordinate space and still be counted as two distinct tracks. There, of course, can be no hit merging between tracks coming from two separate events.
+
+To remove this effect, it is necessary to limit the spacing between tracks that are used to form pairs. The standard method for accomplishing this is to require a minimum separation of the tracks, as defined by their locations upon entering or exiting the TPC. This entrance (or exit) separation cut is applied both to real pairs and mixed-event pairs so as to remove the effect of the cut when the ratio of the histograms is taken.
+
+The standard entrance separation cut value for Year-1 analysis was 2.5 cm, however it was found that a systematic shift in the correlation function fit parameters was observed as this cut value was changed. By assuming the source function was a double Gaussian distribution, this systematic behavior was reproduced in simulations, and so the final decision was made to use the entrance separation cut and then subsequently correct the fit values by a factor obtained in simulations.
+
+#### Final State Interactions
+
+Several interactions occur among pions as they are expelled from the freeze-out region. Most of these are negligible, however one in particular, the Coulomb interaction, has such a long range that it must be corrected in the data in order to extract the Bose-Einstein correlation.
+
+##### Electromagnetic
+
+The Coulomb interaction is a long range potential which suppresses the correlation function at low \(Q_{inv}\) for like-signed particle pairs. Particles emitted from the same region of momentum space are affected more strongly by this interaction, and so this effect can be corrected by obtaining a weighting factor which is dependent on the momenta of particles in each pair. This factor is calculated by numerically solvingthe Coulomb wave function, assuming a given source size, and extracting the value of the two-particle momentum probability when substituting the symmetrized Coulomb wave function for the source wavefunction [29]. For this analysis, Coulomb correction factors were obtained through a 5-dimensional Monte-Carlo integration of Coulomb wave functions over a spherical source [30]. The final correction factor is obtained by iteratively adjusting the Coulomb source size until it matches the radius parameters obtained from a fit using the correlation function parameterization.
+
+Although the Coulomb interaction only affects real pairs in which both particles come from the same event, in the calculation of a correlation function, it is pairs from the mixed-event Denominator which are weighted by a factor equal to the suppression that a same-event pair would experience. The ratio of the real and mixed-event distributions then cancel the effect. The correction factor is applied to mixed-event pairs due to the larger number of pairs that can be formed from multiple buffer events.
+
+**Strong Nuclear**
+
+Although final-state particles are colorless, the residual nuclear force creates an attractive potential at small distances. Protons are affected much more by this potential than pions, and must be corrected. The distance at which pions are significantly affected is 0.2 fm [31], much less than the \(\sim\)5.0 fm homogeneity length found in the data. For this reason pions need not be corrected for the strong nuclear interaction.
+
+#### Event Centrality
+
+Collision events are classified according to impact parameter \(b\), the relative distance between the centers of the two nuclei as they pass closest to one another. The impact parameter of an event is inversely related to the energy deposition within the collision region, and thus also to the number of particles which are created. For most analyses, the centrality, or how close the impact parameter of an event is to zero, is a major determination of what physics will be seen in a particular class of events, and so events are often grouped into collections, or bins, of a common centrality.
+
+Centrality bins are determined after data has been collected and the number of tracks of a certain charge have been counted for each event. In Figure 3.6, the number of events with a particular number of negatively charged hadrons is plotted for various bins in multiplicity (number of tracks of negatively charged hadrons) [1]. The entire plot is then scaled such that the integral under the curve is equal to the total inelastic cross section for Au+Au collisions at \(\sqrt{s_{NN}}=130\) GeV, which through Glauber calculations is 7.2 barns. By normalizing the plot in this way, the y-axis becomes the differential cross section with respect to number of negatively charged hadrons, and so centrality can be defined by selecting events which comprise a certain percentage of the total cross section. For the purposes of the HBT analysis, events were grouped into three bins, which were comprised of the 12% most central (bin 3), the next 20% most central (bin 2), and the next 40% most central (bin 3).
+
+### 3.4 Two-Particle HBT Results
+
+Due to the large number of pions generated in a heavy-ion collision, the first results obtained from STAR used pions only. Other particle types, such as protons, \(K^{\pm}\), and \(K^{0}\) give results that are sensitive to those parts of the source where the particles were created. All results shown in this section were made possible due to the extensive effort of the STAR HBT physics working group, and are published in Ref. [2].
+
+Figure 3.6: Distribution of negatively charged hadrons, normalized such that the integral under the curve equals the total hadronic cross section of Au+Au collisions at \(\sqrt{s_{NN}}\) = 130 GeV. Obtained from Ref. [1].
+
+[MISSING_PAGE_FAIL:83]
+
+Figure 3.7: \(Q_{inv}\) (a) and 3-dimensional Bertsch-Pratt (b,c,d) correlation functions for \(\pi^{-}\) data. The open diamonds show the uncorrected correlation functions while the stars represent the Coulomb corrected correlation functions. Obtained from Ref. [2].
+
+Figure 3.8: Centrality and \(m_{T}\) dependence of the Bertsch-Pratt parameterization fit values. For the centrality study, the lowest \(p_{T}\) bin was used, \(0.125<p_{T}<0.225\) GeV/c. Data points in the \(m_{T}\) study used the highest centrality bin. Statistical error bars are given, with systematic error shown as a shaded bar under the points. Obtained from Ref. [2].
+
+#### Comparison to Previous Data
+
+Figure 3.9 shows the accumulated HBT data over five experiments, with the last and highest energy data points obtained from STAR's analysis. One of the most striking features of this plot is the relatively small change in the Bertsch-Pratt fit parameters over such a large energy spectrum. Some searches for the QGP rely on the fact that the number of degrees of freedom in a QGP, which consists of several quark flavors, is much larger than the hadron gas into which the QGP must ultimately freeze out. This freeze-out must therefore occur very slowly, and so not only should the lifetime of the source increase but also the homogeneity lengths over which particles hadronize. Figure 3.9 suggests that, given this theory, either the QGP has not formed in the energy range given, or it already formed at a much lower energy than was expected.
+
+Figure 3.9: Excitation function showing HBT results from four previous experiments and STAR’s. The last plot is a measure of the lifetime of the source as given by equation (3.19). Obtained from Ref. [2].
+
+## Chapter 4 Three-Pion Hbt
+
+As was discussed in the previous chapter, two-particle HBT provides the means of extracting geometric and dynamic information about the freeze-out source of a heavy-ion collision. In the derivation, the assumption of full source chaoticity is verified to first order by determining the value \(\lambda\) of the intercept of the two-particle correlation function. In the absence of final-state interactions this value should be unity, however given the importance of the chaotic assumption it would seem prudent to obtain further verification.
+
+Three-particle correlations continue the derivation of SS3.2.1 by introducing the three-particle simultaneous momentum probability term, and using the Wick theorem for three particles to extract a term that is directly sensitive to the quantum particle production phases of the particles emitted from the freeze-out region. This term, the three-particle correlator, is directly measurable and gives a precise value for the degree of chaoticity in the system.
+
+### Derivation of Three-Particle Correlator and Chaotic Fraction
+
+As before in SS3.2.1, the single and coincidence particle momentum probability distributions can be written in terms of an ensemble average of creation and annihilation operators acting on states obeying the Klein-Gordon equation with a source current term. The definition of the three-particle coincidence momentum probability distribution is defined likewise, and from its factorization the three-particle correlator is obtained.
+
+#### Factorization of Momentum Distributions
+
+Equations (3.8) and (3.9) give the momentum probability distributions for 1 and 2 particles. The 2-particle momentum distribution is factorized as in SS3.2.1 by the use of the generalized Wick theorem for bosons,
+
+\[\left\langle a_{1}^{\dagger}a_{2}^{\dagger}a_{2}a_{1}\right\rangle=\left\langle a _{1}^{\dagger}a_{1}\right\rangle\left\langle a_{2}^{\dagger}a_{2}\right\rangle+ \left\langle a_{1}^{\dagger}a_{2}\right\rangle\left\langle a_{2}^{\dagger}a_ {1}\right\rangle, \tag{4.1}\]
+
+and assuming independent particle emission from the source. Equation (4.1) is very important, as it forms the basis for an assumption of a chaotic source. The test of this assumption is what finally tells us whether or not the physical system is fully chaotic. Using equations (3.9) and (4.1), the experimental two-boson correlation function is reformulated as in equation (3.13). In this formula, the expectation values are calculated using the integral expression below which involves the Wigner phase-space density, \(S\left(x,K\right)\):
+
+\[\left\langle a_{p_{i}}^{\dagger}a_{p_{j}}\right\rangle=\int S\left(x,K_{ij} \right)e^{iq_{ij}x}d^{4}x=f\left(Q_{ij},K_{ij}\right)e^{i\phi\left(Q_{ij},K_{ ij}\right)}. \tag{4.2}\]The right-hand side of equation (4.2) is a way of expressing the complex result of the integral calculation as a real modulus multiplied by a phase factor. Since \(S\left(x,K_{ij}\right)\) is the physical phase-space density function, it is real-valued function. Also, \(S\left(x,K_{ij}\right)\) is only of function of \(K_{ij}\), and so under particle reversal its sign does not change, from which it follows that \(f\left(Q_{ij},K_{ij}\right)\) must be even in \(Q_{ij}\), and \(\phi\left(Q_{ij},K_{ij}\right)\) must be odd in \(Q_{ij}\). A direct result of this is that \(\phi\left(Q_{ij}=0\right)=0\). By using the Wick theorem with equation (4.2), a result which verifies the previous statement that \(\phi=0\) at \(Q_{ij}=0\) will form the basis of a validation of source chaoticity. By inserting equation (4.2) into equation (3.13) one arrives at the result
+
+\[C_{2}\left(p_{1},p_{2}\right)=1+\frac{f_{12}^{2}}{f_{11}f_{22}}, \tag{4.3}\]
+
+where \(f_{ij}\equiv f\left(q_{ij},K_{ij}\right)\).
+
+Expanding this analysis to three particle correlations, the corresponding three particle coincidence momentum probability distribution can be written as:
+
+\[P_{3}\left(p_{1},p_{2},p_{3}\right)=E_{p_{1}}E_{p_{2}}E_{p_{3}}\frac{dN}{dp_{1 }^{3}dp_{2}^{3}dp_{3}^{3}}=E_{p_{1}}E_{p_{2}}E_{p_{3}}\left\langle a_{p_{1}}^ {\dagger}a_{p_{2}}^{\dagger}a_{p_{3}}^{\dagger}a_{p_{3}}a_{p_{2}}a_{p_{1}} \right\rangle. \tag{4.4}\]
+
+The Wick theorem can be expanded for three particles heuristically by taking all possible combinations of three particles emitted from three source points detected by three separate detectors. These combinations are given in the following Wick theorem for three particles (which, again, assumes chaotic particle production):
+
+\[\left\langle a_{1}^{\dagger}a_{2}^{\dagger}a_{3}^{\dagger}a_{3}a_{2}a_{1} \right\rangle=\left\langle a_{1}^{\dagger}a_{1}\right\rangle\left\langle a_{2 }^{\dagger}a_{2}\right\rangle\left\langle a_{3}^{\dagger}a_{3}\right\rangle+ \tag{4.5}\]
+
+\[+\left\langle a_{1}^{\dagger}a_{2}\right\rangle\left\langle a_{2}^{\dagger}a _{3}\right\rangle\left\langle a_{3}^{\dagger}a_{1}\right\rangle+\left\langle a _{1}^{\dagger}a_{3}\right\rangle\left\langle a_{2}^{\dagger}a_{1}\right\rangle \left\langle a_{3}^{\dagger}a_{2}\right\rangle.\]Using equations (4.5), (4.2) and (4.3), the experimental three particle correlation function can be written as [33]:
+
+\[\begin{array}{c}C_{3}\left(p_{1},p_{2},p_{3}\right)=\frac{P_{3}(p_{1},p_{2},p_{ 3})}{P_{1}(p_{1})P_{1}(p_{2})P_{1}(p_{3})}\\ \\ =1+\left(C_{2}\left(p_{1},p_{2}\right)-1\right)+\left(C_{2}\left(p_{2},p_{3} \right)-1\right)+\left(C_{2}\left(p_{3},p_{1}\right)-1\right)+\\ \\ 2\sqrt{\left(C_{2}\left(p_{1},p_{2}\right)-1\right)\left(C_{2}\left(p_{2},p_{3} \right)-1\right)\left(C_{2}\left(p_{3},p_{1}\right)-1\right)}\cos\left(\phi_{1 2}+\phi_{23}+\phi_{31}\right).\end{array} \tag{4.6}\]
+
+#### Phase Factor
+
+A simplified version of equation (4.5) is used in practice by calculating invariant momentum differences. Given the paucity of statistics, it is necessary to project the several dimensions down to a scalar measure of the relative momentum between triplets and pairs. This relative momentum is calculated for two particles with the standard \(Q_{\it inv}\) definition, \(Q_{ij}=\left|p_{i}-p_{j}\right|\), and for three particles three \(Q_{ij}\) terms are added in quadrature: \(Q_{3}=\sqrt{Q_{12}^{2}+Q_{23}^{2}+Q_{31}^{2}}\). The resulting equation for the measurement of the overall phase factor is:
+
+\[\cos\left(\Phi\right)=\frac{\left(C_{3}\left(Q_{3}\right)-1\right)-\left(C_{2 }\left(Q_{12}\right)-1\right)-\left(C_{2}\left(Q_{23}\right)-1\right)-\left(C _{2}\left(Q_{31}\right)-1\right)}{2\sqrt{\left(C_{2}\left(Q_{12}\right)-1 \right)\left(C_{2}\left(Q_{23}\right)-1\right)\left(C_{2}\left(Q_{31}\right)- 1\right)}}, \tag{4.7}\]
+
+where \(\Phi=\phi_{12}+\phi_{23}+\phi_{31}\).
+
+Here \(Q_{3}=\sqrt{Q_{12}^{2}+Q_{23}^{2}+Q_{31}^{2}}\) and \(Q_{ij}=\sqrt{-(p_{i}-p_{j})^{2}}\) are the standard invariant relative momenta [3, 4] which can be computed for each pion triplet from the three measured momenta \(\left(\mathbf{p}_{1},\mathbf{p}_{2},\mathbf{p}_{3}\right)\). Equation (4.7) can be written as the _normalized three-pion correlator_:
+
+\[r_{3}\left(Q_{3}\right)=\frac{R_{3}\left(Q_{3}\right)}{\sqrt{R_{2}\left(Q_{12 }\right)R_{2}\left(Q_{23}\right)C_{2}\left(Q_{31}\right)}}=2cos\Phi, \tag{4.8}\]where
+
+\[R_{2}\left(Q_{ij}\right)= C_{2}\left(Q_{ij}\right)-1,\] \[R_{3}\left(Q_{3}\right)= C_{3}\left(Q_{3}\right)-1-R_{2}\left(Q_{12}\right)-R_{2}\left(Q_{23} \right)-R_{2}\left(Q_{31}\right)\]
+
+Although the preceding derivation assumed a fully chaotic source by utilizing the Wick theorem, equation (4.8) will be used later to determine the degree of chaoticity by assuming a partially chaotic source.
+
+In Ref. [34] the ratio \(r_{3}\) is defined in terms of functions which depend on all 9 components of \(\left({\bf p}_{1},{\bf p}_{2},{\bf p}_{3}\right)\); however, limited \(Q_{3}\) statistics even in our high-statistics single particle sample requires a projection of both the numerator and denominator onto a single momentum variable, \(Q_{3}\). The implications of this projection are commented on further below.
+
+For fully chaotic sources \(r_{3}\!=\!2\cos\Phi\) is the Heinz-Zhang phase factor which approaches \(r_{3}\!=\!2\) as all relative momenta (and thus \(Q_{3}\) and \(\Phi\)[34]) go to zero. If the source is partially coherent, a relationship can be established between the limiting value of the three-pion correlator at \(Q_{3}=0\) and the _chaotic fraction_\(\varepsilon\) (\(0\!\leq\!\varepsilon\!\leq\!1\)) of the single-particle spectrum [34]:
+
+\[\frac{1}{2}\,r_{3}\left(Q_{3}\!\!=\!\!0\right)=\sqrt{\varepsilon}\,\frac{3-2 \varepsilon}{(2\!-\!\varepsilon)^{3/2}}. \tag{4.9}\]
+
+This expression is not affected by the projection onto a single relative momentum variable. To exploit this and extract the degree of chaoticity \(\varepsilon\), the measured data for \(r_{3}\) must, however, be extrapolated from the finite measured \(Q_{3}\) to \(Q_{3}\!=\!0\).
+
+### 4.2 Method of Calculation
+
+All analysis performed on Year-1 data used the same software infrastructure as was used for other HBT analyses. Additional code was built to create triplet distributions and calculate cuts and corrections based on triplets instead of pairs. A separate routine was used to eliminate high-Q triplets, as the resources available would have been insufficient to study all possible triplets formed from events, and the effect of interest is near Q = 0.
+
+#### Three Pion \(Q_{3}\) Correlation Function
+
+Similar to the two-pion correlation function, the three-pion correlation function \(C_{3}\left(Q_{3}\right)\) is calculated from the data by taking the ratio \(\frac{A\left(Q_{3}\right)}{B\left(Q_{3}\right)}\) and normalizing it to unity at large \(Q_{3}\). Here \(A\left(Q_{3}\right)=\frac{dN}{dQ_{3}}\) is the three-pion distribution as a function of the invariant three-pion relative momentum, integrated over the total momentum of the pion triplet as well as all other relative momentum components. It is obtained by taking three pions from a single event, calculating \(Q_{3}\), and binning the results in a histogram. \(B\left(Q_{3}\right)\) is the analogous mixed event distribution which is computed by taking single pions from three separate events.
+
+Because the denominator of the normalized three-pion correlator \(r_{3}\) approaches zero at large \(Q_{3}\), the particular method of normalization of \(C_{2}\) and \(C_{3}\) can have a huge effect on the calculation. The propagation of statistical errors through the \(r_{3}\) functions, however, accounts for these effects completely. In fact, it is only with the enormous statistics available from STAR that the calculation can be considered in the range \(0<Q_{3}<100\,\mathrm{MeV}/c\). Though small, this range is large enough to provide reliable extrapolation to \(Q_{3}=0\).
+
+#### Phase Space Cuts
+
+The phase space cuts and experimental corrections applied are similar to the two-pion HBT analysis as described in SS3.4. Multiplicity classes were the same as described in SS3.3.4. For all multiplicity bins, tracks were constrained to have \(p_{T}\) in the range \(0.125<p_{T}<0.5\,\)GeV/\(c\), and pseudorapidity \(|\eta|<1.0\). In the range \(0<Q_{3}<100\,\)MeV/\(c\), approximately 26 million triplets were included in both the negative and positive pion central studies from \(\sim\) 100,000 events.
+
+#### Coulomb Correction
+
+The three-particle Coulomb correction was applied by taking the product of three two-pion corrections, obtained from the three possible pairs formed from the triplet. This type of correction approximates the three-body Coulomb problem to first order [35, 36]. A source size of 5 fm as suggested by the two-pion results was used for all multiplicity bins [2]. Other methods to more accurately estimate the true three-body Coulomb effect show a 5-10% difference for a source radius of 5 fm [37]. As this difference is well within the systematic errors in the calculation of the three-pion correlation function, this latter method was not used.
+
+A systematic study of the variation in the \(C_{3}\) correlation function was done by modifying the input radius to the Coulomb correction by \(\pm\) 20 % from the standard value of 5 fm. The results, shown in Figure 4.1, show that the \(C_{3}\) correlation function varies little with respect to a change in the input Coulomb radius. This variation is also canceled somewhat in the final \(r_{3}\) calculation, which involves a ratio of correlation functions. The lower black curve in this plot shows \(C_{3}\) when no Coulombcorrection has been applied, emphasizing the magnitude of the Coulomb potential on the correlation function.
+
+As implemented, the Coulomb correction is applied to every pion pair or triplet. Since the correction only takes into account the momenta of the pions, all pions are assumed to have been emitted near the collision region. This assumption fails for pions that are created later on from the decay of long-lived resonances, since these pions are already well separated from each other. Using the Coulomb correction on
+
+Figure 4.1: Effect on the \(C_{3}\) correlation function of modifying the input radius to the Coulomb correction algorithm. Shown is the correlation function for central \(\pi^{-}\) events. The upper curves represent \(C_{3}\) when the Coulomb radius is set to 4 fm (red curve), 5 fm (standard value for analysis - black curve) and 6 fm (green curve). The lower black curve is the \(C_{3}\) correlation function with no Coulomb correction.
+
+these pions would result in an artificial enhancement at low \(q\) values, affecting the two-pion \(\lambda\) parameter and perhaps even \(r_{3}\).
+
+To test this hypothesis, a study was performed [38] which examined the effect on \(r_{3}\) when the Coulomb correction was mis-applied to long-lived resonances. In Figure 4.2, \(r_{3}\) is plotted using the Gamow Coulomb correction (a modified form of the standard Coulomb correction in which the Coulomb source is assumed to be point-like). The top plot shows the "perfect" result, in which the Coulomb potential has been turned off in the simulation. The lower plot shows the result of applying the Coulomb correction to all pions, including those from resonance decays. To obtain the intercept value of \(r_{3}\), the critical number in this analysis, a quadratic fit is made to the data as described later in SS4.3.2. The plots show that the \(r_{3}\) intercept varies by 0.05 when the Coulomb correction is applied to resonance decays, a difference that is within the error of fit. For the analysis of STAR data, the Coulomb correction was applied to all pions, with the understanding that any effect that the Coulomb correction of long-lived resonances would have on the \(r_{3}\) intercept would be within the overall error of this value.
+
+#### Experimental Cuts
+
+As described in SS3.3.2, effects of track splitting during reconstruction were eliminated through a topological cut based on the TPC pad row configuration of hits composing a track, and track merging was corrected with a requirement on the minimum separation of a pair of tracks entering the TPC. For \(C_{3}\), the stipulation was that for any pair within the triplet, if the pair entrance separation was less than 2.5 cm,Figure 4.2: Simulation of effect of mis-applying the Coulomb correction to pions emitted from the decay of long-lived resonances. The upper plot shows the result with the Coulomb potential turned off, and the lower plot shows the result of applying the Coulomb correction to all pions, including those emitted from \(\eta\), \(\eta^{\prime}\), \(K^{0}_{S}\) and \(\Omega^{-}\) decays.
+
+the triplet was rejected. Figure 4.3 shows the variation in \(r_{3}\) as the entrance separation cut is varied from 1.5 cm to 3.5 cm. This effect is small due to the cancellation that occurs in the ratio of correlation functions according to equation (4.8), however the point by point variation was taken into account in the overall systematic error.
+
+#### Momentum Sectoring
+
+In a typical central event, approximately 300 pions pass all phase-space cuts and are accepted for the creation of pion triplets. If all pions were considered, this would
+
+Figure 4.3: Effect on \(r_{3}\) of varying the entrance separation cut on pion pairs and triplets. The curves show entrance separation cuts of 1.5 cm (red), 2.0 cm (black), 2.5 cm (standard value - green), 3.0 cm (blue) and 3.5 cm (purple). The variation of the datapoints was used to calculate the systematic error.
+
+amount to over 4.4 million pion triplets, most of which have a \(Q_{3}\) value outside of the momentum interval of interest (\(0<Q_{3}<100\) MeV). For mixed-event triplets, the number is even larger, 27 million triplets if they are formed from three events with 300 pions per event. This is to be compared to two-pion HBT, in which the number of pion pairs for the same event size is 44850, a factor of 100 difference. Triplets and pairs take roughly the same amount of time to be processed, meaning that an analysis of two-pion HBT that takes several hours will take the equivalent three-particle analysis several days!
+
+Needless to say, not much analysis would be accomplished if this were the way to work with three-particle correlations. An alternative method [39] is to accept only those triplets with low \(Q_{3}\) values. To accomplish this, particle tracks were grouped according to their location in momentum space. 3-dimensional sectors of momentum space were thus created and used to create pion triplets only among particles within a particular sector. To avoid edge effects at the sector boundaries, particles were also mixed with those from adjacent sectors. In this way, none of the lowest \(Q_{3}\) triplets were missed.
+
+The benefits of this approach are invaluable when comparing the computing times of the different methods. For the momentum sectoring method, in which momentum space is split into 1000 bins across 10 divisions in \(p_{x}\), \(p_{y}\) and \(p_{z}\), 100,000 central events can be analyzed in 1 day, while the previous method of accepting all triplets would take 30 days. Sectors are 0.1 GeV wide in each momentum dimension across a momentum range of \(-0.5<p_{i}<0.5\) GeV.
+
+The effect of sectoring on the \(C_{3}\) correlation function can be seen in Figure 4.4. With the bounds given as above, the sectored result (black curve) has a cutoff value of 1.0 GeV, and then rises to meet the non-sectored result (grey curve) at 0.8 GeV. This drop in the sectored result is due to the fact that \(Q_{3}\) triplets are lost because the particles that form the triplet are separated in momentum space by more than one momentum sector bin. The two curves coincide at the smallest \(Q_{3}\) value in which sectoring starts to fail to include every triplet with that particular \(Q_{3}\) value. For 0.1 GeV bins, this value is 120 MeV, and even well past this value the two curves are very close.
+
+Figure 4.4: Example of the effect of momentum sectoring on the \(C_{3}\) correlation function. The black curve shows the sectored result and the grey curve shows the non-sectored result.
+
+### 4.3 Results from Year-1
+
+#### C\({}_{3}\) Correlation Function
+
+Figure 4.5 shows the \(C_{3}\) correlation function for the highest multiplicity bin (\(\pi^{-}\) - **(a)**, \(\pi^{+}\) - **(b)**), the middle multiplicity bin (\(\pi^{-}\) - **(c)**, \(\pi^{+}\) - **(d)**), and the lowest multiplicity bin (\(\pi^{-}\) - **(e)**, \(\pi^{+}\) - **(f)**). A Gaussian parameterization is inadequate to describe the actual correlation function; this is consistent with results obtained in other experiments [40, 4, 3]. In calculating \(r_{3}\), the actual binned values of the correlation function for the various values of \(Q_{3}\) are used instead of a fit [40]. In order to use equation (4.7), triplets are obtained that pass all of the momentum space and experimental cuts. \(Q_{3}\), \(Q_{12}\), \(Q_{23}\) and \(Q_{31}\) are calculated from the triplet and the three pairs that can be formed from the triplet. The values \(C_{3}\left(Q_{3}\right)\), \(C_{2}\left(Q_{12}\right)\), \(C_{2}\left(Q_{23}\right)\) and \(C_{2}\left(Q_{31}\right)\) are then computed from the binned two- and three-pion correlation functions. These values are then used to calculate \(r_{3}\), which is then binned as a function of \(Q_{3}\). The average for each bin is then calculated to obtain the final result. Systematic errors are greatest at the low \(Q_{3}\) end due to merging effects and the uncertainty in the Coulomb correction. The parameters controlling these effects were modified 20% from the nominal values to obtain the overall systematic error in each bin.
+
+#### Normalized Three-Particle Correlator
+
+The results for the three multiplicity bins are shown in Figures 4.6 (\(\pi^{-}\)) and 4.7 (\(\pi^{+}\)), plotted as functions of \(Q_{3}^{2}\). The latter is suggested by the theoretical analysis in [34] which shows that the leading relative momentum dependencies in the numerator and denominator of equation (4.7) are quadratic\({}^{1}\), allowing for a linear extrapolationFigure 4.5: Three-pion correlation function for central (\(\pi^{-}\) - **(a)**, \(\pi^{+}\) - **(b)**), mid-central (\(\pi^{-}\) - **(c)**, \(\pi^{+}\) - **(d)**) and peripheral (\(\pi^{-}\) - **(e)**, \(\pi^{+}\) - **(f)**) events. Statistical and statistical+systematic errors are shown.
+
+of the results shown in Figures 4.6 and 4.7 to \(Q_{3}\!=\!0\) by fitting them to the form
+
+\[r_{3}\left(Q_{3}\right)=r_{3}(0)-Const\,Q_{3}^{2}. \tag{4.10}\]
+
+From Figures 4.6 and 4.7, it appears that the normalized three-pion correlator \(r_{3}(Q_{3})\) does indeed show a leading quadratic dependence up to at least \(Q_{3}^{2}=6000\) MeV\({}^{2}\)/c\({}^{2}\).
+
+The resulting intercepts \(r_{3}(0)\) are shown in Figure 4.8, along with the results of WA98 and NA44. NA44 reported a result close to unity for Pb-Pb interactions, but a much lower result for S-Pb [3], both with no clear \(Q_{3}\) dependence. WA98 also reported a result close to unity at \(Q_{3}\!=0\) for Pb+Pb, and the \(Q_{3}\)-dependence in their result is similar to what is seen in central collisions [4]. A qualitatively similar, but much weaker relative momentum dependence of \(r_{3}\) has been shown to exist in calculations by Nakamura and Seki for various parameterizations of chaotic sources [41]. In their model the relative momentum dependence is of higher than quadratic order, and it is an indication for an asymmetric source.
+
+A detailed comparison of our data with Nakamura and Seki's model calculations is not possible due to our need for projecting the correlation functions on a single relative momentum variable. This introduces a leading quadratic dependence of \(r_{3}\) on \(Q_{3}\)1 which buries the expected higher order effects arising from possible asymmetries of the emission function.
+
+Footnote 1: For a fully chaotic source (\(\varepsilon\!=\!1\)), the leading quadratic relative momentum dependencies in the numerator and denominator of equation (4.7) cancel, if the ratio is taken pointwise in 9-dimensional \(({\bf p}_{1},{\bf p}_{2},{\bf p}_{3})\) space (the phase \(\Phi\) is quadratic and \(\cos(\Phi)\) is of fourth order in the relative momenta [34]). If numerator and denominator are first projected on the single variable \(Q_{3}\), this cancellation in the ratio is spoiled. For partially coherent sources there is no such cancellation to begin with [34]. The parameterization (4.10) thus captures the expected leading \(Q_{3}\) dependence of the data (U. Heinz, private communication).
+
+Figure 4.6: \(r_{3}\) calculation for (a) peripheral, (b) mid-central, and (c) central \(\pi^{-}\) events. The fits shown use equation (4.10) to determine the intercept. Statistical and statistical+systematic errors are shown.
+
+Figure 4.7: \(r_{3}\) calculation for (a) peripheral, (b) mid-central, and (c) central \(\pi^{+}\) events. The fits shown use equation (4.10) to determine the intercept. Statistical and statistical+systematic errors are shown.
+
+#### Chaotic Fraction
+
+Figure 4.9 shows the calculation of \(\varepsilon\) for STAR's measurements, and for those from WA98 and NA44. The plot shows a systematic trend in the STAR \(\pi^{-}\) results going from peripheral to central, however it is clear that more statistics are needed in the peripheral case. The \(\pi^{+}\) results agree with those for \(\pi^{-}\) for central events, but are lower for the other two multiplicity classes. As the dependence of \(\varepsilon\) on the intercept value of \(r_{3}\) is quite high near \(r_{3}=1\), small errors in the fit values of \(r_{3}\) can lead to a large shift in the chaotic fraction measurement. However, for all centrality classes, the fits and subsequent \(\varepsilon\) calculations show a highly chaotic source. It is important to realize that this measure of chaoticity is unaffected by the value of the two-pion \(\lambda\)
+
+Figure 4.8: Asymptotic value of \(r_{3}\) from STAR and two other experiments [3, 4]. For STAR, peripheral (a), mid-central (b), and central (c) results are shown for \(\pi^{-}\) (circular markers) and \(\pi^{+}\) (square markers) data. The other experiments use \(\pi^{-}\) data only.
+
+parameter, which in the two-pion analysis has been shown to be less than 1 [2]. This can be due to effects such as resonance contamination and multiple rescattering [40].
+
+#### Fitting Method for \(r_{3}\) Intercept
+
+In fitting the \(r_{3}\) functions to equation (4.10), two concerns are what fit range should be used and whether equation (4.10) should be expanded to account for a quartic term. Due to the large statistical errors in the \(r_{3}\) plots of Figures 4.6 and 4.7, the fit values shown in Figure 4.8 do not change when the fit range is extended past \(Q_{3}=120\) MeV. However, a smaller fit range does change the \(r_{3}\) intercept fit value according to the results in Tables 4.1 and 4.2. Clearly, the fit is weakened as the fit range is decreased, yet the question of range is important since the quadratic dependence may only be valid up to a certain value of \(Q_{3}\).
+
+Figure 4.9: Chaotic fraction, calculated from equation (4.9), and plotted for the same experiments as in Figure 4.8. For STAR, peripheral (a), mid-central (b), and central (c) results are plotted for \(\pi^{-}\) (circular markers) and \(\pi^{+}\) (square markers) data.
+
+[MISSING_PAGE_FAIL:108]
+
+fit describes the data well up to \(Q_{3}=80\) MeV, and then the quartic fit should be used past that value. Since the primary result of the three-particle analysis hinges on the result of whatever particular fit is used to find the intercept of the \(r_{3}\) curve, a thorough understanding of the systematics of these fits is crucial in determining the degree of chaoticity of the source.
+
+\begin{table}
+\begin{tabular}{|c||c|c|c|} \hline  & Central & Mid-Central & Peripheral \\ \hline \hline \(\pi^{-}\) & 1.08 \(\pm\) 0.048 & 0.865 \(\pm\) 0.046 & 0.503 \(\pm\) 0.144 \\ \hline \(\pi^{+}\) & 1.07 \(\pm\) 0.045 & 0.981 \(\pm\) 0.065 & 0.750 \(\pm\) 0.120 \\ \hline \end{tabular}
+\end{table}
+Table 4.3: \(\frac{r_{3}}{2}\) intercept values using equation (4.11) as the fit function and using the fit range \(0\leq Q_{3}\leq 120\) MeV.
+
+## Chapter 5 Conclusion
+
+HBT interferometry provides a direct probe of the geometric and dynamical properties of the freeze-out region in heavy-ion nuclear collisions. Using the enormous statistics available at STAR, a high quality extraction of these freeze-out parameters is possible, and their values can be easily compared to lower energy experiments.
+
+STAR's data has shown a source with large transverse flow and strong dependence of the radius parameters on centrality. Still, these radius parameters and the extracted lifetime show no increase from those obtained from much lower energy experiments that would be indicative of a first-order phase transition. The Quark Gluon Plasma is expected to exhibit itself in the form of large source sizes and lifetimes, and so this might be an indication that higher energy collisions are needed to reach this phase transition.
+
+Three-particle HBT expands on the two-particle theory by introducing a measurable quantity, the normalized three-pion correlator, which is directly sensitive to the quantum particle production phase of the outgoing particles. Since the theory upon which the two-particle analysis is based assumes a source with completely random phases on the outgoing particles, a direct experimental measurement of the three-pion correlator is a necessary check of the logic of the two-particle analysis. STAR'sthree-pion analysis data suggest a strongly chaotic source at all centralities, a crucial ansatz if any of the two-pion results are to be believed in terms of the theory.
+
+Analysis of STAR's Year-2 run of 100 GeV Au+Au and p+p collisions will provide a measurement of a system at higher energy densities, and the installation of the completed Silicon Vertex Tracker will aid in the measurement of low momentum particles and the detection of secondary decay vertices. The results obtained during this run will lay the groundwork for upcoming physics running at the Large Hadron Collider at CERN.
+
+## Bibliography
+
+* [1] C. A. _et al._, Phys. Rev. Lett. **87**, 112303 (2001).
+* [2] C. A. _et al._, Phys. Rev. Lett. **87**, 082301 (2001).
+* [3] I. B. _et al._, Phys. Lett. **B455**, 77 (1999).
+* [4] M. A. _et al._, Phys. Rev. Lett. **85**, 2895 (2000).
+* [5] "FY 2001 Congressional Budget Department Of Energy", 2001.
+* [6] J. Collins and M. Perry, Phys. Rev. Lett. **34**, 1353 (1975).
+* [7] G. Chapline and L. Susskind, Phys. Rev. **D20**, 2610 (1979).
+* [8] J. H. _et al._, Nucl. Phys. **A566**, 277c (1994).
+* [9] C. A. _et al._, Nucl. Instr. and Meth. **A470**, 488 (2001).
+* [10] W. Leo, _"Techniques for Nuclear and Particle Physics Experiments"_, Second ed. (Springer-Verlag, Berlin, 1994), Chap. 2.
+* [11] W. Leo, _"Techniques for Nuclear and Particle Physics Experiments"_, Second ed. (Springer-Verlag, Berlin, 1994), Chap. 10.
+* [12] E. Gatti and P. Rehak, Nucl. Instr. and Meth. **225**, 608 (1984).
+* [13] J. T. _et al._, Nucl. Instr. and Meth. **A439**, 497 (2000).
+* [14] R. B. _et al._, Nucl. Instr. and Meth. **A439**, 507 (2000).
+* [15] D. L. _et al._, Nucl. Instr. and Meth. **A439**, 418 (2000).
+* [16] J. Takahashi, Ph.D. thesis, Universidade de Sao Paulo, 1998.
+* [17] J. L. _et al._, IEEE Trans. Nuc. Sci. **47**, 210 (2000).
+* [18] R. Hanbury-Brown and R. Twiss, Phil. Mag. **45**, 663 (1954).
+
+* [19] G. Goldhaber, W. Fowler, S. Goldhaber, and T. Hoang, Phys. Rev. Lett. **3**, 181 (1959).
+* [20] G. Goldhaber, S. Goldhaber, W. Lee, and A. Pais, Phys. Rev. **120**, 300 (1960).
+* [21] M. Gyulassy, S. Kauffmann, and L. Wilson, Phys. Rev. **C20**, 2267 (1979).
+* [22] S. Chapman and U. Heinz, Phys. Lett. **B340**, 250 (1994).
+* [23] M. Hillery, R. O'Conell, M. Scully, and E. Wigner, Phys. Rep. **106**, 121 (1984).
+* [24] E. Shuryak, Phys. Lett. **B44**, 387 (1973).
+* [25] U. Wiedemann and U. Heinz, Phys. Rep. **319**, 145 (1999).
+* [26] G. Bertsch, M. Gong, and M. Tohyama, Phys. Rev. **C37**, 1896 (1988).
+* [27] S. Pratt, Phys. Rev. **D33**, 1314 (1986).
+* [28] U. Heinz, private communication.
+* [29] D. Hardtke, Ph.D. thesis, The Ohio State University, 1997.
+* [30] S. Pratt, T. Csorgo, and J. Zimanyi, Phys. Rev. **C42**, 2646 (1990).
+* [31] M. Bowler, Z. Phys **C39**, 81 (1988).
+* [32] B. T. _et al._, Nucl. Phys. **A663**, 753 (2000).
+* [33] I. Andreev, M. Plmer, and R. Weiner, Int. J. Mod. Phys. **A8**, 4577 (1993).
+* [34] U. Heinz and Q. Zhang, Phys. Rev. **C56**, 426 (1997).
+* [35] S. Merkuriev, Theor. Math. Phys. **32**, 680 (1977).
+* [36] M. Brauner, J. Briggs, and H. Klar, J. Phys. **B22**, 2265 (1989).
+* [37] E. Alt, T. Csorgo, B. Lorstad, and J. Schmidt-Sorensen, Phys. Lett. **B458**, 407 (1999).
+* [38] T. Humanic, private communication.
+* [39] M. Lisa, private communication.
+* [40] T. Humanic, Phys. Rev. **C60**, 014901 (1999).
+* [41] H. Nakamura and R. Seki, Phys. Rev. **C60**, 064904 (1999).

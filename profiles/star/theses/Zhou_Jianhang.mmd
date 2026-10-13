@@ -1,0 +1,765 @@
+RICE UNIVERSITY
+
+**Light (Anti-)Nuclei Production in the STAR Experiment at RHIC**
+
+by
+
+**Jianhang Zhou**
+
+A THESIS SUBMITTED
+
+IN PARTIAL FULFILLMENT OF THE
+
+REQUIREMENTS FOR THE DEGREE
+
+**Doctor of Philosophy**
+
+Approved, Thesis Committee:
+
+Dr. Jabus B. Roberts, Chair
+
+Professor of Physics and Astronomy
+
+Dr. Frank Geurts
+
+Assistant Professor of Physics and Astronomy
+
+Dr. David W. Scott
+
+Noah Harding Professor of Statistics
+
+Houston, Texas
+
+August 2009
+
+###### Abstract
+
+**Anti-Nuclei Production in the STAR Experiment at RHIC**
+
+**by**
+
+**Jianhang Zhou**
+
+Presented in this thesis is the study of light (anti-)nuclei production in ultra-relativistic heavy ion collisions. In these collisions hot dense matter is created, in which the quarks and gluons are deconfined. As this hot dense matter expands and cools down, quarks recombine together to form new hadrons. At the final stage called thermal freeze-out, nucleons can combine into light nuclei. Therefore the study of light nuclei production provides a probe for understanding the physical properties of the expanding system at the thermal freeze-out, such as the temperature and the eccentricity.
+
+In this thesis, the transverse momentum (\(p_{T}\)) spectra, and the elliptic flow (\(v_{2}\)) of the anti-deuteron, and the coalescence parameters \(B_{2}\) for d, \(\overline{\rm d}\) and \(B_{3}\) for \({}^{3}\)He, from STAR Run-V Cu+Cu 200 GeV collisions are studied and compared with STAR Run-VI Au+Au 200 GeV results. Based on the Au+Au collision results, a blast-wave (BW) model is used to fit the transverse momentum spectra and elliptic flow of hadrons. These fit parameters are used in the BW model to predict the deuteron andhelium production. The comparison between the BW predicted and the experimentally measured results leads to a consistent understanding of the freeze-out features.
+
+Also presented in the thesis is the search for the anti-alpha particle (\(\overline{{}^{4}\mbox{He}}\)), which has never been discovered before. The search for heavier anti-nuclei is interesting as they are predicted by the theory but hard to find in real world. The anti-deuteron was discovered many years ago and \(\overline{{}^{3}\mbox{He}}\) was found recently. The anti-alpha particles, if confirmed, will be the heaviest anti particles ever found. In this thesis two anti-alpha candidates are shown. Both are found in STAR Run-VII Au+Au collisions. With the accumulated events and the new particle identification method in the future runs, there is hope to find and confirm more candidates.
+
+**Acknowledgements**
+
+When I finished my master's degree defense and started the PhD degree study, I had to switch to a relatively new research field. I did detecter hardware for my master's study under the direction of Dr. William Llope. I have to thank Dr Jing Liu, who suggested me to ask Prof. Zhangbu Xu for good ideas in particle physics analysis.
+
+I owe a lot of thanks to Prof. Zhangbu Xu at BNL as he gave me excellent ideas for choosing my PhD topics and gave me help in the time that I need help the most. Prof. Xu kindly accepted my petition to be my thesis advisor. After that, each time I met main problems or I was depressed by the difficulties in the research, his suggestions always lead me to new hopes. Without him, I cannot make rapid progress and I cannot finish my study.
+
+My advisor at Rice, Prof. Jabus Roberts, constantly supported me for these years and encouraged me to overcome the difficulties I met and to achieve the goal I wanted. He always brought me courage and confidence. Dr. Frank Geurts, along with Prof. Jabus Roberts, gave valuable suggestions on my thesis writing. Without their help, I cannot complete writing a good thesis. Thank them very much for the help.
+
+Dr. Haidong Liu did a lot of research studies in the similar topics as mine, and he is very skillful in the detailed techniques. He gave me many suggestions and answered a lot of my questions to help me in both physics and programming details. I thank him for his kind help and his good patience when explaining the details to me.
+
+I should also thank Dr. Zebo Tang for his help. I learned a lot from him when we were both working at BNL. He shared his programming experiences with me and explained physics to me frequently. Mr. Shusu Shi did a good job in flow study and is very familiar with both physics and technical details in this area. He helped me understanding the physics and helped me debugging my code also. I really appreciate his kind and patient help. Dr. Xinghua Shi also gave me help when I initiate my flow study. I discussed with her many times when I started to build my code. I thank her very much.
+
+Dr. Aihong Tang is an expert in flow study. I appreciate his help for his very clear explanation of the physics in related to my research work. This help is also very useful for me to write my thesis.
+
+I spent a lot of time at BNL when doing my PhD project. Each time I stayed at BNL, I had a good time living, dining, talking with my Chinese friends at BNL, who are also PhD candidates. Those days are very happy. I cherish and will memorize those days as very happy experiences in my life. And I thank all the friends at BNL for giving me pleasant and enjoyable memories.
+
+Finally, I thank my parents and my wife for their support and encourage. Whenever I met difficulties and felt disappointed, they encouraged me. I cannot thank them more.
+
+###### Contents
+
+* 1 Introduction
+	* 1.1 QCD and the Prediction for QGP
+	* 1.2 Relativistic Heavy Ion Collision Experiments
+	* 1.3 Thesis structure and organization
+* 2 STAR Experiment Facilities
+	* 2.1 RHIC and STAR
+	* 2.2 Time Projection Chamber (TPC)
+	* 2.3 TOF and pVPD/upVPD
+* 3 Data Analysis
+	* 3.1 STAR Data Acquisition System
+	* 3.2 TPC PID Method
+	* 3.3 TOF PID Method
+	* 3.4 Efficiency and Feed-Down
+	* 3.5 Invariant Yield
+	* 3.6 Elliptic Flow and Event-Plane Method
+* 4 Spectra and Elliptic Flow Results in Cu+Cu
+	* 4.1 Spectra Results
+	* 4.2 Elliptic Flow Results
+* 5 Blast-Wave Fitting of Spectra and \(v_{2}\) in Au+Au
+	* 5.1 Blast-Wave Model
+	* 5.2 Fitting Algorithm and Parameters
+	* 5.3 Comparison with Pion HBT Volume
+	* 5.4 Relation to Cosmology
+* 6 Search for Anti-Alpha
+	* 6.1 Current searching method
+	* 6.2 Anti-Alpha Candidates
+	* 6.3 Future Hope in Searching Anti-Alpha
+
+Summary and Conclusions
+
+[MISSING_PAGE_FAIL:8]
+
+The \(n\sigma_{d}\) plots for Cu+Cu minimum bias \(\overline{\rm d}\) in four different \(p_{T}\) ranges. The distributions are fit by Gaussian function plus a exponential background. The number count shown in each the plots is the sum of the each bin in \(-2<n\sigma<2\) range, and the integral count is the integral of the fitted Gaussian function in \(-2<n\sigma<2\) range.
+* 4.3 The \(p_{T}\) spectra (integrated over rapidity \(y\)) of anti-protons (upper plot) and anti-deuterons (lower plot). The spectra are shown in different centralities, represented by open symbols in different colors. The minimum bias spectra are represented by solid symbols. Error bars are statistical only.
+* 4.4 The coalescence parameters \(B_{2}\) and \(\sqrt{(}B_{3})\) are shown for Cu+Cu collisions (denoted by solid symbols) in regard to the transverse momentum per nucleon (\(p_{T}/A\)). Au+Au results are also shown (denoted by open symbols) in the plot as a comparison.
+* 4.5 The plots of \(1/B_{2}\) from anti-deuterons as a function of \(\langle N_{part}\rangle\), for different \(p_{T}\) ranges. Each plot is fitted by a linear function. Errors are statistical only.
+* 4.6 For \(p_{T}/A\) about 0.5 GeV/c, \(1/B_{2}\) and \(1/\sqrt{B_{3}}\) are compared, for both Cu+Cu and Au+Au. The horizontal axis is the number of participants.
+* 4.7 The \(z\) distribution for \({}^{3}\)He and \({}^{3}\)He in Cu+Cu minimum bias events, for two different transverse momentum ranges.
+* 4.8 The raw yields of \({}^{3}\)He and \({}^{3}\)He versus the transverse momentum for Cu+Cu minimum bias events. The solid circles are for \({}^{3}\)He and the open circles are for \({}^{3}\)He numbers. The errors are statistical only.
+* 4.9 The ratio of \({}^{3}\)He to \({}^{3}\)He versus transverse momentum is shown here, represented by red stars. The ratio of anti-proton over proton is placed here as a comparison, represented by the blue triangles. The errors are statistical only.
+* 4.10 The event plane angle (\(\psi\)) distribution before and after the shift. The red lines indicate the distribution before the shift operation, and the blue lines are the distribution after the shift. The left, middle and right plot are for the east side, west side and both sides event plane distribution, respectively.
+* 4.11 The shift coefficients for event plane shift methods for different shift orders. The left plot is for the cosine terms, and the right plot is for the sine terms, according to the shift formula Eq. 3.16.
+* 4.12 The event plane resolution for different centralities. From left to right, the bins indicate the resolution for centrality 0-10%, 10-20%, 20-30%, 30-40%, 40-50%, 50-60%, and 0-60% (minimum bias), respectively.
+
+* 4.13 The \(n\sigma_{\overline{4}}\) distribution for anti-deuterons in the range \(0.6<p_{T}<0.8\) (GeV/c), for different \(\phi-\psi\) ranges. From left to right and top to bottom, the plots are for \(\phi-\psi\) range 0-\(\pi/10\), \(\pi/10\)-\(2\pi/10\), \(2\pi/10\)-\(3\pi/10\), \(3\pi/10\)-\(4\pi/10\), \(4\pi/10\)-\(5\pi/10\), respectively. The distribution histograms are fitted by double Gaussian function to subtract the background..
+* 4.14 The anti-deuteron yield versus the azimuthal angle in relative to the event plane angle (\(\phi-\psi\)) in the 3 \(p_{T}\) ranges. The 3 plots from left to right are for \(p_{T}\) in 0.2-0.6, 0.6-0.8, and 0.8-1.0 GeV/c, respectively. All error bars represent statistical errors only. The lines shown in the plots are the cosine fitting functions..
+* 4.15 The anti-proton yield versus the azimuthal angle in relative to the event plane angle (\(\phi-\psi\)) in the 3 \(p_{T}\) ranges. The 6 plots from left to right and from top to bottom are for \(p_{T}\) in 0.3-0.4, 0.4-0.5, 0.5-0.6, 0.6-0.7, 0.7-0.8, and 0.8-0.9 (GeV/c), respectively. The lines shown in the plots are the cosine fitting functions..
+* 4.16 The comparison of \(v_{2}\) versus different background fitting methods. The left plot is for anti-proton \(v_{2}\), and the right plot is for anti-deuteron \(v_{2}\). In each plot, the black dots indicate the results from double Gaussian fitting, the red squares indicate the exponential background fitting, an the blue triangles indicate the direct counting method without fitting. 4.17 The anti-proton \(v_{2}\) from Cu+Cu collisions compared to some other cases. The red stars indicate the anti-proton \(v_{2}\) from Cu+Cu and the blue solid dots indicate the Au+Au case. The black shadow boxes represent the systematic errors for Cu+Cu. The Au+Au and Cu+Cu \(v_{2}\) for \(\Lambda+\overline{\Lambda}\) are represented by black diamonds and purple triangles, respectively. The blue open circles are pion \(v_{2}\) for Au+Au, and the green triangles are inclusive charged hadron \(v_{2}\) for Cu+Cu. The negative \(v_{2}\) results from a large radial flow. 4.18 The anti-deuteron \(v_{2}\) for Cu+Cu collisions compared to Au+Au results. The red open circles represent Cu+Cu result and the blue solid dots represent Au+Au result. The black shadow boxes are systematic errors for Cu+Cu. 5.1 Illustration of blast-wave parameters for the freeze-out configurations in transverse plane. 5.2 The spectra and \(v_{2}\) of pion, kaon and proton and the corresponding BW fit. The data shown are from 200 GeV Au+Au minimum bias events. The data points are shown as points and the BW fit results are shown as lines. The spectra data points are for positive and negative particles, shown as solid and open symbols, with the BW fits shown as solid and dashed lines, respectively. The \(v_{2}\) plots are for positive plus negative pions and kaons inclusively, and for anti-proton exclusively..
+
+This plot shows \({\rm d}\) and \(\overline{\rm d}\) spectra, with a comparison to the blast-wave model predictions. The upper panel shows the \(p_{T}\) spectra, with the solid symbols and open symbols representing the particles and anti-particles, respectively. The corresponding blast-wave predictions are shown by solid and dashed lines. The lower panel shows the data divided by the blast-wave prediction. The bands show the same ratio for protons. Errors are statistical only.
+* 5.4 This plot shows \({}^{3}\)He and \({}^{3}\overline{\rm He}\)) spectra, with a comparison to the blast-wave model predictions. The upper panel shows the \(p_{T}\) spectra, with the solid symbols and open symbols representing the particles and anti-particles, respectively. The corresponding blast-wave predictions are shown by solid and dashed lines. The lower panel shows the data divided by the blast-wave prediction. The bands show the same ratio for protons. Errors are statistical only.
+* 5.5 The elliptic flow parameter \(v_{2}\) from minimum bias collisions as a function of \(p_{T}\) for \({}^{3}{\rm He}+{}^{3}\overline{\rm He}\) (triangles), \({\rm d}+\overline{\rm d}\) (filled circles), and \(\overline{\rm d}\) (open circles); the solid (dashed) line represents the deuteron (\({}^{3}\)He) \(v_{2}\) predicted by the blast-wave model.
+* 5.6 (The \({\rm d}+\overline{\rm d}\) and \({}^{3}{\rm He}+{}^{3}\overline{\rm He}\)\(v_{2}/A\) as a function of \(p_{T}/A\). Both \(v_{2}\) and \(p_{T}\) have been scaled by \(A\). Errors are statistical only. \(\overline{\rm p}\) (open diamonds) and \(\Lambda+\overline{\Lambda}\) (solid stars) \(v_{2}\) are shown in the plot as a comparison. Coalescence and dynamic simulation for deuteron are also shown.
+* 5.7 Low \(p_{T}\)\(\overline{\rm d}\)\(v_{2}/A\) (filled squared) as a function of centrality fraction (\(0-10\%,\ 10{-}20\%,\ 20{-}40\%,\ 40{-}80\%\), respectively). Errors are statistical only. \(\overline{\rm p}\)\(v_{2}\) is also shown as open triangles. Blast-wave predictions are show as solid (\(\overline{\rm d}\)) and dashed lines (\(\overline{\rm p}\)).The 2 subpanels are for different \(p_{T}\) ranges.
+* 5.8 \(B_{2}\) and \(\sqrt{B_{3}}\) together with \(\pi^{\pm}\) HBT volume as a function of collision centrality (\(N_{part}\)) in Au+Au collisions. The brackets represent the uncertainties from the feed-down estimation. HBT volume is calculated from the HBT correlation lengths along longitudinal and transverse directions.
+* 5.9 Comparison of spectra from STAR and PHENIX results. The PHENIX data points are shown as red open crosses and stars. The STAR Au+Au results are shown as solid circles and triangles, and the brackets represent the uncertainties from the feed-down ratio. The STAR Cu+Cu results are shown as purple open stars.
+* 5.10 \(\bar{\rm d}/\bar{\rm p}\) as a measure of antibaryon phase space density as a function of beam energy for various beam species. Data points from \(e^{+}e^{-}\) and \(\gamma\)p collisions are also shown at their center of mass beam energy. Top band is the average of \(\bar{\rm d}/\bar{\rm p}\) from collider data at zero chemical potential, and the bottom band is the results of D/H from BBN.
+
+The TPC \(dE/dx\) versus \(p/|Z|\) distribution for positively (upper plot) and negatively (lower plot) charged particles. The solid line represents the Bichsel predicted \({}^{3}\)He position and the dashed line represents the \({}^{4}\)He line. The lower plot uses large triangle markers in order to show clearly the 2 anti-alpha candidates (in the circle).
+* \(z\) distribution for positively charged particles in different momentum range.
+* \(z\) distribution for negatively particles in different momentum ranges. The red dashed lines shown in the plots stand for the expected \({}^{3}\)He peak positions in that momentum range. The two anti-alpha candidates are circled to be clearly seen.
+* The candidate track A shown in STAR event display.
+* The candidate track B shown in STAR event display.
+* The left plot shows the transverse geometry of the STAR TPC sectors. The middle and right plots shows the candidates A and B in the TPC transverse geometry, respectively.
+* The ratio of \((\overline{{}^{4}{\rm He}}/{{}^{4}{\rm He}})^{1/4}\) (open stars) compared to \((\overline{{}^{3}{\rm He}}/{{}^{3}{\rm He}})^{1/3}\) (solid stars) and \((\overline{p}/{\rm p})\) (triangles).
+* The raw yields versus atomic numbers for negatively charged nuclei.
+
+[MISSING_PAGE_EMPTY:13]
+
+## Chapter 1 Introduction
+
+### 1.1 QCD and the Prediction for QGP
+
+The goal of particle physics is to find the basic building blocks of all the material in the universe, and to find out how they interact with each other. We have already known for many years that every material is made from nucleons (protons and neutrons) and electrons. The nucleons form a nucleus surrounded by the electron clouds to make an atom. The interaction between charged particles, _e.g._ between a proton and an electron, is described by Quantum Electrodynamics (QED). According to QED, charged particles interact with each other by interchanging photons. The interaction between nucleons, however, proceeds another way. Because neutrons are not charged particles, they do not have electromagnetic interactions with protons or with each other. And because protons are all positively charged particles they would not attract each other to form a nucleus, instead, they strongly repel each other. Thusthere must be another sort of interaction named the strong interaction among nucleons. Not only nucleons, but many other particles, interact with each other through the strong interaction. The particles having the strong interaction are called hadrons.
+
+The world is built from hadrons and leptons and the intermediate particles such as photons. The leptons and the intermediate particles are supposed to be fundamental, but there are too many kinds of hadrons so they could not all be fundamental. A conjunction about the substructure below the hadron level resulted in the quark model. According to the standard model [1, 2], hadrons are composed of quarks and gluons. The interaction between quarks and gluons is described by Quantum Chromodynamics (QCD). Quarks carry color charge so they can interact with each other through the strong interaction, similar to particles which carry electric charges and can interact with each other. The intermediate particle of electro-magnetic interaction, _i.e._ the photon, does not carry electric charge, and does not interact with other photons. In QCD, the gluons also carry color charges, and thus can interact with each other through the strong interaction. That is a big difference between the QED and QCD.
+
+Through particle collisions, the nuclei and electrons in an atom can be separated from each other, resulting in free constituent nucleons and electrons. In QCD, because of self-coupling between gluons, free quarks cannot be observed. While atoms can be broken into fragments by high energy beams, and the nucleons and electrons are knocked out, the products of high energy hadron collisions remain hadrons.
+
+According to renormalized QCD, the coupling constant \(\alpha_{s}\) is a function of transferred momentum. The higher the transferred momentum, the smaller the \(\alpha_{s}\)[3]. That means, at very small distances inside a hadron, the coupling between the quarks is very weak, which is called asymptotic freedom. But at a longer distance, the coupling constant turns to be much larger. The stronger interaction between quarks due to longer distance results in the phenomenon called quark confinement, _i.e._ quarks are confined inside hadrons and cannot be found outside as free quarks.
+
+For the processes with large momentum transfer, because of the asymptotic freedom, perturbation calculations can be made. However, for the processes with smaller momentum transfer, because of the large \(\alpha_{s}\), perturbation QCD (pQCD) cannot be applied. Moreover, the number of interacting particles is not sufficiently large for the statistical methods to be applied either. In order to deal with this situation, the theorists found a "simplified" calculation method to convert the continuous phase space into discrete points. The wave functions are defined with respects to these discrete points. The space differential is defined to be the difference between the adjacent points. The grid of these points is called a lattice, and the QCD applied to the lattice is called lattice QCD. With the ever increasing computation power, the QCD results for increasingly large grids can be obtained.
+
+According to earlier ideas [4] as well as the lattice QCD calculation, at high temperature and high density, quarks and gluons could be freed out from hadrons to form a quark-gluon plasma (QGP), which is called quark deconfinement. The existence of QGP is essential to QCD theory, so searching for the phase transition from the state to QGP state is of high interest and great relevance in both theoretical and experimental particle physics.
+
+Relativistic Heavy Ion Collision Experiments
+
+In order to find the QGP experimentally, charged particles (ions) are accelerated to very high energies to collide with each other. In the collisions, a system with high temperature and high density is formed, and a QGP could be possibly produced. Because the heavy ions are accelerated close to the speed of light, they are in an extremely relativistic condition, and that is why such experiments are called ultra-relativistic heavy ion collisions.
+
+In the collision area, as the state of high density and high temperature is created, the strong interaction can "melt" the hadrons, and they together form a fireball of deconfined quarks and gluons. Thus the collision material is transferred from the hadron phase to a QGP phase. The hot matter expands and adiabatically cools down during the expansion. The quarks re-combine to form new hadrons. This is called hadronization. Since the QGP phase cannot be observed directly, the hadrons generated during the QGP expansion carry important information about the original system. The collective motion of the hadrons could also be regarded as a signal from the expansion, hence provided another probe into the QGP.
+
+Light nuclei are also formed during the expansion process. Not only the quarks coalescence to form new hadrons, but the hadrons also coalescence to form light nuclei. However, due to the very low binding energy of nuclei (in the order of \(\sim 1-10\) MeV), they are easily fragmented. The nuclei can be formed only at the very late stage of the expansion, when the temperature is low enough so that the thermal motion cannot break nuclei,. The study of light nuclei production provides a tool to study the final stage of coalescence.
+
+The study of relativistic heavy ion collisions and the QGP is of interest to cosmology. According to the Big Bang theory, the early universe is hot dense matter which is very similar to the situation in the heavy ion collisions. At this early stage of the universe, there is also a state of QGP. As the universe cools down, hadrons, and then light nuclei, are formed, just like the evolution of the hot dense matter created in collision experiments. The study of relativistic heavy ion collisions provide a tool to understand the behavior of an early stage of the universe [5].
+
+[MISSING_PAGE_EMPTY:20]
+
+## Chapter 2 STAR Experiment Facilities
+
+### 2.1 RHIC and STAR
+
+The Relativistic Heavy Ion Collider (RHIC) [6] at Brookhaven National Laboratory (BNL) is composed of two concentric rings of 2.4 miles in circumference. Fully ionized atoms, such as Au or Cu, can be accelerated to a momentum of 100 GeV/c per nucleon.
+
+Before the beams enter RHIC for collisions, they are accelerated through a series of accelerators, as shown in Fig. 2.1. The atoms are first partially ionized to ions in the Tandem Van de Graaff static electricity generator, and then sent to the Linear Accelerator (Linac) via the Tandem-to-Booster (TTB) line for further acceleration. The ions are then transferred to the Booster synchrotron, which uses radio frequency electromagnetic waves to accelerate charged particles when they are circling around in the accelerator. Next, the beam enters the Alternative Gradient Synchrotron(AGS), which uses the same principle to accelerate the beam but it is larger and more powerful than the Booster synchrotron, and it accelerates the beam to about 99.7% of the speed of light. So at this point the ions are ultra-relativistic. The ions coming out from the AGS go through another beam line called the AGS-to-RHIC (ATR) and reach their destination: RHIC.
+
+As the ions enter RHIC, they are seperated into beams, traveling along the two rings in opposite directions. There are six collision regions around the ring where the beams of the two rings cross and collide with each other. The collisions can result in nuclear matter at high temperatures and high densities, and quarks and gluons may be deconfined in a quark-gluon plasma (QGP). Understand
+
+Figure 2.1: A sketch of the different stages of accelerators at BNL. The ions are generated from the Tandem Van de Graaff and go through TTB, Booster, AGS to be accelerated to near the speed of light, then transferred to RHIC via ATR line, prepared for collisions.
+
+features of a QGP is very important for the advanced study of quantum chromodynamics (QCD) and the behavior of the very early universe. RHIC is also capable of accelerating polarized protons with momenta up to 500 GeV/c. Collisions of polarized protons up are very useful for understanding spin physics.
+
+The Solenoidal Tracker at RHIC (STAR) is a large wide-acceptance detector [8], as shown in Fig. 2.2. As mentioned before, there are six collision points along RHIC, and STAR is at the 6 o'clock position. STAR consists of several sub detectors. The barrel detectors, such as the Time Projection Chamber (TPC), the Barrel Electromagnetic Calorimeter (BEMC), and the Time of Flight (TOF) (under construction) cover a 360 degree of azimuthal angle, while the Forward TPC (FTPC), the End cap
+
+Figure 2.2: The STAR detectors. The picture is obtained from STAR web page [7].
+
+Electromagnetic Calorimeter (EEMC) detects the high rapidity1 photons.
+
+Footnote 1: The rapidity of a particle is defined as \(y=\frac{1}{2}\ln\frac{E+p_{L}}{E-p_{L}}\), in which \(E\) is the energy of the particle and \(p_{L}\) is the longitudinal momentum.
+
+### 2.2 Time Projection Chamber (TPC)
+
+The main tracking detector in STAR is the TPC [9]. The TPC is a gas-filled (10% methane and 10% argon) cylinder that is about 4 meters in diameter by about 4.2 meters long, shown in Fig. 2.3.
+
+The TPC is located inside a magnetic field of 0.5 T. A uniformly distributed electric field is defined in the TPC by the a thin central membrane (cathode) which is charged to a high voltage of minus 28 kV, the concentric inner and outer field cages, and the end cap sectors (anode) which are grounded (see Fig. 2.3). The particles created inside the TPC pass through the gas and generate secondary electrons. The secondary electrons are accelerated by the electric field of the TPC and drift to the end cap readout channels. The end cap consists of 12 sectors on each side. These are
+
+Figure 2.3: The structure of the TPC. The picture is obtained from Ref. [9].
+
+multi-wire proportional chambers (MWPC) used to precisely determine the position of the electrons that reach the end cap.
+
+The momentum vectors and trajectories for the charged particles from the collisions in a pseudorapidity2 range of \(|\eta|<1.8\) are reconstructed. The TPC also provides particle identification (PID) capabilities using the particles' specific ionization energy loss in the gas (\(dE/dx\)), which is measured in units of MeV/cm. With the TPC energy loss, particles can be identified over the momentum range from \(0.1GeV/cto0.7\) GeV/c for charged pions and kaons. Protons are identified up to 1.0 GeV/c. More technical details can be found in Ref. [9].
+
+Footnote 2: The pseudorapidity \(\eta\) is related to the polar angle \(\theta\) via \(\eta=-\ln\left(\tan\frac{\theta}{2}\right)\). A pseudorapidity acceptance of \(\pm 1.8\) implies a polar angle coverage ranging from \(18.8^{\circ}\) to \(161.2^{\circ}\) with respect to the \(z\) axis (beam pipe).
+
+### 2.3 TOF and pVPD/upVPD
+
+Although the TPC is the most important detector at STAR and has PID capabilities, the TPC is not capable of identifying particles with large momenta (the limits are specified in the previous section). An additional PID system is needed to extend the PID coverage to higher momenta. This is the principal purpose of the Time of Flight (TOF) system for STAR. TOF is capable of identifying charged hadrons with momenta up to a factor of about 3 greater than the stand-alone TPC [10].
+
+TOF is capable of identifying 95% of the particles produced in collisions. It consists of two main components: a start detector and a stop detector. The flight path and momentum components of a charged particle are reconstructed by the TPC. The common start time is recorded by the start detector, and the stop time is recorded by the stop detector. The time of flight is defined as the stop time minus the start time, _i.e._\(TOF=t_{\rm stop}-t_{\rm start}\).
+
+The stop detector of STAR TOF system consists of so-called TOF "trays". The "TOFp" [11] stop detector was used in STAR Run-II. The tray enclosed many channels of plastic scintillator plus Hamamatsu mesh dynode photomultiplier tubes (PMTs). In STAR Run-V, a new kind of TOF detector called "TOFr" [12] was introduced based on the multi-gap resistive plate chamber (MRPC) [13, 14] technique. A TOFr tray consists of 32 MRPC modules, each module providing 6 readout channels. A full system of 120 trays, called the STAR TOF system, will cover the entire cylindrical surface of the TPC and is currently under construction.
+
+Shown in Fig. 2.4 is a scale drawing of the start and stop detectors installed in STAR during Run-II. The TPC is cut away in this picture.
+
+The mass of a particle can be determined from the momentum (known from the TPC) and the distance traveled (also known from the TPC), and the time of flight measured by a TOF system. Defining the path length as \(s\), the time of flight as \(t\), and the momentum of the particle as \(p\), the velocity is then obtained from \(v=s/t\).
+
+From the the theory of relativity,
+
+\[p=\gamma M\beta c=\frac{Mv}{\sqrt{1-v^{2}/c^{2}}} \tag{2.1}\]
+
+where \(M\) is the mass of the particle, \(c\) is the speed of light, \(\beta=v/c\), and \(\gamma=1/\sqrt{1-\beta^{2}}\). The mass can be determined from the TPC+TOF data via:
+
+\[M=p\sqrt{\frac{t^{2}}{s^{2}}-\frac{1}{c^{2}}}. \tag{2.2}\]
+
+The measured mass of a particle follows a distribution which is supposed to be close t
+
+Figure 2.4: Shown in this figure is a scale drawing of the position of the pVPD and the TOF tray installed in STAR. Figure obtained from Ref. [11].
+
+to a Gaussian distribution with a standard deviation of \(\sigma\). For the particle rapidity at \(|\eta|\sim\)0, TOF can provide "2\(\sigma\)" \(\pi\)/K/p identification up to momenta of about 1.7 GeV/c, and the (\(\pi\)+K)/p identification extends to about 2.6 GeV/c. Deuterons can be identified up to 4.0 GeV/c. For longer travel paths, the mass resolution of the particle is better, resulting in the identification at higher momentum range. For \(|\eta|\sim\)1, \(\pi\)/K/p can be identified up to 1.9 GeV/c, the (\(\pi\)+K)/p can be identified up to 3.1 GeV/c, and deuterons can be identified up to 4.7 GeV/c.
+
+The STAR start detector was called the pseudo-Vertex Position Detector (pVPD), consisting of 3 phototubes on the east and west side of STAR. It measures the very forward photons generated in a heavy-ion collision to infer the common start time and the \(z\)-position of the vertex. These photons travel along the beam pipe at \(v\)=\(c\), reach the east and west pVPD, where the resulting detector pulses are recorded. Shown in Fig. 2.5 is a schematic side view of the positioning of the STAR start and stop detectors. The time at which the photons reach the east and west pVPD is given by,
+
+\[t_{\rm east}=t_{0}+\frac{L+z_{\rm vertex}}{c}\, \tag{2.3}\]
+
+\[t_{\rm west}=t_{0}+\frac{L-z_{\rm vertex}}{c}. \tag{2.4}\]
+
+Here the absolute time of the collision is \(t_{0}\), and the actual (and unknown) \(z\)-position of the primary vertex, _i.e._ the position of the collision along the beam pipe, is \(z_{\rm vertex}\). The distance from the center point of the STAR chamber to either start detector is defined as \(L\). The start time is thus,
+
+\[t_{0}=\frac{t_{\rm east}+t_{\rm west}}{2}-\frac{L}{c}\, \tag{2.5}\]
+
+and the position of the collision vertex is,
+
+\[z_{\rm vertex}=\frac{c}{2}(t_{\rm east}-t_{\rm west}). \tag{2.6}\]
+
+According to Eq. 2.4,
+
+\[t_{\rm start} = (t_{\rm east}+t_{\rm west}) \tag{2.7}\] \[= \frac{1}{2}\left(t_{0}+\frac{L+z}{c}\right)+\frac{1}{2}\left(t_ {0}+\frac{L-z}{c}\right)\] \[= t_{0}+\frac{L}{c}\,\]
+
+which is just a constant away from the absolute time of the collision. This constant, and additional contributions to it from electronic effects, can be determined easily during the subsequent stop-side analyses.
+
+The operating voltage of each PMT is chosen in the way to make all detector channels working at the same gain. The timing resolution of each channel is assumed to be the same quantity called the "single detector resolution" or \(\sigma_{0}\). Then the east and west start timing resolutions are,
+
+\[\sigma_{\rm east}=\sigma_{0}/\sqrt{N_{\rm east}}\, \tag{2.8}\]
+
+\[\sigma_{\rm west}=\sigma_{0}/\sqrt{N_{\rm west}}\, \tag{2.9}\]
+
+where \(N_{\rm east}\) and \(N_{\rm west}\) are the number of fired east and west channels, respectively. The resolution for the common start time is
+
+\[\sigma_{\rm start} = \frac{1}{2}\left(\sigma_{\rm east}\oplus\sigma_{\rm west}\right) \tag{2.10}\] \[= \frac{1}{2}\left(\frac{\sigma_{0}}{\sqrt{N_{\rm east}}}\oplus \frac{\sigma_{0}}{\sqrt{N_{\rm west}}}\right)\] \[= \frac{\sigma_{0}}{2}\sqrt{\frac{1}{N_{\rm east}}+\frac{1}{N_{\rm west }}}\.\]
+
+Figure 2.5: This figure shows how the pVPD measures the start time of a collision. This figure is not to scale.
+
+The resolution of the \(z\)-position of the collision vertex is,
+
+\[\sigma_{\rm zvtx} = \frac{c}{2}\left(\sigma_{\rm east}\oplus\sigma_{\rm west}\right) \tag{2.11}\] \[= \frac{c\sigma_{0}}{2}\sqrt{\frac{1}{N_{\rm east}}+\frac{1}{N_{\rm west }}}\] \[= c\sigma_{\rm start}\;\;. \tag{2.12}\]
+
+The pVPD demonstrated good performance in STAR Runs II through V. But the performance is not as good in proton+proton (p+p) runs, because it has only 3 channels on each side. A new start detector called the Upgraded Pseudo Vertex Position Detector (upVPD) [15], was designed and built to replace the pVPD, in order to improve both the efficiency and resolution. In the upVPD, there are 19 detector channels on each side in the same space once occupied by the pVPD. In Au+Au collisions, and assuming \(N_{\rm east}\)=\(N_{\rm west}\)=19, and \(\sigma_{0}\)=120 ps (based on the cosmic ray test results [15]), then \(\sigma_{\rm start}\)=19.5 ps, and \(\sigma_{\rm zvtx}\)=0.58 cm.
+
+## Chapter 3 Data Analysis
+
+### 3.1 STAR Data Acquisition System
+
+STAR consists of many different subdetectors, as mentioned in the previous chapter. Each subdetector detects the particles and records the data. These data are called raw data, because they do not necessarily represent real physical quantity, but just the values from the electronic signals. The raw data from different detectors are combined to join a STAR data stream for each event, and recorded in the raw data files. The raw data files are in a 16-bit format.
+
+In the STAR data analysis on the raw data, tracks are re-constructed according to the hit points information recorded, and the raw data from each detector are calibrated according to the specialized algorithm. The TPC is the main tracking detector. The TPC hits are fitted by reconstructed tracks, and the ionization energy loss \(dE/dx\) is also calculated for the PID purpose. As for the TOF detector, the startand stop time for each given track (from the TPC track reconstruction) is calibrated. Combined with the momentum information of the track obtained from the TPC, the mass of the particle is also calculated, and so the particle is identified.
+
+The calibrated data contains all the physical properties obtained from the production run. And since there are about 100 million events in each year's run, and in each event there are up to several hundreds tracks, the data file is large. In order to process the data (loop each track of each event), they are stored in a format called ROOT [16] format. ROOT is a framework that provides a C++ class library, and also a C/C++ interpreter environment. ROOT provides the compact and efficient data format to store large amounts of data with the same of similar structure.
+
+The calibrated physical data are stored in StEvent files. But the size of an StEvent file is large, and will be slow to process for analysis purpose. In most analysis cases, some detailed information is not needed. For example, usually only the general physics properties, such as charge, momentum, \(dE/dx\), or even mass, is important, but the details of each hit points along the track path is not used in the analysis. The information that is less interesting to most physicists is discarded, and the useful information is re-organized in a more compact and efficient way. The new file format, which is called the Micro DST files (also know as "MuDst" files) is generated. Most of the analysis described in this thesis involves the use of MuDst files.
+
+TPC PID Method
+
+The STAR TPC uses the ionization energy loss to identify particles. When charged particles pass through the media (in the TPC case, a mixed gas), it ionizes the molecules and atoms of the media along its path. Ionization causes continuous energy loss of the charged particle. The energy loss rate in regard to the path length the particle travels, \(dE/dx\), is different for different particles. \(dE/dx\) is described by the Bethe-Bloch function,
+
+\[\frac{dE}{dx}=-\frac{4\pi}{m_{e}c^{2}}\frac{nZ^{2}}{\beta^{2}}(\frac{e^{2}}{4 \pi\epsilon_{0}})^{2}\left[\ln(\frac{2m_{e}c^{2}\beta^{2}}{I(1-\beta^{2})})- \beta^{2}\right]\, \tag{3.1}\]
+
+in which \(\beta=v/c\) (\(v\) is the velocity of the particle, and c is the speed of light in the vacuum), \(E\) is the energy of the particle, \(x\) is the distance traveled, \(Ze\) is the charge of the particle, \(e\) and \(m_{e}\) are the charge and mass of the electron, \(n\) is the electron density of the target, and \(I\) is the mean excitation potential of the target.
+
+According to Eq. 3.1, it is obvious that the energy loss is determined by the intrinsic properties of the particle (the mass and charge), and the kinetic parameters (the velocity, hence, the momentum). So the dependence relationship between the ionization energy loss and the momentum, reflects the identification features of the particle, and that is why the \(dE/dx\) versus \(p\) curves are used to identify charged particles.
+
+But Bethe-Bloch function was derived theoretically from a simple model. In reality \(dE/dx\) can be more complicated and corrections need to be made. At STAR, the expected \(dE/dx\) of a certain kind of particle is given by a function named Bichsel function [17]. The Bichsel function is a function of mass and momentum. The Bichsel function is based on the charge \(|Z|=1\) assumption. Particles with charge \(|Z|>1\) should be converted to the unit charge before using the Bichsel function to make the \(dE/dx\) predictions.
+
+Shown in Fig. 3.1 is an example of the \(dE/dx\) versus \(p/Z\) plot. Different bands can be clearly seen. The Bichsel function prediction of deuteron, \({}^{3}\)He and \({}^{4}\)He are also superimposed on the plots. The bands around the Bichsel predictions are experimental data. One can clearly see the bands for protons and light nuclei.
+
+The Bichsel function only gives the expected center value (mean value) of a particle with certain momentum. But the measured real \(dE/dx\) values are assumed to obey
+
+Figure 3.1: The ionization energy loss (\(dE/dx\)) as a function of \(p/Z\), where \(p\) is momentum and \(Z\) is charge. This is from STAR Cu+Cu 200 GeV data.
+
+a Gaussian distribution. The standard deviation \(\sigma\) of the Gaussian distribution is obtained by fitting pion distribution near the minimum ionization particle (MIP) area.
+
+For all the tracks of charged particles, the deviation of their \(dE/dx\) from the expected \(dE/dx\) predicted by Bichsel function are compared to the Gaussian deviation \(\sigma\). In order to identify a certain type of particle, the \(n_{\sigma}\) plots are used. The identification of this certain particle will be proved by a sharp peak in the \(n_{\sigma}\) histograms. When there is background, the plot will show the peak mixed by the background. Figure 3.2 is an example of anti-deuteron \(n_{\sigma}\) plot. The technique used here is to fit this histogram with a Gaussian function, which stands for the real anti-deuteron signal, plus an exponential function, which stands for the background.
+
+Figure 3.2: The \(n_{\sigma}\) distribution plot of anti-deuteron for \(0.7<p_{T}<1.0\) GeV/c, fitted by a Gaussian plus an exponential function, in order to eliminate background effect. The plot is obtained from Ref. [18].
+
+Since the characteristic \(dE/dx\) versus \(p\) band for a particle has a bandwidth, at higher momentum range, the bands for different particles merge together. And these particles cannot be distinguished from each other. So the identification of particles is limited to an upper limit of momentum range. Generally speaking, the TPC can identify \(\pi/K\) up to 0.7 GeV/c, or \((\pi+K)/p\) up to 1.1 GeV/c through direct \(dE/dx\) identification method.
+
+The momentum range for particle identification can be extended through a specific method called the relativistic \(dE/dx\) method [19]. The \(dE/dx\) of charged hadrons gets smaller with increasing momentum and reaches the minimum values (as MIP). Exceeding that minimum value, the \(dE/dx\) will rise according to the increasing momentum, which is called the relativistic rising. Figure 3.3 shows the \(n\sigma_{\pi}\) distribution for charged hadrons in the transverse momentum range \(4\leq p_{T}\leq\) 4.5 GeV/c and in the pseudo-rapidity range \(|\eta|<0.5\). The normalized \(dE/dx\) value, \(n_{\sigma}\), is defined by
+
+\[n\sigma_{X}^{Y}=\frac{1}{\sigma_{X}}\log(\frac{(dE/dx)_{Y}}{B_{X}})\, \tag{3.2}\]
+
+where \(X\), \(Y\) could be any particle such as electron, pion, kaon, or proton. \(B_{X}\) is the expected mean \(dE/dx\) of a particle \(X\), and the \(\sigma_{X}\) is the Gaussian deviation. The value \(n\sigma_{X}^{Y}\) value indicates how the ionization energy loss of particle Y is away from the expected \(dE/dx\) of particle X, in the unit of Gaussian deviation of X. The \(n\sigma_{\pi}\) of positive and negative charged particles in Fig. 3.3 are displaced by +5 and -5, respectively, in order to be clearly placed in one histogram. Then this histogram is fitted by a 6-Gaussian distribution. The 6 Gaussian functions represents the distribution of \(\pi^{+}\), \(\pi^{-}\), K\({}^{+}\), K\({}^{-}\), p, and \(\bar{\rm p}\), respectively. The peak position of p, \(\bar{\rm p}\) is decided by the yield difference of positive charged hadrons and negative charge hadrons, denoted as \(h^{+}-h^{-}\), because the difference of \(\pi^{+}\) and \(\pi^{-}\) is negligible, and the contribution from kaons is also small. The Gaussian deviation \(\sigma\) of the \(dE/dx\) of the 6 particles are supposed to be the same. The peaks of p, \(\bar{\rm p}\) and K\({}^{+}\), K\({}^{-}\) are fixed during the fitting. Finally, the 18 parameters of the 6-Gaussian fit are brought down to only 8 free parameters. From this fitting, the pion peak in this \(p_{T}\) range could be decided. Using this method, pions and protons can be identified up to 12 GeV/c. The detailed description of this method is presented in Ref. [19].
+
+The identification of helium (\({}^{3}\)He, \({}^{3}\)He, \({}^{4}\)He, and \({}^{4}\)He) is done through the \(z\) value
+
+Figure 3.3: The \(dE/dx\) distribution for 62.4 GeV minimum bias Au+Au collisions, normalized by pion \(dE/dx\) at \(4<p_{T}<4.5\) GeV/c and \(|\eta|<0.5\), and shifted by \(\pm 5\) for positive and negative particles, respectively. This plot is obtained from Ref. [19].
+
+instead of \(n\sigma\) because the \(n\sigma\) values of helium is not provided in the MuDst files. \(z\) is defined as
+
+\[z=\log\frac{(dE/dx)|_{\rm measure}}{(dE/dx)|_{\rm predict}}\, \tag{3.3}\]
+
+in which \(dE/dx|_{\rm measure}\) is the \(dE/dx\) measured by the TPC, and the \(dEdx|_{\rm predict}\) is the corresponding value predicted by Bichsel function. Figure 3.4 demonstrates the \(z\) plots of \({}^{3}\)He and \({}^{\overline{3}\rm He}\).
+
+**Figure 3.4:**\(z\) distribution of \({}^{3}\)He (solid line) and \({}^{\overline{3}\rm He}\) (dashed line) at \(1.8<p_{T}<4.2\) (GeV/c) for Cu+Cu 200 GeV.
+
+### 3.3 TOF PID Method
+
+The time of flight of a particle, combined with the path length from the TPC, determines the velocity of the particle. For the given momentum (known from the TPC), the particle mass is calculated and used for the particle identification. So the velocity (\(v\)) versus momentum (\(p\)) plot is characteristic for PID purposes. In order to see the plot more clearly, usually a substitute plot, the \(1/\beta\) versus \(p\), is used instead of \(v\) versus \(p\) where \(\beta\) is the ratio of the particle velocity to the speed of light, _i.e._\(\beta=v/c\). Different bands on the \(1/\beta\) versus \(p\) plot stand for different particles for TOF PID, just like the different lines on the \(dE/dx\) versus \(p\) plot stand for different particles for the TPC PID. This is shown in Fig. 3.5.
+
+Figure 3.5: A 2-dimensional histogram for TOF \(1/\beta\) versus \(p\). The red, green and blue lines indicate the band position of pion, kaon and proton, respectively. The plot is take from Ref. [20].
+
+As already mentioned in section 2.3, the TOF system uses the momentum information from the TPC and combines it with the time of flight to calculate the squared mass. So the \(m^{2}\) plot is the characteristic plot for PID. The peaks in the \(m^{2}\) plot indicate presence of a certain particle with this specific mass value. The use of TOF \(m^{2}\) as a track quality cut can also improve the TPC PID quality. Details could be found in Ref. [19].
+
+By combining the particle identification capability of \(dE/dx\) from the TPC and velocity from the TOF, \(\pi\)/p can be identified in \(0.3<p_{T}<12\) GeV/c, see Refs. [19, 21]. In the Au+Au analysis, deuterons and anti-deuterons are identified by the TPC for \(p_{T}<1\) GeV/c and by TOF in the range \(1<p_{T}<4\) GeV/c. However, at low \(p_{T}\) (\(<1\) GeV/c), primary deuterons are overwhelm
+
+Figure 3.6: The distribution of squared mass (\(m^{2}=(p/\beta/\gamma)^{2}\)) for \(d\) from the TOF after the TPC \(dE/dx\) selections at \(2.5<p_{T}<3.0\) GeV/c, with a Gaussian fit plus a linear background. This plot is obtained from Ref. [18].
+
+out deuterons from the beam pipe and inner detector material, which are difficult to separate from collision products. As a result, only anti-deuterons are counted as collision products. The TPC is used to identify \({}^{3}\)He and \(\overline{{}^{3}\mathrm{He}}\) up to 6 GeV/c.
+
+### 3.4 Efficiency and Feed-Down
+
+The STAR detectors are not 100% efficient. The TPC has tracking efficiency defined as the percentage of the particles detected by the TPC to the number of all the particles traveled inside the TPC.
+
+STAR uses a Monte Carlo simulation method to estimate the TPC tracking efficiency. The Monte Carlo events are generated by an event generator, the tracks are predefined by given distributions, and their interactions are simulated. The full STAR environment and geometry of all STAR detectors are included in the simulation. The embedding process will record the simulated response of the TPC, which is treated as the raw data file. The TPC reconstruction of the simulated tracks is performed during the normal reconstruction procedure which is used to deal with the real TPC raw data. Both the Monte Carlo tracks and their corresponding the TPC reconstructed tracks are recorded in the embedding files. But some Monte Carlo tracks may not have the corresponding TPC tracks, so those tracks are missing, _i.e._ they are not seen by the TPC. The TPC tracking efficiency is the ratio of the number of all the TPC reconstructed tracks to all the Monte Carlo tracks.
+
+Since the TOF needs the information of the reconstructed tracks from the TPC, the tracking efficiency is inherited from the TPC. However, a track reconstructed by the TPC may not necessarily be accepted by the TOF. A TOF hit must be first matched to a TPC track, so that the related track information could be obtained from the TPC. On the other hand, a TPC track may not necessarily match a hit
+
+[MISSING_PAGE_FAIL:45]
+
+Invariant Yield
+
+The relativist invariant yield is defined as \(\frac{1}{N}\frac{dN}{2\pi p_{T}dp_{T}dy}\), in which \(N\) is the total number counts of a certain particle, \(p_{T}\) is transverse momentum, and \(y\) is rapidity.
+
+Invariant yields for the production of nuclei can be related [22, 23] to the primordial yields of nucleons by Eq. 3.4.
+
+\[E_{A}\frac{d^{3}N_{A}}{d^{3}p_{A}}=B_{A}(E_{p}\frac{d^{3}N_{p}}{d^{3}p_{p}})^{ Z}(E_{n}\frac{d^{3}N_{n}}{d^{3}p_{n}})^{A-Z}\approx B_{A}(E_{p}\frac{d^{3}N_{p}} {d^{3}p_{p}})^{A} \tag{3.4}\]
+
+where \(N_{A}\), \(N_{p}\), and \(N_{n}\) denote the number of the nuclei, their constituent protons and neutrons, respectively. \(B_{A}\) is the coalescence parameter. \(E\frac{d^{3}N}{d^{3}p}\) is the invariant yield of nucleons or nuclei; \(A\) and \(Z\) are the atomic mass number and atomic number, respectively; \(p_{A}\) and \(p_{p}\) are the momenta of the nuclei and protons, respectively, where \(p_{A}=A\cdot p_{p}\). The coalescence parameter, \(B_{A}\), is related to the freeze-out correlation volume [22, 23]:
+
+\[B_{A}\propto V_{f}^{1-A}. \tag{3.5}\]
+
+So \(B_{2}\propto 1/V_{f}\), and \(B_{3}\propto 1/(V_{f})^{2}\), and \(B_{2}\) and \(\sqrt{B_{3}}\) are both related to \(1/V_{f}\).
+
+For an expanding fireball, the effective homogeneous coalescence volume decreases with transverse mass and temperature (\(M_{t}/T\)) [23, 24].
+
+On the other hand, a blast-wave model is often used to describe the spectra of identified particles produced in relativistic heavy-ion collisions [25, 21]. In this model, the particle spectra are determined by global parameters (temperature, flow profile)and particle mass. Up to now, hydrodynamic model simulations or blast-wave fits to the data only included elementary particles without any composite elements, such as nuclei [25]. Experimental measurements can be used to provide insights into whether the homogeneous volume (as in a coalescence picture) or mass (as in a blast-wave model) has a bigger influence on the yields of nuclei in heavy ion collisions.
+
+### 3.6 Elliptic Flow and Event-Plane Method
+
+The invariant yield only reflects the number density of the particles in momentum space, as a function of the momentum (technically divided into the \(p_{T}\) and \(y\)). The momentum space density can be expressed as a function of azimuthal angle. A reaction plane is defined as the plane decided by the beam direction (\(z\) direction) and the impact parameter direction (\(b\) direction). The reaction plane is chosen as the reference plane in order to study the azimuthal angle dependence. The azimuthal angle dependence could be expressed as a Fourier series of the particle emission angle relative to the reaction plane angle [26],
+
+\[E\frac{d^{3}N}{d^{3}p}=\frac{1}{2\pi}\frac{d^{2}N}{p_{T}dp_{T}dy}\left(1+\sum _{n=1}^{\infty}2v_{n}\cos[n(\phi-\Psi_{r})]\right)\, \tag{3.6}\]
+
+where \(E\) is the energy, \(N\) is number of the particles, \(p\) is the momentum, \(y\) is rapidity, \(\phi\) is the azimuthal angle of the emission direction, and \(\Psi_{r}\) is the azimuthal angle of the reaction plane. The Fourier coefficient, \(v_{n}\), is called the n-th order flow. Specifically, \(v_{1}\) is called the direct flow, and \(v_{2}\) is called the elliptic flow.
+
+The real reaction plane angle \(\Psi_{r}\) is unknown, so practically we use the event plane angle to estimate the real reaction plane angle. The event plane is determined by the anisotropic flow of the event. The event plane angle can be determined for each harmonic order. The event flow vector \(Q_{n}\) and the event plane angle \(\Psi_{n}\) from then-th harmonic of distribution is defined by equations
+
+\[Q_{n}\cos(n\Psi_{n})=\sum_{i}w_{i}\cos(n\phi_{i})\, \tag{3.7}\]
+
+\[Q_{n}\sin(n\Psi_{n})=\sum_{i}w_{i}\sin(n\phi_{i})\, \tag{3.8}\]
+
+where \(\phi_{i}\) is the azimuth angle of the i-th particle, \(w_{i}\) is the weigh factor, and the sums go over all the particle tracks used in the event to determine the event plane angle, as shown in Fig. 3.7. The event plane angle \(\Psi_{n}\) is then determined by the formula
+
+\[\Psi_{n}=\frac{1}{n}\arctan\frac{\sum_{i}w_{i}\sin(n\phi_{i})}{\sum_{i}wi\cos (n\phi_{i})}. \tag{3.9}\]
+
+The tracks used to determine the \(\Psi_{n}\) could be chosen by particular type, and the weight factors are chose to be the transverse momentum. In Cu+Cu collisions, because of strong non-flow effect, usually the TPC tracks are not good for estimating the event plane angles, and the Forward TPC (FTPC) tracks are used instead. Although the resolution of the FTPC is not as good as that of the TPC, but the FTPC covers a much larger rapidity area, where the non-flow effects are small.
+
+Since the collision geometry is random, the event plane angle distribution, theoretically, should be flat, if large number (_e.g._ millions) of events are considered. However, because of the uneven acceptance of the detectors, the raw distribution angle of event planes obtained from the real data may not be flat. So correction factors in regard to the uneven acceptance should be applied and included into the \(w_{i}\) weight factors. There are different ways to do these corrections [26], and the simplest way is to use the inverse of the distribution of summed number of tracks in each events as the correction factor. This correction is called the \(\phi\) weight correction.
+
+In Au+Au collisions, after the \(\phi\) weight correction, the event plane distribution is fairly flat and smooth. But in Cu+Cu collisions, this simple correction does not work well, and another shift corrections should be applied [27]. The correction is to define a new angle for the event plane, expressed as
+
+\[\Psi^{\prime}_{1}=\Psi_{1}+\Delta\Psi_{1}\, \tag{3.10}\]
+
+where \(\Psi_{1}\) and \(\Psi^{\prime}_{1}\) are the 1st order azimuthal angle for the event plane before and after the shift correction, respectively. The \(\Delta\Psi_{1}\) is the shift, and it can be written in t
+
+Figure 3.7: The event plane determined by the momentum in \(x\) and \(y\) directions.
+
+[MISSING_PAGE_FAIL:51]
+
+In the case of calculating the elliptic flow \(v_{2}\), we are more concerned about the second order event plane shift. So in the above formula, for \(n=2\), we get
+
+\[\Delta\Psi_{2}=\Psi_{2}^{\prime}-\Psi_{2}=\sum_{i=1}^{i_{max}}\frac{1}{i}[- \langle\sin(i\Psi_{2})\rangle\cos(i\Psi_{2})+\langle\cos(i\Psi_{2})\rangle\sin (i\Psi_{2})]. \tag{3.16}\]
+
+After this shift correction, the event plane angle distribution is flat, which is shown later in section 4.2.
+
+The Fourier expansion coefficients of the azimuthal distribution defined in Eq. 3.6 are in respect to the real reaction plane. But the real reaction plane angle is estimated by the event plane angle. The Fourier coefficients are first calculated according to Eq. 3.6 but using the event plane angle to substitute the \(\Psi_{r}\) in the equation. Then the coefficients are divided by the event plane resolution to achieve the real flow.
+
+\[v_{n}=v_{n}^{obs}/\langle\cos[km(\Psi_{m}-\Psi_{r})]\rangle\, \tag{3.17}\]
+
+where the \(v_{n}^{obs}\) is the observed n-th order flow using the event plane angle as a reference, and the \(v_{n}\) is the real flow. The \(m\) is the harmonic order used to determine the event plane angle. \(m\) may not necessarily equal to \(n\). Here we have the relationship \(n=km\). So when \(m=n\), we have \(k=1\), and the above formula becomes
+
+\[v_{n}=v_{n}^{obs}/\langle\cos[n(\Psi_{n}-\Psi_{r})]\rangle\, \tag{3.18}\]
+
+The detailed analytical calculation is provided in Refs. [26, 28, 29] and the result is given as
+
+\[\langle\cos[km(\Psi_{m}-\Psi_{r})]\rangle=\frac{\sqrt{\pi}}{2\sqrt{2}}\chi_{m} \exp\left(-\frac{\chi_{m}^{2}}{4}\right)\left[I_{(k-1)/2}\left(\frac{\chi_{m}^{2 }}{4}\right)+I_{(k+1)/2}\left(\frac{\chi_{m}^{2}}{4}\right)\right]\, \tag{3.19}\]
+
+where \(\chi_{m}=v_{m}/\sigma=v_{m}\sqrt{2N}\) (\(N\) is the number of particles used to construct the event plane), and \(I_{\nu}\) is the modified Bessel function of order \(\nu\). Figure 3.8 demonstrates the event plane resolution as a function of \(\chi\) for different \(k\) values. From this plot, it is obvious that at \(k=1\), the resolution is the best. That means, the best resolution is achieved when using the same order to calculate the event plane angle. In this case, \(m=n\), and \(k=1\), the resolution result turns to be
+
+\[\langle\cos[n(\Psi_{n}-\Psi_{r})]\rangle=\frac{\sqrt{\pi}}{2\sqrt{2}}\chi_{n} \exp\left(-\frac{\chi_{n}^{2}}{4}\right)\left[I_{0}\left(\frac{\chi_{n}^{2}}{4 }\right)+I_{1}\left(\frac{\chi_{n}^{2}}{4}\right)\right]\, \tag{3.20}\]
+
+In Au+Au collisions, the TPC tracks are used to construct the event plane. But the event planes are flattened (using \(\phi\) weight correction) by east and west sides separately. The event plane angles calculated by east and west sides are averaged to make a final event plane angle. This event plane angle distribution should be flattened again.
+
+In Cu+Cu collisions, in order to avoid the strong non-flow effects, the FTPC tracks are used to calculate the event plane angle. The other procedure is the same as in Au+Au case, but the shift corrections should be applied.
+
+So the procedure of the event plane method to calculate the elliptic flow \(v_{2}\) is: the first run through all the data is to calculate the \(\phi\) weight for the east and west side FTPC. The second run is to apply the \(\phi\) weight and calculate the shift correction coefficients for the east and west side FTPC. The third run is to apply the shift correction and add them together to make an average event plane angle and to re-calculate the shift correction parameters for the average angles. Finally, the fourth pass is to apply this shift correction and fill the histograms for the azimuthal distribution in regard to the corrected event plane angles, and at the same time the event plane resolution is also calculated and stored. After the four runs through all the data, the distribution histograms are filled and can then be fitted to retrieved and divided by the event plane resolution, and the real flow is obtained.
+
+Figure 3.8: The event plane resolution for the \(n\)th (\(n=km\)) harmonic of the particle distribution with respect to the \(m\)th harmonic plane, as a function of \(\chi_{m}=v_{m}/\sigma\). This plot is take from Ref. [26].
+
+## Chapter 4 Spectra and Elliptic Flow Results in Cu+Cu
+
+### 4.1 Spectra Results
+
+The spectra study of light nuclei is performed on STAR Run-V Cu+Cu 200 GeV/c collisions1. A total of 37 million minimum bias events are used.
+
+Footnote 1: The STAR production is P06ib.
+
+The spectra study mainly focused on anti-deuterons and anti-protons. According to the coalescence model, the coalescence parameters, which are assumed to be related to the freeze-out volume, can be calculated from deuteron and proton spectra, according to Eq. 3.4. The low momentum deuterons from collision vertex have a significant contamination from the background deuterons from the beam pipe. The particles coming from the primary vertex can hit the beam pipe material and generate large numbers of secondary particles, including deuterons. These background deuterons cannot be easily distinguished by the TPC as their ionization energy loss characteristics are similar to the primary deuterons from the primary vertex. The background deuteron tracks is not related to the primary vertex. The characteristic quantity defining how close the track is from the primary vertex is the distance of closest approach (DCA). The DCA of primary deuterons is small, while the DCA of background deuterons could be either large or small. In our analysis, track quality cuts (see Tab. 4.1) are applied and DCA is required to be less than 1 cm. Many background deuterons can be removed with a DCA cut, but there are still many of them with DCA \(<\)1 cm. Detailed study of the DCA distributions can reveal the difference between he primary deuteron tracks and background deuteron tracks.
+
+In order to quantify the DCA distribution differences between primary and background deuterons, we can make the comparison between d and \(\overline{\rm d}\) tracks. \(\overline{\rm d}\) is not knocked out from the beam pipe, and it is expected that the DCA distributions of \(\overline{\rm d}\) tracks have equivalent shapes as the DCA distributions of primary d tracks in similar \(p_{T}\) ranges. Figure 4.1 shows the comparison. The upper 4 plots show the DCA distributions of d in 4 different \(p_{T}\) regions, and the lower 4 plots show the DCA
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline number of fit points & \(\geq\) 25 \\ number of \(dE/dx\) points & \(\geq\) 15 \\ DCA & \(<\) 1 cm \\ \(z_{\rm vertex}\) & \(<\) 30 cm \\ \(|\)pseudorapidity\(|\) & \(<\) 0.9 \\ \hline \end{tabular}
+\end{table}
+Table 4.1: The TPC track quality cuts applied on Cu+Cu 200 GeV events.
+
+distributions of \(\overline{\rm d}\) in the same 4 \(p_{T}\) regions. In this side by side comparison, the quantitative differences between them are obvious. The \(\overline{\rm d}\) DCA shows similar shape of distributions for different \(p_{T}\) ranges. At the lower \(p_{T}\) range, the \(\overline{\rm d}\) DCA shows a wider peak, and at higher \(p_{T}\) range, the DCA shows a narrower peak. That is due to lower statistics in lower \(p_{T}\). The DCA distribution of d, however, shows different shapes in different \(p_{T}\) ranges. At lower \(p_{T}\) range, the d DCA shows a hump, standing for the background, while at higher \(p_{T}\) range, the DCA shows a background hump superimposed by a sharp peak, which is similar to the shape of \(\overline{\rm d}\) DCA distributions. That means, at low \(p_{T}\), d is dominated by the knocked out background, but \(\overline{\rm d}\) is not.
+
+Even though the DCA distributions indicate the difference between the primary and background deuterons, it remains difficult to separate them by using the DCA distribution shapes. The analysis presented here will only use anti-deuterons and anti-protons for measuring the coalescence factors. The anti-deuterons are identified by the TPC ionization energy loss and by requiring the charge to be negative. Figure 4.2 shows the \(n\sigma_{d}\) distribution plots for \(p_{T}\) in 0.4-0.6 GeV/c, 0.6-0.8 GeV/c, 0.8-1.0 GeV/c, and 1.0-1.2 GeV/c, respectively. The background is other negatively charged particles, such as anti-protons. The \(n\sigma_{d}\) histograms are fitted by a Gaussian plus a exponential function. The exponential function, regarded as the background distribution, is subtracted from the \(n\sigma_{d}\) distribution to get the pure anti-deuteron yields.
+
+The spectra of anti-protons and anti-deuterons are shown in Fig. 4.3 for different 
+
+[MISSING_PAGE_FAIL:58]
+
+the transverse momentum per nucleon \(p_{T}/A\)3, shown by solid symbols. As a comparison, the parameters from Au+Au obtained from Ref. [18] are also shown in the plot by open symbols. First it can be seen that \(B_{2}\) and \(\sqrt{B_{3}}\) are close to each other in similar \(p_{T}/A\) in the same collision system. This is consistent with the assumption that they are both related to the same freeze-out volume. It is also demonstrated in this plot that parameters from Cu+Cu are larger than those from Au+Au, which is consistent with the fact that the freeze-out volumes in Cu+Cu is smaller than in Au+Au. Both in Au+Au and Cu+Cu cases, the coalescence parameters increase slightly with \(p_{T}/A\), which can be explained by the decreased interaction volume with increasing momentum. However, the \(B_{2}\) from anti-deuterons shows a different trend, and decreases with increasing \(p_{T}/A\). This is especially noticeable for low momentum Cu+Cu results, probably due to the large uncertainty of deuteron tracking efficiencies.
+
+Footnote 3: \(A\) is the atomic number.
+
+Different coalescence parameters \(B_{2}\) can be calculated for different centralities, according to the spectra in different centralities. Fig. 4.5 shows the inverse of the coalescence parameter (\(1/B_{2}\)) as a function of the number of participants \(\langle N_{part}\rangle\). The results are shown in three different momentum ranges. In each plot, \(1/B_{2}\) is shown to be a linear function of \(\langle N_{part}\rangle\). These plots are consistent with the coalescence volumes being proportional to \(\langle N_{part}\rangle\).
+
+The inverse of coalescence parameters are shown in Fig. 4.6, versus the number of participants, for both Cu+Cu and Au+Au [18]. The results from different particles are consistent with each other and the data points are proportional to the number of participants. This confirms that the \(1/B_{2}\) and \(1/\sqrt{B_{3}}\), although from different particles, are related to the same coalescence volume, and the coalescence volume is proportional to the number of participants in the collisions.
+
+The raw yields of \({}^{3}\)He and \(\overline{\mbox{${}^{3}$He}}\) are studied. As previously mentioned, helium is identified through the TPC ionization energy loss by a \(z\) value defined by Eq. 3, which is just an unnormalized \(n\sigma\). Tight track quality cuts (Tab. 1) are applied and the \(z\) distribution plots are free of contaminations from other negatively charged particles, such as \(\overline{\rm d}\), as shown by Fig. 7. Then the yield of helium is obtained by integrating the numbers of entries in the histogram bins.
+
+The number of \({}^{3}\)He and \(\overline{\mbox{${}^{3}$He}}\) versus transverse momentum are shown in Fig. 8. The ratio of \(\overline{\mbox{${}^{3}$He}}\) to \({}^{3}\)He versus transverse momentum is shown in Fig. 9. The anti-proton over proton number ratio is also shown in this figure as a comparison. If the light nuclei are generated by the coalescence of nucleons, we expect the ratios \(\overline{\mbox{${}^{3}$He}}/\mbox{${}^{3}$He}\) and \((\overline{\mbox{${}^{3}$p}}/\mbox{${}^{3}$p})^{3}\) to be similar (Eq.3). The rough equality is confirmed by the data, which is shown by Fig. 9.
+
+Figure 4.1: The DCA distributions of d, \(\overline{\rm d}\) in different \(p_{T}\) ranges. The upper 4 plots are for deuterons, and the lower 4 plots are for anti-deuterons. The \(p_{T}\) ranges are specified in the plots.
+
+[MISSING_PAGE_EMPTY:62]
+
+Figure 4.3: The \(p_{T}\) spectra (integrated over rapidity \(y\)) of anti-protons (upper plot) and anti-deuterons (lower plot). The spectra are shown in different centralities, represented by open symbols in different colors. The minimum bias spectra are represented by solid symbols. Error bars are statistical only.
+
+Figure 4.4: The coalescence parameters \(B_{2}\) and \(\sqrt{(}B_{3})\) are shown for Cu+Cu collisions (denoted by solid symbols) in regard to the transverse momentum per nucleon (\(p_{T}/A\)). Au+Au results from Ref. [18] are also shown (denoted by open symbols) in the plot as a comparison.
+
+Figure 4.5: The plots of \(1/B_{2}\) from anti-deuterons as a function of \(\langle N_{part}\rangle\), for different \(p_{T}\) ranges. Each plot is fitted by a linear function. Errors are statistical only.
+
+Figure 4.6: In the \(p_{T}/A\) around 0.5 GeV/c area, \(1/B_{2}\) and \(1/\sqrt{B_{3}}\) are compared together, for both Cu+Cu and Au+Au cases. The horizontal axis is the number of participants. The Au+Au results are obtained from Ref. [18].
+
+Figure 4.7: The \(z\) distribution for \({}^{3}\)He and \(\overline{{}^{3}\mathrm{He}}\) in Cu+Cu minimum bias events, for two different transverse momentum ranges.
+
+Figure 4.8: The raw yields of \({}^{3}\)He and \({}^{3}\)He versus the transverse momentum for Cu+Cu minimum bias events. The solid circles are for \({}^{3}\)He and the open circles are for \({}^{3}\)He numbers. The errors are statistical only.
+
+Figure 4.9: The ratio of \({}^{3}\)He to \({}^{3}\)He versus transverse momentum is shown here, represented by red stars. The ratio of anti-proton over proton is placed here as a comparison, represented by the blue triangles. The errors are statistical only.
+
+### 4.2 Elliptic Flow Results
+
+The anisotropic distributions of anti-deuterons and anti-protons have been studied for STAR Run-V Cu+Cu 200 GeV collisions. The data set used here is the same as used in the previous section 4.1.
+
+As stated previously, in section 3.6, the first step is to determine the event plane angle \(\psi\) by using the \(Q\) vector, according to Eqs. 3.7 and 3.8. The \(\psi\) distribution is not flat, and the \(\phi\)-weight correction is applied. In the TPC event plane method, usually the event plane distribution will be flat after the \(\phi\)-weight distribution. But in Cu+Cu collisions, the FTPC has to be used and the quality cuts indicated in Tab. 4.4 are applied. The event plane angles determined by the tracks only in the FTPC will not necessarily be flat after the \(\phi\)-weight correction because of the acceptance of the FTPC. A special shift method, as defined in Eq. 3.16, will have to be applied.
+
+It should be noted that the event plane angle \(\psi\) can be determined by the east or west FTPC only, or by using both sides. There might be some small differences between the \(\psi\) angles measured in different ways. Therefore, the \(\psi\) angle shifts are calculated for the east, west, or both sides FTPC, respectively. The normal procedure is to calculate \(\psi\) angle for east and west side independently, denoted as \(\psi_{e
+
+\begin{table}
+\begin{tabular}{|c|c|} \hline number of fit points & \(\geq\) 6 \\ DCA & \(<\) 2 cm \\ \(z_{\rm vertex}\) & \(<\) 30 cm \\ \(|\)pseudorapidity\(|\) & 2.5\(<|\eta|\) \(<\) 4.0 \\ \hline \end{tabular}
+\end{table}
+Table 4.4: The FTPC track quality cuts applied on Cu+Cu 200 GeV events for the event plane determination.
+
+The shift corrections are made to flatten \(\psi_{east}\) and \(\psi_{west}\) distributions independently. After this shift, the east and west angle distributions are shifted to be flat. The final event plane angles \(\psi\) for each event are calculated by averaging the corrected \(\psi_{east}\) and \(\psi_{west}\), _i.e._\(\psi=(\psi_{east}+\psi_{west})/2\). But the \(\psi\) angle calculated this way will again shows an uneven distribution. The shift correction is the re-applied.
+
+Figure 4.10 shows the event plane angle distributions before and after the shift, for the east, west, and east plus west side \(\psi\), respectively. In the plots, the red lines show the uneven distributions before the shift corrections, and the blue lines show the flat distributions after the shift corrections. The shift coefficients are displayed in Fig. 4.11. The shift coefficients depend on the whole sets of events used, so they are different for different centralities. Fig. 4.11 shows the minimum bias case, which is 0-60%. In the figure, the coefficients are shown versus different correction orders. The coefficients are relatively large at lower order and getting smaller at higher order. Above the order of 10, the coefficients are very close to zero. The shift correction is truncated at a higher order, for instance, 20, to make the \(\phi\) distributions flat.
+
+The event plane determined by a limited number of tracks has a limited resolution. Moreover, the tracks have less hit points inside the FTPC than in the TPC because of the detector geometry limitation. The resolution is different for different centralities, as shown in Fig. 4.12. The event plane resolution is low in very central collisions and increases and reaches a maximum at a medium centrality. Then it drops to low resolution for peripheral collision events. At very central collisions the eccentricity 
+
+[MISSING_PAGE_EMPTY:72]
+
+resolution in Cu+Cu is around 16%, which is much smaller than the resolution of 76% in Au+Au case [18]. That is due to the lower reference multiplicity in Cu+Cu, and the lower acceptance of the FTPC used in Cu+Cu as compared to the TPC used in Au+Au.
+
+Figure 4.11: The shift coefficients for event plane shift methods for different shift orders. The left plot is for the cosine terms, and the right plot is for the sine terms, according to the shift formula Eq. 3.16.
+
+Figure 4.12: The event plane resolution for different centralities. From left to right, the bins indicate the resolution for centrality 0-10%, 10-20%, 20-30%, 30-40%, 40-50%, 50-60%, and 0-60% (minimum bias), respectively.
+
+When the event plane angles are corrected, the number of particles in the certain azimuthal angle range can be integrated. The number distribution versus the azimuthal angle can be studied to show the cosine distribution, which leads to the elliptic flow. Figure 4.13 shows the \(n\sigma_{d}\) distribution for the negatively charged particles in one \(p_{T}\) range (0.2-0.6 GeV/c), for azimuthal angle (\(\phi\)) relative to the event plane angle (\(\psi\)), _i.e._\(n\sigma_{d}\) versus \(\phi-\psi\) angle. The distributions, as previously mentioned, show Gaussian peaks which indicate the anti-deuterons on top of a background. The background is estimated in different shapes. The anti-deuteron \(n\sigma\) distribution can be contaminated by anti-protons as a background noise, so the background can be assumed to be a Gaussian. In this analysis, the \(n\sigma_{d}\) distribution is fitted by a double Gaussian function. The fitting functions are also shown by solid lines in Fig. 4.13. According to the parameters of the fitting function, the peak of the anti-deuterons are determined (which might be shifted slightly from 0). The histogram is integrated in the range from -2 to +2 around the peak. This integral, subtracted by the background noise, is the number of anti-deuterons in the 2-\(\sigma\) range, which is 68% of all deuterons in this specific \(p_{T}\) and \(\phi-\psi\) range. So the numbers can be calculated for each \(p_{T}\) and \(\phi-\psi\) range.
+
+For each \(p_{T}\) range, the number of the particles in which we are interested can be studied according to their \(\phi-\psi\) distributions. Figure 4.14 shows the \(\overline{\rm d}\) yields versus \(\phi-\psi\) for 3 different \(p_{T}\) ranges. In each \(p_{T}\) range, the distribution is fitted by a cosine function
+
+\[p_{0}(1+2p_{1}\cos[2(\phi-\psi)]) \tag{4.1}\]
+
+to get the elliptic flow \(v_{2}\) values. The fitting parameter \(p_{1}\) in Eq. 4.1 is the the
+
+Figure 4.13: The \(n\sigma_{\overline{\rm d}}\) distribution for anti-deuterons in the range \(0.6<p_{T}<0.8\) (GeV/c), for different \(\phi-\psi\) ranges. From left to right and top to bottom, the plots are for \(\phi-\psi\) range 0-\(\pi/10\), \(\pi/10\)-\(2\pi/10\), \(2\pi/10\)-\(3\pi/10\), \(3\pi/10\)-\(4\pi/10\), \(4\pi/10\)-\(5\pi/10\), respectively. The distribution histograms are fitted by double Gaussian function to subtract the background.
+
+observed \(v_{2}\). Figure 4.15 shows the same kind of distributions of anti-protons.
+
+The anti-proton and anti-deuteron \(v_{2}\) are calculated in the way as described above. Since the number of particles for each \(p_{T}\), \(\phi-\psi\) bin depends on different background estimation, the final \(v_{2}\) result may also depend on different background estimation. Figure 4.16 shows the \(v_{2}\) results comparison for 3 different background fitting methods. The one method is for the Gaussian background fitting, another is for the exponential background fitting (used in section 4.1), and the last one is to integrate all bins without any background subtraction. The differences between the three methods are small compared to the statistical errors, especially in the anti-deuteron case.
+
+Figure 4.14: The anti-deuteron yield versus the azimuthal angle in relative to the event plane angle (\(\phi-\psi\)) in the 3 \(p_{T}\) ranges. The 3 plots from left to right are for \(p_{T}\) in 0.2-0.6, 0.6-0.8, and 0.8-1.0 GeV/c, respectively. All error bars represent statistical errors only. The lines shown in the plots are the cosine fitting functions.
+
+The anti-proton \(v_{2}\) is shown with both statistical and systematic errors in Fig. 4.17. The Au+Au anti-proton \(v_{2}\)[31] are also shown. The Cu+Cu \(v_{2}\) seems to be a little higher than Au+Au in low \(p_{T}\) range (\(<\)1 GeV/c). But they are getting closer as \(p_{T}\) approaches 1 GeV/c. This is also true for \(\Lambda+\overline{\Lambda}\) case. The \(\Lambda+\overline{\Lambda}\)\(v_{2}\) in Cu+Cu [32]
+
+Figure 4.15: The anti-proton yield versus the azimuthal angle in relative to the event plane angle (\(\phi-\psi\)) in the 3 \(p_{T}\) ranges. The 6 plots from left to right and from top to bottom are for \(p_{T}\) in 0.3-0.4, 0.4-0.5, 0.5-0.6, 0.6-0.7, 0.7-0.8, and 0.8-0.9 (GeV/c), respectively. The lines shown in the plots are the cosine fitting functions.
+
+is also higher than in Au+Au [31] in \(pT<1\) GeV/c, but they are almost equal at \(p_{T}\) close to 1 GeV/c. At higher \(p_{T}\), the Cu+Cu \(v_{2}\) is lower than Au+Au case. The anti-proton \(v_{2}\) in Cu+Cu case is slightly higher than the \(\Lambda+\overline{\Lambda}\;v_{2}\) in Cu+Cu, because \(\Lambda\) is heavier than protons. The inclusive charged hadron \(v_{2}\) is also shown in Fig. 4.17 as a comparison. It is lower than Au+Au pion \(v_{2}\), which agrees with the mas dependence for \(v_{2}\). A similar mass dependence is observed in Cu+Cu, where the anti-proton \(v_{2}\) is in between the charged hadron \(v_{2}\)[32] and \(\Lambda+\overline{\Lambda}\;v_{2}\).
+
+The anti-deuteron \(v_{2}\) from Cu+Cu is compared to Au+Au result in Fig. 4.18. The Cu+Cu \(v_{2}\) has lower statistics than Au+Au. The systematic errors are small compared to statistical errors. The Au+Au anti-deuteron \(v_{2}\) data are obtained from Ref. [18], and a negative \(v_{2}\) was observed for the first time. Here in Cu+Cu, we observe the negative \(v_{2}\) again for anti-deuterons, which is consistent both with theory and with Au+Au results. At \(p_{T}\) in 0.2 to 0.8 GeV/c, even considering the statistical
+
+Figure 4.16: The comparison of \(v_{2}\) versus different background fitting methods. The left plot is for anti-proton \(v_{2}\), and the right plot is for anti-deuteron \(v_{2}\). In each plot, the black dots indicate the results from double Gaussian fitting, the red squares indicate the exponential background fitting, an the blue triangles indicate the direct counting method without fitting.
+
+and systematic error, the anti-deuteron \(v_{2}\) is negative, but at higher \(p_{T}\) close to 1 GeV/c, the \(v_{2}\) is quite close to zero and turns to positive. This result in Cu+Cu is consistent with the Au+Au anti-deuteron \(v_{2}\) in the same \(p_{T}\) range.
+
+**Figure 4.17:** The anti-proton \(v_{2}\) from Cu+Cu collisions compared to some other cases. The red stars indicate the anti-proton \(v_{2}\) from Cu+Cu and the blue solid dots indicate the Au+Au case. The black shadow boxes represent the systematic errors for Cu+Cu. The Au+Au and Cu+Cu \(v_{2}\) for \(\Lambda+\overline{\Lambda}\) are represented by black diamonds and purple triangles, respectively. The blue open circles are pion \(v_{2}\) for Au+Au, and the green triangles are inclusive charged hadron \(v_{2}\) for Cu+Cu. The negative \(v_{2}\) results from a large radial flow because the large radial flow push the particles to high momentum area and depletes low momentum particles. There are more particles flowing in the reaction plane than out of plane, so more in-plane-flowing particles are depleted. That causes more particles flowing out of the plane than in plane, which is the reason for the low momentum negative flow [33], and this is also confirmed by BW with a large \(\rho_{0}\) parameter [25]. The Au+Au \(v_{2}\) results are from Ref. [31]. The Cu+Cu \(v_{2}\) of charged hadrons and \(\Lambda\) are from Ref. [32].
+
+Figure 4.18: The anti-deuteron \(v_{2}\) for Cu+Cu collisions compared to Au+Au results obtained from Ref. [18]. The red open circles represent Cu+Cu result and the blue solid dots represent Au+Au result. The black shadow boxes are systematic errors for Cu+Cu.
+
+## Chapter 5 Blast-Wave Fitting of Spectra and \(v_{2}\) in Au+Au
+
+### 5.1 Blast-Wave Model
+
+Presented in this section is the comparison of the spectra and flow of light nuclei in Au+Au collisions and the predictions from the Blast-Wave (BW) model. The BW model parameterizes the physical features, such as the temperature and geometric dimension of the fireball at the thermal freeze-out stage and gives quantitative predictions for the observable implications, such as the transverse momentum spectra, and the elliptic flow. This model calculates particle production properties by assuming the particles are emitted thermally on top of a expanding fireball after the collision. The BW model assumes local thermal equilibrium with an expansion velocity profile as a function of transverse radius, modulated by an azimuthal densitydistribution [25].
+
+The BW model was originally used on the production of hadrons, such as \(\pi\), K, p, and \(\Lambda\) particles. This BW model successfully reproduced the momentum spectra and elliptic flow [21] of these particles, as well as the pion HBT correlations as a function of transverse momentum and centrality [25]. In this section, the BW model is used to study the production of light nuclei instead of charged hadrons. The light nuclei are treated as heavier particles emitted from the fireball. Figure 5.1 shows a schematic illustration of a BW elliptic sub-shell of the source in the transverse plane.
+
+The parameters used in the BW fitting are the physical quantities related to the freeze-out configurations, specifically, \(T\), \(\rho_{0}\), \(\rho_{2}\), \(R_{x}\), \(R_{y}\), \(\tau_{0}\), and \(\Delta\tau\). \(T\) is the temperature. The freeze-out distribution is assumed to be infinite along the beam direction (\(z\) direction) and elliptical in the transverse direction (\(x\)-\(y\) plane). \(R_{x}\) and
+
+Figure 5.1: Illustration of blast-wave parameters for the freeze-out configurations in transverse plane. This picture is obtained from Ref. [25].
+
+[MISSING_PAGE_FAIL:83]
+
+is
+
+\[K_{\mu}=(m_{T}\cosh y,p_{T}\cos\phi_{p},p_{T}\sin\phi_{p},m_{T}\sinh y). \tag{5.4}\]
+
+All the observables calculated in the BW are related to integrals of the emission function 5.3. A more detailed description and definition of the parameters and the BW formulae are given in Ref [25].
+
+### 5.2 Fitting Algorithm and Parameters
+
+In order to get a consistent set of parameters that describe the physical features at the moment of freeze-out, different sets of histograms are fitted simultaneously. At the stage of thermal freeze-out, all the hadrons and the light nuclei are already formed, and it is possible to use one set of parameters to fit all the \(p_{T}\) spectra and \(v_{2}\). The BW parameters are sensitive to different fitted quantities, _e.g._\(T\) is sensitive to the \(p_{T}\) spectra, and \(R_{x}/R_{y}\) is sensitive to \(v_{2}\) but not to \(p_{T}\) spectra, so it is necessary to use separate histograms to determine the various parameters of the BW model.
+
+All the spectra and \(v_{2}\) are products of the fit in the BW model. For a set of
+
+Figure 5.2: The spectra and \(v_{2}\) of pion, kaon and proton and the corresponding BW fit. The data shown are from 200 GeV Au+Au minimum bias events. The data points are shown as points and the BW fit results are shown as lines. The spectra data points are for positive and negative particles, shown as solid and open symbols, with the BW fits shown as solid and dashed lines, respectively. The \(v_{2}\) plots are for positive plus negative pions and kaons inclusively, and for anti-proton exclusively.
+
+BW parameters, there is a \(\chi^{2}\) value for each histogram. The sum of the \(\chi^{2}\) of all histograms are required to meet a minimum value for a specific set of BW parameters for pion, kaon and proton products.
+
+The \(p_{T}\) spectra and \(v_{2}\) experimental data used for fitting are obtained from Refs. [21] and [31], respectively. The BW fitting parameters are sensitive to centrality. The parameters for the minimum bias (0-80% centrality) data are listed in Tab. 5.1, and the fitting results are also compared to the data points as shown in Fig. 5.2. The BW parameters obtained from the fits are used to predict the d, \(\overline{\rm d}\), \({}^{3}\)He and \({}^{3}\)He spectra and \(v_{2}\). For peripheral and central collisions only the spectra are fitted. The predictions from BW are also limited to spectra. Fig. 5.3 shows the comparison of the spectra for d, \(\overline{\rm d}\) and the BW predicted spectra. The comparison for \({}^{3}\)He and \({}^{3}\)He is shown in Fig. 5.4. The experimental data points are obtained from Ref [18]. The BW predictions and the experimental data points agree with each other with acceptable deviations. This demonstrates that the BW correctly describes the spectra at the momentum of thermal freeze-out. It also confirms the assumption that the fireball at this stage reaches thermal equilibrium.
+
+The comparison of the BW predicted \(v_{2}\) and the experimental results in minimum-bias collisions are shown in Fig. 5.5. Shown in this figure are the \(v_{2}\) for d\(+\overline{\rm d}\), \({}^{3}\)He+
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \(T\)(MeV) & \(\rho_{0}\) & \(\rho_{2}\) & \(R_{x}/R_{y}\) & \(\tau_{0}\)(fm/c) & \(\Delta\tau\)(fm/c) \\ \hline
+124.2 & 0.88 & 0.061 & 0.89 & 9.2 & 0.03 \\ \(\pm\) 1.9 & \(\pm\) 0.01 & \(\pm\) 0.002 & \(\pm\) 0.003 & (fixed) & (fixed) \\ \hline \end{tabular}
+\end{table}
+Table 5.1: BW fitting parameters: see text for details.
+
+and \(\overline{\rm d}\) versus the transverse momentum, obtained from Ref. [18]. The results with both \(v_{2}\) and \(p_{T}\) scaled by \(A\) are shown in Fig. 5.6. As mentioned previously, the \(\pi\), K, p spectra and \(v_{2}\) are all fitted by a single set of blast-wave parameters. These parameters are used to predict the \(p_{T}\) spectra and \(v_{2}\) of \({\rm d}(\overline{\rm d})\), \({}^{3}{\rm He}(\overline{\rm{{}^{3}He}})\). The blast-wave results for the deuteron and \({}^{3}{\rm He}\)\(v_{2}\) are shown as the solid and dashed lines, respectively. As a comparison, the \(\overline{\rm p}\) and \(\Lambda+\overline{\Lambda}\)\(v_{2}\) obtained from Ref. [31] are superimposed. The plot demonstrates that the simple mass related BW model seems to fit the data as well or better than more sophisticated models [34]. The \(v_{2}\) and \(p_{T}\) scaled by the
+
+Figure 5.3: This plot shows \({\rm d}\) and \(\overline{\rm d}\) spectra, with a comparison to the blast-wave model predictions. The upper panel shows the \(p_{T}\) spectra, with the solid symbols and open symbols representing the particles and anti-particles, respectively. The corresponding blast-wave predictions are shown by solid and dashed lines. The lower panel shows the data divided by the blast-wave prediction. The bands show the same ratio for protons. Errors are statistical only.
+
+atomic numbers of the produced particles indicate that deuterons are formed through the coalescence of protons and neutrons just before thermal freeze-out. However, the scaled \({}^{3}\mathrm{He}+\overline{{}^{3}\mathrm{He}}\)\(v_{2}\) appears to deviate a bit more from the blast-wave predicted \(v_{2}\). According to the coalescence mode, the \(v_{2}/A\) versus \(p_{T}/A\) lines for different nuclei should be the same. But the BW predicted lines for deuteron, helium, and proton are not exactly at the same line, indicating that the thermal production (BW model) deviates slightly from the coalescence model.
+
+The centrality dependencies of \(\overline{\mathrm{d}}\) and \(\overline{\mathrm{p}}\) elliptic flow are shown in Fig. 5.7. (See
+
+Figure 5.4: This plot shows \({}^{3}\mathrm{He}\) and \(\overline{\mathrm{{}^{3}He}}\)) spectra, with a comparison to the blast-wave model predictions. The upper panel shows the \(p_{T}\) spectra, with the solid symbols and open symbols representing the particles and anti-particles, respectively. The corresponding blast-wave predictions are shown by solid and dashed lines. The lower panel shows the data divided by the blast-wave prediction. The bands show the same ratio for protons. Errors are statistical only.
+
+the centrality definition in Tab. 4.3.) The \(v_{2}/A\) versus \(\langle N_{part}\rangle\) for two different \(p_{T}\) ranges are shown separately in the left and right panels of this figure. The negative \(\overline{\rm d}\)\(v_{2}\) is observed in both central and mid-central collisions in the transverse momentum range of \(0.2<p_{T}<0.7\) GeV/c. This negative \(v_{2}\) at low \(p_{T}\) range is consistent with a large radial flow. That is because the large radial flow pushes low \(p_{T}\) particles to high \(p_{T}\) and depleted low \(p_{T}\) particles, predominantly in the event plane [33]. That is also confirmed by the blast-wave predictions [25]. At the same \(p_{T}/A\) where the \(\overline{\rm d}\)\(v_{2}\) is negative, the \(\overline{\rm p}\)\(v_{2}\) is consistent with zero and the \(\overline{\rm d}\)\(v_{2}\), due to the large uncertainties. The BW predictions of \(\overline{\rm d}\) and \(\overline{\rm p}\)\(v_{2}/A\) for different centralities are also shown in the
+
+Figure 5.5: The elliptic flow parameter \(v_{2}\) from minimum bias collisions as a function of \(p_{T}\) for \({}^{3}{\rm He}+\overline{\rm{}^{3}He}\) (triangles), \({\rm d}+\overline{\rm{d}}\) (filled circles), and \(\overline{\rm{d}}\) (open circles); the solid (dashed) line represents the deuteron (\({}^{3}{\rm He}\)) \(v_{2}\) predicted by the blast-wave model.
+
+figure as a comparison to the experimental data. The BW parameters for different centralities used in the predictions are obtained from Ref. [31]. The comparison shows that the BW predicts the negative \(v_{2}\) of deuteron, and the model well describes the trend of experimental data, but the quantitative agreements is still not convincing.
+
+Figure 5.6: (The \({\rm d}+\overline{\rm d}\) and \({}^{3}{\rm He}+\overline{\rm{}^{3}He}\)\(v_{2}\) as a function of \(p_{T}\), both \(v_{2}\) and \(p_{T}\) have been scaled by \(A\). Errors are statistical only. \(\overline{\rm p}\) (open diamonds) and \(\Lambda+\overline{\Lambda}\) (solid stars) \(v_{2}\) are shown in the plot as a comparison. Coalescence and dynamic simulation for deuteron from Ref. [34] are also shown.
+
+Figure 5.7: Low \(p_{T}\)\(\overline{\rm d}\)\(v_{2}/A\) (filled squared) as a function of centrality fraction \((0-10\%,\ 10-20\%,\ 20-40\%,\ 40-80\%,\) respectively). Errors are statistical only. \(\overline{\rm p}\)\(v_{2}\) is also shown as open triangles. Blast-wave predictions are show as solid (\(\overline{\rm d}\)) and dashed lines (\(\overline{\rm p}\)).The 2 subpanels are for different \(p_{T}\) ranges.
+
+Comparison with Pion HBT Volume
+
+The invariant yields of d, \(\overline{\rm d}\) and p, \(\overline{\rm p}\) are related through a coalescence parameter \(B_{2}\), see Eq. 3.4. Similarly, the parameter \(B_{3}\) relates the yields of \({}^{3}\)He and \(\overline{{}^{3}\rm He}\). Since the light nuclei are formed at the very late stage of fireball evolution, the correlation volume is the same as the freeze-out volume. Therefore, \(B_{2}\) and \(\sqrt{B_{3}}\) are both proportional to the inverse of the correlation volume. In this section, the comparison of \(B_{2}\) and \(\sqrt{B_{3}}\) with the Hanbury-Brown Twiss (HBT) [35] radii is shown.
+
+Figure 5.8 shows the coalescence parameters \(B_{2}\) and \(\sqrt{B_{3}}\) compared with pion HBT volumes. The parameters \(B_{2}\) and \(B_{3}\) are calculated from the spectra of proton,
+
+Figure 5.8: \(B_{2}\) and \(\sqrt{B_{3}}\) together with \(\pi^{\pm}\) HBT volume as a function of collision centrality (\(N_{part}\)) in Au+Au collisions. HBT volume is calculated from the HBT correlation lengths along longitudinal and transverse directions. The PHENIX data points are obtained from Ref. [36]. Cu+Cu results are also shown as a comparison.
+
+deuteron and helium by using Eq. 3.4. The STAR Au+Au 200 GeV results of the coalescence parameters are obtained from Ref. [18] (as shown by solid symbols), which uses the the proton and anti-proton spectra taken from Ref. [21]. The p and \(\overline{\rm p}\) spectra have been corrected for feed-down from \(\Lambda,\overline{\Lambda}\) and \(\Sigma^{\pm}\) weak decays [21]. The brackets in the figure show the errors coming from the uncertainties of feed-down ratio. The PHENIX results (shown by open red crosses and stars) for the 200 GeV Au+Au run obtained from Ref. [36] are also shown in Fig. 5.8. The STAR Cu+Cu 200 GeV results from the previous chapter in this thesis are also shown in this figure (by open purple stars).
+
+Figure 5.9: Comparison of spectra from STAR and PHENIX results. The PHENIX data points obtained from Ref. [36] are shown as red open crosses and stars. The STAR Au+Au results obtained from Ref. [18] are shown as solid circles and triangles, and the brackets represent the uncertainties from the feed-down ratio. The STAR Cu+Cu results are shown as purple open stars.
+
+As previously mentioned in Eq. 3.5, the coalescence parameters are related to the final freeze-out volumes as \(B_{A}\propto V_{f}^{1-A}\), so \(B_{2}\propto 1/V_{f}\) and \(B_{3}\propto 1/V_{f}^{2}\). Therefore \(B_{2}\) for d(\(\overline{\rm d}\)) is comparable to \(\sqrt{B_{3}}\) for \({}^{3}\)He(\(\overline{\rm{{}^{3}He}}\)) if the correlation volumes for d(\(\overline{\rm d}\)) and \({}^{3}\)He(\(\overline{\rm{{}^{3}He}}\)) are similar. Both \(B_{2}\) and \(B_{3}\) dependent on different centralities. In central collisions, there are more number of participant nucleons interacting with each other, and the correlation volumes at thermal freeze-out are larger. That results in smaller coalescence parameters in central than in peripheral collisions. So this figure shows the parameters versus \(\langle N_{part}\rangle\).
+
+Figure 5.8 does not only show the comparison between the coalescence parameters, but also shows direct comparison to the pion HBT volumes, represented by black circles and squares in the plot. The freeze-out volumes from pion HBT measurements are calculated in Ref. [18] as the following expression:
+
+\[V_{f}=(2\pi)^{3/2}\times R_{long}\times R_{side}^{2}\, \tag{5.5}\]
+
+where \(V_{f}\) is the freeze-out volume [23, 24], and \(R_{long}\) and \(R_{side}\) are the longitudinal and sideward radii, respectively, assuming a density distribution of Gaussian shape in all three dimensions. The \(R_{long}\) and \(R_{side}\) values are obtained from Refs. [25, 31] (\(k_{T}=0.2\) GeV/c). The d, \(\overline{\rm d}\) and \({}^{3}\)He, \(\overline{\rm{{}^{3}He}}\) transverse momentum ranges are \(1.5<p_{T}<2.0\) GeV/c and \(2.0<p_{T}<2.5\) GeV/c, respectively. The HBT data is chosen at the closest \(p_{T}\) to the \(p_{T}/A\) for the nuclei coalescence data throughout all of the centrality bins. The observations that the \(B_{2}\) and \(\sqrt{B_{3}}\) coalescence parameters are proportional to \(1/V_{f}\) from pion HBT over the full range of centrality indicates that the freeze-out volume for the nuclei is closely related to that for pions.
+
+The PHENIX results show the same trend of the coalescence parameters versus the number of participants. The data points are slightly higher than STAR Au+Au results if not considering feed-down uncertainties. Figure 5.9 shows a comparison between the STAR and PHENIX deuteron spectra. STAR and PHENIX observe very similar spectra. And the difference of coalescence parameters between STAR and PHENIX arises from the difference of proton spectra. That could be due to the corrections, such as feed-down corrections, applied to the proton spectra. In fact, the feed-down method used still has uncertainty, and that is reflected by the brackets in Fig. 5.8. If considering the errors brought by the uncertainties from feed-down, the STAR and PHENIX results are consistent.
+
+The 200 GeV Cu+Cu \(B_{2}\) results from \(\overline{\rm d}\) and \(\overline{\rm p}\) are also superimposed on Fig. 5.8. The points are slightly higher than STAR Au+Au results, and closer to the PHENIX data points. The Cu+Cu results are consistent with Au+Au results, considering the uncertainties of the feed-down correction.
+
+In the coalescence model [23, 24], the proportionality factors quantitatively connecting the \(B_{2}\) and \(B_{3}\) parameters to the homogeneous volume depend on flow profile, temperature, correction factors due to quantum wave functions, and other detailed assumptions of the coalescence models. A precise extraction of these model-dependent factors from data will be possible in the future when the large uncertainty on and \(B_{3}\) is reduced with the improvement of \(\Lambda+\Sigma\) decay feed-down correction to the proton yields [21].
+
+### 5.4 Relation to Cosmology
+
+The early universe, according to the Big Bang theory [5], is a hot dense matter, which is similar to the fire ball produced in ultra relativistic heavy ion collisions. So the study results of collision experiments can be compared to cosmology results. That is how the largest thing (the universe) is related to the smallest thing (quarks and leptons) in the world are related to each other.
+
+The d/p ratio is proportional to baryon density [37]. In the ultra relativistic heavy ion collisions, a large fraction of the deuterons produced are not from the primary collision vertex, but from the interaction between the collision products and the beam pipe material. And the productions of deuteron and anti-deuteron are different. But when the net baryon density gets close to zero, anti-deuterons are used as a measure of deuteron production. Previous study of baryon densities for different collision systems [38] results in the data points shown in Fig. 5.10. This figure shows that the baryon density in \(\gamma\)p, pp, pA and AA collisions follows a universal distribution as a function of beam energy. At baryon chemical potential \(\mu_{B}=0\), \({\rm d/p}=\bar{\rm d}/\bar{\rm p}\) and the measurements from all systems are consistent with each other. This condition should precede that of the Big Bang nucleosynthesis (BBN) in the evolution of the universe. This prompts us to compare the baryon density at this limit to that in the universe. We select the data points from Fig. 5.10 which are closest to the \(\mu_{B}=0\) condition: Au+Au collisions at \(\sqrt{s_{{}_{NN}}}=200\) GeV per nucleon, \(e^{+}e^{-}\to ggg\) at \(\sqrt{s}=10\) GeV, \(\gamma p\) at \(\sqrt{s}=200\) GeV, and \(\bar{\rm p}+\rm p\) at \(\sqrt{s}=1.8\) TeV. The average valueis \(\rm\bar{d}/\bar{p}=(7.6\pm 0.8)\times 10^{-4}\) as compared to \(D/H=(2.78\pm 0.2)\times 10^{-5}\)[39, 40, 41] and \((D+{{}^{3}He})/H=(3.7\pm 1)\times 10^{-5}\)[42] in BBN. The Cu+Cu collision result at \(\sqrt{s_{{}_{NN}}}=200\) based on the results presented in the previous chapter in this thesis is added to the figure, indicated by the solid star symbol, which shows consistence with the 200 GeV Au+Au results from both STAR and PHENIX. By taking the ratio of the abundances measured in BBN (\(D/H\)) and in collider (\(\rm\bar{d}/\bar{p}\)), the baryon density fraction (the ratio of the green to the yellow band in the this Fig. 5.10) is \(\Omega_{BBN/RHIC}=0.036\pm 0.004\), which is consistent with the values of \(\Omega_{B}=(4\pm 1)\%\) obtained from standard BBN calculations [43, 39, 40, 41] and from the Cosmic Microwave Background (CMB).
+
+**Figure 5.10:**\(\rm\bar{d}/\bar{p}\) as a measure of antibaryon phase space density as a function of beam energy for various beam species. Data points from \(e^{+}e^{-}\) and \(\gamma\)p collisions are also shown at their center of mass beam energy. Top band is the average of \(\rm\bar{d}/\bar{p}\) from collider data at zero chemical potential, and the bottom band is the results of D/H from BBN. This plot is regionally obtained from Ref. [18], and the Cu+Cu point (red solid star) is added to this plot based on the study previously presented in Chapter 4.
+
+It is easy to dismiss this comparison and the values as coincidence because the processes of deuteron production at RHIC and BBN are completely different. The process at RHIC is coalescence of a proton and a neutron where the wave functions overlap at a freeze-out temperature of about 120 MeV. In the BBN the processes which determine the final \(D/H\) are photo-production and photo-dissociation p(n,\(\gamma\))D at temperatures \({}^{<}_{\sim}1\) MeV. In addition, the yields and the production mechanism of heavier elements (\({}^{3}\)He, \({}^{4}\)He) are very different. In coalescence, the heavier elements are produced by quantum wave function overlap and the yields are orders of magnitude down from d/p ratio, since the ratio \(\propto(d/p)^{A-1}\)[23, 24, 38]. In BBN, the heavier elements are produced at a later stage through the cascade burning of the deuterium and the proton via reactions of D(p,\(\gamma\))\({}^{3}\)He and \({}^{3}\)He(D,p)\({}^{4}\)He [39, 40]. The connections are obvious:
+
+* The wave function overlap between the proton and the neutron to produce a deuteron by coalescence is characterized by their distance(\(\Delta X\)) and their momentum difference (\(\Delta p\)). The \(\Delta X\Delta p\) is determined by the binding energy of a deuteron [23, 24, 44]. The photo-production or photo-dissociation of deuterons in the BBN is determined by the deuteron binding energy or p(n,\(\gamma\))D reaction cross-section.
+* The coalescence probability is directly related to the baryon density at RHIC. In BBN, the deuteron production relies on the baryon-to-photon ratio (\(\eta_{B}\)) and the expansion (cooling) rate of the universe, which is governed by the total energy of the universe and the baryon density fraction (\(\Omega_{B}\)).
+
+It is interesting to see that we can connect the wave function in coalescence with the photo-production and dissociation cross-sections, and baryon density at RHIC with \(\eta_{B}\) and \(\Omega_{B}\) in the BBN. However, a numerical computation from both processes needs further investigation to study whether the connection can indeed be established. If a detailed theoretical model can make the connection, this will be the most direct connection between RHIC and astrophysics.
+
+## Chapter 6 Search for Anti-Alpha
+
+### 6.1 Current searching method
+
+Anti-particles drew the attention of physicists since the discovery of anti-proton and positron. All matter in our world is made from protons, neutrons and electrons in the way that a nucleus is composed of protons and neutrons surrounded by an electron cloud. Since these three particles all have their counter parts: anti-proton, anti-neutron, and positron, an anti-world could be made up from such particles.
+
+Anti-atoms consisting of anti-nuclei and positrons can be made. How heavy can an anti-nucleus be? Theoretically, there is no limitation. \(\overline{\mathrm{d}}\)[45] and \(\overline{\mathrm{{}^{3}He}}\)[46] have already been found. Anti-helium4 (\(\overline{\mathrm{{}^{4}He}}\), or, anti-alpha) has never been found. With ever increasing energy and statistics, there is a possibility to find the anti-alpha in heavy ion collisions.
+
+The technique for searching for the anti-alpha is to use \(dE/dx\) in the TPC. The\(dE/dx\) versus momentum, and the \(z\) plots for negatively charge particles are used to identify anti-alpha. Because of the low production rates, large number of anti-alpha particles showing a clearly distinguishable bands on \(dE/dx\) plots are not expected. Several points above the theoretically predicted Bichsel function line [17] are good candidates. Further investigations of those candidate tracks are made to check the validity of the tracking information. The energy deposit in the Electro-Magnetic Calorimeter (EMC) may also signal an anti-alpha.
+
+Anti-Alpha Candidates
+
+The search for anti-alpha particles was implemented on several data sets. We found two possible candidates 1.
+
+Footnote 1: The two candidates are found in STAR Run-VII collisions, production P08ic. The trigger name is 2007ProductionMinBias.
+
+Strict track quality cuts were applied to the data. The DCA of the tracks was required to be less than 1 cm. Figure 6.1 shows the \(dE/dx\) distribution plots versus the momentum. The upper plot is for positively charge particles and the lower plot is for the negatively charged particles. The blue dashed lines are the expected \(dE/dx\) curves for \({}^{\overline{4}\rm{He}}\) based on the Bichsel function predictions. In the upper plot the alpha particles can be seen to form a clear band near the predicted line, representing the alpha particles generated in RHIC collisions. In the lower plot, the points are enlarged and shown in triangles, in order to see the few single points near the anti-alpha line. There are two tracks (in the circle) close to and above the line, well clear from the \({}^{\overline{3}\rm{He}}\) band. These two tracks are considered candidates for the anti-alpha. Further investigations were performed to check these two tracks.
+
+Figures 6.2 and 6.3 show the \(z_{\rm{He}^{4}}\) distributions for different momentum ranges of positive and negative particles, respectively. The red dashed lines shown in the plots represent the expected peak position of \({}^{3}\rm{He}\). The two candidates mentioned before are encircled in Fig. 6.3. They stand clearly away from \({}^{3}\rm{He}\) peak and the red dashed line.
+
+The two candidate tracks, denoted as track A and B, are further explored. The de tailed information is shown in Tab. 6.1. We checked the these two candidates, and the validity of all the tracking information was confirmed. The two tracks are displayed in the STAR event display interface. Figure 6.4 and 6.5 show the 3-dimensional views of the tracking information. The two tracks are displayed in the STAR event display interface.
+
+Figure 6.1: The TPC \(dE/dx\) versus \(p/|Z|\) distribution for positively (upper plot) and negatively (lower plot) charged particles. The solid line represents the Bichsel predicted \({}^{3}\)He position and the dashed line represents the \({}^{4}\)He line. The lower plot uses large triangle markers in order to show clearly the 2 anti-alpha candidates (in the circle).
+
+of the two candidate tracks in the STAR geometry.
+
+The azimuthal angle of the two tracks are compared to the STAR TPC geometry. Figure 6.6 shows a transverse view of the STAR TPC sectors. The 2 candidates are also shown. If the azimuthal angle of a track is just on a boundary, it may be a fake track.
+
+Candidate A: \(\phi\)=-110.3\({}^{\circ}\), which is in between the the TPC sector boundaries at -97.5\({}^{\circ}\) and -112.5\({}^{\circ}\). It is not on the boundary; Candidate B: \(\phi\)=-24.8\({}^{\circ}\), which is in between the the TPC sector boundaries at -22.5\({}^{\circ}\) and -37.5\({}^{\circ}\). It is not on the boundary, either.
+
+Figure 6.2: \(z\) distribution for positively charged particles in different momentum range.
+
+[MISSING_PAGE_EMPTY:106]
+
+the anti-alpha particles were annihilated in the EMC, there would be about 8 GeV energy deposited. But there is also chance that they were not annihilated in the EMC. Unfortunately the latter case seems to be true in this case. The the EMC deposited energy for track A is 1.08 GeV. And track B did not deposit energy in the EMC.
+
+An estimation of how many anti-alpha particles have been produced in the events is relevant because we want to know whether or not the yield of two candidates are reasonable. Figure. 6.7 shows the comparison of the ratio of anti-nuclei to nuclei. According to the coalescence model, the ratio of anti-proton to proton is compara
+
+Figure 6.6: The left plot shows the transverse geometry of the STAR TPC sectors. The middle and right plots shows the candidates A and B in the TPC transverse geometry, respectively.
+
+Figure 6.5: The candidate track B shown in STAR event display.
+
+ble to \((\mbox{${}^{3}\overline{\mbox{He}}$}/\mbox{${}^{3}\mbox{He}$})^{1/3}\) and \((\mbox{${}^{4}\overline{\mbox{He}}$}/\mbox{${}^{4}\mbox{He}$})^{1/4}\) at the same \(p_{T}/A\). The plot shows that the \((\mbox{${}^{3}\overline{\mbox{He}}$}/\mbox{${}^{3}\mbox{He}$})^{1/3}\) ratio is consistent with \((\overline{p}/\mbox{p})\) at similar \(p_{T}/A\). However \((\mbox{${}^{4}\overline{\mbox{He}}$}/\mbox{${}^{4}\mbox{He}$})^{1/4}\) is lower. That means the anti-alpha particles are underestimated, _i.e._ there might be more than two anti-alpha particles.
+
+Figure. 6.8 shows the number of the anti-nuclei (in a logarithm scale) versus the atomic number. The plot shows a roughly linear relation. If we extrapolate the trend to \(A=4\), we found that the expected anti-alpha yield is 2. That coincides with the two candidates we found.
+
+**Figure 6.8:** The raw yields versus atomic numbers for negatively charged nuclei.
+
+**Table 6.1:** Track information of the two anti-alpha candidates.
+
+\begin{tabular}{|c|c|c|} \hline  & Track A & Track B \\ \hline Run Id & 8112087 & 8127001 \\ Event Id & 22394 & 31049 \\ Track Id & 425 & 1250 \\ RefMult & 271 & 410 \\ DCA (cm) & 0.244 & 0.626 \\ nHitsFit & 33 & 27 \\ nHitsDedx & 22 & 18 \\ vertex (cm) & (0.466, -0.142, 5.331) & (0.484, -0.181, -3.399) \\ pseudorapidity & 0.530 & -0.114 \\ \(\phi\) (degree) & -110.3 & -24.8 \\ \(p/Z\) (GeV/c) & (-0.287, -0.775, 0.459) & (0.874, -0.403, -0.110) \\ \(dE/dx(GeV/cm)\) & \(4.299\times 10^{-5}\) & \(4.203\times 10^{-5}\) \\ \(z_{\rm He4}\) & 0.110 & 0.122 \\ \hline \end{tabular}
+
+**Figure 6.9:** The raw yields versus atomic numbers for negatively charged nuclei.
+
+Future Hope in Searching Anti-Alpha
+
+So far we have found two anti-alpha candidates in STAR. This is not considered to be a discovery, and the search will continue.
+
+In the future we hope to find anti-alpha particles using the fully commissioned TOF system, which supplies enhanced particle identification capabilities for STAR. The full TOF system is nearly finished with 120 trays covering \(2\pi\) of azimuthal angle and a pseudorapidity range from -1 to 1. In the future, anti-alpha candidates found by the TPC could be confirmed by TOF system. The direct mass measurement of TOF will make the identity more convincing.
+
+In addition, the TPC electronics have been upgraded and with the new TPX, the data acquisition procedure is 10 times faster. In STAR Run-VII there was only one TPX sector but as of Run-VIII all sectors are upgraded. With the increased data rate capability, more events can be collected.
+
+## Chapter 7 Summary and Conclusions
+
+This thesis presents the study of light nuclei and anti-nuclei in the RHIC STAR experiment. It includes particle transverse momentum spectra, the elliptic flow \(v_{2}\), a comparison to the blast wave model, and the search for anti-alpha particles.
+
+The \(p_{T}\) spectra and \(v_{2}\) research in 200 GeV Cu+Cu collisions uses the ionization energy loss in the TPC for particle identification. The protons and deuterons are identified and their spectra are used to calculate the coalescence parameters. Low momentum deuterons are contaminated by the products knocked from the beam pipe, so only anti-deuterons and anti-protons are used to calculate the coalescence parameter \(B_{2}\). The heavier anti-nucleus \(\overline{{}^{3}\mathrm{He}}\) is also studied and its yield is used to obtain the coalescence parameter \(B_{3}\). According to the coalescence model, both \(B_{2}\) and \(\sqrt{B_{3}}\) are proportional to the inverse of the coalescence volume. In the referenced material, 200 GeV Au+Au results involve both the TPC and the TOF identification in a broad \(p_{T}\) range. In this thesis, \(B_{2}\) and \(\sqrt{B_{3}}\) from both Cu+Cu and Au+Auresults are compared, and they are found to be consistent with each other. The inverse of \(B_{2}\) in the same \(p_{T}\) ranges are compared, and found to be proportional to the number of participants involved in the collisions. For \(p_{T}/A\) about 0.5 GeV/c, \(1/B_{2}\) and \(1/\sqrt{B_{3}}\) from both Au+Au and Cu+Cu are compared. Both values are also consistent and proportional to the number of participant nucleons. All the results are consistent with the expected relationship between the coalescence parameters and the freeze-out volume. The pion HBT volumes calculated from the published paper are also compared to \(B_{2}\) and \(B_{3}\) from STAR Cu+Cu, Au+Au, and PHENIX Au+Au experiments. The coalescence parameters are consistent with the inverted pion HBT volumes.
+
+The anti-proton and anti-deuteron \(v_{2}\) are studied in this thesis for 200 GeV Cu+Cu collisions. The anti-proton results are compared with published Au+Au \(\overline{\rm p}\), \(\Lambda\), \(\pi\) results and with the preliminary 200 GeV Cu+Cu \(\Lambda\) and charged hadron results. The results are compared and demonstrated to be consistent. The \(\overline{\rm d}\)\(v_{2}\) of Cu+Cu is compared to the referenced Au+Au results. They both show the negative \(v_{2}\), which was predicted by the blast wave model, assumed to be a result of large radial flow.
+
+This thesis used the blast wave model to fit the published Au+Au pion, kaon and proton spectra and \(v_{2}\) for the same centrality. The obtained fitting parameters which are related to the physical features of the freeze-out, are used in the blast wave model to predict the deuteron and \({}^{3}\)He spectra and \(v_{2}\). The predictions are compared to the referenced experimental data. The model overpredicts the radial flow, which causesthe spectra curves to be flatter [33, 25]. And because of the large uncertainty of deuteron and helium \(v_{2}\), the fitting \(\chi^{2}\) are large. Thus the solid proof of consistency is still lacking.
+
+The search for a heavier anti-nucleus, the anti-alpha, is presented in the thesis. The search uses the ionization energy loss in the TPC. Two possible candidates are found. The parameters of the two candidate tracks are obtained and the validity of the tracks are checked. The tracks are also projected into the EMC but the results showed no energy deposits of about 8 GeV in EMC. That does not mean the two tracks are not anti-alpha because there is a chance that the anti-alpha can pass through the EMC without being annihilated. In the future, increasing statistics using the upgraded TPC electronics, and the large area TOF will provide possible confirmation of the anti-alpha candidates.
+
+## Bibliography
+
+* [1] S. F. Novaes. "Standard Model: An Introduction", hep-ex/0001283v1, (2000).
+* A Progress Report", hep-ex/9912523v1, (1999).
+* [3] M. Schmelling. "Status of the strong coupling constant", hep-ex/9701002, (1996).
+* [4] J. C. Collins and M. J. Perry. "Superdense Matter: Neutrons or Asymptotically Free Quarks?". _Physical Review Letters_, 34:1353, (1975).
+* [5] David Voss. "Making the Stuff of the Big Bang". _Science_, 285(5431):1194-1197, (1999).
+* [6] RHIC Website. [http://www.bnl.gov/rhic/](http://www.bnl.gov/rhic/).
+* [7] STAR Webpage. [http://www.star.bnl.gov/central/experiment/](http://www.star.bnl.gov/central/experiment/).
+* [8] K. H. Ackermann, _et al._ "STAR detector overview". _Nuclear Instruments and Methods in Physics Research_, A 499:624-632, (2003).
+
+* [9] M. Anderson, _et al._ "The STAR time projection chameber: a unique tool for studying high multiplicity events at RHIC". _Nuclear Instruments and Methods in Physics Research_, A 499:659-678, (2003).
+* [10] The STAR TOF Collaboration. "Proposal for a Large Area Time of Flight System for STAR", (2003).
+* [11] W. J. Llope, _et al._ "The TOFp/pVPD time-of-flight system for STAR". _Nuclear Instruments and Methods in Physics Research_, A 522:252-273, (2004).
+* [12] J. Wu, _et al._ "The performance of TOFr tray in STAR". _Nuclear Instruments and Methods in Physics Research_, A 538:243, (2005).
+* [13] E. C. Zeballos, _et al._. "A new type of resistive plate chamber: The multigap RPC". _Nuclear Instruments and Methods in Physics Research_, A 374:132, (1996).
+* [14] F. Geurts, _et al._. "Performance of the prototype MRPC detectors for STAR". _Nuclear Instruments and Methods in Physics Research_, A 533:60-64, (2004).
+* [15] Jianhang Zhou. "Construction of a New Detector, and Calibration Strategies, for Start Timing in the STAR Experiment at RHIC", Master's thesis, (2006).
+* An Object Oriented Data Analysis Framework". _Nuclear Instruments and Methods in Physics Research_, A 389:81-86, (1997).
+* [17] H. Bichsel. "A method to improve tracking and particle identification in TPCsand silicon detectors". _Nuclear Instruments and Methods in Physics Research_, A 562:154, (2006).
+* [18] Haidong Liu. "Production of meson, baryon and light nuclei (A=2,3): investigating freeze-out dynamics and roles of energetic quarks and gluons in Au+Au collisions at RHIC", PhD thesis, (2007).
+* [19] M. Shao, _et al._ "Extensive particle identification with TPC and TOF at the STAR experiment". _Nuclear Instruments and Methods in Physics Research_, A 558:419, (2006).
+* [20] M. Shao. "Pion, kaon and (anti-) proton production in Au+Au collisions at \(\sqrt{s_{NN}}=62.4\) GeV/c". _J. Physics_, G 31:S85, (2005).
+* [21] B.I. Abelev _et al._ "Identified Baryon and Meson Distributions at Large Transverse Momenta from Au+Au Collisions at \(\sqrt{s_{NN}}=200\) GeV". _Physical Review Letters_, 97:152301, (2006).
+* [22] H.H. Gutbrod _et al._ "Final-State Interactions in the Production of Hydrogen and Helium Isotopes by Relativistic Heavy Ions on Uranium". _Physical Review Letters_, 37:667, (1976).
+* [23] R. Scheibl and U. Heinz. "Coalescence and flow in ultrarelativistic heavy ion collisions". _Physical Review_, C 59:1585, (1999).
+* [24] W. J. Llope _et al._ "The fragment coalescence model". _Physical Review_, C 52:2004, (1995).
+
+* [25] F. Retiere and M. A. Lisa. "Observable implications of geometrical and dynamical aspects of freeze-out in heavy ion collisions". _Physical Review_, C 70:044907, (2004).
+* [26] A. M. Poskanzer and S. A. Voloshin. "Methods for analyzing anisotropic flow in relativistic nuclear collisions". _Physical Review_, C 58:1671, (1998).
+* [27] J. Barrette _et al._ "Proton and pion production relative to the reaction plane in Au+Au collisions at 11A GeV/c". _Physical Review_, C 56:3254, (1997).
+* [28] J.-Y. Ollitrault. "Anisotropy as a signature of transverse collective flow". _Physical Review_, D 46:229, (1992).
+* [29] S. Voloshin and Y. Zhang. "Flow study in relativistic nuclear collisions by Fourier expansion of azimuthal particle distributions". _Z. fur. Physik_, C 70:665, (1996).
+* [30] J. Adams, _et al._ (STAR Collaboration). "Measurements of transverse energy distributions in Au+Au collisions at \(\sqrt{s_{NN}}\)=200 GeV". _Physical Review_, C 70:054907, (2004).
+* [31] J. Adams _et al._ (STAR Collaboration). "Azimuthal anisotropy in Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV". _Physical Review_, C 72:014904, (2005).
+* [32] B. I. Abelev _et al._ (STAR Collaboration). "Charged particle and strange hadron elliptic flow from \(\sqrt{s_{NN}}=62.4\) and 200 GeV Cu+Cu collisions", (to be published on Physical Review C), (2009).
+
+* [33] P. Huovinen, _et al._ "Radial and elliptic flow at RHIC: further predictions". _Physics Letters_, B 503:58, (2001).
+* [34] Y.S. Oh and C.-M. Ko. "Elliptic flow of deuterons in relativistic heavy-ion collisions". _Physical Review_, C 76:054910, (2007).
+* [35] Cheuk-Yin Wong. _"Introduction to High-Energy Heavy-Ion Collisions", Chapter 17_. World Scientific Publishing Co. Pte. Ltd., (1994).
+* [36] S.S. Adler _et al._ (PHENIX Collaboration). "Deuteron and Antideuteron Production in Au+Au Collisions at \(\sqrt{s_{NN}}=200\) GeV". _Physical Review Letters_, 94:122302, (2005).
+* [37] F. Wang and N. Xu. "Baryon phase-space density in heavy-ion collisions". _Physical Review_, C 61:021904, (2000).
+* [38] H. Liu and Z. Xu. "Universal anti-baryon density in \(e^{+}e^{-}\),\(\gamma p\), pp, pA and AA collisions", nucl-ex/0610035v1, (2006).
+* [39] B.D. Fields and S. Sarkar. "Big-Bang nucleosynthesis (Particle Data Group mini-review)", astro-ph/0601514v2, (2006).
+* [40] W.-M. Yao _et al._ (Particle Data Book). "Review of Particle Physics". _Journal of Physics_, G 33:1, (2006).
+* [41] M. Pettini and D.V. Bowen. "A New Measurement of the Primordial Abundanceof Deuterium: Toward Convergence with the Baryon Density from the CMB?". _The Astrophysical Journal_, 560:41, (2001).
+* [42] J. Gloeckler and G. Geiss. "Abundances of Deuterium and Helium-3 in the Protosolar Cloud". _Space Science Review_, 84:239, (1998).
+* [43] S. Burles, K. M. Nollett, and M.S. Turner. "Big-Bang Nucleosynthesis Predictions for Precision Cosmology". _The Astrophysical Journal_, 552:L1, (2001).
+* [44] S. T. Butler and C. A. Pearson. "Deuterons from High-Energy Proton Bombardment of Matter". _Physical Review_, 129:836, (1963).
+* [45] T. Massam, _et al.__Nuovo Cimento_, 39:10, (1965).
+* [46] C. Adler _et al._ (STAR Collaboration). "\(\bar{d}\) and \(\overline{{}^{3}He}\) Production in \(\sqrt{s_{NN}}=130\) GeV Au+Au Collisions". _Physical Review Letters_, 87:262301, (2001).

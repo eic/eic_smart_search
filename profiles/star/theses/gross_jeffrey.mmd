@@ -1,0 +1,2071 @@
+Thesis: Approved
+
+by
+
+_Thomas S. WeSlare S._ Major Advisor
+
+_James Jackin_ Dean Development Of A Distributed Control System
+
+For The Solenoidal Tracker At RHIC (STAR)
+
+BY
+
+JEFFREY JOTIN GROSS
+
+A THESIS
+
+Submitted to the Faculty of the Graduate School of
+
+Creighton University in Partial Fulfillment of
+
+the Requirements for the Degree of Master
+
+of Science in the Department of Physics
+
+Omaha, 1995
+
+###### Abstract
+
+The Solenoidal Tracker At RHIC (STAR) will search for signatures of a Quark-Gluon Plasma formation and investigate the behavior of strongly interacting matter at high energy density. The correlation between global observables on an event-by-event basis as a probe of the properties of high density nuclear matter is discussed. An overview of the experiment is presented. The control system for the STAR experiment at RHIC is presented. The VME-based architecture is described. Reasons for the hardware and software choices are discussed. A significant new application of a slow control system (EPICS) to a run control setting is discussed. Interfaces to the detector subsystems are described. The initial implementation of the control systems for the baseline STAR detector is summarized.
+
+## Acknowledgments
+
+At this time I would like to take the opportunity to thank some of the people who have helped me while completing my Masters degree at
+
+Creighton University.
+
+I would especially like to thank my parents, John L. and Norma J. Gross. They have encouraged me to work for what I believe. They have taught me to put others before myself and that this will always reap rewards. Without their encouragement, understanding, love, and support I would not be here today. I am forever indebted to them for this.
+
+I would like to thank Dr. Michael G. Cherney for the role he has played in my development at Creighton. Dr. Cherney provided me with the opportunity to pursue several projects which would not have been available to me had I gone to school elsewhere. He has encouraged me to perform at my top level, thus allowing me opportunities to excel. Without this, I would never have realized the importance of hard work. He has helped to show me my capabilities, and has always made sure I perform up to these. He has encouraged me to reflect on my life, as well as look to the future. By doing this I have become more aware of the meaning of my life and the influence it has on others. For his help, guidance, and encouragement, I am grateful. It has been an honor to work with someone of such high caliber.
+
+My years at Creighton University have allowed me to work with all of the members of the physics department. It has been a privilege to work with such a diverse group of caring individuals. I would like to thank all of them for their friendships, guidance, and care.
+
+Lastly, I would like to thank my advisor, mentor, and friend Fr.
+
+Thomas McShane S.J. Without his leadership, care, understanding, andfriendship; I would not be where I am today. He took me under his wing when I arrived at Creighton as an undergraduate and has carried me with him ever since. Not only has he taught me the importance of education, but he has helped and encouraged me to grow as a human being. He has taught me to be strong, to work hard, to set goals, and most importantly, to achieve these goals: For all of these things I am ever indebted. The difference he has made in my life will not only affect myself, but everyone around me.
+
+TABLE OF CONTENTS
+
+Abstract
+
+iii
+
+Acknowledgements
+
+iv
+
+Table of Contents
+
+List of Figures
+
+Introduction
+
+Chapter 1 Relativistic Heavy Ion Physics
+
+1.1 Theory and History of Relativistic Heavy Ion Physics
+
+2
+
+1.2 Physics of the Solenoidal Tracker At RHIC
+
+1.2.1 Particle Spectra
+
+1.2.2 Flavor Composition
+
+1.2.3 Fluctuation in Global Observables
+
+1.2.4 Electromagnetic and Hadronic Energy
+
+1.2.5 Parton Physics
+
+1.3 Relativistic Heavy Ion Collider (RHIC)
+
+Chapter 2 Solenoidal Tracker At RHIC (STAR)
+
+2.1 Implementation Plan
+
+2.2 Experimental Set-Up
+
+[MISSING_PAGE_EMPTY:7]
+
+[MISSING_PAGE_EMPTY:8]
+
+**Figure 1.1**: The interaction between quarks and gluons.
+* **Figure 1.2**: Phase diagram of the temperature vs. the net baryon density.
+* **Figure 1.3**: The configuration of two colliding nuclei.
+* **Figure 1.4**: The configuration after collision.
+* **Figure 1.5**: The space-time scenario of a nucleus-nucleus collision.
+* **Figure 1.6**: Simulation of the pt spectrum for one event.
+* **Figure 1.7**: Standard Deviation of \(<\)pt\(>\), K/\(\pi\) ratios.
+* **Figure 1.8**: Layout of the RHIC Project.
+* **Figure 1.9**: RHIC acceleration for gold ions.
+* **Chapter.2**:
+
+* **Figure 2.1**: \(\Lambda\) perspective view of the STAR experiment.
+* **Figure 2.2**: Principle of a multiwire proportional chamber.
+* **Figure 2.3**: Charged particle traversing a radiator gas.
+* **Figure 2.4**: Development of an avalanche near an anode wire.
+* **Figure 2.5**: Equipotential line with ionizing particle and anode wire.
+* **Figure 2.6**: ALEPH Time Projection Chamber.
+* **Figure 2.7**: Schematic picture of the NA36 TPC.
+* **Figure 2.8**: Schematic picture of the STAR detectors.
+* **Figure 2.9**: Diagram of the STAR central TPC.
+* **Figure 2.10**: Details of the field cage configurations.
+* **Figure 2.11**: Diagram of the TPC end-cap showing the pad rows.
+* **Figure 2.12**: Pad layout for the inner and outer pad planes.
+* **Figure 2.13**: Configuration of the STAR TPC wire planes.
+
+Figure 2.14: Cross-section of the first silicon drift detector [33]
+
+Figure 2.15: STAR SVT layout [35]
+
+Figure 2.16: The design of the SVT silicon drift detectors [36]
+
+Figure 2.17: Partial view of the assembled SVT [37]
+
+Figure 2.18: Energy band structure in scintillating crystals [37]
+
+Figure 2.19: Cross-Section of photomultiplier tube [39]
+
+Figure 2.20: End view of the STAR EMC barrel [39]
+
+Figure 2.21: Cross section of a lead-scintillator stack in the EMC [40]
+
+Figure 2.22: Shingle layout design of the TOF detectors [42]
+
+Figure 2.23: A drawing of 108 trays that house the TOF shingles [42]
+
+Figure 2.24: A schematic drawing of the XTPC [44]
+
+Figure 2.25: Quadrant view of the STAR trigger detectors [45]
+
+Figure 2.26: Coverage of the trigger detectors [47]
+
+Figure 3.1: The basic structure of EPICS [52]
+
+Figure 3.2: GDCT picture used for the TPC Drift Velocity [54]
+
+Figure 3.3: DCT Screen used to create process variables [55]
+
+Figure 3.4: MEDM Screen used for the TPC Drift Velocity [57]
+
+Figure 3.5: MEDM Screen used for the LINAC at Argonne [58]
+
+Figure 3.6: Edd/Dm Screen used for the TPC Anode Wire HV control [59]
+
+Figure 3.7: MEDM Screen with an Import Tool example [60]
+
+Figure 3.8: Hierarchical ALH display used for the TPC FEE [61]
+
+Figure 3.9: Archived data plot [63]
+
+Figure 3.10: Software configuration of EPICS [64]
+
+Figure 3.11: Typical hardware configuration of EPICS [64]
+
+**Development Of A Distributed Slow Control System**
+
+**For The Solenoidal Tracker At RHIC (STAR)**
+
+**BY**
+
+**Jeffrey John Gross**
+
+## Introduction
+
+This thesis discusses the Solenoidal Tracker At RHIC (STAR), a detector to be used for detection of particles produced from heavy ion collisions at the Relativistic Heavy Ion Collider (RHIC), under construction at Brookhaven National Laboratory. The theory and history of heavy ion physics, the physics of the STAR experiment, and the physics of the Relativistic Heavy Ion Collider are presented in chapter one. Chapter two presents the experimental setup of each STAR detector, as well as an explanation of the engineering and physics behind each. The third chapter presents an overview of the STAR Controls system, discusses the architecture of the system, describes the functionality of the software, summarizes subsystem slow control parameters, and explains the involvement of Creighton as the head STAR Controls development institution.
+
+## Chapter 11 **Relativistic Heavy Ion Physics**
+
+Nuclear physics has gone through a revolution in the past two decades. In the 1970's and early 80's some accelerators used by particle physicists were being converted to accelerate heavy ions such as lead, gold, and sulfur. At the same time the energies of accelerators used for nuclear research were increased making beams of relativistic heavy nuclei available in several locations throughout the world. By the mid-80's, heavy ions were injected into some of the highest energy proton accelerators such as the Alternating Gradient Synchrotron (AGS) at Brookhaven National Laboratory (BNL) and the Super Proton Synchrotron (SPS) at the European Center for Nuclear Research (CERN). Plans also were being laid for the development of new accelerators such as the Relativistic Heavy Ion Collider (RHIC) at BNL and the Large Hadron Collider (LHC) at CERN. The reason for the new interest in heavy ion reactions is that this is the only means of studying highly energetic, compressed nuclear matter in order to observe a new phase of matter called the quark-gluon plasma.
+
+Deep inelastic electron collision experiments of the early 1970's were the first investigations to find real evidence of an internal structure of nucleons, that they are made of quarks and gluons. The name 'deep inelastic scattering' is given because the nucleons, which are probed by electrons, nearly always disintegrate as a result of the penetration. A calculation can be done for the minimum momentum required to disintegrate nucleons. The momentum-wavelength relation is given by \(\mathbf{h}=\hat{\lambda}\mathbf{p}_{i}\), where \(\mathbf{h}\) is Planck'sconstant and \(\lambda\) and \(\bf p\) are the respective wavelength and momentum of the electron. The formula \(\bf h\) = \(\lambda_{\bf p}\) then gives the required momentum of the electron, with which the target nucleons are likely to disintegrate, as being greater than 10MeV/c.
+
+The success of Quantum Electrodynamics (QED) in accounting for the interactions between charges has encouraged physicists to seek a similar gauge theory for the strong interactions. Quantum Chromodynamics (QCD) is such a gauge theory which describes strongly interacting matter. In QCD, quarks can have (arbitrary) colors of red (R), green (G), and blue (B). The anti-quarks are given one of the opposite colors which in conventional color terminology are the complementary colors anti-red (\(\overline{\rm R}\) ), anti-green (\(\overline{\rm G}\) ), and anti-blue (\(\overline{\rm B}\) ). In our physical world, all particles, at least those which we can observe, are white, or color neutral. In other words, a meson containing a q\(\overline{\rm q}\) pair, a baryon containing a red, a green, and a blue (RGB) quark, an antibaryon containing an anti-red, an anti-green, and an anti-blue (\(\overline{\rm RGB}\)), will all be color neutral. The forces between quarks are similar to those of electrons and positrons in that in both cases there is an exchange of virtual quanta. The virtual quanta in QCD are called gluons. QCD parallels QED in the following ways.
+
+\begin{tabular}{l l} QED & QCD \\ Electric charge & Color \\ Force between charges is due to & Force between colored quarks \\ photon exchange (massless bosons) & is due to exchange of quanta \\  & called gluons (massless bosons) \\ One Charge and one anticharge & Three colors and three \\ anticolors & \\ Quantum is neutral & \\ \end{tabular}
+
+The strong interaction is represented by the quantum number called "color." The idea of color is believed to play a fundamental role in the interaction between quarks. However, the coupling of gluons to quarks is more complicated than the coupling of photons to electrons. When a photon interacts with an electron, the latter remains an electron. When a gluon interacts with a quark, the gluon can change the color of the quark. For example, a gluon can transform a red quark into a green quark (figure 1.1) [11].
+
+The strong interaction, dependent on the distance between the quarks, increases linearly with the separation between the quarks. If quarks were separated, an infinite energy would be needed. However, at high energy densities and high temperatures, the strong tie between the quarks and gluons weakens and colored objects will propagate longer distances from the interaction point.
+
+Current theory predicts the energy in a center-of-mass system (c.m.s.) for colliding beams needed to produce a quark deconfinement to be around
+
+Figure 1.1: The interaction between quarks and gluons,
+
+[MISSING_PAGE_FAIL:16]
+
+this new phase would be very unstable. Although this quark phase may be stable and thus directly observable in exotic environments such as the interior of heavy stars, a direct observation of the existence of this phase under terrestrial circumstances is not possible. The predicted period of this phase is expected to be no longer than the time of hadronic reactions which is on the order of 3 x 10-24 s [CS 92].
+
+Consider the head-on collision of two nuclei in the center-of-mass reference frame. Two colliding nuclei can be represented as two. "pancake" shaped disks due to the Lorentz contraction in the longitudinal direction (figure 1.3). At high energies, the lower energy baryons from the collision can still have enough momentum to proceed forward, and move away from the region of collision.
+
+Figure 1.3: The configuration of two colliding nuclei A and B before collision [WO 94].
+
+The projectile baryon matter after the collision is denoted by B' and A' in figure 1.4. The energy lost by the baryons appears in the collision region around z = 0 in the center of mass frame. This is a large amount of energy deposited in a small region of space in a short time interval. The quanta which carry away this energy could be in the form of quarks, gluons, or hadrons. What form the quanta assume in the first instant after the collision is an unresolved question. Whatever the form of the material, the energy density around z = 0 is very high. This led to Bjorken's suggestion of the space-time scenario for a high-energy nucleus-nucleus collision shown in figure 1.5 [11].
+
+Figure 1.4: The configuration after collision with energy deposited in the region around z = 0 [11].
+
+Soon after the collision of two nuclei, the energy density may be high enough to make it likely that a quark-gluon plasma will be formed in the central rapidity region. The plasma may not initially be at thermodynamic equilibrium, but subsequent equilibration may bring it to local equilibrium at a given time, and the plasma may then evolve according to the laws of hydrodynamics. As the plasma expands, its temperature drops and the hadronization of the plasma will take place.
+
+Collisions of relativistic heavy ions offer the possibility of producing systems of dense nucleonic and quark-gluon matter at high temperatures. However, the observation of the quark-gluon plasma is made difficult since the high concentration of particles projecting from the collision tend to mask its presence. The hadrons emerging from the collisions are usually a result of complicated multiple interactions. Although the quark phase may be present at the beginning of the collision, the resulting hadrons do not carry with them the memory of what previously occurred. Special techniques are
+
+Figure 1.5: The space-time picture of a nucleus-nucleus collision [WO 94].
+
+therefore needed to carry out the analysis. Because of the short time frame involved in the production of the QGP, one must look for indirect evidence for this short-lived state of matter.
+
+It is plausible that signatures of the quark phase could be carried by those reaction products which emerge from the initial "fireball" without rescattering. This suggests the detection of the quark phase by observing photons and lepton-pair production. The detection of leptonic matter, lepton-pair production in particular, carries less ambiguous signatures of the hadron-quark transition. Although lepton-pair production is a rare process compared to hadron production, once a pair is formed, photons are less likely to thermalize than hadrons, due to their weaker interaction with the environment. The result is a spectrum which has more information about the early stages of the hot fireball [20].
+
+Theory predicts that the production of J/\(\Psi\) and \(\Psi\) mesons will be suppressed in a QGP. Experiments have shown that low transverse momentum, \(p_{T}\), pair production in the J/\(\Psi\) mass region is suppressed in high transverse energy, \(E_{T}\), events relative to low \(E_{T}\) events. J/\(\Psi\) mesons, which are bound states of charm, anti-charm quarks, are believed to be in a deconfined state in the QGP. The J/\(\Psi\) meson could remain bound in a low-density QGP. However, due to Debye screening, the J/\(\Psi\) can dissociate at a sufficiently high density and/or temperature. The color charges of the charm and anticharm quarks are screened in the deconfined environment of the plasma so that the J/\(\Psi\) binding energy is reduced relative to that in free space. If the number of quarks and antiquarks within the collision volume is sufficiently large, the color charges are neutralized so that the J/\(\Psi\) is not bound. Formation of the Quark Gluon Plasma is consistent with these tendencies [11][12].
+
+Another possible indication of the QGP is the momentum distribution of jets of particles produced in the interactions. Enhanced production of jets with large transverse momenta occurs in central nucleus-nucleus (A + A) collisions. New theories suggest quarks and gluons will lose less energy passing through a QGP than passing through a hadron gas of similar size. It might then be suggested that the average transverse momentum of jets will be increased for particles in a QGP rather than in a hadron gas [DO 91].
+
+Enhanced strange particle production is yet another signature of a QGP. In the early universe, equal amounts of light quarks and strange quarks were produced. As our beam energy increases, the likelihood of strange quark production becomes comparable to that of the other light quarks. The phase space of a QGP, shortly after it has been formed (10-22 s), is saturated with strange matter [KO 86]. In addition, the long lifetime and abundance of strange particles makes them good candidates for signatures of a QGP.
+
+To provide evidence for the enhancement of strange particle production, decay schemes of particles exhibiting strangeness must be examined. A commonly studied strange meson is the K\({}^{0}\), which is a bound state of an anti-down quark and a strange quark. The K\({}^{0}\) decays in the following processes:
+
+Studies of the K\({}^{0}\) favor the first channel for two reasons. The first is that the branching ratio is greater for the decay into a \(\pi^{+}\pi^{-}\) pair. The second is that the decay of a neutral particle into two oppositely charged particles is much easier to reconstruct.
+
+[MISSING_PAGE_EMPTY:22]
+
+The experiment is capable of tracking and identifying several thousand particles in an event. A full azimuthal acceptance of the detector is required to do particle identification and continuous track reconstruction. Tracking, combined with electromagnetic calorimetry and high momentum particle measurements, will allow the study of hard QCD processes. These measurements of hard-scattered partons will provide new information on nucleon structure. Momentum analysis and the direct identification of charged particles (\(\pi^{+}\),\(\pi^{-}\),K\({}^{+}\),K,p,p,d,d) as well as neutral and charged strange particles (K\({}^{0}\),\(\phi\), \(\Xi\),\(\Omega\)) via charged-particle decay modes are planned [HA 92].
+
+#### Particle Spectra
+
+The statistics made available from high multiplicity central nucleus-nucleus collisions permit the transverse momentum (pt) distribution and the <pt> (for pions and kaons) calculations to be made on an event-by event basis. The individual events can then be characterized by temperature. Events with extremely high temperatures, i.e. those resulting from a QGP, can then be identified. Figure 1.6 shows two spectra generated by the Monte Carlo method from Maxwell-Boltzman distributions with T = 150 and 250 MeV, each containing 1000 pions. The shapes of these spectra show the ease of being able to discriminate spectra at the event level [ST 92].
+
+#### Flavor Composition
+
+Measuring the \(K/\pi\) ratio (Kaon to Pion ratio) provides information on the relative concentration of strange and non-strange quarks. STAR will be capable of measuring the \(K/\pi\) ratio event-by-event with sufficient accuracy to be able to correlate the events with other event observables (figure 7). The standard deviation of the measured single event \(K/\pi\) ratio is plotted as a function of the charged particle multiplicity measured in the event.
+
+Figure 6: Simulation of the \(p_{\rm t}\) spectrum for one event generated using a Boltzmann distribution of \(1000\) pions. The histograms correspond to single events generated with \(T=150\) MeV and \(250\) MeV. The curves are fits to the histogram using a Maxwell-Bolizaman distribution [ST 92].
+
+Figure 1.7: Plotted as a function of the charged-particle multiplicity measured in an event are a) the standard deviation of \(<\)p\(>\), showing the mean pt values for temperatures of 375 and 610 MeV) b) the standard deviation of the ratio K/n (assuming \(<\)K/n\(>\) = 0.1) and c) the number of like-sign pion pairs. A central Au + Au event at RHIC is expected to produce 1000 charged particles in the acceptance of this experiment [ST’92].
+
+Although the strange quark density is much higher in the QGP than in a hadron gas, the total content of strange quarks is less in a QGP than in a hadron gas. This is due to the large volume associated with a hadron gas due to the small number of degrees of freedom compared to that of a QGP. Therefore the observables which depend on the strangeness abundance, i.e. \(\Lambda\) and K\({}^{0}\)s or K/\(\pi\) ratios, cannot be considered signatures of the QGP. However, observables depending on enhanced strangeness density, such as multiply-strange baryons, benefit from the higher strangeness density reached in the QGP. These exotic particles are therefore good signatures of a QGP formation [57].
+
+#### Fluctuation in Global Observables
+
+The fluctuations of energy density, particle ratios, entropy density, and flow of different types of particles as a function of \(\mathrm{pt}\), rapidity, and azimuthal angle have been predicted to appear during the process of hadronization of a QGP. Such fluctuations can be seen only in individual events where the statistics are large enough to overcome uncertainties. The large transverse energy and multiplicity densities at midrapidity in central collisions will allow event-by-event measurement of fluctuations of global observables, as well as measurements of local fluctuations in the magnitude and azimuthal distribution of \(\mathrm{pt}\)[57].
+
+#### Electromagnetic and Hadronic Energy.
+
+The measurement of Electromagnetic Energy (IM) vs. charged-particle energy is one of the correlations that must be measured in the search for signatures of the QGP. The unexplained imbalance between charged particle and neutral particle energy observed in cosmic ray events emphasizes the need for EM/charged particle measurements. Correlation and fluctuation analyses in both azimuth and rapidity are improved considerable by combining the EM and charged-particle data. Approximately one-third of the energy in STAR will be EM: The remaining hadronic energy can be measured by either calorimetry or particle tracking. This will provide data analysts with the information needed to determine energy correlations [ST 92].
+
+##### Parton Physics
+
+The study of hard QCD processes produced in relativistic heavy-ion collisions is used to probe nuclear matter by the spawning of quarks and gluons. The rates of hard parton scattering can be estimated on the basis of QCD calculations. However, RHIC will be the first accelerator to provide nuclear collisions at energies where rates of detectable partonic debris (jets, high-pt particles and direct photons) from hard partonic scattering will permit accurate measurements. Calculations have shown that the propagation of quarks and gluons through matter depends on the properties of the medium. An example of this is the suggestion that there will be changes in the rate of energy losses of propagating partons as the energy density of the medium increases, particularly if the medium undergoes a phase transition to the QGP: This would therefore be a direct method of observing the excitation of the medium, i.e., the QGP [ST 92]:
+
+### 1.3 Relativistic Heavy Ion Collider
+
+The Relativistic Heavy Ion Collider (RHIC), on which construction started in January, 1991 at Brookhaven National Laboratory, is designed to accelerate very heavy nuclei up to an energy of about 100 GeV per nucleon. The total cost of construction will be about $480 million, approximately one quarter of which will be devoted to building the initial complement of detectors. The collider will be ready for experiments by early 1999.
+
+The complete RHIC facility is comprised of accelerators interconnected by beam transfer lines. The RHIC tunnel is located on the northwest corner of the Brookhaven site. The major components of the RHIC complex are shown in figure 1.8:
+
+The accelerator systems included in the RHIC facility consist of two intersecting superconducting storage rings, the beam transfer line from the Alternating Gradient Synchrotron (AGS) to the collider rings, and the ancillary accelerator systems (AGS booster and Tandem Van de Graaff) required for collider operation.
+
+The already existing Tandem Van de Graaff accelerators will provide the initial ion acceleration. Gold ions, after being stripped of 14 electrons, will exit the Tandem at a kinetic energy of 1 MeV per atom. Upon exiting the Tandem Van de Graaff, the ions will traverse a heavy ion transfer line and be injected into the AGS booster. The booster will increase the kinetic energy to 72 MeV per atom. The beam will then be extracted from the booster and passed through another stripping target, where they are further stripped of their electrons to a charged state of Q = +77 and then passed into the AGS. The atoms are then accelerated to 10.8 GeV per atom, stripped of their last (Kshell) electrons, and transferred to the collider. A schematic of the path of an ion is shown in figure 1.9 [LU 93].
+
+Figure 1.8: Layout of the RHIC Project - Collider & Injector ILU 93].
+
+It is expected that matter with an initial energy density of 10.8 GeV per nucleon will be produced using such a collider. On the basis of lattice gauge theory, the energy density at which the transition from the hadron phase to the quark-gluon plasma phase is expected to occur is a few GeV per nucleon. The initial energy density of the matter produced in such high-energy nucleus-nucleus collisions may be sufficiently high to make it possible to form a quark-gluon plasma in the central rapidity region [LU 93];
+
+Figure 1.9: RHIC Acceleration Scenario for gold ILU 93].
+
+## Chapter 2 Solenoidal Tracker At RHIC
+
+### 2.1 Implementation Plan
+
+The initial phase of the STAR experiment will consist of the Solenoidal Magnet, the Time Projection Chamber (TPC), the Silicon Vertex Tracker (SVT), the Electromagnetic Calorimeter (EMC), Trigger Detectors, and the associated electronics and data acquisition systems. These detectors are expected to be on-line at RHIC start-up. Construction of Time-of-flight Detectors (TOF), External Time Projection Chambers (XTPC), and upgrades to more sophisticated triggers will take place as funds become available. The detectors as they will be implemented are shown in figure 2.1[ST 92].
+
+Figure 2.1: A perspective view of the STAR experimental configuration [ST 92].
+
+#### 2.2.1 Solenoid
+
+A solenoid magnet is used in the STAR experiment to provide a tool for subsystem detectors to measure the momentum of charged particles traveling in the field. The STAR magnet has a 4.2-meter inside diameter 0.5-Tesla solenoid magnet, with a length of 6.9 meters and an outside diameter of 5.0 meters. An iron return yoke and shaped pole pieces carry the magnetic flux generated by the solenoid and shape the magnetic field to the required uniformity. The requirements of the magnet are such that the magnetic field uniformity is approximately \(1\) part in 7000 if no corrections are used in TPC software. If software corrections are performed, a uniformity of \(1\) part in 1000 will suffice [ST 92].
+
+#### 2.2.2 Time Projection Chamber
+
+The principle of a Multiwire Proportional Chamber (MWPC) is to use a proportional chamber for a detector of large area. A series of parallel anode wires is stretched in a plane, usually between two cathode planes. The mechanical arrangement and electric field configuration for a typical MWPC is shown in figure 2.2. A charged particle traversing a radiator gas leaves behind a string of electrons and ions (figure 2.3). The electrons produced from ionization travel along the electric field lines developed by the anode wires. The field strength near the wire is approximately the same as in a cylindrical capacitor. When the kinetic energy of the electron gained from two collisions is greater than that of the ionization energy threshold of theradiator gas, secondary ionization occurs and an avalanche formation sets in (figure 2.4) [KI.86].
+
+Figure 2.2: Principle of multiwire proportional chamber. Upper part: schematic of geometry; lower part: equipotential surfaces (dashed) and electric field lines (full curves) in the neighborhood of two anode wires in the plane perpendicular to the wire direction [IR 721].
+
+Figure 2.3: Charged particle traversing a radiator gas [FA.79].
+
+The time for an avalanche to occur, which can be seen by using an oscilloscope, is about 0.1 ns. The decay time of the signal depends on the time constant, RC; of the differentiating circuit. The main contribution to the pulse seen on the anode wire is due to the ions in the avalanche moving away from the wire:
+
+Drift chambers are based on the observation that there is a correlation of the time difference, \(\Delta t\), the distance between the point of primary ionization, and the anode wire pulse in a MWPC. This time difference is given by the drift time of the electrons at \(t=t_{0}\) up to the point \(t_{1}\) at which they enter the high field region around the anode wire and generate avalanches. The drift path length of the electrons is then given by
+
+\[\nu=\int_{t_{0}}^{t_{1}}Y_{D}(t)dt,\]
+
+Figure 2.4: Time development of an avalanche near to an anode wire in a proportional chamber. (a) Primary electron moving towards anode. (b) The electron gains kinetic energy in the electric field and ionizes further atoms; multiplication starts. (c) The electron and ion clouds drift apart. (d), (e) The electron cloud drifts towards the wire and surrounds it; the ion cloud withdraws radially from the wire [CH 72]
+
+where VD(t) is the drift velocity of the electron in the ionizing gas. It is desirable to have a constant drift velocity, VD. The drift path length then becomes a linear relation given by
+
+\[z=V_{D}(t_{i}-t_{0})=V_{D}\Delta t.\]
+
+By making the electric drift field as constant as possible, the force on the electrons due to the field is constant. This is done by maintaining a precise voltage gradient throughout the entire drift path. A resistive force, due to the interaction of the electrons with drift gas molecules, produces an equal magnitude, oppositely directed force to the electric field-produced force. The drift velocity of the electrons then becomes uniform over the whole drift space. Another technique used to create an almost linear relation between drift time and drift path length is to introduce field wires at a negative high voltage. These field wires are placed midway between the anode wires and set to a negative high voltage half the magnitude of the positive high voltage on the anode wire (figure 2.5). [KL 92]. Factors such as differences in gas uniformity, varying pressures, and unequal temperatures can also cause a non-linear drift velocity.
+
+A time projection chamber (TPC) is a novel way of using proportional wire chambers and drift chambers together. A TPC is typically either cylindrical in shape with end-caps at each end for wire chambers and cathode planes, or rectangular in shape with one side serving as the wire chamber and cathode plane. The construction principle of a TPC is different from that of other chambers in that the magnetic field and electric drift field are parallel. The drift direction is parallel to the E and B fields. The electrons formed by an ionizing particle emerging from the interaction region drift towards the end caps. In this process, the image of the ionizing track is broadened by the transverse diffusion of electrons during the drifting. However, the strong magnetic field considerably reduces this effect by forcing the electrons to perform helical movements around the magnetic field lines.
+
+Three-dimensional track reconstruction is performed by measuring the two-dimensional (x and y coordinate) image produced on the end caps using a cathode pad readout and by registering the arrival time of drifted electrons at the end cap wires, giving the z-coordinate. A cylindrical TPC used by the ALEPH collaboration at CERN is shown in figure 2.6[KL 92]. A rectangular TPC used by the NA36 collaboration also at CERN is shown in figure 2.7.
+
+The central TPC is the main detector of the STAR experiment. The associated subsystems work in conjunction with the TPC to enhance the measurements taken by the TPC. Charged particles traversing the TPC are detected, identified, and their momenta are measured for a pseudorapidity (\(\eta\)) less than one. The acceptance, as well as the pseudorapidity (\(\eta\)), of the TPC is seen in figure 2.8. Tracking is performed from \(1.0<|\eta|<2.0\).
+
+Figure 2.5: Equipotential lines are drawn as full lines; +HV2: potential of anode wire; -HV1: potential of cathode wires other field wires: potential varying between 0 and -HV1[KL 92].
+
+Figure 2.7: Schematic picture of the NA36 TPC. The chamber consists of a quadratic drift volume and an endcap with 40 rows of 192 anode wires each. More than 6000 channels are read out digitally [DO 91].
+
+Figure 2.6: Time projection chamber used for tests by the ALEPH collaboration [AL 83].
+
+The TPC has a length of 4.56 meters (end-cap to end-cap) and an outer diameter of 4.1 meters. The TPC contains a radiator gas mixture (Argon-90%; Methane-10% (P10)) held at atmospheric pressure. The gas is ionized as charged particles traverse the volume of the TPC. The free electrons then drift towards the end-caps due to an electric field produced by the cathode membrane which is placed at z = 0 in the TPC. The cathode membrane is held at approximately -1500 volts while the Outer Field Cape (OFC) and Inner Field Cape (IFC) produce a uniform voltage gradient along the length of the TPC. The required magnitude of the electric field is determined by the point at which the drift velocity is saturated. For the P10 gas mixture, the saturation velocity is 5.5 cm/s [ST'92].
+
+Figure 2.8: The STAR Detectors. Shuded areas show the acceptance of the detections. Tracking is performed from 1.0 \(<\) 1 \(\eta\)1 \(<\) 2.0 [ST’92].
+
+The outer field cage provides an enclosure for the radiator gas, produces a uniform electric field inside the TPC, and serves as an outer support for the TPC. It is composed of a voltage gradient cage, a support structure, an insulating layer between the two, and a load-attachment ring at either end of the cylinder (figure 2.9). The voltage gradient cage is a cylinder made from sheets of 0.033 mm copper and plated on both sides with a 0.075mm thick Kapton film. As can be seen in figure 2.9, the copper has been stretched into stripes. A high (negative) voltage is applied to the copper stripe at z = 0 as well as to the central membrane. The remaining stripes are kept at a constantly increasing potential by connecting them to a precision resistor chain as shown in figure 2.10 [ST 92].
+
+Figure 2.9: Diagram of the STAR central TPC and its components [ST 92].
+
+As the OFC is in close proximity to other subsystems which are held at ground potential, the voltage gradient will be shielded with a mylar insulator and a grounded inner aluminum skin. The central membrane will be fabricated from mylar sheets painted with Aquadrag.
+
+The inner field cage, which has a diameter of 1 meter, performs the same functions as the OFC, except its support structure is not as substantial as that of the OFC as it need only support itself. Since the closest grounded subsystem to the IRC is 32cm away, there is no need for shielding to protect the drifting electrons. Chilled nitrogen will fill the space between the IRC and the SVT.
+
+The End-Caps are two, 4.1 meter diameter, spoked wheels, one at each end of the TPC. Each cap is comprised of twelve sectors. These sectors contain an inner and outer module as shown in figure 2.11 [ST 92].
+
+Figure 2.10: Details of the field cage configurations. Resistor chains are shown as the thick lines connecting the copper stripes [ST 92].
+
+Each of these sectors houses a pad plane, a grating grid, an anode plane, and a ground plane. These are the active elements of the TPC. The anode wire grids create high electric field regions in which the drifting electrons form avalanches of electrons. The pad planes are used to detect these avalanches. By using data from the pads, two-dimensional track reconstruction can be done. If this data is used with that gathered from the anode grids, a three-dimensional reconstruction can be performed using the drift time in the TPC.
+
+The pad planes are created by etching a large multilayer NEMA G-10 (printed circuit board. The pad size and row spacing is different between the inner and outer sectors. The inner and outer sector assemblies are pictured in figure 2.12 [ST 92].
+
+## Chapter 3
+
+Figure 2.11: A diagram of the TPC end-cap indicating the locations for the pad plane sectors and the pad rows [ST 92].
+
+Three wire grids, the gating grid, the anode grid, and the ground grid are mounted above the pad planes. The first grid is composed of alternate field and anode wires. The anode wires are gold-plated tungsten with a 20-mm diameter. The beryllium-copper field wires are 125-mm in diameter. Their larger radius reduces the field at the cathode (pad plane) to improve resistance to high voltage breakdown. The second grid is a ground plane. The third plane is a gating grid used to block electrons from unwanted events as well as to capture positive ions from the avalanche before they can enter the main drift region. The configuration of the three wire planes with respect to the location of the pad plane is seen in figure 2.13 [ST 92].
+
+## Chapter 3
+
+Figure 2.12: The pad layout for the inner and outer pad plane sectors [ST 92].
+
+The charge from avalanches collected on the pads and anodes of the TPC is amplified and integrated by a low-noise, low-capacitance preamplifier. The preamplifier provides near-gaussian shape pulses which are sent to a 512-sample (to provide the time history) switched capacitor array (SCA) where the total event is stored. These blocks are then sent out to an analog to digital converter (ADC). The digitized data is then transmitted to a read-out board for data collection and zero suppression before being transmitted via fiber link off-detector.
+
+A cooling system is used to maintain a temperature variation of <1.00C for all components in contact with the gas. This ensures that a uniform drift velocity is maintained throughout the entire TPC. Sources of heat in the TPC are the Front-End Electronics (FEE) which are located on the outside of the end-caps, and the resistor chains on the TPC and OFC. When the TOF upgrade is installed there will an additional heat source from the photomultiplier.
+
+Figure 2.13: Configuration of the STAR TPC wire planes and pad plane [ST’92].
+
+[MISSING_PAGE_EMPTY:44]
+
+A relativistic particle of charge \(e\) typically produces 25,000 electron-hole pairs when traversing 300 \(\mu\)m of silicon. These are collected at the electrodes within 10 ns. The signals picked up at the strips measure the position of the passing particle to a precision dependent on the resolution of the particular detector (25 \(\mu\)m in STAR). An important difference with respect to standard wire drift chambers is the absence of a gas amplification and corresponding dead time. Electrons are continually drained at the anode in a SVT so that the maximum drift time is not the dead time of the detector [KL 86].
+
+STAR's Silicon Vertex Tracker is a high resolution tracking device with a spatial resolution equivalent to 18.6 million pixels (72576 channels times 256 time samples) or space point precision of better than 25 \(\mu\)m and a two-track resolution of 500 \(\mu\)m. The two-track resolution can be improved to 250 \(\mu\)m by separating data peaks in adjacent time buckets by knowing their widths. The SVT's purposes are to improve the tracking capabilities of the STAR detector below a pt of 150 MeV/c, extend particle detection capabilities to short-lived neutral and charged strange particles, and allow the study of K\({}^{0}\)g-\(\mid\)K\({}^{0}\)g correlations. Charged long-lived kaons will be identified by measuring their energy loss (dE/dx) in both the Time Projection Chamber (TPC) and Silicon Vertex Tracker (SVT). Short-lived particles (K\({}^{0}\)g, A, A, \(\Xi^{-}\), \(\Omega^{-}\)), detected by their weak decay into charged particles, as well as identification of strange particle decays by the separation of their decay tracks, require precise information on the track position close to the interaction point. The high resolution of the SVT allows for these types of decays to be seen.
+
+The SVT provides a tool to extend the acceptance of the TPC to low momentum tracks. Due to the large radius of curvature of the paths of low momentum particles, the lower limit of momentum for fully efficient track reconstruction in the TPC is 150 MeV/c. Simulations of central Au + Auevents show that the transverse momentum (pt) distribution of emitted particles at midrapidity is generally peaked around 300 MeV/c. Therefore a considerable part of the event will be measured by including the information provided with the SVT. Also, recent results from AGS and CERN experiments show that low pt physics is an interesting topic in relativistic heavy ion physics in itself: The low pt enhancement measured in pion p+ spectra below 200 MeV/c from relativistic heavy ion collisions is still not well understood. A measurement of this part of the pt spectrum at RHIC may provide insights into the origin of this phenomenon.
+
+The layout of STAR's SVT is seen in figure 2.15. Individual detectors are grouped into ladders. Each ladder holds a row of six silicon detectors. The ladders are arranged in three concentric cylinders of radii five, eight and eleven cm. Together, all three cylinders contain 162 detectors with 224 anodes at the both ends of each detector. This gives 72,000 readout channels, each having 256 time buckets, which account for the 18.5 million pixels.
+
+Figure 2.15: STAR SVT layout [ST 92].
+
+The geometry of the wafers, an hour-glass shape, is shown in figure 2.16. The "guard area" on the edges of the wafers helps to reduce the local potential to zero near the perimeter of the wafer. Each of these detectors is a four inch diameter wafer of silicon 300 microns thick. If these wafers were to be aligned end-to-end, there would be a dead-zone of about 89%. This problem is solved by arranging the wafers in a tiled manner. This is accomplished by mounting alternate wafers on top of one another so that the boundary of the active area of an upper detector is immediately above the equivalent boundary of the lower detector. This sort of arrangement also allows for the placement of electronics and cables at either end of each wafer. The arrangement of wafers is shown in figure 2.17. The wafers are tiled by placing the next layer of wafers on top of the previous layer's module cables. This tiling strategy will provide almost 100% efficiency for the region of coverage of the SVT [ST 92],
+
+Figure 2.16: The design of the SVT Silicon Drift Detectors (SDD). This design splits the sensitive area of each detector into two drift regions so that electrons drift in opposite directions in the two halves [ST 92].
+
+#### Electromagnetic Calorimeter
+
+Scintillators, typically used for measurements of \(\gamma\)-ray and \(X\)-ray energies, have two purposes: 1) to convert the excitation of a transparent material caused by an ionizing particle into visible light and 2) to transport this light to the photocathode of a photomultiplier tube, Inorganic scintillators are ionic crystals doped with activator centers. An energy band structure of such a scintillator is shown in figure 2.18. Ionizing particles
+
+Figure 2.17: Partial view of the assembled SVT [ST’92].
+
+Figure 2.18: Energy band structure in scintillating crystals [IKL 92].
+
+passing through the material produce free electrons, free holes and electron-hole pairs (excitons). These excitons move around in the lattice until they reach an activator center A. A is then transformed into an excited state A. A, by emitting light, can then decay back to A. The decay time of inorganic scintillators, usually longer than 0.2 us, depends on the temperature according to exp(-Ii\({}_{1}\)/kT), where E\({}_{1}\) is the excitation energy of A\({}^{\dagger}\).
+
+Organic scintillators, frequently used in large calorimetric detectors in the shape of rectangular strips, contain a scintillator material which emits bands of ultraviolet light during de-excitation. This ultraviolet light is absorbed by most organic materials with an absorption length of a few millimeters. The extraction of the ultraviolet light becomes possible by introducing a second fluorescent material in which the ultraviolet light is converted into visible light.
+
+Photomultiplier tubes are used to detect visible light from a scintillator. This light liberates electrons by the photoelectric effect from a thin photo-cathode layer at the internal surface of an evacuated glass tube. An electrode is then used to collect, focus and accelerate the photo-electrons from the cathode onto the first dynode. The dynode, held at a high potential, is an electrode made from material with a high coefficient of secondary electron emission. The emission of three to five secondary electrons can be achieved for one incident electron with a kinetic energy of 100 to 200 eV. Subsequent dynodes are used to amplify the number of secondary electrons to around 10\({}^{8}\). A typical transit time from cathode to anode is 40 ns. A typical photo-multiplier tube is shown in figure 2.19 [KL 92].
+
+The STAR Electromagnetic Calorimeter (BMC) will measure the total and local F\({}_{1}\) using a lead-scintillator sampling calorimeter. It covers a full azimuthal range and pseudorapidity range \(\sim\)1.05 \(\leq\eta\leq\) 1.05. The inner radius is 2.53 meters and the length is 6.87 meters. It consists of 60 wedge segments of 6 degrees each in \(\phi\) as shown in figure 2.20. These wedges are also broken in figure 2.20.
+
+Figure 2.20: An end view of the STAR EMC barrel. The EMC wedges are tilted at an angle of 3\({}^{\mathrm{0}}\) to eliminate projective cracks in the barrel 1ST 92].
+
+Figure 2.19: Cross-Section through photomultiplier tube R 1449 [KU 83].
+
+into 40 towers throughout the length of the detector. Each tower has 21 layers of 5 mm lead absorber and 3 mm plastic scintillator. There are thus 50,400 pieces of scintillator (60 wedges x 40 towers x 21 layers) of 420 different shapes. Each tile will be read out with two optical fibers which go to photomultiplier tubes. To reduce cost in the initial implementation all the fibers from pairs of adjacent towers of detectors in pseudorapidity will go to one photomultiplier tube. A cross section of the lead-scintillator stack is shown in figure 2.21. The physical construction permits upgrades as increased funds become available for more photomultiplier tubes.
+
+Figure 2.21: A cross section of the lead-scintillator stack in one of the EMC wedges.
+
+The calorimeter includes a detector with higher granularity at 5 (radiation lengths (5 X\({}_{0}\)'s) to increase the two-photon resolution of the EMC. This part of the detector, called shower max, gives the ability to separate high-energy direct photons from those coming from \(\pi^{0}\) decays. Twelve hundred of the original scintillator tiles are cut into 24 smaller strips. This gives a total of 28,800 scintillators in the shower max detector. Because of the high cost of photomultiplier tubes, the read-outs for the shower max, which will make use of multi-anode phototubes, will be added as funds become available [ST:92],
+
+#### Time-of-Flight
+
+The principle of the Time-of-Flight (TOF) detector is to measure the flight time of as many charged particles as possible in the central region of the STAR detector with a timing resolution of at least 100 picoseconds. This feature will enhance the capabilities of the dE/dx calculations done by the TPC and SVT. The TOF is a highly segmented cylindrical counter outside of the TPC having a 2-meter inner radius and 4.2-meter length.
+
+The design of the system is a shingle layout, consisting of tiling the cylinder with 7776 single-ended scintillators arranged in 216 trays of 36 scintillators each (figure 22). Each tray is 2.25 meters long and 11.8 cm wide. A drawing of 108 trays that house the TOF shingle counters covering one half of the length of the experiment is shown in figure 23.
+
+Figure 2.23: A drawing of 108 trays that house the TOF shingle counters covering one half of the length of the experiment, [ST’92].
+
+Figure 2.22: Shingle layout design of the TOF detectors [ST’92].
+
+[MISSING_PAGE_FAIL:54]
+
+The drift direction is perpendicular to the beam direction as indicated by the arrows in the figure. By implementing a perpendicular drift to the beam axis, the analog storage capabilities of the TPC's are optimized, allowing for a minimum in the number of required channels of electronics. However, because of the perpendicular-drifting electrons, this requires the TPC's to be situated so that no magnetic field is present from the solenoid. This is accomplished by positioning XTPC's 7 meters from the interaction region.
+
+The XTPC's will use cathode readout pads and an anode plane with field wires. In addition to the anode plane is a cathode wire plane and a gated grid. The field uniformity in the drift region is achieved by using copper strips on the sides, fronts, and rear ends of the field cage walls. A resistor chain provides the uniform gradient [ST 92].
+
+#### Trigger
+
+The purpose of the trigger is to detect Au-Au interactions, detect p-p interactions, locate a Au-Au collision vertex within \(\pm 6\) cm in less than 200 ns and detect multiple events occurring within 40 ns. Figure 2.25 is a quadrant
+
+Figure 2.24: A schematic diagram of the configuration of the external TPC’s [ST 92].
+
+view of the STAR detector showing the trigger detectors. The trigger will be able to select high multiplicity events, select events whose particle distributions suggest inhomogeneity, select events having unusual concentrations of strangeness and provide a calibration event trigger, a cosmic ray event trigger and a high multiplicity trigger.
+
+The trigger system is divided into two components. The first is the trigger detectors, consisting of a central trigger barrel (CTB), vertex position detectors (VPD), TPC endcap MWPC's, veto calorimeters (VIC) and output from the EMC. The second component consists of the data processing and triggering functions and the interfaces to the detector subsystems and Data Acquisition.
+
+Figure 2.25: Quadrant view of the STAR detector system showing baseline trigger detectors: EM Calorimeter (EMC), Central Trigger Barrel (CTB), Vertex Position Detector (VPD), TPC endcap MWPC’s and Veto Calorimeter (VC) [ST’92].
+
+The CTB is a barrel of 200 slats of scintillator on the TPC outer surface. These slats are 1.5 cm thick x 6.25 cm wide x 4.2 cm long. The slats are placed in the center to one another to form a cylinder around the TPC. Each slat is optically decoupled to two proximity-focusing mesh dynode phototubes.
+
+The VPD contains two scintillators each placed on either end of the TPC. The light signals are read out by photomultiplier tubes. The resulting signal is sent to specially designed fast circuitry to determine the vertex location. This circuit uses the time difference in signals to determine the location of the primary vertex in z to within \(\pm\)6 cm in less than 200 ns.
+
+The EMC measures a fraction of the total transverse energy which is streams mostly from photons and electrons which result from \(\pi^{0}\) decays. The EMC is used to select events on the basis of the centrality of the collision and fluctuations in E\({}_{\rm F}\). The EMC, together with the CTB, can be used to select events with unusual ratios of E\({}_{\rm F}\) to charged multiplicity.
+
+One purpose of the TPC MWPC's is to trigger on the electron avalanche at the anode wires. The direct readout of this information allows triggering on fluctuations in changing multiplicity per change in pseudorapidity.
+
+The VTC's are placed beyond the first dipole magnets in the beam (about seventeen meters). These provide information on the impact parameter independent of the E\({}_{\rm F}\) values. By looking at the well-separated proton and neutron spectators from the interaction point the spectator energy can be detected.
+
+The particle density in pseudorapidity is shown in figure 2.26.
+
+Coverages of the CTB, EMC, MWPC's, VPD and VC detectors are shown in shaded regions. The coverage of the trigger can be seen to cover almost the entire pseudorapidity of the experiment.
+
+These trigger components are each divided into three levels of time structure set by the following conditions:
+
+Level 1
+
+The level 1 trigger provides a veto decision within 200 ns. A determination of the total transverse electromagnetic energy is done with information from the EMC: Location of the collision within \(\pm 6\) cm to keep the collision inside the optimum SVT acceptance is done using the VPD. The CTB is used to trigger on multiplicities. The TPC gating grid will be opened within approximately \(1\)\(\mu\)s of the original collision: This number is set by the time to open the gating grid which
+
+Figure 2.26: Central 200 GeV Au-Au event (FRITOP), to show the “typical” particle density in rapidity. Shaded regions indicate the coverage of the CTB. EMC, MWPCs, VPD and VC detector IST 92L.
+
+is 0.5 us and by the fact that each us of delay costs about 4% of the data on track length.
+
+Level 2
+
+The second level trigger will provide a decision within 50 us. This time is set by the maximum drift time in the TPC, during which time data is passed onto a switched capacitor array which can be stored for a few hundred us without degrading the signal. During this storage period, the data is analyzed to decide whether to accept or reject an event. If the event is rejected, it takes 10 us for the TPC FEE to reset itself. If the event is accepted, the data is passed on to the next level of analysis.
+
+Level 3
+
+Third level trigger provides a decision on the order of a ms. This time scale is based on extensive processing of track and calorimeter data to look for high-pt tracks, energy clusters correlated with jets, and for large scale fluctuations in multiplicity and E[ST 92].
+
+## Chapter 3 Slow Control System
+
+### 3.1 Control System Overview
+
+Several system features guide the design and implementation of the STAR control system. The control system is database driven. A history of the configuration will be maintained and any change in the values of process variables that have been implemented will not interfere with data taking. The system will be capable of including a diverse set of interfaces to the various subsystems. The control system contains tens of thousands of channels and interacts with experts from baseline subsystems and is capable of integrating additional subsystem upgrades.
+
+The key role of students and non-resident physicists was included in design considerations. A large detector project, such as STAR, typically has a development lifetime of 5 or more years, whereas the typical graduate studentfor postdoctoral researcher will spend two years or less actively working at the experiment. A professor who spends a limited time at the experiment will want to see some physics return from his or her participation. Because of this, the system needs to be well-documented and robust, given the large turnover in users who will access it. In addition, this argues for graphical user interfaces, iconic representations of the subsystems and a color-coded "traffic light" model of representing alarms.
+
+In the development of the STAR control system, the control systems at the four LEP experiments at CERN, the D0 experiment at Fermilab and two industrial slow control systems were studied.
+
+Key features of a control system obtained from the ALEPH, DELPHI, L3, and OPAL experiments include a completely database-driven configuration and run-time processing, simple and easy updates, automatic checks for configuration consistency, a standard means of sharing information and services, and powerful graphics monitoring and control interfaces [BA 91].
+
+The control system for the D0 experiment is based on a Versa Module Europa (VME) chassis and allows network accessibility. Each VME crate is equipped with a processor. The software was adapted from a system which had proven reliable for accelerator control. A real time operating system was used [GO 90].
+
+Studies of a commercial utility's and a national rail-dispatching center's control systems emphasized the need for good documentation and a robust system.
+
+Because of the number of people from several different institutions involved with controls system development, the diversity of the subsystems from an engineering perspective, and the immense number of monitoring and control channels involved in the STAR experiment there were several issues which needed to be addressed. Because control system development is being done at several sites, there is the need to incorporate all of the systems into a common configuration. The role of Creighton University is to oversee this development and ensure the commonality amongst all software development. Specifically, the Creighton STAR Controls group has consulted with institutions doing control system development, assisting them in hardware selection choices and software design considerations, assuring the work they do conforms to that of the entire collaboration. In addition to assuring uniformity, the Creighton group has trained users from Kent State University, University of Washington's Nuclear Physics Laboratory, Lawrence Berkeley Laboratory, University of California at Davis, and University of California at Los Angeles to become functional in UNIX and EPICS. Another contribution that the Creighton group has made is in the area of software development. Assistance to the University of Washington, Kent State University, and Lawrence Berkeley Laboratory has been provided for developing the monitoring and controls systems for each of the institutions' respective subsystems.
+
+### Control System Functionality
+
+The STAR Controls system sets, monitors, and controls subsystem parameters. In addition, the controls system reports subsystem configurations as well as the history and relevant statistics for each subsystem. The control system generates and displays alarms and warnings on workstation screens and makes the alarm status available to other subsystems. If an alarm is detected, the controls system will archive pertinent data. The baseline subsystems of the STAR control system are the time projection chamber, data acquisition, computing, and the trigger. Each of these subsystems requires a large number of parameters to be preset as the experiment is configured for operation. These subsystems also require the operating parameters to be continually monitored and displayed on a workstation screen.
+
+The Experimental Physics and Industrial Control System (EPICS) was selected as the foundation for the STAR control software environment because it incorporates all of the system features outlined above. EPICS was designed by Los Alamos National Laboratory and the Advanced Photon Source at Argonne National Laboratory based on GTACS, an earlier system developed at Los Alamos. EPICS was designed as a development tool kit and common run-time environment that allows users to build and execute real-time control and data acquisition systems for experimental facilities [10]. At STAR, EPICS is run on a UNIX-based work station connected to VME crates operating under VxWorks, a real-time operating system. The basic configuration of the STAR Controls system is seen in figure 3.1[11].
+
+Figure 3.1: The basic structure of EPICS [10].
+
+#### Database Configuration
+
+The backbone of EPICS is a database. Databases are ASCII files that are loaded into the memory of an Input Output Controller (ICC) which consists of a VME crate, a CPU, and its interfaces. The database is configured off-line using database configuration tools (DCT, GDCT, CAPFAST) and then loaded into VME memory at boot time. The databases include records written for alarm checking and setting, and for monitoring and controlling parameters within each subsystem. Considerations of how to create and manage the several databases in the Controls system is an issue of concern. As of this writing, the configuration tool of choice is the Graphical Database Configuration Tool (GDCT). This tool provides the user with a "CAD-type" drawing of the database. It allows the developer to visually see the links between process variables in the database and how they are processed. More information about each process variable can be made available by "clicking" on the respective box with the mouse. This method of configuration is usually favored over that of the Database Configuration Tool (DCT) because of its ability to "see" the logical functions the database contains. A picture of a GDCT screen is seen in figure 3.2. Note the connections between process variables can be seen directly and there is a logical flow to it. A DCT screen is shown in figure 3.3. This screen shows only the records of one process variable at any given time, thus making it difficult to "see" the flow of logic within the database.
+
+A better possible choice than that of GDCT is CAPFAST. CAPFAST is a CAD program which can be programmed to produce ASCII files according to what has been designed on the screen. This is better than GDCT in that CAPFAST can be used to generate several databases by using only onedrawing. This is valuable to the STAR experiment because of the thousands of process variables which will need to be developed. CAPFAST ensures a fast and easy way to develop and change databases, as will be necessary in the experiment. The actual implementation of CAPFAST into a database configuration tool is not, however, complete. Software engineers at the Continuous Electron Beam Accelerator Facility (CEBAF) have been developing CAPFAST as their needs continue to become more dependent on it. Until an easy-to-use version of CAPFAST is made available to the EPICS-using community, STAR will continue to use GDCT.
+
+Figure 3.2: A view of the GDCT screen used to create the database for the TPC Drift: Velocity High Voltage Control. All of the process variables are seen on the screen [HA 95].
+
+[MISSING_PAGE_EMPTY:66]
+
+#### 3.2.2 Operator Interfaces
+
+The current STAR operator interfaces (OPI) are SUN workstations. These machines are capable of several thousand screen updates per second. Display editors (Edd/Dm and MHOM) are used to create and modify the OPI displays. This allows the user to design the specific monitoring and control needed for the application. The control is displayed on a synoptic-like screen similar to that of LabVIEW. The operator can use the display editor to set up graphs and histograms, create monitoring and control dials, design control switches, set colors and color intensity, and display alarm conditions. An example MEDM screen of the TPC drift velocity high voltage control is shown in figure 3.4. Figure 3.5 shows a control screen from the LINAC at the Advanced Photon Source at Argonne National Laboratory. The boxes at the top of the LINAC display are used to perform various experiment control functions. These can be used to begin archiving data, look at old archived data, view alarm conditions in detail, and begin viewing the experiment using a video camera. MHOM allows one to execute any function which is supported on the workstation. An Edd/Dm screen of the TPC Anode Wire High Voltage Control is seen in figure 3.6. The differences between MEDM and Edd/Dm are few, but important. MEDM has a "drag-and-drop" tool which allows the user to cut and paste features into the display in real-time. MEDM also has an import tool which allows the user to easily put a "GIP" format picture in the background. This is useful for complex displays which could have CAD drawings in the background, or even an actual photograph of the experiment. MEDM also has a more diverse set of 3-dimensionalmonitoring and control objects which present a more "real" feel to the user. Also available in MEDM is a tool which allows the user to perform remote shell commands without leaving the display. This is particularly useful when the operator needs to perform control functions and to bring up other tools at the same time. An example of the import tool can be seen in figure 3.7.
+
+Figure 3.7 shows a CAD drawing of the STAR experiment. The boxes placed in various subsystems on the detector are used to bring up the corresponding displays for the respective subsystem:
+
+Figure 3.4: An MEDM screen used for the TPC Drift Velocity High Voltage Control JHA 95].
+
+Figure 3.5: An MEDM screen used by the JINAC at Argonne National Laboratory [AR 94],
+
+Figure 3.6: An Edd/Dan screen of the TPC Anode Wire High Voltage Control II.1 94I.
+
+#### 3.2.2.2 Alarm Handler
+
+The Alarm Handler (ALH) is a system application which is able to filter and display alarms hierarchically. The primary responsibilities of the ALH are to bring alarms to the operator's attention, to allow the operator to acknowledge alarms, and to log alarms. Color is used to show alarm severity. Blinking and optional sound are used to indicate an outstanding alarm. A single character severity code is also provided for an operator with a monochrome display. Except for alarm detection, which is done by IOCs, the
+
+Figure 3.7: An example of the MEDM import tool showing a CAD drawing of the STAR experiment. The yellow boxes can be “clicked” on with the mouse to bring up the respective subsystem control screen.
+
+[MISSING_PAGE_EMPTY:72]
+
+calculations, compressions, fanouts, histograms, longins and longouts, multi-bit binary inputs and outputs, timers, and various other functions. In addition, EPICS runs on a principle of channel-access. Channel access hides the details of the TCP/IP network and the database from both clients and servers. A standardized communication path to a field within a record in the IOC database integrates the software modules into the control system. This provides a callable interface that can be used by the OPL, the sequencer; the alarm handler, the Back Up and Restore Tool (BURT) and the archiver. The sequencer implements finite state machines using a high level language called State Notation Language. EPICS archiving software supports acquiring real-time data, saving it on disk, and retrieving the data from disk for plotting, printing and exporting it for use by spreadsheet programs. A plot of archived data of a calculation which continuously counts from 0 to 130 to 0 is shown in figure 3.9. The organization of EPICS is shown in figures 3.10 and 3.11.
+
+The system hardware consists of a VME crate for each subsystem using commercially available industrial interfaces and programmable controllers wherever possible. The monitoring tasks and system control are distributed on SUN IPX workstations. The workstations and VME crates are networked with ethernet. Flexibility is maintained as any bridge using the TCP/IP protocol is supported.
+
+Figure 3.9: A plot of data using the Archive (AR) tool in EPICS.
+
+Figure 3.10: Software configuration of EPICS [GR 94].
+
+Figure 3.11: Typical hardware configuration of EPICS [GR 94].
+
+Since EPICS was developed for accelerator control, it places certain initial limitations on the STAR Controls system. In an accelerator setting, it is expected that all components will be present and working or the machine will not be operated. This is clearly not the case in large detector experiments. One would like to be able to test individual systems or sets of subsystems as well as to shut off failing or missing subsystems. The commonly of the control system in terms of run control, set up, and monitoring functions was considered of sufficient value that significant modifications of EPICS were undertaken. A more flexible system of checks at startup time was implemented and a common control screen was maintained. EPICS has been implemented as a basic command interface to the STAR data acquisition system [MC 93]. Integration of workstations as external devices for detailed on-line calculations is an additional extension. A new set of software drivers to support devices with serial interfaces such as the LeCroy 1440 power supplies are incorporated.
+
+### 3.4 SubsystemInticration
+
+The control system attempts to maintain a common command and display format across the various subsystems. The ultimate goal is a completely unified control system for the STAR experiment. Given the large number of collaborators working in different environments, such total standardization is not always possible, although it is being achieved to a large degree. The details of the control system for the baseline STAR detector follow: This initial detector configuration consists of the field cage, endcaps,cooling system, gas handling system, laser calibration system, silicon vertex tracker, trigger, data acquisition system, and magnet.
+
+#### TPC High Voltage Drift Velocity Control
+
+A high voltage supply provides a potential difference across the field cage, which creates a uniform electric field in the TPC. The potential is distributed through four resistor chains, creating a voltage gradient. The power supply must be ramped up and down in a controlled manner. The drift velocity can vary due to changes in the temperature, pressure and composition of the gas in the TPC, so a detection and feedback system which maintains the drift velocity to one part in 2000 has been implemented. Fine adjustments to the field cage voltage are made to compensate for changes in atmospheric pressure and to optimize the drift velocity in the TPC. The current and voltage are archived on a regular basis, and a continuous record of the drift velocity will be maintained. The current and the voltage are monitored in the resistor chains. The leakage current will be monitored with the insulator taps using a Keithley electrometer. Alarm conditions are voltages outside parameters and overcurrents. Alarms will also be archived. The controls system monitors and controls the voltages and currents using a 16-bit ADC and a 16-bit DAC [11].
+
+#### TPC Endcap Anode Wire High Voltage Control
+
+The endcaps house the primary detection systems of the TPC. The anode wires create the high electric field regions that cause the electrons from the ionizing particles in the TPC to form charge avalanches. Pads, mounted 
+
+[MISSING_PAGE_FAIL:78]
+
+temperature, the field cage temperature, the water circuit pressures, the water flow, and the interlock conditions. Alarm conditions include temperature and pressure over or under operating parameters. The temperature and alarms will be archived [ST 92].
+
+#### TPC Gas System
+
+The gas system maintains high purity gases in a well-defined mixture in the drift volume of the TPC. The gas used will be an Argon/Methane (P10) or Helium/Ethane mixture. Mass-flow meters and controllers are used to measure and control the individual components of the gas mixture. Gas fractions are measured and adjusted using the standard mass-flow meters/controllers presently in use in the semiconductor industry. Each flow meter uses a microprocessor-based readout interface to set the rate. These units provide an absolute accuracy of better than one percent and a reproducibility of 0.2 percent. The control system interfaces to the meters via GPIB: Chamber pressure and gas mixture are regulated with a closed loop system using capacitance manometers and proportional solenoid valves. Both items are supplied by the manufacturers of the flow meters. A subatmospheric exhaust system will be used to remove gas from the chambers and vent it to the outside. All on-line primary gas supplies are located in a specially constructed room along with the mixers and the associated control system interface. Monitor chambers are used with each system to measure changes in the gas composition and to calculate drift velocity [ST 92].
+
+A high power laser is used to calibrate the TPC drift volume. The beam intensity and polarization are controlled by a system using a half-wave plate and a Glan polarizer. The alignment of the mirrors also needs to be controlled. This is accomplished with a stand-alone slow controls system which uses LabView run on a Macintosh. The data is transferred to the central controls system via ethernet [34].
+
+##### SVT Power Supply Control
+
+The power supply for each wafer of the Silicon Vertex Tracker (SVT) must be controlled and monitored. The wafers also require temperature and bias current monitoring. The SVT control and monitoring system is similar to that of the TPC but on a smaller scale. The subsystem communicates with the central controls via ethernet [2].
+
+##### Trigger Interface
+
+A stand-alone slow controls system for the trigger is being developed. The subsystem supplies only limited information to the central controls system [34].
+
+##### Experiment Control
+
+The control system receives a "ready to run" status from each subsystem, and provides this information to data acquisition (DAQ). WhenDAQ accepts this signal, the subsystem is locked as a slave to DAQ. This prevents parameters in the subsystem from being changed while a run is beginning or in progress and protects against changes which affect the data stream from being made during data taking. The control system provides the DAQ subsystem with parameters at the beginning of the run and at intervals during the run, and notifies DAQ of any alarm conditions. Automatic checks for configuration consistency are performed, and a configuration history is maintained. DAQ and the control system are linked via ethernet.
+
+#### Magnet Control
+
+A solenoid magnet surrounds the TPC. The magnet creates a 0.5-Tesla field allowing for momentum measurements of the charged particles passing through the TPC. The magnetic field is to be maintained to one part in 1000. Power to the magnet is provided by five power supplies. The control system monitors the voltage and current at the power supplies, the output current, and the power-supply interlock status. AC power and DC power are switched on and off and reset. The output current and rate of ramping will be set and controlled. Large currents run through the coils of the solenoid, creating a strong magnetic field and generating large amounts of heat. The temperature in the coils must be monitored. To accomplish this, the controls system will monitor the current and the voltage drop across the coils and power bus, allowing the resistance and the power dispersed as heat to be easily calculated. The temperature in the water cooling system of the coils is monitored at both the intake and the outlet points, and the heat carried away by the water is calculated. The pressure in the water circuits and conductivity of the water are also monitored. Watermats, developed at the AGS, are used to detect any water leaks. Alarm conditions include overcurrents, over- and under-voltages, and overtemperature and water leakage. The voltage, currents, and alarm conditions will be archived [ET 94].
+
+### Summary
+
+The STAR control system software is database-driven. It capable of accepting data from a wide variety of interfaces. The adoption of an EPICS framework guarantees a system with proven reliability and extensive documentation. EPICS has been enhanced in terms of run control and external interfaces. First tests of the system were undertaken during the summer of 1995. The full system will be in place at the STAR experiment in early 1999.
+
+## Summary
+
+Three years ago, a research effort was put into developing a distributed slow control system for the STAR experiment. This was done by looking at existing control systems in a variety of settings. The author visited Fermilab's D0 experiment, Omaha Public Power District's (OPPD) main control room, Union Pacific's main control room, and researched a proposed generic control system from four LEP experiments at CERN. Results of this work were presented to the STAR collaboration, which led to the decision to use the Experimental Physics and Industrial Control System (EPICS) for the STAR Controls system. This work was also presented at the American Association of Physics Teachers (AAPT) annual conference in January of 1993.
+
+The interfaces between the STAR subsystems then began to be defined. This was done by calling subsystem leaders and gathering information from them. This data was then put in order and placed into the STAR Controls Requirements Document. This work was presented as a poster and paper at the Real-Time '93 conference in June of 1993. The paper was published in IEEE Transactions on Nuclear Science (Feb. 94.)
+
+The author then spent the remainder of the summer of 1994 at Lawrence Berkeley Laboratory. This time was spent learning more about how EPICS works and what software would be needed for our experiment.
+
+The author then spent a week at R11IC School '93, learning about the physics of relativistic heavy ion physics. On the return trip, he spent a day at Kent State University, teaching our collaborators there how to use EPICS, as well as debugging a hardware problem.
+
+In the fall of the same year, Ir; McShane and the author presented the STAR Controls System at the Conceptual Design Review (CDR) to a panel ofindependent reviewers. This included presenting the STAR Controls timelines, the interfaces, the requirements, and the Creighton group's involvement in the controls system. Time was also spent teaching users at LBL how to use IPICS.
+
+In the spring of 1994, the author was in charge of developing the gas system for the NA44 Threshold Imaging Cerenkov Detector at CERN. This involved writing a requirements document, completing drawings of the system, ordering parts for the system, and finally constructing the system. Lessons learned from this development will prove beneficial in the gas system for the TPC in STAR.
+
+In the summer of 1994, Dr. Iwona Sakrejda and the author presented the STAR Controls system at the Electronics workshop held at LBL. This involved the same topics as did the CDR, but the material presented this time was in a much more developed state than it was at the CDR. Time was also spent training STAR collaborators in EPICS.
+
+The rest of the summer was spent at Argonne National Laboratory, again learning more about EPICS. At the end of the summer, the author presented an overview of the control system and gave an EPICS demonstration at the STAR Collaboration meeting. In September, the presented the STAR experiment, with an emphasis on the Controls system, to the EPICS Collaboration:
+
+In the fall of 1994, the author designed and installed an amplifier and discriminator for the NA44 Threshold Imaging Cerenkov Detector at CERN. He also finished installing the gas system which he designed the previous spring. Data from heavy-ion collisions was also taken.
+
+In the summer of 1995, the author presented the interface between STAR Controls and the Front End Electronics Readout-Boards to the SiliconVertex Tracker group. He also explained to them how the controls system worked and discussed with them possible implementations of the controls system for their subsystem.
+
+## Conclusion
+
+EPICS has proven itself to be a promising slow control system software package. There are however two distinct disadvantages in choosing EPICS as the STAR Controls system software package. The first is that there is a steep learning curve in EPICS. Although EPICS is very easy to use once the controls software has been written, learning how to design the software can be somewhat complicated. The second disadvantage in using EPICS is that it was not designed for detector experiments such as STAR, but rather as a control system package for accelerators. This presents the problem of EPICS not having a high-level control functionality, but rather containing low-level calls to and from hardware.
+
+This second problem is currently being addressed by developing a second, high level control system, called Experiment Control, which will perform the housekeeping routines involved in the experiment. The definite boundaries between Experiment Control and STAR Controls are not yet well-defined, and should not be until software development in EPICS is more mature. The results of this development will show exactly what the capabilities of EPICS are and as a result, what duties will be required of Experiment Control.
+
+Current work is being done at LBL on a readout from the Front-End Electronics motherboards. The hardware interface to EPICS could push the software capabilities to the limit. The result of this would be not to use EPICS for this higher level means of communication, but rather to let this be the task of Experiment Control. However, if EPICS does prove to be a good link to the readout boards, this would indicate that EPICS could perform well notonly at low level calls to and from hardware associated with STAR Controls, but at high-level functions involved with Experiment Controls as well.
+
+## Appendix A Common Terms
+
+**Acceptance**: Volume in detector in which detection of particles can occur.
+**Anode**: The positive electrode of an electrolytic cell, electron tube, or solid-state rectifier. It is the electrode by which electrons leave a system [II, 91],
+**Azimuth**: Position as measured by an angle around some fixed print or pole [II, 91].
+**Baryons**: Electrons with half integer spin (Fermions), i.e., J = 1/2, 3/2 [II, 91].
+**Boson**: Any particle having integral spin (photons, pions, and kaons are all bosons [II, 91].
+**Cathode**: The negative electrode of an electrolytic cell or electron tube. It is the electrode by which electrons enter a system [II, 91].
+**Edd/Dm**: Holdt: an operator interface editor used in HPCS. Dm: The operator interface tool used to display screens edited with Edd,
+**Electromagnetic Energy (EM)**: Energy of particles which can undergo an electromagnetic interaction.
+**EMC**: Acronym for the _Electromagnetic Calorimeter_ used in the STAR Experiment.
+**EPICS**: Acronym for _Experimental Physics and Industrial Control System_. See
+**Event**: Term used to identify the collision of two nuclei at some interaction point.
+**Gauge Theory**: A quantum field theory for which all measurable quantities remain unchanged under a gauge transformation, in which the phases of the fields are altered by an amount that is a function of space and time.
+**Gauge theories are now believed to provide the basis for a description of all elementary particle interactions. See also QED and QCD [II, 91].
+
+[MISSING_PAGE_EMPTY:89]
+
+[MISSING_PAGE_EMPTY:90]
+
+[MISSING_PAGE_EMPTY:91]
+
+## Appendix B Rapidity
+
+The rapidity variable "y" is a useful variable used to describe the kinematic condition of a particle. The rapidity of a particle is defined in terms of its energy and momentum components, \(p_{0}\) and \(p_{z_{i}}\) by
+
+\[y=\frac{1}{2}\ln\left(\frac{p_{0}+p_{z}}{p_{0}-p_{z}}\right)\{\{\}\}.\]
+
+It is a dimensionless quantity which is related to the ratio of forward momentum to the backward momentum. The rapidity of a particle in one frame of reference is related to the rapidity of the same particle in another frame of reference by an additive constant as the following derivation shows.
+
+Consider a particle in a reference frame \(F\) with rapidity \(y\) and rapidity \(y^{*}\) in a Lorentz frame \(F^{\prime}\) which moves with a velocity \(\beta\) in the z-direction. The rapidity \(y^{*}\) of the particle in the \(F^{\prime}\) frame is
+
+\[y^{*}=\frac{1}{2}\ln\left(\frac{p_{0}+p_{z}}{p_{0}-p_{z}}\right)\{\left(2 \right)\}.\]
+
+Under the Lorentz transformation, the energy \(p_{0}\) and the longitudinal momentum \(\vec{p_{z}}\) in the \(F^{\prime}\) reference frame are related to the energy \(p_{0}\) and longitudinal momentum \(p_{z}\) in the frame \(F\) by
+
+\[\vec{p_{0}}=\gamma\{\vec{p_{0}}-\beta p_{z}\} \tag{3a}\] \[\vec{p_{z}}=\gamma\{\vec{p_{z}}-\beta p_{0}\} \tag{3b}\]
+
+where \(\beta\) is the velocity of \(F\) relative to \(F\). Now substituting (3a) and (3b) into (2) we get
+
+\[\vec{y}^{*}=\frac{1}{2}\ln\left(\frac{\gamma\{p_{0},-\beta p_{z}\}+\gamma\{p _{z},-\beta p_{0}\}}{\gamma\{p_{0},-\beta p_{z}\}-\gamma\{p_{z},-\beta p_{0}\} }\right).\]\[y:=\frac{1}{2}\ln\left(\frac{\gamma\left(1-\beta\right)}{\gamma\left(1+\beta \right)\left(P_{0}-P_{k}\right)}\right)\left(4\right).\]
+
+Now substituting in (1), the rapidity of the particle in the frame \(F\), we get
+
+\[y:=y+\frac{1}{2}\ln\left(\frac{\gamma\left(1-\beta\right)}{\gamma\left(1+\beta \right)}\right)\left(5\right).\]
+
+This is the additive relation of the rapidity between two reference frames.
+
+**Pseudorapidity**.
+
+To measure the rapidity of a particle, it is necessary to measure two quantities of the particle, such as outlined above. In many experiments, it is only possible to measure the angle of the particle's trajectory with the beam axis. In this case, it is convenient to utilize this information by employing the pseudorapidity variable \(\eta\). The pseudorapidity is defined as
+
+\[\eta=\mbox{-}\ln\left[\tan\left(\frac{\beta}{2}\right)\right]\left(6\right),\]
+
+where \(0\) is the angle between the particle momentum and the beam axis. In terms of the momentum the pseudorapidity can be written as
+
+\[\eta=\frac{1}{2}\ln\left(\frac{|p|+p_{k}}{|p|-P_{k}}\right)\left(7\right),\]
+
+By comparing equations. (2) and (7), it is seen that the pseudorapidity coincides with the rapidity when the momentum is large, i.e. when \(|p|+p_{k}\). So the pseudorapidity is a convenient tool to define locations in the experiment. This is actually a limit of the rapidity for high energy particles. So the pseudorapidity is a convenient tool to define the angle of the particle's momentum with the beam axis.
+
+[MISSING_PAGE_FAIL:94]
+
+[MISSING_PAGE_EMPTY:95]
+
+* [1771-IBD] binary in 16 bit: 10V to 30V DC
+* [1771-OBD] binary out 16 bit: 10V to 60V DC
+* [1771-OBV] binary out 8 bit: 1771-OGT binary out 8 bit: 1771-IGD binary in 16 bit: 1771-RGD binary in 16 bit: 1771-RGD binary-IO 8 bit: 1771-A3B
+* [1771-A3B] 12 slot chassis
+* [1771-A2B] 8 slot chassis
+* [1771-A5B] Power supply
+* [1771-ASR] Remote IO adapter
+* [1771-XT] Terminator
+
+* Listed by Manufacturer
+
+* [1771-A3B] Aerolag
+* [1771-A3B] 16 in, 16 out, digital IO with opto-isolation (VMIi)
+* [1771-A3B] Alle-Bundley (see Bus-type list for Allen-Bundley)
+* [1771-A3B] Analogie
+* [1771-B3B] DVX 2502 16-bit high speed analogie [1771-A3B] 200 kHz 8 ch, (VME)
+* [1771-A3B] DVX 2503 16-bit high speed analogie [1771-A3B] 200 kHz 8 ch, (VME)
+* [1771-A3B] Boonton
+* [1771-A3B] 4300 6 Channel RF Powermeter (GPIB)
+* [1771-A3B] Dati Cube
+* integrated Image processing system (VME)
+* [1771-A3B] Digitizeer and Display Device (VME)
+* Region-Of-Interest Storage Device (VME)
+* [1771-A3B] Gigatronics
+* [1771-A3B] 600  Microwave Signal Generator (GPIB)
+* [1771-A3B] Granville Philips
+* [1771-A3B] GP300  Vacuum Gauge Controllers (BITBUS)
+* [1771-A3B] Hevelett Packard
+* [1771-A3B] HP 3478A  Multimeter (GPIB)
+* [1771-A3B] HP 438A  Powermeter (GPIB)
+* [1771-A3B] HP 6002A  DC Power Supply (GPIB)
+* [1771-A3B] HP 6050A  System DC Electronic Loud (GPIB)
+* [1771-A3B] HP 8508A  Vector Voltmeter (GPIB)
+* [1771-A3B] HP 8656B  RF Signal generator 0.1-930 MHz (GPIB)
+* [1771-A3B] HP 1368A  RF Signal generator 0.1-1040 MHz (GPIB)
+* [1771-A3B] HP 22038A  IFG chunlog comparator (VXI)
+
+[MISSING_PAGE_EMPTY:97]
+
+[MISSING_PAGE_EMPTY:98]
+
+## Appendix D
+
+* **Creighton University: Central STAR Controls Group**
+* **UCLA:** Gating Grid
+* **University of Washington (NPL):** Field Cage and SVT
+* **Kent State University:** Anode Wire HV
+* **University of California Davis:** Laser Calibration System
+* **Lawrence Berkeley Laboratory:** Trigger
+
+## Appendix E The STAR Controls Requirements Document
+
+R. Burke, M. Cherney, J. Gross, T. McShane, I. Sakrejda, J. Seger
+
+Creighton University, Omaha, NE
+
+D. Keane
+
+Kent State University
+
+T. Trainor
+
+Washington University
+
+**Table of Contents**
+
+1.0 Introduction
+
+2.0 Executive Summary
+
+2.1 Overview of STAR Controls
+
+2.2 Specification of the System Components
+
+2.3 Central STAR Controls Group (CSCG)
+
+2.4 Subsystem Requirements
+
+2.4.1 STAR Controls Executive Summary (Baseline)
+
+2.4.2 STAR Controls Executive Summary (Upgrades)
+
+3.0 Requirements of Subsystems
+
+3.1 Time Projection Chamber
+
+3.1.1 Field Cage HV
+
+3.1.2 Anode Wire HV
+
+3.1.3 Front End Electronics
+
+3.1.4 Gating Grid
+
+3.1.5 Cooling System
+
+3.1.6 Gas Handling System
+
+3.2 Laser Calibration System
+
+3.3 Trigger
+
+3.4 Magnet
+
+3.5 Silicon Vertex Tracker
+
+### Introduction
+
+The Solenoidal Tracker At RHIC (STAR) is one of the two detectors that are to be installed on the Relativistic Heavy Ion Collider to look for evidence of a transition of nuclear matter to the state of a quark-gluon plasma. STAR provides a means of detecting charged particles and identifying their parameters. This conuplex detector is comprised of several subsystems that are, in a real sense, independent parts of the entire experiment. For this reason, a centralized control system is crucial for both data-taking and safety.
+
+The main purpose of the STAR Controls System is to ensure the validity and consistency of the recorded data so it can be analyzed and physics can be extracted. The main goal of the Controls group is to design, build and smoothly operate such a system.
+
+This document is intended to provide an overview of what is needed for STAR Controls to accomplish its goals of integrating and controlling the numerous subsystems. The configurations of the individual subsystems, their ideal operating conditions and their alarm conditions are determined by the engineering requirements of the detectors. The engineering requirements are in turn mandated by the physics objectives of the experiment. It is not the goal of this document to discuss the justification of the subsystem parameters, except for the sake of clarification.
+
+The STAR Controls requirements document consists of an _Executive Summary_ and a _Subsystem Requirements_ section. The executive summary contains tables and short summaries. They describe the responsibilities of the Controls group, outline goals of the Controls Subsystem, list system features and functions that are necessary to achieve these goals and describe how the system interacts with the rest of the experiment. The Subsystem Requirements section provides a more detailed description of each subsystem's controls and monitoring needs.
+
+### Executive Summary
+
+This section lists the goals of the STAR Controls Group and the Controls System. It also discusses requirements that have to be met by the System so that its goals can be achieved. The impact of these requirements on different elements of the Controls system is also described.
+
+### Overview of STAR Controls
+
+The Controls System is an important component of the experiment. Its main purpose is to ensure consistency of data taken by all the subsystems of the experiment and to maximize the efficiency of this process. This overall goal can be split into a list of important and more manageable objectives:
+
+* Set and maintain a desirable detector configuration.
+* Provide the Data Acquisition System with such auxiliary information as needed to extract physics from the collected data.
+* Ensure efficient system performance to maximize beam time utilization.
+* Create an environment for detector testing.
+* Facilitate the debugging and maintenance of the supporting hardware (power supplies, cooling circuits etc.).
+* Contribute to the safe operation of the experiment.
+
+In order to meet the objectives that are mentioned above, the Controls System has to have the following functionality:
+
+* Set the system parameters according to a pre-defined sequence.
+* Save and restore the detector configuration.
+* Establish bilateral communication with the Data Acquisition System.
+* Verify proper functioning of the system by monitoring system parameters.
+* Warn about possible system malfunctioning.
+* Hundle alarms.
+* Provide fault diagnostics.
+* Allow for simultaneous testing of different subsystems.
+* Archive information about the system parameters in an easily accessible way.
+* Provide logging capability.
+
+The task of meeting these objectives is made even more challenging by the high complexity of the components, the foreseen long life span of the experiment, a high turnover of inexperienced users and the fact that resources are both limited and distributed. To create a system that will work well in this difficult environment and fulfill the expectations, a set of system requirements assuring its functionality was specified. These requirements follow the following areas:
+
+* System Design and Functionality.
+* System Integration.
+* Experiment Controls Interface.
+* DAQ interface.
+* Trigger Interface.
+* Software.
+* Hardware.
+* Archiving.
+* Documentation.
+* Security.
+* Safety.
+
+#### 2.1.1 System Design and Functionality Requirements
+
+2.1.1.1 System Boundary Definition.
+
+Requirement:
+
+The STAR Controls system and its boundaries will be well-defined. The control and monitoring points must be defined, the alarm conditions established, logging frequencies evaluated, and safety and security issues identified.
+
+Justification:
+
+A clear system definition lies at the bottom of all well-functioning systems. A good understanding of what belongs to a system and what does not is very important for a system that functions within the boundary of many diverse systems. Such definition will optimize generation of the interfaces,
+
+Status:
+
+2.1.1.2 Structure Hierarchy:
+
+Requirement:
+
+The STAR Controls system will have a hierarchical architecture so that the complexity of each level of the system's operation is accessible and is within the limits of human comprehension.
+
+In order to aid in proper system design, EasyCASE and Select OMT, CASE (Computer Aided Software Engineering) tools, will be used as appropriate.
+
+Justification:
+
+Properly structured design is one of the prerequisites of a well-functioning system. It makes the task of integrating software written by different groups easier and significantly reduces the time necessary for system debugging. Hierarchical architecture ensures quick alarm processing and speeds up diagnostics. Good design enforces a modularity that also enhances system performance, allows for task distribution and facilitates generation of an efficient testing environment.
+
+Status:
+
+2.1.1.3 Decentralized Access
+
+Requirement:
+
+Access to the Controls System will be decentralized.
+
+Justification:
+
+Providing easy and simultaneous access to different subsystems is essential not only in the testing mode but also for handling multiple alarms. It also introduces necessary redundancy into the system.
+
+Status:
+
+2.1.1.4 Event Driven Information Flow:
+
+Requirement:
+
+Routine information flow in STAR Controls will be event-driven. The reporting of parameter values that stay within limits will be infrequent, but every subsystem immediately signals any change that exceeds pre-defined limits and provides quick information about unstable parameters.
+
+Justification:
+
+Event-driven monitoring of the system parameters reduces signal traffic in the system and prevents the network from being overloaded. It is an economic means of information transfer.
+
+Status:
+
+2.1.1.5 Start-up/Shut-down
+
+Requirement:
+
+It should be easy to bring up the system, set the desired configuration, change system parameters, and to shut the system down.
+
+Justification:
+
+This requirement is a dictate of good engineering practice.
+
+#### 2.1.1.6 Prompt Interrupt Process Requirement:
+
+The processing of interrupts by STAR Controls will be prompt:
+
+Justification:
+
+In a complex system the ability to efficiently process an interrupt is paramount. It is crucial to both regain control over the system and to make sure that the final state of the system is well-defined.
+
+Status:
+
+2.1.1.7 Test Patterns:
+
+Requirement:
+
+A mechanism for downloading test patterns to a data buffer on a readout card via a different path that the DAQ system will be provided.
+
+Justification:
+
+Such system is needed for testing purposes and the detector commissioning. It allows the performance of a detector to be decoupled from the DAQ function. These Alternate Access:
+
+Paths (AAP) are a recommendation of a review committee:
+
+Status:
+
+2.1.1.8 Alternative DAQ
+
+Requirement:
+
+A mechanism for reading out a data buffer from a readout card via a different path that the DAQ system will be provided.
+
+Justification:
+
+Such system is needed for testing purposes and the detector commissioning. These Alternate Access Paths (AAP) are a recommendation of a review committee.
+
+Status:
+
+Under investigation.
+
+2.1.1.9 Supervisory Controls System
+
+Requirement:
+
+Provision shall be made for interaction with an experiment-wide control system.
+
+Justification:
+
+An experiment-wide control system that coordinates controls of the DAQ, Trigger, On-line Computing and hardware is necessary.
+
+Comment:
+
+The respective roles of Experiment Control and STAR Controls must be defined.
+
+2.1.1.10 Interface Capability
+
+Requirement:
+
+The Controls system must be able to accept a diverse set of interfaces.
+
+Justification:The diversity of the detector components forces the construction of a system that can handle many different interfaces.
+
+Status:
+
+2.1.1.11 Ease of Use
+
+Requirement:
+
+The Controls System must be easy to use. It should not require extensive training to be used effectively. This is made possible by the graphics-based, uniform displays, iconic representations of the subsystems and a traffic light model of STAR Controls. The Controls System should also offer extensive user assistance in the form of partially automated procedures and suggestions.
+
+Justification:
+
+This is necessary considering the likely turn-over of system programmers and a continuous stream of inexperienced users.
+
+Status:
+
+2.1.1.12 Expert System
+
+Requirement:
+
+The system should posses a built-in learning ability (so called expert system).
+
+Justification:
+
+The STAR experiment will take data for extended periods of time. Thus the possibility exists that in such complex system failures of hardware will occur repeatedly. So at some point there will be standard recovery procedures, and it should be possible to make software recognize and react properly under such circumstances.
+
+Status:
+
+2.1.1.13 Expandability
+
+Requirement
+
+The system should be upgradable and expandable.
+
+Justification:
+
+The long life span of the experiment requires the controls system to be able to accept new developments in both hardware and software areas, thus minimizing the impact of aging. The real possibility that upgrades of the STAR detector will be funded enhances this requirement.
+
+Status:
+
+2.1.2 STAR Controls System Integration
+
+2.1.2.1 Executive Summary
+
+Since the STAR Controls system consists of many diverse components and groups working on them are distributed, special attention has to be paid to integration procedures. Also integration of the controls hardware into the STAR detector possesses a certain degree of difficulty. To handle this problem properly, the Controls group stays in touch with the Integration group.
+
+#### Requirements
+
+2.1.2.2.1 Needs Inventory
+
+Requirement:
+
+Inventory of the subsystem needs for controls and monitoring has to be done.
+
+Justification:
+
+Identification and understanding of subsystem needs is crucial for a design phase. To make it easier, the Controls group utilized parameter definition sheets, an idea of the University of Washington, and made them available to the subsystems. Once the parameter definition sheets were filled out, summary tables for the subsystems were generated, revised and approved. In this way, all the subsystem requirements will be included in the final design.
+
+Status:
+
+Requirement:
+
+Based on the inventory, a generic controlled subsystem should be defined; an essential model for such subsystem developed, and data flow and state transitions identified.
+
+Justification:
+
+Such study will allow identification of common needs of the subsystems and generation of a uniform interface template.
+
+Status:
+
+Under development.
+
+2.1.2.2.3 Design and Interface Documents
+
+Requirement:
+
+Based on the study of a generic subsystem, guidelines for the development will be specified in the "System Design Document" and the "Software Interfaces Document".
+
+Justification:
+
+Since the groups that work on the controls subsystem are geographically distributed, it is essential to document and formalize the interface design to minimize misunderstandings and misinterprettitions.
+
+Status:
+
+2.1.2.2.4 Design Approval
+
+Requirement:
+
+The subsystems have to submit their interface designs for approval.
+
+Justification:
+
+It is necessary to formally review the subsystem designs to address early-on in the development any possible discrepancies between the recommendations contained in the guidelines and the design implementation.
+
+Status:
+
+2.1.2.2.5 Integration Time Scheduling
+
+Requirement:The STAR Controls Schedule should allocate time for the integration procedures, including integration and debugging. Justification: Because it takes time to put things together. Status:
+
+#### Experiment Controls Interface
+
+##### Executive Summary
+
+The STAR Controls System is used by Experiment Control as a tool to control and monitor performance of the detector hardware. This relationship defines the functionality of the STAR Controls system as seen by the experiment controls.
+
+##### Requirements
+
+##### 2.1.3.2.1 Experiment Control Command Processing
+
+Requirement: The STAR controls system has to be able to understand and properly process commands coming from the Experiment Control. Justification: This feature assures proper functioning of both systems and simplifies actions of the Experiment Control system. Status:
+
+##### Detector Hardware Status
+
+Requirement: STAR Controls system has to be able to report the STATUS of the detector hardware to Experiment Control. Justification: Status of the detector hardware is one of the components of the experiment status. Proper assessment of the status for the experiment is needed for both the DAQ system and the trigger system and to assure good data quality. Status:
+
+##### Detector State Report
+
+Requirement: STAR Controls system has to be able to report the STATE of the detector hardware to the Experiment Control. Justification: State of the detector hardware is one of the components of the state of the experiment. Proper assessment of the state for the experiment is needed for both the DAQ system and the trigger system and to assure good data quality. It is also essential to efficiently evaluate status of the hardware to quickly achieve a desired detector configuration. Status:2.1.3.2.4 Alarm Reports
+
+Requirement:
+
+The STAR Controls system must be able to report alarms generated by the detector hardware promptly to Experiment Control.
+
+Justification:
+
+Prompt alarm processing is essential to assure data quality and protect the equipment.
+
+#### DAQ-STAR Controls Interface
+
+##### Executive Summary
+
+The Interaction between the Controls System and DAQ is one of the most important and complex relationships in the experiment. Ideally, the Controls System should set the system parameters to secure desired configuration, and the subsystems involved in the data taking would then be locked out to prevent them from making parameter changes. The experiment could then be declared "ready to run" by the Controls System. From this point on, the Controls System would deliver all necessary information to the DAQ. This situation could be changed when alarms are generated.
+
+##### Requirements
+
+##### Change Lockout on Run
+
+Requirement:
+
+It should be possible for the Controls System to disable changes of the parameters by the operator for the subsystems involved in the data taking.
+
+Justification:
+
+Data should be taken with a consistent set of parameters to make analysis easier.
+
+Status:
+
+##### Emergency Change Override
+
+Requirement:
+
+It should be possible to locally override such protection in emergency situations.
+
+Justification:
+
+It should be possible to quickly react locally to protect the detector hardware.
+
+Status:
+
+##### Alarm on Override
+
+Requirement:
+
+Local override of a DAQ interlock should generate an alarm visible to the experiment operator.
+
+Justification:
+
+A person who is responsible for data taking should be aware of any drastic changes in the experiment configuration and should be able to react accordingly.
+
+Status:
+
+##### Run Abort Algorithm
+
+Requirement:There should be algorithms that evaluate the impact of changes and advise the operator to abort the run. Pattern recognition procedures may be used to spot trends and avoid impending trouble.
+
+Justification:
+
+Although the final decision to interrupt the data-taking should always belong to a physicist, software should exist that determines the status of the data that is being taken and advises the operator on what action should be taken. The STAR detector is a complex system and it is not always easy to evaluate the situation properly.
+
+Status:
+
+2.1.4.2.5 Information Provided by Controls System
+
+Requirement:
+
+The controls system must provide the DAQ with all the auxiliary parameters needed to reconstruct data.
+
+Justification:
+
+Not all the data needed for the event reconstruction is available to the FEE. Missing information
+
+has to be provided by the controls system.
+
+Status:
+
+2.1.5 Trigger-STAR Controls Interface
+
+2.1.5.1 Executive Summary.
+
+The controls system has to provide the trigger with information about the STATUS of the hardware,
+
+2.1.5.1 Requirements.
+
+2.1.6 Controls System Software Requirements.
+
+2.1.6.1 Executive summary
+
+The task size, runpower availability, and cost limitations excluded the idea of completely custom-made Controls System software. On the other hand this decision should not impair any ability of the experiment to take large volumes of high quality data. Thus software needs of the Controls System should be reviewed carefully and the best available system that matches needs of the experiment should be selected.
+
+2.1.6.2 Requirements
+
+2.1.6.2.1 Requirement:
+
+The STAR Controls system will be based on a standard software tool kit.
+
+Justification:
+
+Cost and man-power limitations dictate this decision.
+
+Status:
+
+2.1.6.2.2 Requirement100
+
+The Controls System will be run on a UNIX-based workstation connected to VME crates operating under VxWorks, a real-time operating system.
+
+Justification:
+
+This selection provides a homogenous software environment and matches requirements of all the other experiment subsystems:
+
+Status:
+
+2.1.6.2.3
+
+Requirement:
+
+A Motif-based window manager will be installed on the workstations that provide the operator interface,
+
+Justification:
+
+A Motif-based window manager is used by other subsystems and again provides a uniform software environment.
+
+Status:
+
+2.1.6.2.4
+
+Requirement:
+
+Naming conventions have to be adopted.
+
+Justification:
+
+Adherence to the naming conventions will ease the task of integration
+
+Status:
+
+Proposal for the naming conventions appears in Appendix A.
+
+2.1.6.2.5
+
+Requirement:
+
+The channel information will be kept in a database.
+
+Justification:
+
+The database software will protect the system software against duplicated names and enforce adherence to the naming conventions. It will also generate the run-time databases that are loaded into the VME modules.
+
+2:1.6.2.6
+
+Requirement:
+
+The Controls System software should be modular, expandable and upgradeable.
+
+Justification:
+
+This is needed both in order to ease transitions to new versions of software and to accommodate upgrades. The EPICS software provides such an environment.
+
+2:1.6.2.7
+
+Requirement:
+
+Quality assurance procedures must be developed and a way to introduce upgrades must be worked out.
+
+Justification:
+
+DOE wants it.
+
+* 2.1.6.2.8 Requirement: The software that passes the quality assurance tests will be kept in a central repository that is maintained by the **rcvs**. Only this software will be used during data-taking.
+
+#### 2.1.7 Controls System Hardware Requirements
+
+#### 2.1.7.1 Executive Summary
+
+The selection of the EPICS environment also predefines the hardware configuration of the Controls System. The system hardware consists of 68040 Motorola processors in VME crates to which every subsystem plugs in, wherever possible, commercially available industrial interfaces and programmable controllers. The monitoring tasks and system control are distributed on SUN workstations. The workstations and VME crates are networked with Ethernet.
+
+The STAR Controls group provides a workstation for central controls and monitoring. It also provides the subsystems with VME crates into which the subsystem can place any modules that control EPICS-supported hardware. It is the responsibility of the subsystems to provide any interfaces, supported sub-buses, cables and converters and a workstation that provides the auxiliary, subsystem operator interface if required. An example of this is shown in figure 1. STAR Controls will provide the main console, VME crate and controller (68040 CPU). The subsystem provides an additional workstation and the Allen-Bradley equipment (scanner card, 1771, 1771-IG, 1771-OG and ADC, for example).
+
+Appendix A contains a list of EPICS-supported hardware.
+
+#### 2.1.7.2 Requirements
+
+Figure 1: Typical hardware configuration of EPICS. Names of the elements provided by the Controls System are underlined. Subsystems would provide italicized components.
+
+[MISSING_PAGE_EMPTY:113]
+
+All the EPICS documentation must be made easily accessible to the subsystem developers so that they can explore all the EPICS functionality and use it in their design.
+
+Justification:
+
+Easy access to the documentation will help developers to use and implement all the EPICS features.
+
+Status:
+
+2,1.9.2.2 System Documentation:
+
+Requirement:
+
+The system development has to be well documented.
+
+Justification:
+
+Good documentation of the system development allows new members join and continue work started by others so that there is no need to regenerate from scratch parts of the system in case the author leaves the Collaboration.
+
+Status:
+
+2.1.9.2.3 Code Documentation:
+
+Requirement:
+
+The "in-line" documentation for the generated code should be provided.
+
+2.1.9.2.4 Algorithm Documentation:
+
+Requirement:
+
+Notes that clearly explain the design, describe the algorithms that were used and explain the implementation will be provided.
+
+Justification:
+
+Status:
+
+2.1.9.2.5 User's Guide
+
+Requirement:
+
+User's guides for the Controls system will be generated.
+
+2.1.9.2.6 Controls System Software Documentation
+
+Requirement:
+
+All the documentation should be generated along with the Controls System software.
+
+2.1.9.2.7 Document Library
+
+Requirement:
+
+All the documentation must be easily available so that it can be found when needed. To organize and speed up access to the documentation, the STAR Controls group has set up a documentation area on the Web through which all the documents are available (Timelines, Requirements document, user's guides etc.).
+
+Justification:
+
+Documentation that is not easily available is useless:
+
+Status:
+
+#### 2.1.10 Star Controls Security.
+
+##### 2.1.10.1 Executive Summary.
+
+The task of security is to protect a system against malicious or accidental actions. On the other hand, excessive security makes work more difficult and increases the response time of a system. Therefore, it is important to build just the right amount of security into any system. There are three areas where intentionally malicious or accidental action could cause the most harm. One of them is damage to the equipment if parameters are changed beyond acceptable limits. The second is a change of parameters while data is being taken. The third is when two users simultaneously change the same parameter while debugging the same hardware.
+
+#### 2.1.10.2 Requirements.
+
+2.1.10.2.1 Parameter Utility Requirement:
+
+The system must have a built-in robustness that protects hardware against parameters settings that could cause serious damage.
+
+Justification:
+
+Robustness of a system reduces need for a tight security system.
+
+Status:
+
+2.1.10.2.2 Parameter Change Lockout on Run Requirement:
+
+Parameters that affect data recorded by the Data Acquisition should be well protected against changes by a "lock-out" system that cannot be broken without a major alarm being generated.
+
+Justification:
+
+This provides enough protection against accidental changes.
+
+Status:
+
+2.1.10.2,3 System Restoration Requirement:
+
+The System configuration must be easy to restore.
+
+Justification:
+
+This requirement greatly reduces the need for system security.
+
+Status:
+
+2.1.10.2.4 LOTO Capability Requirement:
+
+The tagging ability should be granted to any user that wants to work on the system.
+
+Justification:
+
+This eliminates unconscious interference of two users working on the same subsystem.
+
+Status:
+
+2.1.10.2,5 Controls System Network Isolation Requirement:Prottocol for communication between the operator and the devices on the Ethernet subnet for the experimental area should be insensitive to external interference.
+
+Justification:
+
+This require isolates the Controls System from the external world and protects system parameters against external changes.
+
+Status:
+
+2.1.10.2.6 Security:
+
+Requirement:
+
+System Security for the SUN workstations should eliminate assaults by hackers.
+
+2.1.10.2.7 Additional Security:
+
+Requirement:
+
+There should be a possibility for further securing selected controlled parameters.
+
+Status:
+
+The need for this feature is under discussion.
+
+2.1.10.2.8 Database Protection:
+
+Requirement:
+
+The parameter database and configuration files should be well-protected with passwords.
+
+Justification:
+
+2.1.11 STAR Controls and Safety.
+
+2.1.11.1 Executive Summary.
+
+The Controls System will not be reliable enough to be in charge of safety for the experiment. But since it handles information from all the subsystems and is sensitive to subsystem parameter changes, it can provide an early warning of approaching disasters and enhances system safely significantly.
+
+2.1.11.2 Requirements.
+
+2.1.11.2.1 Requirement:
+
+All changes in the system parameters that lead to situations that jeopardize safety of the facility should generate alarms.
+
+2.1.11.2.2 Requirement:
+
+Controls System must constantly monitor the status of all the interlocks in the detector system.
+
+Justification:
+
+Status:
+
+2.1.11.2.3 Requirement:
+
+All alarms related to safety should be of the highest level.
+
+Justification:Status:
+
+### Central STAR Controls Group
+
+The STAR Controls Group was created to ease the unification of the STAR detectors and to facilitate the construction of a system that will meet the requirements listed in the previous section. A list of tasks that should enable the group to achieve its goal and build a reliable and efficient system include:
+
+* Design a uniform and efficient Controls System.
+* Define detector configurations.
+* Design sequences of operations that establish required configurations.
+* Plan a timely delivery that includes all the intermediate milestones defined by the detector testing and integration.
+* Integrate into the STAR Controls System and test the applications developed by the subsystem experts.
+* Provide support for the subsystems in controls development.
+* Develop controls for areas deficient in manpower.
+* Stimulate information flow between the groups participating in the development of the Controls System.
+* Organize un easily accessible and well-structured documentation system.
+* Monitor developments of the system software (EPICS, VxWorks, Sun OS, Motif), plan and coordinate upgrades.
+* Cooperate with the Integration Group in securing space needed for the Controls hardware.
+
+### Subsystem Requirements
+
+In order to properly design the Controls System, an inventory of the subsystem needs for controls and monitoring had to be made. Tables 1 and 2 show the results of this survey. More detailed description and, when appropriate, a justification of the detector requirements, can be found in Section 3.
+
+[MISSING_PAGE_EMPTY:118]
+
+#### 2.3.2 STAR Controls Executive Summary (Upgrades)
+
+### 3.0 Subsystem Interface Requirements
+
+As seen in tables 1 and 2, STAR Controls has to monitor, control and coordinate the following subsystems:
+
+\(\bullet\) TPC
+
+\(\bullet\) Laser Calibration System:
+
+\(\bullet\) Trigger
+
+\(\bullet\) Magnet
+
+\(\bullet\) Time of Flight
+
+\(\bullet\) SVT
+
+\(\bullet\) External TPC
+
+\(\bullet\) Electromagnetic Calorimeter.
+
+This chapter will address the interface requirements of each of these subsystems.
+
+### 3.1 Time Projection Chamber
+
+The Time Projection Chamber controls system has to ensure smooth operation of the main STAR detector. This controls system consists of the following elements:
+
+\(\bullet\) field cage high voltage controls system,
+
+\(\bullet\) anode high voltage controls system,
+
+\(\bullet\) front-end electronics controls system,
+
+\(\bullet\) gating grid controls system,
+
+\(\bullet\) pulser controls system,
+
+\(\bullet\) cooling controls system.
+
+The limits within which the parameters of the above-mentioned control systems can change are defined by maximum tolerances that physics requirements impose on the Time Projection Chamber parameters such as stability of the drift velocity, position resolution, field uniformity and the gas gain.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|} \hline System & Subsystem & Devices & Monitored & \#of Channels to & Hardware \\  & & & Variables & Monitor & Interface \\ \hline Silicon Vertex & HV & & & \\ Tracker, SVT & tuny others & & & \\ \hline External TPC & & & & \\ \hline Time of Flight & & & & \\ \hline Electro-magnetic Calorimeter & & & & \\ \hline \end{tabular}
+\end{table}
+Table 2:
+
+[MISSING_PAGE_FAIL:120]
+
+* exact value to be decided after testing:
+
+** power supply automatically shuts down for T>40oC
+
+** hardware trip occurs at present limit (<20 micro A)
+
+#### 3.1.1.2 Requirements
+
+3.1.1.2.1 Requirement:
+
+The Anode Wire HV Controls system has to handle one LeCroy 1450 power supply delivers 256 channels of HV to the TPC anode wires. Two power supplies would be needed: the 1440 system was used.
+
+Justification:
+
+A wire or adjacent group of wires that develops a short or chronic breakdown problem in have its channel set to zero until it is repaired. Such instance would result in the loss 1/n of the archive volume, where n equals the number of channels. The largest accepts fraction is 1/156.
+
+Status:
+
+Closed:
+
+3.1.1.2:2 Requirement:
+
+The STATUS signal for the Anode Wire HV System has to be defined.
+
+Justification:
+
+This is needed to identify status of the detector and status of the experiment: Status of the detector and status of the experiment are needed to assure proper functioning of the system.
+
+Status:
+
+Under discussion.
+
+3.1.1.2.3 Requirement:The STATE signal for the Anode Wire HV Controls System has to be defined.
+
+Justification:
+
+The STATE of every subsystem has to be known to the experiment controls to assure proper functioning of the Experiment.
+
+Status:
+
+Under discussion:
+
+3.1.1.2.4 Requirement:
+
+The STATUS signal has to be defined for all the monitored and controlled channels of the Anode Wire HV System.
+
+Justification:
+
+The STATUS signal for the Anode Wire HV System will be a logical combination of the STATUS signals from all the monitored and controlled channels, plus the global status of each power supply.
+
+Status:
+
+3.1.1.2.5 Requirement:
+
+The STATE signal for all the monitored and controlled channels of the Anode Wire HV System has to be defined.
+
+Justification:
+
+The STATE signal for the Anode Wire HV System will be a logical combination of the STATE signals from all the monitored and controlled channels, plus the global state of each power supply.
+
+Status:
+
+3.1.1.2.6 Requirement:
+
+The temperature of the power supplies has to be monitored with a scanning frequency at least 0.1 Hz.
+
+Justification:
+
+The thermal inertia of the power supply is such that a meaningful change in temperature takes ten seconds or longer.
+
+Status:
+
+3.1.1.2.7 Requirement:
+
+The temperature of the HV power supplies has to stay within below 30\({}^{\circ}\)C. If it is outside limits an alarm has to be generated. Severity of an alarm depends on how far outside the limits the temperature is.
+
+Justification:If temperature exceeds 40\({}^{o}\)C, power supply failure becomes probable. A Modified 1444 power supply card suffers degraded current monitoring resolution and offset drift for temperatures above 30\({}^{o}\)C,
+
+Status:
+
+3.1.1.2.8
+
+Requirement:
+
+The temperature of the power supplies has to be archived if change is 10C or more.
+
+Justification:
+
+Archived temperature information will be useful to reconstruct reasons for a chain of failures if they were to occur. It will also be useful in applying corrections off-line to the archived anode current readings.
+
+Status:
+
+3.1.1.2.9
+
+Requirement:
+
+The HV of every channel has to be monitored with a scanning frequency at least 2 Hz.
+
+Justification:
+
+This scanning frequency provides an acceptable display response rate when running or other changes are in progress.
+
+Status:
+
+3.1.1.2.10
+
+Requirement:
+
+The HV for every channel must stay within 2V of nominal settings. If it is outside limits an alarm has to be generated. Severity of an alarm depends on how far outside the limits the HV is.
+
+Justification:
+
+Gas gain is very sensitive to voltage. A 1% change in voltage can cause more than 10% change in gain. Uniform gain is necessary for good dif/dx resolution, position resolution etc.
+
+Status:
+
+3.1.1.2.11
+
+Requirement:
+
+The HV of every channel has to be archived if value changes by more than 1V;
+
+Justification:
+
+Off-line gain corrections, off-line review of data quality,
+
+Status:
+
+3.1.1.2.12
+
+Requirement:
+
+The HV current of every channel has to be monitored with a scanning frequency to be determined later, see 3.1.2.2.14.
+
+[MISSING_PAGE_EMPTY:124]
+
+[MISSING_PAGE_FAIL:125]
+
+#### Requirements
+
+3.1.2.2.1 HV Power Supply Requirement:
+
+The Field Cage HV Controls system has to handle one GLASSMAN 100kV 60mA power supply that delivers HV to the TPC field cage.
+
+Justification:
+
+Supplies Drift Voltage to the TPC. Regulates voltage to insure precise tracking.
+
+Status:
+
+Closed,
+
+3.1.2.2.2 Remote/Local Operation Requirement:
+
+The HV system should be operable from a cold start entirely from the STAR control room, without local access at the detector. This means that the AC power and the "HV on" condition should be reachable from a remote location. This capability will probably require modifications of the power supply as well as additional control lines.
+
+Justification:
+
+The STAR detector will be inaccessible during operation.
+
+Status:
+
+3.1.2.2.3 Local Operation on Testing
+
+Requirement:
+
+An alternative operation with local control should be available during tests.
+
+Justification:
+
+During beam-off tests, the Field Cage HV system should be locally operable.
+
+Status:
+
+3.1.2.2.4 System Status Definition
+
+Requirement:
+
+The STATUS signal for the Field Cage HV System has to be defined.
+
+Justification:
+
+This is needed to identify the status of the detector and the status of the experiment. The status of the detector and the status of the experiment are needed to assure proper functioning of the system:
+
+Status:
+
+Under discussion.
+
+3.1.2.2.5 State Definition
+
+Requirement:
+
+The STATE signal for the Field Cage HV Controls System has to be defined.
+
+Justification:
+
+The STATE of every subsystem hus to be known to the experiment controls to assure proper functioning of the Experiment.
+
+Status:
+
+Under discussion.
+
+3.1.2.2.6 Channel Status Definition
+
+Requirement:
+
+The STATUS signal must be defined for all the monitored and controlled channels of the Field Cage HV System.
+
+Justification:
+
+The STATUS signal for the Field Cage HV System will be a logical combination of the STATUS signals from all the monitored and controlled channels.
+
+Status:
+
+3.1.2.2.7 AC Power State
+
+Requirement:
+
+The state of the input AC for the power supplies has to be monitored with a scanning frequency at least 1 Hz.
+
+Justification:
+
+It is important to look at the input AC to evaluate system status.
+
+Status:
+
+3.1.2.2.8 HV Output State Sampling
+
+Requirement:
+
+The state of the HV system has to be monitored with a scanning frequency at least 1 Hz.
+
+Justification:
+
+It is important to look at the status of the HV system because the TPC HV control status affects the data quality. Archive at 1 Hz to diagnose.
+
+Status:
+
+3.1.2.2.9 HV Output State Archiving.
+
+Requirement:
+
+The state of the HV system has to be archived with a frequency at least 1 Hz.
+
+Justification:
+
+Why is it important to archive the status of the HV system? Archive for data quality diagnostic.
+
+Status:
+
+3.1.2.2.10 HV Scanning Frequency
+
+Requirement:
+
+The output HV has to be monitored with a scanning frequency at least 1 Hz.
+
+Justification:
+
+Data quality assurance. Slut down gas on fault.
+
+Status:
+
+3.1.2.2.11 HV Stability/Regulation Band
+
+Requirement:
+
+The output HV has to stay within +/- 1kv. It will be continuously adjusted to maintain constant drift velocity. A mechanism that provides these adjustments will be based on a digital filter operation and will utilize the drift velocity measured with the laser system. If it is outside limits an alarm has to be generated. Severity of an alarm depends on how far outside the limits the HV is.
+
+Justification:
+
+Servo system may go out of lock or regulator quality full below some limit. Indicates gas system problem.
+
+Status:
+
+3.1.2.2.12 Voltage Time History Analysis
+
+Requirement:
+
+The time record of the output voltage has to be analyzed and searched for 'unusual' patterns.
+
+Justification:
+
+The time record of the output voltage will be used to indicate emergency conditions or to cease operation of the HV supply. Most obviously, 'unusual' changes in the time record or its first derivative are possible places for the alarm set points.
+
+Status:
+
+The levels which constitute 'unusual' have not been defined at this time.
+
+3.1.2.2.13 HV Archiving Rate:
+
+Requirement:
+
+The output HV has to be archived with a frequency at least 1 Hz.
+
+Justification:
+
+The archived output voltage will serve as a record of the corrections that were made to maintain the electron drift speed constant. This record will indicate the total noise amplitude of the drift speed coming from various sources such as changes in TPC gas temperature and composition.
+
+Status:
+
+3.1.2.2.14 Current Sampling Rate:
+
+Requirement:
+
+The output HV current has to be monitored with a scanning frequency at least 1 Hz.
+
+Justification:
+
+Status:
+
+3.1.2.2.15 Current Archive Rate:
+
+Requirement:
+
+The output HV current has to be archived with a frequency at least 1 Hz.
+
+Justification:
+
+This is needed for data analysis.
+
+Status:
+
+3.1.2.2.16 Gas System Interloek Status Sampling
+
+Requirement:
+
+The status of the interloek with the gas system has to be monitored with a scanning frequency at least 1 Hz. If the interlock is broken, an alarm will be generated.
+
+Should Be Done by Gas System?
+
+Justification:
+
+The Field Cage High Voltage System requires information from the TPC gas handling system to ensure safe conditions for the high voltage application.
+
+Status:
+
+This gas system information is not described at present. The STAR Integration group should help to include all the necessary hardware needed to deliver the gas information to the high voltage system and to establish the interlock between these two systems outside of the Controls System.
+
+3.1.2.2.17 Gas System Interloek Status
+
+Requirement:
+
+The status of the interlock with the gas system has to be archived with a frequency at least 1 Hz.
+
+Justification:Status:
+
+3.1.2.2.18 Introduction to DAQ
+
+Requirement:
+
+The following values should be forwarded to the DAQ stream with the following frequency:
+
+Justification:
+
+It is necessary for a proper event reconstruction:
+
+Status:
+
+#### Front End Electronics
+
+The front-end electronics that reads out, amplifies and processes information from the TPC padplane, requires 312 low voltage power supplies which must be monitored and controlled. Voltage, current, interlock status and the temperature of the electronics will all be monitored. Alarms will be generated when the monitored parameters exceed limits listed in Table 5. All the monitored parameters will be archived with a frequency that is needed for the hardware debugging.
+
+Tables 5 and 5a shows the requirements of the Front End Electronics Controls.
+
+[MISSING_PAGE_EMPTY:131]
+
+**Table 5a**
+
+\begin{tabular}{|l|l|l|l|l|l|l|} \hline \multicolumn{1}{|c|}{Device} & \multicolumn{1}{c|}{Moelitored} & Alason & Alarm & Coetrel & Scanning & Archiving \\  & & Variables & & Handling & & Frequency & Frequency \\ \hline  & S & +V & & & & \\ P & U & -V & & & & \\ O & P & +H & & & & \\ W & P & -I & & & & \\ E & L & +V connector & & & & \\ R & I & -V connector & & & & \\  & B & power cable & & & & \\  & S & interlock & & & & \\ \hline  & & AC voltage sense & \(\gg\)\(\pm\) 20\%. & & & \\  & R & AC current sense & \(\gg\)\(\pm\) 25\%. & & & \\  & A & rack temperature & +25 & AC shut off & & \\  & C & conlonnt flow & \(>\)25\% & & & \\  & & coolant temperature & \(\gg\)\(\pm\) 20 & & & \\  & K & & & & & \\ \cline{2-5}  & interlock status & broken & & & 2 Hz up to \\  & S & & & & 10 Hz & \\  & & & & & & for a selected \\  & & & & & & \\  & & & & & \\ \hline  & & +V RD board & & & & sub-group \\  & & & -V RD board & & & \\  & & & +SV RD elect. & & & \\ O & M & -2V RD elect. & & & & \\ N & O & -SV RD elect. & & & \\  & N & +SV FE board & & & & \\ D & I & -2V FE: board & & & & \\ E & T & -5V FE board & & & & \\ T & O & +I sense & & & \\ E & R & -I sense & & & & \\ C & I & +H front end & & & \\ T & N & -I from end & & & \\ O & G & reference voltages & & & & \\ R & & & temperature & & shut off power to \\  & & & & the appropriate & \\  & & & & power supplies & \\  & & & & operational mode & & \\  & & & board status & & \\  & & & board control & & \\ \hline \end{tabular}
+
+#### Requirements
+
+##### 3.1.4 Gating Grid
+
+A gating grid can be used to prevent the movement of the large number of ions produced in the avalanches out of the endcap region. Its design has not been finalized yet. For the time being it is known that the gating grid will operates at different bias voltage settings. Slow Controls will interface with the gating grid via at system based on GPIB to monitor and control the voltage and control the bias settings. Alarms will be generated when the voltage is outside specifications. STAR Controls will archive the bias voltage and alarm conditions.
+
+UCLA is developing controls for the Guting Grid.
+
+Requirement:
+
+GGD system has to be initialized.
+
+Justification:
+
+Requirement:
+
+Remote enabling/disabling of GGD system must be possible.
+
+Justification:
+
+Requirement:
+
+Remote triggering of GGD system must be possible.
+
+Justification:
+
+Requirement:
+
+Periodic monitoring of theGGD system must be possible.
+
+Justification:
+
+Requirement:
+
+Periodic monitoring of the status register (i.e., an 8-16 bit word) must be possible.
+
+Justification:
+
+Requirement:
+
+CAMAC power supplies have to be monitored and controlled.
+
+Justification:
+
+#### Cooling System
+
+The function of the cooling system is to hold the gas temperature at the operating temperature with a variation to less than \(10^{\circ}\)C in order to maintain a constant gas gain and a uniform drift velocity. If it is necessary to operate with a drift gas which is not at the saturation peak of the velocity versus field curve, then the temperature of the field cage and the end caps must be controlled to less than \(0.30^{\circ}\)C. A water-based cooling system is currently planned:
+
+For cost reasons, STAR Controls will control only equipment with electronic interfaces; most of the water circuits do not fall into this category. So most probably cooling system parameters will be only monitored and the flow controls will be done outside of the STAR Controls. The monitored parameters will include the water circuit temperatures, the pad plane temperature, the field cage temperature, the water circuit pressures, the water flow, and the interlock conditions. Alarm conditions include temperature and pressure over or under operating parameters. All the parameters will be archived.
+
+#### Gas Handling System
+
+The gas system maintains high purity gases in a well defined mixture in the drift volume of the TPC. The gas used will most likely be an Argon/Methane or Helium/Ethane mixture.
+
+Mass flow meters and controllers will be used to measure and control the individual components of the gas mixture. Gas fractions will be measured and adjusted using the standard mass flow meters/controllers presently in use in the semiconductor industry. Each flow meter will use a microprocessor-based readout interface to set the flows. These units provide an absolute accuracy of better than one percent and a reproducibility of 0.2 percent. An interface to the meters will be GPHB.
+
+Chamber pressure and gas mixture will be regulated with a closed loop system using capacitance memories and proportional solenoid valves. Both items will be supplied by the manufacturers of the flow meters. A sub-atmospheric exhaust system will be used to remove gas from the chambers and vent it to the outside. All on-line primary gas supplies will be located in a specially constructed room along with the mixers and the associated control system interface. Monitor chambers will be used with each system to measure changes in the gas composition and to calculate drift velocity. This may involve the transfer of data to and from a dedicated work station. The alarm conditions and the archiving have not yet been defined.
+
+### Laser Calibration System
+
+A high power laser is used to calibrate the TPC drift volume. The beam intensity and polarization will be controlled by a system using a half-wave plate and a Glan polarizer. The alignment of the mirrors will need to be controlled. The University of California at Davis is developing a stand-alone system utilizing LabView and running on a Macintosh. It will interface to the main control system via the internet.
+
+### Trigger
+
+STAR Controls for the trigger are being developed at the Berkeley Space Sciences Laboratory.
+
+Table 6 contains the requirements for the Trigger Controls.
+
+### Magnet
+
+A solenoid magnet surrounds the TPC. The magnet creates a 0.5 Tesla field allowing for momentum measurements of the charged particles passing through the TPC. The magnetic field is to be maintained to one part in 1000. At this time, the central Slow Controls group will provisionally assume responsibility for the magnet slow controls software in collaboration with Brookhaven and the RHIC magnet control group.
+
+Power to the magnet is provided by five power supplies. STAR Controls system will monitor the voltage and current at the power supplies; the output current and the power supply interlock status. AC power and DC power are switched on and off and reset. The output current and rate of ramping will be set and controlled. The high voltage power supplies are water cooled, and Slow Controls will monitor the temperature of the water circuits. Alarm conditions include overcurrents, over and under voltages, and over temperature. The voltage, currents and alarm conditions will be archived,
+
+Large currents run through the coils of the solenoid, creating a strong magnetic field and generating large amounts of heat. The temperature in the coils must be monitored. To accomplish this, STAR Controls will monitor the current and the voltage drop across the coils and power bus, allowing the resistance and the power dispersed as heat to be easily calculated. The temperature in the water cooling system of the coils is monitored at both the intake and the outlet points and the heat carried away by the water is calculated. The pressure in the water circuits and conductivity of the water are also monitored. Watermats; developed at the AGS, are used to detect any water
+
+\begin{table}
+\begin{tabular}{l l l|l l l l l} \multicolumn{1}{c}{**Table 7**} & \multicolumn{1}{c}{**StAR**} & \multicolumn{1}{c}{**Magnet Control Requirements**} \\ \multicolumn{1}{c}{**Device**} & \multicolumn{1}{c}{**Monitored**} & \multicolumn{1}{c}{**\# of**} & \multicolumn{1}{c}{**Andware**} & \multicolumn{1}{c}{**Defact**} & \multicolumn{1}{c}{**Folicrences**} & \multicolumn{1}{c}{**Warning**} & \multicolumn{1}{c}{**Warning**} \\  & & Variables & Channels & InteTrace & Values & & & \\  & & & & & & & \\  & & & & & & & \\  & & & & & & & \\  & & & & & & & \\  & & & & & & & \\ \end{tabular}
+\end{table}
+Table 7: **StAR**} & \multicolumn{1}{c}{**Magnet Control Requirements**} \\ \multicolumn{1}{c}{**Device**} & \multicolumn{1}{c}{**Monitored**} & \multicolumn{1}{c}{**\# of**} & \multicolumn{1}{c}{**Andware**} & \multicolumn{1}{c}{**Defact**} & \multicolumn{1}{c}{**Folicrences**} & \multicolumn{1}{c}{**Warning**} & \multicolumn{1}{c}{**Warning**} \\  & & Variables & Channels & InteTrace & Values & & \\  & & & & & & \\  & & & & & & \\  & & & & & & \\  & & & & & & \\  & & & & & & \\ \end{tabular}
+\end{table}
+Table 7: **StAR**} & \multicolumn{1}{c}{**Magnet Control Requirements**} \\ \multicolumn{1}{c}{**Device**} & \multicolumn{1}{c}{**Monitored**} & \multicolumn{1}{c}{**\# of**} & \multicolumn{1}{c}{**Andware**} & \multicolumn{1}{c}{**Defact**} & \multicolumn{1}{c}{**Folicrences**} & \multicolumn{1}{c}{**Warning**} & \multicolumn{1}{c}{**Warning**} \\  & & Variables & Channels & InteTrace & Values & & \\  & & & & & & \\
+
+\begin{tabular}{|l|l|l|l|l|l|l|} \hline \multicolumn{1}{|c|}{**Device**} & \multicolumn{1}{c|}{**Mountoord**} & \multicolumn{1}{c|}{**Alven**} & \multicolumn{1}{c|}{**Alasm**} & \multicolumn{1}{c|}{**Control**} & \multicolumn{1}{c|}{**Scanning**} & \multicolumn{1}{c|}{**Archiving**} \\  & \multicolumn{1}{c|}{**Verishes**} & \multicolumn{1}{c|}{**Handing**} & \multicolumn{1}{c|}{**Frequency**} & \multicolumn{1}{c|}{**Frequency**} & \multicolumn{1}{c|}{**Frequency**} \\ \hline Main & Main AC on/off & & & Main AC on/off & & \\ Power & & & & & & \\ Supply & & & & & & \\ \cline{2-6}  & AC Voltage & & & & & \\ \cline{2-6}  & AC Current & & & & & \\ \cline{2-6}  & DC on/off & & DC on/off & & & \\ \cline{2-6}  & Output Current & & & Output Current & & \\ \cline{2-6}  & Mix. Current & & & Mix. Current & & \\ \cline{2-6}  & Mix. Voltage & & & Mix. Voltage & & \\ \hline Two Pote- & & & & & & \\ Tip & & & & & \\ Supplies & & & & & & \\ \cline{2-6}  & AC Voltage & & & & & \\ \cline{2-6}  & AC Current & & & & & \\ \cline{2-6}  & DC on/off & & DC on/off & & \\ \cline{2-6}  & Output Current & & & Output Current & & \\ \cline{2-6}  & Max. Current & & & Mix. Current & & \\ \cline{2-6}  & Max. Voltage & & & Mix. Voltage & & \\ \hline \multicolumn{1}{|l|}{Two Pote- & & & & & \\ Tip & & & & & \\ Supplies & & & & & \\ \cline{2-6}  & AC Voltage & & & & & \\ \cline{2-6}  & AC Current & & & & \\ \cline{2-6}  & DC on/off & & DC on/off & & \\ \cline{2-6}  & Output Current & & & Output Current & & \\ \cline{2-6}  & Max. Current & & & Mix. Current & & \\ \cline{2-6}  & Max. Voltage & & & Mix. Voltage & & \\ \hline Inter-lock & & & & & & \\ Status & & & & & \\ \cline{2-6}  & Ground Fault & & & & & \\ \cline{2-6}  & Over Current & & & & & \\ \cline{2-6}  & Temperature & & & & & \\ \cline{2-6}  & Rectifier Fault
+
+### Silicon Vertex Tracker
+
+Slow Controls software for the SVT is being developed at the University of Washington. The power supply for each wafer must be controlled and monitored. The wafers also require temperature and bias current control and monitoring system will be similar to that of the TPC but on a smaller scale. The subsystem will communicate with the central STAR Controls via ethernet.
+
+## Appendix F STAR Controls Parameter (SCP) Definition Sheet
+
+SCP: Acronym (6 Characters max):
+
+SCP: Subsystem
+
+SCP: Units
+
+SCP: Range
+
+SCP: Low
+
+SCP: High
+
+SCP: Name
+
+SCP: Description
+
+## Appendix A Display and Recording of SCP
+
+1. Is SCP to be displayed as an unalog meter? Yes o No o
+
+If Yes, select: Linear scale o Log scale o
+
+2. Is SCP to be displayed as a digital meter? Yes o No o
+
+3. Is SCP to be displayed as a horizontal bar? Yes o No o
+
+4. Is SCP to be displayed as a vertical bar? Yes o No o
+
+5. Is SCP to be displayed as a time-dependent strip chart? Yes o No o
+
+If Yes, give time sample interval, min o max o average o
+
+6. Is SCP to be archived? Yes O No O
+
+If Yes, give time sample interval, min o max o average o
+
+7. Is SCP to be stored/recalled on demand? Yes o No o
+
+8. Is SCP to be passed on to the DAQ system? Yes o No oB. Control and Modification of SCP from Slow Control Console (SCC)
+
+1. Is SCP to be modified from SCC by a slide bar? Yes o No o
+
+If Yes, give min value, max value, on bar.
+
+2. Is SCP to be modified from SCC by keyboard entry? Yes o No o:
+
+If Yes, give min allowed value, max allowed value.
+
+3. Is SCP to be modified from SCC by selector switch? Yes o No o
+
+If Yes, give number of switch settings, values, values,
+
+4. Is SCP to be modified from SCC by push buttons? Yes o No o
+
+If Yes, give number of push buttons, values,
+
+5. Is SCP to be modified by a programmed procedure? Yes o No o
+
+If Yes, list other SCPs modified in procedure
+
+give description of procedure C. Alarms and Protective Procedures for SCP
+
+1. Is SCP out-of-range to generate an alarm on the SCC screen? Yes o No o
+
+If Yes, give alarm range(s).
+
+2. Is SCP out-of-range to generate an audible alarm? Yes o No o
+
+If Yes, give alarm range(s).
+
+give location of sound.
+
+3. Is SCP out-of-range to generate E-Mail messages? Yes o No o
+
+If Yes, give alarm range(s).
+
+give recipients.
+
+4. Is SCP out-of-range to generate telephone calls? Yes o No o
+
+If Yes, give alarm range(s).
+
+give recipients.
+
+5. Is SCP out-of-range to generate a programmed procedure? Yes o No o
+
+If Yes, list other SCPs modified in procedure.
+
+give description of procedure.
+
+## References
+
+* [AL 83] Aleph-Collaboration (Bari-Beijing-CERN-Clermont: Ferrand-Copenhagen-Demokritos-Dortmund-Ecole-Polytechnique-Edinburgh-Frascati-Glasgow-Heidelberg-Imperial College-Lancaster-Mainz-Marseille-MTP-Munchen-Orsay-Pisa-Rutherford Laboratory-Saclay-Sheffield-Siegen-Trieste-Westfield College-Wisconsin). Technical Report 1983 for CERN-LEP Committee.
+* [AR 94] N. Arnold, private communication (1994).
+* [BA 91] R. Barillere, J.M. Le Goff, II. Milcent, Pothier, M. Sieber and R. Stampfli, _Ideas out a Generic Control System based on the Experiences of the \(4\) LEP Experiments' Control Systems_. ICALEPS Proceedings (CERN, 1991).1.
+* [BE 94] R. Bellwied, private communication (1994).
+* [CH 72] G. Charpak, _Decouverte_ (Feb. 1972), 9.
+* [CR 94] H. Crawford, private communication (1994).
+* [CS 92] L.P. Csernai, _Introduction to Relativistic Heavy Ion Collisions_. John Wiley & Sons, 1992.
+* [IXO 83] G. Domokos, _Physical Review D_. 28 (1983) 123.
+* [DO 91] J.E. Dodd, _The Ideas of Particle Physics: an introduction for scientists_. Cambridge University Press, Cambridge (1991).
+* [DO 91a] J. Downing, _An Improved Method for Momentum Measurement in a Time Projection Chamber_. Masters thesis, Creighton University, 1991.
+* [ER 72] G.A. Briskine, _Nucl. Instr. Meth_. 105 (1972) 575.
+* [ET 94] A. Etkin, private communication (1994).
+* [FA 79] D. Fancher _et al._, _Nucl. Instr. Meth_. 161 (1979) 383.
+* [GA 89] S. Gavin, _The Nuclear Equation of State Part B: QCD and the Formation of the Quark-Gluon Plasma_. Plenum Press, New York (1989).
+* [GO 90] R. Goodwin, R. Florian, M. Johnson, A. Jones, M. Shea, _Nucl. Instr. Meth_. A293 (1990) 125.
+
+* [GR 94] J. Gross, _IEEE Transactions on Nuclear Science_, Vol. 41, No. 1, 184, Feb. 1994.
+* [HA 92] T. Hallman, _The Solenoidal Tracker At RHIC_. The Fermilab Meeting (Batavia, 1992) 1179.
+* [HA 95] G. Harper, private communication (1995).
+* [HY 83] B. Hyams et al., _Nucl. Instr. Meth._ 205 (1983) 99.
+* [IL 91] V. Illingworth, _Dictionary of Physics_. Market House Books Ltd., 1990.
+* [KB 94] D. Keane, private communication (1994).
+* [KL 86] K. Kleinkknecht, _Detectors for Particle Radiation_. Cambridge University Press, 1986.
+* [KO 86] P. Koch, B. Muller, and J. Rafelski, _Physics Reports_ 142, No. 4 (1986) 167.
+* [KO 89] A.J. Kozubal, L.R. Dalesio, J.O. Hill and D.M. Kerstiens, _Experimental Physics and Industrial Control System_. ICALEPS Proceedings (Vancouver, 1989) 288.
+* [KU 83] H. Kurne et al., _Nucl. Instr. Meth._ 205 (1983) 443.
+* [LI 94] H. Liu, private communication (1994).
+* [LU 93] T. Ludlum _et al._, BNL-49177 Informal Report (1993).
+* [MA 86] T. Matsui and H. Satz, _Physics Letters B_ 178 (1986) 416.
+* [MC 93] C. McParland, _STAR MiniDAQ System Requirements_. LBL document (24 June 1993).
+* [ST 92] STAR Collaboration, _Conceptual Design Report for the Solenoidal Tracker at RHIC (STAR)_. LBL Document (29 May 1992).
+* [WO 94] C. Wong, _Introduction to High-Energy Heavy-Ion Collisions_. World Scientific Publishing Co., Singapore (1994).
+
+[MISSING_PAGE_EMPTY:144]
+
+[MISSING_PAGE_FAIL:145]

@@ -1,0 +1,965 @@
+Transverse Spin Asymmetries in Neutral Strange Particle Production
+
+by
+
+Thomas Burton
+
+A thesis submitted to
+
+The University of Birmingham
+
+for the degree of
+
+DOCTOR OF PHILOSOPHY
+
+School of Physics and Astronomy
+
+The University of Birmingham
+
+May 2009.
+
+###### Abstract
+
+The origin of the quantum mechanical spin of the proton in terms of its constituents is not yet fully understood. The discovery that the intrinsic spin of quarks contributes only a small fraction of the total proton spin sparked a huge theoretical and experimental effort to understand the origin of the remainder. In particular the transverse spin properties of the proton remain poorly understood. Significant transverse spin asymmetries in the production of hadrons have been observed over many years, and are related to both the transverse polarisation of quarks in a transversely polarised proton and to the spin dependence of orbital motion. These asymmetries are of interest because of perturbative QCD predictions that such asymmetries should be small. Measurements of such asymmetries may yield further insights into the transverse spin structure of the proton.
+
+The Relativistic Heavy Ion Collider (RHIC) is the world's first polarised proton collider, and has been taking proton data since 2001. Polarised proton collisions at \(\sqrt{s}=200\) GeV taken during the 2006 RHIC run have been analysed and the transverse single and double spin asymmetries in the production of the neutral strange particles \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\) have been measured in the transverse momentum range \(0.5<p_{T}<4.0\) GeV/c at \(x_{F}\approx 0\). Within statistical uncertainties of a few percent the asymmetries are found to be consistent with zero.
+
+**Author's Contribution**
+
+Because of the complexity of RHIC and the STAR experiment, it is not possible for one person to be actively involved in every stage of data gathering and analysis. I shall briefly outline which parts of the work presented were done by myself, and where I have drawn upon the efforts of others.
+
+In chapter 4 I discuss quality checks that I applied to the data in order to select a data set suitable for analysis. These were combined with other checks performed by the STAR spin physics working group to produce the final data set used. I used data files produced by the STAR reconstruction team, who performed track reconstruction and V0-finding, as the input for my analysis. I developed the required C\(++\) code and ROOT macros to tune my own selection cuts to extract optimal \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\) yields. I also wrote the C\(++\) code required to calculate transverse spin asymmetries from the data, presented in chapters 5 and 6, including calculation of errors, corrections for polarisation and beam luminosity, and various systematic checks on the data and the results of my analysis.
+
+During my time as a member of the STAR Collaboration I undertook experimental shifts as a member of the shift crew and then as a detector operator during the 2006 and 2007 RHIC running periods. This involved readying the detector subsystems and monitoring detector operations during data acquisition. During the second year of my Ph.D I was involved in a study of laser calibration data with the TPC group, in an effort to locate a suspected electrical short in the TPC cages that might result in distortions to the data.
+
+I have attended numerous internal STAR meetings, where I have presented my analysis to my fellow collaborators. I attended the 2007 IOP Nuclear Physics Summer School with other young physicists from around the country. Having won a prize for a presentation given at the Summer School, I was invited to present my work at the 2008 IOP Nuclear Physics conference.
+
+## Acknowledgements
+
+A great many people have helped to make my Ph.D possible, so I'll do my best not to leave anyone out; anyone unfairly omitted of course has my apologies as well as my thanks.
+
+My supervisor Dr Peter Jones has provided extensive guidance and shown more than a little patience over the three-plus years since I embarked on my Ph.D, so he rightly comes top of the list. I'd hoped to do a Ph.D for as long as I can remember and he gave me that chance.
+
+The STAR spin group have provided much useful input and advice over the years, and Ernst Sichtermann, Carl Gagliardi, Jan Balewski and Qinghua Xu must be singled out in this regard. Tai Sakuma is to be thanked for his calculations of the relative luminosities used in parts of this analysis, as are the RHIC CNI group for the polarisation data they provided. To the STAR experiment as a whole, thanks for having me and keep on doing first-rate physics. Closer to home my fellow STAR collaborators at Birmingham, Prof. John Nelson, Dr. Lee Barnby, Dr. Marek Bombara, Dr. Leon Gaillard, Dr. Anthony Timmins and Essam Elhalhuli, all have my thanks for advice and feedback given over countless weekly meetings.
+
+I give a big "thank you" to occupants, past and present, of the third floor of the east physics building, especially the denizens of room E320, for making the Birmingham nuclear physics group such a nice place to work. Naming everyone would take too long, but I must single out Dr. Peter Haigh, who has been a particular source of inspiration to me.
+
+Last of all I must thank my parents, Philip and Jane, and my sister Sophie for being tirelessly supportive and for putting up with me for the past 25 years.
+
+###### Contents
+
+* 1 The Structure of the Nucleon
+	* 1.1 Nucleon Structure
+	* 1.2 Unpolarised Parton Distributions
+	* 1.3 QCD Factorisation
+	* 1.4 Nucleon Spin
+	* 1.5 Gluon Polarisation
+* 2 Transverse Spin Physics
+	* 2.1 The Transversity Distribution
+	* 2.2 Transverse Spin Asymmetries
+	* 2.3 Collins Fragmentation Functions
+	* 2.4 The Sivers Mechanism
+	* 2.5 Measurements of Transversity
+	* 2.6 Aims of This Thesis
+* 3 The Experiment
+	* 3.1 The Relativistic Heavy Ion Collider
+	* 3.2 The STAR Experiment
+		* 3.2.1 The STAR Trigger
+		* 3.2.2 Triggering Detectors
+		* 3.2.3 The Time Projection Chamber
+	* 3.3 Particle Identification
+* 4* 4 Data Selection
+	* 4.1 Run Selection
+	* 4.2 V0 Identification
+		* 4.2.1 Energy Loss Cuts in V0 Identification
+		* 4.2.2 Geometrical Cuts
+* 5 Single Spin Asymmetry
+	* 5.1 Single Spin Asymmetry
+		* 5.1.1 Relative luminosity Method
+		* 5.1.2 Cross Ratio Method
+	* 5.2 Azimuthal Weighting
+	* 5.3 Results
+		* 5.3.1 Dependence of Asymmetry on Yield Extraction
+		* 5.3.2 Check for False Up-Down Asymmetry
+		* 5.3.3 Comparison of Asymmetry Calculation Methods
+	* 5.4 Summary
+* 6 Double Spin Asymmetry
+	* 6.1 Summary
+* 7 Overview and Outlook
+	* 7.1 An Overview of the Work Presented
+		* 7.1.1 Gluonic Sivers Effect
+	* 7.2 The Future
+		* 7.2.1 At RHIC
+		* 7.2.2 SIDIS Measurements
+		* 7.2.3 Polarised Antiprotons
+		* 7.2.4 Generalised Parton Distributions
+* 8List of Figures
+	* 1.1 Quark structure of nucleons and mesons.
+	* 1.2 Particles of the Standard Model.
+	* 1.3 Illustration of deep inelastic scattering.
+	* 1.4 Gluonic processes contributing to scaling violations.
+	* 1.5 \(F_{2}\) structure function measured by the H1 Collaboration.
+	* 1.6 Parton distribution functions measured by H1 and ZEUS.
+	* 1.7 Flavour-dependent helicity distributions from the HERMES Collaboration.
+	* 1.8 Gluon polarisation extracted from pDIS data.
+	* 1.9 Constraints on \(\Delta G\) from the STAR Collaboration.
+	* 2.1 Pion single spin asymmetries measured by the E704 Collaboration.
+	* 2.2 Single spin asymmetry in \(\pi^{0}\) and charged hadron production measured by the PHENIX Collaboration.
+	* 2.3 Single spin asymmetry in \(\pi^{0}\) production measured by the STAR Collaboration.
+	* 2.4 Single spin asymmetry in \(K^{\pm}\) production measured by the BRAHMS Collaboration.
+	* 2.5 Transversity distributions of the \(u\) and \(d\) quark in the proton.
+	* 3.1 The RHIC complex.
+	* 3.2 Bunch pattern for a single RHIC store.
+	* 3.3 Solenoidal Tracker at RHIC and definition of the STAR coordinate system.
+	* 3.4 BBC coincidence rate during a single RHIC store.
+
+[MISSING_PAGE_FAIL:8]
+
+* 5.6 Averaged \(A_{N}(p_{T})\) of \(K_{S}^{0}\).
+* 5.7 Averaged \(A_{N}(p_{T})\) of \(\Lambda\) hyperons.
+* 5.8 Averaged \(A_{N}(p_{T})\) of \(\overline{\Lambda}\) anti-hyperons.
+* 5.9 Variation of extracted \(K_{S}^{0}\,A_{N}(p_{T})\) with different choices of geometrical cuts.
+* 5.10 Up-down asymmetry in the production of \(K_{S}^{0}\) mesons.
+* 5.11 Comparison between methods of calculation of \(A_{N}\).
+* 6.1 \(A_{TT}\) for each V0 species integrated over \(p_{T}\).
+* 6.2 \(A_{TT}\) for each V0 species as a function of \(p_{T}\).
+* 7.1 Upper limit to gluonic Sivers function using PHENIX \(p^{\Uparrow}+p\to\pi^{0}+X\) data.
+
+List of Tables
+	* 4.1 Daughter particles produced from charged decay channels of each neutral strange species.
+	* 4.2 Selection criteria for each V0 species.
+	* 5.1 Single spin asymmetries and associated statistical uncertainties as a function of particle \(p_{T}\).
+	* 6.1 \(\phi\) angle ranges defining the four quadrants used for calculating \(A_{TT}\).
+	* 6.2 Double spin asymmetries and associated statistical uncertainties as a function of particle \(p_{T}\).
+
+## Chapter 1 The Structure of the Nucleon
+
+### 1.1 Nucleon Structure
+
+Over the past century huge strides have been made in understanding the structure of matter at subatomic scales. Atoms, named from the Greek word for "indivisible", were initially believed to be the fundamental building blocks of matter. In 1897, J.J. Thomson's studies of cathode rays indicated that atoms contain negatively charged particles [1], called electrons. He proposed a model of the atom in which negatively charged electrons exist within a uniform sphere of positive charge [2]. The positive charge of the sphere balances the negative charge of the electrons, giving a neutral atom. This model was disproved by the Geiger-Marsden experiment in 1909 [3], in which a small fraction of alpha particles incident on a gold foil were backscattered. This result was incompatible with the picture of a diffuse positive charge provided by Thomson's model. In 1911 Ernest Rutherford proposed a model in which the positive charge and the majority of the mass of the atom were concentrated in a small central region - the nucleus - surrounded by orbiting electrons [4].
+
+Later the nucleus itself was found to comprise two types of particles ('nucleons'). Positively charged protons were discovered by Rutherford in 1919 [5], when he observed that bombarding nitrogen with alpha particles produced hydrogen. He concluded that the hydrogen atoms were produced from the nitrogen nucleus, and so must form a component of it. In 1932 JamesChadwick discovered neutrons, electrically neutral consitituents of nuclei with approximately the same mass as the proton [6]. Neutral atoms contain equal numbers of protons and electrons, and the chemical identity of an element is determined solely by its electron structure. Isotopes are variant atomic forms with the same proton (electron) number but a different number of neutrons. Hence the complicated family of elements within the periodic table were explained in terms of only three particles.
+
+Electrons and nucleons were found to possess an intrinsic property with the characteristics of an angular momentum, which came to be referred to as'spin'. Despite this name, spin is a quantum mechanical property and is not thought of as a classical rotation of a particle about an axis. Rather it is a quantum number intrinsic to the particle species, like its charge, and has no analogue in classical mechanics. Spin (\(S\)) occurs in only integer or half-odd-integer multiples of the reduced Planck constant \(\hbar\); \(S=s\hbar\). A particle with spin exists in one of a number of spin states. The quantum number describing the state takes a value in the range -s to +s at integer intervals, yielding 2s + 1 possible states. The electron, proton and neutron all possess spin of \(\nu_{2}\)\(\hbar\), commonly referred to as'spin-\(\nu_{2}\)'. They can exist in a state of s = -\(\nu_{2}\) or s = +\(\nu_{2}\). This is the "classically indescribable two-valuedness" of the electron described by Wolfgang Pauli. Particles with half-odd-integer spin are referred to as fermions and those with integer spin as bosons. The spin-1 photon is an example of a boson. Fermions obey the Pauli Exclusion Principle, which states that two particles of the same species cannot exist in the same quantum state i.e. with all their quantum numbers identical. No such restriction exists for bosons.
+
+The spin of a particle is associated with a magnetic moment. The measured magnetic moment of the electron was found to agree with the theoretical prediction of the Dirac equation, but this was found not to be true of the proton [7, 8] and the neutron [9]. The 'anomalous magnetic moments' of the nucleons indicate that they aren't fundamental units of matter but instead possess some form of structure. In 1962 Yuval Ne'eman and Murray Gell-Man independently demonstrated that baryons and mesons could be organised into families of 1, 8, 10 or 27 particles, a scheme termed the "eightfold way" [10]. This led to the prediction of the \(\Omega^{-}\) baryon, which was discovered two years later. In 1964 Gell-Mann [11] and George Zweig [12, 13]independently formulated a description of the nucleons in terms of three constituent particles, termed 'quarks' 1. This model successfully accounts for the magnetic moments of the nucleons, and provides a description of not just the proton and neutron but all known hadrons. Baryons are understood to be a combination of three (valence) quarks, and mesons as a paired quark and anti-quark. There are six types ('flavours') of quark, each a fundamental particle with an electric charge of either positive two-thirds or negative one-third of the elementary charge. All flavours of quark possess a spin of \(\nu_{2}\)\(\hbar\). A proton is composed of two positively charged quarks of 'up' (u) flavour bound with one negatively-charged quark of 'down' (d) flavour. A neutron is composed of two down quarks bound with a single up quark. The discovery of additional hadrons, for example the \(\Lambda\), required the addition of a third'strange' (s) flavour (\(\Lambda=\) uds), and subsequently three more flavours, 'charm' (c), 'bottom' (b) and 'top' (t), were predicted and then discovered. All known hadrons are composed of some combination of quarks of these six flavours.
+
+Footnote 1: Zweig called the constituents ‘aces’ but it was Gell-Mann’s name ‘quark’ that came to be accepted.
+
+The electron belongs to a family of particles called _leptons_. The other members of this family are the muon (\(\mu\)) and tau (\(\tau\)), and a neutrino species corresponding to each \((\nu_{e},\nu_{\mu},\nu_{\tau})\). The neutrinos are electrically neutral, while the non-neutrino species have charge -e. All interact via the weak nuclear force and the charged leptons also interact via the electromagnetic force.
+
+Quarks are subject to the electromagnetic and weak nuclear forces but, in addition, feel the _strong nuclear force_. The strong force is associated with another 'charge' quantum number, referred to as _colour_. There are three colour charges, labelled red, green and blue, which may be assigned to quarks, plus three corresponding anti-colours possessed by antiquarks (compare this with electric charge, which occurs in a single type with an associated anti-type). Evidence for the existence of three colours comes for example from the observation that the ratio of the cross section for \(e^{+}+e^{-}\to hadrons\) to the cross section for \(e^{+}+e^{-}\to\mu^{+}+\mu^{-}\) is three times larger than predicted for colourless quarks. The colour quantum number was originally proposed to explain the existence of baryons such as the \(\Delta^{++}\) (quark structure uuu), whose spin and parity of \(\frac{3}{2}^{+}\) implies a state with zero orbital angular momentum and all three quark spins parallel. This would be forbidden by the Pauli Exclusion Principle for fermions, so a further quantum number was introduced to account for the required distinction between the three quarks. Observed hadrons are all 'colour-neutral'; all three colour types are represented equally. In (anti-)baryons, each of the three (anti-)quarks possesses a different (anti-)colour (figures 1.1(a) and 1.1(b)). In mesons the antiquark possesses the anti-colour complementary to the colour of the quark (e.g. red and anti-red) (figure 1.1(c)). States with net colour, for example \(qqqq\) or \(qq\overline{q}\) have not been observed to date. The naming of red, green and blue refer to the fact that, when combined in equal amounts, these primary colours produce a colourless ('white') hadron.
+
+The strong force is carried by massless, electrically neutral, spin-1 bosons called _gluons_. Quarks and gluons, collectively termed _partons_, along with leptons and the force carriers of the electromagnetic and weak interactions, make up the particles of the Standard Model, summarised in figure 1.2.
+
+As shall be seen, the true structure of hadrons is more complicated than the two- or three-quark structure of the simple parton model because of gluon exchange between the constituent quarks. The theory describing the interaction of quarks and gluons is named Quantum Chromodynamics (QCD), from the Greek 'chroma' meaning 'colour'. Gluons are themselves colour-charged; this contrasts with photons, the carriers of the electromagnetic force, which are electrically neutral. While photons can interact only with electrically charged objects, gluons can
+
+Figure 1.1: (a) and (b): quark structure of the nucleons. The colour quantum numbers have been arbitrarily assigned; they cannot be experimentally determined due to the confinement of individual quarks within hadrons. (c): quark structure of a meson.
+
+interact not only with quarks but also with other gluons. Herein lies the most important difference between QCD and Quantum Electrodynamics (QED), which describes the electromagnetic interaction. It results in the strong force between two coloured particles increasing with their separation, a phenomenon referred to as _confinement_, whereas the electromagnetic force between two electrically charged particles diminishes with distance. This explains the observation that objects with net colour are never observed. Conversely, the strong force is weaker at small separations, or equivalently in interactions involving large momentum transfers. This is referred to as _asymptotic freedom_. In this regime, where the interaction strength is small, the interaction cross-section may be calculated using perturbation theory in the form of perturbative QCD (pQCD).
+
+Low-momentum (long-range) behaviour cannot be described by pQCD because of the large interaction strength, so other approaches must be used. One such method is to apply _effective theories_ of QCD, in which only the degrees of freedom relevant to the problem at hand are considered (see for example [14]). Another approach is to use _lattice QCD_, where calculations are done for a finite number of points arranged on a space-time lattice [15].
+
+Figure 1.2: The particles that make up the standard model of particle physics. Quark flavours u, c, and t possess charge of +2/3e and flavours d, s and b possess charge -1/3e.
+
+### 1.2 Unpolarised Parton Distributions
+
+The internal structure of the nucleon has been extensively investigated using Deep Inelastic Scattering (DIS), wherein high-energy leptons are scattered off nucleons via virtual photon exchange. At sufficiently high energies, the de Broglie wavelength \(\lambda=\) h/p is small in comparison to the proton size, so it interacts with the charged constituents of the proton rather than the proton as a whole. Figure 1.3 shows an electron inelastically interacting with a proton, exchanging a virtual photon with four-momentum \(Q^{2}\) with a quark in a proton. The electron is scattered and the quark and remaining proton remnant fragment into hadrons. Information can thus be inferred about the properties of the nucleon constituents, even though they can themselves never be isolated.
+
+The cross section for deep inelastic lepton scattering can be written in terms of two _structure functions_ of the nucleon, \(F_{1}\) and \(F_{2}\):
+
+Figure 1.3: Illustration of deep inelastic scattering. An electron exchanges a virtual photon with a quark in the target proton, transferring four-momentum of \(Q^{2}\) to the quark. The electron scatters, while the struck quark and the target remnant fragment into hadrons.
+
+\[\frac{d\sigma}{dE_{f}d\Omega}=\frac{\alpha^{2}}{4\nu E_{i}^{2}sin^{4}\left(\phi \right)}\left(sin^{2}\left(\phi\right)\frac{Q^{2}}{xM^{2}}F_{1}\left(x,Q^{2} \right)+cos^{2}\left(\phi\right)F_{2}\left(x,Q^{2}\right)\right). \tag{1}\]
+
+\(E_{i(f)}\) is the initial (final) lepton energy, \(Q^{2}\) is the four-momemtum transfer during the scattering and \(\phi\) is half the lepton scattering angle. \(M\) is the mass of the nucleon. The Bjorken scaling variable \(x\) measures the fraction of the nucleon momentum carried by the quark involved in the scattering, and \(\nu=Q^{2}/2Mx\). Unlike \(F_{2}\), the \(F_{1}\) structure function depends on the spin of the struck quark. If the quarks are assumed to possess spin \(\nicefrac{{1}}{{2}}\), the relation between the structure functions is given by
+
+\[F_{2}\left(x,Q^{2}\right)=2xF_{1}\left(x,Q^{2}\right), \tag{2}\]
+
+known as the Callan-Gross relation [16]. The experimentally measured structure functions show this relationship, providing strong evidence of the spin \(\nicefrac{{1}}{{2}}\) nature of quarks.
+
+Parton Distribution Functions (PDFs) \(f(x,Q^{2})\) describe the momentum distribution of partons within the nucleon as a function of the fraction, \(x\), of the nucleon momentum carried by partons of species \(f\). In a simple model of nucleon structure that considers just the valence quarks the structure functions are related to the quark PDFs, \(q(x)\) by
+
+\[F_{1}(x,Q^{2})=\sum_{q}e_{q}^{2}q(x,Q^{2}), \tag{3}\]
+
+\[F_{2}(x,Q^{2})=\sum_{q}2xe_{q}^{2}q(x,Q^{2}). \tag{4}\]
+
+The sums are over quark flavours, \(q\), of charge \(e_{q}\). Higher-energy collisions involve larger \(Q^{2}\). Beyond this simple model, quarks continuously exchange gluons, which can undergo conversions into quark-antiquark pairs. The sums in equations (3) and (4) must therefore be extended to also include antiquark flavours. Gluons have no electric charge so the exchanged photon does not couple to them. The gluon distribution \(g(x)\) is therefore not directly observed in DIS. However the gluons do introduce a weak \(Q^{2}\)-dependence ('scaling violations') in the structure functions through photon-gluon fusion (PGF) and QCD Compton scattering (QCDC), as shown in figure 1.4. It is these scaling violations that cause the measured structure functions \(F_{1}\) and \(F_{2}\) to be functions of \(Q^{2}\) as well as \(x\). By measuring data over a sufficiently large \(Q^{2}\) range the gluon distribution can be determined from the scaling violations. The ZEUS and H1 experiments at HERA have provided precise measurements of the \(F_{2}\) structure function, which dominates the DIS cross section for most of the HERA kinematic range [17, 18]. HERA collided a 27.5 GeV \(\mathrm{e}^{\pm}\) beam with an 820 GeV proton beam, equivalent to centre-of-mass energy \(\sqrt{s}\sim\) 300 GeV. Figure 1.5 shows measurements of the \(F_{2}\) structure function from the H1 experiment [18]. The data span four orders of magnitude in both Bjorken \(x\) (\(0.00005<x<0.65\)) and \(Q^{2}\) (\(2<Q^{2}<2\) x \(10^{4}\) GeV\({}^{2}\)). Scaling violations (\(Q^{2}\)-dependences) are visible and are well-described by NLO QCD fits.
+
+QCD fits to DIS cross section data are used to determine the distribution functions of the quarks and gluons. Figure 1.6 shows the PDFs calculated by both the H1 and ZEUS experiments [19]. The extracted quark and gluon distributions are very well constrained and compare well between the two experiments.
+
+At large values of \(x\) the gluon and antiquark distributions are small, while the up and down
+
+Figure 1.4: Gluonic processes contributing to scaling violations. Solid lines indicate quarks and antiquarks, wavy lines photons and curly lines gluons.
+
+Figure 1.5: \(F_{2}\) structure function measured by the H1 Collaboration. Earlier results at lower beam energies from the BCDMS (Bologna-CERN-Dubna-Munich-Saclay) Collaboration and NMC (New Muon Collaboration) at CERN are also shown. The data are described well by next-to-leading order QCD fits, except for the large-\(x\) BCDMS data.
+
+Figure 1.6: Parton distribution functions from the HERA experiments H1 and ZEUS calculated using NLO QCD fits to \(F_{2}\) structure function data.
+
+[MISSING_PAGE_FAIL:21]
+
+the interaction is sufficiently high that the strong coupling strength \(\alpha_{S}\) is small. The PDFs and FF are non-perturbative and must be empirically determined. Both PDFs and FF are _universal_; they are the same for all collision processes. Thus if measured in one process they can be used in predicting the cross sections of another process. The applicability of factorisation has been demonstrated for the cross sections of hadronic collisions (for example \(p+p\to jets\)[20]) and lepton-nucleon collisions (see for example [19]), where only one PDF is involved.
+
+### 1.4 Nucleon Spin
+
+In a naive, non-relativistic quark model in which a nucleon contains three quarks, all the spin of the nucleon is carried by the intrinsic spins of these three quarks. The spins of the three (spin-\(\nu_{2}\)) quarks sum to give the nucleon spin-\(\nu_{2}\). Models taking account of relativistic effects within the nucleon predict that some of the spin will be carried by the orbital angular momentum of the quarks. The amount carried by quark intrinsic spin is reduced to about 60% of the nucleon spin [21]. DIS experiments show that the structure of the nucleon is more complicated than a three-quark system. How does this affect our understanding of the nucleon spin?
+
+In analogy to the unpolarised case, the spin structure of the nucleon can be probed using _polarised_ Deep Inelastic Scattering (pDIS), wherein both the incident lepton and nucleon target are polarised. Through such measurements the _spin-dependent_ nucleon structure function \(g_{1}\), the spin-dependent analogue of the \(F_{1}\) structure function, can be determined. The function \(g_{1}\) is related to the spin-dependent quark distributions via
+
+\[g_{1}(x)=\sum_{q}e_{q}^{2}(q^{\uparrow}(x)-q^{\downarrow}(x)), \tag{1.6}\]
+
+where the sum is over both quark and antiquark flavours, \(e_{q}\) is the charge of the (anti-)quark species and \(\uparrow\) (\(\downarrow\)) indicates a quark with spin component parallel (opposite) to that of its parent nucleon. The integral of \(g_{1}\) over all \(x\) gives the total (sea plus valence) quark plus anti-quark intrinsic spin contribution to the nucleon.
+
+Polarised DIS measurements by the European Muon Collaboration (EMC) in the late eight ies were the first to indicate that the intrinsic spins of the quarks in the nucleon carry a significantly smaller fraction of the nucleon spin than had been predicted [22, 23]. EMC results from \(\mu^{+}+p\) collisions indicated a quark-plus-antiquark intrinsic spin contribution in the region of 10 to 15%. The experimental uncertainty on the measurement in fact made it compatible with zero. This was much smaller than the value of 60% predicted from relativistic models of the nucleon spin. This unexpectedly small contribution from quark spin has been termed the'spin crisis'. Subsequently more precise measurements have been made by: SMC (Spin Muon Collaboration, the successor to EMC), SLAC E-142, E143, E154 and E-155 Collaborations, HERMES, J-Lab Hall A and COMPASS (see for example [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]). These have indicated that the intrinsic spin of quarks and antiquarks accounts for about 30% of the proton spin. A recent analysis of global pDIS data [37] gives a total fraction of 0.27 \(\pm\) 0.07. The total proton spin component, measured along a particular direction, must be one half. The helicity spin sum rule
+
+\[\frac{1}{2}=\frac{1}{2}\Delta\Sigma+\Delta G+L_{q}+L_{g} \tag{1.7}\]
+
+describes all the possible contributions to the nucleon spin: the quark and anti-quark intrinsic spin, \(\nu_{2}\Delta\Sigma\), the gluon intrinsic spin, \(\Delta G\), and the quark and gluon orbital angular momenta, \(L_{q}\) and \(L_{g}\) respectively. As \(\Delta\Sigma\approx 0.3\), the remainder of the proton spin must comprise gluon intrinsic spin and parton orbital angular momentum. Untangling these contributions is a major objective in spin physics.
+
+Most DIS experiments are inclusive, and so only access the total quark-plus-anti-quark spin contribution, summed over all flavours. Semi-inclusive deep inelastic scattering (SIDIS) can provide information on the contribution from different quark and antiquark flavours. SIDIS differs from inclusive DIS in that a high energy hadron, produced from the fragmentation of the struck quark, is detected in coincidence with the scattered lepton. The hadron provides an indicator of the flavour of the struck quark. This is because of the preference for a quark to fragment into a hadron containing a valence quark of the same flavour. For example an up quark is more likely than a down quark to fragment into a \(\pi^{+}\) because the \(\pi^{+}\) valence structure is \(u\overline{d}\). Different hadrons provide 'tags' for different quark and anti-quark flavours, allowingthe total quark-plus-anti-quark spin distribution to be decomposed into the contributions from different flavours. The HERMES Collaboration have performed SIDIS measurements using a polarised \(e^{\pm}\) beam incident on polarised proton and deuterium targets. Tagging with pions and (for the deuterium target only) kaons, the data provide information about the \(u\), \(\overline{u}\), \(d\), \(\overline{d}\) and \(s\) helicity distributions. Figure 1.7 from [34] shows the extracted distributions as a function of Bjorken \(x\). The up quark distribution is positive for all \(x\) and the down quark distribution is negative, indicating these quarks are polarised parallel and opposite, respectively, to the nucleon spin. The sea quark distributions, \(\overline{u}(x)\), \(\overline{d}(x)\) and \(s(x)\), were all found to be consistent with zero within uncertainties.
+
+Figure 1.7: Flavour-dependent helicity distributions at \(Q^{2}=2.5\) GeV\({}^{2}\) from the HERMES Collaboration [34]. The product \(x\Delta q\) is shown for each light (anti-)quark species except \(\overline{s}\). The data were not able to constrain the \(\Delta\overline{s}(x)\) distribution; results shown are extracted assuming \(\Delta\overline{s}=0\).
+
+Gluon Polarisation
+
+The gluon helicity distribution, \(\Delta G\), cannot be directly accessed in DIS because photons do not couple with gluons. However limited information can be inferred about gluon spin from scaling violations, in the same way that \(g(x)\) can be inferred from scaling violations in \(F_{2}\). Measurement of the \(Q^{2}\)-dependence of the \(g_{1}\) structure function allows limits to be placed on the gluon polarisation. Analyses of global \(g_{1}\) data (for example [38, 39]) provide a measure of \(\Delta G\), but the uncertainties are very large; for example [38] reports a total gluon spin contribution of 0.499 \(\pm\) 1.266. Though a positive gluon contribution is favoured by the fits to the data, a negative gluon distribution, or one which changes sign as a function of \(x\), cannot be dismissed, as discussed in [39]. DIS data alone do not therefore strongly constrain \(\Delta G\) (figure 1.8).
+
+Other constraints on \(\Delta G\) using lepton-nucleon collisions come from measurements of jets, charm mesons and hadrons produced at large momentum transverse to the beam (\(p_{T}\)). The production of all of these are sensitive to processes involving gluons. Measurements have been carried out of jets and high \(p_{T}\) hadrons by HERMES, SMC, and COMPASS [41, 42, 43] and of charm mesons by COMPASS [44].
+
+Another promising avenue is polarised proton-proton collisions at RHIC. Jets, high \(p_{T}\) hadrons, heavy flavour production and prompt photons are sensitive to the gluon polarisation, and measurements by the STAR and PHENIX collaborations are expected to put much stronger constraints on the gluon polarisation; indeed, early measurements from both PHENIX and STAR have already done so [45, 46, 47, 20, 48]. Both experiments have performed measurements of longitudinal double spin asymmetries of the form
+
+\[A_{LL}=\frac{\sigma^{++}-\sigma^{+-}}{\sigma^{++}+\sigma^{+-}}, \tag{1.8}\]
+
+where \(\sigma^{++(+)}\) is the cross section for protons with the same (opposite) helicities. STAR measurements of \(A_{LL}\) in inclusive jet production, \(p+p\to jet+X\), disfavour a large positive gluon polarisation [20], suggesting a maximum value of 65% of the proton spin at a 90% confidence level (figure 1.9). PHENIX measurements of \(A_{LL}\) for \(p+p\to\pi^{0}+X\)[45] have been incorpoFigure 1.8: Measurements of the \(g_{1}\) structure function, such as those shown in (a), are used in QCD analyses to extract the polarised gluon distribution. The constraints obtained by a number of analyses are compared in (b).
+
+rated into global analyses with pDIS data to significantly reduce the uncertainty on \(\Delta G\)[37]. Though the uncertainty remains large compared to that of the quark spin contribution, the analysis strongly favours a positive gluon helicity distribution.
+
+Figure 1.9: Constraints on \(\Delta G\) from jet measurements by the STAR Collaboration. CL is the confidence level for various gluon distributions. The maximally positive (\(\Delta G=g\)) distribution is strongly disfavoured.
+
+## Chapter 2 Transverse Spin Physics
+
+### 2.1 The Transversity Distribution
+
+To fully describe the nucleon, a third category of parton distribution functions is required, in addition to the unpolarised parton distributions \(q(x)\) and the helicity distributions \(\Delta q(x)\). These are the _transversity_ distributions, \(\delta q(x)\). Transversity is also frequently denoted \(\Delta_{T}q(x)\) or \(h_{1}^{q}(x)\) in the literature. Transversity can be considered as the transverse-spin analogue of the helicity distribution. It describes the difference between the distributions of quarks with spin parallel and opposite to that of their transversely polarised parent nucleon,
+
+\[\delta q\left(x\right)=q^{\Uparrow\uparrow}\left(x\right)-q^{\Uparrow\downarrow }\left(x\right). \tag{2.1}\]
+
+\(\Uparrow\) indicates the nucleon spin direction and \(\uparrow\left(\downarrow\right)\) the quark spin direction. \(q^{\Uparrow\uparrow\left(\Uparrow\downarrow\right)}(x)\) is the distribution of quarks of flavour \(q\) within the nucleon with spin parallel (opposite) to that of the parent nucleon. Thus transversity describes the degree to which the transverse quark spin is correlated with the transverse nucleon spin.
+
+From the definition in equation (2.1) it follows that the transversity distributions must obey the bound
+
+\[\delta q\left(x\right)\leq q\left(x\right) \tag{2.2}\]in order to always be positive. The Soffer inequality [49] provides another model-independent constraint on the transversity distribution and relates it to the unpolarised and helicity distributions at leading order in QCD:
+
+\[2|\delta q\left(x\right)|\leq q(x)+\Delta q(x). \tag{2.3}\]
+
+The fact that the helicity and transversity distributions differ reflects the relativistic nature of the nucleon's constituents. In a non-relativistic case a series of transformations and rotations can be used to change from a longitudinally polarised to a transversely polarised proton. In the relativistic case Lorentz boosts and rotations do not commute. As a result the transversity and helicity distributions need not be the same.
+
+By the optical theorem, the transversity distribution is related to scattering amplitudes that involve a flip of the quark and nucleon helicities [50]. Transversity distributions are thus described as 'chiral-odd' because they are involved with a helicity flip. This contrasts with the unpolarised and helicity distribution functions which are 'chiral-even': they involve no helicity flip. There is no leading-twist1 gluon transversity distribution for a polarised spin-\(\nicefrac{{1}}{{2}}\) target because of helicity conservation. Gluons are spin-1 bosons, so have helicity \(\pm 1\). A gluon helicity flip therefore involves a helicity change of \(\pm 2\), which a spin-\(\nicefrac{{1}}{{2}}\) nucleon cannot accomodate.
+
+Footnote 1: _twist_ describes the order in \(1/Q\) at which an effect is seen in experiment. An effect of twist \(t\), where \(t>1\), is suppressed by a factor \(Q^{(2-t)}\). An effect at the lowest twist, \(t=2\), is referred to as “leading twist”, and is not suppressed by a factor of \(Q\), while suppressed effects, associated with larger values of \(t\), are “higher twist”.
+
+In inclusive deep inelastic scattering, which provides the majority of our understanding of parton distributions, chiral-odd processes are not observed, because helicity is conserved in perturbative QCD interactions. For this reason transversity distributions are much less well understood than helicity distributions. In order for a process related to transversity to be observable, a second chiral-odd function must be involved. The combination of two chiral-odd functions then conserves helicity overall. In hadron-hadron collisions, the two chiral-odd functions can be provided by the transversity distributions of the two nucleons. Transversity may then be studied via transverse double spin asymmetries in particle production resulting from collisions between two transversely polarised hadrons. Another possibility is a chiral-odd, spin-dependentfragmentation process. This, combined with transversity, can give rise to transverse spin asymmetries.
+
+Transversity is therefore related to the observation of transverse spin asymmetries in hadronic collisions. By measuring these, it may be possible to infer information about the transversity distributions. Transverse spin asymmetries are also related to the study of transverse-momentum-dependent parton distributions and parton orbital motion. I will first give a summary of experimental measurements of such transverse spin asymmetries, which have a history spanning a number of decades. After describing the measurements, I will highlight the mechanisms proposed to explain their existence. These relate to transversity, spin-dependent fragmentation and transverse-momentum-dependent parton distributions. Finally, I shall discuss recent experimental work that is beginning to provide the first information on the transversity distribution.
+
+### 2.2 Transverse Spin Asymmetries
+
+Since the 1970's, significant transverse spin effects have been observed in hadronic collisions. The first observation was that \(\Lambda\) hyperons produced in inelastic proton-beryllium collisions, \(p+Be\rightarrow\Lambda+X\), are strongly spin-polarised transverse to their production plane [51].
+
+Later experiments found unexpectedly large transverse production asymmetries for many species in inclusive proton-proton collisions. Consider collisions between a transversely polarised and an unpolarised proton: \(p^{\Uparrow}+p\to d+X\), where \(p^{\Uparrow}\) denotes the transversely spin-polarised proton. The particle \(d\), of a species of interest, is detected, while X indicates the remaining unmeasured hadronic final state. The _single spin asymmetry_ (SSA) or analysing power (\(A_{N}\)) in the production of \(d\) can be defined as
+
+\[A_{N}=\frac{1}{P}\frac{N_{left}^{\Uparrow}-N_{left}^{\Downarrow}}{N_{left}^{ \Downarrow}+N_{left}^{\Downarrow}}, \tag{2.4}\]
+
+where \(P\) is the average transverse spin-polarisation of the polarised proton beam or target. \(N_{left}^{\Uparrow(\Downarrow)}\) is the number of particles produced to the left of the beam when the transversely polarised beam direction is up (down). \(N_{left}^{\Uparrow}+N_{left}^{\Downarrow}\) is simply the total number of particles produced to the left of the beam. The asymmetry thus measures the difference in particle production to beam-left upon flipping of the beam polarisation. Rotational invariance requires production to the left when polarisation is up to equal production to the right when polarisation is down: \(N_{left}^{\dagger\dagger}=N_{right}^{\parallel}\). The single spin asymmetry is thus equivalent to the difference between particle production to the left and right of the beam for a fixed polarisation. Hence the single spin asymmetry is often referred to as the left-right asymmetry. Equation (2.4) is defined such that that the asymmetry is positive if particle production to the left of the beam momentum-polarisation plane exceeds that to the right when the beam polarisation direction is up.
+
+Initial expectations from perturbative QCD arguments were that such asymmetries should be small at high energies [52]. At leading order in QCD, \(A_{N}\) is predicted to be approximately zero, being suppressed by a factor of \(m_{quark}/\sqrt{s}\), where \(\sqrt{s}\) is the centre of mass energy of the collision. However such asymmetries have been observed and are in many cases very large. Results taken at the Argonne Zero Gradient Synchrotron (ZGS) in the 1970s found large asymmetries, in excess of 10%, in the production of charged pions and kaons in \(p^{\dagger\dagger}+p\) and \(p^{\dagger\dagger}+^{2}H\) collisions at 6 and 11.8 GeV/c [53, 54]. Asymmetries were found to be small at small Feynman x (\(x_{F}=2p_{L}/\sqrt{s}\), where \(p_{L}\) is the particle's longitudinal momentum) and large at large \(x_{F}\). A significant asymmetry in \(\pi^{0}\) production near \(x_{F}=0\) was found at CERN in 24 GeV/c \(p^{\dagger\dagger}+p\) collisions, which increased with the \(p_{T}\) of the pion [55]. A number of measurements were carried out at the Brookhaven National Laboratory (BNL) Alternating Gradient Synchrotron (AGS) with beam momenta of 13.3 and 18.5 GeV/c [56, 57, 58, 59]. The species measured were \(\pi^{\pm}\), \(p\), \(K_{S}^{0}\) and \(\Lambda\). \(\pi^{+}\) showed a clear positive asymmetry at forward angles, \(x_{F}>0.2\), increasing with \(p_{T}\) to around 25% at \(p_{T}\) of 2 GeV/c. At smaller values of \(x_{F}\) the asymmetry was consistent with zero. \(K_{S}^{0}\) showed a significant negative asymmetry of -10% for \(x_{F}<0.2\), becoming increasingly negative for larger values of \(x_{F}\). \(\pi^{-}\), proton and \(\Lambda\) showed asymmetries consistent with zero in the measured kinematic range.
+
+Subsequently a large number of higher-energy measurements were performed by the Fermilab E704 Collaboration, using a 200 GeV/c polarised beam [60, 61, 62, 63, 64, 65, 66, 67, 68]. Measurements were mostly carried out at moderate \(p_{T}\) (\(<1.5\) GeV/c) in the beam fragmentation region (\(0.2<x_{F}<0.2\)). The beam fragmentation region (\(0.
+
+1.0) [60; 61; 62; 63; 65; 67; 68], with some at larger \(p_{T}\) (1.0-4.5 GeV/c) and in the central region, \(x_{F}\approx 0\)[64; 66]. Studies were carried out of neutral and charged pions, \(\eta\) mesons and \(\Lambda\) baryons. Significant non-zero asymmetries were found in the production of all pion species, increasing linearly with \(x_{F}\) above \(x_{F}\approx 0.2\). The \(\pi^{+}\) asymmetry is positive and the \(\pi^{-}\) asymmetry negative, with the same magnitude. The \(\pi^{0}\) asymmetry is positive but about half the magnitude of the \(\pi^{+}\) asymmetry. The \(\pi^{0}\) asymmetry was also measured at \(x_{F}\approx 0\) and was found to be small and consistent with zero. These results are summarised in figure 2.1[62]. In addition to the dependence of the asymmetry on the flavour composition of the produced particle, the flavour of the polarised projectile is also important. Measurements of pion asymmetries with a transversely polarised _anti_proton beam, \(\bar{p}^{\dagger}+p\rightarrow\pi^{\pm,0}+X\), in the same energy and momentum ranges show that, while the \(\pi^{0}\) results are unchanged within experimental uncertainties, the charged pions exchange values; the \(\pi^{+}\) asymmetry is negative and the \(\pi^{-}\) asymmetry is positive. \(\eta\) mesons behave in the same way as the \(\pi^{+}\) and have comparable results, albeit with much larger statistical uncertainties. The \(\Lambda\) shows a significant negative asymmetry at large \(x_{F}>0.6\) and moderate transverse momentum, \(0.6<p_{T}<1.5\) GeV/c.
+
+Most recently asymmetries have been measured at the Brookhaven Relativistic Heavy Ion Collider (RHIC) at centre of mass energy \(\sqrt{s}=200\) GeV, an order of magnitude larger than that in the E704 experiment. The PHENIX experiment has measured inclusive charged hadrons and neutral pions at small \(x_{F}\) and found asymmetries consistent with zero (figure 2.2) [69]. The STAR experiment has measured neutral pions at forward angles and found significant positive asymmetries persist to these high energies [70; 71]. The asymmetry is found to increase with \(p_{T}\) above 1.7 GeV/c in contrast to theoretical expectations that it should decrease (figure 2.3). At these energies the pion production cross section has been shown to be well described by next-to-leading-order (NLO) pQCD, demonstrating that large asymmetries are not restricted to the non-perturbative regime.
+
+The BRAHMS Collaboration have reported results for the single spin asymmetry in proton, \(\pi^{\pm}\) and K\({}^{\pm}\) production at large forward and backward scattering angles, \(|x_{F}|>0.2\), and moderate \(p_{T}\sim 1\) GeV/c from polarised proton collisions at \(\sqrt{s}=62.4\) GeV [72]. At backward anglesFigure 2.1: Single spin asymmetries for pions measured by the E704 Collaboration for \(p^{\uparrow}+p\to\pi+X\) with a 200 GeV/c polarised beam.
+
+Figure 2.2: Single spin asymmetry in mid-rapidity \(\pi^{0}\) and charged hadron (h\({}^{\pm}\)) production from polarised proton-proton collisions at \(\sqrt{s}=200\) GeV, measured by the PHENIX Collaboration [69].
+
+asymmetries are all consistent with zero, but pions and kaons show significant asymmetries at forward angles, increasing with \(x_{F}\) to \(A_{N}\approx 0.2\) at \(x_{F}=0.6\) (figure 2.4). Protons show zero asymmetry at forward angles, unlike the meson species.
+
+Experimental results to date have shown significant non-zero asymmetries in a variety of species. The magnitudes and signs of the asymmetries are highly dependent on the flavour of the produced particle. It is therefore useful to measure the asymmetries for a wide variety of identified species, as information on the flavour dependence of the asymmetries may provide insights into their physical origin. Additionally, the dependencies of the asymmetries on \(p_{T}\) and \(x_{F}\) are not yet understood. Measurements over different kinematic ranges are therefore also useful in constraining models of the asymmetry. Understanding the origin of transverse spin asymmetries will aide in elucidating the transverse spin structure of the nucleon.
+
+Results before the RHIC era were at low transverse momenta, typically measuring the asymmetries in particles produced with \(p_{T}\approx 1\) GeV/c and smaller. This is too low for pQCD to be applicable in the analysis of the data. Higher energy experiments at RHIC have done and continue to measure asymmetries at much larger transverse momenta, facilitating the applicability of pQCD to the analysis of the data. Its excellent particle tracking capability means that the STAR experiment in particular is well suited to the identification of a variety of species at large
+
+Figure 2.3: Single spin asymmetry in the production of \(\pi^{0}\) mesons from polarised proton-proton collisions at \(\sqrt{s}=200\) GeV, measured by the STAR Collaboration [71]. Large asymmetries are seen to persist to large transverse momenta at forward angles (\(x_{F}>0.4\)).
+
+momenta, especially near mid-rapidity.
+
+### 2.3 Collins Fragmentation Functions
+
+As discussed above, the chiral-odd nature of transversity means that it can only be studied in combination with another chiral-odd function. Collins [73] proposed a chiral-odd, transverse-momentum-dependent fragmentation function in which the azimuthal distribution of hadrons produced by a fragmenting quark is correlated with the quark's transverse spin direction. In a collision such as \(p+p^{\dagger}\rightarrow\pi+X\) this correlation, combined with the transversity distribution, can give rise to a spin-dependent transverse asymmetry in the production of the pion. The Collins fragmentation function acts as an analyser of the transverse quark polarisation in a transversely polarised hadron.
+
+The fragmentation of a transversely polarised quark, \(q^{\uparrow}\), into an unpolarised hadron, \(h\), can be expressed as [74]
+
+\[D_{h/q^{\uparrow}}\left(z,P_{h\perp}\right)=D_{1}^{q}\left(z,P_{h\perp}^{2} \right)+H_{1}^{\perp q}\left(z,P_{h\perp}^{2}\right)\frac{\left(\mathbf{\hat{ k}}\times\mathbf{P}_{h\perp}\right)\cdot\mathbf{S}_{q}}{zM_{h}}. \tag{2.5}\]
+
+\(\mathbf{\hat{k}}\) is the momentum direction of the quark and \(\mathbf{S}_{q}\) is its transverse spin. The produced hadron has mass \(M_{h}\) and carries a fraction \(z\) of the momentum of the quark. \(\mathbf{P}_{\mathbf{h}\perp}\) is the transverse momentum
+
+Figure 2.4: Single spin asymmetry in the production of \(K^{\pm}\) mesons from polarised proton-proton collisions at \(\sqrt{s}=62.4\) GeV, measured by the BRAHMS Collaboration [72].
+
+of the hadron with respect to the original quark direction. The first term in equation (2.5) contains the spin-independent part of the fragmentation process. The second term describes the transverse-spin-dependent part of fragmentation. The function \(H_{1}^{\perp q}\) is called the Collins function and describes the momentum dependence of the spin-dependent part. The term \((\mathbf{\hat{k}}\times\mathbf{P}_{h\perp})\cdot\mathbf{S}_{q}\) changes sign under a flip of spin, and generates a spin-dependent azimuthal variation in hadron production.
+
+Experiment has begun to provide the first information about the Collins effect and indicates that it is non-vanishing. The HERMES Collaboration have reported results from semi-inclusive DIS of positrons incident on a transversely polarised proton target [75]. A non-zero asymmetry in charged pion production, arising from the combination of transversity and the Collins functions, is observed. This indicates that both the transversity distribution and the Collins function are non-vanishing. The observed asymmetry has opposite sign and comparable magnitude for positive and negative pions. The large magnitude and opposite sign of the negative pion asymmetry can be explained if the disfavoured Collins function has a signficant magnitude and opposite sign compared to the favoured2 Collins function.
+
+Footnote 2: A fragmentation function describing a quark fragmenting into a hadron is said to be _favoured_ if the hadron contains a valence quark of the same flavour as the fragmenting quark, for example a \(u\) quark fragmenting into a \(\pi^{+}\). If the produced hadron does not contain a quark of the same flavour, the fragmentation function is _disfavoured_.
+
+The COMPASS Collaboration have measured charged hadron production in collisions between muons and polarised deuterons and found all asymmetries to be small and compatible with zero [76]. When taken with the non-zero results with a proton target from HERMES, the COMPASS results suggest the cancellation of asymmetries from the proton and the neutron in the target.
+
+The Belle Collaboration have observed azimuthal asymmetries of a few percent in dihadron production in \(e^{+}e^{-}\) collisions at \(\sqrt{s}=10.58\) GeV [77, 78]. Because these are leptonic collisions, transversity is not involved and the Belle results provide a direct indication of the Collins functions. These results confirm the HERMES observation that the favoured and disfavoured Collins functions have opposite sign.
+
+### 2.4 The Sivers Mechanism
+
+Another mechanism for generating transverse single spin asymmetries was proposed by Sivers, involving the intrinsic transverse momentum of the nucleon constituents, \({\bf k}_{T}\)[79]. Sivers assumed that there could be a correlation between the spin of a proton and the orbital motion of the (unpolarised) parton constituents. This gives the possibility of an asymmetry in the partonic \({\bf k}_{T}\) distribution in the direction normal to the plane defined by the proton momentum and spin directions. If the intrinsic \({\bf k}_{T}\) survives the fragmentation/hadronisation process following scattering, the imbalance in the intrinsic momentum can be observed as a left-right imbalance in the \({\bf p}_{T}\) distribution of the produced hadrons. The Sivers mechanism is therefore related to partonic motion within the nucleon. The Sivers mechanism is not related to transversity; it is a separate mechanism involved in SSAs. The parton distribution function can be expressed as a (conventional) spin-independent term, plus a spin-dependent term multiplied by a special parton density function. This special parton density is commonly referred to as the Sivers distribution function and is denoted \(f_{1T}^{\perp}(x,k_{T})\). Note that it is a transverse-momentum-dependent distribution, in contrast to usual, transverse-momentum-integrated PDFs, \(q(x)\).
+
+For a long time the Sivers distribution was believed to be required to be zero due to arguments related to time-reversal symmetry in QCD [73]. More recently however [80, 81, 82, 83], work has shown that such an asymmetry is allowed, by accounting for final state interactions between the outgoing, scattered quark and the spectator hadronic remnant. 'Final state' refers to the fact that the interactions occur _after_ the scattering of the quark. However, this interaction is not 'final state' in the sense of being related to fragmentation or hadronisation of the quark; the gluon exchange final state interactions occur before this.
+
+It has also been shown that the Sivers distribution is non-universal [81, 82]; that is, the measured function depends on the process studied. This is in contrast to the conventional (transverse-momentum-integrated) PDFs, which are universal (the same in every scattering process). For example a prediction given in [81] is that the Sivers distribution for Drell-Yan production is equal in magnitude but differs in sign to that in deep inelastic scattering. A qualitative understanding is provided [40] by recalling that the quark must undergo additional interactionsin order for the Sivers effect to be non-vanishing. This interaction can be thought of as the quark scattering in the colour field of the spectator remnant. Different collision processes will result in different forces acting on the quark, giving rise to different Sivers functions.
+
+The HERMES Collaboration have made the first report of a non-zero Sivers function [75]. SIDIS production of \(\pi^{+}\) with the HERA 27.5 GeV positron beam showed an asymmetry corresponding to a negative, non-zero Sivers function. The COMPASS Collaboration have reported measurements of Sivers asymmetries for inclusive positively and negatively charged hadrons [76], and for pions and kaons [84] in SIDIS with a 160 GeV/c muon beam and deuteron target. All asymmetries were found to be small and consistent with zero, suggesting cancellation of up and down quark contributions from the deuteron target. The STAR experiment has presented results for di-jet production in \(p+p\) collisions at \(\sqrt{s}=200\) GeV [85]. Measurements were made of the opening angle between the jets. The \(\mathbf{k}_{T}\) asymmetry produced by the Sivers mechanism may manifest as an opening angle other than 180 degrees (back-to-back jets). Observed asymmetries were found to be small and consistent with zero, and smaller than SIDIS results from HERMES. pQCD calculations suggest the difference is due to cancellation between up and down quark contributions [86], and between final- and initial-state interactions, both of which contribute in the jet production mechanism [87].
+
+### 2.5 Measurements of Transversity
+
+Recently the transversity distributions of \(u\) and \(d\) quarks in the proton have been extracted for the first time [88]. SIDIS data from the HERMES and COMPASS Collaborations, measuring \(\ell+p^{\dagger}\rightarrow\ell+\pi+X\), and \(e^{+}+e^{-}\to h+h+X\) data from the Belle Collaboration were studied. The HERMES transverse asymmetries involve the combination of transversity with the Collins mechanism. The Belle data provide a direct measure of the Collins functions, and so allow the transversity distributions to be determined from the HERMES data. The transversity distributions were parameterised and the best-fit parameters determined from a global fit to the data. The extracted transversity distributions are shown in figure 2.5. The extracted up quark distribution is positive for all \(x\) while the down quark distribution is negative. The up quark distribution is greater in magnitude than the down quark distribution, \(|\delta u(x)|>|\delta d(x)|\) and both are smaller in magnitude than the Soffer bound given in equation (2.3).
+
+The first steps are now being made toward understanding the quark transversity distributions, though they remain much less well understood than the unpolarised and helicity distributions.
+
+### 2.6 Aims of This Thesis
+
+The work to be presented here was performed using data taken by the STAR experiment at the Relativistic Heavy Ion Collider (RHIC). The RHIC physics programme encompasses studies of heavy ion collisions and polarised proton collisions, of which the polarised proton programme is of interest here. RHIC is capable of providing both longitudinally and transversely polarised protons, and an extensive spin programme has been in operation since 2002. Studies using longitudinally polarised protons have yielded constraints on the polarised gluon contribution, \(\Delta G\), to the spin of the proton by measuring double helicity asymmetries, \(A_{LL}\), in the production of jets and pions. With transversely polarised protons, investigations have been performed into the transverse spin structure of the proton via measurements of transverse single spin asymmetries in hadron and jet production.
+
+This thesis presents a study of single and double transverse spin asymmetries in the production of the neutral strange particles \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\), using transversely polarised proton data acquired during the 2006 RHIC run. These particles are well suited to study by STAR, as they can be identified over a large momentum range using topological reconstruction of their decay products, while also having a reasonable production cross section. By contrast, charged species such as pions and protons can only be measured over a limited momentum range. Transverse single spin asymmetries in the production of these particles have been measured before at AGS and by the E704 Collaboration, as mentioned in section 2.2. STAR provides the opportunity to extend these studies to significantly higher collision energy and particle momentum than hasFigure 2.5: Transversity distributions of \(u\) and \(d\) quarks in the proton extracted from a global fit to data, taken from [88]. The shaded region shows a one-sigma uncertainty around the best-fit distribution. The bold lines outside the shaded region indicate the Soffer bound.
+
+previously been attained.
+
+The remainder of the thesis is organised as follows. In chapter 3 the RHIC complex, its operation as a polarised proton collider and the STAR experiment are described. The techniques used to identify \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\) particles are then detailed. In chapter 4 the data set used in the analysis is presented and the extraction of \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\) yields, using the techniques outlined in chapter 3, is described. Chapter 5 presents the methods used to calculate the transverse single spin asymmetries in the production of each particle species, and describes a number of systematic checks performed on the results. Chapter 6 presents the analysis of transverse double spin asymmetries. Finally, chapter 7 summarises the results and provides an overview of future transverse spin physics experiments planned at RHIC and elsewhere.
+
+## Chapter 3 The Experiment
+
+### 3.1 The Relativistic Heavy Ion Collider
+
+The Relativistic Heavy Ion Collider (RHIC) [89, 90] is located at Brookhaven National Laboratory, New York. It is an intersecting storage ring that accelerates two independent beams of ions with mass numbers from one to around 200 using superconducting magnets. The maximum energy per nucleon decreases with mass number from 250 GeV for proton beams to 100 GeV for the heaviest ions such as gold, A = 197 u. Because the beams are independent of one another each need not be of the same species and asymmetric collisions can be and have been performed (for example between deuterons and gold ions). Figure 3.1 shows a schematic view of all the elements of the RHIC complex. The RHIC ring has a 3.8 km circumference and is approximately circular, with six arc sections and six straight regions. In the straight sections the beams are steered to intersect so that collisions can occur. Collision points are at the two, four, six, eight, ten and twelve o'clock positions, in the middle of the straight sections. Experimental halls are situated at the collisions points: BRAHMS at two o'clock, STAR at six, PHENIX at eight and PHOBOS at ten. The booster accelerator and AGS are used to accelerate ions to RHIC injection energy. The LINAC accelerates hydrogen ions for use in proton collisions, while the Tandem van der Graaff generator is used to accelerate heavier ions. Only operations relating to proton-proton collisions will be discussed here.
+
+Polarised protons are produced using an optically-pumped polarised ion source [91, 92], which typically generates 0.5 mA, 300 \(\mu\)s pulses of ions, corresponding to 9x10\({}^{11}\) ions per pulse, with up to 90% polarisation. To better achieve high luminosity the RHIC beams are not continuous but are instead compressed into 120 'bunches' of particles, each less than 30 cm in length. Because of losses during acceleration and transfer to RHIC, pulses of 9x10\({}^{11}\) ions are needed from the source to provide the required RHIC luminosity of 1.4x10\({}^{31}\) cm-2 s-1, which corresponds to bunches of \(\sim\) 2x10\({}^{11}\) protons. Protons are passed through a rubidium vapour pumped with circularly polarised laser light in a strong magnetic field, whereby the rubidium electrons are 95-100% polarised [93]. A polarised electron is transferred to the protons through collisions, and magnetic fields are used to transfer the electron polarisation to the hydrogen nucleus. The neutral, nuclear-polarised hydrogen atoms are finally ionised to H- by collisions with a sodium vapour.
+
+Acceleration occurs in four stages: LINAC, booster, AGS and RHIC. First the H- ions are
+
+Figure 3.1: The RHIC complex. Protons follow a path through the Linac, Booster, AGS, ATR (AGS to RHIC line) and into the RHIC ring. The Tandem Van de Graaff generator is used in the acceleration of heavy ions.
+
+accelerated to a kinetic energy of 200 MeV in the LINAC, with an efficiency of around 50%, and then stripped of their electrons and injected as a single \(\sim 4\)x\(10^{11}\) ion bunch into the booster ring. The booster accelerates the protons to a kinetic energy of 1.5 GeV and delivers them to the Alternating Gradient Syncrotron (AGS), which accelerates the protons to 25 GeV for injection into RHIC. RHIC then accelerates each beam to the desired collision energy; for protons the design minimum is 30 GeV and the maximum 250 GeV. The RHIC complex is described in more detail in references [89, 90, 94].
+
+The stable proton spin direction in the RHIC ring is vertical i.e. transversely polarised beams. The proton spins precess around the vertical magnetic field in the RHIC ring at a rate of G\(\gamma\) precessions per orbit, where G = 1.7928, the anomalous magnetic moment of the proton, and \(\gamma\) is the relativistic factor. Imperfections in electric and magnetic fields can perturb the spin direction. These perturbations typically cancel over many orbits because the spin is at a different point in its precession in each orbit. However, when the proton spin is at the same point in its precession on each orbit, corresponding to G\(\gamma\) = integer, the 'kicks' to the spin directions add up on consecutive orbits and lead to depolarisation of the beam. _Spin resonances_ of this sort occur every 523 MeV for protons, so many are encountered during beam acceleration. To prevent loss of beam polarisation due to these spin resonances, two helical _Siberian Snake_ magnets [95] are installed in each beam, one at the three o'clock and one at the nine o'clock position. A Siberian Snake rotates the stable spin direction by 180 degrees around a horizontal direction, which eliminates polarisation losses from spin resonances. The design maximum polarisation for RHIC is 70%. The 80-90% polarisation at the polarised source is reduced by losses during the various acceleration and transport stages.
+
+Spin rotators placed either side of both PHENIX and STAR allow rotation of the stable direction at these experiments if so desired, in order to study longitudinally polarised protons. All data used in this analysis were acquired with transverse beam polarisations at STAR.
+
+Each beam's polarisation is monitored using its own carbon-target Coulomb-Nuclear Interference (CNI) polarimeter. These measure the asymmetry in recoil carbon atoms from elastic \(p^{\Uparrow}+C\) scattering between the polarised RHIC proton beam and the carbon target of the po larimeter. At the small momentum transfers (0.002 to 0.01 GeV\({}^{2}\)) at which the scatterings occur, the \(p^{\Uparrow}+C\) scattering process has a significant analysing power of around 4%. The scattering cross-section is large and only weakly dependent on beam energy over the RHIC range, allowing quick measurements of the beam polarisation. Measurements of \(\sim 10^{7}\) carbon atoms, sufficient for a statistical precision of a few percent on the polarisation measurement, can be acquired in 30 seconds. The carbon targets used are very thin (\(\approx 5\mu\)m wide and 150A  thick for a target 2.5 cm in length), allowing the recoil carbon atoms to escape the target and be detected. The use of thin targets also keeps the loss of beam luminosity due to scattering to an acceptable level.
+
+Silicon strip detectors surrounding the carbon target allow measurement of both the vertical and radial transverse components of the beam polarisation. Because of theoretical uncertainties in the \(p^{\Uparrow}+C\) analysing power, the pC polarimeters are calibrated using a single polarised hydrogen jet target shared between the beams. A measurement of one to two days is required to calibrate the pC polarimeters to within 5%. The calibrated pC polarimeters are then used to measure relative variations in the beam polarisation. Each RHIC beam store typically lasts eight to ten hours. The polarisation of each beam is measured at the start of the store and again at approximately two- to three-hour intervals during the store using the pC polarimeters. This interval is a compromise between the desires to monitor the polarisation frequently and to minimise beam losses incurred during polarisation measurement (\(<0.5\%\)). Additionally, data acquisition must be halted during the polarisation measurement so frequent measurements would reduce physics running time.
+
+Beam luminosity falls during a store, largely due to collisions between the beams at the interaction points. Once luminosity has fallen sufficiently the beam is dumped and a new store is begun. Each beam has fewer than the maximum of 120 filled bunches; in 2006 each beam contained 111 filled bunches and nine consecutive empty bunches. The unfilled region in each beam forms an 'abort gap'. When the beam is to be dumped, steering magnets are energised when the unfilled region passes by them, and the filled bunches that follow are directed towards a dump region. The beam cannot be dumped in an unregulated fashion because the high energies(\(\approx 200\) kJ/beam for 100 GeV protons) could cause damage to sensitive components [90].
+
+The two beams are 'cogged' such that bunches from each beam pass through one another, allowing collisions to occur, at the RHIC interaction points. During a RHIC store a bunch from one beam always interacts with the same bunch from the other beam. Half the bunches in each beam are polarised up and half down and the beams are polarised independently. This means that the 120 bunch crossings at each interaction point sample all four permutations of relative beam polarisation directions, and a given bunch crossing in a given RHIC store has the same permutation throughout that store. An example of such a bunch/polarisation pattern is shown in figure 3.2.
+
+### 3.2 The STAR Experiment
+
+The Solenoidal Tracker at RHIC (STAR) [96] is shown in figure 3.3. STAR is a multi-purpose detector with many subsystems for investigating a wide range of phenomena and collision types.
+
+Figure 3.2: Bunch pattern for a single RHIC store. Empty sections can be seen corresponding to the abort gaps in each beam. The anticlockwise beam is arbitrarily referred to as the “yellow beam”. The clockwise beam is referred to as “blue”.
+
+Because STAR is a general-purpose detector it typically runs with a large number of different trigger conditions at a given time in order to be able to select collisions ("events") with particular signatures of interest for different analyses. A number of the detector subsystems are involved in triggering the detector, some exclusively so and some in addition to providing data for analysis.
+
+STAR records data in _runs_, typically of 30 to 45 minutes duration, during which time a few hundred thousand events will be recorded. Recording data in smaller amounts like this means that if a problem is discovered with a run during analysis, it can be discarded without the loss of a very large number of events. Runs may also be stopped due to a hardware or software error in a detector subsystem or the data acquisition system (DAQ).
+
+Four of STAR's subsystems are of relevance for this analysis and will be described further. The Time Projection Chamber (TPC), the Barrel Electromagnetic Calorimeter (BEMC), the Endcap Electromagnetic Calorimeter (EEMC) and the Beam-Beam Counters (BBCs). The TPC data is analysed for particles of interest, while the BBCs and B/EEMC were used for the triggering of the detector. Detailed discussions of these and the other STAR subsystems can be found in [97].
+
+#### The STAR Trigger
+
+The slower detectors of STAR, such as the TPC, operate at a frequency of \(\sim\) 100 Hz, much slower than the RHIC bunch crossing rate of \(\sim\) 10 MHz. A trigger system is therefore used to select events of interest and instruct the slow detectors to record data for only these events. There are four levels to the STAR trigger. Each trigger level applies selection criteria of greater sophistication than the last, taking more time than the last to make a decision on whether to record the current event. An abort signal can be sent to the data acquisition system from any trigger level to stop the slow detectors before an event is acquired, thereby reading the detector for a new event.
+
+The lowest level (level 0) trigger takes raw data from the fast detectors in STAR (such as the BBCs) and makes a decision on whether or not an interaction that may be of interest has occurred. This is done on the same time scale as the RHIC bunch crossing interval of \(\sim\) 100 ns.
+
+If the level 0 trigger determines that an event of interest has occurred, the fast detector data is passed to the subsequent trigger levels, which make more detailed analyses of the data to apply further selection criteria to the event. The level 1 trigger makes a decision using a subset of the trigger data in 100 \(\mu\)s. This level searches for signatures indicative of collisions between the beam and the TPC gas, allowing these events to be discarded. If the event is not aborted by level 1, the level 2 trigger performs further analysis using the full trigger data set within 5 ms. This trigger allows particular event signatures, such as jets, to be found. If the event is accepted by the level 2 trigger then the data acquisition system is notified and the slow detectors are read out.
+
+A final level 3 trigger can be applied using data from the slow detectors to perform an online event reconstruction, issuing a decision within 200 ms. This allows an even more detailed analysis of the event to search for particular rare particle species, such as the J/\(\psi\). This was not used for these data.
+
+#### Triggering Detectors
+
+Two BBCs made from tiles of a scintillating material are placed close to the beam line. They are sensitive to charged particles produced in the pseudorapidity range \(3.3<\eta<5.0\), where pseudorapidity is defined as
+
+\[\eta=-\ln\left[\tan\frac{\theta}{2}\right], \tag{3.1}\]
+
+where \(\theta\) is the angle between the particle momentum and the beam momentum. One BBC is positioned each side of the TPC at \(\pm\) 3.5 m from the TPC centre. They are used in triggering the detector for proton-proton collisions. When a collision occurs the BBCs detect charged particles produced close to the beam direction. The minimum bias (MB) trigger condition for collisions is defined as a signal in both BBCs within a 17 ns coincidence window. Figure 3.4 shows the BBC coincidence rate recorded for a number of STAR runs in a single RHIC store. The decrease in coincidence rate, corresponding to the decrease in beam luminosity, is clear during the course of the store.
+
+The BEMC [98] is made from plastic and lead scintillator and surrounds the TPC, covering \(2\pi\) radians in azimuth and \(|\eta|<0.98\). It is used for triggering on rare processes such as jets and forms part of the trigger definition for the data studied in this analysis. It can also be used to detect photons, electrons and mesons with electromagnetic decay channels, but these abilities are not used here. The EEMC is a lead-glass scintillator calorimeter. It is a ring-shaped detector, covering \(1.086<\eta<2.0\) in pseudorapidity and is placed over the west end of the STAR detector. It provides sensitivity to the same particle species as the BEMC at a more forward angle.
+
+Events satisfying either of two trigger conditions were selected for study:
+
+1. BEMC-JP1-MB: At least one BEMC jet patch (JP) has total energy above a threshold of 7.8 GeV and the minimum bias (MB) condition is satisfied.
+2. BEMC-JP0-ETOT-MB-L2JET: At least one BEMC jet patch has a total energy exceeding
+
+Figure 3.3: Schematic view of the STAR detector, showing many of the detector subsystems and defining the STAR coordinate system. The positive y direction is directed vertically up, out of the plane of the page. Proton beams are polarised along this axis.
+
+a threshold of 4 GeV and the total energy over the barrel and endcap EMCs (ETOT) exceeds a threshold of 14 GeV. The minimum bias condition is satisfied. A jet-finding algorithm is applied in the level 2 trigger system (L2JET) to select events with a jet-like component.
+
+A 'jet patch' is defined as a region of the BEMC spanning approximately one unit in pseudorapidity and one radian in azimuth. The whole BEMC, covering \(|\eta|<\) 0.98 and 2\(\pi\) in azimuth, is thus divided into twelve jet patches. These triggers were selected for the large statistics they sampled during 2006 running and because the jet patch condition provided a larger sample of hadrons at high momenta than minimum-bias events.
+
+#### The Time Projection Chamber
+
+The TPC [99] is the largest STAR subsystem and serves as the main tracking detector for STAR; it is shown in figure 3.5. It provides the high track resolution required in order to handle the high track densities found in heavy ion collisions (\(\sim\) 1,000 tracks per unit pseudorapidity in Au + Au collisions at 200 GeV centre-of-mass energy). The TPC provides full azimuthal tracking of charged particles with transverse momentum above \(\sim\) 100 MeV/c and \(|\eta|<\) 1.8.
+
+The end caps of the TPC are maintained at ground electric potential. A thin membrane that
+
+Figure 3.4: BBC coincidence rate during a single RHIC store.
+
+Figure 3.5: The STAR Time Projection Chamber (TPC). The end-caps are divided into twelve sectors, each with an inner and outer sub-sector. The TPC is divided into two by a central cathode membrane spanning the gas volume between the inner and outer field cages.
+
+spans the TPC centre between the inner and outer field cages in the vertical plane is held at -28 kV. The cylindrical field cages are made from metal rings connected in series by resistors, providing a uniform electric field between the central membrane cathode and each end. Charged particles passing through the TPC ionise the gas within it and the liberated electrons migrate away from the central membrane to the nearest end. The drift velocity varies with electric field strength, and the temperature, pressure and composition of the gas. Therefore the electron drift velocity is measured every few hours. Radial laser beams at known positions along the length of the TPC are used to ionise trace organic substances in the gas volume. The difference in drift times for charge liberated by two laser beams at different z positions allows determination of the drift velocity [100].
+
+Each end of the TPC is divided into twelve trapezial sectors, positioned as the hours on a clock face, each containing 45 rows of cathode pads (5,692 pads per sector). These detect the migrating charge when it reaches the end of the TPC and allow measurement of its x and y coordinates. Each time the TPC is triggered to acquire data, the pad values are read out in 512 time bins. Knowledge of the charge drift velocity in the TPC gas (typically \(\approx\) 5 cm \(\mu\)s-1) allows the z position of the charge points to be reconstructed. The TPC is therefore essentially divided into \(\sim\) 70 million (x, y, z) pixels.
+
+The resolution between a pair of charge points depends on whether they are in an inner or outer sub-sector, due to different pad sizes in the sub-sectors. In the inner sub-sectors a pair of charge points can be completely resolved when they are separated by greater than 0.8 cm in the direction of the pad-rows and greater than 2.7 cm in the drift direction. In the outer sub-sectors the separation must be greater than 1.3 cm in the direction of the pad-rows and greater than 3.2 cm in the drift direction. Pattern recognition software is used to fit particle tracks through these charge points. The crossing point of the fitted tracks is used to determine the collision point (_primary vertex_) for each event to a resolution of better than 1 mm.
+
+The STAR detector is surrounded by a solenoid magnet providing a uniform 0.5 T longitudinal magnetic field [101]. The paths of charged particles are therefore bent in the transverse (x-y) plane by the Lorentz force. Their longitudinal motion combined with the transverse curvature causes the particles to follow helical paths. Particle momenta can then be determined from the radius of curvature of each track via
+
+\[p_{T}=0.3Br|q|, \tag{3.2}\]
+
+where \(p_{T}\) is the particle transverse momentum in GeV/c, \(B\) the magnetic field strength, \(r\) is the radius of curvature and \(q\) the particle charge in units of the elementary charge. The direction of curvature allows determination of a particle's charge. The best momentum resolution, \(\delta p/p\), occurs at 500 MeV/c for pions, where \(\delta p/p\approx 2\%\), and at 1 GeV/c for protons, where \(\delta p/p\approx 3\%\). Resolution worsens at lower particle momentum (\(p<400\) MeV/c for pions, \(p<800\) MeV/c for protons) due to multiple Coulomb scattering. At higher particle momentum the resolution worsens with increasing momentum because it becomes harder to precisely determine the track curvature for straighter tracks. \(\delta p/p\) increases approximately linearly with track momentum, to \(\approx 10\%\) at 10 GeV/c.
+
+The software reconstruction produces raw 'DAQ' (data acquisition) files with all the information on an event from the various detector subsystems, down to the level, for example, of all the (x, y, z) charge points in the TPC. This is more information than is typically required at an analysis stage, so these data are further processed to produce smaller files (historically called'micro Data Storage Tapes' or \(\mu\)DSTs) that are quicker to analyse but retain the information essential to a physics analysis (track momenta, vertex positions etc). The \(\mu\)DSTs store data in a ROOT TTree format [102] to allow large-scale analysis. All the analysis presented herein was performed using custom-written C++ compiled code and macros in ROOT.
+
+### 3.3 Particle Identification
+
+Charged particles can be identified from their energy loss due to collisions with the TPC gas. The number of electrons liberated in a collision is proportional to the energy lost by the particle. The signal measured by a TPC pad is proportional to the charge liberated and so is proportional to the energy lost by the particle across a path length the size of the pad. The measurements of charge at the end cap pads therefore allows the particle energy loss to be determined. The energy lost by a charged particle traversing a thickness \(x\) of an absorbing material is not constant. The number of collisions the particle undergoes and the amount of energy lost in each collision both vary (Landau fluctuations). Each pad collecting charge liberated by the passage of a particle is used to make a measure of that particle's energy loss. The mean energy loss of the particle per unit path length can then be calculated.
+
+The measured energy loss for each particle is then compared with theoretical predictions. Landau derived an equation for the most probable energy loss [103],
+
+\[{}_{L}\Delta_{p}=\xi\left(\ln\frac{2mc^{2}\beta^{2}\gamma^{2}}{I}+\ln\frac{ \xi}{I}+0.2-\beta^{2}-\delta(\beta)\right). \tag{3.3}\]
+
+\(I\) is the logarithmic mean excitation energy of the absorbing material, \(\delta\) is a density term important at large velocities, and \(\beta\) and \(\gamma\) are the normal relativistic variables. \(\xi\) is related to the path length traversed by the charged particle by \(\xi=xk/\beta^{2}\), where \(k=153.54(Z/A)\) keV cm\({}^{2}\). A modified version of the Landau formula, which accounts for the atomic structure of the absorbing material, is used to predict the most likely energy loss as a function of particle momentum [104, 105, 106]. Figure 3.6 shows an example of the mean measured energy loss per unit length as a function of particle momentum. The theoretical predictions for the most probable energy loss compare well with the measured energy loss.
+
+At low momentum the pion, kaon and proton bands are well separated and the particles can be easily distinguished. The kaon band converges with the pion band at around 700 MeV, above which kaons and pions cannot be distinguished. Protons can be distinguished from pions and kaons up to around 1 GeV. A band corresponding to muons is indistinguishable from the pion band at the momenta shown, and an approximately horizontal positron band can be seen close to the pion band at all momenta. For negative particles the distributions look very similar as the energy loss depends on the magnitude but not the sign of the particle's charge.
+
+### 3.4 Neutral Strange Particle Identification
+
+Neutral particles do not ionise the TPC gas and so are not directly detected. However those that decay into only charged species can be reconstructed from their daughter particles. The neutral strange particles \(K_{S}^{0}\) and \(\Lambda\) studied in this analysis are found in this way. The \(K_{S}^{0}\) and \(\Lambda\) undergo the following decays 68.6% and 63.9% of the time respectively:
+
+\[K_{S}^{0}\rightarrow\pi^{+}+\pi^{-}, \tag{3.4}\]
+
+\[\Lambda\to p+\pi^{-}. \tag{3.5}\]
+
+These charged decay modes are described as having a 'V0' topology due to the appearance of two observed (charged) particles from the point where the unobserved (uncharged) parent decays. In each event a population of V0 candidates is produced by forming all combinations of positively and negatively charged particles that, when extrapolated back to the primary vertex,
+
+Figure 3.6: Mean energy loss per unit path length for positive particles in the STAR TPC. The predictions for the most likely energy loss per unit path length (\(\Delta/x\)) are shown for pions (solid line) and protons (dashed line). Kaon and deuteron bands can be seen to the left and right of the proton band respectively. Positrons are visible as a horizontal band near the pions.
+
+pass within a certain distance. By assuming the species of each daughter particle, the invariant mass of each V0 parent is calculated under the hypothesis that it is of a particular species,
+
+\[W_{V0}^{2}=\left(\sum_{+,-}E\right)^{2}-\left(\sum_{+,-}\overline{p}\right)^{2}, \tag{3.6}\]
+
+where \(W_{V0}\) is the V0 candidate's invariant mass under the decay hypothesis being considered and the sums are over both charged daughters. The energies of the charged daughters are calculated from
+
+\[E^{2}=p^{2}+m^{2}, \tag{3.7}\]
+
+where m is the daughter particle mass under the decay hypothesis. For example, assuming the positive (negative) daughter to be a \(\pi^{+(-)}\) will yield the invariant mass of the parent if it is a \(K_{S}^{0}\). An example of such an invariant mass distribution is shown in figure 3.7. The same process is repeated for all relevant daughter combinations, producing an invariant mass distribution for each parent species. Each invariant mass distribution contains a peak, corresponding to the particle of interest and centred close to its rest mass, sat atop a continuous background. Due to energy loss by the daughter particles in the TPC gas and detector material, the reconstructed mass is generally shifted to a value slightly lower than the Particle Data Group (PDG) value. The background is composed of real particles of a V0-decaying species other than the one of interest (for example there will be a \(\Lambda\) contribution in the \(K_{S}^{0}\) spectrum) plus a combinatorial background formed by unrelated crossings of positive/negative tracks that did not arise from the decay of a common parent. The background can be reduced by applying selection criteria to the V0 candidates (see section 4.2). However, because the background contribution can not be entirely removed, a candidate falling in the peak region cannot be unambiguously identified as either a genuine particle or background. This means that the yield of the species of interest cannot be determined by counting positively identified particles, but must be done on a statistical basis.
+
+Two approaches may be used to determine the particle yield: parameterisation of the invariant mass spectrum with a function, or a counting method. In the first case a function is used to fit the peak and background and the particle yield is determined from the fit parameters. In the counting method, a signal mass region is defined, encompassing the peak. Then two background regions, each half the width of the signal region, are defined and placed symmetrically either side of the signal region. The total counts in the background region are then subtracted from the total counts in the signal region to give a particle yield. This method requires the background to have a linear shape so that the total background under the peak is equivalent that in the background regions.
+
+For this analysis the counting method was chosen, mainly for its robustness under low statistics. The fitting method would often fail or give very large uncertainties for runs with small numbers of events. Additionally, the fit did not always give an adequate description of the peak shape unless a large number terms and free parameters were allowed; for example fitting the peak with two Gaussian functions, each with its width, centre and area as free parameters. This increased the uncertainty in the calculated yields.
+
+Figure 3.7: The invariant mass distribution produced under the decay hypothesis \(K_{S}^{0}\rightarrow\pi^{+}+\pi^{-}\). A broad signal peak at around the \(K_{S}^{0}\) mass sits atop a large background. The peak width is due to the momentum resolution of the daughter tracks, not the natural width of the decay.
+
+## Chapter 4 Data Selection
+
+The analysis was performed on data recorded during the 2006 RHIC run with 100 GeV polarised proton beams (200 GeV centre-of-mass energy). Data was recorded with both longitudinally and transversely polarised beams over a thirteen week period. The data taken with transversely polarised beams, collected during five weeks between 7\({}^{\rm th}\) April and 9\({}^{\rm th}\) May 2006, have been analysed for transverse spin asymmetries. The neutral strange particles \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\) produced at mid-rapidity (\(|x_{F}|<0.05\)) and with transverse momentum \(0.5<p_{T}<4.0\) GeV/c were used in the analysis.
+
+### 4.1 Run Selection
+
+Data were acquired at STAR in runs typically of 30 to 45 minutes. A total of 605 runs were acquired containing events with the triggers of interest, each typically containing a few thousand to a few tens-of-thousands of events of those triggers. Quality checks were applied to the data run-by-run to eliminate any with problems that may have caused erroneous results. An initial run list was formed from runs passing general STAR quality checks for the 2006 transverse running period. There were a total of 549 STAR runs in which the TPC was utilised and for which data was processed into \(\mu\)DST form. Runs for which a problem was present with the jet patch trigger were rejected, as were those in which there was an error in recording the beam polarisation bunch pattern; for example if a bunch crossing was erroneously recorded as havingevents for more than one permutation of beam polarisations. This rejected 172 of the 549 runs. The remaining 377 runs were then subjected to further quality checks before being used in the analysis.
+
+Tests were applied to ensure that the distribution of events in a run was consistent between each permutation of beam polarisations. If the vertex distributions differed for different beam polarisations, then events for those different permutations would effectively experience a different detector acceptance from one-another. The primary vertex z distributions were required to be consistent between each beam polarisation permutation. Runs in which the distribution for any permutation was inconsistent with any other were rejected. Consistency between two distributions was determined using a Kolmogorov-Smirnov test of the vertex z positions. The ROOT histogram (TH1) implementation of the K-S test was used to calculate the confidence level for compatibility between the two histogramed vertex distributions tested. If this level was below 0.1% for any permutation of distributions in a run, that run was discarded from the data set. The distribution of the mean event vertex z coordinate is shown in figure 4.1. The means are well-described by a fit with a Gaussian distribution, centred at z = -2.5 cm. Runs for which the mean vertex z was significantly different from the mean (more that four standard deviations) were also rejected from the analysis.
+
+Once all quality checks had been performed 23 runs were rejected and a final list of 354 STAR runs remained, spanning 34 RHIC stores. These runs comprised a total of 5.1 million events between the two triggers used. The triggers are not entirely independent; 630,000 events satisfy both, while 2.62 million satisfy only the BEMC-JP0-ETOT-MB-L2JET condition and 1.85 million satisfy only the BEMC-JP1-MB condition.
+
+### 4.2 V0 Identification
+
+The data set used for analysis contained 5.1 million events, of which 4.9 million (96%) successfully had a primary vertex reconstructed. To provide approximately uniform acceptance and phase space coverage for all events, only those with a vertex z coordinate in the range -60 cm\(<\) z \(<\) 60 cm were selected. This also corresponds to the vertex range from which events were used to calculate beam luminosities (see section 5.1.1). 3.1 million events, 64% of those with a reconstructed vertex, met this condition. From these events the STAR V0-finding code produced 184 million candidate V0 decays. Figure 4.2(a) shows the raw invariant mass spectrum of the candidates under the assumption that they are \(\Lambda\) hyperons i.e. positive (negative) daughter is a proton (\(\pi^{-}\)). Figure 4.2(b) shows the spectrum under the assumption the candidates are \(\overline{\Lambda}\), and figure 4.2(c) under the assumption they are \(K_{S}^{0}\). The Particle Data Group value for the \(\overline{\Lambda}\) and \(\Lambda\) mass is 1115.683 MeV and that for the \(K_{S}^{0}\) is 497.614 MeV [107]. Peaks corresponding to these masses can clearly be seen in the spectra, over a large background. The peaks are shifted to slightly smaller masses than the PDG values due to loss of energy (and therefore momentum) of the charged daughters in the TPC gas and other material. The measured momentum of the daughters is therefore slightly less than the momentum they initially possess, resulting in a smaller invariant mass resulting from equation 3.6. The widths of the peaks are entirely dominated by the momentum resolution of the TPC; the natural widths of the decays are many orders of magnitude smaller.
+
+Figure 4.1: Mean event vertex z coordinate for each STAR run. The distribution is described well by a Gaussian fit. The vertical dashed lines indicate the values \(\pm\)4 standard deviations from the fit mean. Runs outside this range were rejected.
+
+Figure 4.2: Raw invariant mass spectra for all V0 candidates under different decay hypotheses
+
+Selection critera ('cuts') were applied to the V0 candidates to reduce the background fraction. This was done in two stages. First an energy loss constraint was applied to the daughter particles, as outlined in section 3.3. This was used to reject daughter particles not of the V0 parent of interest. Secondly, cuts were applied to the geometrical properties of the V0 decay vertex. This was done separately for each V0 species.
+
+#### Energy Loss Cuts in V0 Identification
+
+The daughter species of the neutral strange particles of interest are given in table 4.1. Each daughter in a candidate decay was required to have an energy loss per unit path length in the TPC consistent with the prediction for the most-likely energy loss, described in section 3.3. For example, to select \(\Lambda\) hyperons the positive daughter was required to have energy loss consistent with that of a proton and the negative daughter's energy loss was required to be consistent with that of a pion. To quantify the degree to which the energy loss measured for a particle corresponded with the predicted value for a particular species, the quantity
+
+\[Z=\sqrt{N}\log\left(\frac{\text{measured energy loss}}{\text{predicted energy loss}}\right) \tag{4.1}\]
+
+was calculated for each daughter. \(N\) is the number of points along the track from which the mean energy loss measurement was made; the more points used the more precisely the energy loss was measured. Figure 4.3 shows the distribution of \(Z\) for positive daughters using the model prediction for the proton. The peak centred near zero corresponds to protons and the broad peak to the left of this corresponds to other species, mostly pions. A Gaussian distribution describes the proton peak well, though the tails cannot be fitted due to the presence of the
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline Neutral strange species & Positive daughter & Negative daughter \\ \hline \(\Lambda\) & \(p\) & \(\pi^{-}\) \\ \(\overline{\Lambda}\) & \(\pi^{+}\) & \(\overline{p}\) \\ \(K_{S}^{0}\) & \(\pi^{+}\) & \(\pi^{-}\) \\ \hline \end{tabular}
+\end{table}
+Table 4.1: Daughter particles produced from charged decay channels of each neutral strange species.
+
+other peak. Similar distributions were produced for the other daughter species (\(\pi^{\pm}\) and \(\overline{p}\)). \(Z\) distributions were found to depend weakly on track pseudorapidity. Therefore tracks were grouped into ten equal-sized bins in pseudorapidity between -1.0 and +1.0. The small number of tracks with pseudorapidity greater than 1.0 were combined with the last bin, and tracks with pseudorapidity less than -1.0 were grouped with the first. The distributions for each species and pseudorapidity range were parameterised using a Gaussian function. For the purposes of making the distributions such as figure 4.3, only tracks with momentum less than 1 GeV/c were used. In this momentum range protons and pions are well separated in energy loss and the \(Z\) distribution peaks corresponding to each species could be fitted. The distributions were not found to be momentum-dependent so the same Gaussian parameterisations found for 0-1 GeV/c were used when selecting particles of higher momentum. When selecting for a particular daughter species, the \(Z\) of the particle was required to be within three standard deviations of the distribution mean for that species in the appropriate pseudorapidity range. This allowed background rejection with negligible signal loss (0.3% for three standard deviations).
+
+The efficacy of this energy loss identification procedure is demonstrated in figure 4.4. Fig
+
+Figure 4.3: \(Z\) distribution in a single pseudorapidity range of positive V0 daughters using most-likely-energy-loss predictions for the proton. The Gaussian parameterisation describes the peak shape well.
+
+ures 4.4(a) and 4.4(b) show the positive daughters accepted and rejected by the selection for protons, respectively. The proton band is cleanly selected, and the other species are removed by the cut. Similar results were seen for rejection of \(\pi^{\pm}\) and \(\overline{p}\) (not shown). V0 candidates for which either or both daughters failed the relevant energy loss selection were rejected. Figure 4.4(c) shows the effect of the energy loss selection on the \(\Lambda\) invariant mass spectrum. The background is significantly reduced by application of the energy loss selection on the daughter particles. Figures 4.4(e) and 4.4(f) show the improvements to the \(\overline{\Lambda}\) and \(K^{0}_{S}\) invariant mass distributions using the energy loss selection for those species. The cut is more effective for (anti)\(\Lambda\) than the \(K^{0}_{S}\). This is due to being able to efficiently distinguish protons from pions up to momentum \(\sim\) 1 GeV/c. Pions make up most of the background tracks in an event, and most of the background is in the low momentum region, so the ability to distinguish the (anti)proton daughter in the (anti)\(\Lambda\) decay from the large pion background gives a significant background suppression. The background suppression for kaons is less impressive because both the daughters are pions, so the largest background contribution is not rejected in this case. Nevertheless, the energy loss cut is useful in suppressing the background in all cases because it does so without significant signal loss, unlike the geometrical cuts to be described next. Figure 4.4(d) shows the V0 candidates rejected by the energy loss selection for \(\Lambda\) hyperons. A peak at the \(\Lambda\) invariant mass of 1116 MeV/c\({}^{2}\) is not seen, showing that no significant number of genuine \(\Lambda\) hyperons have been eliminated by the cut. Similar results (not shown) were obtained for the \(\overline{\Lambda}\) and \(K^{0}_{S}\).
+
+#### Geometrical Cuts
+
+Rejection of background on the basis of particle energy loss is a useful first step in reducing the background, but is insufficient to produce a clear signal, especially in the case of the \(K^{0}_{S}\). The energy loss method is also of limited use for particles at large momentum, where pions and protons cannot be clearly distinguished. Further selection criteria were therefore applied to the V0 candidates to further reduce the background. A V0 decay can be characterised by various geometrical properties, describing the spatial relationship between daughter tracks, the reconstructed V0 momentum vector and the event vertex. Five quantities were considered that Figure 4.4: Results of energy loss cuts.
+
+could be used to indicate the likelihood that a V0 candidate corresponded to a genuine neutral strange particle. These are shown schematically in figure 4.5 and are described in detail below:
+
+* _Distance between daughter tracks at the apparent decay vertex:_ The decay vertex of the V0 candidate is defined as the midpoint between the daughter tracks at their distance of closest approach (DCA). The DCA between the daughter tracks will not be exactly zero even for a real particle decay because of detector resolution. However, the closer they approach, the more likely that the candidate corresponds to a real decay and not a chance crossing of primary tracks. An upper limit was therefore placed on the DCA between the daughters. A distribution of invariant mass vs. DCA between daughters is shown in figure 4.6.
+* _Decay distance:_ This is the distance between the event collision point and the apparent decay vertex of the V0 candidate. Because all the particles of interest decay via the weak interaction, the mean decay distance is on the order of centimetres: c\(\tau\) for the \(\Lambda\) is 7.89 cm and 2.68 cm for the \(K^{0}_{S}\)[107]). Much of the background is due to chance crossings of tracks originating at the collision point. Because the track density decreases with the inverse square of distance from the collision point, the decay distance distribution of spurious candidates falls off more quickly than that of genuine particles. Therefore placing a lower limit on the decay distance rejects a portion of the background due to chance track crossings. This is illustrated in figure 4.7.
+* _DCA of the V0 to the primary vertex:_ The V0 momentum vector (found from the vector sum of daughter momenta) should extrapolate back to the primary vertex, though not exactly due to detector resolution. V0 candidates from chance track crossings need not fulfil this condition, so placing an upper limit on this distance can reduce background from chance track crossings. This is illustrated in figure 4.8.
+* _DCAs of the positive and negative daughter tracks to the primary vertex:_ The daughter tracks do not originate from the primary vertex, but the track fitting software can extrapolate them backward toward it. Because of the curvature of the tracks, they should Figure 4.5: Schematic representation of a V0 decay. The solid lines represent the charged tracks found by track-fitting software. The curved dashed lines represent the extrapolations of the charged tracks back toward the primary vertex and the straight dashed line represents the V0 parent momentum vector reconstructed from the daughter momentum vectors at the decay point.
+
+_not_ intersect with the primary vertex. Conversely most background tracks originate at the primary vertex. By placing a lower limit on this distance for each of the daughters, background from chance track crossings is reduced. This is illustrated in figure 4.9.
+
+In addition to these cuts, for isolation of the \(K_{S}^{0}\) it was found that placing a cut on the \(\Lambda\) and \(\overline{\Lambda}\) invariant masses was useful in further reducing the background. This involved rejecting V0 candidates passing \(K_{S}^{0}\) selection criteria but whose invariant mass under an \(\overline{\Lambda}\) or \(\Lambda\) decay hypothesis was within the defined \(\Lambda\) signal mass range. In addition to reducing the background this cut was also found to be useful in making the background invariant mass distribution flatter. A complimentary cut for the (anti-)\(\Lambda\) was investigated, rejecting candidates with an invariant mass under the \(K_{S}^{0}\) hypothesis that was within the \(K_{S}^{0}\) signal range. Though the cut was somewhat successful in reducing background, it also eliminated a large amount of signal for both species. As the signal for both species was quite statistics-limited, this cut was therefore not used. This reason why this cut is useful for \(K_{S}^{0}\) but not \(\Lambda\) and \(\overline{\Lambda}\) can be seen from an Armenteros-Podolanski plot for the V0 candidates, seen in figure 4.10. The variable
+
+Figure 4.6: Invariant mass of V0 candidates under the \(\Lambda\) decay hypothesis vs. the DCA between the daughter particles. Genuine particles, seen as a band centred around the PDG mass for the \(\Lambda\), are concentrated at small distances.
+
+Figure 4.7: Invariant mass of V0 candidates under the \(\Lambda\) decay hypothesis vs. the V0 decay distance. A band at the PDG mass of the \(\Lambda\) can be clearly seen extending to large decay distances. The background is concentrated around small decay distances.
+
+Figure 4.8: Invariant mass of V0 candidates under the \(\Lambda\) decay hypothesis vs. the DCA of the V0 to the primary vertex. Genuine particles are seen concentrated at small distances of approach to the primary vertex.
+
+Figure 4.9: Invariant mass of V0 candidates under the \(\Lambda\) decay hypothesis vs. the DCA of the (a) positive and (b) negative daughters to the primary vertex. The band around the \(\Lambda\) PDG mass extends to larger distances than the background. Note that the DCA is momentum-dependent; particles with high momentum do not bend away from the event vertex as much as those with low momentum. The positive daughters (protons) typically have a smaller DCA than the negative daughters (\(\pi^{-}\)).
+
+\[\alpha=\frac{p_{\parallel}^{+}-p_{\parallel}^{-}}{p_{\parallel}^{+}+p_{\parallel} ^{-}} \tag{4.2}\]
+
+describes the difference in the momentum components of the V0 daughters parallel to the V0 momentum direction as measured in the laboratory frame (\(p_{\parallel}\)). The superscript (+,-) indicates the daughter charge. \(p_{T}\) in this case is defined as the V0 daughter momentum transverse to the V0 momentum direction. When these variables are plotted against one-another the different V0 species separate into elliptical bands. Cutting on the invariant mass of one of the species is equivalent to masking out the corresponding ellipse on the Armenteros-Podolanski plot. The \(\Lambda\) and \(\overline{\Lambda}\) bands each have a region of overlap with the \(K_{S}^{0}\) band. As this region of overlap accounts for only a small portion of the \(K_{S}^{0}\), cutting on the \(\Lambda\) and \(\overline{\Lambda}\) masses is effective for isolating \(K_{S}^{0}\). However the region of overlap covers a large portion of the \(\Lambda\) and \(\overline{\Lambda}\) momentum space, meaning that cutting on the \(K_{S}^{0}\) mass when selecting these species causes a large loss of statistics.
+
+Figure 4.10: Armenteros-Podolanski plot for V0 candidates. \(p_{||}^{+}\) and \(p_{||}^{-}\) are the momentum components of the positive and negative V0 daughters parallel to the parent V0 momentum direction. \(p_{T}\) is the momentum of each daughter transverse to the parent momentum direction.
+
+A 'brute force' method was adopted to determine a suitable set of geometrical cuts to select each neutral strange species. Once the energy loss cuts, and in the case of the \(K_{S}^{0}\) the \(\Lambda\)/\(\overline{\Lambda}\) invariant mass cuts, had been applied the five geometrical cut parameters listed above (two for daughter track DCAs) were changed in various permutations. The resulting invariant mass spectra were used to select a set of cuts. Tightening the cuts gave a better signal-to-background ratio at the cost of a reduced yield. The cuts were therefore chosen to strike a balance between providing good background suppression whilst also retaining a usable yield. A requirement was imposed that the background region had a straight line shape, so as to be able to apply the bin counting method of yield calculation discussed previously. This was tested by fitting a straight line through the two background regions only, omitting the intervening peak region, and requiring the reduced \(\chi^{2}\) of the fit to be close to one, indicating a good quality of fit.
+
+The invariant mass background shape of each species was found to change significantly as a function of transverse momentum. Therefore geometrical cuts were determined for each \(p_{T}\) range individually. Backgrounds were largest at low momentum, as most of the background particles have transverse momentum much less than 1 GeV/c. The momentum ranges used, and the cut values determined for each species in those ranges, are summarised in table 4.2. Because of low particle counts at small momentum, a lower momentum cutoff of 0.5 GeV/c was applied. Figures 4.11, 4.12 and 4.13 show the invariant mass spectra produced using the cuts listed in table 4.2 for the \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\) respectively.
+
+Figure 4.11: Invariant mass distributions for \(K_{S}^{0}\) mesons as a function of \(p_{T}\) with all selection criteria applied. The signal region is shaded with lines and background regions are hatched. The Background regions were fitted with a straight line, skipping the intervening region containing the signal peak. The \(\chi^{2}\) per degree of freedom was required to be in the range 0.5 to 1.5, indicating that the background was well-described by a straight line shape and that the bin counting method of yield extraction was valid. The solid straight lines indicate extrapolations of the background fits across the signal region, showing that the linear shape of the background extends over the full mass range of interest. The mass peak shifts to the right at higher \(p_{T}\) as energy loss effects become less important. For simplicity, a single signal region was chosen that encompassed the mass peaks in all momentum ranges.
+
+Figure 4.12: Invariant mass distributions for \(\Lambda\) hyperons as a function of \(p_{T}\) with all selection criteria applied. See comments in the caption of figure 4.11.
+
+Figure 4.13: Invariant mass distributions for \(\overline{\Lambda}\) anti-hyperons as a function of \(p_{T}\) with all selection criteria applied. See comments in the caption of figure 4.11.
+
+## Chapter 5 Single Spin Asymmetry
+
+Physics asymmetries were calculated separately for each RHIC beam store because of the variation of the beam polarisation between stores. The polarisations achieved for each beam are summarised in figure 5.1. Typical beam polarisation during 2006 was between 45 and 65%, with a mean of 53% for each beam. This was an improvement on the previous year's data, for which typical values of 45 to 50% were achieved. The polarisation of each beam was typically measured to a statistical precision of \(\delta P_{statistical}=\) 1-2%. Systematic uncertainties on the polarisation measurement for each beam store were of approximately the same size. These systematic uncertainties were uncorrelated between stores. In addition, there was a global systematic uncertainty, correlated between all beam stores, of \(\delta P_{A}/P_{A}=\) 4.7% for the clockwise beam and \(\delta P_{C}/P_{C}=\) 4.8% for the anticlockwise beam. The global uncertainty in the product of the two beam polarisations, \(\delta(P_{A}P_{C})/(P_{A}P_{C})=\) 8.3%.
+
+### 5.1 Single Spin Asymmetry
+
+The transverse single spin asymmetries in the production of \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\) have been measured. The single spin asymmetry, \(A_{N}\), is also known as the left-right asymmetry, or the analysing power. The asymmetry in particle production is of the form [108]
+
+\[N\left(\phi\right)\propto 1+A_{N}P\cos\phi\,, \tag{5.1}\]where N(\(\phi\)) is the number of particles produced at azimuth \(\phi\) and P is the beam polarisation. The analysing power can be measured by a detector at an azimuthal angle \(\phi\) by
+
+\[A_{N}P=\frac{1}{\cos\phi}\frac{N^{\Uparrow}-N^{\Downarrow}}{N^{\Uparrow}+N^{ \Downarrow}}. \tag{5.2}\]
+
+Throughout the analysis, \(\phi\) is defined in the range -\(\pi\) to \(+\pi\). \(\phi=0\) corresponds to the positive x direction in the STAR coordinate system and positive (negative) \(\phi\) corresponds to positive (negative) y.
+
+The single spin asymmetry is seen as a difference in particle production to opposite sides of the beam's momentum-polarisation plane. \(N\) indicates the particle yield produced to one side of this plane (i.e. to 'beam-left' or 'beam-right'). \(\Uparrow\) and \(\Downarrow\) indicate the beam polarisation direction. The directions 'beam-left' and 'beam-right' are defined as
+
+\[\vec{p}_{V0}\cdot\left(\vec{p}_{beam}\times\vec{P}_{beam}\right) <0,\text{ for beam-left}\right.\] \[\vec{p}_{V0}\cdot\left(\vec{p}_{beam}\times\vec{P}_{beam}\right) >0,\text{ for beam-right}, \tag{5.3}\]
+
+where \(\vec{p}_{V0}\) is the V0 momentum vector and \(\vec{p}_{beam}\) and \(\vec{P}_{beam}\) are respectively the beam momentum and polarisation vectors. Beam left corresponds to negative x in the STAR coordinate sys
+
+Figure 5.1: RHIC beam polarisation for 2006 p\({}^{\Uparrow}\) + p\({}^{\Uparrow}\) running for (a) clockwise beam, (b) anticlockwise beam.
+
+tem for the clockwise beam, and positive x for the anticlockwise beam. Because the asymmetry involves taking _ratios_ of particle yields, the acceptance of the detector and the efficiencies of the STAR trigger, V0 reconstruction and analysis cuts cancel out, greatly simplifying the analysis. The factor of \(\cos\phi\) in equation (5.2) and how this is accounted for in the analysis are discussed further in section 5.2.
+
+Single spin asymmetry measurements require only one beam to be polarised. Because the two RHIC beams are independently polarised, two measurements of the single spin asymmetry can be made using the same data. In each case, one beam is treated as the polarised beam, while the other is treated as unpolarised by summing particle production over both the polarisation states of that beam.
+
+Two methods were used to calculate the single spin asymmetries and the results compared to check consistency. One method involved using the relative luminosities of the beams to correct the counts for each polarisation permutation. The other uses a combination of particle production to both sides of the beam to cancel the effects of differing beam luminosities. These two methods will be discussed in detail now.
+
+#### Relative luminosity Method
+
+The bunches in each RHIC beam are not identical in their spatial profile, and so each provides a slightly different luminosity. The more tightly the protons are bunched, the higher the luminosity will be. This means that there is effectively a different luminosity for each permutation of the beam polarisations (\(\Uparrow\Uparrow\), \(\Downarrow\Uparrow\), \(\Uparrow\Downarrow\) and \(\Downarrow\Downarrow\Downarrow\)) in any given beam store. To account for this, when calculating the asymmetry the yield for each polarisation state must be scaled by the corresponding luminosity. Accounting for this, equation (5.2) then becomes:
+
+\[A_{N}P=\frac{1}{\frac{N^{\Downarrow}}{\mathcal{L}^{\Uparrow}}-\frac{N^{ \Downarrow}}{\mathcal{L}^{\Downarrow}}}{\cos\phi\ \frac{N^{\Downarrow}}{\mathcal{L}^{\Downarrow}}+\frac{N^{ \Downarrow}}{\mathcal{L}^{\Downarrow}}}. \tag{5.4}\]
+
+where \(\mathcal{L}^{\Uparrow}\) and \(\mathcal{L}^{\Downarrow}\) indicate the beam luminosity for bunches of up and down polarisation respectively. To treat one beam as effectively unpolarised, yields from the two polarisationstates of that beam are summed,
+
+\[N^{\Uparrow} =N^{\Uparrow\Uparrow}+N^{\Uparrow\Down},\] \[N^{\Downarrow} =N^{\Downarrow\Uparrow}+N^{\Downarrow\Downarrow}, \tag{5.5}\]
+
+where the first superscript arrow in each term on the right of equation (5.5) indicates the polarisation direction of the 'polarised beam' and the second arrow indicates the polarisation direction of the 'unpolarised beam'. As the luminosities for these states are not necessarily the same, they must be scaled by the appropriate luminosity individually:
+
+\[\frac{N^{\Uparrow}}{\mathcal{L}^{\Uparrow}} \rightarrow\frac{N^{\Uparrow\Uparrow}}{\mathcal{L}^{\Uparrow \Uparrow}}+\frac{N^{\Uparrow\Downarrow}}{\mathcal{L}^{\Uparrow\Downarrow}},\] \[\frac{N^{\Downarrow}}{\mathcal{L}^{\Downarrow}} \rightarrow\frac{N^{\Downarrow\Uparrow}}{\mathcal{L}^{\Downarrow \Uparrow}}+\frac{N^{\Downarrow\Downarrow}}{\mathcal{L}^{\Downarrow}}. \tag{5.6}\]
+
+Because the asymmetry measurement involves taking a ratio, it is adequate to use only the _relative_ luminosities between beams, meaning that the absolute normalisation of the luminosities did not need to be known. Bunches with both beams polarised _down_ (\(\Downarrow\Downarrow\) bunches) were used as the reference for calculating relative luminosities. The four relative luminosities were thus defined:
+
+\[\mathcal{R}^{\Uparrow\Uparrow} =\frac{\mathcal{L}^{\Uparrow\Uparrow}}{\mathcal{L}^{\Downarrow}},\] \[\mathcal{R}^{\Uparrow\Downarrow} =\frac{\mathcal{L}^{\Uparrow\Downarrow}}{\mathcal{L}^{\Downarrow}},\] \[\mathcal{R}^{\Downarrow\Downarrow} =1. \tag{5.7}\]
+
+The relative luminosities were calculated by taking the ratios of BBC count rates for collisionswith each permutation of beam polarisations.
+
+Particle yields for each permutation of beam polarisations were scaled by the relative luminosity for that permutation. The full expression for the asymmetry was then:
+
+\[A_{N}P=\frac{1}{\cos\phi}\frac{\left(N^{\dagger\Uparrow}/\mathcal{R}^{\dagger \Uparrow}+N^{\dagger\Downarrow}/\mathcal{R}^{\dagger\Downarrow}\right)-\left(N^ {\Downarrow\Uparrow}/\mathcal{R}^{\Downarrow\Uparrow}\right.\ +N^{\Downarrow \Downarrow}\right)}{\left(N^{\dagger\Uparrow}/\mathcal{R}^{\Uparrow \Uparrow}+N^{\dagger\Downarrow}/\mathcal{R}^{\Uparrow\Downarrow}\right)+\left(N^ {\Downarrow\Uparrow}/\mathcal{R}^{\Downarrow\Uparrow}+N^{\Downarrow\Downarrow} \right)}. \tag{5.8}\]
+
+The asymmetry can be calculated using counts to beam left or counts to beam right. By rotational invariance, the asymmetry using particle production to the left is equivalent to the negative of that using production to the right. For each beam, both the left-asymmetry and the right-asymmetry were calculated, and the left-asymmetry averaged with the negative of the right asymmetry. Asymmetries were calculated separately for forward and backward angles relative to the beam direction. The results for each beam were then summed to give an average value for the asymmetry at forward angles and at backward angles.
+
+#### Cross Ratio Method
+
+For the 'cross-ratio' method, N\({}^{\Uparrow}\) and N\({}^{\Downarrow}\) in equation (5.2) were defined as
+
+\[N^{\Uparrow} =\sqrt{L^{\Downarrow}R^{\Downarrow}},\] \[N^{\Downarrow} =\sqrt{L^{\Downarrow}R^{\Uparrow}}, \tag{5.9}\]
+
+where L and R indicate particle yield to beam-left and beam-right respectively. This combined the particle production to each side of the beam for opposite beam polarisations at the start, rather than combining by averaging 'left' and 'right' asymmetries at the end as in the aforementioned method. Because of rotational invariance, particle production to the beam-left for one polarisation must be equivalent to that to beam-right for the opposite polarisation. Equation (5.9) thus defines 'effective' yields to beam left.
+
+To measure the single spin asymmetry, one beam is again treated as unpolarised by summing over its polarisation states. The terms in equation (5.9) are then defined as \[L^{\Uparrow} =L^{\Uparrow\Uparrow}+L^{\Uparrow\Down},\] \[L^{\Downarrow} =L^{\Downarrow\Uparrow}+L^{\Downarrow\Downarrow},\] \[R^{\Uparrow} =R^{\Uparrow\Uparrow}+R^{\Uparrow\Downarrow},\] \[R^{\Downarrow} =R^{\Downarrow\Uparrow}+R^{\Downarrow\Downarrow}. \tag{5.10}\]
+
+The first superscript arrows in the terms on the right indicate the polarisation state of the polarised beam and the second the state of the 'unpolarised', beam. The complete expression for the asymmetry using the cross-ratio method is
+
+\[A_{N}P=\frac{1}{\cos\phi}\frac{\sqrt{\left(L^{\Uparrow\Uparrow}+L^{\Uparrow \Downarrow}\right)\left(R^{\Downarrow\Uparrow}+R^{\Downarrow\Downarrow}\right) -\sqrt{\left(L^{\Downarrow\Uparrow}+L^{\Downarrow\Downarrow}\right)\left(R^{ \Uparrow\Uparrow}+R^{\Uparrow\Downarrow}\right)}}}{\sqrt{\left(L^{\Uparrow \Uparrow}+L^{\Uparrow\Downarrow}\right)\left(R^{\Downarrow\Uparrow}+R^{ \Downarrow\Downarrow}\right)+\sqrt{\left(L^{\Downarrow\Uparrow}+L^{\Downarrow \Downarrow}\right)\left(R^{\Uparrow\Uparrow}+R^{\Uparrow\Downarrow}\right)}}}. \tag{5.11}\]
+
+The cross-ratio method of calculating the asymmetry has two advantages. First, it cancels out the effects of detector acceptance, as with the above method. Second, because each term in the numerator and denominator in equation (5.2) contains a contribution from bunches with both up and down polarisation via equation (5.9), polarisation-dependent luminosity differences between bunches also cancel out. This means that the asymmetry can be calculated without knowledge of the beam luminosities. It is therefore unnecessary to scale particle yields by the luminosity for the corresponding polarisation state of the collisions creating them. This simplifies the calculation of the asymmetry and allows more runs to be used in the analysis, as relative luminosity measurements were not available for all runs. It also negates the effect of any systematic errors in the luminosity monitoring.
+
+To demonstrate the cancellation of the luminosity, the asymmetry was calculated for a number of runs using equation (5.11). The asymmetries were then recalculated, using yields scaled by the relative luminosities. The results of these calculations are compared in figure 5.2. The single spin asymmetry calculated when the relative luminosity effects are explicitly accountedfor barely differ from those without the luminosity considered. Deviations are negligible compared to the statistical uncertainties in all cases, showing that the cross-ratio method successfully accounts for the effect of beam luminosity.
+
+For this reason the cross-ratio method is the preferred method for calculating the asymmetry. The relative luminosity method was used as a check on the cross-ratio results, to look for systematic errors.
+
+### 5.2 Azimuthal Weighting
+
+Care must also be taken to account for the azimuthal particle distribution when calculating the asymmetry. The asymmetry is strongest in the direction normal to the beam-polarisation plane and goes to zero along the polarisation direction. The factor of \(1/\cos\phi\) in equation (5.2) accounts for this. In previous fixed-target experiments such as those at the AGS the detector accepted only particles produced in a small range in azimuth, whereby a single value for \(\cos\phi\)
+
+Figure 5.2: The cancellation of beam luminosity using the cross-ratio method of asymmetry calculation (equation (5.11)). The shown asymmetries are calculated using yields of \(\Lambda\) hyperons at forward angles, treating the clockwise beam as the polarised beam and the anticlockwise beam as unpolarised. Solid points show the asymmetry calculated with no account taken of beam luminosity. The empty, offset points show the effect of explicitly including luminosity. The difference is negligible.
+
+[MISSING_PAGE_FAIL:84]
+
+are shown in figure 5.3.
+
+### 5.3 Results
+
+The cross-ratio asymmetry was calculated for each RHIC store individually, summing particle yields from every STAR run that occurred in a given store. Asymmetries were calculated for each beam, separately for forward and backward angles. Poisson (\(\sqrt{N}\)) errors were calculated for each particle yield in equation (5.11) and propagated to calculate the statistical uncertainty on the asymmetry for each store. The asymmetry for each store was then scaled using the mean polarisation measured for the corresponding store. The uncertainties on the asymmetries were
+
+Figure 5.3: Effect of \(|\cos\phi|\) weighting in denominator terms for asymmetry calculation. 10,000 \(K_{S}^{0}\) were randomly assigned a \(\phi\) angle, using a polarisation of 100% and an analysing power of 1.0, and the asymmetry calculated using the cross-ratio method. The image shows the results from 100 repetitions of this calculation. The dashed peak shows the asymmetry calculated by equation (5.11) with no weighting. The dotted line indicates the value of \(2/\pi\) expected. The solid line shows the same asymmetry calculated with weighting, recovering the input value of 1.0.
+
+recalculated using the polarisation statistical and systematic uncertainties added in quadrature. An example of the obtained results is show in figure 5.4, which shows the asymmetry calculated for \(K_{S}^{0}\) at \(x_{F}>0\) from both the clockwise and anticlockwise beams for a single transverse momentum bin. Note that the results are not corrected for the global uncertainty in beam polarisation (4.7% clockwise beam, 4.8% anticlockwise beam). Consistency between the two beams is good on a store-by-store basis.
+
+For each beam and direction relative to the beam (forward and backward angles) a best-fit line was applied to the store-by-store results to give a weighted mean asymmetry. In each case the best-fit lines have a \(\chi^{2}\) per degree of freedom close to one, indicating a good quality of fit and showing store-to-store systematic differences are small compared to the statistical uncertainties.
+
+The results from each beam provide independent measurements of the asymmetry, so the mean asymmetries calculated from each should show consistency within statistical uncertainties. Figure 5.5 shows comparisons of the asymmetry in \(K_{S}^{0}\) production, as a function of \(K_{S}^{0}\) transverse momentum, calculated for both beams. The differences between the two beams are typically one standard deviation or smaller. Larger differences are seen at forward angles in the
+
+Figure 5.4: \(A_{N}\) calculated using the cross-ratio method for \(K_{S}^{0}\), \(1.0<p_{T}<1.5\) GeV/c, at forward angles, for the clockwise beam (squares) and anticlockwise beam (circles).
+
+\(p_{T}\) range 1.0 to 2.0 GeV/c, but the deviations are not found to be inconsistent with statistical fluctuations. The results for \(\Lambda\) and \(\overline{\Lambda}\) at both forward and backward production angles (not shown), showed good agreement between the results for the two beams. In all cases a flat best-fit line fitted to the results from each beam showed results consistent with a zero asymmetry at all values of transverse momentum.
+
+The results from each beam at the same relative production angles were then averaged to give a mean asymmetry at forward angles and a mean asymmetry at backward angles. These averaged asymmetries, as a function of particle transverse momentum, are shown in figures 5.6 (\(K_{S}^{0}\)), 5.7 (\(\Lambda\)) and 5.8 (\(\overline{\Lambda}\)) and are listed in table 5.1.
+
+All uncertainties shown are statistical only, except for the small contribution from the polarisation systematic uncertainty for each store. For the \(\Lambda\) and \(\overline{\Lambda}\), the asymmetries are found to be consistent with zero within statistical uncertainties at all momenta studied, for both forward and backward angles. The same is observed for \(K_{S}^{0}\) at backward angles. Small non-zero asymmetries _are_ seen for the \(K_{S}^{0}\) at forward angles. A positive asymmetry is observed at the level of two standard deviations in the range \(1.0<p_{T}<1.5\) GeV/c. An indication of a negative asymmetry is seen at higher momentum at the same statistical level. A simple flat line fit through all the points, with statistical uncertainties alone, yields a best fit value consistent with zero and with a \(\chi^{2}/n\) of 10/4. Though this is quite a large value for \(\chi^{2}/n\) it is not inconsistent with being a reasonable fit to the data; a value of 10/4 or larger would be expected approximately 4% of the time. This is not considered large enough to be clear evidence of a non-zero result. Therefore it was concluded that at the current level of statistical precision, the asymmetries in \(K_{S}^{0}\) production at forward angles are also consistent with zero.
+
+#### Dependence of Asymmetry on Yield Extraction
+
+To test for systematic uncertainties due to the choice of selection cuts, asymmetries for all particles and transverse momenta were recalculated using yields calculated with different, but still sensible, choices of geometrical cut criteria. The same energy loss selections were applied as before as that cut did not reject any signal. In each case, changes to the calculated asymmetry Figure 5.5: \(A_{N}\) in \(K^{0}_{S}\) production as a function of \(K^{0}_{S}\) transverse momentum at (a) forward production angles and (b) backward angles. The clockwise beam results are shown with solid circles and the anticlockwise beam results with hollow circles.
+
+Figure 5.6: \(A_{N}(p_{T})\) of \(K_{S}^{0}\) mesons averaged over all RHIC stores and both beams.
+
+Figure 5.7: \(A_{N}(p_{T})\) of \(\Lambda\) hyperons averaged over all RHIC stores and both beams.
+
+Figure 5.8: \(A_{N}(p_{T})\) of \(\overline{\Lambda}\) anti-hyperons averaged over all RHIC stores and both beams.
+
+\begin{table}
+\begin{tabular}{|c c c|} \hline \hline \(p_{T}\) interval (GeV/c) & Single spin asymmetry & Uncertainty \\ \hline \hline \multicolumn{3}{|c|}{\(K_{S}^{0}\) _at forward angles_} \\
+
+[MISSING_PAGE_POST]
+
+0498 & 0.0347 \\ \hline \hline \end{tabular}
+\end{table}
+Table 5.1: Single spin asymmetries and associated statistical uncertainties as a function of particle \(p_{T}\).
+
+on a store-by-store basis were equal to or smaller than one standard deviation of the statistical uncertainty on the point, and were not correlated from one point to the next. The best-fit means for each asymmetry extracted were also stable under alternative selection criteria to within at most one standard deviation of the statistical uncertainty, and typically less than this amount. An example is shown for \(K_{S}^{0}\), which had the best statistical precision, in figure 5.9.
+
+#### Check for False Up-Down Asymmetry
+
+The data were also analysed for false asymmetries. From the form of equation (5.1), the 'up-down' asymmetry should be zero. This is the asymmetry calculated using equation (5.2) with the counts N referring to counts into either the upper or lower halves of the detector (positive or negative y) as opposed to the left or right. The cross ratio method was used here, substituting 'left' (L) and 'right' (R) yields in equation (5.11) for 'up' (U) and 'down' (D) yields respectively, giving
+
+Figure 5.9: Variation of extracted \(K_{S}^{0}\)\(A_{N}(p_{T})\) at forward production angles with different choices of geometrical cuts. The results with the cuts listed in table 4.2 are shown with solid circles and are the same as those in figure 5.6(a). Asymmetries calculated with an alternative set of cuts are shown with hollow circles. Changes are uncorrelated between points.
+
+\[A_{up-down}P=\frac{\sqrt{\left(U^{\,\dagger\,\dagger\,\dagger}+U^{\,\dagger\, \dagger\,\dagger}\right)\left(D^{\,\dagger\,\dagger}+D^{\,\dagger\,\dagger\, \dagger}\right)}-\sqrt{\left(U^{\,\dagger\,\dagger}+U^{\,\dagger\,\dagger\, \dagger\,\dagger}\right)\left(D^{\,\dagger\,\dagger}+D^{\,\dagger\,\dagger\, \dagger}\right)}}{\sqrt{\left(U^{\,\dagger\,\dagger}+U^{\,\dagger\,\dagger \,\dagger}\right)\left(D^{\,\dagger\,\dagger}+D^{\,\dagger\,\dagger\,\dagger }\right)}\,+\sqrt{\left(U^{\,\dagger\,\dagger}+U^{\,\dagger\,\dagger\,\dagger }\right)\left(D^{\,\dagger\,\dagger}+D^{\,\dagger\,\dagger\,\dagger\,\right)} }}. \tag{5.13}\]
+
+This asymmetry was calculated as a function of transverse momentum using the same methods as for the analysing power (left-right asymmetry). The up-down asymmetry was indeed found to be zero within statistical uncertainties as expected. Figure 5.10 shows an example of the up-down asymmetry calculated using each beam at forward and backward angles for the \(K_{S}^{0}\). There is no indication of a statistically significant non-zero result at any momentum or beam direction. The same conclusion was drawn for the \(\Lambda\) and \(\overline{\Lambda}\) (not shown).
+
+#### Comparison of Asymmetry Calculation Methods
+
+Two methods of asymmetry calculation were described in sections 5.1.1 and 5.1.2. The cross ratio method (section 5.1.2) was used as the preferred method, but the two methods should give consistent results if the luminosity-scaling of yields is effective. Figure 5.11 compares the results shown in figures 5.6, 5.7 and 5.8 with the equivalent results using the relative-luminosity-dependent asymmetry calculation in section 5.1.1. In many cases the agreement between the two methods is almost exact. The deviation between the methods is in all cases less than the statistical uncertainty on the points. This gives confidence that the luminosity scaling used successfully accounts for differing, polarisation-dependent, beam luminosities.
+
+### 5.4 Summary
+
+The transverse single spin asymmetry in the production of \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\) has been measured in transversely polarised \(p+p\) collisions at \(\sqrt{s}=200\) GeV at mid-rapidity up to transverse momentum of 4 GeV/c. For all species the observed asymmetries are small and consistent with zero within statistical uncertainties. A number of sources of systematic effects have been investigated, none of which are found to be significant compared to the statiFigure 5.10: Up-down asymmetry in the production of \(K_{S}^{0}\) mesons as a function of \(p_{T}\) at (a) forward production angles and (b) backward production angles.
+
+Figure 5.11: Comparison between cross-ratio method of calculation for \(A_{N}\) (solid circles) and the luminosity-scaling method (hollow circles).
+
+measurements here greatly extend the transverse momentum range over which the asymmetries in these species have been measured, making pQCD applicable to their analysis.
+
+Collisions at small \(x_{F}\) are dominated by collisions between partons with small longitudinal momentum fractions, \(x\), of the colliding protons. Therefore collisions involving gluons and sea (anti-)quarks will dominate. Collisions involving a valence quark will tend to give particle production at large \(x_{F}\) because of the large momentum fraction carried by the valence quark. While collisions between two valence quarks, each with a large momentum fraction, can give particle production at small \(x_{F}\), such collisions will give only a small contribution to the collision cross section because of the much larger number of small \(x\) gluons and sea quarks in the proton. The smallness of asymmetries at \(x_{F}\approx 0\) and the large asymmetries seen at large \(x_{F}\) indicate that the mechanisms that give rise to the asymmetries are significant only in the valence region and are small in the sea region.
+
+As the gluon distribution is larger at small \(x\) than the sea quark distribution (figure 1.6), gluon-gluon and quark-gluon scattering will dominate over quark-quark scattering. As there is no leading-twist gluon transversity distribution, the dominance of gluon scattering means that the Collins mechanism is likely to be less important that Sivers meachanism when analysing the data. The data can be used to place further constraints on the gluonic Sivers distribution; this is discussed further in chapter 7.
+
+## Chapter 6 Double Spin Asymmetry
+
+Transverse single spin asymmetries are connected to tranversity in combination with another chiral odd function. Another way to investigate transversity is with transverse _double spin asymmetries_, \(A_{TT}\), whereby the two chiral odd functions required to observe an asymmetry are provided by the transversity functions of each proton. A double spin asymmetry can be investigated in collisions in which both particles involved are transversely polarised. The ability of RHIC to polarise both proton beams provides an opportunity to search for such an asymmetry in proton-proton collisions. \(A_{TT}\) for hadron production in polarised hadronic collisions is predicted to be very small [109], so an indication of a non-zero \(A_{TT}\) would be interesting.
+
+The transverse double spin asymmetry is predicted to be of the form
+
+\[N(\phi)\propto 1+A_{TT}P_{1}P_{2}\cos 2\phi, \tag{6.1}\]
+
+as described in for example [108]. \(A_{TT}\) is the double spin asymmetry in particle production, \(P_{1}\) and \(P_{2}\) are the polarisations of the two beams and \(\phi\) is the azimuthal angle at which the particle is produced. The quantity \(A_{TT}\) can be extracted from the measured particle yields by
+
+\[A_{TT}\left(\phi\right)=\frac{1}{P_{1}P_{2}\cos 2\phi}\frac{N^{parallel} \left(\phi\right)-N^{opposite}\left(\phi\right)}{N^{parallel}\left(\phi \right)+N^{opposite}\left(\phi\right)}. \tag{6.2}\]
+
+\(N^{parallel}\) denotes the yields from collisions in which the polarisation direction of the two beamsis parallel. \(N^{opposite}\) denotes yields from collisions when the beam polarisations are opposite. The factor of \(1/\cos 2\phi\) accounts for the azimuthal dependence of the asymmetry, in the same way that the factor \(1/\cos\phi\) did for the single spin asymmetry.
+
+Written in terms of the four beam polarisation permutations, and accounting for their differing relative luminosities, equation (6.2) becomes
+
+\[A_{TT}=\frac{1}{P_{1}P_{2}\cos 2\phi}\frac{N^{\Uparrow\Uparrow}/\mathcal{R}^{ \Uparrow\Uparrow}+N^{\Downarrow\Downarrow}-N^{\Uparrow\Downarrow}/\mathcal{R} ^{\Uparrow\Downarrow}-N^{\Downarrow\Downarrow}/\mathcal{R}^{\Downarrow \Uparrow\Uparrow}}{N^{\Uparrow\Uparrow}/\mathcal{R}^{\Uparrow\Uparrow}+N^{ \Downarrow\Downarrow}/\mathcal{R}^{\Uparrow\Downarrow}}. \tag{6.3}\]
+
+There were insufficient data to measure \(A_{TT}\) as a function of \(\phi\) and fit the distribution. However, to extract the asymmetry from the data, it is not necessary to measure the full azimuthal distribution of the produced particles. A procedure of integrating counts over different detector regions is followed, in a similar fashion to that used to extract the single spin asymmetry. For an asymmetry with a \(\cos 2\phi\) dependence, \(A_{TT}\) can be extracted by combining the asymmetry measured in different quadrants as follows [110]:
+
+\[A_{TT}=\frac{1}{4}\left(A_{TT}^{left}+A_{TT}^{right}-A_{TT}^{top}-A_{TT}^{bottom }\right). \tag{6.4}\]
+
+\(A_{TT}^{top}\) is the double asymmetry calculated using yields only in the upper quadrant of the detector, spanning \(\phi=\pi/4\) to \(\phi=3\pi/4\). The other three terms refer to the asymmetry from the other three quadrants. The asymmetry for the vertical quadrants, where the asymmetry is maximally negative, is subtracted from that for the horizontal quadrants, where it is maximally positive. When combined in this way, these four measurements of \(A_{TT}\) yield the physical asymmetry. Because the two beams are equivalent, left is defined arbitrarily to be \(x>0\) in the STAR coordinate system. The azimuthal angle \(\phi\) was defined to cover the range \(-\pi\) to \(+\pi\). With this definition, the four quadrants spanned the \(\phi\) ranges given in table 6.1.
+
+Calculating \(A_{TT}\) in this way utilises the particle production throughout the whole detector, minimising statistical uncertainties. Because both beams enter equation (6.2) equivalently, any asymmetry must be symmetric about \(\eta=0\). Yields at both forward and backward angles are therefore summed. In analogy with the single spin case, integratdilutes the asymmetry because of its angular dependence. This results in the measured asymmetry being smaller than the physical asymmetry. The \(\cos 2\phi\) dependence is accounted for by weighting each count in the denominator by \(|\cos 2\phi|\) of the particle.
+
+Yields for each species are extracted, as discussed previously, for each STAR run. These are scaled by the appropriate relative luminosity, \(\mathcal{R}\). The single spin asymmetry results calculated using the luminosity-dependent method and the cross-ratio method corresponded well. This indicates that the relative luminosity scaling procedure used is reliable, and systematic uncertainties due to the luminosity measurements are not large.
+
+Scaled yields from each run in a given RHIC store are added to give total store-by-store yields. The asymmetry for each RHIC store is then calculated using equations (6.3) and (6.4). The raw asymmetries are corrected for the product of the two beam polarisations. A best fit line to the store-by-store results is used to obtain a weighted mean value for the asymmetry.
+
+The calculated asymmetry is shown for each beam store in figure 6.1. Results are integrated over all particle transverse momenta to minimise statistical uncertainties. The global uncertainty in the product of the beam polarisations, \(\delta(P_{A}P_{C})/(P_{A}P_{C})\) is not incorporated. No significant store-to-store fluctuations are observed. Asymmetries are small, in agreement with theoretical predictions. The best-fit mean asymmetries are consistent with zero within the statistical uncertainties.
+
+The mean values of \(A_{TT}\) extracted as a function of transverse momentum are summarised in figure 6.2 and are listed in table 6.2. The results are flat and consistent with zero at each \(p_{T}\) bin studied.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline Quadrant & \(\phi_{min}\) & \(\phi_{max}\) \\ \hline \hline Top & \(\pi/4\) & \(3\pi/4\) \\ Left & -\(\pi/4\) & \(\pi/4\) \\ Bottom & -\(3\pi/4\) & -\(\pi/4\) \\ Right & \(3\pi/4\) & -\(3\pi/4\) \\ \hline \end{tabular}
+\end{table}
+Table 6.1: \(\phi\) angle ranges defining the four quadrants used for calculating \(A_{TT}\).
+
+Figure 6.1: \(A_{TT}\) for each RHIC store integrated over all particle transverse momenta. The horizontal straight lines show best fits to the data over all stores.
+
+Figure 6.2: \(A_{TT}\) of each V0 species as a function of particle transverse momentum.
+
+\begin{table}
+\begin{tabular}{|c c c|} \hline \(p_{T}\) interval (GeV/c) & Double spin asymmetry & Uncertainty \\ \hline \multicolumn{3}{|c|}{\(K_{S}^{0}\)} \\
+0.5 to 1.0 & -0.0097 & 0.0293 \\
+1.0 to 1.5 & -0.0143 & 0.0282 \\
+1.5 to 2.0 & -0.0606 & 0.0340 \\
+2.0 to 3.0 & -0.0202 & 0.0298 \\
+3.0 to 4.0 & 0.0269 & 0.0419 \\ \hline \multicolumn{3}{|c|}{\(\Lambda\)} \\
+0.5 to 1.0 & -0.0277 & 0.0717 \\
+1.0 to 1.5 & -0.0452 & 0.0593 \\
+1.5 to 2.0 & -0.0352 & 0.0517 \\
+2.0 to 3.0 & -0.0462 & 0.0483 \\
+3.0 to 4.0 & 0.0551 & 0.0833 \\ \hline \multicolumn{3}{|c|}{\(\overline{\Lambda}\)} \\
+0.5 to 1.0 & 0.0200 & 0.0847 \\
+1.0 to 1.5 & 0.0417 & 0.0658 \\
+1.5 to 2.0 & -0.0754 & 0.0569 \\
+2.0 to 3.0 & 0.0305 & 0.0487 \\
+3.0 to 4.0 & 0.0150 & 0.0693 \\ \hline \end{tabular}
+\end{table}
+Table 6.2: Double spin asymmetries and associated statistical uncertainties as a function of particle \(p_{T}\).
+
+### 6.1 Summary
+
+Transversely polarised proton-proton collisions have been analysed for a \(\cos 2\phi\) double spin asymmetry, \(A_{TT}\), in the production of the neutral strange species \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\). The asymmetry is found to be small and consistent with zero within statistical uncertainties of 0.017 for the \(K_{S}^{0}\) and 0.028 for the (anti-)\(\Lambda\) when the data are integrated over all transverse momentum. No non-zero results are seen for particle production in the range \(0.5<p_{T}<4.0\) GeV/c when the results are plotted as a function of \(p_{T}\). The asymmetries are measured at \(x_{F}\approx 0\), where collisions involving gluons dominate. While quarks can possess a non-zero transversity distribution at leading twist, gluons can not. Therefore the double spin asymmetry, which involves the transversity distributions of both the partons involved in a collision, is predicted to be very small at small \(x_{F}\). There results presented here are consistent with this prediction.
+
+## Chapter 7 Overview and Outlook
+
+I shall first give an overview of the work presented and its significance in the analysis of transverse spin asymmetries. I will then give a brief overview of some of the work being carried out now and proposed for the future at RHIC and other facilities that will increase our understanding of the transverse spin of the nucleon.
+
+### 7.1 An Overview of the Work Presented
+
+The results presented in this thesis show measurements of the transverse single spin asymmetry \(A_{N}\) and transverse double spin asymmetry \(A_{TT}\) of the neutral strange particles \(K_{S}^{0}\), \(\Lambda\) and \(\overline{\Lambda}\) at mid-rapidity (\(|x_{F}|<0.05\)) and transverse momentum in the range \(0.5<p_{T}<\)4 GeV/c, from \(p+p\) collisions at \(\sqrt{s}=200\) GeV.
+
+For each species the measurements of the single spin asymmetry are all small and consistent with zero across the whole \(p_{T}\) range studied, within statistical uncertainties of a few percent. No evidence has been found of systematic effects in the results of a size significant at the current level of statistical precision. The results for the \(\Lambda\) hyperon are consistent with those obtained by the AGS experiment at \(\sqrt{s}=13.3\) and 18.5 GeV in the region of kinematical overlap [57], and fit with the low-\(x_{F}\) trend seen in E704 data at \(\sqrt{s}=20\) GeV [65]. The \(K_{S}^{0}\) asymmetry is not in agreement with the significant negative asymmetry \(A_{N}(K_{S}^{0})\approx\) -0.10 obtained at the AGS at \(\sqrt{s}=18.5\) GeV [57]. The result is consistent with that observed for neutral pions, another meson species measured at the same centre-of-mass energy and kinematic range by the PHENIX Collaboration [69]. More work would be required to understand the production mechanism leading to the non-zero \(K^{0}_{S}\) asymmetry at low beam energies. There are two measurements that could be made of the \(K^{0}_{S}\) asymmetry that would be informative. First, it would be interesting to measure the \(K^{0}_{S}\) asymmetry at large \(x_{F}\) to see if the asymmetry there remains at high energies, as is the case for pions, or if it too vanishes. Secondly, it would be interesting to measure the \(K^{0}_{S}\) asymmetry at energies intermediate between those of the AGS measurement and this measurement, to observe the evolution of the asymmetry with beam energy. Though RHIC has run at \(\sqrt{s}\) = 62.4 GeV/c, the data acquired by STAR to date at this energy are insufficient to make a measurement of the \(K^{0}_{S}\) asymmetry at the required precision.
+
+A measurement of the \(\overline{\Lambda}\) asymmetry at the AGS at \(\sqrt{s}\) = 18.5 GeV and small \(p_{T}\) gave \(A_{N}(\overline{\Lambda})\) = 0.03 \(\pm\) 0.10. The results presented here are consistent with this value, but provide improved statistical precision and are over a much larger range of \(p_{T}\).
+
+The measurements here extend the transverse momentum range at which the asymmetries are measured significantly beyond that previously achieved. The measurements are at sufficient momenta that pQCD will be applicable in their analysis, unlike previous measurements of the same species [111]. Combined with charged kaon results from the BRAHMS Collaboration [72], RHIC has now produced high-energy measurements of single spin asymmetries in the production of several strange species, providing constraints on strange quark contributions to nucleon spin. The results presented here, though in a different \(x_{F}\) range from the reported BRAHMS \(K^{\pm}\) results, fit the trend seen there.
+
+Transverse double spin asymmetries at \(x_{F}\approx 0\) involve the sea quark and antiquark transversity distributions. The measurements of \(A_{TT}\) are consistent with zero for each species as a function of transverse momentum. This is the first time such a measurement has been attempted for any of these species. Calculations predict that double spin asymmetries in this momentum range in hadronic collisions should be vanishingly small, due to small asymmetries and large backgrounds from gluonic collisions. The results agree with these predictions, and rule out unexpectedly large values for the transverse double spin asymmetry.
+
+#### Gluonic Sivers Effect
+
+At large \(x_{F}\), particle production processes are dominated by valence quark-quark (qq) collisions. At small \(x_{F}\) gluon-quark (gq) collisions (involving sea quarks) and gluon-gluon (gg) collisions are dominant. This means that measuring asymmetries in different ranges in \(x_{F}\) gives access to the spin distributions and dynamics of different constituents of the nucleon. The trend in transverse single spin asymmetries to increase with large \(x_{F}\) indicates that the asymmetry is associated with mechanisms involving the valence quarks of the polarised nucleon. Conversely small asymmetries at \(x_{F}\approx 0\) indicate that effects due to sea quarks and gluons are small.
+
+The results at small \(x_{F}\) presented here are therefore related to the sea quark and gluon content of the nucleon. The dominance of gluonic scattering in this \(x_{F}\) range means that the Collins mechanism is unlikely to be significant in the analysis. However the Sivers mechanism (spin-dependent transverse-momentum distribution) will be involved. Though most work to date has concentrated on the quark Sivers effect - that is, the correlation between the transverse momentum of the quarks and the nucleon spin - there can also be a correlation with the motion of the gluons. The small results for \(A_{N}\) presented here indicate that the gluonic and sea-quark Sivers functions are small. An analysis using PHENIX measurements of \(p^{\dagger}+p\rightarrow\pi^{0}+X\), which covered a comparable kinematic range to this work, has been performed to provide a constraint on the gluonic Sivers function (GSF) [112]. It found that the PHENIX data, combined with other data on pion production in hadronic collisions and SIDIS, are consistent with a non-zero valence-like quark Sivers distribution and a vanishing sea-quark and gluonic contribution. The PHENIX results were used to provide an upper limit on the size of the gluonic Sivers function, shown in figure 7.1. The results presented here can be used to provide further constraints on the gluonic Sivers effect.
+
+### 7.2 The Future
+
+What does the future hold for transverse spin physics? There have been great strides in the past few years in understanding transverse spin effects: the first measurements have been made ofFigure 7.1: Upper limit on the gluonic Sivers function, normalised to the positivity limit, obtained using a fit to PHENIX \(p^{\Uparrow}+p\to\pi^{0}+X\) data [112]. The data constrain the function well at small \(x\) where gluons dominate. The solid line shows the results assuming a vanishing sea quark contribution. The dashed line assumes a maximal sea quark distribution that balances the gluon contribution.
+
+Collins and Sivers functions, and the first extraction of \(u\) and \(d\) quark transversity distributions have been performed. However uncertainties are still large compared to unpolarised and helicity distributions, so much more work is needed before transverse spin phenomena are understood to the same degree.
+
+Transverse spin programmes are currently being performed or planned at a range of experiments. I shall give here a brief overview of some the advances and measurements anticipated over the next few years, and how they will impact on our understanding of transverse spin phenomena.
+
+#### At RHIC
+
+RHIC is soon to begin accelerating proton beams to 250 GeV, providing a centre of mass energy \(\sqrt{s}=500\) GeV, an important milestone in its operation. This is a significant increase over \(\sqrt{s}=200\) GeV at which data has been acquired to date, and will open up the ability to study processes involving W boson decays. Measurements of W asymmetries will provide information on the flavour dependence of spin contributions from both sea and valence quarks and antiquarks in the proton. In the longer term there are plans for a RHIC luminosity upgrade (RHIC II), and there are proposals to upgrade RHIC to a polarised electron-proton collider (eRHIC).
+
+Both ongoing RHIC experiments, PHENIX and STAR, maintain strong spin programmes. Improvements to the STAR data acquisition system are now allowing it to take much larger data sets than previously. This will contribute greatly to improving the precision of its spin measurements. STAR is in the process of developing a forward meson spectrometer (FMS), an advanced version of the forward pion detector that has been used in measurements of \(\pi^{0}\) single spin asymmetries. Non-zero values for both Sivers distribution functions and Collins fragmentation functions have recently been shown by HERMES and BELLE [75, 77, 78], and both mechanisms are expected to contribute to transverse single spin asymmetries in hadron-hadron collisions. The STAR FMS will allow disentangling of the relative contributions of the Sivers distribution function and Collins fragmentation function to the neutral pion asymmetry.
+
+The PHENIX experiment can detect muons from the decays \(u+\overline{d}\to W^{+}\to\mu^{+}+\nu_{\mu}\) and \(d+\overline{u}\to W^{-}\rightarrow\mu^{-}+\overline{\nu}_{\mu}\). Studying the single spin asymmetry in \(W^{\pm}\) decays will separate the \(u\), \(d\), \(\overline{u}\) and \(\overline{d}\) (anti)quark Sivers distributions. PHENIX is receiving an upgrade to its muon triggering systems in preparation for the increase in beam energy.
+
+#### SIDIS Measurements
+
+Though HERMES has now ceased taking data, the COMPASS experiment continues a programme of transverse spin studies using SIDIS measurements with deuteron and proton targets, shedding further light on the quark flavour dependence of transversity and the Collins effect.
+
+The spin programme at Jefferson Laboratory plans continued transverse spin measurements [113]. The Jefferson Laboratory Hall A experiment is preparing a measurement of the neutron transversity using a polarised helium-3 target [114]. Measurements will be made of the single spin asymmetry in semi-inclusive charged pion production, \(e+n^{\Uparrow}\to e+\pi^{\pm}+X\), with a 6 GeV electron beam. This will complement SIDIS measurements made by HERMES using a proton target and continuing measurements by COMPASS using a deuteron target, and will aid in constraining the \(u\) and \(d\) valence quark transversity distributions. JLab experiments will also have a future 12 GeV beam upgrade. Once this is implemented, data will give access to both the Sivers and Collins functions at large momentum fractions [115].
+
+#### Polarised Antiprotons
+
+The PAX (**P**olarised **A**ntiproton **e**X**periments) Collaboration have proposed a polarised proton-antiproton collider. Measurements of Drell-Yan production can test the prediction that the Sivers functions in pDIS and Drell-Yan production are equal in magnitude but opposite in sign, a result of the non-universality of the Sivers functions. PAX could also study transversity by measurements of \(A_{TT}\) in polarised Drell-Yan production. In this process the asymmetry results solely from the transversity distributions of the polarised proton and antiproton. The Collins fragmentation functions are not involved in the asymmetry, unlike the case, for example, of HERMES and COMPASS SIDIS data. In this way PAX could directly access transversity. Other measurements may be able to disentangle the contributions of the Sivers and Collins functions to single spin asymmetries, via measurements of charm meson production, for example in \(\overline{p}+p^{\uparrow}\to D+X\).
+
+#### Generalised Parton Distributions
+
+The Sivers effect is related to the orbital motion of partons within the nucleon. However, more direct access to orbital information may be provided by studying _Generalised Parton Distributions_ (GPDs) [116]. Ordinary parton distributions contain information about the longitudinal momentum fraction of the partons (\(x\)), but do not contain any information about transverse motion. GPDs however contain information about both the transverse and longitudinal parton momenta. They are characterised by three kinematic variables instead of one; \(x\) and \(\xi\), which characterise the longitudinal parton momentum, and \(t\), the square of the four-momentum transfer to the target, which involves transverse momentum. GPDs therefore provide a means to give a'multi-dimensional' description of partons in the nucleon. They are of interest in relation to spin because they can yield information on the _total_ parton angular momentum: both the intrinsic and _orbital_ contributions. Two GPDs, denoted E and H, can be related to the total angular momentum of a parton species by the integral
+
+\[J=\lim_{t\to 0}\int_{0}^{1}x\left(H+E\right)dx \tag{7.1}\]
+
+Therefore if the GPDs can be sufficiently well determined, the total angular momentum contributions of the partons will become accessible. Combined with knowledge of the intrinsic spin contributions from other measurements, the orbital contributions can be determined.
+
+Deeply Virtual Compton Scattering (DVCS) (\(e+p\to e\prime+p+\gamma\)) has been used as a means access the GPDs. Investigation of GPDs via DVCS has been performed by the experiments H1, ZEUS, HERMES and JLab Hall A and CLAS [117, 118, 119, 120, 121]. There is also a proposed programme of study at the COMPASS experiment.
+
+## Bibliography
+
+* [1] J. J. Thomson, "_Cathode Rays_", Philosophical Magazine **44**: 293-316 (1897).
+* [2] J. J. Thomson, "_On the Structure of the Atom: an Investigation of the Stability and Periods of Oscillation of a number of Corpuscles arranged at equal intervals around the Circumference of a Circle; with Application of the Results to the Theory of Atomic Structure_", Philosophical Magazine **7**: 237-265 (1904).
+* [3] H. Geiger and E. Marsden, "_On a diffuse reflection of the alpha-particles_", Proceedings Of The Royal Society Of London Series A-Containing Papers Of A Mathematical And Physical Character **82**: 495-500 (1909).
+* [4] E. Rutherford, "_The Scattering of \(\alpha\) and \(\beta\) Particles by Matter and the Structure of the Atom._", Philosophical Magazine **21**: 669-688 (1911).
+* [5] E. Rutherford, "_Collisions of alpha particles with light atoms. IV. An anomalous effect in nitrogen._", Philosophical Magazine **37**: 581-587 (1919).
+* [6] J. Chadwick, "_The existence of a neutron_", Proceedings Of The Royal Society Of London Series A-Containing Papers Of A Mathematical And Physical Character **136**: 692-708 (1932).
+* [7] O. R. Frisch and O. Stern, "_Uber die magnetische Ablenkung von Wasserstoffmolekulen und das magnetische Moment des Protons I_", Zeitschrift Fur Physik **85**: 4 (1933).
+* [8] I. Estermann and O. Stern, "_Uber die magnetische Ablenkung von Wasserstoffmolekulen und das magnetische Moment des Protons II_", Zeitschrift Fur Physik **85**: 17 (1933).
+* [9] L. W. Alvarez and F. Bloch, "_A quantitative determination of the neutron moment in absolute nuclear magnetons_", Physical Review **57**: 111-122 (1940).
+* [10] M. Gell-Mann, "_Symmetries Of Baryons And Mesons_", Physical Review **125**: 1067-1084 (1962).
+* [11] M. Gell-Mann, "_A Schematic Model of Baryons and Mesons_", Physics Letters **8**: 214-215 (1964).
+* [12] G. Zweig, "_An SU3 Model for Strong Interaction Symmetry and Its Breaking_", CERN preprint 8182/TH401.
+* [13] G. Zweig, "_An SU3 Model for Strong Interaction Symmetry and Its Breaking II_", CERN preprint 8419/TH412.
+
+* [14] V. Bernard, "_Chiral perturbation theory and baryon properties_", Progress In Particle And Nuclear Physics **60**: 82-160 (2008).
+* [15] K. G. Wilson, "_Confinement of quarks_", Physical Review D **10**: 2445-2459 (1974).
+* [16] C. G. Callan and D. J. Gross, "_High-Energy Electroproduction And Constitution Of Electric Current_", Physical Review Letters **22**: 156-159 (1969).
+* [17] S. Chekanov et al., "_Measurement of the neutral current cross section and \(F_{2}\) structure function for deep inelastic \(e^{+}p\) scattering at HERA_", European Physical Journal C **21**: 443-471 (2001).
+* [18] C. Adloff et al., "_Measurement and QCD analysis of neutral and charged current cross sections at HERA_", European Physical Journal C **30**: 1-32 (2003).
+* [19] S. Chekanov et al., "_An NLO QCD analysis of inclusive cross-section and jet-production data from the ZEUS experiment_", European Physical Journal C **42**: 1-16 (2005).
+* [20] B. I. Abelev et al., "_Longitudinal double-spin asymmetry and cross section for inclusive jet production in polarized proton collisions at square root of \(s=\) 200 GeV._", Physical Review Letters **97**: 252001 (2006).
+* [21] F. E. Close and R. G. Roberts, "_Consistent Analysis Of The Spin Content Of The Nucleon_", Physics Letters B **316**: 165-171 (1993).
+* [22] J. Ashman et al., "_A Measurement Of The Spin Asymmetry And Determination Of The Structure-Function \(g_{1}\) In Deep Inelastic Muon Proton-Scattering_", Physics Letters B **206**: 364-370 (1988).
+* [23] J. Ashman et al., "_An Investigation Of The Spin Structure Of The Proton In Deep Inelastic-Scattering Of Polarized Muons On Polarized Protons_", Nuclear Physics B **328**: 1-35 (1989).
+* [24] B. Adeva et al., "_The spin-dependent structure function \(g_{1}(x)\) of the proton from polarized deep-inelastic muon scattering_", Physics Letters B **412**: 414-424 (1997).
+* [25] D. Adams et al., "_The spin-dependent structure function \(g_{1}(x)\) of the deuteron from polarized deep-inelastic muon scattering_", Physics Letters B **396**: 338-348 (1997).
+* [26] B. Adeva et al., "_Spin asymmetries \(A_{1}\) and structure functions \(g_{1}\) of the proton and the deuteron from polarized high energy muon scattering_", Physical Review D **58**: 112001 (1998).
+* [27] P. L. Anthony et al., "_Deep inelastic scattering of polarized electrons by polarized He-3 and the study of the neutron spin structure_", Physical Review D **54**: 6620-6650 (1996).
+* [28] K. Abe et al., "_Precision determination of the neutron spin structure function \(g_{1}^{n}\)_", Physical Review Letters **79**: 26-30 (1997).
+* [29] K. Abe et al., "_Measurements of the proton and deuteron spin structure functions \(g_{1}\) and \(g_{2}\)_", Physical Review D **58**: 112003 (1998).
+
+* [30] P. L. Anthony et al., "_Measurement of the deuteron spin structure function \(g_{1}^{d}(x)\) for 1 (GeV/c)\({}^{2}<Q^{2}<\) 40 (GeV/c)\({}^{2}\)_", Physics Letters B **463**: 339-345 (1999).
+* [31] P. L. Anthony et al., "_Measurements of the \(Q^{2}\)-dependence of the proton and neutron spin structure functions \(g_{1}^{p}\) and \(g_{1}^{n}\)_", Physics Letters B **493**: 19-28 (2000).
+* [32] K. Ackerstaff et al., "_Measurement of the neutron spin structure function \(g_{1}^{n}\) with a polarized \({}^{3}\)He internal target_", Physics Letters B **404**: 383-389 (1997).
+* [33] A. Airapetian et al., "_Measurement of the proton spin structure function \(g_{1}^{p}\) with a pure hydrogen target_", Physics Letters B **442**: 484-492 (1998).
+* [34] A. Airapetian et al., "_Quark helicity distributions in the nucleon for up, down, and strange quarks from semi-inclusive deep-inelastic scattering_", Physical Review D **71**: 012003 (2005).
+* [35] X. Zheng et al., "_Precision measurement of the neutron spin asymmetry \(A_{1}^{n}\) and spin-flavor decomposition in the valence quark region_", Physical Review Letters **92**: 012004 (2004).
+* [36] E. S. Ageev et al., "_Measurement of the spin structure of the deuteron in the DIS region_", Physics Letters B **612**: 154-164 (2005).
+* [37] M. Hirai, S. Kumano and N. Saito, "_Determination of polarized parton distribution functions with recent data on polarization asymmetries_", Physical Review D **74**: 014015 (2006).
+* [38] M. Hirai, S. Kumano and N. Saito, "_Determination of polarized parton distribution functions and their uncertainties_", Physical Review D **69**: 054021 (2004).
+* [39] E. Leader, A. V. Sidorov and D. B. Stamenov, "_Impact of CLAS and COMPASS data on polarized parton densities and higher twist_", Physical Review D **75**: 074027 (2007).
+* [40] W. Vogelsang, "_The spin structure of the nucleon_", Journal Of Physics G-Nuclear And Particle Physics **34**: S149-S171 (2007).
+* [41] A. Airapetian et al., "_Measurement of the spin asymmetry in the photoproduction of pairs of high-p(T) hadrons at HERMES_", Physical Review Letters **84**: 2584-2588 (2000).
+* [42] B. Adeva et al., "_Spin asymmetries for events with high p(T) hadrons in DIS and an evaluation of the gluon polarization_", Physical Review D **70**: 012002 (2004).
+* [43] E. S. Ageev et al., "_Gluon polarization in the nucleon from quasi-real photoproduction of high-p\({}_{T}\) hadron pairs_", Physics Letters B **633**: 25-32 (2006).
+* [44] M. Alekseev, "_Direct Measurement of the Gluon Polarisation in the Nucleon via Charmed Meson Production_", hep-ex/0802.3023.
+* [45] S. S. Adler et al., "_Double helicity asymmetry in inclusive midrapidity \(\pi^{0}\) production for polarized \(p+p\) collisions at \(\sqrt{s}\) = 200 GeV_", Physical Review Letters **93**: 202002 (2004).
+* [46] S. S. Adler et al., "_Improved measurement of double helicity asymmetry in inclusive midrapidity \(\pi^{0}\) production for polarized \(p+p\) collisions at \(\sqrt{s}\) = 200 GeV_", Physical Review D **73**: 091102 (2006).
+
+* [47] A. Adare et al., "_Inclusive cross section and double helicity asymmetry for \(\pi^{0}\) production in \(p+p\) collisions at \(\sqrt{s}=\) 200 GeV: Implications for the polarized gluon distribution in the protons_", Physical Review D **76**: 051106 (2007).
+* [48] B. I. Abelev et al., "_Longitudinal double-spin asymmetry for inclusive jet production in \(\overrightarrow{p}+\overrightarrow{p}\) collisions at \(\sqrt{s}=\) 200 GeV_", Physical Review Letters **100**: 232003 (2008).
+* [49] J. Soffer, "_Positivity Constraints For Spin-Dependent Parton Distributions_", Physical Review Letters **74**: 1292-1294 (1995).
+* [50] V. Barone, A. Drago and P. G. Ratcliffe, "_Transverse polarisation of quarks in hadrons_", Physics Reports-Review Section Of Physics Letters **359**: 1-168 (2002).
+* [51] G. Bunce et al., "\(\Lambda^{0}\) _Hyperon Polarization in Inclusive Production by 300-GeV Protons on Beryllium_", Physical Review Letters **36**: 1113-1116 (1976).
+* [52] G. L. Kane, J. Pumplin and W. Repko, "_Transverse Quark Polarization in Large-\(p_{T}\) Reactions, \(e^{+}e^{-}\) Jets, and Leptoproduction: A Test of Quantum Chromodynamics_", Physical Review Letters **41**: 1689-1692 (1978).
+* [53] R. D. Klem et al., "_Measurement Of Asymmetries of Inclusive Pion-Production in Proton-Proton Interactions at 6 and 11.8 GeV/c_", Physical Review Letters **36**: 929-931 (1976).
+* [54] W. H. Dragoset et al., "_Asymmetries in inclusive proton-nucleon scattering at 11.75 GeV/c_", Physical Review D **18**: 3939-3954 (1978).
+* [55] J. Antille et al., "_Spin dependence of the inclusive reaction \(p\) + \(p\) (polarized) \(\to\pi^{0}+X\) at 24 GeV/c for high-\(p_{T}\)\(\pi^{0}\) produced in the central region_", Physics Letters B **94**: 523-526 (1980).
+* [56] B. E. Bonner et al., "_Spin Transfer in Hyperon Production_", Physical Review Letters **58**: 447-450 (1987).
+* [57] B. E. Bonner et al., "_Spin-parameter measurements in \(\Lambda\) and \(K_{S}\) production_", Physical Review D **38**: 729-741 (1988).
+* [58] B. E. Bonner et al., "_Analyzing power of inclusive production of \(\pi^{+}\), \(\pi^{-}\), and \(K^{0}_{S}\) by polarized protons at 13.3 and 18.5 GeV/c_", Physical Review D **41**: 13-16 (1990).
+* [59] S. Saroff et al., "_Single-Spin Asymmetry in Inclusive Reactions \(p_{\uparrow}+p\to\pi^{+}+X\), \(\pi^{-}+X\), and \(p+X\) at 13.3 and 18.5 GeV/c_", Physical Review Letters **64**: 995-998 (1990).
+* [60] B. E. Bonner et al., "_Analyzing-Power Measurement In Inclusive \(\pi^{0}\) Production At High \(x_{F}\)_", Physical Review Letters **61**: 1918-1921 (1988).
+* [61] D. L. Adams, "_Comparison Of Spin Asymmetries And Cross-Sections In \(\pi^{0}\) Production By 200 GeV Polarized Antiprotons And Protons_", Physics Letters B **261**: 201-206 (1991).
+* [62] D. L. Adams, "_Analyzing Power In Inclusive \(\pi^{+}\) And \(\pi^{-}\) Production At High \(x_{F}\) With A 200 GeV Polarized Proton-Beam_", Physics Letters B **264**: 462-466 (1991).
+
+* [63] D. L. Adams et al., "_Large-\(x_{F}\) Spin Asymmetry In \(\pi^{0}\) Production By 200-GeV Polarized Protons_", Zeitschrift Fur Physik C-Particles And Fields **56**: 181-184 (1992).
+* [64] D. L. Adams et al., "_High-\(x_{T}\) Single-Spin Asymmetry In \(\pi^{0}\) And \(\eta\) Production At \(x_{F}\) = 0 By 200-GeV Polarized Antiprotons And Protons_", Physics Letters B **276**: 531-535 (1992).
+* [65] A. Bravar et al., "_Analyzing Power Measurement In Inclusive \(\Lambda^{0}\) Production With A 200 GeV/c Polarized Proton-Beam_", Physical Review Letters **75**: 3073-3077 (1995).
+* [66] D. L. Adams et al., "_Single-spin asymmetries and invariant cross sections of the high transverse-momentum inclusive \(\pi^{0}\) production in 200 GeV/c pp and \(\overline{p}p\) interactions_", Physical Review D **53**: 4747-4755 (1996).
+* [67] A. Bravar et al., "_Single-spin asymmetries in inclusive charged pion production by transversely polarized antiprotons_", Physical Review Letters **77**: 2626-2629 (1996).
+* [68] D. L. Adams et al., "_Measurement of single spin asymmetry in \(\eta\)-meson production in \(p_{\uparrow}p\) and \(\overline{p}_{\uparrow}p\) interactions in the beam fragmentation region at 200 GeV/c_", Nuclear Physics B **510**: 3-11 (1998).
+* [69] S. S. Adler et al., "_Measurement of transverse single-spin asymmetries for midrapidity production of neutral pions and charged hadrons in polarized \(p+p\) collisions at \(\sqrt{s}=\) 200 GeV_", Physical Review Letters **95**: 202001 (2005).
+* [70] J. Adams et al., "_Cross sections and transverse single-spin asymmetries in forward neutral-pion production from proton collisions at \(\sqrt{s}=\) 200 GeV_", Physical Review Letters **92**: 171801 (2004).
+* [71] B. I. Abelev et al., "_Forward Neutral-Pion Transverse Single-Spin Asymmetries in \(p+p\) Collisions at \(\sqrt{s}=\) 200 GeV_", Physical Review Letters **101**: 222001 (2008).
+* [72] I. Arsene et al., "_Single-transverse-spin asymmetries of identified charged hadrons in polarized \(pp\) collisions at \(\sqrt{s}=\) 62.4 GeV_", Physical Review Letters **101**: 042001 (2008).
+* [73] J. Collins, "_Fragmentation Of Transversely Polarized Quarks Probed In Transverse-Momentum Distributions_", Nuclear Physics B **396**: 161-182 (1993).
+* [74] A. Bacchetta et al., "_Single-spin asymmetries: The Trento conventions_", Physical Review D **70**: 117504 (2004).
+* [75] A. Airapetian et al., "_Single-spin asymmetries in semi-inclusive deep-inelastic scattering on a transversely polarized hydrogen target_", Physical Review Letters **94**: 012002 (2005).
+* [76] E. S. Ageev et al., "_A new measurement of the Collins and Sivers asymmetries on a transversely polarised deuteron target_", Nuclear Physics B **765**: 31-70 (2007).
+* [77] R. Seidl et al., "_Measurement of azimuthal asymmetries in inclusive production of hadron pairs in \(e^{+}e^{-}\) annihilation at Belle_", Physical Review Letters **96**: 232002 (2006).
+* [78] R. Seidl et al., "_Measurement of azimuthal asymmetries in inclusive production of hadron pairs in \(e^{+}e^{-}\) annihilation at \(\sqrt{s}=\) 10.58 GeV_", Physical Review D **78**: 032011 (2008).
+
+* [79] D. Sivers, "_Single-spin production asymmetries from the hard scattering of pointlike constituents_", Physical Review D **41**: 83-90 (1990).
+* [80] S. J. Brodsky, D. S. Hwang and I. Schmidt, "_Final-state interactions and single-spin asymmetries in semi-inclusive deep inelastic scattering_", Physics Letters B **530**: 99-107 (2002).
+* [81] J. C. Collins, "_Leading-twist single-transverse-spin asymmetries: Drell-Yan and deep-inelastic scattering_", Physics Letters B **536**: 43-48 (2002).
+* [82] A. V. Belitsky, X. Ji and F. Yuan, "_Final state interactions and gauge invariant parton distributions_", Nuclear Physics B **656**: 165-198 (2003).
+* [83] X. D. Ji and F. Yuan, "_Parton distributions in light-cone gauge: where are the final-state interactions?_", Physics Letters B **543**: 66-72 (2002).
+* [84] M. Alekseev, "_Collins and Sivers Transverse Spin Asymmetries for Pions and Kaons on Deuterons_", arXiv.org:hep-ex/0802.2160.
+* [85] B. I. Abelev et al., "_Measurement of transverse single-spin asymmetries for dijet production in proton-proton collisions at \(\sqrt{s}=\) 200 GeV_", Physical Review Letters **99**: 142003 (2007).
+* [86] C. J. Bomhof et al., "_Single-transverse spin asymmetry in dijet correlations at hadron colliders_", Physical Review D **75**: 074019 (2007).
+* [87] A. Bacchetta et al., "_Single spin asymmetries in hadron-hadron collisions_", Physical Review D **72**: 034030 (2005).
+* [88] M. Anselmino et al., "_Transversity and Collins functions from SIDIS and \(e^{+}e^{-}\) data_", Physical Review D **75**: 054032 (2007).
+* [89] M. Harrison, T. Ludlam and S. Ozaki, "_RHIC project overview_", Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment **499**: 235-244 (2003).
+* [90] H. Hahn et al., "_The RHIC design overview_", Nuclear Instruments & Methods In Physics Research Section A-Accelerators Spectrometers Detectors And Associated Equipment **499**: 245-263 (2003).
+* [91] A. Zelenski et al., "_Optically pumped polarized \(H^{-}\) ion source for RHIC spin physics_", Review Of Scientific Instruments **73**: 888-891 (2002).
+* [92] A. Zelenski et al., "_The RHIC optically-pumped polarized \(H^{-}\) ion source_", PSTP 2007 **980**: 221-230 (2007).
+* [93] C. D. P. Levy et al., "_Status Of The Triumf Optically Pumped Polarized \(H^{-}\) Ion-Source_", Polarized Ion Sources And Polarized Gas Targets: 179-185 (1994).
+* [94] I. Alekseev et al., "_Polarized proton collider at RHIC_", Nuclear Instruments & Methods In Physics Research Section A-Accelerators Spectrometers Detectors And Associated Equipment **499**: 392-414 (2003).
+
+* [95] Y. S. Derbenev and A. M. Kondratenko, Soviet Physics Doklady **20**: 562 (1976).
+* [96] K. Ackermann et al., "_STAR detector overview_", Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment **499**: 624-632 (2003).
+* [97] "_The Relativistic Heavy Ion Collider Project: RHIC and its Detectors_", Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment **499**: 235-880 (2003).
+* [98] M. Beddo et al., "_The STAR barrel electromagnetic calorimeter_", Nuclear Instruments & Methods In Physics Research Section A-Accelerators Spectrometers Detectors And Associated Equipment **499**: 725-739 (2003).
+* [99] M. Anderson et al., "_The STAR Time Projection Chamber: A Unique Tool for Studying High Multiplicity Events at RHIC_", Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment **499**: 659-678 (2003).
+* [100] J. Abele et al., "_The laser system for the STAR time projection chamber_", Nuclear Instruments & Methods In Physics Research Section A-Accelerators Spectrometers Detectors And Associated Equipment **499**: 692-702 (2003).
+* [101] F. Bergsma et al., "_The STAR detector magnet subsystem_", Nuclear Instruments & Methods In Physics Research Section A-Accelerators Spectrometers Detectors And Associated Equipment **499**: 633-639 (2003).
+* An object oriented data analysis framework_", Nuclear Instruments & Methods In Physics Research Section A-Accelerators Spectrometers Detectors And Associated Equipment **389**: 81-86 (1997).
+* [103] H. Bichsel, "_Straggling In Thin Silicon Detectors_", Reviews Of Modern Physics **60**: 663-699 (1988).
+* [104] H. Bichel, "_Comparison of Bethe-Bloch and Bichsel functions_", STAR Note SN0439 (2002).
+* [105] H. Bichsel, "_Calculated and experimental Landau spectra in a TPC_", STAR Note SN0440 (2002).
+* [106] H. Bichsel, "_A method to improve tracking and particle identification in TPCs and silicon detectors_", Nuclear Instruments & Methods In Physics Research Section A-Accelerators Spectrometers Detectors And Associated Equipment **562**: 154-197 (2006).
+* [107] C. Amsler et al., "_Review of particle physics_", Physics Letters B **667**: 1 (2008).
+* [108] J. Balewski, "_Midrapidity spin asymmetries at STAR_", Spin 2002 AIP Conference Proceedings 675 **675**: 418-423 (2003).
+* [109] R. L. Jaffe and N. Saito, "_QCD selection rules in polarized hadron collisions_", Physics Letters B **382**: 165-172 (1996).
+
+* [110] J. L. Cortes, B. Pire and J. P. Ralston, "_Measuring The Transverse Polarization Of Quarks In The Proton_", Zeitschrift Fur Physik C-Particles And Fields **55**: 409-416 (1992).
+* [111] B. I. Abelev et al., "_Strange particle production in \(p+p\) collisions at \(\sqrt{s}=\) 200 GeV_", Physical Review C **75**: 064901 (2007).
+* [112] M. Anselmino et al., "_Constraints on the gluon Sivers distribution via transverse single spin asymmetries at midrapidity in \(p^{\uparrow}p\to\pi^{0}+X\) processes at BNL RHIC_", Physical Review D **74**: 094011 (2006).
+* Special Topics **162**: 103-116 (2008).
+* [114] J. Chen et al., JLab E06-010.
+* [115] A. Afanasev et al., "_Transversity and Transverse Spin in Nucleon Structure through SIDIS at Jefferson Lab_", hep-ph/0703288.
+* [116] X. D. Ji, "_Gauge-invariant decomposition of nucleon spin_", Physical Review Letters **78**: 610-613 (1997).
+* 806 (2008).
+* 62 (2003).
+* [119] A. Airapetian et al., "_Beam-charge azimuthal asymmetry and deeply virtual Compton scattering_", Physical Review D **75**: 011103 (2007).
+* [120] C. M. Camacho et al., "_Scaling tests of the cross section for deeply virtual Compton scattering_", Physical Review Letters **97**: 262002 (2006).
+* [121] F. X. Girod et al., "_Measurement of deeply virtual compton scattering beam-spin asymmetries_", Physical Review Letters **100**: 162002 (2008).

@@ -1,0 +1,1396 @@
+To my parents.
+
+###### Acknowledgements.
+
+ I have been blessed by many individuals throughout the course of my Ph.D., totaling to more than can be listed here.
+
+First and foremost, I would like to thank my advisor Andrew Hirsch. Andy has a natural way of asking questions that get to the heart of a topic, and I am appreciative that he has helped me learn how to form such questions. This thesis would have been impossible without his constant patience, support, and insight. I also have had the blessing of having two additional advisors, being Brijesh Srivastava and Rolf Scharenberg. I want to thank Brijesh for the daily conversations we had and for the advice that he has provided over the years. His wealth of knowledge and publication awareness has been instrumental in completing this Ph.D. I want to thank Rolf for all of our lengthy discussions (and debates) on the Color String Percolation Model. The feedback and example Rolf provided has helped hone my presentational skills and my understanding of the model.
+
+I would like to thank the members of my committee: Andrew Hirsch, Brijesh Srivastava, Rolf Scharenberg (retired), Wei Xie, Denes Molnar, and Hisao Nakanishi. I appreciate all of the feedback and direction you have provided over the course of this Ph.D. I would like to also thank Ephraim Fischbach, Gabor Csathy, Martin Kruczenski, and Wei Xie for supporting me with the Qualifier Examination. I would like to thank all of the members of our research group that I have had the pleasure of interacting with: Liang He, Daniel Kikola, Xin Li, Kun Jiang, Kurt Jung, Mustafa, Monika Sharma, Jian Sun, Quan Wang, Lingshan Xu, Li Yi, and Fuqiang Wang. I would also like to thank the staff of the physics department for creating an environment where I could focus on my research. In particular, I would like to thank Emjai Gregory and Carla Redding for all of the help with the yearly trips to BNL and for all of their support, Sandy Formica and Janice Thomaz for helping me navigateall the hurdles of graduate school, and Carol Buuck for all of her assistance with the birds of 2014. I would also like to thank the members of the STAR Collaboration.
+
+I would like to thank Michael Skoby for assisting me upon joining the group and training me as a detector operator. I would like to thank Tyler Browning for the daily discussions on our respective projects. I would like to write a rememberance for Mikhail Stepanov, who provided great insight into both physics analyses and life. A special thank you to Joshua Konzer who inspired me to work hard through the good and the bad, and to never lose faith or hope in the future.
+
+I must thank my longtime friends who provided much encouragement throughout the process. In particular, I want to thank Laura Boon, Katie Davis, Lori Foster, Jordan Kendall, Franziska Lang, Rafael Lang, Jonathan Nafziger, Kamali Sripathi, Brendan Sullivan, and the house dog Mathilde. All of you have greatly enriched my life and your support is appreciated. I would like to acknowledge Jonathan Nafziger for help in creating a Matlab code to produce plots showing clusters of connectivity in this thesis, as well as for countless discussions on my research. I would also like to acknowledge Laura Boon and Kent Wootton for proofreading my thesis.
+
+Finally, I would like to thank my family for their love and support over the years. I would like to thank my brother Jeremy Garand for always pushing me to do my best, especially in video games, and for always providing strong support with an undying faith in my abilities. A Tardis-sized thank you to my parents, who have always supported me and helped me accomplish my dreams. Both of you have been shining role models in life, and have guided me to becoming a well rounded tap dancing violin playing physicist. And of course, thank you for raising me on Star Trek and Dr. Who, it has had an obvious impact on my life.
+
+TABLE OF CONTENTS
+
+	* 3.1 Color Strings
+		* 3.1.1 Schwinger Particle Production
+		* 3.1.2 Temperature from String Tension
+	* 3.2 Percolation Theory
+	* 3.3 Color String Percolation Model (CSPM)
+	* 3.4 Color String Dynamics
+		* 3.4.1 Color String Dynamics in the Monte Carlo Simulations
+		* 3.4.2 Color String Dynamics in the Color String Percolation Model
+* 4 Experimental Methods
+	* 4.1 Color String Percolation Analysis
+	* 4.2 Correlation Study Analysis (\(\langle\Delta p_{T,i}\Delta p_{T,j}\rangle\))
+	* 4.3 Particle Identification Method
+* 5 Results and Discussion of the CSPM Analysis
+	* 5.1 CSPM Results
+	* 5.2 CSPM Discussion
+		* 5.2.1 All Event Versus Event by Event
+		* 5.2.2 Varying \(p_{T}\) Fit Range
+		* 5.2.3 Systematic Studies
+		* 5.2.4 \(\Delta T\) Fluctuation and Width Study
+		* 5.2.5 Varying Data Centrality
+		* 5.2.6 Publication Comparisons
+		* 5.2.7 Systematic Study of BES I
+		* 5.2.8 Summary
+	* 5.3 Testing the CSPM
+		* 5.3.1 Testing the Fit Function
+		* 5.3.2 Finite \(p_{T}\) Range Effects
+		* 5.3.3 Expected Relationship Between \(p_{0}\) and \(\alpha\)
+		* 5.3.4 Fractional Variation Study
+		* 5.3.5 Calculating \(F(\xi)\) from the Ratio of \(\langle p_{T}^{2}\rangle\) of pp and AuAu Data
+		* 5.3.6 Fitting the Monte-Carlo Simulation
+		* 5.3.7 Summary
+* 6 Results and Discussion of \(\langle\Delta p_{T,i},\Delta p_{T,j}\rangle\)
+	* 6.1 Correlation Study Results
+	* 6.2 Correlation Study Discussion
+		* 6.2.1 Calculation of Error
+		* 6.2.2 Comparison with Publications
+	* 6.3 Summary
+* 7 Conclusion and Recommendations
+* A Color String Dynamics
+* A.1 Percolation Scenario with Independent Emitters
+* B Tables for Systematic Study of BES I
+* B.1 AuAu 7.7 \(\frac{GeV}{c}\)
+* B.2 AuAu 11.5 \(\frac{GeV}{c}\)
+* B.3 AuAu 19.6 \(\frac{GeV}{c}\)
+* B.4 AuAu 27 \(\frac{GeV}{c}\)
+* B.5 AuAu 39 \(\frac{GeV}{c}\)
+* B.6 AuAu 62.4 \(\frac{GeV}{c}\)
+* VITAList of Tables
+
+Table
+* 4.1 A list of the 0-10% centrality data used in the CSPM analysis. The trigger numbers were those used to ensure the data were only from minimum bias events. The number of events and particles in the data sample are reported after the primary cuts in this analysis were applied.
+* 4.2 Cuts used in the CSPM Analysis.
+* 4.3 A list of the minimum bias data used in the correlation analysis. The trigger numbers were those used to ensure the data were only from minimum bias events. The number of events in the data sample are reported after the primary cuts in this analysis were applied.
+* 4.4 Cuts used in the Two Particle \(p_{T}\) Correlation Analysis portion of this thesis.
+* 5.1 CSPM fit results for central (0-10%) events at various energies.
+	* 1.0 \(\frac{GeV}{c}\) was never successful and is left blank.
+* 5.3 Fits of central (0-10%) AuAu 200 GeV collisions using the parameters obtained over the same \(p_{T}\) range in pp 200 GeV data displayed in Table 5.2.
+* 5.4 Iterations of the pp 200 GeV data for the \(p_{T}\) fit range of 0.3-1.0 \(\frac{GeV}{c}\).
+* 5.5 Fits of pp 200 GeV collisions over the \(p_{T}\) range of 0.15-2.0 \(\frac{GeV}{c}\) using the CSPM method.
+* 5.6 Fits of AuAu 200 GeV collisions over the \(p_{T}\) range of 0.15-2.0 \(\frac{GeV}{c}\) using the parameters obtained over the same range in pp 200 GeV data displayed in Table 5.5.
+* 5.7 Event by Event analysis searching for temperature fluctuations.
+* 5.8 CSPM fits for various centralities of AuAu events at 200 GeV.
+* 5.9 CSPM fits for minimum bias and ZDC triggered AuAu 200 GeV data from 2004.
+* 5.10 Comparisons of the calculation of \(\langle p_{T}\rangle\) directly from data, from the calculation of the fit function results from reference [83] and from calculations from the fit in this analysis using the same cuts but a different \(p_{0}\) and \(\alpha\).
+
+[MISSING_PAGE_FAIL:9]
+
+[MISSING_PAGE_EMPTY:10]
+
+List of Figures
+
+* 1 Standard Model Particles
+* 2 Schematic of increasing density of matter from atomic to quark matter
+* 3 Schematic of the QCD phase diagram for temperature versus baryon chemical potential.
+* 4 Progression of heavy ion collisions
+* 5 Acceleration process at RHIC
+* 6 STAR Detector
+* 7 Side-View STAR Event
+* 8 Image of locations of the ZDC detectors relative to the dipole magnets.
+* 9 Schematic of the TPC
+* 10 The TPC pads
+* 11 Drawing of VPD
+* 12 VPD Detector
+* 13 VPD Detector Design
+* 14 Momentum Dependence of TOF pid.
+* 15 Results of color string percolation model predicting multiplicity
+* 16 Results of color string percolation model predicting transverse momentum
+* 17 The color force interaction between quarks
+* 18 String appearance in the transverse plane
+* 19 Overlapping disks in the transverse plane (Cluster Formation)
+* 20 The various stages of percolation for disks of color charge
+* 21 Cluster formation due to overlapping strings
+* 22 Radial vertex positions of events at 7.7 GeV
+* 23 Illustrative fit of \(p_{T}\) for pp 200 GeV collisionsFigure
+* 4.3 Fit of \(p_{T}\) for AuAu 200 GeV collisions
+* 4.4 Example for PID 0-10% centrality.
+* 4.5 Example for PID 0-10% with a cut on protons.
+* 5.1 Residuals of the CSPM Fit in a histogram of 150 bins
+* 5.2 Residuals of the CSPM Fit in a histogram of 50 bins
+* 5.3 Published percolation densities for AuAu collisions at 62.4 and 200 GeV
+* 5.4 Collision energy versus extracted temperature from the fits of 0.15-2.0 and 0.3-1.5 \(\frac{GeV}{c}\)
+* 5.5 Collision energy versus \(\langle p_{T}\rangle\) from the fits of 0.15-2.0 and 0.3-1.5 \(\frac{GeV}{c}\)
+* 5.6 Power Law Probability Density
+* 5.7 \(F(\xi)\) from fit vs simulation
+* 6.1 Two particle correlations for 7.7, 11.5, and 19.6 GeV
+* 6.2 Two particle correlations at 19.6 GeV
+* 6.3 Two particle correlations at 11.5 GeV
+* 6.4 Two particle correlations at 7.7 GeV
+* 6.5 Two particle correlations comparison with publication at 19.6 GeV
+* 7.1 \(\langle p_{T}\rangle\) comparison for mixed events and real events for AuAu 39 GeV collisions.
+* 7.1 Two overlapping circle examples
+
+## Acknowledgements
+
+This work was supported by the National Science Foundation of China under Grant No. 100010000. The work of the Ministry of Education, Youth and Sports (MEYS) of China (Grant No. 1001000).
+
+[MISSING_PAGE_POST]
+
+GLOSSARY
+
+\begin{tabular}{l l} baryon & Matter made of three quarks. \\ meson & Matter made of a quark-antiquark pair. \\ nucleon & Any proton or neutron found inside of a nucleus. \\ parton & Any quark or gluon found inside of a nucleon. \\ string & A color flux tube representing strong force interactions. A string \\  & is represented to have an area of \(\sigma_{0}\). \\ fused string & A string of higher color than a single string. \\ cluster & Any combination of color strings and/or fused strings. It is able to vary in area between \(\sigma_{0}\) to \(n\sigma_{0}\) where n is the number of strings forming the cluster. \\ \end{tabular}
+
+###### Abstract
+
+Garand, David M. PhD, Purdue University, December 2015. Energy Dependence of Transverse Momentum Correlations and an Exploration of the Color String Percolation Model in AuAu Collisions. Major Professor: Andrew Hirsch.
+
+The Relativisic Heavy Ion Collider (RHIC) conducted a two year beam energy scan (BES I) to provide data for AuAu collisions at 7.7, 11.5, 19.6, 27, 39, 62.4, and 200 GeV. The motivation for this scan was to search for the phase transition critical point between normal matter and the quark gluon plasma (QGP). This thesis reports on two analyses that attempt to directly search for such a critical point. Data from the Solenoidal Tracker at RHIC (STAR) was analyzed for this study, and included pp collisions at 62 and 200 GeV, and AuAu collisions at 7.7, 11.5, 19.6, 27, 39, 62.4, and 200 GeV.
+
+The Color String Percolation Model (CSPM) provides a method for extracting an initial temperature for collisions by fitting the transverse momentum (\(p_{T}\)) spectrum created from a sample of events of a given energy and centrality. In order to search for fluctuations in temperature, this thesis explores applying the CSPM to single events in order to create a distribution of temperatures for collisions of a given energy. Applying this method to the BES I data allows a search for an increase in temperature fluctuations indicative of the critical point. To gauge the accuracy of these measurements, the first systematic study of applying the CSPM to data is reported.
+
+The two particle transverse momentum correlator has previously been used to search for fluctuations in \(p_{T}\) that could be indicative of the critical phase transition point. The BES I energies were specifically studied in reference [1]. An interesting behavior of the \(p_{T}\) spectrum was noted at lower energies in that work, and in thisthesis. It was proposed that this could be the effect of the increase in the ratio of protons to pions at lower energies. In order to gauge if this affects the \(p_{T}\) correlations reported at these lower energies, the analysis was attempted with the inclusion of particle identification in order to remove protons from the analysis. This thesis applies the correlation function to AuAu collisions at 7.7, 11.5, and 19.6 GeV, and adds an additional cut on the protons in order to see if any signal may have been masked.
+
+The CSPM method was found to represent the \(\langle p_{T}\rangle\) of the data, and the extracted temperature was found to share a behavior similar to that observable. Self consistency was not found when applied to a Monte Carlo simulation, and systematic analyses of the method led to larger uncertainties than one would expect from the traditional variation of cuts. Results were found to be consistent with prior publications except for the reported uncertainty, which was smaller than this systematic study observes. Results also demonstrate that the CSPM is not able to produce a temperature that is sensitive enough to make a clear statement on how the temperature will vary with decreasing energy, nor how the fluctuations in temperature will behave. The two particle transverse momentum correlation study was found to be consistent with earlier works. The removal of protons from the data led to a different magnitude of correlation, but the behavior in general was found to remain the same. There was no non-monotonic behavior with changing center of mass energy observed, which would have indicated the phase transition critical point.
+
+## 1 Introduction
+
+Throughout history, mankind has asked one of the most basic and difficult questions, what are the constituents of matter. In Ancient Greece, during the fourth century B.C., the philosopher Democitus conceived the atom in answer to this question. The proposed atom was considered an indivisible constituent of matter that was invisible to the human eye [2]. Over two thousand years later, in the 1800s, experimental support for such a small structure was found in the discovery of the electron (though the electron actually signified the first discovery of a subatomic particle). During the early 1900s, experiments were able to further demonstrate the need for a nucleus of the atom, and for other subatomic particles (such as protons and neutrons) to be needed to explain observed properties of matter. As the search turned to smaller and smaller scales, experiments needed to become ever larger in the form of particle accelerators. In the late 1900s, experiments were able to show support for a structure below that of subatomic particles, now known as quarks. Quarks are believed to be the basic constituent of matter, though some theories suggest they could be further split into even smaller sub-particles known as preons [3]. To date, however, there has been no support nor theoretical need for preons to describe experimental data. The long pursuit of this one question has led scientists to discover many unexpected particles and to create numerous scientific fields dedicated to their study. These fields include Quantum Mechanics, Quantum Chromodynamics, High-Energy Physics, and Particle Physics.
+
+### Standard Model
+
+The theory that best accounts for all of these observations is known as the Standard Model [4]. The Standard Model proposes that quarks are elementary particles ofspin \(\frac{1}{2}\) that are members of the fermion family. According to the model, and as later confirmed by experiment, there are a total of six types (flavors) of quarks. They are the up (u), down (d), charm (c), strange (s), top (t), and bottom (b) quarks. All the quarks have fractional charge, with the up, charm, and top quarks having an electric charge of \(\frac{2}{3}\) (compared to the charge of an electron), and the down, strange, and bottom quarks having a charge of -\(\frac{1}{3}\) (compared to the charge of an electron). The Standard Model further predicts another type of particle known as leptons. Leptons, similar to quarks, contain six types of particles, being the electron (e), muon (\(\mu\)), tau (\(\tau\)), electron neutrino (\(\nu_{e}\)), muon neutrino (\(\nu_{\mu}\)), and the tau neutrino (\(\nu_{\tau}\)). Unlike quarks, leptons have an integer value of electric charge, with the electron, muon, and tau having a charge of \(-1\) and the neutrinos having no electric charge at all. All six quarks and all six leptons have an anti-particle version of themselves, with each having a charge opposite to those of the original particle.
+
+In addition to the twelve particles described above, the Standard Model also accounts for the fundamental forces via the inclusion of gauge bosons. These bosons act as force carriers, with photons mediating the elctromagnetic force, W and Z bosons mediating the weak force, and gluons mediating the strong force. The mechanisms for how the gauge bosons interact with fundamental particles (and at times themselves) have been the topic of many experiments and have led to the development of Quantum-Electrodynamics (QED), Electro-Weak Theory (EWT), and Quantum Chromodynamics (QCD) [2, 5]. Another boson prediction, and the last piece of the model that was confirmed, is the Higgs Boson, which accounts for a mechanism of providing mass for various fundamental particles.
+
+### Quantum Chromodynamics (QCD)
+
+#### 1.2.1 Quarks and Gluons (Partons)
+
+Quarks are among the fundamental particles that make up matter. As was mentioned in Section 1, quarks have a fractional electromagnetic charge. As a result, they are able to interact through the electromagnetic force which is mediated by the photon. In addition to the electromagnetic interaction, however, quarks interact via the strong force which is mediated by the gluon. The strong interactions are described by quantum chromodynamics (QCD), in which each quark has a color charge (red, blue, or green). Just as positive and negative electric charges interact via electromagnetic interactions, color charges interact via strong interactions. The use of the three different colors does not represent any unique characteristic of the quark, but
+
+Figure 1: Image of the 12 particles, and 5 bosons from the Standard Model [6].
+
+is instead used to specify which of three different color quantum states they are in. The combination of red, blue, and green create the color white, which is said to be color neutral.
+
+Quarks exhibit the property of color confinement, which means a quark cannot be found in isolation [7, 8]. This property arises from the fact that gluons not only mediate the strong force, but also carry their own color charge. This is quite different from photons, which do not carry an electromagnetic charge. While mediating the strong force, gluons are thus able to interact with one another. This gluon-gluon interaction leads to the color confinement phenomenon, and restricts the strong force to interact only in narrow color flux tubes (strings) that extend in length on the scale of a femtometer (1fm = 10\({}^{-15}\)m) [9]. The strong force strength increases with color charge separation [3, 9]. It would thus take infinite energy to isolate a quark, and as the distance between quarks is increased, it becomes more energetically favorable for a new quark-antiquark pair to be created from the increased potential. This phenomenon is further explored in Section 3.1.1.
+
+Interacting quarks form larger particles known as hadrons. Hadrons can be categorized by their quark content. Baryons are made from combinations of three quarks, while mesons are made from quark-antiquark pairs. It has long been theorized that other forms of hadrons may exist, such as exotic mesons and exotic baryons, and there has been recent support for these theories with the observation of the pentaquark [10]. An important property of hadrons is color neutrality, meaning they have a total color charge that is white. The most familiar hadrons are protons (of quark content uud) and neutrons (of quark content udd) which together make up the nucleus of atoms. As a result, they can jointly be referred to as nucleons.
+
+In addition to quarks, nucleons are also made up of gluons. Unlike quarks, however, gluons are able to exist in mixed states of color charge, forming an octet of colors [4]:\[\begin{array}{c}R\bar{G},R\bar{B},G\bar{R},G\bar{B},B\bar{R},B\bar{G}\\ \frac{1}{\sqrt{2}}(R\bar{R}-G\bar{G})\\ \frac{1}{\sqrt{6}}(R\bar{R}+G\bar{G}-2B\bar{B})\end{array} \tag{1}\]
+
+As the general concept of subatomic particles in a nucleon was developed before the identification of quarks and gluons as separate particles, they are often placed together in the broader group known as partons, referring to any subatomic particle in a nucleon. Additionally, there are also sea quarks (and sea fermions), which are quark-antiquark pairs that come into and out of existence on a small enough time scale so as not to affect general conservation laws. These particles are a type of virtual particle, and they exist on a time scale obeying [4]:
+
+\[\Delta t\leq\frac{1}{2m} \tag{2}\]
+
+where m is the mass of the fermion or particle pair. Such virtual particles actually can exist anywhere, not just inside the nucleus. The quantum vacuum is thus rarely empty due to such virtual particles.
+
+### Quark Gluon Plasma Phase Diagram
+
+Matter around us is made up of hadrons which are color neutral because of color confinement. Normal matter occurs at low temperature and at a baryon chemical potential (\(\mu_{B}\)) of \(\sim\)922 MeV [11]. Matter can also be described by its net baryon density, which refers to the number of baryons minus the number of antibaryons in a region. As normal matter is cold and made up of protons and neutrons, its baryon density is approximately \(\frac{1}{fm^{3}}\). As the Standard Model is the most developed theory to describe QCD, it is important to analyze quark matter through gauge theories, which are essential for calculating how quarks and gluons interact. Lattice gauge theory is a nonperturbative treatment of QCD formulated on a discrete lattice of space-timecoordinates [9]. A prediction of lattice gauge theory applied to quark-gluon matter at finite temperature is a transition at higher temperatures (\(\sim\)170 MeV) to a state of matter with color de-confinement, called the Quark Gluon Plasma (QGP) [12]. De-confinement refers to a state of matter where the density of quarks and gluons is so great that they are no longer confined to bound hadron forms. This is illustrated in Figure 1.2 where various states of matter are shown with an increasing density. As the density of matter increases from atomic to nuclear matter, the number of quark neighbors surrounding each quark also increases. Eventually, there are too many neighbors to structure a color neutral zone, and the color quarks are free to flow through the created medium. The current theoretical phase diagram for matter can be seen in Figure 1.3. The \(x\)-axis represents the baryonic density of matter, with matter on the left resembling atomic matter and matter on the right resembling quark matter.
+
+The QCD phase diagram is an important prediction for states of matter, but it is necessary to test its predictions experimentally in order to confirm (or revise)
+
+Figure 1.2: Schematic of increasing density of matter from atomic (a) to nuclear (b) to quark matter (c) [3]. In quark matter, each quark is surrounded by enough neighbors that they essentially act as unbound quarks.
+
+our understanding of matter. Relativistic heavy ion collisions provide a means to create enough energy to reach the transition temperature predicted in lattice gauge theory. Specifically, these collisions create a system at high temperatures and low \(\mu_{B}\) relative to normal matter. The particles created in such collisions can be used to better understand the medium that was created, and to search for signs of a phase transition from nuclear to quark matter. It should be noted that the phase transition can also occur at extreme densities. The interior of dense neutron stars may be one of the few natural objects with this inherent density [12].
+
+Figure 3: Schematic of the QCD phase diagram for temperature versus baryon chemical potential. The blue arrow at the top represents how the early universe would have evolved in the first few moments after the big bang. Colliders create collisions between ions that create a sharp increase in temperature, and evolve in a similar manner back to hadronic matter. The freeze-out conditions reached for various experiments are also indicated. [12].
+
+### Special Relativity
+
+Heavy-Ion collisions involve accelerating ions into one another in order to produce energetic collisions. Colliding atoms is a method for breaking atoms into their constituent particles for study and for potentially creating the QGP. To create collisions with enough energy to do this, it is necessary to accelerate atoms close to the speed of light (_c_). At such velocities, the relative space-time frames of the atoms need to be considered based on the theory of special relativity [13]. The variables generally analyzed in special relativity are a particle's position and momentum, which can be represented by four-vectors representing the three spatial dimensions and time [9, 14].
+
+One generally defines two frames of reference, the laboratory frame which generally is the frame of the observer, and the center-of-mass frame which is the frame in which the net momentum of colliding particles is zero. Transforming the four-vectors of a particle from the laboratory frame to the center-of-mass frame is called applying a Lorentz transformation. Effects from a Lorentz transformation become more apparent for particles traveling closer to the speed of light, and thus it plays a large role in colliders. A direct consequence is the phenomenon known as Lorentz contraction, where an object in one frame appears spatially contracted relative to another. Such a phenomenon can be understood by going through a Lorentz transformation, though some spatial dimensions will appear the same in the new frame, specifically the spatial dimensions perpendicular to the dimension of motion. The transformations of these dimensions is said to be Lorentz invariant, and such observables that are Lorentz invariant are often sought and used in collider physics. The Lorentz transformations for an event from a frame \(S\) (of coordinates _x,y,z,t_) to a frame _S_' (of coordinates of _x'_,_y'_,_z'_,t_') traveling at a speed \(v\) relative to frame \(S\) are:\[x^{\prime}=\gamma(x-vt)\] \[y^{\prime}=y,z^{\prime}=z\] \[t^{\prime}=\gamma(t-\frac{vx}{c^{2}}) \tag{1.3}\] \[\gamma=\frac{1}{\sqrt{1-\frac{v^{2}}{c^{2}}}}\]
+
+### Heavy Ion Collisions
+
+In ultra-relativistic heavy ion collisions, the colliding nuclei are extremely Lorentz contracted, appearing as two-dimensional disks [15]. The collision can be peripheral, where only the outskirts overlap to produce a collision, or it can be central, where the centers of the disks overlap to produce a more energetic reaction. When the target and projectile collide the majority of incident nucleons pass through each other. However, some nuclei will slow down due to multiple inelastic nucleon-nucleon collisions. These collisions deposit energy into the medium (area of the collision). The nuclei (having large momenta) will continue on out of the medium, reducing the baryonic density there. If the critical energy density of \(1~{}\frac{GeV}{\rm fm^{3}}\) is reached, the QGP is predicted to form. The evolution of the collision can be seen in Figure 1.4. Many theories suggest that the QGP is formed, and reaches a thermalized state in \(\sim~{}1~{}\frac{\rm fm}{c}\) after the collision. The QGP expands longitudinally and transversely, and it begins to cool [3, 15].
+
+Various parts of the medium reach a low enough density that confinement takes over and hadrons become the prevalent form of matter. This process is known as hadronization. The medium eventually cools enough to reach the chemical freeze-out temperature, where there is no longer enough energy to create more particles and the various particle types become 'frozen' in their relative ratios. At this point there are only hadrons in the medium. There are still interactions between the existing particles that affect their momentum, resulting in a further loss of energy and decrease in temperature. Finally the kinetic freeze-out temperature is reached and there is no more exchange of kinetic energy or momentum between the particles.
+
+Figure 4: Progression of the heavy ion collision. Lorentz contracted nuclei collide in the pre-equilibrium state. They create the QGP and begin to expand, resulting in a cooling of the medium. As it cools hadronization occurs until the medium reaches chemical and then kinetic freeze-out temperatures. Figure is from reference [3].
+
+## 2 Experiment
+
+### Relativistic Heavy Ion Collider (RHIC)
+
+The Relativisitic Heavy Ion Collider (RHIC) at Brookhaven National Laboratory was the first accelerator capable of colliding heavy ions [16]. Instead of being a fixed target accelerator, where a beam of particles is accelerated and allowed to collide with a stationary target, RHIC is a collider, meaning it produces two beams of particles which are accelerated in opposite directions and eventually led to an intersection where collisions (events) can occur. RHIC has a 2.4 mile ring with six intersection points. Four of these points were built to include detectors, being BRAHMS, PHENIX, PHOBOS, and STAR. These detectors are able to detect the particles produced in the collisions and measure various quantities such as charge and momentum. Event reconstruction involves using measured quantities to group detected particles by different points of origin in order to define specific events. Analyzing the particles from the same event can then provide insight into the state of matter created in that collision. With higher beam energy, it is possible to create dense matter during the collision. In order to increase the energy of the collisions, RHIC accelerates the ions to relativistic speeds. The energy can be further increased by colliding ions with large rest masses, making gold ions a good choice.
+
+The actual acceleration of the particles is a multi-step process. Heavy ions are initially accelerated in a Tandem Van de Graaff accelerator to about 5% of the speed of light. The particles are then sent to the circular booster where they continually gain energy with each revolution. Once they reach 37% of the speed of light, the ions are sent to the Alternating Gradient Synchrotron (AGS), from which they are injected into the two rings of RHIC once they reach 99.7% of the speed of light. There, the ions are exposed to radio waves which boost their energy so that they reach 99.995%of the speed of light. The ions are then circulated around the rings of the accelerator and allowed to collide at the intersection points. A similar process can be used for polarized protons which would be supplied by the Linear Accelerator (Linac) [17]. Figure 2.1 provides a picture of this acceleration process.
+
+### 2.2 Experiment Specific Variables
+
+Motivation for creating heavy-ion collisions include testing the theory of quantum chromodynamics (QCD) and creating a density of matter sufficient to create the quark gluon plasma (QGP). As described in Section 1.2.1, it is impossible to isolate a quark due to the color confinement property of the strong force interaction. Though this phenomenon precludes the study of isolated quarks, the creation of the QGP, a medium where quarks are able to freely flow, would not only provide support for
+
+Figure 2.1: Image depicting the acceleration process at RHIC. The numbers correspond to 1) Tandem Van de Graaff accelerator 2) Booster 3) Alternating Gradient Synchrotron 4) RHIC Ring [18]
+
+QCD, but would also allow for the detection of observables that could reflect the behavior of these free flowing quarks. In this manner, the study of the QGP can potentially act as a proxy for studying quarks in isolation.
+
+In order to reach both the energies required to potentially create the QGP and the statistics required for such a study, heavy-ion collisons are created on a very small time scale (essentially the order of several hundred nanoseconds). This is accomplished by creating on average 106 bunches of \(\sim 10^{11}\) ions equally spaced around the ring. Bunches traveling in opposing directions cross intersection points where detectors are located every hundred nanoseconds. Any bulk medium created in this manner does not exist long enough to be probed directly. As a result, most conclusions regarding the created medium must come from the study of the matter created in that medium. Examples include the type of particles detected, their momenta, their energy, and their trajectory angle relative to the beam axis.
+
+Studying the particles created is important for making observations related to the medium. There are several measurements of the colliding nuclei that also need to be measured in order to conduct a thorough study. Variations in how the collision occurred will impact the particle yield and the distribution of several variables. The energy and momentum of the colliding nuclei directly impacts the nature of the collision. The extent of overlap of the nuclei also impacts the final particle yields. These variations cannot be directly measured, but there are many techniques and variables that have been defined to help in their identification. These variables and techniques are widely used in heavy-ion experiments, though adjustments need to be made for the unique abilities of each detector.
+
+#### Rapidity and Pseudo-Rapidity
+
+The angle created between the beam and a produced particle is called \(\theta\). This is useful in the lab frame, but in the context of the experiment, it is better to have a Lorentz invariant quantity representing this angle. Such a quantity is known as rapidity, and is defined as:
+
+\[y=\frac{1}{2}\mathrm{ln}\frac{\mathrm{E+p_{z}c}}{\mathrm{E-p_{z}c}} \tag{2.1}\]
+
+where \(E\) is the energy of the particle, \(p\) is the particle's momentum, and \(p_{z}\) is the component of the particle's momentum aligned with the beam-axis. Though useful, rapidity cannot be directly measured in relativisic heavy-ion collisions. Pseudo-rapidity, however, can be measured and is defined as:
+
+\[\eta=\frac{1}{2}\mathrm{ln}\frac{\left|\mathrm{p}\right|+\mathrm{p_{z}}}{\left| \mathrm{p}\right|-\mathrm{p_{z}}} \tag{2.2}\]
+
+The pseudo-rapidity can be linked with \(\theta\) via:
+
+\[\eta=-\mathrm{ln}\frac{\theta}{2} \tag{2.3}\]
+
+Pseudo-rapidity by itself is not the most useful measurement since it is not Lorentz invariant. However, since the collisions create particles of high enough momentum that \(\eta\approx y\), pseudo-rapidity can be treated as Lorentz invariant in heavy-ion collisions. Having a measurement for this variable is very useful as certain restrictions may need to be placed to control varying detector acceptance or to restrict a study to particles that will have passed through a specific detector.
+
+#### Centrality
+
+The extent of overlap between colliding nuclei in heavy-ion collions is described as the centrality of a collision. In order to define centrality, one must first define the distance between the centers of two colliding nuclei, known as the impact parameter. As mentioned in Section 1.4, the accelerated ions are greatly Lorentz contracted, making them appear as disks in the transverse plane (perpendicular to beam axis). The radius of this disk is equal to the mean nuclear radius of an atom, described by [2]:\[R=R_{0}A^{\frac{1}{3}} \tag{2.4}\]
+
+where \(R_{0}\) is 1.2 fm, as measured in electron scattering experiments. The density of an atom can greatly vary with the radius, rapidly falling off at the outer edges of an atom. The behavior of the density follows the same behavior of the potential in a nucleon, which can be described by the Woods-Saxons potential:
+
+\[V(r)=\frac{-V_{0}}{1+e^{\frac{r-R}{a}}} \tag{2.5}\]
+
+where \(a\) is the skin thickness of the nucleus (on the order of 0.524 fm) and _V\({}_{0}\)_ is the well depth of the potential (on the order of 50 MeV).
+
+In collisions where atoms only graze one another, the mass density and overlap area is small, resulting in very few matter interactions. These are called peripheral collisons. Head on collisions, however, will have the central regions interact where the density is highest, resulting in the creation of many energetic particles. These are called central collisions. For collisions involving heavier nuclei, such as gold-gold (AuAu) collisions, this distinction makes sense as they are large enough for variations in overlap to exist. In the case of proton-proton (pp) collisions, a definition of centrality makes little sense as any interaction will primarily cover the whole of the proton. Peripheral AuAu collisons tend to generally have similar characteristics as pp collisions at the same energy as they can have comparable interaction densities and areas.
+
+The impact parameter, \(b\), can be used as a way of describing these collisions. Collisions can vary from central to peripheral collisions, which means the impact parameter by definition can vary from 0 fm (where the centers of the ions directly overlap) to _2R_ fm. It is impossible to measure the amount of overlap of the colliding nuclei directly, but due to an understanding of the mass density, it can be approximated in conjuction with other theories. The Glauber model is one such widely used theory that is used to calculate the centrality of collisions [14, 19]. In the Glauber model, a Monte Carlo simulation is implemented to generate a nucleon distribution in the nuclei, with the Woods-Saxon density and the impact parameter as inputs. Using various assumptions for collision evolution, the model outputs the expected number of participants (\(N_{part}\)) in a collision for a given impact parameter. In a collision, only nucleons in the overlap region can interact. Nucleons outside of this region are referred to as spectator nucleons. Though there are \(N_{part}\) nucleons in the region, there is still a finite probability for an actual interaction. The number of binary nucleon-nucleon collisions is known as \(N_{coll}\), and is directly proportional to the inelastic cross section. Using these variables, the number of particles produced in a collision can then be estimated.
+
+The \(N_{part}\) can also be linked with the number of charged particles produced in the collision through the Glauber Model. In general, the multiplicity of a collision is defined as the number of charged particles detected in a collision. For the determination of centrality, the reference multiplicity is specifically analyzed. The reference multiplicity is described as the number of charged particles detected in the middle of the detector with good acceptance. At STAR, this involves finding the number of particles detected in \(|\eta|<0.5\), with no other cuts. A full reference multiplicity spectrum can then be created and subdivided as a function of percentage of events in a given range. Using the Glauber Model, these percentages can be linked to a range for impact parameter. In general, a centrality of \(0-10\%\) refers to those events containing the top \(10\%\) of multiplicity, and thus the most overlap. Though one can open the range in \(\eta\) to look at more particles produced in an event, the reference multiplicity of each event is recorded and can be used to categorize data by their approximate centrality.
+
+#### Transverse Momentum
+
+The atoms in a bunch traveling around the collider ring are traveling in the beam-axis (\(z\)-axis) and only have longitudinal momentum. When there is a collision, several particles are created and momentum needs to be conserved. Due to nuclear stopping power, many of the created particles will be deflected into regions of low rapidity (perpendicular to the \(z\)-axis) [14]. This means their momentum will primarily be aligned with the transverse plane, termed transverse momentum (\(p_{T}\)). The momentum of a created particle cannot be directly measured. However, due to the magnetic field aligned with the beam-axis, it is possible to calculate the \(p_{T}\) (the momentum component perpendicular to the beam-axis). This calculation is computed with data from the Time Projection Chamber detector and a description can be found in Section 2.3.1.
+
+#### Transverse Mass
+
+Transverse mass (\(m_{T}\)) is another Lorentz invariant term that is often used in particle physics [9, 14]. It depends on the rest mass of a particle and its transverse momentum, but it can also be defined as the difference between the squares of the particle's energy and longitudinal (beam-axis) momentum:
+
+\[m_{T}^{2}=E^{2}-p_{z}^{2}=p_{T}^{2}+m^{2} \tag{2.6}\]
+
+It is possible to define the energy and longitudinal momentum of a particle in terms of the transverse mass and the rapidity of a particle [14]:
+
+\[\begin{split} E&=m_{T}\cosh y\\ p_{z}&=m_{T}\sinh y\end{split} \tag{2.7}\]
+
+### The Solenoidal Tracker at RHIC (STAR)
+
+The Solenoidal Tracker at RHIC (STAR) [20], is one of the original four experiments that ran at RHIC, and is one of the two experiments still taking data. The STAR detector consists of a system of detectors working together to reconstruct events and analyze the various particles produced in heavy-ion collisions. Together, these detectors provide full azimuthal coverage around the beam-axis (0-2\(\pi\) in \(\phi\)) and a coverage from -1.8 to 1.8 in pseudo-rapidity (\(\eta\)). It is built around the beam-pipe of the RHIC accelerator. An illustration of the STAR detector with labels for the primary detector systems (in its current form) can be seen in Figure 2.2.
+
+As per its name, STAR contains a solenoidal magnet that produces a uniform magnetic field of magnitude up to 0.5 T for the purpose of charged particle momentum analysis [22]. There are several detectors located inside of the STAR magnet. Around the beam pipe is the Heavy Flavor Tracker (HFT) which is designed to conduct heavy flavor analyses and to provide information on the primary vertex position [23]. This system replaced the original Silicon Vertex Tracker (SVT), which consisted of three cylidrical layers of silicon drift detectors located 7, 11, and 15 cm from the beam
+
+Figure 2.2: Image of the STAR detector and the various sub-detectors provided by Maria and Alex Schmah [21].
+
+axis [24]. This system was used to calculate the primary interaction vertex, and several secondary vertices of weak decays. The Silicon Strip Detectors (SSD) system was provides a fourth layer to this setup closer to the inner tracker, and is a part of the HFT detector system [25]. The Time Projection Chamber (TPC) is a cylindrical detector that is used for charged particle tracking and identification and encloses the radial distances from 50 to 200 cm away from the beam pipe [26]. The TPC is the heart of the STAR detector, and provides an informative display of particles tracked from an event. An example can be seen in Figure 2.3. The Time of Flight (TOF) detector is a cylindrical detector enclosing the TPC detector at a radial distance of 210 cm from the beam pipe, providing improved particle identification for the STAR detector [27]. The Barrel Electromagnetic Calorimeter creates the final layer inside of the STAR magnet and provides electron identification and hadron suppression [28].
+
+Figure 2.3: Image looking down the beam (z) axis of a central event reconstructed in the TPC detector [20].
+
+Several STAR detectors are located outside of the STAR magnet. Continuing radially outward, the Muon Telescope Detector (MTD) contains multi-gap resistive plate chambers and provides identification of muons. The MTD can have improved accuracy when combined with the TPC and the TOF identification capabilities [29]. Two identical Vertex Position Detectors (VPDs) are attached close to the beam pipe on either side of the STAR detector at a distance of 5.6 m from STAR's center [27]. They work in conjunction with the TOF detector. The Endcap Electromagnetic Calorimeter (EEMC) is positioned on the west side of STAR, and identifies photons, electrons, and electromagnetically decaying mesons over the pseudorapidity range of \(1.09\leq\eta\leq 2.00\)[30]. It complements the capabilities of the BEMC by providing further coverage for events. Two identical Zero Degree Calorimeters (ZDCs) are located on either side of the STAR detector at a distance of 18 m [31]. Both are located past dipole magnets, which deflect protons and charged fragments, leaving only spectator neutrons to be detected by the ZDCs. The ZDCs are used as part of the trigger system at STAR.
+
+Figure 2.4: Image of the locations of the ZDC detectors relative to the dipole magnets [31].
+
+#### Time Projection Chamber (TPC)
+
+The Time Projection Chamber (TPC) is the primary detector for STAR. The TPC detector is a 4.2 m long cylinder with a radius of 2 m that is positioned inside the STAR magnet [26]. Figure 2.5 shows the detector and the coordinate axis. The beams in RHIC travel along the \(z\)-axis and intersect inside the inner field cage of the TPC. There is a central high voltage electrode disk (Central Membrane) operated at 28 kV which produces a uniform electric field (\(\sim 135\frac{V}{\rm cm}\)) pointed towards the center in each half of the TPC. The TPC is filled with gas between the inner and outer field cage. Specifically, it is filled with 90% argon and 10% methane, which is a common combination known as a P10 gas. When the beams collide, several particles (primarily pions) are created which pass through normal matter. As the particles pass through the detector, the argon gas becomes ionized and electrons are produced. The electric fields of the TPC push the electrons out to the endcaps of the detector. Since the drift speed of electrons in the gas are known to be \(\sim 5.45\ \frac{cm}{\mu s}\), based on the time of the collision and the time of the electron detection, one can piece together the \(z\)-component of the particle's location [26].
+
+As charged particles produced in collisions traverse the TPC, the magnetic field exerts a force on them. The Lorentz force accounts for the electromagnetic force exerted on charged particles:
+
+\[\vec{F}_{Lorentz}=q\vec{E}+(\vec{v}\times\vec{B}) \tag{2.8}\]
+
+where \(q\) is the charge of the particle, \(E\) is the magnitude of the electric field, \(v\) is the velocity vector of the particle, and \(B\) is the vector of the magnetic field. The magnetic field creates a perpendicular force to the particle's direction of motion, creating a helical motion as the particle traverses the TPC. While traveling, the particle will continually interact with Argon atoms in the P10 gas. This results in multiple electrons being produced, that will then drift towards the TPC endcap. The end cap consists of \(\sim 45\) pads that absorb electrons. The pad itself consists of amulti-wire proportional chamber (MWPC) which amplifies the signal of any detected electron. A common requirement for track reconstruction is that at least 52% of the 45 pads registered a signal originating along the path of the particle candidate. Figure 2.6 shows the schematic of the pads used in the TPC.
+
+Two pieces of information can be learned from the detected electrons. When an electron is detected at the endcap it is possible to use the drift time of electrons in P10 gas and the time of the collision to calculate the _z_-component of the ionizing particle's position. Detecting multiple electrons created from one particle also allows the calculation of the particle's transverse momentum. Specifically, the electrons produced by a charged particle and detected at the endcap will form a radius related to the particle's transverse momentum.
+
+Figure 2.5: Schematic of the TPC [26]
+
+#### Vertex Position Detector (VPD)
+
+The STAR detector contains two identical Vertex Position Detectors (VPDs) attached close to the beam pipe on either side of STAR at a distance of 5.6 m from STAR's center (shown in Figure 2.7) [27]. Each VPD is able to measure the time when very forward particles pass through them. Since they are equidistant from the center of STAR on the east and west side, one can average the arrival times of forward particles as detected in the two detectors in order to calculate the collision start time. They are attached very close to the beam pipe, and are outside of the magnetic field of STAR.
+
+The VPD itself consists of multiple photo-multiplier tubes (PMTs) positioned in the support structure closely around the beampipe. The original design schematic
+
+Figure 2.6: Schematic of the TPC inner and outer pads [26](shown in Figure 2.8) consisted of magnetically shielded PMTs at the 4, 8, and 12 o'clock positions around the beam pipe, though this number was later increased. For collisions at the Z = 0, or center of STAR, the VPD provides coverage for 4.43 \(<\eta<\) 4.94, or in laboratory polar angles, a range of 0.82 \(<\theta<\) 1.48 degrees. A cut-away image of the detector element (including the PMT) can be seen in Figure 2.9. The lead face sheet acts as a photon converter, flooding the scintillator layer behind it with electrons, creating enough of a signal to activate the PMT positioned farther away.
+
+#### Time of Flight (TOF)
+
+The Time of Flight (TOF) detector is based on Multigap Resistive Plate Chambers (MRPCs), effectively being a stack of resistive plates (0.54 mm-thick float glass) containing five 220 \(\mu\)m gas gaps [32]. The TOF is located inside the STAR magnet, and it was built at the cylindrical radius of the TPC, as can be seen in Figure 2.7[27]. As was described in the previous section, the TOF detector relies on the VPD detectors for identifying the time of the collision. With the start time from the VPD,
+
+Figure 2.7: Drawing of the locations of the VPD and TOF detectors in the STAR detector [27].
+
+it is then possible to compute the invariant mass of the particles detected in the TOF detector. In Figure 2.10, the momentum dependence of the particle identification capabilities of the TOF and VPD detector system is shown, with a timing resolution of \(\sim 10\) ps, which is about \(\sim 10\) ps.
+
+Figure 2.9: A cut-away side view of a VPD detector element [27].
+
+Figure 2.8: One of the two identical VPD detector assemblies [27].
+
+of a 100 ps. For collisions at the Z = 0, or center of STAR, the TOF provides coverage for \(0.05<\eta<0.96\)[27].
+
+Figure 10: The momentum dependence of the particle identification capabilities of the TOF [27]. S is the path length of the particles traveling at the specified pseudo-rapidities.
+
+## 3 Theoretical Models
+
+In the early 1990s, several models correctly calculated the multiplicities and the \(\langle p_{T}\rangle\) of hadron spectra from pp collisions in experiments [33]. Many of these models used color strings to represent the strong force interactions during collisions. These models were then scaled by the expected increase in the number of produced strings in AuAu collisions to predict the multiplicities and the \(\langle p_{T}\rangle\) of hadron spectra created in AuAu collisions. When these predictions were compared to the AuAu data taken at various experiments, it was found that the observed multiplicity \(\mu\) was less than the models predicted, and that the \(\langle p_{T}\rangle\) was higher than the models predicted.
+
+One of the first models to correctly account for this discrepancy was a string fusion model that was implemented as a Monte Carlo simulation (Figure 3.1 and Figure 3.2) [34]. This model allowed color strings to interact with one another and proposed that this interaction modifies the total color charge present in the collision. This model has continued to develop over the past few decades and has been able to account for several observations of experiment during that time. It has also evolved into the Color String Percolation Model (CSPM), which uses a string fusion model and relates it to a phase transition predicted by percolation theory. The CSPM also has a procedure that was developed for experimentalists to directly apply it to data.
+
+The following sections provide some insight into the theories that developed into the Monte Carlo simulation, as well as into the CSPM. Color strings and string tension are defined in Section 3.1. The relationship between strings and the initial temperature of a collision is also discussed in that section. General percolation theory is briefly introduced in Section 3.2. A short overview of the basics of the CSPM and its important color suppression factor F(\(\xi\)) (which represents the relationship between the percolation density parameter and the modification of color charges in a system)is described in Section 3.3. Finally, a description of the color string dynamics used in the Monte Carlo simulation and in the CSPM is described in Section 3.4.
+
+The models outlined in this chapter are only those relevant to the Monte Carlo simulation and to the form of the CSPM tested in this thesis. Several other models were tested and developed throughout the evolution of the CSPM, and a short dis
+
+Figure 3.1: Results of color string percolation model predicting multiplicity. The number of participants are from the SPS WA98 data (filled triangles), the RHIC PHENIX (filled boxes) PHOBOS (non-filled boxes) data at \(\sqrt{s}=130\) GeV, and with RHIC PHENIX data at \(\sqrt{200}\) GeV (filled stars). The dashed, solid, and dotted lines are predictions for the relevant energies [34].
+
+Figure 3.2: Results of color string percolation model predicting transverse momentum. The solid line corresponds to the expected \(p_{T}\) distribution with CSPM for central (5%) AuAu collisions. The filled boxes are the PHENIX experimental data. The dotted-dashed line is the expected distribution if color suppression is not accounted for [34].
+
+cussion is in Appendix A. A review paper has recently been published that delves into the theoretical framework of the CSPM and discusses other predictions that can be made using the model [35].
+
+### Color Strings
+
+Section 1.2.1 described quarks, which have both an electric and a color charge. Electric charges interact through the electromagnetic force, while color charges interact via the strong force. The strong force interaction between quarks can be represented by a narrow color flux tube, or string. The string is stretched between partons and its potential energy increases linearly with the distance between them.
+
+In ultra-relativistic heavy ion collisions, the colliding nuclei are extremely Lorentz contracted, appearing as two-dimensional disks [15]. When the target and projectile collide the majority of incident nucleons pass through each other. The vacuum in between becomes perturbed by the color force-fields of the quarks and creates a color flux tube or string between the separating partons, representative of their color force
+
+Figure 3.3: The color force interaction between quarks [3].
+
+interaction [9]. As the string stretches, its energy increases. More strings can be produced in the vacuum with (but not limited to) greater beam energy and larger projectiles. It is believed that the Quark Gluon Plasma is formed at large string densities. Other types of color strings can also be produced in collisions. These include strings that are long or short in rapidity, valence strings which are associated with valence quark (diquark) interactions, and centrally produced (sea strings) which are associated with interactions of sea partons (primarily being gluons) [36].
+
+Color strings are represented as disks in the transverse space (see Figure 3.4), which is the plane perpendicular to the beam axis. These disks of color charge have a small radius of \(r_{0}\simeq\) 0.2 fm, and an area of \(\sigma_{0}\) = \(\pi{r_{0}}^{2}\)[34]. Color strings are important since they carry the color charge field vector \(\vec{Q_{0}}\) of the colliding particles. During collisions, the disks overlap, where areas of higher overlaps correspond to higher densities of quarks and gluons, and form clusters. At high enough densities, the cluster contains a net color and is no longer considered to be color neutral (in hadronic form).
+
+The energy in one of these color flux tubes can be represented by [9]:
+
+\[E=\frac{1}{2}\epsilon^{2}AL \tag{3.1}\]
+
+where \(A\) is the cross sectionl area of the color tube, \(L\) is the length of the tube, and \(\epsilon\) is the color electric field that is aligned along the color string. The constant of
+
+Figure 3.4: In the transverse plane, strings appear as disks.
+
+proportionality for the linear interaction of the tube can be described by introducing a string tension \(\kappa\) (which is constant throughout the string):
+
+\[\kappa=\frac{1}{2}\epsilon^{2}A \tag{3.2}\]
+
+Since the color electric field only exists inside of the color string, it is possible to use Gauss's law to find the relationship between \(\epsilon\) and the color charge q of the quark at one end of the string to be:
+
+\[q=\epsilon A \tag{3.3}\]
+
+Finally, one can use Equations (3.2) and (3.3) to find:
+
+\[q\epsilon=2\kappa \tag{3.4}\]
+
+This relationship can be used to calculate the potential inside of color strings, which is necessary for particle production calculations and for predicting characteristics of those produced particles.
+
+#### Schwinger Particle Production
+
+As mentioned in Chapter 1.2.1, it is impossible to study a quark in isolation due to color confinement. As a quark-antiquark pair is separated, the color string representing their strong force interaction is stretched and the potential inside of the string increases with that growing distance. Eventually, it becomes energetically favorable for a new quark-antiquark pair to be formed inside the string [9]. The new pair is created anti-aligned to the original pair (with the new quark (antiquark) being between the new and original antiquark (quark)). This distribution of particles creates a decrease in the potential experienced by the quark due to the phenomenon known as color screening. Color screening refers to the effect of having a new quark in between the original antiquark and new antiquark (and the opposite charged case). The new quark prevents interaction between the original and new antiquarks.
+
+There is no limit to the number of times this type of pair production can occur, but there is a minimum length of a string (or distance between a quark-antiquark pair) that must be reached in order for it to continue producing particles. The following relation can be derived for this quantity, as was done in [9]:
+
+\[L_{min}=\frac{2m_{T}}{\kappa} \tag{3.5}\]
+
+where \(m_{T}\) is the transverse mass of the particle to be created from the potential. In [9], a quark is taken to have a mass of 0.325 GeV, and a standard string tension of \(\kappa=1\)\(\frac{\rm GeV}{\rm fm}\) was taken to estimate that the minimum length to create a quark-antiquark pair with no transverse momentum would be 0.7 fm. If one were to take the case of a pion (u\(\bar{d}\) of mass 0.140 GeV), the minimum distance would be 0.28 fm.
+
+With this information, it is possible to create estimates for particle production rates in a given system. The primary theory for this type of calculation is the Schwinger Mechanism, which models the increasing probability for the creation of a quark-antiquark pair with growing string length [9, 37]. The Schwinger Mechanism was originally created to estimate electron-positron production in QED.
+
+It has been shown that one can present a quasi-classical picture for the decay of color strings [33]. In this picture, the string color field produces a quark-antiquark pair which breaks the original string that produced them by neutralizing the field therein. The Schwinger expression predicts the probability to create an \(e^{+}e^{-}\) pair in a constant electromagnetic field [37, 38, 39, 40]. A similar concept for color charges in a constant color field has been developed and has led to the following probability rate for a constant color field to produce a \(q\bar{q}\):
+
+\[w\sim\kappa_{[N]}^{2}e^{\frac{-\pi M_{L}^{2}}{\kappa_{[N]}}} \tag{3.6}\]
+
+where \([N]\) is the SU(3) representation of dimension \(N\) and \(\kappa\) is the string tension [33]. It is then possible to use the ordinary triplet string decay algorithm of Artru and Mennessier [41, 42] with parameters obtained through comparison with \(e^{+}e^{-}\) data (such as the relative probabilities for quarks and diquark formation, the area containedin the string, and the rest mass of the final particles produced) in order to calculate particle production rates [33, 43].
+
+With the production probability, it is possible to calculate the number of expected particles to be produced from a given system, as well as the \(p_{T}\) spectrum of those particles. In [9], this spectrum was derived to follow:
+
+\[\frac{dN}{dp_{T}}=(const)e^{\frac{-\pi p_{T}^{2}}{\kappa}} \tag{3.7}\]
+
+which can be related to a value for the average transverse momentum squared (\(\langle p_{T}^{2}\rangle\)) for the produced quarks:
+
+\[\sqrt{\langle p_{T}^{2}\rangle}=\sqrt{\frac{\kappa}{\pi}} \tag{3.8}\]
+
+It can be seen from Equation (3.8) that the \(\langle p_{T}^{2}\rangle\) is only dependent on the string tension in the system. If one were to again take a typical string tension of \(\kappa=1\)\(\frac{\rm GeV}{\rm fm}\), the \(\langle p_{T}^{2}\rangle\) for a single quark would be equal to \(0.25\)\({\rm GeV}^{2}\). A particle like a pion, containing a quark-antiquark pair, would have a modification for the second quark, and a factor 2 is multiplied with \(\kappa\), for a \(\langle p_{T}^{2}\rangle\) = \(0.35\)\({\rm GeV}^{2}\). One can iterate through the various particle possibilities and create models for all possible variants of particle production. As the system becomes larger and the various pieces become isolated, eventually the quarks become locked in color neutral states, thus creating hadrons. This is the progression of hadronization in the string picture.
+
+It is helpful to define two quantities related to the final particles produced from a single string. The first is the multiplicity of a single string, \(\mu_{0}\). This refers to the number of particles expected to be produced from a single string, and it has been estimated to be approximately 1.1 for strings in the unit rapidity [44]. This value was computed by normalizing results to central Pb-Pb collisions from the SPS WA98 experiments [34, 45]. A later modification was made to allow comparisons with data by including a reduction due to only \(\frac{2}{3}\) of particles produced in a collision being charged hadrons (detectable by experiments) and varying rapidities [46]. The other term is the transverse momentum squared of a single string, \(\left\langle p_{T}^{2}\right\rangle_{0}\). This can be estimated using Equation (3.8).
+
+#### 3.1.2 Temperature from String Tension
+
+Production of hadrons in \(e^{+}e^{-}\) annihilations can be explained by the idea that they are produced in a thermodynamically equilibrated system [47, 48]. In particular, the particle spectra from experiment is consistent with the expected spectra produced by two thermally equilibrated fireballs. This would imply that the production is handled in a relatively fast process, making it seem that equilibrium is reached at a faster rate than was originally expected [49]. This could be interpreted as requiring the produced partons to already be close to thermal equilibrium, and that when they form the final hadrons, they will be formed in a thermal equilibrium instead of needing secondary collisions between partons.
+
+One can find further support for this interpretation when applying the color string picture to \(e^{+}e^{-}\) annihilations. As discussed in Section 3.1.1, the Schwinger formula for the particle spectra is:
+
+\[\frac{dn}{d^{2}p_{\perp}}\propto e^{\frac{-\pi m_{\perp}^{2}}{\kappa^{2}}} \tag{3.9}\]
+
+This includes the string tension \(\kappa\), also described in the previous section. In reference [49], the Schwinger formula was compared to the thermal distribution:
+
+\[\frac{dn}{d^{2}p_{\perp}}\propto e^{-\frac{m_{\perp}}{T}} \tag{3.10}\]
+
+These two equations can further be related by allowing the string tension to undergo a fluctuation with a probability function of the Gaussian form [49]
+
+\[P(\kappa)d\kappa=\sqrt{\frac{2}{\pi\left\langle k^{2}\right\rangle}}e^{-\frac {\kappa^{2}}{2\left\langle k^{2}\right\rangle}}dk \tag{3.11}\]
+
+where \(\left\langle\kappa^{2}\right\rangle\) is the average string tension defined as:\[\left\langle k^{2}\right\rangle=\int_{0}^{\infty}\!P(\kappa)\kappa^{2}\,{\rm d}\kappa \tag{3.12}\]
+
+Combining these equations, and using Equation 29.3.82 in reference [50] (Equation 29.3.84 is listed in [49], but it is Equation 29.3.82 that is used [51]) creates the following distribution:
+
+\[\frac{dn}{d^{2}p_{\perp}}\propto e^{-m_{\perp}\sqrt{\frac{2\pi}{\langle\kappa^ {2}\rangle}}} \tag{3.13}\]
+
+Finally, by comparing this with the thermal equation from above, the temperature can be related to the string tension:
+
+\[T=\sqrt{\frac{2\pi}{\langle\kappa^{2}\rangle}} \tag{3.14}\]
+
+### Percolation Theory
+
+Percolation theory deals with the use of geometric objects with a defined connectivity radius. In a simple version of percolation, we place the objects randomly in a volume [52]. Two of these objects are said to communicate if they are within one another's radius. The occupation density of these objects is represented by \(\xi\). As \(\xi\) increases, there is a greater chance for the objects to form chains of connected objects (clusters), creating lines of communication. Many applications of percolation theory involve the use of threshold percolation, which is signified by the formation of an infinite cluster across the medium. The minimum density to create threshold percolation is known as the critical density \(\xi_{c}\).
+
+Specific transitions this has provided insight for include the liquid gas phase transition in nuclear collisions (BEVALAC), and an analogy of the Ising model [54]. Several geometric systems have been analyzed, and their \(\xi_{c}\) values have been computed. For the case of 2-D disks (illustrated in Figure 3.5), the \(\xi_{c}\) has been computed to be approximately 1.1 [52]. Under the limit of a large number of objects, the fraction of area (\(\phi\)) occupied by disks can be shown to be [52, 55]:\[\phi=1-e^{-\xi} \tag{3.15}\]
+
+### Color String Percolation Model (CSPM)
+
+Both de-confinement and percolation theory are related to the formation of clusters. To bridge these two theories together, one can make the assumption that the hadron to de-confined phase transition occurs at the critical percolation density, \(\xi_{c}\). In this model, the percolation density \(\xi\) is related to the fractional overlap area of a string. This means the radius of the colored strings is the communication radius and clusters are formed when they overlap (Figure 3.6). During a collision, we look at the interaction area \(S\) and the \(N\) strings that are formed. With the area of a string being \(\sigma_{0}\), we can then define \(\xi\) as [44]:
+
+Figure 3.5: Overlapping disks in the transverse plane (Cluster Formation) [53]. The different colors are to guide the eye to different clusters. The blue lines represent lines of communication throughout a cluster.
+
+\[\xi=\frac{N\sigma_{0}}{S} \tag{3.16}\]
+
+We can also apply percolation theory to find that \(\xi_{c}\geq 1.1\) for this case, which is representative for the onset of the critical cluster which spans _S_[52]. This is purely a geometric argument that is based on the overlap of the color disks. Though the assumption linking the critical density to that of the phase transition is an idea developed in the late \(90^{\prime}s\)[56], the idea of applying percolation theory as a threshold for the QGP formation was explored as early at 1979 [57, 58].
+
+The color string percolation model naturally depends on two theories, the choice in the color string dynamics, and percolation theory itself. The ultimate aim of using percolation is to link the initial geometrical configuration of color strings to some final observable result. To do this, a term has been defined to relate the color modification effect to the geometry of the system [60]:
+
+\[F(\xi)=\sqrt{\frac{1-e^{-\xi}}{\xi}} \tag{3.17}\]
+
+The entire premise of this model only applies to high energy and dense systems. In pp collisions, the chance for the overlap of strings is very small, so we can treat minimum bias pp collisions as having no color suppression. In AuAu collisions, there are many more nucleons and the chance for overlap is much greater.
+
+Figure 3.6: The various stages of percolation for disks of color charge. a) isolated disks, b) clustering, c) critical density (transition point) [59].
+
+### Color String Dynamics
+
+Percolation theory governs the geometrical clustering of strings, but it is necessary to introduce certain dynamics to describe string-string interactions and the resulting observables of the collision. The search for a model of color string dynamics that could accurately account for experimental observations started in the early 1990s. This primarily focused on string fusion models with the goal of reproducing data. The search continued into the early 2000s, when it was shown that one of the models tested was preferred for comparisons with data (though there were still variations upon it) and for representing a phase transition. The models that were used in the original Monte Carlo simulations for string fusion are discussed in Section 3.4.1. The model that was used in the CSPM is described in Section 3.4.2. A discussion of some of the other models that were important in the evolution of the CSPM is described in Appendix A.
+
+#### 3.4.1 Color String Dynamics in the Monte Carlo Simulations
+
+##### String Fusion without Volume Conservation
+
+The string fusion scenario theorizes the collapse of overlapping strings into the geometrical space of a single string of a higher color field [61]. This produces a sharp change in the color field geometry and curtails any analysis searching for a phase transition since the string density can increase without bound. This model was realized as a Monte Carlo simulation in references [62, 33]. In it, strings are allowed to overlap via their transverse spatial position and their rapidity interval [61]. When this occurs, a new string (which will be referred to as a cluster for ease of tracking single strings and fused strings) is created with energy-momentum equal to the sum of the energy-momentum of the original strings, but with the transverse area of the cluster remaining that of a single string. It is also assumed that the fusion does not change the area of the cluster, meaning the area of a cluster is independent of its
+
+[MISSING_PAGE_FAIL:55]
+
+\[w=\prod_{k=1}^{M-1}(1-kx) \tag{3.21}\]
+
+Knowing the probability of the formation for strings of various color, it is possible to predict observables, such as the average number of strings of color n (\(\langle v_{n}\rangle\)) and the average total number of clusters (\(\langle M\rangle\)):
+
+\[\langle v_{n}\rangle=\sum_{v_{n}}v_{n}P_{v_{n}}=C_{N}^{n}x^{n-1}(1-x)^{N-n} \tag{3.22}\]
+
+\[\langle M\rangle=\frac{1-(1-x)^{N}}{x} \tag{3.23}\]
+
+It can be seen that \(\langle M\rangle\) decreases monotonically and that, though fusion is allowed, there are no signs of an irregularity indicative of a phase transition. In order to make comparisons with experimental data it is important to calculate the multiplicity and the transverse momentum spectrum that will be produced from the system of clusters. These quantities can be calculated by using the color and surface area of a string/cluster.
+
+It is important to note that though the geometry of clusters has not changed, the change in their string tension could modify the mechanism for particle production. Variations on this method are studied in reference [55]. The string fusion Monte Carlo simulation, however, uses the above probability for the formation of strings of various color, and combines it with the Woods-Saxon model, which represents the distribution of nucleons in the nucleus [33]. A system can then be defined, and the locations and densities of color strings can be discussed, as is done in references [62, 33].
+
+Following the above methods for the production and hadronization of color strings, one can futher study the predicted \(p_{T}\) distributions created in the central region of heavy-ion collisions. As was developed in Section 3.1.1, one can claim observed particles are formed in quark-antiquark pair emissions from the color field of strings at a probability rate that is of a gaussian form that is a function of \(p_{T}\)[65, 37]. Once a \(q\bar{q}\) pair is formed, the color charge \(Q\) of the string is reduced, modifying its future production rate. One can propagate the decay of strings through the entire collision and show that the \(\left\langle p_{T}^{2}\right\rangle\) of particles produced in the complete breakup of a string is proportional to _Q_[66]:
+
+\[\left\langle p_{T}^{2}\right\rangle_{Q}=Q\left\langle p_{T}^{2}\right\rangle_{0} \tag{3.24}\]
+
+A realistic form of the \(p_{T}\) distribution for a single color string can be extracted from experiment from \(p\bar{p}\) soft collisions, where the effects of string interactions are assumed to be small [65]. It is then possible to link the distribution for a single string of \(Q\) = 1 to:
+
+\[w_{1}(p_{T})=\frac{(k-1)(k-2)p_{0}^{k}}{2\pi p_{0}^{2}(p_{T}+p_{0})^{k}} \tag{3.25}\]
+
+A parametrization can be made by comparing the transverse momentum distributions at different energies and by accounting for the behavior of minimum bias distributions with varying energy. The first was done for collisions at 630 and 1800 GeV and the second was analyzed for an energy interval of 63 to 1800 GeV [67, 68]. This allowed a parametrization of:
+
+\[p_{0}=2\frac{GeV}{c} \tag{3.26}\]
+
+\[\alpha=19.7-0.86\mbox{lnE} \tag{3.27}\]
+
+where E is the center of mass energy in \(\frac{\mbox{GeV}}{c}\). With this parameterization and the distribution function, it is possible to note that the \(p_{T}\) distribution in p\(\bar{p}\) collisions will follow [65]:
+
+\[p_{T0}=\left\langle p_{T}\right\rangle_{0}=p_{0}\frac{2}{\alpha-3} \tag{3.28}\]
+
+\[\left\langle p_{T}^{2}\right\rangle=p_{0}^{2}\frac{6}{(\alpha-3)(\alpha-4)} \tag{3.29}\]To allow these equations to represent strings of arbitrary color \(Q\), one can change \(p_{0}^{2}\rightarrow\,Qp_{0}^{2}\), defining a new distribution:
+
+\[w_{Q}(p_{T})=\frac{(\alpha-1)(\alpha-2)(p_{0}\sqrt{Q})^{\alpha}}{2\pi Qp_{0}^{2} (p_{T}+p_{0}\sqrt{Q})^{\alpha}} \tag{3.30}\]
+
+#### String Fusion with Volume Conservation
+
+In order to introduce the possibility for a first order phase transition, the previous case can be modified to include the conservation of string volume [55]. The qualitative result of including volume conservation is that fused strings will be of a larger transverse size than single strings. In the previous section, a fused string was of the same transverse size as a string after fusing, meaning as fusions occurred in the system, there was no increase in the probability for future fusions as the area covered in strings continually decreased with fusion. The case of volume conservation increases the probability of clusters fusing with other strings/clusters as its transverse area increases.
+
+In order to include volume conservation, the method for fusion (Equation (3.21)) needs to be modified. This is derived in [55] and reaches the following form:
+
+\[w=(1-Nx)^{M} \tag{3.31}\]
+
+The total probability for the creation of \(\nu_{n}\) strings of color n is then:
+
+\[P_{v_{n}}=c\frac{Q^{N}x^{N-M}(1-Nx)^{M}}{\prod\limits_{n=1}(v_{n}!(n!)^{v_{n}})} \tag{3.32}\]
+
+It should be noted that if x becomes greater than \(\frac{1}{N}\), the entire medium will become one cluster, which can be viewed as being the formation of the QGP. This method was used in the Monte Carlo simulation reported in reference [69].
+
+The Monte Carlo code introduced in references [62, 33] was later updated in reference [69]. In this code, it was modified to include more the volume conservation picture.
+
+#### 3.4.2 Color String Dynamics in the Color String Percolation Model
+
+The interactions of partons in heavy-ion collisions can be represented by color strings being stretched across the interaction area. When strings overlap, the above Monte Carlo simulations spatially fused them into a larger string. The CSPM instead has overlapping strings form a cluster containing a color field equal to the vectorial sum of the color charges of the individual strings with no spatial modification. A cluster is thus made up of a homogeneous color charge that is spread over the its area [60]. For notation purposes, if a system has \(N\) overlapping strings, they will form a cluster of \(n\) strings. The cluster will have an energy and momentum that conserves the energy and momentum of the \(N\) original strings. The original color strings are assumed to have a color charge \(\vec{Q_{0}}\) that is randomly oriented in color space. Due to this random orientation, the following can be shown to be true:
+
+\[\left\langle\vec{Q_{0i}}\cdot\vec{Q_{0j}}\right\rangle=0 \tag{3.33}\]
+
+In the case of \(N\) strings completely overlapping, the vectorial sum of the color charges of the cluster reduces to:
+
+\[Q_{n}=\frac{nQ_{0}}{\sqrt{n}} \tag{3.34}\]
+
+Instead of strings adding to form a larger color charge equal to _nQ\({}_{0}\)_, it can be seen there is a color reduction of \(\frac{1}{\sqrt{n}}\). The cluster, however, will have a color charge equal to or larger to that of a single string. This color reduction factor is only true in the case of complete overlap. In general the area of the cluster of \(n\) strings (\(S_{n}\)) can vary between the size of a single string (\(\sigma_{0}\)) and the size of \(N\) strings that are just touching (_N_\(\sigma_{0}\)). The color reduction can be modified to account for the ratio of the size of the cluster and the size of the string, becoming \(\sqrt{\frac{S_{n}}{n\sigma_{0}}}\).
+
+It is possible to propagate the modified color charge to expected modifications to specific observables for the produced particles. In the Schwinger model, \(\mu_{n}\) is proportional to the color charge \(Q_{n}\), and the \(\left\langle{p_{T}}^{2}\right\rangle\) is proportional to the string tension
+
+[MISSING_PAGE_EMPTY:60]
+
+\[\left\langle p_{T}^{2}\right\rangle_{N}=\frac{\left\langle{p_{T}}^{2}\right\rangle _{0}}{F(\xi)} \tag{3.40}\]
+
+The above equations are able to match the experimental data since the expected multiplicity will be lower and the \(\left\langle p_{T}^{2}\right\rangle\) will be higher than if strings were not allowed to interact (as many models had attempted in scaling the pp system to AuAu systems using the number of strings). As was mentioned earlier, the number of strings created in a heavy-ion collision is expected to increase with the energy and/or the atomic number of the projectile and target [61]. As more overlaps occur, more clusters of interacting strings will form. In the CSPM prediction, these clusters will become areas of uniform color field. A depiction of how such a system would look, with clusters of area \(S_{N}\) is shown in Figure 3.7.
+
+Figure 3.7: The strings add upon one another forming larger clusters. The number denotes the number of strings in the cluster [53].
+
+The CSPM was tested by using the earlier described Monte Carlo simulation to generate strings in a collision area, but then using predictions from the CSPM instead of traditional string decay equations [70, 71, 34, 46]. This model was also modified to make connections with the temperature of the initial moment of the collision, as was introduced in Section 3.1.2. Approximately \(\frac{2}{3}\) of the particles created in the collision are pions. The exponential form of the \(p_{T}\) distribution of pions (the Schwinger distribution for massless particles [37]) can then be used to find that:
+
+\[\frac{dn}{{dp_{T}}^{2}}{\sim}exp\left(-\frac{\pi{p_{T}}^{2}}{\langle\kappa^{2 }\rangle}\right) \tag{3.41}\]
+
+where the average value of the string tension is \(\langle\kappa^{2}\rangle\). This needs to be related to the standard thermal distribution:
+
+\[\frac{dn}{{dp_{T}}^{2}}{\sim}exp\left(-\frac{\pi{p_{T}}}{T}\right) \tag{3.42}\]
+
+This can be accomplished by transforming the Schwinger Mechanism into the thermal distribution through the use of the Gaussian fluctuations in the string tension [49]:
+
+\[\frac{dn}{{dp_{T}}^{2}}{\sim}exp\left(-{p_{T}}\sqrt{\frac{2\pi}{\langle\kappa^ {2}\rangle}}\right) \tag{3.43}\]
+
+Noting that \(\langle\kappa^{2}\rangle=\frac{\pi\left\langle p_{T}^{2}\right\rangle_{0}}{F( \xi)}\), the distribution can be rewritten in the form:
+
+\[\frac{dn}{{dp_{T}}^{2}}{\sim}exp\left(-{p_{T}}\sqrt{\frac{2F(\xi)}{\langle p_ {T}^{2}\rangle_{0}}}\right) \tag{3.44}\]
+
+This form can then be compared with the standard thermal distribution given by Equation 3.42 in order to find the initial temperature of the collision:
+
+\[T(\xi)=\sqrt{\frac{{\langle{p_{T}}^{2}\rangle}_{0}}{2F(\xi)}} \tag{3.45}\]
+
+## 4 Experimental Methods
+
+### Color String Percolation Analysis
+
+The analysis utilizing the Color String Percolation Model (CSPM) followed the methodology described in Section 3.3. The pp data set included collisions at \(\sqrt{S}\) = 200 GeV. The AuAu data sets were collected in 2004, 2010, and 2011. There were two AuAu 200 GeV sets analyzed, with approximately 1M minimum bias events from 2004, and 432k minimum bias events from 2010. A minimum bias event refers to those events that created a signal in both ZDCs within a time window consistent with an event occuring in the STAR detector. No other cuts were applied to these data sets when stored. The AuAu data at \(\sqrt{S_{NN}}\) = 7.7, 11.5, 19.6, 27, 39, and 62.4 GeV were taken as part of the RHIC's beam energy scan (BES I) program, which ran between 2010 and 2011. All data analyzed from these energies were minimum bias data. The BES I data was only analyzed in the 0-10% centrality range, and a summary of the triggers used and the statistics of each data set are included in Table 4.1 (with AuAu 200 GeV from 2010 included for that same centrality). In the following sections, the 2010 AuAu 200 GeV is described unless the 2004 set is noted.
+
+Various cuts were applied to the data in order to restrict the analysis to particles detected in regions of good detector acceptance and to prevent certain physics phenomena from impacting the results. In particular, the primary event vertex for the events were restricted in the beam-axis to be within 30 cm of the center of the STAR detector (\(|V_{Z}|\leq\) 30cm). Due to lower number of particles per event at lower energies, this range was increased to 50 cm for the \(\sqrt{S_{NN}}\) = 19.6, 27, 39, and 62.4 GeV data sets, and to 200 cm for the \(\sqrt{S_{NN}}\) = 7.7 and 11.5 GeV data sets. This accepts more events to help boost statistics. The radial vertex position (\(V_{r}\)) of accepted events was also restricted to be within 2 cm of the beam pipe's center. At lower energies, thebunches accelerating around the ring become more spread out in the transverse plane and ions can interact with the beampipe, creating particles that are reconstructed in what appears to be an actual event. An example of how the distribution of \(V_{r}\) looks is in Figure 4.1. The accepted pseudo-rapidity range was \(|\eta|\leq 0.5\) due to the fact that the CSPM predictions apply to mid-rapidity data. This \(\eta\) range is well within good detector acceptance. A minimum \(p_{T}\) of 0.15 \(\frac{GeV}{c}\) was used due to detector acceptance, and a maximum \(p_{T}\) of 2.0 \(\frac{GeV}{c}\) was used to minimize the inclusion of jets in this analysis. Particles were only included if they had a distance of closest approach to the event vertex of 3 cm or less (\(|dca|\leq\) 3 cm) to maximize the probability that the particle originated from that event. The number of fit points along the track was required to be \(\geq\) 15. This restricts the data to include only those particles that were accurately tracked by the TPC. These cuts are outlined in Table 4.2.
+
+After applying these cuts, the charged hadron \(p_{T}\) distribution was created by recording the \(p_{T}\) of all particles in all the accepted events. The pp data was analyzed by using the following power law fit to characterize the \(p_{T}\) spectra [72]:
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline Energy (GeV) & Year & Trigger Number & Events & Particles (\(10^{6}\)) \\ \hline
+7.7 & 2010 & 290001, 290004 & \(\sim\)6k & 1.0 \\ \hline
+11.5 & 2010 & 310004, 310014 & \(\sim\)152k & 32.6 \\ \hline
+19.6 & 2011 & 340021, 340011 & \(\sim\)110k & 28.2 \\ \hline
+27 & 2011 & 360001 & \(\sim\)128k & 35.6 \\ \hline
+39 & 2010 & 280001 & \(\sim\)100k & 21.2 \\ \hline
+62.4 & 2010 & 270011 & \(\sim\)132k & 42.5 \\ \hline
+200 & 2010 & 260001, 260011, 260021, 260031 & \(\sim\)43k & 16.1 \\ \hline \end{tabular}
+\end{table}
+Table 4.1: A list of the 0-10% centrality data used in the CSPM analysis. The trigger numbers were those used to ensure the data were only from minimum bias events. The number of events and particles in the data sample are reported after the primary cuts in this analysis were applied.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline Variable & Minimum & Maximum & Energies Cuts Were Applied \\ \hline \(V_{Z}\) & \(-30cm\) & 30cm & 200 GeV \\ \hline \(V_{Z}\) & \(-50cm\) & 50cm & 19.6, 27, 39, and 62.4 GeV \\ \hline \(V_{Z}\) & \(-200cm\) & 200cm & 7.7 and 11.5 GeV \\ \hline \(V_{r}\) & \(0cm\) & 2cm & All Except 200 GeV \\ \hline \(\eta\) & \(-0.5\) & 0.5 & All \\ \hline \(p_{T}\) & \(0.15~{}\frac{GeV}{c}\) & \(2.0~{}\frac{GeV}{c}\) & All \\ \hline dca & \(-3cm\) & 3cm & All \\ \hline NFit & 15 hits & 45 hits & All \\ \hline \end{tabular}
+\end{table}
+Table 4.2: Cuts used in the CSPM Analysis.
+
+Figure 4.1: Radial vertex positions of 197k minimum bias events at 7.7 GeV. It is necessary to make a radial cut to exclude events beyond a radial distance of 2 cm from the beam pipe’s center in order to avoid contamination.
+
+\[\frac{dn}{dp_{T}^{2}}=\frac{a}{(p_{0}+p_{T})^{\alpha}} \tag{4.1}\]
+
+where the variable \(a\) is the normalization constant, and \(p_{0}\) and \(\alpha\) are the free parameters to be extracted. AuAu data of the same energy can then be analyzed using a similar power law fit using the extracted pp parameter, and a modification to the \(p_{0}\) term in order to account for the effects of color suppression [34]:
+
+\[p_{0}{\rightarrow}p_{0}\left(\frac{\left<\frac{n\sigma_{0}}{S_{n}}\right>_{AuAu }}{\left<\frac{n\sigma_{0}}{S_{n}}\right>_{pp}}\right)^{\frac{1}{4}}{ \rightarrow}p_{0}\frac{\sqrt{F(\xi_{pp})}}{\sqrt{F(\xi_{AuAu})}} \tag{4.2}\]
+
+where \(F(\xi_{pp})\) is the color suppression for pp data, and \(F(\xi_{AuAu})\) is the color suppression factor for AuAu data. In reference [65], it is noted that \(F(\xi_{pp})\) can be treated as 1 due to the small likelihood for overlap in minimum bias pp collisions. This information reduces Equation (4.2) to:
+
+\[p_{0}{\rightarrow}\frac{p_{0}}{\sqrt{F(\xi_{AuAu})}} \tag{4.3}\]
+
+For simplicity, in all future discussion, \(F(\xi_{AuAu})\) will be referred to as \(F(\xi)\). This reduced form for the modified \(p_{0}\) can be substituted into the fitting function (Equation (4.1)), to obtain the following fitting function for AuAu collisions:
+
+\[\frac{dn}{dp_{T}^{2}}=\frac{a^{\prime}}{\left(\frac{p_{0}}{\sqrt{F(\xi)}}+p_{T }\right)^{\alpha}} \tag{4.4}\]
+
+where _a_' denotes a normalization constant that differs from the a used in the pp fit, and \(p_{0}\) and \(\alpha\) are the parameters extracted from the pp fit. This fitting function can be applied to AuAu data in order to extract an \(F(\xi)\), which can then be used to identify the density parameter \(\xi\) for the event by using Equation (3.38). Illustrative plots for the parameterization of the pp and 0-10% AuAu collisions (from the 2004 data set) at 200 GeV can be found in Figure 4.2 and Figure 4.3, respectively.
+
+It should be noted that pp data does not exist for all the energies of AuAu collisions analyzed. As a result, it was necessary to trust the assumption that \(\mbox{\it F}(\xi)_{pp}\)=1 throughout this analysis. One would not expect the extracted \(p_{0}\) or \(\alpha\) to vary much with energy in pp collisions, but this is an assumption that needs to be noted.
+
+The above procedure requires the creation of the \(p_{T}\) spectrum for all the accepted particles of the events analyzed. The spectrum is created by going through each event and recording the \(p_{T}\) of each accepted particle. As this method uses all the events analyzed, it will be referred to as the All Event (AE) method in future discussions. Another method was devised in order to search for fluctuations in temperature. In it, the \(p_{T}\) spectrum of individual events was created, and then the above CSPM method was applied. The \(\langle p_{T}\rangle\) and the \(\mbox{\it F}(\xi)\) for each event was then recorded. This method will be referred to as the Event by Event (EbE) method in future discussions. A good check for this analysis was to compare the \(\langle p_{T}\rangle\) of the spectrum produced in the AE method with the \(\langle\langle p_{T}\rangle\rangle\) of the EbE method to confirm they matched (as they should
+
+Figure 4.2: Illustrative fit of \(p_{T}\) for pp 200 GeV collisions.
+
+for a system with enough statistics). The \(F(\xi)\) extracted in the AE method should also match the \(\langle F(\xi)\rangle\) extracted in the EbE method.
+
+The EbE method applies the power law fit to a spectrum of drastically reduced statistics as compared to the spectrum of the AE method. With such few statistics, several events that were accepted for analysis were not successfully fit. In order to improve the above mentioned comparisons between the AE and the EbE methods, a requirement was made that the AE method only use events that were successfully fit in the EbE method. This requirement keeps the analyzed set of events the same in both methods.
+
+### Correlation Study Analysis (\(\langle\Delta p_{T,i}\Delta p_{T,j}\rangle\))
+
+A beam energy scan (BES I) was conducted at the RHIC to search for evidence of the phase transition critical point to the QGP. Several theoretical models indicate
+
+Figure 4.3: Fit of \(p_{T}\) for AuAu 200 GeV collisions.
+
+that the formation of the QGP could create event-by-event fluctuations in several observables, one specifically being the mean transverse momentum of an event [73, 74, 75, 76, 77, 78]. The observation of such a fluctuation would help confirm the creation of the QGP in collisions, and could also potentially be linked with the critical point of the phase transition [73, 76]. This analysis calculates the two-particle \(p_{T}\) correlation function (\(\left\langle\Delta p_{T,i}\Delta p_{T,j}\right\rangle\)) to search for such a fluctuation.
+
+The correlation function depends on the ability to conduct an EbE analysis. The \(\left\langle p_{T}\right\rangle\) of an event is defined as:
+
+\[<p_{T}>=\frac{1}{N}\sum\limits_{i=1}^{N}p_{T,i} \tag{4.5}\]
+
+where \(N\) is the multiplicity of accepted tracks in the event and \(p_{T,i}\) is the transverse momentum of the \(i\)th track [79]. The \(\left\langle\left\langle p_{T}\right\rangle\right\rangle\) of a sample of events can then be defined as:
+
+\[\left\langle\left\langle p_{T}\right\rangle\right\rangle=\frac{\sum\limits_{k =1}^{N_{event}}\left\langle p_{T}\right\rangle_{k}}{N_{event}} \tag{4.6}\]
+
+where \(\left\langle p_{T}\right\rangle_{k}\) is the average transverse momentum of the particles in the \(k\)th event, and \(N_{k}\) is the number of particles in that event. Finally, the correlation function can be defined as:
+
+\[\left\langle\Delta p_{T,i},\Delta p_{T,j}\right\rangle=\frac{1}{N_{event}}\sum \limits_{k=1}^{N_{event}}\frac{C_{k}}{N_{k}(N_{k}-1)} \tag{4.7}\]
+
+where \(N_{event}\) is the number of events, and \(C_{k}\) is the two particle transverse momentum covariance for the \(k_{th}\) event, defined as:
+
+\[C_{k}=\sum\limits_{i=1}^{N_{k}}\sum\limits_{j=1,i\neq j}^{N_{k}}\left(p_{T,i}- \left\langle\left\langle p_{T}\right\rangle\right\rangle\right)\left(p_{T,j}- \left\langle\left\langle p_{T}\right\rangle\right\rangle\right) \tag{4.8}\]
+
+The covariance term is designed such that if the fluctuations in two variables are uncorrelated, the covariance will go to zero [80]. If the correlation function is positive, the fluctuations in the two variables are positively correlated, meaning a change in one tends to create a similar change in the other. If the correlation function is negative, the fluctuations in the two variables are anti-correlated, meaning a change in one creates an opposite change in the other.
+
+The above procedure was employed in earlier studies at STAR. Four energies of AuAu collisions were studied in reference [79]. A comparison between AuAu and CuCu collisions was conducted at two energies in reference [81]. The BES I data was analyzed for all centralities in reference [1]. All of these analyses examined the \(p_{T}\) spectrum consisting of all charged hadrons.
+
+Part of the goal of this study was to confirm the results previously reported for the BES I data. During the course of the CSPM analysis (as well as in reference [1]), it was shown that the \(\langle\langle p_{T}\rangle\rangle\) begins to increase at energies lower than 19.6 GeV. It was suggested in reference [1] that this is due to the increase in the number of protons present at lower energies. This analysis thus focuses on these lower energies and applies particle identification (PID) cuts to remove protons from these lower energies. This tests if the increase in protons masks a potential signal for the critical point.
+
+The data analyzed in this thesis consisted of AuAu collisions at 7.7, 11.5, and 19.6 GeV, and are described in Table 4.3. Various cuts were applied to the data and are similar to those used in the CSPM analysis (Table 4.2). The cuts for this analysis are listed in Table 4.4. A larger data set was selected than was used in the CSPM analysis to ensure statistical errors would be less than the systematic errors for the correlation function. This data set also included TPC and TOF information required for accurate PID. The default cuts used in this analysis are listed in Table 4.4 and match those applied to AuAu 19.6 GeV data in reference [79]. The all charged hadron spectrum was analyzed over the \(p_{T}\) range of 0.15 to 2.0 \(\frac{GeV}{c}\). The PID cuts used are explained in the following section.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline \multicolumn{1}{|c|}{Energy (GeV)} & Year & Trigger Number & Events \\ \hline
+7.7 & 2010 & 290001, 290004 & 35k \\ \hline
+11.5 & 2010 & 310004, 310014 & 6.1M \\ \hline
+19.6 & 2011 & 340021, 340011 & 5.9M \\ \hline \end{tabular}
+\end{table}
+Table 4.3: A list of the minimum bias data used in the correlation analysis. The trigger numbers were those used to ensure the data were only from minimum bias events. The number of events in the data sample are reported after the primary cuts in this analysis were applied.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline \multicolumn{1}{|c|}{Variable} & Minimum & Maximum & Energies Cuts Were Applied \\ \hline \(V_{Z}\) & \(-75\) cm & 75 cm & All \\ \hline \(V_{r}\) & 0 cm & 2 cm & All \\ \hline \(\eta\) & \(-1.0\) & 1.0 & All \\ \hline \(p_{T}\) & \(0.15\ \frac{GeV}{c}\) & \(2.0\ \frac{GeV}{c}\) & All \\ \hline dca & \(-1\) cm & 1 cm & All \\ \hline NFit & 15 hits & 45 hits & All \\ \hline Fraction Hit & 0.52 & 1.0 & All \\ \hline \end{tabular}
+\end{table}
+Table 4.4: Cuts used in the Two Particle \(p_{T}\) Correlation Analysis portion of this thesis.
+
+the medium, that particle's atomic number and atomic mass, and the momentum of the particle.
+
+The measured energy loss can be compared with the theoretical expectation by defining:
+
+\[z=\ln\frac{\frac{dE}{dx\,measured}}{\frac{dE}{dx\,theory}} \tag{4.9}\]
+
+This can be calculated for the various particle species, and measured particles can be recorded as being within a number of \(\sigma\) of the measurement. A similar \(\sigma\) method can be applied to the mass vs momentum plot shown for the TOF.
+
+In this thesis, protons were removed by having a cut on particles with more than a \(2\sigma\) difference from the expected kaon distribution. Figure 4.4 shows the average ionization energy lost for 3M minimum bias events. Figure 4.5 shows the same data with an added cut on the \(\sigma_{kaon}\) to remove protons. It should be noted that at higher momenta, protons will be included in the data as they produce the same signal as the kaons. This was considered in the selection of momentum range analyzed.
+
+Figure 4.4: Example for PID for 3M minimum bias events reduced to 0-10% centrality. The lowest band corresponds to pions, followed by kaons, then protons, and finally deuterons.
+
+Figure 4.5: Example for PID for 3M minimum bias events reduced to 0-10% centrality with a cut to remove protons.
+
+## 5 Results and Discussion of the CSPM Analysis
+
+Various energies and centralities were analyzed using the CSPM. The primary motivation for this analysis was to use the \(F(\xi)\) extracted from data to calculate the temperature of the initial moment of AuAu collisions at various energies. To better understand these results, several tests were conducted to gauge the accuracy and reliability of the model. The quality tests (primarily variations in the analysis procedure) are outlined in Section 5.2. The various tests developed to search for self-consistency in the model are discussed in Section 5.3.
+
+### CSPM Results
+
+The CSPM analysis requires a fit of the \(p_{T}\) spectrum of pp and AuAu collisions. The fitting function (Equation 4.1) was used on pp 200 data in order to extract the \(p_{0}\) and \(\alpha\) parameters. The cuts used in this study match those listed for 200 GeV data in Table 4.2. The \(p_{T}\) spectrum was stored in a histogram of 50 bins. All fits were run until a successful status was reached. The extracted parameters were:
+
+\[\begin{array}{c}\mbox{p}_{0}\mbox{ = 2.943 $\pm$ 0.012}\\ \mbox{$\alpha$ = 16.95 $\pm$ 0.06}\end{array} \tag{5.1}\]
+
+Using the above \(p_{0}\) and \(\alpha\) values, the central (0-10%) AuAu data (listed in Table 4.1) were analyzed using the cuts listed in Table 4.2. The extracted \(F(\xi)\), the corresponding \(\xi\) and temperature, and the \(\frac{\chi^{2}}{NDF}\) for the fit are listed in Table 5.1.
+
+The reported \(\frac{\chi^{2}}{NDF}\) values are quite high. A sample of \(\sim\) 3M particles from pp 200 GeV data taken in 2004 was analyzed and the residuals between the fit and the data for that sample were made. Using \(\mid\)\(V_{z}\)\(\mid\)\(\leq\) 20 cm, \(\mid\)\(\eta\)\(\mid\)\(\leq\) 0.5, and a \(\mid\)\(dca\)\(\mid\)\(\leq\) 2 cm,the data were fit over the \(p_{T}\) range of 0.4 to 1.2 \(\frac{GeV}{c}\). Figure 5.1 shows the residuals when using 150 bins, and the extracted parameters were \(p_{0}\) = 1.68 \(\pm\) 0.028, and \(\alpha\) = 11.44 \(\pm\) 0.14, with a \(\frac{\chi^{2}}{NDF}\) of 2.16. Figure 5.2 shows the residuals when using 50 bins, and the extracted parameters were \(p_{0}\) = 1.67 \(\pm\) 0.021, and \(\alpha\) = 11.43 \(\pm\) 0.1, with a \(\frac{\chi^{2}}{NDF}\) of 4.54. Both fits gave consistent results, and though the reported \(\frac{\chi^{2}}{NDF}\) were a factor two different, this appears to primarily be due to binning, and not due to a difference in the quality of the fits. The residuals show areas where the fitting function underestimates the data, and some areas where it overestimates. Overall, this does not appear to be the best fit for the data. The high \(\frac{\chi^{2}}{NDF}\) is most likely due to this quality of the fit, and not due to an underestimation in errors.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline Energy (GeV) & F(\(\xi\)) & \(\xi\) & Temperature (MeV) & \(\frac{\chi^{2}}{NDF}\) \\ \hline
+7.7 & 0.770 & 1.156 & 167 & 53.117 \\ \hline
+11.5 & 0.816 & 0.877 & 162 & 479.741 \\ \hline
+19.6 & 0.828 & 0.809 & 161 & 230.312 \\ \hline
+27 & 0.812 & 0.900 & 163 & 319.314 \\ \hline
+39 & 0.786 & 1.055 & 165 & 234.074 \\ \hline
+62.4 & 0.747 & 1.307 & 170 & 552.768 \\ \hline
+200 & 0.634 & 2.217 & 184 & 417.955 \\ \hline \end{tabular}
+\end{table}
+Table 5.1: CSPM fit results for central (0-10%) events at various energies.
+
+### CSPM Discussion
+
+The following discussion is focused on modifications to the fitting procedure in order to gauge the reliability of the CSPM results. As was described in Section 4.1, to make sure results from the AE and EbE methods were compatible, the AE study was restricted to those events that were successfully fit in the EbE method. This condition was applied throughout the following studies.
+
+The test for if the condition that an event be able to be successfully fit before being included in the AE and the EbE method is discussed in Section 5.2.1. The effect varying the \(p_{T}\) fit range has on this analysis is studied in Section 5.2.2. The effects of changing the binning of the histograms that store the \(p_{T}\) spectra, changing the \(V_{z}\) cut, and changing the dca cut are reported in Section 5.2.3. The analysis of \(\Delta T\) fluctuations is presented in Section 5.2.4. The behavior of the \(F(\xi)\) value with
+
+Figure 5.1: Residuals of the CSPM Fit in a histogram of 150 bins.
+
+varying centrality is studied in Section 5.2.5. A comparison of the results documented in this thesis and the results of prior publications is described in Section 5.2.6.
+
+A systematic study using four different \(p_{0}\) and \(\alpha\) pairs to fit twelve \(p_{T}\) ranges is reported for the BES I energies in Section 5.2.7. This result is used to identify how much error can be expected for the temperature reported in the CSPM analysis from choices in how the data was analyzed. Due to the large amount of data in this section, correpsonding tables are listed in Appendix B.
+
+#### All Event Versus Event by Event
+
+As described in Section 4.1, the data were analyzed using two methods. The Event by Event (EbE) method involves applying the CSPM fit to each event, and if it is successful, recording the \(F(\xi)\) for that event. The \(p_{T}\) spectrum of that event is then
+
+Figure 5.2: Residuals of the CSPM Fit in a histogram of 50 bins.
+
+added to the cumulative \(p_{T}\) spectrum of the All Event (AE) method. Once all events are analyzed (and filtered) through the EbE method, the AE \(p_{T}\) spectrum can be fit using the same fitting function. This procedure decreases the number of events that can be included in the AE method as compared to if no such condition was made.
+
+Central (0-10%) events of AuAu collisions at 200 GeV were analyzed in the AE case with and without the requirement that all included events need be successfully fit. The cuts listed in Table 4.2 were used, with the change that a fit range of 0.20-2.0 \(\frac{GeV}{c}\) was used. The addition of the requirement that an included event be successfully fit reduced the AE sample from 42,823 events to 37,014 events. The \(\langle p_{T}\rangle\) of the events changed from 0.5814 \(\frac{GeV}{c}\) to 0.5807 \(\frac{GeV}{c}\), and the \(\langle p_{T}^{2}\rangle\) of the events changed from 0.4687 \(\frac{GeV^{2}}{c}\) to 0.4678 \(\frac{GeV^{2}}{c}\). Finally, the F(\(\xi\)) was found to change from 0.6117 to 0.6197. This corresponds to a change in extracted temperature of \(\sim\) 1 MeV. The number of events rejected by this condition is large, but the impact it has on the results of this study appear to be very small.
+
+#### 5.2.2 Varying \(p_{T}\) Fit Range
+
+A study on the effect of varying the \(p_{T}\) fit range was conducted on the pp 200 GeV and AuAu 200 GeV data. The applied cuts match those listed in Table 4.2. The pp 200 GeV fit results are listed in Table 5.2. In it, the values of the extracted parameters (\(p_{0}\) and \(\alpha\)), the final status of the fit, and the \(\frac{\chi^{2}}{NDF}\) of the fits are listed for each \(p_{T}\) fit range. The fit for the \(p_{T}\) range of 0.15 to 1.0 \(\frac{GeV}{c}\) never reached a successful fit status. This is most likely due to a small data range that may not match the power-law function tested. The \(p_{T}\) fit range of 0.2 to 1.0 \(\frac{GeV}{c}\) suffers a similar problem, supporting the interpretation that the shape of the spectrum when restricted to \(p_{T}\) values \(\leq\) 1.0 \(\frac{GeV}{c}\) does not seem consistent with a power-law distribution. A status result of problems means the fit parameters are extracted, but that it is unclear if this is a local or global \(\frac{\chi^{2}}{NDF}\) minimum for those parameters.
+
+The parameters from the successful fits in Table 5.2 were applied to AuAu 200 GeV collision data using the same cuts and fit ranges. These results are listed in Table 5.3.
+
+The \(F(\xi)\) values extracted using the AE method appear primarily unchanged as the \(p_{T}\) fit range is varied. Similarly, the \(F(\xi)\) extracted using the EbE method (more specifically the average of the \(F(\xi)\) values extracted from successfully fit events) appears primarily unchanged as the \(p_{T}\) fit range is varied. It is interesting to note
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline \(p_{T}\) Fit Range (GeV) & AE F(\(\xi\)) & EBE F(\(\xi\)) & AE \(\frac{\chi^{2}}{NDF}\) \\ \hline
+0.15 - 2.0 & 0.634 \(\pm\) 0.00028 & 0.6997 \(\pm\) 0.08563 & \(\frac{1.839e4}{44}\)\(\sim\) 418 \\ \hline
+0.2 - 1.2 & 0.630 \(\pm\) 0.0004 & 0.7216 \(\pm\) 0.110 & \(\frac{6053}{23}\)\(\sim\) 263 \\ \hline
+0.2 - 1.5 & 0.6154 \(\pm\) 0.0003 & 0.7025 \(\pm\) 0.093 & \(\frac{8139}{31}\)\(\sim\) 263 \\ \hline
+0.2 - 2.0 & 0.6117 \(\pm\) 0.0003 & 0.6761 \(\pm\) 0.09 & \(\frac{4708}{43}\)\(\sim\) 110 \\ \hline \end{tabular}
+\end{table}
+Table 5.3: Fits of central (0-10%) AuAu 200 GeV collisions using the parameters obtained over the same \(p_{T}\) range in pp 200 GeV data displayed in Table 5.2.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline \(p_{T}\) Fit Range (\(\frac{GeV}{c}\)) & \(p_{0}\) & \(\alpha\) & Fit Status & \(\frac{\chi^{2}}{NDF}\) \\ \hline
+0.15 - 1.0 & & & No Success & \\ \hline
+0.15 - 2.0 & 2.943 \(\pm\) 0.012 & 16.95 \(\pm\) 0.06 & Successful & \(\frac{19790}{43}\)\(\sim\) 460 \\ \hline
+0.2 - 1.0 & 6.647 \(\pm\) 0.009 & 36.13 \(\pm\) 0.04 & Problems & \(\frac{1376}{17}\)\(\sim\) 81 \\ \hline
+0.2 - 1.2 & 3.738 \(\pm\) 0.008 & 21.36 \(\pm\) 0.04 & Successful & \(\frac{2477}{22}\)\(\sim\) 113 \\ \hline
+0.2 - 1.5 & 2.612 \(\pm\) 0.008 & 15.69 \(\pm\) 0.04 & Successful & \(\frac{4143}{30}\)\(\sim\) 138 \\ \hline
+0.2 - 2.0 & 2.145 \(\pm\) 0.007 & 13.38 \(\pm\) 0.04 & Successful & \(\frac{5744}{42}\)\(\sim\) 137 \\ \hline
+0.3 - 1.0 & 3.422 & 20.15 & Successful & \(\frac{381.5}{15}\)\(\sim\) 25 \\ \hline \end{tabular}
+\end{table}
+Table 5.2: Fits of pp 200 GeV collisions using the CSPM method. The fit for a \(p_{T}\) range of 0.15 - 1.0 \(\frac{GeV}{c}\) was never successful and is left blank.
+
+that the EbE values are consistently larger than the AE values (with values \(\sim\) 10-15% larger). Despite this difference in the extracted \(F(\xi)\) of these methods, the average \(p_{T}\) of the particles used in the AE method and the average of the \(\langle p_{T}\rangle\) of the events in the EbE method were compared and found to be consistently within 1% of each other. It is believed that the quality of each fit on the EbE basis is what causes this discrepancy in the \(F(\xi)\) values. With fewer particles to fit, the power law fit may not represent individual events as well as a fuller spectrum. To test this was not the fitter becoming stuck at a local minimum in each method (preventing a convergence in extracted \(F(\xi)\)), both methods were initialized with the \(F(\xi)\) extracted through the other method. Both fits still extracted their originally reported \(F(\xi)\) values, suggesting this is not an issue of bias from initialization values.
+
+The fits conducted in this study were iterated multiple times following a chi-squared minimization algorithm. This process was automated with the condition of running until the fit was successful, or that there were 100 failed attempts (each attempt has 50,000 iterations to search for a minimum in chi-squared). This can also be iterated manually, propagating the previous results into the next fitting attempt. The fit of pp 200 GeV data over the \(p_{T}\) range of 0.3-1.0 \(\frac{GeV}{c}\) needed to be iterated seventeen times before the fit reached a successful verdict. Five iterations are reported in Table 5.4. With each iteration, the chi-squared value decreased in size. The \(p_{0}\) and \(\alpha\) parameters steadily increased and actually went through some of the pairs extracted in other fit ranges. This may suggest that \(p_{0}\) and \(\alpha\) are correlated and that the iterations are moving through various pairs that will satisfy the fitting function. A similar trend was noted with AuAu 200 GeV data, with iterations increasing the \(F(\xi)\) value before it was successful.
+
+#### Systematic Studies
+
+The entire basis of the CSPM analysis depends on the ability to accurately fit pp data. A fit that is marked successful can still have a bias in the fitted parameters\(p_{T}\) distribution is linked with choices in cuts applied to the data. The previous section analyzed the impact of choosing a fit range for the data on the analysis. Varying the fit range directly affects the shape of the spectrum fit. Making the range too small can remove all shape of the spectrum, making it impossible to capture the trend in the data. This section addresses variations that are not as clearly linked with such an effect. The number of bins used to organize the \(p_{T}\) spectrum for example can impact the overall shape of the distribution if there are drastic changes in small \(p_{T}\) intervals. Cuts on events could also have an unexpected impact on the results reported in this analysis.
+
+To test binning effects, the 0.2-2.0 \(p_{T}\) range was analyzed with the \(p_{T}\) spectrum being stored in 50 and 100 bins. The only noticeable differences involved the reported error, with an increase in the error on \(p_{0}\) from 0.007 to 0.015, and an increase in the error on \(\alpha\) from 0.04 to 0.07. The \(\frac{\chi^{2}}{NDF}\) also changed from \(\frac{5744}{42}=136.8\) to \(\frac{6014}{87}=69.13\).
+
+The AuAu 200 GeV data had the smallest accepted \(V_{z}\) range as compared to all the energies analyzed. A study of the impact of changing the \(|V_{z}|\) range from \(\pm\) 30 cm to \(\pm\) 10 cm was conducted for the \(p_{T}\) range of 0.2-2.0 \(\frac{GeV}{c}\). Changing the \(V_{z}\) range resulted in a drop in accepted events from 42,823 to 10,603 events. There was a trivial change in \(\langle p_{T}\rangle\) and \(F(\xi)\). The \(\langle p_{T}\rangle\) decreased from 0.581 to 0.579 GeV, and the AE F(\(\xi\)) increased from 0.638 to 0.643. The EbE \(F(\xi)\) had a similar magnitude of change, increasing from 0.703 to 0.707. These changes correspond to only a difference of 1 MeV for the calculated temperatures.
+
+A test for the impact changing the dca has on this analysis was conducted. The pp and AuAu 200 GeV data was analyzed for the \(p_{T}\) range of 0.15 to 2.0 \(\frac{GeV}{c}\). Results are shown in Table 5.5 and Table 5.6.
+
+There is a noticeable change to both the value of \(p_{0}\) and \(\alpha\) when changing the dca, however, the change in the fit of the AuAu data using those parameters has a negligible difference, equating to a change in temperature less than 1 MeV.
+
+#### 5.2.4 \(\Delta T\) Fluctuation and Width Study
+
+The EbE analysis was conducted to allow a study of temperature fluctuation. The 0-10% AuAu 200 GeV data was analyzed. The cuts included a \(\mid V_{z}\mid\leq\) 30 cm, an \(\mid\eta\mid\leq\) 0.5, a \(|\)dca\(|\leq\) 2 cm, and the number of fit points \(\leq\) 15. In Table 5.5, the pp200 GeV data was fit over the \(p_{T}\) range of 0.15 and 2.0 \(\frac{GeV}{c}\). A \(p_{0}\) = 3.6 and an \(\alpha\) = 19.77 was extracted. These values were used in this study. The following fits were run until a status of successful was reached. The fits were initialized with an \(F(\xi)\) = 1.
+
+Table 5.7.
+
+Event by Event analysis searching for temperature fluctuations.
+
+\begin{tabular}{|c|c|c|c|} \hline Additional Cuts & AE F(\(\xi\)) & EbE F(\(\xi\)) & EbE Temperature (MeV) \\ \hline Default & 0.6382 & 0.7021 \(\pm\) 0.0895 & 175.9 \(\pm\) 11.15 \\ \hline
+0.2-2.0 & 0.6482 & 0.7185 \(\pm\) 0.09596 & 174 \(\pm\) 11.56 \\ \hline
+0.2-1.5 & 0.6606 & 0.7478 \(\pm\) 0.09800 & 170.5 \(\pm\) 11.34 \\ \hline
+0.2-1.2 & 0.677 & 0.7634 \(\pm\) 0.1091 & 169.0 \(\pm\) 12.54 \\ \hline
+0.2-1.2, \(\mid V_{z}\mid\leq\) 10 & 0.6772 & 0.7618 \(\pm\) 0.1103 & 169.2 \(\pm\) 12.78 \\ \hline
+0.3-1.0 & 0.7011 & 0.7528 \(\pm\) 0.1335 & 171.1 \(\pm\) 16.55 \\ \hline \(\mid\eta\mid\leq\) 0.2 & 0.6355 & 0.6169 \(\pm\) 0.1435 & 190.6 \(\pm\) 23.7 \\ \hline \end{tabular}
+
+The recorded uncertainty for the EbE \(F(\xi)\) is actually the sigma of the approximate Gaussian formed for the number of events vs \(F(\xi)\) plot. The recorded uncertainty for the EbE Temperature is also the sigma of the approximate Gaussian formed for the corresponding plot. It can be seen that only the tests for a \(p_{T}\) range of 0.3-1.0 \(\frac{GeV}{c}\) and the test with \(\mid\eta\mid\leq\) 0.2 observed a strong change in sigma as compared to the sigma using default cuts.
+
+The \(\mid\eta\mid\leq\) 0.2 data have the most dramatic change in EbE \(F(\xi)\) value recorded, and is very similar to the AE \(F(\xi)\) reported for that test. This set recorded the highest temperature (\(\sim\)15 MeV greater than the other tests) and the largest temperature fluctuation (almost by a factor of two). As a smaller pseudorapidity limits the data to those particles with a higher \(p_{T}\), this shift towards a higher temperature makes sense. However, the statistics on the EbE basis should also have decreased, resulting in a worse quality of fit. It is unclear why this range has such similar agreement with the AE F(\(\xi\)) value. A similar phenomenon can be observed in the data set with a \(p_{T}\) range of 0.3-1.0 \(\frac{GeV}{c}\), where the EbE and AE \(F(\xi)\) values are only \(\sim\) 0.05 different. This effect is not purely a statistical effect as the data set using a \(p_{T}\) range of 0.2-1.2 \(\frac{GeV}{c}\) was analyzed with a reduction in number of events due to the inclusion of \(\mid V_{z}\mid\leq\) 10 cm and still produced the same results for the AE method.
+
+#### Varying Data Centrality
+
+A study was conducted on the effect of varying the centrality of AuAu 200 GeV collisions. This analysis used the same cuts as listed in Table 4.2, with the exception that \(\mid V_{z}\mid\leq\) 35 cm. The CSPM predicts that F(\(\xi\)) should decrease with increasing energy and increasing centrality.
+
+The AE and EbE \(F(\xi)\) values do indeed appear to decrease with increasing centrality. The EbE \(F(\xi)\) is also always larger than the AE \(F(\xi)\). This is most likely due to the nature of the fit on an event by event basis with fewer statistics than the AE method. The expected temperature from both methods show a slight decrease in temperature with the transition to peripheral collisions.
+
+As discussed earlier in Section 4.1, only minimum bias events were analyzed in this thesis. For this data, the centrality of events was calculated with a comparison to the Glauber model, using information from the reference multiplicity of an event
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|c|} \hline Centrality & Events & \(<p_{T}>\) & AE F(\(\xi\)) & EbE F(\(\xi\)) & AE Temperature & EbE Temperature \\ \hline
+0-2.6\% & 8,125 & 0.583 & 0.630 & 0.693 & 185 MeV & 177 MeV \\ \hline
+0-5\% & 19,695 & 0.582 & 0.634 & 0.698 & 184 MeV & 176 MeV \\ \hline
+5-10\% & 23,684 & 0.579 & 0.643 & 0.707 & 183 MeV & 175 MeV \\ \hline
+0-10\% & 42,823 & 0.581 & 0.638 & 0.703 & 183 MeV & 176 MeV \\ \hline
+20-30\% & 47,843 & 0.569 & 0.679 & 0.706 & 178 MeV & 177 MeV \\ \hline \end{tabular}
+\end{table}
+Table 5.8: CSPM fits for various centralities of AuAu events at 200 GeV.
+
+to estimate the event's centrality. As the reference multiplicity of an event refers to particles detected with an \(\mid\eta\mid\leq 0.5\), these same particles are used in the analysis. Using a group of particles both in the cuts and in the analysis of an event can lead to auto-correlations, which can affect physics analysis.
+
+The ZDC can be used to estimate the centrality of an event from the deposited energy by spectator neutrons. There are specific trigger configurations recorded with data to mark an event as being one with sufficient ZDC signal to be a central collision as registered by the ZDC. There is AuAu 200 GeV data with these triggers, and more specifically, with the criteria that any events recorded will have a 0-12% centrality.
+
+AuAu 200 GeV data from 2004 was analyzed for this study. This data set was acquired by requiring trigger 15105 fired, which means that the ZDC could be analyzed on the event. The minimum bias 2004 data was restricted to the centrality of 0-10% with a refmult \(\geq\) 431. The ZDC trigger was used with and without this restriction to again gauge variations. The data had \(\mid V_{z}\mid\leq\) 20 cm, \(\mid dca\mid\leq\) 2 cm, \(\mid\eta\mid\leq\) 0.5, and a minimum of 15 fit points from the TPC. All events were fit from \(0.15\leq p_{T}\leq 2.0\)\(\frac{GeV}{c}\).
+
+Table 5.9.
+
+CSPM fits for minimum bias and ZDC triggered AuAu 200 GeV data from 2004.
+
+\begin{tabular}{|c|c|c|c|c|c|} \hline Centrality & Events & Data Type & \(<p_{T}>\) & AE F(\(\xi\)) & \(\frac{\chi^{2}}{NDF}\) \\ \hline
+0-10\% & 858 & MB with Refmult Cut & 0.5895 & 0.5817 \(\pm\) 0.0036 & 2.6556 \\ \hline
+0-12\% & 5033 & ZDC & 0.5910 & 0.5731 \(\pm\) 0.0015 & 8.0625 \\ \hline
+0-10\% & 1289 & ZDC with Refmult Cut & 0.5924 & 0.5668 \(\pm\) 0.0029 & 1.8725 \\ \hline \end{tabular}
+
+The variation in temperature here is on the order of 3 MeV. Otherwise, results appear fairly consistent.
+
+#### 5.2.6 Publication Comparisons
+
+A preliminary study using the CSPM method on various systems has previously been conducted [35, 82]. In it, various collision systems were studied, being AuAu collisions at 19.6, 62.4, and 200 GeV, as well as dAu and CuCu collisions at 200 GeV. All data sets were minimum bias events measured in the STAR detector. The cuts on the data included \(|V_{z}|<30\) cm, \(|\eta|<1.0\), \(|dca|<3\) cm, number of fit points in the TPC \(>10\), and \(0.2\leq p_{T}\leq 1.2\ \frac{GeV}{c}\). The publication makes reference to the same CSPM methodology used in this thesis. Though the publication describes how the parameters \(p_{0}\) and \(\alpha\) need to be obtained from 200 GeV pp collisions, the values obtained or used for this analysis were not included. The accuracy of the fits applied to the data sets was also not included.
+
+The density parameters and corresponding color string suppression factors were calculated and plotted in reference [82] for the most central collisions for 19.6, 62.4, and 200 GeV AuAu collisions, as well as 200 GeV dAu collisions. The centrality dependence of the density parameter is plotted in Figure 5.3, which shows the density parameter versus the various collision centralities (\(N_{part}\)) for 62.4 and 200 GeV collisions.
+
+Both figures demonstrate the expected behavior of higher energies and higher centralities corresponding to systems of higher density parameters, and thus suppression factors of smaller magnitude (equating to greater color suppression).
+
+A follow-up study was published providing a more rigorous study on the most central 200 GeV collision data [83]. The cuts on the data included \(|V_{z}|<30\) cm, \(|\eta|<0.5\), \(|dca|<3\) cm, and the number of fit points in the TPC \(>15\)[84]. The fit was conducted over six \(p_{T}\) ranges, containing a minimum \(p_{T}\) of 0.15 and 0.2 \(\frac{GeV}{c}\), and the maximum \(p_{T}\) values of 1.0, 1.2, and 1.5 \(\frac{GeV}{c}\). The results of these fit ranges were averaged together. Systematics of this analysis included changing the \(V_{z}\) cut to 20 cm, and changing the \(\eta\) cut to 1.0. Minor changes were noted for these variations. The \(p_{0}\) of 1.982 and an \(\alpha\) of 12.877 had been extracted from fits of 200 GeV pp collisions,and were used for this analysis. The fit of central 0-10% 200 GeV AuAu collisions gave a value of \(\xi\) = 2.88 \(\pm\) 0.09. This corresponds to an F(\(\xi\)) of 0.5725. Using a value of \(\sqrt{\langle p_{T}^{2}\rangle_{0}}\) = 207.2 \(\pm\) 3.3 MeV, the temperature of the initial moment of the collision was found to be \(T_{i}\) = 193.6 \(\pm\) 3.0 MeV. This was found to be in reasonable agreement with the \(T_{i}\) = 221 \(\pm\) 19\({}^{stat}\)\(\pm\) 19\({}^{sys}\) MeV of the direct photon measurement by the PHENIX collaboration [85]. This matches measurements in reference [82].
+
+The fitting function used in the CSPM analysis matches that used in [86], which extracted a \(p_{0}\) of 1.71 and an \(\alpha\) of 12.42. This is close to the values reported and used in [83]. One of the analyses of pp 200 GeV collisions in this thesis led to a \(p_{0}\) of 3.6 and an \(\alpha\) of 19.77. This is reasonable as the chi-squared space for the variables is quite large due to the strong dependence of the two parameters on one another. Using the same cuts as the publications, an \(F(\xi)\) of 0.7174 was extracted, which corresponds to a temperature of 173 MeV. This is fairly different from the 193.6 MeV recorded in the publication. Using the parameter values, one can integrate the fitting function over the range analyzed to calculate the \(\langle p_{T}\rangle\) for the data. The transverse momentum
+
+Figure 5.3: The percolation density parameter (\(\xi\)) as a function of collision centrality (\(N_{part}\)) in 62.4 and 200 GeV AuAu collisions [35, 82].
+
+spectrum can be directly analyzed to find the actual \(\langle p_{T}\rangle\) in that range. The results are shown in Table 5.10.
+
+Despite the differences in fitting parameters, it can be seen that both fits reasonably describe the \(\langle p_{T}\rangle\) of the data. Any analysis involving the CSPM must then take this into account in future studies in addition to the statistical and systematic errors usually considered in such an analysis.
+
+#### Systematic Study of BES I
+
+The previous sections discussed the tests that were applied to 0-10% AuAu 200 GeV data. In this section, a rigorous test was applied to the central BES I data (0-10% AuAu 7.7, 11.5, 19.6, 27, 39, 62.4 GeV). Four pairs of \(p_{0}\) and \(\alpha\) discussed in the previous sections were selected to analyze this data and are listed in Table 5.11. Twelve \(p_{T}\) ranges were selected to be fit for the six BES I energies (listed in Table 5.12. In the AuAu 200 GeV data, it was found that it was primarily the choice in \(p_{0}\) and \(\alpha\) that affected the extracted F(\(\xi\)), with fit range being a smaller contributor (Section 5.2.2). As lower energies will have fewer particles per event, even if the same number of events are analyzed, the statistics for the \(p_{T}\) spectrum will naturally decrease. The same behavior noted for AuAu 200 GeV data may not be observed. The inclusion of twelve \(p_{T}\) fit ranges will provide the ability to observe if this changesat lower energies. The fit is run using four pairs of \(p_{0}\) and \(\alpha\) so that an average temperature with a standard deviation can be extracted. This will allow the creation of error bars reflective of the uncertainty introduced by selecting a \(p_{0}\) and \(\alpha\) parameter.
+
+Table 5.11.
+
+The four pairs of \(p_{0}\) and \(\alpha\) used for the systematic study of the BES I data.
+
+\begin{tabular}{|c|c|c|} \hline Source & \(p_{0}\) & \(\alpha\) \\ \hline Reference [84] & 1.98 & 12.88 \\ \hline Reference [86] & 1.71 & 12.42 \\ \hline Table 5.2 & 2.94 & 16.95 \\ \hline Table 5.2 & 2.15 & 13.38 \\ \hline \end{tabular}
+
+Table 5.12.
+
+The twelve \(p_{T}\) ranges that the data was used for fitting the BES I data.
+
+\begin{tabular}{|c|c|c|} \hline \multicolumn{3}{|c|}{\(p_{T}\) Ranges} \\ \hline
+0.15-1.0 & 0.2-1.0 & 0.3-1.0 \\ \hline
+0.15-1.2 & 0.2-1.2 & 0.3-1.2 \\ \hline
+0.15-1.5 & 0.2-1.5 & 0.3-1.5 \\ \hline
+0.15-2.0 & 0.2-2.0 & 0.3-2.0 \\ \hline \end{tabular}
+
+Figure 5.4: Collision energy versus extracted temperature from the fits of 0.15-2.0 and 0.3-1.5 \(\frac{GeV}{c}\)
+
+Figure 5.5: Collision energy versus \(\langle p_{T}\rangle\) from the fits of 0.15-2.0 and 0.3-1.5 \(\frac{GeV}{c}\)
+
+It can be seen that there is no distinguishing power between the different energies. However, there is a clear behavior of the temperature with changes in energy, and it appears very similar to the behavior experienced by \(\langle p_{T}\rangle\). This matches the earlier discussion points, the fit is able to describe the change in behavior in \(\langle p_{T}\rangle\), but it does not seem able to make a specific claim about the extracted temperatures. A similar trend was observed in the other analyzed cases.
+
+#### Summary
+
+From all of these variations of the method proposed by the CSPM, it would appear that the fitting function is able to reproduce the \(p_{T}\) spectrum of events, but it is not able to extrapolate a precise temperature to represent the initial moment of the collision. Applying the CSPM on an EbE basis may also not be accurate enough to detect any fluctuations in temperature. There appears to be a behavior in the temperature versus energy plots similar to that of the \(\langle p_{T}\rangle\) versus energy plots, but the degree of uncertainty makes any conclusion hard to draw. This matches the earlier discussion points, being the fit is able to reproduce the data, but it does not seem able to make a specific claim about the extracted temperatures. The consistently observed difference in the \(F(\xi)\) extrapolated from the AE and from the EbE method supports this conclusion.
+
+It is interesting to note that the \(p_{0}\) and \(\alpha\) used in reference [83] (1.982 and 12.877 respectively) are close to the third iteration of the fit of pp 200 GeV data sample over the \(p_{T}\) range of 0.3-1.0 \(\frac{GeV}{c}\) listed in Table 5.4. This observation continues to add support that there are multiple \(p_{0}\) and \(\alpha\) pairs that seem to reflect the behavior of the \(p_{T}\) spectra.
+
+The temperature extrapolated from the EbE method consistently had a sigma of \(\sim\)\(\pm\) 11 MeV. The AE method also did not provide a consistent temperature. It was shown that the same \(\langle p_{T}\rangle\) could be obtained from the integration of a fit using an F(\(\xi\)) equivalent to a temperature of 194 MeV and an \(F(\xi)\) equivalent to a temperature of 173 MeV. Taking the standard deviation from the extrapolated temperature over a fit range using four pairs of \(p_{0}\) and \(\alpha\) was also on the order of 10 MeV. It is not possible to calculate how much of these errors overlap, or if they are exclusive, but a minimum uncertainty in temperature of 10 MeV appears to be needed when using the CSPM.
+
+Prior publications remain primarily unaffected by the above conclusions, only needing to modify the calculated uncertainty. In reference [83], the primary source of uncertainty was attributed to the error in \(\sqrt{\left<p_{T}\right>_{0}^{2}}\), which corresponds to a 3% error on \(F(\xi)\). No extra error was placed on \(F(\xi)\). Two different results in this thesis suggest an error of \(\pm\) 10 MeV may need to be placed on the extracted temperature. In reference [83], the extracted temperature was compared with the direct photon measurement made by the PHENIX Collaboration in reference [85]. That reported temperature for the initial moment of the collision was T = 221 \(\pm 19^{stat}\pm 19^{sys}\) MeV. The modification to the uncertainty recomended in this thesis would still have a magnitude that is comparable to this other method.
+
+Another influence on the extracted temperature is the value selected for \(\sqrt{<p_{T}^{2}>_{0}}\). The value suggested in reference [60] is \(\sqrt{<p_{T}^{2}>_{0}}\simeq\) 200 MeV. It is noted that this is appropriate with a critical temperature of \(T_{C}\simeq\) 170-180 MeV, and a \(\xi\simeq\) 1.18-1.5. Such a variation in \(\xi\) corresponds to a range in F(\(\xi\)) and T of \(\simeq\) 0.766-0.720 and 161.6-166.7 MeV respectively. The value used in reference [83] was based on linking the universal freeze-out temperature (167.7 \(\pm\) 2.6 MeV (as calculated in reference [87]) to the percolation phase transition density (\(\xi_{c}\) = 1.2). Using Equation 3.45, a \(\sqrt{<p_{T}^{2}>_{0}}\) = 207.2 \(\pm\) 3.3 MeV was obtained. This value was then used to measure a temperature of T = 193.6 \(\pm\) 3.0 MeV for 0-10% AuAu 200 GeV data. In reference [9], however, the values for the \(\sqrt{<p_{T}^{2}>_{0}}\) of a single quark and of a quark-antiquark pair were computed as 250 and 350 MeV respectively. If these values were instead used, the extracted temperature would have been T=233.6 and T=327.1 MeV respectively. The originally mentioned value of 200 MeV would have led to a temperature of T=186.9 MeV. One can see the choice in this constant can have a strong impact on the final conclusion for the magnitude of temperature selected. The behavior of the extracted temperature for varying energy and/or centrality, however, should remain the same regardless of choice. In this thesis, the value of \(\sqrt{<p_{T}^{2}>_{0}}=207.2\) MeV (matching reference [83]) was used.
+
+### Testing the CSPM
+
+The Color String Percolation Model is a model which attempts to apply geometrical arguments to a complex system in order to provide new insight. Two apparent strengths in this model are that it provides a means to categorize events instead of using the Glauber model to infer centrality (if the EbE method is applied), and it provides a measurement of temperature in the initial moment of the collision. However, it has the weakness that it lacks a clear method for testing its accuracy for describing physics phenomena.
+
+Specifically, the model can reproduce data, but the question remains if it can be used experimentally on data as an identifier for different types of events with different initial temperatures in the collision. The CSPM will give an _F_(\(\xi\)) value regardless of its validity, leaving an experimentalist to decide whether to attribute more complex physics, such as the temperature prediction, to the measured result. In the previous section, several variations on the data analysis method were applied, and though they help in gauging consistency, they do not provide a test for the model.
+
+An example of where this insensitivity of the model can be shown to be problematic is in the value assigned to the critical density in percolation theory. It has been shown, that if one assumes a non-uniform distribution of strings in heavy-ion collisions, such as a Gaussian, that the critical density can be shifted from being 1.12 to approximately 1.6 [88]. This does not directly affect the method applied experimentally, but it does show a weakness that experimental measurements will need to be very precise in order to provide support for a specific theoretical model for \(\xi\). The variation in \(\xi\) also corresponds to a shift in \(\sqrt{\left<p_{T}^{2}\right>_{0}}\) from 207.2 \(\frac{MeV}{c}\) to 199.3 \(\frac{MeV}{c}\). Extrapolated values
+
+[MISSING_PAGE_EMPTY:95]
+
+normalization equation, if the desired \(p_{T}\) range of \(p(x)\) were 0.3 to 1.0 \(\frac{GeV}{c}\), one would normalize it via the following equation:
+
+\[\int_{0.3}^{1.0}\frac{ap_{T}}{(p_{0}+p_{T})^{\alpha}}dp_{T}=1 \tag{5.2}\]
+
+This power law probability density is shown in Figure 5.6.
+
+A comparison function, \(f(x)\), is then selected with the requirement that it envelops \(p(x)\) and has a finite area, which can always be accomplished as it is not limited to being a normalized area, thus it need only enclose an area A, where A is greater than 1. This method is based on the ability to randomly choose a point in two dimensions with a uniform probability in the area under \(f(x)\). When the point lies above the area under \(p(x)\) it is rejected and another random point is selected, but any time it lies inside that area, it is accepted. The accepted points will be uniform in the accepted area, and their x values will follow the desired distribution. The fraction of points
+
+Figure 5.6: The probability density of the power law fit used in the toy model.
+
+rejected reflects the relative areas of \(f(x)\) and \(p(x)\), so the number of iterations will be related to A.
+
+Creating the random distribution allows the creation of events that have a known \(p_{0}\) and \(\alpha\) for the fitter to attempt to identify. It also allows complete control over the number of particles per event to gauge if there is a threshold for a more accurate determination. Specifically, earlier analyses combined all events to form a distribution of sizeable statistics. Using the fit on an event by event basis by definition restricts the statistics (number of particles) to be on the order of 150 particles on average. This may be impractical for a reliable fit, but the rejection method tests will be able to help identify the minimum number of particles needed for a reliable fit. If, for example, a minimum of 2000 particles was found to help the fitting algorithm, batches of 10 or more events could be created to provide the statistical power for the data analysis while allowing a batch by batch analysis in search for fluctuations.
+
+A test was made with the number of points varying from 200, 1000, 10k, and 100k particles in an event. Each set was then fit over various \(p_{T}\) ranges, using three minimum \(p_{T}\) values (0.15, 0.20, and 0.30 \(\frac{GeV}{c}\)) and three maximum \(p_{T}\) values (1.0, 1.5, 2.0 \(\frac{GeV}{c}\)). The fits were conducted using the standard Minuit fitting algorithm, and were run until the fits were converged (the default attempt was 50,000 iterations for a least likelihood fit). The results for the 200 and 100k particle events can be seen in the following Tables. The fit struggled for most of these, except for the events with 10k and 100k, where it was able to accurately fit the \(p_{0}\) and \(\alpha\). This adds credance to the measurement of \(F\!(\xi)\) in reference [83] on the statistical side, though demonstrating that all events in the centrality windows selected should obey the same power law distribution is a different question. This also means that an event by event analysis, as outlined previously, may be inaccurate due to low statistics, but running it with batches may be more successful.
+
+[MISSING_PAGE_FAIL:98]
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline Fit Range & \(p_{0}\) & \(\alpha\) & \(\frac{chi^{2}}{NDF}\) \\ \hline
+0.15-1.0 & 3.803 & 20.828 & \(\frac{17.58}{20}\) (0.879) \\ \hline
+0.15-1.5 & 3.387 & 18.788 & \(\frac{31.54}{33}\) (0.956) \\ \hline
+0.15-2.0 & 3.490 & 19.283 & \(\frac{42.92}{47}\) (0.913) \\ \hline
+0.2-1.0 & 4.054 & 22.019 & \(\frac{16.99}{19}\) (0.894) \\ \hline
+0.2-1.5 & 3.436 & 19.009 & \(\frac{31.37}{32}\) (0.980) \\ \hline
+0.2-2.0 & 3.534 & 19.478 & \(\frac{42.63}{46}\) (0.927) \\ \hline
+0.3-1.0 & 5.482 & 28.712 & \(\frac{14.4}{16}\) (0.900) \\ \hline
+0.3-1.5 & 3.556 & 19.547 & \(\frac{30.14}{29}\) (1.039) \\ \hline
+0.3-2.0 & 3.648 & 19.973 & \(\frac{41.24}{43}\) (0.959) \\ \hline \end{tabular}
+\end{table}
+Table 5.14: Fit results for the 100k particle event created using the rejection method with a \(p_{0}\) of 3.6 and an \(\alpha\) of 19.77. Error estimates on the parameters were not included as they were 2% or less.
+
+In order to test the capability of the fitting function, the same fits were run with a fixed \(\alpha\) of 19.77 (as was used to create the data). The following tables for the smallest (200 particles) and largest (100k particles) show that the fit was much more successful in recovering the \(p_{0}\) of 3.6 used to create the data, though it has enough variation with fit range and a varying chi-square that it does not appear to have reached a global minimum.
+
+[MISSING_PAGE_EMPTY:101]
+
+[MISSING_PAGE_EMPTY:102]
+
+\begin{tabular}{|c|c|c|} \hline \(p_{T}\) Range (\(\frac{GeV}{c}\)) & \(<p_{T}>\) (\(\frac{GeV}{c}\)) & \(<p_{T}^{2}>\) (\(\frac{GeV^{2}}{c}\)) \\ \hline
+0-\(\infty\) & 0.4024 & 0.2569 \\ \hline
+0.3-1.0 & 0.5294 & 0.3116 \\ \hline \end{tabular}
+
+Table 5.17.
+
+Comparison of finite versus infinite integral ranges for the pp toy model.
+
+\begin{tabular}{|c|c|c|} \hline \(p_{T}\) Range (\(\frac{GeV}{c}\)) & \(<p_{T}>\) (\(\frac{GeV}{c}\)) & \(<p_{T}^{2}>\) (\(\frac{GeV^{2}}{c}\)) \\ \hline
+0-\(\infty\) & 0.4024 & 0.2569 \\ \hline
+0.3-1.0 & 0.5294 & 0.3116 \\ \hline \end{tabular}
+
+It can be seen that for these specific fit ranges, the \(\langle p_{T}\rangle\) increases by \(\sim\)30%, and the \(\langle p_{T}^{2}\rangle\) increases by \(\sim\)20%.
+
+The above procedure was also applied to a toy model for AuAu data. Equations (5.3) and (5.4) can be modified to include an F(\(\xi\)) using Equation (4.3). The above values of \(p_{0}=3.69\) and \(\alpha=21.34\) were used in the AuAu toy model. Two arbitrary \(F(\xi)\) values were selected, being 0.62 and 0.69. Results are shown in Table 5.18. The AuAu toy model is less susceptible to this shift, with \(\langle p_{T}\rangle\) changing by \(\sim\)10-14% and \(\langle p_{T}^{2}\rangle\) changing by \(\sim\)9-20%. The finite range also appears less affected by the change in F(\(\xi\)) than the infinite range.
+
+Table 5.18.
+
+Comparison of finite versus infinite integral ranges for the AuAu toy model.
+
+\begin{tabular}{|c|c|c|c|} \hline \(p_{T}\) Range (\(\frac{GeV}{c}\)) & F(\(\xi\)) & \(<p_{T}>\) (\(\frac{GeV}{c}\)) & \(<p_{T}^{2}>\) (\(\frac{GeV^{2}}{c}\)) \\ \hline
+0-\(\infty\) & 0.62 & 0.5111 & 0.4144 \\ \hline
+0.3-1.0 & 0.62 & 0.5605 & 0.3490 \\ \hline
+0-\(\infty\) & 0.69 & 0.4844 & 0.3723 \\ \hline
+0.3-1.0 & 0.69 & 0.5538 & 0.3408 \\ \hline \end{tabular}
+
+These observations add to question on how much we can trust a specific value obtained using the CSPM method. The overall behavior, once again, is most likely not put into question as the same trend of an increase in \(F(\xi)\) corresponding to a decrease in \(\langle p_{T}\rangle\) was observed for both ranges, though at a different rate.
+
+#### Expected Relationship Between \(p_{0}\) and \(\alpha\)
+
+The parameters of the fitting function used in the CSPM can be linked with the multiplicity and \(p_{T}\) spectrum of the data. In reference [65], minimum bias data was analyzed to find proper values for these parameters. In it, \(\alpha\) was shown to have dependence on the center of mass energy E of a collision:
+
+\[\begin{gathered} p_{0}=2\frac{GeV}{c}\\ \alpha=19.7-0.86\ln E\end{gathered} \tag{5.5}\]
+
+pp 200 GeV data was analyzed in both this analysis, and in reference [83]. The two sets of paramaterizations can be compared to the expected value for a 200 GeV collision. Further, these values are able to be linked with a specific \(\left\langle p_{T}\right\rangle_{0}\) and \(\left\langle p_{T}^{2}\right\rangle_{0}\) following:
+
+\[\begin{gathered}\left\langle p_{T}\right\rangle_{0}=p_{0}\frac{2} {\alpha-3}\\ \left\langle p_{T}^{2}\right\rangle_{0}=p_{0}^{2}\frac{6}{(\alpha- 3)(\alpha-4)}\end{gathered} \tag{5.6}\]
+
+Results using the three pairs of parameters and Equation (5.6) are shown in Table 5.19. The results from reference [83] and this thesis are fairly consistent, though both are fairly different from the predictions of reference [65]. This analysis adds support to the notion that the fits to pp data can extract multiple pairs of \(p_{0}\) and \(\alpha\) that relate to comparable observables.
+
+#### Fractional Variation Study
+
+In Section 3.4, several models were described for color string interactions. This was studied in the previous section, and a relationship between \(p_{0}\) and \(\alpha\) with observables was shown in Equation (5.6). By taking the derivative of both sides of this equation, the expected relative change in \(\left\langle p_{T}^{2}\right\rangle\) with respect to \(p_{0}\) can be shown to be:\[\delta\left\langle p_{T}^{2}\right\rangle_{0}=2p_{0}\frac{6}{(\alpha-3)(\alpha-4)} \delta p_{0} \tag{5.7}\]
+
+Further, if we divide through by \(\left\langle p_{T}^{2}\right\rangle_{0}\), we can see the fractional change we would expect in both terms to be related by the following relation:
+
+\[\frac{\delta\left\langle p_{T}^{2}\right\rangle_{0}}{\left\langle p_{T}^{2} \right\rangle_{0}}=\frac{2\delta p_{0}}{p_{0}} \tag{5.8}\]
+
+This equation only holds for single strings without interaction (without a modified color charge Q). Earlier it was shown that \(p_{0}\) can be generalized to color charge Q by including the transformation \(p_{0}^{2}\to Qp_{0}^{2}\). It was also shown in Section 4.1 that a fit to the data can be accomplished with the transformation:
+
+\[p_{0}{\rightarrow}p_{0}\left(\frac{\left\langle\frac{n\sigma_{0}}{S_{n}} \right\rangle_{AuAu}}{\left\langle\frac{n\sigma_{0}}{S_{n}}\right\rangle_{pp}} \right)^{\frac{1}{4}}{\rightarrow}p_{0}\frac{\sqrt{F(\xi_{pp})}}{\sqrt{F( \xi_{AuAu})}} \tag{5.9}\]
+
+where \(F(\xi_{pp})\) is assumed to be one. This transformation can be employed to make the following changes in Equation (5.8):
+
+\[p_{0} {\rightarrow}\ \frac{p_{0}}{\sqrt{F(\xi_{AuAu})}} \tag{5.10}\] \[\delta p_{0} {\rightarrow}\ \frac{-p_{0}\delta F(\xi_{AuAu})}{2F(\xi_{AuAu})^{ \frac{3}{2}}}\]
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline Data Source & \(p_{0}\) & \(\alpha\) & \(<p_{T}>_{0}\) & \(<p_{T}^{2}>_{0}\) \\ \hline
+[65] & 2 & 15.14 & 0.3295 & 0.1775 \\ \hline
+[83] & 1.982 & 12.88 & 0.401 & 0.2688 \\ \hline This Analysis & 3.6 & 19.77 & 0.4293 & 0.2940 \\ \hline \end{tabular}
+\end{table}
+Table 5.19: Comparison of the \(p_{0}\), \(\alpha\), \(<p_{T}>_{0}\), and \(<p_{T}^{2}>_{0}\) expected for the fit results from [65], [83], and this thesis.
+
+[MISSING_PAGE_FAIL:106]
+
+#### Calculating \(F(\xi)\) from the Ratio of \(\langle p_{T}^{2}\rangle\) of pp and AuAu Data
+
+In Section 3.4.2, the relationship between the \(\langle p_{T}^{2}\rangle\) of the particles produced from a system of N strings and \(F(\xi)\) was derived to be Equation (3.40). In Section 4.1, a fitting method to extract the \(F(\xi)\) was described. A comparison of these two methods for \(F(\xi)\) was conducted. The \(p_{T}\) intervals of 0.15-2.0 and 0.30-1.0 \(\frac{GeV}{c}\) were analyzed in this test. The \(\langle p_{T}^{2}\rangle\) of the particles in this range were then computed in pp and AuAu 200 GeV collisions.
+
+Though the fit range of 0.15-2.0 \(\frac{GeV}{c}\) appears to have reasonable agreement between the methods, the 0.3-1.0 \(\frac{GeV}{c}\) range does not. This appears to be an effect strongly related to that described in Section 5.3.2. There is not enough evidence to support or disprove this relation. However, it is clear that even using this relation will not yield more consistent results as the fit range must be selected, which will create a
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline Data & Fit Range & \(\langle p_{T}^{2}\rangle\) \\ \hline pp & 0.15-2.0 & 0.2906 \\ \hline pp & 0.30-1.0 & 0.3116 \\ \hline AuAu & 0.15-2.0 & 0.4678 \\ \hline AuAu & 0.30-1.0 & 0.3508 \\ \hline \end{tabular}
+\end{table}
+Table 5.21: \(\langle p_{T}^{2}\rangle\) results for various fit ranges of pp and AuAu data.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline Fit Range & AE F(\(\xi\)) & Ratio F(\(\xi\)) & AE T & Ratio T \\ \hline
+0.15-2.0 & 0.634 & 0.621 & 183.8 & 185.7 \\ \hline
+0.30-1.0 & 0.6197 & 0.888 & 185.9 & 155.3 \\ \hline \end{tabular}
+\end{table}
+Table 5.22: Extrapolated \(F(\xi)\) and T from the AE CSPM method and by comparing the ratio of the \(\langle p_{T}^{2}\rangle\) of particles in the fit range in pp and AuAu collisions.
+
+bias in temperature, and with a shown variation in the above example of \(\sim\) 30 \(\frac{MeV}{c}\), this does not narrow down the picture.
+
+#### Fitting the Monte-Carlo Simulation
+
+A test was applied to the original Monte Carlo simulation code used in reference [69]. Events were generated using the simulation, and the \(\xi\) value of the event was calculated. The corresponding \(p_{T}\) distribution was created and fit using the method described in Section 4.1. For this test, the fit used a \(p_{0}\) and \(\alpha\) obtained from fits of pp 200 GeV data, being 3.6 and 19.77 respectively. Though the same concerns introduced in 5.3.1 related to the ability of the power law fit to be used on an event by event basis also apply to this analysis, this simulation provides a comparison value for the fitting function. Where the earlier analysis allowed seeing the effect of statistics, this test gauges the sensitivity of the fit to represent data. Results of this comparison are shown in Figure 5.7.
+
+Though this followed the methodology prescribed for analyzing data, it is important to realize that the \(p_{0}\) and \(\alpha\) obtained from fits of data may not match the underlying parameters of the Monte Carlo code.
+
+The simulation does not calculate \(\xi\) directly, so Equation (3.16) was used to compute this in our study. According to reference [69], the number of strings produced in the collisions are equal to two times the number of binary collisions, which is stored in the simulation. The area of a single string, \(\sigma_{0}\) was calculated using an \(r_{0}\) = 0.2 fm, though this is a constant that could be varied in future analyses. Finally, the interaction area \(S\) is not calculated in the simulation, but the impact parameter (_b_) of the collision is an input for the simulation, and thus known. A general equation for the overlap area of two overlapping discs of known radius \(r\) (in this case the radius of the colliding atoms) is:
+
+\[A=2r^{2}\cos^{-1}\left(\frac{b}{2r}\right)-\frac{b\sqrt{4r^{2}-b^{2}}}{2} \tag{5.12}\]This method had a \(p_{0}\) and \(\alpha\) of 2.001 and 13.72 respectively. Using these parameters in the original AuAu simulation, we found that the _F_(\(\xi\)) vs \(\xi\) plot lined up a little better, but the overall lack of a consistent trend did not change.
+
+This analysis is combining the color string percolation model and the string fusion model used in the monte carlo code. Since the Monte Carlo code has been compared with data and has been shown to reproduce data well, it seems a fair comparison with our methodology. The CSPM is an analysis based on the strings in a collision, and is not used to create a system for analysis, in fact, even in the publications exploring CSPM, it is noted that they used the String Fusion Monte Carlo code to produce a system of strings for analysis [69].
+
+Figure 5.7: A comparison of the _F_(\(\xi\)) found from the fitting method compared with the value computed in the CSPSM Monte Carlo code.
+
+[MISSING_PAGE_FAIL:110]
+
+of up to a factor of two may occur. Both of these tests add support to the argument that the CSPM is prone to variations due to choices in fit range, and that it is more the trend, rather than magnitude, of temperature with varying energy and centrality that should be focused on.
+
+The \(F(\xi)\) extracted from fits of the \(p_{T}\) spectrum produced in the Monte Carlo simulation were compared to the \(F(\xi)\) as computed in the simulation. If the two represented one another, a linear line should have been observed with an intercept at 0. The fitting function was applied on an EbE, bringing the usual uncertainty to the extracted parameter. Several fits failed and those events are not displayed, while others extracted an \(F(\xi)\geq 1\). Several fits became stuck at \(F(\xi)=1\), as is noted by the cluster there. No clear trend was observed between the simulation and extracted \(F(\xi)\). This lack of consistency creates doubt in the capabilities of the fitting function to successfully extract an \(F(\xi)\) from data that reflects the temperature in the initial moment of the collision.
+
+## 6 Results and Discussion of \(\langle\Delta P_{T,i},\Delta P_{T,j}\rangle\)
+
+A scan over the lower energies of the BES I at RHIC was analyzed using the two particle \(p_{T}\) correlations function. The two particle \(p_{T}\) correlation function has been applied to data from STAR before in references [79, 81]. The BES I data was also analyzed as a part of reference [1]. In the CSPM analysis above, as well as in reference [1], it was shown that the \(\langle\langle p_{T}\rangle\rangle\) begins to increase at energies lower than 19.6 GeV. It was suggested that this is due to the increase in the number of protons present at lower energies. The motivation for the correlation analysis of this thesis was to confirm the results presented in reference [1] and to apply cuts to remove protons from the analysis to see if the lowest energies of the BES I were affected.
+
+The results of the correlation analysis is in Section 6.1. A discussion of these results, including a comparison with some earlier publications and a discussion of the calculation of systematic errors is in Section 6.2.
+
+### Correlation Study Results
+
+Results for the measurement of the \(\langle\Delta p_{T,i}\Delta p_{T,j}\rangle\) of AuAu collisions at 7.7, 11.5, and 19.6 GeV are reported. Specific details, such as the statistics, of the data studied are listed in Table 4.3. The default cuts applied to the data are listed in Table 4.4. Additional cuts using the TPC and TOF detectors to remove protons over the smaller \(p_{T}\) range of 0.15-1.0 \(\frac{GeV}{c}\) were also applied, specifically having the maximum distance from the curve for kaons to be a value of two sigma. The first comparison to be made was to confirm that the all charged hadron correlation on the \(p_{T}\) range of 0.15-2.0 \(\frac{GeV}{c}\) matched that of the 0.15-1.0 \(\frac{GeV}{c}\) range. Once the effect of a smaller \(p_{T}\) range was understood, the effect of removing protons could then be studied over this smaller range.
+
+Figure 6.1 shows the measured correlations for the full 0.15-2.0 \(\frac{GeV}{c}\)\(p_{T}\) range for various centralities of collision. The data appears to follow the same curve. Statistical errors are shown for 11.5 and 19.6 GeV collisions, and were generally of the same size as the data points. The AuAu 7.7 data sample was too small to create an accurate sample size to test statistical error. The colored bands represent the calculated systematic error on these measurements.
+
+Figure 6.1: The two particle correlations at 7.7, 11.5, and 19.6 GeV. The correlation of all charged hadrons is shown for the \(p_{T}\) ranges of 0.15-2.0.
+
+Figure 6.2 shows the correlation measurement for the AuA 19.6 GeV data sample for all charged hadrons over the 0.15-2.0 and 0.15-1.0 \(\frac{GeV}{c}\)\(p_{T}\) ranges, as well as the data sample with removed protons over the 0.15-1.0 \(\frac{GeV}{c}\)\(p_{T}\) range. Figure 6.3 and Figure 6.4 show the corresponding plots for the 11.5 and 7.7 GeV data sets respectively.
+
+Figure 6.2: The two particle correlations at 19.6 GeV. The correlation of all charged hadrons is shown for the \(p_{T}\) ranges of 0.15-2.0 and 0.15-1.0 \(\frac{GeV}{c}\). A cut is made using the TPC and TOF detectors to remove protons over the 0.15-1.0 \(\frac{GeV}{c}\) range.
+
+Figure 6.3: The two particle correlations at 11.5 GeV. The correlation of all charged hadrons is shown for the \(p_{T}\) ranges of 0.15-2.0 and 0.15-1.0 \(\frac{GeV}{c}\). A cut is made using the TPC and TOF detectors to remove protons over the 0.15-1.0 \(\frac{GeV}{c}\) range.
+
+Figure 6.4: The two particle correlations at 7.7 GeV. The correlation of all charged hadrons is shown for the \(p_{T}\) ranges of 0.15-2.0 and 0.15-1.0 \(\frac{GeV}{c}\). A cut is made using the TPC and TOF detectors to remove protons over the 0.15-1.0 \(\frac{GeV}{c}\) range.
+
+[MISSING_PAGE_EMPTY:117]
+
+#### 6.2.2 Comparison with Publications
+
+In 2005, the two-particle \(p_{T}\) correlation was reported for four energies of AuAu collisions [79]. Of particular interest to this work is the published correlations at 19.6 GeV (the others were not studied in this thesis). The results of this thesis and the publication are shown in Figure 6.5. Except for the range of \(N_{part}\) 40-80, there appears to be reasonable agreement between the data. The publication only has recorded statistical error, and was a part of a short data run [79, 90]. Each data point represents approximately 5,000 events, and there were some trigger problems, though mostly in the 10-30 and 70-80% centrality ranges. Despite this difference, neither this work nor the previous publication shows non-monotonic behavior.
+
+The previous BES I analysis conducted in reference [1] also did not find non-monotonic behavior.
+
+### 6.3 Summary
+
+Results of the \(\langle\Delta p_{T,i}\Delta p_{T,j}\rangle\) study were reported. Similar to earlier publications, no non-monotonic behavior was observed. A \(p_{T}\) correlation is observed at all energies though at similar magnitudes as have been previously reported. The effect of removing protons was studied and compared to the all charged spectrum over the same \(p_{T}\) range. No definite conclusions can be made due to the large systematic errors.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline \(V_{Z}\) Range & \(\eta\) Range & dca Range & \(<\Delta_{p_{T,i}}\Delta_{p_{T,j}}>\) \\ \hline \(\mid V_{Z}\mid\leq 75\) & \(\mid\eta\mid\leq 1.0\) & \(\mid dca\mid\leq 1\) & 0.0000388 \\ \hline \(\mid V_{Z}\mid\leq 30\) & \(\mid\eta\mid\leq 1.0\) & \(\mid dca\mid\leq 1\) & 0.0000316 \\ \hline \(\mid V_{Z}\mid\leq 75\) & \(\mid\eta\mid\leq 0.5\) & \(\mid dca\mid\leq 1\) & 0.0000437 \\ \hline \(\mid V_{Z}\mid\leq 75\) & \(\mid\eta\mid\leq 1.0\) & \(\mid dca\mid\leq 3\) & 0.0000275 \\ \hline \end{tabular}
+\end{table}
+Table 6.1: Example of systematic error calculation for collisions at 19.6 GeV with \(0-10\%\) centrality.
+
+Figure 6.5: The two particle correlations at 19.6 GeV compared with an earlier publication. The correlation of all charged hadrons is shown for the \(p_{T}\) ranges of 0.15-2.0 \(\frac{GeV}{c}\).
+
+## 7. Conclusion and Recommendations
+
+Two analyses were presented in this thesis, being an exploration of the Color String Percolation Model (CSPM) and a two-particle \(p_{T}\) correlation measurement. The CSPM suggests a fitting method to be applied to data in order to extract a temperature of the initial moment of heavy-ion collisions. Various tests were conducted to gauge the uniqueness of extracted results. Though the fitting function was found to reproduce the \(\langle p_{T}\rangle\), the extracted temperature was found to have an uncertainty of at least 5 MeV, which is larger than what was previously reported [83]. In addition to the first systematic study of applying the CSPM to data, several self-consistency checks were conducted. Several of these did not provide the support needed to claim the CSPM is self-consistent. This is attributed to the high correlation between the fitting parameters \(p_{0}\) and \(\alpha\), which is also the suggested reason the CSPM is not able to extract a precise temperature. Several recommendations have been made for what the next steps should for any analysis applying the CSPM to data.
+
+In Section 5.2.7, results for multiple iterations of the fit were presented, with a list of various pairs of \(p_{0}\) and \(\alpha\). A comparison of the extracted temperature for each of these pairs could be useful in gauging how consistent the temperature is between iterations of the fit, though this will not improve the capabilities of the fitting function.
+
+In Section 5.3.6, a fit was applied to a Monte-Carlo simulation for a string fusion model. Parameters extracted from data (\(p_{0}\) = 3.6 and \(\alpha\) = 19.77) were used in this study. This may have created an unintentional bias. Instead, the Monte-Carlo simulation should be used to produce a \(p_{T}\) spectrum from pp collisions. This spectrum obtained from simulation should then be fit, and the extracted parameters \(p_{0}\) and \(\alpha\) should then be used for fitting a \(p_{T}\) spectrum of AuAu collisions produced by the Monte-Carlo simulation. This ensures that there is no inherent assumption in the expected curvature of the spectrum in the Monte-Carlo simulation. Even if this endsup being true, one would have expected fitting function to extrapolate some consistent result with respect to the Monte-Carlo simulation. If indeed there is an inherent \(p_{0}\) and \(\alpha\) in the simulation, there should have been a shift in F(\(\xi\)) extracted from the fit compared to those calculated in the simulation.
+
+In Section 5.3.1, it was suggested that grouping events into batches could help increase the statistics of individual samples, while still having enough samples to search for fluctuations in temperature. Having batches of 100k particles may help narrow the sigma of the \(\langle p_{T}\rangle\) and F(\(\xi\)) plots created on the EbE basis.
+
+In Appendix A.1, a method using percolation with independent emitters was described. The expected color charge for a cluster is very similar to the color charge expected in the percolation method analyzed in this thesis. The fitting algorithm would not change, but what the extrapolated parameter represents would. The primary difference in the methods is the inclusion of the ratio of the area of the cluster to the area of a single string inside of the square root. Updating the fitting function with this term and applying it to the Monte Carlo simulation that was tested in this thesis could help create consistency for this analysis.
+
+The correlation analysis measured no non-monotonic behavior that would have indicated a phase transition point. This is consistent with previously published works. PID cuts were included to remove protons from the data tested to observe if the increase in proton to pion ratio at lower energies impacted the correlation. Due to low statistics, it is impossible to gauge if there is any change in the behavior of the correlation with changing centrality. A few recommendations can be made for what the next steps should be for a follow-up study.
+
+The most important recommendation is that this analysis be conducted with higher statistics at 7.7 \(\frac{\mathrm{GeV}}{\mathrm{c}}\). The systematic uncertainties in this analysis make it impossible to draw any solid conclusion regarding the effect of removing protons at this energy.
+
+In addition to the correlation function method described in Section 4.2, there is a method of creating mixed events for comparison with real events in order to identify dynamical fluctuations (non-statistical) discussed in reference [81]. To create mixed events, the centrality and collision vertex of an event from data is recorded. Single tracks are then selected from other events of the same centrality and collision vertex until the number of selected tracks matches the multiplicity of the real event. This creates an event that is statistically comparable to the data and removes any correlations in the system, providing a means for measuring statistical fluctuations. A properly mixed event sample should have a \(\langle p_{T}\rangle\) that matches that of real events.
+
+Using the real data and mixed events, one can search for the presence and magnitude of dynamical fluctuations in \(p_{T}\) by defining:
+
+\[\sigma_{dyn}=\sqrt{\left(\frac{\sigma_{data}}{\mu_{data}}\right)^{2}-\left( \frac{\sigma_{mix}}{\mu_{mix}}\right)^{2}} \tag{7.1}\]
+
+where \(\mu_{data}\) and \(\mu_{mix}\) are the means of the event-by-event \(\langle p_{T}\rangle\) distributions for the data and the mixed events, respectively, and \(\sigma_{data}\) and \(\sigma_{mix}\) are the root mean square deviations in \(\langle p_{T}\rangle\) distributions for the data and the mixed events, respectively [81]. This type of analysis was conducted on the charged hadron spectrum of AuAu and CuCu collisions, but only at the energies of 62.4 and 200 GeV. A preliminary test was conducted on a data sample of 64k events from AuAu 39 GeV collisions at 20-30% centrality. Only three ranges in \(V_{z}\) were defined. Results of the created EbE \(\langle p_{T}\rangle\) distribution are shown in Figure 7.1.
+
+Both the \(\langle\Delta p_{T,i}\Delta p_{T,j}\rangle\) and the \(\sigma_{dyn}\) terms were computed for the sample and shown in Table 7.1. The \(\sigma_{dyn}\) was computed to be 1.81% for the above sample. Comparing the sample test to (reference) other publications, one would expect a real event correlation on the order of \(e^{-4}\), and a \(\sigma_{dyn}\) on the order of 2%. As this sample reproduced earlier results, it should be applied to the full BES I data. It should be broken up into smaller \(V_{z}\) ranges to minimize detector accceptance bias. The \(\sigma_{dyn}\) has been shown to follow the same trend as the correlation function, but it may be susceptible to effects the correlation is not.
+
+Running simulations such as UrQMD for comparison to the data is a natural next step. It would also be informative to see how simulations predict removing the \(\langle p_{T}\rangle\) and the \(\langle\Delta_{p_{T},i}\Delta_{p_{T,j}}\rangle\) for AuAu 39 GeV collisions of 20-30% centrality. The \(\langle p_{T}\rangle\) can be seen to be in reasonable agreement between the two samples. The correlation terms are \(\sim\) 100 times different. By construction, a mixed event represents 0 correlation.
+
+\begin{tabular}{|c|c|c|} \hline  & Real Events & Mixed Events \\ \hline \(\langle p_{T}\rangle\) & 0.5241 \(\pm\) 0.02945 & 0.5243 \(\pm\) 0.0279 \\ \hline \(\langle\Delta_{p_{T,i}}\Delta_{p_{T,j}}\rangle\) & 8.964x10\({}^{-5}\) & 8.090x10\({}^{-7}\) \\ \hline \end{tabular}
+
+protons will impact the correlation study. The codes used on the reported energies of this thesis can be modified for the other BES I energies. Conducting this study on the full data set is a natural next step, however, as many of these higher energies have already been analyzed, there is not much to be gained by doing so.
+
+If the CSPM is modified so that a more consistent \(\xi\) can be extrapolated on an event by event basis, it would be interesting to organize events by \(\xi\) and to apply the two-particle correlation function on that data set. This would allow mixing data from
+
+Figure 7.1: A \(\langle p_{T}\rangle\) comparison for mixed events and real events for AuAu 39 GeV collisions. The left is the \(\langle p_{T}\rangle\) of real events and the right is the \(\langle p_{T}\rangle\) of mixed events created from the real events. The mixed events accurately represent the real events.
+
+[MISSING_PAGE_EMPTY:124]
+
+## Chapter 1 Introduction
+
+## References
+
+* [1] J. Novak, _PhD thesis, Michigan State University, East Lansing, Michigan_, 2013.
+* [2] K. Krane, _Introductory Nuclear Physics_. John Wiley and Sons Inc., 1987.
+* [3] H. Satz, _Extreme States of Matter in Strong Interaction Physics: An Introduction_. Springer Science & Business Media, 2012, vol. 841.
+* [4] A. Bettini, _Introduction to elementary particle physics_. Cambridge University Press, 2014.
+* [5] U. Krey and A. Owen, _Basic theoretical physics_. Springer, 2007.
+* [6] W. Commons, 2014, [Online; accessed 26-October-2015]. [Online]. Available: [https://commons.wikimedia.org/w/index.php?title=Quarkoldid=142361227](https://commons.wikimedia.org/w/index.php?title=Quarkoldid=142361227)
+* [7] A. Casher, J. Kogut, and L. Susskind, _Phys. Rev. D_, vol. 10, no. 2, pp. 732-745, 1974.
+* [8] K. G. Wilson, _Phys. Rev. D_, vol. 10, no. 8, pp. 2445-2459, 1974.
+* [9] C. Wong, _Introduction to high-energy heavy-ion collisions_. World Scientific Pub Co Inc, 1994.
+* [10] R. Aaij (LHCb Collaboration) _et al._, _Phys. Rev. Lett._, vol. 115, p. 072001, Aug 2015.
+* [11] H. Reinhardt and B. Dang, _Phys. Lett. B_, vol. 202, no. 1, pp. 133-137, 1988.
+* [12] R. Fries and B. Muller, _Eur. Phys. J. C_, vol. 34, pp. s279-s285, 2004.
+* [13] A. P. French, _Special relativity_. CRC Press, 1968.
+* [14] R. Vogt, _Ultrarelativistic heavy-ion collisions_. Elsevier, 2007.
+* [15] J. Bjorken, _Phys. Rev. D_, vol. 27, no. 1, p. 140, 1983.
+* [16][http://www.bnl.gov/rhic/physics.asp](http://www.bnl.gov/rhic/physics.asp).
+* [17][http://www.bnl.gov/rhic/complex.asp](http://www.bnl.gov/rhic/complex.asp).
+* [18][http://universe-review.ca/i15-27-rhic.jpg](http://universe-review.ca/i15-27-rhic.jpg).
+* [19] M. L. Miller, K. Reygers, S. J. Sanders, and P. Steinberg, _Annu. Rev. Nucl. Part. S_, vol. 57, pp. 205-243, 2007.
+* [20] K.H. Ackermann _et al._, _Nucl. Instr. and Meth. A_, vol. 499, pp. 624-632, 2003.
+
+* [21] M. Schmah and A. Schmah, "private communication," 2015.
+* [22] F. Bergsma _et al._, _Nucl. Instr. and Meth. A_, vol. 499, pp. 633-639, 2003.
+* [23] C. Chasman _et al._, "A heavy flavor tracker for star," 2007, [Online; accessed 3-November-2015].
+* [24] R. Bellwied _et al._, _Nucl. Instr. and Meth. A_, vol. 499, pp. 640-651, 2003.
+* [25] L. Arnold _et al._, _Nucl. Instr. and Meth. A_, vol. 499, pp. 652-658, 2003.
+* [26] M. Anderson _et al._, _Nucl. Instr. and Meth. A_, vol. 499, no. 2, pp. 659-678, 2003.
+* [27] W.J. Llope _et al._, _Nucl. Instr. and Meth. A_, vol. 522, pp. 252-273, 2004.
+* [28] M. Beddo _et al._, _Nucl. Instr. and Meth. A_, vol. 499, pp. 725-739, 2003.
+* [29] L. Ruan _et al._, _J. Phys. G. Nucl. Partic._, vol. 36, no. 9, p. 095001, 2009.
+* [30] C.E. Allgower _et al._, _Nucl. Instr. and Meth. A_, vol. 499, pp. 740-750, 2003.
+* [31] C. Adler, A. Denisov, E. Garcia, M. J. Murray, H. Strobele, and S. N. White, _Nucl. Instrum. Meth._, vol. A470, pp. 488-499, 2001.
+* [32] W.J. Llope _et al._, _Nucl. Instr. and Meth. A_, vol. 661, pp. S110-S113, 2012.
+* [33] M. Braun, C. Pajares, and N.S. Amelin, _Phys. Lett. B_, vol. 306, pp. 312-318, 1993.
+* [34] M. Braun, F. Del Moral, and C. Pajares, _Phys. Rev. C_, vol. 65, no. 2, p. 024907, 2002.
+* 50, 2015. [Online]. Available: [http://www.sciencedirect.com/science/article/pii/S0370157315003956](http://www.sciencedirect.com/science/article/pii/S0370157315003956)
+* [36] J. D. de Deus, E. Ferreiro, C. Pajares, and R. Ugoccioni, _Phys. Lett. B_, vol. 581, pp. 156-160, 2004.
+* [37] J. Schwinger, _Phys. Rev._, vol. 82, no. 5, p. 664, 1951.
+* [38] M. Gyulassy and A. Iwazaki, _Phys. Lett. B_, vol. 165, p. 157, 1985.
+* [39] A. Casher, H. Neunberg, and S. Nussinov, _Phys. Rev. D_, vol. 20, pp. 179-188, 1979.
+* [40] J. Schwinger, _Phys. Rev._, vol. 128, no. 2425, 1962.
+* [41] X. Artru and G. Mennesier, _Nucl. Phys. B_, vol. 70, p. 93, 1974.
+* [42] X. Artru, _Phys. Rep._, vol. 97, p. 147, 1983.
+* [43] P. Mattig, _Phys. Rep._, vol. 177, p. 141, 1989.
+* [44] M. Braun and C. Pajares, _Eur. Phys. J. C_, vol. 16, no. 2, pp. 349-359, 2000.
+
+* [45] M.M. Aggarwal (WA98 Collaboration) _et al._, _Eur. Phys. J. C_, vol. 18, no. 651, 2001.
+* [46] E. G. Ferreiro, F. del Moral, and C. Pajares, _Phys. Rev. C_, vol. 69, p. 034901, 2004.
+* [47] F.Becattini, _Z. Phys. C_, vol. 69, no. 485, 1996.
+* [48] P.V.Chliapnikov, _CERN preprint_, vol. EP/99-87.
+* [49] A. Bialas, _Phys. Lett. B_, vol. 466, no. 2-4, pp. 301-304, 1999.
+* [50] M.Abramowitz and I.Stegun, _Handbook of Mathematical Functions_. Dover (N.Y.).
+* [51] M. Molnar and D. Garand, "private communication," 2014.
+* [52] M. Isichenko, _Rev. of Mod. Phys._, vol. 64, no. 4, p. 961, 1992.
+* [53] J. Nafziger and D. Garand, "Percolation matlab code," 2013.
+* [54] D. Stauffer and A. Aharony, _Introduction to percolation theory_. CRC press, 1994.
+* [55] M. A. Braun and C. Pajares, _J. of Mod. Phys. A_, vol. 14, no. 17, pp. 2689-2704, 1999.
+* [56] N. Armesto, M. Braun, E. G. Ferreiro, and C. Pajares, _Phys. Rev. Lett._, vol. 77, no. 18, pp. 3736-3738, 1996.
+* [57] G. Baym, _Physica A_, vol. 96, pp. 131-135, 1979.
+* [58] T. Celik, F. Karsch, and H. Satz, _Phys. Lett. B_, vol. 97, no. 1, pp. 128-130, 1980.
+* [59] H. Satz, _The Physics of the Quark-Gluon Plasma_, pp. 1-21, 2010.
+* [60] J. Dias de Deus and C. Pajares, _Phys. Lett. B_, vol. 642, no. 5-6, pp. 455-458, 2006.
+* [61] F. del Moral, C. Pajares, and M.A.Braun, _Eur. Phys. J. C_, vol. 21, pp. 557-562, 2001.
+* [62] M. Braun and C. Pajares, _Phys. Lett. B_, vol. 287, pp. 154-158, 1992.
+* [63] M. Braun and C. Pajares, _Santiago preprint_, vol. US-FT12, 1991.
+* [64] ----, _Santiago preprint_, vol. US-FT13, 1991.
+* [65] M. Braun and C. Pajares, _Phys. Rev. Lett._, vol. 85, no. 23, pp. 4864-4867, 2000.
+* [66] A. Bialas and W. Czyz, _Nucl. Phys. B_, vol. 267, pp. 242-252, 1986.
+* [67] G. Arnison (UA1 Collaboration) _et al._, _Phys. Lett. B_, vol. 118, p. 167, 1982.
+* [68] F. Abe (CDF Collaboration) _et al._, _Phys. Rev. Lett._, vol. 61, p. 1819, 1988.
+
+* [69] N. Amelin, N. Armesto, C. Pajares, and D. Sousa, _Eur. Phys. J. C_, vol. 22, pp. 149-163, 2001.
+* [70] L. Cunqueiro, E. Ferreiro, F. del Moral, and C. Pajares, _Phys. Rev. C_, vol. 72, no. 024907, 2005.
+* [71] M. Braun, E. Ferreiro, F. Del Moral, and C. Pajares, _Eur. Phys. J C_, vol. 25, pp. 249-257, 2002.
+* [72] G. Arnison _et al._, _Phys. Lett. B_, vol. 118, no. 1, pp. 167-172, 1982.
+* [73] H. Heiselberg and A. D. Jackson, _Phys. Rev. C_, vol. 63, no. 064904, 2001.
+* [74] M. Stephanov, K. Rajagopal, and E. Shuryak, _Phys. Rev. D_, vol. 60, no. 114028, 1999.
+* [75] M. Stephanov, _Phys. Rev. D_, vol. 65, no. 096008, 2002.
+* [76] H. Heiselberg, _nucl-th/0003046v5_, 2001.
+* [77] M. Gazdzicki, A. Leonidov, and G. Roland, _Eur. Phys. J. C_, vol. 6, p. 365, 1999.
+* [78] S. A. Voloshin, V. Koch, and H. G. Ritter, _Phys. Rev. C_, vol. 60, no. 024901, 1999.
+* [79] J. Adams (STAR Collaboration) _et al._, _Phys. Rev. C_, vol. 72, no. 044902, 2005.
+* [80] P. R. Bevington, _Data Reduction and Error Analysis for the Physical Sciences_. McGraw-Hill Inc, 1969.
+* [81] L. Adamczyk (STAR Collaboration) _et al._, _Phys. Rev. C_, vol. 87, no. 064902, 2013.
+* [82] B. K. Srivastava, R. P. Scharenberg, and T. Tarnowsky, _Nukleonika_, vol. 51, no. s109, 2006.
+* [83] R. P. Scharenberg, B. K. Srivastava, and A. S. Hirsch, _Eur. Phys. J. C_, vol. 71, no. 1510, 2011.
+* [84] B. K. Srivastava, "private communication," 2011-2015.
+* [85] A. Adare (PHENIX Collaboration) _et al._, _Phys. Rev. Lett._, vol. 104, no. 132301, 2010.
+* [86] A. Drees, _Nucl. Phys. A_, vol. 698, pp. 331-340, 2002.
+* [87] P. Braun-Munzinger, J. Stachel, and C. Wetterich, _Phys. Lett. B_, vol. 596, no. 1-2, pp. 61-69, 2004.
+* [88] A. Rodrigues, R. Ugoccioni, and J. D. de Deus, _Phys. Lett. B_, vol. 458, pp. 402-406, 1999.
+* [89] W. H. Press, B. P. Flannery, S. A. Teukolsky, and W. T. Vetterling, _Numerical Recipes The Art of Scientific Computing_. Press Syndicate of the University of Cambridge, 1986.
+* [90] D. Cebra, "The capabilities of the star detector during the sub-injection energy runs at rhic," _4th CPOD Workshop, Darmstadt_, 2007.
+
+## Appendix A
+
+## A Color String Dynamics
+
+As introduced in Chapter 3.4, the Color String Percolation Model (CSPM) has evolved from several theoretical frameworks and assumptions that have been tested over the past few decades. This thesis focused on the most current form of this model, which provided a methodology to be used directly on data from experiments. An understanding of the development of this model was essential in understanding the choices made and the final form of certain equations. The development of the CSPM can be hard to follow as many of the publications when viewed chronologically jump between variations on the model, though certain distinctions can be made. References [55, 61] are two short papers that summarize multiple theoretical frameworks tested.
+
+A full review of the CSPM has recently been published (reference [35]) and goes into greater detail on the theoretical framework of each rendition of the CSPM, as well as providing more extrapolations of what can be done with the model. Several comparisons with other string models and with published data were also made. A subtle distinction between the current form of the CSPM and an earlier model was made in reference [61]. This is not commented on in the review paper, but may be a useful topic for future development of the theory. A description of this earlier model and how it may be used in the future follows.
+
+### Percolation Scenario with Independent Emitters
+
+The independent emitter picture proposes that strings only interact in overlapping areas where the color field is summed together [44]. Each area is then treated as an independent particle emitter that is not influenced by nearby emitters. Instead of fusion leading to the decrease in the number of color strings (emitters), string fusion in this case actually leads to their proliferation as each overlapping region becomesits own independent source. In general, this picture predicts an increase in the color field, which decreases the total multiplicity while increasing the average transverse momentum squared of the particles produced.
+
+A simple example to consider is the case of two overlapping strings as shown in Figure 1. Here we see two color strings (colored blue and red only for visual purposes). These overlapping circles create three independent color emitters: a, b, and c. It can be seen that emitters a and b only contain one string, while area c is comprised of the two. Both original strings are assumed to be of area \(\sigma_{0}\).
+
+If we further assume that the area of region a and region b, being the only areas containing a single string in this scenario, are the same (\(S_{a}=S_{b}=S_{1}\)), we can then define the area of region c as \(S_{c}=\sigma_{0}-S_{1}\). We also make the assumption that each original string has the same string color charge \(\vec{Q_{0}}\) randomly aligned in color-space. We can further define the average color density (\(\epsilon\)) of the string, assuming it is constant in the transverse plane, as:
+
+\[\epsilon=\frac{Q_{0}}{\sigma_{0}}\] (A.1)
+
+Figure 1: Two overlapping circles creating three regions a, b, and c [44].
+
+This definition allows us to define the color charge in each of the non-overlap regions as:
+
+\[Q_{a}=Q_{b}=\epsilon S_{1}\] (A.2)
+
+In the overlap region c, the total color field is equal to the vectorial sum of the individual strings inside that region. Due to the random alignment of the color fields, we find that in the overlap region, the sum of the color charges, on the average, is \(\vec{Q_{0a}}\cdot\vec{Q_{0b}}=0\). This means the cross term will be zero, and the color charge in region c is:
+
+\[\vec{Q_{c}}^{2}=\frac{\vec{Q_{0}}^{2}S_{c}^{2}}{\sigma_{0}^{2}}+\frac{\vec{Q_{ 0}}^{2}S_{c}^{2}}{\sigma_{0}^{2}}\] (A.3)
+
+\[Q_{c}=\sqrt{2}\epsilon S_{c}\] (A.4)
+
+This simple case can be generalized for the generic case of \(N\) strings being produced in the medium, creating regions of \(n\) overlapping strings. This notation allows us to create the identity:
+
+\[\sum_{i=1}^{N}n_{i}S_{i}=N\sigma_{0}\] (A.5)
+
+Where we can also define:
+
+\[Q_{n}=\sqrt{n}\epsilon S_{n}\] (A.6)
+
+We can imagine two limiting cases, one where N strings are just touching (meaning the system has \(N\) strings each of area \(\sigma_{0}\) and _n_=1), and one where an arbitrary number of strings \(N\) are overlapping one another such that \(S_{n=N}=\sigma_{0}\). In the first, we see that \(Q_{1}=Q_{0}\) for each string, and since there are \(N\) in the system, the total charge of the system is \(Q_{N}=NQ_{0}\). In the second, we see that \(Q_{n=N}=\sqrt{N}Q_{0}\) or, in a form easier to compare to the first case, \(Q_{N}=\frac{NQ_{0}}{\sqrt{N}}\). We can then see that for a cluster of \(n\) strings, the color of the string will vary between the two extremes, where if they are 
+
+[MISSING_PAGE_EMPTY:134]
+
+\[F(\xi)=\sqrt{\frac{1-\exp(-\xi)}{\xi}}\] (A.11)
+
+We can see that \(F(\xi)\) is related to the density of the strings. This relationship comes in handy since the density of strings cannot be observed in experiment, but the effects of the color suppression can, specifically in the measurement of the multiplicity and the transverse momentum distribution. We can now see that Equations (A.7) and (A.8) become:
+
+\[\mu_{N}=F(\xi)n\mu_{0}\] (A.12)
+
+\[<p_{T}^{2}>_{N}=\frac{\left<p_{T}{}^{2}\right>_{0}}{F(\xi)}\] (A.13)
+
+These match the same equations derived in Section 3.3, but the color charge modification is slightly different, having the ratio of the area of the cluster to the area of a single string either inside or outside of the square root. This does not produce a major effect, and it does not impact the fitting method described for the CSPM. However, the extracted \(F(\xi)\) should represent a slightly different situation, and could be used in the Monte Carlo simulation to see if this bridges the results of the \(F(\xi)\) extracted using the fitting method as compared to the \(F(\xi)\) calculated in the simulation.
+
+[MISSING_PAGE_FAIL:136]
+
+[MISSING_PAGE_FAIL:137]
+
+[MISSING_PAGE_FAIL:138]
+
+[MISSING_PAGE_FAIL:139]
+
+[MISSING_PAGE_FAIL:140]
+
+[MISSING_PAGE_FAIL:141]
+
+[MISSING_PAGE_EMPTY:142]
+
+[MISSING_PAGE_FAIL:143]
+
+[MISSING_PAGE_FAIL:144]
+
+[MISSING_PAGE_FAIL:145]
+
+[MISSING_PAGE_FAIL:146]
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \multicolumn{5}{|c|}{AuAu 19.6 GeV} \\ \hline \multicolumn{5}{|c|}{\(p_{0}\)=2.94 and \(\alpha\)=16.95} \\ \hline \(p_{T}\) Range (\(\frac{GeV}{c}\)) & Particles & \(\langle p_{T}\rangle\) (\(\frac{GeV}{c}\)) & F(\(\xi\)) & Temperature (MeV) & \(\frac{\chi^{2}}{NDF}\) \\ \hline
+0.15-1.0 & 25.7M & 0.431 & Failed & Failed & Failed \\ \hline
+0.15-1.2 & 26.9M & 0.460 & 0.8322 & 160.6 & 344.869 \\ \hline
+0.15-1.5 & 27.7M & 0.486 & 0.8265 & 161.2 & 295.662 \\ \hline
+0.15-2.0 & 28.2M & 0.506 & 0.8279 & 161.0 & 230.312 \\ \hline
+0.20-1.0 & 24.1M & 0.451 & Failed & F
+
+[MISSING_PAGE_FAIL:148]
+
+[MISSING_PAGE_FAIL:149]
+
+[MISSING_PAGE_FAIL:150]
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \multicolumn{5}{|c|}{AuAu 27 GeV} \\ \hline \multicolumn{5}{|c|}{\(p_{0}\)=2.94 and \(\alpha\)=16.95} \\ \hline \(p_{T}\) Range (\(\frac{GeV}{c}\)) & Particles & \(\langle p_{T}\rangle\) (\(\frac{GeV}{c}\)) & F(\(\xi\)) & Temperature (MeV) & \(\frac{\chi^{2}}{NDF}\) \\ \hline
+0.15-1.0 & 32.4M & 0.434 & Failed & Failed & Failed \\ \hline
+0.15-1.2 & 33.9M & 0.463 & 0.8159 & 162.2 & 519.932 \\ \hline
+0.15-1.5 & 35.0M & 0.489 & Failed & Failed & Failed \\ \hline
+0.15-2.0 & 35.6M & 0.511 & 0.8118 & 162.6 & 319.314 \\ \hline
+0.20-1.0 & 30.5M & 0.453 & Failed & Failed & Failed \\ \hline
+0.20-1.2 & 32.0M & 0.483 & Failed & Failed & Failed \\ \hline
+0.20-1.5 & 33.0M & 0.510 & 0.8205 & 161.8 & 211.769 \\ \hline
+0.20-2.0 & 33.7M & 0.532 & 0.8200 & 161.8 & 162.493 \\ \hline
+0.30-1.0 & 25.3M & 0.504 & Failed & Failed & Failed \\ \hline
+0.30-1.2 & 26.8M & 0.537 & Failed & Failed & Failed \\ \hline
+0.30-1.5 & 27.9M & 0.567 & Failed & Failed & Failed \\ \hline
+0.30-2.0 & 28.5M & 0.593 & 0.8185 & 162.0 & 157.911 \\ \hline \end{tabular}
+\end{table}
+Table B.16: AuAu 27 data and fit results for \(p_{0}\) = 2.94 and \(\alpha\) = 16.95.
+
+[MISSING_PAGE_FAIL:152]
+
+\begin{tabular}{|c|c|c|c|c|c|} \hline \multicolumn{5}{|c|}{AuAu 39 GeV} \\ \hline \multicolumn{5}{|c|}{\(p_{0}\)=1.982 and \(\alpha\)=12.88} \\ \hline \(p_{T}\) Range (\(\frac{GeV}{c}\)) & Particles & \(\langle p_{T}\rangle\) (\(\frac{GeV}{c}\)) & F(\(\xi\)) & Temperature (MeV) & \(\frac{\chi^{2}}{NDF}\) \\ \hline
+0.15-1.0 & 19.2M & 0.439 & 0.6845 & 177.1 & 674.551 \\ \hline
+0.15-1.2 & 20.1M & 0.469 & 0.6883 & 176.6 & 549.384 \\ \hline
+0.15-1.5 & 20.8M & 0.497 & 0.6931 & 176.0 & 439.111 \\ \hline
+0.15-2.0 & 21.2M & 0.520 & 0.7024 & 174.8 & 449.642 \\ \hline
+0.20-1.0 & 18.2M & 0.455 & 0.7053 & 174.5 & 110.929 \\ \hline
+0.20-1.2 & 19.1M & 0.486 & 0.7055 & 174.4 & 86.982 \\ \hline
+0.20-1.5 & 19.8M & 0.514 & 0.7076 & 174.2 & 70.522 \\ \hline
+0.20-2.0 & 20.2M & 0.539 & 0.7159 & 173.2 & 138.127 \\ \hline
+0.30-1.0 & 15.2M & 0.506 & 0.7179 & 172.9 & 8.354 \\ \hline
+0.30-1.2 & 16.1M & 0.540 & 0.7151 & 173.3 & 10.043 \\ \hline
+0.30-1.5 & 16.8M & 0.571 & 0.7156 & 173.2 & 9.707 \\ \hline
+0.30-2.0 & 17.2M & 0.598 & 0.7248 & 172.1 & 76.384 \\ \hline \end{tabular}
+
+[MISSING_PAGE_FAIL:154]
+
+[MISSING_PAGE_FAIL:155]
+
+[MISSING_PAGE_FAIL:156]
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \multicolumn{5}{|c|}{AuAu 62.4 GeV} \\ \hline \multicolumn{5}{|c|}{\(p_{0}\)=1.982 and \(\alpha\)=12.88} \\ \hline \(p_{T}\) Range (\(\frac{GeV}{c}\)) & Particles & \(\langle p_{T}\rangle\) (\(\frac{GeV}{c}\)) & F(\(\xi\)) & Temperature (MeV) & \(\frac{\chi^{2}}{NDF}\) \\ \hline
+0.15-1.0 & 38.2M & 0.444 & 0.6542 & 181.1 & 1363.630 \\ \hline
+0.15-1.2 & 40.1M & 0.475 & 0.6566 & 180.8 & 1092.940 \\ \hline
+0.15-1.5 & 41.6M & 0.505 & 0.6591 & 180.5 & 836.428 \\ \hline
+0.15-2.0 & 42.5M & 0.531 & 0.6661 & 179.5 & 766.250 \\ \hline
+0.20-1.0 & 36.4M & 0.459 & 0.6742 & 178.4 & 230.305 \\ \hline
+0.20-1.2 & 38.3M & 0.491 & 0.6729 & 178.5 & 183.277 \\ \hline
+0.20-1.5 & 39.8M & 0.522 & 0.6725 & 178.7 & 138.876 \\ \hline
+0.20-2.0 & 40.7M & 0.548 & 0.6783 & 177.9 & 195.190 \\ \hline
+0.30-1.0 & 30.4M & 0.509 & 0.6866 & 176.8 & 33.533 \\ \hline
+0.30-1.2 & 32.4M & 0.544 & 0.6819 & 177.4 & 47.844 \\ \hline
+0.30-1.5 & 33.8M & 0.578 & 0.6792 & 177.8 & 44.834 \\ \hline
+0.30-2.0 & 34.8M & 0.607 & 0.6853 & 177.0 & 104.717 \\ \hline \end{tabular}
+\end{table}
+Table B.22.
+
+AuAu 62.4 data and fit results for \(p_{0}\) = 1.982 and \(\alpha\) = 12.88.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \multicolumn{5}{|c|}{AuAu 62.4 GeV} \\ \hline \multicolumn{5}{|c|}{\(p_{0}\)=2.15 and \(\alpha\)=13.38} \\ \hline \(p_{T}\) Range (\(\frac{GeV}{c}\)) & Particles & \(\langle p_{T}\rangle\) (\(\frac{GeV}{c}\)) & F(\(\xi\)) & Temperature (MeV) & \(\frac{\chi^{2}}{NDF}\) \\ \hline
+0.15-1.0 & 38.2M & 0.444 & 0.7027 & 174.8 & 1288.070 \\ \hline
+0.15-1.2 & 40.1M & 0.475 & 0.7042 & 174.6 & 1024.260 \\ \hline
+0.15-1.5 & 41.6M & 0.505 & 0.7054 & 174.5 & 772.930 \\ \hline
+0.15-2.0 & 42.5M & 0.531 & 0.7112 & 173.7 & 665.716 \\ \hline
+0.20-1.0 & 36.4M & 0.459 & 0.7235 & 172.3 & 213.789 \\ \hline
+0.20-1.2 & 38.3M & 0.491 & 0.7209 & 172.6 & 177.532 \\ \hline
+0.20-1.5 & 39.8M & 0.522 & 0.7189 & 172.8 & 139.704 \\ \hline
+0.20-2.0 & 40.7M & 0.548 & 0.7234 & 172.3 & 158.521 \\ \hline
+0.30-1.0 & 30.4M & 0.509 & 0.7354 & 170.9 & 46.151 \\ \hline
+0.30-1.2 & 32.4M & 0.544 & 0.7291 & 171.6 & 70.446 \\ \hline
+0.30-1.5 & 33.8M & 0.578 & 0.7246 & 172.1 & 72.081 \\ \hline
+0.30-2.0 & 34.8M & 0.607 & 0.7292 & 171.6 & 96.137 \\ \hline \end{tabular}
+\end{table}
+Table B.23. AuAu 62.4 data and fit results for \(p_{0}\) = 2.15 and \(\alpha\) = 13.38.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \multicolumn{5}{|c|}{AuAu 62.4 GeV} \\ \hline \multicolumn{5}{|c|}{\(p_{0}\)=2.94 and \(\alpha\)=16.95} \\ \hline \(p_{T}\) Range (\(\frac{GeV}{c}\)) & Particles & \(\langle p_{T}\rangle\) (\(\frac{GeV}{c}\)) & F(\(\xi\)) & Temperature (MeV) & \(\frac{\chi^{2}}{NDF}\) \\ \hline
+0.15-1.0 & 38.2M & 0.444 & Failed & Failed & Failed \\ \hline
+0.15-1.2 & 40.1M & 0.475 & 0.7568 & 168.4 & 830.834 \\ \hline
+0.15-1.5 & 41.6M & 0.505 & 0.7494 & 169.3 & 726.324 \\ \hline
+0.15-2.0 & 42.5M & 0.531 & 0.7466 & 169.6 & 552.768 \\ \hline
+0.20-1.0 & 36.4M & 0.459 & Failed & Failed & Failed \\ \hline
+0.20-1.2 & 38.3M & 0.491 & 0.7702 & 167.0 & 306.387 \\ \hline
+0.20-1.5 & 39.8M & 0.522 & 0.7592 & 168.2 & 407.821 \\ \hline
+0.20-2.0 & 40.7M & 0.548 & 0.7546 & 168.7 & 341.501 \\ \hline
+0.30-1.0 & 30.4M & 0.509 & Failed & Failed & Failed \\ \hline
+0.30-1.2 & 32.4M & 0.544 & 0.7711 & 166.9 & 301.198 \\ \hline
+0.30-1.5 & 33.8M & 0.578 & 0.7570 & 168.4 & 405.933 \\ \hline
+0.30-2.0 & 34.8M & 0.607 & 0.7516 & 169.0 & 329.830 \\ \hline \end{tabular}
+\end{table}
+Table B.24: AuAu 62.4 data and fit results for \(p_{0}\) = 2.94 and \(\alpha\) = 16.95.
+
+[MISSING_PAGE_EMPTY:160]
+
+VITA
+
+David Garand graduated from The Pennsylvania State University in May 2009 with a Bachelor of Science Degree in Physics. He attended the graduate program in the department of physics and astronomy at Purdue University from 2009 to 2015. David joined the STAR experiment at the Relativistic Heavy-Ion Collider in 2011. He conducted the first systematic study of applying the Color String Percolation Model to data. He also conducted measurements of two particle transverse momentum correlations in data.

@@ -1,0 +1,754 @@
+\(\rm J/\psi\) **Polarization At Mid-rapidity In P+P Collisions At \(\sqrt{s}=200\) GeV At STAR**
+
+by
+
+Siwei Luo
+
+B.S., Northeast Forestry University(China), 2011
+
+M.S., Southern Illinois University(U.S.), 2013
+
+THESIS
+
+Submitted in partial fulfillment of the requirements
+
+for the degree of Doctor of Philosophy in Physics
+
+in the Graduate College of the
+
+University of Illinois at Chicago, 2020
+
+Chicago, Illinois
+
+Defense Committee:
+
+Zhenyu Ye, Chair and Advisor
+
+Olga Evdokimov
+
+David J Hofman
+
+Ho-Ung Yee
+
+Zebo Tang, University of Science and Technology of China
+
+[MISSING_PAGE_EMPTY:2]
+
+**ACKNOWLEDGMENT**
+
+My study experience at the University of Illinois at Chicago would play the most influential impact to my life and career. It is one of the most leading universities all over the world that provides me the valuable opportunities to get access to the world class educational resources and advanced teaching practice. Because my research is on high energy physics experiment, I joined the STAR collaboration at Brookhaven National Laboratory in 2014 that have the chance to witness how the top scientists and scholars solve the hardest problems and operate the most advanced laboratory built for the purpose of particle physics research.
+
+PhD program for me is a long marathon. It is a great chance to learn myself, how to be persevered and how to bridge the dream and the reality.
+
+I am grateful to my English teachers Jennifer Taylor, Kimberly Hansen, Vandana Loomba for helping me improve my language and presentation skills. I had many interesting academic and dynamical discussions with classmates on foods, sports and cultures.
+
+Thanks to physics department assistant Melissa A. Mattingly for keeping my files and records updated and valid. I owe much thanks to physics department graduate advisor James Nell for sharing information of good restaurants, local radio channels, outdoor skating field and must-go places at Chicago.
+
+I am grateful for all the instruction, support and help from UIC high energy research group. Thanks to my colleagues and friends Dhanush Hangal, Guannan Xie, Zaochen Ye, Xiao Wang, Rongrong Ma, Shuai Yang, Jinlong Zhang and Zhen Liu for the academic discussion and improvement. Thank Bingchu Huang teach me how to read datasets and how to get the efficiency of detectors hand by hand. I would like to especially thank Olga Evdokimov, David Hofman and Zhenyu Ye for your kindness and providing me the opportunity to study at UIC. Following Zhenyu's approaches and ideas, we have gone through the principles of the calculation from fundamental statistics perspective, overcome difficulties of numerical calculation and achieved the precise measurements of \(\mbox{J}/\psi\) polarization parameters. During the research, I also learned that how to present the result with high level of aesthetics.
+
+Siwei Luo 
+
+**TABLE OF CONTENTS**
+
+**CHAPTER**
+
+**PAGE**
+
+**1 INTRODUCTION**
+
+1.1 Standard Model
+
+1.2 Heavy flavor quarkonium
+
+1.2.1 J/\(\uppsi\) production mechanism
+
+1.2.1.1 color evaporation model
+
+1.2.1.2 color-singlet model and color-octet model
+
+1.2.2 J/\(\uppsi\) polarization
+
+**2 STAR EXPERIMENT**
+
+2.1 Relativistic Heavy Ion Collider (RHIC)
+
+2.2 Solenoidal Tracker At RHIC (STAR)
+
+2.2.1 Time Projection Chamber
+
+2.2.2 Vertex Position Detector and Time Of Flight
+
+2.2.3 Barrel ElectroMagnetic Calorimeter
+
+**3 J/\(\uppsi\) SIGNALS RECONSTRUCTION**
+
+3.1 J/\(\uppsi\) reconstruction
+
+3.1.1 Datasets
+
+3.1.2 J/\(\uppsi\) reconstruction from data
+
+3.1.3 J/\(\uppsi\) decay products cos\(\uptheta\) and \(\upphi\) distribution
+
+3.1.4 J/\(\uppsi\) Reconstruction Efficiency from Detector Simulation
+
+**4 EXTRACTION OF J/\(\uppsi\) POLARIZATION**
+
+4.1 Maximum Likelihood Estimation of J/\(\uppsi\) Polarization Parameters
+
+4.2 Bias of the estimator
+
+4.3 minimum point position and 1\(\upsigma\) contours
+
+4.4 Goodness of fit
+
+**5 SYSTEMATIC UNCERTAINTY**
+
+5.1 \(\uprho_{\rm T}\) Weight function
+
+5.2 \(\uprho_{\rm T}\) smearing
+
+5.3 DCA cut efficiency
+
+5.4 nHitsFit cut efficiency
+
+5.5 nHitsDedx cut efficiency
+
+5.6 p/E cut efficiency
+
+5.7 ADC0 cut efficiency
+
+5.8 TOF matching efficiency
+
+**TABLE OF CONTENTS (Continued)**
+
+**CHAPTER**
+
+\begin{tabular}{l l l}
+5.9 & TOF 1/\(\beta\) cut efficiency & 68 \\
+5.10 & n\(\sigma_{\rm e}\) cut efficiency & 70 \\
+5.11 & Rapidity weight function & 72 \\
+5.12 & Systematic uncertainty combination & 72 \\
+6 & RESULTS ON J/\(\psi\) POLARIZATION & 74 \\
+7 & SUMMARY AND OUTLOOK & 77 \\
+**CITED LITERATURE** & 78 \\
+**VITA** & 83 \\ \end{tabular}
+
+**LIST OF TABLES**
+
+**TABLE**
+
+\begin{tabular}{r l} I & Track quality cuts \\ II & Electron identification cuts \\ III & Triggered electron cuts \\ IV & \(\chi^{2}\)/NDF and the corresponding p-values between data and different \\  & model calculations. \\ \end{tabular}
+
+**LIST OF FIGUREES**
+
+\begin{tabular}{r l}
+**FIGUREE** & **PAGE** \\
+1 & Elementary particles of standard model. \\
+2 & Spectrum and transitions of the charmonium family. \\
+3 & Top: \({\rm J}/\psi\) cross section times branching ratio as a function of \({\rm p_{T}}\) in p+p collisions at \(\sqrt{\rm s}=200{\rm GeV}\). Solid circles, open circles and blue squares are the published results from STAR; triangles are the published results for \(|\eta|<0.35\) from PHENIX. Bars and boxes are statistical and systematic uncertainties, respectively. The curves are CEM (green), NLO NRQCD A (orange), CGC + NRQCD (blue), and NLO NRQCD B (magenta) theoretical calculations, respectively. Bottom: ratios of these results with respect to the central value. \\
+4 & PHENIX \({\rm J}/\psi\)\({\rm p_{T}}\) spectrum measurement at energy \(\sqrt{\rm S_{NN}}=200\) GeV compared with different model predictions. \\
+5 & Definition of the polarization frames: helicity(HX) and Collins-Soper(CS) frames. The y-axis is perpendicular to the production plane, which is defined by the momenta of the two colliding protons, represented by \({\rm p_{1}}\) and \({\rm p_{2}}\) respectively. \\
+6 & The extreme cases that when polarization parameter is equal to +1 and -1 respectively. The probability density of positron decay from the direction is equal to the distance of the corresponding surface from the origin. \\
+7 & Allowed regions for the J/ polarization parameters. \\
+8 & The complex structure of Relativistic Heavy Ion Collider at Brookhaven National Laboratory. \\
+9 & Through collision of Au nuclei, the QGP is generated in the overlapping region with an almond shape. \\
+10 & Phase diagram and critical point of QGP. \\
+11 & The complex of Time Projection Chamber. \\
+12 & The characteristics of energy loss distribution for different particles. \\
+13 & Main parameters for the STAR TPC. \\
+14 & The complex of VPD detectors. \\
+15 & Two side views of the structure of a MRPC module. The upper (lower) view shows the long (short) edge. The two views are not shown at the same scale. \\
+16 & Inverse velocity vs momentum from 2.6 million TOFr+pVPD-triggered events in d+Au collisions. \\ \end{tabular}
+
+**LIST OF FIGUREES (Continued)**
+
+**FIGUREE**
+
+* 17 Left top: TPC dE/dx vs the momentum in d+Au collisions. Left bottom: TPC dE/dx vs the momentum after TOFr PID selection of \(|\mathrm{I}\upbeta|<0.03\). Clean electron identification is achieved. Right: dE/dx from TPC after TOFr PID selection (left bottom panel) for \(1.0<p<1.5\mathrm{GeV/c}\).
+* 18 The geometry and coverage of BEMC.
+* 19 The E/pc distribution
+* 20 Invariant mass spectra of dielectron pairs in different \(p_{T}\) bins (from left to right: \(p_{T}\) = 0-2, 2-4, 4-6, 6-8, 8-14 GeV/c). The black markers (blue filled histograms) are the spectra from unlike-sign (like-sign) charge pairs, while the red marker represent those obtained by subtracting the like-sign spectra from the unlike-sign ones. The latter are fit to Double Crystal functions represented by the red solid curves.
+* 21 2D distribution of \(\mathrm{J/}\uppsi\) candidates from data as a function of (cos\(\uptheta\), \(\upphi\)) plane in different \(p_{T}\) bins (from left to right: \(p_{T}\)=0-2, 2-4, 4-6, 6-8, 8-14 GeV/c). The top (bottom) row shows the distributions in the HX (CS) frame.
+* 22 \(\mathrm{J/}\uppsi\) reconstruction efficiency from embedding as a function of (cos\(\uptheta\), \(\upphi\)) in different \(p_{T}\) bins (from left to right: \(p_{T}\)=0-2, 2-4, 4-6, 6-8, 8-14 GeV/c). The top(bottom) row shows the efficiencies in the HX (CS) frame.
+* 23 The definition of production, polar angle \(\uptheta\) and azimuthal angle \(\upphi\).
+* 24 For instance, the objective function likelihood as a function of (\(\uplambda_{\uptheta},\uplambda_{\upphi}\)) at \(p_{T}\) [6-8] GeV/c in helicity frame is convex.
+* 25 Distributions of the estimated central value (top row) and statistical uncertainty (bottom row) for \(\uplambda_{\uptheta}\) (left), \(\uplambda_{\upphi}\) (middle) and \(\uplambda_{\upphi}\) (right) from 1000 pseudo experiments in \(6<p_{T}<8\) GeV/c bin in the HX frame. See text for details.
+* 26 Statistical uncertainties for \(\uplambda_{\uptheta}\) from data (vertical red lines) and 1000 pseudo experiments (black histogram). Top (bottom): HX (Collins-Soper) frame. From left to right: \(p_{T}=0\)-2, 2-4, 4-6, 6-8 and 8-14 GeV/c.
+* 27 Same as Figure 26 but for \(\uplambda_{\upphi}\).
+* 28 Same as Figure 26 but for \(\uplambda_{\upphi\upphi}\).
+* 29 Biases in the central value estimation: the x-axis is the input \(\uplambda\) value that are used to generate pseudo data, while the y-axis is the mean of the extracted \(\uplambda\) values from 1000 pseudo experiments. From top to bottom, \(\uplambda_{\uptheta}\), \(\uplambda_{\upphi}\) and \(\uplambda_{\upphi\upphi}\) in the HX frame, and \(\uplambda_{\upphi}\),\(\uplambda_{\upphi}\) and \(\uplambda_{\upphi\upphi}\) in the CS frame, respectively. From left to right, \(p_{T}=0\)-2, 2-4, 4-6, 6-8 and 8-14 GeV/c, respectively. The red line is \(y=x\), while the black line is a linear fit \(y=ax+b\) to the points.
+
+**LIST OF FIGUREES (Continued)**
+
+**FIGUREE**
+
+* 30 Biases in the uncertainty estimation: the x-axis is the RMS of the extracted \(\lambda\) values from 1000 sets of pseudo data, while the y-axis is the mean of the extracted \(\lambda\) uncertainty from 1000 pseudo experiments. From top to bottom, \(\lambda_{\phi}\),\(\lambda_{\phi}\) and \(\lambda_{\phi\phi}\) in the HX frame, and \(\lambda_{\phi}\),\(\lambda_{\phi}\) and \(\lambda_{\phi\phi}\) in the CS frame, respectively. From left to right, \(\rm p_{T}=\) 0-2, 2-4, 4-6, 6-8 and 8-14 GeV/c, respectively. The red line is \(\rm y=x\), while the black line is a linear fit \(\rm y=ax\) to the points.
+* 31 \(-\rm{lnL}_{min}+0.5\) contour (black area) from data as a function of \(\lambda_{\phi}\) and \(\lambda_{\phi}\). Also shown are the \(\lambda_{\phi}\) and \(\lambda_{\phi}\) values estimated from data using the MLE.
+* 32 Same as Figure 31 but for \(\lambda_{\phi}\) and \(\lambda_{\phi\phi}\)
+* 33 Same as Figure 31 but for \(\lambda_{\phi}\) and \(\lambda_{\phi\phi}\)
+* 34 The comparison of theoretical distribution and raw data distribution in \(\phi\). The top (bottom) row shows the HX (CS) frame.
+* 35 The comparison of theoretical distribution and raw data distribution in cos\(\theta\). The top (bottom) row shows the HX (CS) frame.
+* 36 The comparison of Levy function and Powerlaw function fit to the measured \(\rm J/\psi\) production cross section.
+* 37 Electrons TOF matching efficiency in different \(\eta\) range as a function of \(\rm p_{T}\).
+* 38 Positron TOF matching efficiency in different \(\eta\) range as a function of \(\rm p_{T}\).
+* 39 Ratio of TOF efficiency over TOF efficiency condition on no EMC matching for electron and pion in p+p MB at 200 GeV. Pion is taken from David's D\({}^{*}\) 2011 analysis
+* 40 The mean of the Gaussian function sampling the \(\rm I/\beta\) distribution.
+* 41 The sigma of the Gaussian function sampling the \(\rm I/\beta\) distribution.
+* 42 Top left is the mean of Gaussian function with the fit by POL0. Top right is the mean of Gaussian function with the fit by POL1. Bottom left is the sigma of Gaussian function with fit by POL0. Bottom right is the sigma of Gaussian function with the fit by POL1
+* 43 Systematic uncertainty of \(\lambda_{\theta}\), \(\lambda_{\phi}\),\(\lambda_{\phi\phi}\) and \(\lambda_{\rm inv}\) in Helicity and Collins-Soper frame from different sources.
+* 44 Systematic uncertainty combination of \(\lambda_{\theta}\), \(\lambda_{\phi}\),\(\lambda_{\phi\phi}\) and \(\lambda_{\rm inv}\) in Helicity and Collins-Soper frame.
+* 45 The \(\rm J/\psi\) polarization parameters (from top to bottom: \(\lambda_{\phi}\), \(\lambda_{\phi}\), \(\lambda_{\phi\phi}\)) as a function of \(\rm p_{T}\) in the Helicity (left) and Collins-Soper (right) frames.
+* 46 The \(\rm J/\psi\) polarization parameters (from left to right: \(\lambda_{\phi}\), \(\lambda_{\phi}\), \(\lambda_{\phi\phi}\)) as a function of \(\rm p_{T}\) in the Helicity (top) and Collins-Soper (bottom) frames.
+
+**LIST OF FIGUREES (Continued)**
+
+**FIGURE**
+
+## Summary
+
+Experimental measurements of quarkonium cross section and polarization are two main approaches to gain insight into quarkonium production mechanism. Quarkonium polarization refers to anisotropic spatial distribution of lepton decay from quarkonium with regard to quarkonium momentum. Although many theoretical models achieve good consistency with the experimental measurement on quarkonium transverse momentum spectra, they have very different predictions on quarkonium polarization. Therefore, quarkonium polarization measurements have a strong capability to distinguish different models and portrait the quarkonium production mechanism. In this study, the main detectors in Solenoidal Tracker At RHIC (STAR), time projection chamber, time-of-flight and Barrel Electromagnetic Calorimeter are fully applied for track reconstruction, particle identification and physical quantity measurement. The raw yield of \(\mathrm{J/\psi}\) as a function of polar and azimuthal angles is calculated from STAR datasets collected in 2012 from p+p collisions at \(\sqrt{\mathrm{s}}=200\mathrm{GeV}\), and the efficiency of detectors is obtained by GEANT3 simulation. A statistical estimator for \(\mathrm{J/\psi}\) polarization parameters is constructed based on the principle of maximum likelihood estimation. Its properties are studied via Monte Carlo simulation. It is the first time that the measurements of \(\lambda_{\phi}\), \(\lambda_{\mathrm{\phi}\phi}\) and \(\lambda_{\mathrm{inv}}\) are presented by STAR experiment. The results don't suggest prominent \(\mathrm{J/\psi}\) polarization. Among available theoretical models compared with the measurement, the CGC+NRQCD achieve the best agreement.
+
+## Chapter 1 Introduction
+
+### 1 Standard Model
+
+What the universe is made of is an ultimate philosophy question. Standard Model is the modern theory describing the properties of fundamental particles and their interactions. The fundamental particles can be divided into two groups: fermions and bosons, as shown in Figure 1. The fermions include quarks and leptons, which are building blocks of visible matter. The bosons include gluon, photon, W boson and Z boson, which are responsible for interactions among particles, and Higgs boson which gives mass to particles through the subtle Higgs mechanism [1]. The spin of a fermion is an odd multiple of half \(\tt h\), and that of a boson is an even multiple of half \(\tt h\). Quarks and leptons have three generations. Up quark, down quark, electron and electron neutrino are in the first generation. Charm quark, strange quark, muon and muon neutrino are in the second. Top quark, bottom quark, tau and tau neutrino are in the third.
+
+The interactions in the Standard Model include electromagnetic, weak and strong forces. They are described by quantum field theory (QFT) and share the same framework of calculation [3]. The bosons exchanged in the process of these interactions are gauge bosons, which have a spin of \(\hbar\). Photons participate in the electromagnetic interaction between charged particles. W
+
+Figure 1: Elementary particles of standard model [2].
+
+[MISSING_PAGE_FAIL:15]
+
+[MISSING_PAGE_EMPTY:16]
+
+Due to the heavy mass of charm quark, the velocities of quarks in the charmonium states are low [2]. The observed spectra of charmonium resonances correspond to different eigenstates of \({\rm Q}\bar{\rm Q}\) system provides a good probe of the QCD potential in the non-relativistic limit, which is non-relativistic QCD (NRQCD).
+
+The NRQCD potential [2] can be decomposed into two components. Analog to QED potential between an electron and a positron, one component of the NRQCD potential between a quark and an antiquark is called short-range NRQCD potential [2]
+
+\[{\rm V_{s}(r)=-\frac{4}{3}\frac{\alpha_{S}}{r}}\]
+
+where \(\alpha_{S}\) is the coupling constant for the strong interaction and \(r\) is the distance between the quark and antiquark.
+
+At relatively large distances, the energy density between the quarks containing the gluon field is constant. The energy stored in the field is thus proportional to the distance between the quarks [2]
+
+\[{\rm V_{l}(r)\approx\kappa r}\]
+
+where \(\kappa\approx 1GeV/fm\). Thus, the complete NRQCD potential in the \({\rm Q}\bar{\rm Q}\) state is
+
+\[{\rm V_{q\bar{q}}(r)=-\frac{4}{3}\frac{\alpha_{S}}{r}+\kappa r}\]The production of heavy quark and anti-quark is perturbative while hadronization is non-perturbative, which cannot be calculated from first principle. In the process of hadronization, quarks and anti-quarks undergo a "cooling down" process such that the hadrons are formed [16]. The observed hadrons are usually mesons or baryons, which contain two or three valence quarks, respectively. Exotic states have also been discovered where hadrons consist of more than three quarks, e.g. pentaquarks [17].
+
+### Heavy flavor quarkonium
+
+A meson made of a quark and its anti-quark is called quarkonium [18]. The quarkonium formed by heavy quarks, including charmonium and bottomonium, is called heavy flavor quarkonium.
+
+The existence of charm quark was proposed by Sheldon Lee Glashow and James Bjorken. The spectra of charmonium states and the decay processes are present in Figure 2. The ground state of charmonium J/\(\psi\) meson has a rest mass of \(3.0969\)GeV/c\({}^{2}\) and mean lifetime \(7.2\times 10^{-21}\)s [18]. It was discovered independently by two research groups from Stanford Linear Accelerator Center (SLAC) and Brookhaven National Laboratory (BNL). Because this discovery reveals the existence of the fourth known quark, the charm quark, Burton Richter and Chao Chung Ting were awarded the 1976 Nobel Price.
+
+Hadronic decay modes of J/\(\psi\) are strongly suppressed because of the OZI Rule [19]. The branching ratios (BR) of J/\(\psi\) main decay modes are [20] :
+
+J/\(\psi\)\(\rightarrow\) hadrons BR = (87.7 \(\pm\) 0.5) %;
+
+J/\(\psi\)\(\rightarrow\)\(e^{+}\)\(e^{-}\) BR = (5.94 \(\pm\) 0.06) %;
+
+[MISSING_PAGE_EMPTY:19]
+
+nium production can only be accessed by experimental measurements and phenomenological models.
+
+##### 1.2.1.1 Color evaporation model
+
+The color evaporation model (CEM) calculates the cross section for quarkonium production in hadron collisions in the following way:
+
+\[\sigma[A+B\to H+X]=F_{H}\int_{4m^{2}}^{4m_{M}{}^{2}}dm_{Q\bar{Q}}^{2}\frac{d \sigma}{dm_{Q\bar{Q}}^{2}}[A+B\to Q\bar{Q}+X]\]
+
+where \(m_{M}\) is the mass of meson \(M\) containing the heavy quark \(Q\), \(d\sigma\) is the differential cross section for a \(Q\bar{Q}\) pair to be produced in a collision of \(A\) and \(B\), \(m_{Q\bar{Q}}\) is the invariant mass of \(Q\bar{Q}\). \(F_{H}\) is the fraction factor represent the ratio that invariant mass of \(Q\bar{Q}\) less than \(2m_{M}\), which is assumed to be universal that can be determined by data [21]. As one of the simplest quarkonium production model that was first proposed in 1970's, the calculation doesn't take quantum numbers such as angular momentum, spin or color of quarks into account [22, 23].
+
+##### 1.2.1.2 Color-singlet model and color-octet model
+
+The quantum states of color-singlet and color-octet read \(\frac{1}{\sqrt{3}}(r\bar{r}+g\bar{g}+b\bar{b})\) and \(r\bar{g}\), \(r\bar{b}\), \(g\bar{r}\), \(g\bar{b}\), \(b\bar{r}\), \(b\bar{g}\), \(\frac{1}{\sqrt{2}}(r\bar{r}-g\bar{g})\), \(\frac{1}{\sqrt{6}}(r\bar{r}+g\bar{g}-2b\bar{b})\) respectively [2]. In the color-singlet model, it assumes that the quantum state of the pair does not evolve between its production and hadronization, neither in spin, nor in color. The differential production cross section is calculated in the following way:\[\mathrm{d}\sigma[A+B\to Q\bar{Q}+X]=\sum_{i,j}\int dx_{i}dx_{j}f_{i}(x_{i},\mu_{F}) f_{j}(x_{j},\mu_{F})d\hat{\sigma}_{i+j\to Q\bar{Q}+X}|\psi(0)|^{2}\]
+
+where parton distribution functions (PDFs) \(f_{i}(x_{i},\mu_{F})\) (\(f_{j}(x_{j},\mu_{F})\)) is the number density of the parton of flavour \(i\) (\(j\)) inside the hadron \(A\) (\(B\)); \(x_{i}\) (\(x_{j}\)) is the parton momentum fraction denoted the fraction parton carried from proton; and \(\mu_{F}\) is factorisation scale [24].
+
+Compared with color-singlet model, color-octet model take quantum numbers that angular momentum, spin and color into the calculation of production mechanism and express the hadronization probability of a heavy-quark pair into a quarkonium via long-distance matrix elements (LDMEs) \(<O_{Q}^{n}>\)[25].
+
+\[\mathrm{d}\sigma[A+B\to Q\bar{Q}+X]=\sum_{i,j,n}\int dx_{i}d\psi_{j}f_{i}(x_{i},\mu_{F})f_{j}(x_{j},\mu_{F})d\hat{\sigma}_{i+j\to Q\bar{Q}+X}(\mu_{R},\mu_{F},\mu_{A})<O_{Q}^{n}>\]
+
+where \(n\) denotes sets of quantum numbers including color, angular momentum and spin; \(f_{i}(x_{i},\mu_{F})\) (\(f_{i}(x_{i},\mu_{F})\)) is the parton distribution function of parton of \(i\) (\(j\)) flavour. The cross section is calculated by summing up all component contribution. For the color-singlet and color-octet model, they essentially differs from how many quantum states allowed during the process of quarkonium production.
+
+Figure 3: Top: \(\mathrm{J/\psi}\) cross section times branching ratio as a function of \(\mathrm{p_{T}}\) in p+p collisions at \(\sqrt{\mathrm{s}}=200\mathrm{GeV}\). Solid circles, open circles and blue squares are the published results from STAR [26]; triangles are the published results for \(|\mathrm{\eta}|<0.35\) from PHENIX [27]. Bars and boxes are statistical and systematic uncertainties, respectively. The curves are CEM (green) [28], NLO NRQCD A (orange) [29], CGC + NRQCD (blue) [30], and NLO NRQCD B (magenta) [31] theoretical calculations, respectively. Bottom: ratios of these results with respect to the central value [32].
+
+The theoretical models on J/\(\psi\) production mechanism provide very distinct predictions on J/\(\psi\) polarization, while have good agreement with J/\(\psi\) cross section experiment measurements as shown in Figure 3 and Figure 4. Therefore, the experimental measurement of J/\(\psi\) polarization
+
+Figure 4: PHENIX J/\(\psi\)\(\mathrm{p_{T}}\) spectrum measurement at energy \(\sqrt{S_{\mathrm{NN}}}=200\) GeV compared with different model predictions [33].
+
+become a useful tool to distinguish different models and constraints the parameters of theoretical models.
+
+#### 1.2.2 \(\mathsf{J/\psi}\) polarization
+
+To extract the \(\mathsf{J/\psi}\) polarization parameters from data, we need to define the polarization reference frame first. As shown in Figure 5, \(\mathsf{p_{1}}\) and \(\mathsf{p_{2}}\) correspond to the colliding proton's momentum in the \(\mathsf{J/\psi}\) rest frame, which defines the production plane. Y axis is perpendicular to the production plane. The difference between Helicity frame and Collins-Soper frame is that the Z axis in Helicity frame is defined along the sum of \(\mathsf{p_{1}}\) and \(\mathsf{p_{2}}\) vector, while the Z axis in Collins-Soper frame is defined as the bisector of \(\mathsf{p_{1}}\) and \(\mathsf{p_{2}}\) vector. Consequently, after Y axis and Z axis is aligned, the X axis is determined. In the present study, we usually measure the polarization parameters in Helicity frame and Collins-Soper frame.
+
+To remove the effect of the arbitrary choice of reference frame, \(\lambda_{\mathsf{inv}}\) is the specific quantity remaining the same in both the Helicity frame and the Collins-Soper frame.
+
+\[\lambda_{\mathsf{inv}}=\frac{\lambda_{\emptyset}+3\lambda_{\Phi}}{1-\lambda_{ \Phi}} \tag{1.1}\]A particle may be observed preferentially in a state belonging to a definite subset of the possible eigenstates of the angular momentum component \(\mathsf{J}_{z}\) along a characteristic quantization axis. When this happens, the particle is said polarized [35]. Polarization of \(\mathsf{J}/\uppsi\) indicates the anisotropic spatial distribution of lepton decay from \(\mathsf{J}/\uppsi\) with respect to \(\mathsf{J}/\uppsi\) momentum. And the differential cross section of \(\mathsf{J}/\uppsi\) decay products can be written as the Fourier series expansion as following:
+
+\[\frac{\upomega^{2}\mathsf{N}}{\upomega\mathsf{cos}\upomega\upphi}\propto \mathsf{I}+\lambda_{\upomega}\mathsf{cos}^{2}\uptheta+\lambda_{\upphi} \mathsf{sin}^{2}\uptheta\mathsf{cos}(2\upphi)+\lambda_{\upphi\upphi}\mathsf{ sin}(2\uptheta)\mathsf{cos}\upphi, \tag{1.2}\]
+
+Figure 5: Definition of the polarization frames: helicity(HX) and Collins-Soper(CS) frames [34]. The y-axis is perpendicular to the production plane, which is defined by the momenta of the two colliding protons, represented by \(\mathsf{p}_{1}\) and \(\mathsf{p}_{2}\) respectively.
+
+where the coefficients \(\lambda_{\theta}\), \(\lambda_{\phi}\) and \(\lambda_{\theta\phi}\) are parameters determining the probability density distribution of the decay products with respect to the polarization (\(\hat{\mathpzc{z}}\)) axis in the J/\(\psi\) rest frame. As illustrated by Figure 6, when \(\lambda_{\theta}=+1\) the positron prefers moving parallelly to z axis and when \(\lambda_{\theta}=-1\) the positron prefers moving orthogonally to z axis.
+
+Figure 6: The extreme cases that when polarization parameter \(\lambda_{\theta}\) is equal to +1 and -1 respectively. The probability that positron decay from the direction is equal to the distance of the corresponding surface from the origin [35].
+
+The integration over \(\cos\!\theta\) or \(\phi\) yields the one-dimensional distribution of \(\phi\) and \(\cos\!\theta\) respectively,
+
+\[W(\cos\!\theta)\propto\frac{1}{3+\lambda_{\theta}}(1+\lambda_{\theta}\cos^{2} \!\theta), \tag{1.3}\]
+
+\[W(\phi)\propto 1+\frac{2\lambda_{\phi}}{3+\lambda_{\theta}}\mbox{$\cos 2\phi$} \tag{1.4}\]
+
+Due to the nature of differential cross section of positron decay from \(J/\psi\) is probability which should be greater than or equal to 0 for every direction. This requirement exerts constraints on the \(J/\psi\) polarization parameters so that the admissible set of \(J/\psi\) polarization parameters is shown in Figure 7.
+
+Figure 7: Allowed regions for the \(J/\psi\) polarization parameters [35].
+
+The rest of the thesis is organized as following:
+
+Chapter 2 introduces Relativistic Heavy Ion Collider (RHIC), the physics tasks of Solenoid Tracker at RHIC (STAR) experiments, and main detectors used for triggering, track reconstruction, and particle identification.
+
+Chapter 3 explains how the \(\mathrm{J}/\mathrm{\psi}\) signals are reconstructed, including: how to identify electrons, how to calculate the invariant mass spectra, remove the combinatorial background and get the signal of \(\mathrm{J}/\mathrm{\psi}\) particle.
+
+Chapter 4 describes how to calculate likelihood based on dataset and efficiency of detectors, locate the optimum point of likelihood and exam the property of estimator via toy Monte Carlo simulation.
+
+Chapter 5 presents the systematic uncertainties coming from different sources, and how to combined them together as overall systematic uncertainty of our measurements.
+
+Chapter 6 draws the conclusion based on empirical measurements results.
+
+Chapter 7 summarizes the \(\mathrm{J}/\mathrm{\psi}\) polarization using STAR 2012 dataset and provides a vista on the \(\mathrm{J}/\mathrm{\psi}\) polarization measurements from p+Au and Au+Au collisions system from STAR, 2011 and 2015 datasets.
+
+## Chapter 2 STAR EXPERIMT
+
+### 2.1 Relativistic Heavy Ion Collider (RHIC)
+
+The Relativistic Heavy Ion Collider (RHIC) at Brookhaven National Laboratory (BNL) is the first machine in the world capable of colliding heavy ions [36]. As shown in Figure 8, the detectors locate in 6 o'clock and 8 o'clock are STAR and PHENIX respectively. The colliding atoms are ionized and striped of outside electrons in the Tandem Van de Graaff, accelerated at Alternating Gradient Synchrotron (AGS), then injected into the RHIC rings and accelerated to desire energy [37]. The superconducting magnets along the ring deflect and focus the beam. The beams of protons and heavier nuclei are accelerated by oscillating electrical field to nearly the speed of light. By convention, one beam is called the "blue" beam (clockwise), while the other is called "yellow" beam (anticlockwise) [37]. When two beams of ions colliding with each other, the constituent quarks and gluons will undergo a break-up and regroup-up. This process provides an important window for us to gain insight into many important physics mechanisms. The measurements conducted at RHIC help to develop cutting edge physics theory and put influential ones in test [38]. With the capability of high precision track reconstruction, momentum measurement, and particle identification at the mid-rapidity region, the STAR experiment is designed for multiple important tasks including the property of quark-gluon plasma (QGP) and proton spin physics [39].
+
+QGP, also known as quark-gluon soup, is a state of nuclear matter which exists at extremely condition [38]. QGP consists of asymptotically free strong-interacting quarks and gluons. Through collision of Au nuclei, the QGP is generated in the overlapping region with an almond shape. The dynamical evolution of the QGP can be described by hydrodynamics, which can successfully describe experimental results on azimuthal anisotropy of final state particles. The QGP will cool down to form hadrons shortly after its generation [40]. Such a phase transition is called "the quark-gluon".
+
+Figure 8: The complex structure of Relativistic Heavy Ion Collider at Brookhaven National Laboratory [36].
+
+transition is illustrated in the phase diagram of nuclear matter in Figure 10, in analogy to the phase diagram of water. Understanding the properties and phase transition of QGP is essential for us to understand the evolution of the early universe [38].
+
+Figure 9: Through collision of Au nuclei, the QGP is generated in the overlapping region with an almond shape.
+
+Figure 10: Phase diagram and critical point of QGP [41].
+
+The recent understanding of proton's spin suggests it is made of three components, quarks' spin, gluons' spin and quark and gluon orbital angular momenta [42]. To investigate the contribution from each component, it is required to know the prior knowledge of momentum distribution of the quarks and gluons of proton, which is studied by parton model [43]. To understand the nature of proton's spin thereby the nature of fundamental particles' spin, as one of important goals of RHIC, the experiments at RHIC were also designed to conduct the experiments of colliding spin-aligned proton beams.
+
+The installation of Siberian Snake [44] makes it possible for spin physics experiments. The Siberian Snake is an arranged group of dipole magnets. The anomalous magnetic moment of the proton is \(2.792\mu_{N}\), where the nuclear magnetic moment \(\mu_{N}=\frac{e\hbar}{2m_{p}}\)[45]. When protons enter the Siberian Snake, the magnetic field will exert a torque on the protons due to the interaction between the magnetic field and protons' intrinsic magnetic moment [46]. It will rotate the orientation of protons' spin to the desired direction.
+
+### 2.2 Solenoidal Tracker At RHIC (STAR)
+
+For high energy physics experiments at colliders, detectors usually have an onion-like structure. This kind of hierarchical structure gives detector the capability to distinguish different types of particles and measure their physics quantities such as momentum, energy and so forth. The center-of-mass energy \(\sqrt{s}\) is calculated based on the total energy and momentum of the two colliding particles [2],
+
+\[s=(\sum_{i=1}^{2}E_{i})^{2}-(\sum_{i=1}^{2}\vec{p_{i}})^{2}\]The scattered partons are observed as jets or leading hadrons. The momenta of jets or hadrons can be precisely measured and applied to calculate differential cross section [2].
+
+#### Time Projection Chamber
+
+Time Projection Chamber (TPC) shown in Figure 11 is the main detector at STAR to reconstruct the trajectories of charged particles and help identify particles. The length of the TPC is 420cm, the outer diameter of the drift volume is 400cm and the inner diameter of the drift volume is 100cm. The TPC is placed inside a solenoidal magnet that provides a uniform homogeneous and non-divergent magnetic field of 0.5 Tesla magnitude. The gas inside TPC is called P10 gas (90% argon, 10% methane by volume) [47].
+
+When energetic charged particles go through the P10 gas, they ionize nearby gas atoms and ionized particles drift in an exerted electrical field of the TPC to the side. Multi-wire proportional chambers (MWPC) are mounted on both sides of the TPC. High voltage is exerted on each wire of the MWPC. When an ionized particle passes by the wire, it causes avalanche and generates a current signal along the wire. The positive ions created in the avalanche induce a temporary image charge on the pads which disappears as the ions move away from the anode wire. The image charge is measured by a preamplifier/shaper/waveform digitizer system. The induced charge from an avalanche is shared over several adjacent pads, so the original track position can be reconstructed to a small fraction of a pad width. There are a total of 136,608 pads in the readout system [48]. Knowing the measured drift velocity of ionized particles, one can calculate the position of the charged particle along the z-axis. The trajectory of the charged particle is then reconstructed by lining up the hits from the TPC. With the magnitude and direction of the magnetic field is known, the momentum and charge sign of energetic charged particles can be determined by calculating the Lorentz force exerted on the particle.
+
+Figure 11: The complex of Time Projection Chamber [49].
+
+Meanwhile, the charged particle loses its kinematic energy as it ionizes the gas atoms nearby. The Bethe-Bloch equation calculates the energy loss per unit length traversed [50].
+
+\[-<\frac{\mathrm{d}\mathrm{E}}{\mathrm{d}\mathrm{x}}>=\mathsf{K}z^{2}\frac{Z}{A} \frac{1}{\beta^{2}}[\frac{1}{2}\ln\frac{2m_{e}c^{2}\beta^{2}\gamma^{2}W_{\max} }{\mathrm{I}^{2}}-\beta^{2}-\frac{\delta(\beta\gamma)}{2}] \tag{2.1}\]
+
+where \(\mathsf{K}=4\pi\mathsf{N}_{A}\tau_{\mathrm{e}}^{2}m_{e}c^{2}\); \(A\) atomic mass of absorber; \(z\epsilon\) charge of incident particle; \(Z\) atomic number of absorber; I mean excitation energy (eV); \(\delta(\beta\gamma)\) density effect correction to ionization energy loss; \(T_{\max}\) is the maximum kinetic energy which can be imparted to a free electron in a single collision [2, 18]. STAR experiments use Bichsel function instead [51].
+
+The energy loss is normalized by calculating \(n\sigma_{e}\) with Equation 2.2
+
+\[n\sigma_{e}=\frac{\log(\mathrm{d}\mathrm{E}/\mathrm{d}\mathrm{x})_{\mathrm{ measured}}-\log(\mathrm{d}\mathrm{E}/\mathrm{d}\mathrm{x})_{\mathrm{theoretical}}}{\sigma( \log(\mathrm{d}\mathrm{E}/\mathrm{d}\mathrm{x}))} \tag{2.2}\]
+
+where \(\log(\mathrm{d}\mathrm{E}/\mathrm{d}\mathrm{x})_{\mathrm{theoretical}}\) is the theoretical \(\log(\mathrm{d}\mathrm{E}/\mathrm{d}\mathrm{x})\) calculated by Bethe-Bloch equation; \(\log(\mathrm{d}\mathrm{E}/\mathrm{d}\mathrm{x})_{\mathrm{measured}}\) is calculated by how much extent the trajectory is bend via ionization process and \(\sigma(\log(\mathrm{d}\mathrm{E}/\mathrm{d}\mathrm{x}))\) is the variation of \(\log(\mathrm{d}\mathrm{E}/\mathrm{d}\mathrm{x})\) from the measurements. As shown in Figure 12, measurements of \(\log(\mathrm{d}\mathrm{E}/\mathrm{d}\mathrm{x})\) distinguish electron tracks from hadron tracks based on the different characteristic of energy loss.
+
+Figure 12: The characteristics of energy loss distribution for different particles [47].
+
+Basic parameters for the STAR TPC and its associated hardware
+
+Figure 13: Main parameters for the STAR TPC [47].
+
+#### 2.2.2 Vertex Position Detector and Time Of Flight
+
+As shown in Figure 14, the vertex position detector (VPD) exists as two identical detector assemblies, one on the east and one on the west of STAR. Each of the nineteen channels used in each assembly is composed of a Pb converter followed by a fast, plastic scintillator which is read out by a photomultiplier tube (PMT). The signals from the nineteen channels in each assembly are digitized independently by two different sets of electronics [52]. The start time of the collision and the position of vertex can be calculated based on the average time of two VPDs assemblies.
+
+Figure 14: The complex of VPD detectors [52].
+
+The Time of Flight (TOF) detector covers \(2\pi\) in azimuth angle and \(|\eta|<1\) in pseudo-rapidity [53]. It extends the limit of particle identification capability to a higher momentum range than that of the TPC. As the main component of TOF, multi-gap resistive plate chamber (MRPC) is designed to achieve good time and reasonable position resolutions, where signals are generated when charged particles travel through the gas and cause the avalanche [54]. Figure 15 depicts the schematic structure of MRPC [54].
+
+The long (short) edge. The two views are not shown at the same scale [53].
+
+Figure 15: Two side views of the structure of a MRPC module. The upper (lower) view shows the long (short) edge. The two views are not shown at the same scale [53].
+
+Together with the start time of collision recorded by the VPD and the time of arrival recorded by the TOF, the time interval from the start time and the time the particle reaches the TOF can be calculated accordingly. The vertex position of collision of beams is calculated by:
+
+\[z=c(T_{east}-T_{west})/2 \tag{2.3}\]
+
+where, \(T_{east}\) and \(T_{west}\) are the time recorded by the VPD, \(c\) is the speed of light. The start time is calculated by:
+
+\[T_{start}=(T_{east}+T_{west})/2-L/c\]
+
+where, the distance L = 5.7m.
+
+\[\frac{1}{\beta}=\frac{c\Delta T}{L} \tag{2.4}\]Figure 16: Inverse velocity vs momentum from 2.6 million TOFr+pVPD-triggered events in d+Au collisions [53].
+
+#### 2.2.3 Barrel ElectroMagnetic Calorimeter
+
+In STAR, a sampling calorimeter uses lead and plastic scintillator for the detection of electromagnetic energy [55]. The calorimeter is constructed from a number of relatively small modules, which allows the calorimeter to cover the necessary area and be flexible to complex geometry as well [55].
+
+Figure 17: Left top: TPC dE/dx vs the momentum in d+Au collisions. Left bottom: TPC dE/dx vs the momentum after TOFr PID selection of \(|1\beta|<0.03\). Clean electron identification is achieved. Right: dE/dx from TPC after TOFr PID selection (left bottom panel) for \(1.0<\) p \(<\) 1.5GeV/c [53].
+
+The geometry and coverage of the Barrel ElectroMagnetic Calorimeter (BEMC) is shown in Figure 18. It covers the pseudo-rapidity range \(|\eta|<1\) and full azimuthal angle. The STAR physics program requires that the calorimeter permit the reconstruction of the \(\pi^{0}\)'s and isolated photons at relatively high \(p_{T}\approx 25-30\)GeV/c and be capable of identifying single electrons and pairs in intense hadron backgrounds from heavy vector mesons and W and Z decays [55].
+
+In STAR, a sampling calorimeter uses lead and plastic scintillator for the detection of electromagnetic energy [55]. The calorimeter is constructed from a number of relatively small modules, which allows the calorimeter to cover the necessary area and be flexible to complex geometry as well [55].
+
+When energetic charged particles go through a scintillator, scintillator molecules absorb energy and go to excited states. The molecules will release photons and come back to the ground state. The photon signal is led to photomultiplier tubes via optical fibers. After calibration, one can measure the energy that the particle deposits in the BEMC from the amplitude of the signal from the photomultiplier readout [55].
+
+In contrast to that hadrons only deposit a fraction of its energy, as shown in Figure 19, electrons deposit all the kinematic energy. By measuring the ratio of momentum over the energy, it help us distinguish electrons from hadrons.
+
+Figure 18: The geometry and coverage of BEMC [49].
+
+Figure 19: The E/pc distribution
+
+## Chapter 3 J/\(\psi\) signals reconstruction
+
+### 3.1 J/\(\psi\) reconstruction
+
+To measure the polarization parameters \(\lambda_{\theta}\), \(\lambda_{\phi}\) and \(\lambda_{\theta\phi}\), one need have both the precise measurement of raw yield distribution of polar and azimuthal angular distribution of positron momentum with regard to J/\(\psi\) momentum and the knowledge of detectors' efficiency. Thereafter, the J/\(\psi\) polarization parameters measurement can be decomposed into three main steps : 1) event reconstruction, 2) spatial distribution of probability density function measurement including central value and statistical uncertainty of polarization parameters, 3)systematic uncertainty measurements with regard to different sources.
+
+The event reconstruction refers to means that reconstruct physics event of interest happened during the collision. In my study, the event of J/\(\psi\) decay to dielectron are of significance. First of all, the observable quantity like electron's momentum, positron's momentum, J/\(\psi\)'s momentum and so on should be measured precisely in order to reconstruct the event of J/\(\psi\)'s decay. Meanwhile, the combinatorial background that the event mistakenly taken as J/\(\psi\) decay should also be calculated as well. The technique called "unlike sign minus like sign" is applied to remove combinatorial background in this study.
+
+The spatial distribution of probability density function measurement involves the likelihood estimation and minimization. Based on maximum likelihood estimation, the likelihood is calculated according to the definition in combination with efficiency of detectors. The problem of finding the probability density function match the empirical observation best is transformed to the problem of minimization. The ROOT TMinuit package is applied to search for the minimum point of the likelihood.
+
+#### 3.1.1 Datasets
+
+Three STAR datasets in p+p collisions at \(\sqrt{s}=200\) GeV collected in 2012 are used in this study. The present measurement of \(\mathrm{J}/\psi\) polarization focuses on the process that \(\mathrm{J}/\psi\) decays into an electron and a positron. Hence, the capability to identify electron track is the most important part to reconstruct \(\mathrm{J}/\psi\) mesons.
+
+As listed in Table I, the track quality cuts indicates whether a track is a "good" track. First of all, the momentum of a track should be great than 0.2 GeV/c because the magnetic field will bend the trajectory of charged particle, if the momentum of the charged particle is too low, it will form a closed circular track inside TPC, which would be rejected by STAR track reconstruction algorithm. The cut on the distance of the closed approach to the primary vertex (DCA) is set to be less than 1cm due to the short lifetime of \(\mathrm{J}/\psi\), which requests the electron tracks that decay from \(\mathrm{J}/\psi\) particle should be within 1cm away from the vertex position. The number of TPC hits used in track reconstruction (nHitsFit) is required to be larger than 20. NHitsdEdx indicates how many hits point are used to measure energy loss (dE/dx) of particle during traversal per length [56]. The ratio of nHitsFit/nHitsMax (nHitsRatio), where nHitsMax is the maximum number of points available in track fit, is required to be larger than 0.52 and less than 1.02.
+
+As listed in Table 2, for electron identification, the cut for the normalized energy loss is \(-1.9<\nsigma_{e}<3\). The BEMC and TOF are also used for the electron identification. The BEMC has a better capability to identify electrons with relatively high momentum (\(\pt>1GeV/c\)). It requests the momentum over energy of the track satisfy that \(0.3<\pt<1.5\). Complementarily, the TOF has a better capability to identify electrons with relatively low momentum. It requests the TOF matching \(\Y^{\text{TOF}}_{\text{local}}\) satisfy that \(|\Y^{\text{TOF}}_{\text{local}}|<2cm\) and \(|1/\beta-1|<0.03\).
+
+As listed in Table 3, triggers define under what condition that the detectors start to record information of interests. The datasets used in this analysis are triggered by minimum-bias (MB), BHT0 and BHT2 trigger respectively. For VPDMB-nobsmd triggered events, it is triggered by a coincidence signal from the VPDs on both sides. The integrated luminosity of VPDMB-nobsmd is \(0.029\leavevmode\nobreak\ \pb^{-1}\) with \(734.853\) million events. For BHT0*BBCMB*TOF0 triggered events, in combination with the coincidence signal from BBC and TOF, it requires additionally an electron fire high tower (HT) trigger with DSMADC readout greater than 11 and ADC0 readout greater than 180, which corresponds to an energy deposition in the BEMC that is larger than \(2.6GeV\). The integrated luminosity of BHT0*BBCMB*TOF0 is \(1.371\leavevmode\nobreak\ \pb^{-1}\) with \(39.164\) million events. Similarly, for BHT2*BBCMB triggered events, in combination with coincidence signal from BBC, it requires an electron fire HT trigger with DSMADC readout greater than 18 and ADC0 readout greater than 300, which corresponds to an energy deposition in the BEMC larger than \(4.3GeV\). The integrated luminosity of BHT2*BBCMB is \(23.550\leavevmode\nobreak\ \pb^{-1}\) with \(36.062\) million events. The electron track is called triggered electron.
+
+\begin{table}
+\begin{tabular}{c c} BEMC electron & -1.9 \(<\) n\(\sigma_{\rm e}\)\(<\) 3, p\({}_{\rm T}\)\(>\) 1 GeV/c, 0.3 \(<\) p/E \(<\) 1.5 \\ TOF electron & -1.9 \(<\) n\(\sigma_{\rm e}\)\(<\) 3, \(|\)Y\({}_{\rm local}^{\rm TOF}|\)\(<\) 2 cm, \(|\)1/\(\beta-1|\)\(<\) 0.03 \\ \end{tabular}
+\end{table}
+Table 2: Electron identification cuts
+
+\begin{table}
+\begin{tabular}{c c} BHT0 & p\({}_{\rm T}\)\(>\)2.6 GeV/c, DSMADC\(>\)11, ADC0\(>\)180 \\ BHT2 & p\({}_{\rm T}\)\(>\)4.3 GeV/c, DSMADC\(>\)18, ADC0\(>\)300 \\ \end{tabular}
+\end{table}
+Table 3: Triggered electron cuts
+
+#### 3.1.2 \(\mathrm{J/\psi}\) reconstruction from data
+
+The process that \(\mathrm{J/\psi}\) decay to dielectron is a two-body decay. To reconstruct \(\mathrm{J/\psi}\) meson via its decay products electron and positron, the invariant mass is calculated from the four momenta of the electron and positron, namely [2]
+
+\[\mathrm{m}_{\mathrm{inv}}^{2}=\mathrm{p}^{\mu}\mathrm{p}_{\mu}=\mathrm{E}^{2}- \mathrm{p}^{2} \tag{3.1}\]
+
+Two electrons with opposite charge sign in the same event are paired and the invariant mass is calculated to reconstruct \(\mathrm{J/\psi}\) candidates. These dielectron pairs are called unlike-sign pairs, which receives contributions from not only electron-positron pairs from J/psi decay, but also those randomly paired ones, which is referred to as combinatorial background. To remove the combinatorial background, two electrons or positrons with the same sign in the same event are paired, which are called like-sign pairs. By subtracting like-sign distribution from unlike-sign distribution, I can remove the contribution from the combinatorial background and extract the signal distribution. This technique to remove combinatorial background is called "unlike sign minus like sign". The invariant mass spectra of dielectron pairs in different \(\mathrm{p_{T}}\) bins are present in Figure 20.
+
+#### 3.1.3 \(\mathrm{J/\psi}\) decay products \(\mathrm{cos\theta}\) and \(\mathrm{\phi}\) distribution
+
+Using the same method "unlike sign minus like sign", I calculate the 2-dimensional for positron from \(\mathrm{J/\psi}\) candidate decay distribution as a function of \((\mathrm{cos\theta},\mathrm{\phi})\). The results are shown in Figure 21.
+
+Figure 20: Invariant mass spectra of dielectron pairs in different \(\mathrm{p_{T}}\) bins (from left to right: \(\mathrm{p_{T}}\) = 0-2, 2-4, 4-6, 6-8, 8-14 GeV/c). The black markers (blue filled histograms) are the spectra from unlike-sign (like-sign) charge pairs, while the red marker represent those obtained by subtracting the like-sign spectra from the unlike-sign ones. The latter are fit to Double Crystal functions represented by the red solid curves.
+
+shows the distributions in the HX (CS) frame.
+
+#### 3.1.4 \(\mathrm{J/\psi}\) Reconstruction Efficiency from Detector Simulation
+
+The detectors response to track of electrons differently with regard to orientation, momentum, energy of the trajectory of electrons and acceptance and trigger of detectors. Hence,the knowledge of detectors' response is essential for us to interpret datasets collected from the experiment, which is called efficiency of detectors. The GEANT detector simulation and embedding technique are used to calculate the efficiency of detectors [57]. The simulated tracks are embedded into the real data tracks information. To correctly represent the detectors' response, the simulated tracks are weighted according to the real data distribution by a weight function.
+
+Figure 21: 2D distribution of \(\mathrm{J/\psi}\) candidates from data as a function of (\(\cos\)\(\theta\), \(\phi\)) plane in different \(\mathrm{p_{T}}\) bins (from left to right: \(\mathrm{p_{T}}\)=0-2, 2-4, 4-6, 6-8, 8-14 GeV/c). The top (bottom) row shows the distributions in the HX (CS) frame.
+
+The Levy weight function is used to weight the \(\mathrm{p_{T}}\) distribution in the embedding. The Levy function has the following form with parameters A, B and C and the parameters of Levy weight function is set by fitting to \(\mathrm{p_{T}}\) distribution in dataset.
+
+\[\mathrm{Levy}(\mathrm{p_{T}})=\sqrt{2}\mathrm{Ap_{T}}/(1+(\sqrt{\mathrm{p_{T}}^{ 2}+3.0969^{2}}-1.865)/\mathrm{BC})^{B} \tag{3.2}\]
+
+where, A = 339.805, B = 8.96953 and C = 0.210824.
+
+The rapidity distribution is also weighted [58]. The rapidity weight function is:
+
+\[\mathrm{w_{y}}=\exp(-\frac{0.5\mathrm{y}^{2}}{1.416^{2}}) \tag{3.3}\]
+
+The value of the fitting parameter is: A = 1.42 \(\pm\) 0.04.
+
+In pairing procedure, I select EMC electron first, then seek for another candidate from TOF matching. In this way, the TOF efficiency has a dependence on EMC matching efficiency. Then, I need to calculate the TOF efficiency condition with following formula:
+
+\[\mathrm{P}(\mathrm{TOF})=\mathrm{P}(\mathrm{TOF}|\mathrm{EMC})\mathrm{P}( \mathrm{EMC})+\mathrm{P}(\mathrm{TOF}|\mathrm{EMC})\mathrm{P}(|\mathrm{EMC}) \tag{3.4}\]
+
+\[\mathrm{p}(\mathrm{TOF}|\mathrm{EMC})=\frac{\mathrm{P}(\mathrm{TOF})(1- \mathrm{P}(\mathrm{EMC})/\mathrm{r})}{\mathrm{P}(|\mathrm{EMC})} \tag{3.5}\]
+
+The TOF matching efficiency is calculated by a function \(\mathrm{p_{0}e^{-(\mathrm{p_{1}*\mathrm{p_{T}}})^{\mathrm{p_{2}}}}}\) in 20 bins of \(|\eta|<1\)As shown in Figure 22, the overall efficiency of detectors as a function of \((\cos\!\theta,\phi)\) is calculated by the ratio of Monte Carlo tracks passed all cuts over all Monte Carlo tracks in the embedding.
+
+In the end, the statistical and systematic uncertainty of polarization parameters are measured, which indicates how precise the measurements are. The statistical uncertainty of polarization parameters mainly depends on the how many samples are collected in the dataset. And the systematic uncertainty of polarization parameters are measured mostly with regard to the choice of cuts configuration.
+
+Figure 22: J/\(\psi\) reconstruction efficiency from embedding as a function of \((\cos\!\theta,\phi)\) in different \(\pT\) bins (from left to right: \(\pT\)=0-2, 2-4, 4-6, 6-8, 8-14 GeV/c). The top(bottom) row shows the efficiencies in the HX (CS) frame.
+
+[MISSING_PAGE_EMPTY:56]
+
+Statistically, the measurement to extract the \(\mathsf{J}/\psi\) polarization parameters from the dataset is point estimation.
+
+In this study, maximum likelihood estimation is applied to extract parameters of \(\mathsf{J}/\psi\) polarization. The negative log-likelihood is calculated based on the probability density function, spatial distribution of positron decay from \(\mathsf{J}/\psi\) and reconstruction efficiency \(\epsilon(\cos\theta,\phi)\):
+
+\[\mathsf{P}(\cos\theta,\phi|\lambda_{\theta},\lambda_{\phi},\lambda_{\theta \phi})=\frac{\partial^{2}\mathsf{N}}{\partial\cos\theta\partial\phi}(\cos \theta,\phi|\lambda_{\theta},\lambda_{\phi},\lambda_{\theta\phi})*\epsilon( \cos\theta,\phi). \tag{4.2}\]
+
+Figure 23: The definition of production, polar angle \(\theta\) and azimuthal angle \(\phi\).
+
+[MISSING_PAGE_EMPTY:58]
+
+### Bias of the estimator
+
+When an estimator is implemented, we should also investigate the properties of the estimator. With the raw yield distribution of \((\cos\theta,\phi)\) from datasets and efficiency of detectors, one can construct an estimator as above to estimate the \(\mathsf{J}/\psi\) polarization parameters. For an estimator, there are four aspects of properties we should bear in mind. These are bias, efficiency, consistency and robustness.
+
+Figure 24: For instance, the objective function likelihood as a function of \((\lambda_{\theta},\lambda_{\phi})\) at \(\mathsf{p_{T}}\) [6-8] GeV/c in helicity frame is convex.
+
+For the estimation, we usually concern about the difference between the average of collection of parameter's estimations and the true value of the parameter. The estimator is called unbiased if and only if the mean of estimation of the parameter is equal to the true value of the parameter [60]. Statistically, if the estimator is unbiased, the mean value extracted by the estimator should agree with the truth.
+
+Efficiency is another important property of the estimator, which indicates the variation of the collection of measurements. If the measurements of parameters is regarded as to hit the position of some target's bulleye, for two unbiased estimator, the one with a smaller mean square error is a more efficient and desirable one [61].
+
+The bias and variance indicates the accuracy and precision of the estimator. Namely, when estimators have unbiased estimation on parameters that the mean of estimation is equal to the truth of parameters, then variance of the measurements is the further property to decide which estimator is better than the others. The efficient estimator is the minimum variance unbiased estimator (MVUE) [61].
+
+An estimator is called consistent if the collection of estimation \(T_{n}\) of parameter converge in probability to the true value of parameter [61].
+
+\[Pr(\lim_{n\rightarrow\infty}T_{n}=\widehat{\theta}) \tag{4.6}\]
+
+Robustness of an estimator usually is a relatively vague property. Broadly speaking, it indicates the estimator can still achieve successful and accurate point estimation under certain circumstances. In our situation, the input of the \({\rm J}/\psi\) polarization parameters to generate pseudo distribution of \(\cos\theta\) and \(\phi\) can be outside well-defined domain. Robustness is a desirable property that simplify the calculation and data processing [61].
+
+Figure 25: Distributions of the estimated central value (top row) and statistical uncertainty (bottom row) for \(\lambda_{\theta}\) (left), \(\lambda_{\phi}\) (middle) and \(\lambda_{\phi\phi}\) (right) from 1000 pseudo experiments in \(6<\mbox{$\mbox{$\mbox{$\mbox{$\mbox{$\mbox{$\mbox{$\mbox{$\mbox{$\mbox{$ \mbox{$\mbox{$\mbox{$\mbox{$}$}$}$}}$}}}}$}}$}<8\) GeV/c bin in the HX frame. See text for details.
+
+With the probability density function of positron distribution for fixed truth values of J/\(\psi\) polarization parameters, we generate a pair of random numbers corresponding to (cos\(\theta\), \(\phi\)). To take the efficiency of detectors into consideration, a random number is rolled based on 2-dimensional efficiency histogram of (cos\(\theta\),\(\phi\)) to decide whether to accept the entry of (cos\(\theta\),\(\phi\)) generated. The total number of entries is set as the same as that in the datasets. In this way, I produce pseudo data of (cos\(\theta\),\(\phi\)) distribution. Same as data, we apply the maximum likelihood estimator to extract the polarization parameters from these pseudo datasets. For an unbiased estimator, based on the law of large numbers, the extracted polarization parameters' values should converge to the true value I feed to probability density function asymptotically. This experiment has been repeated for N times (N=1000) and the result from each experiment is filled in a histogram such that I can compare the mean of extracted polarization parameters and the true polarization parameters I feed in the probability density function beforehand.
+
+With the toy Monte Carlo technique, I can simulate and sample J/\(\psi\) decay. Importantly, during this process, the truth of parameters' values of probability density function is known ahead of each experiment. Thus, it allows us to exam the bias of the estimator by comparing the measured parameters' values and the truth of parameters' values.
+
+As shown in Figure 26-Figure 28, the mean of extracted polarization parameters locate within one-sigma area of the true polarization parameters I feed in the probability density function.
+
+[MISSING_PAGE_EMPTY:63]
+
+[MISSING_PAGE_EMPTY:64]
+
+Figure 29: Biases in the central value estimation: the x-axis is the input \(\lambda\) value that are used to generate pseudo data, while the y-axis is the mean of the extracted \(\lambda\) values from 1000 pseudo experiments. From top to bottom, \(\lambda_{\emptyset}\), \(\lambda_{\phi}\) and \(\lambda_{\emptyset\phi}\) in the HX frame, and \(\lambda_{\emptyset}\),\(\lambda_{\phi}\) and \(\lambda_{\emptyset\phi}\) in the CS frame, respectively. From left to right, \(p_{\mathrm{T}}=\) 0-2, 2-4, 4-6, 6-8 and 8-14, respectively. The red line is \(y=x\), while the black line is a linear fit \(y=ax+b\) to the points.
+
+Figure 30: Biases in the uncertainty estimation: the x-axis is the RMS of the extracted \(\lambda\) values from 1000 sets of pseudo data, while the y-axis is the mean of the extracted \(\lambda\) uncertainty from 1000 pseudo experiments. From top to bottom, \(\lambda_{\theta}\),\(\lambda_{\phi}\) and \(\lambda_{\theta\phi}\) in the HX frame, and \(\lambda_{\theta}\),\(\lambda_{\phi}\) and \(\lambda_{\phi\phi}\) in the CS frame, respectively. From left to right, \(p_{T}=0\)-2, 2-4, 4-6, 6-8 and 8-14 GeV/c, respectively. The red line is \(y=x\), while the black line is a linear fit \(y=ax\) to the points.
+
+### 4.3 minimum point position and 1\(\sigma\) contours
+
+The likelihood function is projected to the plane of two parameters as shown above and the 1\(\sigma\) contour and the measured minimum point position are present. The area of 1\(\sigma\) contour indicates 68% confidence interval [18]. And the maximum distance of this contour along each axis suggests the magnitude of statistical uncertainty of each parameter.
+
+Figure 31: \(-{\sf lnL}_{\rm min}+{\sf 0.5}\) contour (black area) from data as a function of \(\lambda_{\theta}\) and \(\lambda_{\phi}\). Also shown are the \(\lambda_{\theta}\) and \(\lambda_{\phi}\) values estimated from data using the MLE.
+
+Figure 32: Same as Figure 31 but for \(\lambda_{\theta}\) and \(\lambda_{\theta\phi}\)
+
+Figure 33: Same as Figure 31 but for \(\lambda_{\phi}\) and \(\lambda_{\theta\phi}\)
+
+### Goodness of fit
+
+After the polarization parameters' value from dataset are extracted, the expected cos\(\theta\) and \(\phi\) distribution are calculated with Monte Carlo method. Together with the efficiency of detectors, the extracted polarization parameters' value are feed in the probability density function to generate the expected cos\(\theta\) and \(\phi\) distribution. It is compared with the real cos\(\theta\) and \(\phi\) distribution from datasets. As shown in Figure 34 and Figure 35, the expected distribution is consistent with the real distribution in dataset and \(\chi^{2}/\texttt{ndf}\) indicates the consistency of the results of measurement with regard to dataset and the level of goodness of fit. Meanwhile, the extreme cases that when polarization parameters are equal to 1 or -1 are also shown in Figure 34 and Figure 35. The differences between them suggest how much different can be expected from the experimental observation.
+
+(bottom) row shows the HX (CS) frame.
+
+In summary, the probability density function of positron decaying from J/\(\psi\) is a Fourier series as a function of cos\(\theta\) and \(\phi\). The characteristics of the probability density function describe the spatial probability density distribution of positrons' (decay from J/\(\psi\)) momentum with respect to J/\(\psi\) momentum, which provides us the good probe to distinguish available
+
+Figure 34: The comparison of theoretical distribution and raw data distribution in \(\phi\). The top (bottom) row shows the HX (CS) frame.
+
+Figure 35: The comparison of theoretical distribution and raw data distribution in cos\(\theta\). The top (bottom) row shows the HX (CS) frame.
+
+theoretical quarkonium formation models. I calculate the likelihood function based on dataset collected from the experiment and efficiency of detectors, pin down the minimum point position of the objective function to extract \(\mathrm{J}/\mathrm{\psi}\) polarization parameters. Moreover, toy Monte Carlo simulation is conducted to check the properties of the estimator, which contribute to achieve the reliable measurement result with high accuracy.
+
+## Chapter Systematic Uncertainty
+
+In experimental measurements, results of the measurements can be affected by many factors introduced by choice, configuration, threshold and the others. It is important to know their effects along with the measurement results, which also suggests the level of accuracy of measurement results. This chapter will introduce main factors that may affect the measurement results and how they are calculated.
+
+### 5.1 \(\mathrm{p_{T}}\) Weight function
+
+The choice of \(\mathrm{p_{T}}\) weight function (see Eq. 3.2), which was obtained by fitting the measured \(\mathrm{J/\uppsi}\)\(\mathrm{p_{T}}\) spectrum, could to some extent affect the \(\mathrm{J/\uppsi}\) polarization parameter estimation. To calculate the systematic uncertainty from the \(\mathrm{p_{T}}\) weight function, another function \(\mathrm{PowLaw(p_{T})}\) (see Figure 36) is utilized to recalculate the \(\mathrm{J/\uppsi}\) reconstruction efficiency with the following parameters.
+
+\[\mathrm{PowLaw(p_{T})}=A(1+(\frac{\mathrm{x}}{\mathrm{B}})^{2})^{\mathrm{C}} \tag{5.1}\]
+
+where, A = 4.90151, B = 3.30694 and C = -4.86445.The variation of polarization parameters is taken as a systematic uncertainty from the \(\mathrm{p_{T}}\) weight function.
+
+### \(\rm p_{T}\) smearing
+
+Compared with the invariant mass distribution of \(\rm J/\psi\) from the experimental data, the distribution obtained from embedding is narrower. In order to reproduce the invariant mass distribution in embedding to better account for the momentum resolution, the transverse mo
+
+Figure 36: The comparison of Levy function and Powerlaw function fit to the measured \(\rm J/\psi\) production cross section [62].
+
+mentum is smeared by adding a component from Double Crystal Ball (DCB) function, which reads
+
+\[P(p_{T}^{rec},p_{T}^{MC})\propto\begin{cases}A\times(B-R)^{-n},R<-\alpha\\ e^{-\frac{R^{2}}{2}},-\alpha<R<\beta\\ C\times(D+R)^{-m},R>\beta\end{cases}\]
+
+where
+
+\[A=(\frac{n}{|\alpha|})^{n}*\exp(-\frac{\alpha^{2}}{2}),\]
+
+\[B=\frac{n}{|\alpha|}-|\alpha|,\]
+
+\[C=(\frac{m}{|\beta|})^{m}\times e^{-\frac{\beta^{2}}{2}}\]
+
+\[D=\frac{m}{|\beta|}-|\beta|\]
+
+\[R=(\frac{p_{T}^{rec}-p_{T}^{MC}}{p_{T}^{MC}}-\mu)/\frac{\sigma_{p_{T}}}{p_{T}}\]
+
+The parameters are fit by \(\chi^{2}\) minimization.
+
+Considering the resolution of \(p_{T}\) measurement, \(p_{T}\) is smeared using the function \(fReso(p_{Tmc})\).
+
+\[fReso(p_{Tmc})=\sqrt{a^{2}x^{2}+b^{2}} \tag{5.2}\]
+
+where, a = 0.0035324 and b = 0.00829197The resolution is parameterized by a Double Crystal Ball function and a \(\tt p_{T}\) dependent resolution function. In this systematic uncertainty calculation, the parameter a is adjusted to a = 0.0035324 + 0.0003 and a = 0.0035324 - 0.0003.
+
+### DCA cut efficiency
+
+Due to the short lifetime of \(\mathrm{J/\psi}\) meson [63], to reconstruct the event of \(\mathrm{J/\psi}\) decay to dielectron, it is required the distance of closest approach \(\mathrm{DCA}<\tt lcm\) by default. The distance between the electron track is within 1cm away from vertex.
+
+To calculate the systematic uncertainty from DCA configuration, DCA cut is adjusted from \(\mathrm{DCA}<\tt lcm\) to \(\mathrm{DCA}<\tt 0.8cm\) and \(\mathrm{DCA}<\tt 1.2cm\) and the maximum variation of polarization parameters' value are assigned as systematic uncertainty from DCA cut configuration.
+
+### nHitsFit cut efficiency
+
+It has been introduced that the charged particle's trajectory is reconstructed from the readout of TPC by lining up the hits position left by the charged particle. The quantity nHitsFit refers to how many hits are used to reconstructed a track. So the nHitsFit cut affects whether a track is defined as a good track and then make a difference in \(\mathrm{J/\psi}\) reconstruction. To calculate the systematic uncertainty from this aspect, the nHitsFit cut is adjusted to \(\tt nHitsFit\geq\tt 18\), \(\tt nHitsFit\geq\tt 19\), \(\tt nHitsFit\geq\tt 22\) and \(\tt nHitsFit\geq\tt 25\) and the maximum variation introduced by these changes is taken as systematic uncertainty from nHitsFit cut.
+
+### nHitsDdx cut efficiency
+
+The energy loss per unit length is also calculated based on the readout of TPC. The quantity nHitsDdx indicates how many hits are used in the calculation of \(\tt dE/dx\), which affects the 
+
+[MISSING_PAGE_FAIL:76]
+
+Figure 37: Electrons TOF matching efficiency in different \(\eta\) range as a function of \(p_{T}\).
+
+Figure 38: Positron TOF matching efficiency in different \(\eta\) range as a function of \(p_{T}\).
+
+[MISSING_PAGE_EMPTY:79]
+
+### 5.9 TOF 1/\(\beta\) cut efficiency
+
+Figure 40: The mean of the Gaussian function sampling the 1/\(\beta\) distribution.
+
+The Gaussian function is used to sample the \(1/\beta\) distribution and calculate TOF \(1/\beta\) cut efficiency. The mean of Gaussian function is the bin content of Figure 40 at corresponding momentum and the variation of Gaussian function is the bin content of Figure 41 at corresponding momentum. Using the Gaussian function to roll a random number, if the random number is within the \(1/\beta\) cut, then this track passes the \(1/\beta\) cut. In the systematic uncertainty
+
+Figure 41: The sigma of the Gaussian function sampling the \(1/\beta\) distribution.
+
+[MISSING_PAGE_EMPTY:82]
+
+Figure 42: Top left is the mean of Gaussian function with the fit by POL0. Top right is the mean of Gaussian function with the fit by POL1. Bottom left is the sigma of Gaussian function with fit by POL0. Bottom right is the sigma of Gaussian function with the fit by POL1
+
+### 5.11 **Rapidity weight function**
+
+The systematic uncertainty from rapidity weight is calculated by adjusting the parameters of rapidity weight function based Barbara's study [58]. The parameter is adjusted in embedding by its uncertainty and the variation of polarization parameter measurement is assigned as a systematic uncertainty.
+
+### 5.12 **Systematic uncertainty combination**
+
+Figure 43: Systematic uncertainty of \(\lambda_{\theta}\), \(\lambda_{\phi}\),\(\lambda_{\theta\phi}\) and \(\lambda_{\rm inv}\) in Helicity and Collins-Soper frame from different sources.
+
+The systematic uncertainties from different sources in different \(\mathrm{p_{T}}\) bins are shown in Figure 43.
+
+Figure 44 shows the combined systematic uncertainty, which is square root of summation of all the systematic uncertainty square.
+
+## Chapter 6 Results on \(\mathrm{J/\psi}\) Polarization
+
+As shown in Figure 45 and Figure 46, the \(\mathrm{J/\psi}\) polarization parameters have been extracted in the dielectron channel (open circles) in both the Helicity and Collins-Soper frames. These are the first measurement of \(\lambda_{\phi}\), \(\lambda_{\mathrm{\Theta}\phi}\) and \(\lambda_{\mathrm{inv}}\) in the Helicity frame, and the first \(\mathrm{J/\psi}\) polarization measurements of \(\lambda_{\mathrm{\Theta}}\), \(\lambda_{\mathrm{\Phi}}\), \(\lambda_{\mathrm{\Theta}\phi}\) and \(\lambda_{\mathrm{inv}}\) in the Collins-Soper frame for p+p collisions at \(\sqrt{s}=200\mathrm{GeV}\) at STAR experiment. The dielectron and dimuon results are shown as open and filled circles, and are consistent with each other in the overlapping \(\mathrm{p_{T}}\) range [65]. The \(\mathrm{J/\psi}\)'s polarization results do not exhibit significant transverse or longitudinal polarization with little dependence on \(\mathrm{p_{T}}\).
+
+As shown in Figure 45, there are four theoretical models compared with experimental measurements. These are the theoretical results calculated by the improved color evaporation model (ICEM) [66], NRQCD with two sets of LDMEs denoted as "NLO NRQCD1" [67] and "NLO NRQCD2" [68] respectively and color glass condensate (CGC) [69] in conjunction with NRQCD. Because the theoretical predictions and experimental measurements are all close to the the line that \(\lambda=0\), both theoretical models and experimental results don't suggest prominent \(\mathrm{J/\psi}\) polarization. Among these model calculations compared to the experimental result, the CGC+NRQCD achieves the best agreement overall. As shown in Figure 46, the \(\lambda_{\mathrm{inv}}\) values measured in the two frames are consistent with each other within experimental uncertainties and consistent with the CGC+NRQCD calculations within uncertainties.
+
+Figure 45: The J/\(\psi\) polarization parameters (from top to bottom: \(\lambda_{\theta}\), \(\lambda_{\phi}\), \(\lambda_{\theta\phi}\)) as a function of \(\rm p_{T}\) in the Helicity (left) and Collins-Soper (right) frames.
+
+\begin{table}
+\begin{tabular}{c|c|c} \hline \hline Model & \(\chi^{2}\)/NDF & p-value \\ \hline ICEM [66] & 13.28/9 & 0.150 \\ NRQCD1 [67] & 48.81/32 & 0.029 \\ NRQCD2 [68] & 42.99/32 & 0.093 \\ CGC+NRQCD [69] & 32.11/46 & 0.940 \\ \hline \end{tabular}
+\end{table}
+Table 4: \(\chi^{2}\)/NDF and the corresponding p-values between data and different model calculations.
+
+Figure 46: The J/\(\psi\) polarization parameters (from left to right: \(\lambda_{\theta}\), \(\lambda_{\phi}\), \(\lambda_{\theta\phi}\)) as a function of \(\rm p_{T}\) in the Helicity (top) and Collins-Soper (bottom) frames.
+
+[MISSING_PAGE_EMPTY:89]
+
+## Chapter 4 Cited Literature
+
+## References
+
+* [1] Huber, S. J. and Shafi., Q.: Higgs mechanism and bulk gauge boson masses in the randall-sundrum model. _Physical Review D_, 63(4), 2001.
+* [2] Thomson, M.: Modern particle physics. _Cambridge University Press_, 2013.
+* [3] Peskin, M. E.: An introduction to quantum field theory. _CRC press_, 2018.
+* [4] Kaiser, D.: Physics and feynman's diagrams: In the hands of a postwar generation, a tool intended to lead quantum electrodynamics out of a decades-long morass helped transform physics. _American Scientist_, 93(2):156-165, 2005.
+* [5] Rainer, A.: Perturbation theory for normal operators. _Transactions of the American Mathematical Society_, 365(10):5545-5577., 2013.
+* [6] Dirac, P. A. M.: The quantum theory of the emission and absorption of radiation. _Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character_, 114(767):243-265, 1927.
+* [7] Dirac, P. A. M.: The quantum theory of the emission and absorption of radiation. _Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character_, 114(767):243-265, 1927.
+* [8] Griffiths, D. J. W.. S.: Introduction to elementary particles. 2008.
+* [9] Eichten, E. and Lane., K.: Dynamical breaking of weak interaction symmetries. _Physics Letters B_, 90(1-2):125-130, 1980.
+* [10] Bogolubov, N., B. S. and Tavkhelidze., A.: On composite models in the theory of elementary particles. _JINR publication D-1968_, 1965.
+* [11] Gell-Mann, M.: The eightfold way: A theory of strong interaction symmetry. 1961.
+* [12] Greensite, J.: An introduction to the confinement problem. _Springer_, 821, 2011.
+* [13] Gross, D. J. and Wilczek., F.: Ultraviolet behavior of non-abelian gauge theories. _Physical Review Letters_, 30(26):1343, 1973.
+* [14] Gross, D. J. and Wilczek., F.: Ultraviolet behavior of non-abelian gauge theories. _Physical Review Letters_, 30(26):1343, 1973.
+* [15] Eidemueller, M., H. G. D. and Jamin., M.: The field strength correlator from qcd sum rules. _Nuclear Physics B-Proceedings Supplements_, 86(1-3):421-425, 2000.
+* [16] Greensite, J.: An introduction to the confinement problem. _Springer_, 821, 2011.
+* [17] Manohar, A. V. and Wise., M. B.: Exotic QQqq states in QCD. _Nuclear Physics B_, 399(1):17-33, 1993.
+* [18] Statistics by pdg group [http://pdg.lbl.gov/2017/reviews/rpp2017-rev-statistics.pdf](http://pdg.lbl.gov/2017/reviews/rpp2017-rev-statistics.pdf).
+* [19] Okubo, S.: \(\upphi\)-meson and unitary symmetry model. _Physics Letters_, 5(2):165-168, 1963.
+
+* [20] Gaiser, J. E.: Charmonium spectroscopy from radiative decays of the J/\(\psi\) and \(\psi^{\prime}\). _No. SLAC-R-255_, 1982.
+* [21] Bodwin, Geoffrey T., E. B. and Lee., J.: Comparison of the color-evaporation model and the nonrelativistic QCD factorization approach in charmonium production. _Physical Review D_, 72, 2005.
+* [22] Cheung, V. and Vogt., R.: Polarization of prompt J/\(\psi\) and \(\Upsilon\) (1 s) production in the color evaporation model. _Physical Review D_, 96, 2017.
+* [23] Fritzsch, H.: Producing heavy quark flavors in hadronic collisions--a test of quantum chromodynamics. _Physics Letters B_, 67(2), 1977.
+* [24] Xu, Guang-Zhi, e. a.: Relativistic correction to color-octet J/\(\psi\) production at hadron colliders. _Physical Review D_, 86(9):094017, 2012.
+* [25] Cho, P. and Leibovich., A. K.: Color-octet quarkonia production. ii. _Physical Review D_, 53(11):6203, 1996.
+* [26] Adamczyk, L., e. S.: J/\(\psi\) production at low transverse momentum in p+p and d+ au collisions at \(\sqrt{s_{\rm NN}}\)= 200 gev. _Physical Review C_, 93(6), 2016.
+* [27] Adare, Andrew, e. a. P.: Transverse momentum dependence of J/\(\psi\) polarization at mid-rapidity in p+ p collisions at s= 200 gev. _Physical Review D_, 82(1), 2010.
+* [28] Frawley, Anthony D., T. U. and Vogt., R.: Heavy flavor in heavy-ion collisions at rhic and rhic ii. _Physics Reports_, 462.4-6:125-175., 2008.
+* [29] Ma, Yan-Qing, K. W. and Chao., K.-T.: Complete next-to-leading order calculation of the J/\(\psi\) and \(\psi^{\prime}\) production at hadron colliders. _Physical Review D_, 84(11), 2011.
+* [30] Ma, Y.-Q. and Venugopalan., R.: Comprehensive description of J/\(\psi\) production in proton-proton collisions at collider energies. _Physical review letters_, 113.19, 2014.
+* [31] Butenschoen, M. and Kniehl., B. A.: J/\(\psi\) polarization at the Tevatron and the LHC: nonrelativistic-QCD factorization at the crossroads. _Physical review letters_, 108(17):172002, 2012.
+* [32] Adam, Jaroslav, e. a.: J/\(\psi\) production cross section and its dependence on charged-particle multiplicity in p+ p collisions at s= 200 gev. _Physics Letters B_, 786:87-93, 2018.
+* [33] Adare, A., e. a.: Ground and excited state charmonium production in p+ p collisions at \(\sqrt{s}\)= 200 gev. _Physical Review D_, 85(9):092004, 2012.
+* [34] PHENIX collaboration: Transverse momentum dependence of J/\(\psi\) polarization at mid-rapidity in p+p collisions at \(\sqrt{s}=200\)_GeV_. _Phys. Rev. D_, 82, 2010.
+* [35] Faccioli, Pietro, e. a.: Towards the experimental clarification of quarkonium polarization. _The European Physical Journal C_, 69(3-4):657-673, 2010.
+* [36][https://science.osti.gov/np/facilities/user-facilities/rhic](https://science.osti.gov/np/facilities/user-facilities/rhic).
+
+* [37] Harrison, M., T. L. and Ozaki., S.: Rhic project overview. _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, 499(2-3):235-244, 2003.
+* [38] Bohr, H. and Nielsen., H. B.: Hadron production from a boiling quark soup: A thermodynamical quark model predicting particle ratios in hadronic collisions. _Nuclear Physics B_, 128(2):275-293, 1977.
+* [39] STAR collaboration: STAR detector overview. _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, 499(2-3):624-632., 2003.
+* [40] Bohr, H. and Nielsen., H. B.: Hadron production from a boiling quark soup: A thermodynamical quark model predicting particle ratios in hadronic collisions. _Physics Letters B_, 128(2):275-293, 1977.
+* [41] Heinz, Ulrich, e. a.: Exploring the properties of the phases of QCD matter-research opportunities and priorities for the next decade. _arXiv preprint arXiv:1501.06477_, 2015.
+* [42] Jaffe, R. L.: Where does the proton really get its spin? _Physics today_, 48(9):24-33, 1995.
+* [43] Bjorken, J. D. and Paschos., E. A.: Inelastic electron-proton and -proton scattering and the structure of the nucleon. _Physical Review_, 185(5), 1969.
+* [44] Krisch, A. D., e. a.: First test of the siberian snake magnet arrangement to overcome depolarizing resonances in a circular accelerator. _Physical review letters_, 63(11):1137, 1989.
+* [45] Rabi, I. I., J. M. B. K. and Zacharias., J. R.: The magnetic moment of the proton. _Physical Review_, 46(3):157, 1934.
+* [46] David, J. J.: Classical electrodynamics. 1975.
+* [47] STAR collaboration: STAR detector overview. _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, 499(2-3):624-632, 2003.
+* [48] Anderson, M., e. a.: The STAR time projection chamber: a unique tool for studying high multiplicity events at RHIC. _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, 499(2-3):659-678, 2003.
+* [49][https://drupal.star.bnl.gov/star/public/img/sketchupstar](https://drupal.star.bnl.gov/star/public/img/sketchupstar).
+* [50] Sigmund, P.: Particle penetration and radiation effects volume 2. _Springer series in solid-state sciences._, 179, 2014.
+* [51] Bichsel, H.: Comparison of bethe-bloch and bichsel functions. _STAR Note_, 439:97, 2002.
+* [52] Llope, W. J., e. a.: The star vertex position detector. _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, 759:23-28, 2014.
+
+* [53] Wu, J., M. X. and STAR Collaboration.: A barrel tof for star at rhic. _Journal of Physics G Nuclear and Particle Physics_, 34(8):729, 2007.
+* [54] Akindinov, A., e. a.: The multigap resistive plate chamber as a time-of-flight detector. _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, pages 16-22, 2000.
+* [55] Beddo, M., e. a.: The STAR Barrel Electromagnetic Calorimeter. _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, 499(2-3):725-739., 2003.
+* [56] Adamczyk, L., J. K. Adkins, G. Agakishiev, M. M. Aggarwal, Z. Ahammed, I. Alekseev, J. Alford et al.: Measurements of dielectron production in Au+ Au collisions at \(\sqrt{\mathrm{s}_{\mathrm{N}}N}\)= 200 GeV from the STAR experiment. _Physical Review C_, 92(2), 2015.
+* [57] Brun, Rene, e. a.: Geant: detector description and simulation tool. _No. CERN-W-5013_, 1993.
+* [58] STAR collaboration: J/\(\uppsi\) polarization in p+ p collisions at \(\sqrt{\mathrm{s}}\) = 200 GeV in STAR. _Phys. Lett. B_, 739, 2014.
+* [59] Ryaben'kii, V. S. and Tsynkov., S. V.: A theoretical introduction to numerical analysis. _CRC Press_, 2006.
+* [60] Lehmann, E. L.: A general concept of unbiasedness. _The Annals of Mathematical Statistics_, 22(4):587-592, 1951.
+* [61] Lehmann, E. L. and Casella., G.: Theory of point estimation. _Springer ScienceBusiness Media_, 2006.
+* [62] Iancu, Edmond, Pieter Taels, and Bin Wu.: Jet quenching parameter in an expanding QCD plasma. _Physics Letters B_, 786:288-295., 2018.
+* [63] CMS collaboration.: Suppression of non-prompt J/\(\uppsi\), prompt J/\(\uppsi\), and y \(\Upsilon\)(1s) in PbPb collisions at \(\sqrt{(}\mathrm{s}_{\mathrm{NN}})\)= 2.76 TeV. _arXiv preprint arXiv:1201.5069_, 2012.
+* [64] Tlusty, David.: A Study of Open Charm Production in p+ p Collisions at STAR. _Dissertation_, 2014.
+* [65] Liu Zhen: Measurements of J/\(\uppsi\) polarization in p+p collisions at \(\sqrt{\mathrm{s}}\)= 200 GeV with the STAR experiment. _Dissertation_, 2018.
+* [66] Maciula, R. and Szczurek., A.: Production of j/\(\uppsi\) quarkonia in color evaporation model based on k\({}_{\mathrm{T}}\)-factorization. _arXiv preprint arXiv:1908.07429_, 2019.
+* [67] Zhang, Hong-Fei, et al.: Impact of c hadroproduction data on charmonium production and polarization within the nonrelativistic QCD framework. _Physical review letters_, 114(9), 2015.
+* [68] Gong, Bin, et al.: Polarization for prompt J/\(\uppsi\) and \(\uppsi\) (2s) production at the Tevatron and LHC. _Physical review letters_, 110(4), 2013.
+* [69] Ma, Yan-Qing, Tomasz Stebel, and Raju Venugopalan. : J/\(\uppsi\) polarization in the CGC+ NRQCD approach. _Journal of High Energy Physics_, 57, 2018.
+
+**VITA**
+
+\begin{tabular}{l l}
+**NAME** & Siwei Luo \\
+**EDUCATION** & B.S., Physics, Northeast Forestry University, Harbin, Heilongjiang Province, China 2011 \\  & M.S., Physics, Southern Illinois University, Carbondale, Illinois, U.S. 2013 \\
+**CONFERENCES** & Siwei Luo "J/\(\psi\) polarization measurement in p+p collisions at \(\sqrt{s}=200\) GeV at STAR experiment" American Physics Society (2015). \\  & Siwei Luo "J/\(\psi\) polarization measurement in p+p collisions at \(\sqrt{s}=200\) GeV at STAR experiment" Quark Matter (2017). \\  & Siwei Luo "Measurement of J/\(\psi\) polarization in p+p at \(\sqrt{s}=200\) GeV by the STAR experiment" American Physics Society Prairie Section Fall Meeting 2017 (2017). \\
+**AWARDS** & American Physics Society-DNP Travel Award April 2015 Meeting \\  & Student Support from 11th Hadron Collider Physics 2016 Summer School organizers \\  & Young Scientist Support for Accommodation from Quark Matter 2017, organizers \\ \end{tabular}

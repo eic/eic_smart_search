@@ -1,0 +1,943 @@
+**Master thesis**
+
+**Rafal Sikora**
+
+major: technical physics
+
+**Study of elastic proton-proton scattering with the STAR detector at RHIC**
+
+Supervisors: Dr. Leszek Adamczyk
+
+Dr. Wlodzimierz Guryn
+
+Cracow, June 2014Aware of criminal liability for making untrue statements I declare that the following thesis was written personally by myself and that I did not use any sources but the ones mentioned in the dissertation itself.
+
+................................................................................................................ (legible signature)Cracow, 20 June 2014
+
+**The subject of the master thesis and the internship by Rafal Sikora,**
+
+**student of 5th year major in technical physics**
+
+The subject of the master thesis: **Study of elastic proton-proton scattering with the STAR detector at RHIC**
+
+Supervisors: Dr. Leszek Adamczyk, Dr. Wlodzimierz Guryn
+
+Reviewer:
+
+A place of the internship: Brookhaven National Laboratory, Upton, NY
+
+**Programme of the master thesis and the internship**
+
+1. First discussion with the supervisor on realization of the thesis.
+2. Collecting and studying the references relevant to the thesis topic.
+3. The internship: * establishing a plan of the internship, * taking part in required courses, * carrying out necessary survey, * development of the analysis software, * discussion with the supervisor focused on the results obtained, * preparation of the internship report.
+4. Continuation of calculations concerning the thesis subject.
+5. Ordering and first analysis of the calculation results.
+6. Studying systematic effects and developing Monte Carlo simulation of detecting system.
+7. Final analysis of the results obtained, conclusions - discussion with and final approval by the thesis supervisor.
+8. Typesetting the thesis.
+
+Dean's office delivery deadline: 30 September 2014
+
+.................................................................................................................................
+
+(Department Chair's signature) (Supervisor's signature)
+
+[MISSING_PAGE_EMPTY:4]
+
+###### Abstract
+
+Elastic scattering of hadrons is one of the diffractive processes, which contributes about 20% of the total cross-section at high center-of-mass energies. At low values of squared four-momentum transfer \(t\) this process cannot be described by the perturbative QCD, what makes it an interesting topic for research. Phenomenological description of soft processes can be understood mainly by exchange of the Pomeron within the framework of the Regge theory. The elastic scattering is primarily dependent on the Nuclear Slope Parameter (\(B\)), directly related to the hadron size.
+
+In this dissertation an analysis of elastic proton-proton scattering at \(\sqrt{s}=200\)GeV/c is presented, based on the data collected in year 2009 by the STAR experiment at Relativistic Heavy Ion Collider. During dedicated RHIC runs with parallel-to-point focusing optics, forward protons were tagged using Roman Pot system that allowed measurement of the elastic scattering at small values of \(-t\).
+
+Value of the \(B\) parameter measured in the region of small squared four-momentum transfer \(-t\ \in[0.008,0.020]\) GeV\({}^{2}\)/c\({}^{2}\) is \(14.92\pm 0.20\)(stat.)\({}^{+0.85}_{-0.46}\)(sys.) c\({}^{2}\)/GeV\({}^{2}\). Additionally, calculation of integrated luminosity using elastic scattering sample is elaborated and compared with independent STAR measurement. Study of systematic effects and detector acceptance with implemented Geant4 model of detecting system is also described.
+
+[MISSING_PAGE_EMPTY:6]
+
+_I would like to express my sincere appreciation to my supervisors, Dr. Leszek Adamczyk and Dr. Wlodzimierz Guryn, for their continuous guidance, support and confidence. To me both are and will always remain a role models as a high-energy physicists._
+
+_I also wish to thank whole STAR Collaboration with particular emphasis on members of the Ultra-Peripheral Collisions group and the "Cracow group", for developing and productive meetings and discussions._
+
+_I would especially like to thank my loved ones, who have always supported me in my research activities._
+
+[MISSING_PAGE_EMPTY:8]
+
+###### Contents
+
+* List of Figures
+* List of Tables
+* 1 Theoretical Introduction
+	* 1.1 Soft hadronic diffraction
+	* 1.2 Elastic proton-proton scattering
+		* 1.2.1 Scattering amplitudes and cross-section
+		* 1.2.2 Kinematics of the process
+* 2 The Experiment
+	* 2.1 Relativistic Heavy Ion Collider
+	* 2.2 The STAR detector
+	* 2.3 Roman Pot system
+		* 2.3.1 Detector layout
+		* 2.3.2 Silicon Strip Detector
+	* 2.4 Principle of measurement
+	* 2.5 Trigger for elastic proton-proton scattering
+* 3 Elastic Scattering Analysis
+	* 3.1 Silicon Strip Detector data
+	* 3.2 Track reconstruction
+	* 3.3 Collinearity
+		* 3.3.1 Elasticity condition
+		* 3.3.2 Angular beam divergence
+	* 3.4 Physical quantities
+		* 3.4.1 \(\mathrm{d}N/\mathrm{d}(-t)\) distributions
+		* 3.4.2 Fitting method
+		* 3.4.3 \(B\) parameter
+		* 3.4.4 Integrated luminosity
+* 4 Systematic Effects
+	* 4.1 Trigger bias
+		* 4.1.1 Trigger veto
+		* 4.1.2 Timing mismatch
+	* 4.2 TAC signal
+		* 4.2.1 Components of TAC
+		* 4.2.2 \(\mathrm{TAC}_{0}\)-\(\mathrm{TAC}_{1}\) correlation
+		* 4.2.3 TAC-ADC correlation
+* 54.2.4 Position dependence 4.2.5 Beam structure
+* 5 Monte Carlo simulation
+	* 5.1 Description
+		* 5.1.1 Simulation structure
+		* 5.1.2 Generator for elastic proton-proton scattering
+	* 5.2 PMT response parametrisation
+	* 5.3 Simulation output
+		* 5.3.1 \(-t\) resolution
+		* 5.3.2 Data and Monte Carlo comparison
+* 6 Efficiencies
+	* 6.1 Reconstruction
+	* 6.2 Trigger efficiency
+		* 6.2.2 Timing efficiency
+	* 6.3 Acceptance
+* 7 Final Results
+	* 7.1 Fit outputs for corrected \(\mathrm{d}N/\mathrm{d}(-t)\) distributions
+	* 7.2 Nuclear Slope Parameter
+	* 7.3 Integrated luminosity
+	* 7.4 Systematic uncertainties
+	* 7.5 Conclusions of the results
+* 8 Summary
+* A Run list and data summary
+* B \(\mathrm{d}N/\mathrm{d}(-t)\) distributions with cross-section fits
+* C Angular beam divergence impact on collinearity and \(-t\) resolution
+* C.1 Contribution of position resolution to collinearity width
+* C.2 Uncertainty in \(-t\) reconstruction
+* D Bunch profiles
+
+List of Figures
+* 1.1 Feynman diagram of elastic \(pp\) scattering.
+* 1.2 Nuclear Slope Parameter energy dependence.
+* 1.3 Elastic scattering cross-section for protons at \(\sqrt{s}=200\) GeV/c.
+* 1.4 Kinematics of the elastic interaction.
+* 2.1 Layout of the Roman Pot subsystem in STAR.
+* 2.2 Horizontal station of Roman Pot detectors.
+* 2.3 Roman Pot vessel.
+* 2.4 Silicon Strip Detector packages.
+* 2.5 Cross section of the Silicon Strip Detector plane in STAR Roman Pot.
+* 2.6 Trigger counter of single detector package.
+* 3.1 Cluster multiplicity in single silicon plane.
+* 3.2 Multiplicity of clusters in corresponding silicon planes.
+* 3.3 Cluster length.
+* 3.4 Cluster energy.
+* 3.5 Matching of cluster pairs.
+* 3.6 Summary of cuts for elastic event candidates selection.
+* 3.7 Hit map of reconstructed elastic track candidates in west horizontal detectors before and after collinearity request.
+* 3.8 Collinearity of reconstructed elastic track candidates.
+* 3.9 Difference between reconstructed scattering angle components
+* 3.10 Center of the collinearity distribution \(\langle\Delta\theta_{x}\rangle\).
+* 3.11 Center of the collinearity distribution \(\langle\Delta\theta_{y}\rangle\).
+* 3.12 Width of the collinearity distribution \(\sigma_{\Delta\theta_{x}}\).
+* 3.13 Width of the collinearity distribution \(\sigma_{\Delta\theta_{y}}\).
+* 3.14 Background contribution in the elastic scattering sample after collinearity cut applied.
+* 3.15 Scheme of angular beam divergence.
+* 3.16 Elastic proton tracks in EHI-WHO arm presented in \((\varphi,-t)\) space.
+* 3.17 \(\mathrm{d}N/\mathrm{d}(-t)\) histogram with different \(\varphi\) cuts in EHI-WHO arm.
+* 3.18 Error ellipses of luminosity and \(B\) parameter.
+* 3.19 \(\mathrm{d}N/\mathrm{d}(-t)\) distribution with fitted cross-section function.
+* 3.20 Nuclear Slope Parameter measured with uncorrected elastic scattering data.
+* 3.21 Integrated luminosity measured with uncorrected elastic scattering data.
+* 3.22 Ratio of integrated luminosity measured with uncorrected elastic scattering sample to that measured with BBC detector.
+* 4.1 Elastic events (\(x\),\(y\)) distribution in EVU detector.
+
+* 4.2 Elastic events (\(\varphi\),\(-t\)) distribution in EVU-WVD arm.
+* 4.3 Elastic scattering event with the trigger veto in vertical Roman Pots.
+* 4.4 Origin of the TAC cut-off and TAC-ADC correlation.
+* 4.5 Typical TAC distribution.
+* 4.6 Correlation between TAC values from two PMTs.
+* 4.7 TAC as a function of ADC.
+* 4.8 Explanation of slewing effect.
+* 4.9 Slewing effect in measured TAC.
+* 4.10 Difference between TAC measured in horizontal and vertical detectors before and after slewing correction applied.
+* 4.11 Schematic illustration of light propagation in case of central hit and side hit.
+* 4.12 TAC dependence of the position of proton hit.
+* 4.13 Difference of TAC measured in two PMTs as a function of hit position.
+* 4.14 Collision time and \(z\)-coordinate of vertex based on TAC.
+* 4.15 Illustration of bunch with three neighbouring buckets filled with protons.
+* 4.16 Time of collision and \(z\)-component of vertex calculated with bunch profile functions.
+* 5.1 Geant4 model of the trigger counter.
+* 5.2 Relative light output of the BC-408 scintillator.
+* 5.3 Quantum efficiency of the Hamamatsu R647-01 photomultiplier tube.
+* 5.4 Impulse shape for a few proton hits obtained with simulation of triggering system.
+* 5.5 Time of discrimination as a function of energy deposited in the scintillator.
+* 5.6 Correlation between reconstructed and true \(-t\).
+* 5.7 Difference between reconstructed and true \(-t\).
+* 5.8 Comparison of TAC distributions in the data and Monte Carlo sample.
+* 5.9 Comparison of elastic proton position distributions between the data and Monte Carlo.
+* 5.10 Comparison of \(\varphi\) distribution in horizontal arms between data and Monte Carlo
+* 6.1 Hit map of elastic proton hits in EVU detector in case of reconstructed track or lack of one in EHI detector.
+* 6.2 Reconstruction efficiency in horizontal detectors.
+* 6.3 Trigger efficiency in horizontal elastic arms.
+* 6.4 Timing efficiency in horizontal elastic arms.
+* 6.5 Acceptance functions for horizontal arms.
+* 7.1 \(\mathrm{d}N/\mathrm{d}(-t)\) distribution corrected for detector acceptance with fitted cross-section function.
+* 7.2 Nuclear Slope Parameter measured with corrected elastic scattering data.
+* 7.3 Integrated luminosity measured with corrected elastic scattering data.
+* 7.4 Ratio of integrated luminosity measured with corrected elastic scattering sample to that measured with BBC detector.
+* 8.1 Corrected \(\mathrm{d}N/\mathrm{d}(-t)\) distributions with fitted cross-section function (set 0 and 1)
+* 8.2 Corrected \(\mathrm{d}N/\mathrm{d}(-t)\) distributions with fitted cross-section function (set 4, 6 and 9)
+* 8.3 Longitudinal bunch profiles from Wall Current Monitor.
+
+List of Tables
+	* 2.1 Transport matrices.
+	* 2.2 Components of elastic trigger condition.
+	* 3.1 Results of the cross-section function fit to uncorrected \(\,\mathrm{d}N/\mathrm{d}(-t)\,\) distribution for all datasets.
+	* 7.1 Results of the cross-section function fit to corrected \(\,\mathrm{d}N/\mathrm{d}(-t)\,\) distribution for five analyzed datasets.
+	* 7.2 Results of the systematic errors analysis.
+	* 7.3 Estimates of total systematic errors.
+	* 1.1 List of special runs dedicated for \(pp2pp\) measurements in year 2009 at RHIC.
+	* 1.2 Silicon Strip Detectors distance from the beam in all data sets.
+	* 1.3 Parameters of proton bunches for a few chosen datasets.
+
+[MISSING_PAGE_EMPTY:14]
+
+## Chapter 1 Theoretical Introduction
+
+### 1.1 Soft hadronic diffraction
+
+Interactions between hadrons - particles consisting of quarks bonded with gluons, are usually divided in two groups determining the scale involved in the process. Thus, hard processes occur, for instance, when the squared four-momentum transfer
+
+\[t=(p^{\prime}-p)^{2} \tag{1.1}\]
+
+is large, of the order of 1 GeV\({}^{2}\)/c\({}^{2}\) and higher [1]. The foregoing include, for example, Deep Inelastic Scattering or jet production, where large scale is given by photon virtuality or mass of the jet.
+
+In opposed to that, soft processes take place, when \(|t|\) and other scales involved in the process are small, what implies difficulty in describing these processes in the QCD framework. This is because the strong coupling constant \(\alpha_{s}\) is really not the constant, but depends on the scale involved, and for processes with small scales perturbation theory cannot be applied.
+
+The term of diffraction in high-energy physics is used in analogy to optical phenomenon that occurs when light meets an obstacle of size comparable to its wavelength [1]. The similarity between the two lies in observed cross-section pattern, which for diffractive hadronic processes at very small values of \(|t|\) can be described by the following equation:
+
+\[\frac{d\sigma}{dt}=\left.\frac{d\sigma}{dt}\right|_{t=0}\cdot e^{-B|t|} \stackrel{{ t\to 0}}{{\approx}}\left.\frac{d\sigma}{dt}\right|_{t=0} \cdot\left(1-B|t|\right), \tag{1.2}\]
+
+where \(B\), the Nuclear Slope Parameter, refers to the obstacle radius. For higher values of \(|t|\) a secondary maxima can be observed, similar as in case of scattered light.
+
+More generally, diffraction in hadronic processes is recognized, if interacting particles do not exchange quantum numbers. Since this definition requires identification of all final state particles, it is hardly applicable in the measurement. Therefore, a corresponding one is also used, which involves quantity called "pseudorapidity" denoted by \(\eta\), defined as
+
+\[\eta=-\ln\left[\tan\left(\frac{\theta}{2}\right)\right], \tag{1.3}\]
+
+where \(\theta\) is an angle in laboratory frame between final state particle momentum and initial direction of colliding beams. Thus process is found to be diffractive, if the "rapidity gap" is present, which reveals in large distance in pseudorapidity space between final states. This experimental deffinition contain necessary condition for process to be diffractive, but it is not sufficient since large rapidity gap can also be found in events of non-diffractive nature. However, with growing center-of-mass energy, diffractive events prevale over the latter.
+
+High-energy diffraction can be described by the phenomenological theory called after its author the Regge theory, in which interactions occur due to exchange of objects called "reggeons".
+
+Reggeon of vacuum quantum numbers, which dominates in high energy interactions, is called "pomeron" \(\mathbb{P}\)[1, 2], hence diffraction physics is often referred as the "pomeron physics".
+
+### 1.2 Elastic proton-proton scattering
+
+#### Scattering amplitudes and cross-section
+
+Elastic scattering of protons is an example of diffractive process, since interacting particles stay intact and large rapidity gap between the two is present. For the two-body process
+
+\[1+2\to 3+4,\]
+
+to which elastic scattering includes (and whose diagram is shown in the Figure 1.1), a differential cross section can be written as
+
+\[\frac{d\sigma}{dt}=\frac{1}{16\pi s^{2}}\left|A(s,t)\right|^{2}, \tag{1.4}\]
+
+where
+
+\[s=(p_{1}+p_{2})^{2} \tag{1.5}\]
+
+is the squared energy in the center-of-mass system, and \(A(s,t)\) is the scattering amplitude. Scattering amplitude can be represented in the impact parameter space \(b\) (minimum distance between centers of interacting particles)
+
+\[A(s,t)\to\Gamma(s,b),\]
+
+where it takes the form
+
+\[\Gamma(s,b)=\frac{\sigma_{tot}}{4\pi B(s)}e^{-\frac{b^{2}}{2B(s)}}. \tag{1.6}\]
+
+In Equation (1.6) \(\sigma_{tot}\) is the total cross-section, and \(B(s)\) is a Nuclear Slope Parameter, whose energy dependence for elastic proton-proton scattering in the low \(|t|\) region is presented on Figure 1.2.
+
+One can notice, that \(B\) is connected with the standard deviation of gaussian profile function \(\Gamma(s,b)\), hence effective proton radius understood as the width of \(\Gamma(s,b)\) can be written as
+
+\[R(s)\simeq\sqrt{2B(s)}. \tag{1.7}\]
+
+From Figure 1.2 one can find, that an interaction radius grows with energy of colliding particles, what is not fully understood by the theorists, therefore each new data regarding proton-proton scattering is invaluable.
+
+At very low values of four-momentum transfer one has to account for electromagnetic amplitude corresponding to the photon exchange between protons, thus the cross-section formula from Equation (1.4) needs to be extended to
+
+\[\frac{d\sigma_{el}}{dt}=\frac{1}{16\pi s^{2}}\left|A_{\rm strong}+A_{\rm EM} \cdot e^{\pm i\alpha\Delta\phi}\right|^{2}, \tag{1.8}\]
+
+Figure 1.1: Feynman diagram of elastic \(pp\) scattering.
+
+Figure 1.2: Nuclear Slope Parameter energy dependence (from [3]).
+
+where \(\alpha\) denotes fine structure constant, and \(\Delta\phi\) is the relative phase between strong and electromagnetic amplitude. Since the two amplitudes contribute in the process an interference term appears, whose form is presented in full elastic proton-proton scattering differential cross-section formula:
+
+\[\frac{d\sigma_{el}}{dt}=4\pi\,(\hbar c)^{2}\left(\frac{\alpha G_{E}^{2}}{t} \right)^{2}+\frac{1+\rho^{2}}{16\pi\,(\hbar c)^{2}}\sigma_{tot}^{2}e^{-B|t|}- \left(\rho+\Delta\phi\right)\frac{\alpha G_{E}^{2}}{|t|}\sigma_{tot}^{2}e^{- \frac{1}{2}B|t|}. \tag{1.9}\]
+
+Graphical illustration of Equation (1.9) and each of the three components is depicted on Figure 1.3. \(G_{E}\) denotes proton electromagnetic form factor, and \(\rho\) is the ratio of real to imaginary part of hadronic amplitude in the forward direction:
+
+\[\rho=\frac{\Re\ A(s,t=0)}{\Im\ A(s,t=0)}. \tag{1.10}\]
+
+Input values used in the cross-section formula were \(\sigma_{tot}=51.6\) mb [4] and \(\rho=0.13\)[5]. Also, to prepare Figure 1.3 assumed value of Nuclear Slope Parameter \(B=14.5\)\(\mathrm{c^{2}/GeV^{2}}\).
+
+#### Kinematics of the process
+
+Figure 1.4 depicts momenta of colliding protons before (red) and after (blue) elastic interaction. Focusing on proton moving accordingly to \(z\)-axis direction we can write its four-momenta before (\(p_{1}\)) and after (\(p_{1}^{\prime}\)) elastic interaction:
+
+\[p_{1}=(E,0,0,p), \tag{1.11a}\] \[p_{1}^{\prime}=(E,p\cos\varphi\sin\theta,p\sin\varphi\sin\theta,p\cos\theta), \tag{1.11b}\]
+
+where \(E\) is proton energy, and \(p\) the absolute value of momentum. Using definition of \(t\) we find:
+
+\[t=\left(p_{1}^{\prime}-p_{1}\right)^{2}=-p^{2}\sin^{2}\theta+p^{2}\left(1- \cos\theta\right)^{2}=-2p^{2}\left(1-\cos\theta\right)=-4p^{2}\sin^{2}\frac{ \theta}{2}, \tag{1.12a}\]
+
+Figure 1.3: Elastic scattering cross-section for protons at \(\sqrt{s}=200\) GeV/c. Contribution from both strong and electromagnetic interaction is shown, as well as interference therebetween.
+
+what in the low \(|t|\) (low scattering angle \(\theta\)) limit transforms to
+
+\[\sin\frac{\theta}{2}\stackrel{{\theta\to 0}}{{\approx}}\frac{ \theta}{2}\hskip 14.226378pt\Rightarrow\hskip 14.226378ptt\stackrel{{ \theta\to 0}}{{\approx}}-p^{2}\theta^{2}. \tag{1.12b}\]
+
+Denoting by \(\theta_{x}\) and \(\theta_{y}\) scattering angle components (angles between momentum projections on accordingly \(xz\) and \(yz\) plane and the \(z\) momentum component) one can write formula for the scattering plane inclination angle
+
+\[\varphi=\arctan\left(\frac{\tan\theta_{y}}{\tan\theta_{x}}\right). \tag{1.13}\]
+
+From set of Equations (1.11a) and (1.11b) it is obvious, that in case of elastic scattering, when by definition particle energy does not change in interaction, squared four-momentum (or more precisely - momentum) transfer \(t\) takes the negative value.
+
+Figure 1.4: Kinematics of the elastic interaction.
+
+## Chapter 2 The Experiment
+
+### 2.1 Relativistic Heavy Ion Collider
+
+The Relativistic Heavy Ion Collider [6] (abbreviated to RHIC), located in Brookhaven National Laboratory [7] in New York State, is the only operating particle accelerator in the United States at present time. With the circumference of 3.8 km it gives opportunity to study processes occuring in the collisions of protons or heavy ions (such as \(d\), \(Au\), \(Cu\) and \(U\) nuclei) at center-of-mass energy reaching 500 GeV/c. An invaluable advantage of RHIC comparing to other world accelerators is ability to collide protons with polarized spins (longitudinally or transversely), which enables study of spin effects in particle interactions.
+
+First collisions in RHIC facility took place in year 2000, with four independent experiments installed at collider ring: PHOBOS [8], BRAHMS [9], PHENIX [10] and STAR [11, 12]. In 2002 the \(pp2pp\) experiment [13, 14] was established, equipped with set of forward detectors for tagging protons scattered at very low angles. In 2009 it was incorporated into STAR experiment, henceforth whole \(pp2pp\) equipment became an integral part of the STAR detector.
+
+### 2.2 The STAR detector
+
+The heart of STAR experiment is \(4\pi\)-type (covering full solid angle) detector with the same name, which stand for Solenoidal Tracker at RHIC. As usually in high-energy physics experiments, STAR detector is really a system of cooperating subdetectors, each responsible for measuring different quantities. The main one is Time Projection Chamber (TPC) contained within the magnetic field originating from surrounding solenoid, determining paths of charged particles produced in primary interactions, which are curved depending on their charge, mass and momentum, so that all three can be specified with additional informations from other detectors (like the Time-Of-Flight (TOF), Vertex Position Detector (VPD), etc.).
+
+Another STAR subdetector worth to be described is Beam-Beam Counter (BBC) [15], which consists of two sets of several hexagonal tiles made of scintillation material, placed on two sides of the STAR detector. It measures rate of coincidences between the signals in tiles in opposite BBC components, which are evidence of inelastic proton-proton interaction taking place. With the use of BBC the integrated luminosity can be determined, as well as level of polarization of colliding beams defined.
+
+As written in preceding section, STAR is provided with a system of forward detectors adopted from \(pp2pp\) experiment. These devices were used to collect elastic proton-proton scattering data in year 2009, with colliding protons energy of 100 GeV/c. Description of the detecting system is elaborated in the following section.
+
+### 2.3 Roman Pot system
+
+#### Detector layout
+
+System of forward detectors in STAR, whose scheme is drawn in the Figure 2.1, consists of 8 Silicon Strip Detector packages (SDD) mounted in 4 locations at the accelerator ring. At each side of interaction point (IP) 2 stations are installed to the outgoing beampipe, first one with horizontally oriented detectors (55.5 m from IP), the second with vertical detectors (3 m further). A photograph of single station is presented on Figure 2.2.
+
+Tagging forward particles requires close beam approach by the packages, what in case of STAR detector is ensured by the Roman Pot (RP) vessels, depicted on Figure 2.3. Each SSD package (Figure 2.4) is housed inside such steel vessel, which separates vaccum of the beampipe from Roman Pot interior, so that detector works at atmospheric pressure. Top vessel part, which mostly protrudes in the beam direction, has the shape of cuboid box with two windows (at the front and back) made of thin (300 \(\mu\)m) steel plate, which minimize scattering of particles passing through the detector.
+
+Each Roman Pot is named with three letters denoting precisely position in the system. First letter indicates the side of STAR detector where Roman Pot is installed, east (E) - in the "yellow" RHIC ring, or west (W) - in the "blue" ring. Second letter describes detector orientation, thus H stands for horizontal and V for vertical. Last letter helps to distinguish Roman Pots within the station. Horizontal detectors are placed either inside the accelerator circle (I) or oustised it (O), while vertical can be above (U for "up") or below (D for "down") the beampipe.
+
+Figure 2.1: Layout of the Roman Pot subsystem in STAR (from [16]).
+
+#### Silicon Strip Detector
+
+SSD package is a set of four strip detectors with the trigger counter attached at the rear. Two silicon planes have strips oriented horizontally and two vertically, as shown at the bottom of Figure 2.1, hence detector can measure both coordinates of particle in the plane perpendicular to the beam direction. Number of strips in single strip detector depends on their orientation, thus there are respectively 504 and 756 strips in \(y\)- and \(x\)-view planes. The pitch size, defined on Figure 2.5, also differs between the two, and on average is equal to 97.4 \(\mu\)m (horizontal strips) and 105 \(\mu\)m (vertical strips). From all these numbers one can calculate an active area of the detector to be roughly 79 mm \(\times\) 49 mm.
+
+The physical basis for particle detection with presented type of detector can be explained with the use of Figure 2.5. Red color line illustrates a track of charged particle (mostly proton or electron), which ionizes atoms of silicon and thus electrons and holes are produced. Since at the
+
+Figure 2.4: Silicon Strip Detector packages stored in a protective atmosphere. Figure 2.5: Cross section of the Silicon Strip Detector plane in STAR Roman Pot.
+
+bottom layer of \(n^{+}\)-type silicon a positive voltage is applied, a set of \(p\)-\(n\) junctions is created working in reverse-biased mode. Holes originating from the ionization drift to the closest \(p^{+}\) channel and are collected therein, additionally inducing the negative charge on adjacent aluminum electrode. Voltage associated with this charge is then used to determine position of particle hit.
+
+An indispensable element of SSD package is trigger counter used to fastly register presence of particle passing through Roman Pot. Figure 2.6 depicts a single trigger counter, which consists of plastic scintillator of the size of 8 cm \(\times\) 5 cm (enough to cover whole active SSD area) and 8mm thick, with glued two trapezoidal lightguides connected to photomultiplier tubes.
+
+Silicon Strip Detector package is fixedly mounted (for time of data-taking) to the Roman Pot, however the latter can be moved in the direction perpendicular to the beam, thereby it is possible to detect protons at varying distance from the beam.
+
+### 2.4 Principle of measurement
+
+Roman Pots installed at STAR provide ability to detect forward protons at the distance of about 55 m from IP and measure their \((x,y)\) position in the system (the global reference frame is defined in the Figure 2.1). In order to extract initial interaction parameters based on measured position of proton in the detector, one has to take into account magnetic field inside the beampipe influencing to scattered protons on their way from IP to RP.
+
+Elastic proton-proton scattering data was collected with special, so called "parallel-to-point focusing" beam optics [17], hence the initial position and momentum direction of scattered proton can be determined from its position in the Roman Pot with the use of linear transport approximation
+
+\[\begin{pmatrix}x\\ \theta_{x}\\ y\\ \theta_{y}\end{pmatrix}^{\text{RP}}=\mathbb{T}\begin{pmatrix}x\\ \theta_{x}\\ y\\ \theta_{y}\end{pmatrix}^{\text{IP}}, \tag{2.1}\]
+
+where
+
+\[\mathbb{T}=\left(\begin{array}{cccc}a_{11}&L_{x}^{\text{eff}}&a_{13}&a_{14} \\ a_{21}&a_{22}&a_{23}&a_{24}\\ a_{31}&a_{32}&a_{33}&L_{y}^{\text{eff}}\\ a_{41}&a_{42}&a_{43}&a_{44}\end{array}\right) \tag{2.2}\]
+
+Figure 2.6: Trigger counter of single detector package.
+
+is the 4\(\times\)4 transport matrix. In preceding transport equation also fractional momentum loss of transported particle has to be accounted, however in case of elastic scattering at low four-momentum transfer it does not apply. Numerical values of matrix elements for Roman Pot stations, contained in Table 2.1, were determined from currents in dipoles and quadrupoles responsible for bending and focusing the beam.
+
+Parallel-to-point focusing reveals in two leading transport matrix elements - \(a_{12}\) and \(a_{34}\), which are usually called "effective lengths" and denoted as \(L_{x}^{\rm eff}\) and \(L_{y}^{\rm eff}\). It is connected with the fact, that particle position can be considered as dependent only on the scattering angle components:
+
+\[x^{\rm RP}\approx\theta_{x}^{\rm IP}\cdot L_{x}^{\rm eff}, \tag{2.3a}\] \[y^{\rm RP}\approx\theta_{y}^{\rm IP}\cdot L_{y}^{\rm eff}. \tag{2.3b}\]
+
+Scattering angle components \(\theta_{x}^{\rm IP}\) and \(\theta_{y}^{\rm IP}\) are calculated using Equation 2.1 with an additional assumption, that interaction point in the transverse plane is placed at \((0,0)\). It is acceptable due to the fact, that by design \(x^{\rm IP}\) and \(y^{\rm IP}\) have low impact on proton position in the Roman Pot detector (\(a_{11}\), \(a_{13}\), \(a_{31}\) and \(a_{33}\) are small).
+
+### 2.5 Trigger for elastic proton-proton scattering
+
+As mentioned before, an integral part of each Silicon Strip Detector package is trigger counter, which uses scintillation light produced by particle depositing energy therein to detect a hit. Presence of two photomultiplier tubes connected to scintillator was supposed to guarantee 100% efficient optical signal detection.
+
+Roman Pot was recognized to be hit if the following formula adopted a logical true:
+
+\[{\rm signal}=\underbrace{(100<{\rm TAC}_{0}<1700\ \&\ \rm ADC_{0}>5)}_{\rm PMT _{0}}\ ||\ \underbrace{(100<{\rm TAC}_{1}<1700\ \&\ \rm ADC_{1}>5)}_{\rm PMT_{1}}. \tag{2.4}\]
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|} \hline \multirow{2}{*}{Station} & \multicolumn{5}{|c|}{Matrix elements \(a_{ij}\)} \\ \cline{3-6}  & & \(l\) & \(2\) & \(3\) & \(4\) \\ \hline \hline \multirow{8}{*}{\begin{tabular}{c} \end{tabular} } & 1 & -0.090389 & 25.303 m & -0.00010064 & -0.10866 m \\ \cline{2-6}  & 2 & -0.039578 m\({}^{-1}\) & 0.015880 & 0.000073340 m\({}^{-1}\) & -0.0021584 \\ \cline{2-6}  & 3 & 0.00017273 & 0.051678 m & 0.10618 & 24.800 m \\ \cline{2-6}  & 4 & -0.00016994 m\({}^{-1}\) & -0.0034490 & -0.043026 m\({}^{-1}\) & -0.63176 \\ \cline{2-6}  & 1 & -0.20912 & 25.350 m & 0.00011938 & -0.11513 m \\ \cline{2-6}  & 2 & -0.039578 m\({}^{-1}\) & 0.015880 & 0.000073340 m\({}^{-1}\) & -0.0021584 \\ \cline{2-6}  & 3 & -0.00033709 & 0.041331 m & -0.022900 & 22.905 m \\ \cline{2-6}  & 4 & -0.00016994 m\({}^{-1}\) & -0.0034490 & -0.043026 m\({}^{-1}\) & -0.63175 \\ \hline \hline \multirow{8}{*}{
+\begin{tabular}{c} \end{tabular} } & 1 & -0.091324 & 25.257 m & -0.0034073 & 0.076451 m \\ \cline{2-6}  & 2 & -0.039644 m\({}^{-1}\) & 0.013736 & -0.00013826 m\({}^{-1}\) & 0.0056621 \\ \cline{1-1} \cline{2-6}  & 3 & -0.0032942 & -0.10011 m & 0.10436 & 24.760 m \\ \cline{1-1} \cline{2-6}  & 4 & 0.00018577 m\({}^{-1}\) & 0.0082935 & -0.043057 m\({}^{-1}\) & -0.63320 \\ \cline{1-1} \cline{2-6}  & 1 & -0.21025 & 25.298 m & -0.003That condition put limits on TAC and ADC values, which are related to the time of hit occurence and strength of the light signal (integral of associated voltage impulse). It requires at least one PMT to have sufficiently strong signal registered in certain time interval (to prevent from triggering on accidental background hits).
+
+Elastic events trigger was built based on the signature of elastic interaction in case of symmetric beams (Figure 1.4), what applies at RHIC. Elastically scattered protons move back-to-back, thus it is expected to detect them in oppositely located detectors. There are four independent pairs of detectors placed opposite each other (EHI-WHO, EHO-WHI, EVU-WVD, EVD-WVU), so called "elastic arms", hence coincidence of signals in one of these pairs indicates possible elastic event detection.
+
+On the other hand, to prevent from triggering on inelastic events with many forward particles reaching Roman Pot stations an additional vetoing condition was used, which rejected an event if signals in both trigger counters in the station were registered.
+
+Finally, elastic trigger condition used in run 2009 was
+
+\[\mathrm{ET}\ =\ (\mathrm{EA}\ ||\ \mathrm{EB}\ ||\ \mathrm{EC}\ ||\ \mathrm{ED})\ \&\&\!(\mathrm{VA}\ ||\ \mathrm{VB}\ ||\ \mathrm{VC}\ ||\ \mathrm{VD}), \tag{2.5}\]
+
+where explanation of all terms is listed in the Table 2.2.
+
+\begin{table}
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c}  & \multicolumn{2}{c|}{Trigger} & \multicolumn{8}{c}{Triggering detector} \\  & \multicolumn{2}{c|}{term} & \multicolumn{2}{c|}{EHI} & \multicolumn{2}{c|}{EHO} & EVU & \multicolumn{2}{c|}{EVD} & \multicolumn{2}{c|}{WHI} & \multicolumn{2}{c|}{WHO} & \multicolumn{2}{c|}{WVD} & \multicolumn{2}{c}{WVU} \\ \hline \hline \multirow{4}{*}{\(\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{  }}}}}}}}}}}}}}}\) & EA & & & & \(\bullet\) & & & & \(\bullet\) \\ \cline{2-11}  & \multicolumn{2}{c|}{EB} & & & \(\bullet\) & & & & & \(\bullet\) & \\ \cline{2-11}  & \multicolumn{2}{c|}{EC} & \(\bullet\) & & & & & \(\bullet\) & & & \\ \cline{2-11}  & \multicolumn{2}{c|}{ED} & & \(\bullet\) & & & \(\bullet\) & & & & \\ \hline \hline \multirow{4}{*}{\(\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{\mathrm{ \mathrm{ }}}}}}}}}}}}}}}\) & VA & & & \(\bullet\) & \(\bullet\) & & & & \\ \cline{2-11}  & \multicolumn{2}{c|}{VB} & \(\bullet\) & \(\bullet\) & & & & & & & \\ \cline{2-11}  & \multicolumn{2}{c|}{VC} & & & & & & & \(\bullet\) & \(\bullet\) \\ \cline{2-11}  & \multicolumn{2}{c|}{VD} & & & & & \(\bullet\) & \(\bullet\) & & \\ \hline \hline \end{tabular} \end{table 2.2: Components of elastic trigger condition. Bullets indicate detectors whose coincidence form each of the trigger terms.
+
+## Chapter 3 Elastic Scattering Analysis
+
+### 3.1 Silicon Strip Detector data
+
+Before any physical analysis can be performed one has to identify particles, their positions etc. based on information provided by detecting device. In case of Silicon Strip Detectors used in this experiment, the low-level (raw) data consists of digitized voltage values at each strip (aluminum electrode) saved in data tree for every event with satisfied trigger condition. In first order that voltage is proportional to energy deposited by charged particles in the area of the strip.
+
+Raw data has been subjected to the clustering process, hence analyzed data has a different structure and contains collection of clusters. Clustering was carried out by combining adjacent strips with signal strength exceeding the noise level (determined for each strip independently) by more than 5 standard deviations [18]. Cluster is therefore characterized by:
+
+* number of constituent strips,
+* total energy of the strips,
+* aritmetic mean of strips positions (strip number \(\times\) pitch size) weighted by the strip energy.
+
+Figure 3.1 shows the distribution of cluster multiplicity in the silicon plane. For majority of events only one cluster is present, higher multiplicity events are rare. Similar conclusion comes from the Figure 3.2, where combinations of cluster multiplicity in planes responsible for measuring the same coordinate are drawn (\(i/j\) labeling denote \(i\) clusters in first plane and \(j\) in the second).
+
+Figure 3.1: Cluster multiplicity in single silicon plane.
+
+Figure 3.2: Cluster multiplicity in planes measuring the same coordinate.
+
+Vast majority of clusters consists of one strip, whith some addition of two-strip clusters and tail of rare multi-strip clusters (Figure 3.3). Presence of clusters with length equal to 2 could be explained by the case when particle hit in the median region of two strips, hence generated charge diffuses to two neighboring electrodes. Mentioned tail of longer clusters is hardly explained by the diffusion - those are enlarged clusters due to the presence of secondary particles produced by scattered proton in the Roman Pot window or silicon.
+
+Energy loss of charged particle in thin material layer is described by the Landau distribution. For silicon wafer 400 \(\mu m\) thick the shape of deposited energy distribution is very close to that. As depicted on Figure 3.4, for clusters of length 1 a distinctive Landau peak around 40 ADC is present. A lower peak around 10 ADC most probably comes from electronics noise. Longer clusters tend to cover broader energy range, resulting from their many particle origin. Therefore, since cluster energy is the sum of energy deposited by a number of different particles, energy distribution no longer resembles the Landau distribution. Based on Figure 3.4 we can estimate the strip energy threshold used in clustering to be close to 10 ADC.
+
+### 3.2 Track reconstruction
+
+Clusters are basic data units used in reconstruction process to form hits and then tracks, which determine particle path in space. Unless the track is formed, clusters are preselected with a few constraints to accept only those left by protons. It was mentioned earlier, that some fraction of clusters has energy distinctly lower than main Landau peak identified as produced by proton. With the scrupulous study of cluster properties presented in [19] off-line energy thresholds for each cluster length were defined which are the golden mean between maximized non-proton clusters rejection and minimized true proton clusters loss. Since clusters longer than 5 are negligible fraction of all (\(\sim\)0.3%) and resolution associated with them is low they are not taken into account in the reconstruction.
+
+Elastically scattered protons at the Roman Pot moves at an angle of about 0.5 mrad to the beam, what correspons to transverse position sifted by 4 \(\mu m\) at the distance of 8 mm between two silicon planes with same strips orientation. Therefore one would expect, that spacial separation between clusters left by that proton in two corresponding planes should be very small. That expaction is confirmed on Figure 3.5, where the difference between cluster positions is presented. Thus, in the reconstruction only those clusters are included, which follow the relation below:
+
+\[\left|\delta-\left<\delta\right>\right|\leq 2\times\text{pitch}\approx 200\ \mu\text{m}, \tag{3.1}\]
+
+Figure 3.3: Cluster length. Figure 3.4: Cluster energy.
+
+where
+
+\[\delta\equiv x_{1}-x_{2} \tag{3.2}\]
+
+is the difference between clusters positions. Mean value \(\langle\delta\rangle\) is nonzero due to imperfect alignment of planes in the detector package. Quantitatively, absolute value of \(\langle\delta\rangle\) does not exceed 130 \(\mu\)m.
+
+Number of clusters passing selection described in preceding paragraphs determines possibility of forming a hit - structure made up of two clusters (each one from silicon plane in charge of measuring the same spatial coordinate) specifying particle position in one dimension (average of two clusters). All possible clusters combinations are presented and discussed in more details in terms of creating a hit in [19]. From Figure 3.2 one can find, that for more than 90% of events hit is easily reconstructable - there is exactly one cluster in each of corresponding planes. Since cluster multiplicity in all planes in Roman Pot is highly correlated, therefore more than 80% of events belong to so called 'golden events', where all silicon planes in opposite detectors with satisfied elastic trigger contain precisely one cluster. It is worth mentioning that at RHIC luminosities and for \(-t\) range covered by Roman Pots, expected rate of elastic collisions is small and presence of two elastically scattered protons in the same pair of detectors is almost unheard.
+
+At the end of reconstruction process, having two hits in the detector (one in \(x\) and \(y\)) we form a track, which is two-dimensional object, identified with single particle (proton) travelling through Roman Pot. Track coordinates are given in the global reference frame, so one needs to know SSD position relative to outgoing beam trajectory in order to transform from local coordinate system in which hit is represented. Survey of SSD packages after assembling and measurement of Roman Pot positions in respect to the beampipe center were done using Linear Variable Differential Transformers and are described in [20]. Additionally, local alignment (improving relative location of detectors) was performed using elastic tracks reconstructed in overlapping areas of detectors in horizontal and vertical Roman Pots [21]. The last, global alignment correction, determining position of the system in respect to the \(-t=0\) trajectory (which does not overlap with beampipe center), was derived by matching quadrupole shadows on proton hits distribution at both sides of IP [22]. An examplary map of reconstructed proton hits is presented on Figure 3.7a.
+
+Figure 3.6 presents fraction of events passing subsequent analysis steps (graph for dataset 6 is given as an example). Label "Triggered" denotes events with satisfied elastic trigger condition (2.5) in the particular arm. Bin with "Fine tracks" refers to case, when tracks are reconstructed in both triggering detectors. At this point the most inte
+
+tracks" to "Triggered" varying from 80% to 90%, what at first sight may point to inefficient reconstruction algorithm. This, however, has been examined and reconstruction efficiency was found to be approximately 99%, as shown in Section 6.1. Source of lack of tracks in triggering detectors lies in the construction of Roman Pot system, more precisely in the vessels made of steel, whose parts most protruding in the beam direction were hit by elastically scattered protons (at \(-t\) lower than detectors acceptance), therefore showers of particles on both sides were produced which caused signals in trigger counters. Sometimes that shower generated signal in both detectors in the Roman Pot station, what was responsible for some events loss at the trigger level, described in Section 4.1.1.
+
+### 3.3 Collinearity
+
+#### Elasticity condition
+
+Collinearity of elastically scattered protons is very powerfull constraint allowing to reject from analysis majority of coincidental tracks reconstructed in opposite detectors. As depicted on Figure 1.4 the signature of elastic event in case of particles colliding with exactly opposite momenta is the same scattering angle on both sides of IP. Collinearity can be studied by looking at the components of scattering angles reconstructed in east (\(E\)) and west (\(W\)) detectors, more precisely at their sum:
+
+\[\Delta\theta_{x} \equiv\theta_{x}^{W}+\theta_{x}^{E}, \tag{3.3a}\] \[\Delta\theta_{y} \equiv\theta_{y}^{W}+\theta_{y}^{E}, \tag{3.3b}\]
+
+which should peak at 0. Unfortunately, on account of finite detector resolution (which contributes negligibly, see appendix C.1) and another, predominant effect - angular beam divergence described in next paragraph, variables \(\Delta\theta_{x}\) and \(\Delta\theta_{y}\) have some broad distribution with the central gaussian peak. Two-dimensional collinearity plot is shown on Figure 3.8, its projections are placed in the neighboring Figures 3.9a and 3.9b.
+
+Figure 3.7: Hit map of reconstructed elastic track candidates in west horizontal detectors before (a) and after (b) collinearity request (\(n_{cut}=3.5\)). Data for run 10182005 is presented.
+
+Structure of reconstructed collinearity partially imposes form of selection cut that makes analyzed sample cleaner in terms of background tracks. Relation (3.4) defines elliptical region in collinearity space recognized as representing elastic interactions. The only free parameter is \(n_{cut}\) construed as number of standard deviations forming the ellipse axes. In analysis \(n_{cut}=3.5\) is used as it covers whole central part of collinearity distribution. Values of \(\left\langle\Delta\theta_{x/y}\right\rangle\) and \(\sigma_{\Delta\theta_{x/y}}\) are derived from the data independently for each run (Figures 3.10 to 3.13).
+
+\[\left(\frac{\Delta\theta_{x}-\left\langle\Delta\theta_{x}\right\rangle}{ \sigma_{\Delta\theta_{x}}}\right)^{2}+\left(\frac{\Delta\theta_{y}-\left\langle \Delta\theta_{y}\right\rangle}{\sigma_{\Delta\theta_{y}}}\right)^{2}<n_{cut}^{2}. \tag{3.4}\]
+
+An effect of collinearity cut is illustrated on Figures 3.7a and 3.7b. Two main features are conspicuous. Firstly, tracks outside the magnets aperture are removed, which are suspected to either have origin other than STAR location or to be scattered at some dead material and providing wrong information on scattering angle at primary vertex. Secondly, so called "hot spots" disappear, which on Figure 3.7a are visible as dense, red regions at inner detector edges. They are identified with the "beam halo" (protons moving far away from the beam trajectory but still part of it) since they are present only very close to the beam. Figure 3.6 provides a numerical information on influence of collinearity constraint exerted on analyzed sample. One can observe that roughly 3% to 15% of reconstructed tracks on east and west is rejected due to collinearity cut.
+
+It is possible to estimate the background contribution in the data passing collinearity check by fitting gaussian function with some background model to two-dimensional collinearity distribution or its projections, as shown on Figures 3.9a and Figures 3.9b. Such study with background fraction defined as a ratio of the background function integral to central gaussianFigure 3.11: Center of the collinearity distribution \(\langle\Delta\theta_{y}\rangle\) in data collections from subsequent runs. Presented errors are statistical only.
+
+Figure 3.10: Center of the collinearity distribution \(\langle\Delta\theta_{x}\rangle\) in data collections from subsequent runs. Presented errors are statistical only.
+
+Figure 3.12: Width of the collinearity distribution \(\sigma_{\Delta\theta_{x}}\) in data collections from subsequent runs. Presented errors are statistical only.
+
+Figure 3.13: Width of the collinearity distribution \(\sigma_{\Delta\theta_{y}}\) in data collections from subsequent runs. Presented errors are statistical only.
+
+with background function integral (both in range \(\left\langle\Delta\theta_{x/y}\right\rangle\pm n_{cut}\cdot\sigma_{\Delta\theta_{x/ y}}\)) was performed and the result is presented on Figure 3.14. The background models that were used to determine its contribution in elastic scattering data were either constant linear function (as in Figure 3.9b) or the one with additional normal function (line on Figure 3.9a). The main conclusion is that horizontal arms are more stable in terms of background fraction, which does not exceed 2% there. In vertical arms background fluctuates much and for some datasets its contribution is as high as 18%. That is partially explained by the spacial structure of the beam, which tend to have longer tails along \(y\)-axis than in \(x\) direction, therefore higher probability of having random coincidence is present in vertical detectors. Presented level of background in data collected by vertical Roman Pots is one of the premises to use only horizontal arms in physical analysis of elastic cross-section, described in Section 3.4.
+
+#### Angular beam divergence
+
+As mentioned before, collinearity of reconstructed tracks is not perfect and the main fault lies in angular divergence of the beam. Behind this name hides a property of protons in bunches which do not move exactly parallel, but due to interactions within the bunch their momenta form
+
+Figure 3.15: Scheme of angular beam divergence.
+
+Figure 3.14: Background contribution in the elastic scattering sample after collinearity cut applied. Presented errors are statistical only.
+
+[MISSING_PAGE_FAIL:33]
+
+[MISSING_PAGE_FAIL:34]
+
+The reason why formula (3.6) does not have explicitly stated parameter \(\mathcal{L}\) (or removed integral in denominator) is the desire to uncorrelate parameters and hereby reduce their errors (diagonalize covariance matrix). Comparison of the fits performed using function with (black) and without (blue) decorrelating component is shown on Figure 3.18. A noticable difference can be found in the luminosity error, while the \(B\) uncertainty remains unchaged. That feature is connected with the fact, that cross section formula is approximately exponential and overall normalization depends on value of Nuclear Slope Parameter.
+
+The fit is conducted with the use of \(\chi^{2}\) minimization, however integral of function in bin (normalized by the bin volume) is used instead of value at bin center. Such solution is more adequate as it keeps integral of fitted function and content of histogram equal in the range of fit.
+
+An examplary plot of \(\mathrm{d}N/\mathrm{d}(-t)\) distribution with fitted function (3.6) is included in the Figure 3.19, where black circles mark the datapoints (statistical errors are smaller than the marker size). Green line represents the cross-section function with parameter values given by the fit results, red part marks the range of fit. The \(-t\) interval with flat geometrical acceptance was found for each \(\varphi\) range using Geant4 simulation of Roman Pot system (Chapter 5). As there are only two free fit parameters it is sufficient to set relatively wide binning, which in this analysis is \(\Delta t=0.00175\)\(\mathrm{GeV}^{2}/\mathrm{c}^{2}\) per bin. One can compare it with the \(-t\) resolution determined via Monte Carlo simulation, which is 2.5 times better (see Figure 5.7). What is important, such binning is adjusted for further efficiency corrections calculated in the same bins with the simultaneous use of reconstructed and generated \(-t\), so that the difference between \(-t_{reco}\) and \(-t_{true}\) does not bias the result.
+
+All results of the fitting procedure together with \(\varphi\) and \(-t\) intervals are listed in the Table 3.1. Vertical Roman Pots were not used for the \(B\) and \(\mathcal{L}\) extraction since the statistics is high enough in horizontal detectors, where in addition issue of protons loss in the dead material of preceding detector is not present.
+
+#### \(B\) parameter
+
+Obtained values of Nuclear Slope Parameter and their statistical errors are graphically presented on Figure 3.20. Average value of \(B\) measured by horizontal elastic arms is \(12.71\pm 0.17\) in EHI-WHO and \(12.01\pm 0.24\) in EHO-WHI (given in \(\mathrm{c}^{2}/\mathrm{GeV}^{2}\) unit). These numbers differ by more than 3 standard deviations, what indicate systematic effects to play a significant role. Distinctive is also high spread of values measured with different data sets, as well as variation bewteen arms in the data from the same time period (e.g. set 8), unexplainable within the statistical uncertainties. Sources of these discrepancies are discussed in Chapter 4, and appropriate corrections are derived in Chapter 6.
+
+#### Integrated luminosity
+
+Integrated luminosity measured by horizontal Roman Pots as a function of data set is visualized on the Figure 3.21. In the same graph luminosity calculated based on coincidence rates in BBC detector is contained. An overall uncertainty (statistical and systematic) of the BBC-derived luminosity is estimated to be 10% [23] and such error is included to the data points, whereas uncertainty of the \(\mathcal{L}\) parameter on the plot is only statistical.
+
+Similarly to the \(B\) parameter, variations of integrated luminosity as provided by the fits to \(\mathrm{d}N/\mathrm{d}(-t)\) distributions in two horizontal arms are in many cases greater than statistical uncertainties (see Table 3.1). Furthermore, luminosity acquired by the Roman Pot detectors is for all sets smaller than one from BBC by roughly the same fraction, thus relatively high inefficiency of forward protons detecting system is indicated. Ratio of luminosity measured with elastic sample (average of two arms) to that coming from BBC, presented on Figure 3.22, is at the level of 60%, therefore (taking the BBC measurement as a reference) inefficiency of 40% is revealed. The origin of this large difference, which was found to have also enormous influence on \(B\) parameter, is elaborated in the Chapter 4.
+
+Figure 3.20: Nuclear Slope Parameter measured with uncorrected elastic scattering data.
+
+Figure 3.21: Integrated luminosity measured with uncorrected elastic scattering data.
+
+Figure 3.22: Ratio of integrated luminosity measured with uncorrected elastic scattering sample to that measured with BBC detector. Dashed line represents average ratio from constant fit.
+
+[MISSING_PAGE_FAIL:38]
+
+## Chapter 4 Systematic Effects
+
+### 4.1 Trigger bias
+
+#### Trigger veto
+
+The vetoing term implemented in elastic scattering trigger logic (relation (2.5)) was responsible for rejection of some fraction of elastic events, what has manifested in the form of regions at the detector area with lower number of reconstructed proton tracks. The origin lies in the design of Roman Pot vessels and the layout of detecting system with horizontal and vertical stations at each STAR side.
+
+To aid with understanding the described effect a trigger veto event is illustrated on Figure 4.3. Two elastically scattered protons (blue lines starting near the center) go through the silicon in horizontal detectors (possible track reconstruction), and then one of them (extremely rare both) hit the top part of steel vertical vessel (not drawn) and dissociates to shower of particles generating signal in two vertical trigger counters. Though one of elastic arm terms from Table 2.2 is satisfied, also vetoing term takes the logical 1 and event is not stored. As a result, distinctive lanes with lower points density are present on proton hit maps, like those shown on Figure 4.1 and its representation in \((\varphi,-t)\) coordinates, Figure 4.2.
+
+It requires some clarification, thatincluded plots present vertical arm data, where apparent effect is caused by proton dissociation in dead material of horizontal Roman Pot, thereby track reconstruction in the vertical is not possible. Nevertheless, the ultimate result looks identical as explained trigger veto, so one can use Figure 4.2 as an indication to find the veto effect in horizontal arm e.g. on the Figure 3.16. The trigger veto was studied in [24] and found to provide inefficiency of about 3%. What is more, it was proved that trigger efficiency as a function of \(-t\) exhibits growing tendency, therefore correction related to trigger veto results in increase of \(B\) value. The trigger efficiency function is presented in Section 6.2.1.
+
+#### Timing mismatch
+
+The most significant systematic bias found during the analysis process is connected with the time-of-hit measurement, thoroughly described in Section 4.2. In general, due to improper settings of readout electronics, the time window for pulses coming from the photomultiplier tubes was shifted with respect to the time interval of hits occurence, what resulted in failure to record certain percentage of signals in detector. More specifically, the time window for TAC readout started too late and early pulses (like red one on Figure 4.4), which for both PMTs passed the signal threshold before the gate was opened, did not fire the trigger. The effect revealed as a sharp drop ("cut-off") of events with TAC greater than some limit value (different for each PMT), as shown on Figure 4.5. Not only the TAC gate was shifted, but ADC gate was even more delayed, thus very clear, unexpected correlation of TAC and ADC appeared (Figure 4.7).
+
+The timing mismatch is responsible for about 17% events loss, but derivation of this number was preceded by the scrupulous study of multivariate dependence of TAC measured by the trigger counters. Because of its complexity, whole next section is dedicated to description of TAC properties. Also, in order to determine influence of the effect on collected data sample and scale of introduced inefficiency, the Monte Carlo simulation with accurate time-of-hit simulation was needed. Developed Geant4 simulation of Roman Pot system is the subject of Chapter 5.
+
+### 4.2 TAC signal
+
+#### Components of TAC
+
+Despite the variety of components contained in the TAC quantity, its value can be formulated in a single expression given below:
+
+\[\mathrm{TAC}=\mathcal{T}_{\mathrm{ns}}\cdot\left[\Delta t_{gate}\otimes J-\left[t _{\mathrm{offset}}+\left(t_{\mathrm{collision}}+k\cdot z_{\mathrm{IP}}/c\right) \otimes R\left(\mathrm{ADC},x\right)\right]\right]+\mathrm{TAC}_{\mathrm{ped}}, \tag{4.1}\]
+
+where
+
+* number of TAC units within the certain time interval, \(\sim\)50 TAC/ns,
+* width of the time window for PMT impulse readout, \(\sim\)20 ns
+* uniform jitter of the common stop signal,
+* time offset connected with impulse propagation from PMT to readout module,
+* time of the interaction occurence,
+* constant (+1 for east detectors, -1 for west ones),
+* position of the vertex along \(z\) direction,
+* speed of light in vacuum (approximation of 100 GeV/c proton velocity),
+* function which describes bias in the time measurement (\(x\) denotes hit position along the longer scintillator edge),
+* TAC value corresponding to electronics pedestal, \(\sim\)80 TAC.
+
+The "-" sign before the second pair of brackets indicates the common stop mode used in the digitization electronics, hence the later the signal reaches readout module, the lower TAC value is assigned to it. The constants, \(t_{\mathrm{offset}}\) and \(\mathrm{TAC}_{\mathrm{ped}}\), are independent for each channel, what is the reason of different position of the TAC distribution along horizontal axis for different PMTs. In Equation (4.1) the component responsible for the offset in gate opening is not visible, that, however, makes the TAC cut-off (green, dashed line on Figures 4.5 and 4.6) positioned differently for each PMT. Due to jitter of the common stop signal (\(J\)) the upper TAC boundary resulting from the cut-off is slightly smoothened.
+
+The most important information that TAC is intended to provide is time of the collision \(t_{\mathrm{collision}}\) and vertex position \(z_{\mathrm{IP}}\). These two elements are mainly contributing to the TAC value, but construction of trigger counters used in the experiment implies significant role of the light propagation in the scintillator and lightguides to the time of signal registration. That component, \(R\left(\mathrm{ADC},x\right)\), depends on the signal strength (the more scintillation photons are produced, the higher probability that formed impulse immediately exceeds the threshold is) and position of the hit on the scintillator face (hit close to the lightguide estuary produce light directly targeted to sensitive area of PMT thus signal is quickly captured).
+
+The following subsections are focused on a few most important properties of the TAC, which need clarification in terms of the consequues caused by the timing mismatch to collected data sample.
+
+#### TAC\({}_{0}\)-Tac\({}_{1}\) correlation
+
+Figure 4.6 shows the correlation between TAC measured in two photomultiplier tubes connected to the same scintillator, measuring TAC value of the same proton hit. A very strong correlation between the two is clearly visible, as expected. However, on account of belated gate start, some distinctive features are present in the figure.
+
+The most apparent are vertical and horizontal set of points around TAC \(\approx 80\) corresponding to the pedestal value (these are even more clear on the Figure 4.5). One can notice, that majority of events with TAC equal pedestal in one photomultiplier has high values of TAC in the other, and thus early hits are indicated.
+
+A cut-off in both PMTs is marked by the dashed lines, together with three parts of the \((\mathrm{TAC}_{0},\mathrm{TAC}_{1})\) distribution colored black, separated by the mentioned lines. The three highlighted areas are free of datapoints, but in case of proper timing of the triggering system, the entries pointed by the arrows would have been present there. The corner area labeled "lost" corresponds to events, which were not triggered by the detector as both TAC were equal pedestal value, obviously lower than the threshold set in trigger logic (Relation (2.4)).
+
+#### TAC-ADC correlation
+
+Impulse from each photomultiplier tube is independently processed by the electronic components responsible for TAC and ADC extraction, also the readout gates are individually established. This solution connected with introduced discrepancy in readout intervals resulted in negative correlation between TAC and ADC. Usually, the higher amplitude (ADC) of the signal is, the sooner it passes the threshold and lower TAC is assigned. That so called "slewing effect" is illustrated on the Figure 4.8. In the data (Figure 4.7) contrary image is found, whose explanation is presented on Figure 4.4. In most cases only the tail of the signal was contained within the gate, so for the later impulses (lower TAC) larger part was integrated.
+
+The effect of slewing can be observed in the data in two-dimensional distribution of the difference of TAC measured in two overlapping detectors (\(\mathrm{TAC^{A}-TAC^{B}}\)) as a function of the ADC in one of them (\(\mathrm{ADC^{A}}\)). First quantity is mainly affected by \(R\left(\mathrm{ADC},x\right)\) of both PMTs (\(t_{\mathrm{collision}}\) and \(z_{\mathrm{IP}}\) cancel out), but \(\mathrm{TAC^{B}}\) and \(\mathrm{ADC^{A}}\) are independent, therefore the slewing of \(\mathrm{TAC^{A}}\) can be found. Such examplary plot is shown on Figure 4.9.
+
+Some attempts were made to remove the slewing from the data and thus improve the time resolution of detectors, so that additional cuts on vertex position and collision time could be imposed to remove early-late events inequality (such method turns out to be ineffective due to high position dependence of the TAC value as shown in next section). The time resolution can be derived from the width of the TAC difference measured in two detectors for the same events, and such histogram before (blue) and after (black) the slewing correction is shown on Figure 4.10. Appropriate correction functions were found for all photomultipliers with the iterative method described in [25]. This operation improves the time resolution by roughly 10% which for single PMT amounts \(\sim 40\)\(\mathrm{TAC}/\sqrt{2}\approx 0.6\) ns.
+
+#### Position dependence
+
+The reason why the "pedestal lanes" are seen in the TAC correlation figure is non-negligible dependence of the position of proton hit on the time of photons arrival to sensitive PMT area. It takes relatively long time for impulse in PMT to reach established threshold if proton hit the scintillator distantly (in local \(x\)) from the lightguide, thus in case of side hit (Figure 4.11b), which in addition occured just before the gate for TAC was started, in PMT closer to hit signal usually exceeded threshold before the gate was opened (TAC=\(\mathrm{TAC_{ped}}\)), but in the meantime
+
+Figure 4.11: Schematic illustration of light propagation in case of central (a) and side hit (b).
+
+Figure 4.10: Difference between TAC measured in horizontal and vertical detectors before and after slewing correction applied.
+
+[MISSING_PAGE_FAIL:44]
+
+[MISSING_PAGE_FAIL:45]
+
+observed in the data (Figure 4.14). Analytically obtained \(\mathrm{d}^{2}N/(\mathrm{d}z\mathrm{d}t)\) distribution is placed in the Figure 4.16. Qualitatively, satisfactory agreement with the data is found (except the cut-off which was not introduced in calculation). On the left-hand side of Figure 4.16 a few time frames are drawn, where yellow and blue curves describe bunch profiles in corresponding beams together with their product colored green, which is nothing but the cross-section of the distribution on the right at a certain moment in time (for a given \(t_{\mathrm{collision}}\)).
+
+Since RHIC is equipped with the device called Wall Current Monitor (WCM) [26] which measures longitudinal profiles of bunches, these profiles were used in the Monte Carlo simulation to generate elastic scattering events with proper \(\mathrm{d}^{2}N/(\mathrm{d}z\mathrm{d}t)\) distribution, so that unseen part of \(t_{\mathrm{collision}}\) and \(z_{\mathrm{IP}}\) space was accurately reproduced (and hence ineffeciency determined). The WCM data was delivered for the purposes of this analysis for five chosen datasets with high number of reconstructed elastic events and close detectors insertion to the beam (for wide \(-t\) and \(\varphi\) coverage). It was sufficient to describe obtained profiles with the use of five gaussian functions with \(\sigma_{i}=const\). Parameters of function from Equation (4.4) fitted to WCM data and the graphical representation of that data are contained in Appendix D.
+
+Figure 4.16: Time of collision and \(z\)-component of vertex calculated with bunch profile functions (the same for blue and yellow beam) contained in the Figure 4.15.
+
+## Chapter 5 Monte Carlo simulation
+
+### 5.1 Description
+
+#### Simulation structure
+
+Analyses of data collected in 2009 with the Roman Pot system revealed systematic effects, which could not be understood without appropriate Monte Carlo simulation, not existing at that time. Thus, in cooperation with Dr. Leszek Adamczyk and Lukasz Fulek a full Geant4 [27] model of STAR forward detectors was implemented, providing ability to be used with HepMC [28], Pythia [29] and internal STARsim generator.
+
+Geometrical model of the system was established by merging two previously independent simulations: complete RHIC magnets layout from IP to horizontal Roman Pot stations [30] and Roman Pot with Silicon Strip Detector [24]. This solution makes possible to study various processes involving forward protons with non-zero momentum loss. The geometry of the beamline system is built according to the machine optics, described in MAD-X [31] Twiss files. A Twiss file generally describes the lattice of the machine, its magnetic settings and consequently its optics: it lists all the elements along the beamline, and states associated characteristics like longitudinal position, length, type and intensity of kicks, local values of optics functions.
+
+#### Generator for elastic proton-proton scattering
+
+For the purpose of elastic scattering analysis a dedicated event generator was prepared with a few additional capabilities, such as reproduction of \(t_{\text{collision}}\) and \(z_{\text{IP}}\) correlation based on WCM data. Generation of single elastic scattering event involves the following steps:
+
+1. Drawing kinematical variables and time-spatial vertex parameters: * \(-t\) from differential cross-section formula (1.9) (set \(B=14.5\) c\({}^{2}\)/GeV\({}^{2}\), \(\rho=0.13\), \(\sigma_{tot}=51.6\) mb), * \(\varphi\) uniformly at \([0,2\pi)\) rad interval, * \(t_{\text{collision}}\) and \(z_{\text{IP}}\) from the distribution defined by Equation (4.5), where proton density in bunches where taken from fits to WCM data (Table D.1), * \(z_{\text{IP}}\) and \(y_{\text{IP}}\) from normal distributions (set \(\mu=0\) and \(\sigma=1.5\) mm).
+2. Calculating scattering angle \(\theta\) from \(-t\), adding beam divergence angle separately for east and west proton, then, with use of \(\varphi\), calculating scattering angle components \(\theta_{x}^{W/E}\) and \(\theta_{y}^{W/E}\).
+3. With the use of transport matrices for the quadrupole, where scattered protons are the most distant from \(-t=0\) trajectory on their way from IP to Roman Pots (Q2 on the east and west side), checking, if proton position is contained within the beampipe aperture.
+4. If the preceding step is passed successfully by proton on the east/west side, that proton is finally generated at the face of horizontal Roman Pot station, with \((x,y)\) coordinates and momentum vector defined by the Relation (2.1) and corresponding transport matrix (Table 2.1).
+
+Besides the foregoing generator also a full Geant4 transport option exists, which uses RHIC magnets layout loaded from the Twiss files to properly propagate elastic protons from interaction point to Roman Pots.
+
+### 5.2 PMT response parametrisation
+
+Significant dependence of registered TAC value on proton position introduced the need for accurate simulation of the trigger counter (precisely - \(R(\mathrm{ADC},x)\) component in Definition (4.1)), involving light propagation in the scintillator and lightguides. Roman Pot model was added with full geometry of the trigger counter, containing plastic (PVT) scintillator and PMMA lightguides, included on Figure 5.1.
+
+Simulation of optical photons and their propagation in the triggering system requires knowledge of optical parameters describing materials of the detector elements. Those were adopted from the technical sheets of components used in the experiment: scintillator BC-408 [32] and photomultiplier tube Hamamatsu R647-01 [33]. The scintillation light spectrum of BC-408 is presented on Figure 5.2, and the quantum efficiency (probability of photoelectron emission) of photomultiplier tube contained on Figure 5.3. Scintillator and lightguides, as presented on Figure 2.6, were wrapped with the reflecting foil (Tyvek) to increase reflectivity, and outer layer of tape for foil protection and external light foreclose. Reflecting layer was also simulated with Geant4 built-in parametrisation [34] of Tyvek material.
+
+Forming a signal in photomultiplier was conducted in the following manner: when optical photon reached the active area of PMT (top part of the lightguide colored red on Figure 5.1) a random number from 0 to 1 was drawn and compared with quantum efficiency of the device at the photon wavelength. If the random number was lower than quantum efficiency, then at the time of photon arrival a unit impulse was added to the total signal in PMT. Result of this procedure for a few proton hits is depicted on Figure 5.4. On the horizontal axis the origin corresponds to the moment of proton hit, thus one can see, that it takes as long as \(\sim\)10 ns for sigal to reach the peak value and \(\sim\)40 ns to decay. Presented numbers are the resultant of time distribution of photons reaching PMT and rise and decay time of single photoelectron impulse taken from [33]. Single trigger counter was checked with the use of oscilloscope
+
+Figure 5.4: Impulse shape for a few proton hits obtained with simulation of triggering system.
+
+in terms of compliance of image derived with the simulation and well agreement has been found.
+
+Simulation was tuned to provide results consistent with the data by setting different multiplication factors (amplifications) for signals registered in different PMTs, simultaneously using the same discrimination threshold for all. An acid test for correct amplifications was to have matched edges of \(\mathrm{TAC}_{0}-\mathrm{TAC}_{1}\) distributions in each Roman Pot.
+
+Figure 5.5a shows the dependence between time of reaching the threshold value by the signal in PMT and energy deposited in the scintillator. Here the slewing effect is very apparent, but also another feature reveals. One can notice, that below the main set of points also fainter one appears, which corresponds to small fraction of events, when despite the hit situated far from the lightguide, threshold was fastly crossed by the signal. The closer in local \(x\) hit is placed with respect to the lightguide, the lower the main set of points is placed on the distribution from Figure 5.5a. In the limit of protons hitting scintillator at the lightguides side, the two described set of points fully overlap, so at the projection in the Figure 5.5b only single-mode distribution would be present.
+
+Unfortunately, simulation of numerously produced optical photons requires relatively long time to collect satisfactory statistics, therefore a method for fast simulation was found by parametrizing the response of all PMTs obtained with Monte Carlo as a function of position of proton at detector (local \(x\)) and energy deposited in the scintillator. For each photomultiplier tube a set of plots like that on Figure 5.5a was prepared for narrow local \(x\) intervals, and for each of them a set of projections for thin \(E_{\mathrm{dep}}\) slices was produced (as on Figure 5.5b). In this way prepared one-dimensional histograms of time of discrimination were fitted with empirically determined function
+
+\[f(t)=C_{0}\cdot[Landau(t;C_{1},C_{2})+C_{3}\cdot Landau(t;C_{4},C_{5})]\cdot e ^{-C_{6}\cdot t} \tag{5.1}\]
+
+which is the compromise between the lowest possible number of independent parameters and accurate description of distribution. Array of \(C_{i}\) parameters (\(i=1,\ldots,6\) - \(C_{0}\) is just a normalization) for different hit positions and energy depositions was used to determine \(C_{i}(x,E_{\mathrm{dep}})\) for each photomultiplier. Henceforth, moment of hit registration in PMT is determined through draw of that value from distribution given by the Equation (5.1), with \(C_{i}\) parameters specified based on hit position and energy deposited in the scintillator.
+
+Simulation of optical photons in the trigger counter has not provided fully agreeable results comparing to the data. Monte Carlo was unable to properly describe \(\mathrm{TAC}_{0}-\mathrm{TAC}_{1}\) vs. local \(x\) distribution in the crucial, central detector region. The problem was solved by setting one PMT
+
+Figure 5.5: Time of discrimination as a function of energy deposited in the scintillator for restricted local \(x\) range (a) and projection of a thin slice of one around \(E_{\mathrm{dep}}=1.5\) MeV with fitted function (5.1) (b).
+
+as a referential, so that the time of discrimination in the neighbouring PMT is found through the data-driven correlation between \(\mathrm{TAC}_{0}-\mathrm{TAC}_{1}\) and local \(x\) of the hit. The \(\mathrm{TAC}_{0}-\mathrm{TAC}_{1}\) distributions measured in the data were described by the gaussian functions with \(\mu\) and \(\sigma\) parametrized along the detector edge. Presented method ensures accurate reproduction of relative photomultipliers response (as shown on Figure 4.13), which is essential in terms of TAC cut-off and related efficiency correction.
+
+### 5.3 Simulation output
+
+#### \(-t\) resolution
+
+Monte Carlo sample was used, inter alia, to determine \(-t\) resolution of detecting system. Figure 5.6 shows the correlation between reconstructed and true value of squared four-momentum transfer with fitted linear function describing the correlation trend. The two numbers are consistent with each other (on average) within 1%.
+
+The difference between \(-t_{\mathrm{reco}}\) and \(-t_{\mathrm{true}}\), presented on the Figure 5.7, also reveals the effect of systematic undervaluation of \(-t_{\mathrm{reco}}\) of approximately \(10^{-4}\)\(\mathrm{GeV}^{2}/\mathrm{c}^{2}\). However, it is 6 times smaller than the resolution of detectors arm, which can be associated with the root mean square of the distribution. Such value of resolution is consistent with derivation presented in Appendix C, where angular beam divergence was proven to have the highest impact on \(-t\) resolution.
+
+It is important to remember, that positions of Roman Pots and transport matrices implemented in the simulation are precisely the same as those used in the analysis, hence possible deterioration of resolution connected with uncertainties of detector alignment and matrices elements needs to be accounted in the study of systematic errors.
+
+Figure 5.8: Comparison of TAC distributions in the data and Monte Carlo sample (set 0).
+
+Figure 5.9: Comparison of elastic proton position distributions between the data and Monte Carlo (set 6).
+
+#### Data and Monte Carlo comparison
+
+In this subsection comparison of some data and Monte Carlo results is contained, giving a view of simulation quality. Since in the analysis of Nuclear Slope Parameter and integrated luminosity only horizontal detectors are used, presented figures relate to those only.
+
+Figure 5.8 contains set of plots comparing TAC distributions measured in the data (black points) and obtained with Monte Carlo simulation (red line). A satisfactory agreement between the two is found, what is the merit of appropriate \(t_{\mathrm{collision}}\) and \(z_{\mathrm{IP}}\) generator input (WCM bunch profiles) as well as parametrisation of PMT response taking into account light propagation function \(R(\mathrm{ADC},x)\). It requires to be mentioned, that presented comparison enabled to precisely determine the scale factor \(\mathcal{T}_{\mathrm{ns}}\), which earlier was estimated to be eqaul 1 TAC/20 ps. The value of highest likelihood, which guarantees the best data-Monte Carlo matching, is close to that and equal to 1 TAC/22 ps.
+
+Comparison of hit maps projections, in both global \(x\) and \(y\), is included on Figure 5.9. Data points are marked with violet circles, while Monte Carlo output is represented by the black histogram. A three additional histograms are drawn on each plot, which show how subsequent effects change the Monte Carlo. Red color denotes histogram filled with true positions of protons in case of scattered protons hitting sensitive detector area in both detectors in arm - here only geometry of the system has influence on the distribution shape. Afterwards, blue histogram with the trigger logic included is drawn, which reveals the veto impact. Next is green histogram, which was filled with triggered events when the TAC cut-off was added. All histograms are scaled with the same factor so that the content of black one, which involves also tracks reconstruction, was normalized to the data.
+
+First of all, for \(x\)-projections a good agreement between the data and Monte Carlo is found, though for EHI and WHI detector a shift of 1mm would match internal edges almost perfectly. This can be an indication, that alignment accuracy is of that order. Noticeable differences are present on \(y\)-projection plots, where data presents narrower distributions than Monte Carlo, what can be explained twofold. Either the magnet aperture implemented in the simulation is slightly too wide, or values of \(L_{y}^{\mathrm{eff}}\) in transport matrices used to place proton at the detector location undervalued. Also, it can be the higher-order transport effect, which is not simulated. The shape seen in Monte Carlo depends on the \(B\) value given as an input to event generator, what needs to be considered when comparing map of hits in \(x\) and \(y\) coordinates.
+
+On Figure 5.10 similar comparison is shown, this time azimuthal angle reconstructed in horizontal arms is presented. Distributions are nicely reproduced by the simulation, especially in EHI-WHO arm.
+
+Figure 5.10: Comparison of \(\varphi\) distribution in EHI-WHO arm (5.10a) and EHO-WHI arm (5.10b) between data and Monte Carlo (set 6).
+
+## Chapter 5 Monte Carlo simulation
+
+## Chapter 6 Efficiencies
+
+### 6.1 Reconstruction
+
+Efficiency of implemented reconstruction algorithm can be studied using data from overlapping regions of horizontal and vertical Roman Pots. To calculate discussed efficiency for each horizontal detector, sample of reconstructed elastic scattering events in vertical arms was preselected with additional requirement to have triggering signal present in the horizontal detector whose efficiency is surveyed. The above steps give high probability, that if position of proton reconstructed in vertical detector match area covered by horizontal detector at the same IP side, it should be also reconstructed therein. Reconstruction efficiency is thus defined by the ratio
+
+\[\varepsilon_{\mathrm{reco}}=\frac{N_{\mathrm{trig}}^{\mathrm{reco}}}{N_{ \mathrm{trig}}}, \tag{6.1}\]
+
+where \(N_{\mathrm{trig}}^{\mathrm{reco}}\) denotes number of events with proton reconstructed in horizontal detector whose trigger counter registered the signal, if the elastic event with proton at the area matching horizontal detector was reconstructed in vertical arm, and \(N_{\mathrm{trig}}\) is number of events with the same signature except the request of proton reconstructed in horizontal detector.
+
+Figures 6.1a and 6.1b show the distribution of elastically scattered protons registered in the vertical detector in case of triggering signal present in the horizontal one. Events contained within the dashed rectangle on left-hand side plot correspond to numerator in Formula (6.1),
+
+Figure 6.1: Hit map of elastic proton hits in EVU detector in case of reconstructed track (a) or lack of one (b) in EHI detector, with requested triggering signal in EHI detector. Rectangles mark events contained in the area of EHI and EVU detector overlap.
+
+while the sum of marked events from both figures is the denominator of one. A distinctive feature visible on Figure 6.1b in the form of vertical ridge is the remnant of proton hits in the top part of horizontal Roman Pot vessel, which produce secondary particles creating signal in this detector. On the very right much fainter line of points is present, which also originates from proton hit in the top of horizontal vessel, but the neighbouring to that where signal appeared. Scattered points in the right half of the Figure 6.1a are clearly placed outside the sensitive area of horizontal detector - they indicate that small fraction of tracks reconstructed in horizontal detector does not correspond to elastic protons reconstructed in vertical arm.
+
+With the described method reconstruction efficiency was determined for all horizontal detectors based on the data from five datasets. The result is graphically presented on Figure 6.2. Main conclusion of the figure is that reconstruction algorithm has satisfactorily high efficiency of the order of 99%. That number contains also detecting efficiency, which was studied in [19] and found to be above 99.9%. Apparent set-by-set variations can be explained by fluctuating background level as well as different detectors insertion, what has influence on the area of horizontal detector which efficiency is derived. Observed differences, however, are negligible comparing to the absolute value of efficiency.
+
+### 6.2 Triggering
+
+#### Trigger efficiency
+
+Study of inefficiency introduced by the trigger veto was entirely performed with developed Monte Carlo simulation of Roman Pot system. For the purpose of trigger efficiency calculation the TAC cut-off was excluded from simulation to make the triggering process affected only by the vetoing term. Trigger efficiency defined as
+
+\[\varepsilon_{\mathrm{trig}}(-t)=\frac{N_{\mathrm{hit}}^{\mathrm{trig}}(-t)}{N_ {\mathrm{hit}}(-t)} \tag{6.2}\]
+
+Figure 6.2: Reconstruction efficiency in horizontal detectors. Labels indicate two detectors whose overlap was used in the efficiency calculation. For each detector two efficiency values are given from overlapping areas with two vertical detectors. Included errors are statistical.
+
+was obtained for 5 datasets as shown on Figure 6.3. \(N_{\rm hit}(-t)\) denotes number of generated elastic events contained within certain azimuthal angle interval, which hit the sensitive area of horizontal detectors, and \(N_{\rm hit}^{\rm trig}\) is the subset of former with additional requirement of having satisfied trigger condition (Relation (2.5)).
+
+The above plots include efficiency for EHI-WHO arm (left-hand side) and for EHO-WHI arm (right-hand side), all in the \(\varphi\) range corresponding to the content of fitted \({\rm d}N/{\rm d}(-t)\) distributions. In the cross-section fit range, which is placed roughly around 0.015 \(\rm GeV^{2}/c^{2}\), the efficiency equals approximately 97% and grows with \(-t\). The result for set 0 significantly deviates from the rest, what is connected with much different vertical detectors insertion comparing to other datasets.
+
+#### Timing efficiency
+
+Efficiency related to the TAC cut-off, called "timing efficiency", was also studied with the Geant4 simulation, but here the vetoing term in trigger logic was removed, so the on-line events loss could only have been caused by the timing mismatch. The same definition of efficiency was used as in the former subsection (Equation (6.2)).
+
+Figure 6.4: Timing efficiency as a function of \(-t_{\rm true}\) in the range \(\varphi_{\rm true}\in[\varphi_{0}-0.9\;\rm rad,\varphi_{0}+0.9\;\rm rad]\) for EHI-WHO arm (6.4a) and EHO-WHI arm (6.4b). Included errors are statistical.
+
+Figure 6.3: Trigger efficiency as a function of \(-t_{\rm true}\) in the range \(\varphi_{\rm true}\in[\varphi_{0}-0.9\;\rm rad,\varphi_{0}+0.9\;\rm rad]\) for EHI-WHO arm (6.3a) and EHO-WHI arm (6.3b). Included errors are statistical.
+
+Timing efficiency obtained with the simulation is presented on Figure 6.4, where results for both horizontal arms are included. Average inefficiency introduced by the delayed signal readout is of about 15%, with small asymmetry between the arms (resulting from different cut-off level in each detector) of the order of 2 percentage points. Just like in case of trigger efficiency, the low \(-t\) events where mostly lost, what confirms the expectation from Subsection 4.2.4.
+
+### 6.3 Acceptance
+
+Acceptance of horizontal arms for the process of elastic proton-proton scattering, obtained with Geant4 simulation of the STAR Roman Pots, is marked with black line on the Figure 6.5, where outcomes for five datasets are presented. It was determined with the use of Definition (6.3),
+
+\[\alpha(-t_{\mathrm{reco}})=\frac{N_{\mathrm{trig}}^{\mathrm{reco}}\big{|}_{ \Delta\varphi_{\mathrm{reco}}}\left(-t_{\mathrm{reco}}\right)}{N_{\mathrm{ true}}\big{|}_{2\pi}\left(-t_{\mathrm{true}}\right)}, \tag{6.3}\]
+
+where \(N_{\mathrm{true}}\big{|}_{2\pi}\) is number of generated elastic scattering events in full azimuthal angle, and \(N_{\mathrm{trig}}^{\mathrm{reco}}\big{|}_{\Delta\varphi}\) is number of triggered and reconstructed events (passing collinearity cut) with value of reconstructed azimuthal angle \(\varphi_{\mathrm{reco}}\) contained within established range.
+
+Besides the full acceptance containing all detector effects, also geometrical acceptance was drawn (colored red), which at plateau reaches value corresponding to restricted \(\varphi\) angle (\(\Delta\varphi/2\pi\approx 0.286\)). It was calculated with the single request to have two scattered protons hitting silicon planes in the detectors (hence both in numerator and denominator \(-t_{\mathrm{true}}\) was used). From this histogram the \(-t\) interval used in cross-section fitting was determined for all \(\mathrm{d}N/\mathrm{d}(-t)\) distributions.
+
+Blue and green histograms represent geometrical acceptance with additional effects introduced in the simulation, respectively trigger veto and TAC cut-off. It is clearly visible, that timing mismatch was responsible for the largest acceptance decrease.
+
+Derived acceptance histograms were used to improve the data analyzed in Chapter 3 and extract correct value of Nuclear Slope Parameter and integrated luminosity. Results of acceptance corrections are presented in next chapter.
+
+Figure 6.5: Acceptance functions for horizontal arms in the range \(\varphi\in[\varphi_{0}-0.9\text{rad},\varphi_{0}+0.9\text{rad}]\).
+
+## Chapter 6
+
+## Chapter 7 Final Results
+
+### 7.1 Fit outputs for corrected \(\mathrm{d}N/\mathrm{d}(-t)\) distributions
+
+Understanding of systematic effects impacting the data, which provided an input for proper implementation of Monte Carlo simulation, at the result allowed to determine acceptance functions which were used to correct \(\mathrm{d}N/\mathrm{d}(-t)\) histograms for detector effects. An examplary reconstructed \(-t\) distribution with applied acceptance correction is presented in the neighbouring Figure 7.1. The distinct feature reveals in part of the histogram above \(-t=0.022\)\(\mathrm{GeV}^{2}/\mathrm{c}^{2}\), where bin contents are undervalued comparing to fitted cross-section. This effect, however, is understandable - as written in Subsection 5.3.2 the envelope of hit map is not precisely reproduced in the simulation, therefore acceptance for higher values of \(-t\) (beyond the uniform geometrical acceptance region) is overestimated.
+
+All numerical results of cross-section function fits to \(\mathrm{d}N/\mathrm{d}(-t)\) histograms corrected for detector acceptance (see Appendix B) are listed in the Table 7.1. Values for five datasets are contained therein, for which the detector acceptance presented in the Figure 6.5 was calculated. Since derived acceptance functions contain the geometrical term \(\frac{2\pi}{\Delta\varphi}\), it is no longer used in Equation (3.8) to calculate \(\mathcal{L}\) parameter.
+
+\begin{table}
+\begin{tabular}{|c|c||c|c|c|c|c|c||} \hline \multirow{2}{*}{Arm} & \multirow{2}{*}{Set} & \multicolumn{2}{c|}{\(\varphi\) range} & \multicolumn{2}{c|}{\(-t\) range} & \multicolumn{3}{c||}{Fit results} \\ \cline{3-8}  & & \multicolumn{2}{c|}{[rad]} & \multicolumn{2}{c|}{[\(\mathrm{GeV}^{2}/\mathrm{c}^{2}\)]} & \multicolumn{3}{c||}{} \\ \cline{3-8}  & & \(\varphi_{1}\) & \(\varphi_{2}\) & \(-t_{1}\) & \(-t_{2}\) & \(B[\mathrm{c}^{2}/\mathrm{GeV}^{2}]\) & \(\mathcal{L}[\mathrm{\mu b}^{-1}]\) & \(\chi^{2}/\mathrm{ndf}\) \\ \hline \hline \multirow{4}{*}{Arm} & 0 & -0.9 & 0.9 & 0.0081 & 0.0206 & \(15.11\pm 0.44\) & \(2130.4\pm 3.4\) & 19.9/5 \\ \cline{2-8}  & 1 & -0.9 & 0.9 & 0.0081 & 0.0206 & \(15.85\pm 0.58\) & \(1095.7\pm 2.3\) & 1.1/5 \\ \cline{2-8}  & 4 & -0.9 & 0.9 & 0.0099 & 0.0206 & \(14.14\pm 0.85\) & \(718.2\pm 1.9\) & 4.0/4 \\ \cline{2-8}  & 6 & -0.9 & 0.9 & 0.0081 & 0.0206 & \(15.02\pm 0.72\) & \(621.2\pm 1.6\) & 2.7/5 \\ \cline{2-8}  & 9 & -0.9 & 0.9 & 0.0081 & 0.0206 & \(16.26\pm 0.51\) & \(1546.6\pm 2.8\) & 7.9/5 \\ \hline \multirow{4}{*}{Arm} & 0 & -0.9 & 0.9 & 0.0116 & 0.0206 & \(13.99\pm 0.76\) & \(2183.0\pm 4.2\) & 1.5/3 \\ \cline{2-8}  & 1 & -0.9 & 0.9 & 0.0116 & 0.0206 & \(14.29\pm 0.97\) & \(1107.6\pm 2.8\) & 3.5/3 \\ \cline{2-8}  & 4 & -0.9 & 0.9 & 0.0081 & 0.0206 & \(14.26\pm 0.68\) & \(735.6\pm 1.8\) & 1.3/5 \\ \cline{2-8}  & 6 & -0.9 & 0.9 & 0.0081 & 0.0206 & \(14.25\pm 0.73\) & \(632.6\pm 1.6\) & 3.9/5 \\ \cline{2-8}  & 9 & -0.9 & 0.9 & 0.0099 & 0.0206 & \(13.67\pm 0.65\) & \(1562.4\pm 3.1\) & 5.7/4 \\ \hline \end{tabular}
+\end{table}
+Table 7.1: Results of the fit described in Subsection 3.4.2 for five datasets corrected for detector acceptance.
+
+Figure 7.1: \(\mathrm{d}N/\mathrm{d}(-t)\) distribution corrected for detector acceptance with fitted cross-section function (EHI-WHO arm in set 6). Statistical error bars are drawn.
+
+### 7.2 Nuclear Slope Parameter
+
+Figure 7.2 illustrates final results on Nuclear Slope Parameter from Table 7.1. Value of the \(B\) parameter obtained in EHI-WHO arm equals \(15.44\pm 0.26\)\(\mathrm{c^{2}/GeV^{2}}\), while in EHO-WHI it was found to be equal \(14.06\pm 0.33\)\(\mathrm{c^{2}/GeV^{2}}\). In comparison to uncorrected data analysis an average growth of \(B\) by \(\sim\)2.5 units is found, what is understood since the major events loss was proved at very low \(-t\). Similarly to the output from fits to uncorrected \(\mathrm{d}N/\mathrm{d}(-t)\) distributions (Subsection 3.4.3), large differences between the results from two elastic arms are observed, which exceed the statistical errors of the fits. The conclusion from the above is, that some effects relevant for Nuclear Slope Parameter measurement, which were not accounted in the Monte Carlo simulation, has considerable influence on the data. Calculation of systematic uncertainties of \(B\) slope are presented later on in Section 7.4.
+
+### 7.3 Integrated luminosity
+
+Final results of integrated luminosity calculated with corrected elastic scattering sample are depicted on Figure 7.3. The elastic-to-BBC luminosity ratio, which initially was equal 60%, after acceptance correction grew up to 78%, as shown in the Figure 7.4. Therefore, as the ratio is still non consistent with 1, it is possible that not all the systematic effects has been accounted. Systematic uncertainties related to the integrated luminosity are presented in the next section.
+
+Figure 7.2: Nuclear Slope Parameter measured with corrected elastic scattering data. Vertical bars represent statistical errors of the fits.
+
+[MISSING_PAGE_EMPTY:63]
+
+\begin{table}
+\begin{tabular}{|c|c||c|c|c|c||c|c|c|c|} \hline \multirow{3}{*}{Arm} & \multirow{3}{*}{Set} & \multicolumn{4}{c||}{\(1\). \(-t\) fit range shifted by \(-2\cdot\delta t\)} & \multicolumn{4}{c||}{\(2\). \(-t\) fit range shifted by \(+2\cdot\delta t\)} \\ \cline{3-10}  & & \(\frac{\Delta B}{[z^{2}/\mathrm{GeV}^{2}]}\) & \(\frac{\Delta B}{B_{0}}\) [\%] & \(\frac{\Delta\mathcal{L}}{[z^{\mathrm{h}-1}]}\) & \(\frac{\Delta\mathcal{L}}{\mathcal{L}_{0}}\) [\%] & \(\frac{\Delta B}{B_{0}}\) [\%] & \(\frac{\Delta\mathcal{L}}{[z^{\mathrm{h}-1}]}\) & \(\frac{\Delta\mathcal{L}}{\mathcal{L}_{0}}\) [\%] \\ \hline \hline \multirow{3}{*}{Arm} & 0 & 0.54 & 3.5 & 14.34 & 0.7 & 0.18 & 1.2 & 4.94 & 0.2 \\ \cline{2-10}  & 1 & 0.07 & 0.4 & 0.52 & 0.0 & 0.21 & 1.3 & 2.96 & 0.3 \\ \cline{2-10}  & 4 & 0.29 & 2.0 & 2.79 & 0.4 & 1.13 & 8.0 & 11.68 & 1.6 \\ \cline{2-10}  & 6 & 0.55 & 3.7 & 4.89 & 0.8 & 0.51 & 3.4 & 4.17 & 0.7 \\ \cline{2-10}  & 9 & 0.07 & 0.5 & 0.26 & 0.0 & -0.21 & -1.3 & -4.13 & -0.3 \\ \hline \multirow{3}{*}{Arm} & 0 & -0.86 & -6.1 & -30.60 & -1.4 & 1.36 & 9.7 & 46.28 & 2.1 \\ \cline{2-10}  & 1 & -1.09 & -7.6 & -16.71 & -1.5 & 1.07 & 7.5 & 18.47 & 1.7 \\ \cline{2-10}  & 4 & -0.33 & -2.3 & -3.32 & -0.5 & 0.45 & 3.2 & 4.35 & 0.6 \\ \cline{2-10}  & 6 & 0.45 & 3.2 & 3.30 & 0.5 & 0.32 & 2.2 & 2.64 & 0.4 \\ \cline{2-10}  & 9 & 0.46 & 3.4 & 12.26 & 0.8 & 0.90 & 6.6 & 20.14 & 1.3 \\ \hline \multirow{3}{*}{Arm} & \multirow{3}{*}{Set} & \multicolumn{4}{c||}{3. East RP shifted by \(+1\) mm in \(x\) and \(y\)} & \multicolumn{4}{c||}{4. East RP shifted by \(+1\) mm in \(x\) and \(y\)} \\ \cline{3-10}  & & \multicolumn{4}{c||}{West RP shifted by \(+1\) mm in \(x\) and \(y\)} & \multicolumn{4}{c||}{West RP shifted by \(+1\) mm in \(x\) and \(y\)} \\ \cline{3-10}  & & \multicolumn{4}{c||}{West RP shifted by \(+1\) mm in \(x\) and \(y\)} \\ \cline{3-10}  & & \multicolumn{4}{c||}{West RP shifted by \(+1\) mm in \(x\) and \(y\)} \\ \hline \hline \multirow{3}{*}{Arm} & 0 & -0.53 & -3.8 & 7.62 & 0.3 & 1.35 & 9.7 & 16.16 & 0.7 \\ \cline{2-10}  & 1 & -1.29 & -9.1 & -9.74 & -0.9 & 1.59 & 11.1 & 12.57 & 1.1 \\ \cline{2-10}  & 4 & -0.50 & -3.5 & 3.14 & 0.4 & 0.89 & 6.3 & -1.59 & -0.2 \\ \cline{2-10}  & 6 & 0.02 & 0.1 & 7.78 & 1.2 & -0.02 & -0.1 & -8.88 & -1.4 \\ \cline{2-10}  & 9 & -0.39 & -2.9 & 9.58 & 0.6 & 1.15 & 8.4 & 7.36 & 0.5 \\ \hline \hline \multirow{3}{*}{Arm} & \multirow{3}{*}{Set} & \multicolumn{4}{c||}{5. \(\overline{1}\) matrix elements changed by \(-1\%\)} & \multicolumn{4}{c||}{6. \(\overline{1}\) matrix elements changed by \(+1\%\)} \\ \cline{3-10}  & & \(\frac{\Delta B}{[z^{2}/\mathrm{GeV}^{2}]}\) & \(\frac{\Delta B}{B_{0}}\) [\%] & \(\frac{\Delta\mathcal{L}}{\mathcal{L}_{0}}\) [\%] & \(\frac{\Delta B}{[z^{2}/\mathrm{GeV}^{2}]}\) & \(\frac{\Delta B}{B_{0}}\) [\%] & \(\frac{\Delta\mathcal{L}}{[z^{\mathrm{h}-1}]}\) & \(\frac{\Delta\mathcal{L}}{\mathcal{L}_{0}}\) [\%] \\ \hline \hline \multirow{3}{*}{Arm} & 0 & -0.14 & -0.9 & -40.05 & -1.9 & 0.42 & 2.8 & 48.56 & 2.3 \\ \cline{2-10}  & 1 & -0.35 & -2.2 & -23.98 & -2.2 & 0.25 & 1.6 & 22.89 & 2.1 \\ \cline{2-10}  & 4 & -0.06 & -0.4 & -12.27 & -1.7 & 0.80 & 5.6 & 21.55 & 3.0 \\ \cline{2-10}  & 6 & -0.43 & -2.9 & -13.96 & -2.2 & -0.01 & -0.1 & 10.94 & 1.8 \\ \cline{2-10}  & 9 & 0.02 & 0.1 & -30.92 & -2.0 & 0.39 & 2.4 & 34.53 & 2.2 \\ \hline \multirow{3}{*}{Arm} & 0 & -0.67 & -4.8 & -60.43 & -2.8 & -0.05 & -0.4 & 33.66 & 1.5 \\ \cline{2-10}  & 1 & -0.89 & -6.2 & -34.38 & -3.1 & -0.21 & -1.5 & 14.98 & 1.4 \\ \cline{2-10}  & 4 & -0.38 & -2.7 & -16.77 & -2.3 & 0.62 & 4.3 & 19.45 & 2.6 \\ \cline{2-10}  & 6 & -0.03 & -0.2 & -11.06 & -1.7 & 0.29 & 2.0 & 14.04
+
+### 7.4 Systematic uncertainties
+
+In the estimation of systematic uncertainties of analyzed parameters \(B\) and \(\mathcal{L}\) a few effects has been accounted, which are thought to mostly contribute to an overall systematic error.
+
+First of all, an effect of some ambiguity in the fit range choice has been checked. The \(-t\) interval, within which cross-section fomula is fitted, has been determined from geometrical acceptance histogram with the request to stay away from the plateau edges by \(2\delta t\), where \(\delta t=0.0007\) GeV\({}^{2}\)/c\({}^{2}\) was found with Monte Carlo. Therefore, it is allowed to perform the fit in the range shifted by that value in both lower and higher \(-t\) direction.
+
+The second effect considered in the errors study is related to detectors alignment accuracy. As mentioned in the Subsection 5.3.2, projections of map of hits do not perfectly overlap, however they would if the shift of about 1 mm was introduced. This value exceeds an estimate of the global detectors alignment precision equal 0.4 mm [22], but its usage seems to be justified. In order to preserve the collinearity between reconstructed protons momenta and do not corrupt the local alignment, a simultaneous move of detectors in opposite directions was introduced in the reconstruction algorithm.
+
+Another uncertain component relevant in the analysis is the transport matrix \(\mathbb{T}\), whose elements are known at the level of 1% (this value of uncertainty was used in the spin asymmetry analysis in STAR [16]).
+
+Since the collinearity cut is the crucial constraint in the elastic scattering analysis, it was checked how much its variation affects the fit results. Value of \(n_{cut}\) parameter was lowered from initial 3.5 to 2.5, what corresponds to 1\(\sigma\) difference in the scale of cut. Of course, the acceptance functions used to correct the \(-t\) distributions were recalculated with new value of \(n_{cut}\).
+
+The following list contain all systematic checks performed in this errors analysis:
+
+1. \(-t\) fit range shifted by \(-2\cdot\delta t\),
+2. \(-t\) fit range shifted by \(+2\cdot\delta t\),
+3. detectors on east side shifted by +1 mm in \(x\) and \(y\), while on the west shifted by -1 mm in \(x\) and \(y\),
+4. detectors on east side shifted by -1 mm in \(x\) and \(y\), while on the west shifted by +1 mm in \(x\) and \(y\),
+5. transport matrix elements changed by -1%,
+6. transport matrix elements changed by +1%,
+7. collinearity cut made more restrictive (\(n_{cut}=2.5\)).
+
+Differences between \(B\) and \(\mathcal{L}\) parameters obtained from the fits to \(\,\mathrm{d}N/\mathrm{d}(-t)\) distributions with introduced biases from the above list, and those contained in the Table 7.1, are included in the Table 7.2. One can easily find, that especially in case of shifts introduced to detectors positions, variations of Nuclear Slope Parameter in two elastic arms are strongly anticorrelated, what leads to the conclusion, that systematic error of the difference of \(B\) values measured by horizontal arms needs to be found, since it can prove appropriateness of averaging value of \(B\) obtained with independent pairs of detectors.
+
+Estimate of an overall systematic uncertainty for the Nuclear Slope Parameter measured in EHI-WHO and EHO-WHI arm was found by looking at the difference between the constant fit result to set of \(B\) values for the particular systematic check and the nominal \(B\) value from Figure 7.2. Similarly the uncertainties of the difference \(\Delta B=B_{\mathrm{EHI-WHO}}-B_{\mathrm{EHO-WHI}}\) and average \(\overline{B}=(B_{\mathrm{EHI-WHO}}+B_{\mathrm{EHO-WHI}})/2\) of results for two arms were found. Contributions fromeach of the systematic checks, as well as total systematic error for all mentioned variables is presented in the Table 7.3.
+
+The difference between Nuclear Slope Parameter measured in two arms, following the Figure 7.2 and Table 7.3, is equal to
+
+\[\Delta B=1.38\pm 0.30(\mathrm{stat.})^{+1.16}_{-1.28}(\mathrm{sys.})\ \mathrm{c^{2}/GeV^{2}}, \tag{7.1}\]
+
+which is almost consistent with 0 at \(1\sigma\) level. The systematic check responsible for better agreement between the arms is check No. 4, for which the decreasing difference between the \(B\) slopes (\(-1.14\ \mathrm{c^{2}/GeV^{2}}\)) is associated with small change in the average value (\(0.37\ \mathrm{c^{2}/GeV^{2}}\)).
+
+Above fact enables to average results from two elastic arms, what has been done by the constant fit to all 10 datapoints in the Figure 7.2. With estimated systematic uncertainty of the average slope \(\delta\overline{B}\), the final value of Nuclear Slope Parameter measured in the STAR experiment with the proton-proton elastic scattering data at \(\sqrt{s}=200\ \mathrm{GeV}/c\) is
+
+\[14.92\pm 0.20(\mathrm{stat.})^{+0.85}_{-0.46}(\mathrm{sys.})\ \mathrm{c^{2}/GeV^{2}}. \tag{7.2}\]
+
+### 7.5 Conclusions of the results
+
+The value of Nuclear Slope Parameter obtained in this analysis is consistent with the first measurement at the center-of-mass energy of 200 GeV/c, surveyed at RHIC in 2003 by the \(pp2pp\) experiment [35]. The measured value of \(B\) was then
+
+\[16.3\pm 1.6(\mathrm{stat.})\pm 0.9(\mathrm{sys.})\ \mathrm{c^{2}/GeV^{2}}. \tag{7.3}\]
+
+The new measurement has more than twice higher precision, thus it is expected to provide valuable help for theorists in developing models of diffractive processes at high energies.
+
+A puzzling effect, which has not been fully understood in this analysis, is systematically lower value of integrated luminosity measured with the elastic proton-proton scattering sample, comparing to the independent measurement in Beam-Beam Counter. It is suspected, that the fraction of triggered events, for which tracks were reconstructed in opposite detectors, but they did not pass the collinearity request (called earlier a "background", constituting up to several percent following Figure 3.6), is in fact the elastic fraction, but originating from the part of the beam of much higher angular divergence, hence they are not recognized in the reconstruction as collinear. As a consequence, luminosity calculated from collinear sample is smaller than that from BBC, which counts collisions regardless the angular structure of the beams. It should be emphasized, that the above effect would only influence on the normalization of elastic scattering sample (\(\mathcal{L}\)).
+
+\begin{table}
+\begin{tabular}{|c||c|c|c|c|c|c|c||c|} \hline Systematic & \multicolumn{6}{|c||}{Systematic check number} & \multicolumn{1}{c|}{Total} \\ \cline{2-9} error & 1 & 2 & 3 & 4 & 5 & 6 & 7 & \\ \hline \hline \(\delta B_{\mathrm{EHI-WHO}}\) & 0.31 & 0.21 & 0.59 & -0.20 & -0.51 & 0.35 & 0.55 & \({}^{+0.95}_{-0.54}\) \\ \hline \(\delta B_{\mathrm{EHO-WHI}}\) & -0.15 & 0.80 & -0.46 & 0.94 & -0.41 & 0.34 & 0.36 & \({}^{+1.33}_{-0.64}\) \\ \hline \(\delta\Delta B\) & 0.46 & -0.59 & 1.05 & -1.14 & -0.09 & 0.01 & 0.19 & \({}^{+1.16}_{-1.28}\) \\ \hline \(\delta\overline{B}\) & 0.08 & 0.51 & 0.06 & 0.37 & -0.46 & 0.35 & 0.45 & \({}^{+0.85}_{-0.46}\) \\ \hline \end{tabular}
+\end{table}
+Table 7.3: Estimates of total systematic errors. Total values were obtained by adding in quadrature components of the same sign. All values are given in \(\mathrm{GeV^{2}/c^{2}}\) unit.
+
+## Chapter 8 Summary
+
+Analysis presented in this dissertation was devoted to the process of elastic scattering of protons at high center-of-mass energy of 200 GeV/c. One of the STAR experiment instruments, Roman Pot system with eight Silicon Strip Detectors inserted \(\sim\)10 mm from the beam and spaced \(\sim\)55 m from the interaction point, was used to measure position of protons scattered at very low angles, providing ability to study properties of scattering with small momentum exchange.
+
+It was found during the analysis process, that the trigger condition for elastic scattering, more precisely the vetoing term whose objective was to preserve triggering on accidental coincidences due to background interactions, introduced an inefficiency of the order of \(\sim\)3%. Moreover, the timing issue was uncovered, consisting of mismatch between the time of signal arrival and beginning of signal readout. That effect was responsible for \(\sim\)17% events loss.
+
+In order to find a scale of inefficiencies mentioned above and derive adequate corrections, as well as help to understand performance of detecting devices and effects present in the data, Monte Carlo simulation of the Roman Pot system was developed with the use of Geant4 toolkit.
+
+Acceptance correction determined through the simulation, containing all known effects identified during data survey, was applied to \(\,\mathrm{d}N/\mathrm{d}(-t)\) distributions measured in horizontal elastic arms, thus value of the Nuclear Slope Parameter in the \(-t\) interval [0.008,0.020] GeV\({}^{2}\)/c\({}^{2}\) was found to be equal \(14.92\pm 0.20\)(stat.)\({}^{+0.85}_{-0.46}\)(sys.) c\({}^{2}\)/GeV\({}^{2}\). Such value of \(B\) parameter shows very good agreement with the current Regge parametrisation and other world data on elastic proton-proton scattering.
+
+Carefull analysis of 2009 data, espacially understanding of the systematic effects that had a destructive impact, is favorable as regards the Phase II\({}^{*}\) of the Roman Pot subsystem in STAR experiment, planned to take place in year 2015. The Roman Pot vessels will be mounted at the distance of about 16 m from the interaction point, thus only dipole magnetic field will affect the trajectories of outgoing particles and dedicated accelerator runs will be no longer required. This solution ensures permanent data collection, therefore possibility of studying rare diffractive processes involving Double Pomeron Exchange, like e.g. Central Exclusive Production with high accuracy is guaranteed.
+
+## Chapter 8 Summary
+
+[MISSING_PAGE_EMPTY:69]
+
+[MISSING_PAGE_FAIL:70]
+
+[MISSING_PAGE_EMPTY:71]
+
+Figure B.2: Corrected \({\rm d}N/{\rm d}(-t)\) distributions with fitted cross-section function (set 4, 6 and 9).
+
+## Appendix C Angular beam divergence impact on collinearity and \(-t\) resolution
+
+### Contribution of position resolution to collinearity width
+
+Let us consider proton scattered at an angle \(\theta\), thus having momentum inclined at angles \(\theta_{x}\) and \(\theta_{y}\) with respect to \(z\)-axis. We can simply transform equations (2.3a) and (2.3b) to determine \(\theta\) angle components based on proton position measured in Roman Pot:
+
+\[\theta_{x} =\frac{x}{L_{x}^{\rm eff}},\] (C.1a) \[\theta_{y} =\frac{y}{L_{y}^{\rm eff}}.\] (C.1b)
+
+We can write uncertainty \(\delta\theta_{x/y}\) of the \(\theta_{x/y}\) due to finite position resolution \(\delta x/y\) as
+
+\[\delta\theta_{x/y}=\frac{\delta x/y}{L_{x/y}^{\rm eff}},\] (C.2)
+
+where
+
+\[\delta x\approx\delta y\approx\frac{100\ \mu\rm m}{\sqrt{12}}\approx 29\ \mu\rm m,\quad L_{x}^{\rm eff}\approx L_{y}^{\rm eff}\approx 2 5\ \rm m.\]
+
+Therefore
+
+\[\delta\Delta\theta_{x/y}=\sqrt{2}\cdot\delta\theta_{x/y}\approx\sqrt{2}\cdot \frac{29\ \mu\rm m}{25\ \rm m}\approx 1.6\ \mu\rm rad.\] (C.3)
+
+One can compare value obtained in (C.3) with the width of collinearity distribution presented on Figures 3.12 and 3.12, which varies from \(40\ \mu\rm rad\) to \(65\ \mu\rm rad\). Presented estimate of \(\delta x/y\) is rough, nonetheless the statement that position resolution has negligible contribution to collinearity stays intact. Assuming that scattering of \(100\ \rm GeV/c\) proton in the detector material can be neglected, main determinant of collinearity width lies in angular divergence of the beam.
+
+### Uncertainty in \(-t\) reconstruction
+
+To derive the error on \(-t\) due to angular divergence of interacting particles let us choose for convinience the situation, in which two protons are diverged in respect to \(z\)-axis only in \(yz\) plane (Figure 3.15). Considering a proton moving accordingly to \(z\)-axis direction (\(\alpha_{2}=\alpha\), \(\alpha_{2}^{*}=\alpha^{*}\)) we can write its four-momentum vector before (\(p_{1}\)) and after (\(p_{1}^{\prime}\)) elastic interaction:
+
+\[p_{1}=(E,0,p\sin\alpha,p\cos\alpha),\] (C.4a)\[p_{1}^{\prime}=(E,0,p\sin{(\theta+\alpha^{*})},p\cos{(\theta+\alpha^{*})}).\] (C.4b)
+
+Following the definition of Mandelstam \(t\) variable
+
+\[t =(p_{1}^{\prime}-p_{1})^{2}=-p^{2}\left[\sin{(\theta+\alpha^{*})}- \sin{\alpha}\right]^{2}-p^{2}\left[\cos{(\theta+\alpha^{*})}-\cos{\alpha} \right]^{2}=\] \[=-p^{2}\left[\cos^{2}{(\theta+\alpha^{*})}-2\cos{(\theta+\alpha^{ *})}\cos{\alpha}+\cos^{2}{\alpha}+\sin^{2}{(\theta+\alpha^{*})}-2\sin{(\theta +\alpha^{*})}\sin{\alpha}+\sin^{2}{\alpha}\right]=\] \[=-2p^{2}\left[1-\cos{(\theta+\alpha^{*})}\cos{\alpha}-\sin{( \theta+\alpha^{*})}\sin{\alpha}\right].\] (C.5)
+
+Using formulas for sine and cosine of the sum of two angles we obtain
+
+\[t=-2p^{2}\left[1-\cos{\alpha}\left(\cos{\theta}\cos{\alpha^{*}}-\sin{\theta} \sin{\alpha^{*}}\right)-\sin{\alpha}\left(\sin{\theta}\cos{\alpha^{*}}+\cos{ \theta}\sin{\alpha^{*}}\right)\right].\] (C.6)
+
+With the linear approximations
+
+\[\cos{\alpha}\approx 1,\ \ \ \cos{\alpha^{*}}\approx 1,\ \ \ \sin{\alpha}\approx{\alpha},\ \ \ \sin{\alpha^{*}}\approx{\alpha^{*}},\]
+
+we find simplified form of (C.6):
+
+\[t=-2p^{2}\left[1-(1-\alpha\alpha^{*})\cos{\theta}-(\alpha+\alpha^{*})\sin{ \theta}\right].\] (C.7)
+
+Assuming, that
+
+\[\alpha\approx{\alpha^{*}}\]
+
+we find
+
+\[t=-2p^{2}\left[1-\cos{\theta}-2\alpha\sin{\theta}\right]+o\left(\alpha^{2} \right)=\underbrace{-2p^{2}\left(1-\cos{\theta}\right)}_{t_{\theta}}+4p^{2} \alpha\sin{\theta}+o\left(\alpha^{2}\right),\] (C.8)
+
+where \(t_{\theta}\) refers to squared four-momentum transfered in case of parallel protons momenta (Eq. (1.12a)). Neglecting terms of the order \(\alpha^{2}\) and higher we find the smearing of \(-t\) due to beam divergence as
+
+\[\delta t\equiv|t_{\theta}-t|=4p^{2}|\alpha|\sin{\theta}\approx 4p^{2}|\alpha|\theta.\] (C.9)
+
+To see the measure of this effect let us use value \(40\ \mu\)rad as the mean value of \(|\alpha|\). It justified by average width of collinearity (affected mainly by beam divergence), which is \(55\ \mu\)rad, \(\sqrt{2}\) times more than single beam divergence. For \(-t\sim\widetilde{t}=0.01\ \mathrm{GeV}^{2}/\mathrm{c}^{2}\), value corresponding to detector acceptance, we get
+
+\[\delta t_{-t\widetilde{t}}=4\cdot 100^{2}\cdot 40\cdot 10^{-6}\cdot 10^{-3}\ \mathrm{GeV}^{2}/ \mathrm{c}^{2}=0.0016\ \mathrm{GeV}^{2}/\mathrm{c}^{2}.\] (C.10)
+
+Number above is in satisfactory agreement with single detector \(-t\) resolution determined with Monte Carlo simulation. To specify \(-t\) for elastic event first scattering angle components reconstructed in east and west detectors are averaged, therefore overall resolution on \(-t\) is much better, as shown on Figure 5.7.
+
+[MISSING_PAGE_FAIL:75]
+
+Figure D.1: Longitudinal bunch profiles from Wall Current Monitor. All bunches were averaged, thus lines represent average bunches in the beam.
+
+## Bibliography
+
+* [1] V. Barone and E. Predazzi, _High-Energy Particle Diffraction_. Springer, 2002.
+* [2] A. Donnachie, H. Dosch, P. Landshoffm, and O. Nachtmann, _Pomeron Physics and QCD_. Cambridge University Press, New York, 2002.
+* [3] V. Okorokov, "Diffraction slopes for elastic proton-proton and proton-antiproton scattering," arXiv:0811.0895 [hep-ph].
+* [4] A. Donnachie and P. Landshoff, "Total cross-sections," _Phys.Lett._**B296** (1992) 227-232, arXiv:hep-ph/9209205 [hep-ph].
+* [5]**UA4/2** Collaboration, C. Augier _et al._, "Predictions on the total cross-section and real part at LHC and SSC," _Phys.Lett._**B315** (1993) 503-506.
+* [6] "RHIC accelerator website." [http://bnl.gov/rhic/](http://bnl.gov/rhic/).
+* [7] "Brookhaven National Laboratory website." [http://www.bnl.gov](http://www.bnl.gov).
+* [8] "PHOBOS experiment website." [http://www.phobos.bnl.gov/](http://www.phobos.bnl.gov/).
+* [9] "BRAHMS experiment website." [http://www4.rcf.bnl.gov/brahms/WWW/brahms.html](http://www4.rcf.bnl.gov/brahms/WWW/brahms.html).
+* [10] "PHENIX experiment website." [https://www.phenix.bnl.gov/](https://www.phenix.bnl.gov/).
+* [11] "STAR experiment website." [http://www.star.bnl.gov](http://www.star.bnl.gov).
+* [12]**STAR** Collaboration, K. Ackermann _et al._, "STAR detector overview," _Nucl.Instrum.Meth._**A499** (2003) 624-632.
+* [13] "\(pp2pp\) experiment website." [http://www.rhic.bnl.gov/pp2pp/](http://www.rhic.bnl.gov/pp2pp/).
+* [14] S. Bultmann, W. Chen, I. Chiang, R. Chrien, A. Drees, _et al._, "The PP2PP experiment at RHIC: Silicon detectors installed in Roman Pots for forward proton detection close to the beam," _Nucl.Instrum.Meth._**A535** (2004) 415-420.
+* [15]**STAR** Collaboration, C. Whitten, "The beam-beam counter: A local polarimeter at STAR," _AIP Conf.Proc._**980** (2008) 390-396.
+* [16]**STAR** Collaboration, L. Adamczyk _et al._, "Single Spin Asymmetry \(A_{N}\) in Polarized Proton-Proton Elastic Scattering at \(\sqrt{s}=200\) GeV," _Phys.Lett._**B719** (2013) 62-69, arXiv:1206.1928 [nucl-ex].
+* [17] P. Pile, S. Tepikian, K. Yip, W. Guryn, and J. Lee, "Beam Optics and the pp2pp Setup of the STAR Experiment at RHIC," _Conf.Proc._**C1205201** (2012) 1311-1313.
+
+* [18] K. Yip and J. Lee, "Analysis Note for the Single Transverse-Spin Asymmetries (\(A_{N}\)) in elastic p+p collisions at \(\sqrt{s}=200\) GeV." Unpublished, February, 2012.
+* [19] T. Obrebski, "Measurement of the nuclear slope parameter in STAR experiment at RHIC," Master Thesis, Warsaw University of Technology, 2013.
+* [20] D. Plyku, "Technical Note on Survey Alignment of the Silicon Strip Detectors used in the Roman Pots at STAR during RHIC 2009 Run." Unpublished, February, 2012.
+* [21] I. Alekseev, L. Koroleva, B. Morozov, and D. Svirida, "Roman pots alignment at run 2009." Unpublished, July, 2011.
+* [22] W. Guryn, "Correction to the Local Alignment." Unpublished, 2011.
+* [23] J. Dunlop, J. Gans, C. Gagliardi, P. Jacobs, and J. Klay, "p+p normalization and the systematic uncertainty of R\({}_{AA}\)(\(p_{\rm t}\))." Unpublished, April, 2003.
+* [24] R. Sikora, "Elastic proton-proton scattering in the STAR experiment at RHIC," Bachelor Thesis, AGH University of Science and Technology, 2013.
+* update." Unpublished, May, 2013. Presentation at working group meeting.
+* [26] P. Cameron, R. Lee, T. Shea, J. van Zeijts, E. Barsotti, _et al._, "The RHIC wall current monitor system," _Proceedings of the Particle Accelerator Conference_ (1999) 2146-2148.
+* [27] "Geant4 website." [http://geant4.cern.ch](http://geant4.cern.ch).
+* [28] "HepMC Event Record website." [http://lcgapp.cern.ch/project/simu/HepMC/](http://lcgapp.cern.ch/project/simu/HepMC/).
+* [29] "Pythia website." [http://home.thep.lu.se/~torbjorn/Pythia.html](http://home.thep.lu.se/~torbjorn/Pythia.html).
+* [30] L. Fulek, "Transport of particles through the RHIC accelerator magnet system," Bachelor Thesis, AGH University of Science and Technology, 2013. Polish edition.
+* [31] "MAD-X website." [http://madx.web.cern.ch/madx/](http://madx.web.cern.ch/madx/).
+* [32] Saint-Gobain Industrial Ceramics, 12345 Kinsman Road, Newbury, Ohio 44065, USA, _BC-400/BC-404/BC-408/BC-412/BC-416 Premium Plastic Scintillators_.
+* [33] Hamamatsu Photonics K.K., 1126 Ichino-cho, Hamamatsu City, Japan, _Hamamatsu R647 Technical Data Sheet_.
+* [34] L. Nozka, M. Pech, H. Hiklova, D. Mandat, M. Hrabovsky, _et al._, "BRDF profile of Tyvek and its implementation in the Geant4 simulation toolkit," _Opt.Express_**19** (2011) 4199-4209.
+* [35] S. L. Bueltmann, I. Chiang, R. Chrien, A. Drees, R. Gill, _et al._, "First measurement of proton proton elastic scattering at RHIC," _Phys.Lett._**B579** (2004) 245-250, arXiv:nucl-ex/0305012 [nucl-ex].

@@ -1,0 +1,614 @@
+RICE UNIVERSITY
+
+**Calibration of the STAR Time-of-Flight Detector for Particle Identification**
+
+by
+
+**Daniel McDonald**
+
+A THESIS SUBMITTED
+
+IN PARTIAL FULFILLMENT OF THE
+
+REQUIREMENTS FOR THE DEGREE
+
+**Master of Science**.
+
+APPROVED, THESIS COMMITTEE:
+
+Supervisor:
+
+W.J. Llope, Senior Faculty Fellow, Chair
+
+Readers:
+
+Marjorie Corcoran, Professor
+
+Emilia Morosan, Assistant Professor
+
+HOUSTON, TEXAS
+
+December 2010_To my puff_
+
+## Table of Contents
+
+### Table of Contents
+
+List of Figures
+
+### Abstract
+
+#### Acknowledgements
+
+* 1 Introduction
+	* 1.1 Physics motivation for TOF
+	* 1.2 TOF detector and calibration
+* 2 Time-to-digital Board Calibration
+	* 2.1 Introduction
+	* 2.2 Integral non-linearity
+		* 2.2.1 The HPTDC chip
+		* 2.2.2 Code density testing
+	* 2.3 TDIG calibration methods
+		* 2.3.1 The CANbus and THUB calibration setups
+		* 2.3.2 Testing the calibration results from the THUB setup
+		* 2.3.3 Reproducibility
+		* 2.3.4 Irreproducibility caused by TCAL board
+* 3 Cable Delay Testing
+* 4 Additional Calibrations
+	* 4.1 Introduction
+	* 4.2 Calibration algorithm and results
+* 5 Summary and ConclusionsA \(\rm Z_{\rm hit}\) investigation BibliographyList of Figures
+	* 1.1 _The STAR detector at RHIC._
+	* 1.2 _A schematic view of the QCD phase diagram (from Ref._ _[_21_]__). The hadronic gas state is in the lower left. Across the top and upper-right is the Quark-Gluon Plasma (QGP). Shown by the yellow lines are the trajectories of the collisions measured during the RHIC Beam-Energy Scan (BES). The black closed squares are current heavy-ion experimental calculations of the chemical freeze-out temperature, T, and \(\mu_{\rm b}\) based on statistical model fits to the measured particle ratios._
+	* 1.3 _In the left frame, the elliptical flow parameter \(v_{2}\) for each particle type is plotted as a function of transverse kinetic energy for Au+Au collisions at 200 GeV at RHIC. In the right frame, both \(v_{2}\) and the transverse kinetic energy are scaled by the number of constituent quarks._
+	* 1.4 _The energy dependence of the \(\langle\)K\({}^{+}\rangle/\langle\pi^{+}\rangle\) ratio._
+	* 1.5 _The uncorrected reconstructed K/\(\pi\) ratio for 100k Au+Au central events at 8.8 GeV beam energy with and without the TOF system._
+	* 1.6 _A picture of a TDIG board with three HPTDC chips._
+	* 2.1 _Code density test results for 2048 bins. The X-axis is INL bin number, while the Y-axis is the weighted number of counts._
+	* 2.2 _Integral non-linearity over 2048 bins from a single HPTDC channel. The X-axis is the bin number, while the Y-axis is bin correction._
+	* 2.3 _The INL correction for one HPTDC channel._
+The integral non-linearity for all 24 channels of a TDIG board. The INL curves are further subdivided by HPTDC chip. The X-axis is the bin number, while the Y-axis is the bin correction value.
+* 2.5 Various INL histograms. Left-side plot shows the overlay of two separate INL curves, one in red and one in blue. The upper-right frame shows the bin-by-bin INL difference. The lower-right frame shows the INL difference projection.
+* 2.6 Schematic of the CANbus calibration setup.
+* 2.7 A picture of a THUB board
+* 2.8 Schematic of the THUB calibration setup.
+* 2.9 INL summary plot for TDIG board 352 using the THUB setup.
+* 2.10 INL summary plot for TDIG 352 using the CANbus setup.
+* 2.11 Summary plot for subtraction of INL curves obtained by the CANbus setup from INL curves obtained by the THUB setup. In the upper frame, the average of the difference of these two INL curves is shown as a function of the HPTDC channel number. In the lower frame, the RMS of these differences are shown as a function of the channel number.
+* 2.12 Plots of channel 4 of HPTDC 0 of TDIG 353. The INL difference is plotted in the upper frame. The INL difference projection is plotted in the lower frame.
+* 2.13 Plots of channel 0 of HPTDC 2 of TDIG 353. The INL difference is plotted in the upper frame. INL difference projection is plotted in the lower frame.
+* 2.14 Summary plots of TDIG 353 with the TCAL jumper set at 62.5 ns. In the upper frame, the mean of the INL difference is shown as a function of the HPTDC channel number. In lower frame, the RMS of the INL differences is shown as a function of the HPTDC channel number.
+
+2.15_Plots of channel 4 of HPTDC 0 of TDIG 353 with channel spacing of 62.5 ns. The INL difference is plotted in the upper frame. INL difference projection is plotted in the lower frame._2.16_The INL comparison plot of five runs of TDIG boards 351, 352, 353, and 363._2.17_The summary plot of TDIG 351, HPTDC 2, channel 1._2.18_The INL summary plot of two TDIG boards calibrated using CANbus._2.19_The INL summary plot of board 353 during the reproducibility test._2.20_The INL summary plot of board 353 after the TCAL board was replaced._2.10_Cable delay test results. On the left-hand side, a cable delay test result without the INL correction. On the right-hand side, a cable delay test result with the INL correction applied._2.10_Schematic illustration of the slewing effect. Two sample pulses starting at the same time cross the threshold at different times because the pulses differ in height._2.11_The global timing offsets from the TOF system in Run 9._2.12_A typical global slewing correction._2.13_A Z\({}_{\rm hit}\) correction for one module. The X-axis is Z\({}_{\rm hit}\) in cm, while the Y-axis is the time difference \(\frac{1}{\beta}-\frac{1}{\beta_{\pi}}\)2.14_A plot of the inverse velocity difference, \(\frac{1}{\beta}-\frac{1}{\beta_{\pi}}\), vs the momentum, p. The top frame shows the \(\frac{1}{\beta}\) plot with only the offsets corrected for, and the bottom frame shows the final result after calibration._2.15_A histogram of the mass-squared, \(M^{2}\), values before and after the calibrations._2.16_Two plots of the Z\({}_{\rm hit}\) correction. In right frame is the TOF\({}_{meas}\)-TOF\({}_{pion}\) vs the Z\({}_{\rm hit}\) value for the Run 8 200 GeV dataset. In the left frame is the TOF\({}_{meas}\)-TOF\({}_{pion}\) vs the Z\({}_{\rm hit}\) value for Run 5 200 GeV Cu+Cu dataset._2.17_A schematic view of the calculation of the quantity S\({}_{\perp}\)._2.18_A schematic view of the calculation of the quantity S\({}_{\perp}\)._2.19_A schematic view of the calculation of the quantity S\({}_{\perp}\)._2.20_A schematic view of the calculation of the quantity S\({}_{\perp}\)._2.21_A schematic view of the calculation of the quantity S\({}_{\perp}\)._2.22_A schematic view of the calculation of the quantity S\({}_{\perp}\)._2.23_A schematic view of the calculation of the quantity S\({}_{\perp}\)._2.24_A schematic view of the calculation of the quantity S\({}_{\perp}\)._2.25_A schematic view of the calculation of the quantity S\({}_{\perp}\)._2.
+
+* A.3 _The comparison of the experimental versus the theoretical \(Z_{\rm hit}\) dependence versus the quantity \(S_{\perp}\). The Y-axis is the slope of the linear fit of \(S_{\perp}\) vs \(Z_{\rm hit}\), while the X-axis is the module number. The expected values are shown as the star symbols. The experimental data points marked with plus symbols._
+
+[MISSING_PAGE_EMPTY:9]
+
+## Abstract
+
+**Calibration of the STAR Time-of-Flight**
+
+**Detector for Particle Identification**
+
+by Daniel McDonald
+
+This thesis describes several calibrations of the Time-of-Flight (TOF) detector at the Solenoidal Tracker at RHIC (STAR). These calibrations are required to allow Particle Identification (PID) which benefits many physics analysis. These calibrations treat the Integral Non-Linearity (INL) of the time to digital converters, the global offsets, the slewing from pulse time dependence on the pulse height, and the transmission times inside the detectors. Each of these corrections will be described. The data for the INL correction was collected at Rice University using two different electronics configurations. Care was taken to insure the two approaches were consistent. These calibrations were tested using "cable-delay tests." Data from RHIC Run 9 200 GeV data will be used to confirm the effectiveness of the INL, offset, slewing, and transmission time calibrations.
+
+## Acknowledgements
+
+Of course, I am most grateful to my girlfriend for her patience and _love_. Without her I probably would have given up at multiple points. I would also like to thank my sister and my father for their support. I would like to thank my advisor, Bill Llope, for his patience as I went through some rough patches to get here. You were much kinder than you had to be, and I certainly appreciate all the help along the way.
+
+I would also like to thank Jing Liu and the other members of the Rice TOF group for their numerous helpful comments. I also wish to thank the following: Danny (for his friendship); my sister (you have been there along the way); Julia (you'll be missed, you made my life better and gave me hope); Peter Denton and Brian Henderson (for helping calibrate all the TDIG boards); and those that have actually cared enough to wonder how my rehabbing has gone.
+
+A final special thank you goes to Gordon. You were my closest friend at Bonner Lab, and your passing hit me harder than I would have ever expected. I miss our daily morning chats about the Astros, the Rockets, and the Texans more than can be imagined. It was a pleasure becoming your friend over the years.
+
+Houston, Texas Daniel McDonald 2010
+
+## Chapter 1 Introduction
+
+The Relativisitic Heavy-Ion Collider (RHIC) at Brookhaven National Laboratory (BNL) is an accelerator facility comprised of two concentric 2.4-mile circumference rings [1]. Heavy ions, such as gold or copper nuclei, can be accelerated around the rings at energies up to 100 GeV per nucleon. Protons can be accelerated around the rings at energies up to 500 GeV. There are six intersection regions around the ring where collisions occur. At the six o'clock intersection is the Wide-Angle Hall (WAH) inside of which sits the Solenoidal Tracker at RHIC (STAR).
+
+Shown in Figure 1.1 is a cutaway view of the STAR detector. This large, cylindrical detector weighs over 1200 tons and is larger than a two-story house [1]. STAR specializes in measuring the thousands of particles that are produced in each heavy-ion collision. A strong feature of STAR is its wide azimuthally-complete acceptance.
+
+The main detector in STAR is the Time Projection Chamber (TPC). This detector allows the calculation of the momenta and trajectories of the charged particlesproduced in a collision. The TPC also provides particle identification (PID) information using the particles' ionization energy loss, _dE/dx_. This allows the identification of pions and Kaons over the momentum range of 0.1 GeV/c to 0.7 GeV/c. Protons can be directly identified up to 1.0 GeV/c [5].
+
+A full-barrel Time-of-flight (TOF) system positioned just outside the TPC was built to extend the direct PID capabilities of STAR to higher momenta. The TOF system doubles the probability of directly identifying charged particles with respect to de/dx only, bringing it up to more than 95% of all of the charged particles in an event [2]. The TOF system extends \(\pi\):K:p direct PID to \(\sim\)1.7-1.9 GeV/c and (\(\pi\)+K):p direct PID up to \(\sim\)2.9-3.1 GeV/c [3]. The following subsection describes some on the
+
+Figure 1.1: _The STAR detector at RHIC._
+
+contributions that the TOF detector makes to improve a number of STAR physics analyses.
+
+### 1.1 Physics motivation for TOF
+
+Shown in Figure 1.2 is a schematic view of the phase diagram of strongly-interacting matter (from Ref. [21]). The X-axis is the baryochemical potential, \(\mu_{\rm b}\), in MeV, while
+
+Figure 1.2: _A schematic view of the QCD phase diagram (from Ref. [21]). The hadronic gas state is in the lower left. Across the top and upper-right is the Quark-Gluon Plasma (QGP). Shown by the yellow lines are the trajectories of the collisions measured during the RHIC Beam-Energy Scan (BES). The black closed squares are current heavy-ion experimental calculations of the chemical freeze-out temperature, T, and \(\mu_{\rm b}\) based on statistical model fits to the measured particle ratios._
+
+the Y-axis is the temperature, T, in MeV. The baryochemical potential is the energy cost of adding a baryon to the system and is effectively the net-baryon density.1 The temperature is a measure of the mean kinetic energy of the system. A temperature of one MeV is equivalent to 1.16\(\times\)10\({}^{9}\) K. In this phase diagram, normal nuclear matter (_i.e._ atomic nuclei composed of protons and neutrons) is at the location (\(\mu_{\rm b}\),T)=(940 MeV,0 MeV). At smaller values of baryochemical potential and higher temperatures is a hadronic gas. This is a gas of mesons and baryons, such as pions and protons, and will be referred to as "HG." The region near the top of this figure for very-high temperatures is the so-called quark-gluon plasma, which is hot, dense phase of free quarks and gluons. This state will be referred to as "QGP." The black squares are experimentally measured values of (\(\mu_{\rm b}\),T) from a number of collision systems at RHIC and other accelerator laboratories, which are obtained from statistical model fits to the ratios of hadron multiplicities in the events [23].
+
+Footnote 1: The number of net baryons in an event is defined as the number of protons minus the number of antiprotons.
+
+The RHIC beam energy scan program in RHIC runs 10 and 11 (2010-2011) allows one to form hot and dense nuclear systems at various points in Figure 1.2. As the beam energy is decreased, the baryochemical potential increases and the temperature decreases. The beam energies studied in these runs are 7.7, 11.5, 17.3, 27, and 39 GeV, the system trajectories for which are indicated by the different yellow lines in Figure 1.2.
+
+At the highest beam energies at RHIC, a number of experimental observables suggest that high-density, high-temperature heavy-ion collisions produce a strongly-coupled QGP [30]. The free partons, which interact via the strong force, hadronize as the system cools and expands into a HG. The physics of the strong interaction is described by Quantum Chromo-Dynamics (QCD).1 The nature of this finite-temperature QCD transition (whether it is a first or second-order phase transition or an analytic crossover) from a QGP to HG at different values of the chemical potential needs to be understood in order to better understand the phase diagram of nuclear matter. The phase diagram of nuclear matter is fundamental physical information relevant not only to the understanding of heavy-ion collisions but also the early universe and possibly the interiors of neutron stars.
+
+Footnote 1: Originally formulated by Gell-Mann and Weinberg
+
+In order to investigate the nature of the transition between the QGP and HG, an order parameter needs to be identified. Order parameters, first proposed by Landau in 1937, represent the main qualitative differences between phases [31]. For a QCD system, the order parameter is the lattice chiral susceptibility:
+
+\[\chi((\rm N_{s},N_{t}))=\frac{\partial^{2}((T/V)}{\partial m_{ud}^{2}}log(Z), \tag{1.1}\]
+
+where m\({}_{ud}\) is the mass of the light u,d quarks, N\({}_{s}\) is the spatial extension, T is the temperature, V is the volume, and Z is the partition function (the sum of the Boltzmann factors, e\({}^{(2S)}\), for all field configurations) [32]. The chiral susceptibility2
+
+[MISSING_PAGE_EMPTY:17]
+
+vs. \(\mu_{\rm b}\). Thus, the most promising source of fluctuations is the variation of net-baryon moments. For example, if the system passes through the critical point, the fourth-moment (kurtosis) of the event-by-event net-proton multiplicity distribution should be non-Gaussian [21]. This, along with other experimental observables, allows for a test of the critical phenomena predictions of QCD.
+
+To the right of the critical point, _i.e._ at increasing values of the baryochemical potential, the transition between the QGP and HG is expected to be a first-order phase transition. A first-order phase transition is one that involves latent heat, or a mixing of phases. First-order phase transitions are also marked with an entropy discontinuity [31]. In a first-order phase transition, the chiral susceptibility peak height scales with the volume and the peak width is proportional to the inverse of the volume (peak height\(\sim\)V, peak width\(\sim\)1/V) [32]. As a result, thermodynamic fluctuations depend on the system volume. This system size dependence can be tested by changing the colliding species of heavy-ions and measuring the resulting scaling of the fluctuations. Also, since a first-order phase transition involves mixing of phases, one can look for saturation effects of suspected signatures of the QGP as a function of center of mass energy [21]. Interferometry signatures of a first-order phase transition can also be explored experimentally [35].
+
+To the left of the critical point, _i.e._ at even smaller values of the baryochemical potential, the transition between the QGP and HG is expected to be an analytic crossover [32]. In a crossover transition, no sharp changes in the system parameters (_i.e._ indication of a phase transition) are expected [36]. Instead, the phases change rapidly as the temperature is varied [37]. The order parameter, chiral susceptibility, should have a constant height and width in the crossover region (peak height\(\sim\)const, peak width\(\sim\)const) [33]. Collisions at the highest RHIC beam energy pass through this analytic crossover region.
+
+The study of the data collected at these different beam energies will proceed in two parallel directions. In a heavy-ion collision at the full RHIC beam energy (100 GeV/nucleon), various observations suggest the formation of a QGP. One such observation is the quark-number scaling of the elliptic flow, \(v_{2}\). Elliptic flow is a
+
+Figure 1.3: _In the left frame, the elliptical flow parameter \(v_{2}\) for each particle type is plotted as a function of transverse kinetic energy for Au+Au collisions at 200 GeV at RHIC. In the right frame, both \(v_{2}\) and the transverse kinetic energy are scaled by the number of constituent quarks._
+
+hadronic observable that is sensitive to the early stages of the system formed during a collision. In a non-central collision, an almond-shaped region is defined by the overlap of the two colliding nuclei. The high density and pressure in this region results in large pressure gradients which produce the strong flow of particles in the reaction plane. Experimentally the azimuthal distribution of the particles is fit with a \(\cos(2\phi)\) distribution [28]. The elliptic flow parameter \(v_{2}\) is the normalized amplitude of this harmonic azimuthal distribution. Shown on the left of Figure 1.3 is the elliptic flow as a function of the transverse mass (m\({}_{\rm T}^{2}\)=p\({}_{\rm T}^{2}\)+m\({}_{o}^{2}\)). One notices that the mesons (\(\pi\),K) and baryons (p,\(\Lambda\), \(\Xi\)) separate into two distinct bands. In the right frame, both axes of the left frame are scaled by the number of constituent quarks (two for mesons, and three for baryons). Following this scaling, the elliptic flow curves fall onto a single universal curve. This quark scaling of elliptic flow implies that the early stages of collisions at top RHIC energies is partonic since the relevant degrees of freedom appear to be partons [21]. If this is indeed a signature of the formation of the QGP, the quark scaling should break down at lower beam energies. Thus, a first direction is the determination of the beam energy at which the quark-gluon plasma signatures no longer exist.
+
+Quantum Chromodynamics calculations [29], and experimental evidence from the Super Proton Synchrotron (SPS) [24], hint at singularities in specific experimental observables when the system has passed through or near the critical point. One such 
+
+[MISSING_PAGE_EMPTY:21]
+
+event-by-event net-baryon kurtosis should diverge [21]. Thus, the second direction is the search for singularities from critical phenomena.
+
+The TOF system is critical for the analyses along both of these directions. Indeed, the beam energy scan occurred in 2010, and not earlier, because this was the first run for which the whole STAR TOF system was installed. For the turn-off of the QGP signatures at lower beam energies, measurements of the elliptic flow become difficult because of the need for large samples of identified hadrons at intermediate values of the transverse momentum, \(p_{\rm t}\). However, the higher efficiency of PID with the TOF system allows elliptic flow to be calculated more cleanly and effectively. The TOF system also aids in the search for critical phenomena observables. In order to make a measurement
+
+Figure 1.5: _The uncorrected reconstructed K/\(\pi\) ratio for 100k Au+Au central events at 8.8 GeV beam energy with and without the TOF system._
+
+of the K\({}^{+}/\pi^{+}\) ratio, an attempt needs to be made to measure all the Kaons and pions in the event [21]. Shown in Figure 1.5 is a simulated reconstructed K\(/\pi^{+}\) ratio for 100k Au+Au central events at 8.8 GeV beam energy with and without the TOF system. The addition of the TOF system significantly improves the ability calculate the event-by-event K\(/\pi^{+}\) ratio as well as fluctuations of the K\(/\pi^{+}\) ratio. The high TOF efficiency allows the best possible measurement of the event-by-event multiplicities of pions and Kaons. The TOF system suppresses the potential misidentification of pions as Kaons (and vice-versa), as well as removes electron contamination at low values of p\({}_{\rm t}\) that cuts on the dE/dx cannot remove. The net-baryon kurtosis measurement is also improved by the TOF system by increasing the momentum range for which protons are directly identified and suppressing contamination from pions and Kaons. This significantly increases the sensitivity of the kurtosis measurements.
+
+For any beam energy, the values of the baryochemical potential and the temperature can be extracted using a statistical model fit of the ratios of the hadron multiplicities in the events [23]. With the TOF system, the extended PID reach improves the signal-to-background ratios for the identified particles significantly, allowing for a more precise calculation of the temperature and baryochemical potential.
+
+Thus, the TOF system is critical to the exploration of the QCD phase diagram. In the following subsection, the physical TOF detector is discussed, as well as the calibration of the TOF system.
+
+### 1.2 TOF detector and calibration
+
+The active detector in the TOF system is a Multigap Resistive Plate Chamber (MRPC), of which there are 3840 in total. These MRPC modules are mounted inside "trays." There are 120 trays positioned in two rings of 60 trays each, and each tray holds 32 MRPC modules. Each MRPC is a stack of glass plates with 220 \(\mu\)m-wide gaps in between each plate [4]. The detectors are bathed in a gas mixture of 95% Freon R-134a and 5% isobutane. Graphite electrodes are located on the outside of the outermost plates, and a 14 kV potential difference is applied as \(\pm\)7 kV on each electrode. Outside these electrodes are printed circuit boards with copper pickup pads. There are six pickup pads in each MRPC, and each pad is 3.15 cm wide (\(\phi\) direction) and 6.1 cm long (in the Z direction, along the beam axis). When a charged particle travels through an MRPC, primary ionization occurs in the gas gaps between the glass plates. This primary ionization and the strong electric field in the gaps results in "avalanches" of millions of electrons. The signal in the pickup pads is the image charge formed from the sum of these avalanches in the different gaps. This signal is then amplified and digitized in electronics that are mounted to each tray.
+
+These electronics consist of the following circuit boards. First, a board called TINO amplifies and discriminates the MRPC signals. Then, a time-to-digital converter (TDC) card called TDIG receives the input signals from the TINO card and records the signal times relative to an external 40 MHz clock using a high-performanceTDC chip (HPTDC) developed at CERN [11]. Then a buffer card (TCPU) collects and stores the time information from the eight TDIG boards on one tray of the TOF system. A "THUB" board then collects the information from 30 TCPU cards and sends it to the STAR Data Acquisition (DAQ) system.
+
+Shown in Figure 1.6 is a photograph of a TDIG board. Each TDIG board has three HPTDC chips, which are seen as the three black squares near the top of the photograph. Each HPTDC chip handles eight detector channels.
+
+An intrinsic aspect of the HPTDC chip is a specific kind of timing non-linearity, called Integrated Non-Linearity (INL). The HPTDC turns a time delay relative to the
+
+Figure 1.6: _A picture of a TDIG board with three HPTDC chips._
+
+external clock into a number. These digitized numbers are "binned." The width of these bins is not constant over the different bins. Some bins are wider than others. If uncorrected, these unequal bin widths would degrade the achievable timing resolution of the TOF system. In order to achieve the best possible resolution, this non-linearity requires an offline correction.
+
+To perform this correction, every TDIG board in the system was tested on the bench at Rice University. Constructing the bench setup, collecting the data, testing the reliability of the data, and converting the data into the form required for offline analysis was a major focus of work described in this thesis. These data were then converted to the form required for use by the STAR offline software and made available for all STAR collaborators to use in their analyses.
+
+Following the INL calibration, each TDIG board was tested to measure its timing resolution. This was done using a so-called "cable delay test." The cable delay test allows the reliability and final resolution of the TDIG boards to be tested.
+
+In addition to the INL correction, three other major corrections are done so that the TOF system can achieve the best possible overall timing resolution. These corrections are performed using the data collected from the TOF system when running with STAR in a RHIC run. First, the time stamps recorded for a "hit" (a cell having a signal recorded from a charged particle) need to have offsets like cabling subtracted away. Second, the pulse has "slewing" that needs to be corrected. This slewing is a function of the pulse height, with larger signals registering earlier times than smaller pulses. The last effect that is corrected for is the so-called "\(\rm Z_{hit}\)" effect. On a cell, the distance from the particle hit to the read-out end of the strip results in a delay. As will be shown, the functional form of this \(\rm Z_{hit}\) correction has changed in recent years when compared to that seen in early runs with prototype TOF detectors. There is an additional exploration of this difference in an appendix at the end of the thesis.
+
+The thesis is organized as follows. Chapter 2 describes the INL calibration effort. Chapter 3 describes the time resolution of the calibrated TDIG boards from the cable delay tests. Chapter 4 describes the additional offset, slewing, and \(\rm Z_{hit}\) calibrations. The timing resolution of the TOF system before and after these calibrations will be presented. The appendix explores the \(\rm Z_{hit}\) correction.
+
+## Chapter 2 Time-to-digital Board Calibration
+
+### 2.1 Introduction
+
+In the STAR experiment, particle identification is done using the high-resolution timing provided by the barrel Time-Of-Flight (TOF) detector [11]. The signals from the TOF detector are converted to digital numbers by HPTDC chips on TDIG boards. Each TDIG board contains three HPTDC chips. The HPTDC chip was developed at CERN for this purpose. The HPTDC chips have non-linearities that need to be corrected offline. These non-linearities result in unequal widths in the HPTDC time bins. A so-called "code density test" is used to make a statistical bin width measurement for each channel in each chip in the system. By integrating over this correction, an Integral Non-Linearity (INL) table is made that corrects for the unequal bin widths. This INL correction table is then used by STAR analysis software to correct time difference measurements [6].
+
+Once installed, the TOF system is expected to provide PID for STAR for theforseeable future. The TOF system is useful to many different collaborators for a wide variety of physics analysis. Therefore, it is critical that accurate INL calibration curves are made available. It was also important to perform sensitive tests of the performance of each board before installation. The TOF system was fully installed by the summer of 2009.
+
+The INL calibration was done at Rice using two different techniques. These two techniques differ in the manner in which the TDIG data is read out to a computer. The two techniques will be referred to as "CANbus," a slow serial interface, and "THUB," a custom electronics board that more quickly sends time information over a fiber connection. The TOF installation schedule required a midstream change between these calibration techniques. Boards could be calibrated faster via the THUB board, but careful checks had to be performed to test the consistency between the THUB and the CANbus setups.
+
+In section 2.2, the integral non-linearity is described. In section 2.3, the application of the INL calibration methods is described. Also described in section 2.3 are the tests of reproducibility of the INL calibration method.
+
+### 2.2 Integral non-linearity
+
+#### The HPTDC chip
+
+The high-resolution time interpolator was developed by Mota and Christiansen in the form of the HPTDC chips used in the STAR TOF TDIG boards as well as in other experiments [9]. The specific aspects of the design of the HPTDC chips that result in the need for an INL correction table are now discussed.
+
+The time-sampling is done by the HPTDC chip using a delay line architecture [6]. A phase locked loop (PLL) multiplies the input clock from 40 MHz to 320 MHz, resulting in a clock signal every 3.125 ns. A PLL is a circuit that uses a control mechanism to ensure the output signal is in phase with the input signal [10]. The clock resolution is then increased by feeding the 3.125 ns clock signal through a 32-tap delay locked loop (DLL), resulting in a nominal timing resolution of 97.66 ps [6]. The HPTDC chip then samples the input signal four times using a 4-tap resistor-capacitor delay line, resulting in a final nominal time bin width of 24.41 ps. This bin width of 24.41 ps is referred to as the least significant bit (LSB).
+
+The HPTDC exhibits non-linearity in this time measurement scheme due to noise coupling from the logic clock [6]. Since this logic clock resets at a frequency of 40 MHz, the non-linearity is periodic within 25 ns intervals. In "very-high" resolution mode, there are 1024 bins every 25 ns. The unequal bin widths within these 25 ns intervals would degrade the timing resolution of the system if left uncorrected. So,an offline correction is made. This correction is now described.
+
+#### Code density testing
+
+A code density test was used to measure the timing non-linearity of the eight channels in an HPTDC chip. Code density testing is a common technique. Companies such as Maxim use code density testing to determine the same non-linearity of their data converters [12]. A code density test is a statistical test that is used to find the relative width of each timing bin. A large number of hits which are random in time are generated to determine each bin's width. If the generated hits are asynchronous with the 40 MHz master clock of the HPTDC, and all time bins are equally wide, then each bin of a histogram of the number of hits per timing bin will have the same number of entries. However, if the time bins vary in width, the histogram bins for wider time bins will collect relatively more hits than the histogram bins for narrower time bins.
+
+On the bench, a pulse generator is run at a frequency that is not a simple multiple of the frequency of the HPTDC clock. The hit times are thus as asynchronous as possible with respect to the 40 MHz HPTDC clock. This allows all the histogram bins to be populated as quickly as possible. A pulser frequency of 294 \(\mu\)s was chosen. Then, 144 million hits per TDIG board (24 channels) were collected, or 6 million hits for each of the 24 channels in a TDIG board. This results in a sufficient number of hits per timing bin to produce a reliable INL correction.
+
+Shown in Figure 2.1 is the first step of a code density test. This histogram is also known as the differential non-linearity (DNL). The X-axis is the time bin number, which ranges from 0 to 1023, and the Y-axis is the weighted number of hits per time bin ((counts-counts\({}_{expected}\))/counts\({}_{expected}\)) Two consecutive 25 ns periods are shown in this figure. Bin numbers 0 to 1023 are the first 25 ns-wide period, while bin numbers 1024 to 2047 are the second 25 ns-wide period.
+
+Figure 2.1: _Code density test results for 2048 bins. The X-axis is INL bin number, while the Y-axis is the weighted number of counts._
+
+According to Figure 2.1, some histogram bins are much more populated than other bins. This implies that these bins are relatively wider. Also, there is clearly some periodicity in the location of the wider bins on the X-axis. These wider bins occur starting in histogram bin 108 and repeat every 128 histogram bins after that. These histogram bins are larger because they are the last bins in the DLL delay tap, so each bin covers from the end of one delay chain to the beginning of the next delay chain [8].
+
+The INL correction is calculated from the DNL histogram in Figure 2.1 the following way. Effectively, the DNL data is integrated to produce an INL correction curve. This INL curve is a table that defines the amount by which each bin of a timing bin in an HPTDC chip deviates from the ideal equal bin width distribution. The calculation of the correction in units of HPTDC bins is given by the following equations,
+
+\[bin^{corr}=bin^{raw}+C(k), \tag{2.1}\]
+
+where the value of the integer bin number, k, ranges from 0 to 1023, and the quantity C(k) is given by,
+
+\[C(k)=\sum_{k=0}^{1024}\frac{N_{hits,bin<k}*1024}{1.44*10^{11}*k}. \tag{2.2}\]
+
+The quantity \(C(k)\) is the value of the correction in units of HPTDC time bins for the histogram bin number, \(k\). The value of this correction in units of nanoseconds is, in offline software, given by
+
+\[T(ns)=\frac{25ns}{1024}*bin^{corr}. \tag{2.3}\]
+
+This correction table will have 1024 values for each channel of an HPTDC chip. This value is the time in LSB units by which to shift a time stamp to correct for the unequal bin widths. For example, if the INL table has a value of 3 for bin number 100, a hit registered in bin 100 should actually be in bin number 103. If the INL table has a value of -8 for bin number 900, a hit registered in bin 900 should actually be in bin number 892.
+
+Figure 2.2: _Integral non-linearity over 2048 bins from a single HPTDC channel. The X-axis is the bin number, while the Y-axis is bin correction._
+
+Shown in Figure 2.2 is a typical INL correction curve for one HPTDC channel. The X-axis is the bin number and the Y-axis is the INL correction in LSB units. This plot clearly shows that the non-linearities are periodic over 1024 bins, since the plot has the same shape from bins 0 to 1023 and 1024 to 2047. Also, the value in bin 0 is the same as the value in bins 1024 and 2047.
+
+As seen in Figure 2.2, this correction can be larger than 8 LSBs, or over 195 ps. Since the resolution of a TOF detector has a performance benchmark of 60-80 ps, the INL correction is significant.
+
+The values from this plot are used to make a 10-bit (1024 values) correction table that can be used later by the STAR analysis software to provide a bin-by-bin correction for the integrated non-linearity. These correction tables are uploaded to the STAR database, from which they are available for analysis across the calibration.
+
+Shown in Figure 2.3 is the projection of Figure 2.2 onto the Y-axis for a single channel of a TDIG board. This histogram depicts the INL correction's rate of occurrence in LSB units. The primary peak has a root mean square (RMS) of 2.72 bins. Out of the 1024 INL bins, 641 fall within the range of the primary peak. This plot gives a rough idea of the contribution to the system resolution if the INL goes uncorrected. The primary peak implies a 67 ps (\(\approx\)2.751*24.41) contribution to the TOF resolution if the INL was uncorrected. The remaining bins smear the TOF times more evenly by up to \(\sim\)250 ps.
+
+The INL curve shown in Figure 2.2 is characteristic of the shape of the INL curves for all the channels in all HPTDC chips. However, there are subtle differences in the INL curves between the different channels from the system.
+
+Thus far, the INL correction curve for a single HPTDC channel has been discussed. Every TDIG board has 3 HPTDC chips and thus, a total of 24 channels. So, an INL curve can be stored per board, per HPTDC chip, or per channel.
+
+Figure 2.4 depicts eight INL calibration curves from the eight channels in one HPTDC chip. Prior to RHIC Run 9, only one INL curve was stored in the STAR
+
+Figure 2.3: _The INL correction for one HPTDC channel._
+
+offline database for each TDIG board. It can be seen in Figure 2.4 that while the INL correction curves of single channels are similar, there are differences across the different channels. Thus, it was decided that 24 INL correction curves would be stored for each TDIG board: one INL curve for each channel. The difference in overall time resolution between the use of 24 INL curves per board versus just one INL curve per board will be discussed in Chapter 3.
+
+Throughout this thesis a specific standard comparison of the INL curves will be
+
+Figure 2.4: _The integral non-linearity for all 24 channels of a TDIG board. The INL curves are further subdivided by HPTDC chip. The X-axis is the bin number, while the Y-axis is the bin correction value._
+
+informative. Figure 2.5 shows an example of the histograms that will often be used here. On the left-hand side of Figure 2.5, two different INL curves (one in red and one in blue) are shown on a plot of INL correction versus the INL bin number. In the upper-right frame of Figure 2.5 is a plot that will be referred to as the "INL difference" plot. The INL difference plot shows the bin-by-bin difference of the two INL curves in the left-most plot, \(\Delta\)INL, versus INL bin number. Here the magnitude of this difference is less than 0.3 LSB over the entire range of the INL bins. Shown in the lower-right frame of Figure 2.5 is a plot that will be referred to as the "INL difference projection" plot. This plot is the Y-axis projection of the INL difference plot. Here there is a well-defined peak centered at zero, and a full-width of the peak well below 0.5 LSB.
+
+From the INL difference projection plot, two quantities are extracted and will be
+
+Figure 2.5: _Various INL histograms. Left-side plot shows the overlay of two separate INL curves, one in red and one in blue. The upper-right frame shows the bin-by-bin INL difference. The lower-right frame shows the INL difference projection._
+
+referred to throughout the chapter. These are the mean value and the root mean square (RMS). As noted in the above example of plots, a good value of the mean value should be near zero LSB, and a good value of the RMS should be less than 0.15 LSB.
+
+### 2.3 TDIG calibration methods
+
+By the summer of 2008, approximately 350 of the 960 TDIG boards needed for the the TOF system had been calibrated. However, with RHIC Run 9 looming at BNL, it appeared that the available number of calibrated TDIG boards was going to be a limiting factor in the TOF commissioning for that run. Up until that point, the TDIG boards were calibrated using the CANbus setup. This setup allowed the calibration of up to four TDIG boards per day. A faster way to calibrate the TDIG boards had to be found if TOF was to meet its installation goals for Run 9. This faster technique will be referred to as the "THUB" setup. These two techniques are now described.
+
+#### The CANbus and THUB calibration setups
+
+Shown in Figure 2.6 is a schematic depiction of the electronics used in the "CANbus" calibration setup at Rice. A pulse generator serves as the source of asynchronous hits. A custom electronics board, called TCAL, splits the pulser signal into eight individually-delayed signals that are then connected to a TDIG board mounted directly to the TCAL board. The TDIG board digitizes the signals, and the TCPUboard collects the digital information from the TDIG board. This information is sent over a slow serial interface (CANbus) to the data acquisition computer.
+
+A universal serial bus (USB) "dongle" connects the CANbus cable to the data acquisition computer (PC). Since the information sent is relayed over USB to the PC, the data-taking rate is limited by the speed of the USB interface, which is at most 60 MByte/s [16]. Only one TDIG board can be calibrated at a time using this setup.
+
+The pulser rate must be low enough to prevent buffer overflows in the TCPU boards. This limits the pulser to a frequency of 2.83 ms (\(\sim\)350 Hz). The data collection then takes about four hours per board to collect 144 million hits per TDIG board. An analysis code is run on another computer that unpackages the data into usable time stamps and then generates the INL correction tables.
+
+Figure 2.6: _Schematic of the CANbus calibration setup._
+
+At most four boards could be calibrated per day using the CANbus setup. For the TOF system to meet its installation goals for the upcoming RHIC run, a faster readout method was needed. This implied a midstream change in the calibration process, so care was needed to make sure the new calibration procedure, called the "THUB" setup, was reliable and the results comparable to the CANbus setup.
+
+Shown in Figure 2.7 is a THUB board. This board, which is also used to read out the TDIG boards in the actual TOF detectors in STAR, is capable of a much higher data rate than is achievable with the CANbus setup.
+
+The THUB has a custom daughter card that allows it to communicate to a DAQ
+
+Figure 2.7: _A picture of a THUB board_
+
+receiver card via a high-speed optic fiber. This daughter card, known as a Source Interface Unit (SIU), was originally developed for the ALICE experiment at CERN [11]. The SIU card can be seen in the top-right corner of Figure 2.7. The DAQ receiver for the TOF system at STAR is fitted with a PCI-based optical interface card (Read Out Receiver Card, or RORC) that reads out the data from the SIU card [11]. Data can be transferred over such a setup at a rate of up to 2500 MBytes/s, which is significantly faster than the 60 MBytes/s transfer rate that is possible over USB in the CANbus setup [14].
+
+Shown in Figure 2.8 is a schematic view of the THU
+
+Figure 2.8: _Schematic of the THUB calibration setup._
+
+setup is similar to that of Figure 2.6, except that in this case there are eight TDIG boards instead of one and the THUB board has replaced the CANbus interface in the data readout chain. The THUB setup is thus capable of calibrating many more TDIG boards per day than the CANbus setup.
+
+#### Testing the calibration results from the THUB setup
+
+The University of Texas at Austin provided a spare prototype THUB board to Rice to use for the TDIG calibration. A RORC card was also provided, and a computer was set up to serve as a DAQ machine. After an extensive setup period that confirmed that the DAQ computer could collect the data words provided by the THUB board, a first attempt was made to produce an INL correction curve from a board calibrated using the THUB setup.
+
+Figure 2.9 shows an INL summary plot for TDIG number 352 using the THUB setup. The X-axis is the bin number and the Y-axis is the INL correction in LSB units. The separate lines depict the three different HPTDC chips on one TDIG board. Six million hits were collected per channel with the pulser set to a frequency of 294 \(\mu\)s. It took less than 30 minutes to collect data necessary for calibration (this took four hours with the CANbus setup). The INL plots for all 24 channels appear reasonable. They share the typical shape that was expected (see Figure 2.2).
+
+Shown in Figure 2.10 is the INL summary plot for TDIG board number 352 that was calibrated using the CANbus setup. A quick comparison between Figures 2.9 and 2.10 indicates that the INL plots look very similar. However, a more careful comparison of the INL curves is required. Since the calibration procedures were changed in the middle of the calibration of the TDIG boards, it was important to understand any subtle differences before embarking on a large-scale production of the INL curves using the THUB setup.
+
+TDIG boards 351, 352, 353, and 363 were selected as test subjects since all four boards were still on hand and had been calibrated previously with the CANbus setup.
+
+Figure 2.9: _INL summary plot for TDIG board 352 using the THUB setup._
+
+A test was done to confirm that four boards could be calibrated with the THUB setup at once.
+
+Figure 2.11 shows a summary plot for the comparison of the INL correction curves obtained by the CANbus setup and by the THUB setup. The X-axis sorts the INL curves first by channel number and then by board number. For example, all of the channel 0 subtraction values for all four TDIG boards are the first 12 entries along the X-axis. The Y-axis shows the difference in LSB units. The top frame gives the mean difference of the subtraction of the INL curves, and the bottom frame gives the mean difference of the subtraction of the INL curves.
+
+Figure 2.10: _INL summary plot for TDIG 352 using the CANbus setup._
+
+standard deviation of the differences of the INL curves.
+
+The top frame of Figure 2.11 shows that the INL correction curves from the THUB setup differed by as much as 0.7 LSBs for a particular channel compared to the INL curves obtained for the same channel via the CANbus setup.
+
+The lower frame of Figure 2.11 shows that the RMS value of the differences between the INL curves obtained via the THUB and the CANbus setups has a channel dependence. All twelve channel 0 standard deviations are lower than the standard deviations of the other channels. Channel 3 has larger standard deviations than the
+
+Figure 2.11: _Summary plot for subtraction of INL curves obtained by the CANbus setup from INL curves obtained by the THUB setup. In the upper frame, the average of the difference of these two INL curves is shown as a function of the HPTDC channel number. In the lower frame, the RMS of these differences are shown as a function of the channel number._
+
+other channels, and a much larger RMS than those from channel 0. These differences were investigated further, as now described.
+
+Figure 2.12 shows more descriptive plots of channel 4 of HPTDC 0 of TDIG 353. The top plot shows the INL difference, \(\Delta\)INL, between the THUB and CANbus setups versus the bin number. The bottom plot shows the Y-axis projection of the top plot, or the INL difference projection.
+
+This particular channel, which is one of the channels with a large RMS in Figure 2.11, has differences in the INL curves between the calibration with the THUB and CANbus setups as large as 1.4 LSB. The lower frame of Figure 2.12 shows that there
+
+Figure 2.12: _Plots of channel 4 of HPTDC 0 of TDIG 353. The INL difference is plotted in the upper frame. The INL difference projection is plotted in the lower frame._
+
+is not a sharp peak.
+
+Figure 2.13 is the same as Figure 2.12 but for channel 0 of HPTDC 2 of TDIG board 353. Unlike channel 3, this channel shows only a maximum difference of about 0.5 LSB between the calibration with the THUB setup versus the CANbus setup. Furthermore, the plot in the lower frame shows a much narrower projection. This discrepancy between channels was not simply caused by one bad board since all four boards showed similar trends by channel.
+
+This discrepancy was caused by timing crosstalk. Crosstalk is the modification of the measured time in one channel due to the existence of a signal in another channel
+
+Figure 2.13: _Plots of channel 0 of HPTDC 2 of TDIG 353. The INL difference is plotted in the upper frame. INL difference projection is plotted in the lower frame._
+
+of the same chip. It is caused by capacitive, inductive, or resistive coupling between channels [13]. On an HPTDC chip, crosstalk occurs between the logic circuit processing the interfering hit and the time sampling circuit. To reduce the crosstalk between channels in an HPTDC chip, the times were spaced more widely. The TDIG boards are attached to a TCAL board that splits the input signal into eight individually delayed signals that are then relayed to the HPTDC chips on a TDIG board. The spacing between these signals is controlled by a jumper setting on the TCAL board that can be set to 16 ns or 62.5 ns. The larger delay setting should eliminate the crosstalk.
+
+Figure 2.14: _Summary plots of TDIG 353 with the TCAL jumper set at 62.5 ns. In the upper frame, the mean of the INL difference is shown as a function of the HPTDC channel number. In lower frame, the RMS of the INL differences is shown as a function of the HPTDC channel number._
+
+Figure 2.14 shows the summary plot for the INL difference between TDIG 353 calibrated with the THUB setup with the channel spacing increased to 62.5 ns and the same TDIG board calibrated with the CANbus setup. The upper plot shows the average of the INL differences versus the channel, and the lower plot shows the RMS of the differences versus the channel.
+
+An improvement is seen. The maximum mean difference between the INL curves is now only 0.3 LSB, as compared to approximately 0.5 LSB before this change. More importantly, the RMS plot has also improved significantly. Channel 0 no longer has a much lower RMS than the other channels, and channel 3 no longer has a much larger RMS than does channel 0. The same trend was observed across all four boards that were recalibrated with the wider time spacing. Additional plots were made in order to understand the effects of the changed time spacing, which are now described.
+
+Figure 2.15 shows a plot of channel 4 of HPTDC chip 0 of TDIG board 353 of Figure 2.14. The upper plot is the INL difference between the THUB and CANbus setups versus the INL bin number. The lower plot shows the INL difference projection, in units of LSB.
+
+This particular channel was previously studied in Figure 2.12. In that figure, the channel spacing was 16 ns and there were differences between the INL curves as large as 1.4 LSB. With the wider time spacing, the difference between the INL curves is at most 0.5 LSB. One can also compare the plots in the lower frames of Figures 2.12 and 2.15. The lower plot has a greatly improved variance. The peak in the lower frame is centered at zero and does not have as pronounced of a tail, as desired.
+
+It was originally expected that 16 ns delay would be comfortably free from crosstalk. However, Figures 2.12-2.15 indicate that this is not the case. The data taken with a time spacing of 62.5 ns showed a significant improvement over the data taken with the 16 ns time spacing. Also, that data is in better agreement with the data collected with the CANbus setup. As a result, all subsequent calibrations were performed with the time spacing of 62.5 ns in the THUB setup.
+
+Approximately 60 TDIG boards were calibrated with the 16 ns jumper setting
+
+Figure 2.15: Plots of channel 4 of HPTDC 0 of TDIG 353 with channel spacing of 62.5 ns. The INL difference is plotted in the upper frame. INL difference projection is plotted in the lower frame.
+
+on the TCAL board. Once this problem was isolated and solved, these boards were recalibrated using the 62.4 ns setting.
+
+#### Reproducibility
+
+Another important question is the reproducibility of the data collected with the THUB setup. It was important that the calibrations performed using the THUB setup were reproducible since hundreds of boards had to be calibrated in only a few months. Also, once installed, these boards will be in a running physics environment for many years.
+
+Five runs were taken with each of the four TDIG boards that were held back for further testing. Multiple INL curves were collected from the same channels over a period of weeks to investigate the stability of the INL results.
+
+Shown in Figure 2.16 is the INL comparison plot of five runs of the four TDIG boards that were held back for study. Each TDIG board was run five times over a period of a few weeks. The upper frame shows the average of the INL differences versus channel number, and the lower frame shows the RMS of the differences of the INL calibration curves versus the channel number.
+
+According to this figure, the INL curves from three of the boards were reproducible. All five INL curves from these TDIG boards are in agreement with each other. The average difference between the INL curves for TDIG boards 351, 352, and 363 are generally \(\leq\) 0.2 LSB. The RMS are also less than 0.2 LSB.
+
+However, the INL curves from board 353 were not as reproducible as those from the other TDIG boards. Run to run, the correction curves for this board varied by more than 0.8 LSB. Also, the RMS is as much as nine times larger than that observed with the other three TDIG boards. The possible reasons for this behavior will discussed in section 2.3.4.
+
+Figure 2.17 shows a summary plot of TDIG 351, HPTDC 2, channel 1 between two different reproducibility runs. The X-axis is the difference between INL curves of the two different runs, and the Y-axis is counts. The plot shows a peak centered at zero with no tails. This plot is representative of TDIG boards 351, 352, and 363.
+
+Figure 2.16: _The INL comparison plot of five runs of TDIG boards 351, 352, 353, and 363._
+
+The lack of tails in the lower plot, the centering of the peak about zero, and the narrow width (\(\sim\)\(\pm\)0.35 LSB in Figure 2.17) indicate that the boards' INL curves were reproducible. For the boards that were reproducible run to run, it is also of interest to compare this level of reproducibility to that obtained from the CANbus setup.
+
+Figure 2.18 plots of the average INL difference and the RMS of the INL difference projection of two TDIG boards calibrated via the CANbus setup that had more than one data file from which an INL table could be generated. The INL curves were generated for two separate runs and then subtracted from each other for TDIG boards 115 and 124. The upper frame shows the average difference between INL curves and the lower frame shows the RMS of the differences between the INL curves.
+
+Figure 2.17: _The summary plot of TDIG 351, HPTDC 2, channel 1._
+
+The level of reproducibility seen in TDIG boards 115 and 124 in the CANbus setup is similar to that obtained by the THUB setup for TDIG boards 351, 352, and 353. Thus, the level of reproducibility observed with the THUB setup appears to be in good agreement with the level of reproducibility observed with the CANbus setup.
+
+#### Irreproducibility caused by TCAL board
+
+TDIG board 353 did not exhibit the same level of reproducibility observed with TDIG boards 351, 353, and 363. In order to diagnose why TDIG board 353 did not perform as well as the other three TDIG boards held back for study, a series of tests were performed to isolate the cause of its irreproducibility.
+
+Figure 2.18: _The INL summary plot of two TDIG boards calibrated using CANbus._
+
+Figure 2.19 shows an INL summary plot of TDIG board 353 during the reproducibility test. This is a detail of Figure 2.16, where the INL summary plot of TDIG boards 351, 352, 353, and 363 was plotted. The upper frame is a plot of the average INL difference while the RMS of the INL difference projection is plotted in the lower frame. Board 353 shows a difference between the INL curves of 0.6 LSB, and the RMS of the subtraction of the INL curves reaches about 1 LSB.
+
+However, board 353 was not always performing abnormally. A look back at Figure 2.14 shows that this particular TDIG board was more stable previously, with much lower RMS across all channels.
+
+Since nothing had changed in the experimental set up, there was concern that the
+
+Figure 2.19: _The INL summary plot of board 353 during the reproducibility test._
+
+board was experiencing electronic problems and needed repair. The number of data words from this board was not in agreement with the expected number of hits per channel. There were either hundreds of words per channel missing, or hundreds of additional words per channel.
+
+By changing the board positions in the THUB setup, it was determined that the problem was not intrinsic to TDIG board 353 itself, but rather resulted from its specific TCAL board. This TCAL board was no longer functioning properly and was replaced.
+
+Figure 2.20 shows the usual INL summary plots of TDIG 353 after the defective TCAL board was replaced. The upper frame is a plot of the average INL difference,
+
+Figure 2.20: _The INL summary plot of board 353 after the TCAL board was replaced._
+
+\(\Delta\)INL, and the RMS of the INL difference projection is plotted in the lower frame. This plot is now comparable to the plots observed with the other three boards, as expected.
+
+The indication of a TCAL board problem is an unexpected number of data words. If the data collection goes well, there should be exactly six million hits in each channel. When a TCAL board malfunctions, the number of data words becomes erratic. Over the course of the calibration of the TDIG boards, three TCAL boards failed. These failures were most likely caused by the mechanical stress caused by mounting and unmounting the hundreds of TDIG boards.
+
+## Chapter 3 Cable Delay Testing
+
+In Chapter 2, an investigation of the stability of the INL correction measurements was done using four TDIG boards that were held back from installation in STAR. In this chapter, the final resolution of calibration with the CANbus setup and with the THUB setup will be measured. In addition, the difference in resolution of using only one INL curve per TDIG board versus using one INL curve per channel of a TDIG board will be calculated (see also section 2.2.2). The level of reproducibility expected with the THUB setup, previously discussed in section 2.3.3, will be quantified. Finally, the resolution of a poor INL curve from the defective TCAL board, discussed in section 2.3.4, will be quantified.
+
+There are two key questions to be answered. First, it must be determined how the timing resolution when using the INL curves produced from the CANbus setup compares with the timing resolution when using the INL curves from the THUB setup. Second, the level of reproducibility of the INL curves measured using theTHUB setup must be evaluated. The first issue is critical because the calibration procedure was changed in the middle of the TDIG board commissioning. The other issue of reproducibility can finally be evaluated due to the much greater speed with which the THUB setup can calibrate a TDIG board.
+
+In order to measure the time resolution of a TDIG board, a "cable delay test" is used. A pulse generator is again used. One output of the pulse generator is connected to one channel of a TDIG board while a second output is connected to a second channel of a TDIG board after a fixed delay. This delay is set by the combination of the on-board jumper on the TCAL board and coaxial cable [11].
+
+One-hundred forty-four million hits were collected per TDIG board. The resulting histogram of the start-stop time difference from the two channels under study is plotted. This should be a single, sharp peak in the histogram. The RMS is then taken as the time resolution. For effective PID, the TOF system must maintain a time resolution in this test of under 40 ps.
+
+The left-side of figure 3.1 shows the result from a cable delay test for a channel pair in TDIG board 363. The X-axis is LSB, while the Y-axis is counts. Without the application of an INL correction, the peak is not well defined. The histogram is really wide- spanning up to 18 LSB (439 ps). The RMS value suggests a resolution of over 102 ps, well above the 40 ps requirement. The right-side of figure 3.1 shows a cable delay test result from the same channel pair of TDIG 363 with the INL correctionsapplied. When compared to the left-side of figure 3.1, it is evident that the INL correction sharpens the peak significantly. The RMS value is 20.2 ps, which is much lower than the 102 ps resolution observed when no INL correction is used.
+
+Shown in Table 3.1 are the resolutions of three TDIG boards calibrated with the CANbus setup. Column one is the TDIG board number and column two is the HPTDC chip number. Column three is the resolution in units of picoseconds. The resolution for each HPTDC chip is less than 1 LSB (24.4 ps). This is much better than the performance benchmark of 1.8 LSB (40 ps) specified for the TOF system.
+
+Table 3.2 shows the resolution values from the five reproducibility runs for the same four TDIG boards that were held back. Column one is the TDIG board number
+
+Figure 3.1: _Cable delay test results. On the left-hand side, a cable delay test result without the INL correction. On the right-hand side, a cable delay test result with the INL correction applied._
+
+and column two is the HPTDC chip number. Column three is the average resolution over the five reproducibility runs in units of picoseconds. Column four is the maximum resolution difference observed between any two of the five reproducibility runs. The resolution values are also well below the 40 ps specification for the TOF system. After five separate runs of 48 million hits per HPTDC chip, the THUB setup is able to reproducibly measure the resolution of an HPTDC channel to 1 ps in all cases. Comparing Table 3.1 to Table 3.2, it is noted that across TDIG boards 351, 352, and 353, the resolution from calibrating with the THUB setup was better than when calibrating with the CANbus setup, by an average of one ps. This very slight improvement in the performance is assumed to reflect the much higher efficiency with which data is collected using the THUB setup. The data collection takes four hours to complete via the CANbus setup versus 30 minutes with the THUB setup, allowing
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline  & tdc & RMS (ps) \\ \hline
+351 & 1 & 18.2 \\  & 2 & 17.7 \\  & 3 & 19.4 \\ \hline
+352 & 1 & 16.9 \\  & 2 & 18.6 \\  & 3 & 17.0 \\ \hline
+353 & 1 & 17.2 \\  & 2 & 17.9 \\  & 3 & 18.1 \\ \hline \end{tabular}
+\end{table}
+Table 3.1: _A summary of the resolution of three TDIG boards calibrated with CANbus._slight temperature-related drifts in the CANbus data.
+
+Table 3.3 shows the resolutions obtained when using one INL curve for all 24 channels of one TDIG board as compared to using one INL curve per channel on a TDIG board. Column one gives the TDIG board number and column two lists the HPTDC chip number. Column three gives the resolution in units of picoseconds. As mentioned in section 2.2.2, the decision to store one INL correction curve for all 24 channels of a TDIG board instead of just storing one INL curve per TDIG board was motivated by a desire to improve the resolution of the TOF system. Comparing columns three and four of Table 3.3 verifies that the resolution is clearly improved by using one INL calibration curve per channel instead of using one INL curve for all 24 channels of the TDIG board.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|} \hline board & tdc & RMS (ps) & max RMS diff (ps) \\ \hline
+351 & 1 & 17.3 &.27 \\  & 2 & 16.8 &.17 \\  & 3 & 18.4 &.43 \\ \hline
+352 & 1 & 16.1 &.82 \\  & 2 & 17.6 &.74 \\  & 3 & 16.1 &.64 \\ \hline
+353 & 1 & 16.6 &.42 \\  & 2 & 17.6 &.71 \\  & 3 & 17.5 &.27 \\ \hline
+363 & 1 & 17.8 &.81 \\  & 2 & 17.8 &.80 \\  & 3 & 15.7 &.77 \\ \hline \end{tabular}
+\end{table}
+Table 3.2: _A summary of the resolution of four TDIG boards calibrated with the THUB setup_
+
+[MISSING_PAGE_FAIL:64]
+
+4 ps to the final time resolution.
+
+In this section, it was shown that the INL calibration curves produced with the THUB setup were comparable, if not slightly better than, to the INL calibration curves produced with the CANbus setup. The calibration with the THUB setup was also required to meet the TOF installation schedule for both Run 9 and Run 10 since the THUB setup was much faster than the CANbus setup. Overall, all 960 TDIG boards were calibrated in time for the detectors to be installed in STAR for RHIC Runs 9 and 10. Approximately 600 TDIG boards were calibrated with the THUB setup.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline Board & TDC & RMS (ps) \\ \hline
+353 & 1 & 21.3 \\  & 2 & 21.9 \\  & 3 & 21.8 \\ \hline \end{tabular}
+\end{table}
+Table 3.4: _A summary of the resolution of TDIG board 353 calibrated with a bad TCAL board attached_
+
+## Chapter 4 Additional Calibrations
+
+### 4.1 Introduction
+
+There are additional sources of time smearing that need to be corrected for in the TOF system besides the integrated non-linearity. In STAR, when a hit occurs in an MRPC module, a "stop-side" time and the location of the hit on the read-out cell are recorded. There are three additional effects that smear the measured stop-side times.
+
+First, the timing delay for the signal to traverse the various cabling and traces in printed circuit boards in the signal read-out path must be accounted for. The longer the cabling, the longer the delay. All channels do not have the same signal path lengths, so the correction must be done on a per-channel basis.
+
+Second, the apparent time of a hit is dependent on the pulse height. This effect is known as "slewing" [2]. The slewing effect is inherent to all photmultiplier tube and MRPC-based detector systems. It causes a correlation between the pulse time and the pulse height which must be removed. Figure 4.1 schematically depicts theslewing effect. Two pulses start at the same time, shown as point "A" in the figure. The larger (more negative) pulse crosses the threshold at time "B," which is earlier than the crossing time of the smaller pulse, which is at point "C." The apparent time of the larger pulse is earlier than the apparent time of the smaller pulse, even though the two hits occurred "simultaneously."
+
+Finally, the time delay resulting from the location of the hit on a read-out pad needs to be accounted for. The farther a hit is from the read-out end of a read-out pad in an MRPC module, the longer the signal transmission time in the pad.
+
+### 4.2 Calibration algorithm and results
+
+Software was written to correct for these three sources of time smearing. Data from RHIC Run 9 at 200 GeV and the Reversed Full-Field magnet setting, will be used
+
+Figure 4.1: _Schematic illustration of the slewing effect. Two sample pulses starting at the same time cross the threshold at different times because the pulses differ in height._
+
+here. These data were a small-statistics subset of the data collected by STAR in this run. Also, these data were so-called "fast-offline" files, which are produced during the run. The TPC, which provides the necessary track momentum and path length information, was not fully calibrated. The calibration results obtained here will thus not quite reach the full resolution expected from the entire data set with a calibrated TPC. These data are, however, sufficient for describing the offline calibrations approach which is the focus of this section.
+
+In the TOF system, there are 23040 channels, each 3.15 cm by 6.1 cm in area. Experimental datasets may not have sufficient hits per cell to calibrate each cell separately. So, some of the following calibration steps are done after grouping specific channels together to increase the statistical significance of the correction functions.
+
+The offset corrections are always performed on a per-cell basis. An initial correction to slewing is performed "globally," i.e all channels in the system contribute to a single histogram of the dependence of the timing on the pulse height. The first correction of \(\rm Z_{hit}\) is performed on a module (six cell) level.
+
+Multiple passes through the data are performed. In each pass, histograms are filled to quantify the dependence of the timing on a calibration metric. These histograms are fit, and the resulting correction functions are used in subsequent passes through the data. In these subsequent passes through the data, the granularity is made finer, and the cuts are narrowed.
+
+First, pions are selected. Any identified charged particle can be used to calibrate the detector, but pions are typically selected because they are the most abundant charged particle. In addition, the cuts to obtain a clean pion sample are simple. The initial selection of pions is accomplished by a cut on the TPC _dE/dx_ values. This pion sample is further cleaned up using a cut on the (uncalibrated) inverse velocity, \(\frac{1}{\beta}\), values from the TOF system. The inverse velocity is defined via:
+
+\[\frac{1}{\beta}=\frac{\mathrm{c}\Delta\mathrm{t}}{\mathrm{S}} \tag{4.1}\]
+
+where c is the 29.98 \(\frac{\mathrm{c}m}{\mathrm{n}s}\) speed of light, \(\Delta t\) is the stop time minus the start time, and S is the total path length from the hit in an MRPC module to the collision vertex. The "start" time is measured by the upVPD detector. That detector was calibrated independently.
+
+The first step is the determination of the crude global offsets to the timing. Shown in Figure 4.2 are the global offsets. The X-axis is channel number in the TOF system, which is defined via:
+
+\[\mathrm{globalID}=32*6*(\mathrm{trayid}-1)+6*(\mathrm{moduleid}-1)+\mathrm{ cellid} \tag{4.2}\]
+
+where the "trayid" ranges from 1 to 120, the "moduleid" ranges from 1 to 32, and the "cellid" ranges from 0 to 5. The Y-axis is the value of the global offset in units of nanoseconds. In Run 9, the TOF system was not fully installed. This can be seen in Figure 4.2 as the channels that do not have an offset value. These global offsetsare calculated using the time in an MRPC cell minus the expected time-of-flight of a pion hitting in the same location. The expected time-of-flight is calculated from the momentum and path length from the TPC tracking using,
+
+\[\mathrm{TOF}_{\mathrm{expected}}=\frac{\mathrm{S}}{c}*(\frac{\sqrt{\mathrm{m}_{ \pi}{}^{2}+\mathrm{p}^{2}}}{\mathrm{p}}), \tag{4.3}\]
+
+where c is the 29.98 \(\frac{\mathrm{cm}}{\mathrm{ns}}\) speed of light, S is path length, p is the momenta, and m\({}_{\pi}\) is the mass of the pion.
+
+Once the global offsets are measured for each channel, a second pass through the data is performed. In this pass, the data required to perform the slewing correction
+
+Figure 4.2: _The global timing offsets from the TOF system in Run 9._
+
+is collected. In the TOF detector, a threshold voltage is set on all the TDIG boards (see Figure 4.1). When a particle crosses an MRPC module, a pulse is created. When the earlier edge of the pulse, called the "leading edge, crosses the threshold, the TOF system records the leading edge time in a TDIG board. When the pulse falls back below the threshold, a "trailing edge time is recorded. The difference between the leading edge and the trailing edge times is called the "Time-over-Threshold (ToT)," and is monotonically related to the pulse height. So, a histogram of the timing versus the ToT value is filled to allow the slewing correction. As pions have already been selected, the quantity \(\beta_{\pi}\) can be calculated from the momentum reconstructed in the TPC alone. A plot of the inverse velocity difference, \(\frac{1}{\beta}-\frac{1}{\beta_{\pi}}\), versus the ToT value provides the necessary information for the slewing correction.
+
+Shown in Figure 4.3 is a global slewing correction, where all 23040 channels in the TOF system are included in the plot. The X-axis is the ToT value in nanoseconds, and the Y-axis is the inverse velocity difference, \(\frac{1}{\beta}-\frac{1}{\beta_{\pi}}\).
+
+The next step in the calibration addresses the dependence of the timing on the location of the hit on a cell. Each MRPC has six cells that are 6.3 cm in length [18]. When a charged particle passes through an MRPC module, there is a delay related directly to the distance from the hit to the read-out end of the pad. In effect, the read-out strip acts as a transmission line, with a speed of signal propagation of roughly 50 \(\frac{\mathrm{p}s}{\mathrm{c}m}\)[17]. Since the hit location axis in the direction of the cells in local TOFcoordinates is parallel to the Z-axis in the STAR coordinate system, this correction is referred to as the \(\rm Z_{hit}\) correction.
+
+Shown in Figure 4.4 is the \(\rm Z_{hit}\) correction for one of 3840 modules of the TOF system. The X-axis is the value of \(\rm Z_{hit}\) in cm, while the Y-axis is the time difference, \(\frac{1}{\beta}-\frac{1}{\beta_{\pi}}\). The plot shows there is a correlation, but it is not the purely linear 50 \(\frac{\rm ps}{cm}\) correction that would be expected from a transmission line. This odd behavior has been observed over the past few RHIC runs, and is further investigated in the Appendix.
+
+Figure 4.3: _A typical global slewing correction._
+
+The ToT and Z\({}_{\rm hit}\) corrections can be repeated. Additional passes through the data will not make the timing worse. The calibration functions (offsets, ToT slewing, and Z\({}_{\rm hit}\)) are then collapsed over all passes through the data and made available to the STAR users for their analysis.
+
+Shown in Figure 4.5 is a plot of the inverse velocity difference, \(\frac{1}{\beta}-\frac{1}{\beta_{\pi}}\),versus the momentum. The upper frame shows the results before the calibration, where only the raw offsets were corrected. In the lower frame is the final results after all of the calibrations. The bands for pions, Kaons, and protons can be seen clearly in the lower plot. The pions are the horizontal band at \(\frac{1}{\beta}-\frac{1}{\beta_{\pi}}\)=0. Kaons are the first band 
+
+[MISSING_PAGE_FAIL:74]
+
+calibrations. The solid line is the \(M^{2}\) plot with just the raw offsets corrected for, and the dotted line is all the calibrations. Before the calibrations, Kaons (near 0.24 GeV\({}^{2}\)) cannot be differentiated from pions. Also, the proton peak (near 0.88 GeV\({}^{2}\)) is not as sharp before the calibration as it is after the calibration. The \(M^{2}\) values occur near the expected values from the known particle masses.
+
+One can also obtain an effective time resolution of the TOF system for the selected pions. Using this calibration software, a resolution of between 142-153 ps was obtained for various momentum ranges, with the resolution getting slightly worse at higher momenta. Previous experience with TOF system calibrations using larger statistics,
+
+Figure 4.6: _A histogram of the mass-squared, \(M^{2}\), values before and after the calibrations._
+
+a calibrated TPC, and finer granularity suggests an expected resolution of \(\sim\)127 ps for pions.
+
+So, this calibration code shows that the TOF system extends the PID capabilities of STAR. Pions, Kaons, and protons can be identified at higher momenta than is possible when using the TPC dE/dx. This extended PID capability opens up a wide-variety of exciting physics analyses that were not possible without a calibrated TOF system.
+
+## Chapter 5 Summary and Conclusions
+
+The Time-of-Flight (TOF) detector is an essential upgrade to the STAR experiment at RHIC. The TOF system extends the particle identification capabilities in momentum significantly, which benefits a wide variety of physics analyses. However, in order to get the best timing resolution for charged particles, a number of calibrations are required.
+
+A table of the Integral Non-Linearity (INL) corrections for all 960 TDIG boards was made for offline use. In order to meet installation requirements, a change in calibration setups was necessary. About 350 boards were calibrated using the CANbus setup, and over 600 boards were calibrated using the THUB setup. Care was taken to insure that the results from the two setups were consistent. Problems related to timing cross-talk in the HPTDC chips and TCAL board failures were found and solved. The boards calibrated with the THUB setup showed a 1 ps improvement in resolution on average compared to the CANbus setup. All 960 INL-calibrated TDIGboards had a timing resolution in cable delay tests well below the 40 ps benchmark required for effective particle identification in STAR.
+
+The faster calibrations possible with the THUB setup allowed further explorations of the INL calibrations. It was shown that the resolution of the TDIG boards calibrated with the THUB setup was reproducible to better than 1 ps. Using separate data sets that were generated weeks apart, the maximum resolution difference of the TDIG boards calibrated multiple times with the THUB setup was only 0.82 ps. Also, it was shown that the decision to use one INL correction curve for each channel of each TDIG board resulted in an improvement of 5-7 ps in resolution when compared to using only one INL correction curve per TDIG board (24 channels).
+
+Once the trays were installed and the TOF system was running at RHIC, other calibrations were required. These additional calibrations address the global offsets, the slewing from the pulse time dependence on the pulse height, and the signal transmission times inside the detectors. To illustrate these calibrations, preliminary data from RHIC Run 9 200 GeV was used. Histograms were made of the various corrections, and then the corrections were applied in multiple passes through the data. A plot of the inverse velocity difference, \(\frac{1}{\beta}-\frac{1}{\beta_{\pi}}\), before and after the calibrations indicate that pions, Kaons, and protons can be differentiated over the expected wider momenta range. The calibration code resulted in a resolution of 142-153 ps for pions in different momentum ranges in that dataset. Subsequent calibrations of TOF usingthe same data imply a resolution of 127 ps. The present calibrations resulted in slightly worse values of resolution due to the limited statistics and uncalibrated TPC.
+
+The expected \(\rm Z_{hit}\) correction was not observed. The lack of the expected form of the \(\rm Z_{hit}\) correction has been a long-standing open question in the group. It was shown that the functional form of the \(\rm Z_{hit}\) correction is such not because of any aspects of the geometrical track reconstruction. The geometrical tracking parameters showed the expected relationship between the \(\rm Z_{hit}\) value and the path length at the TOF detectors.
+
+## Appendix A \(\rm Z_{hit}\) investigation
+
+In Chapter 4, one of the required offline calibration steps is to treat the transmission time of a signal in a cell of an MRPC module. This is the so-called \(\rm Z_{hit}\) correction. The functional form of this correction was shown in Figure 4.4. This form is not the expected linear form. In this section, a possible cause will be investigated.
+
+Figure A.1 shows two different plots of \(\rm TOF_{meas}\)-\(\rm TOF_{pion}\) versus the \(\rm Z_{hit}\) value [20]. Shown on the left-hand side of Figure A.1 is the \(\rm Z_{hit}\) correction observed in Run 5. In Run 5, only a single prototype TOF tray was installed in STAR. This plot shows a clear linear dependence. The slope is roughly 31 \(\frac{ps}{cm}\). Shown on the right-hand side of Figure A.1 is the \(\rm Z_{hit}\) correction obtained from the Run 8 data. Both this right-side plot and that shown in Figure 4.4 do not show the expected linear dependence.
+
+The value of the \(\rm Z_{hit}\) variable is determined by extrapolating the track position in the TPC to the TOF system. The associated track fit has uncertainties. It is therefore relevant to wonder if the track extrapolation is correct. The lack of theexpected \(\rm Z_{hit}\) dependence might be the result of track uncertainties or some "bug" in the track extrapolation software.
+
+The TPC tracking not only gives the \(\rm Z_{hit}\) value, but it also gives other geometrical parameters such as track length (S). Track length is the distance from the collision vertex to the point that the track crosses a TOF cell. An exact geometrical relationship between the \(\rm Z_{hit}\) value and track length can be determined at any crossing point in the TOF system, using the known arrangement of TOF modules inside each TOF tray.
+
+The specific test performed is as follows. The perpendicular component of the track length, \(\rm S_{\perp}\), and the \(\rm Z_{hit}\) values are measured for each track striking the TOF system. The experimental values of the correlation between these quantities is compared to that expected from the known TOF geometry. These quantities are shown in Figure A.1. The \(\rm Z_{hit}\) values are measured for each track striking the TOF system. The experimental values of the correlation between these quantities is compared to that expected from the known TOF geometry. These quantities are shown in Figure A.1. The \(\rm Z_{hit}\) values are measured for each track striking the TOF system. The experimental values of the correlation between these quantities is compared to that expected from the known TOF geometry. These quantities are shown in Figure A.1.
+
+Figure A.1: _Two plots of the \(\rm Z_{hit}\) correction. In right frame is the TOF\({}_{meas}\)-TOF\({}_{pion}\) vs the \(\rm Z_{hit}\) value for the Run 8 200 GeV dataset. In the left frame is the TOF\({}_{meas}\)-TOF\({}_{pion}\) vs the \(\rm Z_{hit}\) value for Run 5 200 GeV Cu+Cu dataset._
+
+[MISSING_PAGE_EMPTY:82]
+
+TOF tray, the experimental values are in excellent agreement with the geometrically-predicted values. The first six TOF modules in each tray are parallel to the beam line. Since the individual read-out strips are thus parallel to the beam line, the value of S\({}_{\perp}\) should be zero over the entire range of Z\({}_{\rm hit}\), as is seen in the figure. In addition, the last 12 modules are at the largest angles (32 degrees) relative to the beam line, so they should have the largest slopes. The observed and predicted values agree well across the full range of detector angles.
+
+Figure A.3: _The comparison of the experimental versus the theoretical Z\({}_{\rm hit}\) dependence versus the quantity S\({}_{\perp}\). The Y-axis is the slope of the linear fit of S\({}_{\perp}\) vs Z\({}_{\rm hit}\), while the X-axis is the module number. The expected values are shown as the star symbols. The experimental data points marked with plus symbols._
+
+Since the experimental data agrees with the expected geometry, the S\({}_{\perp}\) values calculated at a particular location in Z\({}_{\rm hit}\) are reasonable. This implies that the Z\({}_{\rm hit}\) values are also reasonable. This topic remains under discussion in the group. It is clear, however, that the observed Z\({}_{\rm hit}\) dependence of the offline timing calibrations is not resulting from a geometrical track extrapolation problem.
+
+## Bibliography
+
+* [1][http://www.bnl.gov/rhic/physics.asp](http://www.bnl.gov/rhic/physics.asp).
+* [2] W.J. Llope _et al._, _The TOFp/pVPD time-of-flight system for STAR_, Nuclear Instruments and Methods in Physics Research, **A 522** (2004) 252-273.
+* [3] W.J. Llope, _Multigap RPCs in the STAR experiment at RHIC_, Nuclear Instruments and Methods in Physics Research, **A** (2010) doi:10.1016/j.nima.2010.07.086.
+* [4] B. Bonner _et al._, _A single Time-of-Flight tray based on multigap resistive plate chambers for the STAR experiment at RHIC_, Proceedings of the Sixth International Workshop on Resistive Plate Chambers and Related Detectors, **508**, (2003) 181-184.
+* [5] M. Anderson _et al._, _The STAR time projection chamber: a unique tool for studying high multiplicity events at RHIC_, Nuclear Instruments and Methods in Physics Research, **A 499**, (2003) 659-678.
+* [6] J. Schambach, _Proposed STAR Time of Flight Readout Electronics and DAQ_, Computing in High Energy and Nuclear Physics, (2003), 1-10.
+* [7][http://hepg.ustc.edu.cn/NOPE/talks/NICA_MPD_discussion/USTC-/TOF_Calibration_USTC_ming.ppt](http://hepg.ustc.edu.cn/NOPE/talks/NICA_MPD_discussion/USTC-/TOF_Calibration_USTC_ming.ppt)* [8][http://tdc.web.cern.ch/tdc/hptdc/hptdc.htm](http://tdc.web.cern.ch/tdc/hptdc/hptdc.htm)
+* [9] M. Mota and J. Christiansen, _A High-Resolution Time Interpolator Based on a Delay Locked Loop and an RC Delay Line_, IEEE Journal of Solid-State Circuits, **34 10**, (1999) 1360-1366.
+* [10] R. Best, _Phase-locked loops: design, simulation, and applications_, McGraw-Hill Professional (2003).
+* [11] J. Schambach _et al._, _STAR Time of Flight Readout Electronics, DAQ, and Cosmic Ray Test Stand_, 2006 IEEE Nuclear Science Symposium Conference Record, (2006) 485-488.
+* [12][http://www.maxim-ic.com/appnotes.cfm/](http://www.maxim-ic.com/appnotes.cfm/)\(an\_pk\)/2085.
+* [13] Ted Nussbaum, private communications
+* [14] Jo Schambach, private communications
+* [15] L. Jin _et al._, _Code-Density Test of Analog-to-Digital Converters Using Single Low-Linearity Stimulus Signal_, 25th IEEE VLSI Test Symposium, (2007).
+* [16][http://en.wikipedia.org/wiki/Serial_ATA](http://en.wikipedia.org/wiki/Serial_ATA).
+* [17] F. Geurts _et al._, _Performance of the prototype MRPC detector for STAR_, Nuclear Instruments and Methods in Physics Research A, **533**, (2004), 60-64.
+* [18] Ming Shao _et al._, _Upgrade of the calibration procedure for a STAR time-of-flight detector with new electronics_, Measurement Science and Technology, **20**, (2009) 2-7.
+* [19] Lijuan Ruan, Ph.D. Thesis, _Pion, Kaon, Proton and Antiproton Spectra in d+Au and p+p Collisions at \(\sqrt{s_{NN}}\)= 200GeV at the Relativistic Heavy Ion Collider_, University of Science and Technology, Beijing, China (2004).
+
+* [20] Ming Shao, _STAR Time-of-Flight detector calibration_, Hangzhou, China TOF workshop, (2009).
+* [21] M.M. Aggarwal _et al._. _An experimental Exploration of the QCD Phase Diagram: The search for the Critical Point and the Onset of De-confinement._, (2010), arXiv:1007.2613v1.
+* [22] E. Shuryak, _Why does the Quark-Gluon Plasma at RHIC behave as a nearly ideal fluid?._, Prog. Part. Nuclear Physics. **53**, (2004) 273-303.
+* [23] P. Braun-Munzinger, K. Redlich, J. Stachel, invited review in: R.C. Hwa, X.N. Wang (Eds.), Quark Gluon Plasma, vol. 3, World Scientific, 2004.
+* [24] B. Lungwitz, _NA49 results on hadron production: indications of the onset of deconfinement_, (2005), arXiv:nucl-ex/0509041 v4.
+* [25] Bedangas Mohanty, _QCD Phase Diagram: Phase Transition, Critical Point and Fluctuations_, Nuclear Physics A, **830**, (2009) 899907
+* [26][http://en.wikipedia.org/wiki/Phase_transitionOrder_parameters](http://en.wikipedia.org/wiki/Phase_transitionOrder_parameters)
+* [27] Dam T. Son, _Finding the critical point in quark-gluon plasma_, Physics, **2**, The American Physical Society, 2009.
+* [28] K.H. Ackermann _et al._. _Elliptic Flow in Au+Au Collisions at \(\sqrt{S_{NN}}\) = 130 GeV_, Phys. Rev. Lett, **86**, (2001) 402-407.
+* [29] Burges and Rajagopal. _Color superconductivity and chiral symmetry restoration at non-zero baryon density and temperature_, Nuclear Physics B, **538** (1999) 215-232.
+* [30] J. Adams et al. (STAR), Nucl. Phys. A 757, **102** (2005), nucl-ex/0501009.
+
+* [31] Greiner, Neise, and Stocker. _Thermodynamics and Statistical Mechanics_. New York:Springer Publishing, 1997. 417
+* [32] Y. Aoki, G. Endrodi, Z. Fodor, S.D. Katz, K.K. Szabo. Nature **443** (2006) 675.
+* [33] Bedanga Mohanty, presentation at DNP10, 2010.
+* [34] L.F. Babichev. _First-order QGP-hadrons phase transition in heavy-ion collisions_. Nonlinear Dynamics and Applications. Vol. 13 (2006) 282-286.
+* [35] Yu, Effaf, and Zhang. _Interferometry Signatures for QCD First-Order Phase Transition in High Energy Heavy Ion Collisions_. Chin. Phys. Lett. 27:2 (2010).
+* [36] J. Barthke. _Introduction to Relativistic Heavy Ion Physics_. New Jersey:World Scientific, 2009. 13
+* [37] Bedangas Mohanty. _QCD Phase Diagram: Phase Transition, Critical Point and Fluctuations_ Nuclear Physics A, **830**, (2009) 899907.

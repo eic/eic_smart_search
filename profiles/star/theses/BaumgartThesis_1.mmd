@@ -1,0 +1,1157 @@
+A Study of Open Charm Production in Heavy Ion Collisions of Center-of-Mass Energy 200 GeV per Nucleon
+
+A Dissertation
+
+Presented to the Faculty of the Graduate School
+
+of
+
+Yale University
+
+in Candidacy for the Degree of
+
+Doctor of Philosophy
+
+By
+
+Stephen Baumgart
+
+Dissertation Director: Professor Helen Caines
+
+September 2009
+
+[MISSING_PAGE_EMPTY:2]
+
+## Abstract
+
+A hot and dense form of matter is produced in Au+Au and Cu+Cu collisions at \(\sqrt{s_{NN}}=200\) GeV at the Relativistic Heavy-Ion Collider. This matter exhibits the features of a new deconfined state of matter, the Quark-Gluon Plasma. This thesis reports on the production of open charm mesons, the \(D^{0}+\bar{D^{0}}\) in Cu+Cu collisions and the \(D_{s}^{+}+D_{s}^{-}\) in Au+Au collisions as a probe of the properties of this matter and its formation.
+
+\(D^{0}(\bar{D^{0}})\) mesons are measured in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions via their \(K^{-}\pi^{+}(K^{+}\pi^{-})\) decay channel. Their mid-rapidity yield is then used to extract a total inclusive charm cross-section per nucleon-nucleon collision. This charm cross-section is compared with experimental results from other collision systems as well as pQCD predictions.
+
+\(D_{s}^{\pm}\) mesons are reconstructed through their \(\phi\pi^{\pm}\) decay channel in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions using a secondary-vertexing reconstruction technique. The mid-rapidity \(D_{s}\) yield in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions is reported and compared with experimental results from \(e^{+}e^{-}\) collisions at \(\sqrt{s_{NN}}=91\) GeV, Pythia simulation, as well as the predictions of the Statistical Hadronization Model for a Quark-Gluon Plasma.
+
+## Acknowledgements
+
+First of all, I would like to thank my advisor, Helen Caines, for taking me on as her first student and for all of her amazing support over the years. She was always helpful, even when times were tough and deadlines close. I am also grateful to the group leader of the Yale Relativistic Heavy-Ion Group, John Harris, for supporting me during my graduate school career. I would also thank very strongly the members of the Yale group with whom I've worked over the years, Nikolai Smirnoff, Mark Heinz, Matt Lamont, Richard Witt, Betty Abelev, Jaro Bielcik, Jana Bielcikova, Joern Putschke, Boris Hippolyte, Christina Markert, Elena Bruna, Jon Gans, Oana Catu, Sevil Salur, Christine Nattrass, and Anders Knospe. Everyone in the group helped me in ways large and small and became like family during my graduate school years.
+
+This analysis could only have been done with the support of the STAR collaboration and the staff of the Relativistic Heavy-Ion Collider. I would like to thank the Brookhaven Collider-Accelerator Department for operating RHIC. I'd also like to thank the other members of the STAR collaboration who provided so much support and feedback over the years. Specifically, Jerome Lauret has put unbelievably long hours into maintaining the STAR computing environment. Vladimir Rykov provided essential help and feedback in tuning the SVT Slow Simulator. I would also like to strongly thank Sarah LaPointe. The \(D_{s}\) analysis reported in this thesis is based on her secondary-vertexing based \(D^{0}\) finder. She wrote the original code which I then modified. Rene Bellweid, her advisor, provided good feedback for the SVT-based \(D_{s}\) analysis. The TOF group also supported my efforts on the TOF-based TPC calibration. I'd like to thank Xin Dong, Ming Shao, and Masayuki Wada for their assistance.
+
+Throughout my analysis, the STAR Heavy Flavor Working Group has provided excellent feedback, as well as constructive criticism. I'd like to thank Manuel Calderon, Huan Huang, and Thomas Ullrich for strengthening the analysis. I'd also like to show my appreciation for Alexandre Shabetai and Wenqin Xu, who worked on the \(D^{0}\) in Cu+Cu analysis independently and provided a valuable cross-check. Though not in Heavy Flavor, I'd like to extend thanks to Olga Barannikova and Aneta Iordanova because their assistance and code allowed me to make the blast-wave fits reported in this thesis.
+
+I would not have joined this field were it not for Daniel Cebra. Daniel introduced me to Relativistic Heavy-Ion Physics. Jennifer Klay, also at U.C. Davis at the time, was my first mentor in the field, and for that I am grateful. Thomas Gutierrez also provided invaluable help in getting me started. And thank you to all of my physics teachers over the years for providing me with so much knowledge. I'd like to thank my classmates and friends at Yale, Robert Casperson, Hanghui Chen, Jennifer Pai-Hsien Hsu, Jiji Fan, Xinhui Lu, Luis Kastens, and Mararet Trias for working together and helping out during the graduate school years.
+
+Finally, I'd like to thank those who gave support and encouragement over the years, even when the situation was tough. I thank my brother David and my good friends David Hembry and Kimberly Tran for helping me get through the stress. For their strong encouragement for my pursuit of physics education, I am grateful to my host families, the Takigawas in Takarazuka and the Nomuras in Kyoto. And lastly, I convey my deepest thanks to my parents, Bruce and Leona, who supported my education and provided the environment which sparked my interest in science.
+
+This work would never have been done were it not for the people mentioned. Thank you.
+
+###### Contents
+
+* 1 The Quark Model
+	* 1.1 The Parton Model
+		* 1.1.1 The Quarks
+		* 1.1.2 Proton Structure
+	* 1.2 Confinement and Deconfinement
+		* 1.2.1 Potential Between a Quark and an Antiquark in the Strong Coupling Limit
+		* 1.2.2 Asymptotic Freedom in the Weak Coupling Limit
+		* 1.2.3 The Bag Model of Confinement and Deconfinement During Strong Coupling
+	* 1.3 Quark-Gluon Plasmas in Nature and Experiment
+		* 1.3.1 Some Signatures of QGP in Experiment
+	* 1.4 Outline of this Thesis
+* 2 Charm in Relativistic Heavy-Ion Collisions
+	* 2.1 Charm Production
+	* 2.2 The Statistical Hadronization Model
+	* 2.3 Previous Experimental Results
+* 3 Experimental Setup
+	* 3.1 Introduction
+	* 3.2 The Relativistic Heavy Ion Collider
+	* 3.3 The Solenoidal Tracker at RHIC (STAR)
+3.3.1 The STAR Time Projection Chamber
+* 3.3.2 The STAR Magnet
+* 3.3.3 The STAR Silicon Vertex Tracker
+* 3.3.4 The STAR Silicon Strip Detector
+* 3.3.5 The STAR Time-of-Flight Detector
+	* 3.4 Triggering System
+		* 3.4.1 The Central Trigger Barrel
+		* 3.4.2 The Zero-Degree Calorimeter
+		* 3.4.3 CTB-ZDC Correlation
+* 4 Analysis
+	* 4.1 Introduction
+	* 4.2 Event Selection
+	* 4.3 Track Reconstruction
+	* 4.4 Particle Identification
+		* 4.4.1 dE/dx Calibration using the TOF
+		* 4.4.2 Calibration using V0s
+	* 4.5 Invariant Mass Reconstruction
+		* 4.5.1 Decay Channel Selection
+		* 4.5.2 Track Cuts
+		* 4.5.3 Geometric Reconstruction of the \(D_{s}\)
+		* 4.5.4 PID cuts
+		* 4.5.5 Background Subtraction
+	* 4.6 Creation of a Spectra
+* 5 Simulation
+	* 5.1 Cut Selection
+	* 5.2 Efficiency Corrections
+	* 5.3 SVT Slow Simulator
+		* 5.3.1 Simulation Hit Tuning
+		* 5.3.2 Pseudorapidty Dependence of Ionization
+	* 5.4 Evaluation of Signals and Residuals
+* 6Results
+* 6.1 The \(D^{0}\) Invariant Mass Spectra
+* 6.2 The \(D^{0}\)\(p_{t}\) Spectrum
+* 6.3 Calculation of the Open Charm Cross-Section
+* 6.4 The \(D_{s}\) Invariant Mass Spectra
+* 7 Discussions and Conclusions
+	* 7.1 Spectral Fit
+	* 7.2 Cross-Section
+	* 7.3 Discussion of the \(D_{s}\) in Au+Au
+	* 7.4 Future Directions
+* A Systematic Error Estimates of the \(D^{0}+\bar{D^{0}}\) in Cu+Cu and the \(D_{s}\) in Au+Au
+* A.1 Systematic Errors of the \(D^{0}\) in 200 GeV Cu+Cu Analysis
+* A.2 Systematic Errors of the \(D_{s}\) in 200 GeV Au+Au Analysis
+
+List of Figures
+	* 1.1 The parton distributions functions of a proton [2]. These use the MRST2006 parameterization with \(\mu^{2}=20~{}GeV^{2}\) (left) and \(10,000\)\(GeV^{2}\) (right) [9], \(\mu\) being the renormalization scale.
+	* 1.2 The string fragmentation model of quark generation.
+	* 1.3 A bag-model representation of deconfinement.
+	* 1.4 A nuclear phase diagram showing the transition from a hadron gas to a Quark-Gluon Plasma as a function of chemical potential and temperature. Chemical (after which no new particles are created) and thermal (after which the system leaves equilibrium) freeze-outs are marked out. From [14].
+	* 1.5 The evolution of the fireball created in a relativistic heavy-ion collision as graphed out on a light-cone diagram. Chemical (after which no new particles are created) and thermal (after which the system leaves equilibrium) freeze-outs are marked as \(T_{ch}\) and \(T_{fo}\), respectively. Figure taken from [33].
+	* 1.6 The near-side jet (at \(\Delta\theta=0\)) and the away-side jet (at \(\Delta\theta=\pi\)), which is quenched in Au+Au collisions but clearly visible in p+p and d+Au collisions at \(\sqrt{s_{NN}}=200\) GeV. Since the away-side jet passes through the medium, is is clear that it is being absorbed in Au+Au collisions (where a QGP is present) but not in p+p collisions (no medium) or in d+Au collisions (cold nuclear matter). Figure from [28].
+	* 1.7 Elliptic flow \(v_{2}\) scaled by number of quarks (n\({}_{q}\)) for various particle species. \(v_{2}\) scales by n\({}_{q}\) for both mesons and baryons. Figure from [30].
+The nuclear modification factor, \(R_{AA}\) in \(\sqrt{s_{NN}}=200\) GeV d+Au and central Au+Au collisions. The d+Au \(R_{AA}\) is enhanced due to initial-state nuclear effects but the Au+Au \(R_{AA}\) is suppressed due to medium-induced gluon radiation. Figure from [23].
+* 2.1 The most basic Feynman diagrams for \(c\bar{c}\) production at the Leading Order (LO) level.
+* 2.2 a) Strangeness over entropy versus temperature in a hadron gas and a QGP. b) The ratio of \(D/D_{s}\) as a function of temperature. RHIC has a s/S ratio of roughly 0.03. Entropy should be conserved during the transition from a QGP to a hadron gas. Figures from [45].
+* 2.3 The \((D^{0}+\bar{D^{0}})/2\) spectra in STAR's \(\sqrt{s_{NN}}=200\) GeV Au+Au and d+Au collisions. Figures based on data published in [49] and [50].
+* 2.4 PHENIX measurements of heavy flavor through single electrons. (Figures appear in [54] and [51]).
+* 2.5 \(R_{AA}\) (a) and \(v_{2}\) (b) measurements from the non-photonic electron decays of open charm and beauty from the PHENIX in experiment in minimum bias Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV. Figure from [51].
+* 2.6 The nuclear modification factor \(R_{AuAu}\) from STAR's Au+Au and d+Au (replacing p+p) semi-leptonic charm and beauty decay data. The BW3 curve is generated from the radial flow parameters of light hadrons and the BW2 from multistrange hadrons. The BW1 curve is the best fit. These results suggest that the radial flow of charm and beauty is much less than that of lighter quarks. Figure from [50].
+* 3.1 The Relativistic Heavy-Ion Collider (RHIC)
+* 3.2 The STAR Detector.
+* 3.3 The TPC Structure. Figure from [58].
+* 3.4 dE/dx and momenta for particle tracks as measured by the TPC in 200 GeV/nucleon Au+Au collisions.
+
+The straggling function for particles of \(\beta\gamma=3.6\) going through 1.2 cm of Ar gas (solid line). This shows why there are smeared bands rather than sharp curves when each particle species is plotted vs. dE/dx and momentum. Figure from [60].
+* 3.6 A schematic of one of the TPC readout sectors. Figure from [58].
+* 3.7 a) Diagram of the SVT structure showing the three barrels of the SVT. b) Photograph of SVT structure. Figures from [65].
+* 3.8 Schematic of a Silicon Drift Detector (SDD).
+* 3.9 A schematic of a SSD wafer.
+* 3.10 Set-up positions of the Zero-Degree Calorimeter [72].
+* 3.11 The correlation between the CTB and the ZDC for events reconstructed in the TPC. Figure from [61].
+* 4.1 a) Particle reference multiplicity in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions. b) Z-vertex distribution in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions. c) Particle reference multiplicity in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions. d) Z-vertex distribution in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions.
+* 4.2 Finding the first three points of a track in the radial direction (a) and beam direction (b). Figures from [75].
+* 4.3 Track data from the TPC with pion and kaon identified tracks marked using a cut of \(2\sigma\) around their Bichsel bands. This is from a subset of Au+Au data taken at \(\sqrt{s_{NN}}=200\) GeV.
+* 4.4 The TOF PID capabilities. The major visible bands are the pions, kaons, and protons. Figure from [76].
+* 4.5 The \(\pi^{+}\) (a) and \(\pi^{-}\) (b) daughters of \(K^{0}_{S}\). The \(K^{+}\) (c) and \(K^{-}\) (d) daughters of the \(\bar{\Omega}\) and \(\Omega\).
+* 4.6 a) The \(\pi^{+}\)\(N_{\sigma}\) offsets for 200 GeV Cu+Cu collisions as a function of momentum. b) The \(K^{\pm}\)\(N_{\sigma}\) offsets for 200 GeV Cu+Cu collisions as a function of momentum.
+* 4.7 Invariant mass spectra of \(K\pi\) combinations in 200 GeV Cu+Cu (a) and \(\phi\pi\) combinations in 200 GeV Au+Au (b) before background subtraction.
+
+The centroids of the kaon and pion bands in dE/dx-momentum space from the Bichsel parameterization in a sample of the \(\sqrt{s_{NN}}=200\) GeV Au+Au data.
+* 4.9 Particle ID Gaussian fits to log(dE/dx) at p = 0.6 to 0.62 GeV/c in a sample of the \(\sqrt{s_{NN}}=200\) GeV Au+Au data. The logarithm is taken because particle distributions in dE/dx are not Gaussian; rather, they have high energy tails.
+* 4.10 A Gaussian function atop a line as the underlying slope is increased to the order of magnitude seen for \(D^{0}\) reconstruction from \(K\pi\) in 200 GeV Cu+Cu collisions. In this case, it is the slope of the underlying background, rather than a low signal-to-noise ratio, which makes the signal disappear.
+* 4.11 a) Event Mixing. b) Rotational Background Generation.
+* 4.12 The invariant mass distributions created by the \(K^{-}\pi^{+}\) daughters of a \(D^{0}\) after the pion momentum vector has been rotated by various angles. Large rotations (over \(\sim\)120 degrees) are needed in order to create a function which is close to linear near the \(D^{0}\) mass of 1.86484 GeV/\(c^{2}\).
+* 4.13 Fluctuations decrease in this background-subtracted invariant mass spectrum as the number of rotations increases. a) The invariant mass spectra from a 1 rotation background subtraction and 13 rotation background subtraction in the range of 1.6 to 2.1 GeV/c\({}^{2}\) with bin sizes of 16 MeV/c\({}^{2}\) (The same as used for the \(D^{0}\) analysis). b) The RMS reduction factor from adding rotations calculated both from data and analytically using the formula \(2/\sqrt{1+N_{rot}}\).
+* 4.14 The invariant mass spectrum reconstructed from \(K^{+}K^{-}\) pairs with the pairs used for \(D_{s}\) signal and mass-offset background reconstructions marked out.
+
+The momentum distribution of \(K^{+}\) candidates (black), \(K^{+}\) candidates after a pion veto cut (red), and the \(K^{+}\) daughters of the \(D_{s}\) in simulation (blue). The \(K^{-}\) distributions are similar.
+* 5.2 Reconstruction efficiencies of the \(D^{0}\) in Cu+Cu. The \(D^{0}\to K^{-}\pi^{+}\) branching ratio is not included.
+* 5.3 Efficiency of \(K^{+}\) reconstruction due to the pion veto cut.
+* 5.4 Hits in the SVT Slow Simulator, showing all the ladders simulated in their correct positions.
+* 5.5 Total charge vs. time-bucket.
+* 5.6 Peak ADC values vs. time-bucket.
+* 5.7 The number of pixels firing for SVT hits vs. time-bucket a) with negligible initial hit sizes and b) hit sizes of width 120 \(\mu\)m.
+* 5.8 Second moments of hits in anode (a) and timebin (b) directions.
+* 5.9 The effect on total charges as a function of \(\eta\) before (a) and after (b) inserting an angular correction.
+* 5.10 A model of initial hit size which reproduces data as viewed in a plane perpendicular to the SDD wafer.
+* 5.11 Ionization of silicon by an incident particle. Ionized electrons receive a momentum kick in the transverse direction. Figure from [81]
+* 5.12 \(\phi\pi\) combinations with the residual background and true signal marked appropriately from a simulation of \(D_{s}\) mesons decaying through channels including (but not limited to) \(\pi\) and \(\phi\) daughters. The invariant masses have been smeared using the Gaussian width from a fit to the \(D_{s}\) peak in data. "X" daughters are thrown out.
+* 5.13 Simulation of residual background in \(K^{-}\pi^{+}\) combinations due to other \(D^{0}\) decay channels. Only daughter tracks of \(D^{0}\) mesons were used to generate this plot.
+* 5.14 Simulation of residual background in \(K^{-}\pi^{+}\) combinations due to the misidentification of the \(\pi^{-}\) in \(\pi^{+}\pi^{-}\) pairs.
+
+The \(D^{0}+\bar{D^{0}}\) invariant mass peak after a rotational background subtraction. The fit curve is a linear + Gaussian function.
+* 6.2 The \(D^{0}+\bar{D^{0}}\) invariant mass peak rebinned into \(p_{t}\) bins after a rotational background subtraction.
+* 6.3 a) The \(D^{0}\) invariant mass peak after a rotational background subtraction. b) The \(\bar{D^{0}}\) invariant mass peak after a rotational background subtraction.
+* 6.4 The \(p_{t}\) spectra of the \(D^{0}+\bar{D^{0}}\) in 200 GeV Cu+Cu collisions of 0 to 60 % centrality in logarithmic (a) and linear (b) formats with statistical error bars.
+* 6.5 The \(D^{+}_{s}+D^{-}_{s}\) invariant mass peak after \(\phi\) mass offset (a) and rotational (b) background subtraction.
+* 6.6 a) \(D^{+}_{s}\) and b) \(D^{-}_{s}\) peaks after mass offset background subtractions and fit with Gaussian functions.
+* 6.7 Extrapolated dN/dy as a function of assumed effective temperature for the \(D_{s}\) in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions.
+* 7.1 The \((D^{0}+\bar{D^{0}})/2\)\(p_{t}\) spectra in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions fit with a thermal fit (red), a blast wave curve derived from \(T_{fo}\) and \(<\beta>\) of pions, kaons, and protons in 0 to 60 % central Cu+Cu collisions (brown), and a blast wave fit from fixing \(T_{fo}\) to the light species and letting \(<\beta>\) be a free parameter (green).
+* 7.2 The inclusive total charm cross-section as measured by STAR, PHENIX, and calculated from pQCD
+* 7.1 The \(D^{0}+\bar{D^{0}}\) invariant mass peak from a rotational background subtraction and a secondary polynomial function subtraction rebinned into \(p_{t}\) bins and fit with Gaussian functions.
+* 7.2 The \(D^{0}+\bar{D^{0}}\) invariant mass peak from a rotational background subtraction and a secondary polynomial function subtraction rebinned into \(p_{t}\) bins and fit with Gaussian functions.
+* 7.3 The \(D^{0}+\bar{D^{0}}\) invariant mass peak from a rotational background subtraction and a secondary polynomial function subtraction rebinned into \(p_{t}\) bins and fit with Gaussian functions.
+* 7.4
+
+[MISSING_PAGE_EMPTY:15]
+
+List of Tables
+* 1.1 The six quarks of the standard model[2].
+* 1.1 The cuts used for the \(D_{0}+\bar{D^{0}}\) in Cu+Cu analysis (left) and the \(D_{s}^{+}+D_{s}^{-}\) analysis in Au+Au.
+* 1.2 A comparison of embedding vs. pure simulation for calculating the efficiency\(\times\)acceptance of the \(D^{0}\) in Cu+Cu analysis.
+* 1.2 The SVT tuning parameters found for STAR's 2007 Au+Au 200 GeV data run.
+* 1.3 Systematic error sources of the \(D^{0}\) in Cu+Cu Analysis
+* 1.4 A Comparison of background subtraction methods for the \(D^{0}+\bar{D^{0}}\) in \(\sqrt{S_{NN}}\) Cu+Cu.
+* 1.5 Systematic error sources of the \(D_{s}\) in Au+Au Analysis
+* 1.6 A comparison of embedding vs. pure simulation for calculating the efficiency\(\times\)acceptance of the \(D^{0}\) in Cu+Cu analysis.
+
+## Chapter 1 The Quark Model
+
+### 1.1 The Parton Model
+
+One hundred years ago, Ernest Rutherford discovered the general structure of the atom by colliding a beam of \(\alpha\) particles against a gold target [1]. Protons and neutrons, which have radii of roughly 1 fm, are contained within the nucleus of the atom while the electrons are dispersed in wavefunctions surrounding the nucleus. A new force beyond the classical forces of electromagnetism and gravity was postulated which overcomes the Coulombic repulsion of the protons within the nucleus and holds it together. This is the strong nuclear force.
+
+#### The Quarks
+
+As more particles were discovered, such as pions, kaons, and Lambdas, it became necessary to develop the quark model to explain the extra particles and their interactions. Quarks are fermions and contain electric charges of either \(+\frac{2}{3}e\) or \(-\frac{1}{3}e\), where \(e\) is the charge of the electron. Quarks come in six flavors (as shown in Table 1.1), \(u,d,s,c,b,\) and \(t\), each with a different bare mass. A proton contains two \(u\) quarks and one \(d\) quark while a neutron contains two \(d\) quarks and one \(u\) quark. The Fermi Exclusion Principle is avoided in baryons such as the \(\Delta^{++}\) (\(uuu\)) or \(\Delta^{-}\) (\(ddd\)) because quarks contain an additional quantum number called "color", which can have a valueof \(red\), \(green\), or \(blue\). The quantum field theory describing interactions between colored objects is called Quantum Chromodynamics (QCD). QCD is represented by the gauge group \(SU(3)\). The QCD field is mediated by gluons, which are bosonic carriers of the strong force. A gluon carries a color and an anti-color but the combinations need not be colorless. Therefore, unlike photons which are the carriers of the electromagnetic force, gluons can self-interact. Gluons are so-called because they are the "glue" which causes quarks to stick together.
+
+To date, there is strong evidence for particles containing either quark-antiquark pairs (mesons) or three quarks, one each of red, green, and blue (baryons), making them colorless. Some observations of five-quark particles (pentaquarks) have been reported (for example [3, 4]), but a repetition of a pentaquark discovery experiment with more statistics found a null result [5] so their existence is somewhat in doubt. Free quarks have never been directly observed.
+
+#### Proton Structure
+
+The first probes of the structure of the proton were proton-proton collisions at around 1 GeV (such as the experiments described in [6]). These collisions produced many pions, but their yield was found to be highly suppressed at large transverse momenta. From this it could be inferred that protons had substructure.
+
+Deep inelastic scattering experiments [7] of electrons incident upon protons showed that the electrons were scattering off of objects (called "partons") within the proton
+
+\begin{table}
+\begin{tabular}{|l|c|c|c|} \hline Quark Name & Abbreviation & Mass & Charge \\ \hline up & u & 1.5 to \(3.3MeV\) & \(+\frac{2}{3}\) \\ \hline down & d & 3.5 to \(6.0MeV\) & \(-\frac{1}{3}\) \\ \hline strange & s & \(104^{+26}_{-34}MeV\) & \(-\frac{1}{3}\) \\ \hline charm & c & \(1.27^{+0.07}_{-0.11}GeV\) & \(+\frac{2}{3}\) \\ \hline bottom (beauty) & b & \(4.20^{+0.17}_{-0.07}GeV\) & \(-\frac{1}{3}\) \\ \hline top (truth) & t & \(171.2\pm 2.1GeV\) & \(+\frac{2}{3}\) \\ \hline \end{tabular}
+\end{table}
+Table 1.1: The six quarks of the standard model[2].
+
+according to the predictions of Quantum Electrodynamics (QED). The cross-section for scattering electrons off protons can be calculated in QED to be,
+
+\[\frac{d^{2}\sigma}{dxdQ^{2}}=\sum f_{i}(x)Q_{i}^{2}\frac{2\pi\alpha^{2}}{Q^{4}}[1+ (1-\frac{Q^{2}}{xs})^{2}]. \tag{1.1}\]
+
+Here, \(Q^{2}\) is the square of the momentum transfer from electron to proton, \(\alpha\) is the coupling constant, \(s\) is the square of the center of mass energy, and \(x\) is defined as \(x\equiv\frac{Q^{2}}{2P\cdot q}\), where P is the momentum of the proton and \(q\) is the vector of the momentum transfered. The function \(f_{i}(x)\) is the Parton Distribution Function (PDF) and depends on the inner structure of the proton. By plotting the PDFs as a function of \(x\), we can see how much of a hadron's momentum is carried by individual partons (see Figure 1.1).
+
+Figure 1.1: The parton distributions functions of a proton [2]. These use the MRST2006 parameterization with \(\mu^{2}=20\ GeV^{2}\) (left) and \(10,000\ GeV^{2}\) (right) [9], \(\mu\) being the renormalization scale.
+
+[MISSING_PAGE_FAIL:20]
+
+quarks move farther apart. This approximation is valid when \(r\gg~{}0.33\) fm.
+
+As quarks separate, the force between the quarks takes the form of a color field which is mediated by gluons. Since gluons can also interact with other gluons, the connection between the two quarks becomes like a color flux tube connecting the quarks [2, 12] with an energy given by equation 1.2. When enough energy is stored in the flux tube, colorless \(q\bar{q}\) pairs can be formed quantum-mechanically out of the vacuum (See Figure 1.2). This process is called "string fragmentation".
+
+String fragmentation makes it impossible to extract an individual quark from a hadron unless the magnitude of the strong coupling is significantly reduced. Therefore, in almost all circumstances in nature, quarks are confined within hadrons. Lattice calculations do, however, show a transition from a hadron gas to a deconfined state above a critical temperature of \(192\pm 7(stat.)\pm 4(sys.)\) MeV. This calculation
+
+Figure 1.2: The string fragmentation model of quark generation.
+
+assumes there are two light quarks and one heavier one (up, down, and strange) [11].
+
+#### Asymptotic Freedom in the Weak Coupling Limit
+
+The nature of parton interactions is very different in the weak coupling limit when compared to the strong coupling limit described in the last section. In quantum field theory, the coupling constant must change as the renormalization scale changes. This process is called the "running" of the coupling constant. In QCD, the coupling constant after renormalization is given by,
+
+\[\alpha_{s}(Q)=\frac{2\pi}{(11-\frac{2}{3}n_{f})log(Q/\Lambda)}, \tag{1.4}\]
+
+where \(n_{f}\) is the number of fermions, \(Q\) is the momentum transfer, and \(\Lambda\) is a renormalization scale experimentally measured to be about 200 MeV. What this implies is that at large values of \(Q\), \(\alpha_{s}\) will drop towards 0, effectively eliminating the binding force between partons. This means the partons behave as free particles, hence the prediction of "asymptotic freedom" for high \(Q^{2}\) situations [13]. David J. Gross, Hugh D. Politzer, and Frank Wilczek were awarded the Nobel prize in physics in 2004 for their prediction of asymptotic freedom in the strong force.
+
+The existence of asymptotic freedom when momentum transfers are large implies that quarks and gluons will no longer be tightly bound by the strong force when the energy density is high. This gave rise to the original hypothesis of deconfinement. Since the coupling declines as a function of \(1/log(Q/\Lambda)\), very large values of \(Q\) would be needed to observe this type of deconfinement in experiment. The fireball generated in heavy-ion collisions at \(\sqrt{s_{NN}}=200\) GeV has a temperature of several hundred MeV, much lower than the energy needed to make \(\alpha_{s}\approx 0\).
+
+#### The Bag Model of Confinement and Deconfinement During Strong Coupling
+
+In a previous section, the interaction between two quarks in the strong coupling limit was described using a string model of color flux tubes to represent the strong nuclear fields can be thought of as representing a region of positive energy density inside of a hadron (relative to the outside region). This can be modeled as a region of constant energy density \(B\), called a "bag", which contains all the partons within a hadron [15]. The boundary of the bag exerts an inward pressure of magnitude \(B\) which keeps the quarks confined.
+
+Given a system of hadrons, if the temperature is forced to increase, then the volume of the bags must increase to compensate. If the temperature is high enough, the bags will start to overlap and merge. At this point, the system is best described as one big bag containing all of the partons. This represents deconfined matter. Likewise, if the bags are forced into a small volume they will also overlap and merge. This Bag Model of deconfinement is shown schematically in Figure 1.3. Deconfinement at RHIC collision energies can be modeled using the Bag Model. Under the assumption of zero temperature, the bag model is able to reproduce the bag model.
+
+Figure 1.3: A bag-model representation of deconfinement.
+
+chemical potential and a perturbative correction found from lattice QCD data, \(T_{c}\) has been calculated to be 165.1 MeV [16] through use of the Bag Model.
+
+### 1.3 Quark-Gluon Plasmas in Nature and Experiment
+
+Quark-Gluon Plasmas (QGPs) exist at high temperatures and densities (See Figure 1.4). Conditions of extremely high temperatures (and a thermal equilibrium) but a relatively low chemical potential, \(\mu_{B}\), are believed to have existed in the early Universe shortly after the Big Bang, which gave rise to a QGP [2]. The QGP state of the entire Universe is hypothesized to have lasted from \(10^{-6}\) to \(10^{-4}\) seconds after the Big Bang, before hadronization occurred [34]. Another natural source of QGP
+
+Figure 1.4: A nuclear phase diagram showing the transition from a hadron gas to a Quark-Gluon Plasma as a function of chemical potential and temperature. Chemical (after which no new particles are created) and thermal (after which the system leaves equilibrium) freeze-outs are marked out. From [14].
+
+might be the interiors of extremely dense neutron stars (this is the phase-space region of high \(\mu_{B}\), low T in Figure 1.4). But it is unclear whether or not these stars would collapse to blacks holes before achieving the necessary density required for a phase transition [34]. Strong observational evidence of a QGP inside of neutron stars has not yet been obtained.
+
+This thesis will investigate the properties of QGP as created in a laboratory rather than in astrophysical sources. Relativistic heavy-ion collisions are used to achieve the necessary energy densities. Once a QGP is produced in a relativistic heavy-ion collision, it will start to expand rapidly and cool off. A QGP will last only about 10 fm/c [43]. See Figure 1.5 for a diagram of the evolution of a relativistic heavy-ion collision fireball. The left hand side represents the absen
+
+Figure 1.5: The evolution of the fireball created in a relativistic heavy-ion collision as graphed out on a light-cone diagram. Chemical (after which no new particles are created) and thermal (after which the system leaves equilibrium) freeze-outs are marked as \(T_{ch}\) and \(T_{fo}\), respectively. Figure taken from [33].
+
+hadron gas forms out of the collision fireball and comes to thermal equilibrium. It expands for some time before leaving thermal equilibrium and freezing out. On the right hand side of Figure 1.5 is the evolution of the fireball in the presence of a QGP. In this case the system will exist in a deconfined state until cooling off to the critical temperature, \(T_{c}\), at which it experiences a phase transition. At this temperature, the system may be in a mixed phase of both hadron gas and QGP at \(T_{c}\). After the phase transition is completed, the system will enter a state of hadron gas until reaching the thermal freeze-out temperature, \(T_{fo}\).
+
+The short lifetime of a QGP makes it impossible to directly observe a QGP state. We must instead measure the hadrons produced after the QGP fireball freezes out. There are many observables of the matter produced in a heavy-ion collisions, either of deconfinement or of the matter's thermodynamic equation-of-state. These include the yields and spectra of various particle species, phase space distributions of particles, two and three particle correlations, and angular studies of jets and jet quenching.
+
+#### Some Signatures of QGP in Experiment
+
+The RHIC experiments have experimentally searched for a variety of signatures of a quark-gluon plasma. Some of these signatures are jet quenching, elliptic flow, and the suppression of the nuclear modification factor. These examples will be explained in the following paragraphs.
+
+Jets originate from the scattering of high-energy parton pairs. The initial scattered parton pairs travel in opposite directions, forming showers of quarks and gluons. If a pair of jets forms near the boundary of a fireball created in a relativistic heavy-ion collision, one jet may quickly travel out of the medium while the other traverses it. Perturbative QCD (pQCD) predictions show that a jet traveling through a hot, partonic medium would suffer much more energy loss than a jet traveling through a hadronic gas [18]. This phenomenon is called "jet quenching" and has been observed by the STAR experiment [19, 20].
+
+STAR is able to identify jets by detecting groups of high momentum particles which are angularly correlated. To find a jet, first a high momentum particle is selected as a trigger particle. Then the distribution of lower-energy particles is found as a function angular separation from the trigger particle. In p+p collisions, two peaks are observed separated by \(\Delta\phi=\pi\) radians. These peaks are the "near-side" jet (at \(\Delta\phi=0\)) the "away-side" jet (at \(\Delta\phi=\pi\)) generated by the fragmentation of the back-to-back parton scattering. The same pattern is seen in d+Au collisions, where cold nuclear matter is present. However, in Au+Au, where a QGP is believed to occur, the jet at \(\Delta\phi=\pi\) vanishes. We conclude that the partons of the away-side jet in Au+Au have lost significant amounts energy due to interactions with the QGP as they traversed the medium. See Figure 1.6 for a comparison of the three systems.
+
+Figure 1.6: The near-side jet (at \(\Delta\theta=0\)) and the away-side jet (at \(\Delta\theta=\pi\)), which is quenched in Au+Au collisions but clearly visible in p+p and d+Au collisions at \(\sqrt{s_{NN}}=200\) GeV. Since the away-side jet passes through the medium, is is clear that it is being absorbed in Au+Au collisions (where a QGP is present) but not in p+p collisions (no medium) or in d+Au collisions (cold nuclear matter). Figure from [28].
+
+Strongly-interacting thermalized nuclear matter can be described using hydrodynamic flow [21]. Under this assumption, the particle distribution can be described in the azimuthal direction by the following Fourier expansion [22],
+
+\[E\frac{d^{3}N}{d^{3}p}=\frac{1}{2\pi}\frac{d^{2}N}{p_{t}dp_{t}dy}(1+\sum_{n=1}^{ \infty}2v_{n}\cos[n(\phi-\Psi_{r})]). \tag{1.5}\]
+
+Elliptic flow is parameterized via the second moment, \(v_{2}\). Elliptic flow has been seen by the RHIC experiment in Au+Au collisions at \(\sqrt{s_{NN}}=130\) GeV/c [24, 25] and at \(\sqrt{s_{NN}}=200\) GeV/c [26, 27]. The observation of elliptic flow itself is not an exclusive signature of a deconfined state [28]. But the observation that the \(p_{t}\) dependence of \(v_{2}\) scales via the number of constituent quarks is evidence that the flow occurred in a deconfined partonic phase (See Figure 1.7) [29, 30]. Another signature of a deconfined plasma is the high-\(p_{t}\) suppression of the nuclear modification factor, \(R_{AA}\). \(R_{AA}\) is defined as the ratio of a particle's yield as a function of \(p_{t}\) in heavy-ion (AA)
+
+Figure 1.7: Elliptic flow \(v_{2}\) scaled by number of quarks (n\({}_{q}\)) for various particle species. \(v_{2}\) scales by n\({}_{q}\) for both mesons and baryons. Figure from [30].
+
+collisions scaled by the number of binary (nucleon-nucleon) collisions over the yield as a function of \(p_{t}\) in proton-proton collisions,
+
+\[R_{AA}=\frac{1}{\langle N_{bin}\rangle}\frac{d^{2}N_{AA}(p_{t})/dp_{t}dy}{d^{2}N_ {pp}(p_{t})/dp_{t}dy}, \tag{1.6}\]
+
+where \(<N_{bin}>\) is the average number of binary (nucleon on nucleon collisions) in the heavy-ion collision system.
+
+The \(R_{AA}\) can show how partons are affected as they traverse the medium. If there are no medium effects, \(R_{AA}\) should be unity at all \(p_{t}\). In d+Au collisions, \(R_{AA}\) is larger than unity in the mid-\(p_{t}\) range due to cold nuclear matter effects [23]. But in a central Au+Au collision at \(\sqrt{s_{NN}}=200\) GeV (where a QGP is expected), the \(R_{AA}\)
+
+Figure 1.8: The nuclear modification factor, \(R_{AA}\) in \(\sqrt{s_{NN}}=200\) GeV d+Au and central Au+Au collisions. The d+Au \(R_{AA}\) is enhanced due to initial-state nuclear effects but the Au+Au \(R_{AA}\) is suppressed due to medium-induced gluon radiation. Figure from [23].
+
+of hadrons made of light quarks is much less than unity over a wide \(p_{t}\) range (See Figure 1.8) because the QGP medium induces gluon radiation for high \(p_{t}\) partons [18], causing them to lose energy, resulting in fewer high \(p_{t}\) particles relative to p+p.
+
+### 1.4 Outline of this Thesis
+
+This thesis focuses on charm probes of the QGP, the motivation for which will be discussed in the next chapter. This will be followed be a description of the Relativistic Heavy-Ion Collider and the STAR detector. Then the procedures for reconstructing open charm mesons, specifically, the \(D^{0}\) and \(D_{s}\), will be described. After that, the simulations used for embedding and evaluating analysis results and techniques will be discussed. Then the results of the open charm measurements of \(D^{0}(\bar{D^{0}})\) mesons in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions and the \(D_{s}\) meson in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions will be presented. Finally, the physics interpretations and future outlooks will be discussed.
+
+## Chapter 2 Charm in Relativistic Heavy-Ion Collisions
+
+In this thesis, the production of open charm hadrons (hadrons with net total charm which is non-zero) will be discussed. Charm is the heaviest quark whose hadrons can currently be directly reconstructed from RHIC data. Because of its large mass, we do not expect new charm quarks to be produced during the thermalized stage of the QGP fireball; instead, charm is expected to be generated only in the initial collision. Therefore, charm is a good probe of the subsequent development of the system. At collision energies of \(\sqrt{s_{NN}}=200\) GeV, most charm is contained within \(D^{0},D^{\pm},D_{s}\), and \(\Lambda_{c}\) hadrons.
+
+The analyses reported here are the direct reconstructions of the \(D^{0}\) (\(\bar{D^{0}}\)) and the \(D_{s}^{+}\) (\(D_{s}^{-}\)). From the \(D^{0}\) (\(\bar{D^{0}}\)), an open charm cross-section can be extracted. This can be compared with theoretical QCD predictions. A measurement of the \(D_{s}\) is also an important probe because statistical models [31] of the QGP make specific predictions for its yield. In addition, the \(D_{s}\) contributes to the total charm cross-section.
+
+### 2.1 Charm Production
+
+The charm cross-section can be calculated from a transition amplitude which is found by summing up the terms of the Feynman diagrams. Three of the lowest order diagrams for charm in 200 GeV RHIC collisions are shown in Figure 2.1. The process \(g\to c\bar{c}\) will not occur at this energy because the temperatures are roughly a factor of 20 too low [32]. The Feynman diagrams for charm production have been evaluated at the Next-to-Leading Order (NLO) level [35], which includes diagrams of orders \(\alpha_{s}^{2}\) (Leading Order, as show in Figure 2.1) and \(\alpha_{s}^{3}\) (Next-to-Leading Order). This calculation has been extended to the Fixed-Order Next-to-Leading-Log level (FONLL) by including terms of orders \(\alpha_{s}^{2}(\alpha_{s}log(p_{t}/m))^{k}\) (Leading-Log) and \(\alpha_{s}^{3}(\alpha_{s}log(p_{t}/m))^{k}\) (Next-to-Leading-Log) [36].
+
+Once the cross-section between two partons (\(\sigma_{f_{1}f_{2}}\)) is known, the hadronic cross-section is given by [37],
+
+\[\sigma_{h_{1}h_{2}}=\sum_{i,j=q,\bar{q},g}\int_{0}^{1}dx_{1}dx_{2}f_{1/p}(x_{ 1},Q^{2})f_{2/p}(x_{2},Q^{2})\sigma_{f_{1}f_{2}}, \tag{2.1}\]
+
+where \(Q^{2}\) is the momentum transfer, \(x_{i}\) are the parton momentum fractions, and \(f_{i/p}\) represent the parton densities within the hadron.
+
+The calculation of the total inclusive open-charm cross-section can be approached by using either of two methods. In the first method, the cross-section can be calculated for \(dp_{t}\) slices and then integrated to obtain a total charm cross-section. In this method, charm is treated as an active flavor with three light (considered massless) flavors for the u, d, and s quarks ("3+1 flavors"). This calculation can be evaluated at either
+
+Figure 2.1: The most basic Feynman diagrams for \(c\bar{c}\) production at the Leading Order (LO) level.
+
+the NLO or FONLL levels. The results for RHIC energies are consistent with each other. They are [38],
+
+\[\sigma_{c\bar{c}}^{FONLL}=0.256^{+0.400}_{-0.146}mb \tag{2.2}\]
+
+and
+
+\[\sigma_{c\bar{c}}^{NLO}=0.244^{+0.381}_{-0.134}mb. \tag{2.3}\]
+
+The large uncertainties in the charm cross-section calculations are due to uncertainties in the charm mass and the renormalization of the strong coupling constant.
+
+In the second method, the cross-section is evaluated over the full \(p_{t}\) range in one step. This calculation can only be done in the limit that the charm quark is massive because, unlike the first method, the renormalization scale is fixed to be proportional to the charm mass [39].
+
+\[\sigma_{c\bar{c}}^{NLO_{n_{lf}=3}}=0.301^{+1.000}_{-0.210}mb \tag{2.4}\]
+
+The very significant uncertainties of this result are due to the difficulties in defining the renormalization scale of \(\alpha_{s}\) at \(m_{t}\approx m\) (\(m_{t}\equiv\sqrt{p_{t}^{2}+m^{2}}\))).
+
+Though the baseline results of the two methods are similar, there are huge differences in the uncertainty limits. One should not view these uncertainty bands as being statistical; the charm cross-section cannot be said to have a roughly 16% chance to lie above 0.656 \(mb\) in the FONLL evaluation as a statistical evaluation would imply. The uncertainty limits represent physical limits imposed by the possible values of \(m_{c}\) and \(\alpha_{s}\). It is difficult to define the probability distribution of possible charm cross-sections; however, charm cross-section measurements at other energies have historically had a roughly 80 to 90% chance of falling within the uncertainty band [39]. Also note that we must remain agnostic about which method is a better representation of the total charm cross-section because there is not enough information to make a judgment based on the theoretical background formulated so far.
+
+The pQCD evaluation outlined before is relevant for proton-proton collisions. But what happens when we move to a heavy-ion system in which the formation of a QGP is posited? If there are no effects from the presence of a deconfined plasma, then the heavy-ion collision can be treated as an ensemble of nucleon-nucleon collisions. In this case, the total charm cross-section should scale as a function of the number of binary (nucleon-nucleon) collisions as one moves to collisions of heavier and heavier ions.
+
+Beyond the total charm cross-section, open charm mesons can be used to probe the medium of a relativistic heavy-ion collision in other ways. For example, the suppression of \(R_{AA}\) (defined in Section 1.3) was expected to be less severe for charm quarks than for lighter flavors because of the dead cone effect [40] (where gluon radiation is suppressed because of destructive interference for angles less than \(m/E\), \(m\) and \(E\) are the mass and energy of the quark [41]) but experimental results from STAR using non-photonic electrons from charm and beauty decays showed that this was not the case [42]. It was hoped that a \(R_{AA}\) measurement could be obtained from the hadronic reconstruction of \(D^{0}\) mesons but STAR did not have sufficient statistics for such a measurement at the time of the writing of this thesis.
+
+Another probe is the flow of heavy quarks. There are two types of flow which can be measured, elliptic flow, \(v_{2}\), which was described in section 1.3.1 as a probe of the QGP and radial flow, \(<\beta_{t}>\), which is posited to appear after hadronization in a hydrodynamic model of the fireball [43]. If charm and beauty quarks do not interact with the QGP medium, they should not experience any elliptic flow. Conversely, if they interact strongly, they should flow along with the rest of the medium. However, this picture is complicated by the fact that it is open charm and beauty hadrons which are measured rather than the quarks themselves. Radial flow is a probe of the post-partonic stage of the fireball. By comparing the radial flow and/or \(p_{t}\) spectra of open charm mesons to that of other particle species, we can measure how strongly charm particles are interacting with the medium at this late stage and at what temperature they freeze-out at (\(T_{fo}\)).
+
+### 2.2 The Statistical Hadronization Model
+
+The large amounts of energy accumulated in high-energy collisions allows for a plethora of new particles to be created. At the most basic level, one can use Fermi's GoldenRule to evaluate particle production in a procedure called the Fermi multi-particle production model [44, 45]. Fermi's Golden Rule gives transition rates between states and can be derived from quantum-mechanical perturbation theory to have the form,
+
+\[\omega=(2\pi/\hbar)|V_{ni}|^{2}\delta(E_{n}-E_{i}), \tag{2.5}\]
+
+where \(|V_{ni}|\) is the transition matrix element. If a large amount of energy is deposited into a certain volume after a nuclear collision, this rule can be used to calculate particle yields [44, 45]. To move to the Statistical Hadronization Model (SHM) used for a QGP, Fermi's multi-particle production model can be changed from a micro-canonical ensemble where flavor and energy are locally conserved to a grand canonical ensemble in which these are only conserved on average. In the SHM, the particle distribution as a function of momentum is [45],
+
+\[\frac{d^{6}N}{d^{3}pd^{3}x}=\frac{g}{(2\pi)^{3}}\frac{\gamma\lambda}{e^{E/T}\pm 1}, \tag{2.6}\]
+
+where \(g\) is the degeneracy factor, \(\pm\) represents Fermi (+) or Bose-Einstein (-) statistics, \(\lambda\) is the fugacity, given by \(\lambda=e^{\mu/T}\) where \(\mu\) is the chemical potential. \(\gamma\) is a space occupancy factor given by,
+
+\[\frac{dN_{i}}{dy}=\gamma_{i}n_{i}^{eq}\frac{dV}{dy}, \tag{2.7}\]
+
+for particle \(i\) where \(n_{i}^{eq}\) is the Boltzmann particle density at chemical equilibrium, \(V\) is a volume, and \(N\), the number of particles.
+
+It is kinematically more favorable to generate heavy mesons such as the \(D_{s}\) in a QGP rather than in a hadron gas because the two quarks, charm and strange, can be generated separately and later coalesce, rather than requiring that the whole \(D_{s}\) plus its anti-particle be made in one step. The energy difference between the \(D_{s}^{+}\)-\(D_{s}^{-}\) pair and the bare masses of the four individual quarks is \(2.56^{+0.16}_{-0.11}\) GeV. In the statistical hadronization model, the occupancy factors of the \(D\) and \(D_{s}\) quarks are given by [45],
+
+\[\gamma_{D}=\gamma_{c}\gamma_{q} \tag{2.8}\]\[\gamma_{D_{s}}=\gamma_{c}\gamma_{s}, \tag{2.9}\]
+
+where \(q\) represents an up or down quark and \(s\) a strange quark. It is important to note that \(\gamma_{s}\) is enhanced (larger than otherwise expected) in a QGP over a hadron gas. This is because the production of \(s\bar{s}\) pairs saturates in a deconfined QGP [31]. Figure 2.2a shows the strangeness over entropy ratio in a hadron gas and a QGP as a function of temperature. Since the total number of produced particles is determined by the entropy available, strange hadron production should be enhanced in the presence of a QGP. Indeed, a thermal model with strangeness enhancement from a deconfined phase fits RHIC data well [46].
+
+Calculating the \(D_{inc}\) and \(D_{s}\) yields in a SHM gives the values shown in Figure 2.2b. At a critical temperature (as calculated from lattice QCD) of \(\sim 192\) MeV, the \(D/D_{s}\) (where \(D\) represents all non-strange \(cq\) mesons) ratio would be \(\sim 2.8\). This compares with the prediction from a simulation of p+p collisions (PYTHIA 6.2 [48]) at \(\sqrt{s_{NN}}=200\) GeV which gives a ratio of \(\sim 7.3\). In this work, measurements of the \(D_{s}\) and \(D^{0}\) will be compared with an assumption of a thermalized plasma obeying the SHM and with an assumption of a non-QGP producing ensemble of hadron collisions.
+
+Figure 2.2: a) Strangeness over entropy versus temperature in a hadron gas and a QGP. b) The ratio of \(D/D_{s}\) as a function of temperature. RHIC has a s/S ratio of roughly 0.03. Entropy should be conserved during the transition from a QGP to a hadron gas. Figures from [45].
+
+[MISSING_PAGE_FAIL:37]
+
+\(0.4(sys.)\) mb when the non-photonic electron spectrum is also included in the \(p_{t}\)-spectral fit [49]. In Au+Au collisions, a combined fit to the \(D^{0}\) mesons reconstructed from kaons and pions and the muons and electrons from heavy flavor decays yielded a total inclusive charm cross-section of \(\sigma^{NN}_{c\bar{c}}=1.29\pm 0.12(stat.)\pm 0.39(sys.)\) mb [50]. These two results are consistent with each other within errors, indicating binary scaling of the charm cross-section. This implies that there are no effects from the presence of the QGP on inclusive heavy quark production. A Cu+Cu \(D^{0}\) measurement will provide a check of the binary scaling hypothesis in a system intermediate in mass and number of nucleon collisions between d+Au and Au+Au. Cu+Cu results will be discussed in Chapter 6.
+
+PHENIX has also measured the cross-section of open charm, but only via electrons from semi-leptonic decays (See Figure 2.4). Their most current results are \(\sigma^{NN}_{c\bar{c}}=0.567\pm 0.057(stat.)\pm 0.193(sys.)\) mb for \(\sqrt{s_{NN}}=200\) GeV p+p collisions [54] and
+
+Figure 2.4: PHENIX measurements of heavy flavor through single electrons. (Figures appear in [54] and [51]).
+
+\(\sigma_{c\bar{c}}^{NN}=0.622\pm 0.057(stat.)\pm 0.160(sys.)\,\)mb for \(\sqrt{s_{NN}}=200\) GeV Au+Au [51]. Taken together, PHENIX's results are also consistent with binary scaling. However, they are roughly a factor of two below STAR's results. The charm cross-sections measured by STAR and PHENIX are inconsistent given their systematic and statistical error bars. The source of this discrepancy is currently unknown but efforts are underway in both collaborations to better understand this apparent contradiction. One caveat about all of the currently published results is that the extrapolations from the \(D^{0}\) to \(c\bar{c}\) yield used to date assume no \(D_{s}\) enhancement over \(e^{+}e^{-}\) collisions, which is contrary to the SHM model of a QGP. The possible change in the total \(c\bar{c}\) cross-section for both previous measurements and the current Cu+Cu study will be discussed in chapter 7.
+
+Figure 2.5: \(R_{AA}\) (a) and \(v_{2}\) (b) measurements from the non-photonic electron decays of open charm and beauty from the PHENIX in experiment in minimum bias Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV. Figure from [51].
+
+No measurements of \(D_{s}\) production in relativistic heavy-ion collisions have been published to date by any experiment; however, the \(D_{s}\) has been extensively studied in elementary particle collisions [52, 53]. Therefore, it is important to measure the properties of \(D_{s}\) production in heavy-ion collisions in order to search for the effects of the QGP as predicted by models such as the SHM.
+
+The \(v_{2}\) elliptic flow and \(R_{AA}\) have been extracted from PHENIX's non-photonic electron data (see Figure 2.5). These data suggest that charm is indeed strongly coupled with the medium during the partonic stage of the collision and not just that open charm hadrons aquire elliptic flow from the light quarks. However, radial flows as large as those seen for the light hadrons are not consistent with STAR's data from the semi-leptonic decays of heavy flavor in \(\sqrt{s_{NN}}=200\) GeV collisions (See Figure 2.6).
+
+Figure 2.6: The nuclear modification factor \(R_{AuAu}\) from STAR’s Au+Au and d+Au (replacing p+p) semi-leptonic charm and beauty decay data. The BW3 curve is generated from the radial flow parameters of light hadrons and the BW2 from multi-strange hadrons. The BW1 curve is the best fit. These results suggest that the radial flow of charm and beauty is much less than that of lighter quarks. Figure from [50].
+
+2.6). In this thesis, the radial flow of \(D^{0}+\bar{D^{0}}\) mesons in Cu+Cu collisions is extracted and compared to that of lighter species. There are not enough statistics to extract the elliptic flow for the \(D^{0}+\bar{D^{0}}\) in the Cu+Cu data.
+
+## Chapter 3 Experimental Setup
+
+### 3.1 Introduction
+
+The Relativistic Heavy-Ion Collider (RHIC) was commissioned primarily to study the properties of the QGP. It was believed that by colliding heavy ions at energies in excess of 100 GeV/nucleon, a QGP could be created. RHIC was also designed to be able to measure the spin content of the proton. This was done through the addition of 'Siberian Snakes' in the beam line in order to maintain proton beam polarization.
+
+RHIC has hosted four main experiments, STAR, PHENIX, BRAHMS, and PHOBOS [55]. During June of 2000, the first physics run was started, consisting of Au+Au collisions at 130 GeV/nucleon. Since then, RHIC has collided p+p, d+Au, Cu+Cu, and Au+Au beams at energies ranging from 9 GeV/nucleon to 500 GeV/nucleon (for protons the maximum beam energy is 500 GeV/nucleon, but for Au ions it is only 200 GeV/nucleon). Currently, the two larger experiments, STAR and PHENIX, are still in operation but BRAHMS and PHOBOS have completed their programs and have had their detectors decommissioned. In this chapter, the operation of RHIC will be described followed by a description of each of the detectors used in the open charm analysis.
+
+The Relativistic Heavy Ion Collider
+
+The acceleration process for Au ions will be described. For Cu ions, the procedure is similar. The Au ions to be collided originate from a pulsed sputter ion source [56], which generates ions with a charge of \(-1e\). These ions are then passed through a stripping foil to create positively charged ions [57]. Ions are then accelerated by a Tandem Van deGraaf accelerator (See Figure 3.1). By the time the Au ions leave the Tandem machine, they have an energy of about 1 MeV/nucleon and a charge of \(12e\)[57]. The ions are then further stripped of electrons and sent into the Booster synchrotron. There the beams are modified into six bunches each and are then sent through another stripping foil as they exit the booster to create ions with only 2 electrons each. By this time, the Au ions have an energy of 95 MeV/nucleon. After the Booster, ion beams are sent into the Alternating Gradient Synchrotron (AGS) (the AGS was used for fixed target experiments which were precursors to RHIC). The AGS further boosts ions to have energies of 8.86 GeV/nucleon before injecting them into the RHIC ring.
+
+The RHIC collider itself consists of two rings (called Yellow and Blue) which intersect at six points to create collision regions [55]. These six intersection locations are where experiments can be placed. Of the current experiments, STAR is at the 6 o'clock position and PHENIX is located at the 8 o'clock position. In order to accelerate ions up to final collision energies, Radio-Frequency (RF) cavities are used. These cavities create sinusoidal electric fields with the phase set to both accelerate the beams and to maintain bunches. RF cavities at RHIC operate at 28.15 MHz in order to accelerate the beams to final collision energy [55]. 1740 superconducting magnets are used to steer the ion beams around the rings, which are 3.8 km in circumference (See Figure 3.1).
+
+### 3.3 The Solenoidal Tracker at RHIC (STAR)
+
+The Solenoidal Tracker at RHIC (STAR) is designed primarily to use the RHIC collider in order to study the properties of the Quark Gluon Plasma (QGP) and other physics effects of interest which occur in the extreme conditions of a relativistic heavy-ion collision (see Figure 3.2). Compared with the other three experiments at RHIC, STAR is unique in its full azimuthal coverage. Since STAR also has good coverage of pseudorapidity (\(|\eta|<1.8\) for the TPC), it is able to measure a wide variety of physics phenomena. For example, STAR can measure light-flavor spectra, heavy-flavor in-medium effects, two-particle correlations, as well as deduce the individual spins of partons within the proton. This is because STAR has the ability to measure a wide range of particle momenta as well as perform particle identification.
+
+#### The STAR Time Projection Chamber
+
+The Time Projection Chamber (TPC) is the primary tracking detector of the STAR experiment. The TPC is a cylindrical tracking device which completely surrounds the beamline to give full azimuthal acceptance [58]. Its outer diameter is 4 m while
+
+Figure 3.1: The Relativistic Heavy-Ion Collider (RHIC)
+
+its inner diameter is 1 m. Its drift length is 4.2 m, divided into two halves (see Figure 3.3). This allows a pseudorapidty coverage of \(\pm 1.8\) units, giving the STAR-TPC an excellent range of acceptance. The TPC chamber is filled with P10 gas (90% argon, 10% methane). P10 gas is used because a fast drift velocity can be obtained while using a relatively small voltage.
+
+Particles traversing the TPC will ionize the P10 gas. To calculate the energy loss per unit length through the Coulomb interaction, the system must be treated quantum mechanically. After summing the interaction cross-sections for both distant collisions in which the entire atom is interacted with and close collisions in which the interaction is just with free electrons, one can derive the Bethe-Bloch formula [59],
+
+\[\frac{dE}{dx}=\frac{4\pi n_{e}z^{2}e^{4}}{m_{e}\beta^{2}c^{2}}(ln\frac{2m_{e} \beta^{2}c^{2}\gamma^{2}}{I}-\beta^{2}), \tag{3.1}\]
+
+where \(z\) is the atomic number of the target, \(\beta\) is the velocity of the incident electron, \(\gamma=\frac{1}{\sqrt{1-\beta^{2}}}\), \(m_{e}\) is the electron's mass, and \(n_{e}\) is the number of electrons in the target atom. \(I\) is a logarithm of the mean electron excitation potential of the dipole
+
+Figure 3.2: The STAR Detector.
+
+oscillator. It is defined as [59],
+
+\[ln(I)=\Sigma_{n}ln(E_{n})\frac{2m_{e}E_{n}}{\hbar^{2}Z_{2}}|\Sigma_{j}\langle n|x_ {f}|0\rangle|^{2}. \tag{3.2}\]
+
+At low velocities, the \(\frac{1}{\beta^{2}}\) term dominates and the rate of energy loss falls exponentially with \(\beta\). A minimum ionizing velocity is reached a which point the \(ln\beta^{2}\gamma^{2}\) term begins to dominate and the rate of energy loss rises again (particles with the minimum ionizing velocity are called 'Minimum Ionizing Particles (MIPS)'). An essential feature of the Bethe-Bloch formula is that the energy loss per unit length, \(\frac{dE}{dx}\), does not depend on the particle's mass. Therefore, we can calculate a particle's velocity from its energy loss without having to identify the particle a priori. See Figure 3.4 for a plot of \(dE/dx\) vs. momenta as measured by the TPC. Momentum is used to identify particle bands rather than velocity because of the presence of particles of charge \(\pm 2e\) like tritons (\({}^{3}\)H) or helions (\({}^{3}\)He).
+
+Figure 3.3: The TPC Structure. Figure from [58].
+
+Though the Bethe-Bloch formula describes ionization in an ideal scenario, a different strategy is needed for calculating particle bands in an actual Time Projection Chamber. For this analysis, a Bichsel parameterization is used [60]. The Bichsel parameterization has 5 steps: 1) the energy loss of the particles as they travel through the detector, 2) the calculation of the energy deposited in each volume slice of the detector, 3) a calculation of the number of ions produced based on the deposited energy, 4) the movement of generated electron clouds towards the read-out anodes, and 5) the collection of the electron clouds by the detector's read-out pads. Unlike the curves defined by a Bethe-Bloch calculation, the Bichsel parameterizations shows the particles as smeared bands. See Figure 3.5 for the function describing energy loss (step 1) in the Bichsel procedure. The Bichsel parameterization is done using both Monte-Carlo simulations and analytic calculations [60].
+
+Figure 3.4: dE/dx and momenta for particle tracks as measured by the TPC in 200 GeV/nucleon Au+Au collisions.
+
+In order to send the ionized charge to the readout anodes, the interior of the TPC must be subjected to a uniform electric field. This is done via a high-voltage (28 kV)
+
+Figure 3.6: A schematic of one of the TPC readout sectors. Figure from [58].
+
+Figure 3.5: The straggling function for particles of \(\beta\gamma=3.6\) going through 1.2 cm of Ar gas (solid line). This shows why there are smeared bands rather than sharp curves when each particle species is plotted vs. dE/dx and momentum. Figure from [60].
+
+membrane bisecting the center of the TPC at z=0 (See Figure 3.3) [58]. The endcaps are grounded to 0 voltage in order to create a potential difference. To properly set the boundary conditions of the electric field, there are concentric field cage cylinders surrounding the outside of the TPC. Resistors are used to ensure that the voltage on the field cage cylinders decreases at a constant rate relative to distance in the z direction from the central membrane. Thus, a uniform electric field is generated.
+
+Readout modules are on both ends of the TPC, transverse to the beam line and covering the drift regions of the TPC. They take the form of Multi-Wire Proportional Chambers (MWPCs), which have three wire grids in front of read-out pads [58]. The grid directly in front of the read-out pads is the anode grid. Incoming charge from the TPC drift region avalanches on the anode grid which is then read out on the pads. In order to optimize hit-finding, pad sizes are set such that avalanched charge generally falls on only three pads. Two different pad patterns were used in the readout modules. In the outer region (which covers the outer 62.0 cm of the endcap), pad sizes are set to maximize dE/dx resolution and to improve tracking capability. In the inner region (covering the next 69.6 cm inward), the pad sizes are smaller in order to resolve hits in a region of greater track densities (see Figure 3.6). The readout pads measure 6.20 mm X 19.5 mm in the outer region and 2.85 X 11.5 mm in the inner region. To compensate for differences in pad size, the anode wires are 4 mm from the pads in the outer sector and 2 mm from the pads in the inner sector. 4 mm in front of the anode grid is a ground or shield grid, which stops the electric field from the anode grid from entering the TPC drift region and helps shield the pads. 6 cm in front of the ground grid is the gating grid, which controls the passage of electrons into the MWPC region and of positive ions going the other direction from the MWPC into the TPC drift region. The gating grid is either in an open or closed state depending on its voltage, 110 V for the open state and 35 V or 185 V for the closed state [58].
+
+#### The STAR Magnet
+
+Particles moving through the TPC are subjected to a uniform magnetic field imparting a Lorentz force given by,\[\overrightarrow{F}=q(\overrightarrow{v}\times\overrightarrow{B}), \tag{3.3}\]
+
+where \(q\) is the charge of the particle, \(\overrightarrow{v}\), the velocity, and \(\overrightarrow{B}\), the magnetic field. Combined with the centrifugal force equation,
+
+\[F=\frac{mv^{2}}{R}, \tag{3.4}\]
+
+the cyclotron equation can be derived,
+
+\[p=qBR, \tag{3.5}\]
+
+where \(p\) is the momentum of the particle, \(q\) its charge, \(R\) its radius of curvature, and \(B\) the magnitude of the external magnetic field. Thus if one knows the magnetic field strength, the particle's radius of curvature, and assuming that the charge of the particle is \(\pm 1e\), its momentum can be found. Therefore, in order to measure momenta there is a uniform magnetic field of \(\pm\) 0.5 Tesla within the TPC, parallel to the beam line, which is generated by solenoidal magnets exterior to the TPC.
+
+#### The STAR Silicon Vertex Tracker
+
+In order to give STAR the ability to better measure particles with \(c\tau\) decay lengths of order several hundred microns (such as B and D mesons), as well as to complement the tracking abilities of the STAR-TPC, the Silicon Vertex Tracker (SVT) was placed inside of the TPC around the beamline. The STAR-SVT has been used in analyses searching for the secondary decay vertices of \(D^{0}(\vec{D^{0}})\) (\(c\tau=122.9\mu\)m ) [63], \(D^{+}(D^{-})\) (\(c\tau=311.8\mu\)m ), and \(D^{+}_{s}(D^{-}_{s})\) (\(c\tau=149.9\mu\)m) mesons. The STAR-SVT has also been used to improve track momentum resolution in the 2007 Au+Au run.
+
+The SVT's structure consists of three concentric barrels (Please see Figure 3.7). Their radii are 6.9, 10.8, and 14.5 cm from the beamline [65]. Each barrel contains support structures called 'ladders', which are used to support the Silicon Drift Detectors (SDDs) of the SVT. In the direction of the beamline, the length of the ladders on each of the barrels are 25.2, 37.8, and 44.4 cm respectively. Each ladder is made out of a detector carrier and two electronics carriers, one on either side of the ladder.
+
+The detector carriers are 1.8 mm thick, 63 mm wide, and 530 or 560 mm long. The SDDs are attached directly to the detector carriers. Each electronics carrier is 1.8 mm thick, 20 mm wide, and 530 to 560 mm long, to match the lengths of the detector carriers.
+
+Silicon Drift Detectors (SDDs) are used to detect particles' locations as they traverse the SVT. Each of the STAR-SDDs are 280 \(\mu\)m thick and 63 mm X 63 mm wide and are made out of Neutron Transmutation Doped n-type silicon wafers. A particle passing through the SDD will ionize the silicon. Cathode strips placed on the tops and bottoms of the SDD (when looking in the beam direction, see Figure 3.8) create a potential well which pushes the ionized electrons towards the anodes. Parallel to the cathodes, on the side of the SDD wafer, are anode strips which collect the ionized electrons. Each SDD is divided into two halves, called "hybrids". A voltage of -1500V is applied across the division in the center while the edges of the SDD are grounded. This voltage difference pushes the electrons towards the anodes on the edges. The hybrid structure allows one to use half the voltage otherwise needed to maintain the same electric field. As a first approximation, the electric field is uniform according to
+
+Figure 3.7: a) Diagram of the SVT structure showing the three barrels of the SVT. b) Photograph of SVT structure. Figures from [65].
+
+Gauss's law,
+
+\[\oint_{S}\overrightarrow{E}\cdot d\overrightarrow{a}=\frac{Q_{enclosed}}{ \epsilon_{0}}, \tag{3.6}\]
+
+because the Gaussian surface can be taken to be a flat plane parallel to the anodes (ignoring edge effects). Due to the electric field, the drift velocity of the ionized electrons is roughly 6.75 \(\frac{\mu m}{ns}\)[65]. The drift velocity is dependent on temperature; therefore, a cooling system is used to mitigate temperature fluctuations.
+
+Once ionized electrons make contact with the anodes, the signal must be amplified and preserved by the front-end electronics. Drift-time information must be saved in
+
+Figure 3.8: Schematic of a Silicon Drift Detector (SDD).
+
+order for the hit's coordinate position in the drift direction to be determined. The amount of charge deposited is also recorded in order to find the centroid of the hit. All of this is carried out by the SVT front-end multichip module (MCM). The MCMs measure 63 mm long (like the SDDs), 20.5 mm wide, and 0.65 mm thick [66]. They hold the integrated circuits necessary to process the input received from the anodes. Input charge is first sent to the PreAmplifier ShApers (PASAs), in order to preserve the hit information. The PASA contains 16 channels and there are 15 PASAs on each MCM in order to cover all 240 anodes. Output from the PASA is then sent to 16-channel Switched Capacitor Arrays (SCAs) to store it in analog form. After this, the data can be converted to digital format.
+
+#### The STAR Silicon Strip Detector
+
+The STAR Silicon Strip Detector (SSD) is located between the SVT and the TPC, 23.0 cm from the beam line, and provides additional tracking power to the SVT [67].
+
+Figure 3.9: A schematic of a SSD wafer.
+
+The SSD consists of two cylinders, one on either side of the TPC. Each side has 10 ladders (which are 106.0 cm long) while each ladder holds 16 double-sided silicon-strip wafers. Each wafer has an area of 75 X 42 mm and a thickness of 300 \(\mu\)m. Beam tests showed that the SSD has a position resolution of 15 \(\mu\)m in the radial direction and 750 \(\mu\)m in the beam direction [67].
+
+The SSD wafers are n-type semiconductors which are ionized by incident particles. The ionization then travels to the readout anodes and cathodes to allow 2-dimensional hit reconstruction. Unlike the SVT, the readout anodes and cathodes of a SSD wafer are placed on the top and bottom of the silicon wafer in the direction of the thickness of the detector, rather than at the ends (See Figure 3.9). Therefore, there is no need for a large electric field to push ionization towards the anodes like in the SVT. And so the SSD is only operated at a voltage of 20 to 50 V.
+
+#### The STAR Time-of-Flight Detector
+
+The STAR Time-of-Flight Detector (TOF) is designed to operate in conjunction with the STAR TPC to determine the masses, and therefore species, of particles traversing the TPC and TOF by adding a velocity measurement to each particle track. This allows a direct identification of particle species type. The momentum, as measured by the TPC, \(p\), and a velocity as measured by the TOF, \(\beta\), can be used to find the particle mass, \(m\), via,
+
+\[m=p\sqrt{1/\beta^{2}-1}. \tag{3.7}\]
+
+The TOF has two parts, a Pseudo Vertex Position Detector (pVPD) to acquire start times and a Time-Of-Flight (TOF) to acquire stop times for tracks. The velocity, \(\beta\), is found by dividing the particle's path length from the event vertex to the TOF, \(s\), by the time taken to traverse this path length, \(\Delta t\),
+
+\[\beta=s/(c\Delta t). \tag{3.8}\]
+
+The major advantage of using the TOF is that particle identification can still be done for TPC tracks even when the bands of two or more species are overlappingin momentum and dE/dx according to the Bichsel parameterization, extending the momentum range of particle identification. The maximum momenta of distinct particle identification is increased from \(\sim\)0.7 GeV/c to \(\sim\)2.0 GeV/c by using the TOF detector. However, during the time period when the data reported in this thesis was taken, the TOF detector covered only a small fraction of the TPC, meaning that its utility was limited to specialized tasks such as calibration.
+
+The pVPD detects photons created in a heavy-ion collision in order to establish the start time used by the TOF. Three pVPD detectors were installed on both sides of the STAR-TPC, 5.9 m from the interaction point, surrounding the beam line [68]. Photons arriving at the pVPD first interact with a lead plate roughly \(\sim\)1 cm thick at the front of the detector, creating a shower of electrons. These electrons then pass into a scintillator, generating photons which sent to a photo-multiplier tube. The photo-multiplier tube amplifies and converts the signal into an electronic pulse.
+
+The TOF is designed using Multi-gap Resistive Plate Chamber (MRPC) technology. The main feature of the MRPC is a stack of high-resistance glass plates (resistivity, \(\rho\sim 10^{13}\Omega/\)cm), alternating with gas (90% \(C_{2}H_{2}F_{4}\), 5% \(C_{4}H_{10}\), 5% \(SF_{6}\)) gaps [69]. The two outer glass plates of the "sandwich" have thicknesses of 1.1 mm, while the inside plates each have a thickness of 0.54 mm. The gas gaps are 0.220 mm wide. Outside of the outer glass plates are graphite electrodes which generate a strong electric field covering the stack of plates. Charged particles passing through the stack will create charge avalanches in the gas, which induce signals in the readout pads placed just beyond the electrodes.
+
+The TOF detector is divided into modules of MRPC stacks. Each module contains 6 read-out channels, with each channel representing 3.3 cm \(\times\) 6.1 cm of area. The modules are placed into "trays", which are box-like support structures for the modules. Each trap holds 32 modules and is 241.3 cm long, 21.6 cm wide, and 8.9 cm high. 120 TOF trays are needed to cover the entire outer surface of the TPC; however, during the Cu+Cu run analyzed in this thesis, only a single tray was installed in the STAR detector, primarily as a test system. For this thesis's analysis, techniques were developed to use data from the TOF to calibrate the Bichsel bands generated from TPC dE/dx vs. momentum data.
+
+Triggering System
+
+A triggering system is necessary for the STAR detector for several reasons. First, a means to distinguish between real collisions and detector noise or cosmic rays is necessary. Second, the interaction rate of RHIC beams (\(\sim 10\) MHz) is roughly 5 orders of magnitude larger than the data collection rate of the slow detectors (\(\sim 100\) Hz) during the Cu+Cu data triggering period [70]. Lastly, a triggering system can improve operational efficiency by allowing only data of interest to be written out and digitized. The STAR triggers are divided into Levels 0, 1, 2, and 3 based on order of operation and response speed. Levels 0, 1, and 2 use information from STAR's fast detectors (with readout times of \(\sim 1\mu s\)) while the Level 3 trigger uses data from the slow detectors (with readout times of \(\sim 10ms\)). The Level 3 trigger was not used in the open charm analyses reported in this thesis. The fast detectors include the Central Trigger Barrel (CTB), the Beam-Beam Counter (BBC), and the Zero-Degree Calorimeter (ZDC). The slow detectors include the SVT and TPC. The BBC is not used to trigger Cu+Cu and Au+Au events because there are enough neutrons to be found by the ZDC in these events.
+
+Level-0 is active during every bunch collision in the interaction region and consists of the Central Trigger Barrel (CTB) and the Zero-Degree Calorimeter (ZDC) [70, 71], which will be described in the next three sections. It makes a decision on whether to pass on a detector event within 1.5 \(\mu s\). If an event passes the Level-0 trigger, a signal is sent to activate readout of the slow detectors. Level-1 makes a decision in 100 \(\mu\)s based on a reconstruction of the event in a coarse pixel array. These pixels have a size of \(\delta\eta\sim 0.5\) in pseudorapidity and \(\delta\phi\sim\pi/2\) in azimuth. Using these pixels, an algorithm can detect the large-scale distribution patterns of beam-gas interactions and abort the readout in this case [70]. The Level-2 trigger has a run time of 5 ms. It can be used to trigger on events of specialized physics interest, such as jet events. Data from events which pass the Level-2 checks are then sent to the DAQ system.
+
+#### The Central Trigger Barrel
+
+The STAR Central Trigger Barrel (CTB) measures the multiplicity of charged particles at midrapidity. It wraps around the midsection of the TPC's outer surface like a ring. The CTB covers all \(2\pi\) radians in azimuth and its width extends from -1 to +1 in pseudorapidity. The CTB consists of 240 scintillating slats, which each contain a radiator, a light guide, and a photomultiplier tube (PMT) [70]. As a charged particle travels through the scintillating medium, it energizes the scintillator electrons
+
+Figure 3.10: Set-up positions of the Zero-Degree Calorimeter [72].
+
+into higher energy states. As these states decay, radiation is given off which can be corralled by the light guide into the PMT. Inside of the PMT the light is incident on photocathodes, creating an electron shower which is then amplified using dynodes into a signal strong enough to be read out by the trigger. Signal strength in the CTB is stronger for more central collisions because such events generate a greater number of particles at mid-rapidity.
+
+#### The Zero-Degree Calorimeter
+
+In order to monitor the beam interactions, as well as to serve as a trigger, each RHIC experiment has two Zero-Degree Calorimeters (ZDC) on the beam line, one in the +z direction and one in the -z direction, at \(\pm 18\) meters from the interaction point. These ZDCs detect neutron fragments generated during heavy-ion collisions but then continue traveling along the beam axis (See Figure 3.10). At the locations of the ZDC, the charged ions of the beams have already been deflected by bending magnets. A coincidence between the detectors in the + and - directions serves as a minimum
+
+Figure 3.11: The correlation between the CTB and the ZDC for events reconstructed in the TPC. Figure from [61].
+
+bias trigger for a heavy-ion collision. The energy deposited in the calorimeters can also be used to help determine luminosity as well as event geometry [72]. Peripheral events generate stronger signals in the ZDCs because they have larger numbers of neutron fragments than more central events. Each of the ZDCs are made out of three modules, which contain an array of tungsten plates connected by fiberoptics (in order to transmit the Cherenkov radiation) to photomultiplier tubes [70, 72].
+
+#### CTB-ZDC Correlation
+
+Using the CTB and ZDC together gives basic information about the geometry of a collision. More peripheral events contain more hits in the ZDC and fewer in the CTB. Conversely, more central events have more hits in the CTB and fewer in the ZDC. The correlation is shown in Figure 3.11, in which events increase in centrality as one moves from the upper-left to the lower-right of the plot.
+
+## Chapter 4 Analysis
+
+### 4.1 Introduction
+
+Open charm hadrons are not directly observable by the STAR detector. They decay far too quickly via the weak interaction (with \(c\tau\) values on the order of a few hundred microns) to survive into the TPC or SVT. In order to study open charm hadrons, they must therefore be reconstructed from their decay products, in this analysis, pions and kaons. These daughter pions and kaons are identifiable based on their dE/dx and momenta as measured by the TPC. Also, because charm processes are relatively rare, cuts on the properties of decay daughter tracks must be used to improve the signal-to-background ratio. The reconstruction process and cut selection are explained in the following sections. This thesis reports on the reconstruction of the \(D^{0}(\bar{D^{0}})\to K^{-}\pi^{+}(K^{+}\pi^{-})\) decay in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions and the \(D_{s}^{+}(D_{s}^{-})\to\phi\pi^{+}(\phi\pi^{-})\to K^{+}K^{-}\pi^{+}(K^{+}K^{-} \pi^{-})\) decay in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions.
+
+### 4.2 Event Selection
+
+In order to remove any potential trigger bias from the analysis, only events which satisfy "minimum bias" conditions of a coincidence triggering of the ZDC and CTB detectors were used. In order to avoid bias from high-material regions, a Z-vertex(vertex position along the beamline) cut of \(\pm 30\) cm is used for the \(D^{0}\) in Cu+Cu analysis. In the SVT-based \(D_{s}\) analysis, an even tighter Z-vertex cut of \(\pm 20\) cm is used in order to find events whose tracks pass through the SVT's acceptance region.
+
+The approximate number of charged particles at mid-rapidity (\(|\eta|<0.5\)) is called the "reference multiplicity" in the STAR experiment (See Figure 4.1a). It is defined as the number of tracks with an absolute value of the pseudorapidity of less than 0.5, a Distance of Closest Approach (DCA, the minimum distance between the track helix and the primary vertex) within 3 cm of the primary vertex, and having 10 or more points in the TPC used for the track fit. The reference multiplicity is related to the centrality of the event (the fraction of collisions where distance between the
+
+Figure 4.1: a) Particle reference multiplicity in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions. b) Z-vertex distribution in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions. c) Particle reference multiplicity in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions. d) Z-vertex distribution in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions.
+
+centers of the colliding ions at the distance of closest approach is less than that of the event of interest) through the Glauber model. The Glauber model describes nuclear collisions as an ensemble of nucleon-nucleon collisions in the overlap region in a plane transverse to the beam line. In a sense, incident nucleons can be thought of as casting shadows along the beam line to define the interaction area [74]. Larger shadows imply more interactions and hence higher reference multiplicities.
+
+When interactions occur rapidly inside of a high-energy physics collider, a pileup problem may be encountered in which the detectors are unable to resolve consecutive collisions. In these instances, tracks from one event contaminate the reconstruction of another. A cut was applied to eliminate events with pile-up problems (the absolute value of the mean dip angle of the primary tracks divided by the particle multiplicity in the Central Trigger Barrel was required to be less than \(10^{-3}\)).
+
+### 4.3 Track Reconstruction
+
+The raw data read from the TPC takes the form of charge on the read-out anodes. Hit locations are determined by the distribution of charge on the anode grid. Locations on the anode grid give the hits' x-y position while the time bucket gives the z-position. These hits must be reconstructed into tracks in order to obtain meaningful physics analysis. The large particle multiplicities inherent in relativistic heavy-ion collisions make this a difficult task at the STAR experiment.
+
+Because track density, and therefore noise, is much less away from the beam line, the track-finding algorithm begins on the outermost padrow radially and then works inward. Taking an initial hit, the tracking algorithm then searches for another point on a row interior to the original [75]. The range of possible time bins is also restricted in the code. If the first two points satisfy the cuts in radial and z (time) directions, these points are then used to draw a straight line. A third point is searched for on a yet more inner padrow. If the third point is close enough to the line from the first two, it is added to the set containing the first two points. This set of points is then used to define a line (See Figure 4.2). This line serves as the root for the tracking algorithm. The tracking algorithm uses a Kalman filter (a recursive function to find the evolution of noisy systems) to find the track helices. Once a track has been defined, the hits used are taken out of the sample and the algorithm is run on the remaining hits.
+
+### 4.4 Particle Identification
+
+In order to reconstruct both the \(D^{0}(\bar{D^{0}})\) from the \(K^{-}\pi^{+}(K^{+}\pi^{-})\) decay channel and the \(D_{s}^{+}(D_{s}^{-})\) from the \(\phi\pi^{+}(\phi\pi^{-})\to K^{+}K^{-}\pi^{+}(K^{+}K^{-}\pi^{-})\) decay channel, kaons and pions must be identified using the TPC. A TPC track's information on energy loss per distance in the detector (dE/dx) and momentum (see Figure 4.3) are compared to a Bichsel parameterization to perform particle identification (Please see Section 3.3.1). Cuts are made on the number of sigma (\(N_{\sigma}\)) a track is from the Bichsel parameterization centroid in order to improve the signal to background ratio (this will be described in a later section). However, the Bichsel parameters must be properly calibrated to the dE/dx vs. momentum values actually measured by the TPC. To do this calibration, a secondary means of particle identification is required. The two calibration methods used are the STAR-TOF detector, which provides a velocity measurement that can be used with momentum to calculate particle mass, and the decay daughter method, in which the known decay daughters of unstable particles with displaced vertices are used for calibration. An improper dE/dx calibration would cause the efficiency corrections to be artificially high, resulting in an incorrect yield
+
+Figure 4.2: Finding the first three points of a track in the radial direction (a) and beam direction (b). Figures from [75].
+
+extraction.
+
+#### dE/dx Calibration using the TOF
+
+The TOF detector allows the velocity of particles to be measured, and, combined with momentum information from the TPC, their masses. This is extremely useful for making clean particle identification (as one can see in Figure 4.4), especially in the kaon-pion band crossing region in the TPC above a momentum of approximately 0.7 GeV/c (See Figure 4.3). However, only 1 out of 120 TOF trays was installed and active during the 200 GeV Cu+Cu run, meaning that there were not enough TOF statistics for analysis purposes. But there were a sufficient number of statistics for an independent calibration of the TPC tracks' \(N_{\sigma}\) PID values. Using the TOF, pion,
+
+Figure 4.3: Track data from the TPC with pion and kaon identified tracks marked using a cut of \(2\sigma\) around their Bichsel bands. This is from a subset of Au+Au data taken at \(\sqrt{s_{NN}}=200\) GeV.
+
+kaon, and proton \(N_{\sigma}\) could be corrected as a function of \(p_{t}\). Initially a discrepancy was found in the \(N_{\sigma}\) values based on the charge of the particles within the region of the TPC not covered by the TOF. Further investigation revealed that the TPC sector in front of the TOF had an asymmetric response to positively and negatively charged tracks. The affected TPC pads were masked out of the data production but this unfortunate problem rendered the TOF unusable for calibration in Cu+Cu. An alternate calibration method was therefore implemented.
+
+#### Calibration using V0s
+
+Since a calibration of the \(N_{\sigma}\) values of TPC tracks requires an alternative way of making particle identification, unstable particles with long decay lengths (on the order of several cm) were used. The daughter particles from these decays can be
+
+Figure 4.4: The TOF PID capabilities. The major visible bands are the pions, kaons, and protons. Figure from [76].
+
+identified by using geometric cuts on their reconstructed tracks within the TPC. For the pions, the \(\pi^{+}\pi^{-}\) channel of the \(K^{0}_{S}\) was used, which has a \(c\tau\) of 2.6842 cm [2]. The decay channel has a large branching ratio of \(69.20\pm 0.05\%\). The decay of the \(\Lambda(\bar{\Lambda})\to p\pi^{-}(\bar{p}\pi^{+})\) with \(c\tau=7.89\) cm and a branching ratio of \(63.9\pm 0.5\%\) was used to corroborate the pion calibration at low values of transverse momentum. For kaon calibration, the \(\Omega\to\Lambda K^{-}(\bar{\Omega}\to\bar{\Lambda}K^{+})\) was used, which has a branching ratio of \(67.8\pm 0.7\%\) and a \(c\tau\) of 2.461 cm. For all the \(K^{0}_{S}\)s, \(\Lambda\)s, and \(\Omega\)s, cuts around the invariant mass peak of the reconstructed particle were used to make a \(N_{\sigma}\) vs. \(p\) distribution of the signal plus background (Figure 4.5). Combinations of tracks which had a reconstructed invariant mass falling in the side bands of the central peak were used to estimate the background. After background subtraction Gaussian fits as a function of the original \(N_{\sigma}\) values were performed to determine the \(N_{\sigma}\) offsets and widths (Figure 4.6). The original \(N_{\sigma}\) values were then modified to create calibrated Bichsel bands.
+
+### 4.5 Invariant Mass Reconstruction
+
+In order to identify charm mesons, they must be reconstructed from their decay daughters. To do this, the kinematics of the decay are calculated in reverse using the momenta of the daughters. From conservation of energy and momentum, the invariant mass of particle \(a\) after it decays into \(b\) and \(c\) is,
+
+Figure 4.7: Invariant mass spectra of \(K\pi\) combinations in 200 GeV Cu+Cu (a) and \(\phi\pi\) combinations in 200 GeV Au+Au (b) before background subtraction.
+
+Figure 4.6: a) The \(\pi^{+}\)\(N_{\sigma}\) offsets for 200 GeV Cu+Cu collisions as a function of momentum. b) The \(K^{\pm}\)\(N_{\sigma}\) offsets for 200 GeV Cu+Cu collisions as a function of momentum.
+
+\[m_{a}=\sqrt{m_{b}^{2}+m_{c}^{2}+2(E_{b}E_{c}-|p_{b}||p_{c}|\cos\theta)}, \tag{4.1}\]
+
+where \(\theta\) is the angle between the momentum vectors of the daughter particles.
+
+Since it is not known \(a\ priori\) which decay daughters come from the charm mesons of interest, the set of all possible combinations of candidate daughters must be considered, the vast majority of which will be random combinations with a small fraction of the population coming from true particles. Hence, when the invariant mass distribution is plotted, it is typical to observe small decay peaks, representing real particles, sitting atop a large random combinatorial background. But as described in section 4.5.3, a background with a large enough slope can make even a strong signal invisible.
+
+#### Decay Channel Selection
+
+In order to select which decay channel to analyze two things must be considered, whether the decay daughters are visible to our detectors and the signal to noise ratio. Any decay channel containing neutral final decay products is therefore rejected because the STAR-TPC does not have the capability of directly detecting neutral particles. The \(D^{0}\) is reconstructed through its \(\pi^{+}K^{-}\) decay channel which has a branching ratio of \(3.91\pm 0.05\%\). This decay channel was chosen because its branching ratio is significantly larger than that of any other two-daughter \(D^{0}\) decay as well as the fact that it has only two decay daughters rather than three or four. This is important because, to first order, the background scales as \(N^{a}\) where \(N\) is the number of tracks and \(a\) represents the number of decay daughters in the channel being reconstructed.
+
+For the \(D_{s}\), similar considerations were used. Unfortunately, there is no two-daughter decay channel with a significant branching ratio. Therefore, the \(D_{s}^{+}(D_{s}^{-})\to K^{+}K^{-}\pi^{+}(K^{+}K^{-}\pi^{-})\) decay channel is selected, which has a branching ratio of \(5.50\pm 0.28\%\). Almost half of these decays go through the \(\phi\to K^{+}K^{-}\) resonance with a branching ratio of \(2.18\pm 0.33\%\). The \(\phi\) is a narrow resonance with of width \(4.26\pm 0.04\) MeV allowing a cut on the \(\phi\) invariant mass to achieve greatly reduced background. In this analysis, only reconstructed \(K^{+}K^{-}\) pairs with masses between 1.0165 GeV and 1.0215 GeV were used to reconstruct \(\phi\)s for the \(D_{s}\) analysis.
+
+\begin{table}
+\begin{tabular}{|l|l|} \hline \(D^{0}\) **Reconstruction Cuts** & \(D_{s}\) **Reconstruction Cuts** \\ \hline \hline Event Multiplicity \(>=\) 19 & \\ \hline \hline \(|\)Z Vertex\(|\)\(<\) 30 cm & \(|\)Z Vertex\(|\)\(<\) 20 cm \\ \hline DCA \(<\) 1.0 cm & DCA \(<\) 500 \(\mu\)m \\ \hline Track \(|\eta|<1.0\) & \\ \hline TPC hits \(>\) 15 & TPC hits \(>\) 15 \\ \hline  & SVT hits \(>=\) 2 \\ \hline TPC hits/Possible TPC Hits \(>\) 0.55 & \\ \hline \(|D^{0}\) rapidity\(|\)\(<\) 1.0 & \(|D_{s}\) rapidity\(|\)\(<\) 1.0 \\ \hline \(p_{t}\) of Daughters \(>=\) 0.15 GeV/c & \(p\) of Daughters \(>=\) 0.3 GeV/c \\ \hline Reconstructed \(D^{0}\)\(p_{t}>=\) 0.1 GeV/c & Reconstructed \(D_{s}\)\(p_{t}>=\) 1.0 GeV/c \\ \hline Reconstructed \(D^{0}\)\(p_{t}<\) 1.9 GeV/c & Reconstructed \(D_{s}\)\(p_{t}<\) 2.2 GeV/c \\ \hline \hline
+**Kaon Cuts** & \\ \hline \(|N_{\sigma}Kaon|\)\(<\) 1.0 when \(p_{t}<\) 1.3 GeV/c & \(|N_{\sigma}Kaon|\)\(<\) 2.0 \\ \hline No Kaon PID Cuts above \(p_{t}>=\)1.3 GeV/c & \\ \hline  & \(|N_{\sigma}Pion|>=\) 1.5 (cut away pions) \\ \hline  & p \(<\) 1.0 GeV/c \\ \hline
+**Pion Cuts** & \\ \hline \(|N_{\sigma}Pion|\)\(<\) 2.0 when \(p_{t}<\) 2.0 GeV/c & \(|N_{\sigma}Pion|\)\(<\) 2.0 when \(p<\) 2.0 GeV/c \\ \hline No Pion PID Cuts above \(p_{t}>=\) 2.0 GeV/c & No Pion PID Cuts above \(p>=\) 2.0 GeV/c \\ \hline
+**Geometric Cuts** & \\ \hline  & DCA between particle pairs \(<\) 300 \(\mu\)m \\ \hline  & 100 \(\mu\)m \(<\) Decay Length \(<\) 400 \(\mu\)m \\ \hline \end{tabular}
+\end{table}
+Table 4.1: The cuts used for the \(D_{0}+\bar{D^{0}}\) in Cu+Cu analysis (left) and the \(D_{s}^{+}+D_{s}^{-}\) analysis in Au+Au.
+
+In the \(D^{0}\) in Cu+Cu analysis only "primary tracks" were used. Primary tracks are defined such that they originate from the primary vertex. As is explained in the next section, a secondary vertex reconstruction method was used for the \(D_{s}\) in Au+Au analysis, meaning that primary tracks were not used.
+
+#### Geometric Reconstruction of the \(D_{s}\)
+
+Due to the non-negligible decay length of the \(D_{s}\) meson, its decay is reconstructed geometrically. Cuts which rely on the improved track resolution capabilities of the SVT are used. The helices of candidate track pairs are traced out to find the distance of closest approach between the tracks of the pair. Cuts are then applied onto the candidate pair, on the decay length from the pair vertex to the primary vertex, the distance of closest approach to the primary vertex, and the distance of closest approach between the two tracks. The \(D_{s}\) search algorithm first finds pairs of tracks originating from a secondary vertex. In order to reconstruct a \(D_{s}\), first a \(K^{+}K^{-}\) pair is found (the \(\phi\) meson). Then, the \(K^{-}\pi^{+}\) and \(K^{+}\pi^{-}\) pairs are located. For a \(D_{s}^{+}(D_{s}^{-})\), the \(K^{-}(K^{+})\) track will be shared between the \(K^{+}K^{-}\) pair and the \(K^{-}\pi^{+}(K^{+}\pi^{-})\) pair. Only when the two pairs of tracks shared a kaon are they selected for \(D_{s}\) reconstruction.
+
+To be outside of the position resolution of the primary interaction vertex, the minimum distance between the decay vertex and the primary vertex for both the \(K^{+}K^{-}\) and \(K\pi\) pairs is set to 100 \(\mu\)m. Due to the exponential decline of the \(D_{s}\) yield as a function of \(p_{t}\), the maximum decay length is set to be 400 \(\mu\)m. In order to locate tracks from the same decay vertex, the maximum distance of closest approach between candidate pairs is restricted to 300 \(\mu\)m. Simulation shows that almost all \(D_{s}\) daughters of have a DCA of less than 500\(\mu\)m to the primary vertex and so this cut is also used. The \(D_{s}^{\pm}\) also decays through non-\(\phi\) channels to \(K^{+}K^{-}\pi^{\pm}\) with a branching ratio of 3.32\(\pm\)0.43%. These decays contaminate the signal and are subtracted using a Pythia simulation.
+
+#### PID cuts
+
+Cuts on particle identification, i.e. the number of standard deviations (\(N_{\sigma}\)) from the centroid of the Bichsel parameterization, were determined by the degree of contamination of the tracks, the kinematics of the charm decays, and the ability to obtain proper calibration of particle \(N_{\sigma}\) values. In all cases, cuts on particle \(N_{\sigma}\) are only valid in the range where \(N_{\sigma}\) values can be calibrated. For the pions, the cut off is \(p=2\) GeV/c and for the kaons, \(p=1.3\) GeV/c. In order to set the PID cuts it is necessary to consider the signal to background ratios of the daughter species in the regions where the dE/dx-momentum bands overlap. Of course, it is impossible to find the ratios in the overlap regions themselves, but by looking at the momenta ranges just outside, estimates of the degree of contamination can be found. By taking the momentum slice 0.6 to 0.62 GeV/c and fitting the dE/dx spectrum (See Figure 4.9), it is seen that the pion over kaon ratio is \(7.3\pm 0.2\) shortly before the band crossing region, showing that the kaon band is strongly contaminated by pions.
+
+Due to the relative abundance of pions to kaons (see Figure 4.8), it is profitable to minimize the contamination of the kaons by cutting as tightly as possible to achieve decent signal over background ratios while at the same time making the pion cuts as loose as possible because the signal over background ratio for that species is not as much affected by contamination. For the kaons of the \(D^{0}(\bar{D^{0}})\) decay, the cut was set to be at 1 standard deviation up to \(p_{t}=1.3\) GeV/c and for the pions, 2 standard deviations up to \(p_{t}=2.0\) GeV/c. The actual upper-limit cuts for the \(D^{0}\) analysis were done on \(p_{t}\), not \(p\), but since \(p\geq p_{t}\), the calibration condition is satisfied. In the case of the \(D_{s}\) more aggressive kaon-ID cuts are possible because the three-daughter decay kinematics means that the kaon daughters of the \(D_{s}\) have lower average momenta than the kaon daughters of the \(D^{0}\). If a kaon candidate is less than 1.5 standard deviations away from the pion band, it is cut out. Otherwise kaons and pions up to 2 standard deviations are taken in the momentum ranges where calibration is possible. There is also electron contamination of the kaons in the low \(p_{t}\) region but since the electron population is roughly equal to the kaon population, rather than a factor of 7 larger, the electron band is not cut out from the kaons.
+
+#### Background Subtraction
+
+The \(D^{0}\) mass peak should exist in an invariant mass spectrum if the signal is statistically significant but this does not mean that the peak is visible above background. The study shown in Figure 4.10 shows that if the slope of the underlying background is large enough, any mass peak will become completely invisible. In this study, a Gaussian function the size of the \(D^{0}\) peak is generated and added to linear functions of progressively larger slopes. When the slope of the underlying linear function roughly equals that seen in the full \(K\pi\) invariant mass spectrum, the Gaussian function is invisible. Therefore, a background subtraction is necessary to identify the peak. Ideally, a background subtraction eliminates all random combinations of pairs which do not come from physical correlations. However, even with such an ideal background subtraction, a residual background will remain from mis-identified resonances, other
+
+Figure 4.8: The centroids of the kaon and pion bands in dE/dx-momentum space from the Bichsel parameterization in a sample of the \(\sqrt{s_{NN}}=200\) GeV Au+Au data.
+
+decay channels from the same resonance whose daughters overlap with the channel being studied (See Section 5.4 for simulation results), jets, and other multi-particle correlations.
+
+There are multiple ways to generate a random background. For a neutral particle, such as the \(D^{0}\) which decays into a positive daughter and a negative daughter, one can form an invariant mass spectrum composed of combinations of two positive tracks or two negative tracks. This method has the advantage of using random pairs from the same event, reducing the possibility of artifacts (such as distortions from using events of different geometries) appearing in the data. However, if there are any differences between the positive and negative particles of a species, this method will
+
+Figure 4.9: Particle ID Gaussian fits to log(dE/dx) at p = 0.6 to 0.62 GeV/c in a sample of the \(\sqrt{s_{NN}}\) = 200 GeV Au+Au data. The logarithm is taken because particle distributions in dE/dx are not Gaussian; rather, they have high energy tails.
+
+not create a true background. For example, if one is looking at a region of momentum-space containing protons, then the positive baryon number of the initial state will mean that the invariant mass spectrum created from same-sign pairs will have a fundamentally different shape than the background of opposite-sign pairs. Another disadvantage of using a same-sign background is low statistics. Assuming charge symmetry, the statistics of the created same-sign background will be the same as in the original invariant mass spectrum. This means that the use of a same-sign background subtraction will increase the statistical error by a factor of \(\sqrt{2}\). This is unacceptable because of the low statistics of hadronic charm decays in RHIC data to
+
+Figure 4.10: A Gaussian function atop a line as the underlying slope is increased to the order of magnitude seen for \(D^{0}\) reconstruction from \(K\pi\) in 200 GeV Cu+Cu collisions. In this case, it is the slope of the underlying background, rather than a low signal-to-noise ratio, which makes the signal disappear.
+
+data.
+
+Another way of generating a random background is through the technique of event mixing (See Figure 4.11a). In this case, the invariant mass is reconstructed by taking one of the track pairs from a different, but similar, event. Similar means that the particle multiplicity and z-vertex position are within a given range from the original event. This range should be made as small as possible given the computing resources available and total event count. In the Cu+Cu case, the ranges were 25 tracks wide and the z-vertex range was 6 cm. Event mixing has a major advantage over a same-sign background generation in that a very large number of statistics can be used to generate the background. In fact, the statistical error from the background can be estimated by comparing the background with the background.
+
+Figure 4.11: a) Event Mixing. b) Rotational Background Generation.
+
+be made negligible by using hundreds of mixing events (the decrease in statistical error is given by \(\sqrt{1+1/N}\), where \(N\) is the number of events mixed). The downside of event mixing is that we must make do with events which are only similar, not the same. For example, non-central collisions are spherically asymmetric and mixing events with different angular distributions may distort the invariant mass spectrum due to non-conservation of momentum.
+
+A random background can also be created by using the rotational background method (See Figure 4.11b). In this case the momentum vector of one of the daughter particles is taken and rotated to destroy any correlations. The rotation is done in the xy-plane (transverse to the beam line). The disadvantage of this method is that because momentum vectors are used from the same event, the generated background
+
+Figure 4.12: The invariant mass distributions created by the \(K^{-}\pi^{+}\) daughters of a \(D^{0}\) after the pion momentum vector has been rotated by various angles. Large rotations (over \(\sim\)120 degrees) are needed in order to create a function which is close to linear near the \(D^{0}\) mass of 1.86484 GeV/\(c^{2}\).
+
+may be correlated with the original invariant mass spectrum. The rotations must be done at large angles in order to wash out the effects of any peaks and create a background which is like a random background. As one can see in figure 4.12, even a rotation to the maximum angle of 180 degrees leaves a shape beneath the \(D^{0}\) peak as a residual signal. However, as long as this residual background is linear, it does not affect the linear+Gaussian fit done to extract yields because the linear component is not used when calculating the yield. Doing only a single rotation will create the same problem with low statistics (an increase of statistical error by a factor of \(\sqrt{2}\)) that plagues the same-sign method. Therefore multiple rotations are done. In this analysis, 13 evenly spaced rotations are used between the angles of 150 and 210 degrees. Similar to event mixing, the statistical error is decreased by \(\sqrt{1+1/N}\), where \(N\) is the number of rotations. However, it has been claimed that the reduction in statistical error is not as great because of the small angle between rotations. A study shown in Figure 4.13 indicates that the reduction in statistical error is approximately \(\sqrt{1+1/N}\) when the bin sizes of the \(D^{0}\) analysis are used, refuting this claim. The rotational method creates a smoother residual shape than event mixing in the \(D^{0}\) mass region.
+
+Figure 4.13: Fluctuations decrease in this background-subtracted invariant mass spectrum as the number of rotations increases. a) The invariant mass spectra from a 1 rotation background subtraction and 13 rotation background subtraction in the range of 1.6 to 2.1 GeV/c\({}^{2}\) with bin sizes of 16 MeV/c\({}^{2}\) (The same as used for the \(D^{0}\) analysis). b) The RMS reduction factor from adding rotations calculated both from data and analytically using the formula \(2/\sqrt{1+N_{rot}}\).
+
+In analyses with a cut on an intermediate resonance mass (like the \(D_{s}\to\phi\pi\to K^{+}K^{-}\pi\)), a background can be created by taking combinations in which the reconstruction of the intermediate particle has a mass different from the resonance mass. These "false resonances" can then be combined with the other daughter(s) in the final step of reconstruction. When the final combination is taken (combining a \(\pi\) and a \(\phi\) to get a \(D_{s}\)), the total energy of the false \(\phi\) mesons reconstructed from mass offset \(K^{+}K^{-}\) pairs is reset to be the energy a \(\phi\) particle with a mass of 1.019455 GeV would have if it had the same total momentum. The mass offset technique allows one to avoid any generation of residual background due to angular correlations in the underlying event. What this technique cannot do is eliminate background from mis-identified resonances or decays which include the desired daughters for reconstructed
+
+Figure 4.14: The invariant mass spectrum reconstructed from \(K^{+}K^{-}\) pairs with the pairs used for \(D_{s}\) signal and mass-offset background reconstructions marked out.
+
+plus some more, for example, the decay \(D_{s}^{\pm}\to\phi\pi^{\pm}\pi^{0}\) will create population at low invariant masses when a reconstruction of \(\phi+\pi\) is done. The \(D_{s}^{\pm}\to\phi\pi^{\pm}\pi^{0}\) peak has been recreated in simulation (please see Section 5.4).
+
+### 4.6 Creation of a Spectra
+
+The \(p_{t}\) spectrum of a resonance particle contains information about the freeze-out temperature and collective flow of the fireball. In order to find the \(p_{t}\) spectra of the \(D^{0}(\bar{D^{0}})\), the invariant mass spectrum is binned into three \(p_{t}\) bins which are then normalized to account for the number of events, the sizes of the \(p_{t}\) bins, and the rapidity windows. In the \(D^{0}(\bar{D^{0}})\) analysis, the \(p_{t}\) bins are 600 MeV/c wide and the rapidity range covers 2 units of rapidity. Not enough statistics were available to divide the \(D_{s}\) signal into three \(p_{t}\) bins; rather, a single bin covering the range of \(1.0\leq p_{t}<2.2\) GeV/c was used. Once the normalized raw yields are found, \(p_{t}\) dependent efficiency corrections are applied (Please see Section 5.2). The \(p_{t}\) spectra of the resonance particle can be fitted with an exponential function in \(m_{t}-m_{0}\). This function is given by,
+
+\[\frac{1}{2\pi N_{evts}}\frac{d^{2}N}{p_{t}dp_{t}dy}=(\frac{dN_{A}}{dy})\times \frac{e^{-(m_{t}-m_{A})/T}}{2\pi T(m_{A}+T)}. \tag{4.2}\]
+
+Here, \(T\) is the effective temperature of particle \(A\). Taking the average transverse mass gives \(\langle m_{t}\rangle=T\) from the above equation. A purely thermal source at the freeze-out temperature would then be defined by \(\langle m_{t}\rangle=T_{fo}\). For a hydrodynamical thermal source with flow velocity not dependent on particle species, the effective temperature would be given by [79],
+
+\[T_{eff}=T_{fo}+m\langle\beta\rangle^{2}, \tag{4.3}\]
+
+where \(\langle\beta\rangle\) is the average collective flow velocity and \(m\) is the particle mass.
+
+Because of the low significances of hadronic reconstructions of open charm decays in STAR data, the number of bins a hadronic open charm signal can be divided into is extremely limited. Since each bin covers a large range of \(p_{t}\), the spectrum may be changing quite significantly with a single bin. Therefore, the assumption that all yield can be considered to be at the midpoint of the bin is likely to fail. In order to fit a spectrum with such large bins, the integral of the function must be used, rather than the midpoints.
+
+From the spectral fit function, the yield at midrapidity, \(\frac{dN}{dy}(\frac{D^{0}+\bar{D^{0}}}{2})\), can be extracted. Actually, this represents an extrapolation of the spectra to regions outside the range of the invariant mass reconstruction. In the \(D^{0}(\bar{D^{0}})\) analysis, fully 87% of the yield is in the \(p_{t}\) range reconstructed (0.1 to 1.9 GeV/c). On the other hand, only 31 to 40% of the \(D_{s}^{+}(D_{s}^{-})\) yield lies within the reconstructed \(p_{y}\) range of 1.0 to 2.2 GeV/c (depending on spectral shape assumptions).
+
+## Chapter 5 Simulation
+
+Computer simulations play an important part of all aspects of relativistic heavy-ion analysis, from simulations of phenomenology of observables, to simulations to assist analysis and evaluation of experimental results, and to find the efficiency and acceptance of detectors. In this chapter, the use of simulated open charm decays as a means to optimize kinematic analysis cuts will be discussed. This will be followed by a description of the embedding simulations used for efficiency corrections. Next, the debugging and tuning of the SVT Slow Simulator will be described. Finally, the use of simulations to model the shapes of the signal and residual backgrounds in analysis will be discussed.
+
+### 5.1 Cut Selection
+
+As discussed in Chapter 4, open charm searches in heavy-ion collisions at RHIC energies must contend with extremely large backgrounds relative to signal sizes. Cuts in \(N_{\sigma}\) vs. momentum space are used to slice away areas of relatively low signal over background ratios in order to reduce the statistical uncertainties of the final results. Recreating the dE/dx energy loss behavior of tracks within the TPC in GEANT simulations has proven to be exceedingly difficult however, so simulation cannot be used to set \(N_{\sigma}\) cuts. But it can be used to judge whether a given momentum range is realistic. A Pythia [48] simulation of \(D_{s}\) decays shows that the kaon daughters of the\(D_{s}\) have momenta in the region where the dE/dx energy loss of pions and kaons can be differentiated (See Figure 5.1). Therefore, cutting away all kaon candidate tracks also marked as potential pions will not eliminate most of the \(D_{s}\) signal.
+
+### 5.2 Efficiency Corrections
+
+In order to evaluate the efficiency corrections for \(D^{0}\) and \(D_{s}\) reconstruction, the TPC, SSD, and SVT detector (when used) responses to kaon and pion tracks must be known. To do this, first a sample of \(D^{0}\) or \(D_{s}\) mesons and their decay daughters is created using a Monte-Carlo simulator. These particles are created to be within the
+
+Figure 5.1: The momentum distribution of \(K^{+}\) candidates (black), \(K^{+}\) candidates after a pion veto cut (red), and the \(K^{+}\) daughters of the \(D_{s}\) in simulation (blue). The \(K^{-}\) distributions are similar.
+
+acceptance of the TPC and to cover the phase space studied in this analysis (\(|\eta|<1.0\) and \(p_{t}<5.0\) GeV/c). The Monte-Carlo daughter tracks are then embedded into real events such that the effects of real detector noise on the simulated tracks can be analyzed. The efficiency is defined as the number of Monte-Carlo tracks found divided by the number generated (see Figure 5.2 for the efficiency corrections of the \(D^{0}\) in Cu+Cu). Multiple tracks were embedded per event in order to reduce computation time. But if too many Monte-Carlo tracks are embedded, the structure of the event may be fundamentally changed from all of the simulated tracks, biasing the efficiency result. The number of Monte-Carlo particles generated per event is therefore set to 5% of the multiplicity.
+
+Figure 5.2: Reconstruction efficiencies of the \(D^{0}\) in Cu+Cu. The \(D^{0}\to K^{-}\pi^{+}\) branching ratio is not included.
+
+The Monte-Carlo tracks are matched to find out if they would have been reconstructed had they been real tracks. Track matching requires a fraction of the hits after embedding (generally half of the hits required for a fit) to be within a certain distance of the original Monte-Carlo hits. This distance is defined as 5mm for the TPC and 1mm for the SVT.
+
+All of the cuts used in this analysis were applied to the embedded tracks in order to obtain a correct efficiency correction. The only exception to this are dE/dx and \(N_{\sigma}\) cuts. This is due to the fact that the embedding simulation does not reconstruct the dE/dx energy loss of the tracks very well. In order to correct for the efficiencies of the \(N_{\sigma}\) cuts, other methods must be used. For simple \(N_{\sigma}\) cuts in which daughter particles are identified based on the \(N_{\sigma}\) of their own species, the Gaussian function is numerically integrated based on the limits of the \(N_{\sigma}\) cut (since the calibrated \(N_{\sigma}\) distribution is Gaussian). The integrand is multiplied into the efficiency correction. For example, a cut on 1 \(\sigma\) results in the efficiency to being scaled by a factor of 0.6827.
+
+However, the simple multiplication method cannot be used for the veto cut in \(D_{s}\) reconstruction where the kaon daughters of the \(\phi\) are not only required to be within 2 _kaon_\(N_{\sigma}\) of the kaon band but also be more than 2 _pion_\(N_{\sigma}\) from the pion band. In this case, the efficiency of the cut must be extracted from real data by evaluating the fraction of kaon candidate tracks cut away based on pion \(N_{\sigma}\). Figure 5.3 shows the effects of using a pion \(N_{\sigma}\) cut on kaon candidates. In the band crossing region, the particle candidates are an admixture of pions and kaons. However, if, for example, 40% of the candidates are cut away by a \(N_{\sigma}\) cut at a particular momentum, that means that 40% of pions _and_ 40% of kaons are cut away. Therefore, the tracks need not be identified prior to applying the cut.
+
+To apply the cut, the efficiencies for each \(\Delta\sigma\) bin within in each \(p\) column on 5.3 are multiplied by a Gaussian function. The sum is taken for each \(p\) column and normalized by \(1/\sqrt{2\pi}\). This allows one to find the efficiency effect of the pion \(N_{\sigma}\) cut on kaon candidates as a function of \(p\). If \(y(p)\) is the efficiency of the pion \(N_{\sigma}\) cut on kaons at momentum \(p\) and \(x(i,p)\) is one pixel of 5.3, then \(y(p)\) can be written as,\[y(p)=\sum_{\sigma_{i}=-2}^{\sigma_{i}=2}x(p,i)\frac{\Delta\sigma}{\sqrt{2\pi}}e^{- \sigma_{i}^{2}/2}. \tag{5.1}\]
+
+Due to limitations of computing resources the embedding method was not used to find the efficiency corrections of the \(D_{s}\) in Au+Au analysis. In order to find the efficiencies, a pure simulation was used. First Monte-Carlo \(D_{s}\) mesons were simulated using GEANT for the STAR detector. But these simulated \(D_{s}\) mesons were not placed into real events. In effect, a noiseless simulator was run. Like for the \(D^{0}\), the efficiency was taken to be the number of tracks found divided by the number of Monte-Carlo tracks generated. A comparison of the two methods for the \(D^{0}\) in Cu+Cu efficiencies is shown in Table 5.1. Relative to other systematic error sources (See Appendix A), the pure simulation provides an approximate recreation of embedding.
+
+### 5.3 SVT Slow Simulator
+
+The purpose of the SVT Slow Simulator is to simulate the response of the SVT to particles passing through it. This is necessary for embedding simulations to find the correct efficiency corrections when SVT hits are used. At the most basic level, the simulator uses the properties of electron movement through silicon to generate the hits caused by particles passing through the wafer. The parameters of the simulator must be tuned to real data in order to obtain a proper representation of the hit.
+
+A hit is defined as the position where a particle track crosses the Silicon Drift Detector. A projection in the xy-plane of the hits generated in the SVT Slow Simulator can be seen in Figure 5.4. One can clearly see all SVT ladders in this plot. Each hit
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|} \hline \(p_{t}\) **range** & **Embedding Result** & **Pure Simulation Result** & **Difference** \\ \hline \(0.1\leq p_{t}<0.7\) GeV/c: & 0.1701 \(\pm\) 0.0021 & 0.1725 \(\pm\) 0.0018 & 1.40\% \\ \hline \(0.7\leq p_{t}<1.3\) GeV/c: & 0.1944 \(\pm\) 0.0016 & 0.1865 \(\pm\) 0.0020 & -4.03\% \\ \hline \(1.3\leq p_{t}<1.9\) GeV/c: & 0.2267 \(\pm\) 0.0022 & 0.2173 \(\pm\) 0.0022 & -4.13\% \\ \hline \end{tabular}
+\end{table}
+Table 5.1: A comparison of embedding vs. pure simulation for calculating the efficiency\(\times\)acceptance of the \(D^{0}\) in Cu+Cu analysis.
+
+generates an electron cloud (both in the simulator and physically in real data). The amount of ionization can be described, to first order, by the Bethe-Bloch parameterization. The electron cloud can be described as having a 2D Gaussian density in an elliptical shape in the plane of the SDD. The density is described by [80],
+
+\[\frac{dq}{dxdy}=\frac{Q}{2\pi\sigma_{x}\sigma_{y}}e^{\frac{-(x-x_{0})^{2}}{2 \sigma_{x}^{2}}-\frac{(y-y_{0})^{2}}{2\sigma_{y}^{2}}}, \tag{5.2}\]
+
+where \((x_{0},y_{0})\) is the centroid, \(Q\), the total charge, and \(\sigma_{x}\) and \(\sigma_{y}\) the Gaussian sigmas of the major and minor axes.
+
+After an electron cloud is generated, it is forced by the 1500V potential difference across the hybrid towards the readout anodes. The cloud evolves both through diffusion and Coulombic repulsion, expanding as it moves towards the readout locations. As described in Section 3.3.3, there are a total of 240 readout anodes on each wafer, each connected immediately to a PASA. During each event, the PASAs are
+
+Figure 5.3: Efficiency of \(K^{+}\) reconstruction due to the pion veto cut.
+
+read out 128 times. The analog signals read out from the anodes are stored in in the Switch Capacitor Array (SCA). A signal's location in the SCA defines its "timebucket". The timebuckets allow the reconstruction of the hit in the drift direction, completing the description of the electron cloud. Anode and timebucket information together describe a "pixel" of the hit.
+
+Each pixel stores the amount of charge deposited onto it. What is now needed is a cluster finder to combine groups of pixels into SVT hits. First sequences are made of series of pixels which are above threshold for each anode. Then a cluster finder searches for sequences which are adjacent on different anodes in order to merge them into clusters.
+
+Figure 5.4: Hits in the SVT Slow Simulator, showing all the ladders simulated in their correct positions.
+
+#### Simulation Hit Tuning
+
+In order to obtain accurate embedding, the SVT Slow Simulator must be able to recreate real SVT hits, no matter where they fall on the SVT and at every time during their evolution. This is to determine which hits can be found amidst the noise and the presence of other hits with the SVT wafers. The following properties must be tuned in order to ensure the accurate reconstruction of SVT hits:
+
+A) The total charge read out from the anodes for the hit.
+
+B) The initial size and shape of the hit.
+
+C) The hit's evolution as it drifts towards the anodes.
+
+As an initial approximation, tuning the total charge read out requires only the simulated gain of the PASAs to be modified. However, total charge also depends somewhat on hit evolution because a diffuse hit will experience some of its charge falling into anode bins where the charge read out is below threshold. The simulated
+
+Figure 5.5: Total charge vs. time-bucket.
+
+charge should then fall gradually as a function of time (See Figure 5.6 ).
+
+The initial size of the hit can be determined by checking the number of pixels and timebuckets activated in each hit at very low drift time. The hit sizes will increase as a function of drift time, the rate of which depends on the diffusion coefficient. Hit sizes may be parameterized by the number of pixels (See Figure 5.7). Another check is the peak ADC value. If the peak ADC value for a hit is too high relative to data, then the hit is too concentrated. All of these observables must match for a good tune.
+
+Assuming that the volume ionized by the particle traversing the SVT is infinitesimal, then the initial major axis length is given by the RMS variance of the projection of the incident track onto the SDD plane.
+
+\[\sigma_{x}=\frac{1}{\sqrt{12}}h\tan\theta, \tag{5.3}\]
+
+where \(h\) is the thickness of the SDD wafer and \(\theta\) is the angle between the track and
+
+Figure 5.6: Peak ADC values vs. time-bucket.
+
+Figure 5.7: The number of pixels firing for SVT hits vs. time-bucket a) with negligible initial hit sizes and b) hit sizes of width 120 \(\mu\)m.
+
+the axis perpendicular to the plane of the SDD. The minor axis is set to a very small number relative to this.
+
+However, checking the number of pixels and the peak ADC values relative to data showed that this function for the major axis could not possibly be correct (see Figure 5.7). Therefore, the assumption that incoming particles only created initial ionization an infinitesimal distance from the track was thrown out. Instead it is assumed that a volume with RMS width \(r\) is ionized. Assuming the initial charge is flat over the projection of the track into the SDD plane and then falls off like a Gaussian, the major axis is given by (via finding the variance),
+
+\[\sigma_{maj}\approx\frac{1}{\sqrt{12}}(h\tan\theta+r\cos\theta), \tag{5.4}\]
+
+where \(r\) is the initial radius of a hit when a track is perpendicular to the SDD plane. Edge effects are not included in this equation.
+
+The minor axis is given as
+
+\[\sigma_{min}=r. \tag{5.5}\]
+
+Physically, a non-infinitesimal initial hit size may be due to avalanches being caused in the region around the particle's trajectory.
+
+Finally, if a discrepancy is observed between simulation and data as the drift time increases, then the diffusion rate of the hit must be changed. However, the diffusion
+
+Figure 5.8: Second moments of hits in anode (a) and timebin (b) directions.
+
+coefficient is a strictly determined property of the silicon and should not be adjusted. But there is another effect which could distort the shape of the electron cloud. This is electron trapping and it occurs when excited electrons fall into the holes in the valence band. If this happens, the voltage potential flattens and the drift time increases. In terms of cloud size, trapping is equivalent to a larger diffusion coefficient in the drift direction.
+
+In order to ensure that the shape of the hit is accurately reconstructed, the maximum charge deposited on the ADC values as well as the second moments of the hits are compared. The second moments of the hits are calculated by using the following formulas:
+
+\[M_{0}=\sum x_{i}, \tag{5.6}\]
+
+\[M_{1}=\sum(x_{i}a_{i})/M_{0}, \tag{5.7}\]
+
+\[M_{2}=\sum(x_{i}(a_{i}-M_{1})^{2})/M_{0}, \tag{5.8}\]
+
+where \(M_{j}\) are the moments, \(x_{i}\) are the charges on the ADCs and \(a_{i}\) are the timebucket or anode numbers. The agreement between simulation and data can be seen in Figure 5.8.
+
+In terms tuning the SVT simulator, both the initial hit size and the trapping constant affect the size of the hit. Increasing the initial size of the hits creates more
+
+Figure 5.9: The effect on total charges as a function of \(\eta\) before (a) and after (b) inserting an angular correction.
+
+diffuse hits. Increasing the trapping constant does the same. However, the form of the pixel vs. timebucket values as well as the time evolution of the observables argue that large initial hit size is more important than increased trapping in determining the nature of the hits. Please see Table 5.2 for a list of tuning parameters.
+
+#### Pseudorapidty Dependence of Ionization
+
+To properly establish the angular effects on SVT hits, the total charge, peak ADC values, number of pixels, and the second moments were plotted as a function of pseudorapidity. The baseline simulator had a stronger dependence on pseudorapidity than was observed in the data (See Figure 5.9a). As will be described, the simulation results match the simplest model of a particle ionizing the silicon.
+
+If we define \(\theta\) as the angle (always positive) between the axis perpendicular to the wafer and the particle track, then, as a first approximation, the total charge in the electron cloud should have a \(1/\cos\theta\) dependence because this is the angular dependence of the distance traveled inside the silicon by the incident particle. If the previous assumption is then modified to an assumption that the incident particle ionizes all silicon within a certain distance \(r\) of its path, the \(1/\cos\theta\) dependence is preserved. The volume of silicon within a distance \(r\) would be given by:
+
+\[V=\frac{\pi hr^{2}}{cos\theta}. \tag{5.9}\]
+
+The total charge in this case can be seen in Figure 5.9a.
+
+In order to fix the angular dependence, we can hypothesize the existence of edge effects as a particle enters and leaves the silicon. An important feature of the ionization of silicon by incident particles is that the Coulombic impulse to the ionized
+
+\begin{table}
+\begin{tabular}{|l|l|} \hline Initial Hit Radius & 120 \(\mu\)m \\ \hline Pasa Gain & 13.4 uV/e \\ \hline Trapping Constant & 50 ps \\ \hline \end{tabular}
+\end{table}
+Table 5.2: The SVT tuning parameters found for STAR’s 2007 Au+Au 200 GeV data run.
+
+particles is always _transverse_ to the incident track [81] (see Figure 5.11). This seems to be the cause of the edge effect. Writing down two assumptions,
+
+a) The particle causes initial ionization out to a distance \(r\) via avalanches in the plane transverse to its track.
+
+b) Ionization stops once the particle leaves the silicon.
+
+the volume of the ionization region is given by,
+
+\[V=\frac{\pi hr^{2}}{\cos\theta}-\frac{2\pi}{3}r^{3}tan\theta. \tag{5.10}\]
+
+The model is diagramed in Figure 5.10. Rewriting the total charge as,
+
+\[Q=Q_{0}*(1-\frac{2r}{3h}sin\theta), \tag{5.11}\]
+
+Figure 5.10: A model of initial hit size which reproduces data as viewed in a plane perpendicular to the SDD wafer.
+
+the angular dependence can be fixed. Here \(Q_{0}\) is the total charge found by the simulator for the original assumption, \(V=\frac{\pi\hbar r^{2}}{\cos\theta}\). By using the modified formula, the angular dependencies of the total charge in simulation and in data match well as can be seen in Figure 5.9b. Note that this is an empirical model to match data rather than constructed from fundamental principles.
+
+### 5.4 Evaluation of Signals and Residuals
+
+After a background has been subtracted and a signal found, there remains residual background in the invariant mass spectrum in both the \(D^{0}(\bar{D^{0}})\) and \(D_{s}\) cases. The nature of this residual background can be investigated by recreating it in simulation. Sources of residual background can either be classified as physics phenomena other
+
+Figure 5.11: Ionization of silicon by an incident particle. Ionized electrons receive a momentum kick in the transverse direction. Figure from [81]
+
+than the mass signal of interest or artifacts of the analysis method. Examples of physical phenomena which can generate residual background shapes are other resonance decays and collective effects of the medium, such as flow.
+
+Other resonance decays add shapes to the residual background in one of two ways. First, if there are decay channels which contain daughter particles of the same species as the decay channel studied but also include extra particles, a residual shape will be generated. This is because daughters are still correlated, they come from the same decay, even if not all of the tracks are reconstructed. The \(D_{s}^{\pm}\to\phi\pi^{\pm}\to K^{+}K^{-}\pi^{\pm}\) decay studied in this analysis has a branching ratio of \(2.18\pm 0.33\%\)[2]. The most
+
+Figure 5.12: \(\phi\pi\) combinations with the residual background and true signal marked appropriately from a simulation of \(D_{s}\) mesons decaying through channels including (but not limited to) \(\pi\) and \(\phi\) daughters. The invariant masses have been smeared using the Gaussian width from a fit to the \(D_{s}\) peak in data. ”X” daughters are thrown out.
+
+significant decay which produces \(K^{+}K^{-}\pi^{\pm}\) daughters,as well as other particles, is the \(D_{s}^{\pm}\to\phi\rho^{\pm}\to K^{+}K^{-}\pi^{\pm}\pi^{0}\), which has a somewhat larger branching ratio of \(4.0^{+1.1}_{-1.2}\%\)[2]. One can see from Figure 5.12 that decays such as this one contribute significant residual background to the \(\phi\pi\) combinatorics.
+
+Like the \(D_{s}\to\phi\pi\), an invariant mass reconstruction of the \(D^{0}\) is also contaminated by other decay channels with larger branching ratios. Besides the \(D^{0}\to\pi^{+}K^{-}\) with branching ratio \(3.91\pm 0.05\%\), the \(D^{0}\) also decays via the channel \(D^{0}\to\pi^{+}K^{-}\pi^{0}\) with a branching ratio of \(14.0\pm 0.5\%\). This generates a significant residual background in the invariant mass spectrum (see Figure 5.13). Besides the other decay channels of the \(D^{0}\) itself, other resonance particles with two-daughter decays also contribute to the \(D^{0}\).
+
+Figure 5.13: Simulation of residual background in \(K^{-}\pi^{+}\) combinations due to other \(D^{0}\) decay channels. Only daughter tracks of \(D^{0}\) mesons were used to generate this plot.
+
+residual background of the \(K\pi\) combinations invariant mass spectrum. The problem is compounded by the fact that unique particle ID cuts cannot be used. Above the kaon band crossing region (see Figure 4.3), many particle tracks are used as both kaon and pion candidates. A significant number of pions are used as kaon candidates in the mass reconstruction and a lesser number of kaons are used as pions. This is important because decays like the \(\rho\to\pi^{+}\pi^{-}\) will contaminate the \(K\pi\) mass spectrum. A Pythia simulation was done to reconstruct the shape of this contamination to make sure that there are no peaks or inflections near the \(D^{0}\) mass which could distort a measurement of the \(D^{0}\) yield (See Figure 5.14). From these simulations, it can be concluded that a large contributor to the residual background is other decays besides the target one being reconstructed.
+
+Figure 5.14: Simulation of residual background in \(K^{-}\pi^{+}\) combinations due to the misidentification of the \(\pi^{-}\) in \(\pi^{+}\pi^{-}\) pairs.
+
+## Chapter 6 Results
+
+### 6.1 The \(D^{0}\) Invariant Mass Spectra
+
+\(D^{0}+\bar{D^{0}}\) mesons were successfully reconstructed from their \(K\pi\) decay daughters in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions. Invariant mass peaks were identified after rotational background subtraction in the \(p_{t}\) range of 0.1 to 1.9 GeV/c, as shown in Figure 6.1, and after the spectrum was split into three \(p_{t}\) bins of width 0.6 GeV/c between 0.1 and 1.9 GeV/c, as shown in Figure 6.2. In all invariant mass figures reported in this thesis, the "number of entries" represents the number of reconstructed combinations. This number can be negative after a background subtraction in the case that the background invariant mass spectrum has a different shape from the original spectrum. The mass peaks were fit with Gaussian + linear functions with the Gaussian functions being used to calculate yields. The statistical significance (\(\sigma\)) of the combined \(D^{0}+\bar{D^{0}}\) signal is \(4.67\sigma\) where \(\sigma\) is defined as,
+
+\[\sigma=S/\sqrt{S+(1+1/N_{rot})B}, \tag{6.1}\]
+
+where \(S\) is the number of counts within the signal, \(B\) is the number of counts in the background, and \(N_{rot}\) represents the number of rotations. \(S\) is determined by the area under the Gaussian of the fit out to \(3\sigma\) from the centroid. \(B+S\) is determined by the integral of the total number of counts in the invariant mass spectrum out to \(3\sigma\) from the centroid. This signal is more significant than STAR's \(D^{0}+\bar{D^{0}}\) in\(\sqrt{s_{NN}}=200\) GeV Au+Au measurement (\(\sim\)4 \(\sigma\)) but less significant than that in the d+Au measurement \(\sim\)6 \(\sigma\)).
+
+The Gaussian sigma (width) of the \(D^{0}+\bar{D^{0}}\) peak was measured to be \(20.0\pm 5.3\) MeV/\(c^{2}\), which is larger than the result from the embedding simulation of \(14.101\pm 0.074\) MeV/\(c^{2}\), but this is expected. The physical resonance mass width of the \(D^{0}\) is negligible (\(1.605\times 10^{-9}\) MeV from the relation \(\Delta E\Delta t=\hbar\)) so the entirety of the mass width is due to detector effects. The \(D^{0}+\bar{D^{0}}\) centroid is located at \(1854.2\pm 4.2\) MeV/c\({}^{2}\), which is \(10.7\pm 4.2\) MeV/c\({}^{2}\) lower than the value published in the PDG booklet (\(1864.84\pm 0.17\) MeV/c\({}^{2}\)) [2]. This discrepancy may be due to STAR detector track reconstruction effects in which the invariant masses of reconstructed particles tend to shift downwards at low momenta but upwards at high momenta. This effect is seen in the reconstructions of various particles using data from the STAR TPC, for example, the \(K^{0}_{s}\) and the \(\phi\). It may be due to a systematic shift in the radii of curvature of tracks reconstructed using the Kalman tracking algorithm.
+
+The ratio of the \(\bar{D^{0}}\) over \(D^{0}\) yield is 1.04 \(\pm\) 0.50, consistent with unity (See Figure 6.3). This is expected because \(c\bar{c}\) quarks are generated in pairs and no effects are hypothesized which can create large discrepancies between \(D^{0}\) and \(\bar{D^{0}}\) production. The Gaussian sigmas of the individual \(D^{0}\) peak (\(11.2\pm 6.4\) MeV/c\({}^{2}\)) and the \(\bar{D^{0}}\) peak (\(21.3\pm 6.5\) MeV/c\({}^{2}\)) do differ considerably but are also within error bars. Since simulation does not show any differences between the Gaussian shapes of the \(D^{0}\) and \(\bar{D^{0}}\), the difference in sigmas may be due to statistical fluctuations.
+
+### 6.2 The \(D^{0}\)\(p_{t}\) Spectrum
+
+The extracted \(p_{t}\) spectrum of the \(D^{0}+\bar{D^{0}}\) was fit with an exponential function (see Section 4.6), from which the effective temperature was derived to be \(T_{eff}=0.30\pm 0.10\)(stat.) GeV and the yield at midrapidty, \(dN/dy=0.240\pm 0.059\)(stat.)\(+0.051-0.074\)(sys.) (See Figure 6.4). Fully 90% of the \(D^{0}\) yield lies within the reconstructed \(p_{t}\) range. The mean \(p_{t}\) is calculated to be 1.06 GeV/c.
+
+### 6.3 Calculation of the Open Charm Cross-Section
+
+The midrapidity yield of \((D^{0}+\bar{D^{0}})/2\) for \(|y|<1.0\) in \(\sqrt{s_{NN}}=200\) GeV collisions may be converted to an inclusive charm cross-section per nucleon-nucleon collision in
+
+Figure 6.2: The \(D^{0}+\bar{D^{0}}\) invariant mass peak rebinned into \(p_{t}\) bins after a rotational background subtraction.
+
+Figure 6.1: The \(D^{0}+\bar{D^{0}}\) invariant mass peak after a rotational background subtraction. The fit curve is a linear + Gaussian function.
+
+order to allow a clear physical comparison to QCD predictions. First, the midrapidity \((D^{0}+\bar{D^{0}})/2\) measurement must be extrapolated to the full rapidity range. This is done using Pythia to simulate the production of \(D^{0}\)s in a p+p collision [77]. Then, the number of \(c\bar{c}\) pairs is estimated by using the ratio of \(c\bar{c}\) to \(D^{0}\)s found in \(e^{+}e^{-}\) collisions. These steps give an estimate of the number of \(c\bar{c}\) pairs over the full rapidity range. Since we wish to calculate the production of \(c\bar{c}\) pairs per nucleon-nucleon collisions, the number of \(c\bar{c}\) pairs must next be multiplied by the proton-proton inelastic cross-section. Finally, to calculate the \(c\bar{c}\) yield per nucleon-nucleon collision, the result must be divided by the average number of binary (nucleon-nucleon) collisions in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collision with a centrality range of 0-60%. This is calculated using the Glauber Model (please see Section 4.2). Combining all these steps together gives,
+
+\[\sigma_{c\overline{c}}^{NN}=(\frac{dN_{(D^{0}+\bar{D^{0}})/2}}{dy})\times( \sigma_{pp}^{inelastic}/N_{bin}^{CuCu})\times(f/R), \tag{6.2}\]
+
+where \(f=4.7\pm 0.7\) is the extrapolation to the full rapidity range [77], \(R=0.556\pm 0.036\) is the ratio of \(c\bar{c}\) pairs to \(D^{0}\) mesons in \(e^{+}e^{-}\) collisions [2]. \(N_{bin}^{CuCu}=80.4+5.9-5.6\) represents the average number of binary collisions in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions of 0 to 60 % centrality. Finally, \(\sigma_{pp}^{inelastic}=42mb\) is the cross-section of proton-proton inelastic collisions [78]. Putting all of these factors together, the total inclusive nucleon-nucleon charm cross-section in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions is therefore calculated to be
+
+Figure 6.3: a) The \(D^{0}\) invariant mass peak after a rotational background subtraction. b) The \(\bar{D^{0}}\) invariant mass peak after a rotational background subtraction.
+
+Figure 6.4: The \(p_{t}\) spectra of the \(D^{0}+\bar{D^{0}}\) in 200 GeV Cu+Cu collisions of 0 to 60 % centrality in logarithmic (a) and linear (b) formats with statistical error bars.
+
+\[\sigma^{NN}_{c\bar{c}}=1.06\pm 0.26(stat.)+0.29(sys.)-0.38(sys.){\rm mb}. \tag{6.3}\]
+
+There are some caveats with the above calculations. The \(c\bar{c}\) to \(D^{0}\) ratio in heavy-ion collisions may not be equivalent to the ratio in \(e^{+}e^{-}\) collisions. In fact, this is what the statistical hadronization model predicts (please see Section 2.3). An enhancement of the \(D_{s}\) yield in heavy-ion collisions would cause the \(c\bar{c}\) to \(D^{0}\) to be higher than 0.556. This ratio must be assumed for the Cu+Cu analysis. The appropriateness of this assumption is part of the justification for the \(D_{s}\) analysis presented in this thesis. Another assumption is the rapidity distribution of open charm. The STAR-TPC has a limited acceptance of \(|\eta|<1.0\). Therefore, it is difficult to determine the rapidity distribution of open charm based on experimental data. Instead, the simulated result must be assumed.
+
+### 6.4 The \(D_{s}\) Invariant Mass Spectra
+
+\(D_{s}^{+}+D_{s}^{-}\) mesons were reconstructed via the \(\phi\pi\) decay channel in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions through the use of secondary vertexing based on STAR's inner silicon trackers. The \(D_{s}^{+}+D_{s}^{-}\) signal was measured to have a statistical significance of 3.1\(\sigma\). Though the significance is relatively low when compared to the \(D^{0}+\bar{D^{0}}\) signal, the existence of the \(D_{s}\) signal is resistant to large changes in cuts (see Section A.2). The reconstructed \(D_{s}^{+}+D_{s}^{-}\) signal after a mass offset background subtraction is shown in Figure 6.5.
+
+The centroid of the Gaussian fit to the \(D_{s}\) signal is found to be \(1994.7\pm 4.8\)MeV/c\({}^{2}\), which is \(26.2\pm 4.8\)MeV/c\({}^{2}\) greater than the \(D_{s}\) mass published by the PDG (\(1968.49\pm 0.34\) MeV/c\({}^{2}\))[2]. Since the \(D_{s}\) mesons were reconstructed at a higher momentum range than the \(D^{0}\), their invariant masses shift upwards when reconstructed in the STAR detector. This is the same systematic effect that was seen for the reconstruction of \(D^{0}\) mesons in Cu+Cu. The \(D_{s}\) Gaussian sigma was measured to be \(14.2\pm 3.1\) MeV/c, which is larger than the (noiseless) simulated value of 9.4 \(\pm\) 0.6 MeV, but this is expected.
+
+Figure 6.5: The \(D_{s}^{+}+D_{s}^{-}\) invariant mass peak after \(\phi\) mass offset (a) and rotational (b) background subtraction.
+
+Because the significance of the \(D_{s}\) signal is low, dividing the invariant mass spectrum into individual \(p_{t}\) bins is difficult because the significance of the \(D_{s}\) in each \(p_{t}\) bin would be approximately given by \(3.1/\sqrt{\rm{N_{bins}}}\). Therefore, in order to extract a midrapidity yield, \(dN/dy\), the yield of the \(D_{s}\) signal in the \(p_{t}\) range of 1.0 to 2.2 GeV/c is used under the assumption that the effective temperature of the \(D_{s}\) is equivalent to that of the \(D^{0}\). Perhaps surprisingly, the extrapolated \(dN/dy\) of the \(D_{s}\) is only weakly dependent on the effective temperature assumption (see Figure 6.7). Using the \(D^{0}\) effective temperature of \(T_{eff}=0.30\) GeV, the \(dN/dy\) is found
+
+Figure 6.7: Extrapolated dN/dy as a function of assumed effective temperature for the \(D_{s}\) in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions.
+
+Figure 6.6: a) \(D_{s}^{+}\) and b) \(D_{s}^{-}\) peaks after mass offset background subtractions and fit with Gaussian functions.
+
+to be \(dN/dy=0.56\pm 0.15(stat.)+0.27(sys.)-0.19(sys.)\) in \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions. The \(D_{s}\)\(dN/dy\) was extracted using efficiency corrections from a pure simulation, the appropriateness of which is discussed in Section 5.2. Using the \(D^{0}\) temperature assumption, \(\sim 44\%\) of the \(D_{s}\) yield lies in the \(p_{t}\) range directly reconstructed.
+
+Due to large statistical errors it is difficult to conclude anything from the calculated \(D_{s}^{-}/D_{s}^{+}\) ratio of 0.7\(\pm\)0.5 (See Figure 6.6). Further measurements with greater statistics will be needed to find the true ratio.
+
+## Chapter 7 Discussions and Conclusions
+
+### 7.1 Spectral Fit
+
+The shape of the \(D^{0}\)\(p_{t}\) spectrum can reveal information about the properties of \(D^{0}\) mesons at the time of thermal freeze-out. Specifically, a blast-wave fit to a \(p_{t}\) spectrum allows the temperature at thermal freeze-out, \(T_{fo}\), and the average radial velocity, \(<\beta>\), to be extracted. Unfortunately, the blast-wave function as defined here [82] has three free parameters. With only three bins in \(p_{t}\), it is difficult to extract all three parameters from the spectrum. The best that can be done is a comparison with the lighter particle species in the Cu+Cu system.
+
+Using data from [83], the pion, kaon, and proton, spectra of 0 to 60% central Cu+Cu collisions at \(\sqrt{s_{NN}}=200\) GeV were fit with blast-wave functions. From these data, it was found that \(<\beta>=0.470\pm 0.001\), \(T_{fo}=0.121\pm 0.001\) GeV, and \(n=0.498\pm 0.001\) where \(n\) gives the power-law dependence of flow velocity on radius via,
+
+\[\beta_{r}(r)=\beta_{s}(\frac{r}{R})^{n}, \tag{7.1}\]
+
+where \(\beta_{s}\) is the surface flow velocity at radius \(r=R\).
+
+If the \(D^{0}\) mesons are fully coupled with the lighter species in the late stages of the collision fireball, they too should take on these parameters. The curve derived from the freeze-out parameters of the lighter species is shown in Figure 7.1. The curveis inconsistent with the data, showing that the \(D^{0}\)s are not fully coupled with the light particles. Assuming \(T_{fo}\), as well as the power-law dependence of flow velocity on radius, is the same for the \(D^{0}\)s as it is for the lighter species, it is possible to fit the \(p_{t}\) spectrum and extract \(<\beta>\). The value extracted is \(<\beta>=0.35\pm 0.07\), suggesting that the \(D^{0}\)s do not have as strong radial flow as the light species, given the same freeze-out temperature. Keeping \(<\beta>\) and the radial velocity function fixed and leaving \(T_{fp}\) as a free parameter does not lead to a successful fit of the \(D^{0}\) spectrum.
+
+Figure 7.1: The \((D^{0}+\bar{D^{0}})/2\)\(p_{t}\) spectra in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions fit with a thermal fit (red), a blast wave curve derived from \(T_{fo}\) and \(<\beta>\) of pions, kaons, and protons in 0 to 60 % central Cu+Cu collisions (brown), and a blast wave fit from fixing \(T_{fo}\) to the light species and letting \(<\beta>\) be a free parameter (green).
+
+### 7.2 Cross-Section
+
+The charm cross section in \(\sqrt{s_{NN}}=200\) GeV Cu+Cu collisions was measured to be \(\sigma^{NN}_{c\bar{c}}=1.06\pm 0.26(stat.)+0.29(sys.)-0.38(sys.)\)mb. This result is outside the systematic upper limit of the charm cross-section calculated in FONLL pQCD, in which the amplitude was calculated in \(dp_{t}\) slices and then integrated, \(\sigma^{FONLL}_{c\bar{c}}=0.256^{+0.400}_{-0.146}\) mb [39]. Since the perturbative assumptions are not valid at low momenta, the discrepancy between the experimental result and the FONLL prediction may be due to the break-down of the peturbative assumption. However, the measured charm cross-section is within the upper limit of the NL0 calculation in which the cross-section was calculated in one step and not \(dp_{t}\) slices, \(\sigma^{NLO_{lf=3}}_{c\bar{c}}=0.301^{+1.000}_{-0.210}\) mb [39].
+
+Figure 7.2: The inclusive total charm cross-section as measured by STAR, PHENIX, and calculated from pQCDThis result implies that the NLO calculation may be a better representation of the system.
+
+The measured charm cross-section of \(1.06\pm 0.26(stat.)+0.29(sys.)-0.38(sys.)\)mb in \(\sqrt{s_{NN}}\) = 200 GeV Cu+Cu collisions is consistent, but lower than, with the \(1.29\pm 0.12(stat.)\pm 0.39(sys.)\) mb found in Au+Au collisions [50] and the \(1.4\pm 0.2(stat.)\pm 0.4(sys.)\) mb found in d+Au by the STAR experiment [49] (See Figure 7.2). This implies that open charm scales with the number of binary collisions. Because charm production does not depend on the collision system, the production of charm must not be dependent on the medium, QGP or otherwise. This implies that charm is produced during initial gluon fusion (See Chapter 2). This does not mean that charm is not influenced by the medium; \(R_{AA}\) measurements from other systems [50, 51] show that charm quarks lose energy as they travel through the medium.
+
+Previous STAR measurements of the open charm cross-section have been roughly a factor of two larger than PHENIX's. The systematic error of the open charm cross-section measured in Cu+Cu barely overlaps the upper limit of the systematic error of PHENIX's Au+Au open charm measurement. Since previous STAR open-charm measurements have been inconsistent with PHENIX, it is still premature to say that agreement exists between the two experiments.
+
+### 7.3 Discussion of the \(D_{s}\) in Au+Au
+
+The mid-rapidity \(D_{s}\) yield of \(dN/dy=0.56\pm 0.15(stat.)+0.27(sys.)-0.19(sys.)\), extracted from \(\sqrt{s_{NN}}=200\) GeV Au+Au collisions may be compared to the predictions of the Statistical Hadronization Model (SHM). To do this, a comparison must be made between the inclusive charm-strange, \(D_{s}\), yield and the inclusive yield of charm-light quark mesons, \(D_{inc}\). It is assumed in the following discussion that higher-energy resonances do not contribute significantly to the total open charm yield. Therefore, \(D_{inc}=D^{0}+\bar{D^{0}}+D^{+}+D^{-}\) while \(D_{s}=D_{s}^{+}+D_{s}^{-}\). Unfortunately, no RHIC experiment has published spectra for \(D^{\pm}\) to date. Therefore, the ratio of the charged \(D\) to \(D^{0}\) must be assumed in order to make model comparisons. Since the \(D/D^{0}\) ratio is not predicted to change in the presence of a deconfined plasma, it is assumed that the ratios extracted from Pythia or \(e^{+}e^{-}\) collisions at \(\sqrt{s_{NN}}=91\) GeV are valid.
+
+The STAR experiment has measured the mid-rapidity \(D^{0}\) yield as \(dN/dy=1.02\pm 0.14\) in Au+Au collisions at \(\sqrt{s_{NN}}=200\) GeV [50]. According the Pythia [48], the \(D_{inc}/D^{0}\) ratio is 1.4 and, according to \(e^{+}e^{-}\) data, \(1.39\pm 0.08\)[2]. The ratio \(D_{inc}/D_{s}\) is therefore, \(2.6\pm 0.7(stat.)+0.5(sys.)-0.7(sys.)\) using the Pythia prediction for the ratio of \(D/D^{0}\) and \(2.5\pm 0.7(stat.)+0.5(sys.)-0.7(sys.)\) using the data from \(e^{+}e^{-}\) collisions at \(\sqrt{s_{NN}}=91\) GeV. These values are consistent with the ratio predicted by the SHM of 2.8 at the conditions at RHIC of \(s/S\approx 0.03\) and \(S^{Q}=S^{H}\)[45].
+
+The \(D_{inc}/D_{s}\) ratio as measured in STAR's Au+Au collisions is lower than both the Pythia prediction of \(\sim 7.3\) or the ratio from \(e^{+}e^{-}\) collider data of \(4.80\pm 0.79\). These results strongly suggest an enhancement of the \(D_{s}\) in the presence of an equilibrated, deconfined quark-gluon plasma.
+
+In section 6.3, a \(D^{0}+\bar{D^{0}}\) to \(c\bar{c}\) ratio was used to evaluate the inclusive open charm cross-section in Cu+Cu collisions. But given an enhancement of the \(D_{s}\) yield, that ratio will change. Putting in the enhancement gives a \(D^{0}/c\bar{c}\) a ratio of \(0.46\pm 0.06\). This implies that the true charm cross-section in Au+Au collisions may be 17% higher than reported by STAR or PHENIX.
+
+### 7.4 Future Directions
+
+Now that a picture of a consistent binary scaling from d+Au to Cu+Cu to Au+Au at a collision energy of \(\sqrt{s_{NN}}=200\) GeV has been established, it is important to see whether this binary scaling is continued down to elementary p+p collisions. The PHENIX experiment has measured the charm cross-section in p+p collisions to be \(\sigma_{c\bar{c}}^{NN}=0.567\pm 0.057(stat.)\pm 0.193(sys.)\) mb [54], But since PHENIX measured the charm cross-section in 200 GeV Au+Au collisions to be about a factor of 2 below STAR's result, it can be said that PHENIX's results are internally consistent with binary scaling, like STAR's. What is needed now is a STAR measurement of the open charm \(p_{t}\)-spectrum in p+p collisions, ideally using both hadronic and semi-leptonic decay channels. This will allow the binary scaling picture for relativistic heavy-ion collisions to be completed. A p+p measurement will also allow the \(R_{AA}\) to be evaluated for STAR data without the cold nuclear matter effects in d+Au collisions. An analysis of the open charm cross-section in 200 GeV Cu+Cu collisions using semi-leptonic data from PHENIX is also important. The PHENIX measurement may corroborate STAR's measurement of the open charm cross-section, or, if inconsistent will further evaluation of any systematic differences between STAR and PHENIX. Investigation is ongoing into the systematic discrepancies between the heavy flavor analyses of STAR and PHENIX.
+
+In order to fully evaluate \(D_{s}\) enhancement in heavy-ion collisions, a \(D_{s}\) yield measurement is needed in p+p collisions. According to the SHM, the \(D_{inc}/D_{s}\) ratio should be higher in p+p collisions relative to Au+Au collisions at the same energy. Also, the significance of the \(D_{s}\) measurement reported in this work is still rather small at only \(3.4\sigma\) and measurements of larger significances should be pursued. The upcoming STAR Heavy Flavor Tracker (HFT) and the ALICE Inner Silicon Tracker (IST) detectors will allow future open charm measurements of greater significance using similar techniques to the ones used in this work. The HFT will also allow measurements of charm production as a function of centrality as well as charm \(v_{2}\).
+
+In order to more fully evaluate the include open charm cross-section as well as SHM predictions, a \(D\) measurement should be done in STAR's \(\sqrt{s_{NN}}=200\) GeV Au+Au dataset. Such an analysis is currently in progress.
+
+Appendix A Systematic Error Estimates of the \(D^{0}+\bar{D}^{0}\) in Cu+Cu and the \(D_{s}\) in Au+Au
+
+In order to evaluate the systematic errors of both the \(D^{0}(\bar{D}^{0})\) in Cu+Cu analysis as well as \(D_{s}\) in the Au+Au analysis, a general principle is used that some systematic errors can act in both positive and negative directions, causing cancellation, while other sources can better be considered as being unidirectional in nature. Systematic errors which act both directions are added in quadrature, like statistical uncertainty, while systematic errors which only act in one direction are added linearly. An example of an error which can only act in one direction is the possibility of double counting \(D^{0}\)s. This is because one cannot possibly double-count _fewer_\(D^{0}\)s than exist. An example of a error which could be both in directions is the systematic error from binning choice, changes in binning cause measured yields to fluctuate in both positive and negative directions.
+
+## Appendix A Systematic Errors of the \(D^{0}\) in 200 GeV Cu+Cu Analysis
+
+The philosophy behind this systematic error analysis is to try multiple possible methods of doing the analysis. Then, the limits of the final possible results are tabulated (see Table A.1). One of the first possibilities of using a different choice of method is the setting of the minimum of fitted hits used for tracks. Every possibility over a range of 10 hits to 25 was evaluated. The systematic error of the yield from the choice of number of fitted hits was found to be 1.7 %, which is added quadratically. The next source of systematic error is from the calibration of \(N_{\sigma}\) by using the identified daughters of geometrically reconstructed V0 decays (See Section 4.4.2). It was found that the systematic error contribution from these errors is negligible (\(\sim 0.1\%\)). This is because with wide \(N_{\sigma}\) cuts, errors on the upper and lower bounds of the PID bands cancel out. On the other hand, changing the width of the \(N_{\sigma}\) cut itself does not lead to any cancellation. In fact, sizable yield fluctuations were observed as this cut was changed for the pions and kaons. Spectra were taken every 0.05 units of \(N_{\sigma}\) between
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|} \hline
+**Source** & **+ Value** & **- Value** & **Addition** \\ \hline N Hits in Fit Cut & 1.7\% & 1.7\% & Quadratic \\ \hline dE/dx Calibration & Negligible (\(<<1\%\)) & 0\% & Linear \\ \hline N Sigma Cut Error & 16.7\% & 16.7\% & Quadratic \\ \hline Background Subtraction Method & 4.8\% & 18.5\% & Linear \\ \hline Background Normalization & 1.5\% & 1.5\% & Quadratic \\ \hline Use of Gaussian Fit & 7.3\% & 0\% & Linear \\ \hline Double Counting & 0\% & 5.4\% & Linear \\ \hline Mass Bin Size & 5.0\% & 5.0\% & Quadratic \\ \hline Spectra Fit Function & 0\% & 1.4\% & Linear \\ \hline
+**Error in dN/dy** (\%) & **21.4\%** & **31.0\%** & \\ \hline Extrapolation from dN/dy to & 17.5\% & 17.4\% & Quadratic \\ \hline
+**Error in Charm Cross-Section (\%)** & **27.8\%** & **35.6\%** & \\ \hline
+**Charm Cross-Section Sys. Error** & **0.29 mb** & **0.38 mb** & \\ \hline \end{tabular}
+\end{table}
+Table A.1: Systematic error sources of the \(D^{0}\) in Cu+Cu Analysis1.8 and 2.2 \(N_{\sigma}\) for the pions and every 0.05 units of \(N_{\sigma}\) between 0.8 and 1.2 \(N_{\sigma}\) for the kaons. The standard deviation of the resulting yields was 16.7%. Since the error acts in both positive and negative directions, it was added quadratically.
+
+The most significant error on the \(dN/dy\) extraction comes from the method of background subtraction of the invariant mass spectrum. All reasonable methods were tried, and the extreme maximum and minimum charm cross-sections found were taken to be the upper and lower limits of the systematic error from background subtraction. The first background subtraction method tried was a secondary polynomial subtraction to eliminate residual background (See Figures A.1 and A.2). The polynomial was of fifth order with the mass range from 1.82 to 1.89 \(GeV/c^{2}\) excluded from the
+
+Figure A.1: The \(D^{0}+\bar{D^{0}}\) invariant mass peak from a rotational background subtraction and a secondary polynomial function subtraction rebinned into \(p_{t}\) bins and fit with Gaussian functions.
+
+fit. The polynomial was then subtracted from the invariant mass spectrum and the resultant peak was fit with a Gaussian function. The second method was the use of an event mixing rather than rotational background subtraction (These are described in Section 4.5.5). However, the residual background after event mixing had too much curvature for a fit using a Gaussian function atop a linear function to be done in a single step (See Figures A.3 and A.4). A Gaussian plus polynomial fit had too many parameters to be useful. Therefore, in the event mixing case, the cross-section was found by separating the polynomial and Gaussian fits into two steps (See Figures A.5 and A.6). Finally, instead of taking the sigma of the Gaussian function to be a free parameter, it was fixed to the value found in embedding simulation. Cross-sections were calculated using this procedure for both a direct rotational background subtraction and a rotational plus a polynomial function subtraction. Since there are no random effects amongst different background subtraction methods, the maximum percent differences in positive (+4.8%) and negative (-18.5%) directions were added linearly to the total systematic error.
+
+A mass range must be chosen to calculate a normalization factor for the invariant mass background before subtraction. Using the inverse of the number of rotations or the number of events mixed is the simplest method for calculating this factor; however, because of significant residual backgrounds (See Section 5.4), the simplest procedure leaves a large residual shape in the background. Instead, for the \(D^{0}+\bar{D^{0}}\) in \(\sqrt{s_{NN}}\) Cu+Cu analysis, a region is chosen near the mass peak. The original invariant mass spectrum, as well as the rotational background spectrum, are integrated across
+
+Figure A.2: The \(D^{0}+\bar{D^{0}}\) invariant mass peak from a rotational background subtraction and a secondary polynomial function subtraction rebinned into \(p_{t}\) bins and fit with Gaussian functions.
+
+this region to find the normalization factor. To find the systematic error, integration was done over a range of 100 MeV from 1.60 to 1.7 GeV, 1.62 to 1.72 GeV, etc. up to 1.7 GeV, 1.75 to 1.75 GeV, 1.75 to 1.75 GeV, etc.
+
+Figure 13: The \(D^{0}+\bar{D^{0}}\) invariant mass peaks after a mixed-event background subtraction.
+
+\begin{table}
+\begin{tabular}{|l|l|l|} \hline
+**Method** & **Cross-Section [mb]** & \% **Difference** \\ \hline Rotational & 1.06 \(\pm\) 0.21 & 0.0 \\ \hline Rotational + Polynomial & 1.04 \(\pm\) 0.22 & -1.7 \\ \hline Mixing + Polynomial & 0.86 \(\pm\) 0.23 & -18.5 \\ \hline Rotation + Fixed Width & 1.10 \(\pm\) 0.22 & +3.8 \\ \hline Rotation + Fixed Width + Polynomial & 1.10 \(\pm\) 0.29 & +4.4 \\ \hline \end{tabular}
+\end{table}
+Table 12: A Comparison of background subtraction methods for the \(D^{0}+\bar{D^{0}}\) in \(\sqrt{S_{NN}}\) Cu+Cu.
+
+to 1.7 to 1.8 GeV (the baseline case). The same procedure was done in the invariant mass region above the \(D^{0}+\bar{D^{0}}\) peak by taking 1.9 to 2.0 GeV, 1.92 to 2.02 GeV, etc. up to 2.0 to 2.1 GeV. The systematic error from the choice of normalization range is \(\sim 1.5\)%.
+
+Figure 4: The \(D^{0}+\bar{D^{0}}\) invariant mass peaks after a mixed-event background subtraction rebinned into \(p_{t}\) bins.
+
+Figure 5: The \(D^{0}+\bar{D^{0}}\) invariant mass peaks after a mixed-event background subtraction and a secondary polynomial subtraction of residuals and fit with a Gaussian function.
+
+represents a random component of 1.5%.
+
+The next few sources of systematics error come from the process of fitting the \(D^{0}+\bar{D^{0}}\) mass peak with a Gaussian function. In simulated \(D^{0}\) decays, the reconstructed
+
+Figure A.6: The \(D^{0}+\bar{D^{0}}\) invariant mass peaks after a mixed-event background subtraction and a secondary polynomial subtraction of residuals, rebinned into \(p_{t}\) bins and fit with Gaussian functions.
+
+Figure A.7: The \(D^{0}+\bar{D^{0}}\) mass peak fit with a Gaussian function whose width is derived from simulation.
+
+\(D^{0}\) peak is not quite Gaussian. The Gaussian fit misses 7.3% of the yield (See Figure A.12a)). In addition, if both daughters of the \(D^{0}\to K^{-}\pi^{+}(\bar{D^{0}}\to K^{+}\pi^{-})\) decay are misidentified due to overlapping PID bands (as is the case in the Cu+Cu analysis) a false peak which is much broader than the original, will be created under the true
+
+Figure A.8: The \(D^{0}+\bar{D^{0}}\) invariant mass peak rebinned into \(p_{t}\) bins and fit with a Gaussian function whose width is derived from simulation.
+
+Figure A.9: The \(D^{0}+\bar{D^{0}}\) invariant mass peak after a secondary polynomial subtraction fit with a Gaussian function whose width is derived from simulation.
+
+\(D^{0}(\bar{D^{0}})\) peak. By assuming particle misidentification based on the degree of overlap of the Bichsel PID bands, the false peak can be generated in simulation. By fitting the true peak atop the false peak with a Gaussian function (See Figure A.11), it was found that the \(D^{0}+\bar{D^{0}}\) yield may be over-estimated and that the true yield may 5.4% lower. This error was added linearly. In addition, the yield derived from the Gaussian fit fluctuates based on the size of the invariant mass bins (See Figure A.13a)). This error has a magnitude of 5.0% of the total and was added in quadrature because it acts in both directions. The final source of systematic error in the determination of dN/dy is derived from an exponential fit to the \(p_{t}\) spectrum. The difference between an integral of the fit function and the area of the bins is taken to be the systematic error. The integral had 1.4% more yield than the area of the bins; therefore, this error is also added to the total.
+
+Putting all of this together, the yield at midrapidity with systematic errors is \(dN/dy=0.240\pm 0.059(stat.)+0.051(sys.)-0.074(sys.)\). Following the procedure described in Section 4.7, this is then extrapolated to a total inclusive open charm cross-section. The error from each of the steps is added quadratically into the total systematic error to achieve the final result of \(1.06\pm 0.26(stat.)+0.29(sys.)-0.38(sys.)\)mb.
+
+Figure A.10: The \(D^{0}+\bar{D^{0}}\) invariant mass peak after a secondary polynomial subtraction rebinned into \(p_{t}\) bins and fit with a Gaussian function whose width is derived from simulation.
+
+## Appendix A.2 Systematic Errors of the \(D_{s}\) in 200 GeV Au+Au Analysis
+
+The systematic error evaluation done for the \(D_{s}\) in the 200 GeV Au+Au analysis followed a procedure very similar to the \(D^{0}\) in 200 GeV Cu+Cu analysis. Therefore, only the differences in the systematic error evaluation will be described here. Please see Table A.3 for the full list of systematic error contributions.
+
+The first major difference between the two analyses is the use of a pure simulation rather than embedding to calculate the efficiency corrections. In order to estimate the systematic error from this source, a pure simulation technique was used to calculate
+
+Figure A.11: The \(D^{0}\) invariant mass peak as reconstructed from embedded Monte-Carlo tracks (red) and the residual background created from the mis-identification of both daughters (tan).
+
+Figure A.12: a) The \(D^{0}\) invariant mass peak reconstructed from embedded Monte-Carlo tracks and fit with a Gaussian function. b) The \(D_{s}^{+}\) invariant mass peak reconstructed from Monte-Carlo tracks and fit with a Gaussian function.
+
+Figure A.13: a) The \(D^{0}+\bar{D^{0}}\) invariant mass peak with different mass bin sizes. b) The \(D_{s}^{+}+D_{s}^{-}\) invariant mass peak with different mass bin sizes.
+
+the efficiency corrections for the \(D^{0}\) in Cu+Cu collisions. The results are tabulated in Table A.4. Relative to other sources of systematic error, the use of a pure simulation for efficiency corrections is a minor contribution.
+
+As is described in chapter 6, there were not enough statistics in the \(D^{0}\) peak to divide it into separate \(p_{t}\) bins. Therefore, the \(D^{0}\) effective temperature is assumed for the \(D_{s}\) in order to extrapolate the \(D_{s}\) yields to the full \(p_{t}\) range as well as to weight the efficiencies as a function of \(p_{t}\) across the \(D_{s}\) reconstruction window. In order to estimate the systematic error contribution from the \(D^{0}\) temperature assumption, the range of \(dN/dy\) is calculated for temperatures ranging from \(-1\sigma\) to \(+1\sigma\) of the \(D^{0}\) effective temperature as measured in 200 GeV Cu+Cu collisions. Because 20% of the
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|} \hline
+**Source** & **+ Value** & **- Value** & **Addition** \\ \hline Use of Pure Simulation & 1.4\% & 4.1\% & Linear \\ \hline Background Subtraction Method & 6.5\% & 0\% & Linear \\ \hline Use of Gaussian Fit & 5.7\% & 0\% & Linear \\ \hline dE/dx Calibration & Negligible (\(<<1\%\)) & Negligible (\(<<1\%\)) & Linear \\ \hline Effective Temperature Assumption & 22.4\% & 8.4\% & Linear \\ \hline N Sigma Cut Error & 19.9\% & 19.9\% & Quadratic \\ \hline Geometric Cut Error & 14.5\% & 14.5\% & Quadratic \\ \hline Mass Bin Size & 16.3\% & 16.3\% & Quadratic \\ \hline N Hits in Fit Cut & 5.3\% & 5.3\% & Quadratic \\ \hline Normalization Range & 8.8\% & 8.8\% & Quadratic \\ \hline
+**Error in dN/dy** (\%) & **47.7**\% & **33.7**\% & \\ \hline
+**Error in dN/dy** & **0.27** & **0.19** & \\ \hline \end{tabular}
+\end{table}
+Table A.3: Systematic error sources of the \(D_{s}\) in Au+Au Analysis
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|} \hline \(p_{t}\) **range** & **Embedding Result** & **Pure Simulation Result** & **Difference** \\ \hline \(0.1\leq p_{t}<0.7\) GeV/c: & 0.1701 \(\pm\) 0.0021 & 0.1725 \(\pm\) 0.0018 & 1.40\% \\ \hline \(0.7\leq p_{t}<1.3\) GeV/c: & 0.1944 \(\pm\) 0.0016 & 0.1865 \(\pm\) 0.0020 & -4.03\% \\ \hline \(1.3\leq p_{t}<1.9\) GeV/c: & 0.2267 \(\pm\) 0.0022 & 0.2173 \(\pm\) 0.0022 & -4.13\% \\ \hline \end{tabular}
+\end{table}
+Table A.4: A comparison of embedding vs. pure simulation for calculating the efficiency\(\times\)acceptance of the \(D^{0}\) in Cu+Cu analysis.
+
+Figure 14: The \(D_{s}^{+}+D_{s}^{-}\) invariant mass peak after (a) mass offset and (b) rotational background subtractions.
+
+\(D_{s}\) yield falls into the reconstructed range, the temperature assumption is a serious source of systematic error, contributing \(+21.8\%\) in the positive direction and \(-9.6\%\) in the negative.
+
+Another systematic error source unique to the \(D_{s}\) analysis are the geometric cuts used on the reconstructed decays. These contribute \(14.5\%\) to the systematic error, added in quadrature. A source of systematic error for the \(D^{0}\)s which does not appear in the \(D_{s}\) analysis is a double counting error because the \(D_{s}\) is charged.
+
+Putting all of the error sources on Table A.2 together, the midrapidity yield of the \(D_{s}\) meson in 200 GeV Au+Au collisions is calculated to be \(dN/dy=0.56\pm 0.15(stat.)+0.27(sys.)-0.19(sys.)\) with the systematic errors included.
+
+## Bibliography
+
+* [1] E. Rutherford, Philos. Mag. **21**, 669 (1911).
+* [2] C. Amsler et al., Physics Letters **B667**, 1 (2008).
+* [3] T. Nakano et al. (LEPS Collaboration), Phys. Rev. Lett. **91**, 012002 (2003).
+* [4] S. Stepanyan et al. (CLAS Collaboration), Phys. Rev. Lett. **91**, 252001 (2003).
+* [5] M. Battaglieri et al. (CLAS Collaboration), Phys. Rev. Lett. **96**, 042001 (2006).
+* [6] T. W. Morris, E. C. Fowler, and J. D. Garrison, Phys. Rev. **103** 1472 (1956) W. B. Fowler, R. P. Shutt, A. M. Thorndike, and W. L. Whittemore, Phys. Rev. **103** 1479 (1956) M. M. Block, E. M. Harth, V. T. Cocconi, E. Hart, W. B. Fowler, R. P. Shutt, A. M. Thorndike, and W. L. Whittemore, Phys. Rev. **103** 1484 (1956).
+* [7] R. Taylor, Rev. Mod. Phys. **63** 573 (1991).
+* [8] D. Griffiths, _Introduction to Elementary Particles_, (2008).
+* [9] A.D. Martin et al., Phys. Lett. **B652**, 292 (2007).
+* [10] G. Bali, Phys. Rept. **343** 1-136 (2001).
+* [11] F. Karsch, e-print Arxiv: hep-ph/0701210v1 (2007).
+* [12] X. Artru, Phys. Rept. **97** 147 (1983).
+* [13] D. Gross and F. Wilczek, Phys. Rev. D **8** 3633 (1973).
+* [14] P. Braun-Munzinger, Nucl. Phys. **A681** 119 (2001).
+
+* [15] A. Chodos, R. L. Jaffe, K. Johnson, C. B. Thorn, and V. F. Weisskopf, Phys. Rev. D **9** 3471 (1974).
+* [16] L. M. Saratov, M. N. Dmitriev, and I. N. Mishustin, Phys. Atom. Nucl. **72** 1390 (2009).
+* [17] U. Wiedemann, J.Phys. G **30** S649 (2004).
+* [18] R. Baier, D. Shiff, and B. G. Zakharov, Annu. Rev. Nucl. Part. Sci. **50** 37 (2000).
+* [19] C. Adler et al., (STAR Collaboration), Phys. Rev. Lett. **90** 082302 (2003).
+* [20] J. Adams et al., (STAR Collaboration), Phys. Rev. Lett. **91** 072304 (2003).
+* [21] P. F. Kolb and U. Heinz, e-print Arxiv: nucl-th/0305084 (2003).
+* [22] A. M. Poskanzer and S. A. Voloshin, Phys. Rev. C **58** 1671 (1998).
+* [23] J. Adams et al., (STAR Collaboration), Phys. Rev. Lett. **91** 072304 (2003).
+* [24] K. H. Ackermann et al., (STAR Collaboration), Phys. Rev. Lett. **86** 402 (2001).
+* [25] C. Adler et al., (STAR Collaboration), Phys. Rev. Lett. **87** 082302 (2001).
+* [26] J. Adams et al., (STAR Collaboration), Phys. Rev. C **72** 014904 (2005).
+* [27] J. Adams et al., (STAR Collaboration) Phys. Rev. Lett. **92** 052302 (2004).
+* [28] J. Adams et al., (STAR Collaboration), e-print Arxiv: nucl-ex/0501009v3 (2005).
+* [29] J. Adams et al., (STAR Collaboration), Phys. Rev. Lett. **92** 052302 (2004).
+* [30] J. Adams et al., (STAR Collaboration), Phys. Rev. Lett. **95** 122301 (2005).
+* [31] J. Rafelski and B. Mueller, Phys. Rev. Lett. **48** 1066 (1982).
+* [32] P. Levai and R. Vogt, Phys. Rev. C **56** 2707 (1997).
+* [33] S. Salur, _Investigation of Hadronic Resonances with STAR_, Disseration Thesis, Yale (2006).
+
+* [34] L.P. Csernai, _Introduction to Heavy Ion Collisions_, (1994).
+* [35] P. Nason and S. Dawson, Nucl. Phys. B. **303** 607, (1988).
+* [36] M. Cacciari, M. Greco, and P. Nason, Jour. High Energy Phys. **05** 007, (1998).
+* [37] R. Vogt, _Ultrarelativistic Heavy-Ion Collisions_, (2007).
+* [38] M. Cacciari, P. Nason, and R. Vogt, Phys. Rev. Lett. **95** 122001 (2005).
+* [39] R. Vogt, Eur. Phys. J. C **61** 793 (2009).
+* [40] Yu. L Dokshitzer and D.E. Kharzeev, Phys. Lett. B **519** 199-206 (2001).
+* [41] Yu. L. Dokshitzer and D. E. Kharzeev, Phys. Lett. B **519** 199 (2001).
+* [42] B. I. Abelev et al. (STAR Collaboration), Phys. Rev. Lett. **98** 192301 (2007).
+* [43] T. Hirano, U. Heinz, D, Kharzeev, R. Lacey, Y. Nara, Phys. Rev. C **77** 044909 (2008).
+* [44] E. Fermi, Prog. Theor. Phys. **5** 570 (1950).
+* [45] I. Kuznetsova and J. Rafelski, Eur. Phys. J. C **51** 113 (2007).
+* [46] W. Broniowski and W. Florkowski, Phys. Rev. C **65** 064905 (2002).
+* [47] A. Adare _et al._ (PHENIX Collaboration), e-print Arxiv: nucl-ex/0804.4168v1 (2008).
+* [48] T Shostrand _et al._, Comput. Phys. Commun. **135** 238 (2001). PYTHIA 6.2, MSEL = 4.
+* [49] J. Adams _et al._ (STAR Collaboration), Phys. Rev. Lett. **94** 062301 (2005).
+* [50] B.I. Abelev _et al._ (STAR Collaboration), e-print Arxiv: nucl-ex/0805.0364 (2008).
+* [51] S.S. Adler _et al._ (PHENIX Collaboration), Phys. Rev. Lett. **94** 082301 (2005).
+
+* [52] A. Chen _et al._ (CLEO Collaboration), Phys. Rev. Lett. **51** 634 (1983).
+* [53] M. Derrick _et al._ (HRS Collaboration), Phys. Rev. Lett. **54** 2568 (1985).
+* [54] S.S. Adler _et al._ (PHENIX Collaboration), Phys. Rev. Lett. **97** 252002 (2005).
+* [55] M. Harrison, T. Ludlam, S. Ozaki, Nucl. Instr. and Meth. A **499** 235 (2003).
+* [56] P. Thieberger, M. McKeown, and H.E. Wegner IEEE Transactions on Nuclear Science, Vol. NS-30 No. 4 (1983).
+* [57] H. Hahn et al. Nucl. Instr. and Meth. A **499** 245 (2003).
+* [58] M. Anderson et al. (STAR Collaboration) Nucl. Instr. and Meth. A **499** 659 (2003).
+* [59] S. Ahlen, Rev. of Mod. Phys. **52** 121 (1980).
+* [60] H. Bichsel, Nucl. Instr. and Meth. A **562** 154 (2006).
+* [61] K. Ackermann et al. (STAR Collaboration) Nucl. Instr. and Meth. A **499** 624 (2003).
+* [62] F. Bergsma et al. (STAR Collaboration) Nucl. Instr. and Meth. A **499** 633 (2003).
+* [63] S. Lapointe, (STAR Collaboration), e-print Arxiv: nucl-ex/0907.4730 (2009).
+* [64] R.L. Brown et al. "The STAR Detector Magnet Subsystem" 1997 Particle Accelerator Conference Proceedings (1997).
+* [65] R. Bellwied et al. (STAR Collaboration) Nucl. Instr. and Meth. A **499** 640 (2003).
+* [66] D. Lynn et al. (STAR Collaboration) Nucl. Instr. and Meth. A **439** 418 (2000).
+* [67] L. Arnold et al. (STAR Collaboration) Nucl. Instr. and Meth. A **499** 652 (2003).
+* [68] W. J. Llope et al. (STAR-TOF Collaboration) Nucl. Instr. and Meth. A **522** 252 (2004).
+
+* [69] P. Fachini et al. (STAR-TOF Collaboration) Proposal for a Large Area Time of Flight System for STAR (2004).
+* [70] F.S. Bieser et al. (STAR Collaboration) Nucl. Instr. and Meth. A **499** 766 (2003).
+* [71] C. Adler et al. (STAR Collaboration) Nucl. Instr. and Meth. A **499** 778 (2003).
+* [72] C. Adler et al. Nucl. Instr. and Meth. A **470** 488 (2001).
+* [73] B. G. Gibbard and T. G. Throwe Nucl. Instr. and Meth. A **499** 814 (2003).
+* [74] R. J. Glauber, Phys. Rev. **100** 242 (1955).
+* [75] J. Mitchell and I. Sakrejda, Tracking for the STAR TPC, Documentation and Users' Guide, _STAR note_ SN0190 (1995).
+* [76] M. Shao, O. Barannikova, X. Dong, Y. Fisyak, L. Ruan, P. Sorensen, and Z. Xu, Nucl.Instrum. Meth. **A558** 419 (2006).
+* [77] T Shostrand _et al._, Comput. Phys. Commun. **135** 238 (2001). PYTHIA 6.152, MSEL = 1, CTEQ5M1.
+* [78] M. Honda _et al._, Phys. Rev. Lett. **70** 525 (1993).
+* [79] T. Csorgo and B. Lorstad, Phys. Rev. C **54** 1390 (1996).
+* [80] S. Bekele, "Neutral Kaon Correlations in Au+Au Collisions at Center of Mass Energy 200 GeV per Nucleon Pair", Dissertation Thesis, Ohio State University (2004).
+* [81] C. J. S. Damerell, _Vertex Detectors: The State of the Art and Future Prospects_, Lectures presented at the 23rd Annual Sum. Inst. on Particle Physics, SLAC (1995).
+* [82] E. Schnedermann, J. Sollfrank, and U. Heinz, Phys. Rev. C **48** 2462 (1993).
+* [83] A. Iordanove (STAR Collaboration), J. Phys. G. **35** 044008 (2008).

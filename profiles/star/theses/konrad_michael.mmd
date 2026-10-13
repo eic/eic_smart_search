@@ -1,0 +1,1099 @@
+Entwicklung einer hochauflosenen Spurendriftkammer
+
+fur den Bereich grober Rapiditat in Schwerionen-Kollisionen im STAR-Experiment
+
+Michael Konrad
+
+Dissertation
+
+Max-Planck-Institut fur Physik
+
+[MISSING_PAGE_EMPTY:2]
+
+**MAX-PLANCK-INSTITUT FU PR PHYSIK**
+
+WERNER-HEISENBERG-INSTITUT
+
+**Entwicklung einer hochauflosenden Spurendriftkammer fur den Bereich grosser Rapiditat in Schwerionen-Kollisionen im STAR-Experiment**
+
+**Michael Konrad**
+
+[MISSING_PAGE_EMPTY:4]
+
+## Zusammenfassung
+
+Die vorliegende Arbeit befasst sich mit der Entwicklung eines Konzepts fur die sogenannnten FTPCs; also Spurendriftkammern, welche den Bereich hoher (Pseudo-) Rapiditat im STAR-Experiment abdecken sollen. Ziel war es dabei, einen Spurdetektor zu entwicken, der die Mehrzahl der Spuren von Teilchen aus der Reaktion (= Primarteilchen) bei zentralen Gold-Gold-Kollisionen im (Pseudo-) Rapiditatsbereich \(|\eta|>2,0\) einzeln registriert und dabei Impuls und Ladung der Teilchen korrekt rekonstruiert.
+
+Ein besonderes Problem stellte dabei die hohe Spurdichte dar, welche im Bereich \(2,6<|\eta|<4,0\) im Durchschnitt zwischen \(0,3\,\mathrm{cm}^{-2}\) und \(0,6\,\mathrm{cm}^{-2}\) liegt, fur Werte von \(|\eta|>3,8\) jedoch auch bis auf \(3,0\,\mathrm{cm}^{-2}\) ansteigen kann. Es konnte gezeigt werden, dass die Verwendung eines radialen Driftfeldes und eines Gases mit niedrigen Werten fur die Elektronen-Diffusionskoeffizienten eine Spur-Separation fur den Grosseil der Spuren erlaubt. Ein derartiges Gas ermoglicht daruber hinaus eine gute Ortsauflosung fur die registrierten Spuren, wenngleich die Elektronendrift senkrecht zum Magnetfeld erfolgt.
+
+Wesentlich fur die Auslesekammern einer solchen TPC ist, dass sie die Zweispritrennung und Ortsauflosung nur geringfugig verschlechtern und dass sie der zylindrischen Form der FTPCs angepasst werden konnen. Experimentelle Studien haben dabei gezeigt, dass Gas-Mikrostreifenkammern eine Option darstellen, wenngleich deren einwardfreier Betrieb unter Einwirkung stark ionisierender Teilchen bisher noch nicht gewahrleiste scheint.
+
+Durch den Aufbau einer vollstandigen Simulationskette fur die FTPCs konnte nachgewiesen werden, dass ca. 85 % der Primarteilchen als solche identifiziert werden konnen und dass der Anteil der Spuren von Nicht-Primarteilchen, die falschlicherweise als Primarteilchen-Spuren erkannt werden, deutlich unter 10 % liegt. Eine Impulsauflosung von ca. 12 % und eine Ladungsrekonstruktions-Effizienz von besser als 96 % stellen eine solide Grundlage fur verschiedene physikalische Analysen dar.
+
+Pro Einzel-Ereignis konnen mit den FTPCs, die symmetrisch zum Primarvertex positioniert sind, ca. 950 Spuren rekonstruiert werden. Dies ist ausreichend, um "event-by-event" eine Analyse der \(p_{T}\)- und \(y\)-Spekren im Akzeptanzbereich der FTPCs durchzufuhren. Inklusive Messungen erlauben den Vergleich mit verschiedenen Modellvorhersagen und die Suche nach Bereichen restaurierter chiraler Symmetrie. Da eineTeilchenidentifikation uber eine Energieverlust-Messung mit den FTPCs nicht moglich ist, kann die Differenz der Rapiditatsverteilung von Protonen und Antiprotonen nur uber eine Messung der Differenzverteilung von positiven und negativen Teilchen erfolgen, wobei dazu uber eine ausreichende Anzahl von Ereignissen gemittelt werden muss. In dieser Arbeit nur gestreift wurden die Fragestellungen, inwieweit die FTPCs zur Identifikation von Zerfallen seltsamer Teilchen geeignet sind und welchen Beitrag sie zur Physik von peripheren und asymmetrischen Kollisionen leisten konnen.
+
+[MISSING_PAGE_EMPTY:7]
+
+* 5.3.1 Gas-Mikrostreifenkammern
+* 5.3.2 Untersuchungen zur Pad-Response-Funktion
+* 6 Aufbau der FTPC-Simulationskette
+* 7 Spurrekonstruktion
+	* 7.1 Algorithmus zur Spurrekonstruktion
+	* 7.2 Implementierung des Spurrekonstruktions-Algorithmus
+	* 7.3 Optimierung der Parameter
+	* 7.4 Ergebnisse aus der Spurrekonstruktion
+		* 7.4.1 Effizienz und Kontamination
+		* 7.4.2 Vertex-Rekonstruktionsfahigkeit
+* 8 Impulsrekonstruktion und Ladungsbestimmung
+	* 8.1 Algorithmen zur Impulsrekonstruktion
+	* 8.2 Implementierung des Impulsrekonstruktions-Algorithmus
+	* 8.3 Auflosungsvermogen fur kinematische Variablen
+* 9 Bestimmung des Energieverlusts zur Teilchenide ntifikation
+* 10 Ergebnisse und Diskussion
+	* 10.1 Einteilchenspektren
+		* 10.1.1 Akzeptanzkorrektur
+		* 10.1.2 Verteilung des Transversalimpulses
+		* 10.1.3 Rapiditatsverteilungen
+		* 10.1.4 Zweiteilchenkorrelationen
+	* 10.2 Chirale Symmetrie-Restauration
+	* 10.3 Zusammenfassung der Ergebnisse
+* A Kinematische Variablen
+* B Die vollstandige Monte-Carlo-Simulation
+* B.1 Der Ereignis-Generator HIJING
+* B.2 GSTAR/g2t
+* B.3 Der FTPC-Simulator
+* Abbildungsverzeichnis
+* Literaturrezichnis
+* Danksagung
+
+## Kapitel 1 Einleitung
+
+Schon seit vielen Jahrhunderten beschaftigt man sich mit der Frage, aus welchen Grundelementen sich das Universum zusammensetzt und welche Universalitat hinter den beobachtbaren Kraftwirkungen steht. Die Experimente und die theoretischen Denkansatze zum Ende des letzten Jahrhundert sleferten dafur Antworten, deren prinzipielle Gultigkeit auch heute noch unbestritten ist: Die Entdeckung der Quantisierung der elektrischen Ladung, die Schrodinger-Gleichung und mit ihr die Erklarung der Atomspektren, die Rutherforschen Streuversuche und nicht zuletzt die Entdeckung der ersten Elementarteilchen, des Protons und des Elektrons, erschlossen Schritt fur Schritt den Bereich kleinster Dimensionen.
+
+Seit dieser Zeit ist die Physik der Atomkerne und der Elementarteilchen eines derjenigen Gebiete, welche sich am rasantesten entwickelt und dabei beeindruckende Ergebnisse geliefert haben: Durch eine Vielzahl von Experimenten untermavert und gestutzt durch ein allgemein akzeptiertes theoretisches Grundgerust geht man derzeit von zwolf elementaren Bausteinen (und ihren 'Anti-Bausteinen') aus, denen als Fermionen zunachst nur ihr Spin von \(1/2\,\hbar\) gemeinsam ist: Aus drei Paaren von Leptonen und drei Paaren von Quarks setzt sich alle bisher bekannte Materie zusammen. Wahrend die Leptonen (Elektron, Myon, Tau und ihre entsprechenden Neutrinos) als freie Teilchen beobachtbar sind, lassen sich Quarks nur paarweise als Mesonen oder als Verbindung von drei Quarks als Baryonen beobachten. Man beschreibt dieses Verhalten mittels eines sog. _bag_-Modells, wobei die Quarks wechselietig in einem stark attraktiven Potential gebunden sind. Um eines der Quarks raumlich zu separieren, muss Energie aufgebracht werden, die bei einem bestimmten Abstand so gross ist, dass es gunstiger ist, ein Quark-Antiquark-Paar (und damit aus einem bag zwei) zu bilden, als die ursprunglichen Quarks weiter voneinander zu entfernen.
+
+Aber wie sind die Wechselwirkungen von Materie untereinander zu beschreiben? Kurz gesagt, durch den Austausch von Bosonen, also Teilchen mit einem ganzzahligen Spin. Solange man nicht Energieskalen von \(10^{15}\) GeV diskutiert [Per87], unterscheidt man vier fundamentale Wechselwirkungen: Die Gravitation, die elektromagnetische Wechselwirkung, die schwache und die starke Wechselwirkung. Die Gravitation kopplet an die Masse und kann durch den Austausch von Gravitonen beschrieben werden.
+
+Durch den Austausch von Photonen wird die elektromagnetische Wechselwirkung vermittelt, welche an elektrische Ladungen koppelt. Sie kann im Rahmen des Standard-modells mit der schwachen Wechselwirkung vereinheitlicht werden, wobei die schwache Wechselwirkung durch den Austausch von W\({}^{\pm}\)- und Z-Teilchen wirkt und dabei an die schwachen Ladungen koppelt. Die starke Wechselwirkung ist die Kraft, die zwischen Quarks wirkt: Gluonen koppeln dabei an Farbladungen. Das Vorhandensein von bags kann im Rahmen der starken Wechselwirkung auch als das nicht-Vorhandensein von freien Farbladungen beschrieben werden. Denn Mesonen und Baryonen sind farbneutral; zwischen ihnen wirkt nur noch eine schwache Restwechselwirkung der starken Wechselwirkung.
+
+Experimentell sind viele Einzelprozesse untersucht worden, mit denen man die Eigenschaften von Leptonen, Quarks und der Wechselwirkungen studieren konnte. Eines der interessantesten Gebiete hat sich aber bis heute noch nicht experimentell offenbart: Der Phasenubergang einer Ansmmlung stark wechselwirkender Materie in den Plasmazustand, in welchem sich die Quarks quasi-frei zwischen den Gluonen bewegen konnen.
+
+Zunachst postulierten kosmologische Modelle einen derartigen Zustand, der ca. \(10^{-5}\) Sekunden nach dem Urknall geherrscht haben soll. Spater zeigten auch QCD-Rechnungen auf dem Gitter, dass solch ein Phasenubergang zwischen hadronischer Materie und Plasmazustand stattfinden kann [Sat84]. Man kann aufgrund der Vorhersagen davon ausgehen, dass ein solcher Zustand auch in Kern-Kern-Kollisionen mit ausreichend grossem Reaktionsvolumen und genugend grosser Energiedichte zu erreichen ist. Als Beschreibungen des Plasmazustands im Rahmen der statistischen Mechanik erste Anhaltspunkte fur beobachtbare Signaturen eines solchen Phasenubergangs lieferten, begann man in Experimenten danach zu suchen.
+
+Fur derartige Experimente werden die derzeit hochsten Energiedichten und grossten Reaktionsvolumina am Super-Proton-Synchrotron (SPS) am CERN erzielt: Dort werden Blei-Kerne (\({}^{208}\)Pb), deren homogene, dichte Innenzone ca. 10 fm Durchmesser aufweist, auf eine Endenergie von ca. 33 TeV (\(\hat{=}\) ca. 160 GeV pro Projektilnukleon) beschleunigt und mit ruhenden Blei-Kerne zur Kollision gebracht [Sto95]. Der nachste Schritt in der Energie wird mit dem Relativistic Heavy Ion Collider (RHIC) am Brookhaven National Laboratory (BNL) erreicht werden: Ab 1999 werden in Collider-Geometrie Gold-Kerne (\({}^{197}\)Au) mit einer Energie von ca. 19,7 TeV (\(\hat{=}\) ca. 100 GeV pro Nukleon) miteinander kollidieren.
+
+Wahrend bei den zentralen Blei-Blei Stossen am SPS in Fixed-Target-Geometrie bis zu 2500 Hadronen im Endzustand erzeugt werden, werden bei den Gold-Gold-Kollisionen am RHIC in Collider-Geometrie bis zu 10000 Hadronen erwartet. Eines der grossen Experimente am RHIC ist STAR (Solenoidal Tracker At RHIC). An dessen Detektor-System, welches hauptsachlich eine Untersuchung der hadronischen Observablen ermoglichen soll, ist dabei die Aufgabe gestellt, die Teilchen einzelner Stossereignisse moglichst vollstandig zu registtieren und ihre kinematischen Variablen zu bestimmen. Die Analyse der entstehenden Spuren geladener Teilchen durch Spurdetektoren erlaubt es dann, ein Einzelereignis mit thermodynamischen Grossen zu beschreiben.
+
+Der zentrale Spurdetektor in STAR ist eine Spurendriftkammer (_Time Projection Chamber = TPC_ ), welche einen Pseudo-Rapiditatsbereich von 0 bis ca. \(\pm 2\) bei voller azimutaler Akzeptanz abeckt. Fur den Bereich hoher Pseudo-Rapiditat \((2,5\stackrel{{<}}{{\sim}}|\eta|)\) sollen Detektoren verwendet werden, die ebenfalls nach dem TPC-Prinzip mebeiten, jedoch wegen der experimentellen Anforderungen einige wesentliche bauartbedingte Neuerungen aufweisen: Insbesondere die Verwendung eines radialen Drifteldes uber mehr als 20 cm hinweg und der geplante Einsatz von gekrummten Gas-Mikrostreifenkammern als Auslesekammern sind dabei Neuland im Bereich des Detektorbaus. Die konzeptionelle Entwicklung dieser _Forward TPCs_ (FTPCs) und die Untersuchung ihrer Moglichkeiten im Hinblick auf physikalische Analysen sind Gegenstand dieser Arbeit. Sie beginnt mit einer Einfuhrung in die Physik der relativistischen Schwerionen-Stosse, um den Zusammenhang zwischen messbaren Grossen bzw. Signaturen und Zustands-Parametern des Quark-Gluon-Plasmas oder der entstehenden heissen hadronischen Materie deutlich zu machen. Nach einem kurzen Uberblick uber das STAR-Experiment werden die wesentlichen Grundlagen der FTPCs erarbeitet, wobei darin auch eine umfassende Modellierung der Elektronendrift im radialen elektrischen Feld mit zusatzlichem Magnetfeld enthalten ist. Das Kapitel uber die durchgefuhrten experimentellen Arbeiten liefert die Verifikation der zuvor diskutierten Modelle und die experimentellermittelten Daten fliesen in die Module der Simulationstkette ein. Nach einer kurzen Einfuhrung in den Aufbau der Simulationskette fur die FTPCs ist dann etwas ausfuhrlicher uber die Spurrekonstruktion zu lesen: Die geringe Anzahl von Spurpunkten (maximal 10), die grose Spurdichte (bis zu 3,0 pro cm\({}^{2}\)) und die grose Zahl von Sekundarteilchen1 (bis zu zwei Sekundarteilchen pro Primarteilchen in den FTPCs) sind hierbei eine besondere Herausforderung an die Entwicklung eines Spurrekonstruktions-Algorithmus. Die Teile uber Impulsrekonstruktion und uber Teilchenidentifikation leiten uber zu dem Abschnitt, in welchem die Eignung der FTP-Cs fur verschiedene physikalische Analysen untersucht wird. Als Erganzung zu den Kapiteln schliesst die Arbeit mit zwei Anhangen, welche sich mit den verwendeten kinematischen Variablen und der vollstandigen Simulationskette befassen.
+
+## Kapitel 2 Physik Ultrarelativistic Schwerionen-Reaktionen
+
+### 2.1 Prozesse bei Kollisionen schwerer Kerne
+
+Bei der zentralen Kollision zweier Kerne hangen die Reaktionsmechanismen zunachst von der Energie der beiden Stosspartner ab. Ist die Energie gross genug, um die Coulomb-Abstossung zu uberwinden, so dringen die Kerne ineinander ein, werden gestoppt und bilden dabei eine kurzlebige Ansammlung angeregter und verdichteter hadronischer Materie. Wahrend ein derartiger Verlauf der Reaktion haufig als _Landau-Bild_ bezeichnet wird, trifft fur hohere Energien eher das _Bjorken-Bild_ zu, in welchem sich die Kerne durchdringen und es zur Ausbildung einer pionenreichen Zone zwischen ihnen kommt [12], [13].
+
+#### Landau-Bild
+
+Fur die Beschreibung einer Kern-Kern Reaktion ist es notwendig, denjenigen Anteil der Strahlenergie zu kennen, welchen die Kerne bei ihrer Kollision verlieren und der fur die Reaktion zur Verfugung steht. Fur zentrale Stosse mit einer Schwerpunktsenergie \(\sqrt{s}<10\) GeV pro Nukleonenpaar1 ist dieser Anteil gross; die Kerne werden nahezu vollstandig gestoppt. Die Reaktion kann dann im Rahmen eines hydrodynamischen Modells beschrieben werden, das in seinen Grundzugen von Landau formuliert wurde [14].
+
+Footnote 1: Die lorentzinvariante Größe \(s\) ist das Quadrat der Schwerpunktsenergie bei zwei Stosspartnern mit den Viererimpulsen \(p_{1}\) und \(p_{2}\): \(s\equiv(p_{1}+p_{2})^{2}=E_{cm}^{2}\)
+
+Wie in Abbildung 2.1 illustriert, formiert sich aus den beiden Kernen ein Gebilde angeregter Materie aus miteinander wechselwirkenden Teilchen. Experimentell beobachtbar ist bei einem solchen Reaktionsverlauf eine gaussformige Rapiditatsverteilung \(dN_{B}/dy\) der Baryonen mit einem hohen Baryonen-Anteil im Bereich mittlerer Rapiditat.
+
+Abbildung 2.1: _Das Landau-Bild beschreibt eine Schwerionen-Reaktion als Bildung einer "heissen" Hadronen-Formation, die durch das vollstandige Abstoppen der beiden Kerne bei ihrer Kollision entstanden ist._
+
+#### Bjorken-Bild
+
+Steigt der Wert fur die Energie \(\sqrt{s}\) auf uber 80 GeV pro Nukleonenpaar, so treffen, wie in Abbildung 2.2 verdeutlicht, zwei stark lorentzkontrahierte Kerne aufeinander. Diese durchdringen sich gegenseitig und bilden zwei hochangeregte, baryonenreiche
+
+Abbildung 2.2: _Bei sehr hohen Energien wird eine Schwerionen-Reaktion am geegnenten durch das Bjorken-Bild beschrieben: Zwei stark lorentzkontrahierte Kerne durchdringen einander; dabei bildet sich zwischen den Kernen eine pionenreiche Zone aus._Restkerne, deren Bruchstucke in einem Bereich hoher Rapiditat, dem sogenannten _Fragmentationsbereich_, beobachtet werden konnen. Zwischen den Kernen bildet sich eine pionenreiche, aber baryonenarme Zone aus, deren produzierte Teilchen in einem Bereich um den Mittelwert der Rapiditatsverteilung, welcher als _Zentralbereich_ bezeichnet wird, beobachtet werden kann.
+
+Fur die Gold-Gold Kollisionen mit \(\sqrt{s}=200\) GeV pro Nukleonenpaar am RHIC erwartet man daher einen weitgehend baryonenfreien Zentralbereich. Wie in Abbildung 2.3 zu sehen ist, zeigt sich eine starke Modellabhangigkeit in den Vorhersagen fur die Rapiditatsverteilung \(dN_{M}/dy\) der geladenen Mesonen und fur die Differenzverteilung \(dN_{p-\overline{p}}/dy\) der Protonen- und Antiprotonen-Rapiditatsverteilung, welche im wesentlichen der Netto-Baryonenrapiditatsverteilung entspricht. Fur eine weitergehende Diskussion uber die verschiedenen Modelle siehe Kapitel 10.1.3 und Anhang B.
+
+Abbildung 2.3: _Gezeigt sind die Vorhersagen fur \(dN_{p-\overline{p}}/dy\) (a.) und \(dN_{M}/dy\) (b.) bezentralen Gold-Gold Kollisionen mit \(\sqrt{s}=200\) GeV pro Nukleonenpaar von verschieden Modelen (dunn durchgezogen: HIJING; dick durchgezogen: VENUS 4.12; dick gestrichelt: LUCIAE 2.0)_.
+
+### 2.2 Phasen der hadronischen Materie
+
+Nukleonen konnen als _bags_ verstanden werden, in denen Quarks und Gluonen eingeschlossen sind. Die Kernkrafte, welche den Zusammenhalt der Nukleonen vermitteln, sind das Ergebnis einer Restwechselwirkung zwischen den Nukleonen, die jedoch sehr viel schwacher ist als die Wechselwirkung der Quarks unte remainder.
+
+Bei der Kollision schwerer Kerne erwartet man zunachst das Entstehen einer energiereichen Wechselwirkungszone; unabhangig von der Art des Kollisionsprozesses (Landau-oder Bjorken-Bild). Findet kein Phasenubergang statt, so bildet sich ein Hadronen-Gas, worunter man eine Ansammlung von Hadronen versteht, die haufig miteinander wechselwirken. Kurze Zeit nach der Kollision (einige fm/c) friert dieses Gas vornehmlich in Form von leichten Mesonen aus. Ein solcher Reaktionsmechanismus ist in Abbildung 2.4 a. dargestellt (vergleiche dazu [11]). Steigt die Temperatur \(T\) oderdie Baryonendichte \(\rho_{B}\) in einem ausreichend grossen hadronischen Ensemble uber einen bestimmten kritischen Wert, so erwartet man, dass Quarks und Gluonen nicht mehr in bags eingeschlossen sind, sondern ein _Phasenubergangzu_ einem _Quark-Gluon-Plasma_ (QGP) erfolgt (Abb. 2.4 b.).
+
+ Die Abbildung 2.5 zeigt ein \(T\)-\(\rho_{B}\)-Phasendiagramm, in dem auch die Verlaufe von Schwerionen-Reaktionen illustriert sind: Ausgehend von Kernmaterie im Grundzustand kommt es bei einer Kollision zu einer Verdichtung und Temperaturerhohung. Sind Temperatur und/oder Baryonendichte gross genug, so entsteht ein QGP, welches in ein Hadronengas und spater vornehmlich in Mesonen auskondensiert.
+
+Als Wert fur die kritische Temperatur \(T_{c}\) erhalt man ca. 150 MeV, wenn man den Druck des QGP gleichsetzt mit dem Druck innerhalb der bags [Won94]. Fur \(\rho_{B}\) gilt, dass eine hohe Baryonendichte im wesentlichen eine hohe Quarkdichte bedeutet, was durch "Kompression" von Kernmaterie erreicht werden kann. Wahrend in einer Schwerionen-Reaktion eine Erh ohung von \(\rho_{B}\) immer auch mit einer Temperaturerhung einhergeht, ist es denkbar, dass im Inneren von Neutronensternen ein QGP bei \(T\)\(\approx\)0 K realisiert ist. Fur diese Temperatur ergibt sich dann eine kritische Baryonendichte \(\rho_{B}^{c}\approx 0,721/\)fm\({}^{3}\) [Won94].
+
+Welche Veranderungen ergeben sich beim Phasenubergang hadronischer Materie zum QGP? Die Zahl \(N_{f}\) der Freiheitsgrade steigt an: Ein Hadronengas besitzt 3 (reinesPionengas) bis 15 (einschlieslich Resonanzen) Freiheitsgrade. Demgegenuber besitzt ein QGP bereits 37\({}^{(2)}\), selbst wenn es nur aus Gluonen, u- und d-Quarks besteht. Mit der Zunahme der Freiheitsgrade steigen auch Energiedichte und Druck bei gegebener Temperatur, wie dies in Abbildung 2.6 gezeigt ist, wobei sich \(N_{f}\) von 3 auf 37 erh\(\ddot{o}\)ht.
+
+Footnote 2: \(37\ =\ [8_{\,c\dot{o}\sigma}\times 2_{\,polarization}]_{gluon}\ +\ 7/8\ \times\ \left[(3_{\,c\dot{o}\sigma}\times 2_{\,polarization}\times 2_{\, flux\,or})_{quark}+(3_{\,c\dot{o}\sigma}\times 2_{\, polarization}\times 2_{\,flavor})_{\, antiquark}\right]\ \ \ ;\ \ \ \ \mathrm{aus}\) [Won94].
+
+### 2.3 Signature und Observablen
+
+Grossen wie Druck, Temperatur oder Energiedichte sind in einer Schwerionen-Reaktion nicht direkt bestimmbar. Es konnen nur die Teilchen registriert werden, welche nach dem Auskondensieren des Hadronengases den Endzustand bilden. Die Bestimmung ihrer Viererimpulse und die Identifikation der Teilchen erlauben jedoch Ruckschlusse auf den Reaktionsverlauf und beinhalten Informationen uber das Entstehen und die Eigenschaften des Quark-Gluon-Plasmas.
+
+Im folgenden wird eine kurze Darstellung der wichtigsten Signaturen fur das QGP in Schwerionen-Reaktionen gegeben. Fur eine weiterfuhrende und umfassende Diskussion sei auf [Har96], [Sch93], [Won94] sowie [Mcl87] verwiesen.
+
+#### Globale Reaktionsparameter
+
+Zunachst sei mit \(p_{T}\) der Transversalimpuls und mit \(N\) die Zahl der Primarteilchen in \(N_{ev}\) betrachteten Ereignissen bezeichnet.
+
+Aus der messbaren Verteilung der Transvers alimpulsdichte \(1/N_{ev}\ dN/dp_{T}\), der Rapiditatsverteilung \(1/N_{ev}\ dN/dy\) und der Dichte \(1/N_{ev}\ dE_{T}/dy\) der transversalen Energie \(E_{T}\) in \(y\) lassen sich die Werte fur die Temperatur \(T\), die Entropie \(s\) und die Energie-dichte \(\epsilon\) bestimmen [Har96].
+
+Befinden sich unter den Reaktionsprodukten eine ausreichende Anzahl von gleichen Teilchen, so kann man durch Bestimmung der Korrelationsfunktion \(C(p_{1},p_{2})\) Informationen uber die Geometrie und Grosse des Reaktionsvolumens sowie uber die zeitliche Entwicklung der Reaktion gewinnen. Die Funktion \(C(p_{1},p_{2})\) ist dabei das Verhaltnis der Zweiteilchen-Impulsverteilung \(N_{2}(p_{1},p_{2})\) zum Produkt der zwei Einteilchen-Impulsverteilungen \(N_{1}(p_{1})\) und \(N_{1}(p_{2})\). Derartige Untersuchungen werden als Hanbury-Brown und Twiss (HBT) Interferometrie bezeichnet und sind detailliert in [Ha65] und [Boa90] beschrieben.
+
+Durch Kombination von globalen Reaktionsparametern mit den Informationen aus der Korrelationsfunktion ist es moglich, einen Zusammenhang von Grosse des Reaktionsvolumens und Reaktionsdauer mit Temperatur und Energiedichte herzustellen. Verglichen mit einem Reaktionsverlauf ohne Phasenubergang wurde man bei einer Reaktion, in welcher der Phasenubergang zu einem QGP erfolgt, sowohl ein groseres Reaktionsvolumen (vergl. Abb. 2.4) als auch eine grosere Energiedichte (vergl. Abb. 2.6) geststellen.
+
+#### Signatureren fur den Phasenubergang
+
+\(J/\psi\)**-Unterdruckung**
+
+Paare von \(c\)**- und \(\overline{c}\)**-Quarks werden aufgrund ihrer grossen Masse vornehmlich durch Gluon-Gluon-Wechselwirkung zu Beginn der Reaktion gebildet. Da im QGP freie Farbladungen existieren, kommt es zu einer Abschirmung des attraktiven Potentials zwischen \(c\)**- und \(\overline{c}\)**-Quarks [Kar88]. Die Bildung eines \(J/\psi\) im QGP ist nur dann moglich, wenn ein \(c\overline{c}\) Paar den Plasma-Bereich verlassen hat, bevor der Abstand zwischen \(c\) und \(\overline{c}\) grosser geworden ist als der Abstand im gebundenen Zustand \(J/\psi\). Dies ist dann der Fall, wenn das QGP schnell abkuhlt (\(\approx 1\frac{fm}{c}\)) oder wenn das \(c\overline{c}\)-Paar gemeinsam einen ausreichend hohen Transversalimpuls besitzt [Cer90].
+
+Von Interesse sind in diesem Zusammenhang Ergebnisse der NA50 Kollaboration [Gon96]: Bei Messung des \(\mu^{+}\mu^{-}\)-Massenspektrums in Fixed-Target Blei-Blei Kollisionen mit einer Projektilenergie von 158 GeV pro Nukleon konnte eine anorma-le Unterdruckung der \(J/\psi\)-Produktion beobachtet werden. Die Abbildung 2.7 zeigt das Verhaltnis des Wirkungsquerschnitts \(\sigma(J/\psi)\) fur \(J/\psi\)-Produktion (multipliziert mit dem Verzweigungsverhaltnis \(B_{\mu\mu}\) fur den Zerfall in Myonenpaare) zum gemesse-nen Drell-Yan Wirkungsquerschnitt fur Myonenpaare mit einer Masse zwischen 2,9 GeV/c\({}^{2}\) und \(4,5\) GeV/c\({}^{2}\). Angetragen ist dieses Verhaltnis gegen die durchschnittliche Weglange \(L\), welche das \(J/\psi\) im Reaktionsvolumen zurucklegt.
+
+Wahrend die Messwerte fur \(L<10\) fm durch ein Verhalten von \(\sigma(J/\psi)\sim(\)Massen-zahlProjektil' Massenzahl\({}_{\rm Target})^{\alpha}\) mit \(\alpha=0,91\pm 0,01\) gut beschrieben werden, zeigt
+Abbildung 2.7: _Gemessenen Wirkungsquerschnitte fur die \(J/\psi\)-Produktion in Schwerionen-Kollisionen. Die im NA50 Experiment gemessene Abnahme von \(\sigma(J/\psi)\) bei Pb-Pb Kollisionen ist deutlich sichtbar. Die finf Werte aus den Blei-Blei-Kollisionen (\(\bullet\)) unterscheiden sich durch unterschiedliches \(L\), wobei grosseres \(L\) eine Kollision mit kleinerem Stossparameter bedeutet (aus [11])._
+
+sich bei Blei-Blei Reaktionen eine dazu deutlich geringere \(J/\psi\)-Produktion. Ob dieses Verhalten schon als Evidenz fur die Entstehung eines QGP gewertet werden kann, ist derzeit umstritten, insbesondere da auch andere Prozesse als ein Phasenubergang fur den beobachteten Verlauf von \(\sigma(J/\psi)\) verantwortlich sein konnen [12], [13].
+
+**Uberhohte Produktion seltsamer Teilchen**
+
+In einem rein hadronischen Szenario werden seltsame Mesonen durch die Reaktion von typischerweise zwei nicht seltsamen Hadronen erzeugt. Durch die Masse der erzeugten seltsamen Mesonen ist die dazu notwendige Energie (= Q-Wert der Reaktion) festgelegt. Diese ist mit 671 MeV am geringsten fur die Reaktion \(\rm p+n\to\Lambda^{\circ}+K^{+}+n\).
+
+In einem QGP konnen \(s\overline{s}\) Paare in einem ungebundenen Zustand gebildet werden. Dies geschieht meist durch Wechselwirkung von zwei Gluonen, wobei in diesem Fall nur noch eine Energie von zwei \(s\)-Quark Massen aufzubringen ist, also etwa 300 MeV. Das \(s\)-bzw. \(\overline{s}\)-Quark ist also ahnlich schwer wie \(u\)- und \(d\)- Quark, so dass sich in einem thermalisierten QGP zahlenmassig etwa gleiche Anteile der drei Quarksorten befinden. Daruber hinaus wird ein derartiges chemisches Gleichgewicht in einem QGP etwa zehn bis dreissig mal schneler erreicht als in einem Hadronengas. Die somit erhohe Zahl von \(s/\overline{s}\)-Quarks sollte sich in einer messbaren Erhohung der Produktion von Kaonen im Verhaltnis zur Pionen-Produktionsrate aussern.
+
+Wahrend der Hadronisierung des QGPs beim Abkuhlen ist es jedoch moglich, dass entweder die Zahl der Mesonen wieder ansteigt [Lee85] oder dass sich durch Fragmentationsprozesse die Zahl der seltsamen Mesonen vergrosert. Fur eine detailierte Diskussion dieser Mechanismen und die Bedeutung des gemessenen Verhalt nisses von seltsamen zu nicht-seltsamen Mesonen sei auf [Koc90] und [Mul88] verwiesen.
+
+#### Elektromagnetische Sonden
+
+Die im QGP entstehenden direkten Photonen sowie die aus virtuellen Photonen entstehenden Leptonenpaare konnen das Reaktionsvolumen ohne hadronische Wechselwirkung verlassen. Da die elektromagnetische freie Weglange wesentlich grosser ist als der typische Radius des Reaktionsvolumens, sind Ruckschlusse auf Plasma-Temperatur und die Zeitdauer der Thermalisierung des QGPs durch den Nachweis dieser Photonen und Leptonenpaare moglich.
+
+Ein experimentelles Problem stellt jedoch der erhebliche Untergrund dar: Aus elektromagnetischen Zerfallen von Hadronen (\(\pi^{\circ}\), \(\eta\), \(\Sigma^{\circ}\), etc.) entsteht ein erheblicher Photonen-Untergrund. Leptonen-Paare aus Drell-Yan Prozessen von Nukleon-Nukleon Wechselwirkungen in einem fruhen Stadium der Reaktion sind nur schwer von den Leptonen-Paaren aus dem Plasma zu unterscheiden.
+
+#### Jets mit hohem Transversalimpuls
+
+Bei Energien fur Schwerionen-Kollisionen, wie sie bei RHIC oder LHC erreicht werden, treten in einem fruhen Stadium der Reaktion Partonen mit hohem Transversalimpuls \(p_{T}\) auf, welche als Jets beobachtbar sind [Ash88]. Der Energieverlust, den die Partonen beim Durchgang durch hadronische Materie erleiden, ist sehr viel grosser als beim Durchgang durch ein QGP, wesh alb der entstehende Jet als Sonde fur einen moglichen Phasenubergang genutzt werden kann [Gyu94].
+
+Bei Parton-Parton Streuung konnen Jet-Paare entstehen, wobei die Partonen beim Durchgang durch die sie umgebende Materie eine Richtungsanderung erfahren. Aus der Orientierung der beiden Jets eines Paares zueinander lassen sich moglicherweise Aussagen uber die Thermalisierung des Plasmas ableiten [Bla86].
+
+#### Chirale Symmetrie
+
+Bei Temperature, bei denen der Ubergang von der hadronischen Materie zum QGP erwartet wird (vergl. Kap. 2.2), vermutet man auch die Wiederherstellung der _chiralen Symmetrie_[10]. In der QCD ist die Symmetrie gebrochen, welche der Erhaltung des axialen Vektor-Stroms zugrunde liegt [11]. Das heisst, dass der QCD-Hamilton-Operator diese Symmetrie besitzt, der Grundzustand jedoch nicht. Dies hat zur Folge, dass im Grundzustand bezuglich der chiralen Symmetrie zwei nicht-entartete Zustande existieren: das skalare \(\sigma\)-Meson und das Isospin-Triplett der pseudoskalaren \(\pi\)-Mesonen (vergl. Abb. 2.8). Bei Temperature \(T\approx 150\) MeV kommt es zur Wiederhearstellung der chiralen Symmetrie, was bedeutet, dass \(m_{\pi}=m_{\sigma}\) ist und dass die chemischen Potentiale fur die Pionen (\(\mu_{\pi}\)) und das \(\sigma\)-Meson (\(\mu_{\sigma}\)) die gleichen Werte annehmen. Als Konsequenz befinden sich dann im System genau dreimal soiele Pionen wie \(\sigma\)-Mesonen. Kuhlt das System ab, so wird \(\mu_{\sigma}=2\mu_{\pi}\) und \(m_{\sigma}\gg m_{\pi}\), so dass fur die Zahl \(N_{\sigma}\) der \(\sigma\)-Mesonen gilt:
+
+\[N_{\sigma}\sim e^{-m_{\sigma}/T}\ll N_{\pi}\qquad, \tag{2.1}\]
+
+solange \(\mu_{\pi}=m_{\sigma}\)[12]. Die \(\sigma\)-Mesonen zerfallen jetzt jeweils in zwei Pionen, so dass es zu einer erhohten Produktion bis zu einem Faktor 1,6 von Pionen kommt, verglichenmit einer Reaktion ohne Wiederherstellung der chiralen Symmetrie. Eine experimentelle Beobachtung einer solchen erhohten Produktionsrate konnte die These untermauern, dass die "Centauro-Events" ([Bjo93]) mit einer Wiederherstellung der chiralen Symmetrie erklarbar sind, und dass in einer Schwerionen-Reaktion eine ausreichend hohe Temperatur fur den Phasenubergang erreicht wird.
+
+## Kapitel 3 Das STAR-Experiment am RHIC
+
+Mit dem _Relativistic Heavy Ion Collider_ (RHIC) steht ab 1999 ein Speicherring zur Verfugung, der Experimente mit Ionen bis zur Massenzahl \(A\)=200 erlaubt. Der Schwerpunkt der Experimente wird dabei auf der Untersuchung von zentralen Kollisionen vollstandig ionisierter Gold-Atome (\({}^{197}_{79}\)Au\({}^{79+}\)) mit einer Schwerpunktsenergie von \(\sqrt{s}\) = 200 GeV pro Nukleonenpaar liegen. Dabei werden in der Reaktion Energiedichten erreicht werden, die mehr als zehnmal der des Grundzustandes der Kernmaterie entsprechen. Die Erwartung ist, dass dabei Signaturen fur einen Phasenubergang von hadronischer Materie zu einem Quark-Gluon-Plasma beobachtet werden konnen.
+
+### 3.1 Die Beschleunigerkette
+
+Die Gold-Ionen, mit denen RHIC befullt wird und die dort ihre maximale Energie erreichen, werden in mehreren Schritten vorbeschleunigt und ionisiert. Wie in Abbildung 3.1 schematisch dargestellt ist, werden die einfach positiv geladenen Gold-Atome aus einer gepulsten Ionen-Quelle in einem Tandem-Beschleuniger auf eine Energie von 1 MeV/Nukleon beschleunigt und dabei zu Au\({}^{14+}\) ionisiert. Im nachgeschalteten _Booster_-Synchrotron wird die Energie auf 72 MeV/Nukleon erhoht. Vor Ubergang vom Booster zum _Alternating Gradient Synchrotron_ (AGS) durchqueren die Ionen eine dunne Folie und werden dabei ein zweites Mal gestrippt, so dass sie dann 77-fach positiv geladen auf 10,8 GeV/Nukleon beschleunigt werden konnen. Vor dem Eintritt in den Speicherring RHIC werden die Gold-Ionen vollstandig ionisiert. Binnen ca. 75 Sekunden werden die Kerne auf ihre maximale Energie von 100 GeV/Nukleon beschleunigt und stehen dann den Experimenten zur Verfugung. Ein Vergleich der Strahl-Parameter fur Protonen, Silizium- und Gold-Kerne ist in Tabelle 3.1 gegeben.
+
+Der Speicherring RHIC befindet sich in einem ca. 3,8 km langen Ringtunnel am Brookhaven National Laboratory (BNL) in der Nahe von New York. Die beschleunigten Kerne laufen gegensinnig in zwei konzentrischen Ringen, in welchen ein Vakuum mit einem Druck von weniger als 10\({}^{-11}\) bar herrscht. Die Strahlfuhrung wird durch ein komplexes System supraleitender Magnete gewahrleist, die mit flussigem Helium auf
+Abbildung 3.1: _Schematische Darstellung der Beschleunigerkette fur RHIC (aus [Sam89]). Wahrend schwere Ionen (Deuterium und schwerer) vor dem Einschuss in den Booster in einem Tandem-Beschleuniger vorbeschleunigt werden, erfolgt die erste Beschleunigung fur Protonen in einem separaten Linearbeschleuniger (Proton-Linac)._
+
+ihrer Betriebstemperaturgehalten werden. Insgesamt werden 396 Diplomagnete und 492 Quadrupolmagnete benotigt, zuzuglich der Trim-Quadrupolmagnete, der Sextu-polmagnete und verschiedener Korrekturmagnete.
+
+\begin{tabular}{|l|c|c|c|} \hline Element & Wasserstoff & Silizium & Gold \\ \hline Ordnungszahl & 1 & 14 & 79 \\ Massenzahl & 1 & 28 & 197 \\ \hline AGS-End-Energie (GeV/Nukl.) & 28,3 & 13,7 & 10,8 \\ Ionen pro Bunch (x 10\({}^{9}\)) & 100 & \(5,6\) & 1,0 \\ End-Energie (GeV/Nukl.) & 250,7 & 124,9 & 100,0 \\ Luminositat (cm\({}^{-2}\)sec\({}^{-1}\)) & 1,4x10\({}^{31}\) & 4,4x10\({}^{28}\) & 2,0x10\({}^{26}\) \\ \hline \end{tabular}
+
+Tabelle 3.1: _Strahl-Parameter fur verschiedene Elemente (Aus [Rhi95] und [Sam89])._Fur detailliertere Informationen zum Beschleuniger-System sei auf das RHIC Design Manual ([11]), den RHIC Conceptual Design Report ([12]) und auf [13] verwiesen.
+
+Am RHIC werden im wesentlichen vier Experimente aufgebaut: BRAHMS (Broad Range Hadron Magnetic Spectrometers [14]), PHOBOS1[15], PHENIX (Pioneering High Energy Nuclear Interaction Experiment [16]) und STAR (Solenoidal Tracker At RHIC [17]). Das Experiment BRAHMS ist darauf ausgelegt, in einem grossen \(y\)-\(p_{T}\)-Bereich geladene Hadronen aus Schwerionen-Reaktionen zu messen. Die Hauptbestandteile des Experiments sind zwei schwenkbare Spektrometer-Arme, mit denen selektiv der Pseudo-Rapiditatsbereich \(0\leq\eta\leq 4\) abgedeckt werden kann. Das PHOBOS-Experiment besteht im wesentlichen aus einem Spektrometer, welches aus mehreren Silizium-Zahlen aufgebaut ist und sich in einem homogenen Magnetfeld der Starke 2 Tesla befindet. Der Schwerpunkt liegt dabei im Studium von seltsamen Teilchen auf der Grundlage einer hohen Statistik. Die wichtigsten Detektoren bei PHENIX sind ein zweiarmiges Leptonen-Spektrometer im Bereich mittlerer Rapiditat und ein Nachweis-System zur Myon-Identifikation im Bereich \(1,2\leq\eta\leq 2,4\). Mit PHENIX wird vornehmlich nach QGP-Signaturen gesucht, wie sie in den Kapiteln 2.3.2 und 2.3.3 beschrieben sind, was eine Messung von Leptonen-Paaren (Di-Elektronen und Di-Myonen) notwendig macht. Der Aufbau des STAR-Experiments und die damit moglichen physikalischen Untersuchungen bei Schwerionen-Reaktionen werden im nachfolgenden Kapitel vorgestellt.
+
+Footnote 1: [http://www.nachfolgenden.de/](http://www.nachfolgenden.de/)
+
+### 3.2 Das STAR-Experiment
+
+Neben PHENIX ist STAR eines der beiden grossen Experimente am RHIC. Das Haupt-augenmerk der physikalischen Untersuchungen liegt dabei auf der gleichzeitigen Messung einer Vielzahl verschiedener, experimentell zuganglicher Observablen. Besonderes Gewicht wird hierbei auf die Bestimmung von globalen Reaktionsparametern fur jedes selektierte Ereignis gelegt, also die Ermittlung von statistischen Grossen (Druck, Temperatur, Energiedichte, etc.) fur ein System, welches bei der Kollision von zwei Kernen entsteht, ohne dass dabei zur Verbesserung der statistischen Grundlage eine Summation uber mehrere Ereignisse notwendig ist. Dies wird moglich durch die grose Zahl der geladenen Teilchen pro Ereignis, die etwa 1000 Teilchen pro Einheit Rapiditat im Bereich mittlerer Rapiditat betragt.
+
+Desweiteren eignet sich STAR fur die Detektion der Folgeprodukte von Partonen, welche in der hadronischen Materie oder dem QGP gestreut werden (siehe Kap. 2.3.4). Die quantitative Erfassung von Teilchen mit hohem Transversalimpuls und von Jetserlauben damit eine systematische Untersuchung von QCD-Streuprozessen im Reaktionsvolumen [Har93].
+
+Selbstverstandlich konnen mit STAR auch eine grosse Zahl von weiteren Untersuchungen durchgefuhrt werden, die im Zusammenhang mit einem Phasenubergang der hadronischen Materie zu einem QGP stehen: Die Messung von Teilchenspektren, die Untersuchung der Produktion seltsamer Teilchen, HBT-Interferometrie oder Fluktuations-Untersuchungen werden in bezug auf STAR ausfuhrlich in [Har93] beschrieben.
+
+Wie in Abbildung 3.2 sichtbar, ist der grosse Spurdetektor in STAR eine Spurendriftkammer (TPC), welche eine geometrische Akzeptanz von ca. \(|\eta|<2,0\) besitzt und die Spuren uber den vollen Azimutwinkel von \(2\pi\) erfasst. Die TPC deckt damit den Bereich der nahezu verschwindenden Baryonendichte weitgehend ab, der zur Untersuchung des Phasenubergangs von hadronischer Materie zum QGP von besonderem Interesse ist (siehe Abb. 3.5). Wie alle Spurdetektoren im STAR-Experiment befindet sich die TPC in einem solenoidalen Magnetfeld der Starke 0,5 Tesla, wodurch fur geladene Teilchen neben der Spur- auch eine Impulsekonstruktion und eine Ladungsbestimmung moglich wird. Bei kleinem Transversalimpuls \(p_{T}\) erfolgt durch die Messung des spezifischen Energieverlusts \(dE/dx\) eine Teilchenidentifikation (vergl. Kap. 9).
+
+Die Rekonstruktion von Spuren im Akzeptanzbereich der TPC wird durch den Silicon Vertex Tracker (SVT) erheblich verbessert. Zusatzlich ermoglicht das gute Ortsauflosungsvermogen des SVT die Detektion von kurzlebigen Teilchen, die schwere Quarks enthalten. Dies geschieht durch die Rekonstruktion des entsprechenden Zerfallsvertex, der aufgrund der kurzen Lebensdauren nahe am Primarvertex liegt.
+
+Der Bereich hoher Pseudo-Rapiditat (\(2,6\stackrel{{<}}{{\sim}}|\eta|\)) wird von zwei Spurdetektoren abgedeckt, welche ebenfalls auf dem TPC-Prinzip basieren. Diese _Forward Time Projection Chambers_ (FTPCs) werden in 3.3 gesondert behandelt und in Kapitel 4 und den darauflolgenden Kapiteln ausfuhrlich diskutiert.
+
+Neben den Spurdetektoren befinden sich innerhalb des Magnetfeldes noch das elektromagnetische Kalorimeter (EMC) zur Registrierung von Jets, Photonen und zur Messung der transversalen Energie, sowie ein "Time-of-Flight"-System (TOF) zur Teilchenidentifikation bei hohen Transversalimpulsen. Zusatzlich sind EMC und TOF Teile des Trigger-Systems von STAR, zu dem weiterhin zwei "Vertex-Position-Detectors", die Auslesekammern der TPC sowie Veto-Kalorimeter gehoren. Eine ausfuhrliche Beschreibung des Trigger-Systems ist in [2] zu finden.
+
+### 3.3 Die Forward-TPCs
+
+Wie durch Kapitel 2.3.1 deutlich wurde, konnen globale Ereignis-Parameter (Temperatur, Energiedichte, Ausdehnung des Reaktionsvolumens, etc.) fur ein einzelnes Ereignis nur bei einer moglichst vollstandigen Detektion der Reaktionsprodukte bestimmt werden. Da die TPC geometrisch nur einen Pseudorapiditatsbereich von \(|\eta|<2,0\) abedeckt, werden zwei weitere, sogenannte Forward-TPCs (FTPCs), zwischen Strahlrohr und TPC eingebaut (siehe Abb. 3.2). Da neben der Spur- auch eine Impulsrekonstruktion erfolgen soll, mussen sich die FTPCs vollstandig innerhalb des solenoidalen Magnetfelds befinden, wodurch ihre Ausdehnung entlang der Strahlachse limitiert ist. In Richtung des Vertex begrenzt der SVT mit seiner Haltevorrichtung den zur Verfugung stehenden Raum. Geht man von diesen raumlichen Beschrankungen aus, so decken die FTPCs etwa die Pseudorapiditatsbereiche \(-4,0\stackrel{{<}}{{\sim}}\eta\stackrel{{<}}{{ \sim}}-2,6\) und \(2,6\stackrel{{<}}{{\sim}}\eta\stackrel{{<}}{{\sim}}4,0\) ab. Fur jede FTPC ist eine Bestuckung mit zehn Padreihen vorgesehen, womit die maximale Zahl der registrierten Spurpunkte pro Teilchendurchgang in der Regel auf zehn beschrankt ist. Dies wird aus Abbildung 3.3 deutlich, in der eine FTPC mit ihren Padreihen und zwei Teilchenspuren schematisch in der x-y-Ebene (= Ebene senkrecht zum Strahlrohr) und in der y-z-Ebene skizziert ist.
+
+Plaziert man die Padreihen innerhalb der FTPCs aquidistant und fordert man pro Spur mindestens funf registrierte Spurpunkte, so ergibt sich eine rein geometrische
+Abbildung 3.3: _Schematische Skize einer FTPC. Die radiale (r\(-\)) Richtung steht auf der Strahlrohr\(-\)Achse senkrecht. Das Magnetfeld verlauft parallel zur Strahlrohr\(-\)Achse. Die Spur 1 reprasentiert ein Primarteilchen mit niedrigem Transversalimpuls, im Gegensatz dazu die Spur eines Primarteilchens mit hoherem Transversalimpuls (Spur 2)._
+
+Abbildung 3.4: _Geometrische Akzeptanz der FTPCs fur Pionen (a.) und Protonen (b.). Das sensitive Volumen erstreckt sich dabei in radialer Richtung von r=8 cm bis r=31 cm und in \(|z|-\)Richtung von 160 cm bis 260 cm. Die Grosse der Quadrate ist ein Mass dafur, mit welcher Wahrscheinlichkeit ein Primarteilchen in den FTPCs registriert wird._Akzeptanz, wie sie in Abbildung 3.4 fur Pionen und Protonen dargestellt ist.
+
+Vergleicht man von verschiedenen Modellen (siehe Anhang B) die Vorhersagen fur die Differenz von Protonen- und Antiprotonen-Rapiditatsverteilung sowie die Verteilung fur geladene Mesonen im Rapiditatsbereich, der mit den FTPCs zuganglich ist, so sieht man zum Teil erheblich Unterschiede (Abb. 3.5).
+
+Abbildung 3.5: _Verschiedene Modelle ergeben verschiedene Vorhersagen fur die Hadronenverteilung in Gold-Gold Reaktionen; hier gezeigt am Beispiel von \(dN_{\eta-\overline{\eta}}/dy\) (a.) und \(dN_{M}/dy\) (b.). Die vertikalen Linien zeigen die Grenzen des Akzeptanzbereichs der FTPCs (Zuordnung der Modelle zu den Linien wie in Abbildung 2.3)._
+
+Das begrenzte Platzangebot fur die FTPCs und die erwarteten hohen Spurdichten (siehe Kap. 7) erfordern neuartige Detektor-Konzepte. Will man auf eine volle azimutale Akzeptanz nicht verzichten und den verfugbaren Raum optimal ausnutzen, so liegt eine zylinderformige Bauweise, wie in Abbildung 3.6 illustriert, nahe. Die kleinen Spurwinkel gegenuber der Strahlachse machen es dabei erforderlich, dass die Ausleske-kammern auf dem "Zylindermantel" liegen und somit gekrummt sind. Das Drifteld ist in einer derartigen Konfiguration nicht mehr homogen; vielmehr driften die Elektronen in einem radialen elektrischen Feld. Weiterhin ist zu berucksichtigen, dass die Richtung
+
+## Kapitel 4 Grundlagen der FTPCs
+
+### 4.1 Funktionsprinzipien bei Spurendriftkammern
+
+Geladene Teilchen mit ausreichender kinetischer Energie hinterlassen in einem Gas entlang ihrer Bahnen _Spuren aus Ionen und Elektronen._ Erzeugt man in einem derartigen Gasvolumen zusatzlich ein elektrisches (Drift-)Feld zwischen zwei Elektroden, so driften die freigesetzten Elektronen zur Anode. Gelingt es, die Elektronen dort raumlich aufgelost zu registrieren, so erhalt man als "Bild" eine zweidimensionale _Projektion_ der Spuren. Durch Messung der Zeitdifferenz zwischen Teilchendurchgang und Registerung der Elektronen erhalt man die dritte Koordinate von Spurpunkten, so dass dann eine dreidimensionale Spurrekonstruktion moglich ist [12], [13]. Durch eine Bestimmung der Elektronenzahl pro cm Spurlange erhalt man ein Mass fur den spezifischen Energieverlust des Teilchens im Gas, was unter bestimmten Voraussetzungen eine Teilchenidentifikation erlaubt (Kap. 9).
+
+Detektoren, welche nach dem oben beschriebenen Prinzip arbeiten, bezeichnet man als _Spurendrifkammern_ oder _Time Projection Chambers_ (TPC). Die Ortsauflosung und die Zweispurtrennung werden bei diesem Detektortyp hauptsachlich durch die Diffusion der Elektronen im Gas bestimmt: Bei einem Teilchendurchgang entsteht eine Elektronenwolke, deren Ausdehnung senkrecht zur Teilchenbahn nur einige Mikrometer betragt. Bei der Drift dieser Wolke im Driftfeld weitet sie sich auf, so dass bei einem Driftweg von einigen Dezimetern die Ausdehnung der Wolke auf einige Millimeter anwachsen kann.
+
+In zylindrischen TPCs liegt das Driftfeld ublicherweise parallel zur Zylinderachse, so dass die Spuren auf die "Deckflachen" des Zylinders projiziert werden [14]. Fur die zylinderformigen FTPCs in STAR ist aufgrund der kleinen Spurwinkel gegenuber der Strahlachse eine Projektion auf die Deckflachen nicht sinnvoll; Spurrichtung und Driftrichtung wurden nahezu zusammenfallen (vergl. Abb. 3.3). Die Driftrichtung der Elektronen muss vielmehr _radal_, d. h. im wesentlichen senkrecht zur Spurrichtungund damit entlang divergenter Feldlinien verlaufen. Dieser zunachst geometriebedingte Feldverlauf hat einen weiteren Vorteil: Die Zweispurtrennung in azimutaler Richtung ist gegenuber einem homogenen Driftfeld verbessert (siehe Kap. 4.6). Ursache hierfur ist, dass die Zunahme des Abstands zweier Elektronenwolken wahrend der Drift uberwiegt gegenuber der zur Diffusion zusatzlichen Zunahme der Ausdehnung der Wolken durch die divergenten Feldlinien.
+
+Zur Registrierung der gedrifteten Elektronen verwendet man haufig Vieldraht-Pro-
+
+Abbildung 4.1: _Schematischer Aufbau einer TPC: Neben den Pads und den Sense-Drahten befinden sich in der Auslesekammer einer TPC meist Felddrahte zur Feldformung und die Null-Ebene, welche die geerdete Anode fur das Driftfeld darstellt. Die Gate-Ebene verhindert bei geegnet angelegten Spannungen ein Ruckdriften von Ionen in das Driftvolumen._
+
+portionalkammern als Auslesekammern, deren schematischer Aufbau aus Abbildung 4.1 deutlich wird. An den _Sense-Drahten_ erfolgt jeweils eine Lawinenmultiplikation, wobei Verstarkungsfaktoren der Grossenordnung \(10^{4}\) moglich sind, ohne den Proportionalbereich zu verlassen. Es ist dann entweder moglich, die uber den Draht abfliessenden Elektronen als Signal weiter zu verarbeiten [Cha68], oder mittels Elektroden (= _Pads_) in der Nahe des Sense-Drahtes ein Ladungs-Signal zu registrieren, welches durch die Ionenwolke, die bei der Lawinenmultiplikation entsteht, dort influenziert wird [Cha70].
+
+Um die dritte Raumrichtung bei der Spurrekonstruktion zu erfassen, muss fur jedes Spursegment die Zeit zwischen Teilchendurchgang und Registrierung des Signals gemessen werden. Dazu werden die Signale der Pads zeit aufgelost registriert. Die Ionenwolke, welche bei der Lawinenmultiplikation der Elektronen entsteht, driftet nur langsam in Richtung der Null-Ebene. Das Pad-Signal zeigt in Zeitrichtung somit einen schnellen Anstieg und einen langsamen Abfall. Mittels eines Bandpassfilters wird dieses Signal in ein idealerweise gaussformiges Signal umgeformt, welches dann in Zeitintervalle aufgeteilt und digitalisiert wird. Tragt man die Pad-Position gegen die Zeitinter- valle an, so ergibt ein entsprechendes Spursegment uber einer Pad-Reihe ein Gebiet registrierter Signalh\(\ddot{o}\)hen, welches als _Cluster_ bezeichnet wird.
+
+### 4.2 Elektronendrift in Gasen
+
+Zum Verstandnis von Zweispurtrennung und Aufl\(\ddot{o}\)sungsvermogen (siehe Kap. 4.6) ist es entscheidend, die _Dichtefunktion_\(n(\vec{r},t)\) der Elektronen in einer driftenden Elektronenwolke zu kennen. Ein geeignetes (karthesisches) Koordinatensystem ist dabei dasjenige, dessen Ursprung im Schwerpunkt der Elektronenwolke zur Zeit \(t=0\) liegt (vergl. Abb. 4.2). Bevor die Falle mit radialem Driftfeld und zusatzlichem magnetischen Feld diskutiert werden, wird zunachst das Wesentliche der Elektronendrift bei homogenen Driftfeld zusammengef\(\ddot{a}\)st [22], [23].
+
+Die Diffusion einer Elektronenwolke, die sich in einem elektrischen Feld \(\vec{E}\) mit der (Drift-) Geschwindigkeit \(\vec{v}_{d}\) ihres Schwerpunktes bewegt, wird durch den Diffusionstensor \(\hat{D}\) beschrieben. Geht man von einer punktformigen Elektronenwolke zur Zeit \(t=0\) aus, so kann \(n(\vec{r},t)\) ausreichend gut beschrieben werden durch eine dreidimensionale \(\ddot{a}\)sverteilung:
+
+\[n(\vec{r},t)=\frac{1}{\sqrt[3]{4\pi t}\sqrt{\det\hat{D}}}\exp\left\{-\vec{r}^{ \vec{r}}\cdot(4\hat{D}t)^{-1}\cdot\vec{r}\right\} \tag{4.1}\]
+
+Legt man \(\vec{E}\) entlang einer Koordinatenachse, so diagonalisiert \(\hat{D}\) mit zwei unabhangigen Komponenten \(D_{t}\) und \(D_{l}\), welche die Diffusion senkrecht (_transversal_) bzw. entlang (_longitudinal_) zur Driftichtung \(\hat{v}_{d}=\frac{\vec{v}_{d}}{|\vec{v}_{d}|}=\frac{-\vec{E}}{|\vec{E}|}\) beschreiben:
+
+\[\vec{E}=\left(\begin{array}{c}0\\ 0\\ E\end{array}\right)\ \ \Rightarrow\ \ \ \ \ \ \vec{v_{d}}=\left(\begin{array}{c}0\\ 0\\ -v_{d}\end{array}\right)\ \ ;\ \ \ \ \ \ \hat{D}=\left(\begin{array}{ccc}D_{t}&0&0\\ 0&D_{t}&0\\ 0&0&D_{l}\end{array}\right) \tag{4.2}\]
+
+Damit faktorisiert 4.1 in drei _eindimensionale_ Gaussverteilungen:
+
+\[n(\vec{r},t)=n(x,t)\cdot n(y,t)\cdot n(z,t)=\frac{1}{4\pi\,D_{t}t}\frac{1}{ \sqrt{4\pi\,D_{l}t}}\exp\left(-\frac{x^{2}+y^{2}}{4\,D_{t}t}-\frac{\left(z+v_{d }t\right)^{2}}{4\,D_{l}t}\right) \tag{4.3}\]
+
+Mittels der Definition der _Diffusionskoeffizienten_\(C_{t}=\sqrt{\frac{2\,D_{t}}{v_{d}}}\) und \(C_{l}=\sqrt{\frac{2\,D_{t}}{v_{d}}}\) sowie des Driftweges \(L=v_{d}t\) ergeben sich in transversaler, respektive longitudinaler Richtung die Standardabweichungen
+
+\[\sigma_{x}=\sigma_{t}(L)=C_{t}\sqrt{L} \tag{4.4}\] \[\sigma_{y}=\sigma_{t}(L)=C_{t}\sqrt{L}\] (4.5) \[\sigma_{z}=\sigma_{l}(L)=C_{l}\sqrt{L} \tag{4.6}\]and 4.3 wird zu
+
+\[n(\vec{r},L) = n(x,L)\cdot n(y,L)\cdot n(z,L)= \tag{4.7}\] \[= \frac{1}{2\pi\sigma_{t}^{2}(L)}\frac{1}{\sqrt{2\pi\sigma_{l}^{2}(L) }}\exp\left(-\frac{1}{2}\frac{x^{2}+y^{2}}{\sigma_{t}^{2}(L)}\right)\exp\left(- \frac{1}{2}\frac{(z+L)^{2}}{\sigma_{l}^{2}(L)}\right)\quad\.\]
+
+### 4.3 Radiales Driftprinzip
+
+In den zylindersymmetrischen FTPCs erfolgt die Elektronendrift radial von kleinerem zu grosserem Radius. Es ist daher sinnvoll, fur die Diskussion der radialen Drift einer Elektronenwolke die Zylinderkoordinaten Radius \(r\), Azimutwinkel \(\varphi\) und Position entlang der Zylinderachse \(\zeta\) zu verwenden. Abbildung 4.2 illustriert die im folgenden verwendeten Bezeichnungen. Das Drift volumen erstreckt sich in r-Richtung zwischen \(r_{i}\) und \(R\); der Durchstosspunkt einer Spur in einer Ebene mit festem \(\zeta\) ist der Startpunkt \(r_{0}\) fur die Elektronendrift im Gas. Der Ursprung des im vorhergehenden Kapitel verwendeten Koordinatensystems befindet sich bei \(r_{0}\); der Driftweg \(L\) ergibt sich als Differenz \(r-r_{0}\).
+
+Abbildung 4.2: _Illustration der verwendeten Bezeichnungen. Aufgrund der Zylinder-symmetrie der FTPCs sind alle zu betrachtenden Grossen eindimensionale Funktionen der Koordinate \(r\). Der Parameter \(r_{i}\) bezeichnet den Radius der Driftkathode und \(R\) den maximalen Radius des Driftvolumens. Fur die radiale Koordinate eines Spurpunktes wird \(r_{0}\) verwendet._Bei einer negativen Driftspannung \(-V_{c}\) an der Driftkatho de ergibt sich der Betrag des Drift feldes zu:
+
+\[\left|\vec{E}(r)\right|=\frac{V_{c}}{\ln\left(\frac{R}{r_{i}}\right)}\cdot\frac{ 1}{r} \tag{4.8}\]
+
+Fur die Elektronenwolke und ihre Dichtefunktion \(n\left(\vec{r},t\right)\) andern sich also entlang des Driftweges der Betrag des Driftfeldes und damit in der Regel auch gasabhangige Transportparameter wie die Driftgeschwindigkeit \(v_{d}\) oder die Diffusionskoeffizienten \(C_{l}\) und \(C_{t}\).
+
+Die \(\zeta\)-Position eines Spurpunktes wird durch die Lage der Padreihe festgelegt; der Azimutwinkel \(\varphi\) ergibt sich aus dem Schwerpunkt des mittels der Pads dieser Padreihe registrierten Signals.
+
+Durch den Ausdruck fur die Driftzeit \(t\),
+
+\[t=\int\limits_{r_{0}}^{r}\frac{d\vec{r}}{v_{d}(\vec{r})}\qquad\qquad, \tag{4.9}\]
+
+kann auf die \(r\)-Koordinate des entsprechenden Spurpunktes uber einer Padreihe zuruckgeschlossen werden.
+
+Betrachtet man nun zunachst \(\sigma_{t}(L)=\sigma_{\varphi}(r,r_{0})\) aus Gleichung 4.4, so muss man berucksichtigen, dass die Feldlinien des Driftfeldes nicht mehr parallel verlaufen; dass also \(\vec{E}(\varphi_{1})\not\parallel\vec{E}(\varphi_{2})\), wenn \(\varphi_{1}\neq\varphi_{2}\) ist. Dies bedeutet fur eine ausgedehnte Elektronenwolke, dass sie bei einer Drift von \(r\) nach \(r+dr\) zum einen durch Diffusion, zum anderen aber auch durch den divergenten Feldlinienverlauf verbreitert wird. Fur \(\sigma_{\varphi}(r,r_{0})\) ergibt sich folgende Differentialgleichung [11], [12], [13]:
+
+\[\frac{d(\sigma_{\varphi}^{2}(r,r_{0}))}{dr}=C_{t}^{2}(r)+\frac{2\sigma_{ \varphi}^{2}(r,r_{0})}{r} \tag{4.10}\]
+
+Mit dem Ansatz \(\sigma_{\varphi}^{2}=r^{2}f\left(r\right)\) erhalt man als Losung:
+
+\[\sigma_{\varphi}^{2}(r,r_{0})=r^{2}\left(\frac{\sigma_{\varphi,0}}{r_{0}} \right)^{2}+r^{2}\int\limits_{r_{0}}^{r}\left(\frac{C_{t}(\vec{r})}{\vec{r}} \right)^{2}d\vec{r} \tag{4.11}\]
+
+Dabei ist \(\sigma_{\varphi,0}=\sigma_{\varphi}(r_{0},r_{0})\), also ein Mass fur die Ausdehnung der Elektronenwolke in azimutaler Richtung an ihrem Entstehungsort bei \(r_{0}\).
+
+Verwendet man die Naherungen, dass \(\sigma_{\varphi,0}=0\) und dass \(C_{t}(r)\) im betrachteten Bereich unabhangig von der Feldstarke und somit auch unabhangig von \(r\) ist, so verinefacht sich 4.11 zu:
+
+\[\sigma_{\varphi}(r,r_{0})=C_{t}\sqrt{\frac{r(r-r_{0})}{r_{0}}} \tag{4.12}\]In radialer Richtung erfolgt die Bestimmung von \(\sigma_{t}(L)=\sigma_{r}(r,r_{0})\) aus Gleichung 4.6 ahnlich: Anstatt divergenter Feldlinien wirkt hier der Geschwindigkeitsgradient \(v_{d}^{\prime}(r)=\frac{d}{dr}v_{d}(r)\) zusatzlich zur Diffusion auf \(\sigma_{r}(r,r_{0})\). Anschaulich gesprochen erstreckt sich \(\sigma_{r}(r,r_{0})\) uber einen Radius-Bereich, innerhalb dessen die Elektronen ublicherweise verschiedene Driftgeschwindigkeiten besitzen, abhangig an welcher Stelle sie sich in diesem Bereich befinden. Die \(r\)-Abhangigkeit von \(\sigma_{r}(r,r_{0})\) wird durch folgende Differentialgleichung beschrieben [111]:
+
+\[\frac{d\left(\sigma_{r}^{2}(r,r_{0})\right)}{dr}=C_{l}^{2}\left(r\right)+2 \sigma_{r}^{2}(r,r_{0})\frac{v_{d}^{\prime}(r)}{v_{d}(r)} \tag{4.13}\]
+
+Unter der Annahme eines \(r\)-unabhangigen Diffusionskoeffizienten \(C_{l}\) ergibt sich als Losung von 4.13
+
+\[\sigma_{r}^{2}(r,r_{0})=\sigma_{r,0}^{2}\frac{v_{d}^{2}(r)}{v_{d}^{2}(r_{0})} +C_{l}^{2}v_{d}^{2}(r)\int\limits_{r_{0}}^{r}\frac{1}{v_{d}^{2}(\tilde{r})}\: d\tilde{r}\:\:\:. \tag{4.14}\]
+
+Analog zu \(\sigma_{\varphi,0}\) ist \(\sigma_{r,0}=\sigma_{r}\left(r_{0},r_{0}\right)\). Fur den Fall \(v_{d}(r)=\) const. und \(\sigma_{r,0}=0\) ergibt sich aus 4.14 erwartungsgemass ein Ausdruck der Form 4.6:
+
+\[\sigma_{r}(r,r_{0})=\sigma_{r}(r-r_{0})=C_{l}\sqrt{(r-r_{0})}=C_{l}\sqrt{L} \tag{4.15}\]
+
+### 4.4 Drift im \(\vec{E}\times\vec{B}\)-Feld
+
+Die FTPCs befinden sich im STAR-Experiment derart in einem Solenoiden, dass im Drift volumen zusatzlich zum radialen elektrischen Driftfeld noch ein Magnetfeld senkrecht dazu wirkt (vergl. Abb. 3.3). Dieses Magnetfeld ist notwendig fur die Impuls- und Ladungsbestimmung der Reaktionsprodukte, was in Kapitel 8 genauer behandelt wird. Ein in dieser Richtung orientiertes magnetisches Feld fuhrt aber auch dazu, dass die driftenden Elektronen durch die Lorentzkraft abgelenkt werden und sich die Transportparameter \(v_{d}\), \(C_{l}\) und \(C_{t}\) des Gases gegenuber dem magnetfeldfreien Fall andern (vergl. Abb. 4.3).
+
+In einem Gasvolumen mit _homogenem_ elektrischen Feld \(\vec{E}=(0,0,E)\) und dazu senkrechtem magnetischem Feld \(\vec{B}=(0,-B,0)\) bewegt sich der Schwerpunkt einer Elektronenwolke mit der Driftgeschwindigkeit \(\vec{v_{d}}=(v_{x},0,-v_{z})\). Der Vektor der Driftgeschwindigkeit \(\vec{v_{d}}\) ist gegenuber der durch \(\vec{E}\) ausgezeichneten Richtung gekippt um den _Lorentzwinkel_
+
+\[\Phi_{L}=\arctan\frac{v_{x}}{v_{z}}\qquad. \tag{4.16}\]
+
+Fur die Drift im radialen Feld bedeutet dies, dass die Elektronenwolke sich um den Winkel \(\Phi_{L}\frac{dr}{r}\) in \(\varphi\)-Richtung bewegt, wenn sie um die Strecke \(dr\) in radialer Richtung drifet. Da \(\Phi_{L}\) in der Regel feldstarke- und damit radiusabhangig ist, gilt \(\Phi_{L}\frac{dr}{r}\to\Phi_{L}(r)\frac{dr}{r}\) und der azimutale Versatz \(\Psi\) zwischen Spurpunkt und detektiertem Signalschwerpunkt auf der Padreihe ergibt sich zu
+
+\[\Psi=\int\limits_{r_{0}}^{R}\frac{\Phi_{L}(\tilde{r})}{\tilde{r}}\,d\tilde{r} \qquad\;; \tag{4.17}\]
+
+\(r_{0}\)bestimmt sich durch eine Zeitmessung und die Beziehung
+
+\[t=\int\limits_{r_{0}}^{R}\frac{d\tilde{r}}{v_{d}(\tilde{r})\cos(\Phi_{L}(\tilde{ r}))}\qquad\;. \tag{4.18}\]
+
+Es bleibt noch zu klaren, welchen Einfluss das zusatzliche Magnetfeld auf die Diffusion aus ubt. Wiederum sei:
+
+\[\vec{E}=\left(\begin{array}{c}0\\ 0\\ E\end{array}\right)\;\;,\;\;\;\vec{B}=\left(\begin{array}{c}0\\ -B\\ 0\end{array}\right)\;\;\;\;\Rightarrow\;\;\;\;\vec{v}_{d}=\left(\begin{array} []{c}v_{x}\\ 0\\ -v_{z}\end{array}\right)\qquad\;.\]Die Diffusion wird durch den symmetrischen Diffusionstensor
+
+\[\hat{D^{\prime}}_{B}=\left(\begin{array}{ccc}D_{x}&0&D_{0}\\ 0&D_{y}&0\\ D_{0}&0&D_{z}\end{array}\right) \tag{4.19}\]
+
+vollstandig beschrieben [20], [15]. Die Matrix \(\hat{D}_{B}\) ist invertierbar und \(\hat{D^{\prime}}_{B}^{-1}\) (vergl. Formel 4.1) ergibt sich zu:
+
+\[\hat{D^{\prime}}_{B}^{-1}=\left(\begin{array}{ccc}\frac{1}{D_{x}}+\frac{D_{ x}^{2}}{D_{z}D_{x}^{2}-D_{0}^{2}D_{x}}&0&-\frac{D_{0}}{D_{z}D_{x}-D_{0}^{2}}\\ 0&\frac{1}{D_{y}}&0\\ -\frac{D_{0}}{D_{z}D_{x}-D_{0}^{2}}&0&\frac{D_{x}}{D_{z}D_{x}-D_{0}^{2}}\end{array}\right) \tag{4.20}\]
+
+Die Form von \(\hat{D^{\prime}}_{B}\) bzw. \(\hat{D^{\prime}}_{B}^{-1}\) ist plausibel, wenn man berucksichtigt, dass durch das zusatzliche Magnetfeld \(\vec{B}\) die Elektronen in Richtung von \(y\) unbeeinflusst bleiben. Last man nun eine Rotation um die y-Achse mit dem Rotationswinkel \(\delta=\frac{1}{2}\arctan\frac{2\,D_{b}}{D_{z}-D_{x}}\) auf \(\hat{D^{\prime}}_{B}\) wirken, so ergibt sich der diagonalisierte Diffusionstensor
+
+\[\hat{D}_{B}=\left(\begin{array}{ccc}D_{a}&0&0\\ 0&D_{b}&0\\ 0&0&D_{c}\end{array}\right) \tag{4.21}\]
+
+mit
+
+\[D_{a} = \frac{D_{x}}{1-\tan^{2}\delta}+\frac{D_{z}}{1-\cot^{2}\delta}\] \[D_{b} = D_{y} \tag{4.22}\] \[D_{c} = \frac{D_{x}}{1-\cot^{2}\delta}+\frac{D_{z}}{1-\tan^{2}\delta} \qquad.\]
+
+Damit lassen sich in Analogie zu 4.4, 4.5 und 4.6 Ausdrucke fur \(\sigma_{a}\), \(\sigma_{b}\) und \(\sigma_{c}\) finden.
+
+### 4.5 Pad-Response-Funktion
+
+Bisher ist noch nicht darauf eingegangen worden, welcher Zusammenhang zwischen der gedrifteten Elektronenwolke und dem registrierten Signal besteht. Zunachst sei eine punktformige Ladung am Sense-Draht angenommen (siehe Abb. 4.4). Auf der Padebene ergibt sich eine influenzaierte Ladungsdichte \(\rho(x)\), wobei die x-Richtung entlang der Padreihe verlauft (vergl. Abb. 4.1) und sich die Punktladung bei \(x=0\) befinden soll. Fur eine _symmetrische Auslesekammer_ mit gleichem Abstand \(d/2\) der Sense-Draht ze Null- und Pad-Ebene und ohne Felddrahte ist
+
+\[\rho(x)=\frac{K}{2d}\frac{1}{\cosh(\frac{\pi x}{d})}\qquad, \tag{4.23}\]
+Abbildung 4.4: _Illustration der verwendeten Bezeichnungen bei der Pad-Response-Funktion_.
+
+wobei \(K\) eine Normierungskonstante ist [10]. Die _Pad-Response-Funktion_\(P_{0}(x)\) ist die gemessene Ladung auf einem Pad als Funktion der Strecke \(x\) zwischen Pad-Schwerpunkt und Punktladung. Fur ein Pad der Breite \(W\) ist also
+
+\[P_{0}(x)=\frac{1}{W}\int\limits_{x-\frac{W}{2}}^{x+\frac{W}{2}}\rho(\tilde{x})\ d\tilde{x}\qquad; \tag{4.24}\]
+
+und im symmetrischen Fall ergibt sich bei Verwendung von 4.23
+
+\[P_{0}(x)=\frac{K}{\pi}\arctan\left(\frac{\sinh\left(W\pi/2d\right)}{\cosh\left( x\pi/d\right)}\right)\qquad. \tag{4.25}\]
+
+Die influenzierte Ladungsdichte \(\mathcal{P}(x)\) bei einer ausgedehnten Elektronenwolke am Sense-Draht ergibt sich als Faltung der eindimensionalen Dichtefunktion \(n(x)\) bei \(R^{1}\) mit der Ladungsdichte \(\rho(x)\):
+
+\[\mathcal{P}(x)=(\rho\star n)(x)=\int\limits_{-\infty}^{\infty}\rho(\xi)n(x- \xi)\ d\xi\qquad. \tag{4.26}\]
+
+An aloges gilt fur das Signal in Zeitrichtung: Der Funktion \(\rho(x)\) entspricht das Ausgangssignal \(\tilde{\rho}(t)\) des Bandpassfilters bei einem Delta-Signal am Eingang; \(\tilde{\rho}(t)\) gefaltetmit der eindimensionalen Dichtefunktion \(n(z)=n(v_{d}(R)\cdot t)\) bei \(R\) ergibt den Verlauf des messbaren Signals \(\mathcal{T}(t)\). Der Padbreite \(W\) entspricht die Lange \(Z\) eines Zeitinter- valls.
+
+### 4.6 Auflosungsvermogen und Zweispurtrennung
+
+Um zu leichter handhabbaren Formeln fur die messbaren Signale zu gelangen, ist es sinnvoll, einige Annahmen zu machen, welche die Ergebnisse nur wenig beeinflussen, dafur aber die Rechnungen wesentlich vereinfachen.
+
+* Zunachst sei \(\sigma_{\varphi,0}\equiv\sigma_{r,0}\equiv 0\) (4.11, 4.14). Mit dieser Naherung wird vernachlassigt, dass die Ionisations-Elektronen einen Abstand zur Teilchenbahn besitzen.
+* Desweiteren bleibt unberucksichtigt, dass bei Betrachtung eines Spursegments uber einer Padreihe der Schwerpunkt der Elektronenwolke in der Regel nicht genau in der Mitte des Spursegments liegt. Das unregelmassige Auftreten von Ionisationsprozessen im Gas bleibt somit zunachst unberucksichtigt. Erst die Einfuhrung der Grosse \(N_{eff}\) in Formel 4.32 tragt diesem Sachverhalt Rechnung.
+* Zur Berechnung von \(\sigma_{\varphi}(r,r_{0})\) und \(\sigma_{r}(r,r_{0})\) im \(\vec{E}\times\vec{B}\)-Feld werden nur die entsprechenden Diffusionskoeffizienten unter Anwendung von 4.21 in 4.11 und 4.14 eingesetzt, wobei von kleinem \(\Phi_{L}\) ausgegangen wird.
+* Die Ladungsdichte \(\mathcal{P}(x)\) sei von \(n(x)\,\)dominiert, so dass \(\mathcal{P}(x)\,\)durch die Gausskurve \[\mathcal{P}(x)=\frac{1}{\sqrt{2\pi}\sigma_{\mathcal{P}}}\exp\left(-\frac{1}{ 2}\left(\frac{x}{\sigma_{\mathcal{P}}}\right)^{2}\right)\] (4.27) beschrieben werden kann.
+
+Wodurch wird nun die Ortsauflosung in azimut aler (= \(\varphi\)-Richtung) bes timmt? Auf einem Pad mit seinem Schwerpunkt an der Stelle \(x\) wird der Ladungsanteil
+
+\[P(x)=\frac{1}{W}\int\limits_{x-\frac{W}{2}}^{x+\frac{W}{2}}\mathcal{P}(\tilde{ x})d\tilde{x}=\frac{1}{W}\left(F\left(\frac{x+\frac{W}{2}}{\sigma_{\mathcal{P}}} \right)-F\left(\frac{x-\frac{W}{2}}{\sigma_{\mathcal{P}}}\right)\right) \tag{4.28}\]
+
+influenziert, wobei die Verteilungsfunktion \(F(x)\) durch das Integral
+
+\[F(x)=\frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^{x}\mathrm{e}^{-\frac{\tilde{ x}^{2}}{2}}\,d\xi \tag{4.29}\]
+
+gegeben ist.
+
+Die Pads an den Positionen \(x_{1},x_{2},...,x_{n}\) registrieren eine Ladung, die proportional ist zu \(P(x_{1}),P(x_{2}),...,P(x_{n})\). In der Regel wird dann durch die (Mess-) Punkte eine Gauskurve
+
+\[p(x)=\frac{1}{\sqrt{2\pi}\sigma_{p}}\exp\left(-\frac{1}{2}\left(\frac{x}{ \sigma_{p}}\right)^{2}\right) \tag{4.30}\]
+
+gelegt. Die Lage des Kurvenschwerpunktes liefert die \(\varphi\)-Koordinate des Cluster-Schwerpunktes in azimutaler Richtung; \(\sigma_{p}\) ist die _Signalbreite_. Bezeichnet \(\omega\) den Winkel zwischen projizierter Spurrichtung auf die Pad-Ebene und den Pad-Langsachsen, so muss \(\sigma_{p}\) durch \(\frac{\sigma_{p}}{\cos\omega}\) ersetzt werden. Die Standardabweichung \(\Sigma_{\varphi}\) der Ortsmessung in azimutaler Richtung ergibt sich daraus folgendermassen:
+
+Der Fehler der Ortsmessung (und damit \(\Sigma_{\varphi}\)) wird klein, je mehr Elektronen zu einem Cluster beitragen. Ist \(n_{0}\) die durchschnittliche Anzahl der Primarelektronen pro cm Spur, so tragen \(n_{0}\frac{l}{\cos\omega}\) Elektronen zum Cluster bei, wenn \(l\) die Padlange bezeichnet. Es ergibt sich fur \(\Sigma_{\varphi}\) zunachst
+
+\[\frac{\sigma_{p}^{2}}{\cos\omega}\cdot\frac{1}{\sqrt{n_{0}\frac{l}{\cos\omega }}}=\frac{\sigma_{p}}{\sqrt{n_{0}l}\sqrt{\cos\omega}}\qquad\quad. \tag{4.31}\]
+
+Noch zu berucksichtigen ist die Auswirkung des unregelmassigen Auftretens von Ionisationsprozessen entlang der Spur. Eine ausfuhrliche Diskussion des notwendigen Zusatzterms zu 4.31 ist in [11] zu finden. Dort wird auch die Bedeutung der Grosse \(N_{eff}\) erlautert, deren Wert fur praktische Berechnungen meist experimentell bestimmt wird [10]. Fur \(\Sigma_{\varphi}\) gilt:
+
+\[\Sigma_{\varphi}=\frac{r_{0}}{R}\left(\frac{\sigma_{p}^{2}}{n_{0}l\cos\omega }+\frac{1}{N_{eff}}\frac{l^{2}}{12}\tan^{2}\omega\right)^{1/2} \tag{4.32}\]
+
+Dabei wird durch den Faktor \(\frac{r_{n}}{R}\) berucksichtigt, dass eine bei \(R\) gemessene Lange zum Radius \(r_{0}\) zuruck projiziert werden muss und sich dabei geometrisch verkurzt. Zwei Bemerkungen sind noch erganzend zu machen:
+
+* Im allgemeinsten Fall muss bei der Bestimmung der Zahl der Elektronen, welche zum Cluster beitragen, auch noch der Winkel \(\lambda\) der Spur gegenuber der Pad-Ebene berucksichtigt werden. Da dieser Winkel meist klein ist (in den FTPCs zwischen \(2^{\circ}\) und \(10^{\circ}\) fur Primarteilchen) und seine Vernachlassigung zu einer Unterschatzung der erreichbaren Ortsauflosung fuhrt, wird er bei der Bestimmung von \(\Sigma_{\varphi}\) nicht berucksichtigt.
+* Fur eine grobe Abschatzung der Signalbreite nimmt man haufig an, dass die Pad-Response-Funktion 4.24 von der Form \[P_{0}^{\theta}\left(x\right)=\frac{1}{\sqrt{2\pi}\sigma_{prf}}\exp\left(-\frac{1 }{2}\left(\frac{x}{\sigma_{prf}}\right)^{2}\right)\] (4.33)ist und faltet diese mit \(n(x)\), wobei sich \(p(x)\) aus 4.30 zu
+
+\[p(x)=(P_{0}^{g}(x)\star n(x))=\frac{1}{\sqrt{2\pi}\sigma_{p}}\exp\left(-\frac{1}{ 2}\left(\frac{x}{\sigma_{p}}\right)^{2}\right)\ \ \mbox{mit}\ \ \sigma_{p}=\sqrt{\sigma_{x}^{2}+\sigma_{prf}^{2}} \tag{4.34}\]
+
+ergibt [Fan79].
+
+Fur die Ortsauflosung in azimutaler Richtung ist noch ein zweiter Fall zu diskutieren: Welchen Wert erhalt \(\Sigma_{\varphi}\), wenn nur ein Pad ein Signal registriert? Die gemesene (\(\varphi\)-)Koordinate des Cluster-Schwerpunktes ist dann identisch mit der Koordinate des Mittelpunkts des entsprechenden Pads. Der Fehler dieser Koordinatenmessung ist die Standardabweichung der Verteilung, die sich ergibt als Faltung von \({\cal P}(x)\) mit der "Rechteckfunktion" \(f(x)\), welche durch die Padbreite gegeben ist:
+
+\[f(x)=\left\{\begin{array}{l}\frac{1}{W}\ \mbox{fur}\ \ |x|\leq\frac{W}{2}\\ \\ 0\ \mbox{fur}\ \ |x|>\frac{W}{2}\end{array}\right. \tag{4.35}\]
+
+Und damit ist
+
+\[({\cal P}\star f)(x)=\int\limits_{-\infty}^{+\infty}{\cal P}(\xi)f(x-\xi)\ d\xi=\frac{1}{W}\left(F\left(\frac{x+\frac{W}{2}}{ \sigma_{p}}\right)-F\left(\frac{x-\frac{W}{2}}{\sigma_{p}}\right)\right) \ \ \ \ \ \ . \tag{4.36}\]
+
+Es ergibt sich also der gleiche Ausdruck wie in 4.28.
+
+Der Unterschied liegt im Ausdruck fur \(\Sigma_{\varphi}\): Wird ein Signal nicht mehr von mehreren Pads registriert, so entfallt zunachst der Term \(\frac{1}{N_{eff}}\frac{l^{2}}{12}\tan^{2}\omega\). Der entscheidende Unterschied (und Nachteil) ist jedoch, dass eine grossere Zahl \(n_{0}l\) von Primarelektronen die Standardabweichung der Ortsmessung in azimutaler Richtung nicht verbessert. Es gilt also:
+
+\[\Sigma_{\varphi}=\sigma_{p}\cdot\frac{r_{0}}{R} \tag{4.37}\]
+
+Ahnlich stellt sich die Situation in radialer Richtung dar, jedoch muss berucksichtigt werden, dass es sich um eine _Zeitmessung_ handelt.
+
+Folgt man der bereits angesprochenen Analogie von Padbreite \(W\) und Lange \(Z\) des Zeitintervalls, so gelangt man uber einen Ausdruck der Form (4.28)
+
+\[Q(t)=\frac{1}{Z}\int\limits_{t-\frac{Z}{2}}^{t+\frac{Z}{2}}{\cal T}(\tilde{t} )d\tilde{t} \tag{4.38}\]und die zentralen Werte \(t_{1},t_{2},...,t_{n}\) der Zeitintervalle zu einer analogen Gleichung wie 4.30:
+
+\[q\left(t\right)=\frac{1}{\sqrt{2\pi}\sigma_{q}}\exp\left(-\frac{1}{2}\left(\frac {t}{\sigma_{q}}\right)^{2}\right)\qquad\qquad. \tag{4.39}\]
+
+Die Standardabweichung \(\Sigma_{r}\) der Ortsmessung in radialer Richtung ergibt sich aus 4.32, indem \(\omega\) durch \(\lambda\) und \(\sigma_{p}\) durch \(\sigma_{q}\) ersetzt werden zu
+
+\[\Sigma_{r}=\frac{v_{d}(R)}{v_{d}(r_{0})}\left(\frac{\sigma_{q}^{2}}{n_{0}\,l \cos\,\lambda}+\frac{1}{N_{eff}}\frac{l^{2}}{12}\tan^{2}\lambda\right)^{1/2}\qquad\qquad. \tag{4.40}\]
+
+Das Verhaltnis \(\frac{v_{d}(R)}{v_{d}(r_{0})}\) bestimmt das Zeit aquivalent bei \(r_{0}\), welches einem gemessenen Zeitraum bei R entspricht. Die beiden Bemerkungen zu 4.32 gelten auch fur 4.40entsprechend; der Winkel \(\omega\) ist in 4.40 nicht berucksichtigt. Ist \(\tilde{\rho}(t)\) des Bandpassfilters eine Gaussfunktion mit \(\sigma_{BPF}\), so ist
+
+\[\sigma_{q}=\sqrt{\sigma_{z}^{2}+\sigma_{BPF}^{2}}\qquad\qquad. \tag{4.41}\]
+
+Zuletzt sei die Zweispurtrennung zunachst in azimutaler und nachfolgend in radialer Richtung diskutiert:
+
+Fordert man eine Separation zweier Signale in \(\varphi\)-Richtung um \(3\sigma_{p}\), so ergibt sich in dieser Richtung der minimale auflosbare Zweispurabstand \(\lambda_{\varphi}(r_{0},R)\) zu
+
+\[\lambda_{\varphi}(r_{0},R)=3\cdot\sigma_{p}\frac{r_{0}}{R}\qquad, \tag{4.42}\]
+
+wobei zu beachten ist, da8 \(\sigma_{p}\) von \(r_{0}\) und \(R\) abhangt. Die verbesserte Zweispurtrennung bei radialem Driftfeld gegenuber einem homogenen wird anschaulich bei Vergleich von 4.12 und 4.42: Erfahrt \(\sigma_{\varphi}(R,r_{0})\) eine zusatzliche Vergrosserung um den Faktor \(\sqrt{\frac{R}{r_{0}}}\), so ist der minimale auflosbare Zweispurabstand immer noch um den Faktor \(\sqrt{\frac{r_{0}}{R}}\) kleiner als im Falle eines homogenen Driftfeldes. Wie man durch Einsetzen von 4.12 in 4.42 leicht sehen kann, verschlechtert jedoch eine Vergrosserung von R den Wert fur \(\lambda_{\varphi}\).
+
+Betrachtet man einen Cluster-Schwerpunkt bei \(r_{0}\) und einen zweiten bei \(r_{0}+s_{0}\), so ergibt sich ihr zeitlicher Abstand \(\Delta t\) zu
+
+\[\Delta t=\int\limits_{r_{0}}^{r_{0}+s_{0}}\frac{1}{v_{d}(\tilde{r})}d\tilde{r}\qquad. \tag{4.43}\]
+
+Der Wert fur \(\Delta t\) bleibt wahrend der gesamten Drift unverandert: Die Elektronenwolke von \(r_{0}\) geht entlang desselben Weges wie die bei \(r_{0}+s_{0}\) entstandene, bis auf die Wegstrecke \(s_{0}\) am Anfang. Es ergibt sich somit der minimale, _raumlich_ auflosbare Zwei-spurabstand \(\lambda_{r}(r_{0},R)\) in r-Richtung aus dem minimal auflosbaren zeitlichen Abstand \(3\sigma_{q}\) an der Padebene zu
+
+\[\lambda_{r}(r_{0},R)=3\cdot\sigma_{q}v_{d}(r_{0})\qquad. \tag{4.44}\]
+
+bzw.
+
+\[\lambda_{r}(r_{0},R)=3\cdot\sigma_{q}^{\,*}\frac{v_{d}(r_{0})}{v_{d}(R)}\quad \mbox{\rm\small fur}\quad\sigma_{q}^{\,*}=\sigma_{q}\cdot v\left(R\right)\qquad. \tag{4.45}\]
+
+Anschaulich ist dies die Strecke, die eine Elektronenwolke bei \(r_{0}\) in der Zeit \(\frac{3\sigma_{q}}{v_{d}(R)}\) driftet.
+
+## Kapitel 5 Experimentelle Arbeit
+
+Die FTPCs im STAR-Experiment sollen bei einer durchschnittlichen Spurdichte zwischen \(0,3\) cm\({}^{-2}\) bis \(0,6\) cm\({}^{-2}\) Spurpunkte einzeln auflosen und durch eine ausreichend gute Spurpunkt-Bestimmung die Voraussetzung zur Rekonstruktion der Teilchenbahnen schaffen. Notwendig dazu ist ein Gas, in welchem die Diffusionskoeffizienten fur die Elektronen klein sind, sowie Auslesekammern, die durch eine kleine Pad-Response-Breite dazu beitragen, dass registrierte Signale von zwei Spurpunkten noch getrennt aufgelost werden konnen.
+
+Fur die Drift der Elektronen senkrecht zu einem Magnetfeld muss ein Gas gefunden werden, welches daruber hinaus einen kleinen Lorentzwinkel besitzt, um den zuruckgelegten Driftweg so kurz wie moglich zu halten und damit die Ortsauflosung und Zweispurtrennung nicht zusatzlich zu verschlechtern. Bisherige Untersuchungen an Gasen (z.B. [1]) sowie Computerprogramme zur Berechnung von Elektronen-Transportparametern in Gasen (vergl. [11], [12]) gaben dabei Hinweise auf geignete Gase und Gasmischungen. Um zu ausreichend genauen quantitativen Aussagen zu kommen, waren jedoch umfangreiche Messungen notwendig.
+
+Ebenso musste experimentell verifiziert werden, dass die Vorhersagen uber die Elektronendrift in radialen elektrischen Feldern mit dazu orthogonalem magnetischem Feld in Ubereinstimmung mit den Vorhersagen aus Kapitel 4.3 und 4.4 sind.
+
+Aufgrund der Notwendigkeit, gekrummte Auslese-Ebenen zu verwenden, und um die Breite der Pad-Response-Funktion zu minimieren, wurde die Eignung von _Gas-Mikrostreifenkammern_ zur Auslese der FTPCs untersucht. Bei diesem Detektortyp werden die Sense-/Feld-Drahte (vergl. Abb. 4.1) durch Metallstreifen ersetzt, die auf einer Glasplatte aufgebracht sind (Abb. 5.8).
+
+### 5.1 Transportparameter fur Elektronen in Gasen
+
+Detektoren, welche die Ionisation in Gasen zum Teilchennachweis verwenden, sind ublicherweise mit einem Gasgemisch aus einem Edelgas und einem molekularen Gas gefillt. Das Edelgas wechselwirkt nur geringfugig mit den driftenden Elektronen und erlaubtdamit auch grose Driftwege, die weit uber 1 m betragen konnen [11], [12]. En molekulares Gas wird immer dann zugesetzt, wenn zum Nachweis die Zahl der Elektronen durch Lawinenmultiplikation erhoht wird: Bei der Rekombination der Ionen mit Elektronen entstehen UV-Photonen, welche Rotations- und Vibrations-Zustande der Molekule dieses sogenannnten _Loschgas_ anregen konnen. Ware das Loschgas nicht vorhanden, so kame es zu weiteren, UV induzierten Ionisationen, welche zu einer Dauerentladung am Sense-Draht fuhren wurden.
+
+Das Loschgas wechselwirkt aber auch starker als das Edelgas mit den freien Elektronen, was sich in einer kleineren mittleren freien Weglange \(\overline{l}\) fur die Elektronen und entsprechend auch in einer kleineren Stosszeit \(\tau_{s}\) ausdruckt. Dies bedeutet, dass in der Regel mit zunehmendem Loschgasanteil die Driftgeschwindigkeit \(v_{d}\) sinkt und die Werte in den Diffusionstensoren \(\hat{D}\) (4.2) bzw. \(\hat{D}_{B}\) (4.21) kleiner werden. Der Lorentzwinkel \(\Phi_{L}\) wird klein mit kleinem \(\overline{l}\); fur eine grundliche Diskussion sei hierbei auf [13] verwiesen1.
+
+Footnote 1: Intuitiv ist dies folgendermassen verstandlich: Ein Elektron in einem \(\vec{E}\times\vec{B}\)-Feld (mit \(\vec{E}\perp\vec{B}\)) folgt einer Zyloidenbahn. Ist \(\overline{l}\) klein, so blebt der Winkel der Bahntangente klein zu \(\vec{E}\), bis es wieder isotrop gestreut wird und sich danach erneut mit kleinem Winkel zu \(\vec{E}\) weiterbewegt. Makroskopisch ergibt dies einen kleinen Wert fur \(\Phi_{L}\).
+
+Der Versuchsaufbau, mit dem die im folgenden diskutierten Werte gemessen wurden, ist schematisch in Abbildung 5.1 dargestellt.
+
+Abbildung 5.1: _Schemaskizze des experimentellen Aufbaus: Spuren aus Elektronen und Ionen werden bei zwei verschiedenen z-Positionen \(l_{1}\) und \(l_{2}\) mittels eines UV-Laserstrahls erzeugt. Im homogenen Driftfeld bewegen sich die Elektronenwolken zur Auslesekammer. Aus den registrierten Signalbreiten und der Driftzeitmessung lassen sich \(C_{l}\), \(C_{t}\) und \(v_{d}\)bestimmen. Wird zusatzlich ein Magnetfeld angelegt, so ergibt sich aus der daraus resultierenden Verschiebung des Signalschwerpunktes in x-Richtung der Lorentzwinkel \(\Phi_{L}\)._
+
+In den Abstanden \(l_{1}\) bzw. \(l_{2}\) gegenuber der Auslesekammer werden dabei in einer TPC Elektron-/Ion-Spuren erzeugt. Der dazu jeweils verwendete Durchgang desLichtpulses eines UV-Lasers wirkt im Gas sehr ahnlich wie der Durchgang eines hoch-energetischen geladenen Teilchens [10]. Ein UV-Laser wurde in diesem Fall wegen seiner Verfugbarkeit und seiner leichteren Handhabbarkeit einem Teilchenstrahl vorgezogen.
+
+Aus der Driftzeit und den Werten fur \(l_{1}\) bzw. \(l_{2}\) wurde die Driftgeschwindigkeit bestimmt. Die Diffusionskoeffizienten wurden aus der gemessenen Signalbreite ermittelt, wobei der Einfluss der Pad-Response-Funktion bzw. der Einfluss des Bandpassfilters auf das Signal berucksichtigt wurden [10]. Wenn im folgenden von transversalem Diffusionskoeffizienten gesprochen wird, so ist mit transversal die x-Richtung (siehe Abb. 5.1) gemeint: Die Diffusion in y-Richtung (\(\hat{=}\vec{B}\)-Feld-Richtung) ist fur die FTPCs nur von untergeordnetem Interesse, da dies die Spurrichtung ist; die Elektronendiffusion in dieser Richtung verandert die Ortsauflosung und Zweispurtrennung nur unwesentlich. Fur eine detaillierte Beschreibung des Versuchsaufbaus, der Messungen und fur eine ausfuhrliche Diskussion der Ergebnisse sei auf [10] und [10] verwiesen.
+
+Aufgrund bisheriger Erfahrungen mit Gasmischungen fur den TPC-Betrieb sowie durch Modellrechnungen zu Transportparametern wurden die Mischungen Argon/Kohlendioxid (CO\({}_{2}\)) mit einem Mischungsverhaltnis von 50/50 sowie Argon/Dimethylether (DME), ebenfalls mit einem Verhaltnis von 50/50, ausgewahlt.
+
+Die Abbildung 5.2 zeigt den Lorentzwinkel \(\Phi_{L}\) als Funktion des Magnetfeldes bei festem Wert \(|\vec{E}|\) des Driftfeldes. Neben den Messpunkten sind zusatzlich noch Ergebnisse von Modellrechnungen nach [10] zu sehen; die Abhangigkeit des Lorentzwinkelsvon \(|\vec{E}|\) ist in der Abbildung 5.3 dargestellt.
+
+Wegen des grosseren Lorentzwinkels bei Argon/CO\({}_{2}\) konnten die ubrigen Transportparameter nur bis zu einer Starke des Magnetfeldes von 0,24 T gemessen werden. Die Ursache ist die Breite der Auslesekammer: um das Signal auch bei der Lange \(l_{2}\) des Driftweges noch vollstandig zu erfassen, durfte ein Wert von 0,24 T nicht uberschritten werden.
+
+Abbildung 5.3: _Lorentzwinkel in Abhangigkeit von \(|\vec{E}|\). Die Punkte (\(\bullet\)) zeigen die gemessen Werte des Lorentzwinkels fur Argon/CO\({}_{2}\) (50/50) (a.) bzw. Argon/DME (50/50) (b.). Die Kurven ergeben sich aus Modellrechnungen nach [11] (durchgezogen), [12] (gestrichelt) und [26] (punktiert)._
+
+Die Graziken in Abbildung 5.4 zeigen die Abhangigkeit der Driftgeschwindigkeit \(v_{d}\) sowie des transversalen Diffusionskoeffizienten \(C_{t}\) und des longitudinalen Diffusionskoeffizienten \(C_{l}\) von der Driftfeldstarke \(|\vec{E}|\) fur Argon/CO\({}_{2}\) bei einem Feld von 0 T bzw. 0,24 T.
+
+Die Messungen zeigen dabei insgesamt eine gute Ubereinstimmung mit den Modellrechnungen, welche sich fur diese Gasmischung auch untereinander nur geringfugig unterscheiden. Wahrend der Lorentzwinkel fur Argon/CO\({}_{2}\) weitgehend unabhangig von der Driftfeldstarke ist, stellen sich die Werte fur \(C_{l}\) und \(C_{l}\) erst nach einem starken Abfall bei Feldstarken von \(\stackrel{{>}}{{\sim}}400\) V/cm auf einen Wert von ca. 100 \(\frac{\mu m}{\sqrt{cm}}\) ein.
+
+Welche Aussagekraft besitzen diese Messungen bei 0,24 T, wenn die FTPCs in einem Magnetfeld von 0,5 T betrieben werden sollen? Die gute Ubereinstimmung der Messungen mit den Modellrechnungen bei \(|\vec{B}|=0,24\) T deuttet darauf hin, dass entsprechende Rechnungen bei einer Magnetfeldstarke von 0,5 T ebenfalls nicht zu weit von den tatsachlichen Werten abweichen. Desweiteren ist aufgrund der Erfahrung mit anderen Gasmischungen und durch den Vergleich des magnetfeldfreien Falls mit den Werten bei \(|\vec{B}|=0,24\) T nicht davon auszugehen, dass sich das qualitative Verhalten von \(C_{t}(E)\), \(C_{t}(E)\) oder \(v(E)\) erheblich verandert, wenn der Wert des Magnetfeldes weiter erhoht wird.
+
+Um zu verlasslichen Vorhersagen uber das Auflosungsvermogen einer TPC mit radialem Driftfeld zu kommen, wurde fur den experimentellen Test des radialen Drift parizips ebenfalls die Gasmischung Ar/CO\({}_{2}\) (50/50) bei einem Magnetfeld der Starke 0,5 T gemessen (siehe Kap. 5.2). Die Messungen wurden dabei mit einem TPC-Prototypen durchgefuhrt, der ein radiales Driftfeld und eine gekrummte Auslesekammer besitzt.
+
+Zunachst aber weiter mit den Messungen im homogenen Driftfeld, nun mit der Gasmischung Argon/DME: Die Transportparameter fur die Gasmischung Ar/DME (50/50) sind in Abbildung 5.5 zu sehen. Vergleicht man mit Abbildung 5.4, so sieht man deutlich eine geringere Driftgeschwindigkeit bei gleicher Feldstarke \(|\vec{E}|\), die einregheht mit kleineren Diffusionskoeffizienten. In [Bit97a] wird gezeigt, dass der Lorentzwinkel \(\Phi_{L}\) fur beide betrachteten Gasmischungen uber einen grossen Bereich von \(|\vec{B}|\) hinweg unabhangig von der Feldstarke \(|\vec{E}|\) des Drifteldes ist. Die kleineren Werte fur \(\Phi_{L}\) in Abbildung 5.2 b. gegenuber denen in 5.2 a. sind nicht auf die unterschiedlichen Werte fur \(|\vec{E}|\) zuruckzufuhren, sondern auf die jeweils unterschiedlichen Gaszusammensetzungen [Bit97a], [Bit97b].
+
+Diese Messungen liefern die notwendigen Daten fur eine Diskussion des Auflosungsvermogens und der Zweispurtrennung der FTPCs mit derartigen Gasmischungen, wie sie in Kapitel 5.2 fur Ar/CO\({}_{2}\) (50/50) durchgefuhrt ist.
+
+Abbildung 5.5: _Die gleichen Transportparameter wie in Abbildung 5.4 sind hier fur die Gasmischung Argon/DME (50/50) fur den magnetfeldfreien Fall und fur ein Magnetfeld von 0,48 T gezeigt. Neben den Ergebnissen aus Messungen (\(\bullet\)) sind Resultate von Modellrechnungen nach [Bia89] (durchgezogene Kurve) sowie [Nes93] (punktierte Kurve) zu sehen._
+
+### 5.2 Untersuchungen zum radialen Driftprinzip
+
+Die Untersuchungen zum Elektronentransport in Gasen bei homogenem elektrischen Driftfeld bilden die Grundlage fur die Bestimmung von Auflosungsvermogen und Zweispurtrennung fur die FTPCs. Die Formeln aus Kapitel 4.3 und 4.4 bedurfen dazu jedoch noch einer experimentellen Verifikation, die deutlich uber die Untersuchungen in [Gas 81], [Hut85] und [Gro93] hinausgeht.
+
+In diesem Zusammenhang wurden Messungen an einer TPC durchgefuhrt, deren Driftfeld dem zwischen zwei konzentrischen Zylindern mit den Radien \(r_{1}=12,7\) cm und \(r_{2}=46,2\) cm entspricht. Das Magnetfeld war parallel zur Zylinderachse orientiert, so dass die Bedingung \(\vec{E}\perp\vec{B}\) erfullt war. Die Spurerzeugung erfolgte mittels eines UV-Lasers, der ebenfalls parallel zur Zylinderachse orientiert war. Fur eine detailierte Beschreibung des Versuchsaufbaus und der Messungen sei wiederum auf [Bit97a] und [Bit97b] verwiesen.
+
+Die gemessenen Werte von Driftzeit \(t\) (4.18), azimutalem Versatz \(\Psi\) (4.17), gemessener azimutaler Signalbreite (\(\sigma_{p}\) aus 4.30) und gemessener radialer Signalbreite (\(\sigma_{q}\) aus 4.41) wurden mit Vorhersagen verglichen, die aus Modellrechnungen fur die Transportparameter und unter Anwendung der Formeln aus Kapitel 4 gewonnen wurden. Abbildung 5.6 zeigt die Ergebnisse fur Argon/CO\({}_{2}\) (50/50) bei einem Magnetfeld derStarke 0,5 T und einer Potentialdifferenz \(V_{c}\) von 15 kV, was einem Feldstarkebereich von 250 V/cm bei \(R=r_{2}\) bis 910 V/cm bei \(r_{i}=r_{1}\) entspricht (vergl. Formel 4.8).
+
+Die Messregbnisse zeigen generell eine gute Ubereinstimmung mit den Modellrechnungen. Die gemessenen radialen Breiten werden dabei von den Ergebnissen nach [Sch91] am besten beschrieben, wohingegen die Methode nach [Bia89] systematisch zu niedrige Werte liefert.
+
+In 5.6 d. ist auch eine Vorhers age basierend auf den Modellrechnungen nach [Sch91] zu sehen, wobei jedoch bei der Bestimmung der radialen Signalbreite \(\sigma_{q}\) der Einfluss des Geschwindigkeitsgradienten \(\frac{d}{dr}v_{d}(r)\) unberucksichtigt blieb (vergl. S. 32). Es ist dabei deutlich zu sehen, dass die \(r\)-Abhangigkeit von \(v_{d}\) bei der Bestimmung der Signalbreiten unbedingt berucksichtigt werden muss, um zu korrekten Ergebnissen zu kommen.
+
+Da fur ein Magnetfeld der Starke 0,5 T keine Messregbnisse von Argon/CO\({}_{2}\) (50/50) fur ein homogenes Driftfeld vorlagen (Kap. 5.1), wurde bei den Messungen mit radialem Driftfeld auch bei Magnetfeldern geringerer Starke gemessen [Bit97a]. Dies armoglichte einen direkten Vergleich von Messregbnissen bei homogenem und radialem Driftfeld. Dabei zeigte sich keine experimentelle Evidenz fur die Unrichtigkeit der Formeln aus Kapitel 4.3 und 4.5. Damit ist sichergestellt, dass die Anwendung von Transportparametern als Funktion des Driftfeldes (bestimmt aus Messungen im homogenen Magnetfeld oder aus Modellrechnungen) zu korrekten Vorhersagen fur den Fall radialer Driftfelder fuhrt.
+
+Mit den bisher gewonnenen Daten lasst sich bereits eine erste Abschatzung fur die Breiten \(\sigma_{p}\) und \(\sigma_{q}\) als Funktion von \(r_{0}\) und die erreichbare Zweispurtrennung in den FTPCs machen. Erstreckt sich das Driftfeld von \(r_{i}=8\) cm bis \(R=31\) cm (siehe Abb. 4.2) und nimmt man fur Argon/CO\({}_{2}\) (50/50) eine Driftspannung von \(V_{c}=10\) kV an,so ergeben sich die in Abbildung 5.7 dargestellten Kurven. Dabei wurde von einem Wert fur \(\sigma_{\mbox{\tiny\it pr}\,f}\) vom 0,6 mm und einem Wert fur \(\sigma_{\mbox{\tiny\it BPF}}\) von \(0,2\;\mu\,sec\) ausgegangen.
+
+### 5.3 Die Pad-Response-Funktion
+
+#### Gas-Mikrostreifenkammern
+
+Bei den Auslesekammern der FTPCs ist es nicht sinnvoll, die Sense-Drahte parallel zur Zylinderachse verlaufen zu lassen: Wie in Abbildung 3.3 illustriert, wurde ein Primarteilchen mit grossem Transversalimpuls (\(\hat{=}\) Spur 2 in Abb. 3.3) nur geringfugig durch das Magnetfeld abgelenkt werden. Somit wurde ein Grossteil der Elektronen der Spur eine Lawinenmultiplikation an _einem_ Draht auslosen. Dadurch wurde das Potential des Drahtes fur einen kurzen Zeitraum abgesenkt, so dass in dieser Zeit keine ausreichende Gaserstarkung fur weitere Elektronen erfolgen konnte. Weiterhin blieben Form und (azimutale) Schwerpunktposition der gedrifteten Elektronenwolke bei der Gaserstarkung nicht erhalten, da eine Gaserstarkung nicht an jeder beliebigen Position des Azimuts statt finden konnte, sondern nur am Ort eines Sense-Drahtes. Insbesondere die Ortsauflosung wurde dadurch verschlechtert. Es ist daher vorteilhaft, die sondern Gas-Mikrostreifenkammern [11], [12]. Dabei werden die Sense-Drahte durch dunne metallische Anodenstreifen auf einem Substratmaterial (haufig Glas) ersetzt. Zwischen den Anodenstreifen befinden sich Kathodenstreifen zur Feldformung (Abb. 5.8).
+
+Die Pads konnen dabei direkt auf die Rucksite des Substratmaterials aufgebracht werden (Abb. 5.8). Das Substratmaterial mit den Metallrukturen wird dann passend zum Zylinder-Radius gekrummt und in die FTPCs eingebaut (vergl. Abb. 3.3).
+
+#### Untersuchungen zur Pad-Response-Funktion
+
+Es bleibt noch zu untersuchen, wie sich das dielektrische Substratmaterial (\(\varepsilon_{\mathit{Glas}}\approx 5\)) und die im Verhaltnis zum Abstand von Anodenstreifen zu Anodenstreifen (= Pitch) bzw. zur Substratdicke breiten Kathodenstreifen auf die Pad-Response-Funktion auswirken.
+
+Wie in Kapitel 4.5 deutlich wurde, kann die Pad-Response-Funktion bestimmt werden, wenn die influenzaierte Ladung auf einem Pad als Funktion des Abstands zu einer Punktladung bestimmt wird. Experimentell wurde anstatt einer Punktladung ein dunner Draht verwendet, auf dem durch gepulstes Anlegen einer Spannung periodisch Ladung aufgebracht wurde2 (Abb. 5.9).
+
+Footnote 2: Der Übergang von einer Punktladung zu einer Linienladung verändert das Resultat für die Pad-Response-Funktion nicht, solange der Draht parallel zu den Pad-Langschsen verläuft und somit die Translationsymmetrie in y-Richtung erhalten bleibt [11].
+
+Abbildung 5.9: _Aufbau zur Messung der Pad-Response-Funktion (schematisch): Bei der Bestimmung der Pad-Response-Funktion wird ein Draht mit Spannungspulsen versorgt und das dabei registrierbare Signal durch ein Pad mittels eines Vorverstarkers (VV) ausgelesen. Sofern sich bei den Messungen eine Streifenstruktur auf dem Substrat befand, betrug der Pitch 1 mm bei einer Breite des Kathodenstreifens von 400 \(\mu\)m und einer Breite des Anodenstreifens von 8\(\mu\)m._Die Hohe des gemessenen Pad-Signals ist dabei ein Mass fur die influenzierte Ladung auf dem Pad. Der Vorteil dieses Verfahrens ist, dass fur die Bestimmung der Pad-Response-Funktion keine vollstandigen betriebsfahigen Detektoren mehr aufgebaut werden mussen. Es ist daher deutlich weniger aufwendig als entsprechende Verfahren wie beispielsweise aus [Hu a93]. Dass damit dennoch die Pad-Response-Funktion zuverlassig bestimmt werden kann, wurde mit Messungen der Pad-Response-Funktion fur Proportionalkammern nach diesem Verfahren gezeigt [Wei95].
+
+Die gemessenen Werte fur die Halbwertsbreite (HWHM) der Pad-Response-Funktion fur gleichen Abstand der Anoden-Kathodenstreifen zu Pad- und Nullebene (symmetrischer Fall, vergl. Formeln 4.23 und 4.25) sind in Abbildung 5.10 zu sehen. Diedes Substratmaterials mit einem Wert von \(\approx 5\) nur einen unwesentlichen Einfluss hat.
+
+Abbildung 5.11: _Fur die Halbwertsbreiten im Fall unterschiedlicher Abstande der Null-Ebene und der Pad-Ebene zur Ebene der Anoden-/Kathodenstreifen sind die Bezeichnungen wie in Abbildung 5.10. Fur die hier gezeigten Ergebnisse war der Abstand des Drahtes zur Pad-Ebene jeweils 300 \(\mu\)m (\(\doteq\) Substratdicke fur \(\bullet\) und \(\star\)). Bei den Punkten mit "\(\rightarrow\)" war die Nullebene vollstandig entfernt._
+
+Mesergebnisse fur ungleiche Abstande zwischen der Ebene der Anoden-/Kathodenstreifen und der Pad- bzw. Null-Ebene (asymmetrischer Fall) sind in Abbildung 5.11 gezeigt.
+
+Fur den asymmetrischen Fall erhalt man keinen geschlossenen Ausdruck fur die Pad-Response-Funktion \(P_{0}(x)\). Daher sind die Kurven aus einem Ausdruck der Form 4.24 gewonnen, wobei sich \(\rho(x)\) nur als Summe uber eine unendliche Zahl von Spiegel-ladungen darstellen lasst [Bit97a].
+
+Die wesentlichen Aussagen aus den Ergebnissen in Abbildung 5.10 werden auch hier bestatigt. Nicht vollstandig verstanden ist jedoch die signifikante Abweichung der Messpunkte von den Vorhersagen bei den schmalen Pads aus Bild a..
+
+## Kapitel 6 Aufbau der FTPC-Simulationskette
+
+Bevor in den folgenden Kapiteln das Spurrekonstruktions-Programm und das Impulsrekonstruktions-Programm als Teile der FTPC-Simulationskette detailierter beschrieben werden, sei an dieser Stelle ein Uberblick uber die ges amte FTPC-Simulationskette gegeben, wobei fur eine eingehendere Beschreibung auf Anhang B verwiesen sei.
+
+\begin{tabular}{|l|} \hline \begin{tabular}{l} Ereignis-Generator \\ für jedes Ereignis: Teilchen- \\ Typ, Impuls \\ \end{tabular} \\ \hline \begin{tabular}{l} GSTAR \\ Teilchenpropagation durch \\ den Detektor \\ \end{tabular} \\ \hline \begin{tabular}{l} Spurrekonstruktions-Prog. \\ Rekonstruktion von Spuren aus Hits \\ \end{tabular} \\ \hline 
+\begin{tabular}{l} Impulsrekonstruktions-Prog. \\ Rekonstruktion der Impulse aus den rekonstruierten Spuren \\ \end{tabular} \\ \hline \end{tabular}
+Am Anfang der Simulationskette steht ein _Ereignis-Generator_ (ublicherweise HIJING), der Kern-Kern-Kollisionen dergestalt simuliert, dass eine Liste der Teilchen aus der Reaktion mit ihren Impulsen ausgegeben wird. Wie in Abbildung 6.1 illustriert ist, wird diese Liste in dem Detektor-Simulationsprogramm _GSTAR_ weiterverarbeitet:
+
+GSTAR propagiert jedes "Teilchen" aus der Liste durch den (simulierten) Detektoraufbau und kann dabei Wechselwirkungen mit dem, in der Realitat vorhandenen, Material oder Teilchenzerfalle berucksichtigen. Dabei ist es zusatzlich moglich, die Registrierung von Teilchendurchgangen durch sensitive Detektor-Volumina derart zu simulieren, dass solche "Treffer" mit ihren raumlichen Koordinaten registriert und fur die weitere Verarbeitung bereitgestellt werden.
+
+Diese Weiterverarbeitung erfolgt in einem _FTPC-Simulator_, welcher dem Sachverhalt Rechnung tragt, dass eine Treffer-Position in der Realitat mit einem Detektor nicht exakt gemessen werden kann. Durch Berucksichtigung der nur endlich genauen Orts-auflosung der FTPCs wird die Treffer-Position leicht verschoben. Die neue Position reprasentiert den Schwerpunkt eines Clusters, welcher als _Hit_ bezeichnet wird.
+
+Im nachsten Schritt gruppiert das _Spurrekonstruktions-Programm_ einzelne Hit-Positionen zu rekonstruierten Spuren zusammen (siehe Kap. 7). Aus diesen rekonstruierten Spuren ermittelt das _Impulsrekonstruktions-Programm_ fur jede rekonstruierte Spur kinematische Variablen, wie beispielsweise die Impulskomponenten oder die Pseudo-Rapiditat \(\eta\) (siehe Kap. 8).
+
+Da bisher noch keine experimentellermittelten Daten vorliegen, sei an dieser Stelle darauf hingewiesen, dass alle nachfolgend vorgestellten Ergebnisse auf Simulationen beruhen, deren Ausgangspunkt immer die Liste von Teilchen und deren Impulsen ist, wie sie von einem Ereignis-Generator erzeugt wird.
+
+## Kapitel 7 Spurrekonstruktion
+
+Wie bei den meisten Spurdetektoren, so werden auch bei den FTPCs bei einem Teilchendurchgang einzelne Cluster registriert, aus denen spater der vollstandige Spurverlauf im Detektor wieder rekonstruiert werden muss (vergl. Kap. 4.1). Die Schwerpunkte der Cluster, kurz als _Hits_ bezeichnet, ergeben dabei die Raumpunkte, durch welche die Teilchenbahn verlief.
+
+Die Spurrekonstruktion soll nun derart erfolgen, dass alle Hits, welche durch ein einzelnes geladenes Teilchen erzeugt wurden, auch wieder einer Teilchenbahn zugeordnet werden. Dies ist umso schwieriger, je hoher die Spurdichte (und damit die Hitdichte) ist. Die Abbildung 7.1 zeigt die Spuren fur einen Ausschnitt einer FTPC,-wie man sie unter Verwendung eines zentralen Gold-Gold-Ereignisses als Ergebnis der Detektorsimulation erhalt (Ereignis-Generator HIJING). Es wird dabei deutlich, dass die Aufgabe einer korrekten Spurrekonstruktion sich sehr viel schwieriger gestaltet als beispielsweise in den TPCs der Schwerionen-Experimente NA49 oder NA35.
+
+Der im Folgekapitel vorgestellte Spurrekonstruktions-Algorithmus verzichtet auf die haufig verwendete "Cone-Search" Methode: Wahrend man dabei von einem Hit ausgehend alle anderen moglichen Hits fur eine Spur sucht und nachfolgend durch Anpassung einer Helixbahn diejenige mit minimalen \(\chi^{2}\) als die Richtige auswahlt, ware dies fur die FTPCs ein unverhaltnismassig groger Rechenaufwand.
+
+Stattessen betrachtet der verwendete Spurrekonstruktions-Algorithmus eine Projektion der Hits in die x-y-Ebene (= Ebene senkrecht zur Strahlachse), wie dies in Abbildung 7.2 zu sehen ist. Aufgund von analytischen Vorw berlegungen kann dann gezielt nach Spuren von Primarteilchen gesucht werden. Die Projektion einer Spur in die x-y-Ebene bedeutet, dass sich eine Helix als Kreis darstellt. Werte fur Positionen in z-Richtung lassen sich dann in der Projektion als Drehwinkel im entstandenen Kreis darstellen. Dies bedeutet, dass die dritte Dimension (z-Richtung) bei der Projektion noch implizit erhalten bleibt.
+
+### 7.1 Algorithmus zur Spurrekonstruktion
+
+Der verwendete Algorithmus zur Spurrekonstruktion ist darauf ausgelegt, die Spuren geladener Primarteilchen, welche im Primarvertex bei der Kollision entstehen, vollstandig zu rekonstruieren und die Hits der Sekundarteilchen, welche beispielsweise durch Zerfalle oder Wechselwirkungen in der Wand des Strahlrohrs entstehen, zu verwerfen und nicht zur Rekonstruktion heranzuziehen [11]. Ein geladenes Primarteilchen im Akzeptanzbereich der FTPCs beschreibt mit seiner Bahn eine Helix, was in Abbildung 7.3 illustriert ist. Die Projektion der Bahn auf eine Ebene \(z=0\) ergibt im
+
+[MISSING_PAGE_EMPTY:62]
+
+[MISSING_PAGE_FAIL:63]
+
+Zunachst mussen jedoch Kriterien festgelegt werden, wann ein Punkt \((x_{i},y_{i})\), \(i=2,...,n-1\) als Spurpunkt akzeptiert wird. Insgesamt mussen funf Grenzbedingungen dazu erfullt sein:
+
+* \(\tau_{crit}\): Aus der Abbildung 7.4 wird deutlich, dass der Winkel \(|\!\tau_{i}|\!\!|\) zwischen den Geraden, welche durch Vertex-\((x_{1},y_{1})\) bzw. \((x_{1},y_{1})\)-\((x_{i},y_{i})\) verlaufen, fur \(i=2,...,n-1\) immer vom Betrag her kleiner als \(|\!\tau|\!\!|\) sein muss. Berucksichtigt man die Streuung der Hits um die Spur, so kann man ein Winkelkrierium \(|\!\tau_{i}|\!\!|<\tau_{crit}\) festlegen.
+* \(r_{in},r_{out}\): Ist der Twistwinkel \(\tau_{i}\) fur einen Punkt \((x_{i},y_{i})\) mit \(i=2,...,n-1\) auf einen Bereich \(0<|\!\tau_{i}|\!\!|<\tau_{crit}\) festgelegt, so ist mit \((x_{i},y_{i})\) auch der Radius \(r_{i}=\sqrt{x_{i}^{2}+y_{i}^{2}}\) auf einen Bereich \(r_{in}<r_{i}<r_{out}\) festgelegt.
+* \(\gamma_{crit}\): Bei aquidist anten Padreihen betragt der Winkel \(\gamma_{i}\) zwischen M-\((x_{1},y_{1})\) und M-\((x_{i},y_{i})\) gerade \(2\gamma\cdot\frac{i-1}{n-1}\). Somit lasst sich ein Winkelkrierium \(\gamma_{crit}\) festlegen, wobei fur einen Punkt \((x_{i},y_{i})\) die Bedingung \(\gamma_{crit}>\Delta\gamma_{i}=\left|\!\gamma_{i}-2\gamma\frac{i-1}{n-1}\right|\) erfullt sein muss. Bei nicht aquidistanten Hits ergibt sich \(\gamma_{i}\) aus der z-Position der Padreihen, solange eine konstante Steigung der Bahn-Helix vorliegt.
+* \(\rho_{crit}\): Desweiteren kann ein Radiusbereich \(\rho\pm\rho_{crit}\) festgelegt werden, innerhalb dessen Hits akzeptiert werden.
+* \(d_{crit}\): Fur Teilchen mit hohem \(p_{\!F}\) ist der Abstand \(d\) (vergl. Abb. 7.4) eines Punktes \((x_{i},y_{i})\) zur Verbindungsgeraden \((x_{1},y_{1})\)-\((x_{n},y_{n})\) sehr klein, so dass anstatt des Abstands \(\rho_{crit}\) zum Kreisbogen auch der Abstand \(d_{crit}\) zur Verbindungsgeraden \((x_{1},y_{1})-(x_{n},y_{n})\) verwendet werden kann.
+
+Unter Berucksichtigung der genannten Kriterien gibt nun zunachst die Zahl der tatsachlich gefundenen Punkte im Vergleich zur Zahl der erwarteten Punkte einen Anhaltspunkt, ob die zwei Punkte \((x_{1},y_{1})\) und \((x_{n},y_{n})\) als zu einer Spur gehorig akzeptiert werden oder nicht. In einem zweiten Schritt liefert der Abstand der Hit-Positionen zum Kreisbogen ein Indiz, ob ein Punktepaar \((x_{1},y_{1})-(x_{n},y_{n})\) tatsachlich von einer Spur stammt.
+
+Wird ein solches Punktepaar akzeptiert, so werden die beiden Punkte \((x_{1},y_{1})\) und \((x_{n},y_{n})\) mit den entsprechenden Punkten \((x_{i},y_{i})\), \(i=2,...,n-1\), zu einer rekonstruierten Spur zusammengruppiert.
+
+Die angesprochenen Parameter des Spurrekonstruktions-Programs werden ausfuhrlicher in Kapitel 7.3 diskuiert, denn die entsprechenden Parameterwerte mussen jeweils auf das verwendete Kammergas oder die Spurdichte angepasst werden und im Hinblick auf Spurrekonstruktions-Effizienz und Verwerfung von Sekundarteilchen-Spuren optimiert werden.
+
+### 7.2 Implementierung des Spurrekonstruktions-Algorithmus
+
+Wie nahezu alle Programm-Pakete im Zusammenhang mit dem STAR-Experiment ist auch das Spurrekonstruktions-Programm (SRP) als _Physics Analysis Module_ (pam) des _STAR Analysis Framework_ (STAF) ausgefuhrt. Kernstuck jedes pams ist der Quelltext, welcher die Kommandos fur die modulspezifischen Operationen enthalt. Neben Bibliotheksfunktionen wird fur ausfuhrbare Programme auch das _Kit for a User Interface Package_ (KUIP [11]) hinzugelinkt, wodurch der Programmablauf nach dem Starten interaktiv gesteuert werden kann.
+
+Um den Datentransfer zwischen pams zu gewahrleisten, mussen Ein- und Ausgabetaten in einem festgelegten Format gelesen und geschrieben werden. Dies wird in STAF durch die _Interface Definition Language_ (IDL) sichergestellt. Mit Hilfe von IDL werden Variablen-Tafeln definiert, auf welche die pams zugreifen konnen.
+
+Die Implementierung des Spurrekonstruktions-Algorithmus erfolgt als Fortran-Quelltext. Eingelesen werden im wesentlichen die Koordinaten der Hits, welche der FTPC-Simulator als Ausgabe liefert (vergl. Anhang B). Nach der Verarbeitung der Daten im Programm gemas des in Kapitel 7.1 beschriebenen Algorithmus wird eine Variablen-Tafel mit Werten gefullt. Dabei werden die raumlichen Koordinaten fur diejenigen Hits eingetragen, welche vom Spurrekonstruktionsprogramm als Hits von Primarteilchen identifiziert und zu einer rekonstruierten Spur zugeordnet wurden. Zusatzlich werden jeweils Informationen abgespeichert, welche spater eine Analyse im Hinblick auf Leistung und Optimierung des Spurrekonstruktionsprogramms zulassen (vergl. Kap. 7.3 und 7.4).
+
+### 7.3 Optimierung der Parameter
+
+Die in Kapitel 7.1 diskutierten Parameter \(r_{min}\), \(r_{max}\), \(tlc_{crit}\) und \(\tau_{crit}\), \(r_{in}\), \(r_{out}\), \(\gamma_{crit}\), \(\rho_{crit}\), \(d_{crit}\) mussen nun so festgelegt werden, dass bei der Spurrekonstruktion moglichst viele Spuren von Primarteilchen rekonstruiert werden. Die Zahl der rekonstruierten Spuren, welche dabei aus Hits von Sekundarteilchen bestehen oder aus Hits bestehen, die von verschiedenen Teilchen erzeugt wurden, muss dabei moglichst gering gehalten werden.
+
+Um das SRP in dieser Hinsicht zu optimieren, werden zunachst die Hits einer Primarteilchenspur vorab zu einer rekonstruierten Spur zusammengruppiert und die Werte fur die entsprechenden Parameter ermittelt.
+
+Dabei sind die einzelnen Parameter unterschiedlich sensitiu auf die Abweichung der Hits von einer Kreisbahn. In Abbildung 7.5 a. und b. ist zu sehen, dass der erlaubte Radiusbereich zwischen \(r_{min}\) und \(r_{max}\) sich kaum andert, wenn vom Fall ohne Wechselwirkung der Teilchen im Detektor und ohne Anwendung des FTPC-Simulators (siehe Anhang B) auf den Fall der Wechselwirkung der Teilchen und Verwendung des FTPCSimulators ubergegangen wird. Hingegen unterscheiden sich die Werte fur \(\Delta t\)_lc_ fur die beiden genanten Falle erhellich: Im ersteren (vergl. Abb. 7.5 c.) sind die Werte fur \(\Delta t\)_lc_ \(\approx\) 0 und unabhangig von \(\tau\). Die kleinen Abweichungen von 0 sind dabei auf numerische Ungenauigkeiten zuruckzufuhren. Erfahren die Teilchen beim Durchgang durch den Detektor jedoch Wechselwirkungen und wendet man den FTPC-Simulator an, so sieht man in Abbildung 7.5 d. deutlich grossere Werte fur \(\Delta t\)_lc_. Die Kurve in 7.5 d. (\(=tlc_{crit}(\tau)\)) gibt dabei an, bis zu welchen Werten Hits noch als richtig akzeptiert werden (Bereich unterhalb der Kurve) bzw. verworfen werden (Bereich oberhalb der Kurve).
+
+Ahnlich werden die Parameterwerte fur die Suche nach den Hits der dazwischenliegenden Padreihen bestimmt. In Abbildung 7.6 ist \(\Delta\gamma_{i}(\rho)\) fur den Fall ohne (mit )Wechselwirkung beim Teilchendurchgang und FTPC-Simulation in a. (b.) abgebildet. Mit den anderen Parametern wird analog verfahren: die Werte fur korrekt rekonstruierte Spuren von Primarteilchen bestimmen auch hier den Bereich der akzeptieren Werte.
+
+\begin{tabular}{|c|c|} \hline Parameter & Festlegung \\ \hline \(p^{im}\) & 0,2562 GeV/c \\ \(\tau_{max}\) & 45\({}^{\circ}\) \\ \(r_{min}\) & 0,98 \(\left(R+R\cdot tlc\cos\left(\tau_{max}\right)-1\)cm\(\right)\) \\ \(r_{max}\) & 0,98 \(\left(R+\frac{R}{\kappa}+1\)cm\(\right)\) \\ \(tlc_{crit}\) & \(-0,11\arctan\left(10\left(\left|\tau\right|-0,34\right)\right)+0,17\) \\ \hline \(\tau_{crit}\) & \(\left|\tau\right|+\frac{0.01}{\left|\tau\right|+0.03}\) \\ \(r_{in}\) & 0,95 \(\left(r_{1}+tlc_{i}\cos\left(\tau_{crit}\right)\right)\) \\ \(r_{out}\) & \(1,05\)\(\left(r_{1}+\frac{r_{1}}{\kappa_{i}}\right)\) mit \(\kappa_{i}:=\frac{x_{1}}{x_{i}-x_{1}}\) \\ \(\gamma_{crit}\) & MIN\(\left(0,04;\frac{8}{\left[\rho+2\right)^{2}}+0.0001\right)\) \\ \(\rho_{crit}\) & MIN\(\left(1,\,0;\frac{40}{\rho}\right)\) \\ \(d_{crit}\) & MIN\(\left(1,\,0;\frac{20}{\rho}\right)\) \\ \hline \end{tabular}
+
+Table 7.1: _Festlegung der Kriterien im SRP._
+
+Die Tabelle 7.3 zeigt die Festlegung der Kriterien fur die Gasmischung Argon/CO\({}_{2}\) (50/50) bei einer durchschnittlichen Spurdichte von \(0,6\,\)cm\({}^{-2}\). Die Grosse \(tllc_{i}\) bezeichnet dabei den Abstand zwischen dem Punkt \((x_{1},y_{1})\) und \((x_{i},y_{i})\).
+
+### 7.4 Ergebnisse aus der Spurrekonstruktion
+
+Da die FTPCs erst noch gebaut werden mussen, basieren alle Ergebnisse, welche in diesem Kapitel und den folgenden vorgestellt werden, auf Monte-Carlo-Simulationen. Ausgangspunkt ist dabei immer die Information des Ereignis-Generators uber die Teilchen, die nach der Kollision vorhanden sind, und deren Impuls. Eine Beschreibung der verwendeten Simulationskette findet sich in Kapitel 6 und Anhang B.
+
+#### Effizienz und Kontamination
+
+Das SRP ist darauf ausgelegt, den Bahnverlauf von Primarteilchen zu rekonstruieren und Spuren von Sekundarteilchen zu verwerfen. Dabei werden vom SRP bisher nur Spuren berucksichtigt, welche einen minimalen Impuls von 0,2562 GeV/c (\(\hat{=}\tau=4\,5^{\circ}\), vergl. 8.2) besitzen und mindestens funf Hits in einer der FTPCs hinterlassen. Inder Regel werden von dem SRP nicht alle derartigen Spuren von Primarteilchen gefunden, so dass man eine Grosse _Effizienz_ definiert, die angibt, welcher Anteil der zu findenden Spuren tatsachlich vom SRP richtig rekonstruiert wurde. Eine Spur wird als "richtig" rekonstruiert bezeichnet, wenn alle zusammengruppierten Hits von ein und demselben Teilchen stammen und dieses Teilchen ein Primarteilchen ist. Daruber hinaus werden vom SRP auch noch Spuren falsch rekonstruiert; entweder wenn Sekundarteilchen-Spuren als Spuren von Primarteilchen identifiziert werden, oder wenn Hits aus verschiedenen Spuren zusammengruppiert werden. Der Bruchteil dieser falsch rekonstruierten Spuren an der Gesamtzahl der rekonstruierten Spuren wird als _Kontamination_ bezeichnet. Prozessiert man Ereignisse, bei denen keine Wechselwirkung der Reaktionsprodukte mit den Detektor-Materialien und keine Zerfalle statfinden zunachst mit dem FTPC-Simulator und anschliessend mit dem SRP, so erreicht man eine Effizienz von uber 96% bei einer Kontamination von ca. 0,56 % (Abb. 7.7). Die Ursache, dass der Wert fur die Effizienz nicht noch hoher liegt, ist folgende: Der FTPC-Simulator markiert die Hits, bei denen der Abstand zum Nachbar-Hit so klein ist, dass sie nicht mehr als Enzel-Hit aufgelost werden konnen. Diese Hits werden vom SRP nicht berucksichtigt und sind somit fur die Spurrekonstruktion verloren.
+
+Die Zahl der Hits pro Padreihe und damit auch die Zahl der unauflosbaren Hits steigt, sobald Wechselwirkungen der Teilchen mit dem Detektormaterial berucksichtigtwerden und Teilchenzerfalle zugelassen sind. In Abbildung 7.7 a. ist deutlich zu sehen, dass die Wahl des Strahlrohrs dabei von grosser Bedeutung ist.
+
+Mit einem Strahlrohr, welches bis zu einer Entfernung von \(2,25\,\mathrm{m}\) vom Vertex aus Beryllium (Wandstarke 1 mm) besteht, ist die Zahl der unauflosbaren Hits und die Hits pro Padreihe nur etwa halb so gross wie bei einem Strahlrohr, welches nur bis zu einer Entfernung von \(0,75\,\mathrm{m}\) vom Vertex aus Beryllium besteht und danach in ein Edelstahlrohr (Wandstarke 1,5 mm) ubergeht. Entsprechend sinkt der Wert fur die Effizienz des SRP bei gleichzeitigem Anstieg des Wertes fur die Kontamination, wie in Abbildung 7.7 b. deutlich zu sehen ist. Betrachtet man die Zahl der unauflosbaren Hits in Abhangigkeit von Radius und der Entfernung vom Vertex in z-Richtung, so ergeben sich die in Abbildung 7.8 dargestellten Verteilungen fur die beiden Strahlrohr-Varianten. Der Grossteil der unauflosbaren Hits ist bei kleinen Radien zu finden, wofur es zwei Grunde gibt: Die Spurdichte ist bei kleinen Radien am grossten und die Zwei-sputrennung in radialer Richtung wird bei kleinen Radien schlechter; dies kann auch durch die gute Zweispurtrennung in azimutaler Richtung nicht kompensiert werden (vergl. Abb. 5.7 b.).
+
+Auffallend ist zudem, dass insbesondere bei kleinen Radien in der sechsten und siebten
+
+Abbildung 7.9: _Effizienz und Kontamination als Funktion von \(\eta\). Sowohl fur das Strahlrohr mit langer Beryllium-Sektion (gestrichelte Linie) als auch fur die Version mit kurzer Beryllium-Sektion (durchgezogene Linie) ist der Abfall bei der Effizienz zu hohen Pseudo-Rapiditatswerten hin mit einem Anstieg der Kontamination verbunden. Der betrachtete Pseudo-Rapiditatsbereich von \(2,6<\eta<3,95\) entspricht dem Akzeptanzbereich der FTPCs, in welchem Primarteilchen in der Regel Spuren mit mindestens funf Hits hinterlassen. Andererseits wird bei grossen Pseudo-Rapiditatswerten die effektive Dicke des Strahlrohr-Materials grosser,_
+
+Padreihe ein Maximum der unauflosbaren Hits erreicht wird, worauf ein deutlicher Abfall zu grossen z-Werten hin folgt. Zwei Prozesse sind dafur verantwortlich: Einseitsnimmt die Teilchenzahl zu grosseren Werten der Pseudo-Rapiditat \(\eta\) (vergl. Anhang A) hin ab; d.h. die Wahrscheinlichkeit der Sekundarteilchen-Produktion steigt zu grossen Werten von \(\eta\) hin. Berucksichtigt man diese beiden Prozesse, so erreicht die Hit-Dichte, und damit auch der Prozentsatz der unauflosbaren Hits, im Bereich der sechsten und siebten Padreihe offensichtlich ein Maximum.
+
+Es bleibt noch zu betrachten, wie sich Effizienz und Kontamination als Funktion der kinematischen Variablen, insbesondere der Rapiditat \(y\) (bzw. der Pseudo-Rapiditat \(\eta\)), verhalten. Aus Abbildung 7.8 erwartet man kleine Werte fur die Effizienz und grose Werte fur die Kontamination bei grossen Werten fur \(\eta\) (\(\hat{=}\) kleines \(r\), grosses \(z\)). Dies bestatigt sich in Abbildung 7.9, wobei das Strahlrohr mit der langeren Beryllium-Sektion eine erhebliche Verbesserung gegenuber dem Rohr mit der kurzen Beryllium-Sektion darstellt. Betrachtet man die Effizienz als Funktion von \(p_{T}\) und \(y\) (Abb. 7.10), so ist keine Evidenz fur eine \(p_{T}\)-Abhangigkeit zu erkennen.
+
+#### Vertex-Rekonstruktionsfahigkeit
+
+Im Zusammenhang mit der Identifikation von kurzlebigen Teilchen (insbesondere \(K^{0}_{S}\) und \(\Lambda\)) ist es von Interesse, die Genauigkeit zu bestimmen, mit der aus einer rekonstruierten Spur die raumlichen Koordinaten des Entstehungsvertex eines Teilchens bestimmt werden konnen. Um diese Vertex-Rekonstruktions-Genauigkeit zu bestimmen, wurde ein Ereignis durch alle Stufen der Simulationskette prozessiert, wobei der Primarvertex sich bei der Position \((x,y,z)\)=(0,0,0) befand. Danach wurden diejenigen rekonstruierten Spuren ausgewahlt, bei denen zehn Hits von einem Primarteilchen richtig zu einer rekonstruierten Spur zusammengruppiert wurden. Durch die Projektionen der Hits in die x-y-Ebene wurde dann ein Kreis nach der Methode der kleinsten Fehlerquadrate angepasset (vergl. Abb. 7.11). Damit sind die Koordinaten des Kreismittelpunktes M und der Wert fur den Radius \(\rho\) bekannt. Durch den Versatz der Hits (vergl. Anhang B) verlauft der Kreis nicht exakt durch \((x,y)\)=\((0,0)\). Die entsprechenden Verteilungen der Abweichungen \(\Delta x\) und \(\Delta y\) sind in Abbildung 7.12 a. bzw. 7.12 b. zu sehen. Die Abweichung \(\Delta z\) erg gibt sich folgendermassen: nach Formel 7.2 ist
+
+\[\gamma\ =\arcsin\left(\frac{tlc}{2\rho}\right) \tag{7.7}\]
+
+und
+
+\[\alpha\ =\arcsin\left(\frac{R}{2\rho}\right) \tag{7.8}\]
+
+Bezeichnet \(z_{1}\) die z-Position des ersten Hits, \(z_{n}\) die z-Position des letzten Hits und \(z_{v}\) die z-Position des rekonstruierten Vertex, so gilt:
+
+\[\frac{\left|z_{v}-z_{1}\right|}{\alpha}=\frac{\left|z_{n}-z_{1}\right|}{ \gamma}\Leftrightarrow\left\{\begin{array}{l}z_{v}\ =\frac{\alpha}{\gamma}\left|z_{n}-z_{1}\right|+z_{1}\ \mbox{f\'{ur}}\ z_{v}-z_{1}>0\\ z_{v}\ =-\frac{\alpha}{\gamma}\left|z_{n}-z_{1}\right|+z_{1}\ \mbox{f\'{ur}}\ z_{v}-z_{1}\leq 0 \end{array}\right. \tag{7.9}\]
+
+Da die Vertexposition bei (0,0,0) liegt, ist in diesem Fall \(\Delta z=z_{v}\). Die Verteilung von \(\Delta z\) ist in Abbildung 7.12 c. dargestellt. Sie ist deutlich breiter als die Verteilungen fur \(\Delta x\) und \(\Delta y\). Dies ist verstandlich, wenn man bedenkt, dass in x- und y-Richtung die Hits nur wenige cm von dem zu rekonstruierenden Vertex entfernt liegen, wohingegen der erste Hit in z-Richtung ca. 160 cm vom Vertex entfernt ist.
+
+## Kapitel 8 Impulsrekonstruktion und Ladungbestimmung
+
+Die wichtigste kinematische Variable, welche von den FTPCs fur geladene Teilchen gemessen werden soll, ist der Dreierimpuls \(\vec{p}=(p_{x},\,p_{y},\,p_{z})\). Die Komponenten von \(\vec{p}\) ergeben sich aus Steigung und Radius der Helix, welche von den Teilchen bei ihrer Bewegung im Magnetfeld beschrieben wird.
+
+Mit der verwendeten Rekonstruktionsmethode (_Draper-Algorithmus_), die von J. Draper entwickelt wurde, wird auf einen vollstandigen Helix-Fit verzichtet [11], [12]. Stattdessen wird gezeigt, dass alleine uber die Messung des Twistwinkels \(\tau\) (vergl. Abb. 7.4) und der Ortskoordinaten der Hits eine Bestimmung von \(\vec{p}\) am Vertex moglich ist.
+
+Eine andere Moglichkeit zur Impulsrekonstruktion besteht darin, einen Kreis an die projizierten Hits in der Ebene \(z=0\) einschliesllich der Position des Primar-Vertex anzupassen (vergl. Abb. 7.4). Aus dem Kreisradius \(\rho\) kann dann der Impuls berechnet werden.
+
+Bei beiden Methoden wird dabei von einem homogenem Magnetfeld ausgegangen. Falls Inhomogenitaten des Magnetfeldes berucksichtigt werden sollen, somuste man auf ein Iterationsverfahren zur Impulsrekonstruktion zuruckgreifen.
+
+### 8.1 Algorithmen zur Impulsrekonstruktion
+
+Der erwahnte Zusammenhang zwischen \(\tau\) und \(\vec{p}\) ergibt sich folgendermassen: Sei \(\Theta\) der Winkel zwischen \(\vec{p}_{z}=\left(\begin{array}{c}0\\ 0\\ p_{z}\end{array}\right)\) und dem Impulsvektor \(\vec{p}=\left(\begin{array}{c}p_{x}\\ p_{y}\\ p_{z}\end{array}\right)\). Dann gilt mit dem Transversalimpuls \(p_{T}=\left|\vec{p}_{T}\right|\) in Einheiten von \(\mathrm{GeV}/\mathrm{c}\):
+
+\[\tau=\frac{1}{2}\cdot\frac{0,3B}{p_{T}}\left(\frac{\kappa+1}{\kappa}\right) \,z_{1}\tan\Theta \tag{8.1}\]Dabei sind \(\kappa\) und \(z_{1}\) aus Formel 7.4; \(B\) ist die Starke des magnetischen Feldes in Tesla. Unter Verwendung von \(p=|\vec{p}|\) lasst sich 8.1 schreiben als
+
+\[\tau=0,15\left(\frac{\kappa+1}{\kappa}\right)Bz_{1}\cdot\frac{1}{p\cos\Theta}: =K\cdot\frac{1}{p\cos\Theta}\qquad. \tag{8.2}\]
+
+Dabei hangt \(K\) nur von der Magnetfeldstarke und der Position der Padreihen ab. Aufgrund des (Pseudo-) Rapiditatsbereichs, welcher von den FTPCs abgedeckt wird, ist \(2^{\circ}\stackrel{{<}}{{\sim}}\Theta\stackrel{{<}}{{ \sim}}10^{\circ}\), so daass\(1,00061\stackrel{{<}}{{\sim}}\frac{1}{\cos\Theta}\stackrel{{ <}}{{\sim}}1,01543\) gilt. Der Algorithmus zur Berechnung von \(\tau\) bzw. \(p\) beginnt mit der Bestimmung eines vorlaufigen Twistwinkels \(\tau_{0}\) anstatt \(\tau\), indem nur die drei Punkte Vertex \(-(x_{1},y_{1})-(x_{n},y_{n})\) berucksichtigt werden. Danach erfolgt die analytische Bestimmung des Punktes M (vergl. Abb. 7.4), indem die Lote der Geraden Vertex \(-(x_{1},y_{1})\) bzw. \((x_{1},y_{1})-(x_{n},y_{n})\) bestimmt werden und ihr Schnittpunkt ermittelt wird. Damit liegt neben der Position von M auch noch der Wert von \(\rho\) fest, so daass nun die Abweichungen \(d_{i}\) der Punkte \((x_{i},y_{i}),i=2,...,n-1\), vom Kreis mit Radius \(\rho\) um Mermittelt werden konnen. Durch die Werte \(d_{i}\), angetragen
+
+Abbildung 8.1: _Zur Bestimmung von \(\vec{p_{T}}\) aus \(p_{T}\) muss man eine Richtung und deren Orientierung zum Radius-Strahl von \(M\) durch (0,0,0) kennen. Wahlt man beispielsweiseas als Richtungsvektor \(\frac{1}{\sqrt{x_{1}^{2}+y_{1}^{2}}}(x_{1},y_{1},0)^{T}\), so muss dessen Orientierung noch um den Winkel \(\alpha\) gedreht werden, um die Richtung von \(\vec{p_{T}}\) zu erhalten._
+
+gegen \(i\), wird dann eine _Ausgleichsgerade_ gelegt, deren Steigung als Korrektur fur \(\tau_{0}\) verwendet wird, um den Wert fur \(\tau\) zu bestimmen. Damit ist sichergestellt, daass in \(\tau\) die raumliche Information aller Punkte \((x_{i},y_{i})\),\(i=1,...,n\), eingeht und nicht nur die der Punkte \((x_{1},y_{1})\) und \((x_{n},y_{n})\) wie bei \(\tau_{0}\). Aus \(\tau\) kann dann \(p\) nach Formel 8.2 bestimmt werden.
+
+Aus den Abstanden \(r_{1}=\sqrt{x_{1}^{2}+y_{1}^{2}}\) und \(r_{n}=\sqrt{x_{n}^{2}+y_{n}^{2}}\) sowie \(z_{1}\) und \(z_{n}\) wird dabei der Wert fur \(\Theta\) ermittelt. Damit konnen auch die Werte fur die skalaren Grossenund \(p_{z}\)bestimmt werden; was jedoch noch aussteht, ist die Bestimmung des Vektors \(\vec{p}\) am Ort des Primarvertex \((x,y,z)=(0,0,0)\). Wahrend dabei fur \(p_{z}=p\cdot\cos\Theta\) gilt, mussen die Komponenten \(p_{x}\) und \(p_{y}\) durch Rotation eines bekannten Richtungsvektors gewonnen werden (vergl. Abb. 8.1). Betrachtet man beispielsweise den normierten Vektor \(\frac{1}{\sqrt{x_{1}^{2}+y_{1}^{2}}}\left(\begin{array}{c}x_{1}\\ y_{1}\\ 0\end{array}\right)\), so sieht man, dass sich \(\vec{p}_{T}\) zu
+
+\[\vec{p}_{T}=\left(\begin{array}{cc}\cos\alpha&\sin\alpha\\ -\sin\alpha&\cos\alpha\end{array}\right)\cdot\frac{p_{T}}{\sqrt{x_{1}^{2}+y_{1 }^{2}}}\left(\begin{array}{c}x_{1}\\ y_{1}\end{array}\right) \tag{8.3}\]
+
+ergibt.
+
+Eine weitere Moglichkeit zur Impulsbestimmung besteht darin, einen Kreis an die Vertex-Position und die in die x-y-Ebene projizierten Hits anzupassen (_Kreis-Algorithmus_). Der Wert des Transversalimpulses \(p_{T}\) ergibt sich dann aus dem Kreisradius \(\rho\) zu
+
+\[p_{T}=0,3\,\frac{B}{\mathrm{T}}\,\frac{\rho}{\mathrm{m}}\,\mathrm{GeV}/c\qquad. \tag{8.4}\]
+
+Wie gerade beschrieben, muss dann \(\Theta\)bestimmt und daraus \(p\) sowie \(p_{x}\) und \(p_{y}\) an der Stelle des Primar-Vertex remittelt werden.
+
+### 8.2 Implementierung des Impulsrekonstruktions-Algorithmus
+
+Wie der Spurrekonstruktions-Algorithmus ist auch der Impulsrekonstruktions-Algorithmus als pam im Rahmen von STAF ausgefuhrt. Das Impulsrekonstruktions-Modul liest die Variablen-Tafel ein, die vom Spurrekonstruktions-Programm gefullt wird. Die Daten zu den Hits, welche durch die Spurrekonstruktion als zu einer Spur gehorig zusammengruppiert wurden, werden nach aufsteigendem \(|z|\) geordnet und, wie in 8.1 beschrieben, weiterverarbeitet. Die Ausgabe erfolgt in eine weitere Variablen-Tafel, die fur jede rekonstruierten Spur die rekonstruierten Werte der Impulskomponenten sowie notwendige Werte zur Bestimmung des Auflosungsvermogens fur kinematische Variablen enthalt.
+
+### 8.3 Auflosungsvermogen fur kinematische Variablen
+
+Ein Vergleich der beiden beschriebenen Rekonstruktions-Algorithmen hat ergeben, dass die Genauigkeit, mit der die kinematischen Variablen _Impuls \(\vec{p}_{T}\)_, _Transversalimpuls \(\vec{p}_{T}\)_, _Rapiditat \(y\)_ und _invarianter Impulsunterschied \(Q_{inv}\)_bestimmt werden konnen, fur bei-de der vorgestellten Impulsrekonstruktions-Algorithmen annahernd gleich ist. Dabeisind die in diesem Abschnitt gezeigten Ergebnisse vorwiegend unter Verwendung des Draper-Algorithmus ermittelt worden. Wenn im folgenden von Auflosungsvermogen die Rede sein wird, so ist damit die Fahigkeit des Impulsrekonstruktions-Programsgemeint, mit einer gewissen Genauigkeit Werte fur die kinematischen Variablen aus dem Spurverlauf zu bestimmen, wobei von einer Effizienz von 100% und einer nicht vorhandenen Kontamination ausgegangen wird (vergl. Kap. 7.4). In Abbildung 8.2: _Auflosungsvermogen fur p und \(p_{T}\). Die Symbole \(\Box\) ergeben sich fur Spuren mit 10 Hits und unter Vernachlassigung von Wechselwirkungen der Teilchen mit dem Detektormaterial, jedoch bei Verwendung des FTPC-Simulators. Last man Spuren mit minimal 5 Hits zu, so ergeben sich die durch \(\circ\) reprasentierten Werte. Die beiden Strahlrohr-Varianten sind mit \(\bullet\) fur das Beryllium/Stahl-Rohr bzw. mit \(\blacksquare\) fur das Beryllium-Rohr zu unterscheiden (siehe Seite 66)._
+
+a. ist das prozentuale Auflosungsvermogen fur den Impuls \(p\) fur verschiedene Bedingungen zu sehen. Bezeichnet \(p^{E\,G}\) den Teilchenimpuls, wie er vom Ereignis-Generator (EG) vorgegeben wird, so ist \(\Delta p=|p^{E\,G}-p^{\,ek}\cdot|\), wobei mit \(p^{\,ek}\cdot\) der rekonstruierte Impuls bezeichnet ist. Betrachtet man nur Spuren, denen zehn Hits korrekt zugeordnet wurden, und lasst uberdies Teilchenzerfalle und Wechselwirkungen mit den Detektor
+
+[MISSING_PAGE_FAIL:78]
+
+und \(j\) mit \(\vec{Q}=\vec{p}_{i}-\vec{p}_{j}\) und \(Q_{0}=E_{i}-E_{j}\) (vergl. Anhang A) wurde fur Pionenpaare zum einen aus den rekonstruierten Impulsen und zum anderen aus den Impulsen, wie sie vom Ereignis-Generator vorgegeben wurden,ermittelt. Die Auflosung \(\Delta Q_{inv}=\left|Q_{inv}^{EG}-Q_{inv}^{rek}\right|\) ist in Abbildung 8.4 als Funktion von \(Q_{inv}^{EG}\) dargestellt. Deutlich sichtbar ist auch hier wieder die gute erzielbare Auflosung fur Spuren mit zehn Hits und die Verschlechterung durch Hinzunahme von Spuren mit weniger als zehn Hits. Ebenfallsdeutlich sichtbar ist die Unabhangigkeit von \(\Delta Q_{inv}\) von der verwendeten Strahlrohr-Version.
+
+Im Zusammenhang mit der Rekonstruktion von kinematischen Variablen sei noch eine Bemerkung zur Ladungs-Rekonstruktions-Effizienz gemacht, womit der Prozent-satz der richtig rekonstruierten Ladungen von der Gesamtzahl der rekonstruierten Spuren gemeint ist. Die Ladung bestimmt sich aus der Krummungsrichtung der Spuren im Magnetfeld oder daraus abgeleitet aus der Orientierung des Twistwinkels \(\tau\). In Abbildung 8.5 ist die Ladungs-Rekonstruktions-Effizienz fur verschiedene Bedingungen dargestellt. Betrachtet wurden dabei zum einen Spuren mit zehn Hits und Spuren mit mindestens funf Hits. Im ungunstigsten Fall liegt die Ladungs-Rekonstruktions-Effizienz noch bei uber 96%, so dass die FTPCs fur die Bestimmung der Differenz der Rapiditatsverteilung von Protonen und Antiprotonen durch Vergleich der Anzahl von negativen und positiven Teilchen geeignet sind (vergl. Kap. 10.1).
+
+**Abbildung 8.5:** _Die Abbildung zeigt die Ladungs-Rekonstruktions-Effizienz fur Spuren mit 10 Hits (\(\circ\)) und fur Spuren mit mindestens 5 Hits (\(\bullet\)). Die Abszissen-Beziehungen sind identisch mit denen in Abbildung 7.7._
+
+## Kapitel 9 Restimmung des Energeiverlusts zur Teilchenidentifikation
+
+Die Identifikation eines geladenen Teilchens (z.B. \(\pi^{+}\), \(\pi^{-}\), K\({}^{+}\), K\({}^{-}\), p oder \(\overline{p}\)) ist ublicherweise durch die Bestimmung seiner Ladung und seines Impulses nicht moglich. In gasgefullten Detektoren, und damit auch in den FTPCs, besteht jedoch grundsatzlich die Moglichkeit, aus den Signalhohen, die zu einem Cluster beitragen (vergl. Kap. 4.1), auf den Energieverlust des Teilchens entlang des entsprechenden Spursegments zuruckzuschliessen. Der Energieverlust ist eine Funktion, welche nur von der Ladung und der Geschwindigkeit \(v\) des Teilchens abhangt. Lasst sich bei bekannter Teilchenlandung aus dem Energieverlust der Wert von \(v\) bestimmen, so kann bei bekanntem Impuls die Teilchenmasse errittelt werden; mit der bereits bekannten Ladung des Teilchens ist dann eine Teilchenidentifikation moglich ([12], [13]).
+
+Der mittlere Energieverlust pro Weglange \(\left\langle-\frac{dE}{dx}\right\rangle\) lasst sich schreiben als
+
+\[\left\langle-\frac{dE}{dx}\right\rangle=Z^{2}F(v)\qquad\qquad, \tag{9.1}\]
+
+wobei \(Z\) die Ladung eines Teilchens in Einheiten der Elementarladung angibt und \(F(v)\) eine geschwindigkeitsabhangige Funktion ist. Wichtig ist dabei, dass \(F(v)\) fur alle Teilchensorten identisch ist, wie dies in Abbildung 9.1 deutlich zu sehen ist. Dabei wurden zunachst die Werte von \(\left\langle-\frac{dE}{dx}\right\rangle\) auf den minimalen mittleren Energieverlust pro Weglange \(\left\langle-\frac{dE}{dx}\right\rangle_{min}\) normiert, wodurch der Einfluss der Lange der betrachteten Spurstcke oder des gewahlten Detektor-Gases auf die Absolutwerte von \(\left\langle-\frac{dE}{dx}\right\rangle\) eliminiert wird. Als Abszissen-Variable wird nicht \(v\), sondern der Logarithmus von \(\beta\gamma\)\(\left(\beta\gamma=\frac{p}{m}=\frac{1}{c}\left(v/\sqrt{1-\frac{v^{2}}{c^{2}}}\right)\right)\) verwendet, da damit der Bereich relativistischer Geschwindigkeiten \((0,95c\leq v)\) entzerrt wird. Die in Abbildung 9.1 gezeigte Kurve geht auf eine Formel von Ambrus zuruck [14], die aus der bereits seit 1932 bekannten Bethe-Bloch-Formel entwickelt wurde (vergl. [15]).
+
+As bleibt noch zu klaren, warum bisher von einem _Mittelwert_ des Energieverlustes gesprochen wurde: Entlang eines diskreten Spurstucks oder einer Summe diskreter Spurstucke erleidet ein Teilchen mit fester Geschwindigkeit nicht immer den gleichen Energieverlust \(-\frac{dE}{dx}\). Vielmehr unterliegt \(-\frac{dE}{dx}\) einer Wahrscheinlichkeits verteilung \(f(\lambda)\), welche durch
+
+\[f(\lambda)=\frac{1}{\sqrt{2\pi}}\exp\,\left(-\frac{1}{2}\left(\lambda+e^{- \lambda}\right)\right) \tag{9.2}\]
+
+mit
+
+\[\lambda\left(\frac{dE}{dx}\right)=\frac{1}{\xi}\left(\left.\frac{dE}{dx}- \frac{dE}{dx}\right|_{mp}\right) \tag{9.3}\]
+
+ausreichend gut beschrieben ist ([Sit93]). Dabei ist \(-\frac{dE}{dx}\Big{|}_{mp}\) der wahrscheinlichste Energieverlust und \(\xi\) ist die Breite der Verteilung. In Abbildung 9.2 ist das Energieverlust
+
+[MISSING_PAGE_EMPTY:83]
+
+Der Wert von \(\xi\) ist bestimmend dafur, in welchem Mass letztendlich eine Teilchenidentifikation erfolgen kann. Ist der Wert fur den Impuls \(p\) beispielsweise durch die Bahnkrummung im Magnetfeld ermittelt worden, so betrachtet man \(\left\langle-\frac{dE}{dx}\right\rangle/\left\langle-\frac{dE}{dx}\right\rangle_{ min}\) (bzw. \(\left\langle-\frac{dE}{dx}\right\rangle\)) nicht mehr als Funktion von \(v\), sondern als Funktion von \(p\). Es ergibt sich somit fur jede Teilchenmasse eine eigene Kurve (Abb. 9.3). Betrachtet man _eine_ Teilchenbahn \(i\) in den FTPCs, so stehen maximal zehn Messpunkte zur Verfugung, aus denen ein Mittelwert \(\left\langle-\frac{dE}{dx}\right\rangle_{i}\) bestimmt werden kann. Da diese Werte nach Formel 9.2 verteilt sind, wird \(\left\langle-\frac{dE}{dx}\right\rangle_{i}\) nicht exakt auf der entsprechenden Kurve liegen. Die Frage ist, ob bei der Mehrzahl der rekonstruierten Teilchenbahnen die Teilchen-Identifikation durch die Bestimmung von \(\left\langle-\frac{dE}{dx}\right\rangle_{i}\) in einem ausreichend grossen Bereich der Impulswerte gelingt.
+
+Um dies zu uberprufen, wurde von W. Gong ein Programm entwickelt, welches aus den von GSTAR gelieferten Daten fur jedes Teilchen \(i\) den Wert fur \(\left\langle-\frac{dE}{dx}\right\rangle_{i}\) bestimmt, sofern insgesamt zehn Hits durch das Teilchen verursacht wurden [Gon97]. Als Padlange wurden dabei 2 cm angenommen, wobei sich aus der Padlange bei Verwendung der Spurwinkel \(\omega\) und \(\lambda\) (vergl. Abb. 7.3) die Lange des betrachteten Spurstucks ergibt. Abbildung 9.4 zeigt \(\left\langle-\frac{dE}{dx}\right\rangle_{i}\) in Abhangigkeit vom Impuls fur ElekBereich \(p<0\),1 GeV/c klar von den geladenen Pionen und (Anti-)Protonen separiert sind, lasst sich aus dieser Darstellung noch nicht entnehmen, ob mittels Energieverlust-Messung eine Unterscheidung von geladenen Pionen und (Anti-)Protonen moglich ist. Um daruber Aufschluss zu gewinnen, ist in Abbildung 9.5 die Verteilung von \(\left\langle-\frac{dE}{dx}\right\rangle_{i}\)
+
+fur diese beiden Teilchensorten als Funktion von \(p\) fur verschiedene Impulsbereiche dargestellt. Man sieht dabei deutlich, dass die (Anti-)Protonen im Bereich 1 GeV/c \(<p<2\) GeV/c im Mittel die grosseren \(\left\langle-\frac{dE}{dx}\right\rangle_{i}\)-Werte liefern, was sich jedoch ab \(p\approx 2\) GeV/c andert (vergl. dazu Abb. 9.3). Fur alle betrachteten Impulsbereiche gilt jedoch, dass durch die grosse Streuung der Werte geladene Pionen nicht von (Anti-)Protonen unterschieden werden konnen; eine Teilchenidentifikation fur diese Teilchensorten also nicht moglich ist.
+
+## Kapitel 10 Ergebnisse und Diskussion
+
+Alleine auf Monte-Carlo-Simulationen basierend, werden in diesem Kapitel die Eignung der FTPCs fur die Messung von Einteilchenspektren, fur die Bestimmung der Differenzverteilung von negativ und positiv geladenen Teilchen in \(y\) sowie die Moglichkeit fur Untersuchungen hinsichtlich Zweiteilchenkorrelationen und chiraler Symmetrie-Restauration diskutiert.
+
+Zu diesem Zweck werden haufig _generierte Ereignisse_, womit die Informationen uber Teilchen-Typ und Impuls gemeint sind, die der Ereignis-Generator liefert, mit _rekonstruierten Ereignissen_ verglichen. Bei den rekonstruierten Ereignissen handelt es sich und die Daten, die man erhalt, wenn die generierte Ereignisse die vollstandige Simulationskette (vergl. Kap. 6 und Anhang B) durchlaufen haben.
+
+### 10.1 Einteilchenspektren
+
+Eine Schlusselaufgabe fur die FTPCs ist die Bestimmung der Zahl der geladenen Primarteilchen als Funktion der Rapiditat und des Transversalimpulses der einzelnen Teilchen im zuganglichen \(y\)-\(p_{T}\)-Bereich. Neben der Messung globaler Reaktionsparameter (Kap. 2.3.1) erlauben derartige Messungen einen Vergleich mit den Vorhersagen, wie sie aus Ereignis-Generatoren gewonnen werden (vergl. Anhang B) und lassen Ruckschlusse auf das Reaktions-Szenario zu (vergl. Kap. 2.1). Ist es daruber hinaus moglich, den Impulsunterschied \(Q_{inv}\) von zwei Teilchen ausreichend genau zu ermitteln, so sind mittels HBT-Analyse Aussagen uber die Grosse des Reaktionsvolumens und den zeitlichen Ablauf der Reaktion moglich (Kap. 2.3.1).
+
+#### Akzeptanzkorrektur
+
+Bevor Teilchenspektren in Abhangigkeit von den kinematischen Variablen Rapiditat \(y\) (bzw. Pseudo-Rapiditat \(\eta\)) und Transversalimpuls \(p_{T}\) diskutiert werden konnen, ist es notwendig zu untersuchen, welchen \(y\)-\(p_{T}\)-Bereich die FTPCs abdecken (=_geom_trische Akzeptanz_) und welche Korrekturen angewendet werden mussen, um von den gemessenen Verteilungen auf die tatsachlichen zuruckzuschliessen.
+
+Als geometrische Akzeptanz bezeichnet man die Verteilung, welche angibt, mit welcheIn Abbildung 10.2 a. ist \(1/N_{ev}\,(d^{2}N\,/dydp_{T})_{gen}\) fur geladene Primarteilchen dargestellt, wobei uber 50 zentrale Gold-Gold-Ereignisse des HIJING-Ereignis-Generators gemittelt wurde. Der gewahlte Rapiditatsbereich (\(2,\,6\leq\,|y_{\pi}\,|\leq 3,\,95\)) ergibt sich aus der geometrischen Akzeptanz der FTPCs und der Uberlegung, dass Spuren mit mehr als funf Hits nur in Ausnahmen ausserhalb dieses Bereichs liegen konnen. Die Beschrankung auf \(p_{T}<1\) GeV/c erklart sich mit der geringen Anzahl von Primarteilchen in zentralen Gold-Gold-Kollisionen mit \(p_{T}>1\) GeV/c im betrachteten Rapiditatsbereich. Fur die Bestimmung der Rapiditatswerte wurde fur alle Teilchen die Pionen-Masse \(m_{\pi}\) angenommen: Dies ermoglicht einen Vergleich mit einer gemessenen Verteilung \(d^{2}N\,/dydp_{T}\,(y,\,p_{T})\), bei der mangels Teilchenidentifikation fur die Bestimmung von \(y\) die Festlegung auf eine Masse zwingend ist. Da Pionen ca. 80 % der geladenen Reaktiensprodukte stellen, ist die Verwendung von \(m_{\pi}\) naheliegend. In Abbildung 10.2 b. sieht man die Werte fur \(1/N_{ev}(d^{2}N\,/dydp_{T})_{rek}\), die man erhalt, wenn man die generierten Ereignisse, welche fur 10.2 a. verwandt wurden, mit der vollstandigen Simulationskette (vergl. Anhang B) auswertet und die Impulswerte aus den rekonstruierten Ereignissen zur Bestimmung von \((d^{2}N/dydp_{T})_{rek}\) heranzieht. Betrachtet man
+
+\[\frac{1}{K(y,\,p_{T})}=\frac{(d^{2}N\,/dydp_{T})_{rek}}{(d^{2}N\,/dydp_{T})_{ gen}}\qquad, \tag{10.2}\]
+
+so erhalt man das in Abbildung 10.3 dargestellte Feld von inversen Korrekturfaktoren. Die gezeigten Werte sind ein Mass fur den Anteil rekonstruierter Spuren im Verhaltnis zur Zahl der vorhandenen Spuren. In den Bereichen, in welchen Werte grosser als eins erzielt werden, ist zwar die Effizienz des Spurrekonstruktions-Programs kleiner als100 % (vergl. Abb. 7.9 und 7.10); jedoch ist die Kontamination in diesen Bereichen so gross, dass insgesamt mehr Spuren gefunden werden, als vom Ereignis-Generator vorgegeben werden.
+
+#### Verteilung des Transversalimpulses
+
+Bei Schwerionen-Reaktionen lasst sich aus dem Verlauf der \(p_{T}\)-Verteilung der Reaktionosprodukte ein Temperaturwert \(T\)ermitteln, welcher in Reaktionen mit Phasenubergang grosser sein sollte als in Reaktionen ohne Phasenubergang (siehe [11] und Kap. 2.3.1). Um einen Zusammenhang zwischen \(dN/dp_{T}\) und \(T\) herzustellen, fuhrt man ublicherweise zunachst die _transversale Masse_\(m_{T}=\sqrt{p_{T}^{2}+m_{0}^{2}}\) eines Teilchens ein. Nach [12] ergibt sich dann:
+
+\[\frac{1}{m_{T}}\frac{dN}{dm_{T}}=\frac{1}{p_{T}}\frac{dN}{dp_{T}}\sim\frac{m_ {T}}{T}K_{1}\left(\frac{p_{T}}{T}\right)\hskip 28.452756pt, \tag{10.3}\]
+
+wobei \(K_{1}\) die modifizierte Besselfunktion erster Ordnung ist. Fur \(m_{T}\gg T\) ergibt sich naherungsweise
+
+\[\frac{1}{p_{T}}\frac{dN}{dp_{T}}\approx\frac{1}{T}\sqrt{m_{T}}\cdot e^{-\frac {p_{T}}{T}}\hskip 28.452756pt. \tag{10.4}\]
+
+Neben der Bestimmung von \(T\) kann durch den Vergleich der Spektren mit den Vorhersagen thermischer Modelle eine Aussage uber den Grad der Thermalisierung bei der Reaktion getroffen werden. Die Abbildung 10.4 zeigt einen Vergleich der Verteilung\(1/p_{T}\ dN/dp_{T}\) fur \(2,\,6<\left|y_{\pi}\right|<3,2\) (a.) und \(\,3,2<\left|y_{\pi}\right|<3,\,8\) (b.) zwischen den Spekten geladener Teilchen aus generierten Creignissen und den unkorrigierten Spektren
+
+Abbildung 10.4: _Transversalimpuls-Verteilung \(1/N_{ev}\ 1/p_{t}\ dN/dp_{T}\) geladener Teilchen fur die Rapiditatsbereiche \(2,\,6<\left|y_{\pi}\right|<3,\,2\) und \(3,2<\left|y_{\pi}\right|<3,\,8\). Die Symbole \(\circ\) und \(\Box\) reprasentieren dabei die Werte, wie sie aus rekonstruierten Creignissen ermittelt wurden. Zum Vergleich sind die entsprechenden Werte aus generierten Creignissen (Ereignis-Generator HIJING) abgebildet (\(\bullet\) und )._
+
+aus rekonstruierten Creignissen. Dabei wurde jeweils uber 50 zentrale Gold-Gold-Ereignisse des HIJING Ereignis-Generators gemittelt. Durch Vergleich der Spektren wurden dann Korrektur-Faktoren gewonnen, welche auf die Ergebnisse aus der Rekonstruktion anwendbar sind. Der nachste Schritt ist, fur jedes einzelne Ereignis ein \(1/p_{T}\ dN/dp_{T}\)-Spektrum im Akzeptanzbereich der FTPCs zu erhalten, aus denen ein Wert fur \(T\) fur dieses Creignis bestimmt werden kann.
+
+Die Abbildung 10.5 zeigt das \(1/p_{T}\ dN/dp_{T}\)-Spektrum, wie es sich bei einem einzigen, von HIJING generierten Creignis ergibt. Ebenfalls abgebildet ist die korrigierte Verteilung aus dem entsprechenden rekonstruierten Creignis. Die gute Ubereinstimmung deutet darauf hin, dass die statistische Grundlage von ca. 900 rekonstruierten Spuren pro Ereignis ausreicht, um einen Wert fur \(T\) im Akzeptanzbereich der FTPCs zu bestimmen. Mit welcher Genauigkeit dies erfolgen kann und wie klein die Rapiditatsbereiche dabei gewahlt werden konnen, muss durch die Betrachtung einer ausreichend grossen Ereignis-Stichprobe noch untersucht werden.
+
+Die Abbildung 10.6 zeigt fur den Akzeptanzbereich der FTPCs die erwarteten Transversalimpulsverteilungen, wie sie sich aus generierten Creignissen verschiedener Ereignis-Generators ergeben. Bei den abgebildeten Verteilungen, die alle auf der Grundlage von 100 Ereignissen basieren, sieht man deutliche Unterschiede. Durch die experimentelle Bestimmung des \(1/p_{T}\ dN/dp_{T}\)-Spektrums mit den FTPCs und mit
+#### 10.1.3 Rapiditatsverteilungen
+
+Wie in Kapitel 2.1 beschrieben, gibt die Bestimmung der Rapiditatsverteilung \(dN/dy\) Aufschluuss uber den dynamischen Ablauf der Reaktion, wobei nach Moglichkeit der ge samte kinematische Bereich erfasst werden sollte, welcher von den Reaktionsprodukten bevolkert wird.
+
+Die Abbildung 10.7 zeigt die Rapiditatsverteilung fur alle Teilchen und fur geladene Teilchen eines Gold-Gold-Ereignisses, welches mit HIJING generiert wurde. Im Rapiditatsbereich \(2,6<\left|y\right|<3,95\) sind die Verteilungen zu sehen, die aus den rekonstruierten Impulsen ermittelt wurden, wobei wieder die Pionenmasse zur Bestimmung von \(y\) verwendet wurde. Die gestrichelte Kurve zeigt dabei die Verteilung ohne Akzeptanzkorrektur. Die durchgezogene Linie reprasentiert die Verteilung nach Anwendung der Korrekturfaktoren aus Abbildung 10.3.
+
+Durch die Bestimmung von \(dN_{p-\overline{p}}/dy\), womit die Differenz zwischen der Rapiditatsverteilung \(dN_{p}/dy\) fur Protonen und der Verteilung \(dN_{\overline{p}}/dy\) fur Anti-Protonen gemeint ist, lassen sich Aussagen uber den Ablauf der Kollision bei Schwerionen-Reaktionen treffen (vergl. Kap. 2.1).
+
+Abbildung 10.8 zeigt die Verteilung von \(dN_{p-\overline{p}}/dy\), wie sie von verschiedenen Ereignis-Generatoren fur zentrale Gold-Gold-Kollisionen mit einer Energie von \(\sqrt{s}=200\) GeV pro Nukleonenpaar vorhergesagt wird. Wahrend die einzelnen Vorhersagen zum Teil deutlich voneinander abweichen, ist in allen Fallen ein Anstieg der Werte der Rapiditatsverteilung im Intervall \(2\leq\left|y\right|\leq 5\) zu erkennen. Von den Spurdetektoren im STAR-Experiment liegt nur der Akzeptanzbereich der FTPCs in diesem Intervall. Im Gegensatz zur STAR-TPC ist jedoch mit den FTPCs keine Identifikation der (Anti-)Protonen moglich (vergl. Kap. 9). Die Ladungsidentifikation der rekonstruierten Impulsen (HJING), die die Verteilung fur ein Hiljstruierten Spuren erlaubt jedoch die Bestimmung der Rapiditatsverteilung der positiven und negativen, geladenen Teilchen, sowie deren Differenzverteilung \(dN_{(+)-(-)}/dy\). Wie in Abbildung 10.8 zu sehen ist, stimmt der Verlauf von \(dN_{(+)-(-)}/dy\) mit dem von \(dN_{p-\overline{p}}/dy\) jeweils qualitativ gut uberein. Durch die Unterteilung in mehrere Rapiditatsintervalle und die nicht notwendigerweise assoziierte Erzeugung von Teilchen und Anti-Teilchen sind \(dN_{(+)-(-)}/dy\) und \(dN_{p-\overline{p}}/dy\)ublicherweise nicht identisch. Mittel der Bestimmung von Umrechnungsfaktoren auf der Grundlage einer grossen Zahl von generierten Ereignissen lasst sich aber von \(dN_{(+)-(-)}/dy\) auf \(dN_{p-\overline{p}}/dy\) zuruckrechnen. Die Abbildung 10.9 zeigt eine Verteilung \(dN_{(+)-(-)}/dy\), wie sie aus 26 rekonstruierten Ereignissen basierend auf HIJING-genericiten Ereignissen ermittelt wurde. Aufgrund der unzureichenden Statistik sind grosse Fluktuationen deutlich sichtbar. Addiert man, unter Benutzung der Symmetrie von Gold-Gold-Kollisionen, wie in Abbildung 10.9 b.
+
+\(dN_{(+)-(-)}/dy\)\((y_{p})\) und \(dN_{(+)-(-)}/dy\)\((-y_{p})\), so ergibt sich ein deutlich glatterer Verlauf der Verteilung, was darauf hindeutet, dass fur die Bestimmung von \(dN_{(+)-(-)}/dy\) mittels der FTPCs mindestens eine Anzahl von ca. 50 Ereignissen notwendig ist.
+
+#### Zweiteilchenkorrelationen
+
+Fur die Anwendung der in Kapitel 2.3.1 beschriebenen HBT-Analyse ist es entscheidend, mit welcher Genauigkeit \(\Delta Q_{\it inv}\), der lorentzinvariante Impulsunterschied \(Q_{\it inv}^{ij}\) (vergl. Seite 75), gemessen werden kann. Der Wert fur \(\Delta Q_{\it inv}\) bestimmt die Genauigkeit, mit der die Zweiteilchen-Impulsverteilung \(N_{2}(p_{\rm l},p_{\rm 2})\) und damit die Korrelationsfunktion \(C(p_{\rm l},p_{\rm 2})\) bestimmt werden kann. Wenn man bedenkt, dass die raumliche Verteilung der Emissionsorte der Teilchen sich als Fourier-Transformierte der Korrelations-Funktion ergibt [Sch97], so kann man, unter Annahme gaussformiger Verteilungen, aus \(\Delta Q_{\it inv}\) eine Abschatzung fur den Fehler \(\Delta R_{R}\) bei der Bestimmung des Radius \(R_{R}\) des Reaktionsvolumens mit folgender Formel erhalten:
+
+\[\hbar c=\Delta R_{R}\cdot\Delta Q_{\it inv} \tag{10.5}\]
+
+Nimmt man fur \(\Delta Q_{\it inv}\) einen Durchschnittswert von 35 MeV/c an (vergl. Abb. 8.4), so ergibt sich \(\Delta R_{R}\) zu 5,7 fm. Berucksichtigt man, dass die kollidierenden Gold\(-\)Kerneetwa einen Radius von 7,6 fm besitzen [May 84], bietet sich eine HBT-Analyse mit FTPC-Daten nicht an.
+
+## 10.2 Chirale Symmetrie-Restauration
+
+In den zentralen Gold-Gold-Kollisionen am RHIC erwartet man neben dem Entstehen des Quark-Gluon-Plasmas auch die Wiederherstellung der chiralen Symmetrie, da beide Ubergange bei etwa der gleichen Temperatur \(T_{c}\approx 150\) MeV stattfinden (Kap. 2.2 und 2.3.5). Genauso wie das QGP wahrscheinlich nur in einem oder mehreren Teilbereichen des Reaktionsvolumens entsteht ("Plasma-Bubbles"), erwartet man das Auftreten der chiralen Symmetrie-Restauration in sogenanten _Domanen_, deren Ausdehnung kleiner ist als die des Gesamtsystems. Beim Abkuhlen wird die chirale Symmetrie in den Domanen wieder gebrochen und es tritt eine erhohte Pionen-Produktion auf, wobei Fluktuationen im Verhaltnis \(f=\frac{N_{\pi}a}{N_{\pi}+N_{\pi}-N_{\pi}+}\) von der Anzahl der ungeladenen Pionen zur Anzahl aller Pionen auftreten konnen [Gav95]. Befindet sich im\(1,7\leq|\eta|\,\)der Nachweis der geladenen Pionen durch die TPC und das EMC moglich ist und die neutralen Pionen uber die zwei Photonen aus \(\pi^{0}\to\gamma\gamma\) im EMC nachgewiesen werden konnen, ist im Akzeptanzbereich der FTPCs eine Messung von \(N_{\pi^{0}}\) ohne zusatzlichen Photon-Multiplizitatsdetektor nicht moglich.
+
+Neben einem atypischen Wert fur \(f\) gibt es auch Vorhersagen fur eine weitere Signatur der chiralen Symmetrie-Restauration [11]: Beim Auftreten einzelner grosser 
+#### 10.3 Zusammenfassung der Ergebnisse
+
+Durch die FTPCs erhalt das STAR-Experiment zwei Spurdetektoren, welche den Bereich hoher (Pseudo-) Rapiditat \((2,6<|\eta|<3,95)\) abdecken. Mit den bereits bisher untersuchten Detektor-Komponenten, Kammergasen und der bestehenden FTPC-Software ist gewahrleist, dass trotz der hohen Werte fur die Spurdichte, wie sie im Akzeptanzbereich der FTPCs vorliegen, Spuren von Primarteilchen identifiziert und rekonstruiert werden konnen. Mit der Fahigkeit, Teilchenmultiplizitaten, Teilchenla-dungen und Impulse zu messen, konnen die mit den FTPCs vermittelten Daten als Grundlage fur verschiedene physikalische Analysen dienlich sein:
+
+Da durch den Spurrekonstruktions-Algorithmus ein grosser Prozentsatz der Spuren von Primarteilchen gefunden wird und gleichzeitig eine geringe Anzahl von Sekundarteilchen-Spuren falschlicherweise als von Primarteilchen verurs acht erkannt werden, sind verschiedene Analysen hinsichtlich Primarteilchenmultiplizitat, azimutale Korrelationen oder Teilchen-Fluktuationen in \(\frac{dN}{d\varphi}\) oder \(\frac{dN}{d\eta}\) moglich.
+
+Es konnte gezeigt werden, dass die Zahl von ca. 950 rekonstruierten Spuren (furbeide FTPCs) pro Ereignis eine ausreichende statistische Grundlage bildet, um mit den FTPCs ein Rapiditatsspektrum fur jedes einzelne Gold-Gold-Ereignis zu erhalten. Ebenso ist die Messung von Transversalimpuls-Spekten in verschiedenen \(\mathrm{y}_{\pi}-\)Intervallen fur Enzelereignisse moglich. Die FTPCs tragen damit zu der geforderten Einzelereignis-Analyse in STAR substantiell bei. Durch die inklusive Messung von Rapiditats- und Transversalimpuls-Spektrun sind Aussagen uber die Qualitat von Vorhersagen verschiedener Ereignis-Generatorn moglich.
+
+Schenkt man den Vorhersagen uber die Signaturen einer Restauration der chiralen Symmetrie bei Schwerionen-Reaktionen Glauben, so erlauben die FTPCs die Messung einer Veranderung des Transversalimpuls-Spektrums bei einem erheblich reduzierten Untergrund, verglichen mit den anderen beiden Spurdetektoren in STAR.
+
+Zur Untersuchung des Reaktions-Szenarios fur Einzelereignisse ware die Teilchenidentifikation mittels Energieverlust-Messung zur Unterscheidung von Pionen und Protonen sinnvoll. Untersuchungen in diese Richtung haben jedoch gezeigt, dass dies bei zehn Padreihen pro FTPC und einer Padlange von 2 cm nicht moglich ist. Mit einer solchen Energieverlust-Messung lassen sich jedoch moglicherweise mehrfach geladene Teilchen und Strangeletts identifizieren. Die Differenz zwischen Protonen und Antiprotonen im Akzeptanzbereich der FTPCs muss uber die Differenz der Rapiditatsverteilungen von positiven und negativen Teilchen ermittelt werden. Die durchgefuhrten Analysen mit simulierten Daten deuten dabei darauf hin, dass dies bei einer Mittelung uber eine ausreichende Anzahl von Ereignissen moglich ist.
+
+Zwei physikalische Aspekte der FTPCs wurden in den vorangegangenen Kapitelnich ausfuhrlich diskutiert: Die Identifikation von Zerfallen seltsamer Teilchen und die Eignung der FTPCs fur periphere und asymmetrische Systeme. Zwar konnte gezeigt werden, dass durch geegnete Rekonstruktion einer Spur der Entstehungsveterex in x- und y-Richtung auf mehr als 0,5 mm und in z-Richtung auf einige cm genau bestimmt werden kann. Der Ausgangsvetex der Zerfallsprodukte von \(\mathrm{K}^{0}_{\mathrm{s}}\) (\(\mathrm{K}^{0}_{\mathrm{s}}\to\pi^{+}\pi^{-}\) ; \(\mathrm{c}\tau=2,7\) cm) und \(\Lambda\) (\(\Lambda\to p\pi^{-}\) ; \(\mathrm{c}\tau=7,9\) cm) sollte daher klar vom Primarvertex separierb seriein, jedoch sucht das Spurrekonstruktions-Programm derzeit nur nach Spuren, welche vom Primarvertex ausgehen, so dass hier eine Modifikation notwendig ist. Daruber hinaus treten pro Ereignis nur einige \(\mathrm{K}^{0}_{\mathrm{s}}\) und \(\Lambda\) auf, deren Zerfallsprodukte Spuren in den FTPCs hinterlassen. Ob eine sinnvolle Analyse hinsichtlich uberhofter Produktion seltsamer Teilchen mit den FTPCs moglich ist, bedarf daher einer Untersuchung, die auf einer ausreichend grossen Ereignis-Anzahl basiert.
+
+## Anhang A Kinematische Variablen
+
+Die Kinematik eines Teilchens wird durch seinen _Viererimpuls_\(p=(E,p_{x},p_{y},p_{z})\) in einem Bezugssystem vollstandig beschrieben. Legt man bei einer Kollisions-Reaktion durch die Bewegungsrichtung eines der einfallenden Teilchen eine raumliche Achse fest, beispielsweise die z-Achse, so verwendet man anstatt \(p\,\)ublicherweis e die kinematischen Variablen _Transversalimpuls_\(p_{T}\) und _Rapiditat_\(y\):
+
+\[p_{T}=\sqrt{{p_{x}}^{2}+{p_{y}}^{2}}\] (A.1)
+
+\[y=\frac{1}{2}\ln\left(\frac{E+p_{z}}{E-p_{z}}\right)\] (A.2)
+
+Fuhrt man nun eine Lorentztransformation entlang der z-Richtung in ein zweites Bezugssystem aus, welches sich mit der Boostgeschwindigkeit \(u_{b}\) gegenuber dem ersten bewegt, so ergeben sich die transformierten Grossen \(p\), \(p_{T}^{\prime}\) und \(y^{\prime}\) aus \(p\), \(p_{T}\) und \(y\) wie folgt:
+
+\[p^{\prime}=\left(\begin{array}{cccc}\gamma&0&0&-\beta\gamma\\ 0&1&0&0\\ 0&0&1&0\\ -\beta\gamma&0&0&\gamma\end{array}\right)p\hskip 56.905512pt\mbox{mit }\beta=\frac{u_{b}}{c}\mbox{ und }\gamma=\frac{1}{\sqrt{1-\beta^{2}}}\] (A.3)
+
+\[{p_{T}}^{\prime}=p_{T}\] (A.4)
+
+\[y^{\prime}=y-y_{b}\hskip 56.905512pt\mbox{mit }\ y_{b}=\frac{1}{2}\ln\frac{1+u_{b}}{1-u_{b}}\] (A.5)
+
+Der Transversalimpuls bleibt dabei unverandert und \(y^{\prime}\) ergibt sich aus der Differenz von \(y\) und \(y_{b}\), wobei \(y_{b}\) als _Boost-Rapiditat_ bezeichnet wird. Lost man \(y_{b}\) nach \(u_{b}\) auf, so lassen sich \(\beta\) und \(\gamma\) schreiben als:
+
+\[\beta=\tanh y_{b}\] (A.6)\[\gamma=\cosh y_{b}\] (A.7)
+
+Die entsprechende Transformationsmatrix aus A.3 kann dann geschrieben werden als:
+
+\[\left(\begin{array}{cccc}\cosh y_{b}&0&0&-\sinh y_{b}\\ 0&1&0&0\\ 0&0&1&0\\ -\sinh y_{b}&0&0&\cosh y_{b}\end{array}\right)\] (A.8)
+
+Im relativistischen Grenzfall, wenn also der Dreierimpuls \(\left|\vec{p}\right|=\sqrt{p_{x}^{2}+p_{y}^{2}+p_{z}^{2}}\) sehr viel grosser wird als die Ruhemasse \(m_{0}\) des Teilchens, ergibt sich aus A.2 der Ausdruck fur die _Pseudorapiditat_\(\eta\):
+
+\[y=\frac{1}{2}\ln\left(\frac{E+p_{z}}{E-p_{z}}\right)\xrightarrow{\left|\vec{p} \right|\gg m_{0}}\frac{1}{2}\ln\left(\frac{\left|\vec{p}\right|+\left|\vec{p} \right|\cos\,\Theta}{\left|\vec{p}\right|-\left|\vec{p}\right|\cos\,\Theta} \right)=-\ln\left[\tan\left(\frac{\Theta}{2}\right)\right]=\eta\] (A.9)
+
+Dabei ist \(\Theta\) der Winkel zwischen \(\vec{p}\) und der z-Achse.
+
+Bei den Kollisionen von zwei gleichen Kernen bei RHIC mit den Viererimpulsen \(p_{1}=(E_{beam},0,0,p_{beam})\) und \(p_{2}=(E_{beam},0,0,-p_{beam})\) ist das Schwerpunktsystem gleich dem Laborsystem und die Schwerpunktsenergie \(\sqrt{s}\equiv\sqrt{(p_{1}+p_{2})^{2}}\) ergibt sich zu \(\sqrt{s}=\sqrt{(E_{beam}+E_{beam},0,0,0)^{2}}\). Fur Gold-Kerne, die auf eine Energie von 100 GeV pro Nukleon beschleunigt werden, ergibt sich somit ein Wert fur \(\sqrt{s}\) von 200 GeV pro Nukleonenpaar.
+
+Betrachtet man den etwas allgemeineren Fall, bei dem ein Projektil-Kern \(a\) auf einen ruhenden Target-Kern \(b\) trifft, so kann man fur die Viererimpulse \(p_{u}\) und \(p_{b}\) im Laborsystem schreiben:
+
+\[p_{u}=\left(\begin{array}{c}E_{a}\\ \vec{p}_{a}\end{array}\right),\hskip 28.452756ptp_{b}=\left(\begin{array}{c}m _{b}\\ 0\end{array}\right)\] (A.10)
+
+Damit ergibt sich:
+
+\[s=\left(\begin{array}{c}E_{a}+m_{b}\\ \vec{p}_{a}\end{array}\right)^{2}=E_{a}^{2}+2E_{a}m_{b}+m_{b}^{2}-\vec{p}_{a} ^{2}\xrightarrow{E_{a}^{2}\approx\vec{p}_{a}^{2}}2E_{a}m_{b}+m_{b}^{2}\] (A.11)
+
+Setzt man \(c=1\) und berucksichtigt man, dass die Geschwindigkeit \(\beta_{CMS}\) (\(=v_{CMS}\)) des Schwerpunktsystems im Laborsystem ausgedruckt werden kann als
+
+\[\beta_{CMS}=\frac{p_{u}}{E_{a}+m_{b}}\hskip 28.452756pt(p_{a}=\left|\vec{p}_{ a}\right|)\hskip 28.452756pt,\] (A.12)so lasst sich die Rapiditat \(y_{{}_{CMS}}\) des Schwerpunktsystems (betrachtet im Laborsystem) schreiben als:
+
+\[y_{{}_{CMS}}=\frac{1}{2}\ln\frac{1+\beta_{{}_{CMS}}}{1-\beta_{{}_{CMS}}}=\frac{1 }{2}\ln\frac{E_{a}+m_{b}+p_{a}}{E_{a}+m_{b}-p_{a}}\to\]
+
+\[\stackrel{{ E_{a}\approx p_{a}}}{{\longrightarrow}}\frac{1}{2} \ln\frac{2E_{a}+m_{b}}{m_{b}}\cdot\frac{m_{b}}{m_{b}}=\frac{1}{2}\ln\frac{ \overbrace{2E_{a}m_{b}+m_{b}^{2}}}{m_{b}^{2}}=\ln\frac{\sqrt{s}}{m_{b}}\] (A.13)
+
+## Anhang B Die vollstanding Monte-Carlo-Simulation
+
+Die in Kapitel 7.2 und 8.2 beschriebenen Programme bilden nur die letzten beiden Glieder in der Simulationskette. Ausgangspunkt fur eine vollstandige Simulation ist immer ein Ereignis-Generator-Programm, welches die Kern-Kern-Kollisionen simuliert und die Teilchen im Endzustand mit ihren Impulsen ausgibt.
+
+Ein Detektor-Simulationsprogramm behandelt dann die Propagation der Teilchen durch den Detektoraufbau, wobei Wechselwirkungen mit der Umgebung und Zerfalle genauso berucksichtigt werden konnen wie die Registrierung der Teilchen im sensitiven Bereich der Detektoren. Diese Informationen uber den Ort einer Teilchenregistrierung werden danach in einem Programm weiterverarbeitet, welches die Signale der FTPCs geeignet simuliert, so dass sie zur Weiterverarbeitung durch das Spurrekonstruktions-Programm bereitstehen.
+
+### B.1 Der Ereignis-Generator HIJING
+
+Fur die Beschreibung von ultrarelativistischen Kern-Kern-Stossen werden unterschiedliche Modelle herangezogen, die meist auf der Gribov-Regge Theorie (GRT) basieren (Dual-Parton-Modell [Cap87], Quark-Gluon-String-Modell [Kai91], VENUS [Wer93]), oder auf der klassischen Stringtheorie (LUCIAE [Sa95], FRITIOF [And87], ATTIL [Gyu87]). Fur die Beschreibung der Kern-Kern-Stosse bei RHIC- und LHC-Energien wurde das Modell HIJING (Heavy Ion Jet Interaction Generator) entwickelt, welchem ein storungtheoretischer QCD-Ansatz zugrunde liegt ([Gyu95], [Wan91]). Dabei wird davon ausgegangen, dass die Mehrzahl der physikalisch relevanten Prozesse in einer fruhen Phase der Kollision ablauft. Durch Parton-Streuung kommt es zur Produktion einer grossen Zahl von Jets und _Minijets_, worunter man Jets versteht, welche nur einen geringen Teil der gesamten Multiplizitat und Energie bei einem Ereignis tragen. Minijets sind experimentell nicht mehr vom hadronischen Untergrund zu unterscheiden, obwohl erwartet wird, dass bei RHIC-Ereignissen ca. 50% der Teilchen aus Minijetsstammen. Deshalb ist es wichtig, im Modell den Entstehungsprozes der aus den Minijets resultierenden Teilchen korrekt als Parton-Streuung zu beschreiben, insbesondere da die Teilchen eines Minijets deutliche Korrelationen in Multiplizitat, \(p_{T}\) oder Fluktuationen besitzen, die moglichen QGP-Signaturen uberlagert sein konnen.
+
+Das Verhalten von Jets mit hohem \(p_{T}\) in dichter hadronischer Materie wird in HIJING detaillierter beschrieben als in vielen anderen Modellen. Der Energieverlust von Jets in dichter hadronischer Materie (_Jet-Quenching_) ist unterschiedlich bei einem heissen Hadronengas und einem QGP. Mit HIJING besteht daher die Moglichkeit, dies im Hinblick als mogliche QGP-Signatur zu untersuchen.
+
+Um die Vergleichbarkeit von Simulationen sicherzustellen, legte man sich innerhalb der _Software and Analysis_-Gruppe bei STAR auf einen Satz von 100 HIJING-genericen Ereignissen fest. Abbildung B.1 zeigt die Spektren eines Ereignisses fur geladene Mesonen und Baryonen als Funktion der Rapiditat \(y\) und des Transversalimpulses \(p_{T}\) (vergl. Abb. 3.5).
+
+Abbildung B.1: _Teilchenspektrum geladener Teilchen als Funktion der Rapiditat (a.) und des Transversalimpulses (b.) eines HIJING-genericen Gold-Gold-Ereignisses mit einer Energie \(\sqrt{s}=200\) GeV pro Nukleonenpaar und insgesamt 10222 Teilchen im Endzustand_.
+
+### 2 Gstar/g2t
+
+Der nachste Schritt in der Simulationskette ist die Weiterverarbeitung der Teilchen- und Impulsinformation des Ereignis-Generators in einem Programm, welches die Teilchenpropagation durch den Detektoraufbau simuliert und dabei Wechselwirkungen mitdem vorhandenen Material, den Einfluss von magnetischen Feldern und Zerfalle instabiler Teilchen berucksichtigt. Tritt ein Teilchen mit einem Detektor in einem Raumbereich in Wechselwirkung, in welchem dieser sensitiv ist, so muss zusatzlich noch dieser _Treffer_festgehalten werden. Diese Funktionen werden von dem Programmpaket GSTAR/g2t ausgefuhrt [13]. Die Beschreibung des experimentellen Aufbaus in einer fur GSTAR/g2t verwertbaren Form erfolgt durch das _Advanced GEANT Interface_ (AGI) [14]. Wie in Abbildung B.2 schematisch dargestellt, erfolgt die Beschreibung der Detektor-Geometrie mit Hilfe von AGI Geometrie-Files, welche in _geant_
+
+Abbildung B.2: _Schematische Darstellung der Datenbehandlung in den Programm-Paketen AGI und GSTAR/g2t._
+
+_language_geschrieben werden (vergl. [14]). Der Geometrie-Parser erzeugt daraus temporaren Fortran-Queltext, der dann in Shared-Library- (SL-) Files ubersetzt wird. Diese SL-Files konnen beim Start von GSTAR/g2t im Zusammenwirken mit ausfuhrbaren Programmteilen des AGI-Pakets dynamisch gelinkt werden. Dies bedeutet, dass bei einer Anderung der Beschreibung des experimentellen Aufbaus nicht alle ausfuhrbaren Programmteile neu ubersetzt und gelinkt werden mussen, sondern dass nur noch der entsprechende SL-File gebildet werden muss. Ein Schnitt durch den STAR**-**Detektor, wie er mittels AGI beschrieben wurde, ist in Abbildung B.3 a. zu sehen (vergl. Kap. 3.2). Aus den Konstruktionszeichnungen der FTPCs (siehe Abb. 3.6)
+
+**a.**
+
+Abbildung B.3: _In GSTAR wird eine Detektorgeometrie verwendet, wie sie in Bild a. zu sehen \(ist.\) Die FTPC ist dabei in b. noch einmal separat dargestellt._
+
+wurde die Detektor-Beschreibung fur die Simulation erarbeitet, welche in Abbildung B.3 b. visualisiert ist.
+
+Die Steuerung des Programmablaufs kann interaktiv oder in Form von Makro-Files durch das _Kit for a User Interface Package_ (KUIP, [3]) erfolgen. Uber diesen Weg wird beispielsweise bestimmt, welche physikalischen Prozesse (z.B. Coulomb-Streuung, Zerfalle, Paarproduktion) beim Programm-Ablauf berucksichtigt werden sollen [3]. Der GSTAR-Teil des GSTAR/g2t-Paketes liefert fur die Spuren und Treffer Werte, welche im ZEBRA-Format in Files ausgegeben werden [15]. Dieses Format ist jedoch nicht kompatibel zu den Variablen-Tafeln, welche zum Datentransfer zwischen den pams unter STAF verwendet werden (siehe Kap. 7.2 und 8.2). Dafur werden die GSTAR-Ausgabefiles in g2t in STAF-kompatible Variablen-Tafeln ubersetzt und danach wieder als File ausgegeben.
+
+## Appendix B.3 Der FTPC-Simulator
+
+Fur die Spurrekonstruktion sind die registrierten Treffer als Eingabedaten untaqlich, da die Ortsauflosung und Zweispurtrennung der FTPCs dabei noch nicht berucksichtigt sind (vergl. Kap.1 4.6). Aus diesem Grund erfolgt eine Weiterverarbeitung der Daten in einem FTPC-Simulator (Fast-Simulator), welcher die Position der Treffer in der x-y-Ebene gemass Formeln 4.32 und 4.40 verandert und diejenigen Treffer markiert, welche aufgrund ihres zu kleinen Abstands zum nachsten Nachbartreffer nicht mehr einzeln aufgelost werden konnen. Die somit verschobenen und ggf. markierten Treffer reprasentieren die Hits, wie sie in Kapitel 7 eingefuhrt worden sind. Abbildung B.4 a. bzw. b. zeigt die Verteilung der Verschiebung in x-, respektive y-Richtung durchden FTPC-Simulator; Abbildung B.4 c. zeigt die Zahl (pro cm) der unauflosbaren Hits als Funktion des Radius. Dem gegenubergestellt ist in B.4 d. die Zahl (pro cm) der auflosbaren Hits.
+
+Abbildung B.4: _Die Differenz zwischen Hit- und Treffer-Position in x-Richtung (y-Richtung) ist in Bild a. (b.) zu sehen. Der Zahl der nicht auflosbaren Hits pro cm Radius in Bild c. ist die Zahl der auflosbaren Hits pro cm Radius in d. gegenubergestellt. Angenommen wurde jeweils eine Gasmischung aus 50% Argon und 50% \(CO_{2}\)._
+
+## Bibliquesverzeichnis
+
+	* 2.1 Reaktions-Szenario im Landau-Bild
+	* 2.2 Reaktions-Szenario im Bjorken-Bild
+	* 2.3 Vorhersagen fur \(dN_{M}/dy\) und \(dN_{\mathfrak{p}-\overline{p}}/dy\) in Gold-Gold-Kollisionen
+	* 2.4 Raum-Zeit-Diagramm einer Schwerionen-Reaktion
+	* 2.5 Phasendiagramm des Quark-Gluon-Plasmas
+	* 2.6 Energiedichte und Druck beim Phasenubergang
+	* 2.7 Anormale Unterdruckung der \(J/\psi\)-Produktion (Gemessen im NA 50-Experiment)
+	* 2.8 Grundzustande bei restaurierter und gebrochener chiraler Symmetrie
+	* 3.1 Beschleunigerkette fur RHIC (schematisch)
+	* 3.2 Schnittbild des STAR-Detektors
+	* 3.3 Schematische Skizze einer FTPC
+	* 3.4 Geometrische Akzeptanz der FTPCs fur Pionen und Protonen
+	* 3.5 Vorhersagen fur \(dN_{M}/dy\) und \(dN_{\mathfrak{p}-\overline{p}}/dy\) im Akzeptanzbereich der FTPCs
+	* 3.6 Die FTPC als Schnittbild (Konstruktionskizze)
+	* 4.1 Aufbau und Funktionsprinzip einer TPC
+	* 4.2 Illustration der verwendeten Bezeichnungen bei radialer Drift
+	* 4.3 Driftwege der Elektronen im \(\vec{E}\times\vec{B}\)-Feld
+	* 4.4 Illustration der verwendeten Bezeichnungen bei der Pad-Response-Funktion
+	* 5.1 Versuchsaufbau zur Messung von Elektronen-Transportparametern
+	* 5.2 Lorentzwinkel als Funktion von \(|\vec{B}|\) fur Ar/CO\({}_{2}\) und Ar/DME
+	* 5.3 Lorentzwinkel als Funktion von \(|\vec{E}|\) fur Ar/CO\({}_{2}\) und Ar/DME
+	* 5.4 Transportparameter fur Elektronen in Argon/CO\({}_{2}\) (50/50)
+	* 5.5 Transportparameter fur Elektronen in Argon/DME (50/50)
+	* 5.6 Ergebnisse zur Elektronendrift in Argon/CO\({}_{2}\) (50/50) bei radialem Driftfeld
+	* 5.7 Signalbreite und Zweispurtrennung der FTPCs mit Argon/CO\({}_{2}\) (50/50)
+	* 5.8 Schematische Skizze einer Gas-Mikrostreifenplatte
+	* 5.9 Aufbau zur Messung der Pad-Response-Funktion
+* 5.10 Pad-Response-Breite fur symmetrische Auslesekammern
+* 5.11 Pad-Response-Breite fur asymmetriese Auslesekammern
+* 6.1 Schematische Darstellung der Simulationskette
+* 7.1 Spuren in einem Ausschnitt einer FTPC (Simulation)
+* 7.2 Projektion der Hits einer FTPC in die x-y-Ebene
+* 7.3 Spurverlauf fur Teilchen in der FTPC (schematisch)
+* 7.4 Variablen beim Spurrekonstruktions-Algorithmus
+* 7.5 Parameter fur das Spurrekonstruktionsprogramm (1)
+* 7.6 Parameter fur das Spurrekonstruktionsprogramm (2)
+* 7.7 Einfluss verschiedener Strahlrohre auf die Spurrekonstruktion
+* 7.8 Prozentsatz der unauflosbaren Hits in Abhangigkeit von \(r\) und \(z\)
+* 7.9 Effizienz und Kontamination in Abhangigkeit von \(\eta\)
+* 7.10 Effizienz und Kontamination in Abhangigkeit von \(y\) und \(p_{T}\)
+* 7.11 Skizze zur Vertex-Rekonstruktion
+* 7.12 Abweichung zwischen rekonstruiertem Vertex und tatsachlichem
+* 8.1 Illustration zur Bestimmung des Transversalimpulses \(p_{T}\) beim Vertex
+* 8.2 Auflosungsvermogen in \(p\) und \(p_{T}\)
+* 8.3 Auflosungsvermogen in \(y\)
+* 8.4 Auflosungsvermogen in \(Q_{inv}\)
+* 8.5 Ladungs-Rekonstruktions-Effizienz
+* 9.1 Spezifischer Energieverlust als Funktion von \(\beta\gamma\)
+* 9.2 Energieverlust-Spektrum mit Landau-Funktion
+* 9.3 Spezifischer Energieverlust als Funktion von \(p\)
+* 9.4 Spezifischer Energieverlust in den FTPCs fur Protonen, Elektronen und Pionen (Simulation)
+* 9.5 Verteilung von \(\left\langle-\frac{dE}{dx}\right\rangle_{i}\) fur Pionen und Protonen
+* 10.1 Geometrische Akzeptanz der FTPCs
+* 10.2 Verteilung \(1/N_{ev}d^{2}N/dydp_{T}\) aus Werten des Ereignis-Generators und nach der Rekonstruktion
+* 10.3 Inverse Korrekturfaktoren fur \(d^{2}N/dydp_{T}\)
+* 10.4 Spektren des Transversalimpulses \(p_{T}\)
+* 10.5 Spektren des Transversalimpulses \(p_{T}\) fur ein Enzelereignis
+* 10.6 Vorhersagen fur die Transversalimpulsverteilung \(1/N_{ev}\ dN/dp_{T}\)
+* 10.7 Rapiditatsverteilung fur ein Gold-Gold-Ereignis
+* 10.8 Die Verteilungen \(dN_{p-\overline{p}}/dy\) und \(dN_{(+)-(-)}/dy\) fur verschiedene Ereignis-Generatorsen
+* 10.9 \(dN_{(+)-(-)}/dy\) aus vollst andig rekonstruierten Ereignissen
+* 10.10 Wahrscheinlichkeits verteilungen fur den produzierten Anteil neutraler Pionen bei DCC-Ubergangen
+* 10.11 Transversalimpuls-Spekten geladener Pionen fur Ereignisse mit und ohne Restaurration der chiralen Symmetrie* 10.12 \(1/N_{ev}\)\(dN_{\pi^{+/-}}/dp_{T}\) fur verschiedene Pseudo-Rapiditatsbereiche (HIJING)
+* B.1 Teilchenspektren eines HIJING-Ereignisses
+* B.2 Flussdiagramm zu GSTAR/g2t
+* B.3 Detektorgeometrien in GSTAR
+* B.4 Ergebnisse der Datenbehandlung mit dem FTPC-Simulator
+
+## References
+
+* [Alb94] T. Alber et al., Nucl. Instr. Meth. **A349** (1994) 56
+* [Amb86] K. Ambrus, Dissertation, Universitat Heidelberg (1986)
+* [And87] B. Andersen et al., Nucl. Phys. **B281** (1987) 289
+* [App93] H. Appelshauser, Systematische Untersuchungen zur Rekonstruktionseffizienz und -genauigkeit einer Spurendriftkammer, GSI-93-09 (1993)
+* [Ash88] J. Asham et al., Phys. Lett. **206B** (1988) 364
+* [Bar96] J. Bartke et al., Development of a Time Projection Chamber with high two-track resolution capability for Collider Experiments, CERN LHCC-96-16 (1996)
+* [Bed92] M. E. Beddo et al., Conceptual Design Report for the Solenoidal Tracker At RHIC, BNL-5347 (1992)
+* [Bel95] R. Bellwied et al., The Measurement of Hadronic Observables with the Solenoidal Tracker At RHIC, UCRL-ID-121571 (1995)
+* [Bet32] H. A. Bethe, Zeit. Phys. **76** (1932) 293
+* [Bia89] S. F. Biagi, Nucl. Instr. Meth. **A283** (1989) 716
+* [Bit97a] X. Bittl, Diplomarbeit, Technische Universitat Munchen (1997)
+* [Bit97b] X. Bittl et al., zur Publikation bei Nucl. Instr. Meth. eingereicht
+* [Bjo93] J. D. Bjorken et al., Observing Disoriented Chiral Condensate, HEPPH-9309235 (1993)
+* [Bla86] J. P. Blaizot und L. D. McLerran, Phys. Rev. **D34** (1986) 2739
+* [Blu93] W. Blum und L. Rolandi, Particle Detection with Drift Chambers, Springer Verlag (1993)
+* [Boa90] D. Boal et al., Rev. Mod. Phys. **62/3** (1990) 552* [Bra92] F. P. Brady und J. L. Romero, STAR Note # 64
+* [Bra93] F. P. Brady und J. L. Romero, Nucl. Instr. Meth. **A333** (1993) 312
+* [Bru88] R. Brun und P. Zanarini, Program Library I202. CERN (1988)
+* [Bru86] R. Brun et al., CERN/DD/EE/84-1 (1986)
+* [Bus95] D. Buskulic et al., Nucl. Instr. Meth. **A360** (1995) 481
+* [Cer90] V. Cerny et al. Zeit. Phys. **C46** (1990) 481
+* [Cap87] A. Capella et al., Zeit. Phys. **C33** (1987) 541
+* [Cha68] G. Charpak et al., Nucl. Instr. Meth. **62** (1968) 262
+* [Cha70] G. Charpak et al., Nucl. Instr. Meth. **80** (1970) 13
+* [Dra95] J. E. Draper, Tracking Algorithm for XTPC inside Star Solenoid (1995), unveroffentlicht
+* [Dra94] J. E. Draper et al., STAR Note # 172
+* [Dra92] J. E. Draper, STAR Note # 45
+* [Eck92] V. Eckardt et al., Nucl. Instr. Meth. **A315** (1992) 33
+* [Fan79] D. L. Fancher und A. C. Schaffer, IEEE Trans. Nucl. Sci. **NS-26** (1979) 150
+* [Gas81] U. Gastaldi, Nucl. Instr. Meth. **188** (1981) 459
+* [Gav96a] S. Gavin und R. Vogt, \(J/\psi\) and \(\psi^{\prime}\) Suppression by Comovers in Pb +Pb Collisions, BNL-63439 (1996)
+* [Gav96b] S. Gavin und R. Vogt, Charmonium Suppression by Comover Scattering in Pb+Pb Collisions, LBL-37980 (1996)
+* [Gav95] S. Gavin, Nucl. Phys. **A590** (1995) 163c
+* [Gon97] W. Gong, Priv. Miteilung (1997)
+* [Gon96] M. Gonin, Nucl. Phys. **A610** (1996) 404c
+* [Got87] S. Gottlieb et al., Phys. Rev. **D35** (1987) 3972
+* [Gro93] M. Grossmann-Handschin et al., Nucl. Instr. Meth. **A327** (1993) 378* [Gyu 95] M. Gyulassy und X. Wang, HIJING 1.0: A Monte-Carlo-Program for Parton and Particle Production in High Energy Hadronic and Nuclear Collisions, LBL-34246 (1995)
+* [Gyu 94] M. Gyulassy und X. Wang, Nucl. Phys. **B420** (1994) 583
+* [Gyu 87] M. Gyulassy, ATTILA (All Type Target Independent LUND Algorithm) for Nuclear Collisions at Approximately 200-AGeV, CERN-TH 4794/87 (1987)
+* [Gyu 84] M. Gyulassy, Nucl. Phys. **A418** (1984) 59c
+* [Hag83] R. Hagedorn, Riv. Nuovo Cimento **6** (1983) 1
+* [Han 65] R. Hanbury-Brown und R. Q. Twiss, Nature **178** (1956) 1046
+* [Har96] J. W. Harris und B. Muller, The Search for the Quark Gluon Plasma, DUKE-TH-96-105 (1996)
+* [Har94] J. W. Harris et al., Nucl. Phys. **A566** (1994) 277c
+* [Har93] J. W. Harris, The STAR Experiment at the Relativistic Heavy Ion Collider, Proceedings, 2nd International Conference on Physics and Astrophysics of the Quark-Gluon-Plasma (1993), Calcutta
+* [Hil95] M. Hildebrand, Diplomarbeit, Ruprecht-Karls-Universitat Heidelberg (1995)
+* [Hu a93] H. Z. Huang et al., STAR Note # 119
+* [Hut85] J. Huth und D. Nygren, Nucl. Instr. Meth. **A241** (1985) 375
+* [Hux74] L. G. H. Huxley und R. W. Crompton, The Diffusion and Drift of Electrons in Gases, John Wiley & Sons (1974)
+* [Jac96] P. Jacobs und D. Irmscher, STAR Note #235
+* [Kai91] A. Kaidalov, Nucl. Phys. **A525** (1991) 39c
+* [Kar 88] F. Karsch, Zeit. Phys. **C37** (1988) 617
+* [Koc90] P. Koch und U. Heinz, Strangeness, Charm and Anti-Baryon Production as Probes for QGP Formation in Nuclear Collisions, TPR-90-59 (1990)
+* [Koc95] V. Koch, Introduction to Chiral Symmetry, LBNL-Report 38000 (1995)
+* [Kon95] M. Konrad, STAR Note # 214
+* [Lan 53] L. D. Landau, Izv. Akad. Nauk. SSSR Ser. Fiz. **17** (1953) 51* [Lee85] K. S. Lee et al. Phys. Rev. **C37** (1988) 1452
+* [May84] T. Mayer-Kuckuk, Kernphysik, Teubner (1984)
+* [Moc97] A. Mock, Dissertation, Technische Universitat Munchen (1997)
+* [Mc87] L. McLerran, An Introduction to Quark-Gluon Plasma and High Energy Heavy Ion Collisions, Proceedings, Hadrons, Quarks and Gluons (1987), Les Arcs
+* [Mul88] B. Muller, Strangeness and Quark-Gluon Plasma, Proceedings, Hadronic Matter in Collision (1988), Tucson
+* [Nag94] S. Nagamiya et al., Nucl. Phys. **A566** (1994) 287c
+* [Nes93] K. F. Ness, Phys. Rev. **E47** (1993) 327
+* [Nev96] P. Nevski, Advanced Geant Interface for STAR (1996), unveroffentlicht
+* [Nyg81] D. R. Nygren, Physica Scripta **23** (1981) 584
+* [Oed88] A. Oed, Nucl. Instr. Meth. **A263** (1988) 351
+* [Per87] D. H. Perkins, Introduction to High Energy Physics, Addison-Wesley (1987)
+* [Raj97] K. Rajagopal, Disorienting the Chiral Condensate at the QCD Phase Transition, CALT-68-2104 (1987)
+* [Rea88] P. J. Reardon, Nucl. Phys. **A478** (1988) 861c
+* [Rhi95] RHIC Design Manual, Brookhaven National Laboratory (1995)
+* [Sa95] Ben-Hao Sa und An Tai, Computer Phys. Comm. **90** (1995) 121
+* [Sam89] N. P. Samios, Conceptual Design of the Relativistic Heavy Ion Collider RHIC, Brookhaven National Laboratory (1989)
+* [Sat84] H. Satz, Phys. Bl. **40** (1984) 346
+* [Sau92] F. Sauli (Editor), Instrumentation in High Energy Physics, World Scientific Publishing (1992)
+* [Sau96] F. Sauli et al., Development of Microstrip Gas Chambers for Radiation Detection and Tracking at High Rates (Final Status Report), CERN/LHCC 96-18 (1996)
+* [Sch91] B. Schmidt, J. Phys. B. **24** (1991) 4809* [Sch93] H.R. Schmidt und J. Schukraft, J. Phys. G. **19** (1993) 1705
+* [Sch97] S. Schonfelder, Dissertation, Techische Universitat Munchen (1997)
+* [Shi94] J. Shiers, CERN Program Library Long Writeups Q100/Q101 (1994)
+* [Sit93] B. Sitar et al., Ionization Measurements in High Energy Physics, Springer Verlag (1993)
+* [Son94] P. Sonderegger, Ultrarelativistic Heavy Ion Physics, CERN PPE/94-21 (1994)
+* [Son97] C. Song, Excess of Pions with Chiral Symmetry Restoration, LBNL-39391 (1997)
+* [Sto95] R. Stock, Phys. Bl. **51** (1995) 512
+* [Tho95] J. Thomas und P. Jacobs, A Guide to the High Energy Heavy Ion Experiments, UCRL-ID-119181 (1995)
+* [Vid94] F. Videbaek et al., Nucl. Phys. **A566** (1994) 299c
+* [Wan91] X. Wang und M. Gyulassy, Phys. Rev. **D44** (1991) 3501
+* [Wei95] A. Weinzierl, Priv. Mitteilung (1995)
+* [Wer93] K. Werner, Phys. Rep. **232** (1993) 87
+* [Won94] C. Wong, Introduction to High-Energy Heavy-Ion Collisions, World Scientific Publishing (1994)
+* [Wys94] B. Wyslouch et al., Nucl. Phys. **A566** (1994) 305c
+* [Wys97] B. Wyslouch, Priv. Mitteilung (1997)
+
+[MISSING_PAGE_EMPTY:115]
+
+## Danksagung
+
+Wahrend meiner Zeit am Max-Planck-Institut fur Physik und der Tatigkeit in der STAR-Kollaboration habe ich von vielen Seiten Hilfe und Unterstutzung erfahren. An dieser Stelle mochte ich die Gelegenheit nutzen, um dafur Dank zu sagen.
+
+Masgeblich durch eine hervorragende Vorlesung von Herrn Prof. Dr. Schmitz uber experimentelle Elementarteilchenphysik wurde ich fur dieses Gebiet begeistert. Dafur, dass er mir spater eine Diplomarbeit und die Erstellung dieser Dissertation unter seiner Anleitung ermoglichte und mich dabei untersttutzte, mochte ich ihm herzlich danken.
+
+Fur die vielen Fragen, denen ich zunachst etwas ratlos gegenbberstand, gab es immer zwei kompetente und hilfs bereite Ansprechtpartner: Herr Dr. Eckardt und Herr Dr. Seyboth gaben mir unzahlige Tips, Hinweise und Erklarungen, um die ich immer dankbar war.
+
+Die Tucken des IT-Zeit alters habe ich nur allzu oft erfahren mussen. Die Lichter im Dunkeln hiessen meist Janet Seyboth und Wen Gong. Erst Frau Seyboth machte grose Teile der STAR-Software fur mich sinnvoll nutzbar, wofur ich irnoch heute zu danken habe. Das profunde Computer-Wissen von Herrn Dr. Gong hat so manches meiner Defizite ausgeglichen. Fur seine Unterstutzung, die vielen Diskussionen und die Zeit, die wir miteinander verbracht haben, sage ich danke, es hat viel Spass gemacht.
+
+Apropos Diskussionen: Fur die ausfuhrlichen Gesprache und die vielen hilfreichen e-mails bin ich Herrn Prof. Dr. Draper sehr dankbar. Und es soll auf keinen Fall unerwahnt bleiben, dass vieles, was sich in dieser Arbeit befindet, auf seinen Ideen und Studien aufbaut. Auch Lynn Wood, der mir die erste Einfuhrung in die STAR FTPC-Software gegeben hat, sei an dieser Stelle gedankt.
+
+In jeder Hinsicht sehr positiv war die Zusammenarbeit mit den anderen "Youngsters" in der Gruppe: In Dr. Thomas Alber, Xaver Bittl, Andreas Mock und Stefan Schonfelder hatte ich kooperative Kollegen, deren Hilfsbereitschaft ich sehr schatzen lernte.
+
+Genauso wie die Unterstutzung durch Herrn Fessler, der insbesondere durch seine guten Verbindungen zu den Werkstatten so manche Idee in die Realitat umzusteren vermochte.
+
+Daruber hinaus mochte ich mich bei der Computer-Gruppe des Max-Planck-Instituts und bei Herrn von Sengbusch in Garching fur die gute Unterstutzung im Bereich der Computer-Infrastruktur bedanken; genauso wie bei der Abteilung Technik des Instituts und der Administration, die mir verzeihen moge, wenn ich den Dienstweg nicht immer eingehalten habe.
+
+Mein Dank geht auch an alle Mitglieder der STAR-Kollaboration, die mir viel e-Ie Fragen beantwortet und Hilfen gegeben haben. Nicht zuletzt ih nen ist es zu verdanken, dass ich gerne fur dieses Projekt gearbeit habe.

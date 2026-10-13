@@ -117,7 +117,7 @@ SOURCE_CONFIGS: dict[str, dict[str, Any]] = {
     },
     "eic_knowledge_guide": {
         "source_type": "github_repo",
-        "base_url": "https://github.com/aprozo/eic",
+        "base_url": "https://eic.github.io/knowledge-guide/",
         "visibility": "public",
     },
     "epic_prod": {
@@ -253,10 +253,11 @@ class IngestionOrchestrator:
             return GitHubRepoConnector(
                 self.settings,
                 source_name="eic_knowledge_guide",
-                owner="aprozo",
-                repo="eic",
+                owner="eic",
+                repo="knowledge-guide",
                 ref="main",
                 path_prefix="docs/",
+                site_url="https://eic.github.io/knowledge-guide/",
             )
         if source_name == "epic_prod":
             return WebsiteCrawler(

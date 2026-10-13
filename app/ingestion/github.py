@@ -53,11 +53,15 @@ class GitHubRepoConnector:
         repo: str | None = None,
         ref: str | None = None,
         path_prefix: str = "",
+        site_url: str | None = None,
     ) -> None:
         """Defaults index the settings-configured docs repo; keyword overrides
         let the orchestrator point extra sources at other repos (EICrecon
         docs/, the knowledge-guide repo, ...) without new connector classes.
-        ``path_prefix`` restricts indexing to one subtree (e.g. "docs/")."""
+        ``path_prefix`` restricts indexing to one subtree (e.g. "docs/").
+        ``site_url`` is the GitHub Pages root the repo renders to; when set,
+        markdown pages cite the rendered page (Jekyll's ``.md`` -> ``.html``,
+        ``index.md`` -> directory) instead of the blob on github.com."""
         self.settings = settings
         if source_name:
             self.source_name = source_name
@@ -65,6 +69,7 @@ class GitHubRepoConnector:
         self.repo = repo or settings.GITHUB_REPO_NAME
         self.ref = ref or settings.GITHUB_REPO_REF
         self.path_prefix = path_prefix
+        self.site_url = site_url.rstrip("/") + "/" if site_url else None
         self.api_base = f"https://api.github.com/repos/{self.owner}/{self.repo}"
 
     def iter_documents(self, max_items: int | None = None) -> list[DocumentPayload]:
@@ -96,7 +101,7 @@ class GitHubRepoConnector:
                         source_type=self.source_type,
                         external_id=f"{self.owner}/{self.repo}/{self.ref}/{path}",
                         title=self._title(path, front_matter, normalized),
-                        url=f"https://github.com/{self.owner}/{self.repo}/blob/{self.ref}/{path}",
+                        url=self._page_url(path),
                         content=normalized,
                         visibility="public",
                         section_path=self._section_path(path, front_matter),
@@ -115,6 +120,16 @@ class GitHubRepoConnector:
                     )
                 )
             return documents
+
+    def _page_url(self, path: str) -> str:
+        blob = f"https://github.com/{self.owner}/{self.repo}/blob/{self.ref}/{path}"
+        if not self.site_url or PurePosixPath(path).suffix.lower() not in {".md", ".markdown"}:
+            return blob
+        stem = PurePosixPath(path).with_suffix("")
+        if stem.name == "index":
+            rel = str(stem.parent)
+            return self.site_url if rel == "." else f"{self.site_url}{rel}/"
+        return f"{self.site_url}{stem}.html"
 
     def _headers(self) -> dict[str, str]:
         headers = {

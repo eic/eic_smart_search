@@ -1,0 +1,825 @@
+[MISSING_PAGE_EMPTY:1]
+
+[MISSING_PAGE_EMPTY:3]
+
+###### Abstract
+
+The production mechanism of quarkonium is still an important topic to investigate since it evolves with both perturbative and non-perturbative processes. Moreover, quarkonium production from Color Singlet Model (CSM) and Color Octet Mechanism (COM) should result in different jet activity (the number of jets per event) due to different number of emitted hard partons, so it is worthy to perform the study associated with jets to differentiate different production mechanisms of quarkonium.
+
+In this analysis, we studied the production cross section of \(J/\psi\) via dimuon decay channel with jet activity by using the data of p+p collisions at \(\sqrt{s}\) = 200 GeV collected by the STAR experiment in 2015 and compared the results using the non-relativistic QCD (NRQCD) formalism which implemented by the PYTHIA 8 package.
+
+Keywords: STAR, quarkonium, \(J/\psi\), jet activity
+
+## Acknowledgements
+
+First of all, I would like to express my sincere appreciation to Prof. Yi Yang for giving me the opportunity to join the NCKU high energy physics group and learn how to do research of experimental particle physics even though I didn't major in physics in college years. He also encourage and give me many opportunities to give presentation in conferences, and that really helps me to improve my presentation skill. Furthermore, even though I am still a master student, he supported and let me visit the Brookhaven National Laboratory for six months to meet other physicists and take the shifts for the STAR detector. Although there was a pandemic of COVID-19 when I stayed in the U.S.A., this travel actually broaden my horizons a lot.
+
+Many thanks to Prof. Lijuan Ruan the current spokesperson and Prof. Zhangbu Xu the former spokesperson of STAR experiment for supporting and taking care of my life time in BNL during the epidemic of COVID-19. Also many thanks to Te-Chuan Huang, Yufu Lin, Yu Hu, Zhen Wang, Yang Li, Baoshan Xi, and other people that I didn't mention for helping me with the life in the U.S.A. A special thank to my friend, Krishan Gopal, that I really miss the time when we had coffee, talked and laughed together.
+
+I would like to thank Dr. Rongrong Ma for providing the detector efficiencies and related systematic uncertainties from his analysis and giving me many helpful suggestions to this analysis. Also many thanks to Prof. Zebo Tang, Dr. Sooraj Radhakrishnan, Dr. Barbara Trzeciak and many other people in the MTD group and heavy flavor PWG for lots of helpful comments and suggestions in the meetings.
+
+I also want to give many thanks to Te-Chuan Huang, Chan-Jui Feng, Zhe-Jia Zhang, and other people in the NCKU HEP group for teaching and having discussion with my codes and analysis.
+
+Finally, I want to give the biggest appreciation to my family and my girlfriend for their selfless supports.
+
+###### Contents
+
+* Abstract in Chinese
+* Abstract in English
+* Acknowledgements
+* Contents
+* List of Tables
+* List of Figures
+* 1 Introduction
+* 2 Theoretical overview
+	* 2.1 The Standard Model of Particle Physics
+	* 2.2 Quarkonium and the meson
+	* 2.3 \(J/\psi\) production associated with jet
+* 3 Experimental apparatus
+	* 3.1 Relativistic Heavy Ion Collider (RHIC)
+	* 3.2 The Solenoid Tracker At RHIC
+	* 3.3 Time Projection Chamber, TPC
+	* 3.4 Magnet System
+	* 3.5 Time-of-Flight, TOF
+	* 3.6 Muon Telescope Detector, MTD
+* 4 Analysis setup
+* 5
+
+[MISSING_PAGE_FAIL:7]
+
+5.3.3 TPC efficiencies of hadrons * 5.3.4 The additional modification of hadron \(p_{T}\) * 5.3.5 Response matrices * 5.3.6 Closure test of the response matrices * 5.3.7 The unfolded result of jet activity
+* 6 Systematic uncertainties
+	* 6.1 Signal extraction
+	* 6.2 Detector efficiencies
+	* 6.3 The iterations of unfolding
+	* 6.4 Hadron \(p_{T}\) modification for response matrices
+	* 6.5 Total uncertainties
+* 7 Results and Future works
+	* 7.1 Results and conclusions
+	* 7.2 Future works
+
+List of Tables
+
+### 4.1 A summary of vertex and track quality selections.
+
+#### 4.2 A summary of selections for muon candidates.
+
+#### 4.3 PYTHIA 8 settings for prompt and non-prompt \(J/\psi\) production.
+
+#### 5.1 A summary of jet reconstruction.
+
+#### 5.2 Selections for tagged and probed muon candidates and the reconstructed J/\(\psi\).
+
+#### 5.3 Particle and detector level \(J/\psi\) and jet of the PYTHIA data for response matrix.
+
+1 The corrected numbers of \(J/\psi\) signal and their uncertainties of different unfolded jet activity of R=0.4.
+
+2 The corrected numbers of \(J/\psi\) signal and their uncertainties of different unfolded jet activity of R=0.6.
+
+3 The sources of systematic uncertainties of corrected \(J/\psi\) yield from the detector efficiencies.
+
+#### 6.4 The systematic uncertainties from the unfolded results with 6 iterations for jet radius R=0.4.
+
+#### 6.5 The systematic uncertainties from the unfolded results with 6 iterations for jet radius R=0.6.
+
+#### 6.6 The systematic uncertainties from the modification of hadron \(p_{T}\) for jet R=0.4.
+
+#### 6.7 The systematic uncertainties from the modification of hadron \(p_{T}\) for jet R=0.6.
+A summary of statistical, total systematic and total uncertainties for jet activity with R=0.6.
+
+List of Figures
+
+### 1 A summary of fundamental particles in the SM [1].
+
+#### 2.2 A summary of the charmonium family [2].
+
+#### 2.3 A scheme of the CSM (left) and COM (right) [3].
+
+4 The differential production cross section of \(J/\psi\) as a function of \(p_{T}\) in different rapidity ranges measured by the CMS experiment and compared with next-leading order (NLO) NRQCD prediction [4].
+
+5 The polarization parameters of prompt \(J/\psi\) as function of \(p_{T}\) measured by the CMS experiment and compared with NLO NRQCD prediction [5].
+
+#### 2.6 A scheme of the hadronization process [6].
+
+7 The result of prompt \(J/\psi\) in jet as a function of \(Z(J/\psi)\) in forward rapidity studied by the LHCb collaboration [7].
+
+8 The preliminary result of inclusive \(J/\psi\) in jet as a function of \(Z(J/\psi)\) in mid-rapidity studied by the STAR collaboration [8].
+
+9 The results of the probability to have a prompt \(J/\psi\) contained in a jet as a function of jet energy in different \(Z(J/\psi)\) ranges studied by the CMS collaboration [9].
+
+#### 3.1 The structure of RHIC complex [10].
+
+#### 3.2 The structure of the STAR detector.
+
+#### 3.3 The Time Projection Chamber of STAR [11].
+
+#### 3.4 The dE/dx as a function of momentum for different particles [12].
+The 1/\(\beta\) as a function of momentum for different particle species [13].
+* 3.7 The schematics of Muon Telescope Detector [14].
+* 3.8 The schematics of the MTD trays installed on the backlegs of magnet system [14].
+* 4.1 Invariant mass spectrum of dimuon pairs with MTD acceptance and MTD hit selections on the muon candidates, fitted by a Gaussian and a second order polynomial.
+* 4.2 \(\Delta y\times q\) distribution in different muon \(p_{T}\) ranges.
+* 4.3 The resolution of \(\Delta y\times q\) (left) and \(\Delta z\) (right) as function of muon \(p_{T}\).
+* 4.4 \(\Delta z\) distribution in different muon \(p_{T}\) ranges.
+* 4.5 Signal, background distributions and corresponding probability density functions of five variables.
+* 4.6 Normalized distribution of likelihood ratio \(R\).
+* 4.7 \(\varepsilon_{S}\times(1-\varepsilon_{B})\) as a function of different \(R\) cut (left) and \(\varepsilon_{S}\) versus \((1-\varepsilon_{B})\) (right)
+* 4.8 Invariant mass spectrum of dimuon pairs after applying all selections for muon candidates, fitted by a Gaussian and a second order polynomial.
+* 5.1 The procedures of extracting \(J/\psi\) signals in different number of jet events.
+* 5.2 The VPD efficiency in dimuon trigger events times vertex finding efficiency as a function of \(p_{T}^{J/\psi}\).
+* 5.3 The TPC efficiency as a function of \(p_{T}^{\mu}\).
+* 5.4 The correction factor for the additional TPC inefficiency due to the broken sector 20.
+
+The TPC efficiency as function of \(\eta^{\mu}\) and \(\phi^{\mu}\).
+* 5.6 The MTD matching efficiency as a function of \(p_{T}^{\mu}\).
+* 5.7 The constant fitting function of MTD trigger electronic efficiency and trigger time window cut efficiency. Both of them are calculated as a function of \(p_{T}^{\mu}\).
+* 5.8 The fitting result of the the total efficiency of bottom modules.
+
+[MISSING_PAGE_POST]
+
+* 5.25 MTD response efficiencies of modules on backleg 18.
+* 5.26 MTD response efficiencies of modules on backleg 19.
+* 5.27 MTD response efficiencies of modules on backleg 20.
+* 5.28 MTD response efficiencies of modules on backleg 21.
+* 5.29 MTD response efficiencies of modules on backleg 22.
+* 5.30 MTD response efficiencies of modules on backleg 24.
+* 5.31 MTD response efficiencies of modules on backleg 25.
+* 5.32 MTD response efficiencies of modules on backleg 26.
+* 5.33 MTD response efficiencies of modules on backleg 27.
+* 5.34 MTD response efficiencies of modules on backleg 28.
+* 5.35 MTD response efficiencies of modules on backleg 29.
+* 5.36 MTD response efficiencies of modules on backleg 30.
+* 5.37 Cartoon image of tagged and probed \(\mu\) candidates of a \(J/\psi\) candidate for tag-and-probe method.
+* 5.38 Fitting result of \(N_{J/\psi}^{with\,LRcut}\) and \(N_{J/\psi}^{without\,LRcut}\) for \(\varepsilon_{\mu\,ID}\).
+* 5.39 The muon identification efficiency as a function of \(p_{T}^{\mu}\).
+* 5.40 The \(J/\psi\) kinematic acceptance as function of \(p_{T}^{J/\psi}\) and \(|y^{J/\psi}|\).
+* 5.41 MTD geometry acceptance as function of \(p_{T}^{\mu}\), \(\eta^{\mu}\) and \(\phi^{\mu}\).
+* 5.42 Closure test of MTD matching efficiency.
+* 5.43 Closure test of \(J/\psi\) kinematic acceptance.
+* 5.44 Closure test of MTD geometry acceptance.
+
+5.45 Signal extraction of corrected \(N_{J/\psi}\) by fitting with Gaussian\(+\)Polynomial functions. The upper and lower rows show the results for jet R=0.4 and 0.6, respectively.
+5.46 Signal extraction of corrected \(N_{J/\psi}\) by fitting with Gaussian function\(+\)SS templates. The upper and lower rows show the results for jet R=0.4 and 0.6, respectively.
+5.47 Signal extraction of corrected \(N_{J/\psi}\) by fitting with double Gaussian\(+\)Polynomial functions. The upper and lower rows show the results for jet R=0.4 and 0.6, respectively.
+5.48 Signal extraction of corrected \(N_{J/\psi}\) by fitting with double Gaussian function\(+\)SS templates. The upper and lower rows show the results for jet R=0.4 and 0.6, and 0.6, respectively.
+5.49 Corrected \(N_{J/\psi}\) as a function of raw jet activity from different fitting results (left). Their average distributions (right) are used as default result. The upper and lower rows show the results for jet R=0.4 and 0.6, respectively.
+5.50 \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 0.1 to 0.5 GeV/c with a 0.1 GeV/c step.
+5.51 \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 0.5 to 1.0 GeV/c with a 0.1 GeV/c step.
+5.52 \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 1.0 to 1.5 GeV/c with a 0.1 GeV/c step.
+5.53 \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 1.5 to 2.0 GeV/c with a 0.1 GeV/c step.
+5.54 \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 2.0 to 2.5 GeV/c with a 0.1 GeV/c step.
+5.556 \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 2.0 to 2.5 GeV/c with a 0.1 GeV/c step.
+5.575.55\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 2.5 to 3.0 GeV/c with a 0.1 GeV/c step.
+5.56\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 3.0 to 3.5 GeV/c with a 0.1 GeV/c step.
+5.57\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 3.5 to 4.0 GeV/c with a 0.1 GeV/c step.
+5.58\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 4.0 to 4.5 GeV/c with a 0.1 GeV/c step.
+5.59\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 4.5 to 5.0 GeV/c with a 0.1 GeV/c step.
+5.60\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 5.0 to 5.5 GeV/c with a 0.1 GeV/c step.
+5.61\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 5.5 to 6.0 GeV/c with a 0.1 GeV/c step.
+5.62\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 6.0 to 6.5 GeV/c with a 0.1 GeV/c step.
+5.63\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 6.5 to 7.0 GeV/c with a 0.1 GeV/c step.
+5.64\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 7.0 to 7.5 GeV/c with a 0.1 GeV/c step.
+5.65\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 7.5 to 8.0 GeV/c with a 0.1 GeV/c step.
+5.66\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 8.0 to 8.5 GeV/c with a 0.1 GeV/c step.
+
+* 5.67\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 8.5 to 9.0 GeV/c with a 0.1 GeV/c step.
+* 5.68\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 9.0 to 9.5 GeV/c with a 0.1 GeV/c step.
+* 5.69\((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 9.5 to 10.0 GeV/c with a 0.1 GeV/c step.
+* 5.70 The additional shifting parameter of muons in the PYTHIA sample as a function of the mean value of \(J/\psi\) mass distribution (left) and the smearing parameter as a function of fitting \(\chi^{2}/NDF\) (right).
+* 5.71 Comparison of the \(J/\psi\) mass shapes in the PYTHIA sample before and after applying this additional smearing with that in real data.
+* 5.72 Comparisons of the \(J/\psi\) mass shapes in the PYTHIA sample with that in real data in different \(p_{T}\) ranges.
+* 5.73 Upper row shows the TPC tracking efficiencies of pion, kaon and proton (from left to right) and lower row shows the efficiencies of their corresponding antiparticles.
+* 5.74 The fitting \(\chi^{2}/NDF\) as a function of shifting parameters. The best shift parameters are 10% and 9% for jet R=0.4 (left) and R=0.6 (right), respectively.
+* 5.75 The response matrices built by using the jets with R=0.4 (left) and R=0.6 (right) in the PYTHIA sample. Note that the missing events are not shown here.
+* 5.76 The closure test for the response matrix built by using the jets with R=0.4 and iterations from one to six. The left plot shows the unfolded result, compared with particle level (truth) and detector level (measured) distributions. The right plot is the ratio of the unfolded distributions to the truth distribution, which consistent with one for different iterations.
+
+5.77 The closure test for the response matrix built by using the jets with R=0.6 and iterations from one to six. The left plot shows the unfolded result, compared with particle level (truth) and detector level (measured) distributions. The right plot is the ratio of the unfolded distributions to the truth distribution, which consistent with one for different iterations.
+5.78 The red stars show the unfolded jet activity for jet R=0.4 (left) and R=0.6 (right), compared with the raw jet activity which are denoted by black open circles.
+6.1 The unfolded results of jet activity with R=0.4 extracted by different signal and background model (left) and systematic uncertainties of signal extrction as a function of jet activity.
+6.2 The unfolded results of jet activity with R=0.6 extracted by different signal and background model (left) and systematic uncertainties of signal extrction as a function of jet activity.
+6.3 The corrected \(J/\psi\) yields adjusted by the systematic uncertainties from detector efficiencies as a function of raw jet activity with R=0.4. From left to right are the distributions adjusted by VPD and vtx. finding efficiency, TPC tracking efficiency, MTD matching efficiency and MTD trigger efficiency.
+6.4 The unfolded results of jet activity with R=0.4 that adjusted by, from left to right, the systematic uncertainties of VPD and vtx. finding efficiency, TPC tracking efficiency, MTD matching efficiency and MTD trigger efficiency.
+6.5 The corrected \(J/\psi\) yields adjusted by the systematic uncertainties from detector efficiencies as a function of raw jet activity with R=0.6. From left to right are the distributions adjusted by VPD and vtx. finding efficiency, TPC tracking efficiency, MTD matching efficiency and MTD trigger efficiency.
+6.6 The corrected \(J/\psi\) yields adjusted by the systematic uncertainties from detector efficiencies as a function of raw jet activity with R=0.6. From left to right are the distributions adjusted by VPD and vtx. finding efficiency, TPC tracking efficiency, MTD matching efficiency and MTD trigger efficiency.
+6.7The unfolded results of jet activity with R=0.6 that adjusted by, from left to right, the systematic uncertainties of VPD and vtx. finding efficiency, TPC tracking efficiency, MTD matching efficiency and MTD trigger efficiency.
+* 6.7 The systematic uncertainties from different sources of efficiencies. For both jet radii, these uncertainties are just the same as their sources.
+* 6.8 The left diagram shows the unfolded results of jet activity with R=0.4 from 4 (default) and 6 iterations. Their ratio to default result are shown in the right-hand-side plot, in which the red points denotes the division of 6 iterations and is taken as the systematic uncertainty.
+* 6.9 The left diagram shows the unfolded results of jet activity with R=0.6 from 4 (default) and 6 iterations. Their ratio to default result are shown in the right-hand-side plot, in which the red points denotes the division of 6 iterations and is taken as the systematic uncertainty.
+* 6.10 Different response matrices built with different shiftng of hadron \(p_{T}\) in the PYTHIA data for jet R=0.4.
+* 6.11 The left diagram shows the unfolded results of jet activity with R=0.4 by using the response matrices with different hadron \(p_{T}\) shifting. Their division to default result are shown in the right-hand-side plot.
+* 6.12 Different response matrices built with different shiftng of hadron \(p_{T}\) in the PYTHIA data for jet R=0.6.
+* 6.13 The left diagram shows the unfolded results of jet activity with R=0.6 by using the response matrices with different hadron \(p_{T}\) shifting. Their division to default result are shown in the right-hand-side plot.
+* 6.14 The total uncertainty, statistical uncertainty and all sources of systematic uncertainties for jet R=0.4 (left) and R=0.6 (right).
+
+The production cross section of \(J/\psi\) as a function of jet activity with jet R=0.4 (left) and R=0.6 (right). The red stars denoted the results from this analysis, and its statistical uncertainties are denote as the error bars, and the boxes are the systematic uncertainties. The blue histograms are the NRQCD predictions implemented by PYTHIA 8 [15].
+* 7.2 A comparison of \(J/\psi\) cross section as function of jet activity with different jet radii.
+* 7.3 The distributions of the angular of the lepton in the rest frame of its parent quarkonium [16].
+
+## Chapter 1 Introduction
+
+Although physicists have worked on physics of elementary particles for many decades and the Standard Model of particle physics (SM) seems to be a successful theory to describe fundamental interactions and particles. There are still many questions that cannot be answered by SM. For example, why is the number of antimatter much less than the number of matter in nature? What are dark matter and dark energy? Are there more than three generations of quarks and leptons? To answer these questions, we need many physicists to keep working on this exciting and challenging field.
+
+One of these mysteries is the production of quarkonium in hadron-hadron collisions. A quarkonium such as \(J/\psi\) is predicted to be produced transversely polarized which is not observed in experimental data [17]. This indicates that the detailed parton dynamics responsible for the production of heavy quark bound states is yet to be fully understood. To investigate the production mechanism of \(J/\psi\) in hadron-hadron collisions, some physicists are focusing on the relation between \(J/\psi\) and jet, which is a set of hadrons produced by hadronization of quarks and gluons in high energy experiment.
+
+In this study, we use the data collected by the Solenoid Tracker at RHIC (STAR) experiment, which is one of high energy nuclear experiments at the Relativistic Heavy Ion Collider (RHIC), to investigate the production cross section of \(J/\psi\) as a function of jet activity. The jet activity is definded as the number of jets in an events. In the following chapters, the theoretical review will be presented first in Chapter 2, then the STAR detector and its subsystems that used in this study will be introduced in Chapter 3. In Chapter 4, the data sets for this study will be shown, then the details of this analysis will be presented in Chapter 5. The systematic uncertainties and the final result with conclusions will be shown in Chapter 6 and Chapter 7, respectivi
+
+## Chapter 2 Theoretical overview
+
+### 2.1 The Standard Model of Particle Physics
+
+Physicists have investigated the building blocks of our universe over the past few decades. Nowadays the Standard Model of particle physics (SM) is the most succesful theory that discribes the fundamental interactions and particles which make up our world. Basicly, there are two types of fundamental particles, bosons and fermions.
+
+Bosons are those particles with integer spin, following Bose-Einstein statictics, and responsible for exchanging basic interactions. In the SM, currently we have found five different kinds of bosons: photons are the mediator of the electromagnetic force between charged particles; \(W^{\pm}\) and \(Z^{0}\) bosons carry the weak interaction and dominate in the radioactive decay of atoms; gluons carry the strong interaction and "glue" protons and neutrons together to form the atomic neuclei. These kinds of bosons mentioned above are spin-1 particles and are called "gauge bosons" because they can be described by the gauge theory, in which the electromagnetic, weak and strong interaction are invariant under \(U(1)\), \(SU(2)\), and \(SU(3)\) gauge transformation. The other boson is the Higgs boson, which is a spin-0 particle and gives particles their mass by the Higgs mechanism.
+
+Fermions are the particles with half-integer spin. They follow Fermi-Dirac statistics and comprise matters in our universe. There are two categories of fermions, quarks and leptons, and each category has three generations. Quarks have a property called "color charge" and this is the reason that they can interact with gluons and experience the strong interaction. Because of a phenomenon called color confinement, which demonstrate that color-charged particles, such as quarks and gluons, cannot be isolated, and only colorless particles can be observed. On the other hand, leptons lack color charges, so they do not experience the strong interaction. There are three kinds of charged leptons, such as electron, muon, and tau, which can interact with charged particles through the electromagnetic force. Their corresponding neutral leptons, called neutrinos, interact with material very rarely since they only experience the weak interaction. A summary of these elementary particles in the SM is shown in
+
+### 2.2 Quarkonium and the \(J/\psi\) meson
+
+A quarkonium is a meson that consist of a quark and its antiquark. As a result, a quarkonium must be flavorless and neutral-charged. A quarkonium that made up of a charm and an anticharm quark is called a charmonium, and Fig 2.2 shows its family particles [2]. One of the most famous charmonia is the \(J/\psi\) meson, which has a mass of 3.096 \(GeV/c^{2}\) and was discovered in 1974 by Professor Samuel C. C. Ting by the Alternating Gradient Synchrotron (AGS) at Brookhaven National Laboratory (BNL) [18] and Professor Burton Richter by the Stanford Positron Electron Accelerating Ring (SPEAR) at Standford Linear Accelerator Center (SLAC) [19]. This important discovery led to the Nobel Prize of its discoverers since it was the first time that scientists evidenced the existence of charm quark.
+
+Currently, there are many popular models to discribe the production of final state quarkonium, for example, Color Singlet Model (CSM) [20] discribes the production of the final state with the same quantum number as initial state as shown in Fig. 2.3; Color Octet Mechanism (COM) [21] demonstrates that a final state quarkonium can be evolved through the radiation of soft gluons as shown in Fig. 2.3; Improved Color Evaporation Model (ICEM) [22] is similar to COM and can provide the polarization information. However, we still don't fully understand the production mechanism of \(J/\psi\), for example, the non-relativistic Quantum Chromodynamics (NRQCD) formalism can discribe the exp
+
+Figure 2.1: A summary of fundamental particles in the SM [1].
+
+duction cross section of \(J/\psi\) in different kinematic ranges as shown in Fig. 2.4[4], however it also predicts a large polarization of \(J/\psi\) which was not observed in experiments as shown in Fig. 2.5[5]. This indicates that further studies are needed for more constraints of theories to discribe the \(J/\psi\) production mechanism.
+
+### 2.3 \(J/\psi\) production associated with jet
+
+When high energy particles carrying color charges, such as quarks and gluons, produced in high energy collisions, they are not allowed to be exist individually because of the color confinement in QCD. As a result, they will undergo a process called "hadronization", in which quark and antiquarks are created from the energy of their color field and finally combined into colorless hadrons. This process is shown in Fig. 2.6[6]. These sprays of hadrons will travel together as almost the same direction of the original quarks or gluons and form a
+
+Figure 2.3: A scheme of the CSM (left) and COM (right) [3].
+
+Figure 2.2: A summary of the charmonium family [2].
+
+very common object in high energy collisions, called "jets". Therefore, physicists can measure these jets to have a understanding of the properties such as spin of their original quarks and gluons.
+
+Furthermore, we can also use jets to investigate the production mechanism of quarkonia in high energy collisions, for example, the LHCb collaboration published a study of \(J/\psi\) in jet in the forward region (\(2.5\leqslant\eta^{J/\psi}<\)4) in proton-proton collisions at a center-of-mass energy of 13 TeV. The observable they used is the fragmentation function, \(Z(J/\psi)\equiv p_{T}(J/\psi)/p_{T}(jet)\), to see if \(J/\psi\) mesons are produced isolated. Their result for prompt \(J/\psi\)[7] is shown in Fig. 2.7 and compared with leading-order NRQCD as implemented in PYTHIA 8. Recently, there is also a preliminary result of the same study from the STAR collaboration by using the inclusive \(J/\psi\) in mid-rapidity (\(|\eta^{J/\psi}|<1\)) at a center-of-mass energy of 500 GeV in p+p collisions and compared with PYTHIA 8 prediction as shown in Fig. 2.8[8]. Both of their results show very different distribution compared with theoritical predictions. The CMS collaboration also published a similar result for a more detailed study of \(J/\psi\) contained in jets in 2020 [9]. They measured the differential distributions of the probability to have a prompt \(J/\psi\) contained in a jet as a function of jet energy in different
+
+Figure 2.4: The differential production cross section of \(J/\psi\) as a function of \(p_{T}\) in different rapidity ranges measured by the CMS experiment and compared with next-leading order (NLO) NRQCD prediction [4].
+
+Figure 2.5: The polarization parameters of prompt \(J/\psi\) as function of \(p_{T}\) measured by the CMS experiment and compared with NLO NRQCD prediction [5].
+
+Z ranges. Their results are consistent with NRQCD treatment of fragmentation jet function (FJF) approch as shown in Fig. 2.9, therefore revealed a new way to test predictions for the production of prompt \(J\psi\). The results mentioned above imply that there are still benefits of studying \(J/\psi\) associated with jet production for a better understanding of \(J/\psi\) and quarkonia production.
+
+Additionally, since the leading-\(p_{T}\) contributions to direct \(J/\psi\) and \(\upsilon\) production in the CSM are associated with the emission of 3 hard partons, the jet multiplicity should be larger for the contributions from CSM than from COM [23]. We can look at the jet multiplicity associated with quarkonium production as a new variable to distinguish different production mechanism of quarkonium.
+
+Figure 2.7: The result of prompt \(J/\psi\) in jet as a function of \(Z(J/\psi)\) in forward rapidity studied by the LHCb collaboration [7].
+
+Figure 2.6: A scheme of the hadronization process [6].
+
+Figure 2.8: The preliminary result of inclusive \(J/\psi\) in jet as a function of \(Z(J/\psi)\) in mid-rapidity studied by the STAR collaboration [8].
+
+Figure 2.9: The results of the probability to have a prompt \(J/\psi\) contained in a jet as a function of jet energy in different \(Z(J/\psi)\) ranges studied by the CMS collaboration [9].
+
+## Chapter 3 Experimental apparatus
+
+### 3.1 Relativistic Heavy Ion Collider (RHIC)
+
+Relativistic Heavy Ion Collider (RHIC), located at Brookhaven National Laboratory (BNL) in New York, is one of important particle colliders in the world. RHIC is able to accelerate and collide particles with the highest center-of-mass energy of 200 GeV for heavy ions and 510 GeV for protons. It is also the only one that is capable to collide spin-polarized protons.
+
+The stucture of RHIC complex is shown in Fig. 3.1[10], which contains several subsystems for various function. The linear accelerator (LINAC) and Electron Beam Ion Source (EBIS) are the sources of protons and various kinds of ions, respectively. Those particle beams will be injected and accelerated in the Booster Synchrotron and Alternating Gradient Synchrotron (AGS), then transfered into RHIC through AGS-to-RHIC (AtR). At the end of AtR, a switching magnet is responsible for sending them into clockwise and center-clockwise RHIC rings, in witch two beams will be collided at six intersection regions (IR).
+
+### 3.2 The Solenoid Tracker At RHIC
+
+The Solenoid Tracker at RHIC (STAR) is one of the major particle detectors for high energy physics at RHIC. It has a coverage with full azimuthal angle (0 \(<\phi<2\pi\)) and in middle pseudorapidity (\(\eta\)), -1 \(<\eta<\) 1, where \(\eta\) is definded as \(\eta=-\ ln\ [tan(\frac{\theta}{2})]\) and \(\theta\) is the angle with respect to particle beam line.
+
+The STAR detector contains various subsystems, including Vertex Position Detector (VPD), Time Projection Chamber (TPC), Time of Flight (ToF), Barrel Electromagnetic Calorimeter (BEMC), magnets system, Muon Telescope Detector (MTD), Event Plane Detector (EPD) and so on. The structure of the STAR detector is shown in Fig. 3.2.
+
+Figure 3.1: The structure of RHIC complex [10].
+
+Figure 3.2: The structure of the STAR detector.
+
+### 3.3 Time Projection Chamber, TPC
+
+TPC is a cylindrical tracking system at the heart of STAR, filled with the P10 gas which is composed of 10% methane and 90% argon to measure the trajectories and momenta of charged particles. Fig. 3.3 shows the structure of TPC. The length and outer diameter of TPC are 4.2 m and 4 m, respectivily, equivalent to an acceptance of full azimuthal angle (0 \(<\phi\)\(<2\pi\)) and middle pseudorapidity (-1 \(<\eta<\) 1) [11]. TPC also provides us another important information: the ionization energy losses of charged particles (dE/dx), which can be used to identify different charged particle species. Fig. 3.4 shows the energy loss as a function of momentum for different particles, compared with the Bichsel model predictions [12]. The particle identification by using dE/dx works very well in the low momentum region. However, due to less mass dependence of the dE/dx at high momentum, it is hard to seperate particles with velocities larger than 70% of the speed of light [11].
+
+Figure 3.3: The Time Projection Chamber of STAR [11].
+
+### 3.4 Magnet System
+
+The magnet system of STAR is cylindrical in geometry with a length of 6.85 m, an inner diameter of 5.27 m, and an outer diameter of 7.32 m. It is built to provide a uniform magnetic field in the range of 0.25 to 0.5 Tesla parallel to the beamline to bend the trajectories of charged particles. This provides us the capability to measure the momenta of particles with TPC. Furthermore, trajectories of particles with different charge will be bent in different directions, so the magnet system also help us to distinguish particles with different charges [24].
+
+### 3.5 Time-of-Flight, TOF
+
+The TOF system is based on the Multi-gap Resistive Plate Chamber (MRPC) technology with an acceptance of full azimuthal angle (\(0<\phi<2\pi\)) and middle pseudorapidity (-1 \(<\eta<\) 1). It consists of 3840 MRPC modules, in which 95% F134a (\(CH_{2}FCF_{3}\)) and 5% isobutane \((HC(CH_{3})_{3})\) are used as the working electronegative gas. Figure 3.5 shows the long-side view of a MRPC module of TOF [13].
+
+Figure 3.4: The dE/dx as a function of momentum for different particles [12].
+
+Combining with the path length of trajectories measured by TPC and the start time from VPD, TOF can provide us the velocities of charged particles, which can be used to calculate \(1/\beta\) as another variable for particle identification. The \(1/\beta\) is definded as \(\sqrt{(\frac{mc}{P})^{2}+1}\), where \(m\) is the mass of particle, \(P\) is the momentum, and \(c\) is the speed of light. Figure 3.6 shows the particle identification with \(1/\beta\). It is clear that different particle species are well seperated for momenta up to 3 GeV/c [13].
+
+### 3.6 Muon Telescope Detector, MTD
+
+MTD was fully installed in 2014 with the purpose of muon identification and triggering the events. It has a coverage of 45% in the azimuthal (\(\phi\)) direction due to the gaps and middle pseudorapidity (-0.5 \(<\eta<\) 0.5) as shown in Fig. 3.7. Same as the TOF system, the MRPC technology is used with long readout strips (long-MRPC) for the 150 MTD modules, and the cutregas is the mixture of 95% F134a (\(CH_{2}FCF_{3}\)) and 5% isobutane \((HC(CH_{3})_{3})\). These modules are installed on the 30 backlegs of magnet system with 5 modules on each backleg as shown in Fig. 3.8. The role of the magnet backlegs is to absorb background hadrons for increasing the purity of muons [14].
+
+Figure 3.5: Long-side view of a MRPC module of TOF [13].
+
+Figure 3.7: The schematics of Muon Telescope Detector [14].
+
+Figure 3.6: The \(1/\beta\) as a function of momentum for different particle species [13].
+
+Figure 3.8: The schematics of the MTD trays installed on the backlegs of magnet system [14].
+
+## Chapter 4 Analysis setup
+
+In this analysis, we used the proton-proton collisions at 200 GeV data collected in 2015 by STAR. To study \(J/\psi\) with dimuon decay channel, we use those events fired dimuon trigger, which required at least 2 hits on the MTD modules in each event. Furthermore, due to some issues of the detector, there are some bad runs or events with unreasonable data that must be removed first to have a good quality of data for our analysis. This data quality assurance (QA) for bad run rejection have been studied by the BNL group for Run 15 data [25]. After this bad run rejection, there are about 241 million dimuon triggered events with the corresponding integrated luminosity \(L_{int}=\) 122.1 pb\({}^{-1}\).
+
+### 4.1 Vertex and track quality selections
+
+In this analysis, we required two selections on vertex for the z position of primary vertex measured by TPC (TPC \(V_{z}\)). The first one is the absolute value of TPC \(V_{z}\) should be less than 100 centimeters. Another one is that the distance between TPC \(V_{z}\) and the z position of vertex measured by the vertex position detector (VPD\(V_{z}\)) should be less than 6 centimeters to reduce in-bunch pileups. In terms of tracks, we used those matched to the primary vertices, so called primary tracks, with their transverse momenta (\(p_{T}\)) no less than 0.2 GeV/c and pseudorapidity (\(\eta\)) between -1 and 1 due to the acceptance of TPC. To ensure good quality of these tracks, we required further selections: each track should be reconstructed by at least 15 TPC clusters to have a good resolution of momentum measurement; to have good resolution of dE/dx measurement, the number of TPC clusters for determination of the energy lose of each track should be larger than 10; the ratio of TPC clusters for reconstructing each track to that of maximum value should be no less than 0.52 to reject split tracks. We also apply selections on the distance of the closest approch (DCA) to the primary vertex. This DCA of each track should be less than 1.5 centimeter further rejection of tracks from pileups. These selection criteria mentioned above are summarized in Table 4.1.
+
+### 4.2 Muon candidates
+
+In order to reconstruct \(J/\psi\) via dimuon decay channel, we need to apply further selections on the tracks; otherwise, there is no any clear signal of \(J/\psi\) due to the large background from hadrons. Because the MTD is responsible for our muon identification, muon candidates are required to have \(p_{T}\geq\) 1.3 GeV/c and \(|\eta|<\) 0.5 due to the acceptance of MTD. Furthermore, each of these tracks could be matched to at least one hit on the MTD module. Because \(J/\psi\) are neutral particles, we pair two muon candidates with opposite charge sign for \(J/\psi\) reconstruction. The reconstructed invariant mass spectrum of dimuon pair is shown in Fig. 4.1. We fit this mass distribution by a Gaussian as signal function and a second order polynomial as background function. A clear signal of 6517 \(J/\psi\) can be seen with a signal to backfround ratio of 63.74.
+
+#### Likelihood ratio method
+
+In order to increase the significance of \(J/\psi\) and reduce the uncertainties of fitting for signal extraction, we use the likelihood ratio method as an advanced selection for muon candidates. This method has been used in several \(J/\psi\rightarrow\mu^{+}\mu^{-}\) analyses in STAR [25][26][27]. In this method, we use five variables measured by TPC and MTD, which are defined as fol
+
+\begin{table}
+\begin{tabular}{c} \hline \hline \(|\)TPC \(V_{z}|<\) 100 cm \\ \(|\)TPC \(V_{z}\)\(-\)VPD \(V_{z}|<\) 6 cm \\ Primary tracks \\ \(p_{T}\geq\) 0.2 GeV/c \\ \(|\eta|<\) 1 \\ NHitsFit \(\geq\) 15 \\ NHitsDedx \(\geq\) 10 \\ NHitsFit/NHitsMax \(\geq\) 0.52 \\ DCA \(<\) 1.5 cm \\ \hline \hline \end{tabular}
+\end{table}
+Table 4.1: A summary of vertex and track quality selections.
+
+lowing:
+
+* \(\Delta y\times q/\sigma_{\Delta y\times q}\): \(\Delta y\times q\): is the distance perpendicular to the \(z\) axis (beam axis) between extrapolated position and the hit on MTD of a track and multiplied by its charge \(q\) to eliminated the charge dependence. Because of the large \(p_{T}\) dependence as shown in Fig. 4.2, we fit these distributions with Gaussian function to evaluate the resolution \(\sigma_{\Delta y\times q}\) as a function of track \(p_{T}\), which is shown in Fig. 4.3. To remove such \(p_{T}\) dependence, the \(\Delta y\times q\) of each track is divided by the corresponding \(p_{T}\) resolution.
+
+\(\bullet\)\(\Delta z/\sigma_{\Delta z}\): \(\Delta z\) is the distance in the \(z\) direction between extrapolated position and the hit on MTD of a track. The resolution \(\sigma_{\Delta z}\) as a function of track \(p_{T}\) as shown in Fig. 4.3 is evaluated by fitting the \(\Delta z\) distributions in different \(p_{T}\) ranges with Gaussian functions as shown in Fig 4.4. Then, the \(\Delta z\) of each track is divided by the corresponding \(p_{T}\) resolution to remove the large \(p_{T}\) dependence.
+
+\(\bullet\)\(\Delta ToF\): the differences between the time-of-flight measured by ToF and MTD.
+
+\(\bullet\)\(n\sigma_{\pi}\): the normalized differences between experimental and theoretical value of energy loss (dE/dx) of pion as defined in Eq. 4.1, in which the denominator represents the resolution of dE/dx from experimental measurement.
+
+Figure 4.1: Invariant mass spectrum of dimuon pairs with MTD acceptance and MTD hit selections on the muon candidates, fitted by a Gaussian and a second order polynomial.
+
+\(\bullet\) DCA: the distance of the closest approch (DCA) is the smallest distance of a track to the primary vertex.
+
+\[n\sigma_{\pi}=\frac{\text{log}(\frac{dE}{dx})_{measured}^{\pi}-\text{log}(\frac{ dE}{dx})_{theortical}^{\pi}}{\sigma\,\text{log}(\frac{dE}{dx})_{measured}^{\pi}} \tag{4.1}\]
+
+Figure 4.2: \(\Delta y\times q\) distribution in different muon \(p_{T}\) ranges.
+
+[MISSING_PAGE_FAIL:40]
+
+Figure 4.4: \(\Delta z\) distribution in different muon \(p_{T}\) ranges.
+
+Figure 4.5: Signal, background distributions and corresponding probability density functions of five variables.
+
+Figure 4.6: Normalized distribution of likelihood ratio \(R\).
+
+\begin{table}
+\begin{tabular}{c} \hline \hline \(p_{T}\geq\) 1.3 GeV/c \\ \(|\eta|<0.5\) \\ match to MTD hit \\ \(R>0.17\) from Likelihood Ratio Method \\ \hline \hline \end{tabular}
+\end{table}
+Table 4.2: A summary of selections for muon candidates.
+
+### 4.3 Official STAR simulated MC sample
+
+The STAR simulated MC samples of (1) \(\mu^{+}\) and \(\mu^{-}\) from \(J/\psi\) parents and (2) hadrons (\(\pi^{+}\), \(K^{+}\), proton, and their antiparticles) are used to calculate the detector efficiencies and acceptances. These particles, after generating by the single particle generator, are passed through full GEANT 3 [28] simulation of the STAR detector to obtain amounts of simulated signals. In order to mimic the reality, these signals are embedded into real events to have reasonable background distributions, and then they are reconstructed as simulated tracks by the same processes as we use for real data.
+
+### 4.4 PYTHIA sample
+
+We generate MC samples by using PYTHIA 8 event generator [15] for two purposes: (1) in order to have a comparison with our final results, a PYTHIA sample of 3M events, which include hadrons (\(\pi^{+}\), \(K^{+}\), proton, and their antiparticles) and \(\mu^{+}\) and \(\mu^{-}\) from the decay of their \(J/\psi\) parents in each event, is generated in proton-proton collisions at 200 GeV by using the STAR Heavy Flavor tune [29], which is a set of parameters that are optimized to produce
+
+Figure 4.8: Invariant mass spectrum of dimuon pairs after applying all selections for muon candidates, fitted by a Gaussian and a second order polynomial.
+
+what we measured at RHIC with PYTHIA 8 generator; (2) to build the response matrices for the removement of the detector effects on jets, a PYTHIA sample of 10M events with the same particle sets as the previous one is generated in proton-proton collisions at 200 GeV by using the STAR Heavy Flavor tune with a different setting for prompt \(J/\psi\) production. A summary of PYTHIA 8 settings for the \(J/\psi\) production is shown in 4.3.
+
+\begin{table}
+\begin{tabular}{|c|c|c|} \hline Process for prompt & Hard QCD \(c\overline{c}\) & 3S1, 3PJ, and 3DJ charmonium states \\ \(J/\psi\to\mu^{+}\mu^{-}\) production & via the COM and CSM \\ \hline Process for non-prompt & & Hard QCD \(b\overline{b}\) \\ \(J/\psi\to\mu^{+}\mu^{-}\) production & & \\ \hline Number of events & 3M & 10M \\ \hline Purpose & Comparison with & Construction of \\  & theoretical prediction & response matrices \\ \hline \end{tabular}
+\end{table}
+Table 4.3: PYTHIA 8 settings for prompt and non-prompt \(J/\psi\) production.
+
+## Chapter 5 \(J/\psi\) production cross section as a function of jet activity
+
+### 5.1 Jet reconstruction and \(J/\psi\) signal extraction
+
+The first step to achieve our goal is to extract the number of \(J/\psi\) in different jet activity, which defined as the number of jet in each event. With the aim of doing this, we have to reconstruct a set of jet for each dimuon pair. The jet reconstruction is implemented by FastJet library [30] and anti-\(k_{T}\) algorithm [31], which is commonly used for jet finding in experiments at RHIC and LHC. In the anti-\(k_{T}\) algorithm, two variables, \(d_{ij}\) and \(d_{iB}\), are responsible for jet reconstruction and defined in Eq. 5.1 and Eq. 5.2, respectively.
+
+(5.1)
+
+(5.2)
+
+where \(min(p_{T,i}^{-2},p_{T,j}^{-2})\) is the inverse square of the highest transverse momentum of particle \(i\) in the list of particles that used in jet finding; \(\Delta R_{ij}=\sqrt{\Delta\eta_{ij}^{2}+\Delta\phi_{ij}^{2}}\) is the distance in \(\eta\)-\(\phi\) space between particle \(i\) and \(j\); \(R=\sqrt{\Delta\eta^{2}+\Delta\phi^{2}}\), defined as jet radius, is a distance parameter; and \(d_{iB}\) is the inverse square of the highest transverse momentum of particle \(i\). The anti-\(k_{T}\) algorithm compares \(d_{iB}\) with \(d_{ij}\) for every pairs of particle \(i\) and \(j\). If \(d_{ij}>d_{iB}\), the four momenta of particle \(i\) and \(j\) are summed as a new particle; otherwise the particle \(i\) will be labled as a jet and removed from the list. This process will be repeated until every particles are part of a jet.
+
+In this analysis, we only use charged particles to reconstruct charged jets, and two requirements on the jet candidates are applied: \(p_{T}^{jet}\geq 3\) GeV/c to reject combinatorial jets and \(|\eta^{jet}|<1-R\) due to the acceptance of TPC. Two different jet radii, \(R=0.4\) and \(R=0.6\), are used to investigate the radius dependence. The settings of jet reconstruction are summarizedin Table 5.1.
+
+The procedures of extracting the number of \(J/\psi\) in different number of jet events are shown in Fig. 5.1 and discribed as following:
+
+1. Reconstruct two muons with opposite charges in an event as a dimuon pair and calculate its mass.
+
+2. Use the rest of tracks for jet reconstruction and count the number of jets. Note that the two muons in the previous step are not used in this step.
+
+3. Keep repeating the above steps with another dimuon pairs, so the dimuon mass distributions of different number of jet events are obtained.
+
+4. Fitting these dimuon mass distributions in each number of jet categories to extract the number of \(J/\psi\) signal.
+
+### 5.2 Corrected \(J/\psi\) yield in different jet activity
+
+We have to remove the detector effects on the number of \(J/\psi\) before calculating its production cross section so that our final results can be compared with theoritical predictions. The production cross section of \(J/\psi\) as a function of jet activity is defined as:
+
+\[Br(J/\psi\rightarrow\mu^{+}\mu^{-})\times\frac{d\sigma}{dN_{jet}}=\frac{N_{J/ \psi\rightarrow\mu^{+}\mu^{-}}^{corrected}}{\Delta N_{jet}\times\int{\cal L}dt}, \tag{5.3}\]
+
+\begin{table}
+\begin{tabular}{c} \hline \hline Charged jets \\ Anti-kt algorithm \\ \(R\) = 0.4 and 0.6 \\ \(p_{T}^{jet}\geq\) 3 GeV/c \\ \(|\eta^{jet}|<1-R\) \\ \hline \hline \end{tabular}
+\end{table}
+Table 5.1: A summary of jet reconstruction.
+
+Figure 5.1: The procedures of extracting \(J/\psi\) signals in different number of jet events.
+
+where \(Br(J/\psi\rightarrow\mu^{+}\mu^{-})\) is the branching fraction of \(J/\psi\) in dimuon decay channel; \(\int{\cal L}dt\) is the integrated luminosity; \(N_{jet}\) and \(\Delta N_{jet}\) represent the number of jets and the width of each \(N_{jet}\) bin, respectively; and \(N_{J/\psi\rightarrow\mu^{+}\mu^{-}}^{corrected}\) is the number of \(J/\psi\) after correcting the detector effects.
+
+To obtain \(N_{J/\psi\rightarrow\mu^{+}\mu^{-}}^{corrected}\), the candidate-by-candidate weighting technique is used to correct the detector effects, including acceptances and reconstruction efficiencies, which is discribed as following:
+
+\[N_{J/\psi}^{corrected}=\sum_{i=1}^{N_{J/\psi}}w_{i}, \tag{5.4}\]
+
+where \(w\) is the weight of each \(J/\psi\) candidate and \(w^{-1}=A\times\varepsilon_{reco}\). \(A\) represents the detector acceptances, which contains two parts: the kinematic acceptance of \(J/\psi\) due to the \(p_{T}^{\mu}\geq 1.3\) GeV/c and \(|\eta|<0.5\) selections on its decayed muons, and the MTD geometry acceptance of muons due to the limited coverage of MTD in the \(\phi\) direction. \(\varepsilon_{reco}\) is the total reconstruction efficiency as defined:
+
+\[\varepsilon_{reco}=\varepsilon_{dimuon}^{VPD}\times\varepsilon_{vtx.}(p_{T}^{J /\psi})\times\varepsilon_{TPC}^{2}(\eta^{\mu},\phi^{\mu})\times\varepsilon_{ MTD}^{2}(p_{T}^{\mu},Bkl.^{\mu},\mbox{$Mod.^{\mu}$})\times\varepsilon_{\mu\,ID}^{2}(p_{T}^{\mu}), \tag{5.5}\]
+
+where \(\varepsilon_{dimuon}^{VPD}\) is the efficiency of VPD in dimuon trigger events; \(\varepsilon_{vtx.}\) is the vertex finding efficiency; \(\varepsilon_{TPC}\) is the tracking efficiency of TPC; \(\varepsilon_{MTD}\) is the MTD related efficiencies, including (1) the MTD matching efficiency \(\varepsilon_{MTD}^{matching}(p_{T}^{\mu})\), (2) the MTD response efficiency \(\varepsilon_{MTD}^{response}(p_{T}^{\mu})\), and (3) the MTD trigger efficiency \(\varepsilon_{MTD}^{trigger}(p_{T}^{\mu},Bkl.^{\mu},Mod.^{\mu})\); and \(\varepsilon_{\mu\,ID}\) is the efficiency of muon identification. The "square" on \(\varepsilon_{TPC}\), \(\varepsilon_{MTD}\), and \(\varepsilon_{\mu\,ID}\) represents these are the efficiencies of the two muon candidates. The details of efficiencies and acceptances are discribed in following sections.
+
+#### VPD efficiency and vertex finding efficiency
+
+The VPD efficiency in dimuon trigger events and the vertex finding efficiency of this data set have been studied by another analysis [25]. PYTHIA events generated by different tunes, Perugia 2012 tune for PYTHIA6 and STAR Heavy Flavor (HF) tune for PYTHIA8, are responsible for estimating these efficiencies after passing through the GEANT3 simulation of the STAR detector and taking background events into account by using real data. Figure 5.2shows the VPD efficiency times vertex finding efficiency. We take the average of those from different PYTHIA tunes and fitting by a constant as the default efficiency.
+
+#### TPC tracking efficiency
+
+The tracking efficiency of TPC is estimated by using the official STAR simulated MC sample of \(J/\psi\rightarrow\mu^{+}\mu^{-}\) and definded as:
+
+\[\varepsilon_{TPC}^{tracking}=\frac{N_{\mu}^{reco.}}{N_{\mu}^{truth}} \tag{5.6}\]
+
+where \(N_{\mu}^{truth}\) represents the number of muons passed \(p_{T}\geq 1.3\) GeV/c and \(|\eta|<0.5\) selections at truth level in the MC sample and \(N_{\mu}^{reco.}\) represents the number of muon tracks reconstructed by TPC with the basic track quality and muon candidate selections. Figure 5.3 shows the TPC efficiency as a function of \(p_{T}^{\mu}\), which shows no \(p_{T}\) dependence. As a result, the TPC efficiency mainly varies in \(\eta-\phi\) space due to the gaps in TPC. Furthermore, an additional correction factor as function of \(p_{T}^{\mu}\) and \(\phi^{\mu}\) space as shown in Fig. 5.4 is applied in the range of -0.5 \(<\)\(|\eta^{\mu}|\) \(<\) 0.2 because of an inefficiency around \(\phi\) at about 5.7 rad in real data due to the broken sector 20 in this run. Figure 5.5 shows the TPC efficiency as function of \(\eta^{\mu}\) and \(\phi^{\mu}\), in which this additional correction factor has been taken into account.
+
+Figure 5.2: The VPD efficiency in dimuon trigger events times vertex finding efficiency as a function of \(p_{T}^{J/\psi}\).
+
+Figure 5.4: The correction factor for the additional TPC inefficiency due to the broken sector 20.
+
+Figure 5.3: The TPC efficiency as a function of \(p_{T}^{\mu}\).
+
+#### MTD matching efficiency
+
+The MTD matching efficiency is the probability of a reconstructed muon track that can be projected to an MTD module and matched to a hit on MTD. The difinition can be written as Eq. 5.7:
+
+\[\varepsilon_{MTD}^{matching}=\frac{Number\ of\ muon\ track\ matched\ to\ MTD\ hit}{Number\ of\ muon\ track\ that\ can\ project\ to\ MTD\ module}. \tag{5.7}\]
+
+This is an efficiency as a function of \(p_{T}^{\mu}\) with a plateau of 63% as shown in Fig. 5.6 which is evaluated by the official STAR simulated MC sample.
+
+#### MTD trigger efficiency
+
+The MTD trigger efficiency contains the trigger electronic efficiency and the trigger time window cut efficiency. The trigger electronic efficiency is defined as the probability of an MTD hit, which generated by a muon candidate, can produce an electronic signal and sent it to the QT (charge(Q)-and-time(T)) board. At the QT board, this signal is digitized, stored, and analyzed. The trigger time window cut efficiency is from the online time window cut of the difference between the particle's flight time measured by the VPD and MTD in order to reduce background events. These efficiencies are studied by another analysis [25] and their
+
+Figure 5.5: The TPC efficiency as function of \(\eta^{\mu}\) and \(\phi^{\mu}\).
+
+constant fitting functions are provided for this analysis as shown in Fig. 5.7. Both of these efficiencies are about 99%.
+
+Figure 5.7: The constant fitting function of MTD trigger electronic efficiency and trigger time window cut efficiency. Both of them are calculated as a function of \(p_{T}^{\mu}\).
+
+Figure 5.6: The MTD matching efficiency as a function of \(p_{T}^{\mu}\).
+
+[MISSING_PAGE_EMPTY:54]
+
+Figure 5.11: MTD response efficiencies of modules on backleg 3.
+
+Figure 5.12: MTD response efficiencies of modules on backleg 4.
+
+Figure 5.13: MTD response efficiencies of modules on backleg 5.
+
+Figure 5.14: MTD response efficiencies of modules on backleg 6.
+
+Figure 5.10: MTD response efficiencies of modules on backleg 2.
+
+Figure 5.16: MTD response efficiencies of modules on backleg 8.
+
+Figure 5.17: MTD response efficiencies of modules on backleg 10.
+
+Figure 5.18: MTD response efficiencies of modules on backleg 11.
+
+Figure 5.19: MTD response efficiencies of modules on backleg 12.
+
+Figure 5.15: MTD response efficiencies of modules on backleg 7.
+
+Figure 5.23: MTD response efficiencies of modules on backleg 16.
+
+Figure 5.24: MTD response efficiencies of modules on backleg 17.
+
+Figure 5.21: MTD response efficiencies of modules on backleg 14.
+
+Figure 5.22: MTD response efficiencies of modules on backleg 15.
+
+Figure 5.20: MTD response efficiencies of modules on backleg 13.
+
+Figure 5.28: MTD response efficiencies of modules on backleg 21.
+
+Figure 5.29: MTD response efficiencies of modules on backleg 22.
+
+Figure 5.27: MTD response efficiencies of modules on backleg 20.
+
+Figure 5.28: MTD response efficiencies of modules on backleg 21.
+
+Figure 5.25: MTD response efficiencies of modules on backleg 18.
+
+Figure 5.30: MTD response efficiencies of modules on backleg 24.
+
+Figure 5.31: MTD response efficiencies of modules on backleg 25.
+
+Figure 5.32: MTD response efficiencies of modules on backleg 26.
+
+Figure 5.33: MTD response efficiencies of modules on backleg 27.
+
+Figure 5.34: MTD response efficiencies of modules on backleg 28.
+
+#### Muon identification efficiency
+
+The muon identification efficiency is from the advanced muon selection using the Likelihood Ratio (LR) method and can be calculated by a data-driven way, called "tag-and-probe method". In the tag-and-probe method, we distinguish the two tracks in each \(J/\psi\) candidate into a tagged muon and a probed muon, as shown in Fig. 5.37. The tagged muon candidates should pass though a tight selection (i.e., all selection for muon candidates, including the LR selection) to ensure it with a high probability to be a muon. The probed muon candidates, which play a key role in this method, are applied different selections: (1) basic selections of muon candidate (i.e., \(p_{T}^{\mu}\geq 1.3\) GeV/c, \(|\eta^{\mu}|<0.5\) and match to an MTD hit); (2) basic selections of muon candidate and LR selection. Therefore, two different kinds of \(J/\psi\) candidates are reconstructed: one contains probed \(\mu\) without LR cut; the other contain probed \(\mu\) with LR cut. These setting of muon candidates for tag-and-probe method are summarized in Table 5.2.
+
+\begin{table}
+\begin{tabular}{c c c} \hline \hline
+**Tagged \(\upmu\)** & **Probed \(\upmu\)** & **Reconstructed J/\(\uppsi\)** \\ \hline \hline basic selections \(+\) LR cut & basic selections & contain probed \(\upmu\) without LR cut \\ basic selections \(+\) LR cut & basic selections \(+\) LR cut & contain probed \(\upmu\) with LRcut \\ \hline \hline \end{tabular}
+\end{table}
+Table 5.2: Selections for tagged and probed muon candidates and the reconstructed J/\(\uppsi\).
+
+Figure 5.36: MTD response efficiencies of modules on backleg 30.
+
+With the tag-and-probe method discribed above, the muon identification efficiency can be calculated as following:
+
+\[\varepsilon_{\mu ID}=\frac{N_{\mu}^{a_{T}ter\;LR\,cut}}{N_{\mu}^{before\;LR\,cut }}=\frac{N_{\gamma/\psi}^{with\;LR\,cut}}{N_{J/\psi}^{without\;LR\,cut}}, \tag{5.8}\]
+
+where \(N_{\mu}^{before\,LR\,cut}\) and \(N_{\mu}^{after\,LR\,cut}\) represent the number of muons before and after applying Likelihood Ratio selection, respectively. \(N_{J/\psi}^{with\;LR\,cut}\) and \(N_{J/\psi}^{without\;LR\,cut}\) represent the number of \(J/\psi\) that their probed muons with and without LRcut, respectively.
+
+Fig. 5.38 shows the Fitting result of \(N_{J/\psi}^{with\;LR\,cut}\) and \(N_{J/\psi}^{without\;LR\,cut}\) in different probed muon \(p_{T}\) bins. These dimuon mass distributions are divided into eight different \(p_{T}\) ranges of probed muon: [1.3, 1.4, 1.5, 1.6, 1.8, 2.2, 2.5, 3.0, 5.0 (GeV/c)] to investigate the \(p_{T}\) dependence of efficiency. The result of muon identification efficiency is shown in Fig. 5.39, which increases from about 60% to 88% as \(p_{T}^{ probed\;\mu}\) increases.
+
+#### \(J/\psi\) kinematic acceptance
+
+The kinematic acceptance of \(J/\psi\) is from the kinematic selections (i.e., \(p_{T}^{\mu}\geq 1.3\) GeV/ c and \(|\eta^{\mu}|<0.5\)) of their muon candidates and can be calculated with Eq. 5.9:
+
+\[J/\psi\;kinematic\;acceptance=\frac{Number\;of\;J/\psi\;in\;acceptance}{Total\; number\;of\;J/\psi}. \tag{5.9}\]
+
+Figure 5.37: Cartoon image of tagged and probed \(\mu\) candidates of a \(J/\psi\) candidate for tag-and-probe method.
+
+Figure 5.38: Fitting result of \(N_{J/\psi}^{with\ LRcut}\) and \(N_{J/\psi}^{without\ LRcut}\) for \(\varepsilon_{\mu\,ID}\).
+
+We use a ToyMC generator to build an high statistics acceptance map as function of \(p_{T}^{J/\psi}\) and \(|y^{J/\psi}|\) as shown in Fig. 5.40, in which these \(J/\psi\) are assumed to be unpolarized.
+
+#### MTD geometry acceptance
+
+The MTD geometry acceptance is due to the gaps between MTD backlegs which causes only 45% coverage in \(\phi\) direction. We calculate it by using the official STAR simulated MC
+
+Figure 5.39: The muon identification efficiency as a function of \(p_{T}^{\mu}\).
+
+sample and the definition is:
+
+\[MTD~{}geometry~{}acceptance=\frac{Number~{}of~{}muon~{}tracks~{}can~{}project~{}to~{}MTD~{} module}{Number~{}of~{}muon~{}tracks~{}reconstructed~{}by~{}TPC}. \tag{5.10}\]
+
+Fig. 5.41 shows the MTD geometry acceptance of single muon as function of \(p_{T}^{\mu}\), \(\eta^{\mu}\) and \(\phi^{\mu}\), where ten \(p_{T}^{\mu}\) ranges: [1.3, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 7.0, 10.0, 15.0 (GeV/c)] are used to build these two-dimentional acceptances in \(\eta-\phi\) space.
+
+#### Closure test of efficiency and acceptance
+
+The closure test is used to ensure our efficiencies and acceptances are calculated correctly, and the MTD matching efficiency, \(J/\psi\) kinematic acceptance, and MTD geomatry acceptance are checked. In this closure test, the corrected distributions are obtained by using aforementioned efficiencies to correct the reconstructed samples (\(N_{Reco.}^{Corr.}\)), and then compared to the truth distributions (\(N_{Truth}\)). The result of closure test of MTD matching efficiency, \(J/\psi\) kinematic acceptance and MTD geometry acceptance are shown in Fig 5.42, Fig 5.43, and Fig 5.44, respectively. The ratios (\(\frac{N_{Reco.}^{Corr.}}{N_{Truth}}\)) are fitted by a constant function, and the results show that the closure tests are passed, i.e. the ratios are close to one.
+
+Figure 5.43: Closure test of \(J/\psi\) kinematic acceptance.
+
+Figure 5.44: Closure test of MTD geometry acceptance.
+
+Figure 5.42: Closure test of MTD matching efficiency.
+
+#### Signal extraction of corrected \(J/\psi\) yield
+
+By using the candidate-by-candidate weighting method with the efficiencies and acceptances described above, the dimuon mass distribution in different number of jet events are generated and fitted with different combination of signal and background functions to extract the corrected number of \(J/\psi\). We use Gaussian and double Gaussian as signal functions. Polynomial functions and template functions from the fitting result of same sign (SS) muon pairs are used as background functions. The fitting results by using the four combinations of these functions are shown in Fig. 5.45 to Fig. 5.48.
+
+The extracted distributions of the corrected \(N_{J/\psi}\) as a function of raw jet activity are shown in the left-hand-side plots in Fig. 5.49. Their average distributions are taken as the default result as shown in the right-hand-side of these figure, and their relative statistical uncertainties are taken from the fitting results using the Gaussian plus polynomial function. Furthermore, these extracted signal from the various fits are used to estimate the systematic uncertainty and described in Chapter 6.
+
+Figure 5.45: Signal extraction of corrected \(N_{J/\psi}\) by fitting with Gaussian+Polynomial functions. The upper and lower rows show the results for jet R=0.4 and 0.6, respectively.
+
+Figure 5.47: Signal extraction of corrected \(N_{J/\psi}\) by fitting with double Gaussian+Polynomial functions. The upper and lower rows show the results for jet R=0.4 and 0.6, respectively.
+
+Figure 5.46: Signal extraction of corrected \(N_{J/\psi}\) by fitting with Gaussian function+SS templates. The upper and lower rows show the results for jet R=0.4 and 0.6, respectively.
+
+Figure 5.48: Signal extraction of corrected \(N_{J/\psi}\) by fitting with double Gaussian function+SS templates. The upper and lower rows show the results for jet R=0.4 and 0.6, respectively.
+
+Figure 5.49: Corrected \(N_{J/\psi}\) as a function of raw jet activity from different fitting results (left). Their average distributions (right) are used as default result. The upper and lower rows show the results for jet R=0.4 and 0.6, respectively
+
+### 5.3 Unfolding for correction of jet activity
+
+After the \(N_{J/\psi}\) is corrected, the detector effects on the jet activity (\(N_{jet}\) per event) are also needed to be removed. The unfolding technique is used to achieve this, and the unfolding algorithm in the RooUnfold package [32] is used in this analysis. The response matrices demonstrate the relation between particle level (truth) and detector level (measured) \(N_{jet}\). The details are described in the following.
+
+#### \(J/\psi\) and jets in the PYTHIA events
+
+To build the response matrices, the PYTHIA sample of 10M events as discribed in Section 4.4 is used to reconstruct the particle and detector level jets. Similar with the procedure in Section 5.1 that used in real data, we use the number of particle and detector level \(J/\psi\) as the number of events of particle and detector level jet activity, respectively.
+
+The \(J/\psi\) in this PYTHIA sample are directly used as the particle level \(J/\psi\). On the other hand, \(\mu^{+}\) and \(\mu^{-}\) from the same \(J/\psi\) parent are applied the muon \(p_{T}\) resolutions, which calculated by using the STAR simulated MC sample. Then, they are reconstructed into detector level \(J/\psi\). The same as in real data, a \(|y|<\) 0.4 selection is applied to both particle and detector level \(J/\psi\).
+
+Before the particle and detector level jets are reconstructed, the hadrons in this PYTHIA sample are applied an additional modification on their transverse momenta, which will be discribed in Section 5.3.4, to make the detector level jet activity in the response matrices closer to reality. In the case of detector level jets, selections of \(p_{T}\geq\) 0.2 GeV/c and \(|\eta|<\) 1, the \(p_{T}\) resolutions and TPC tracking efficiencies of hadrons are applied to these hadrons, and then they are reconstructed as detector level jets. The same as we used to analyse the real data, two kinematic selections for jets, \(p_{T}\geq\) 3 GeV/c and \(|\eta|<\) 1-R are applies to both particle and detector level jets in this PYTHIA sample. The reconstruction of \(J/\psi\) and jets of this PYTHIA sample are summarized in Table 5.3.
+
+#### 5.3.2 \(p_{T}\) resolution of muons and hadrons
+
+To make the momentum resolution for muons in the PYTHIA sample close to the reality, the normalized distributions of \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) in different \(p_{T}^{truth}\) ranges are generated from the STAR simulated MC sample, where \(p_{T}^{truth}\) and \(p_{T}^{reco.}\) are the truth and reconstructed muon \(p_{T}\) in the MC sample, respectively. These distributions are then fitted with double Gaussian functions as shown in Fig. 5.50 to Fig. 5.69. These fitting functions are used to apply the resolution to the muon's transverse momentum in the PYTHIA sample by randomly getting a value of \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) with the function corresponding to the truth muon \(p_{T}\) in PYTHIA sample. Then, the reconstructed \(p_{T}\) of each muon is calculated in PYTHIA sample by Eq. 5.11, where \(p_{T}^{PYTHIA,\,truth}\) and \(p_{T}^{PYTHIA,\,reco.}\) are the muon \(p_{T}\) in the PYTHIA sample before and after applying these \(p_{T}\) resolutions, respectively.
+
+\[p_{T}^{PYTHIA,\,reco.}=p_{T}^{PYTHIA,\,truth}\times(1+(p_{T}^{ reco.}-p_{T}^{truth})/p_{T}^{truth}) \tag{5.11}\]
+
+However, after applying these \(p_{T}\) resolutions, the width of \(J/\psi\) mass distribution, which reconstructed by these muons, is still smaller than that in real data. The reason is that the
+
+\begin{table}
+\begin{tabular}{|p{113.8pt}|p{113.8pt}|p{113.8pt}|} \hline  & \(J/\psi\) & Jets \\ \hline \multirow{4}{*}{Particle level} & \multirow{4}{*}{\(|y^{J/\psi}|<\) 0.4} & \multirow{4}{*}{Reconstructed from particle level hadrons \(\bullet\) additional modification of \(p_{T}^{hadron}\)\(p_{T}^{jet}\geq\) 3 GeV/c \(|\eta^{jet}|<\) 1-R} \\ \cline{3-3}  & & & Reconstructed from detector level hadrons \(\bullet\) additional modification of \(p_{T}^{hadron}\)\(\bullet\)\(|\eta^{hadron}<\) 1 \(\bullet\)\(p_{T}^{hadron}\geq\) 0.2 GeV/c \(\bullet\) hadron \(p_{T}\) resolutions and TPC efficiencies \(p_{T}^{jet}\geq\) 3 GeV/c \(|\eta^{jet}|<\) 1-R \\ \hline \end{tabular}
+\end{table}
+Table 5.3: Particle and detector level \(J/\psi\) and jet of the PYTHIA data for response matrix.
+
+Figure 5.50: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 0.1 to 0.5 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.51: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 0.5 to 1.0 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.52: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 1.0 to 1.5 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.54: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 2.0 to 2.5 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.56: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 3.0 to 3.5 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.57: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 3.5 to 4.0 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.58: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 4.0 to 4.5 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.59: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 4.5 to 5.0 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.62: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 6.0 to 6.5 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.63: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 6.5 to 7.0 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.64: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 7.0 to 7.5 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.66: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 8.0 to 8.5 GeV/c with a 0.1 GeV/c step.
+
+Figure 5.67: \((p_{T}^{reco.}-p_{T}^{truth})/p_{T}^{truth}\) of different \(p_{T}^{truth}\) ranges: 8.5 to 9.0 GeV/c with a 0.1 GeV/c step.
+
+\(p_{T}\) resolution of muons in the MC sample is not close enough to the reality. An additional smearing of the muon \(p_{T}\) in the PYTHIA sample with Eq. 5.12 is used to solve this issue.
+
+\[p_{T}^{PYTHIA,\;smeared}=Gaus(p_{T}^{PYTHIA,\;reco.}\times(1+shift\;par.),\;p_{T} ^{PYTHIA,\;reco.}\times smear\;par.)) \tag{5.12}\]
+
+First, we set the smearing parameter as 0, and then scan different shifting parameters of muon to reconstruct various of \(J/\psi\) mass distributions. Then we fit these \(J/\psi\) mass distributions and look at their mean value to determine the appropriate shifting parameter. Second, we fix the shifting parameter, and then scan different smearing parameters to reconstruct various of \(J/\psi\) mass distributions with different widths. Then, we use these distributions as signal templates, combined with a polynomial background function, to fit the mass distribution in real data. The optimal smearing parameter is determined by the one with the lowest \(\chi^{2}/NDF\). The results of finding the shifting and smearing parameter are shown in Fig. 5.70. Fig. 5.71 shows the comparison of the \(J/\psi\) mass distribution before and after applying this additional smearing with that in real data. Furthermore, we also check that these parameters are good for all \(p_{T}\) ranges of \(J/\psi\). These results are shown in Fig 5.72 and the smeared \(J/\psi\) mass distributions are matched with the real data very well.
+
+In the case of applying \(p_{T}\) resolutions to the hadrons in the PYTHIA sample, we use
+
+Figure 5.70: The additional shifting parameter of muons in the PYTHIA sample as a function of the mean value of \(J/\psi\) mass distribution (left) and the smearing parameter as a function of fitting \(\chi^{2}/NDF\) (right).
+
+Figure 5.71: Comparison of the \(J/\psi\) mass shapes in the PYTHIA sample before and after applying this additional smearing with that in real data.
+
+Figure 5.72: Comparisons of the \(J/\psi\) mass shapes in the PYTHIA sample with that in real data in different \(p_{T}\) ranges.
+
+the same method and parameters as the case of muons. This is reasonable because the \(p_{T}\) resolution of muons and hadrons come from the same tracking system.
+
+#### TPC efficiencies of hadrons
+
+The TPC tracking efficiencies of hadrons are calculated with the same method as we used for that of muons in Section 5.2.2. The definition in Eq. 5.13 is used to calculate the TPC efficiencies, where the \(N_{hadron}^{truth}\) is the number of hadrons passed \(p_{T}\geq\) 0.2 GeV/c and \(|\eta|<\) 1 selections at truth level and \(N_{hadron}^{reco.}\) is the number of hadrons reconstructed by TPC with the basic track quality and kinematic selections (the same additional correction factor for the inefficiency of sector 20 as shown in Fig. 5.4 is also applied). The efficiencies of pion, kaon, proton, and their antiparticles as functions of their transverse momenta fitted by error functions are shown in Fig. 5.73.
+
+Figure 5.73: Upper row shows the TPC tracking efficiencies of pion, kaon and proton (from left to right) and lower row shows the efficiencies of their corresponding antiparticles.
+
+#### The additional modification of hadron \(p_{T}\)
+
+In order to have some constraints on the construction of response matrices, the detector level jet activitiy from the PYTHIA sample are tuned to be closer to the reality. This is implemented by applying an additional shifting on the hadron \(p_{T}\) before applying their \(p_{T}\) resolutions and TPC efficiencies. To determine the shifting parameter, we use the same method as the additional smearing for the muon \(p_{T}\) resolution. The modified hadron transverse momenta are obtained by using Eq. 5.14. We set smearing parameter as 0 first, then scan different shifting parameters to modify hadron \(p_{T}\), and then apply their \(p_{T}\) resolution and TPC efficiencies. These hadrons are then reconstructed as detector level jets, so the various distributions of detector level jet activity corresponding to different shifting parameters can be obtained. We use these distributions as template to fit the jet activity in real data and find for the smallest \(\chi^{2}/NDF\) for the best shifting parameter. The fitting \(\chi^{2}/NDF\) as a function of shifting parameters for jet R=0.4 and 0.6 are shown in Fig. 5.74
+
+\[p_{T}^{modified}=Gaus(p_{T}^{original}\times(1+shift\;par),\;p_{T}^{original} \times smear\;par.)) \tag{5.14}\]
+
+Figure 5.74: The fitting \(\chi^{2}/NDF\) as a function of shifting parameters. The best shift parameters are 10% and 9% for jet R=0.4 (left) and R=0.6 (right), respectively.
+
+#### Response matrices
+
+The particle and detector level \(N_{jet}\) that counted from the jets in PYTHIA sample as described above are used to build our response matrices. Because the number of \(J/\psi\) is used as the number of events of different \(N_{jet}\), we build our response matrices by the following procedures: (1) when particle and detector level \(J/\psi\) both exist, fill the response matrix with corresponding particle and detector level \(N_{jet}\); (2) if the particle level \(J/\psi\) exists, while the detector level \(J/\psi\) lost due to its rapidity selection, then this event is categorized as a missing event. The response matrices which constructed by using the jets with R=0.4 and R=0.6 are visualized as two-dimension diagrams in Fig. 5.75. Note that the missing events are not shown in these plots.
+
+#### Closure test of the response matrices
+
+We perform the closure test to ensure that our response matrices are worked for the unfolding procedure. The detector level jet activity from the PYTHIA sample with 3M events, which generated the same as that we use to build the response matrices and has a closer statistics to the real data, is used. The RooUnfoldBayes algorithm, which use the method based on Bayes' theorem [33] in the RooUnfold package, is responsible for the unfolding in the closure test and the real data analysis. In this algorithm, our response matrices and repeated
+
+Figure 5.75: The response matrices built by using the jets with R=0.4 (left) and R=0.6 (right) in the PYTHIA sample. Note that the missing events are not shown here.
+
+[MISSING_PAGE_EMPTY:81]
+
+#### The unfolded result of jet activity
+
+In real data, the same response matrices are used, and unfolded jet activity up to four jet event for different jet radii, which are compared with the raw jet activity as discribed in Section 5.2.10 as shown in Fig. 5.78. We use four iterations for the unfolding to perform these results because four iterations is usually sufficient [32].
+
+Figure 5.78: The red stars show the unfolded jet activity for jet R=0.4 (left) and R=0.6 (right), compared with the raw jet activity which are denoted by black open circles.
+
+## Chapter 6 Systematic uncertainties
+
+Before comparing our unfolded results with the theoritical predictions, the systematic uncertainties are required to be estimated carefully. In this chapter, the systematic uncertainties from signal extraction, the unfolding procedure, hadron \(p_{T}\) modifications for the response matrices and the detector efficiencies are discribed and estimated.
+
+### 6.1 Signal extraction
+
+The systematic uncertainty of signal extraction is from the different signal and background model that used to extract signal numbers. We estimate this uncertainty by unfolding the jet activity extracted with different fitting functions which are discribed in Section 5.2.10, and then comparing their ratio to our default unfolded results in Section 5.3.7 to take the largest division of each jet activity as the uncertainties. These unfolded results and the systematic uncertainties as functions of jet activity are shown in Fig. 6.1 and Fig. 6.2. The signal numbers and their uncertainties are summarized in Table 6.1 and Table 6.2.
+
+Figure 6.1: The unfolded results of jet activity with R=0.4 extracted by different signal and background model (left) and systematic uncertainties of signal extrction as a function of jet activity.
+
+[MISSING_PAGE_FAIL:84]
+
+[MISSING_PAGE_EMPTY:85]
+
+Figure 6.6: The unfolded results of jet activity with R=0.6 that adjusted by, from left to right, the systematic uncertainties of VPD and vtx. finding efficiency, TPC tracking efficiency, MTD matching efficiency and MTD trigger efficiency.
+
+Figure 6.4: The unfolded results of jet activity with R=0.4 that adjusted by, from left to right, the systematic uncertainties of VPD and vtx. finding efficiency, TPC tracking efficiency, MTD matching efficiency and MTD trigger efficiency.
+
+Figure 6.5: The corrected \(J/\psi\) yields adjusted by the systematic uncertainties from detector efficiencies as a function of raw jet activity with R=0.6. From left to right are the distributions adjusted by VPD and vtx. finding efficiency, TPC tracking efficiency, MTD matching efficiency and MTD trigger efficiency.
+
+### 6.3 The iterations of unfolding
+
+We use the unfolded results with 4 iterations as our default results, but there is no guarantee that 4 iterations is the best choose. Therefore, we take the division of the unfolded results with 6 iterations as a source of systematic uncertainty of unfolding as shown in Fig. 6.8 and Fig. 6.9. Table 6.4 and Table 6.5 are the detailed values of these uncertainties for different jet radii. The \(N_{jet}\) = 3 bin has the largest uncertainty as expected since there is lack of information to unfold this bin.
+
+Figure 6.8: The left diagram shows the unfolded results of jet activity with R=0.4 from 4 (default) and 6 iterations. Their ratio to default result are shown in the right-hand-side plot, in which the red points denotes the division of 6 iterations and is taken as the systematic uncertainty.
+
+Figure 6.7: The systematic uncertainties from different sources of efficiencies. For both jet radii, these uncertainties are just the same as their sources.
+
+\begin{table}
+\begin{tabular}{c c} \hline \hline
+**Jet activity (R=0.6)** & **Systematic uncertainties** \\ \hline \hline \(N_{jet}=0\) & 0.16\% \\ \hline \(N_{jet}=1\) & 7.94\% \\ \hline \(N_{jet}=2\) & 14.17\% \\ \hline \(N_{jet}=3\) & 11.92\% \\ \hline \hline \end{tabular}
+\end{table}
+Table 6.5: The systematic uncertainties from the unfolded results with 6 iterations for jet radius R=0.6.
+
+Figure 6.9: The left diagram shows the unfolded results of jet activity with R=0.6 from 4 (default) and 6 iterations. Their ratio to default result are shown in the right-hand-side plot, in which the red points denotes the division of 6 iterations and is taken as the systematic uncertainty.
+
+\begin{table}
+\begin{tabular}{c c} \hline \hline
+**Jet activity (R=0.6)** & **Systematic uncertainties** \\ \hline \hline \(N_{jet}=0\) & 0.16\% \\ \hline \(N_{jet}=1\) & 7.94\% \\ \hline \(N_{jet}=2\) & 14.17\% \\ \hline \(N_{jet}=3\) & 11.92\% \\ \hline \hline \end{tabular}
+\end{table}
+Table 6.4: The systematic uncertainties from the unfolded results with 6 iterations for jet radius R=0.4.
+
+Hadron \(p_{T}\) modification for response matrices
+
+We implement a modification of hadron \(p_{T}\) in the PYTHIA data for the construction of our responses matrices, which could be another source of systematic uncertainty. To estimate this uncertainty, we use different shifting parameters to modify the hadron \(p_{T}\) and build various corresponding response matrices. Then, these various response matrices are used to obtain different unfolded results and the largest deviation of each jet activity are taken as the uncertainty. The default shifting parameters are 10% and 9% for jet R=0.4 and R=0.6, respectively, so we use different shifting parameter of [8%, 9%, 11%, 12%] for R=0.4 and [7%, 8%, 10%, 11%] for R=0.6 to this purpose. The response matrices with different shifting of hadron \(p_{T}\) are shown in Fig. 6.10 and Fig. 6.12 for different jet radii. Fig. 6.11 and Fig. 6.13 are the unfolded results by using these response matrices and their divisions to default results for jet R=0.4 and R=0.6, respectively. The detailed values of the corresponding uncertainties can be seen in Table 6.6 and Table 6.7.
+
+Figure 6.11: The left diagram shows the unfolded results of jet activity with R=0.4 by using the response matrices with different hadron \(p_{T}\) shifting. Their deviation to default result are shown in the right-hand-side plot.
+
+Figure 6.12: Different response matrices built with different shifting of hadron \(p_{T}\) in the PYTHIA data for jet R=0.6.
+
+Figure 6.13: The left diagram shows the unfolded results of jet activity with R=0.6 by using the response matrices with different hadron \(p_{T}\) shifting. Their deviation to default result are shown in the right-hand-side plot.
+
+### 6.5 Total uncertainties
+
+The total uncertainty, \(\sigma_{total}\), can be calculated by using Eq. 6.1.
+
+\[\sigma_{total}^{2}=\sigma_{stat.}^{2}+\sum_{i}\sigma_{i,syst.}^{2} \tag{6.1}\]
+
+On the right-hand-side of this equation, \(\sigma_{stat.}\) represents the statistical uncertainty and \(\sum_{i}\sigma_{i,syst.}^{2}\) is the square of total systematic uncertainty, where \(\sigma_{i,syst.}\) represents each of them. These uncertainties for the jet activity with different jet radii are summarized in Fig. 6.14, Table 6.8, and Table 6.9. For both jet radii, the total uncertainty are dominated by systematic uncertainties in \(N_{jet}\) = 0 events. However, due to the lower statistics in events with \(N_{jet}\) larger than 0, their total uncertainties are all dominated by very large statistical uncertainties.
+
+\begin{table}
+\begin{tabular}{c c c c} \hline \hline
+**Jet activity (R=0.6)** & **Stat. uncertainty** & **Total syst. uncertainty** & **Total uncertainty** \\ \hline \hline \(N_{jet}=0\) & 3.17\% & 12.46\% & 12.86\% \\ \hline \(N_{jet}=1\) & 37.74\% & 18.02\% & 41.82\% \\ \hline \(N_{jet}=2\) & 35.91\% & 20.58\% & 41.39\% \\ \hline \(N_{jet}=3\) & 46.84\% & 21.19\% & 51.41\% \\ \hline \end{tabular}
+\end{table}
+Table 6.9: A summary of statistical, total systematic and total uncertainties for jet activity with R=0.6.
+
+\begin{table}
+\begin{tabular}{c c c c} \hline \hline
+**Jet activity (R=0.4)** & **Stat. uncertainty** & **Total syst. uncertainty** & **Total uncertainty** \\ \hline \hline \(N_{jet}=0\) & 3.10\% & 12.49\% & 12.87\% \\ \hline \(N_{jet}=1\) & 28.35\% & 18.68\% & 33.95\% \\ \hline \(N_{jet}=2\) & 41.92\% & 17.27\% & 45.34\% \\ \hline \(N_{jet}=3\) & 55.74\% & 35.43\% & 66.05\% \\ \hline \end{tabular}
+\end{table}
+Table 6.8: A summary of statistical, total systematic and total uncertainties for jet activity with R=0.4.
+
+## Chapter 7 Results and Future works
+
+### 7.1 Results and conclusions
+
+The results of the \(J/\psi\) production cross section as a function of jet activity with jet radius R=0.4 and R=0.6 are shown in Fig. 7.1, where the red stars denote the results from this analysis with the error bars as the statistical uncertainties and boxes as the systematic uncertainties. These measurements are compared with the NRQCD calculations implemented by PYTHIA 8 [15] samples which discribed in Section 4.4 and denoted as the blue histograms. Both results with different jet radii have good agreements with the PYTHIA predictions. We also looked at the ratio of the two experimental distributions with different jet radii and compared with PYTHIA prediction to investigate the dependence on different size of jets. This comparison is shown in Fig. 7.2, and it is obvious that the experimental distribution follows a different trend compared with PYTHIA prediction. The ratio from experimental data decreases as jet activity increases, while the dependence on jet radius is not found in PYTHIA prediction. These results could also be compared with current theoretical models and provide theorists more information to have better understanding of quarkonium production.
+
+Figure 7.1: The production cross section of \(J/\psi\) as a function of jet activity with jet R=0.4 (left) and R=0.6 (right). The red stars denoted the results from this analysis, and its statistical uncertainties are denote as the error bars, and the boxes are the systematic uncertainties. The blue histograms are the NRQCD predictions implemented by PYTHIA 8 [15].
+
+### 7.2 Future works
+
+To remove the detector effects on the jet activity in our analysis, we directly apply the hadron efficiencies and resolutions to the PYTHIA sample for the reconstruction of response matrices, so some of detector effects could be missed. Accordingly, a full simulated PYTHIA sample with the GEANT simulation of the STAR detector will be needed for a more precise estimation of detector effects. Regarding the systematic uncertainties, we have estimated several of them, there are more sources that we have to take into account, for example, the uncertainty from the muon identification and different PYTHIA tunes for building the response matrices. Besides of systematic uncertainties, there is another uncertainty from the polarization of \(J/\psi\) which will affect its kinematic acceptance. This effect, called "spin-alignment", is due to the different angular distributions of the \(\mu^{+}\) and \(\mu^{-}\) daughters from different polarized \(J/\psi\) and is not negligible. The relation between angular distributions of the \(\mu^{+}\) and \(\mu^{-}\) and the polarization of their parent \(J/\psi\) is discribed in Eq. 7.1 in the \(J/\psi\) rest frame, as shown in Fig. 7.3. Furthermore, we will use the p+p at 510 GeV data collected in 2017 to perform a more detailed analysis soon.
+
+\[\frac{d^{2}N}{d\cos\theta d\phi}\propto 1+\lambda_{\theta}\cos^{2}\theta+ \lambda_{\phi}\sin^{2}\theta\cos 2\phi+\lambda_{\theta\phi}\sin 2\theta\cos\phi. \tag{7.1}\]
+
+Figure 7.2: A comparison of \(J/\psi\) cross section as function of jet activity with different jet radii.
+
+[MISSING_PAGE_EMPTY:95]
+
+## References
+
+* [1] K. Olive _et al._, "Review of Particle Physics," _Chinese Physics C_, vol. 38, p. 090001, 2014.
+* [2] A. Mocsy, P. Petreczky, and M. Strickland, "Quarkonia in the Quark Gluon Plasma," _International Journal of Modern Physics A_, vol. 28, 2013.
+* [3] "Particle polarizations in LHC physics." [Online]. Available: [https://indico.cern.ch/event/298327/contributions/680607/attachments/560916/772746/LIP_curso_polarization.pdf](https://indico.cern.ch/event/298327/contributions/680607/attachments/560916/772746/LIP_curso_polarization.pdf)
+* [4] CMS Collaboration, "\(J/\psi\) and \(\psi\)(2S) production in pp collisions at \(\sqrt{s}\) = 7 TeV," _Journal of High Energy Physics_, vol. 2012, p. 11, 2012.
+* [5] CMS Collaboration, "Measurement of the prompt \(J/\psi\) and \(\psi\)(2S) polarizations in pp collisions at \(\sqrt{s}\) = 7 TeV," _Physics Letters B_, vol. 727, p. 381, 2013.
+* [6] M. Thomson, _Modern Particle Physics_. Cambridge University Press, 2013.
+* [7] LHCb Collaboration, "Study of \(J/\psi\): Production in Jets," _Physical Review Letters_, vol. 118, p. 192001, 2017.
+* [8] "\(J/\psi\) in jets in p+p collisions at \(\sqrt{s}\) = 500 GeV by STAR." [Online]. Available: [https://indico.cern.ch/event/7517/contributions/3770958/](https://indico.cern.ch/event/7517/contributions/3770958/)
+* [9] CMS Collaboration, "Study of \(J/\psi\) meson production inside jets in pp collisions at \(\sqrt{s}\) = 8 TeV," _Physics Letters B_, vol. 804, p. 135409, 2020.
+* [10] K. Hubner _et al._, _The Largest Accelerators and Colliders of Their Time_. Springer International Publishing, 2020, vol. 3, pp. 585-660.
+* [11] M. Anderson _et al._, "The STAR time projection chamber: a unique tool for studying high multiplicity events at RHIC," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 499, no. 2-3, pp. 659-678, 2003.
+* [12] P. Krizan, "Overview of particle identification techniques," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 706, pp. 48-54, 2013.
+* [13] Y. Wang, Q. Zhang, D. Han, F. Wang, Y. Yu, P. Lyu, and Y. Li, "Status of technology of MRPC time of flight system," _Journal of Instrumentation_, vol. 14, no. 06, p. C06015, 2019.
+* [14] L. Ruan _et al._, "Perspectives of a mid-rapidity dimuon program at the RHIC: a novel and compact muon telescope detector," _Journal of Physics G: Nuclear and Particle Physics_, vol. 36, no. 9, p. 095001, 2009.
+
+* [15] T. Sjostrand, S. Mrenna, and P. Skands, "A brief introduction to PYTHIA 8.1," _Computer Physics Communications_, vol. 178, no. 11, pp. 852-867, 2008.
+* [16] P. Faccioli, C. Lourenco, J. Seixas, and H. K. Wohri, "Towards the experimental clarification of quarkonium polarization," _The European Physical Journal C_, vol. 69, no. 3, pp. 657-673, 2010.
+* [17] ALICE Collaboration, "Measurement of the inclusive \(J/\psi\) polarization at forward rapidity in pp collisions at \(\sqrt{s}=8\) TeV," _The European Physical Journal C_, vol. 78, p. 562, 2018.
+* [18] J. J. Aubert _et al._, "Experimental Observation of a Heavy Particle \(J\)," _Physical Review Letters_, vol. 33, p. 1404, 1974.
+* [19] J. E. Augustin _et al._, "Discovery of a Narrow Resonance in \(e^{+}e^{-}\) Annihilation," _Physical Review Letters_, vol. 33, p. 1406, 1974.
+* [20] L. Gang, W. ShuangTe, S. Mao, and L. JiPing, "Prompt heavy quarkonium production in association with a massive (anti)bottom quark at the LHC," _Physical Review D_, vol. 85, p. 074026, 2012.
+* [21] G. C. Nayak, J.-W. Qiu, and G. Sterman, "NRQCD Factorization and Velocity dependence of NNLO Poles in Heavy Quarkonium Production," _Physical Review D_, vol. 74, p. 074007, 2006.
+* [22] G. T. Bodwin, E. Braaten, and J. Lee, "Comparison of the colorevaporation model and the NRQCD factorization approach in charmonium production," _Physical Review D_, vol. 72, p. 014004, 2005.
+* [23] J.-P. Lansberg, "New observables in inclusive production of quarkonia," _Physics Reports_, vol. 889, pp. 1-106, 2020.
+* [24] F. Bergsma _et al._, "The STAR detector magnet subsystem," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 499, no. 2, pp. 633-639, 2003.
+* [25] R. Ma, "Analysis Note: Cold nuclear matter effect for \(J/\psi\) in p+Au collisions at \(\sqrt{s_{NN}}\) = 200 GeV measured by the STAR experiment," [https://drupal.star.bnl.gov/STAR/system/files/JpsiRpA_AN_v4.pdf](https://drupal.star.bnl.gov/STAR/system/files/JpsiRpA_AN_v4.pdf).
+* [26] T. Huang, R. Ma, B. Huang, X. Huang, L. Ruan, T. Todoroki, Z. Xu, C. Yang, S. Yang, Q. Yang, Y. Yang, and W. Zha, "Muon identification with Muon Telescope Detector at the STAR experiment," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 833, pp. 88-93, 2016.
+* [27] STAR Collaboration, "Measurements of the transverse-momentum-dependent cross sections of \(J/\psi\) production at mid-rapidity in proton + proton collisions at \(\sqrt{s_{NN}}\) = 510 and 500 GeV with the STAR detector," _Physical Review D_, vol. 100, p. 052009, 2019.
+
+* [28] R. Brun, F. Bruyant, M. Maire, A. C. McPherson, and P. Zanarini, _GEANT 3: user's guide Geant 3.10, Geant 3.11; rev. version_. Geneva: CERN, 1987.
+* [29] "The STAR Heavy Flavor Tune." [Online]. Available: [https://www.star.bnl.gov/protected/heavy/ullrich/pythia8/](https://www.star.bnl.gov/protected/heavy/ullrich/pythia8/)
+* [30] M. Cacciari, G. P. Salam, and G. Soyez, "FastJet user manual," _The European Physical Journal C_, vol. 72, no. 3, 2012.
+* [31] ----, "The anti-kt jet clustering algorithm," _Journal of High Energy Physics_, vol. 2008, no. 04, pp. 063-063, 2008.
+* [32] T. Adye, "Unfolding algorithms and tests using RooUnfold."
+* [33] G. D'Agostini, "A multidimensional unfolding method based on Bayes' theorem," _Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment_, vol. 362, no. 2, pp. 487-498, 1995.

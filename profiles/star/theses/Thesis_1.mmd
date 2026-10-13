@@ -1,0 +1,1223 @@
+[MISSING_PAGE_EMPTY:1]
+
+###### Abstract
+
+**ENERGY DEPENDENCE OF FLUCTUATION AND CORRELATION OBSERVABLES OF TRANVERSE MOMENTUM IN HEAVY-ION COLLISIONS**
+
+**By**
+
+**John F. Novak**
+
+In collisions of heavy ions of sufficient energy, cold nuclear matter can be forced into a strongly interacting state of quark-gloun plasma (QGP). To study the properties of QGP and the phase transition to hadronic matter, Au+Au collisions were performed at the Relativistic Heavy Ion Collider (RHIC) at Brookhaven National Laboratory (BNL) and studied using the Solendoidal Tracker at RHIC (STAR) detector. These Au+Au collision were taken during 2010 and 2011 as part of the RHIC Beam Energy Scan (BES) at energies \(\sqrt{s_{\rm NN}}\) = 7.7, 11.5, 19.6, 27, 39, 62.4, and 200 GeV. The primary goal of the BES was to search for the critical point of the phase transition between the QGP phase and the hadronic matter phase of nuclear matter.
+
+In this dissertation two analyses on these data are presented which focus on fluctuations of the average transverse momentum (\(\langle p_{\rm t}\rangle\)) of the particles produced in heavy-ion collisions. \(\langle p_{\rm t}\rangle\) is related to the temperature of the systems produced in the collisions [35], and fluctuations of \(\langle p_{\rm t}\rangle\) should be sensitive to fluctuations of the temperature [40]. The moments of the \(\langle p_{\rm t}\rangle\) distributions has also been proposed to be sensitive to the correlation length of the QGP medium [41, 42], which will diverge at the critical point.
+
+Fluctuations of \(\langle p_{\rm t}\rangle\) will depend upon both dynamic fluctuations of the produced systems, and statistical fluctuations due to limited statistics. The first analysis presented in this dissertation is based on the results of the previous work [43].
+
+sertation is of the two particle relative momentum correlator \(\left\langle\Delta p_{\rm t,},\Delta p_{\rm t,}j\right\rangle\) which is a direct measure of the dynamic fluctuations of the variance of the \(\left\langle p_{\rm t}\right\rangle\) distribution, \(\sigma^{2}_{\left\langle p_{\rm t}\right\rangle,\rm dynamic}\). The second analysis presented in this dissertation is of the higher moments of the \(\left\langle p_{\rm t}\right\rangle\) distribution. The dynamic higher moments are inferred by comparison of the measured data with mixed events and statically sampled events which reproduce the statistical fluctuations while having no dynamic fluctuations.
+
+No consistent non-monotonic behavior, which would be a conclusive indication of the QGP critical point, is observed. Some anomalous behavior of the higher moments is noted which will require further analysis. Dynamic fluctuations of the \(\left\langle p_{\rm t}\right\rangle\) distribution, as measured by the two particle correlator \(\left\langle\Delta p_{\rm t,},\Delta p_{\rm t,}j\right\rangle\) and the higher moments of the \(\left\langle p_{\rm t}\right\rangle\) distribution, are observed to increase with energy. There is a strong energy dependence below \(\sqrt{s_{\rm NN}}=19.6\) GeV, and the dynamic fluctuations of \(\left\langle p_{\rm t}\right\rangle\) are consistent with zero at 7.7 GeV.
+
+[MISSING_PAGE_EMPTY:4]
+
+Dedicated to my wife, Christine. Without you this would not have happened.
+
+###### Acknowledgements.
+
+There are many people for whom I am thankful, and without whom this dissertation would not exist. First and foremost, I would like to thank my wife, Christine, for her patience and support. There were many long days and late nights, and she was always willing to let me disappear into my office to work. I also have to thank her parents, Belinda and Joe Venner, the best family one could ask for. They were always there to provide support and love.
+
+I am also thankful for my thesis advisor, Dr. Gary Westfall. Gary taught me, guided me, and was patient with me when, in my enthusiasm, I would blow past "subtleties" which usually turned out to be rather important. I will always remember his expression each time I would appear in his office to tell him that I rewrote all of the analysis code, again. I always got there in the end, and his faith in me was worth more than he can know.
+
+I also want to thank the army of people that made my results possible: the staff at Brookhaven National Lab, my collaborators in STAR, the many people at the National Superconducting Cyclotron Laboratory who made it possible for me to work, and all of the people at Michigan State University who worked behind the scenes so that I could be a graduate student. I need to thank the people who are Michigan State University and the Department of Physics and Astronomy for the opportunity to be a graduate student. The National Science Foundation also has my sincere thanks for funding my research.
+
+**TABLE OF CONTENTS**
+
+LIST OF TABLES
+
+LIST OF FIGURES
+
+Chapter 1 Introduction
+
+1.1 The Standard Model and Quantum ChromoDynamics
+
+1.1.1 Color Confinement
+
+1.1.2 Asymptotic Freedom
+
+1.2 Quark Gluon Plasma
+
+1.2.1 The QCD Phase Diagram
+
+1.2.2 The QCD Critical Point
+
+1.2.2.1 Critical Opalescence
+
+1.3 Heavy-Ion Collisions
+
+1.3.1 System Evolution
+
+1.3.2 Collision Centrality
+
+Chapter 2 Experimental Setup
+
+2.1 The Relativistic Heavy-Ion Collider (RHIC)
+
+2.2 STAR
+
+2.3 Time Projection Chamber
+
+2.4 Time of Flight Detector
+
+2.5 Other STAR Subsystems
+
+2.5.1 Vertex Position Detectors
+
+2.5.2 Electromagnetic Calorimeters
+
+2.5.3 Beam Beam Counters
+
+2.5.4 Zero Degree Calorimeters
+
+Chapter 3 Data from the Beam Energy Scan
+
+3.1 RHIC Beam Energy Scan
+
+3.2 Good Run Determination
+
+3.3 Calibrations
+
+3.3.1 TPC Calibrations
+
+3.3.2 ToF Calibrations
+
+3.4 Track Cuts
+
+3.5 Multiplicity Corrections
+
+3.6 Centrality Determination
+
+3.7 Trigger DefinitionThe UrQMD Model
+
+Chapter 4Motivation and Construction of Analyses 4.1Event-by-event Observables 4.2Fluctuations versus Correlations 4.3\(\langle p_{\text{t}}\rangle\) Fluctuations 4.4Mixed and Statistically Sampled Events 4.5Analyses in this Dissertation 4.6Sources of Fluctuations 4.6.1Jets 4.6.2Flow 4.6.3Resonance Decays 4.6.4Changing Chemistry 4.6.5Temperature Fluctuations 4.6.6Correlation Length 4.7Two-Particle \(p_{\text{t}}\) Correlations, \(\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\rangle\) 4.7.1Mathematical Construction 4.7.2Scalings 4.7.2Selings 4.7.2.1By \(\langle\langle p_{\text{t}}\rangle\rangle^{-1}\) 4.7.2.2By Multiplicity 4.7.2.3By \(\langle\langle p_{\text{t}}\rangle\rangle^{-1}\) and Multiplicity 4.8Higher Moments of \(\langle p_{\text{t}}\rangle\) 4.8.1Mathematical Construction 4.8.2Baselines 4.8.2Baselines 4.8.2.1Gamma Distributions 4.8.2.2Statistical Baseline
+
+Chapter 5Results of the \(p_{\text{t}}\) Correlation Analysis 5.1Behavior of \(\langle p_{\text{t}}\rangle\) 5.2Unscaled Correlations 5.3Correlations Scaled with \(\langle\langle p_{\text{t}}\rangle\rangle^{-1}\) 5.4Correlations Scaled with Multiplicity 5.5Correlations Scaled with Multiplicity and \(\langle\langle p_{\text{t}}\rangle\rangle^{-1}\) 5.6Comparison with Published Results
+
+Chapter 6\(p_{\text{t}}\) Correlation Analysis Checks 6.1\(\eta\) Cut Dependence 6.2Detector Efficiency Dependence 6.3Bin Width Study 6.4Auto-correlations Study 6.5Short Range Correlations 6.6Errors Calculations
+
+Chapter 7Results of the Higher Moments Analysis 7.1Higher Moments
+
+[MISSING_PAGE_EMPTY:9]
+
+[MISSING_PAGE_EMPTY:10]
+
+**LIST OF FIGURES**
+
+Figure 1.1 The force between two quarks. 4 QCD renormalization coupling constant Figure 1.3 The QCD phase diagram Figure 1.4 System evolution in heavy-ion collisions Figure 2.1 Aerial view of RHIC. Figure 2.2 STAR layout. Figure 2.3 STAR detector subsystems. Figure 2.4 STAR TPC Figure 2.5 Location of one STAR ToF tray. Figure 2.6 MRPC Layout. Figure 2.7 MRPC Layout. Figure 2.8 ToF matching efficiency. Figure 2.9 BBC layout Figure 3.1 Laser calibration event in the TPC. Figure 3.2 Illustration of collision centrality. Figure 4.1 \(\langle p_{\rm t}\rangle\) spectra for 200 GeV. Figure 4.2 Momentum dependence of the nuclear modification factor. Figure 4.3 \(\langle p_{\rm t}\rangle\rangle\,\)(refMult) for 7.7 GeV. Figure 4.4 \(\langle p_{\rm t}\rangle\rangle\,\)(refMult) for 200 GeV.
+
+Figure 4.5 Toy model demonstrating the effect of non-uniform \(p_{\rm t}\) acceptance on the \(\left<p_{\rm t}\right>\) distribution.
+
+Figure 4.6 Efficiency as a function of \(p_{\rm t}\) for 62.4 GeV.
+
+Figure 5.1 \(\left<p_{\rm t}\right>\) distributions with gamma distributions.
+
+Figure 5.2 \(\left<\left<p_{\rm t}\right>\right>\) vs \(\sqrt{s_{\rm NN}}\)
+
+Figure 5.3 \(\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>\) vs \(\sqrt{s_{\rm NN}}\)
+
+Figure 5.4 \(\sqrt{\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>}/\left<\left<p_{ \rm t}\right>\right>\) vs \(\sqrt{s_{\rm NN}}\)
+
+Figure 5.5 \(\left<N\right>\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>\) vs \(\sqrt{s_{\rm NN}}\)
+
+Figure 5.6 \(\left<N\right>\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>\) vs \(N_{\rm part}\)
+
+Figure 5.7 \(\sqrt{\left<N\right>\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>}/ \left<\left<p_{\rm t}\right>\right>\) vs \(N_{\rm part}\)
+
+Figure 5.8 \(\sqrt{\left<N\right>\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>}/ \left<\left<p_{\rm t}\right>\right>\) vs \(\sqrt{s_{\rm NN}}\)
+
+Figure 5.9 \(\sqrt{\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>}/\left<\left<p_{ \rm t}\right>\right>\) vs \(\sqrt{s_{\rm NN}}\) for the 0-5% centrality bin.
+
+Figure 6.1 Symmetric \(\eta\)-cut study of \(\sqrt{\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>}/\left<\left<p_{ \rm t}\right>\right>\) for 19.6 GeV
+
+Figure 6.2 Symmetric \(\eta\)-cut study of \(\sqrt{\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>}/\left<\left<p_{ \rm t}\right>\right>\) for 200 GeV
+
+Figure 6.3 Asymmetric \(\eta\)-cut study of \(\sqrt{\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>}/\left<\left<p_{ \rm t}\right>\right>\) for 11.5 GeV
+
+Figure 6.4 Asymmetric \(\eta\)-cut study of \(\sqrt{\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>}/\left<\left<p_{ \rm t}\right>\right>\) for 39 GeV
+
+Figure 6.5 \(\left<\left<p_{\rm t}\right>\right>\) from UrQMD with and without momentum dependent inefficiency simulation
+
+Figure 6.6 \(\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>\) from UrQMD with and without momentum dependent inefficiency simulation
+
+Figure 6.7 \(\sqrt{\left<\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right>}/\left<\left<p_{ \rm t}\right>\right>\) from UrQMD with and without momentum dependent inefficiency simulation
+
+[MISSING_PAGE_FAIL:13]
+
+Figure 8.7 Asymmetric \(\eta\)-cut study of \(\mu_{2}\).
+
+Figure 8.8 Asymmetric \(\eta\)-cut study of \(\mu_{2}\).
+
+Figure 8.9\(p_{\rm t}\) cut study of \(\mu_{1}\).
+
+Figure 8.10\(p_{\rm t}\) cut study of \(\mu_{1}\).
+
+Figure 8.11\(p_{\rm t}\) cut study of \(\mu_{2}\).
+
+Figure 8.12\(p_{\rm t}\) cut study of \(\mu_{2}\).
+
+Figure 8.13\(S\sigma\) for UrQMD with and without \(p_{\rm t}\) dependent efficiency simulation.
+
+Figure 8.14\(K\sigma^{2}\) for UrQMD with and without \(p_{\rm t}\) dependent efficiency simulation.
+
+## Chapter 1 Introduction
+
+In the first moments of time, only a few microseconds after the big bang, the universe existed in a state far different from that which is seen almost anywhere in the universe today. All matter was exceedingly dense and hot (a few trillion degrees), so much so that not only atoms but also their nuclei and the nucleons which form them could not exist. It was too dense and too hot for baryons and mesons to form from quarks and gluons and all partonic matter existed as a plasma of free quarks and gluons.
+
+Within a few microseconds the expansion and cooling of the universe caused the plasma to hadronize into color neutral particles. Today the only place where those primordial conditions are accessibly reproduced is at the center of heavy-ion collisions like those studied in this dissertation.
+
+The study of heavy-ion physics is clearly applicable to the cosmological investigation of the universe's earliest moments, but it is also a powerful tool in the study of nuclear matter. The available phase space for nuclear matter is enormous when compared to the region of it which can be sampled experimentally. Large regions of the nuclear phase diagram are uncertain and theoretical predictions there are poorly constrained. Heavy-ion collisions sample specific regions of the nuclear phase space and can constrain theoretical predictions and the phase diagram.
+
+The Standard Model and Quantum ChromoDynamics
+
+The theory which currently offers the best description of the fundamental particles and the interactions of those particles is the Standard Model. The Standard Model includes 6 leptons (the electron, muon, tau, and their respective neutrinos), 6 quarks (up, down, charm, strange, top, and bottom), four gauge bosons as force carriers (the photon, gluon, Z boson, and the two W bosons), and the Higgs boson (also known as the Englert-Brout-Higgs-Guralnik-Hagen-Kibble boson). Forces between the fundamental particles are manifested as exchanges of gauge bosons. The interactions between the gauge bosons and the quarks and leptons are described by the theories of Quantum ElectroDynamics (QED), Electro-Weak theory (EWT), and Quantum ChromoDynamics (QCD).
+
+The electromagnetic force carrier is the photon, and the interaction between photons and charged particles is described by QED. The weak force carriers are the Z bosons and the two W bosons, and is described by EWT. The fact that the Z and W bosons are massive particles limits the effective range of the weak force. The interactions of gluons with quarks is described as an exchange of 'color charge' (in analogy with electric charge) and it governed by QCD. While QCD is analogous to QED in some ways, its behavior is fundamentally different. Two of the most defining behaviors of QCD are 'color confinement' and 'asymptotic freedom'.
+
+[MISSING_PAGE_FAIL:17]
+
+Which is to say that for large \(r\) the force is constant.
+
+#### Asymptotic Freedom
+
+Similar to QED, in QCD the renormalization coupling constant, \(\alpha_{\mathrm{s}}\left(\mu\right)\), depends on the renormalization scale. In QED, due to charge screening from vacuum-fluctuation virtual-particles, the coupling, \(\alpha\), decreases with distance. This is known as the running coupling constant in QED. In QCD something similar happens, but gluon self interaction changes the behavior of \(\alpha_{\mathrm{s}}\left(\mu\right)\). The coupling constant \(\alpha_{\mathrm{s}}\left(\mu\right)\) can be written as \(\alpha_{\mathrm{s}}\left(\mu\right)=\frac{g_{\mathrm{s}}^{2}(\mu)}{4\pi} \approx\frac{4\pi}{\beta_{0}\ln\left(\mu^{2}/\Lambda^{2}\right)}\), where \(\Lambda\) is the QCD scale, \(\mu\) is the momentum transfer scale, and \(\beta_{0}\) is the first order beta-function which encodes the energy independent part of the coupling parameter. When \(\beta_{0}>0\) the coupling decreases logarithmically with energy, which is called asymptotic freedom.
+
+To say this is simpler terms: the quarks become asymptotically less bound as energy in
+
+Figure 1.1: The force between two quarks as a function of the distance between the quarks. A color flux tube forms between the quarks, which causes force to stay constant with distance. Adapted from Ref. [1]. For interpretation of the references to color in this and all other Figures, the reader is referred to the electronic version of this dissertation.
+
+creases, and quarks can only be completely 'free' in the limit of infinite energy. Figure 1.2 shows the QCD renormalization coupling constant, \(\alpha_{\rm{s}}\left(\mu\right)\), as a function of energy (or momentum) transfer showing the QCD prediction versus experimental measurements.
+
+The practical consequence of asymptotic freedom is that the only way to study free quarks is in systems at very high energies like those produced in heavy-ion collisions.
+
+### 1.2 Quark Gluon Plasma
+
+Due to the confinement of quarks, as discussed in Section 1.1, at normal temperatures and densities quarks are bound inside of hadrons.
+
+#### The QCD Phase Diagram
+
+A cartoon representation of the phase diagram for quark matter can be seen in Figure 1.3. This representation of the phase diagram shows estimates of the phases of quark matter as a function of temperature and baryon chemical potential (\(\mu_{\rm{B}}\)), which can be thought of as a proxy for density. At high enough temperature the phase becomes independent of \(\mu_{\rm{B}}\) and the only possible phase is QGP. At temperatures below \(\sim\)170 MeV (the critical temperature) the phase depends upon both the temperature and \(\mu_{\rm{B}}\).
+
+At \(\mu_{\rm{B}}=0\), the density will also be zero, so the lower left point of Figure 1.3 corresponds to vacuum. For low, but non-zero \(\mu_{\rm{B}}\), below the phase transition to QGP, quarks and gluons will coalesce into hadrons and take the phase of a hadron gas. Increasing \(\mu_{\rm{B}}\) is equivalent to increasing density, and a point can be noted at temperature \(\sim 0\) MeV and \(\mu_{\rm{B}}=\) nucleon Figure 1.2: The QCD renormalization coupling constant, \(\alpha_{\rm S}\left(\mu\right)\), as a function of energy (or momentum) transfer. The QCD calculation is shown with experimental measurements. Taken from Ref. [2].
+
+Figure 1.3: The QCD phase diagram. Adapted from Ref. [3].
+
+mass (\(\sim 939\) MeV) which corresponds to to the transition to nuclear matter.
+
+For \(\mu_{\rm B}\) greater than \(\sim 900\) MeV, the density is greater than that of nuclear matter. Exotic phases are theorized to exist at very large \(\mu_{\rm B}\). Such phases may possibly exist at the cores of neutron stars and could have unique properties such as color super conductivity.
+
+In heavy-ion collisions, if there is sufficient center of mass energy, the system will be forced non-adiabaticly to a point in the QGP phase. The temperature of this initial state increases with collision energy, while \(\mu_{\rm B}\) will decrease with collision energy.
+
+In heavy-ion collisions after the initial QGP state is formed the system will cool and expand. The expansion is isentropic and follows a trajectory so that \(\frac{d\mu_{\rm B}}{dS}=const\), where \(S\) is the entropy. Both the temperature and \(\mu_{\rm B}\) decreases until the system undergoes a phase transition and hadronizes as it passes into the hadron gas phase. If the system passes through a first order phase transition, it will move along the phase transition line toward lower \(\mu_{\rm B}\) due to latent heat. After passing through the phase transition the system will continue to cool isentropically.
+
+#### The QCD Critical Point
+
+For zero baryon chemical potential, \(\mu_{\rm B}=0\), lattice calculations indicate the there should be a smooth crossover between the QGP phase and the hadron gas phase with a critical temperature in the region of 160 to 170 MeV [4, 5, 6, 7, 8, 9]. The systems produced in heavy-ion collisions at high incident energies are very near to vanishing \(\mu_{\rm B}\)[10]. For temperature \(T=0\), lattice calculations, nuclear theory, and analogies with other physical systems suggest that there should be a first order phase transition most likely to a color superconducting phase [11, 12, 8, 9]. If both results are true, then in the region of finite temperature and finite \(\mu_{\rm B}\) there must exist a critical point. Lattice calculations in the region of both finite temperature and finite \(\mu_{\rm B}\) are computationally expensive, but they also indicate that there should be a critical point [7, 8, 9]. The only way to locate the critical point, if it exists, is to explore the phase diagram experimentally with heavy-ion collisions.
+
+##### Critical Opalescence
+
+Systems which pass near a critical point between a smooth crossover and a first or second order phase transition will undergo a phenomena known as _critical opalescence_. Critical opalescence was first observed in 1869 in liquid CO\({}_{2}\). As the temperature was increased through 304.25 K and was held at 72.9 atm the medium became cloudy [13, 14]. This cloudiness indicated density fluctuations occurring in subdomains which were large compared to the wavelength of light. These fluctuations scatter the light passing through the medium, resulting in the cloudy appearance. This phenomena was explained by Albert Einstein forty years later [15], and is related to the divergence of the _correlation length_, \(\xi\). The divergence of the correlation length is common to all critical points between smooth crossovers and first or second order phase transitions.
+
+In an idealized case the correlation length would diverge to infinity; in practice however, correlations are restricted to propagating at finite speeds and the systems are finite in volume and time. This is important in heavy-ion collisions, because the system lifetime is very short (a few fm/\(c\)), the volume is finite, and the volume is rapidly expanding. This means that if observables are constructed which are supposed to be sensitive to the correlation length, the magnitude of their deviation at the critical point will be strongly related to the size,lifetime, and inherent properties of the system being studied. The observables analyzed for this dissertation and their relationship to the correlation length are addressed in depth in Chapter 4.
+
+### 1.3 Heavy-Ion Collisions
+
+#### System Evolution
+
+The first few fm/_c_ seconds of a heavy-ion collision are dominated by hard processes such as fragmentation, quark pair production, and jet production. Through the process of hard interactions, the system evolves to local thermal equilibrium, and a strongly interacting QGP phase is formed. The QGP phase has very high temperature and density, so it rapidly expands and cools. Once the system reaches the phase transition it undergoes _chemical freeze out_, at which point the QGP hadronizes into a hadron gas and the chemical composition is approximately fixed. For most of the energies studied the transition from QGP to hadron gas is a smooth crossover so it should be noted that different parts of the medium undergo the phase transitions at different points in time. This means that there is a period in the evolution of the system where there is a core of QGP matter surrounded by a hadron gas. After chemical freeze out, the system continues to interact kinetically and the produced hadrons will scatter off each other. Some of the produced hadrons will be unstable and will decay during this phase of the system. The scattering continues until the system reaches _kinetic freeze out_, at which point the volume is diffuse enough that the particles no longer interact at all. After kinetic freeze out the thermal and kinetic information of the system is fixed.
+
+Figure 1.4: A representation of the system evolution in heavy-ion collision showing the phases and transitions. The ordinate corresponds to time, and the abscissa corresponds to distance along the beam axis. The origin is the center of the collision at the moment of impact. Taken from Ref. [16].
+
+After the final freeze out, the produced particles stream out into the detectors where their masses, charges, energies, and other properties are measured. The only information available to a physicist is the data read out from each detector, so any information about the earlier states of the system has to be inferred from the particles.
+
+#### Collision Centrality
+
+An important parameter in heavy-ion collisions is the event _centrality_. The collision centrality is analogous to the impact parameter of the colliding nuclei. If the two nuclei collide exactly head-on, with an impact parameter \(b=0\) fm, we would say the collision was central. As the impact parameter is made larger, we say the collisions become more peripheral, until we reach the most peripheral possible collisions at \(b\approx 14\) fm in the case of gold (\(14\) fm \(=2\times 7\) fm, where \(7\) fm is approximately the radius of a gold nucleus).
+
+Experimentally the collision centrality for an event is determined using the _multiplicity_ of the event assuming that more central collisions have higher multiplicity. Multiplicity can be defined experimentally in many ways, but they are all attempts to quantify the number of particles emitted from an event. In practice only charged particles are observed, and the geometrical acceptance is limited by the detector. Some analyses (those which are studying properties of the multiplicity distributions) need careful multiplicity definitions in order to avoid biasing their results. In all cases the objective is to use a measure which is a proxy for the absolute number of particles produced in a collision. To relate experimentally measured multiplicities to inferred centralities, Glauber Monte-Carlo simulations are used and fit to the data. This is addressed in more depth in Section 3.6.
+
+## Chapter 2 Experimental Setup
+
+### 2.1 The Relativistic Heavy-Ion Collider (RHIC)
+
+All data presented in this dissertation were taken at the Relativistic Heavy-Ion Collider (RHIC) which is an experimental facility located at Brookhaven National Laboratory (BNL) in Upton, NY. RHIC consists of a collection of accelerators and storage rings capable of colliding both high intensity polarized protons as well as heavy-ions. Figure 2.1 shows an aerial view of RHIC. RHIC's accelerating chain has four steps: the Tandem Van de Graaff linear accelerator, the Booster synchrotron, the Alternating Gradient Synchrotron (AGS), and the main rings. The main rings consist of two super-cooled concentric storage rings, through which two beams can be circulated in opposite directions. The main rings run through a tunnel 3.8 km in circumference, and there are six interaction areas where the beams can be collided. Only four of RHIC's six interaction regions are used for experiments. The experiments at RHIC are BRHAMS (Broad RAuge Hadron Magnetic Spectrometers) at 2 o'clock, PHENIX (Pioneering High Energy Nuclear Interactions experiment) at 8 o'clock, PHOBOS1 at 10 o'clock, and STAR (Solenoidal Tracker at RHIC) at 6 o'clock. Of these
+
+[MISSING_PAGE_FAIL:28]
+
+[20].
+
+From the ion source the ions are injected into the Tandem Van de Graaff. They are partially stripped to a positive charge state at the terminal (the filtering after the Tandem selects those ions which were stripped to a +12 state) with a thin carbon foil (2 \(\mu\)g/cm\({}^{2}\)) [21], and they are accelerated to an energy of 1 AMeV by the time they exit the Tandem. At the exit of the Tandem, the ions are further stripped, and then filtered with dipole bending magnets to select only ions with a charge state of +32 (which had been accelerated to 1 AMeV by the Tandem) [22].
+
+These are then sent into the Booster synchrotron, where they are bunched and accelerated to 95 AMeV. After the Booster, the beam is again stripped and filtered so that all ions have a charge state of +77 (helium-like). The ions are then sent into the AGS which accelerates them to the RHIC injection energy of 10.8 AGeV, and fully strips the ions to a charge state of +79. After being stripped and filtered, each bunch contains \(10^{9}\) ions and they are injected into one of the two counter-rotating main RHIC rings via a switching magnet at the end of the AGS-to-RHIC Beam Transfer Line. The injection of bunches into the main RHIC rings continues until both beam lines are full which takes on the order of a minute [21].
+
+Once in the main ring, the ions are accelerated up to the desired energy. The main ring can collide energies from the injection energy of 10.8 AGeV up to a top operating energy of 100 AGeV (\(\sqrt{s_{\rm NN}}\) = 200 GeV, where \(\sqrt{s_{\rm NN}}\) is the energy per nucleon pair) for heavy ions and 250 GeV (\(\sqrt{s_{\rm NN}}\) = 500 GeV) for protons. Au + Au collisions have been run at RHIC at and below the injection energy of \(\sqrt{s_{\rm NN}}\) = 19.6 GeV by lowering the energy of the ions from the AGS and not accelerating the ions in the main ring (just using the rings for storage and not ramping the beam). Energies down to \(\sqrt{s_{\rm NN}}\) = 7.7 GeV have been produced for Au+Aucollisions.
+
+The RHIC main ring has two independent beam lines separated 90 cm horizontally which circulate in opposite directions [22]. As viewed from above, the clockwise beam is referred to as blue, while counter-clockwise is yellow. The independent beam lines allow RHIC to collide not just symmetric systems (p + p, Cu + Cu, and Au + Au), but also asymmetric systems (d + Au). The main ring is composed of six 356 m ring arc segments and six 277 m long insertion segments. Each arc segment contains 11 sections which contain two dipole superconducting magnets which bend the beams, and two quadrupole and two sextupole superconducting magnets which focus the beams.
+
+All of the data used in the analyses presented in this dissertation are from Au + Au collisions collected during Runs 10 and 11 (taken in 2010 and 2011 respectively). Specifically, the data for energies \(\sqrt{s_{\rm NN}}=\) 7.7, 11.5, 39, and 62.4 GeV were collected in Run 10. The energies \(\sqrt{s_{\rm NN}}=\) 19.6, 27, and 200 GeV were collected during Run 11. During Run 10, \(\sqrt{s_{\rm NN}}=\) 200 GeV was also run, but in Run 11 the data collection triggers were improved to prevent pile-up in the detector, so only the Run 11 data are presented (see Section 3.7).
+
+### 2.2 Star
+
+The data used in this dissertation were collected with the STAR detector. STAR is a large acceptance detector with full azimuthal coverage (\(2\pi\)), good track resolution, and good particle identification. The STAR detector is a combination of many detector subsystems which are azimuthally symmetric about the beam pipe which run through the center of STAR. All together, STAR is three stories tall and weighs 1,200 tons. Most of STAR'sweight comes from the room-temperature solenoid magnet which surrounds most of the detector subsystems and weighs 1,100 tons. The STAR magnet can be run at either it's full field strength (0.5 T) or at half-full strength (0.25 T). The magnetic field is parallel to the beam axis, and is uniform within 0.0040 T [23].
+
+Many of the detector subsystems in STAR have changed since STAR's commissioning in 2000. The heart of STAR, the STAR Time Projection Chamber (TPC) has remained unchanged. Section 2.3 is devoted to it. The Time of Flight detector (ToF) was added before Run 10 in 2010, and is discussed in Section 2.4. Other detector subsystems such as the Electromagnetic
+
+Figure 2.2: Artist rendering of STAR with detector subsystems labeled. Figure produced by Maria and Alexander Schmah.
+
+Calorimeter (EMC), the upgraded pseudo-Vertex Position Detectors (upVPD), and the Zero Degree Calorimeter (ZDC) are addressed in Section 2.5.
+
+Figure 2.2 shows the STAR detector with the subsystems labeled. In this figure, the end cap is pulled back so that the internals of STAR can be viewed. Coordinates in STAR are often given in terms of the cartesian directions \(x\), \(y\), and \(z\). These are defined such that the \(x\)-axis points south, the \(y\)-axis points up, and the \(z\)-axis points west along the beam line. The origin of the coordinate system (\(x=y=z=0\)) is located at the geometric center of STAR. Sometimes STAR coordinates are given in angular coordinates such that \(\theta\) is measured from the positive \(z\)-axis, and \(\phi\) is measured from the positive \(y\)-axis. In practice, \(\theta\)-angles are rarely used and angular coverage with respect to the \(z\)-axis is usually given in terms of pseudorapidity, \(\eta\), which is defined as:
+
+Figure 2.3: STAR detector subsystems. Adapted from Ref. [24].
+
+\[\eta=-\ln\left(\tan\frac{\theta}{2}\right). \tag{2.1}\]
+
+Starting from the beam pipe, the first detector that the particles will interact with is the TPC. Near the beam pipe, outside of the TPC, are the upVPDs. Continuing radially aways from the beam pipe, outside of the TPC is the ToF detector. Radially after the ToF is one part of the EMC, the Barrel EMC (BEMC). The other part of the EMC, the End-cap EMC (EEMC), is located in the positive \(z\) direction, outside of the upVPD. Outside of all of this is the STAR magnet. Along the beam pipe, just outside the STAR magnet are the Beam Beam Counters (BBC). The ZDCs are located 18 m down the beam line at the first bends of the beam pipe.
+
+### 2.3 Time Projection Chamber
+
+The Time Projection Chamber is the heart of the STAR detector. The TPC is a gas detector that measures particle's tracks and can determine path length (\(\Delta s\) [cm]), momentum (\(p\) [GeV/_c_]), and ionization energy loss (d\(E\)/d\(x\) [MeV/cm]) in the TPC gas. Figure 2.4 shows a drawing of the STAR TPC. The STAR TPC was the largest TPC in the world for some time until it was surpassed in 2004 by the TPC built for ALICE at the Large Hadron Collider. The TPC is 4 m in diameter and 4.2 m in length. The TPC has full azimuthal coverage (\(0<\phi<2\pi\)), and covers a pseudorapidity range of \(-1<\eta<1\) (equivalent to \(45^{\circ}<\theta<135^{\circ}\)).
+
+The TPC can measure charged particle momenta for particles in the range of 100 MeV/_c_ up to 30 GeV/_c_[25]. The TPC is filled with a mixture of 10% methane and 90% argon gas,which is kept at 2 mb above atmospheric pressure. The positive pressure is maintained in order to insure purity of the TPC gas; if there are any leaks, the TPC gas will leak out, rather than air leaking in.
+
+When a charged particle passes through the TPC, it ionizes the TPC gas. The released electrons drift toward the ends of the TPC pushed there via an 135 V/cm electric field maintained between the central membrane (located at \(z=0\)) and the ends of the TPC via an inner and outer field cage and the end caps. When the electrons reach the ends of the TPC they trigger electron avalanches which amplify the track signals 1000-3000 times. The electron drift velocity (5.45 cm/\(\mu\)s) and the time it takes the electrons to drift to the end caps give a measure of the particle position in the \(z\) direction (parallel to the beam axis). The position of the particle in the plane perpendicular to the beam axis is given by the Multi-Wire Proportional Chambers (MWPC). The MWPC measures the temporary image charge induced by the electron avalanche. The MWPC is highly segmented, with 12 sectors each containing 5692 pads. The optimal efficiency of the MWPC is 96%, with the inefficiency due to sector boundaries.
+
+Figure 2.4: Diagram of the STAR TPC. From Ref. [25].
+
+Particle identification (PID) is possible with the TPC, because d\(E\)/d\(x\) is mass and charge dependent. Pions and kaons can be reliably distinguished in the momentum range of \(0.1<p<0.7\) GeV/\(c\), and protons can be identified up to \(\sim\)1.0 GeV/\(c\).
+
+### 2.4 Time of Flight Detector
+
+While the TPC can perform PID, it is limited to low momentum particles. The STAR Time of Flight detector (ToF), in conjunction with the TPC, provides PID capabilities at much larger momentum than the TPC alone. The ToF measures particle flight times (\(\Delta t\) [s]), which when paired with track information from the TPC, gives the particle velocities (\(\beta\)), and with it, mass (\(m\) [GeV/\(c^{2}\)]).
+
+Flight time determination requires two time measurements: a start time, \(t_{0}\), and a stop time, \(t_{\text{stop}}\). Only the "stop" times are measured by the ToF, and the "start" times are provided by the upVPDs. The upVPDs will be addressed in more detail in Section 2.5.1. There are two upVPDs, located near the beam pipe to the east and west of the collision area. The upVPDs measure photons from the collisions, so neither measures \(t_{0}\), but rather they measure \(t_{\text{east}}\) and \(t_{\text{west}}\), which can be written as:
+
+\[t_{\text{east}}=t_{0}+\frac{L+V_{z}}{c}\hskip 56.905512pt(2.2)\hskip 56.905512ptt_{ \text{west}}=t_{0}+\frac{L-V_{z}}{c} \tag{2.3}\]
+
+Where \(L\) is the distance from the upVPDs to the center of STAR, and \(V_{z}\) is the \(z\)-position of the collision in STAR.2 From these, it can be seen that
+
+Footnote 2: This simplified formulation assumes that \(V_{x}=V_{y}=0\).
+
+\[t_{0}=\frac{t_{\text{east}}+t_{\text{west}}}{2}-\frac{L}{c}. \tag{2.4}\]From the start time \(t_{0}\) provided by the upVPDs, and the stop time \(t_{\rm stop}\) provided by the ToF itself, the time of flight, \(\Delta t\), can be calculated,
+
+\[\Delta t=t_{\rm stop}-t_{0}. \tag{2.5}\]
+
+Using the path length \(\Delta s\) from the TPC, it is possible to calculate the inverse velocity \(1/\beta\) via3,
+
+Footnote 3: In all of the equations presented here, we set \(c\) = 1
+
+\[\frac{1}{\beta}=\frac{\Delta t}{\Delta s}. \tag{2.6}\]
+
+Additionally, using the momentum \(p\) from the TPC, we can calculate mass:
+
+\[m=\frac{p}{\gamma\beta}=\frac{p\sqrt{1-\beta^{2}}}{\beta}=p\sqrt{\left(\frac {1}{\beta}\right)^{2}-1} \tag{2.7}\]
+
+The relationship between \(1/\beta\) and \(p\) is more sensitive to mass at larger values of \(p\), so using the ToF, pions and kaons can be identified up to \(\sim\)1.8 GeV/\(c\) and protons up to \(\sim\)3 GeV/\(c\). This extends the momentum region over which PID is possible by almost a factor of \(\sim\)3 compared to the TPC alone.
+
+The ToF detector consists of 120 trays of Multigap Resitive Plate Chambers (MRPC). Each ToF tray contains 32 MRPCs, for a total of 3840. The ToF trays are arranged in two rings of 60 trays each surrounding the TPC inside the STAR magnet. A diagram showing the placement of the ToF trays with respect to the TPC can be seen in Figure 2.5. The ToF covers the full azimuthal range (\(0<\phi<2\pi\)) and a pseudorapidity range of \(-0.94<\eta<0.94\).
+
+Each MRPC consists of a stack of seven glass plates with 220-\(\mu\)m wide gaps between each plate as can bee seen in Figures 2.6 and 2.7 [26]. On either side of this stack are graphite electrodes which generate a large potential difference across the stack (of order 15.5-17 kV). Outside of the peripheral graphite electrode is a PCB with six copper readout pads. When a charge particle passes through the MRPC, it will ionize the gas between the plates. The large potential difference causes an electron avalanche, which is detected by the readout pads.
+
+Figure 2.5: Location of one tray of the STAR ToF. From the ToF proposal and documentation Ref. [26].
+
+Figure 2.6: Layout of each MRPC from the STAR ToF. From the ToF proposal and documentation, Ref. [26]. Continued in Figure 2.7.
+
+Figure 2.7: Layout of each MRPC from the STAR ToF. From the ToF proposal and documentation, Ref. [26]. Continued from Figure 2.6.
+
+For each event, all ToF hits are mapped and compared to a map of the reconstructed tracks from the TPC. For ToF cells that mapped to only one reconstructed track, the ToF information is associated with the TPC track. The ToF-TPC matching introduces an additional inefficiency, which can be seen plotted in Figure 2.8. The efficiency is both mass and \(p_{\mathrm{t}}\) dependent for \(p_{\mathrm{t}}<1\) GeV/_c_, and above \(p_{\mathrm{t}}<1\) GeV/_c_ the efficiency is constant at about 70%.
+
+### 2.5 Other STAR Subsystems
+
+The TPC and ToF are the primary detectors which measure individual track data, but there are many other detector subsystems which are used for triggering, vertex position determination, background suppression, and analysis specific data.
+
+#### Vertex Position Detectors
+
+There are two upgraded pseudo-vertex position detectors (upVPDS), which are located near the beam line, inside of STAR, outside of the TPC. Their location can be seen variously in Figures 2.2, 2.3, and 2.5. The upVPDs were installed in 2006 as an upgrade to replace the previous pseudo-vertex detectors (pVPDs).
+
+Each upVPD consists of 19 assemblies, where each assembly contains two cylindrical disks of lead (total thickness of 1/4 inch) which act as a converter, backed by a cylindrical disk of plastic scintillator (thickness 1 cm), all mounted on a photomultiplier tube (PMT). All parts of the assembly (lead, scintillator, and PMT) have a diameter of 1.5 inches [27].
+
+Figure 2.8: ToF matching efficiency for identified particle species. From Ref. [1].
+
+The upVPDs are not only used to determine the start-time for each event, as described in Section 2.4, their secondary purpose is to determine the location of the event vertex along the beam axis. From Equations 2.2 and 2.3 we can see that,
+
+\[V_{z}=\frac{\left(t_{\text{east}}-t_{\text{west}}\right)c}{2}. \tag{2.8}\]
+
+#### Electromagnetic Calorimeters
+
+The Electromagnetic Calorimeter (EMC), consists of two independent detectors: the Barrel EMC (BEMC), and End cap EMC (EEMC). The BEMC is installed outside the ToF detector, inside of the STAR magnet, has full azimuthal acceptance (\(0<\phi<2\pi\)), and covers pseudorapidity \(-1<\eta<1\). The EEMC is installed in the west end cap, and covers the forward pseudorapidity region \(1.09<\eta<2\), also with full azimuthal coverage. Both the BEMC and EEMC are lead- scintillator sampling calorimeters which can measure particle energy and be used for triggering.
+
+#### Beam Beam Counters
+
+The Beam Beam Counters (BBC) are scintillator annuli installed around the beam pipe just outside the pole tips of the STAR magnet. They were built to be used as local polarimeters for use with polarized protons beams, although they are also used as triggers. Each of the BBC detectors consists of 36 scintillator tiles divided into two groups of 18. The two groups of tiles are different sizes, and arranged into two rings, as can be seen in Figure 2.9. Each of the detectors is placed 3.75 meters aways from the center of STAR.
+
+Figure 2.9: The layout of the BBC detectors. Ref. [28].
+
+#### Zero Degree Calorimeters
+
+The Zero Degree Calorimeters (ZDCs) are small hadronic calorimeters located approximately 18 meters from the center of STAR on the beam axis after the first bends in the beam line. The acceptance area is very small, extending only approximately 5 cm away from the beam axis. The ZDCs consist of three modules, each a layer of lead and a layer of plastic scintillator. The ZDCs mostly detects spectator neutrons and is used for triggering as well as monitoring the beam luminosity.
+
+## Chapter 3 Data from the Beam Energy Scan
+
+### 3.1 RHIC Beam Energy Scan
+
+All of the data used in this dissertation were collected during Runs 10 and 11, taken during years 2010 and 2011 respectively. The data collected during Runs 10 and 11 were from the RHIC Beam Energy Scan (BES). The purpose of the BES was to systematically explore a large energy range, which corresponds to a large part of \(\mu_{\rm B}\)-\(T\) space of the nuclear phase diagram (see Figure 1.3). All of the BES energies were done with Au+Au collisions. The energies run during the BES, and also the energies analyzed in this thesis, are \(\sqrt{s_{\rm NN}}=\) 7.7, 11.5, 19.6, 27, 39, 62.4, and 200 GeV. The data sets used in this analysis are listed in Table 3.1 along with calculated \(\mu_{\rm B}\) values corresponding to the collision energy, the year the data were taken, and the number of events used for each energy.
+
+There are various units of measurement for the data collected at STAR. Each year's total data is designated by "Run" number. The first year that data were taken was 2001, corresponding to Run 1, resulting in a convenient correlation between year in the decade and Run number. Over the course of one year's Run, many energies and species may be collided. While running each day there are several "fills", where the RHIC ring is filled with nuclei, the nuclei are ramped up to the desired energy, collisions are performed and physics is taken. When thebeam luminosity becomes too low, the fill is dumped. Over the course of a single fill many "runs" are taken. It is an unfortunate that the term "run" is used twice, but it is convention. A run may last a few minutes or a few hours depending on the energies and species being collided, the data triggers being used, and the physics goals. Usually, the primary constraint on the length of a run is the size of the resulting data files. Most people prefer multiple manageably-sized data files to a few unwieldy ones. An additional advantage of taking many smaller runs is that if the detector changes over the course of a fill it can be identified.
+
+For each energy, only a subset of the full data taken was used in the analysis. The full data set was processed, and periods with a minimum of detector problems and strong consistency of quality assurance observables were selected as good runs for use in the analysis. The good run determination is discussed in more detail in Section 3.2. Many of the detectors used in the analysis require calibrations before and during each run; some of these calibrations are discussed in Section 3.3. Some of the important measures, notably the multiplicity of each event, depend upon other observables such as beam luminosity and vertex position. Those observables are corrected for these effects, and the procedure and the corrections are discussed in Section 3.5. In addition to all of these methods of quality assurance, analysis cuts are placed on the tracks of each event to diminish backgrounds, suppress secondary
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline \(\sqrt{s_{\mathrm{NN}}}\) (GeV) & \(\langle\mu_{\mathrm{B}}\rangle\) (MeV) & Year & Species & Events (M) \\ \hline
+7.7 & 421 & 2010 & Au+Au & 1.6 \\
+11.5 & 316 & 2010 & Au+Au & 2.4 \\
+19.6 & 206 & 2011 & Au+Au & 16.3 \\
+27 & 156 & 2011 & Au+Au & 44.4 \\
+39 & 112 & 2010 & Au+Au & 10.7 \\
+62.4 & 73 & 2010 & Au+Au & 34.5 \\
+200 & 24 & 2011 & Au+Au & 23 \\ \hline \end{tabular}
+\end{table}
+Table 3.1: Table of run data for data sets used in this dissertation. The baryon chemical potential (\(\langle\mu_{\mathrm{B}}\rangle\)) values are from Ref. [10].
+
+interactions, and to ensure uniform detector performance. These track cuts are discussed in Section 3.4. As was discussed in Section 1.3.2, event centrality strongly affects many physics observables. The method of centrality determination is discussed in Section 3.6.
+
+### 3.2 Good Run Determination
+
+During the course of an experiment many things can go wrong and many things can change; the magnet may trip, detector power supplies may fail, TPC read out boards may stop working, ToF trays may stop working, TPC anodes may short out, the beam may get dumped, and the beam may even accidentally get dumped in the detector. The reason why things go wrong is often not clear, and often the fix is to power cycle the system which is having problems. If power cycling the system doesn't work, often the next step is to power cycle the power supply crates for that system as soon as an experimental access is possible. In some cases, when systems aren't fixed by simple solutions, they are masked out of the data acquisition system until an expert can address them or an extended access is possible. These variations in the state and quality of the detectors means that often a substantial part of the data taken is unusable for particular analyses.
+
+These variations are addressed by "good run selection", where by the entire data set is looked over, and sections of the data are selected where quality assurance observables remained constant, and there were no major problems with the detector.
+
+Calibrations
+
+The data from every detector have to be digitized and processed before they are useful for analysis. Here we will address calibrations that needed to be performed on the data from two of the primary detectors: the TPC and the ToF. Calibrating detectors is a large undertaking which is shared by all members of the STAR collaboration. The types of calibrations which are performed and the general approaches are explained here, but for more detailed information the reader should consult the referenced material.
+
+#### TPC Calibrations
+
+The STAR TPC is calibrated by use of two Nd:YAG (neodymium-doped yttrium aluminum garnet; Nd:Y\({}_{3}\)Al\({}_{5}\)O\({}_{12}\)) lasers [29]. This type of laser was selected because it could deliver a beam of sufficient energy density(2-10 \(\mu\)J/mm\({}^{2}\)) to produce ionization of the TPC gas equivalent to minimum-ionizing particles without the addition of organic gas additives which would accelerate aging. The beams from the two lasers are expanded to 30 mm in diameter then directed at splitters on the TPC end caps that split each beam into six beams of equal intensity, all of which are directed parallel to the beam axis. Each of these twelve beams is incident upon a six separate bundles of seven mirrors, placed at intervals along the TPC length. This arrangement produces a total of 504 laser beams that cover the entire TPC volume. The laser mirrors are mounted on dielectrics, and the laser beams can be positioned to an accuracy of 50 \(\mu\)[29]. Figure 3.1 shows an example of a reconstructed laser calibration run in the TPC.
+
+Laser calibrations are taken at regular intervals during data collection to ensure that any changes in the performance of the TPC is noted. The TPC calibration procedure consists of reconstructing the signals produced by the TPC so that the reconstructed laser tracks coincide with their known spatial locations.
+
+#### 3.3.2 ToF Calibrations
+
+There are many calibrations done to the data from the ToF detector before it is used in any analysis. These calibrations fall into two categories: calibrations done to address hardware properties which remain unchanged with time, and run-by-run calibrations. There are two hardware calibrations of significance: correcting for the integrated non-linearity (INL) of the
+
+Figure 3.1: An event reconstruction of the lasers used in the TPC calibration. From Ref. [30].
+
+timing chips, and correcting for signal delays due to differences in cabling length. There are two run-by-run calibrations of note: correcting for "slewing", a detector effect where particles which deposit more energy into the detector get read as arriving earlier, and correcting for the "\(\rm Z_{hit}\)" effect.
+
+All of the hardware calibration measurements were carried out at Rice University during the assembly and testing of the ToF detector. The INL effect is a consequence of the timing chips used in the ToF trays, and arrises from the fact that when signals come in they are binned according to arrival time, but the widths of these bins are not identical. Each timing chip has different INL behavior, and these were all measured extensively before being installed in STAR. The other hardware calibration is to address cable-length delays. These are delays in signals from ToF trays which are further from the data acquisition system in terms of cable length.
+
+### 3.4 Track Cuts
+
+Even after good run and good event selection, there can still be bad events in good runs. Also, in good events, not all tracks are usable for analysis. Events can be rejected if the vertex is located too far from the center of the STAR detector. The vertex position with is given given as a point \((V_{x},V_{y},V_{z})\) with the origin at the center of STAR. For all energies the vertex is required to be located within 2 cm of the center of the beam axis (\(\sqrt{V_{x}^{2}+V_{y}^{2}}<2\) cm). This is to ensure that the vertex is not to close to the beam pipe, also the further the reconstructed vertex is from the center of the beam axis, the more likely it is that it was mis-reconstructed and is not correct. Additionally, the vertex is required to be within 30 cm
+
+[MISSING_PAGE_FAIL:52]
+
+dissertation is refMult. RefMult is defined as the number of charged particles detected within the rapidity range \(-0.5<\eta<0.5\). This value, however, is observed to depend on several other measures: beam luminosity (as measured by the ZDC, see Section 2.5.4), and vertex position along the beam axis (\(V_{z}\)). The dependence upon beam luminosity can be explained logically by the fact that at higher beam luminosities there are large backgrounds, so naturally the number of tracks in the detector should be higher. The dependence upon \(V_{z}\) happens because events with larger \(V_{z}\) values occur closer to the ends of the detector, and more of the tracks are lost, resulting in a lower observed multiplicity.
+
+The other multiplicity definition used in this dissertation is refMult2. There are observables that are based on the distribution of event-by-event multiplicities. Centrality determination is still necessary in these analyses, but using the same multiplicity observable for centrality cuts as is being studied introduces bias which is known as "auto-correlations". Several alternative multiplicity definitions have been proposed, one of which is refMult2. The analyses presented in this dissertation are not directly related to multiplicity, but event multiplicity and \(\langle p_{\text{t}}\rangle\) are known to be correlated, so checks were performed to ensure there where no auto-correlations (see Section 6.4).
+
+refMult2 is defined as the number of charged particles seen in the detector in the rapidity range \(0.5<|\eta|<1.0\). Observables using refMult2 for the centrality determination are restricted to the tracks within \(|\eta|<0.5\), so that none of the tracks used in the centrality determination are included in the analysis. RefMult2 has similar dependence upon beam luminosity and \(V_{z}\) as refMult, and the same corrections done for refMult were done independently for refMult2.
+
+Centrality Determination
+
+After the multiplicity has been corrected, centrality determination is done using wounded nucleon Glauber Monte Carlo simulations. Centrality determination assumes that there is a monotonic relationship between impact parameter and multiplicity, \(dN/db\), where \(N\) is the multiplicity and \(b\) is the impact parameter. There are many ways to determine the relationship between impact parameter and multiplicity, we use a wounded nucleon Monte Carlo simulation. Wounded nucleon Glauber Monte Carlo is a type of heavy-ion collision simulation. In it each nucleus is modeled as a spherical bundle of nucleons. An impact parameter is chosen randomly from an appropriate distribution, and then the nuclei are collided. All nucleons are assumed to travel in straight lines, and nucleon collisions are determined using a nucleon-nucleon cross-section (taken from proton-proton collisions). From just this information, the number of participants (\(N_{\rm part}\)), and number of binary collisions (\(N_{\rm coll}\)) can be extracted. The Glauber \(N_{\rm coll}\) distribution can then be extrapolated to a multiplicity distribution by assuming that each collision will produce a random number of particles given by a negative binomial distribution (NDB). The Glauber simulation and NBD are fit to the experimental multiplicity distribution by tuning the parameters of the model and NBD.
+
+Using the wounded nucleon model allows an approximate mapping between the impact parameter of the colliding nuclei and the observed multiplicity. The model also allows the multiplicity distribution to be extended all the way to multiplicities of one. Experimentally, the multiplicity distribution is truncated for small multiplicity values. The efficiency of detecting events begins to drop for events with multiplicity less than 20 (Ref. [31]) due to trigger inefficiencies (Section 3.7 for trigger definition).
+
+Having the full multiplicity distribution is important because centrality bins are defined as fractions of the whole distribution. Centrality bins are given as percentages of the whole, and are defined such that the most central events are those in the first few percent (0-5%), and the most peripheral events are those in the last few percent (90-100%). These centrality bins are calculated by integrating the entire Glauber simulated multiplicity distribution to get the total multiplicity, then integrating the distribution from the highest observed multiplicity value down towards zero until the appropriate fraction of the total has been accounted for.
+
+Figure 3.2 illustrates the relationship between impact parameter, _N_part, the total number of observed particles (_N_total), and centrality for Au+Au. The figure is not data, and is only meant to illustrate the relationship between centrality and multiplicity. In the figure, _N_total corresponds to approximately twice refMult because refMult is equivalent to _N_total measured in the region \(|\eta|<0.5\).
+
+The centrality bin cuts for the refMult multiplicity observable used in this dissertation are listed in Table 3.3. Centrality bins were calculated in steps of 10% of the total refMult distribution, except for the two most central bins which were done in steps of 5%. Only the first eight centrality bins were used.
+
+Table 3.4 lists the total number of events in each centrality bin for each energy used in the analyses of this dissertation. Note that the number of events in each 10% bin is approximately equal, and is twice that as in the 5% bins, as should be expected.
+
+Figure 3.2: An illustration of the relationship between impact parameter, \(N_{\rm part}\), the total number of observed particles (\(N_{\rm total}\)), and centrality for Au+Au collisions. This figure is not experimental data, and is only meant for illustrative purposes. The values of \(N_{\rm total}\) will change with collision energy. From Ref. [32].
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline Energy & 0-5\% & 5-10\% & 10-20\% & 20-30\% & 30-40\% & 40-50\% & 50-60\% & 60-70\% & 70-80\% & Total \\ \hline
+7.7 GeV & 80k & 83k & 173k & 173k & 183k & 180k & 178k & 189k & 159k & 1,607k \\
+11.5 GeV & 127k & 128k & 262k & 264k & 263k & 271k & 276k & 265k & 236k & 2,373k \\
+19.6 GeV & 921k & 882k & 1,836k & 1,878k & 1,853k & 1,879k & 1,808k & 1,831k & 1,603k & 16,319.6k \\
+27 GeV & 2,361k & 2,407k & 4,879k & 4,954k & 4,985k & 5,051k & 4,849k & 5,249k & 4,928k & 44,385k \\
+39 GeV & 587k & 584k & 1,179k & 1,206k & 1,196k & 1,169k & 1,210k & 1,129k & 1,176k & 10,707k \\
+62.4 GeV & 1,858k & 1,886k & 3,827k & 3,822k & 3,776k & 3,776k & 3,908k & 3,605k & 3,995k & 34,479k \\
+200 GeV & 1,480k & 1,507k & 2,884k & 2,764k & 2,763k & 2,691k & 2,599k & 2,507k & 2,124k & 23,030k \\ \hline \end{tabular}
+\end{table}
+Table 3.4: The number of events in each centrality bin which passed the analysis cuts. Note that for each energy the number events in each 10% bin is approximately equal and twice that in the two 5% bins, as should be expected.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline \(\sqrt{s_{\rm NN}}\) & 0-5\% & 5-10\% & 10-20\% & 20-30\% & 30-40\% & 40-50\% & 50-60\% & 60-70\% & 70-80\% \\ \hline
+7.7 GeV & 185 & 154 & 106 & 72 & 46 & 28 & 16 & 8 & 4 \\
+11.5 GeV & 221 & 184 & 127 & 86 &
+
+### 3.7 Trigger Definition
+
+The Star Data Acquisition system (DAQ) records events when the appropriate trigger conditions are satisfied. For this dissertation most of the data were collected using the minimum-bias trigger, which was defined as a coincidence of the signals from the ZDC, the upVPD and/or BBC. The 200 GeV data were collected using a pile-up rejection trigger. The pile-up rejection trigger was defined the same as the minimum-bias trigger, but events would not be recorded if there had been a event \(\approx 40\)\(\mu\)s before or after the triggered event. The timing is set by the size of the TPC and the electron drift velocity. It is set so that there is sufficient time for all of the electrons to clear the TPC volume. Pile-up occurs when charges from tracks associated with previous or following events are within the TPC volume when the current event is recorded. These "piled up" tracks can possibly be assigned to the wrong event, and can bias analyses. Pile-up becomes more of a problem as beam luminosity and beam energy increase, which is why the pile up rejection trigger was used for 200 GeV.
+
+### 3.8 The UrQMD Model
+
+The Ultrarelativistic Quantum Molecular Dynamics model (UrQMD) is a microscopic model used to simulate (ultra)relativistic heavy ion collisons [33, 34]. UrQMD is a microscopic transport model. Nuclei are modeled in three-dimensions as clusters of hadrons. Two nuclei are collided, and hadron interactions are determined by experimentally measured cross sections. For energies \(\sqrt{s_{\rm NN}}<5\) GeV the phenomenology of hadronic interactions is described in terms of interactions between known hadrons and their resonances. For energies \(\sqrt{s_{\rm NN}}>5\) GeV particle production is dominated by the excitation of color strings and theirsubsequent fragmentation into hadrons.
+
+Throughout this dissertation, results are compared with those given by UrQMD. In addition to the data from the BES, a set of model data was produced by UrQMD. We use version 3.3 and all parameters are set to default settings. Only events for the most central centrality bin (0-5%) were generated, using randomly selected impact parameters in the range of 0.0 - 3.12 fm. The analyses performed on the UrQMD data sets where done in the same manner as done on the BES data sets, with the exception that \(\langle p_{\mathrm{t}}\rangle\) was treated as invariant with multiplicity.
+
+## Chapter 4 Motivation and Construction of Analyses
+
+### 4.1 Event-by-event Observables
+
+Prior to the 1960's, the number of statistics taken in heavy-ion experiments, both the number of collisions detected and the number of tracks from an event observed, were so small that all measurements had to be constructed such that they were aggregates over many events. For example, particle multiplicities and track spectra were both studied by averaging or summing over many events. Modern experiments produce both sufficient statistics and have sufficient geometric coverage that event-by-event observables can be constructed. All of the analyses presented in this dissertation are event-by-event analyses.
+
+The advantage of event-by-event analyses over inclusive analyses is that they are more sensitive to state changes. This is well illustrated by a clever analogy: on a rainy day hold a piece of paper outside. If you have the paper in the rain long enough, it will become completely wet, this corresponds to taking an average. If however, you only leave the paper outside for a few seconds, you will observe only wet spots from the droplets of rain. The uniformly wet paper would suggest that the rain is a uniform mist, however the second quick measuredemonstrates the droplet nature of rain1. One can imagine how varying the orientation of the paper may reveal the speed and direction of the rain, or how a careful study of the spots may reveal information about rain droplet size or surface tension, or perhaps if sufficient statistics were taken rarer forms of precipitation may be observed such as snow or hail.
+
+Footnote 1: This analogy is originally from Prof. A.D. Jackson
+
+In central collisions at 200 GeV, on the order of \(10^{3}\) particles are deposited into the detector. At each energies presented in this dissertation there are millions of events. Using event-by-event observables opens the possibility of observing phase transitions and gaining qualitatively different information than using event-averaged observables.
+
+### 4.2 Fluctuations versus Correlations
+
+Throughout this dissertation, the terms 'correlations' and 'fluctuations' are often used interchangeably. The reason for this is that their meaning is very similar and in some cases synonymous. Strictly speaking they mean slightly different things, but their meaning varies by usage and individual. A correlation is typically a function of a multi-particle property (for example the invariant momentum of two particles) which measures how many multi-particle groups are observed with a given value of that property (how the number of observed pairs of particles changes with invariant momentum). Fluctuation measurements on the other hand are generally a integral or summation of a correlation function. In this way, correlation measurements generally have finer'resolution' than fluctuation measurements. In this dissertation I present a two-particle correlation, but it is actually an average over a two particle correlation, so it could be more accurately called a fluctuation observable.
+
+Experimental fluctuation and correlation measurements have generally followed two approaches. The first approach has been to characterize the distribution of the observation parameter under consideration by variances, covariances, or higher moments. The second approach has been to characterize the fluctuations with correlation functions such as balance functions or multi-particle correlators. These two approaches are equivalent, which will be demonstrated in the following sections.
+
+### 4.3 \(\langle p_{\rm t}\rangle\) Fluctuations
+
+Event-by-event fluctuation analyses can be done for several observables such as multiplicity, transverse energy, and momentum. Transverse momentum, and momentum more generally, are relevant quantities to be studied because they are proxies of the state variable temperature. To a large degree, the \(p_{\rm t}\) distributions are thermal [35] so their shape is determined principally by the masses of the particles and the temperature of the body from which they were emitted.
+
+Referring to the 'temperature' of the \(p_{\rm t}\) distribution makes a number of assumptions about the underlying system, namely that the system can be treated thermodynamically and that it was (at least locally) thermally equilibrated. These assumptions are still uncertain, and the second in particular can be strongly questioned just from the basis of the short system lifetime, but the particle spectra do suggest thermal behavior. In the case of nucleon-nucleon collisions, a thermal treatment seems less well founded, and heavy-ion collisions tend toward nucleon-nucleon collisions as they become less central, so at some point the thermal treatment of heavy-ion collisions becomes invalid. At what point this occurs has not been thoroughly established. Some of the analyses in this dissertation may be illuminating in trying to quantify this transition.
+
+Before beginning, it is interesting to consider the general nature of \(\langle p_{\rm t}\rangle\) fluctuations. As previously stated, the fluctuations of \(\langle p_{\rm t}\rangle\) are of interest because is \(\langle p_{\rm t}\rangle\) related to the temperature of the system. In an ideal situation, the fluctuations of \(\langle p_{\rm t}\rangle\) would correspond directly to fluctuations of the temperature of the system. Our systems are not ideal: the number of particles per event is finite, the statistics are limited, and there are physical processes which could cause \(\langle p_{\rm t}\rangle\) to fluctuate.
+
+In an idealized scenario, we can imagine that our events are observations of a thermal system of fixed chemical composition, the temperate of every event is identical, and the multiplicity \(N\) is uncorrelated to any other properties of the system and can be arbitrarily large (and we will say it is the same in every event for simplicity). This system is clearly non-physical, but it serves to illustrate a point. In this case, each event is a sampling from an identical thermal \(p_{\rm t}\) distribution with mean \(\langle p_{\rm t}\rangle\) and variance \(\sigma^{2}_{p_{\rm t}}\). From the central limit theorem we can calculate the mean and variance of the \(\langle p_{\rm t}\rangle\) distribution,
+
+\[\eqalign{&\langle\langle p_{\rm t}\rangle\rangle=\langle p_{\rm t}\rangle\cr& \sigma^{2}_{\langle p_{\rm t}\rangle}={\sigma^{2}_{p_{\rm t}}\over N}.\cr}\]
+
+The point of note is that the observed fluctuations of \(\langle p_{\rm t}\rangle\) are _purely statistical_. In the limit of \(N\to\infty\) we see that \(\sigma^{2}_{\langle p_{\rm t}\rangle}\to 0\).
+
+We can imagine now a similar scenario, but where the temperature of the underlying distribution fluctuates. Because the distribution is still purely thermal, fluctuations of the temperature (\(\sigma^{2}_{\rm T}\)) will result in fluctuations of both \(\langle p_{\rm t}\rangle\) and \(\sigma^{2}_{p_{\rm t}}\) event-by-event. For clarity of notation, we will say that the event-by-event fluctuations of temperature results in dynamic fluctuations of \(\langle p_{\rm t}\rangle\), \(\sigma^{2}_{\langle p_{\rm t}\rangle,{\rm dynamic}}\). In this case, we will still find that \(\langle\langle p_{\rm t}\rangle\rangle=\langle p_{\rm t}\rangle\), but the fluctuations of the \(\langle p_{\rm t}\rangle\) distribution are no longer purely statistical. The fluctuations of the \(\langle p_{\rm t}\rangle\) distribution will be,
+
+\[\sigma^{2}_{\langle p_{\rm t}\rangle}=\sigma^{2}_{\langle p_{\rm t}\rangle,{ \rm dynamic}}+\left\langle\frac{\sigma^{2}_{p_{\rm t}}}{N}\right\rangle. \tag{4.2}\]
+
+Now, in the limit of \(N\to\infty\) we see that \(\sigma^{2}_{\langle p_{\rm t}\rangle}\to\sigma^{2}_{\langle p_{\rm t}\rangle,{ \rm dynamic}}\). In this ideal case \(\sigma^{2}_{\langle p_{\rm t}\rangle,{\rm dynamic}}\) is entirely a consequence of temperature fluctuations. In real events, there are many physical processes which could give rise to event-by-event, non-statistical fluctuations in \(\langle p_{\rm t}\rangle\). These non-thermal contributions to \(\sigma^{2}_{\langle p_{\rm t}\rangle,{\rm dynamic}}\) are addressed in length in Section 4.6.
+
+In addition to the second moment of \(\langle p_{\rm t}\rangle\) shown in Eq. 4.2, similar arguments can be made for higher moments of \(\langle p_{\rm t}\rangle\). Each higher moment will have a dynamic component and a purely statistical component resulting from finite multiplicity. Throughout this dissertation the dynamic component of the higher moments are called the higher dynamic moments to distinguish them from the measured higher moments.
+
+### 4.4 Mixed and Statistically Sampled Events
+
+Throughout the analyses presented in this dissertation,'mixed' events and'statistically sampled' events are used. Both are different approaches to creating 'data' which have all of the same detector effects, analysis effects, and physics as the real data, but without any correlations.
+
+Mixed events are more complicated to generate that statistically sampled events, but they more faithfully fulfill the intention of reproducing the data while removing correlations and have utility outside of \(p_{\mathrm{t}}\) analyses. Mixed events are events generated from the data by combining tracks selected from different events. The tracks of all events are "mixed" in that a particular mixed event will have tracks from many different real events. Because each track came from a different event, they cannot be correlated except statistically. Mixed events have been used previously in experimental analyses [1, 36]. The procedure for generating mixed events is the same as in [1].
+
+Statistically sampled events contain much less information than real or mixed events. Unlike mixed events they do not have individual tracks, but are rather just an \(\langle p_{\mathrm{t}}\rangle\) and a multiplicity. From the real data for each energy and centrality bin two spectra were generated: a spectrum of the event multiplicity, and a spectrum of each track's \(p_{\mathrm{t}}\) from all events. Statistically sampled events were generated from these two spectra by randomly sampling the multiplicity distribution for a number \(N\), then sampling \(N\) times from the \(p_{\mathrm{t}}\) distribution. These \(N\) samplings were averaged, giving an \(\langle p_{\mathrm{t}}\rangle\). This was repeated many times (several million, depending on energy, centrality bin, and the particular analysis), which generated a new, statistical \(\langle p_{\mathrm{t}}\rangle\) distribution. An example of one of these statistical distributions, compared with an experimental distribution, is shown in Figure 4.1.
+
+The intention of both of these approaches is to generate events where the higher dynamic moments are zero by construction. The measured higher moments of mixed and statistically sampled events are identical to the statistical component of the measured higher moments of the data. Their utility is that they allow us to extract the higher dynamic moments by subtracting the statistical component from the measured higher moments.
+
+Figure 4.1: Spectra of \(\langle p_{\rm t}\rangle\) for 200 GeV from data and from the statistically sampled method. The real data are wider (has a larger variance) which indicates that there are dynamic correlations in the real data which are not reproduced by the statistically sampled baseline.
+
+### 4.5 Analyses in this Dissertation
+
+There are two analyses presented in this dissertation, one measuring the two particle correlator \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\), and another measuring the moments of the \(\left\langle p_{\mathrm{t}}\right\rangle\) distributions. These two analyses take different approaches but are closely related. The first analysis corresponds to directly measuring \(\sigma^{2}_{\left\langle p_{\mathrm{t}}\right\rangle,\mathrm{dynamic}}\), while the second corresponds to measuring the total fluctuations, both dynamic and statistical, of the higher moments.
+
+The theoretical motivation for these analyses is presented along with competing physical effect in the Section 4.6. Each of these analyses, their respective mathematical constructions, subtleties, and necessary consideration will be introduced in Sections 4.7 and 4.8, then they each have several chapters devoted to results, analysis details, and comparisons.
+
+### 4.6 Sources of Fluctuations
+
+There are many physical processes which may give rise to fluctuations. The most exciting of these processes are the critical point and a change in the order of the QCD phase transition which may give rise to dynamic fluctuations. There are however many other possible sources of fluctuations. The myriad of possible sources for statistical and dynamic \(\left\langle p_{\mathrm{t}}\right\rangle\) fluctuations may limit our capacity to draw concrete physical conclusions from the results of these analyses. For many of these extra sources of fluctuations the degree to which they affect dynamic \(\left\langle p_{\mathrm{t}}\right\rangle\) fluctuations has not been quantified experimentally or theoretically. As with many heavy-ion analyses, these results on their own may be inadequate for making definitive conclusions. The results of the analyses presented in this dissertation will have to be weighed hand-in-hand with results from other forthcoming analyses in order to make concrete statements about the physical behavior of the systems we have produced. Establishing the existence of the QGP was similar in that there were several analyses which suggested the formation of a QGP, but each on their own was not definitive.
+
+Below is presented a list of possible sources of statistical and dynamic fluctuations. The list is not exhaustive, but effort has been made to include those sources which should most largely affect the present analyses.
+
+#### Jets
+
+During the initial collision, sometimes a parton picks up a large amount of energy from hard interactions and is ejected from the medium. The parton will hadronize as it exits the volume, and will produce a spatially localized collection of strongly-correlated high momentum particles, referred to as a 'jet'. Jets will affect the shape of the \(p_{\rm t}\) distribution, increasing the variance \(\sigma_{p_{\rm t}}\). Jets increase with collision energy, as does the initial temperature. Both of these effects increase \(\sigma_{p_{\rm t}}^{2}\) and may be hard to disentangle. We minimize the effects of jets by analyzing particles in the range of \(0.15<\) pt \(<2.0\) GeV/c.
+
+A related effect is high \(p_{\rm t}\) particle suppression and jet suppression. High \(p_{\rm t}\) particle suppression was one of the key signals of QGP formation [37]. This effect has been observed to decrease with energy, disappearing at energies below \(\sqrt{s_{\rm NN}}=19.6\) GeV (see Figure 4.2).
+
+An important question to ask is how these effects will affect fluctuations of \(\langle p_{\rm t}\rangle\). The statistical component of \(\langle p_{\rm t}\rangle\) depends upon \(\sigma_{p_{\rm t}}^{2}\), so it will increase in the presence of jets and decrease when there is high \(p_{\rm t}\) particle suppression. Dynamic fluctuations in jets or high Figure 4.2: The momentum and energy dependence of the nuclear modification factor R\({}_{\rm CP}\). R\({}_{\rm CP}\) is the ratio of charged particles observed in the data with the number of binary collisions in a Wounded Nucleon Glauber Monte Carlo simulation fit to the data. For energies \(\sqrt{s_{\rm NN}}\geq\)19.6 Ge, the decrease in R\({}_{\rm CP}\) above \(p_{\rm t}\approx 2.5\) GeV/_c_ indicates high \(p_{\rm t}\) particle suppression. From Ref. [38]
+
+\(p_{\rm t}\) particle suppression will result in dynamic fluctuations of \(\langle p_{\rm t}\rangle\), the magnitude of which will depend upon the magnitude of the fluctuations and the magnitude of the effects on \(\langle p_{\rm t}\rangle\).
+
+#### Flow
+
+Flow is an effect where non-symmetric spatial anisotropy results in non-symmetric momentum anisotropy. When two nuclei collide in a mid-peripheral collision, the overlap region will be almond or football shaped (see Figure 3.2). The nuclei are taken to be in a plane that passes through the beam axis and the center of both nuclei, called the _event plane_. Elliptic flow arises because the larger spatial gradient along the short axis of the collision region will result in a larger pressure gradient. Particles emitted along this axis (in the event plane) will have on average larger momenta than those emitted perpendicular to the event plane. Elliptic flow corresponds to variations in \(p_{\rm t}\) of the form \(\cos\left(2\phi\right)\), where \(\phi\) is the angle with respect to the event plane. There are other types of flow corresponding to higher order harmonics, \(\cos\left(n\phi\right)\).
+
+Elliptic flow will affect the shape of the \(p_{\rm t}\) spectra, broadening the \(p_{\rm t}\) spectra (and increasing the statistical fluctuations). Because flow is a consequence of geometry, for events of the same energy and centrality it should largely be constant event-by-event and so should not change \(\langle p_{\rm t}\rangle\). In general flow should not effect dynamic \(\langle p_{\rm t}\rangle\) correlations. Elliptic flow will only produce dynamic correlations if it itself fluctuates dynamically, or if the experimental acceptance is not axially symmetric (for example, if there was a dead sector in the TPC). Non-uniform acceptance will produce dynamic correlations because events in which the event plane points into the dead sector will have smaller _measured_\(\langle p_{\rm t}\rangle\) (because some of the event'shigh \(p_{\rm t}\) tracks will be lost), while events in which the event plane points perpendicular to the dead sector will have larger _measured_\(\langle p_{\rm t}\rangle\) (because some of the event's low \(p_{\rm t}\) tracks will be lost). It is important to note that while the true values of \(\langle p_{\rm t}\rangle\) may not be changing, the measured values of \(\langle p_{\rm t}\rangle\) will fluctuate which will result in dynamic correlations.
+
+The magnitude of this effect will depend on many effects such as centrality, energy, the species of the nuclei, as well as how much of the detector is affected and to what magnitude. This effect has been studied experimentally, and the results are presented in Ref [39]. In the data presented in this thesis, great care has been taken to minimize detector acceptance effects to minimize any contributions to the observed pt fluctuations.
+
+#### Resonance Decays
+
+Many of the particles produced in heavy-ion collisions are unstable. Instead of the original unstable particle (the mother particle) it is the decay products (the daughter particles) which are measured by STAR. Each of the daughter particles will carry some fraction of the mother particle's momentum. This will affect the \(p_{\rm t}\) distribution, decreasing \(\sigma_{p_{\rm t}}\) because some tracks will be replaced by several lower momentum tracks. This will also affect the \(\langle p_{\rm t}\rangle\) distribution because the average momentum of the daughter particles will be substantially smaller than the momentum of the mother particle. To estimate the scale of this effect we can imagine a simplified case where an event has \(N\) particles, average transverse momentum \(\langle p_{\rm t}\rangle\), and one particle with transverse momentum \(p_{\rm t,i}\), decays in \(N_{d}\) particles, each with identical transverse momentum \(p_{\rm t,i}\epsilon\) where \(\epsilon=\frac{1}{N_{d}}\)2. Note \(\sum_{i=1}^{N_{d}}p_{\rm t,i}\epsilon=p_{\rm t,i}\). The average transverse momentum 
+
+[MISSING_PAGE_FAIL:72]
+
+To study the effect of resonance decays on the analyses presented in this dissertation, one could identify the prominent resonances, then suppress the daughter particles by cutting out all pairs of particles of the correct species with \(q_{\rm inv}\)3 corresponding the mass of the mother particle. Correlations would be induced by the cut which would need to be corrected for with mixed events. This was not done in this analysis because no particle identification was performed.
+
+Footnote 3: The \(\chi^{2}\) and \(\chi^{2}\) decay modes are not included in the analysis.
+
+#### Changing Chemistry
+
+Variations in the chemistry of events (the ratios of various particle species) could have an effect on the observed non-statistical fluctuations of \(\langle p_{\rm t}\rangle\). In the case of a perfectly thermal QGP system, different particle species will have different momenta because of their masses. Particle ratios are determined by the collision energy and temperature of the system, but will have statistical variation. Even in the case of constant temperature, variations in particle ratios will result in additional fluctuations of \(\langle p_{\rm t}\rangle\).
+
+This effect could be investigated by performing the analyses using identified particles. Performing the analysis on only one particle species at a time should mitigate the effects of changing chemistry. Doing \(p_{\rm t}\) analyses on identified particles has the additional complication that particle identification is done by cutting on \(p_{\rm t}\) and \(p\). Truncating the underlying \(p_{\rm t}\) distributions will affect the fluctuations of \(\langle p_{\rm t}\rangle\), this effect would be non-trivial and have to be investigated.
+
+#### Temperature Fluctuations
+
+As event-by-event analyses became practical, one of the original motivations for studying \(\langle p_{\rm t}\rangle\) fluctuations was to measure temperature fluctuations and the specific heat of the produced systems. The specific heat, \(C_{V}\), would provide insight into the equation of state of the system and could be sensitive to the order of the phase transition. In the case of a first order phase transition, the specific heat will be much larger than in a smooth crossover. In a smooth cross-over fluctuations in the energy of the system will result in a fluctuation in the temperature, but in a first order phase transition fluctuations in energy may go into the latent heat of the phase transition and the temperature may fluctuate much less.
+
+The motivation for using \(\langle p_{\rm t}\rangle\) fluctuations to measure specific heat is as follows. In a thermal system the \(\langle p_{\rm t}\rangle\) of a system should be related to the temperature \(T\) by some function \(\langle p_{\rm t}\rangle=F\left(\langle T\rangle\right)\). Likewise \(\langle\langle p_{\rm t}\rangle\rangle=F\left(\langle T\rangle\right)\). Assuming the temperature fluctuations are Gaussian, arguments from the theory of error propagation give [40],
+
+\[\sigma_{\langle p_{\rm t}\rangle,{\rm dynamic}}=\left|F^{\prime}\left(\langle T \rangle\right)\right|\sigma_{T,{\rm dynamic}}, \tag{4.6}\]
+
+where \(F^{\prime}\left(\langle T\rangle\right)\) is the derivative of \(F\left(\langle T\rangle\right)\). We can then write,
+
+\[\frac{\sigma_{\langle p_{\rm t}\rangle,{\rm dynamic}}}{\langle\langle p_{\rm t }\rangle\rangle}=\left|\frac{F^{\prime}\left(\langle T\rangle\right)}{F\left( \langle T\rangle\right)}\right|\frac{\sigma_{T,{\rm dynamic}}}{\langle T \rangle}. \tag{4.7}\]
+
+Treating the system as an ideal gas, there are two limiting cases for the \(p_{\rm t}\) spectra, a nonrelativistic ideal gas where \(\langle\langle p_{\rm t}\rangle\rangle\propto\sqrt{\langle T\rangle}\) and an ultrarelativistic ideal gas where \(\langle\langle p_{\rm t}\rangle\rangle\propto\langle T\rangle\). In reality the system will be somewhere between these limiting cases. It then followsthat,
+
+\[\frac{\sigma_{\langle p_{\text{t}}\rangle,\text{dynamic}}}{\langle \langle p_{\text{t}}\rangle\rangle}=\epsilon\frac{\sigma_{T,\text{dynamic}}}{ \langle T\rangle}, \tag{4.8}\]
+
+where \(\epsilon\) is some value between 0.5 and 1. Noting that \(C_{V}=\left(\frac{\langle T\rangle}{\sigma_{T,\text{dynamic}}}\right)^{2}\), we can say,
+
+\[\left(\frac{\sigma_{\langle p_{\text{t}}\rangle,\text{dynamic}}}{\langle \langle p_{\text{t}}\rangle\rangle}\right)^{2}=\frac{\epsilon^{2}}{C_{V}}. \tag{4.9}\]
+
+It is interesting to note that there will be statistical fluctuations of the temperature. Fluctuations in the temperature will go like \(\frac{\sigma_{T,\text{stat}}}{\langle T\rangle}\approx\frac{1}{\sqrt{\langle N \rangle}}\). Where \(\langle N\rangle\) is the mean multiplicity of the events. A ballpark value of \(\langle N\rangle\approx 500\), which gives \(\frac{\sigma_{T,\text{stat}}}{\langle T\rangle}=0.045\). The statistical fluctuations of temperature come from the limited number of particles, which is also the source of the statistical fluctuations of \(\langle p_{\text{t}}\rangle\), so it is unnecessary to make an additional correction explicitly for statistical temperature fluctuations.
+
+#### Correlation Length
+
+One of the most exciting possible sources of dynamic fluctuations of \(\langle p_{\text{t}}\rangle\) is the QCD critical point (see Section 1.2.2).
+
+In Ref. [41], M. Stephanov works out a simplified theory of pions coupling to a field \(\sigma\) of mass \(\tilde{m}\), with interactions given by the Lagrangian
+
+\[\mathcal{L}_{\sigma\pi\pi}=2G\sigma\pi^{+}\pi^{-} \tag{4.10}\]with coupling \(G\). He calls this model the Linear Sigma Model. He defines a universal fluctuation correlator \(\left\langle\Delta n_{p}^{\alpha},\Delta n_{k}^{\beta}\right\rangle\) which is a two particle correlation between occupation numbers. The subscripts and superscripts denote that \(n_{p}^{\alpha}\) is the occupation number of a quantum state defined by property \(\alpha\) with value \(p\). The value of \(n_{p}^{\alpha}\) will vary event to event, and can be averaged over many events to \(\left\langle n_{p}^{\alpha}\right\rangle\). Then \(\Delta n_{p}^{\alpha}=n_{p}^{\alpha}-\left\langle n_{p}^{\alpha}\right\rangle\). He demonstrates that the \(G^{2}\) order correction to the universal fluctuation correlator can be shown, to first order near the critical point to be,
+
+\[\left\langle\Delta n_{p}^{\alpha},\Delta n_{k}^{\beta}\right\rangle_{G^{2}} \propto\frac{1}{\tilde{m}^{2}}. \tag{4.11}\]
+
+This is notable because \(\tilde{m}\) is related to the correlation length, \(\xi=\tilde{m}^{-1}\) (see also Ref. [42]). Near the critical point, when \(\xi\) diverges, the universal fluctuation correlator should also diverge.
+
+In Ref. [41] it is shown that the variance of \(\left\langle p_{\rm t}\right\rangle\) is related to \(\left\langle\Delta n_{i},\Delta n_{j}\right\rangle\) (the absence of superscripts is because the occupation numbers are implied to be of momentum states) by,
+
+\[\sigma_{\left\langle p_{\rm t}\right\rangle}^{2}=\frac{1}{\left\langle N \right\rangle^{2}}\sum_{i}\sum_{j}\left\langle\Delta n_{i},\Delta n_{j} \right\rangle\left(p_{\rm t,i}-\left\langle p_{\rm t}\right\rangle\right) \left(p_{\rm t,j}-\left\langle p_{\rm t}\right\rangle\right). \tag{4.12}\]
+
+However, the theoretical derivation assumes that there are no statistical fluctuations,
+
+\(\sigma_{\left\langle p_{\rm t}\right\rangle,{\rm statistical}}^{2}= \left\langle\frac{\sigma_{p_{\rm t}}^{2}}{N}\right\rangle=0\) and so \(\sigma_{\left\langle p_{\rm t}\right\rangle}^{2}=\sigma_{\left\langle p_{\rm t }\right\rangle,{\rm dynamic}}^{2}\) (from Eq. 4.2). The physical quantity of interest is then \(\sigma_{\left\langle p_{\rm t}\right\rangle,{\rm dynamic}}^{2}\) and not \(\sigma_{\left\langle p_{\rm t}\right\rangle}^{2}\).
+
+In another paper on the Linear Sigma Model, Stephanov also relates the third moment of the \(\left\langle p_{\text{t}}\right\rangle\) spectra to a generalized three particle correlator [42]\(\left\langle\Delta n_{i},\Delta n_{j},\Delta n_{k}\right\rangle\) by,
+
+\[\left\langle\left(\Delta\left\langle p_{\text{t}}\right\rangle\right)^{3} \right\rangle=\frac{1}{\left\langle N\right\rangle^{3}}\sum_{i}\sum_{j}\sum_{k} \left\langle\Delta n_{i},\Delta n_{j},\Delta n_{k}\right\rangle\left(p_{\text{t },i}-\left\langle p_{\text{t}}\right\rangle\right)\left(p_{\text{t},j}-\left \langle p_{\text{t}}\right\rangle\right)\left(p_{\text{t},k}-\left\langle p_{ \text{t}}\right\rangle\right). \tag{4.13}\]
+
+The three particle correlator is related to the correlation length by \(\left\langle\Delta n_{i},\Delta n_{j},\Delta n_{k}\right\rangle\propto\xi^{6}\). As with the two particle correlator, the _physical_ quantity of interest will actually be \(\left\langle\left(\Delta\left\langle p_{\text{t}}\right\rangle\right)^{3} \right\rangle_{\text{dynamic}}\) and not \(\left\langle\left(\Delta\left\langle p_{\text{t}}\right\rangle\right)^{3}\right\rangle\) because of non-physical statistical fluctuations. These general multi-particle correlators are related to the moments of the zero-momentum mode of sigma field, \(\sigma_{0}\equiv\int d^{4}\sigma\left(x\right)/V\). In Stephanov's Linear Sigma Model, the relationship between the moments of this sigma field and the correlation length is given by [42],
+
+\[\kappa_{2} =\left\langle\sigma_{0}^{2}\right\rangle=\frac{T}{V}\xi^{2} \tag{4.14}\] \[\kappa_{3} =\left\langle\sigma_{0}^{3}\right\rangle=\frac{2\lambda_{3}T}{V} \xi^{6}\] \[\kappa_{4} =\left\langle\sigma_{0}^{4}\right\rangle_{c}=\left\langle\sigma_ {0}^{4}\right\rangle-\left\langle\sigma_{0}^{2}\right\rangle^{2}=\frac{6T}{V} \left[2\left(\lambda_{3}\xi\right)^{2}-\lambda_{4}\right]\xi^{8}\]
+
+Like in Eqs. 4.12 and 4.13, we can relate the moments of the sigma field to dynamic moments of the \(\left\langle p_{\text{t}}\right\rangle\) distribution. However, we cannot expect the dynamic moments of the \(\left\langle p_{\text{t}}\right\rangle\) spectra to necessarily follow the fluctuations of the sigma field because there are many effects which can modify these fluctuations, and there are physical processes which will manifest in the dynamic correlations, but are not related to thermodynamics of the system. Also, the system has continued to interact for some time after passing near the critical point.
+
+The critical contribution to the higher moments of the \(\left\langle p_{\text{t}}\right\rangle\) spectra have not been calculated, and will depend upon momentum distributions, quantum momentum states, momentum efficiencies, and potentially other factors. There are other analyses, outside of the scope of this dissertation which attempt to detect critical opalescence through the moments of the multiplicity distributions. For these analyses the relationship between the correlation length and the moments of the multiplicity distributions has been estimated to be [43, 44, 45],
+
+\[\begin{split}&\kappa_{2}\propto\xi^{2},\\ &\kappa_{3}\propto\xi^{9/2},\\ &\kappa_{4}\propto\xi^{7},\\ & S\sigma\propto\xi^{5/2},\\ & K\sigma^{2}\propto\xi^{5},\end{split} \tag{4.15}\]
+
+where \(S\) is the'skewness'4 and \(K\) is the kurtosis5. A similar relationship is expected for the higher moments of \(\langle p_{\text{t}}\rangle\).
+
+Footnote 4: \(S=\frac{\mu_{3}}{\sigma^{3}}=\frac{\kappa_{3}}{\frac{3/2}{\kappa_{2}^{2}}}\)
+
+Footnote 5: \(K=\frac{\mu_{4}}{\sigma^{4}}-3=\frac{\kappa_{4}}{\frac{3}{\kappa_{2}^{2}}}\)
+
+7 Two-Particle \(p_{\text{t}}\) Correlations, \(\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\rangle\)
+
+The correlation function which is used in this dissertation is the two-particle relative transverse momentum correlator, \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\). This correlator is equivalent the dynamic component of the variance of \(\langle p_{\text{t}}\rangle\), \(\sigma^{2}_{\langle p_{\text{t}}\rangle,\text{dynamic}}\). By construction it will be 0 for mixed events and statistically sampled events. The mathematical definition of this correlator is given in Section 4.7.1. It is also equivalent to the difference of the variance of the \(\langle p_{\text{t}}\rangle\) distribution and the average variance of the event-by-event \(p_{\text{t}}\) distribution scaled by average multiplicity.
+
+This can be inferred from Eq. 4.2, but is also rigorously demonstrated in Appendix. The experimental analysis is presented in Chapters 5 and 6.
+
+#### Mathematical Construction
+
+The two-particle transverse momentum correlation observable, \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\), is constructed as follows. For each event an average \(p_{\text{t}}\) is calculated by averaging the \(p_{\text{t}}\) values of each track within the analysis acceptance:
+
+\[\left\langle p_{\text{t}}\right\rangle_{k}=\frac{\sum_{i=1}^{N_{k}}p_{\text{t}, i}}{N_{k}} \tag{4.16}\]
+
+The values of \(\left\langle p_{\text{t}}\right\rangle_{k}\) are then averaged over multiple events. This event averaged \(p_{\text{t}}\) is done as a function of multiplicity (refMult) because the event average \(p_{\text{t}}\) is multiplicity dependent as has already been observed in other analyses [46].
+
+\[\left\langle\left\langle p_{\text{t}}\right\rangle\right\rangle=\frac{\sum_{k= 1}^{N_{\text{event}}}\left\langle p_{\text{t}}\right\rangle_{k}}{N_{\text{ event}}} \tag{4.17}\]
+
+At high multiplicities the number of events available decreases to zero, and the calculated value of \(\left\langle\left\langle p_{\text{t}}\right\rangle\right\rangle\) fluctuates due to limited statistics. To compensate for this statistical variation, \(\left\langle\left\langle p_{\text{t}}\right\rangle\right\rangle\) as a function of multiplicity is fit with a linear form at large multiplicites and the fitted values are used in further steps of the calculation. Examples of this fitting can be seen in Figures 4.3 and 4.4.
+
+For each event the correlator is defined as a double sum, which is also equivalent to a single sum over all pairs of particles. The sum is taken over the product of the deviation of \(p_{\text{t}}\) for Figure 4.3: \(\langle\langle p_{\rm t}\rangle\rangle\) (refMult) for 7.7 GeV. The raw distribution is plotted in blue points, and the smoothed \(\langle\langle p_{\rm t}\rangle\rangle\) values in green. The error bands are statistical errors. The errors above refMult \(\approx 250\) grow very large due to low statistics.
+
+Figure 4.4: \(\langle\langle p_{\rm t}\rangle\rangle\) (refMult) for 200 GeV. The raw distribution is plotted in blue points, and the smoothed \(\langle\langle p_{\rm t}\rangle\rangle\) values in green. The error bands are statistical errors. The errors above refMult \(\approx 600\) grow very large due to low statistics.
+
+all pairs of particles in each event.
+
+\[C_{k}=\sum_{i=1}^{N_{k}}\sum_{j=1,j\neq i}^{N_{k}}\left(p_{\text{t},i}-\left\langle \left\langle p_{\text{t}}\right\rangle\right\rangle\right)\left(p_{\text{t},j}- \left\langle\left\langle p_{\text{t}}\right\rangle\right\rangle\right) \tag{4.18}\]
+
+The correlator is divided by the total number of pairs of particles in the event, and then averaged over all events.
+
+\[\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle=\frac{1}{ N_{\text{events}}}\sum_{k=1}^{N_{\text{events}}}\frac{C_{k}}{N_{k}\left(N_{k}-1\right)} \tag{4.19}\]
+
+Just as with \(\left\langle\left\langle p_{\text{t}}\right\rangle\right\rangle\), this average is done as a function of reference multiplicity. The values of \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\) are averaged over each centrality bin (weighted by the number of events in each multiplicity bin).
+
+#### Scalings
+
+The purpose of the two-particle correlator is to isolate critical behavior. However, the two-particle correlator is also sensitive to physical effects not related to critical behavior. In order to remove these effects, and isolate critical behavior, various scalings are used. Scalings can also be used to attempt to equate results from different systems, for example: p+p, Cu+Cu, and Au+Au. If correlations between different systems could be shown to be equivalent using some scaling related to system parameters, it may be indicative of some underlying behavior which is constant between the differing systems.
+
+#### 4.7.2.1 By \(\langle\langle p_{\rm t}\rangle\rangle^{-1}\)
+
+The correlation observable may have an dependence arising from the energy dependence of \(\langle\langle p_{\rm t}\rangle\rangle\), so scaling with \(\langle\langle p_{\rm t}\rangle\rangle\) should in principle remove it. The correlation observable \(\left\langle\Delta p_{\rm t,i},\Delta p_{\rm t,j}\right\rangle\) has units of momentum squared (\(\left({\rm GeV/}c\right)^{2}\)), while \(\langle\langle p_{\rm t}\rangle\rangle\) has units of momentum (\({\rm GeV/}c\)), so when scaling with \(\langle\langle p_{\rm t}\rangle\rangle\) we must either square \(\langle\langle p_{\rm t}\rangle\rangle\) or take the square root of the correlation observable. In addition to addressing possible energy dependence, this scaling provides two other benefits, first when scaled as \(\sqrt{\left\langle\Delta p_{\rm t,i},\Delta p_{\rm t,j}\right\rangle}/\left\langle \langle p_{\rm t}\rangle\right\rangle\) our observable is equivalent to the CERES observable \(\Sigma_{p_{\rm t}}\)[36]. Second, the efficiency dependence of \(\sqrt{\left\langle\Delta p_{\rm t,i},\Delta p_{\rm t,j}\right\rangle}\) is the same as that of \(\langle\langle p_{\rm t}\rangle\rangle\) (see Section 6.2) so the scaled observable is independent of efficiency.
+
+The strongest motivation for so scaling with \(\langle\langle p_{\rm t}\rangle\rangle\) comes from Section 4.6.5. Noting that \(\left\langle\Delta p_{\rm t,i},\Delta p_{\rm t,j}\right\rangle=\sigma_{\langle p _{\rm t}\rangle,{\rm dynamic}}^{2}\), from Equations 4.8 and 4.9 we can write,
+
+\[\frac{\sqrt{\left\langle\Delta p_{\rm t,i},\Delta p_{\rm t,j}\right\rangle}}{ \langle\langle p_{\rm t}\rangle\rangle}=\epsilon\frac{\sigma_{T,{\rm dynamic }}}{\langle T\rangle}=\frac{\epsilon}{\sqrt{C_{V}}}, \tag{4.20}\]
+
+where, as in Equations 4.8 and 4.9, \(\epsilon\) is some number between 0.5 and 1 coming from the relationship between \(\langle\langle p_{\rm t}\rangle\rangle\) and \(\langle T\rangle\), and \(C_{V}\) is the specific heat of the system.
+
+#### 4.7.2.2 By Multiplicity
+
+There are two independent motivations for scaling with variants of multiplicity. The first motivation is to explore the possibility that heavy-ion collisions behave like a large number of nucleon-nucleon collisions. If that were the case, then one would expect the correlations to scale with the number of individual nucleon-nucleon collisions (\(N_{\rm coll}\)). The value of \(N_{\rm coll}\) isnot experimentally accessible, but could be estimated using Glauber simulations; it should, in principle, be related to to the collision energy and the detected multiplicity. The \(N_{\rm coll}\) scaling is not presented in this dissertation.
+
+The other motivation for scaling with multiplicity comes from the fact that \(\left\langle\Delta p_{\rm t,\it i},\Delta p_{\rm t,\it j}\right\rangle\) is calculated as an average over all pairs. As the number of particles in an event (\(N\)) increases, the number of pairs increases like \(N^{2}\), so the summation 'dilutes' the correlations. This dilution goes as \(1/N\), so it can be addressed by scaling with the number of particles used in the double summation.
+
+##### 4.7.2.3 By \(\left\langle\left\langle p_{\rm t}\right\rangle\right\rangle^{-1}\) and Multiplicity
+
+The arguments presented for each scaling are both valid, so in addition to presenting them individually, results will be presented of the correlation observable scaled by both \(\left\langle\left\langle p_{\rm t}\right\rangle\right\rangle^{-1}\) and \(N\).
+
+### 4.8 Higher Moments of \(\left\langle p_{\rm t}\right\rangle\)
+
+The moments of distributions corresponding to fluctuation observables are potential measures of critical behavior because they relate to the correlation length of the medium. The mathematical description of the higher moments is presented in Section 4.8.1. Baseline expectations of statistical behavior are presented in Section 4.8.2. The corresponding experimental analysis is presented in Chapters 7 and 8.
+
+#### Mathematical Construction
+
+All of the moments of the \(\langle p_{\text{t}}\rangle\) distributions have the same form. The moment of order \(n\) is defined as,
+
+\[\mu_{n}=\frac{\sum_{i=1}^{N_{\text{events}}}{(\langle p_{\text{t}}\rangle_{i}- \langle\langle p_{\text{t}}\rangle))}^{n}}{N_{\text{events}}}. \tag{4.21}\]
+
+The first moment is more commonly known as the mean, and the second moment as the variance. The moments of the distribution are also related to the cumulants of the distribution. The first six cumulants are related to the moments by,
+
+\[\begin{split}\kappa_{1}&=\mu_{1},\\ \kappa_{2}&=\mu_{2},\\ \kappa_{3}&=\mu_{3},\\ \kappa_{4}&=\mu_{4}-3\mu_{2}^{2},\\ \kappa_{5}&=\mu_{5}-10\mu_{2}\mu_{3},\\ \kappa_{6}&=\mu_{6}-15\mu_{2}\mu_{4}-10\mu_{3}^{2}+ 30\mu_{2}^{3}.\end{split} \tag{4.22}\]
+
+In addition to being expressed as cumulants, the higher moments are sometimes expressed as classical named properties of distributions: variance (\(\sigma^{2}\)), skewness (\(S\)), and kurtosis (\(K\)), which are related to the moments and cumulants by,\[\sigma^{2}=\mu_{2}=\kappa_{2},\] \[S=\frac{\mu_{3}}{\sigma^{3}}=\frac{\kappa_{3}}{\kappa_{2}^{3/2}}, \tag{4.23}\] \[K=\frac{\mu_{4}}{\sigma^{4}}-3=\frac{\kappa_{4}}{\kappa_{2}^{2}}.\]
+
+These are also expressed as moments products, which can be written in terms of ratios of the cumulants,
+
+\[\begin{split}& S\sigma=\frac{\kappa_{3}}{\kappa_{2}},\\ & K\sigma^{2}=\frac{\kappa_{4}}{\kappa_{2}}.\end{split} \tag{4.24}\]
+
+Each moment and cumulant is calculated individually for each multiplicity bin. This is done so that the variation in the value of \(\langle\langle p_{\text{t}}\rangle\rangle\) with multiplicity does not skew the other moments. After all of the calculations are done for each multiplicity, the centrality bin values are calculated by taking an average over all of the multiplicity bins in each centrality bin, weighting each multiplicity bin by the number of events in that bin.
+
+Unlike with the two-particle correlator analysis, the value of \(\langle\langle p_{\text{t}}\rangle\rangle\) is not smoothed at large multiplicity values with a linear fit.
+
+#### Baselines
+
+The \(\langle p_{\text{t}}\rangle\) distributions are largely statistical, and the effects of early-state fluctuations are expected to be very small (a few % change in the variance, for example). Additionally, the STAR detector subsystems have non-trivial efficiencies which depend on \(p_{\text{t}}\), among other things. These efficiencies do affect the \(\langle p_{\text{t}}\rangle\) distributions. As such, it is instructive to have a 
+
+[MISSING_PAGE_EMPTY:87]
+
+[MISSING_PAGE_EMPTY:88]
+
+value of the track was less than 1.25, the track was always kept (100% efficiency), if the track had a value of greater than 1.25, the track was kept only 75% of the time (75% efficiency). After this efficiency simulation, the \(\langle p_{\mathrm{t}}\rangle\) of the event was recalculated, giving the efficiency simulated \(\langle p_{\mathrm{t}}\rangle\) distribution. In reality the efficiency usually varies smoothly with \(p_{\mathrm{t}}\). The effect of this efficiency step is that events with a mean at or above the step have more tracks in the lower efficiency region. Events far below the step are shifted only marginally, but events at or above the step are shifted lower with a higher probability, resulting in a skewing of the \(\langle p_{\mathrm{t}}\rangle\) distribution.
+
+Figure 4.5: This is a simulated result showing the effects of \(p_{\mathrm{t}}\) track cuts on the \(\langle p_{\mathrm{t}}\rangle\) distribution. The blue histogram is the true \(\langle p_{\mathrm{t}}\rangle\) distribution, while the green histogram the result of running each track from each event through a simulated efficiency.
+
+This effect would be pronounced if the moments analysis were done with identified particle species, particularly if particle identification was done using a combination of TPC and TOF. Because the TPC and TOF have different momentum ranges, the PID efficiency as a function of \(p_{\mathrm{t}}\) changes and is very sensitive to the PID method used. The moment analysis for identified particles is not presented in this dissertation, but \(p_{\mathrm{t}}\) dependent track detection efficiency may still skew the \(\langle p_{\mathrm{t}}\rangle\) distributions.
+
+Experimentally, the \(p_{\mathrm{t}}\) dependent track detection efficiency of the detector is determined by using 'embedding'. Embedding consists of taking real physics events, adding artificial tracks (embedding them into the event), running them through a full simulation of the detector, performing track reconstruction, and then calculating the fraction of embedded events which have survived through reconstruction.
+
+To address concerns about \(p_{\mathrm{t}}\) dependent track detection efficiency, statistically sampled events were used as a baseline (see Section 4.4). The \(p_{\mathrm{t}}\) dependent track detection efficiency will change the underlying \(p_{\mathrm{t}}\) distribution, so the effect should be reproduced in the statistically sampled events.
+
+Figure 4.6: Efficiency as a function of \(p_{\rm t}\) for 62.4 GeV in the 0-5% centrality bin as determined by embedding. The efficiency was done independently for each particle species.
+
+[MISSING_PAGE_EMPTY:92]
+
+Figure 5.1: \(\langle p_{\rm t}\rangle\) distributions with gamma distributions. These spectra have been normalized so that they integrate to one. No fitting was performed, the gamma distributions simply have the same mean and variance as the data.
+
+individual particle species \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) increases smoothly and continuously with \(\sqrt{s_{\mathrm{NN}}}\). We expect \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) to increase with energy because it is related to the temperature of the system. Different particle species have different values of \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) due to their different masses. Protons have \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) values approximately 3 times that for pions. The decrease in the number of pions versus the number of protons at the lower energies is why we observe \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) to decrease with energy for \(\sqrt{s_{\mathrm{NN}}}<19.6\) GeV. This trend is reproduced by UrQMD (see Figure 6.5 and Sec 3.8).
+
+### 5.2 Unscaled Correlations
+
+The correlation observable \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) versus \(\sqrt{s_{\mathrm{NN}}}\) for all incident energies and centralities is shown in Figure 5.3. It increases smoothly with both energy and decreasing centrality. The increase with centrality can be explained, in part, by the decrease in multiplicity: in central collisions where the observed multiplicity \(N\) increases, the number of pairs of particles goes like \(N^{2}\). This will result in a 'dilution' of the correlations. Also, \(\left\langle p_{\mathrm{t}}\right\rangle\) varies with centrality, which will effect that scale of \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\).
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline Energy & \(\alpha\) & \(\beta\) & \(\mu\) & \(\sigma\) \\ \hline
+7.7 GeV & 789.5 \(\pm\) 0.31 & 0.00070137 \(\pm\) 2.3e-7 & 0.55371 \(\pm\) 7.0e-5 & 0.0197067 \(\pm\) 2.9e-6 \\
+11.5 GeV & 930.9 \(\pm\) 0.26 & 0.00058381 \(\pm\) 1.3e-7 & 0.54346 \(\pm\) 5.0e-5 & 0.0178123 \(\pm\) 1.9e-6 \\
+19.6 GeV & 1089.1 \(\pm\) 0.09 & 0.00049720 \(\pm\) 2.8e-8 & 0.54148 \(\pm\) 1.7e-5 & 0.0164082 \(\pm\) 3.9e-7 \\
+27 GeV & 1166.3 \(\pm\) 0.05 & 0.00046754 \(\pm\) 1.4e-8 & 0.54528 \(\pm\) 1.0e-5 & 0.0159670 \(\pm\) 1.9e-7 \\
+39 GeV & 1241.8 \(\pm\) 0.12 & 0.00044513 \(\pm\) 3.4e-8 & 0.55278 \(\pm\) 2.0e-5 & 0.0156863 \(\pm\) 5.2e-7 \\
+62.4 GeV & 1271.5 \(\pm\) 0.06 & 0.00044472 \(\pm\) 1.6e-8 & 0.56546 \(\pm\) 1.2e-5 & 0.0158578 \(\pm\) 2.2e-7 \\
+200 GeV & 1465.3 \(\pm\) 0.08 & 0.00040798 \(\pm\) 1.6e-8 & 0.59781 \(\pm\) 1.3e-5 & 0.0156173 \(\pm\) 2.6e-7 \\ \hline \end{tabular}
+\end{table}
+Table 5.1: The parameters of the gamma distributions fit to the \(\left\langle p_{\mathrm{t}}\right\rangle\) spectra for the 0-5% centrality bin. The gamma distribution is fully defined by two parameters, either \(\alpha\) and \(\beta\) or \(\mu\) and \(\sigma\); both pairs of values are listed here for convenience.
+
+Figure 5.2: \(\langle\langle p_{\rm t}\rangle\rangle\) vs \(\sqrt{s_{\rm NN}}\) for all seven energies and eight centrality bins. The error bars are statistical. If the particle ratios are constant, \(\langle\langle p_{\rm t}\rangle\rangle\) will vary with the temperature of the system and should increase with energy. The decrease with energy up to \(\sqrt{s_{\rm NN}}=19.6\) GeV is due to the decrease in the number of pions relative to the number of protons.
+
+There could be any number of reasons why \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\) is observed to increase with collision energy. The increase could be due to the increase in the number of jets, increase in the number of resonance decays, or other phenomena. As with the centrally dependence, there will be some effect due to variations in multiplicity and \(\left\langle p_{\text{t}}\right\rangle\). The dramatic decrease below \(\sqrt{s_{\text{NN}}}=19.6\) GeV could be due to a change in the phase transition.
+
+[MISSING_PAGE_FAIL:97]
+
+Figure 5.4: \(\sqrt{\left\langle\Delta p_{\rm t,}i},\Delta p_{\rm t,}j\right\rangle}/\left\langle \left\langle p_{\rm t}\right\rangle\right\rangle\) vs \(\sqrt{s_{\rm NN}}\) for all seven energies and eight centrality bins. The error bars are statistical errors, and the error bands are systematic errors.
+
+the errors are large at the lower energies.
+
+### 5.4 Correlations Scaled with Multiplicity
+
+Figure 5.5 is the correlation observable scaled with the multiplicity of tracks used in the calculation,, as a function of energy for eight centrality bins. Figure 5.6 is the same scaled observable,, as a function of \(N_{\text{part}}\) for eight centrality bins. When comparing with (Figure 5.3) it can be noted that has very little centrality dependence.
+
+Figure 5.6: \(\left\langle N\right\rangle\left\langle\Delta p_{\rm t,\it i},\Delta p_{\rm t,\it j}\right\rangle\) vs \(N_{\rm part}\) for all seven energies and eight centrality bins. The error bars are statistical errors. The solid lines are shown to guide the eye.
+
+5 Correlations Scaled with Multiplicity and \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle^{-1}\)
+
+Figures 5.7 and 5.8 show the correlation observable scaled with both multiplicity and average transverse momentum, \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\). Figure 5.7 shows \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) as a function of \(N_{\mathrm{part}}\) for the seven energies. Figure 5.8 shows \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p _{\mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) as a function of energy for the eight centrality bins.
+
+Figure 5.7 shows that this scaling has, to a large degree, removed the centrality dependence of the correlation observable. The increase in the correlation observable with \(N_{\mathrm{part}}\) for very peripheral bins (bins with small \(N_{\mathrm{part}}\) values) has been proposed as a sign of thermalization [50]. This behavior may also arise from changes in the underlying system; very peripheral collisions are better approximated as N+N (nucleon-nucleon) collisions than A+A (nuclei-nuclei) collisions. This scaling seems to plateau and exhibit only a weak centrality dependence in the central and mid-peripheral bins, decreasing with increasing centrality. The weak centrality dependence in the central and mid-peripheral bins may be due to centrality dependent efficiency. The efficiency in central bins is slightly lower than the centrality in peripheral bins due to the larger number of tracks in the detector.
+
+Figure 5.8 shows the same scaling, \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p _{\mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\), as a function of energy for the eight centrality bins. This scaling appears to increase monotonically with energy, and the centrality dependence is significantly weaker than the energy dependence. The dependence on energy but not on centrality suggests that \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p _{\mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) is not dependent upon thermodynamics, but on the hard interactions of the initial system before thermalization and QGP formation. In mid-peripheral collisions, \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) is smaller, indicating that the temperature is lower. The absence of centrality dependence suggests that either the dy
+
+Figure 5.7: \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) vs \(N_{\mathrm{part}}\) for all seven energies and eight centrality bins. The error bars are statistical. The solid lines are shown to guide the eye.
+
+namic correlations do not depend on temperature (and only depend upon collision energy), or this scaling has suppressed the temperature dependence while magnifying the energy dependence.
+
+### 5.6 Comparison with Published Results
+
+Figure 5.9 shows a comparison of the results of this analysis for the scaled observable in the 0-5% centrality bin with other analyses. The green points
+
+are from the CERES experiment, which was a fixed target Pb beam onto Au foil at 8.7, 12.3, and 17.3 GeV [49]. The red triangle is a preliminary point from the ALICE collaboration from Pb+Pb collisions at 2760 [51]. The cyan stars are the 2005 STAR results from Run 4 [36]. The magenta line represents UrQMD model calculations (Section 3.8). Lastly, the yellow diamonds correspond to values obtained from the present analysis applied to the data from the 2005 STAR analyses.
+
+The two highest energy points from the CERES study are in good agreement with the present analysis, however the lowest energy point, done at \(\sqrt{s_{\rm NN}}=8.7\) GeV, appears to be in strong
+
+Figure 5.9: \(\sqrt{\left\langle\Delta p_{\rm t,\it i},\Delta p_{\rm t,\it j}\right\rangle}/ \left\langle\left\langle p_{\rm t}\right\rangle\right\rangle\) vs \(\sqrt{s_{\rm NN}}\) for the 0-5% centrality bin for the present analysis and several other analyses. The error bars are statistical errors. The error bands are the systematic error of the STAR analyses.
+
+disagreement with the present point at 7.7 GeV. This disagreement may be partially due to the fiducial cuts used in the CERES analysis. During the run for that energy, they had problems with the detector electronics, and were forced to apply a cut of \(17\pi/24<\phi<2\pi\). In the discussion of the systematic errors, they state that the effect of this cut was found to be small [49], but no values are given. However, a STAR analysis done with Cu+Cu, which investigated the effect of fiducial cuts, suggests that a \(\phi\) cut of that size could increase the value of \(\sqrt{\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle }/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) by approximately 10% [39]. A shift of 10% would not put the analyses in agreement, but they would disagree less.
+
+The comparison with ALICE is suggests that \(\sqrt{\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle }/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) may plateau, but without additional data points the trend is inconclusive.
+
+The results at 62.4 GeV and 200 GeV deviate slightly from the previous STAR results. In order to test if this was an error in the previous analysis, the full analysis was rerun on two subsets of the Run 4 data. The analysis code, and some aspects of the analysis procedure have been improved since 2005, but the produced results are in agreement with the published results. While this analysis suggests a stronger energy dependence than the 2005 analysis, the error bars of the two analyses overlap when including estimates of systematic errors and the results are in excellent agreement.
+
+Taken as a whole, and noting that the CERES 8.7 GeV point had detector problems, \(\sqrt{\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle }/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) is observed to increase strongly with energy up to 19.6 GeV, and then have much weaker energy dependence above 19.6 GeV. The ALICE point suggests that \(\sqrt{\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle }/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) may plateau. The strong decrease below 19.6 GeV may indicate a change to a first order phase transition.
+
+## Chapter 6 \(p_{\rm t}\) Correlation Analysis Checks
+
+Many analysis checks have been performed to insure that the results are robust against small changes in analysis cuts and detector efficiency. Studies have also been performed to check for bin width effects, auto-correlations from the method of centrality definition, and to insure no dependence on detector pile-up.
+
+### 6.1 \(\eta\) Cut Dependence
+
+The STAR detector has wide uniform acceptance about mid-rapidity, but previous experiments to which we desire to make experimental comparisons have different, potentially non-symmetric acceptances in rapidity [49]. The CERES experiment used a fixed target geometry, so both the width of the rapidity acceptance and the center of the rapidity window shift with incident energy. A thorough study was performed to insure that the correlation observable was robust to both small changes in the width of the rapidity window and it's symmetry about mid rapidity.
+
+The full analysis was run for every center of mass energy for several symmetric (\(|\eta|<1.0\), \(|\eta|<0.5\), \(|\eta|<0.25\), \(|\eta|<0.1\)) and asymmetric (\(-1.0<\eta<0.0\), \(0.0<\eta<1.0\)) analysis cuts. The results for \(\sqrt{\left<\Delta p_{\rm t,\it i},\Delta p_{\rm t,\it j}\right>}/\left<\left< p_{\rm t}\right>\right>\) for two energies can be seen in Figures 6.1
+
+[MISSING_PAGE_EMPTY:107]
+
+Figure 6.2: Comparisons of \(\sqrt{\left\langle\Delta p_{\rm t,}i,\Delta p_{\rm t,}j\right\rangle}/\left\langle \left\langle p_{\rm t}\right\rangle\right\rangle\) calculated using different \(\eta\) cuts for 200 GeV. In all cases the \(\eta\) cut was symmetric about \(\eta=0\). Three centrality bins are shown: 0-5%, 20-30%, and 50-60%. The error bars are statistical.
+
+values of \(\langle\langle p_{\rm t}\rangle\rangle\) are identical. It has been concluded that the symmetry of the \(\eta\) cut has no effect on the results of this analysis.
+
+### 6.2 Detector Efficiency Dependence
+
+To study the effect of detector efficiency on the correlation observable, two efficiency studies were performed. The first investigated the effect of a uniform decrease in efficiency, and the second a decrease of \(p_{\rm t}\) dependent efficiency.
+
+Figure 6.4: Comparisons of \(\sqrt{\langle\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\rangle}/\,\langle\langle p_{ \rm t}\rangle\rangle\) calculated using different \(\eta\) cuts for 39 GeV. In all cases the \(\eta\) cut had an absolute width of 1. Three centrality bins are shown: 0-5%, 20-30%, and 50-60%. The error bars are statistical.
+
+[MISSING_PAGE_FAIL:111]
+
+When using the simulated efficiency and calculating the scaled observable, the values fluctuated on the scale of 2-4%. The efficiency and multiplicity dependence of is less than that of \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) or because they have the same efficiency dependence, that cancels when scaling.
+
+Figure 6.5: The average momentum \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) from UrQMD with (green squares) and without (blue circles) momentum dependent inefficiency simulation for the most central centrality bins plotted versus center of mass energy. The error bands in this plot are statistical.
+
+Figure 6.6: The correlation observable \(\left\langle\Delta p_{\rm t,\it i},\Delta p_{\rm t,\it j}\right\rangle\) from UrQMD with (green squares) and without (blue circles) momentum dependent inefficiency simulation for the most central centrality bins plotted versus center of mass energy. The error bands in this plot are statistical.
+
+Figure 6.7: The scaled correlation observable \(\sqrt{\left\langle\Delta p_{\rm t,},\Delta p_{\rm t,}\right\rangle}/\left\langle \left\langle p_{\rm t}\right\rangle\right\rangle\) from UrQMD with (green squares) and without (blue circles) momentum dependent inefficiency simulation for the most central centrality bins plotted versus center of mass energy. The error bands in this plot are statistical.
+
+### 6.3 Bin Width Study
+
+Some analyses have been shown to be sensitive to the width of the centrality bins used, this is commonly referred to as a bin-width effect. Having defined both \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) and \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) as functions of multiplicity, it should be apparent that this analysis is not sensitive to bin-width effects. The correlation observable, given as a function of multiplicity, is equivalent to the finest possible binning. In order to demonstrate this insensitivity to binning, the analysis was performed also with a uniform centrality binning of 2.5% wide bins in addition to the standard centrality bins. The results showed no indications of bin-width effects.
+
+### 6.4 Auto-correlations Study
+
+Artificial correlations can be induced by using the same multiplicity value to define collision centrality and in the calculation of the observables. For these cases alternative centrality definitions have been proposed to be used in defining the system centrality, so as to not induce auto-correlations.
+
+This analysis was checked for auto-correlations by performing the full analysis for every energy with the standard reference multiplicity (refMult) and with an alternative reference multiplicity (refMult2). RefMult2 is defined as the number of tracks seen in the detector in the region \(0.5<|\eta|<1.0\), and then the analysis is performed in the region \(|\eta|<0.5\). This is done so that the tracks used to define the reference multiplicity are not the same track used in the analysis of \(p_{\mathrm{t}}\) fluctuations. The comparisons shown between refMult and refMult2 are done with the analysis cut of \(|\eta|<0.5\).
+
+Both refMult and refMult2 have standardized STAR centrality cuts and multiplicity corrections to address minor dependences on \(V_{z}\) and coincidence rate as discussed in Section 3.5. The official STAR refMult and refMult2 centrality cuts were used when checking for auto-correlations.
+
+The results for refMult and refMult2 were in exact agreement for all energies with the exception of peripheral bins. Two energies can be seen in Figures 6.8 and 6.9. Throughout this analysis refMult has been used.
+
+Figure 6.8: \(\left\langle\Delta p_{\rm t,\it i},\Delta p_{\rm t,\it j}\right\rangle\) as calculated using refMult and refMult2 for 19.6 GeV for the central 8 centrality bins plotted by \(N_{\rm part}\). The error bars are statistical.
+
+Figure 6.9: \(\left\langle\Delta p_{\rm t,\it i},\Delta p_{\rm t,\it j}\right\rangle\) as calculated using refMult and refMult2 for 62.4 GeV for the central 8 centrality bins plotted by \(N_{\rm part}\). The error bars are statistical.
+
+### 6.5 Short Range Correlations
+
+An additional effect which was investigated was the effect of short range correlations on the correlation observable. Short range correlations are correlations which arise from detector effects (two track resolution) and quantum effects (HBT, Bose-Einstein statistics, and Coulomb effect), and are different from the bulk correlation effect which we are trying to study. These have been investigated in previous experimental analyses [49, 36]. An estimate of the effect of these short range correlations is presented here, but all other results in the dissertation are not corrected for short range correlations.
+
+An attempt to suppress short range correlations was made using a two step procedure. First the correlation observable, \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\), was calculated for all pairs of particles with \(q_{\text{inv}}>100\) MeV/c, where \(q_{\text{inv}}\) is the two particle invariant momentum difference. This cutoff was used because it represents the range in \(q_{\text{inv}}\) where HBT and Coulomb effect have been shown to be negligible [49]. When this \(q_{\text{inv}}\) pair cut is applied, it artificially induces large anti-correlations. This artificial anti-correlation is addressed in the second step of the procedure: \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\) is calculated for mixed events with the same \(q_{\text{inv}}\) cut, and the value from the mixed events is subtracted from the real events.
+
+Applying the \(q_{\text{inv}}\) cut to the data does two things: it removes the short range correlations, and it induces a purely statistical anti-correlation. Applying the \(q_{\text{inv}}\) cut to mixed events induces the same, purely statistical anti-correlation, and because there are no correlations (by construction) this statistical anti-correlation is the only thing induced. So, by subtracting the mixed events results from the real data, only the short range correlations should be suppressed.
+
+Figure 6.10 shows \(\mathrm{sign}\left(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j} \right\rangle\right)\sqrt{\left|\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle\right|}/\left\langle\left\langle p_{\mathrm{t}} \right\rangle\right\rangle\) for 0-5% centrality bin as a function of energy with and without short range correlations suppressed. After the correction, the results are systematically higher for all energies above 11.5 GeV. This observable is consistent with \(\sqrt{\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle }/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\), but in the case of 7.7 GeV with SRC suppressed \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) was negative, so the negative sign was moved outside of the square root. The results corrected for SRC show less incident energy dependence that the uncorrected results, but still increase with incident energy.
+
+### 6.6 Errors Calculations
+
+Excluding systematic sources of error, the errors in this analysis come from two primary source: statistical fluctuations, and variation of observables over the width of a centrality bin.
+
+The statistical error was estimated with a sub-event method. For each energy, at each step of the calculation, the data set was divided into five sub-sets. The analysis was performed on each sub-set of the data. The mean of the result from the five samples is then the calculated result using the full data set, and the standard deviation of the five samples divided by \(\sqrt{5}\) was taken as a measure of the statistical variation.
+
+Observing \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) and \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) as functions of multiplicity, one can see that they are not uniform over the width of a centrality bin. Except for in central bins, this variation is a larger contribution to the error than the statistical fluctuations. When averaging over a centrality bin, both the mean and the variance are calculated weighted with the number of events in each multiplicity bin taken from the multiplicity spectra. The variance from this averaging is added in quadrature with the statistical variance of each bin weighed with the number of events in that bin.
+
+We estimate the systematic errors of \(\left\langle\left\langle p_{t}\right\rangle\right\rangle\) by using studies of \(p_{t}\) dependent efficiency (2.4%), sensitivity to the \(\eta\) acceptance window (0.5%), and sensitivity to the lower value of the track \(p_{t}\) cut (1%). We estimate the total systematic error of \(\left\langle\left\langle p_{t}\right\rangle\right\rangle\) to be 3%.
+
+We estimate the systematic errors of the correlation observable \(\left\langle\Delta p_{t,i},\Delta p_{t.j}\right\rangle\) by using studies of \(p_{t}\) dependent efficiency (7.5%), sensitivity to the \(\eta\) acceptance window (9.2%). We estimate the total systematic error of \(\left\langle\Delta p_{t,i},\Delta p_{t.j}\right\rangle\) to be 16.5%.
+
+We estimate the systematic errors of the scaled observable \(\sqrt{\left\langle\Delta p_{t,i},\Delta p_{t.j}\right\rangle}/\left\langle\left\langle p _{t}\right\rangle\right\rangle\) by using studies of \(p_{t}\) dependent efficiency (1.3%), sensitivity to the \(\eta\) acceptance window (\(\sim\)4%), and sensitivity to the lower value of the track \(p_{t}\) cut (1%). We estimate the total systematic error of \(\sqrt{\left\langle\Delta p_{t,i},\Delta p_{t.j}\right\rangle}/\left\langle \left\langle p_{t}\right\rangle\right\rangle\) to be 7%. The systematic error of \(\sqrt{\left\langle\Delta p_{t,i},\Delta p_{t.j}\right\rangle}/\left\langle \left\langle p_{t}\right\rangle\right\rangle\) is smaller than that of \(\left\langle\Delta p_{t,i},\Delta p_{t.j}\right\rangle\) because efficiency effects cancel.
+
+## Chapter 7 Results of the Higher Moments Analysis
+
+### 7.1 Higher Moments
+
+Using Eq. 4.21, the moment of an arbitrary order of the \(\langle p_{\mathrm{t}}\rangle\) spectra can be calculated. In practice, we are limited to the first few moments by statistics. The first moment is determined by the 'center' of the distribution, the second by it's 'width', and higher moments are sensitive to the behavior in the tails of the distribution. Higher moments are increasingly sensitive to behavior further out in the tails, which are also the parts of the distribution with the fewest statistics. The behavior of the cumulants is analogous to that of the moments since the \(n^{\mathrm{th}}\) cumulant is some combination of the moments up to the \(n^{\mathrm{th}}\).
+
+#### Comparisons with Baselines
+
+Here are presented the behavior of the first four moments for the data and the two baselines: the gamma distribution baseline and the statistically sampled baseline.
+
+#### 7.1.2 \(\mu_{1}\) (\(\kappa_{1}\))
+
+Figure 7.1 shows first moment of the \(\langle p_{\rm t}\rangle\) spectra (the mean) for the 0-5% centrality bin as a function of energy. In addition to the data, the two baselines are also plotted: the gamma baseline, and the statistically sampled baseline. This figure is equivalent to Figure 5.2 except for the addition of the baselines. We see the same behavior as before: \(\langle p_{\rm t}\rangle\) increases with energy above 19.6 GeV, but decreases with energy up to 19.6 GeV. This is a consequence of the changing particle ratios, specifically the changing pion to proton ratio as pion production decreases. For identified particles, \(\langle p_{\rm t}\rangle\) increases with energy across the entire incident energy range.
+
+For the first moment, both baselines exactly reproduce the data. This is to be expected for the gamma baseline, because the first and second moments are equivalent to the parameters used to define the gamma distribution. It is promising that the sampled baseline reproduces the first moment. This need not be the case for several reasons: the sampling method does not take into account particle species, and the sampling method assumes that within a centrality bin the multiplicity and the \(p_{\rm t}\) spectra are uncorrelated.
+
+#### 7.1.3 \(\mu_{2}\) (\(\sigma^{2}_{\langle p_{\rm t}\rangle}\), \(\kappa_{2}\))
+
+Figure 7.2 shows the second moment of the \(\langle p_{\rm t}\rangle\) spectra (the variance) for the 0-5% centrality bin as a function of energy. As is Figure 7.1 the sampled baseline and gamma baseline are also plotted. To first order the variance decreases monotonically with energy. The second moment (and all higher moments as well) are non-trivially sensitive to \(p_{\rm t}\) cuts, \(\eta\) cuts, centrality cuts, and detector efficiencies, so it is unclear if the kink near 39 and 62.4 GeV isFigure 7.1: The first moment, \(\mu_{1}\), for the 0-5% centrality bin plotted versus energy. Two baselines are also plotted: the gamma baseline, and the statistically sampled baseline. The lines are error bands which represent statistical error.
+
+physical, or an experimental artifact. We have extensively carried out quality assurance for the data, but it is possible that some unknown effects still remain.
+
+As with the first moment we see, as anticipated, that the gamma baseline reproduces the data. Unlike with the first moment, the sampled baseline is smaller than the data. This observation is equivalent to the statement that the \(\langle p_{\rm t}\rangle\) spectra is narrower for the sampled baseline than for the data. This has been observed previously when comparing data with mixed events [36]. This indicates that the data are not purely statistical, and that there are correlations in the data. The difference between the data and the statistically sampled baseline is that the data are not statistically sampled.
+
+Figure 7.2: The first moment, \(\mu_{2}\), for the 0-5% centrality bin plotted versus energy. Two baselines are also plotted: the gamma baseline, and the statistically sampled baseline. The lines are error bands which represent statistical error.
+
+baseline is in agreement with the values of \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) presented in Chapter 5. This is no surprise because they are equivalent approaches for measuring \(\sigma^{2}_{\left\langle p_{\mathrm{t}}\right\rangle,\mathrm{dynamic}}\) as discussed in Section 4.3.
+
+The increase in \(\sigma^{2}_{\left\langle p_{\mathrm{t}}\right\rangle,\mathrm{dynamic}}\) could indicate many different physical phenomena: increase in jets (and jet fluctuations), increase in resonance decays (and increase in resonance fluctuations), or an increase in temperature fluctuations. The decrease in \(\mu_{2}\) with energy is largely due to the increase in multiplicity with energy (See Figure 7.3). The increase in multiplicity decreases the statistical fluctuations. The statistical fluctuations are also related to the average variance of the underlying \(p_{\mathrm{t}}\) distribution, \(\sigma^{2}_{p_{\mathrm{t}}}\) (see Fig 7.4). The magnitude of \(\left\langle\sigma^{2}_{p_{\mathrm{t}}}\right\rangle\) is dominated by the temperature of the distribution, but is modified by other effects. The decrease with energy up to \(\sqrt{s_{\mathrm{NN}}}=19.6\) GeV is due to the change in particle ratios, just as was observed with \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) (Section 5.1). Jets, flow, high-\(p_{\mathrm{t}}\) particle suppression and other effects may all modify \(\left\langle\sigma^{2}_{p_{\mathrm{t}}}\right\rangle\).
+
+#### 7.1.4 \(\mu_{3}\) (\(\kappa_{3}\))
+
+Figure 7.5 shows the third moment of the \(\left\langle p_{\mathrm{t}}\right\rangle\) spectra for the 0-5% centrality bin as a function of energy for the data and the two baselines. As with the second moment, we see that the third moment decreases with energy, except for some non-monotonic behavior in the region from 27 to 62.4 GeV.
+
+This moment shows interesting deviation between the data and the baselines. Unlike with the previous moments, here the gamma baseline does not exactly reproduce the data. The trend of the data are reproduced but the gamma baseline underestimates the third moment for all energies except 7.7 GeV, and does not reproduce the 'kink', which may be indicative Figure 7.3: The average multiplicity \(\langle N\rangle\) as a function of energy for the 0-5% centrality bin.
+
+Figure 7.4: The average variance of the underlying \(p_{\rm t}\) distribution, \(\left\langle\sigma_{p_{\rm t}}^{2}\right\rangle\), as a function of energy for the 0-5% centrality bin.
+
+Figure 7.5: The third moment, \(\mu_{3}\), for the 0-5% centrality bin plotted versus energy. Two baselines are also plotted: the gamma baseline, and the statistical sampled baseline. Solid lines are drawn to guide the eye. Error bands represent statistical error.
+
+of interesting physics.
+
+The sampled baseline also does not reproduce the data. At high energies (62.4 GeV and 200 GeV) the sampled baseline is lower than the data, while at 7.7 GeV the sampled baseline is in agreement with the data within errors. This, like in the second moment, indicates a disappearance of correlations in the data as the energy decreases. It is interesting that the sampled baseline does not reproduce the 'kink' in the region from 27 to 62.4 GeV. The hypothesis with the sampled baseline was that experimental effects which change the \(\langle p_{\rm t}\rangle\) distribution do so by their effect on the track \(p_{\rm t}\) distribution. So, by statistically sampling the experimental track \(p_{\rm t}\) distribution, we should create a statistical baseline which perseveres the purely analysis and experimentally dependent effects. The disagreement between the data and the sampled baseline means either the sampled baseline hypothesis was incorrect and that the sampled baseline does not preserve the experimental and analysis effects (or those effects those effects become too dilute), or we are seeing the first tantalizing indications of interesting incident energy dependent physics.
+
+The difference between the data and the sampled baseline is the dynamic third moment, \(\mu_{\rm 3,dynamic}\), and is a shortcut to the three particle relative transverse-momentum correlator \(\left\langle\Delta p_{\rm t,},\Delta p_{\rm t,},\Delta p_{\rm t,}\right\rangle\), which would be defined analogously to \(\left\langle\Delta p_{\rm t,},\Delta p_{\rm t,}\right\rangle\). The absence of dynamic fluctuations of the \(\langle p_{\rm t}\rangle\) distribution at 7.7 and 11 GeV is an interesting physics observation which has already been made several times. This could indicate a change to a first order phase transition, or something more mundane. There could be physical effects which may decrease the correlation of the system, increasing thermalization and washing out dynamic correlations, the systems at 7.7 and 11 GeV may not be forming a QGP, or there may simply be too few high \(p_{\rm t}\) particles to accurately sample the temperature and \(\langle p_{\rm t}\rangle\) of the system.
+
+#### 7.1.5 \(\mu_{4}\)
+
+Figure 7.6 shows the fourth moment of the \(\langle p_{\rm t}\rangle\) spectra for the 0-5% centrality bin as a function of energy for the data and the two baselines. The behavior of the fourth moment of the data is similar to that of the second and third moments, it decreases with energy except for some small non-monotonic behavior near 62.4 GeV. The similar behavior of the different higher moments is not unexpected, because they are all powers of the symmetry or asymmetry of the distribution.
+
+The data and baselines look very similar to the second moment, \(\mu_{2}\). The gamma baseline reproduces the data very well. The difference between the data and the sampled baseline is the dynamic fourth moment, \(\mu_{\rm 4,dynamic}\). As has been previously observed serval times, there clearly are dynamic fluctuations of \(\langle p_{\rm t}\rangle\) but they decrease as the energy decreases, becoming consistent with zero at 7.7 GeV.
+
+#### 7.1.6 \(\kappa_{4}\)
+
+The first three moments are equivalent to the first three cumulants, but the fourth moment and fourth cumulant differ (Eq. 4.14). Figure 7.7 shows the fourth cumlant, \(\kappa_{4}\), for the 0-5% centrality bin as a function of energy for the data and the two baselines. The fourth cumulant is related to the moments by, \(\kappa_{4}=\mu_{4}-3\mu_{2}^{2}\). The two terms \(\mu_{4}\) and \(\mu_{2}^{2}\) are close in magnitude, so the difference is a small number with a large uncertainty. Not much can be said about the fourth moment except that it does not invalidate the conclusion that dynamic Figure 7.6: The fourth moment, \(\mu_{4}\), for the 0-5% centrality bin plotted versus energy. Two baselines are also plotted: the gamma baseline, and the statistical sampled baseline. The lines are error bands which represent statistical error.
+
+correlations are disappearing from the data at 11.5 and 7.7 GeV.
+
+#### Comparisons of Moments with UrQMD
+
+The full higher moments analysis was also performed on results generated by UrQMD (Section 3.8). All of the UrQMD results presented here were calculated with simulated \(p_{\rm t}\) dependent inefficiency. The effect of this efficiency simulation on the higher moments analysis is addressed in Section 8.3. The UrQMD analysis was done with the same analysis and geometric cuts as the data. Only the first two moments are presented here because all mo
+
+Figure 7.7: The fourth cumulant, \(\kappa_{4}\), for the 0-5% centrality bin plotted versus energy. Two baselines are also plotted: the gamma baseline, and the statistical sampled baseline. Solid lines are drawn to guide the eye. Error bands represent statistical error.
+
+ments greater than the second moment exhibit the same trend and behavior as the second moment.
+
+Figure 7.8 shows the first moment of the \(\langle p_{\rm t}\rangle\) spectra as a function of energy for the 0-5% centrality bin for the data and UrQMD. The behavior of the first moment for UrQMD was already shown in Figure 6.5. The magnitude and trend of the data are only approximately reproduced by UrQMD. The trend of decreasing with energy for lower energies, then increasing with energy at higher energies is present, but the inflection energy is significantly higher (39 GeV as opposed to 19.6 GeV). As a result, the value of the first moment is significantly lower for UrQMD at high energies than in the data.
+
+Figure 7.9 shows the second moment of the \(\langle p_{\rm t}\rangle\) spectra as a function of energy for the 0-5% centrality bin for the data and UrQMD. As with the first moment, UrQMD only generally reproduces the trend and magnitude of the data. UrQMD exhibits a much stronger energy dependence than the data, over estimating the second moment at 7.7 and 11.5 GeV, and under estimating it for all energies 19.6 GeV and above.
+
+### 7.2 Cumulant Ratios
+
+As was discussed in 4.6.6, ratios of the cumulants have been proposed as sensitive probes of the correlation length. Taking a ratio should cause efficiencies to cancel. Several ratios have been proposed, and here we will examine two: \(S\sigma\), \(K\sigma^{2}\) and compare them with the gamma baseline and the statistically sampled baseline.
+
+Figure 7.8: The first moment, \(\mu_{1}\), for three centrality bins plotted versus energy. In addition to the experimental result, the result from UrQMD with \(p_{\rm t}\) dependent efficiency is plotted. Statistical errors are plotted as error bands, but are smaller than the point markers.
+
+Figure 7.9: The second moment, \(\mu_{2}\), for three centrality bins plotted versus energy. In addition to the experimental result, the result from UrQMD with \(p_{\rm t}\) dependent efficiency is plotted. Statistical errors are plotted as error bands, but are smaller than the point markers.
+
+#### 7.2.1 \(S\sigma\)
+
+Figure 7.10 shows \(S\sigma\) (equivalent to \(\frac{\kappa_{3}}{\kappa_{2}}\)) for the 0-5% centrality as a function of energy for data, the gamma baseline, and the statistically sampled baseline.
+
+A number of things are apparent: neither baseline reproduces the data for all energies. Both baselines reproduce the data at 7.7 GeV, and the sampled baseline also reproduces the data at 11.5 GeV, but for all other energies the baselines underestimate the data. Also notable is the pronounced 'kink' in the data centered around 27 to 39 GeV. This kink was previously observed in the moments of the distribution. Neither baseline shows this behavior, and it may be an indication of interesting physics.
+
+#### 7.2.2 \(K\sigma^{2}\)
+
+Figure 7.11 shows \(K\sigma^{2}\) for the 0-5% (equivalent to \(\frac{\kappa_{4}}{\kappa_{2}}\)) centrality as a function of energy for data, the gamma baseline, and the statistically sampled baseline. The sensitivity of this measurement to statistics is apparent. Event the sampled baseline, which was done with 5 million events per energy (substantially more that the data, see Table 3.4), exhibits statistical fluctuations. The behavior of this ratio is dominated by the fourth cumulant. As with the fourth cumulant, this does not invalidate the conclusion that correlations disappear at 11.5 and 7.7 GeV, but it offers little additional insight.
+
+The trend of the data appears erratic, and more statistics and more detailed analysis is necessary before any strong conclusions can be drawn.
+
+Figure 7.10: The cumulant product \(S\sigma\) for two centrality bins plotted versus energy. Two baselines are plotted along with the data. Solid lines are drawn to guide the eye. Error bands represent statistical error.
+
+Figure 7.11: The cumulant product \(K\sigma^{2}\) for two centrality bins plotted versus energy. Two baselines are plotted along with the data. Solid lines are drawn to guide the eye. Error bands represent statistical error.
+
+## Chapter 8 Checks of the Higher Moments Analysis
+
+This is the first time a systematic analysis of the moments of the \(\left\langle p_{\mathrm{t}}\right\rangle\) spectra has been attempted. A detailed study of the effects of the analysis cuts and detector efficiency on the moments and cumulant ratios was undertaken. In Section 8.1 the effect of both the width and symmetry of the \(\eta\) cut is studied, in Section 8.2 the effect of the upper \(p_{\mathrm{t}}\) cut is studied, and in Section 8.3 the effect of \(p_{\mathrm{t}}\) dependent efficiency is studied. Additionally, in Section 8.4 the method used for calculating the errors of the moments and cumulant ratios is presented, and the systematic error of the higher moments analyses is estimated.
+
+### 8.1 \(\eta\) Cut Dependence
+
+The effect of the \(\eta\) cut on the analysis was studied by investigating two different sets of cases: one set of cases where \(\eta\) cut was kept centered at \(\eta=0\) but it's width was varied, and another set where the width of the \(\eta\) cut was kept constant but where it was centered in the detector was varied. These are the same cases investigated while checking the \(\eta\)dependence of \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\).
+
+[MISSING_PAGE_FAIL:141]
+
+Figure 8.1: The first moment, \(\mu_{1}\), for three centrality bins for 39 GeV plotted with symmetric \(\eta\) cuts of various widths. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.2: The first moment, \(\mu_{1}\), for three centrality bins for 200 GeV plotted with symmetric \(\eta\) cuts of various widths. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.3: The second moment, \(\mu_{2}\), for three centrality bins for 39 GeV plotted with symmetric \(\eta\) cuts of various widths. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.4: The second moment, \(\mu_{2}\), for three centrality bins for 200 GeV plotted with symmetric \(\eta\) cuts of various widths. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+from detector asymmetries. If we were performing an analysis of \(\eta\) correlations this would be a concern. Since we are interested in the bulk properties of the \(\langle p_{\rm t}\rangle\) distribution we simply selected a wide symmetric \(\eta\) acceptance. Also note that the changes in the first and second moments are small.
+
+Figure 8.5: The first moment, \(\mu_{1}\), for three centrality bins for 7.7 GeV plotted with three asymmetric \(\eta\) cuts of width 1. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.6: The first moment, \(\mu_{1}\), for three centrality bins 200 GeV plotted with three asymmetric \(\eta\) cuts of width 1. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.7: The second moment, \(\mu_{2}\), for three centrality bins for 7.7 GeV plotted with three asymmetric \(\eta\) cuts of width 1. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.8: The second moment, \(\mu_{2}\), for three centrality bins and for 200 GeV plotted with three asymmetric \(\eta\) cuts of width 1. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+### 8.2 \(p_{\rm t}\) Cut Dependence
+
+Figures 8.9, 8.10, 8.11, and 8.12 show the first and second moment of the \(\langle p_{\rm t}\rangle\) distributions for two energies and three centralities done with five different \(p_{\rm t}\) analysis cuts. All five analysis cuts have the same lower \(p_{\rm t}\) cut (0.15 GeV/_c_), and their upper \(p_{\rm t}\) cut is varied from 0.5 to 3.0 GeV/_c_.
+
+Both the first and second moments decrease as the \(p_{\rm t}\) cut is made narrower. This behavior is anticipated because the underlying \(p_{\rm t}\) distribution is being truncated, which will truncate the \(\langle p_{\rm t}\rangle\) distribution.
+
+The \(p_{\rm t}\) cut 0.15 GeV/_c_\(<p_{\rm t}<2.0\) GeV/_c_ was selected for the results shown in this dissertation so that they could be compared with previous analysis.
+
+### 8.3 Detector Efficiency Dependence
+
+The effect of \(p_{\rm t}\) dependent efficiency was studied with UrQMD (Section 3.8). The higher moments analysis was run twice, once using the full set of UrQMD simulated events, and again where the tracks in each event were used or not used based on \(p_{\rm t}\) efficiency as determined by embedding. The \(p_{\rm t}\) dependent efficiency was done independently for individual particle species.
+
+The behavior of the first moment has already been shown in Figure 6.5, and it was observed to increase with inefficiency because the efficiency is lower for low \(p_{\rm t}\) tracks. The second moment is not shown in this dissertation, but it is also observed to increase with inefficiency. This is because there are fewer tracks per event.
+
+Figure 8.9: The first moment, \(\mu_{1}\), for three centrality bins for 19.6 GeV plotted with cuts which vary in their upper bound. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.10: The first moment, \(\mu_{1}\), for three centrality bins for 39 GeV plotted with \(p_{\rm t}\) cuts which vary in their upper bound. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.11: The second moment, \(\mu_{2}\), for three centrality bins for 19.6 GeV plotted with \(p_{\rm t}\) cuts which vary in their upper bound. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.12: The second moment, \(\mu_{2}\), for three centrality bins for 39 GeV plotted with \(p_{\rm t}\) cuts which vary in their upper bound. The lines are to guide the eye. There are error bars which represent statistical error, but are smaller than the point markers.
+
+Figure 8.13 shows the cumulant ration \(S\sigma\) as a function of energy for UrQMD with and without the simulated \(p_{\rm t}\) efficiency. Two things can be noted: there is statistical fluctuation and this simulation would be improved with additional statistics, and the result with simulated \(p_{\rm t}\) dependent efficiency is higher for energies up to 39 GeV. Above 39 GeV the results with and without the simulated efficiency are within statistical agreement.
+
+Figure 8.14 shows the cumulant ratio \(K\sigma^{2}\) as a function of energy for UrQMD with and without the simulated \(p_{\rm t}\) efficiency. Due to statistical error, not much can be said. The result seems suggestive that \(p_{\rm t}\) inefficiency increases \(K\sigma^{2}\) at the lower energies, but the two
+
+Figure 8.13: The cumulant ratio \(S\sigma\) for UrQMD with and without \(p_{\rm t}\) dependent efficiency simulation. The error bands represent statistical error.
+
+results are within statistical agreement at 7.7, 19.6, and 27 GeV.
+
+### 8.4 Error Calculation
+
+The statistical errors of higher moments have been derived using the Delta theorem in Ref. [52]. The statistical error of a moment are related non-trivially to higher moments of the distribution. Because the derivation of the statistical errors is not related to the underlying physics, but it rather an exercise in mathematics, the derivation will not be reproduced here. Interested readers are referred to Ref. [52].
+
+Figure 8.14: The cumulant ratio \(K\sigma^{2}\) for UrQMD with and without \(p_{\rm t}\) dependent efficiency simulation. The error bands represent statistical error.
+
+The statistical error of the higher moments has been estimated from the investigation of the symmetry of the \(\eta\) cut. The width of the \(\eta\) cut and the upper bound of the \(p_{\rm t}\) cut were not used in this estimation because the variation of the moments with these two cuts is systematic and understood. The systematic error in the 0-5% centrality bin of the first moment is \(\sim 0.5\%\), for the second moment is \(\sim 3\%\), for the third moment is \(\sim 7\%\), and for the fourth moment is \(\sim 7\%\). The estimated systematic errors of the first four moments for each energy is given in Table 8.1.
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline Energy & \(\mu_{1}\) & \(\mu_{2}\) & \(\mu_{3}\) & \(\mu_{4}\) \\ \hline
+7.7 GeV & 0.751\% & 4.426\% & 11.107\% & 8.522\% \\
+11.5 GeV & 0.504\% & 4.114\% & 5.88\% & 7.578\% \\
+19.6 GeV & 0.551\% & 3.655\% & 10.336\% & 7.574\% \\
+27 GeV & 0.135\% & 1.97\% & 2.684\% & 3.914\% \\
+39 GeV & 0.493\% & 4.777\% & 8.899\% & 9.656\% \\
+62.4 GeV & 0.265\% & 0.386\% & 0.506\% & 1.061\% \\
+200 GeV & 0.450\% & 3.222\% & 6.570\% & 6.384\% \\ \hline \end{tabular}
+\end{table}
+Table 8.1: The systematic error for the 0-5% centrality bin of the first four moments as calculated from the variation noted when changing the symmetry of the \(\eta\) cut.
+
+## Chapter 9 Conclusion
+
+Two analyses have been presented in this dissertation, the study of the two-particle transverse momentum correlator \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\), and the study of the higher moments of the \(\left\langle p_{\mathrm{t}}\right\rangle\) spectra. Both of these studies, but in particular the study of the moments, were intended to be searches for the QCD critical point. The study of \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) only has utility as a critical point observable due to it's relationship with the second moment of the \(\left\langle p_{\mathrm{t}}\right\rangle\) spectra, but it has additional use as a measure of system equilibration.
+
+### 9.1 Summary of Correlations Analysis
+
+As mentioned above, \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) can be used as a critical point observable because of it's relationship to the second moment of the \(\left\langle p_{\mathrm{t}}\right\rangle\) spectra (see App. ). Additionally, \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) can be used to explore the thermal behavior of the system and look for behavior such as equilibration and "thermalization".
+
+The first part of the \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) analysis was the determination of \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\). \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) is given as a function of energy for all centrality bins in Figure 5.2. In central and mid-peripheral bins that for energies up to 19.6 GeV \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) decreases with energy, and above 19.6 GeV \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) increases with energy for all centrality bins. This behavior is a consequence of changingparticle ratios, specifically the pion-proton ratio. For thermal distributions of the same temperature, protons will have larger a \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) than pions because they are more massive. This behavior is qualitatively reproduced by UrQMD.
+
+The unscaled correlator \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) is shown in Figure 5.3 as a function of energy for all centrality bins. \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) increases with both energy and as collisions become more peripheral. The variation with centrality is to variation in \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) and the changing number of particles in each event. Peripheral events, corresponding to lower multiplicities, have fewer tracks. As collisions become more central, and the number of tracks increases like \(N\), the number of pairs increases like \(N^{2}\). This results in a "dilution" of the correlations because \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) is an average over all pairs of tracks.
+
+In addition to \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\), also presented were several scaled variants. The first scaled correlation presented was \(\sqrt{\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle }/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) which is shown in Figure 5.4 as a function of energy for all centrality bins. The advantage of scaling with \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) is that the result is unitless and efficiency independent. The behavior of \(\sqrt{\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle }/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) is similar to that of \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\), increasing with both energy and in peripheral collisions, but the energy dependence is weakened.
+
+Another scaling presented was \(\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle\). Figure 5.5 is \(\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle\) as a function of energy for all centrality bins. The motivation for examining \(\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle\) is to check if the centrality dependence of \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\) is due only to the dilution effect discussed above. \(\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle\) increases with collision energy.
+
+The final scaling presented was \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\). \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p_{ \mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) is shown in two Figures: Figure 5.7 all seven energies are plotted as functions of \(N_{\mathrm{part}}\) and in Figure 5.8\(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p _{\mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) is given as a function of energy for each centrality bin. The results of the \(N_{\mathrm{part}}\) and \(N_{\mathrm{part}}\) are shown in Figure 5.8\(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p _{\mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\). The results of the \(N_{\mathrm{part}}\) and \(N_{\mathrm{part}}\) are shown in Figure 5.
+
+bin. Figure 5.7 shows that this scaling has largely removed the centrality dependence of \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\). This makes sense because we have addressed both the dilution effect and the variation of \(\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) with centrality. The remaining centrality dependence is indicative of new physics. It is possible that we are observing the threshold where the produced systems are too small and short lived to reach thermal equilibration and produce QGP. Another interesting property is observed in 5.8, \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p _{\mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) is observed to increase smoothly and continuously with collision energy. This is the dependence of \(\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle\), or more precisely \(\sqrt{\left\langle N\right\rangle\left\langle\Delta p_{\mathrm{t},i},\Delta p _{\mathrm{t},j}\right\rangle}/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\), on the temperature of the system.
+
+Other experimental analyses have used \(\sqrt{\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle }/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\)[36, 51], or equivalent observables [49], and comparisons with those results is shown in Figure 5.9. The results presented in this dissertation are in excellent agreement with previous results from the STAR collaboration [36], and the agreement with the results from CERES [49] is reasonable, and the disagreements are believed to be understood (see Section 5.6). The addition of a preliminary point from ALICE [51] suggests that \(\sqrt{\left\langle\Delta p_{\mathrm{t},i},\Delta p_{\mathrm{t},j}\right\rangle }/\left\langle\left\langle p_{\mathrm{t}}\right\rangle\right\rangle\) may plateau at higher energies.
+
+### 9.2 Summary of Moments Analysis
+
+The higher moments analysis of the \(\left\langle p_{\mathrm{t}}\right\rangle\) spectra is a wholly original study, and the results are of interest because they are strongly related to the correlation length of the system and are therefore a excellent candidate as a critical point observable. In addition to the first four moments and cumulants, the two cumulant ratios \(S\sigma\) and \(K\sigma^{2}\) were presented. The \(\left\langle p_{\mathrm{t}}\right\rangle\) spectra, with the gamma distributions used for the baselines are in Figure 5.1.
+
+The first moment of the \(\langle p_{\rm t}\rangle\) spectra, \(\mu_{1}\), is shown in Figure 7.1 as a function of energy for the 0-5% centrality bin for the data and the two baselines. The first moment is identical to \(\langle\langle p_{\rm t}\rangle\rangle\) presented in the two-particle correlation analysis and the results are in exact agreement.
+
+The second moment, \(\mu_{2}\), is given in Figure 7.2 as a function of energy for the 0-5% centrality bin for the data and the two baselines. The gamma baseline is fit to the first and second moments of the data, so it's agreement with the data are expected. The statistical baseline is lower for the data for all energies except 7.7 GeV. This means that the statistically sampled distribution is narrower than the data, and that there are correlations in the data which are not reproduced in the statistical baseline. The \(\langle p_{\rm t}\rangle\) spectra for 200 GeV in the 0-5% centrality bin for both data and the statistically sampled baseline is shown in Figure 4.1. It is notable that the deviation of the sampled baseline from the data are largest at the highest energies, and that the deviation becomes smaller as the energy decreases until at 7.7 GeV the data and sampled baseline are indistinguishable. This indicates that the correlations in the data are decreasing with energy, which is the same conclusion measured by the two-particle correlator.
+
+Figure 7.5 is the third moment, \(\mu_{3}\), as a function of energy for the 0-5% bin for the data and the two baselines. This is the only indication that the data are note exactly gamma distributions. We see that the third moment decreases with collision energy, except for an increase in the region of 39 to 62.4 GeV. Both baselines are lower than the data above 11.5 GeV, with the exception that the gamma baseline is within errors at 200 GeV. Neither baseline reproduces the 'kink' in the 39 to 62.4 GeV region. The deviation between the data and the statistical baseline could again be indicative of correlations in the data which are not present in the statistical baseline.
+
+The fourth moment, \(\mu_{4}\), as a function of energy for the 0-5% centrality bin for the data and two baselines is Figure 7.6. The fourth moment looks very similar to the second moment, as could be anticipated because they are both measures of the symmetry of the distributions. We see that the gamma baseline reproduces the data very well, and that the statistical baseline is lower than the data for all energies except 7.7 GeV indicating that there are non-statistical correlations in the data.
+
+The fourth cumulant, \(\kappa_{4}\), as a function of energy for the 0-5% centrality bin for the data and two baselines is Figure 7.7. The fourth cumulant a difference between two values, resulting a small number with very large error bars. It is clear that more statistics are needed in order to draw any conclusions from the fourth cumulant. While the fourth cumulant is of little use, it does not invalidate the conclusion that dynamic correlations disappear from the data at 11.5 and 7.7 GeV.
+
+The cumulant ratio \(S\sigma\) is given as a function of energy for the 0-5% centrality bin for the data and the two baselines in Figure 7.10. We see exciting behavior similar to that which was observed in the third moment: \(S\sigma\) decreases with energy except for a pronounced increase at 39 to 62.4 GeV, for all energies except 7.7 GeV the baselines are lower than the data (the statistical baseline also agrees at 11.5 GeV), and neither baseline reproduces the kink at 39 to 62.4 GeV. This is one of the most exciting results, but additional analysis will be required to insure that this result is physical and not just an artifact.
+
+The other cumulant ratio presented was \(K\sigma^{2}\), given in Figure 7.11 as a function of energy for the 0-5% centrality bin for the data and the two baselines. The need for additional statistics is apparent, and it's behavior is driven by the behavior of \(\kappa_{4}\).
+
+Looking Forward
+
+While there are many results presented in this dissertation, there are ultimately two results of note: first we observe that dynamic correlations of \(\langle p_{\rm t}\rangle\) decrease below 19.6 GeV becoming negligible at 7.7 GeV, and second no dramatic non-monotonic behavior is observed in any \(p_{\rm t}\) fluctuations as collision energy or centrality is varied.
+
+The decrease of dynamic correlations with decreasing energy could be an indication of the onset of the deconfined phase, change in the type of phase transition, or it could be caused by many less novel physical effects: changing chemistry, flow, particle decays, charge correlations, jets, or other effects. The Hanbury Brown and Twiss (HBT) effect is one that can already be discounted by the short range correlations check (cutting on pairs by \(q_{\rm inv}\). See Section 6.5). The effect of changing chemistry could be investigated by performing the analyses independently for identified particle species. Performing these analyses for identified particles presents additional challenges. The effect of flow can be studied using momentum correlations in \(\Delta\theta\) for various angles with respect to the event plane. Identified particle decays, such a as the \(\phi\) meson to two kaons, can be excluded by using a similar method used in the short range correlation analysis. Pairs of particles of the correct species and with \(q_{\rm inv}\) corresponding to the mass of the mother particle can be cut out and mixed events can be used to correct the induced auto-correlation.
+
+The absence of dramatic non-monotonic behavior is an important null result which suggests that we have not observed the critical point. A more quantitative statement will require both more sophisticated analysis and more detailed theoretical work. The dependence of \(p_{\rm t}\) fluctuations on the correlation length is a function of chemistry, experimental \(p_{\rm t}\) dependent 
+
+[MISSING_PAGE_EMPTY:164]
+
+## Appendix A
+
+## Appendix A Derivation of
+
+Here we will break down the two-particle transverse momentum (\(p_{\text{t}}\)) correlation observable, \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\), which has been used in several STAR analyses [36, 39]. We will demonstrate that \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\) can be written as a sum of two parts, one corresponding to the average covariance of the average \(p_{\text{t}}\) spectrum, and another corresponding to the second moment of the \(\left\langle p_{\text{t}}\right\rangle\) spectra and the average number of tracks used in the calculation.
+
+### A.1 Additional Notation
+
+The correlation observable \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\) is given in Section 4.7.1. Before deriving our result we will need to define a few more terms. First, without too much concern as to the physical significance, we define a transverse momentum sample self-covariance for an event \(k\),
+
+\[\sigma_{k,k}^{2}=\frac{\sum_{i=1}^{N_{k}}\sum_{j=1}^{N_{k}}\left(p_{\text{t},i }-\left\langle p_{\text{t}}\right\rangle_{k}\right)\left(p_{\text{t},j}- \left\langle p_{\text{t}}\right\rangle_{k}\right)}{N_{k}^{2}}.\] (A.1)
+
+The self-covariance \(\sigma_{k,k}^{2}\) is always zero. The only assumption necessary to demonstrate thisis that the underlying distribution is bound. In the experimental case, the underlying \(p_{\text{t}}\) distributions are bound to a range \(\left[p_{\text{t,min}},p_{\text{t,max}}\right]\) by analysis cuts, but even in the ideal case all that is needed is that the the underlying distribution is positive and integrable.
+
+First we write Eq. A.1 expanding the \(\left\langle p_{\text{t}}\right\rangle\) terms,
+
+\[\sigma_{k,k}^{2}=\frac{\sum_{i=1}^{N}\sum_{j=1}^{N}\left(p_{\text{t,}i}-\frac{ \sum_{k}^{N}p_{\text{t,}k}}{N}\right)\left(p_{\text{t,}j}-\frac{\sum_{k}^{N}p _{\text{t,}k}}{N}\right)}{N^{2}}.\] (A.2)
+
+We can then multiply and regroup,
+
+\[\sigma_{k,k}^{2}=\frac{\sum_{i=1}^{N}\sum_{j=1}^{N}\left[p_{\text{t,}i}p_{ \text{t,}j}-\frac{\sum_{k}^{N}p_{\text{t,}k}}{N}\left(p_{\text{t,}i}+p_{\text {t,}j}\right)+\left(\frac{\sum_{k}^{N}p_{\text{t,}k}}{N}\right)^{2}\right]}{N^ {2}}.\] (A.3)
+
+Performing the summation on the last two terms in the numerator and simplifying,
+
+\[\sigma_{k,k}^{2}=\frac{\sum_{i=1}^{N}\sum_{j=1}^{N}p_{\text{t,}i}p_{\text{t, }j}-\left(\sum_{k}^{N}p_{\text{t,}k}\right)^{2}}{N^{2}}=\frac{\sum_{i=1}^{N} \sum_{j=1}^{N}p_{\text{t,}i}p_{\text{t,}j}-N^{2}\left\langle p_{\text{t}} \right\rangle^{2}}{N^{2}}.\] (A.4)
+
+The final step is to note that \(\sum_{i=1}^{N}\sum_{j=1}^{N}p_{\text{t,}i}p_{\text{t,}j}=N\left\langle p_{ \text{t}}\right\rangle\sum_{j=1}^{N}p_{\text{t,}i}=N^{2}\left\langle p_{\text {t}}\right\rangle^{2}\). This may not be immediately obvious, but it arrises from the fact that a one dimensional distribution _cannot_ be correlated with itself, and the mean of the product of two uncorrelated distributions is the product of the means. Stated mathematically, \(\left\langle xy\right\rangle=\left\langle x\right\rangle\times\left\langle y\right\rangle\). Therefore, \(\sigma_{k,k}^{2}=0\).
+
+We also define an "idealized" variant of \(C_{k}\) (Eq. 4.18),\[\left\{C_{k}\right\}=\sum_{i=1}^{N_{k}}\sum_{j=1,j\neq i}^{N_{k}}\left(p_{{\rm t}, i}-\left\langle p_{\rm t}\right\rangle_{k}\right)\left(p_{{\rm t},j}-\left\langle p _{\rm t}\right\rangle_{k}\right).\] (A.5)
+
+\(\left\{C_{k}\right\}\) is "idealized" in that \(\left\{C_{k}\right\}=C_{k}\) if all events have the same \(\left\langle p_{\rm t}\right\rangle\).
+
+Note that Eq. A.1 and Eq. A.5 can be related by,
+
+\[\left\{C_{k}\right\}=N_{k}\left(N_{k}-1\right)\sigma_{k,k}-\sum_{i=1}^{N_{k}} \left(p_{{\rm t},i}-\left\langle p_{\rm t}\right\rangle_{k}\right)^{2}.\] (A.6)
+
+Noting that \(\sigma_{k,k}^{2}=0\) and that the sample variance \(\sigma_{p_{\rm t},k}^{2}\) is defined \(\sigma_{x,k}^{2}=\frac{\sum_{i=1}^{N_{k}}\left(x_{i}-\left\langle x\right\rangle _{k}\right)}{N_{k}}\) we can simplify further to,
+
+\[\left\{C_{k}\right\}=-N_{k}\sigma_{p_{\rm t},k}^{2}.\] (A.7)
+
+Lastly, before returning to \(\left\langle\Delta p_{{\rm t},i},\Delta p_{{\rm t},j}\right\rangle\), we define for each event \(k\),
+
+\[\Delta\left\langle p_{\rm t}\right\rangle_{k}=\left\langle p_{\rm t}\right \rangle_{k}-\left\langle\left\langle p_{\rm t}\right\rangle\right\rangle,\] (A.8)
+
+which is the deviation of the mean transverse momentum with respect to the mean over many events.
+
+[MISSING_PAGE_FAIL:169]
+
+double summation is the same as in Eq. A.5, the second term is unchanged by the summation except for picking up a pre-factor of \(N\left(N-1\right)\), and the last term will go to zero after the summation.
+
+We can then simplify Eq. A.11 to,
+
+\[\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle=\frac{1}{N _{\text{events}}}\sum_{k=1}^{N_{\text{events}}}\left(\frac{\left\{C_{k} \right\}}{N_{k}\left(N_{k}-1\right)}+\left(\Delta\left\langle p_{\text{t}} \right\rangle_{k}\right)^{2}\right).\] (A.12)
+
+Using Eq. A.7, we can replace \(\frac{\left\{C_{k}\right\}}{N_{k}(N_{k}-1)}\),
+
+\[\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle=\frac{1}{ N_{\text{events}}}\sum_{k=1}^{N_{\text{events}}}\left(-\frac{\sigma_{p_{\text{t} },k}^{2}}{N_{k}-1}+\left(\Delta\left\langle p_{\text{t}}\right\rangle_{k} \right)^{2}\right).\] (A.13)
+
+Performing the average we get,
+
+\[\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle=\left\langle \left(\Delta\left\langle p_{\text{t}}\right\rangle\right)^{2}\right\rangle- \left\langle\frac{\sigma_{p_{\text{t}}}^{2}}{N-1}\right\rangle.\] (A.14)
+
+Note that the first term, \(\left\langle\left(\Delta\left\langle p_{\text{t}}\right\rangle\right)^{2}\right\rangle\), is \(\kappa_{2}^{\left\langle p_{\text{t}}\right\rangle}\), the second moment of the \(\left\langle p_{\text{t}}\right\rangle\) distribution, or equivalently \(\sigma_{\left\langle p_{\text{t}}\right\rangle}^{2}\). We can also replace \(\left(N-1\right)\) with \(N\) because they will be almost identical for large values.
+
+\[\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle=\sigma_{ \left\langle p_{\text{t}}\right\rangle}^{2}-\left\langle\frac{\sigma_{p_{ \text{t}}}^{2}}{N}\right\rangle.\] (A.15)
+
+So the two particle correlation observable \(\left\langle\Delta p_{\text{t},i},\Delta p_{\text{t},j}\right\rangle\) is equivalent to the second moment of the \(\left\langle p_{\text{t}}\right\rangle\) distribution minus the variance in the underlying event \(p_{\text{t}}\) distributions scaled by the number of tracks.
+
+## Bibliography
+
+## Bibliography
+
+* [1] H. Wang, _Study of Particle Ratio Fluctuations and Charge Balance Functions at RHIC_. PhD thesis, Michigan State University, East Lansing, Michigan, 2012.
+* [2] S. Bethke, "Experimental Tests of Asymptotic Freedom," _Progress in Particle and Nuclear Physics_, vol. 58, pp. 351-386, 2007.
+* [3] T. Ullrich, "Figures for the 2007 NSAC/LRP," [http://rhig.physics.yale.edu/~ullrich/lrpfigs/](http://rhig.physics.yale.edu/~ullrich/lrpfigs/).
+* [4] A. Bazavovic, T. Bhattacharya, M. Cheng _et al._, "Chiral and Deconfinement Aspects of the QCD Transition," _Physical Review D_, vol. 85, p. 054503, Mar 2012.
+* [5] C. Bernard, T. Burch, C. DeTar _et al._, "QCD Thermodynamics with Three Flavors of Improved Staggered Quarks," _Physical Review D_, vol. 71, p. 034504, Feb 2005.
+* [6] Y. Aoki, G. Endrodi, Z. Fodor _et al._, "The Order of the Quantum Chromodynamics Transition Predicted by the Standard Model of Particle Physics," _Nature_, vol. 443, pp. 675-678, Oct. 2006.
+* [7] M. Cheng, P. Hegde, C. Jung _et al._, "Baryon Number, Strangeness, and Electric Charge Fluctuations in QCD at High Temperature," _Physical Review D_, vol. 79, p. 074505, Apr 2009.
+* [8] A. M. Halasz, A. Jackson, R. Shrock _et al._, "On the Phase Diagram of QCD," _Physical Review D_, vol. D58, p. 096007, 1998.
+* [9] J. Berges and K. Rajagopal, "Color Superconductivity and Chiral Symmetry Restoration at Nonzero Baryon Density and Temperature," _Nuclear Physics B_, vol. B538, pp. 215-232, 1999.
+* [10] J. Cleymans, H. Oeschler, K. Redlich _et al._, "Comparison of Chemical Freeze-Out Criteria in Heavy-Ion Collisions," _Physical Review C_, vol. 73, p. 034905, Mar 2006.
+
+* [11] F. R. Brown, F. P. Butler, H. Chen _et al._, "On the Existence of a Phase Transition for QCD with Three Light Quarks," _Physical Review Letters_, vol. 65, pp. 2491-2494, Nov 1990.
+* [12] A. Mocsy, F. Sannino, and K. Tuominen, "Confinement versus Chiral Symmetry," _Physical Review Letters_, vol. 92, p. 182302, May 2004.
+* [13] T. Andrews, "The Bakerian Lecture: On the Continuity of the Gaseous and Liquid States of Matter," _Philosophical Transactions of the Royal Society of London_, vol. A159, Part II, pp. 575-590, 1869.
+* [14] M. R. Moldover, "Visual Observation of the Critical Temperature and Density: CO\({}_{2}\) and C\({}_{2}\)H\({}_{4}\)," _Institute for Basic Standards, National Bureau of Standards_, May 1974.
+* [15] A. Einstein, "Theorie der Opaleszenz von Homogenen Flussigkeiten und Flussigkeitsgemischen in der Nahe des Kritischen Zustandes," _Annalen der Physik_, vol. 338, no. 16, pp. 1275-1298, 1910.
+* [16] S. Shi, _Event Anisotropy \(\nu_{2}\) at STAR_. PhD thesis, Huazhong Normal University, Wuhan, China, March 2010.
+* [17] G. Taubes, "Wit Busza Interview- Special Topic of Hadron Colliders," _Science Watch_, April 2010.
+* [18] "Arial View of RHIC," [http://www.star.bnl.gov/public/tpc/photos/GeneralMisc/arial.jpg](http://www.star.bnl.gov/public/tpc/photos/GeneralMisc/arial.jpg).
+* [19] D. B. Steski, J. Alessi, J. Benjamin _et al._, "Operation of the Relativistic Heavy Ion Collider Au\({}^{-}\) Ion Source," _Review of Scientific Instruments_, vol. 73, no. 2, pp. 797-799, 2002.
+* [20] J. G. Alessi, D. Barton, E. Beebe _et al._, "The Brookhaven National Laboratory Electron Beam Ion Source for RHIC," _Review of Scientific Instruments_, vol. 81, no. 2, p. 02A509, 2010.
+* [21] J. Benjamin, C. Carlson, I. Feigenbaum _et al._, "Injecting RHIC from the Brookhaven Tandem Van de Graaff," in _Particle Accelerator Conference, 1999. Proceedings of the 1999_, vol. 4, pp. 2277-2279 vol.4, 1999.
+
+- 263, 2003. The Relativistic Heavy Ion Collider Project: RHIC and its Detectors.
+* [23] R. L. Brown, A. Etkin, K. J. Foley _et al._, "The STAR Detector Magnet Subsystem," in _Particle Accelerator Conference, 1997. Proceedings of the 1997_, vol. 3, pp. 3230-3232 vol.3, 1997.
+* [24] "STAR Detector Configuration," [http://www.star.bnl.gov/public/tpc/photos/GeneralMisc/STARdetector.jpg](http://www.star.bnl.gov/public/tpc/photos/GeneralMisc/STARdetector.jpg).
+* 678, 2003. The Relativistic Heavy Ion Collider Project: RHIC and its Detectors.
+* [26] STAR TOF Collaboration, "Proposal for a Large Area Time of Flight System for STAR," tech. rep., 2004.
+* [27] J. Zhou, "Construction of a New Detector, and Calibration Strategies, for Start Timing in the STAR Experiment at RHIC," Master's thesis, Rice University, Houston, Texas, October 2006.
+* [28] "BBC Layout," [http://www.star.bnl.gov/public/trg/BBC/Schematics/bbc_hexagon.pdf](http://www.star.bnl.gov/public/trg/BBC/Schematics/bbc_hexagon.pdf).
+* 165, 2002. Proceedings of the ninth Int.Conf. on Instrumentation.
+* [30] J. Abele, J. Berkovitz, J. Boehm _et al._, "The Laser System for the STAR Time Projection Chamber," _Nuclear Instruments and Methods in Physics Research A_, vol. 499, pp. 692-702, Mar. 2003.
+* [31] H. Masui. Private communication.
+
+* [32] M. L. Miller, K. Reygers, S. J. Sanders _et al._, "Glauber Modeling in High-Energy Nuclear Collisions," _Annual Review of Nuclear and Particle Science_, vol. 57, no. 1, pp. 205-243, 2007.
+* [33] S. A. Bass, M. Belkacem, M. Bleicher _et al._, "Microscopic Models for Ultrarelativistic Heavy Ion Collisions," _Progress in Particle and Nuclear Physics_, vol. 41, pp. 255-369, 1998.
+* [34] M. Bleicher, E. Zabrodin, C. Spieles _et al._, "Relativistic Hadron-Hadron Collisions in the Ultra-Relativistic Quantum Molecular Dynamics Model," _Journal of Physics G: Nuclear and Particle Physics_, vol. 25, no. 9, p. 1859, 1999.
+* [35] N. Davidson, H. Miller, D. Oertzen _et al._, "Thermal Gas Models and Particle Production in Heavy Ion Collisions," _Zeitschrift fur Physik C Particles and Fields_, vol. 56, no. 2, pp. 319-324, 1992.
+* [36] J. Adams _et al._, "Incident Energy Dependence of \(p_{\rm t}\) Correlations at Relativistic Energies," _Physical Review C_, vol. 72, p. 044902, Oct 2005.
+* [37] B. Mohanty _et al._, "STAR Experiment Results from the Beam Energy Scan Program at RHIC," _Journal of Physics G: Nuclear and Particle Physics_, vol. 38, no. 12, p. 124023, 2011.
+* [38] S. P. Horvat _et al._, "Measurement of Beam Energy Dependent Nuclear Modification Factors at STAR," _Journal of Physics: Conference Series_, vol. 446, no. 1, p. 012017, 2013.
+* [39] L. Adamczyk _et al._, "System Size Dependence of Transverse Momentum Correlations at RHIC," _Physical Review C_, vol. C87, p. 064902, 2013.
+* [40] S. A. Voloshin, V. Koch, and H. G. Ritter, "Event-by-Event Fluctuations in Collective Quantities," _Physical Review C_, vol. 60, p. 024901, Jul 1999.
+* [41] M. Stephanov, "Thermal Fluctuations in the Interacting Pion Gas," _Physical Review D_, vol. 65, p. 096008, May 2002.
+* [42] M. A. Stephanov, "Non-Gaussian Fluctuations near the QCD Critical Point," _Physical Review Letters_, vol. 102, p. 032301, Jan 2009.
+
+* [43] M. A. Stephanov, "Sign of Kurtosis near the QCD Critical Point," _Physical Review Letters_, vol. 107, p. 052301, Jul 2011.
+* [44] M. Stephanov, K. Rajagopal, and E. Shuryak, "Signatures of the Tricritical Point in QCD," _Physical Review Letters_, vol. 81, pp. 4816-4819, Nov 1998.
+* [45] C. Athanasiou, K. Rajagopal, and M. Stephanov, "Using Higher Moments of Fluctuations and their Ratios in the Search for the QCD Critical Point," _Physical Review D_, vol. 82, p. 074008, Oct 2010.
+* [46] H. Heiselberg, "Event-by-Event Physics in Relativistic Heavy Ion Collisions," _Physics Reports_, vol. 351, pp. 161-194, 2001.
+* [47] Moriond, _Event by Event Averages in Heavy Ion Collisions_, 2002.
+* 34, 2001.
+* [49] D. Adamova _et al._, "Event by Event Fluctuations of the Mean Transverse Momentum in 40, 80 and \(\overline{158}\) AGeV/_c_ Pb-Au Collisions," _Nuclear Physics A_, vol. A727, pp. 97-119, 2003.
+* [50] S. Gavin, "Traces of Thermalization from \(p_{t}\) Fluctuations in Nuclear Collisions," _Physical Review Letters_, vol. 92, p. 162301, Apr 2004.
+* [51] S. Heckel and the ALICE Collaboration, "Event-by-Event Mean \(p_{\rm t}\) Fluctuations in pp and Pb-Pb Collisions Measured by the ALICE Experiment at the LHC," _Journal of Physics G: Nuclear and Particle Physics_, vol. 38, no. 12, p. 124095, 2011.
+* [52] X. Luo, "Error Estimation for Moment Analysis in Heavy-Ion Collision Experiment," _Journal of Physics G: Nuclear and Particle Physics_, vol. 39, no. 2, p. 025008, 2012.

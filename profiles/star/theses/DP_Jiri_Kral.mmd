@@ -1,0 +1,545 @@
+**Study of strange particle correlations with large transverse momentum in Au+Au collisions in the STAR experiment**
+
+A diploma thesis
+
+submitted to
+
+Czech Technical University in Prague
+
+Faculty of Nuclear Sciences and Physical Engineering
+
+Department of Physics
+
+by
+
+Jifi Kral
+
+supervisor: RNDr. Jana Bielcikova, Ph.D.
+
+[MISSING_PAGE_EMPTY:2]
+
+_Nazev prace:_ **Study of strange particle correlations with large transverse momentum in Au +Au collisions in the STAR experiment**
+
+_Autor:_ **Jiri Kral**
+
+_Obor:_ **Jaderne inzenyrstvi**
+
+_Druh prace:_ **Diplomova prace**
+
+_Vedouci prace:_ **RNDr. Jana Bielcikova, Ph.D., Ustav jaderne fyziky AV CR**
+
+_Konzultant:_ **
+
+_Abstrakt:_ **Dvoucasticove korelace v pseudo-rapidite a azimutu dat o** \(\sqrt{s_{{}_{NN}}}\)**= 200** \(GeV\) **z Au+Au srazek experimentu STAR na urychlovaci RHIC zobrazuji strukturu protohlou v pseudo-rapidite, ridge, ktera ukazuje na zvysenou produkci castic v dane oblasti pseudo-rapidity. Cilem teto prace je studovat ridge pomoci korelaci neutralnich podivnych** \(\Lambda\) **anti-\(\Lambda\) a K**\({}^{0}\)**s castic a studovat baryon-mezonovy pomer za pouziti dat z runu VII experimentu STAR a triggeru z BEMC. Absence dostatecne vyrazne struktury ridge v danych datech vedla autora k prozkoumani vytezku castic ridge na jede trigger, jako funkci energie triggerujici castic, pro TPC triggerovana data z runu IV a TPC a BEMC triggerovana data z runu VII, vse pro srazku Au+Au \(\sqrt{s_{{}_{NN}}}\)**= 200** \(GeV\)**.
+
+_Klicova slova:_ **korelace, pseudo-rapidita, azimut, STAR, ridge.**
+
+_Title:_ **Study of strange particle correlations with large transverse momentum in Au +Au collisions in the STAR experiment**
+
+_Author:_ **Jiri Kral**
+
+_Supervisor:_ **RNDr. Jana Bielcikova, Ph.D., Nuclear Physics Institute of the ASCR**
+
+_Abstract:_ **Two particle correlations in pseudorapidity and azimuth of** \(\sqrt{s_{{}_{NN}}}\)**= 200** \(GeV\) **Au +Au experimental data from STAR experiment at RHIC show an extending structure (ridge) in pseudorapidity signifying increased particle production in pseudorapidity. The aim of this work is to study the ridge structure via correlations of neutral strange, (\(\Lambda\), anti-\(\Lambda\) and K**\({}^{0}\)**s), particles and to study the baryon to meson ratios using STAR Run VII data and high p**\({}_{T}\) **BEMC triggering. The absence of sufficient marks of the ridge structure in given data led the author to examine ridge particle yield per trigger as a function of triggering particle energy for the Run IV TPC triggered data and for the Run VII TPC or BEMC triggered data, all Au+Au** \(\sqrt{s_{{}_{NN}}}\)**= 200** \(GeV\)**.
+
+_Keywords:_ **correlation, pseudo-rapidity, azimuth, STAR, ridge.**
+
+[MISSING_PAGE_EMPTY:4]
+
+Acknowledgment
+
+I would like to thank my supervisor Jana Bielcikova, for always positive attitude, the guidance and infinite amount of patience. My thanks belong also to Vaclav Zychacek, the colleague of mine, for being always a step ahead and his willingness to provide on line consultation.
+
+[MISSING_PAGE_EMPTY:6]
+
+**Prohlaseni**
+
+Prohlasuji, ze jsem svou diplomovou praci vypracoval samostatne a pouzil jsem pouze podklady (literaturu, projekty, SW, atd.) uvedene v prilozenem seznamu.
+
+Nemam zavazny duvod proti uziti tohoto skolniho dila ve smyslu SS60 Zakona c.121/2000 Sb., o pravu autorskem, o pravech souvisejicich s pravem autorskym a o zmene nekterych zakonu (autorsky zakon).
+
+V Praze dne podpis
+
+[MISSING_PAGE_EMPTY:8]
+
+[MISSING_PAGE_EMPTY:9]
+
+[MISSING_PAGE_EMPTY:10]
+
+List of figures
+* 1.1 Lattice QCD calculations of energy over temperature of a quark system. Lines for 2 light, 2 light and one heavy or 3 light quarks are shown. Light = ( u, u, d, \(\bar{\dbar}\) ), heavy = ( s, S ) Taken from [20].
+* 1.2 The nuclear matter phase diagram with indicated system evolution. Taken form [11].
+* 1.3 \(\Lambda\)/K0S ratio ratio measured in inclusive p\({}_{\rm T}\) distributions, near-side jet and ridgelike correlation peaks in Au+Au collisions together with this ratio obtained from inclusive p\({}_{\rm T}\) spectra in p+p collisions. Taken from [1].
+* 1.4 Two particle correlation in pseudorapidity and azimuth shows increase in yield in pseudorapidity region [7].
+* 1.5 The ridge structure studied by the PHOBOS experiment for \(|\Delta\eta|<4\). Range -4 \(<\Delta\eta<\) -2 is shown. Ridge yield diminishes for less central collisions in -4 \(<\Delta\eta<\) -2. Taken from [12].
+* \(\rm Bcos(\Delta\Phi)\)] function. The curves in (c),(d) are Gaussian fits to the pp data. Taken from [14].
+* 2.1 BNL accelerator complex, taken from [14].
+* 2.2 The STAR detector taken from [15].
+* 2.3 The STAR detector profile taken from [15].
+* 3.1 The BEMC (marked as barrel) in beam axis z projection.
+* 3.2 Energy distribution of hits in BEMC towers in region of (2.5,50) GeV.
+* 3.3 BEMC hit count distribution below and above 1000 hits per tower.
+* 3.4 BEMC hit count distribution in towers after application of minimum 5GeV energy cut.
+* 3.5 BEMC hit energy mean distribution before and after application of 5GeV energy cut.
+* 3.6 BEMC hit distribution in azimuth and pseudorapidity for different hit energies.
+* 3.7 Excluded towers. Red excluded due to multiple criteria match.
+* high hits, blue
+- high hits after 5 GeV cut, black
+- both criteria.
+* 3.9 BEMC towers with no hits.
+* 3.10 A general noisy tower.
+* 3.11 A tower with noise around 35 GeV.
+* 3.12 A normal tower.
+* 3.13 A high hit tower after energy cut with abnormally high hit count above 5 GeV.
+* 3.14 A high hit tower.
+* 4.1 The TPC barrel.
+* 4.2 The scheme of V0 decay.
+* 4.3 Histogram for used for optimization of \(\Lambda\) particle DCA-Neg cut in 1-3 GeV/\(c\) p\({}_{\rm T}\) bin.
+* 4.4 Histogram used for optimization of \(\Lambda\) particle DCA-Pos cut in 1.0-1.5 GeV/\(c\) p\({}_{\rm T}\) bin.
+* 4.5 \(\Lambda\) and anti-\(\Lambda\) mass fit.
+* 4.6 \(\Lambda\) and anti-\(\Lambda\) mass \(\sigma\) fit.
+* 4.7 \(\rm K^{\circ}\)s mass fit.
+* 4.8 \(\rm K^{\circ}\)s mass \(\sigma\) fit.
+* 4.9 \(\Lambda\) mass peaks for east (-1,0) TPC half. X axis mass in GeV/\(c^{2}\). Y axis # of hits. P\({}_{\rm T}\) bins are as follows: 1 (1.0,1.5); 2 (1.5,2.0); 3 (2.0,2.5); 4 (2.5,3.0); 5 (3.0,3.5); 6 (3.5,4.0); 7 (4.0,4.5); 8 (4.5,5.0) [GeV].
+* 4.10 \(\Lambda\) mass peaks for west (0,1) TPC half. X axis mass in GeV/\(c^{2}\). Y axis # of hits. P\({}_{\rm T}\) bins as in Figure 4.9.
+* 4.11 anti-\(\Lambda\) mass peaks for east (-1,0) TPC half. X axis mass in GeV/\(c^{2}\). Y axis # of hits. P\({}_{\rm T}\) bins as in Figure 4.9.
+
+[MISSING_PAGE_POST]
+
+airs count 2 GeV/\(c\)\(<\) p\({}_{\rm T}\)\({}^{\rm niso}\)\(<\) p\({}_{\rm T}\)\({}^{\rm nig}\) for \(\Lambda\) and anti-\(\Lambda\).
+* 5.17 Run VII BEMC triggered, pairs count 2 GeV/\(c\)\(<\) p\({}_{\rm T}\)\({}^{\rm niso}\)\(<\) p\({}_{\rm T}\)\({}^{\rm nig}\) for K\({}^{\rm o}\)s.
+* 6.1 An example of a mixed events \(\Delta\eta\) x \(\Delta\Phi\) histogram. P\({}_{\rm T}\)\({}^{\rm nig}\) 3-4 GeV/\(c\), p\({}_{\rm T}\)\({}^{\rm niso}\) 2-3 GeV/\(c\).
+* 6.2 TPC sector boundaries visible in mixed histogram. Projection of the histogram on Figure 6.1 onto \(\Delta\Phi\).
+* 6.3 \(\Delta\eta\) projection fit.
+* 6.4 Normalized mixed events.
+* 6.5 Resulting division of Figures 5.1. and 6.4. P\({}_{\rm T}\)\({}^{\rm niso}\) 3-4 GeV/\(c\), p\({}_{\rm T}\)\({}^{\rm niso}\) 2-3 GeV/\(c\).
+* 6.6 Divided histogram, EMC triggering.
+* 7.1 Schematic view of a collision of two identical nuclei, in the plane transverse to the beam direction (z-axis). The x- and y-axes are drawn as per the standard convention. The dots indicate the positions of participant nucleons. Due to fluctuations, the overlap zone could be shifted and tilted with respect to the (x, y) frame. x' and y' are the principal axes of inertia of the dots. [23].
+* 7.2 Run VII TPC triggered data, pair count 1 GeV/\(c\)\(<\) p\({}_{\rm T}\)\({}^{\rm niso}\)\(<\) p\({}_{\rm T}\)\({}^{\rm nig}\).
+* 9.1 Ridge structure for different centrality bins, trigger 3-4 GeV/c, associated 2-3 GeV/c. Run IV charged particles.
+* 9.2 Ridge structure for different centrality bins, trigger 5-6 GeV/\(c\), associated 2-3 GeV/\(c\). Run IV charged particles.
+* 9.3 Ridge structure for different centrality bins, trigger \(>\) 8 GeV/\(c\), associated 2-3 GeV/\(c\). Run IV charged particles.
+* 9.4 Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 2-3 GeV/\(c\), Run VII charged particles, 1 GeV/c \(<\) p\({}_{\rm T}\)\({}^{\rm niso}\)\(<\) p\({}_{\rm T}\)\({}^{\rm niso}\).
+* 9.6 Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 2-3 GeV/\(c\), Run VII charged particles, BEMC triggered.
+* 9.7 Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 1-3 GeV/c, Run VII charged particles, BEMC triggered, 1 GeV/\(c\)\(<\) p\({}_{\rm T}\)\({}^{\rm niso}\)\(<\) p\({}_{\rm T}\)\({}^{\rm niso}\).
+* 9.8 Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 1-3 GeV/\(c\), Run VII \(\Lambda\) and anti-\(\Lambda\)BEMC triggered, 1 GeV/\(c\)\(<\) p\({}_{\rm T}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm T}\)\({}^{\rm trigger}\).
+* Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 1-3 GeV/\(c\), Run VII K\({}^{0}_{\rm S}\), BEMC triggered p\({}_{\rm T}\) 1 cut.
+* The ridge region 0.7 \(<\)\(\Delta\)\(\eta\)\(<\) 1.4 projection. P\({}_{\rm T}\)\({}^{\rm ring}\) 3-4 GeV/\(c\), p\({}_{\rm T}\)\({}^{\rm assoc}\) 2-3 GeV/\(c\), centrality 0-10%.
+* The ridge region -0.7 \(>\)\(\Delta\)\(\eta\)\(>\) -1.4 projection. P\({}_{\rm T}\)\({}^{\rm ring}\) 3-4 GeV/\(c\) p\({}_{\rm T}\)\({}^{\rm assoc}\) 2-3 GeV/\(c\), centrality 0-10%.
+* The common jet and ridge region -0.7 \(<\)\(\Delta\)\(\eta\)\(<\) 0.7 projection. P\({}_{\rm T}\)\({}^{\rm ring}\) 3-4 GeV/\(c\), p\({}_{\rm T}\)\({}^{\rm assoc}\) 2-3 _GeV/\(c\)_, centrality 0-10%.
+* The jet peak yield, normalized to the number of triggers. P\({}_{\rm T}\)\({}^{\rm ring}\) 3-4 GeV/\(c\), p\({}_{\rm T}\)\({}^{\rm assoc}\) 2-3 GeV/\(c\), centrality 0-10%.
+* Full region -1.4 \(<\)\(\Delta\)\(\eta\)\(<\) 1.4 projection. Cuts as in 10.3.
+* The elliptic flow subtraction of normalized ridge and jet yield. Cuts as in 10.3.
+* The resulting ridge yield normalized to number of triggering particles is computed as a area of a gaussian peak close to region \(\Delta\)\(\Phi\) (-1,1). Cuts as in 10.3.
+* Ridge yield for run 04 data 2 GeV/\(c\)\(<\) p\({}_{\rm T}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm T}\)\({}^{\rm ring}\).
+* Ridge yield for run 04 data 2 GeV/\(c\)\(<\) p\({}_{\rm T}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm T}\)\({}^{\rm ring}\) taken from [9].
+* Ridge yield for run 07 data TPC triggered GeV/\(c\) 2 \(<\) p\({}_{\rm T}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm T}\)\({}^{\rm ring}\).
+* Ridge yield for run 07 data BEMC triggered, \(\Delta\) and anti-\(\Lambda\) 1 \(<\) p\({}_{\rm T}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm T}\)\({}^{\rm ring}\).
+* Ridge yield for run 07 data BEMC triggered, \(\rm K^{0}_{\rm S}\) 1 \(<\) p\({}_{\rm T}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm T}\)\({}^{\rm ring}\).
+* The \(\Lambda\)/K\({}^{0}_{\rm S}\) ratios for jet and ridge. Reconstruction done using \(\Lambda\) and K\({}^{0}_{\rm S}\) particles. Run VII data, BEMC triggered, STAR experiment. p\({}_{\rm T}\)\({}^{\rm assoc}\) bins from left to right: (1,2); (1,3); (2,3); (3,5).
+* \(\Lambda\)/K\({}^{0}_{\rm S}\) ratio measured in inclusive p\({}_{\rm T}\) distributions, near-side jet and ridgelike correlation peaks in Au+Au collisions together with this ratio obtained from inclusive p\({}_{\rm T}\) spectra in p+p collisions.
+
+## 1 Introduction
+
+The Universe in its very early stages was far different from the one we observe now. The aim of contemporary heavy-ion physics is to recreate, study and understand the processes, that occurred when the Universe was about \(10^{-10}\) s old, when baryons and mesons, the main constituents of our world, became to exist. Ultra relativistic ion collisions, Au+Au at \(\sqrt{s_{{}_{NN}}}\) = 200 GeV for this work, are used to recreate the hot and expanding environment in controlled laboratory conditions.
+
+### The Quark Gluon Plasma
+
+The baryons and mesons, as it is well established, are composed of two particle families: the quarks and the gluons. The quarks carry color charge, an additional quantum number, with possible values of: red, green and blue. Three colored quarks form a colorless baryon and a quark and anti-quark form a colorless meson. The force acting on color charges is called strong force and in between quarks is carried by gluons. In the Standard Model, the strong interacting systems are described by Quantum Chromo Dynamics (QCD). It is perception of gluons in the QCD, not only as mediators, but also as color charge carriers, that gives the strong force its unique property; the potential of strongly interacting quarks increases with their increasing distance. Hence the quarks are normally confined into doublets or triplets and never have been observed separate in nature.
+
+QCD predicts that special environment setup can lead into a state of matter, where colored quarks and gluons are able to move freely, not bound into mesons or baryons. Since the strong force decreases with decreasing quark distance, it may reach a value of asymptotic freedom, where the strong binding is negligible. Perturbative QCD (pQCD) describes such system. Another approach is to create extremely hot matter. With energy density increasing \(\sim\)1GeV/fm\({}^{3}\), which is equivalent to temperature of \(\approx\) 170 MeV 1, the hadronic matter undergoes a phase transition into another state of matter, the Quark Gluon Plasma, where quarks and gluons are free form their confinement into baryons and mesons. The points of phase transitions are predicted by Lattice QCD. Figure 1.1 shows steep rise of energy over temperature of a system when it crosses the critical temperature.
+
+Footnote 1: The phase transition point is not well defined yet, research in this direction may be carried out by upgraded RHIC in future years
+
+Figure 1.1: Lattice QCD calculations of energy over temperature of a quark system. Lines for 2 light, 2 light and one heavy or 3 light quarks are shown. Light = ( \(u,\bar{u},d,\bar{d}\) ), heavy = ( \(s,\bar{s}\) ) Taken from [20].
+
+### 1.2 Jets and particle correlations
+
+Jets are showers of particles primarily originating from hard scattering of partons (meaning quarks or gluons). Di-jets and triple jets have been observed. The special techniques, jet finders, are used to observe jets in the detector data, due to large underlying background. In heavy ion collisions, the particle correlation techniques are used. The output shows jets as a conical relatively high transverse momentum (\(\mathrm{p_{\mathrm{T}}}\)) particle shower around a leading particle with very high-\(\mathrm{p_{\mathrm{T}}}\)
+
+Energy proposed by propagating particle is absorbed in a distinct way by particles in the bulk. When the medium undergoes expansion, the resulting particle properties are affected by previous energy deposition. This creates specific correlation in production particle \(\mathrm{p_{\mathrm{T}}}\), energy and pseudorapidity distribution. Particle correlation technique is a way to express such correlations amongst properties of the production particles [20]. The particle correlations provide insight into time before final hadronization, by exploiting information that is created before and propagated through the hadronization period. In this way we can study the QGP properties. This work is based on working with two particle pseudorapidity (\(\Delta\eta\)) and azimuth (\(\Delta\phi\)) correlation of charged and identified strange particles. The \(\Delta\eta\) x \(\Delta\phi\) distribution and particle yields are studied.
+
+Figure 1.2: The nuclear matter phase diagram with indicated system evolution. Taken form [11].
+
+### 1.3 Jet quenching and medium response
+
+Studies of particle production at the top RHIC energy \(\sqrt{s_{{}_{NN}}}\) = 200 GeV revealed a strong suppression of inclusive transverse momentum (p\({}_{\rm{T}}\)) distributions of identified light hadrons in central Au+Au collisions with respect to p+p, d+Au and peripheral Au+Au collisions [2, 3]. This suppression, commonly referred to as jet quenching, reaches in central Au+Au collisions a value of about 0.2 and is present out to large transverse momenta (p\({}_{\rm{T}}\)\(\approx\) 20 GeV/\(c\) ) [1]. The total baryon and meson production is decreased in Au+Au collisions in respect to p+p collisions. The magnitude of baryon and meson production suppression is different for each particle family [1]. The baryon production is suppressed less then the one of mesons [3] and a baryon/meson ratio, that increases up to \(\approx\) 3 GeV/\(c\) and falls afterwards to meet p+p ratio close to 6 GeV/\(c\) may suggest, that the main production source of mid-rapidity particles at intermediate p\({}_{\rm{T}}\) could be parton recombination or and coalescense [5, 6, 7, 8].
+
+The parton recombination model favors creation of baryons over mesons due to a lower single parton energy needed when one combines three partons into a baryon with certain energy, in comparison with combining two partons into a meson with similar energy. This effect may explain the increase of baryon/meson ratio shown on Figure 1.3.
+
+In addition, two particle correlations in central Au+Au collisions at RHIC show strong medium modifications. The correlated spatial region close to leading particle is called near-side, the opposite region is called far-side. The ridge shape is observed at the near side, the far side effects are described later. A yield increase in \(\Delta\eta\) of correlated particles at near side was observed. The yield increase in \(\Delta\eta\) is not observed in d+Au or p+p collisions. The increase, called ridge [9] due to its long ridge-like shape Figure 1.4, is extending into large \(\Delta\eta\) and as it will be shown later in this work, it appears constant for studied \(|\Delta\eta|<2\), it appears also constant for \(|\Delta\eta|<4\) (Figure 1.5) [12].
+
+Figure 1.3: \(\Lambda\)/K\({}^{0}\)s ratio ratio measured in inclusive p\({}_{\rm{T}}\) distributions, near-side jet and ridgelike correlation peaks in Au+Au collisions together with this ratio obtained from inclusive p\({}_{\rm{T}}\) spectra in p+p collisions. Taken from [1].
+
+The dependence of ridge yield on \(\rm p_{\rm r}\) of trigger particle is also subject of this work.
+
+Figure 1.4: Two particle correlation in pseudorapidity and azimuth shows increase in yield in pseudorapidity region [7].
+
+Figure 1.5: The ridge structure studied by the PHOBOS experiment for \(|\Delta\eta|<4\). Range -4 \(<\Delta\eta<\) -2 is shown. Ridge yield diminishes for less central collisions in -4 \(<\Delta\eta<\) -2. Taken from [12].
+
+A significant increase of lower \(\rm p_{T}\) particles was observed on away side, which comes from energy loss of parton, that propagates through a thicker layer of medium. Figure 6 shows the correlated yield distributions. There are several mechanisms of away side modification described. A parton propagating with ultra-sonic speed through medium will produce a Mach shock waves, that will increase correlated particle yield in certain angle. The other mechanism is described as deflected jets. The away side parton is deflected in direction \(\Phi\), that is random through different events and thus creating broadening in \(\Delta\Phi\), which shows after summing many events. Another mechanism, the Cerenkov radiation, was suggested to produce the away side broadening, which is not a medium response in real and it is not favored by recent research [13].
+
+Figure 6: Background subtracted (a),(b) \(\Delta\Phi\) and (c),(d) \(\Delta\eta\) distributions for pp and 0-5% central Au+Au for 4\(<\)\(\rm p_{T}\)\({}^{n_{\rm e}}\)\(<\)6 GeV/c and two associated \(\rm p_{T}\) ranges. The subtracted background level for \(\rm p_{T}\) =0.15-4 GeV/c (2-4 GeV/c) is 1/N\({}_{\rm trig}\)\(\rm dN_{ch}/d\Delta\Phi\)\(\approx\) 1.4 (0.007) in pp and \(\approx\)211 (2.1) in 5-0% Au +Au. The curve in (a) shows the shape of an [\(\rm A-Bcos(\Delta\Phi)\)] function. The curves in (c),(d) are Gaussian fits to the pp data. Taken from [14].
+
+[MISSING_PAGE_FAIL:19]
+
+### 2.2 _The STAR experiment_
+
+The Solenoidal Tracker At RHIC is by design a detector with precise tracking and particle and momentum identification. It is capable of measuring hadron production in large solid angle in rapidity region close to center-of-mass.
+
+The main detection chamber of the STAR experiment is the Time Projection Chamber (TPC). It is capable of tracking and identification of charged particles. The Silicon Vertex Tracker, composed of layers of silicon strip detectors and placed inside of TPC radius, that was supposed to enhance TPCs tracking ability, was removed from the setup in 2008. Several modules of the Time Of Flight detector are placed on the outside radius of TPC. TOF is to provide better identification of high momentum particles. The Barrel Elecro-Magnetic Calorimeter is placed outside of the TOF layer. BEMC and the Endcap EEMC provide ability to trigger on EMCAL sensitive particles, such as high energy photons, electrons and electro-magnetically decaying hadrons. BEMC is also targeted to study transverse energy of such particles. Other subdetectors present in the STAR experiment are: Forward and Backward TPC, Silicon Strip Detector, Photon Multiplicity Detector and Forward Pion Detector.
+
+Figure 2.2 The STAR detector taken from [15].
+
+Figure 2.3 The STAR detector profile taken from [15].
+
+## 3 Barrel EMC and tower noise analysis
+
+### _The detector_
+
+The barrel Electromagnetic Calorimeter (BEMC) is composed of 4800 towers each covering 0.05 in \(\Delta\eta\) and 0.05 in \(\Delta\Phi\). BEMC covers full azimuth and (-1,1) pseudorapidity, which is equivalent to full tracking TPC coverage. Towers are ordered into modules by 1x20 towers. There are 120 modules in azimuth and 2 modules in pseudorapidity next to each other.
+
+The STAR EMC is a sampling calorimeter, and the core of the structure consists of a lead-scintillator stack and a shower maximum detector situated approximately 5 radiation lengths from the front of the stack. There are 20 layers of 5mm thick lead and 21 layers of 5mm thick scintillator. [16]
+
+The EMC endcaps, that cover (-2,2) in pseudorapidity are not used in the analysis. Only the barrel EMC (BEMC) is used.
+
+The calorimeter is used for triggering purposes in this work. A high energetic particle registered by BEMC is used as a leading particle. Other lower energetic particles registered by TPC are correlated to the high energetic particle from BEMC.
+
+Figure 3.1: The BEMC (marked as barrel) in beam axis z projection.
+
+### 3.2 _Cleaning tower noise_
+
+Energy distribution of hits in towers is shown on Figure 3.2. It is obvious that some sources of noise are present and must be removed from the stack. Especially the peak around 35 GeV is suspicious. Various criteria were used to find and remove the noisy towers:
+
+* Total hit count in a tower
+* Hit count in a tower after low energy cut
+* Energy distribution mean upper and lower limit after low energy cut
+
+#### The hit count cut
+
+The total hit count is a very simple criterion. Towers with a suspiciously large number of hits are removed from the stack. The hit count distribution is shown on Figure 3.3. The value chosen as the cut is 1000 hits, which removes 82 towers (1.71% towers) from the stack. There is a slight danger in this cut, that there may be a tower noisy in low E \(<\) 5 GeV, but still with valid hits above this threshold. Nevertheless, this was neglected due to low tower count removed. Three towers proved to be heavily noisy (tower # 3711, 3720, 3840) with hit counts far over 10000. 353 towers (7.35%) are without hits at all.
+
+Figure 3.2: Energy distribution of hits in BEMC towers in region of (2.5,50) GeV.
+
+#### The hit count cut after low energy cut
+
+The total hit count is a good criterion, but it still may miss some less obvious noise. The energy distribution on Figure 3.2 shows a rapid increase in hit counts with energies less than 5GeV. A tower less noisy below 5 GeV may be more noisy in high energy area and still pass the total hit count criterion, i.e. the noise production is more likely to not be constant through the energy spectrum.
+
+Since the interesting trigger particles lay above 5GeV, it is a good idea to remove all hits below this energy threshold and search for towers with suspiciously high hit count then. Figure 3.4 shows hit count distribution after 5 GeV cut. Applying this criterion with threshold of 300 hits identifies 50 towers out of which 30 were identified by previous total hit count criterion.
+
+#### The energy mean cuts
+
+Another way to search for misbehaving towers is to study means of energy hit distribution for each tower. It allows us to define towers with low hit cont but suspiciously high or low hit energy mean. This can remove towers, which produce nothing but low level of noise. Figure 3.5 shows energy mean distribution before and after 5GeV energy cut. It is favorable to use the 5 GeV energy cut due
+
+Figure 3.4: BEMC hit count distribution in towers after application of minimum 5GeV energy cut.
+
+Figure 3.3: BEMC hit count distribution below and above 1000 hits per tower.
+
+to high hit counts in lower energies, which bias the mean distribution.
+
+Thresholds chosen were 5.5 and 16 GeV, which identified 4 towers (0.83%), 2 crossing the high threshold, 2 crossing the low thresholds. The 2 towers which cross the high threshold were already identified by both previous criteria.
+
+#### Tower hit spatial distribution dependence on energy
+
+As shown on figure 3.6, the spatial distribution of hits is dependent on energy of particles in pseudorapidity axis. Towers on high pseudorapidities tend to have significantly more hits then towers close to \(\eta=0\). In region 5-8 GeV, there is increase in hit count of inner ( \(\eta=0\)) towers. The increase in tower hits in large pseudorapidities is due to photon conversion in material, which is more concentrated in high pseudorapidity regions. Pseudorapidity cut \(|\eta|<0.7\) was introduced to remove such hits.
+
+#### Summary
+
+The cuts were defined relatively strict to prevent any false signals in trigger particles. Resulting tower drop reaches 104 towers (2.16%). Additional 357 towers (7.44%) give no hits in region above 5GeV. Fraction of BEMC hits dropped due to tower exclusion reaches 16%. Another 54% of BEMC hits is dropped because of insufficient energy (less than 5GeV). BEMC hits available for further reconstruction make about 30% of total.
+
+Second criterion, the hit with energy cut, proved to be important for pointing out additional towers that may produce unwanted noise.
+
+Figure 3.5: BEMC hit energy mean distribution before and after application of 5GeV energy cut.
+
+Figure 3.6 BEMC hit distribution in azimuth and pseudorapidity for different hit energies.
+
+Figure 3.7: Excluded towers. Red excluded due to multiple criteria match.
+
+Figure 3.8: High hit towers. Red – high hits, blue – high hits after 5 GeV cut, black – both criteria.
+
+Figure 3.9 BEMC towers with no hits.
+
+Figure 3.10 A general noisy tower. Figure 3.11 A tower with noise around 35 GeV
+
+Figure 3.12 A normal tower. Figure 3.13 A high hit tower after energy cut with abnormally high hit count above 5 GeV
+
+[MISSING_PAGE_FAIL:30]
+
+#### Cut tuning
+
+To safely remove noise from identified V0 decays, the cuts are applied on V0 decay parameters and some TPC reconstruction parameters. The cuts are listed in Table 4.2. Cuts for \(\Lambda\) and anti-\(\Lambda\) particles are asymmetric according to the charge of the daughter particle, otherwise the values of the cuts are the same. Cuts for daughter particles of \(\mathrm{K^{0}_{\mathrm{S}}}\) are similar because daughter particles are always \(\pi^{+}\) and \(\pi^{-}\).
+
+The cuts must be tuned in the way, that the background is minimized and as less as possible of valid statistics is lost, so that signal to background ratio is as high as possible. Approach used to tune the cuts was based on creating a 2D mass-fit parameter histogram which shows thin (in mass) and long (in fit parameter) peak of identified V0 particles and mass independent background. Such histograms should be created with application of searched cuts, which values are widened from expected value, so one can see background and peak evolution. Optimal cut is to be searched in vicinity of point, where background falls to zero and peak starts to rise (Figure 4.3). In some cases background falls to zero when peak has already reached maximum, in that case one must find
+
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|} \hline
+**Particle** & **Quark Content** & **Mass (GeV)** & **Dominant Decay Mode** & \(\mathrm{c}\tau\) (cm) \\ \hline \(\Lambda\) & \(uds\) & 1.116 & \(p\) + \(\pi^{-}\) : \(\sim\) 64 \(\%\) & 7.89 \\ \(\overline{\Lambda}\) & \(\overline{u}\overline{d}\overline{s}\) & 1.116 & \(\overline{p}\) + \(\pi^{+}\) : \(\sim\) 64 \(\%\) & 7.89 \\ \(K^{0}_{S}\) & \(\frac{1}{\sqrt{2}}|d\overline{s}\) + \(\overline{d}s|\) & 0.498 & \(\pi^{+}\) + \(\pi^{-}\) : \(\sim\) 69 \(\%\) & 2.68 \\ \hline \end{tabular}
+\end{table}
+Table 4.1: V0 particle properties [17]
+
+Figure 4.2: The scheme of V0 decay.
+
+optimal peak/background ratio (Figure 4.4).
+
+\begin{table}
+\begin{tabular}{|l|c|c|c|} \hline Cut definition & \(\Lambda\) & Anti-\(\Lambda\) & K\({}^{0}\)s \\ \hline DCA-V0 maximum [cm] & 0.6 & 0.6 & 0.6 \\ \hline DCA-Neg minimum [cm] & 1.9 & 0.7 & 1.2 \\ \hline DCA-Pos minimum [cm] & 0.7 & 1.9 & 1.2 \\ \hline DCA maximum [cm] & 0.6 & 0.6 & 0.6 \\ \hline Decay length minimum [cm] & 9 & 9 & 5 \\ \hline Neg hits in TPC minimum & 15 & 20 & 15 \\ \hline Pos hits in TPC minimum & 20 & 15 & 15 \\ \hline \end{tabular}
+\end{table}
+Table 4.2: The determined V0 cut values. DCA cuts are the closest approaches of daughter or parent particle to primary vertex or to each other. The scheme of the cuts is shown on Figure 4.2.
+
+Figure 4.3: Histogram for used for optimization of \(\Lambda\) particle DCA-Neg cut in 1-3 GeV/\(c\)\({}_{\rm{P}}\) bin.
+
+Figure 4.4: Histogram used for optimization of \(\Lambda\) particle DCA-Pos cut in 1.0-1.5 GeV/\(c\)\({}_{\rm{P}}\) bin.
+
+[MISSING_PAGE_FAIL:33]
+
+### Summary
+
+Found cut parameters were used later for two particle correlations. Mass cut based on fit functions was also used to remove further noise. The mass cut seems to be useful in removing noise ridge that is visible on Figures 4.3 and 4.4. Mass cut with is \(\pm\) 3\(\sigma\).
+
+Possibility of using Breit-Wigner fit for mass peaks should be examined in future.
+
+[MISSING_PAGE_EMPTY:35]
+
+Figure 4.10 \(\Lambda\) mass peaks for west (0,1) TPC half. X axis mass in GeV/\(c^{2}\). Y axis \(\#\) of hits. P\({}_{\rm T}\) bins as in Figure 4.9.
+
+Figure 4.11 anti-\(\Lambda\) mass peaks for east (-1,0) TPC half. X axis mass in GeV/\(c^{2}\). Y axis # of hits. P\({}_{1}\) bins as in Figure 4.9.
+
+Figure 4.12 anti-\(\Lambda\) mass peaks for west (0,1) TPC half. X axis mass in GeV/\(c^{2}\). Y axis # of hits. P\({}_{\rm T}\) bins as in Figure 4.9.
+
+Figure 4.13 K\({}^{\rm 9}\)s mass peaks for east (-1,0) TPC half. X axis mass in GeV/\(c^{2}\). Y axis # of hits. P\({}_{\rm T}\) bins as in Figure 4.9.
+
+Figure 4.14 K\({}^{0}\)\({}_{\rm s}\) mass peaks for west (0,1) TPC half. X axis mass in GeV/\(c^{2}\). Y axis # of hits. P\({}_{\rm T}\) bins as in Figure 4.9.
+
+## 5 Two particle correlations
+
+### Introduction
+
+Two particle correlations in pseudorapidity and azimuth is a way, how to trigger and point out effects bound to jet production in high energy particle collisions. The method is based on finding a high or mid \(\mathrm{p_{T}}\) particle that acts as a trigger and correlating spatial distribution of less energetic particles within the event with respect to this trigger particle. Trigger high \(\mathrm{p_{T}}\) particle is likely to be a result of a jet or hard parton scattering, thus it is likely, that the particle correlation will point out effects corresponding to jets in hot and dense medium.
+
+### Method basics
+
+When a trigger particle is selected, full azimuth and rapidity range (-1,1) is used to make use of the BEMC and TPC coverage. Trigger particle is selected solely due to its \(\mathrm{p_{T}}\) or energy deposed in BEMC. The trigger particle properties, \(\eta\) and \(\Phi\) are noted. All is done for each of centrality bins in Table 5.1. Centrality is determined according to event multiplicity, which is defined as number of primary charged tracks detected by the TPC within \(|\eta|<0.5\).
+
+Associated particles are selected from the same event as the trigger particle. Associated particles can be selected in multiple \(\mathrm{p_{T}}\) bins if the statistics is sufficient, or a single \(\mathrm{p_{T}}\) range can be defined. Always one must take associated particles with \(\mathrm{p_{T}}\) lower then the one of the trigger particle to avoid correlating trigger particle to itself. Properties of associated particle \(\eta\) and \(\Phi\) are recovered and \(\Delta\eta\) and \(\Delta\Phi\) of trigger and associated particle is stored into histogram. Possible values of \(\Delta\eta\) are (-2,2) and \(\Delta\Phi\) (-\(\pi\), \(\pi\)). All possible combinations of trigger-particle association are examined within an event. Therefore one particle can be associated to multiple trigger particles in case that event contains more then one particle. Resulting \(\Delta\eta\) x \(\Delta\Phi\) histogram has a form of a shape (Figure 5.1) long in \(\Delta\Phi\) and "A" shaped in \(\Delta\eta\), let's call it the roof, with jet-like effects superimposed on the roof. It is a good assumption that the jet-like effects should be, at least partially, visible already on the roof shape. Multiple corrections will take place to extract the effects, but those should not be of similar magnitude as the effect itself.
+
+\begin{tabular}{|l|l|l|} \hline Centrality & Bin \# & Multiplicity \\  & & lower limit \\ \hline
+0-5\% & 1 & 520 \\ \hline
+5-10\% & 2 & 441 \\ \hline
+10-20\% & 3 & 319 \\ \hline
+20-30\% & 4 & 222 \\ \hline
+30-40\% & 5 & 150 \\ \hline
+40-50\% & 6 & 96 \\ \hline
+50-60\% & 7 & 57 \\ \hline
+60-70\% & 8 & 31 \\ \hline
+70-80\% & 9 & 14
+
+### Correlations in dataset from run IV
+
+When only TPC is used, both the trigger and associated particles must come from tracks reconstructed by TPC. Charged particles were used in this work as triggers and associated particles in aim to obtain sufficient statistics. Data from Run IV are suited to be processed in this way. A sliding \(\mathrm{p_{\mathrm{T}}}\) window for trigger particles was used. Cut applied on associated particles has a form of 2 \(\mathrm{GeV/\textit{c}}<~{}\mathrm{p_{\mathrm{T}}}^{\mathrm{Assec}}<~{}\mathrm{p_{ \mathrm{T}}}^{\mathrm{Ting}}\). In this way one can study effects of dependence of jet-like effects on trigger \(\mathrm{p_{\mathrm{T}}}\). \(\mathrm{P_{\mathrm{T}}}\) bins used are [\(\mathrm{GeV/\textit{c}}\)]: 3-4; 4-5; 5-6; 6-8; \(>\)8. Figure 5.2 shows trigger statistics and Figure 5.3 shows reconstructed correlation pairs statistics for Run IV data. One can see that this type of binning has sufficient statistics at least for first couple centrality bins, which can be summed to increase the statistics. Centrality bin 1, \(\mathrm{p_{\mathrm{T}}}^{\mathrm{Ting}}\) 3-4 \(\mathrm{GeV/\textit{c}}\)\(\Delta\eta\)\(\mathrm{x}\)\(\Delta\Phi\) histogram is shown on Figure 5.1. Note the small peaks along \(\Delta\Phi\) axis, which correspond to the 12 TPC sectors. Also note the wide peak in full \(\Delta\eta\) around \(\Delta\Phi=0\), which is mostly composed of the ridge effect. The large peak in the middle is the jet peak. 42 bins in \(\Delta\Phi\) and 40 bins in \(\Delta\eta\) are used for \(\Delta\eta\)\(\Delta\Phi\) histograms.
+
+### Correlations in dataset from run VII
+
+#### 5.4.1 TPC triggered data, charged particles
+
+Run VII data are triggered for events, that contain trigger hits in BEMC and associated particles in TPC. Even though that Run VII data are biased by this High Tower Trigger, it is interesting to apply exactly same method as for the IV data and look for possible differences. Similar sliding windows cut for trigger particles (\(\mathrm{P_{T}}\) bins [GeV/c]: 3-4; 4-5; 5-6; 6-8; \(>\)8) and cut for associated particles 2 GeV/\(c\)\(<\mathrm{p_{T}}^{\mathrm{assoc}}<\mathrm{p_{T}}^{\mathrm{trig}}\). Figures 5.6 through 5.8 show statistics. Statistics for VII data is two orders lower, one order for \(~{}1<\mathrm{p_{T}}^{\mathrm{assoc}}<\mathrm{p_{T}}^{\mathrm{trig}}\).
+
+Figure 5.4 shows the the roof shape for the same cut and centrality setup as Figure 5.1. One can observe significantly worse statistics, yet the ridge effect (the long peak in \(~{}\Delta\eta\) at \(\Delta\phi=0\)) is still noticeable. Figure 5.5 shoes the roof shape when \(~{}1~{}\mathrm{GeV/}c<\mathrm{p_{T}}^{\mathrm{assoc}}<\mathrm{p_{T}}^{\mathrm{ trig}}\) cut applied. One may clearly see the ridge effect same as the TPC sector peaks.
+
+Figure 5.4 The roof shape in \(\Delta\eta\) x \(\Delta\Phi\) histogram, VII data TPC trigger 2 GeV/\(c\)\(<\) p\({}_{\rm r}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm r}\)\({}^{\rm trig}\), centrality bin 1.
+
+Figure 5.5 The roof shape in \(\Delta\eta\) x \(\Delta\Phi\) histogram, VII data TPC trigger 1 GeV/\(c\)\(<\) p\({}_{\rm r}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm r}\)\({}^{\rm trig}\), centrality bin 1.
+
+#### BEMC triggered data, charged particles
+
+BEMC information contained in the dataset is used to search for trigger particles, TPC information is used to search for all charged particles available for correlation. BEMC information contains \(\eta\), \(\Phi\) and energy (\(\mathrm{E_{T}}\)) information. The \(\eta\) x \(\Phi\) information has resolution of single towers, which means 0.05 in both coordinates. The \(\eta\)\(\Phi\) obtained is centered on tower center. If we presume, that most trigger particles are pions, one may use trigger particle energy value as a value for \(\mathrm{p_{T}}\) cut. The same analysis and similar cuts were applied on associated particles as in section 5.4.1. Since it is assumed that all trigger particles are pions, one may easily use (\(2\) GeV/\(c<\mathrm{p_{T}}^{\mathrm{assoc}}<\mathrm{E}^{\mathrm{trig}}\) and \(1\) GeV/ \(c<\mathrm{p_{T}}^{\mathrm{assoc}}<\mathrm{E}^{\mathrm{trig}}\)). Figures 5.9 and 5.10 shows an example of roof shaped structures, as generated by this type of two particle correlations. Note that the roof is not linear in \(\Delta\eta\), but has a curved shape. Curvature of the shape is dependent on trigger particle cuts, and is surprisingly resembling hit distribution in BEMC shown on Figure 3.6. Figure 5.11 shows the profile evolution as the trigger particle E cuts slide. When window of \(5\) GeV \(<\mathrm{E}\) is chosen, the roof is linear again. Window \(8\) GeV \(<\mathrm{E}\) already shows increase close to \(\Delta\eta\). Figures 5.12 through 5.14 show statistics.
+
+Figure 5.9 The roof shape in \(\Delta\eta\) x \(\Delta\Phi\) histogram, VII data BEMC trigger 2 GeV/\(c\)\(<\) p\({}_{\rm T}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm T}\)\({}^{\rm trig}\), centrality bin 1.
+
+Figure 5.11 The roof shape profile in \(\Delta\eta\), Run VII data BEMC trigger 1 GeV/\(c\)\(<\)\(\rm p_{T}\)\({}^{\rm nosc}\)\(<\)\(\rm p_{T}\)\({}^{\rm trig}\).
+
+[MISSING_PAGE_EMPTY:48]
+
+Figure 5.15 Run VII BEMC triggered, triggers count 2 GeV/\(c\)\(<\)p\({}_{\rm{r}}\)\({}^{\rm{s}osc}\)\(<\)p\({}_{\rm{r}}\)\({}^{\rm{trig}}\).
+
+## 6 Mixed events
+
+### Introduction
+
+The roof shapes generated by two particle correlations are mostly composed of background with small superposed signal. The background would ideally have a shape of ideal roof in case of uniform detector acceptance. One may see in previous chapter, that the shape may be deformed, as in case of BEMC triggered data. Because of differences in acceptances and various detector effects, the background has distinct shape deformations, which are also projected into searched signal and must be removed.
+
+### Method basics
+
+The aim of the method is to remove all other than physical correlations form the data sample. This is done via randomly choosing trigger and associated particles through events. When choosing a trigger and an associated particles randomly in such a way, the physical non-random effects do not appear in the resulting roof shape. Detector effects are included.
+
+Ideal approach to do the mixing method would be to keep list of all particles, that have been paired and to create the mixed histogram out of this list. This would be feasible, but very demanding for computational resources. Simple way of creating mixed histograms was used instead.
+
+During the correlation histogram creation, \(\eta\) x \(\Phi\) histograms of trigger and associated particles are also stored. Each \(\Delta\eta\) x \(\Delta\Phi\) histogram has its corresponding \(\eta\) x \(\Phi\) histograms of trigger and associated particles. Each trigger particle that passes the cut criteria is included once only, not caring if there are any associated particles found. Each associated particle that passes the cut criteria is included every time, the correlation pair is found. Single associated particle is therefore included as many times, as it is associated to any trigger particle in the event. The \(\eta\) x \(\Phi\) histograms have smoother binning in order to keep sufficient spatial resolution.
+
+Mixing script choses a trigger particle randomly from the trigger particle histogram. The random choice is weighted according to particle counts in \(\eta\) x \(\Phi\) bins. After, the associated particle is chosen from the associated particle histogram, similarly weighted as in the trigger particle case. \(\Delta\eta\) x \(\Delta\Phi\) of the particle is computed and filled into mixed events histogram. Every correlation histogram has its own mixed events histogram. The random choice of mixed particles is carried out 10 times more, then is the entries count of corresponding correlation histogram. Resulting mixed event \(\Delta\eta\) x \(\Delta\Phi\) histogram has similar binning as the correlation histograms. An example of mixed histogram is shown on Figure 6.1. When the histogram is projected on \(\Delta\Phi\), we can clearly see the TPC sector boundaries, Figure 6.2Figure 6.1: An example of a mixed events \(\Delta\eta\) x \(\Delta\phi\) histogram. \(\rm P_{T}\)\({}^{trig}\) 3-4 GeV/\(c\), \(\rm p_{T}\)\({}^{assoc}\) 2-3 GeV/\(c\).
+
+Figure 6.2: TPC sector boundaries visible in mixed histogram. Projection of the histogram on Figure 6.1 onto \(\Delta\phi\).
+
+#### Normalization of mixed histograms
+
+Mixed event histograms will be used to divide the correlation histograms. Since we don't want to loose information from the raw data, the mixed events histograms must be normalized. Mixed histogram projection to \(\Delta\eta\) is used. The projected 1D histogram has a "A" shape, that can be fit with two linear functions in ranges (-2,0) and (0,2). Height of intersection point is computed and divided by number of bins in \(\Delta\phi\). The computed number is used to normalize the mixed events histogram, so the bin heights are in range (0,1). Figure 6.3 shows an example of fitting process, Figure 6.4 shows Figure 6.1 after normalization.
+
+To obtain histogram without roof shaped background, one must divide the correlation histogram with the normalized mixed events histograms. The resulting division of histograms on Figure 5.1 and Figure 6.4 is shown on Figure 6.5. Figure 6.6 and Figure 6.7 show an example of normalized and divided histograms for EMC triggered charged data.
+
+Both resulting divided histograms contain oscillation in high \(\Delta\eta\), which is caused by sensitivity of normalization in high \(\Delta\eta\) region. Figure 6.5 also shows small gap on top of the jet peak (in \(\Delta\eta\approx 0\), \(\Delta\phi\approx 0\)). This is caused by finite two-track resolution in TPC. The ridge structure is clearly visible.
+
+Figure 6.5: Resulting division of Figures 5.1. and 6.4. \(\mathrm{P_{T}}^{\mathrm{trig}}\) 3-4 \(\mathrm{GeV}/c\), \(\mathrm{p_{T}}^{\mathrm{assoc}}\) 2-3 \(\mathrm{GeV}/c\).
+
+Figure 6.5: Normalized histogram, EMC triggering. Figure 6.6 Divided histogram, EMC triggering.
+
+[MISSING_PAGE_FAIL:54]
+
+### _ZYAM method_
+
+The Zero Yield at Minimum method is a method that allows a simple, yet precise [21] derivation of the B parameter. The method is based on an assumption, that in certain region of \(\Delta\Phi\) the data contain an elliptic flow modulated background only without any superposed jet signal. If v\({}_{2}\) parameters are fixed, parameter B can be varied to search for such a region in \(\Delta\Phi\), where the elliptic flow function touches the data.
+
+#### Application
+
+First of all, a bin with minimal value was found in the histogram. In order to avoid statistical fluctuation, values of the two adjacent bins (one from left, one from right) were added to the minimum value and an average (A) was computed. The searched B value was obtained to make the flow function pass by the point defined by the center of minimum bin and the computed average value, using Eq 7.3.
+
+\[B=\frac{A}{1+2\mathrm{v}_{\mathrm{r}}^{(t)}\mathrm{v}_{\mathrm{r}}^{(a)}\mathrm{ cos}\left(2\,\Delta\,\Phi\right)} \tag{7.3}\]
+
+As the v\({}_{2}\) measurement is complicated by presence of various non-flow effects (resonance decays, jets) a commonly used values are based on averaging v\({}_{2}\) determined from the event plane method and 4-particle cumulants. So the used v\({}_{2}\) parameters are fixed as a mean of v\({}_{2}\){EP} [19] and v\({}_{2}\){4} [24]. Resulting example is shown on Figure 7.2
+
+Figure 7.1: Schematic view of a collision of two identical nuclei, in the plane transverse to the beam direction (z-axis). The x- and y-axes are drawn as per the standard convention. The dots indicate the positions of participant nucleons. Due to fluctuations, the overlap zone could be shifted and tilted with respect to the (x, y) frame. x’ and y’ are the principal axes of inertia of the dots. [23]Figure 7.2 Flow function fit example (solid line) on a jet + ridge yield data normalized per trigger particle. \(\rm{P_{T}}^{trig}\) 5-6 GeV/\(c\), \(\rm{P_{T}}^{assoc}\) 2-3 GeV/\(c\).
+
+## 8 Tracking efficiency
+
+### Introduction
+
+The detector track reconstruction efficiency is not constant, bud dependent mainly on \(p_{T}\), pseudorapidity and azimuth. To successfully reproduce a physically accurate data, one must correct for particles, that do not get registered in the detector, but that are believed that existed.
+
+Tracks which do not pass through the active volume are lost completely from the reconstruction chain but must be corrected for to produce accurate physics results for any measurement. Those that penetrate an active detector volume may still not be correctly reconstructed and there are many reasons why inefficiencies in reconstruction may occur. These include, but are not restricted to, dead channels in the detector, space-charge distortions, merging of tracks, fake tracks and algorithm inefficiencies [14].
+
+To obtain the detection efficiency factor, simulated data are embedded into the real events. The set including both, the real and the embedded data is passed the through the analysis chain. Volume of reconstructed artificial data at the end of the chain is compared to volume of data inserted. The ration of reconstructed/inserted data is the searched detection efficiency.
+
+### The method
+
+A Monte-Carlo simulation of the STAR detector is used as a first step of the detection efficiency corrections. The Monte-Carlo simulates particle interaction and energy loss of particles in the STAR detector. Simulated particles are used as the input stack of the simulator. The GEANT program is used to carry out the simulation and output particle trajectories and energy deposition in various detector systems of the simulated STAR experiment. TPC particle information is extracted and passed to a TPC simulation program, that mimics TPC response to passing particles. The output of the TPC simulation program is a subset of artificial particles, which is then merged into real events and passed to standard STAR analysis chain for reconstruction.
+
+Once the analysis is finished, one start to move backwards and the reconstructed tracks are associated with Monte-Carlo simulated track in the TPC. The Monte-Carlo tracks are tracked back to their primary track, and thus the reconstructed track may be associated with the primary track. For neutral primary particles, this is also dependent on reconstruction of both charged decay daughter particles for each of the primary particles.
+
+In this way a connection from artificial primary particle to user reconstructed particle was created and thus one may examine the detection efficiency.
+
+### Application
+
+Since at the time of writing this work, no Run VII simulation was available, only the Run IV TPC triggered data detection efficiency correction was used for TPC triggered charged data. The efficiency correction function has a form [25] :
+
+\[\epsilon=p[\,\cdot\,]+p[\,3\,]\cdot(atan(\,p[\,1]+p[\,2]\cdot p_{T}))+p[\,4 \,]*\eta^{2}+p[\,5\,]*\eta^{4}+p[\,6\,]*\eta^{6} \tag{8.2}\]
+
+It is a function of \(p_{T}\), pseudorapidity and centrality. Each of the \(p[x]\) parameters is centrality dependent according to centrality bin, there is 10 sets of parameters. The parameters were determined by fit using Eq (8.2).
+
+## 9 The \(\Delta\eta\) x \(\Delta\phi\) correlation
+
+### _Introduction_
+
+Energy loss of hard partons, as they traverse the bulk medium is distributed into particles in the medium. Study of various changes in detected particle distribution allows us to investigate properties of the medium in its early stages.
+
+Increase in particle yield in \(\Delta\eta\) (called the ridge) was observed at near side. This increase is reaching over \(|\Delta\eta|=1.5\) and is reported to be persistent up to \(\rm p_{T}=9\) GeV/\(c\) of triggering particle. In this work, analysis of ridge structure was done for various combinations of trigger methods, particle types and run data sets. Namely the Run IV and VII data were used (details in chapter 5).
+
+### _Run IV data_
+
+The run IV data were used to search for ridge structure. Trigger particles were searched in TPC for various \(\rm p_{T}\) ranges (3-4; 4-5; 5-6; 6-8; 8+; 5+). Centrality bins were defined as shown on Table 5.1. \(\rm p_{T}\) cut for associated particles was chosen 2 GeV/\(c<\rm p_{T}^{\rm assoc}<\rm p_{T}^{\rm trigger}\). The procedure described in chapter 5 was used and the embedding was used to correct for detection efficiency. Two adjacent centrality bins were added to provide better statistics. This is not needed for best centralities and low trigger \(\rm p_{T}\), but the worse centralities and higher \(\rm p_{T}\) triggered data miss statistics.
+
+Figures 9.1, 9.2 and 9.3 show ridge structures for different centrality bins and different trigger particle \(\rm p_{T}\) cuts. One may notice, that the ratio of jet peak height to ridge height increases with increasing centrality bin same as with increasing trigger particle \(\rm p_{T}\) cut, which will be discussed in chapter 10.
+
+Figure 9.1 Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 2-3 GeV/\(c\). Run IV charged particles.
+
+Figure 9.2 Ridge structure for different centrality bins, trigger 5-6 GeV/\(c\), associated 2-3 GeV/\(c\). Run IV charged particles.
+
+Figure 9.3 Ridge structure for different centrality bins, trigger \(>\) 8 GeV/\(c\), associated 2-3 GeV/\(c\). Run IV charged particles.
+
+[MISSING_PAGE_EMPTY:60]
+
+#### BEMC triggered, charged particles
+
+BEMC was used as a trigger for the data. All charged particles are associated. One may notice that the jet peak comes much cleaner then in TPC triggered data. The ridge shape is less obvious. Using a lower ( 1 GeV/\(c\)\(<\) p\({}_{\rm r}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm r}\)\({}^{\rm trigger}\) ) cut for associated particles shows a little improvement of statistics.
+
+Figure 9.5: Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 1-3 GeV/c, Run VII charged particles, 1 GeV/\(c\)\(<\) p\({}_{\rm r}\)\({}^{\rm assoc}\)\(<\) p\({}_{\rm r}\)\({}^{\rm trigger}\).
+
+Figure 9.6 Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 2-3 GeV/\(c\), Run VII charged particles, BEMC triggered.
+
+Figure 9.7 Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 1-3 GeV/\(c\), Run VII charged particles, BEMC triggered, 1 GeV/\(c\)\(<\) p\({}_{\rm{T}}\)\({}^{\rm{assoc}}\)\(<\) p\({}_{\rm{T}}\)\({}^{\rm{trigger}}\).
+
+[MISSING_PAGE_EMPTY:63]
+
+### Summary
+
+It shows, that the VII data provide very limited statistics to analyze the ridge structure in any way. Even though the data were prepared to use BEMC for triggering, the best result from VII data is still given by TPC triggering. The ridge structure is barely visible in the data. Ridge yields, that seem to diminish with higher trigger \(\rm p_{T}\) cuts are discussed in next chapter.
+
+Figure 9.9: Ridge structure for different centrality bins, trigger 3-4 GeV/\(c\), associated 1-3 GeV/\(c\), Run VII K\({}^{\circ}\)s, BEMC triggered \(\rm p_{T}\) 1 cut.
+
+## 10 Ridge yield
+
+### Introduction
+
+Study of ridge particle yield per triggering particle is conducted. The study was done to understand, why there is no ridge showing on Run VII data with high \(\rm p_{T}>\) 5 GeV/\(c\) BEMC triggering and identified V0 particles.
+
+### Method basics
+
+The method is based on two assumptions: that the ridge yield over \(\Delta\eta\) is constant and that the jet peak is not reaching over \(|\Delta\eta|>\) 0.7. As seen on figures from previous chapter, this is a safe assumption.
+
+The \(\Delta\eta\) x \(\Delta\Phi\) histograms are divided into three sectors; \(|\Delta\eta|<0.7\), \(0.7<\Delta\eta|<1.4\) and -0.7 \(>\Delta\eta\) \(>\) - 1.4. It is secured, that each of the outer sectors contains exactly same bin count in \(\Delta\eta\) as is \(\rm\nu_{2}\) of bit count of the inner sector. Projection of each sector is created, the the two outer sectors are added and the result is subtracted from the inner sector projection.
+
+The inner sector contains data composed mainly of three sources; the jet peak, the ridge and the elliptic flow. The outer sectors do not include the jet peak data. Since when the two outer sectors are subtracted from the inner one, one also subtracts the elliptic flow, assuming that the \(\rm\nu_{2}\) is flat in the STAR \(\eta\) acceptance. The resulting histogram contains jet peak yield only, which is then normalized to number of triggering particles.
+
+If another sector of the same histogram is created and projected, \(|\Delta\eta|<1.4\), it contains all sources of data, the jet peak, the ridge and the elliptic flow. The elliptic flow can be subtracted, as described in chapter 7. Result is normalized to number of triggering particles, which gives us summed yield of the jet peak and the ridge. One can now subtract the jet peak yield from the combined jet peak and ridge yield and obtain the ridge yield normalized to number of triggering particles. The method progress is shown on Figures 10.1 to 10.7.
+
+Figure 10.7 The resulting ridge yield normalized to number of triggering particles is computed as a area of a gaussian peak close to region \(\Delta\Phi\) (-1,1). Cuts as in 10.3.
+
+### Results
+
+The method was applied on both the Run IV and the Run VII data. Results are shown on next figures.
+
+Analysis of Run IV data confirmed the previous findings of [9]. The steeper fall of centrality 0%-10% ridge yield presented on Figure 10.8 may be accounted for differences in elliptic flow subtraction method.
+
+Even though the Run VII data were not primarily meant to be TPC triggered, the analysis shows expected evolution. The ridge yield is lower for higher centralities.
+
+The BEMC triggering has a specific in low trigger count in the two bins \(4\GeV/c<p_{1}{{}^{\mathrm{trig}}}<5\GeV/c\) and \(5\GeV/c<p_{1}{{}^{\mathrm{trig}}}<6\GeV/c\), therefor the data in those two bins are presented with much larger errors. In all data analyzed, the two bins always displayed higher yields.
+
+[MISSING_PAGE_EMPTY:68]
+
+Figure 10.14 The \(\Lambda\)/K\({}^{0}_{\rm\,s}\) ratios for jet and ridge. Reconstruction done using \(\Lambda\) and K\({}^{0}_{\rm\,s}\) particles. Run VII data, BEMC triggered, STAR experiment. \(\rm p_{\rm T}\)\({}^{\rm assoc}\) bins from left to right: (1,2); (1,3); (2,3); (3,5).
+
+Figure 10.15 \(\Lambda\)/K\({}^{0}_{\rm\,s}\) ratio measured in inclusive \(\rm p_{\rm T}\) distributions, near-side jet and ridgelike correlation peaks in Au+Au collisions together with this ratio obtained from inclusive \(\rm p_{\rm T}\) spectra in p+p collisions.
+
+## 11 Conclusion
+
+The study of two particle correlations in pseudorapidity and azimuth was conducted on the STAR Run VII data. The ridge structure extending in pseudorapidity was observed, the yields for the ridge-like structures and the jet peaks were obtained. The baryon / meson ratios were computed for 10% most central collisions. The whole analysis is burdened with very low statistics of identified \(\Lambda\), anti-\(\Lambda\) and K\({}^{0}\)s particles. Even with large errors, the baryon / meson ratio may indicate that the ridge particle composition is closer to the medium bulk, than is the jet peak composition, which resembles the p+p collision ratios. This is in favor of the parton recombination model for the ridge, which describes baryon and meson production as a combinations of partons, where the combination of three less energetic partons constituting a baryon with certain energy is more likely than combination of two more energetic partons that would constitute a meson with the similar energy.
+
+To understand the low statistics strength, a study of different triggering and particle selection schemes was conducted. Accuracy of the analysis method was additionally tested on Run IV data. This shows agreement with previously published data.
+
+## Bibliography
+
+* [1] J. Bielcikova, Proc. 23rd Winter Workshop on Nuclear Dynamics (2007).
+* [2] S. S. Adler et al (PHENIX), Phys. Rev. Lett. 91 (2003) 172301.
+* [3] J. Adams et al (STAR), Phys. Rev. Lett. 92 (2004) 052302.
+* [4] J. Adams et al (STAR), nucl-ex/0601042.
+* [5] R. J. Fries, B. Mueller, C. Nonaka, and S. A. Bass Phys. Rev. C68 (2003).
+* [6] V. Greco, C. M. Ko and P. Levai Phys. Rev. C68 (2003) 034904.
+* [7] V. Greco, C. M. Ko and P. Levai, Phys. Rev. Lett. 90 (2003) 202302.
+* [8] R. C. Hwa and C. B. Yang Phys. Rev. C67 (2003) 034902.
+* [9] J. Putschke (STAR), Nucl. Phys. A783 (2007) 507; nucl-ex/0701074.
+* [10] J. Putschke (STAR), J.Phys.G34:S679-684,2007.
+* [11] P. Bruan-Munzinger, Chemical Equilibration and the Hadron QGP Phase Tran-sition, Nucl. Phys. A681 119 (2001) [nucl-ex/0007021].
+* [12] E. Wenger, Quark Matter 2008 conference talk.
+* [13] J. G. Ulery, Quark Matter 2008 conference talk.
+* [14] M. Horner, Lawrence Berkeley National Laboratory, Ph.D. Thesis 2007.
+* [15] K. H. Ackermann et al. [STAR Collaboration], Nucl. Instrum. Meth. A 499, 624 (2003).
+* [16] The STAR BEMC Technical Design Report.
+* [17] M. Lamont, University of Birmingham, Ph.D. Thesis (2002)
+* [18] S. Voloshin and Y. Zhang, Z. Phys. C70, (1996) 665
+* [19] A.M. Poskanzer and S.A.Voloshin, Phys. Rev. C 58, (1998) 1671
+* [20] D. Das, Variable Energy Cyclotron Centre. Kolkata, Ph.D. Thesis (2008)
+* [21] N. N. Ajitanand et al., Phys. Rev. C 72, 011902 (2005)
+* [22] K. H. Ackermann, et al., STAR Collaboration, Phys. Rev. Lett. 86 (2001), 402
+* [23] R. S. Bhalerao, J. Ollitrault, Nucl. Phys. A 715, 583 (2003)
+* [24] N. Borghini, P.M. Dinh, J.Y. Ollitrault, Phys. Rev. C 64 (2001) 054901.
+* [25] V. Zychacek, Czech Technical University, Diploma Thesis (2008)
+* [26] O. Grebenyuk, NIKHEF and Utrecht University, Ph.D. Thesis (2007)
+* [27] J. Ulery, Purdue University, Ph.D. Thesis (2007)
+* [28] ROOT analysis program ([http://root.cern.ch](http://root.cern.ch))

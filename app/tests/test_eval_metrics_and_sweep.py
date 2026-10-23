@@ -96,3 +96,26 @@ def test_generation_arms_add_alt_providers_when_keys_set() -> None:
 def test_case_scores_align_and_default_to_zero() -> None:
     results = [{"retrieval": {"ndcg@5": 0.5}}, {"error": "boom"}, {"retrieval": {}}]
     assert _case_scores(results, "ndcg@5") == [0.5, 0.0, 0.0]
+
+
+def test_nrp_arms_carry_thinking_switches_and_list_arms_filters() -> None:
+    class S:
+        ANTHROPIC_API_KEY = GEMINI_API_KEY = DEEPSEEK_API_KEY = GROQ_API_KEY = OPENROUTER_API_KEY = None
+        NRP_API_KEY = "nrp-key"
+        NRP_MODEL = "qwen3, gpt-oss,glm-5,kimi"
+
+    from app.eval.sweep import generation_arms, list_arms
+
+    arms = {a.key: a for a in generation_arms(S())}
+    assert arms["gen_qwen3"].settings["OPENAI_BASE_URL"] == "https://ellm.nrp-nautilus.io/v1"
+    assert arms["gen_qwen3"].settings["OPENAI_EXTRA_BODY"] == {"chat_template_kwargs": {"enable_thinking": False}}
+    assert arms["gen_qwen3"].settings["OPENAI_REQUEST_TIMEOUT_S"] == 120.0
+    assert arms["gen_gpt-oss"].settings["OPENAI_REASONING_EFFORT"] == "low"
+    assert arms["gen_glm-5"].settings["OPENAI_MAX_OUTPUT_TOKENS"] == 1500
+    assert "OPENAI_EXTRA_BODY" not in arms["gen_kimi"].settings
+    assert arms["gen_kimi"].settings["OPENAI_MAX_OUTPUT_TOKENS"] == 2500
+
+    chosen = list_arms(S(), ["generation"], ["gen_gpt-5.4-nano", "gen_qwen3"])
+    assert [a.key for a in chosen] == ["gen_gpt-5.4-nano", "gen_qwen3"]
+    with pytest.raises(ValueError, match="unknown sweep arms"):
+        list_arms(S(), ["generation"], ["gen_nope"])

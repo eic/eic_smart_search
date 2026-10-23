@@ -194,5 +194,8 @@ class EvalSweepRequest(BaseModel):
 
     label: str | None = Field(default=None, max_length=200)
     groups: list[str] = Field(default_factory=list)
+    # Optional subset of arm keys (e.g. ["gen_gpt-5.4-nano", "gen_qwen3"]);
+    # the first one is the control of the significance test.
+    arms: list[str] = Field(default_factory=list)
     case_ids: list[str] = Field(default_factory=list)
 

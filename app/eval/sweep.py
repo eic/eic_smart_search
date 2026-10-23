@@ -22,7 +22,7 @@ import logging
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Callable
+from typing import Any, Callable, NamedTuple
 
 from sqlalchemy.orm import Session
 
@@ -163,18 +163,55 @@ def speed_arms() -> list[Arm]:
     ]
 
 
-# OpenAI-compatible endpoints for alternative providers, keyed by the
-# Settings field that holds their API key. Each becomes a sweep arm when the
-# key is configured. All have free daily quotas (as of 2026-08): Gemini
-# ~250-1500 req/day, Groq ~1k req/day, DeepSeek off-peak discounts,
-# OpenRouter ":free" models 50-1000 req/day.
-ALT_PROVIDERS: tuple[tuple[str, str, str, str], ...] = (
-    ("ANTHROPIC_API_KEY", "ANTHROPIC_MODEL", "https://api.anthropic.com/v1", "Anthropic"),
-    ("GEMINI_API_KEY", "GEMINI_MODEL",
-     "https://generativelanguage.googleapis.com/v1beta/openai", "Gemini (free tier)"),
-    ("DEEPSEEK_API_KEY", "DEEPSEEK_MODEL", "https://api.deepseek.com/v1", "DeepSeek"),
-    ("GROQ_API_KEY", "GROQ_MODEL", "https://api.groq.com/openai/v1", "Groq (free tier)"),
-    ("OPENROUTER_API_KEY", "OPENROUTER_MODEL", "https://openrouter.ai/api/v1", "OpenRouter"),
+class AltProvider(NamedTuple):
+    """An OpenAI-compatible endpoint benchmarked as extra generation arms
+    when its API key (``key_field``) is set; ``model_field`` holds a
+    comma-separated model list. ``model_overrides`` are per-model Settings
+    overrides (thinking-mode switches, output budgets) applied on top of
+    the shared ``overrides``."""
+
+    key_field: str
+    model_field: str
+    base_url: str
+    label: str
+    overrides: dict[str, Any] = {}
+    model_overrides: dict[str, dict[str, Any]] = {}
+
+
+def _template_kwargs(**kwargs: Any) -> dict[str, Any]:
+    return {"OPENAI_EXTRA_BODY": {"chat_template_kwargs": kwargs}}
+
+
+# nrp.ai serves reasoning models with thinking on by default; each needs
+# its own switch (documented on its model card) or an output budget large
+# enough to think and still answer within max_completion_tokens.
+NRP_MODEL_OVERRIDES: dict[str, dict[str, Any]] = {
+    "qwen3": _template_kwargs(enable_thinking=False),
+    "qwen3-small": _template_kwargs(enable_thinking=False),
+    "gemma": _template_kwargs(enable_thinking=False),
+    "gemma-small": _template_kwargs(enable_thinking=False),
+    "deepseek-v4-flash": _template_kwargs(thinking=False),
+    "glm-5": {**_template_kwargs(reasoning_effort="low"), "OPENAI_MAX_OUTPUT_TOKENS": 1500},
+    "gpt-oss": {"OPENAI_REASONING_EFFORT": "low"},
+    "kimi": {"OPENAI_MAX_OUTPUT_TOKENS": 2500},        # no thinking toggle
+    "minimax-m2": {"OPENAI_MAX_OUTPUT_TOKENS": 2500},  # no thinking toggle
+}
+
+# Alternative providers, keyed by the Settings field that holds their API
+# key. All have free quotas (as of 2026-08): Gemini ~250-1500 req/day, Groq
+# ~1k req/day, DeepSeek off-peak discounts, OpenRouter ":free" models
+# 50-1000 req/day; NRP is free for non-commercial research (per-model
+# concurrency limits, 200k output tokens/min).
+ALT_PROVIDERS: tuple[AltProvider, ...] = (
+    AltProvider("ANTHROPIC_API_KEY", "ANTHROPIC_MODEL", "https://api.anthropic.com/v1", "Anthropic"),
+    AltProvider("GEMINI_API_KEY", "GEMINI_MODEL",
+                "https://generativelanguage.googleapis.com/v1beta/openai", "Gemini (free tier)"),
+    AltProvider("DEEPSEEK_API_KEY", "DEEPSEEK_MODEL", "https://api.deepseek.com/v1", "DeepSeek"),
+    AltProvider("GROQ_API_KEY", "GROQ_MODEL", "https://api.groq.com/openai/v1", "Groq (free tier)"),
+    AltProvider("OPENROUTER_API_KEY", "OPENROUTER_MODEL", "https://openrouter.ai/api/v1", "OpenRouter"),
+    AltProvider("NRP_API_KEY", "NRP_MODEL", "https://ellm.nrp-nautilus.io/v1", "NRP (nrp.ai)",
+                overrides={"OPENAI_REQUEST_TIMEOUT_S": 120.0, "OPENAI_REASONING_EFFORT": None},
+                model_overrides=NRP_MODEL_OVERRIDES),
 )
 
 # $/1M tokens for alternative-provider models we know (2026-08 list prices);
@@ -228,25 +265,27 @@ def generation_arms(
             Arm(f"gen_{model}", model, "generation", "OpenAI-protocol generator",
                 settings=overrides, generate=True, judge=True)
         )
-    for key_field, model_field, base_url, label in ALT_PROVIDERS:
-        key = getattr(settings, key_field, None) if settings else None
+    for provider in ALT_PROVIDERS:
+        key = getattr(settings, provider.key_field, None) if settings else None
         if not key:
             continue
-        model_list = str(getattr(settings, model_field, "") or "")
+        model_list = str(getattr(settings, provider.model_field, "") or "")
         for model in (m.strip() for m in model_list.split(",")):
             if not model:
                 continue
             cost_in, cost_out = ALT_PRICES.get(model, (0.0, 0.0))
             arms.append(
                 Arm(
-                    f"gen_{model}", f"{model} · {label}", "generation",
-                    f"{label} via its OpenAI-compatible endpoint",
+                    f"gen_{model}", f"{model} · {provider.label}", "generation",
+                    f"{provider.label} via its OpenAI-compatible endpoint",
                     settings={
                         "OPENAI_API_KEY": key,
-                        "OPENAI_BASE_URL": base_url,
+                        "OPENAI_BASE_URL": provider.base_url,
                         "OPENAI_GENERATION_MODEL": model,
                         "OPENAI_INPUT_COST_PER_1M": cost_in,
                         "OPENAI_OUTPUT_COST_PER_1M": cost_out,
+                        **provider.overrides,
+                        **provider.model_overrides.get(model, {}),
                     },
                     generate=True, judge=True,
                 )
@@ -318,12 +357,37 @@ def _case_scores(results: list[dict[str, Any]], metric: str) -> list[float]:
     return out
 
 
+def list_arms(
+    settings: Settings,
+    groups: tuple[str, ...] | list[str] = DEFAULT_GROUPS,
+    arm_keys: list[str] | None = None,
+) -> list[Arm]:
+    """The arms a sweep over ``groups`` would run, optionally narrowed to
+    ``arm_keys`` (kept in the order given, so the first key is the control
+    of the significance test)."""
+    arms: list[Arm] = []
+    for group in groups:
+        factory = GROUPS.get(group)
+        if factory is None:
+            raise ValueError(f"unknown sweep group: {group}")
+        # The generation block inspects settings for alternative-provider keys.
+        arms.extend(factory(settings) if group == "generation" else factory())
+    if arm_keys:
+        by_key = {a.key: a for a in arms}
+        unknown = [k for k in arm_keys if k not in by_key]
+        if unknown:
+            raise ValueError(f"unknown sweep arms: {unknown}")
+        arms = [by_key[k] for k in arm_keys]
+    return arms
+
+
 def run_sweep(
     db: Session,
     settings: Settings,
     *,
     label: str = "",
     groups: tuple[str, ...] | list[str] = DEFAULT_GROUPS,
+    arm_keys: list[str] | None = None,
     case_ids: list[str] | None = None,
     golden_path=GOLDEN_PATH,
     run: EvalRun | None = None,
@@ -333,13 +397,7 @@ def run_sweep(
         wanted = set(case_ids)
         cases = [c for c in cases if c.id in wanted]
 
-    arms: list[Arm] = []
-    for group in groups:
-        factory = GROUPS.get(group)
-        if factory is None:
-            raise ValueError(f"unknown sweep group: {group}")
-        # The generation block inspects settings for alternative-provider keys.
-        arms.extend(factory(settings) if group == "generation" else factory())
+    arms = list_arms(settings, groups, arm_keys)
 
     if run is None:
         run = EvalRun(

@@ -500,17 +500,22 @@ def eval_sweep(
     full sweep takes minutes; the row is written immediately with
     status="running" and filled in arm by arm. Poll GET /eval/sweeps.
     """
-    from app.eval.sweep import DEFAULT_GROUPS, GROUPS
+    from app.eval.sweep import DEFAULT_GROUPS, GROUPS, list_arms
     from app.models.entities import EvalRun
 
     groups = tuple(payload.groups) or DEFAULT_GROUPS
     unknown = [g for g in groups if g not in GROUPS]
     if unknown:
         raise HTTPException(status_code=400, detail=f"unknown sweep groups: {unknown}")
+    arm_keys = list(payload.arms or [])
+    try:
+        list_arms(settings, groups, arm_keys)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     run = EvalRun(
         label=payload.label or "configuration sweep",
-        config={"kind": "sweep", "groups": list(groups)},
+        config={"kind": "sweep", "groups": list(groups), **({"arm_keys": arm_keys} if arm_keys else {})},
         status="running",
     )
     db.add(run)
@@ -528,7 +533,8 @@ def eval_sweep(
             if row is None:
                 return
             try:
-                run_sweep(session, settings, groups=groups, case_ids=case_ids or None, run=row)
+                run_sweep(session, settings, groups=groups, arm_keys=arm_keys or None,
+                          case_ids=case_ids or None, run=row)
             except Exception as exc:  # pragma: no cover - background guard
                 logger.exception("eval_sweep_failed")
                 row.status = "failed"
@@ -536,7 +542,7 @@ def eval_sweep(
                 session.commit()
 
     background.add_task(_work)
-    return {"id": run_id, "status": "running", "groups": list(groups)}
+    return {"id": run_id, "status": "running", "groups": list(groups), "arms": arm_keys}
 
 
 @router.post("/eval/playground")

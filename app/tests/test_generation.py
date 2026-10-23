@@ -75,6 +75,7 @@ def _build_generator(client: _FakeClient, **overrides: Any) -> OpenAIAnswerGener
     generator.max_output_tokens = overrides.get("max_output_tokens", 600)
     generator.temperature = overrides.get("temperature", None)
     generator.reasoning_effort = overrides.get("reasoning_effort", None)
+    generator.extra_body = overrides.get("extra_body", {})
     generator.stream_enabled = overrides.get("stream_enabled", True)
     generator.max_context_chars = overrides.get("max_context_chars", 1800)
     generator.input_cost_per_1m = overrides.get("input_cost_per_1m", 0.40)
@@ -138,6 +139,25 @@ def test_openai_generator_sends_temperature_when_configured() -> None:
 
     sent = client.chat.completions.calls[0]
     assert sent["temperature"] == 0.2
+
+
+def test_openai_generator_merges_extra_body_with_reasoning_effort() -> None:
+    completion = _FakeCompletion([_FakeChoice(_FakeMessage("ok [1]"))], _FakeUsage())
+    client = _FakeClient(completion)
+    generator = _build_generator(
+        client,
+        reasoning_effort="low",
+        extra_body={"chat_template_kwargs": {"enable_thinking": False}},
+    )
+
+    generator.generate("q", [_chunk(score=0.8)], min_support_score=0.16)
+
+    sent = client.chat.completions.calls[0]
+    assert sent["extra_body"] == {
+        "chat_template_kwargs": {"enable_thinking": False},
+        "reasoning_effort": "low",
+    }
+    assert "extra_body" not in _build_generator(_FakeClient(completion)).extra_body
 
 
 def test_openai_generator_falls_back_to_extractive_on_error() -> None:

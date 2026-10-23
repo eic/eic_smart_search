@@ -74,11 +74,13 @@ eval:
 # Runs in the background (~15 min); watch it fill in at /admin/eval.
 # GROUPS=pipeline,top_k,rerank,embedding,generation
 GROUPS ?= pipeline,top_k,rerank,embedding
+# ARMS=gen_gpt-5.4-nano,gen_qwen3 narrows the run to those arm keys (first = control).
 sweep:
 	@GROUPS_JSON=$$(printf '"%s",' $$(echo $(GROUPS) | tr ',' ' ') | sed 's/,$$//'); \
+	ARMS_JSON=$$(printf '"%s",' $$(echo $(ARMS) | tr ',' ' ') | sed 's/,$$//; s/^""$$//'); \
 	curl -m 60 -X POST http://localhost:8000/eval/sweep \
 		-H 'Content-Type: application/json' -H "Authorization: Bearer $$ADMIN_TOKEN" \
-		-d "{\"label\":\"$(LABEL)\",\"groups\":[$$GROUPS_JSON]}"
+		-d "{\"label\":\"$(LABEL)\",\"groups\":[$$GROUPS_JSON],\"arms\":[$$ARMS_JSON]}"
 
 # CI quality gate: retrieval benchmark with pass/fail thresholds.
 eval-ci:

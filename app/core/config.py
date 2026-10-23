@@ -1,5 +1,5 @@
 from functools import lru_cache
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -77,6 +77,10 @@ class Settings(BaseSettings):
     # gpt-5.6-family models require "none" to combine function tools with
     # /v1/chat/completions; leave unset for models that pick their own.
     OPENAI_REASONING_EFFORT: str | None = None
+    # Extra JSON merged into every chat-completions request body, for
+    # OpenAI-compatible servers with their own knobs (vLLM's
+    # chat_template_kwargs to switch a model's thinking mode, ...).
+    OPENAI_EXTRA_BODY: dict[str, Any] | None = None
     # Disable for providers whose tool-round messages can't be reconstructed
     # by the streaming accumulator (Gemini): answers then arrive as one delta.
     OPENAI_STREAM_ENABLED: bool = True
@@ -100,6 +104,10 @@ class Settings(BaseSettings):
     GROQ_MODEL: str = "llama-3.3-70b-versatile,llama-3.1-8b-instant"
     OPENROUTER_API_KEY: str | None = None
     OPENROUTER_MODEL: str = "meta-llama/llama-3.3-70b-instruct:free"
+    # National Research Platform (nrp.ai) managed open-weights LLMs — free
+    # for non-commercial research; vLLM behind an OpenAI-compatible gateway.
+    NRP_API_KEY: str | None = None
+    NRP_MODEL: str = "qwen3,gpt-oss,deepseek-v4-flash,glm-5,gemma"
 
     EIC_SITE_URL: str = "https://eic.github.io/"
     EIC_SITE_MAX_PAGES: int = 500
@@ -259,6 +267,7 @@ class Settings(BaseSettings):
         "OPENAI_API_KEY",
         "OPENAI_BASE_URL",
         "OPENAI_TEMPERATURE",
+        "OPENAI_EXTRA_BODY",
         "GITHUB_TOKEN",
         "EPIC_INTERNAL_COOKIE",
         "EPIC_INTERNAL_AUTH_HEADER",

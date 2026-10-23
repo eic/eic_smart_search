@@ -332,6 +332,7 @@ class OpenAIAnswerGenerator:
         input_cost_per_1m: float = 0.0,
         output_cost_per_1m: float = 0.0,
         reasoning_effort: str | None = None,
+        extra_body: dict[str, Any] | None = None,
         stream_enabled: bool = True,
         min_rerank_score: float = 0.0,
         fallback: AnswerGenerator | None = None,
@@ -357,6 +358,8 @@ class OpenAIAnswerGenerator:
         # gpt-5.6-family models reject function tools on /v1/chat/completions
         # unless reasoning_effort is explicitly "none" — expose it as a knob.
         self.reasoning_effort = reasoning_effort
+        # Provider-specific request fields (vLLM chat_template_kwargs, ...).
+        self.extra_body = dict(extra_body or {})
         self.stream_enabled = stream_enabled
         # Cross-encoder floor for the support gate (see _has_support).
         self.min_rerank_score = min_rerank_score
@@ -448,10 +451,13 @@ class OpenAIAnswerGenerator:
         }
         if self.temperature is not None:
             base_kwargs["temperature"] = self.temperature
+        extra_body = dict(self.extra_body)
         if self.reasoning_effort:
             # Via extra_body so it also works on openai-SDK versions that
             # don't know the parameter yet (they reject unknown kwargs).
-            base_kwargs["extra_body"] = {"reasoning_effort": self.reasoning_effort}
+            extra_body["reasoning_effort"] = self.reasoning_effort
+        if extra_body:
+            base_kwargs["extra_body"] = extra_body
         tools: list[dict[str, Any]] = []
         if indico_available:
             tools.append(INDICO_TOOL_SCHEMA)
@@ -1012,6 +1018,7 @@ def build_answer_generator(
             input_cost_per_1m=settings.OPENAI_INPUT_COST_PER_1M,
             output_cost_per_1m=settings.OPENAI_OUTPUT_COST_PER_1M,
             reasoning_effort=getattr(settings, "OPENAI_REASONING_EFFORT", None),
+            extra_body=getattr(settings, "OPENAI_EXTRA_BODY", None),
             stream_enabled=bool(getattr(settings, "OPENAI_STREAM_ENABLED", True)),
             min_rerank_score=float(getattr(settings, "MIN_RERANK_SCORE", 0.0) or 0.0),
             indico_client=indico_client,

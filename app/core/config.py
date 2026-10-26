@@ -38,6 +38,11 @@ class Settings(BaseSettings):
     # sequence attention OOMs small GPUs; 1024 covers our chunk sizes.
     EMBEDDING_MAX_SEQ_LENGTH: int = 1024
     EMBEDDING_DEVICE: Literal["auto", "cpu", "cuda"] = "auto"
+    # Idle keepalive: every WARM_INTERVAL_S seconds a background thread runs
+    # one tiny embed (+ one rerank pair when a reranker is configured) so the
+    # first query after hours of idle doesn't pay a cold GPU/model path.
+    # 0 disables.
+    WARM_INTERVAL_S: float = 600.0
 
     GENERATION_PROVIDER: Literal["extractive", "openai"] = "extractive"
     MIN_SUPPORT_SCORE: float = 0.16
@@ -46,9 +51,10 @@ class Settings(BaseSettings):
     # midpoint; lower (negative) to abstain less on vague-but-answerable
     # queries, raise to abstain more aggressively.
     MIN_RERANK_SCORE: float = 0.0
-    # Confidence buckets for the query log, judged on the top chunk's raw
-    # cosine similarity (vector_score): < LOW → "low", < HIGH → "medium",
-    # else "high".
+    # Confidence buckets for the query log, judged on the best raw cosine
+    # similarity (vector_score) among the first 3 returned chunks: < LOW →
+    # "low", < HIGH → "medium", else "high" (0 → "none"; answers built from
+    # Indico tool results → "high").
     CONFIDENCE_VEC_LOW: float = 0.30
     CONFIDENCE_VEC_HIGH: float = 0.55
     # Number of chunks fetched and passed to the LLM when generate_answer=True.
@@ -112,7 +118,7 @@ class Settings(BaseSettings):
     EIC_SITE_URL: str = "https://eic.github.io/"
     EIC_SITE_MAX_PAGES: int = 500
     EIC_SITE_EXCLUDE_PREFIXES: str = "/epic/artifacts,/epic/build-,/epic/geoviewer,/epic/craterlake_views,/epic-prod/artifacts,/epic-prod/build-,/EDM4eic/"
-    EIC_SITE_EXCLUDE_PATH_CONTAINS: str = "/aio/"
+    EIC_SITE_EXCLUDE_PATH_CONTAINS: str = "/aio/,/aio.html"  # Carpentry all-in-one pages duplicate every episode
 
     EICUG_SITE_URL: str = "https://www.eicug.org/"
     EICUG_SITE_MAX_PAGES: int = 300

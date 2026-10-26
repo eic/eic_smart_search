@@ -158,3 +158,57 @@ def test_to_prompt_dict_truncates_long_author_lists():
 def test_constructor_rejects_empty_community():
     with pytest.raises(ValueError):
         ZenodoSearchClient(community="")
+
+
+def test_search_sanitizes_es_query_syntax():
+    # Exact query that made Zenodo answer HTTP 500: "/" opens an ES regex.
+    client = ZenodoSearchClient(community="epic")
+    with patch("app.integrations.zenodo_search.httpx.get", return_value=_mock_response(FAKE_PAYLOAD)) as mocked:
+        client.search("exclusive J/psi photoproduction photon-proton")
+    params = mocked.call_args.kwargs.get("params") or mocked.call_args[1]["params"]
+    assert params["q"] == "exclusive J psi photoproduction photon-proton"
+
+
+def test_sanitize_query_strips_special_characters():
+    from app.integrations.zenodo_search import sanitize_query
+
+    assert sanitize_query('title:"dRICH" (a|b) x^2 ~y z* w? [1 TO 2] {q} \\ !n & <> =') == (
+        "title dRICH a b x 2 y z w 1 TO 2 q n"
+    )
+    assert sanitize_query("-veto +must pi-zero") == "veto must pi-zero"
+
+
+def _status_error(status: int) -> MagicMock:
+    import httpx
+
+    request = httpx.Request("GET", "https://zenodo.org/api/records")
+    response = MagicMock()
+    response.raise_for_status.side_effect = httpx.HTTPStatusError(
+        "server error", request=request, response=httpx.Response(status, request=request)
+    )
+    return response
+
+
+def test_search_retries_5xx_with_first_four_terms():
+    client = ZenodoSearchClient(community="epic", cache_ttl_s=0)
+    with patch(
+        "app.integrations.zenodo_search.httpx.get",
+        side_effect=[_status_error(500), _mock_response(FAKE_PAYLOAD)],
+    ) as mocked:
+        hits = client.search("exclusive vector meson photoproduction photon proton")
+    assert len(hits) == 2
+    queries = [c.kwargs["params"]["q"] for c in mocked.call_args_list]
+    assert queries == [
+        "exclusive vector meson photoproduction photon proton",
+        "exclusive vector meson photoproduction",
+    ]
+
+
+def test_search_no_retry_on_4xx_or_short_query():
+    client = ZenodoSearchClient(community="epic", cache_ttl_s=0)
+    with patch("app.integrations.zenodo_search.httpx.get", return_value=_status_error(400)) as mocked:
+        assert client.search("one two three four five") == []
+    assert mocked.call_count == 1
+    with patch("app.integrations.zenodo_search.httpx.get", return_value=_status_error(503)) as mocked:
+        assert client.search("TDR") == []
+    assert mocked.call_count == 1

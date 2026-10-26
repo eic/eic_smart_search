@@ -30,6 +30,20 @@ logger = logging.getLogger(__name__)
 _TAG_RE = re.compile(r"<[^>]+>")
 _WS_RE = re.compile(r"\s+")
 
+# Elasticsearch query-string syntax Zenodo passes `q` through to. An
+# unbalanced "/" (regex delimiter, e.g. "J/psi") or similar makes Zenodo
+# answer HTTP 500, so these become plain word separators.
+_ES_SPECIAL_RE = re.compile(r'[/:^~*?\[\]{}()"\\!|&<>=]')
+# Leading -/+ on a token are must-not / must operators.
+_ES_PREFIX_OP_RE = re.compile(r"(^|\s)[-+]+")
+
+
+def sanitize_query(query: str) -> str:
+    """Strip ES query-string operators: "J/psi photoproduction" -> "J psi photoproduction"."""
+    query = _ES_SPECIAL_RE.sub(" ", query or "")
+    query = _ES_PREFIX_OP_RE.sub(r"\1", query)
+    return _WS_RE.sub(" ", query).strip()
+
 
 def _strip_html(raw: str | None, max_len: int = 400) -> str:
     if not raw:
@@ -120,8 +134,8 @@ class ZenodoSearchClient:
 
         ``sort`` accepts Zenodo's values: 'bestmatch', 'mostrecent', 'mostviewed'.
         """
-        query = self._NEUTRALIZE_FILTERS_RE.sub(" ", query or "").strip()
-        query = _WS_RE.sub(" ", query)
+        query = self._NEUTRALIZE_FILTERS_RE.sub(" ", query or "")
+        query = sanitize_query(query)
         if not query:
             # Empty after stripping (e.g. "community:ePIC" was the entire q).
             # Fall back to a wildcard so the user still gets community results.
@@ -141,7 +155,20 @@ class ZenodoSearchClient:
                 self._cache[cache_key] = _CacheEntry(hits=hits, expires_at=now + self.cache_ttl_s)
         return hits
 
+    # On a 5xx, retry once with only this many leading terms — shorter
+    # queries hit Zenodo's flaky search backend far less often.
+    RETRY_TERMS = 4
+
     def _fetch(self, query: str, *, size: int, sort: str) -> list[ZenodoHit]:
+        hits, server_error = self._fetch_once(query, size=size, sort=sort)
+        if server_error:
+            short = " ".join(query.split()[: self.RETRY_TERMS])
+            if short and short != query:
+                hits, _ = self._fetch_once(short, size=size, sort=sort)
+        return hits
+
+    def _fetch_once(self, query: str, *, size: int, sort: str) -> tuple[list[ZenodoHit], bool]:
+        """One request; returns (hits, server_error) where server_error is a 5xx."""
         params = {
             "q": query,
             "communities": self.community,
@@ -154,16 +181,17 @@ class ZenodoSearchClient:
             response.raise_for_status()
         except Exception as exc:
             logger.warning("zenodo_search_failed", extra={"query": query, "error": str(exc)[:200]})
-            return []
+            status = getattr(getattr(exc, "response", None), "status_code", None)
+            return [], isinstance(status, int) and status >= 500
         try:
             payload = response.json()
         except ValueError:
             logger.warning("zenodo_search_non_json", extra={"query": query})
-            return []
+            return [], False
         raw_hits = (payload.get("hits") or {}).get("hits") or []
         if not isinstance(raw_hits, list):
-            return []
-        return [hit for hit in (self._build(record) for record in raw_hits) if hit is not None]
+            return [], False
+        return [hit for hit in (self._build(record) for record in raw_hits) if hit is not None], False
 
     @staticmethod
     def _build(record: dict[str, Any]) -> ZenodoHit | None:

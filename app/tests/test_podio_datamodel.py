@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import httpx
+
 from app.ingestion.podio_datamodel import (
     PodioDatamodelConnector,
     _doxygen_class_url,
     _parse_member,
+    _yaml_blob_url,
 )
 
 
@@ -84,3 +87,93 @@ def test_doxygen_url_casing() -> None:
 def test_parse_member_variants() -> None:
     assert _parse_member("float chi2 // Total chi2") == ("float", "chi2", "Total chi2")
     assert _parse_member("edm4hep::Vector3f position") == ("edm4hep::Vector3f", "position", "")
+
+
+# ---- Doxygen publication check -------------------------------------------
+
+_RAW_URL = "https://raw.githubusercontent.com/eic/EDM4eic/main/edm4eic.yaml"
+_YAML_TEXT = """---
+schema_version: 2
+datatypes:
+  edm4eic::Track:
+    Description: "Track information"
+  edm4eic::Trajectory:
+    Description: "Raw trajectory from tracking"
+components:
+  edm4eic::Cov2f:
+    Members:
+      - float xx
+links:
+  edm4eic::TrackClusterLink:
+    From: edm4eic::Track
+    To: edm4eic::Cluster
+"""
+_ANNOTATED = """<html><body><table>
+<tr><td><a class="el" href="classedm4eic_1_1_track.html" target="_self">Track</a></td></tr>
+<tr><td><a class="el" href="classedm4eic_1_1_trajectory.html">Trajectory</a></td></tr>
+<tr><td><a class="el" href="classedm4eic_1_1_cov2f.html">Cov2f</a></td></tr>
+</table></body></html>"""
+
+
+def _client(handler) -> httpx.Client:
+    return httpx.Client(transport=httpx.MockTransport(handler))
+
+
+def _docs_with(handler) -> tuple[dict, list[str]]:
+    calls: list[str] = []
+
+    def wrapped(request: httpx.Request) -> httpx.Response:
+        calls.append(str(request.url))
+        return handler(request)
+
+    connector = PodioDatamodelConnector(_Settings())
+    with _client(wrapped) as client:
+        docs = connector._model_documents(
+            _MODEL, source_url=_RAW_URL, yaml_text=_YAML_TEXT, client=client
+        )
+    return {d.external_id: d for d in docs}, calls
+
+
+def test_published_class_keeps_doxygen_url() -> None:
+    docs, calls = _docs_with(lambda request: httpx.Response(200, text=_ANNOTATED))
+    track = docs["datamodel:edm4eic::Track"]
+    assert track.url == "https://eic.github.io/EDM4eic/classedm4eic_1_1_track.html"
+    assert track.metadata["doc_page"] == "doxygen"
+    # annotated.html fetched once per Doxygen base, not per type.
+    assert calls == ["https://eic.github.io/EDM4eic/annotated.html"]
+
+
+def test_unpublished_link_falls_back_to_yaml_line() -> None:
+    docs, _ = _docs_with(lambda request: httpx.Response(200, text=_ANNOTATED))
+    link = docs["datamodel:edm4eic::TrackClusterLink"]
+    assert link.url == "https://github.com/eic/EDM4eic/blob/main/edm4eic.yaml#L13"
+    assert link.metadata["doc_page"] == "yaml"
+    assert _YAML_TEXT.splitlines()[12].strip() == "edm4eic::TrackClusterLink:"
+
+
+def test_annotated_fetch_failure_keeps_doxygen_urls() -> None:
+    docs, _ = _docs_with(lambda request: httpx.Response(503))
+    link = docs["datamodel:edm4eic::TrackClusterLink"]
+    assert link.url == (
+        "https://eic.github.io/EDM4eic/classedm4eic_1_1_track_cluster_link.html"
+    )
+    assert link.metadata["doc_page"] == "doxygen"
+
+    def boom(request: httpx.Request) -> httpx.Response:
+        raise httpx.ConnectError("down", request=request)
+
+    docs, _ = _docs_with(boom)
+    assert all(d.metadata["doc_page"] == "doxygen" for d in docs.values())
+
+
+def test_yaml_blob_url_shapes() -> None:
+    assert _yaml_blob_url(_RAW_URL) == "https://github.com/eic/EDM4eic/blob/main/edm4eic.yaml"
+    assert (
+        _yaml_blob_url("https://raw.githubusercontent.com/key4hep/EDM4hep/refs/heads/main/edm4hep.yaml")
+        == "https://github.com/key4hep/EDM4hep/blob/main/edm4hep.yaml"
+    )
+    assert (
+        _yaml_blob_url("https://github.com/eic/EDM4eic/raw/v8.10.0/edm4eic.yaml")
+        == "https://github.com/eic/EDM4eic/blob/v8.10.0/edm4eic.yaml"
+    )
+    assert _yaml_blob_url("https://example.com/edm4eic.yaml") == "https://example.com/edm4eic.yaml"

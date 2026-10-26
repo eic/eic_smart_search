@@ -124,6 +124,15 @@ class Feedback(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
 
 
+class CitationClick(Base):
+    __tablename__ = "citation_clicks"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    query_log_id: Mapped[str | None] = mapped_column(ForeignKey("query_logs.id", ondelete="SET NULL"), index=True)
+    chunk_id: Mapped[str] = mapped_column(String(36), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+
+
 class QueryLog(Base):
     __tablename__ = "query_logs"
 

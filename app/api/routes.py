@@ -25,10 +25,11 @@ from app.api.ratelimit import RateLimited
 from app.core.config import Settings, get_settings
 from app.db.session import get_db
 from app.ingestion.orchestrator import IngestionOrchestrator
-from app.models.entities import CrawlJob, Feedback
+from app.models.entities import CitationClick, CrawlJob, Feedback
 from app.people.builder import rebuild_people
 from app.schemas.api import (
     AnalyticsResponse,
+    CitationClickCreate,
     EvalPlaygroundRequest,
     EvalRunRequest,
     EvalSweepRequest,
@@ -917,6 +918,16 @@ def feedback_comment(
     record.comment = payload.comment
     db.commit()
     logger.info("feedback %s comment attached", record.id)
+    return FeedbackRead(id=record.id, created_at=record.created_at)
+
+
+@router.post("/citations/click", response_model=FeedbackRead)
+def citation_click(payload: CitationClickCreate, db: DbSession, _rl: RateLimited) -> FeedbackRead:
+    """Widget telemetry: which citation a user opened for a given answer."""
+    record = CitationClick(query_log_id=payload.query_log_id, chunk_id=payload.chunk_id)
+    db.add(record)
+    db.commit()
+    logger.info("citation click %s chunk=%s", record.id, record.chunk_id)
     return FeedbackRead(id=record.id, created_at=record.created_at)
 
 

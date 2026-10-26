@@ -74,6 +74,9 @@ def _combine_dt(part: dict[str, Any] | None) -> str:
 class _CacheEntry:
     events: list[IndicoEvent]
     expires_at: float
+    # False when the entry came from a failed fetch (no earlier data to
+    # fall back on); such entries expire sooner so a retry comes quickly.
+    ok: bool = True
 
 
 class IndicoClient:
@@ -86,7 +89,30 @@ class IndicoClient:
 
     Public API:
         search(query=None, from_date="-7d", to_date="+30d", limit=20)
+        warm(windows=None)  # prefetch the tool's default windows
+
+    Caching is stale-while-revalidate: an expired window is still served
+    immediately while a background daemon thread refreshes it (one
+    in-flight refresh per window). A caller blocks on the network only
+    when the window has never been fetched, and at most once per search().
+    A failed refresh keeps the previous data.
     """
+
+    # Windows the search_indico_events tool actually requests (see
+    # OpenAIAnswerGenerator._run_tool and _FALLBACK_WINDOWS): tool defaults,
+    # the "today" upcoming-only form the prompt asks for, their wide 365d
+    # fallbacks, and the recent-past window used when nothing is upcoming.
+    DEFAULT_WARM_WINDOWS: tuple[tuple[str, str], ...] = (
+        ("-7d", "30d"),
+        ("-30d", "365d"),
+        ("today", "30d"),
+        ("today", "365d"),
+        ("-90d", "0d"),
+    )
+    # A refresh that failed while stale data exists postpones the next
+    # attempt by this much (capped by the TTL) instead of retrying on
+    # every query against a struggling Indico.
+    FAILURE_RETRY_S = 60.0
 
     def __init__(
         self,
@@ -95,6 +121,7 @@ class IndicoClient:
         cache_ttl_s: float = 300.0,
         timeout_s: float = 10.0,
         user_agent: str = "eic-smart-search/1.0 (indico-integration)",
+        warm_on_init: bool = True,
     ) -> None:
         raw_urls: list[str]
         if isinstance(category_url, str):
@@ -113,6 +140,12 @@ class IndicoClient:
         self.user_agent = user_agent
         self._cache: dict[tuple[str, str], _CacheEntry] = {}
         self._lock = threading.Lock()
+        # Cache keys with a refresh currently running (background or warm()).
+        self._inflight: set[tuple[str, str]] = set()
+        # Keys whose last refresh failed — warn once per failure streak.
+        self._failing: set[tuple[str, str]] = set()
+        if self.cache_ttl_s > 0 and warm_on_init:
+            self._spawn(self.warm)
 
     @staticmethod
     def _to_export_url(category_url: str) -> str:
@@ -154,8 +187,22 @@ class IndicoClient:
             if fb not in attempts:
                 attempts.append(fb)
         events: list[IndicoEvent] = []
+        # At most one blocking network round per search(): once a window had
+        # to be fetched synchronously, later fallback windows are served from
+        # cache only (and fetched in the background if missing).
+        allow_block = True
         for attempt_from, attempt_to in attempts:
-            window_events = self._fetch_window((attempt_from, attempt_to))
+            key = (attempt_from, attempt_to)
+            if allow_block and self.cache_ttl_s > 0:
+                with self._lock:
+                    will_block = key not in self._cache
+            else:
+                will_block = allow_block
+            window_events = self._fetch_window(key, allow_block=allow_block)
+            if will_block:
+                allow_block = False
+            if window_events is None:
+                continue
             if query:
                 window_events = self._filter(window_events, query)
             if window_events:
@@ -164,18 +211,109 @@ class IndicoClient:
         events.sort(key=lambda e: e.start)
         return events[:limit]
 
-    def _fetch_window(self, cache_key: tuple[str, str]) -> list[IndicoEvent]:
+    def _fetch_window(
+        self, cache_key: tuple[str, str], *, allow_block: bool = True
+    ) -> list[IndicoEvent] | None:
+        """Events for one window, stale-while-revalidate.
+
+        Fresh entry -> returned. Expired entry -> returned as-is while a
+        background refresh is scheduled. No entry -> fetched synchronously
+        when ``allow_block``; otherwise a background fetch is scheduled and
+        ``None`` is returned (the caller already spent its one fetch round).
+        """
+        if self.cache_ttl_s <= 0:
+            if not allow_block:
+                return None
+            return self._fetch_remote(*cache_key)
         now = time.time()
         with self._lock:
             cached = self._cache.get(cache_key)
-            if cached and cached.expires_at > now:
-                return list(cached.events)
-        from_date, to_date = cache_key
-        events = self._fetch_remote(from_date, to_date)
-        if self.cache_ttl_s > 0:
+        if cached is not None:
+            if cached.expires_at <= now:
+                self._refresh_async(cache_key)
+            return list(cached.events)
+        if not allow_block:
+            self._refresh_async(cache_key)
+            return None
+        self._refresh(cache_key)
+        with self._lock:
+            cached = self._cache.get(cache_key)
+        return list(cached.events) if cached is not None else []
+
+    def _spawn(self, target, *args) -> None:
+        """Start ``target(*args)`` in a daemon thread (patched in tests)."""
+        threading.Thread(target=target, args=args, daemon=True, name="indico-refresh").start()
+
+    def _refresh_async(self, cache_key: tuple[str, str]) -> None:
+        with self._lock:
+            if cache_key in self._inflight:
+                return
+            self._inflight.add(cache_key)
+        try:
+            self._spawn(self._refresh, cache_key, True)
+        except Exception:
             with self._lock:
-                self._cache[cache_key] = _CacheEntry(events=events, expires_at=now + self.cache_ttl_s)
-        return events
+                self._inflight.discard(cache_key)
+            raise
+
+    def _refresh(self, cache_key: tuple[str, str], claimed: bool = False) -> None:
+        """Fetch one window and store it, keeping stale data on failure.
+
+        ``claimed`` means the caller already put the key in ``_inflight``.
+        """
+        if not claimed:
+            with self._lock:
+                self._inflight.add(cache_key)
+        try:
+            events, ok = self._fetch_remote_checked(*cache_key)
+            now = time.time()
+            with self._lock:
+                previous = self._cache.get(cache_key)
+                if ok:
+                    self._cache[cache_key] = _CacheEntry(events=events, expires_at=now + self.cache_ttl_s)
+                    self._failing.discard(cache_key)
+                    return
+                retry_at = now + min(self.cache_ttl_s, self.FAILURE_RETRY_S)
+                first_failure = cache_key not in self._failing
+                self._failing.add(cache_key)
+                if previous is not None and previous.ok:
+                    # Keep serving the last good data; just pace the retry.
+                    previous.expires_at = retry_at
+                else:
+                    self._cache[cache_key] = _CacheEntry(events=events, expires_at=retry_at, ok=False)
+            if first_failure:
+                logger.warning(
+                    "indico_refresh_failed_serving_stale" if previous is not None and previous.ok
+                    else "indico_refresh_failed",
+                    extra={"window": f"{cache_key[0]}..{cache_key[1]}"},
+                )
+        except Exception as exc:  # never let a background refresh die loudly
+            logger.warning("indico_refresh_error", extra={"error": str(exc)[:200]})
+        finally:
+            with self._lock:
+                self._inflight.discard(cache_key)
+
+    def warm(self, windows: list[tuple[str, str]] | None = None) -> int:
+        """Prefetch windows (default: those the live tool uses) into the cache.
+
+        Blocking; meant for a background/keepalive thread. Windows that are
+        still fresh or already being refreshed are skipped. Returns the
+        number of windows fetched. Thread-safe; never raises.
+        """
+        if self.cache_ttl_s <= 0:
+            return 0
+        fetched = 0
+        for window in windows or self.DEFAULT_WARM_WINDOWS:
+            key = (str(window[0]), str(window[1]))
+            now = time.time()
+            with self._lock:
+                cached = self._cache.get(key)
+                if key in self._inflight or (cached is not None and cached.expires_at > now):
+                    continue
+                self._inflight.add(key)
+            self._refresh(key, claimed=True)
+            fetched += 1
+        return fetched
 
     def _fetch_categories_parallel(self, fetch_one) -> list[list]:
         """Run ``fetch_one(export_url)`` for every category concurrently.
@@ -191,17 +329,22 @@ class IndicoClient:
 
     def _fetch_remote(self, from_date: str, to_date: str) -> list[IndicoEvent]:
         """Fetch all configured categories and dedupe the union by event id."""
+        return self._fetch_remote_checked(from_date, to_date)[0]
+
+    def _fetch_remote_checked(self, from_date: str, to_date: str) -> tuple[list[IndicoEvent], bool]:
+        """Like ``_fetch_remote`` but also report whether every category succeeded."""
         seen: set[str] = set()
         merged: list[IndicoEvent] = []
         per_category = self._fetch_categories_parallel(
-            lambda url: self._fetch_single(url, from_date, to_date)
+            lambda url: self._fetch_single_checked(url, from_date, to_date)
         )
+        ok = all(events is not None for events in per_category)
         for events in per_category:
-            for ev in events:
+            for ev in events or []:
                 if ev.id and ev.id not in seen:
                     seen.add(ev.id)
                     merged.append(ev)
-        return merged
+        return merged, ok
 
     # indico.bnl.gov 504s when a detail=contributions export spans much
     # more than a few months (the payload is generated synchronously).
@@ -351,6 +494,10 @@ class IndicoClient:
         return [r for r in results if isinstance(r, dict)]
 
     def _fetch_single(self, export_url: str, from_date: str, to_date: str) -> list[IndicoEvent]:
+        return self._fetch_single_checked(export_url, from_date, to_date) or []
+
+    def _fetch_single_checked(self, export_url: str, from_date: str, to_date: str) -> list[IndicoEvent] | None:
+        """Events of one category, or ``None`` when the fetch failed."""
         params = {"from": from_date, "to": to_date, "detail": "events", "pretty": "no"}
         headers = {"User-Agent": self.user_agent, "Accept": "application/json"}
         try:
@@ -358,12 +505,12 @@ class IndicoClient:
             response.raise_for_status()
         except Exception as exc:
             logger.warning("indico_fetch_failed", extra={"url": export_url, "error": str(exc)})
-            return []
+            return None
         try:
             payload = response.json()
         except ValueError:
             logger.warning("indico_non_json_response", extra={"url": export_url})
-            return []
+            return None
         if isinstance(payload, dict) and payload.get("message") and not payload.get("results"):
             logger.warning("indico_api_message", extra={"indico_message": payload.get("message"), "url": export_url})
             return []

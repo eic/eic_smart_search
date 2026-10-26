@@ -1,6 +1,7 @@
 import concurrent.futures
 import logging
 import re
+import time
 from datetime import datetime, timezone
 
 from sqlalchemy.orm import Session
@@ -92,9 +93,16 @@ class HybridRetriever:
         total_lexical = 0
         total_vector = 0
         vector_errors: list[str] = []
+        # Per-stage wall time (ms), summed across query variants. Stable keys:
+        # lexical (Postgres FTS), vector (query embedding + Qdrant, runs
+        # concurrently with lexical), fuse (chunk fetch + scoring), rerank,
+        # dedupe (post-rerank adjustments + duplicate reduction).
+        timings = {"lexical": 0.0, "vector": 0.0, "fuse": 0.0, "rerank": 0.0, "dedupe": 0.0}
 
         for variant in all_queries:
             fused, variant_debug = self._fuse_single_query(db, variant, filters, limit)
+            for key, value in variant_debug.pop("timings_ms", {}).items():
+                timings[key] += value
             per_query_debug.append({"query": variant, **variant_debug})
             total_lexical += variant_debug["lexical_count"]
             total_vector += variant_debug["vector_count"]
@@ -110,11 +118,15 @@ class HybridRetriever:
         # otherwise buries documents that spell the phrase out ("Preliminary
         # Technical Design Report") under material that echoes the acronym.
         rerank_query = f"{query} ({expanded})" if expanded else query
+        stage = time.perf_counter()
         if rerank:
             reranked, rerank_debug = self.reranker.rerank(rerank_query, union)
         else:
             reranked, rerank_debug = union, {"provider": "skipped", "reranked": 0, "reason": "preview"}
+        timings["rerank"] += (time.perf_counter() - stage) * 1000
+        stage = time.perf_counter()
         deduped = self._reduce_duplicates(reranked, query) if self.dedupe else reranked
+        timings["dedupe"] += (time.perf_counter() - stage) * 1000
         debug = {
             "queries": len(all_queries),
             "extra_queries": list(extra_queries or []),
@@ -124,6 +136,7 @@ class HybridRetriever:
             "returned_count": min(len(deduped), top_k),
             "vector_errors": vector_errors,
             "rerank": rerank_debug,
+            "timings_ms": {key: int(round(value)) for key, value in timings.items()},
             "per_query": per_query_debug if extra_queries else None,
             "filters": {
                 "scope": filters.scope,
@@ -148,8 +161,18 @@ class HybridRetriever:
         # embedding inference) so it overlaps with the Postgres full-text
         # query on the request thread. The DB Session is not thread-safe,
         # so lexical stays on the caller's thread.
-        vector_future = _VECTOR_POOL.submit(self.vector_store.search, query, filters, limit)
+        started = time.perf_counter()
+        vector_finished: list[float] = []
+
+        def _timed_vector_search() -> list[dict]:
+            try:
+                return self.vector_store.search(query, filters, limit)
+            finally:
+                vector_finished.append(time.perf_counter())
+
+        vector_future = _VECTOR_POOL.submit(_timed_vector_search)
         lexical_results = self.lexical.search(db, query, filters, limit)
+        lexical_done = time.perf_counter()
         vector_results: list[dict] = []
         vector_error: str | None = None
         try:
@@ -157,6 +180,8 @@ class HybridRetriever:
         except Exception as exc:  # pragma: no cover - exercised only when Qdrant is unavailable
             vector_error = str(exc)
             logger.warning("vector_search_failed", extra={"error": vector_error})
+        vector_done = time.perf_counter()
+        vector_end = vector_finished[0] if vector_finished else vector_done
 
         lexical_scores = {chunk.chunk_id: chunk.lexical_score for chunk in lexical_results}
         vector_scores = {
@@ -225,10 +250,19 @@ class HybridRetriever:
                 chunk.score += self._freshness_boost(chunk)
             fused.append(chunk)
 
+        fuse_done = time.perf_counter()
         return fused, {
             "lexical_count": len(lexical_results),
             "vector_count": len(vector_results),
             "vector_error": vector_error,
+            # "vector" is the vector job's own wall time (submit -> worker
+            # finished: pool queueing + query embedding + Qdrant), independent
+            # of lexical since the two run concurrently.
+            "timings_ms": {
+                "lexical": (lexical_done - started) * 1000,
+                "vector": (vector_end - started) * 1000,
+                "fuse": (fuse_done - vector_done) * 1000,
+            },
         }
 
     def _instructional_boost(self, query: str, chunk: RetrievedChunk) -> float:

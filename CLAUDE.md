@@ -71,7 +71,7 @@ Config           app/core/config.py         Pydantic settings from env
 3. **Hybrid retrieve**: `HybridRetriever.search()` runs lexical (Postgres FTS) and vector (Qdrant + MiniLM) **in parallel**, fuses with 0.62·vec + 0.38·lex, applies freshness + instructional boosts, dedupes.
 4. **Rerank** (optional): local cross-encoder, thread-pool with timeout fallback.
 6. **Answer generation**: OpenAI chat completions with citation-anchored prompt (`[1][2]`). Falls back to extractive generator on error.
-7. **QueryLog + cache insert** for analytics.
+7. **QueryLog + cache insert** for analytics. `confidence` = best raw vector score among the top 3 chunks ("high" when the answer came from the Indico tool); `retrieval_debug.timings_ms` breaks retrieval into lexical/vector/fuse/rerank/dedupe. A `WARM_INTERVAL_S` keepalive thread re-embeds, reranks and refreshes the Indico windows so idle periods don't produce 15–40 s first queries.
 
 `POST /query/stream` is the SSE variant (used for perceived speed): emits a `citations` event as soon as retrieval returns, `delta` events per answer fragment, then `done` with the final aligned answer + citations. Same cache/log semantics via the shared `QueryService._finalize`.
 
@@ -119,7 +119,7 @@ Chunks carry `visibility` metadata (`public` / `internal`). Enforced at both Pos
 
 ### Database schema key tables
 
-`sources`, `documents`, `chunks` (core content + hashes), `crawl_jobs` (job tracking), `ingestion_state` (cursor per connector), `query_logs` (telemetry + tokens + cost + confidence), `feedback` (user ratings; the widget POSTs the rating on click and PATCHes the optional report text onto the same row).
+`sources`, `documents`, `chunks` (core content + hashes), `crawl_jobs` (job tracking), `ingestion_state` (cursor per connector), `query_logs` (telemetry + tokens + cost + confidence), `feedback` (user ratings; the widget POSTs the rating on click and PATCHes the optional report text onto the same row), `citation_clicks` (widget citation-click telemetry via `POST /citations/click`).
 
 ### Local stack (docker-compose.yml)
 

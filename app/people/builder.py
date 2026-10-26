@@ -359,6 +359,7 @@ def _collect_from_indico(
         category_url=category_url,
         cache_ttl_s=cache_ttl_s,
         timeout_s=timeout_s,
+        warm_on_init=False,  # one-off bulk export; the query-time cache is not used here
     )
     raw_events = client.fetch_raw_events(
         from_date=f"-{int(lookback_days)}d",

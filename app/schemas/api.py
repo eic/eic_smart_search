@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 Scope = Literal["public", "internal", "all"]
@@ -70,12 +70,16 @@ class IngestRunResponse(BaseModel):
 
 
 class FeedbackCreate(BaseModel):
-    # Older widget builds also send selected_citation_ids / metadata —
-    # pydantic ignores unknown fields, so they are simply dropped.
     query_log_id: str | None = None
     query: str | None = None
     rating: int | None = Field(default=None, ge=1, le=5)
     comment: str | None = Field(default=None, max_length=4000)
+
+    @model_validator(mode="after")
+    def _rating_or_comment(self) -> "FeedbackCreate":
+        if self.rating is None and not self.comment:
+            raise ValueError("rating or comment required")
+        return self
 
 
 class FeedbackUpdate(BaseModel):
@@ -85,6 +89,11 @@ class FeedbackUpdate(BaseModel):
 class FeedbackRead(BaseModel):
     id: str
     created_at: datetime
+
+
+class CitationClickCreate(BaseModel):
+    query_log_id: str | None = None
+    chunk_id: str = Field(min_length=1, max_length=36)
 
 
 class ReindexRequest(BaseModel):

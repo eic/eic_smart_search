@@ -495,3 +495,83 @@ def test_probe_requests_skip_generation_and_cache() -> None:
     resp2 = service.query(FakeDb(), QueryRequest(query="init", top_k=3))
     assert resp2.retrieval_debug["cache_hit"] is False
     assert CountingGenerator.calls == 1
+
+
+def test_confidence_uses_best_vector_score_among_top_three() -> None:
+    """A lexical-only top chunk (vector_score 0) must not label a well-
+    supported answer "none" — the best of the first 3 chunks counts."""
+
+    class LexicalTopRetriever(_MultiChunkRetriever):
+        def search(self, db, query, filters, top_k, extra_queries=None, rerank=None):
+            chunks, dbg = super().search(db, query, filters, top_k, extra_queries, rerank)
+            for c in chunks:
+                c.vector_score = 0.0
+            chunks[1].vector_score = 0.6  # >= CONFIDENCE_VEC_HIGH
+            return chunks, dbg
+
+    from app.services.query_cache import QueryCache
+
+    cache = QueryCache(max_size=10, ttl_s=60)
+    db = FakeDb()
+    service = QueryService(FakeSettings(), LexicalTopRetriever(n=5), FakeGenerator(), query_cache=cache)
+    resp = service.query(db, QueryRequest(query="q", scope="public", top_k=5, generate_answer=True))
+    assert resp.expert_hint is None
+    assert db.added[-1].confidence == "high"
+
+    # Cache replay re-derives the same label from the stored scalar.
+    db2 = FakeDb()
+    resp2 = service.query(db2, QueryRequest(query="q", scope="public", top_k=5, generate_answer=True))
+    assert resp2.retrieval_debug["cache_hit"] is True
+    assert db2.added[-1].confidence == "high"
+
+
+def test_confidence_rules() -> None:
+    service = QueryService(FakeSettings(), FakeRetriever(), FakeGenerator())
+
+    def chunk(i, vec):
+        return RetrievedChunk(
+            chunk_id=f"c{i}", document_id=f"d{i}", source_name="s", source_type="website",
+            title="t", url="u", content="c", score=1.0, vector_score=vec,
+        )
+
+    # Only the first 3 chunks count.
+    assert service._confidence_score([chunk(0, 0.0), chunk(1, 0.0), chunk(2, 0.0), chunk(3, 0.9)]) == 0.0
+    assert service._confidence_score([chunk(0, 0.0), chunk(1, 0.4), chunk(2, 0.2)]) == 0.4
+    assert service._confidence_score([]) is None
+    assert service._confidence(0.0) == "none"
+    assert service._confidence(None) == "none"
+    assert service._confidence(0.1) == "low"
+    assert service._confidence(0.4) == "medium"
+    assert service._confidence(0.6) == "high"
+    # Tool-grounded (Indico) answers are high regardless of vector evidence.
+    assert service._confidence(0.0, from_tool=True) == "high"
+
+
+def test_confidence_high_for_indico_tool_answer() -> None:
+    """Answers whose citations came from the Indico tool are "high" even
+    though those chunks carry no vector_score, so no expert referral fires."""
+    url = "https://indico.bnl.gov/event/123/"
+
+    class IndicoGenerator:
+        def generate(self, query, chunks, min_support_score, *, history=None):
+            return (
+                f"The Glasgow meeting is listed at {url} [1].",
+                {"mode": "fake", "tool_rounds": 1,
+                 "indico_events": [{"id": "123", "title": "Glasgow collaboration meeting", "url": url,
+                                    "start": "2026-07-01"}]},
+            )
+
+    class ZeroVecRetriever(_MultiChunkRetriever):
+        def search(self, db, query, filters, top_k, extra_queries=None, rerank=None):
+            chunks, dbg = super().search(db, query, filters, top_k, extra_queries, rerank)
+            for c in chunks:
+                c.vector_score = 0.0
+            return chunks, dbg
+
+    db = FakeDb()
+    service = QueryService(FakeSettings(), ZeroVecRetriever(n=3), IndicoGenerator())
+    resp = service.query(db, QueryRequest(query="what is glasgow collaboration meeting", scope="public",
+                                          top_k=3, generate_answer=True))
+    assert resp.retrieval_debug.get("indico_citations")
+    assert db.added[-1].confidence == "high"
+    assert resp.expert_hint is None

@@ -310,13 +310,18 @@ class QueryService:
         if request.client:
             debug["client"] = request.client
         top_score = chunks[0].score if chunks else None
-        top_vector_score = chunks[0].vector_score if chunks else None
+        confidence_score = self._confidence_score(chunks)
+        # Answers built from live tool results (Indico events) carry no vector
+        # evidence by construction but are grounded — label them "high".
+        confidence = self._confidence(
+            confidence_score, from_tool=bool(retrieval_debug.get("indico_citations"))
+        )
         # Low-confidence answers get a human referral instead of a bare
         # apology (people graph join — no extra LLM call, ~ms latency).
         expert_hint: str | None = None
         if request.generate_answer and (
             generation_debug.get("support") == "insufficient"
-            or self._confidence(top_vector_score) in ("low", "none")
+            or confidence in ("low", "none")
         ):
             # Surfaced as a structured response field (the widget renders it
             # as an expert-referral card) — not appended into the answer text.
@@ -333,7 +338,7 @@ class QueryService:
             prompt_tokens=generation_debug.get("prompt_tokens"),
             completion_tokens=generation_debug.get("completion_tokens"),
             cost_usd=generation_debug.get("cost_usd"),
-            confidence=self._confidence(top_vector_score),
+            confidence=confidence,
             top_score=top_score,
             answer=answer,
         )
@@ -369,7 +374,7 @@ class QueryService:
                     "answer": answer,
                     "citations": [c.model_dump() for c in citations],
                     "top_score": top_score,
-                    "top_vector_score": top_vector_score,
+                    "confidence_score": confidence_score,
                     "top_k": request.top_k,
                 },
             )
@@ -513,7 +518,9 @@ class QueryService:
         answer = payload.get("answer", "")
         citations = [Citation(**c) for c in payload.get("citations", [])][: request.top_k]
         top_score = payload.get("top_score")
-        top_vector_score = payload.get("top_vector_score")
+        # "top_vector_score" is the pre-confidence_score key (entries cached
+        # before the change); both are the same kind of raw cosine scalar.
+        confidence_score = payload.get("confidence_score", payload.get("top_vector_score"))
         latency_ms = int((time.perf_counter() - started) * 1000)
         debug = {
             "cache_hit": True,
@@ -535,25 +542,39 @@ class QueryService:
             prompt_tokens=0,
             completion_tokens=0,
             cost_usd=0.0,
-            confidence=self._confidence(top_vector_score),
+            confidence=self._confidence(confidence_score),
             top_score=top_score,
             answer=answer,
         )
         return QueryResponse(answer=answer, citations=citations, retrieval_debug=debug, query_log_id=log_id)
 
-    def _confidence(self, top_vector_score: float | None) -> str:
-        # Raw cosine similarity from Qdrant (vector_score on the top chunk),
-        # not the per-batch-normalized fusion score — the fused score's top
-        # row is structurally near 1.0 for every non-empty result, so it
-        # cannot distinguish weak from strong matches. A 0.0 means the top
-        # chunk was found by lexical search only (no vector evidence), which
-        # is "none", not "low" — treating it as low used to skew analytics
-        # and fire spurious expert hints on perfectly good FTS matches.
-        if not top_vector_score:
+    # How many leading chunks contribute vector evidence to the confidence
+    # label. One lexical-only chunk on top (vector_score 0) must not zero an
+    # otherwise well-supported answer.
+    CONFIDENCE_TOP_N = 3
+
+    @classmethod
+    def _confidence_score(cls, chunks: list[RetrievedChunk]) -> float | None:
+        """Best raw vector cosine among the first CONFIDENCE_TOP_N chunks."""
+        if not chunks:
+            return None
+        return max((c.vector_score or 0.0) for c in chunks[: cls.CONFIDENCE_TOP_N])
+
+    def _confidence(self, confidence_score: float | None, *, from_tool: bool = False) -> str:
+        # Raw cosine similarity from Qdrant (best vector_score among the top
+        # few chunks, see _confidence_score), not the per-batch-normalized
+        # fusion score — the fused score's top row is structurally near 1.0
+        # for every non-empty result, so it cannot distinguish weak from
+        # strong matches. 0.0 means none of the leading chunks had vector
+        # evidence (lexical-only) -> "none". Tool-grounded answers (Indico
+        # events cited) are "high" regardless of retrieval scores.
+        if from_tool:
+            return "high"
+        if not confidence_score:
             return "none"
-        if top_vector_score < self.settings.CONFIDENCE_VEC_LOW:
+        if confidence_score < self.settings.CONFIDENCE_VEC_LOW:
             return "low"
-        if top_vector_score < self.settings.CONFIDENCE_VEC_HIGH:
+        if confidence_score < self.settings.CONFIDENCE_VEC_HIGH:
             return "medium"
         return "high"
 

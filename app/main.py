@@ -1,9 +1,46 @@
+import logging
+import threading
+import time
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import router
 from app.core.config import get_settings
 from app.core.logging import configure_logging
+
+logger = logging.getLogger(__name__)
+
+
+def _warm_once(service) -> None:
+    """Same cheap warm-up as build_query_service, plus one rerank pair."""
+    from app.retrieval.rerank import NullReranker
+    from app.retrieval.types import RetrievedChunk
+
+    retriever = service.retriever
+    retriever.vector_store.embeddings.embed_query("warm up")
+    if not isinstance(retriever.reranker, NullReranker):
+        chunk = RetrievedChunk(
+            chunk_id="warm", document_id="warm", source_name="warm", source_type="warm",
+            title="warm", url="", content="warm up", score=0.0,
+        )
+        retriever.reranker.rerank("warm up", [chunk])
+    # Indico tool: refresh the event windows the tool queries so the first
+    # "when is the next ... meeting" of the day never waits on indico.bnl.gov.
+    indico = getattr(getattr(service, "answer_generator", None), "_indico", None)
+    if indico is not None and hasattr(indico, "warm"):
+        indico.warm()
+
+
+def _keepalive_loop(settings, interval_s: float) -> None:
+    from app.api.routes import query_service_dep
+
+    while True:  # daemon thread: dies with the process, never blocks shutdown
+        time.sleep(interval_s)
+        try:
+            _warm_once(query_service_dep(settings))
+        except Exception as exc:  # keepalive must never crash or spam logs
+            logger.debug("warm_keepalive_failed", extra={"error": str(exc)})
 
 
 def create_app() -> FastAPI:
@@ -52,6 +89,17 @@ def create_app() -> FastAPI:
             query_service_dep(settings)
         except Exception:  # pragma: no cover — warm-up must never block boot
             pass
+
+    @app.on_event("startup")
+    def _start_warm_keepalive() -> None:
+        # Idle keepalive (WARM_INTERVAL_S, 0 disables): first queries after
+        # hours of idle took 15-40 s on a cold embedding/GPU path.
+        interval_s = float(getattr(settings, "WARM_INTERVAL_S", 0) or 0)
+        if interval_s > 0:
+            threading.Thread(
+                target=_keepalive_loop, args=(settings, interval_s),
+                name="warm-keepalive", daemon=True,
+            ).start()
 
     return app
 

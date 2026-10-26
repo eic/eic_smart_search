@@ -229,6 +229,10 @@ def build_analytics(db: Session, window_days: int = 7, limit: int = 20) -> Analy
     )
 
 
+POPULAR_MAX_WINDOW_DAYS = 90
+POPULAR_MIN_COUNT = 2
+
+
 def build_popular_queries(
     db: Session,
     window_days: int = 7,
@@ -247,8 +251,13 @@ def build_popular_queries(
     Also requires at least `min_results` citations were returned, so
     failed / zero-result phrasings never surface. Query text is capped
     at 120 chars defensively.
+
+    Since this feeds public suggestion chips, the window is clamped to
+    [1, POPULAR_MAX_WINDOW_DAYS] and a query must have been asked at least
+    POPULAR_MIN_COUNT times: one-off (or attacker-planted) text never
+    surfaces, and ancient queries can't be dredged up via a huge window.
     """
-    window_days = max(1, min(window_days, 3650))
+    window_days = max(1, min(int(window_days), POPULAR_MAX_WINDOW_DAYS))
     limit = max(1, min(limit, 20))
     min_words = max(1, min_words)
     since = datetime.now(timezone.utc) - timedelta(days=window_days)
@@ -274,6 +283,7 @@ def build_popular_queries(
             human_traffic(),
         )
         .group_by(QueryLog.query)
+        .having(func.count(QueryLog.id) >= POPULAR_MIN_COUNT)
         .order_by(desc(func.count(QueryLog.id)))
         .limit(limit)
     ).all()

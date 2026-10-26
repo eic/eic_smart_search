@@ -342,7 +342,10 @@ def build_arm_service(base: Settings, arm: Arm) -> tuple[QueryService, Settings]
         if arm.generate and getattr(settings, "AGENTIC_SEARCH_ENABLED", True)
         else None
     )
-    generator = build_answer_generator(gen_settings, index_search_client=index_search)
+    # One generator per arm: skip the Indico warm thread each would start.
+    generator = build_answer_generator(
+        gen_settings, index_search_client=index_search, warm_indico=False
+    )
     # No cache: every arm must actually run, and arms share query text.
     service = QueryService(settings, retriever, generator, query_cache=None)
     return service, settings

@@ -15,16 +15,16 @@ logger = logging.getLogger(__name__)
 def _warm_once(service) -> None:
     """Same cheap warm-up as build_query_service, plus one rerank pair."""
     from app.retrieval.rerank import NullReranker
-    from app.retrieval.types import RetrievedChunk
 
     retriever = service.retriever
     retriever.vector_store.embeddings.embed_query("warm up")
-    if not isinstance(retriever.reranker, NullReranker):
-        chunk = RetrievedChunk(
-            chunk_id="warm", document_id="warm", source_name="warm", source_type="warm",
-            title="warm", url="", content="warm up", score=0.0,
-        )
-        retriever.reranker.rerank("warm up", [chunk])
+    reranker = retriever.reranker
+    # Score one pair on the bare model, NOT via rerank(): that takes the
+    # reranker's GPU lock, and a cold warm-up holding it for seconds made a
+    # concurrent user query skip reranking (and get that result cached).
+    model = getattr(reranker, "_model", None)
+    if not isinstance(reranker, NullReranker) and hasattr(model, "predict"):
+        model.predict([["warm up", "warm up"]], convert_to_numpy=True)
     # Indico tool: refresh the event windows the tool queries so the first
     # "when is the next ... meeting" of the day never waits on indico.bnl.gov.
     indico = getattr(getattr(service, "answer_generator", None), "_indico", None)

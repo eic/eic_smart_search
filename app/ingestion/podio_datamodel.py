@@ -41,23 +41,27 @@ _DOXYGEN_BASE = {
 _MEMBER_RE = re.compile(r"^\s*(?P<type>[\w:<>,\s]+?)\s+(?P<name>\w+)\s*(?://\s*(?P<comment>.*))?$")
 
 
-def _doxygen_class_url(qualified: str) -> str:
+def _doxygen_class_url(qualified: str, prefix: str = "class") -> str:
     """'edm4eic::TrackClusterMatch' → Doxygen class page URL.
 
     Doxygen file naming: CamelCase → lowercase with '_' before each upper,
-    '::' → '_1_1'.
+    '::' → '_1_1'. ``prefix`` is ``"struct"`` for types Doxygen documents
+    as structs (PODIO components).
     """
     namespace, _, name = qualified.partition("::")
     base = _DOXYGEN_BASE.get(namespace)
     if not base or not name:
         return ""
     snake = re.sub(r"([A-Z])", r"_\1", name).lower()
-    return f"{base}class{namespace}_1_1{snake}.html"
+    return f"{base}{prefix}{namespace}_1_1{snake}.html"
 
 
-_CLASS_PAGE_RE = re.compile(r"""href=["']?(class\w+?_1_1\w+?\.html)""")
-# Top-level type keys in the YAML: '  edm4eic::Track:' (optionally quoted).
-_TYPE_KEY_RE = re.compile(r"""^\s*["']?(?P<name>\w+::\w+)["']?\s*:""")
+# Doxygen page prefixes, in citation preference order.
+_DOXYGEN_PAGE_PREFIXES = ("class", "struct")
+_CLASS_PAGE_RE = re.compile(r"""href=["']?((?:class|struct)\w+?_1_1\w+?\.html)""")
+# Top-level type keys in the YAML: '  edm4eic::Track:' (optionally quoted);
+# the lookahead rejects the '::' of 'ns::Type::member'.
+_TYPE_KEY_RE = re.compile(r"""^\s*["']?(?P<name>\w+::\w+)["']?\s*:(?!:)""")
 
 
 def _doxygen_filename(url: str) -> str:
@@ -65,7 +69,7 @@ def _doxygen_filename(url: str) -> str:
 
 
 def _parse_annotated(html: str) -> set[str]:
-    """Class-page filenames referenced by a Doxygen ``annotated.html``."""
+    """Class/struct page filenames referenced by a Doxygen ``annotated.html``."""
     return set(_CLASS_PAGE_RE.findall(html))
 
 
@@ -169,7 +173,7 @@ class PodioDatamodelConnector:
     # ---- Doxygen index ------------------------------------------------------
 
     def _published_pages(self, base: str, client: httpx.Client | None) -> set[str] | None:
-        """Class pages listed in ``<base>annotated.html``; fetched once per run.
+        """Class/struct pages listed in ``<base>annotated.html``; fetched once per run.
 
         ``None`` means unknown (no client or fetch failed) — callers then keep
         the Doxygen URL, as before this check existed.
@@ -202,13 +206,18 @@ class PodioDatamodelConnector:
         type_lines: dict[str, int],
         client: httpx.Client | None,
     ) -> tuple[str, str]:
-        """(url, doc_page) — Doxygen page if published, else the YAML line."""
+        """(url, doc_page) — Doxygen class or struct page if published,
+        else the YAML line."""
         doxygen_url = _doxygen_class_url(qualified)
         if doxygen_url:
             base = _DOXYGEN_BASE[qualified.partition("::")[0]]
             pages = self._published_pages(base, client)
-            if pages is None or _doxygen_filename(doxygen_url) in pages:
+            if pages is None:
                 return doxygen_url, "doxygen"
+            for prefix in _DOXYGEN_PAGE_PREFIXES:
+                url = _doxygen_class_url(qualified, prefix)
+                if _doxygen_filename(url) in pages:
+                    return url, "doxygen"
         blob = _yaml_blob_url(source_url)
         line = type_lines.get(qualified)
         return (f"{blob}#L{line}" if line else blob), "yaml"

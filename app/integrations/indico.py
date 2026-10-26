@@ -94,8 +94,10 @@ class IndicoClient:
     Caching is stale-while-revalidate: an expired window is still served
     immediately while a background daemon thread refreshes it (one
     in-flight refresh per window). A caller blocks on the network only
-    when the window has never been fetched, and at most once per search().
-    A failed refresh keeps the previous data.
+    when the window has never been fetched; if another thread is already
+    fetching it, the caller waits for that fetch (bounded by
+    ``timeout_s``) instead of starting a second one. A failed refresh
+    keeps the previous data.
     """
 
     # Windows the search_indico_events tool actually requests (see
@@ -140,8 +142,9 @@ class IndicoClient:
         self.user_agent = user_agent
         self._cache: dict[tuple[str, str], _CacheEntry] = {}
         self._lock = threading.Lock()
-        # Cache keys with a refresh currently running (background or warm()).
-        self._inflight: set[tuple[str, str]] = set()
+        # Cache keys with a refresh currently running (background, warm() or
+        # a blocking caller); the Event is set when that refresh finishes.
+        self._inflight: dict[tuple[str, str], threading.Event] = {}
         # Keys whose last refresh failed — warn once per failure streak.
         self._failing: set[tuple[str, str]] = set()
         if self.cache_ttl_s > 0 and warm_on_init:
@@ -187,22 +190,10 @@ class IndicoClient:
             if fb not in attempts:
                 attempts.append(fb)
         events: list[IndicoEvent] = []
-        # At most one blocking network round per search(): once a window had
-        # to be fetched synchronously, later fallback windows are served from
-        # cache only (and fetched in the background if missing).
-        allow_block = True
-        for attempt_from, attempt_to in attempts:
-            key = (attempt_from, attempt_to)
-            if allow_block and self.cache_ttl_s > 0:
-                with self._lock:
-                    will_block = key not in self._cache
-            else:
-                will_block = allow_block
-            window_events = self._fetch_window(key, allow_block=allow_block)
-            if will_block:
-                allow_block = False
-            if window_events is None:
-                continue
+        # Fallback windows are consulted only when the previous window had
+        # no matches, so each may block on its own fetch.
+        for key in attempts:
+            window_events = self._fetch_window(key)
             if query:
                 window_events = self._filter(window_events, query)
             if window_events:
@@ -211,31 +202,29 @@ class IndicoClient:
         events.sort(key=lambda e: e.start)
         return events[:limit]
 
-    def _fetch_window(
-        self, cache_key: tuple[str, str], *, allow_block: bool = True
-    ) -> list[IndicoEvent] | None:
+    def _fetch_window(self, cache_key: tuple[str, str]) -> list[IndicoEvent]:
         """Events for one window, stale-while-revalidate.
 
         Fresh entry -> returned. Expired entry -> returned as-is while a
-        background refresh is scheduled. No entry -> fetched synchronously
-        when ``allow_block``; otherwise a background fetch is scheduled and
-        ``None`` is returned (the caller already spent its one fetch round).
+        background refresh is scheduled. No entry -> fetched synchronously,
+        or, when another thread is already fetching it, waited for (bounded
+        by ``timeout_s``). Without a cache every call fetches.
         """
         if self.cache_ttl_s <= 0:
-            if not allow_block:
-                return None
             return self._fetch_remote(*cache_key)
         now = time.time()
         with self._lock:
             cached = self._cache.get(cache_key)
+            claimed = cached is None and self._claim(cache_key)
+            pending = self._inflight.get(cache_key) if cached is None and not claimed else None
         if cached is not None:
             if cached.expires_at <= now:
                 self._refresh_async(cache_key)
             return list(cached.events)
-        if not allow_block:
-            self._refresh_async(cache_key)
-            return None
-        self._refresh(cache_key)
+        if claimed:
+            self._refresh(cache_key)
+        elif pending is not None:
+            pending.wait(self.timeout_s)
         with self._lock:
             cached = self._cache.get(cache_key)
         return list(cached.events) if cached is not None else []
@@ -244,26 +233,39 @@ class IndicoClient:
         """Start ``target(*args)`` in a daemon thread (patched in tests)."""
         threading.Thread(target=target, args=args, daemon=True, name="indico-refresh").start()
 
+    def _claim(self, cache_key: tuple[str, str]) -> bool:
+        """Mark ``cache_key`` in flight; False if a refresh already owns it.
+
+        Caller must hold ``self._lock``.
+        """
+        if cache_key in self._inflight:
+            return False
+        self._inflight[cache_key] = threading.Event()
+        return True
+
     def _refresh_async(self, cache_key: tuple[str, str]) -> None:
         with self._lock:
-            if cache_key in self._inflight:
+            if not self._claim(cache_key):
                 return
-            self._inflight.add(cache_key)
         try:
-            self._spawn(self._refresh, cache_key, True)
+            self._spawn(self._refresh, cache_key)
         except Exception:
-            with self._lock:
-                self._inflight.discard(cache_key)
+            self._release(cache_key)
             raise
 
-    def _refresh(self, cache_key: tuple[str, str], claimed: bool = False) -> None:
+    def _release(self, cache_key: tuple[str, str]) -> None:
+        """Drop the in-flight mark and wake any waiters."""
+        with self._lock:
+            done = self._inflight.pop(cache_key, None)
+        if done is not None:
+            done.set()
+
+    def _refresh(self, cache_key: tuple[str, str]) -> None:
         """Fetch one window and store it, keeping stale data on failure.
 
-        ``claimed`` means the caller already put the key in ``_inflight``.
+        The caller must have claimed ``cache_key`` in ``_inflight``; the
+        claim is released (and waiters woken) when this returns.
         """
-        if not claimed:
-            with self._lock:
-                self._inflight.add(cache_key)
         try:
             events, ok = self._fetch_remote_checked(*cache_key)
             now = time.time()
@@ -290,8 +292,7 @@ class IndicoClient:
         except Exception as exc:  # never let a background refresh die loudly
             logger.warning("indico_refresh_error", extra={"error": str(exc)[:200]})
         finally:
-            with self._lock:
-                self._inflight.discard(cache_key)
+            self._release(cache_key)
 
     def warm(self, windows: list[tuple[str, str]] | None = None) -> int:
         """Prefetch windows (default: those the live tool uses) into the cache.
@@ -308,10 +309,9 @@ class IndicoClient:
             now = time.time()
             with self._lock:
                 cached = self._cache.get(key)
-                if key in self._inflight or (cached is not None and cached.expires_at > now):
+                if (cached is not None and cached.expires_at > now) or not self._claim(key):
                     continue
-                self._inflight.add(key)
-            self._refresh(key, claimed=True)
+            self._refresh(key)
             fetched += 1
         return fetched
 

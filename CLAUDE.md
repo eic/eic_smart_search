@@ -113,6 +113,10 @@ Built in `app/services/factory.py`:
 
 Mutating endpoints (`/ingest/run`, `/admin/reindex`, `/people/refresh`, `/eval/run`) are guarded by `require_admin` ([app/api/auth.py](app/api/auth.py)). `ADMIN_AUTH_MODE`: `none` (dev), `token` (shared `ADMIN_TOKEN`), or `github_org` — callers authenticate with their own GitHub PAT and must be an active member of `ADMIN_GITHUB_ORG` (default `eic`).
 
+### Public-response hygiene
+
+Non-admin callers get `retrieval_debug` through `public_debug()` (cache/latency/timings only, no tool payloads, people cards or provider errors). `RateLimited` also caps in-flight requests per client (`MAX_INFLIGHT_PER_CLIENT`); `/query/stream` holds its slot for the whole stream. Code-search tool input is stripped of GitHub qualifiers and the repo must match `<org>/name`. The widget sanitizes answers with a DOMPurify allowlist (no img/style, http(s) links only to citation hosts). Compose publishes every port on 127.0.0.1 only; Cloudflare tunnel is the sole public path.
+
 ### Visibility / permission model
 
 Chunks carry `visibility` metadata (`public` / `internal`). Enforced at both Postgres (WHERE) and Qdrant (filter) query level. The `/query` endpoint accepts a `scope` parameter (`public`, `internal`, `all`). Public widget should always send `scope: "public"`.

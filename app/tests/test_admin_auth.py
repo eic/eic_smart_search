@@ -196,3 +196,60 @@ def test_github_sso_allowlist_end_to_end(monkeypatch) -> None:
     with pytest.raises(HTTPException) as exc:
         require_admin(FakeRequest("bad"), s)
     assert exc.value.status_code == 403
+
+
+@pytest.mark.parametrize("mode", ["token", "github_sso", "github_org"])
+@pytest.mark.parametrize("bad", ["sékret", "\U0001F600", "a b"])
+def test_non_ascii_bearer_is_401_not_500(mode, bad, monkeypatch) -> None:
+    s = FakeSettings()
+    s.ADMIN_AUTH_MODE = mode
+    s.ADMIN_TOKEN = "sekret"
+    s.ADMIN_SESSION_SECRET = "topsecret"
+    monkeypatch.setattr(
+        auth_mod, "verify_admin_login", lambda *a, **k: pytest.fail("must not reach GitHub")
+    )
+    with pytest.raises(HTTPException) as exc:
+        require_admin(FakeRequest(bad), s)
+    assert exc.value.status_code == 401
+    assert auth_mod.is_admin_request(FakeRequest(bad), s) is False
+
+
+def test_non_ascii_bearer_vs_non_ascii_secret_does_not_crash() -> None:
+    s = FakeSettings()
+    s.ADMIN_AUTH_MODE = "token"
+    s.ADMIN_TOKEN = "sékret"
+    # A non-ASCII configured secret can't be matched by a well-formed token,
+    # but comparison must still fail cleanly (403), never TypeError.
+    with pytest.raises(HTTPException) as exc:
+        require_admin(FakeRequest("sekret"), s)
+    assert exc.value.status_code == 403
+    assert auth_mod._consteq("é", "é") is True
+    assert auth_mod._consteq("\U0001F600", "x") is False
+
+
+@pytest.mark.parametrize(
+    "cookie", ["été.sig", "body.é", "\U0001F600.\U0001F600", "x.y.z", "", "."]
+)
+def test_malformed_session_cookie_is_401_not_500(cookie) -> None:
+    from app.api.auth import SESSION_COOKIE, verify_payload
+
+    assert verify_payload(cookie, "topsecret") is None
+    s = FakeSettings()
+    s.ADMIN_AUTH_MODE = "github_sso"
+    s.ADMIN_SESSION_SECRET = "topsecret"
+    req = FakeRequest(None)
+    req.cookies = {SESSION_COOKIE: cookie}
+    with pytest.raises(HTTPException) as exc:
+        require_admin(req, s)
+    assert exc.value.status_code == 401
+
+
+def test_signed_non_dict_payload_rejected() -> None:
+    import hashlib
+    import hmac
+
+    from app.api.auth import _b64, verify_payload
+
+    body = _b64(b"[1,2]")
+    sig = _b64(hmac.new(b"k", body.encode(), hashlib.sha256).digest())
+    assert verify_payload(f"{body}.{sig}", "k") is None

@@ -1,3 +1,5 @@
+import threading
+import time
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -198,16 +200,113 @@ def test_failed_refresh_keeps_stale_data_and_warns_once(caplog):
     assert all(e.expires_at > 0 for e in client._cache.values())
 
 
-def test_search_blocks_on_at_most_one_fetch_round():
+def _req_window(call) -> tuple[str, str]:
+    return call.kwargs["params"]["from"], call.kwargs["params"]["to"]
+
+
+def _match_only_in(window: tuple[str, str]):
+    """httpx.get mock returning FAKE_PAYLOAD only for ``window``."""
+    def _get(url, params=None, **kwargs):
+        response = MagicMock()
+        response.raise_for_status = MagicMock()
+        hit = (params["from"], params["to"]) == window
+        response.json.return_value = FAKE_PAYLOAD if hit else {"results": []}
+        return response
+    return MagicMock(side_effect=_get)
+
+
+def test_cold_fallback_window_fetched_when_primary_has_no_match():
+    """Cold cache: the primary window is fetched, matches nothing, and the
+    365d fallback must be fetched too rather than reported as empty."""
     client = IndicoClient(URL, cache_ttl_s=60, warm_on_init=False)
     spawned: list = []
     client._spawn = lambda target, *args: spawned.append((target, args))  # type: ignore[method-assign]
-    mock = _mock_httpx_get({"results": []})
+    mock = _match_only_in(("-30d", "365d"))
     with patch("app.integrations.indico.httpx.get", mock):
-        assert client.search(query="DIRC") == []
-    # Primary window fetched synchronously; the 365d fallback deferred.
-    assert mock.call_count == 1
+        events = client.search(query="DIRC")
+    assert [e.id for e in events] == ["32601"]
+    assert [_req_window(c) for c in mock.call_args_list] == [("-7d", "30d"), ("-30d", "365d")]
+    assert spawned == []
+
+
+def test_explicit_from_date_fallback_fetched_cold():
+    client = IndicoClient(URL, cache_ttl_s=60, warm_on_init=False)
+    mock = _match_only_in(("2026-05-01", "365d"))
+    with patch("app.integrations.indico.httpx.get", mock):
+        events = client.search(from_date="2026-05-01", to_date="2026-05-10")
+    assert len(events) == 2
+
+
+def test_fallback_runs_without_cache():
+    client = IndicoClient(URL, cache_ttl_s=0)
+    mock = _match_only_in(("-30d", "365d"))
+    with patch("app.integrations.indico.httpx.get", mock):
+        assert len(client.search()) == 2
+        assert len(client.search()) == 2
+    # No cache: every window fetched on every call.
+    assert mock.call_count == 4
+
+
+def test_caller_waits_on_inflight_fetch_instead_of_refetching():
+    """A blocking caller that finds the window already being fetched (e.g.
+    by the warm thread) waits for it and serves its result."""
+    client = IndicoClient(URL, cache_ttl_s=60, warm_on_init=False)
+    started = threading.Event()
+    release = threading.Event()
+    calls: list = []
+
+    def _slow_get(url, params=None, **kwargs):
+        calls.append((params["from"], params["to"]))
+        started.set()
+        assert release.wait(5)
+        response = MagicMock()
+        response.raise_for_status = MagicMock()
+        response.json.return_value = FAKE_PAYLOAD
+        return response
+
+    with patch("app.integrations.indico.httpx.get", side_effect=_slow_get):
+        warmer = threading.Thread(target=client.warm, args=([("-7d", "30d")],))
+        warmer.start()
+        assert started.wait(5)
+        result: list = []
+        searcher = threading.Thread(target=lambda: result.append(client.search()))
+        searcher.start()
+        time.sleep(0.05)
+        assert result == []  # still waiting on the warm fetch
+        release.set()
+        warmer.join(5)
+        searcher.join(5)
+    assert [e.id for e in result[0]] == ["31239", "32601"]
+    assert calls == [("-7d", "30d")]
+    assert client._inflight == {}
+
+
+def test_inflight_wait_is_bounded_by_timeout():
+    client = IndicoClient(URL, cache_ttl_s=60, timeout_s=0.05, warm_on_init=False)
+    with client._lock:
+        assert client._claim(("-7d", "30d"))
+        assert client._claim(("-30d", "365d"))
+    with patch("app.integrations.indico.httpx.get", side_effect=AssertionError("no fetch")):
+        t0 = time.monotonic()
+        assert client.search() == []
+    assert time.monotonic() - t0 < 1.0
+
+
+def test_sync_fetch_does_not_steal_background_claim():
+    """While a background refresh owns a key, warm()/refresh_async must not
+    start a second one, and the claim is released exactly once."""
+    client = IndicoClient(URL, cache_ttl_s=60, warm_on_init=False)
+    spawned: list = []
+    client._spawn = lambda target, *args: spawned.append((target, args))  # type: ignore[method-assign]
+    key = ("-7d", "30d")
+    client._refresh_async(key)
+    assert client.warm([key]) == 0
+    client._refresh_async(key)
     assert len(spawned) == 1
+    with patch("app.integrations.indico.httpx.get", _mock_httpx_get()):
+        target, args = spawned[0]
+        target(*args)
+    assert key in client._cache and client._inflight == {}
 
 
 def test_warm_fetches_default_windows():

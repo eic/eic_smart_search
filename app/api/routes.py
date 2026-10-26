@@ -1,13 +1,17 @@
+import json
 import logging
+import threading
 from pathlib import Path
 from typing import Annotated, Any
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, status
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, StreamingResponse
 from sqlalchemy import desc, select, text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 import time as time_module
+from datetime import UTC, datetime, timedelta
 from urllib.parse import quote
 
 from app.api.auth import (
@@ -21,7 +25,7 @@ from app.api.auth import (
     sign_payload as auth_sign_payload,
     verify_payload as auth_verify_payload,
 )
-from app.api.ratelimit import RateLimited
+from app.api.ratelimit import RateLimited, acquire_inflight, client_key, release_inflight
 from app.core.config import Settings, get_settings
 from app.db.session import get_db
 from app.ingestion.orchestrator import IngestionOrchestrator
@@ -46,7 +50,7 @@ from app.schemas.api import (
 )
 from app.services.analytics import build_analytics, build_popular_queries, human_traffic
 from app.services.factory import build_query_service
-from app.services.query import QueryService
+from app.services.query import QueryService, public_debug
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -60,6 +64,7 @@ def settings_dep() -> Settings:
 
 
 _query_service_singleton: QueryService | None = None
+_query_service_lock = threading.Lock()
 _ingestion_singleton: IngestionOrchestrator | None = None
 
 
@@ -68,9 +73,14 @@ def query_service_dep(settings: Annotated[Settings, Depends(settings_dep)]) -> Q
     # HybridRetriever are all expensive to instantiate and stateless under
     # concurrent reads, so sharing is safe and massively cheaper than per-request
     # construction.
+    # Double-checked under a lock: the startup warm-up, the keepalive thread
+    # and request threads can race here, and a second build would load the
+    # embedding model twice.
     global _query_service_singleton
     if _query_service_singleton is None:
-        _query_service_singleton = build_query_service(settings)
+        with _query_service_lock:
+            if _query_service_singleton is None:
+                _query_service_singleton = build_query_service(settings)
     return _query_service_singleton
 
 
@@ -197,9 +207,10 @@ def ready(
         service.retriever.vector_store.client.get_collections()
         service.retriever.vector_store.ensure_collection()
     except Exception as exc:
+        # The exception text can carry DB host / user — log it, don't return it.
+        logger.warning("readiness probe failed", exc_info=True)
         raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail={"status": "not_ready", "error": str(exc)},
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="not ready"
         ) from exc
     return {"status": "ready"}
 
@@ -235,7 +246,10 @@ def query(
 ) -> QueryResponse:
     _enforce_public_limits(request, req, settings)
     _tag_client(request, req)
-    return service.query(db, request)
+    response = service.query(db, request)
+    if not is_admin_request(req, settings):
+        response.retrieval_debug = public_debug(response.retrieval_debug)
+    return response
 
 
 @router.post("/query/stream")
@@ -251,8 +265,25 @@ def query_stream(
     answer fragments, then `done` with the final aligned payload."""
     _enforce_public_limits(request, req, settings)
     _tag_client(request, req)
+    debug_filter = None if is_admin_request(req, settings) else public_debug
+    key = client_key(req)
+
+    def body():
+        # The RateLimited dependency releases its slot when this function
+        # returns — before the body streams — so the LLM streaming holds its
+        # own in-flight slot for the lifetime of the generator.
+        try:
+            acquire_inflight(key)
+        except HTTPException as exc:
+            yield f"event: error\ndata: {json.dumps({'detail': exc.detail})}\n\n"
+            return
+        try:
+            yield from service.query_stream(db, request, debug_filter=debug_filter)
+        finally:
+            release_inflight(key)
+
     return StreamingResponse(
-        service.query_stream(db, request),
+        body(),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
@@ -891,6 +922,16 @@ def people_refresh(
     return PersonRefreshResponse(counts=counts)
 
 
+def _commit_or_404_unknown_query_log(db: Session) -> None:
+    """Commit a row that references query_logs; an unknown id is the
+    client's error (stale/forged widget state), not a 500."""
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=404, detail="unknown query_log_id") from None
+
+
 @router.post("/feedback", response_model=FeedbackRead)
 def feedback(payload: FeedbackCreate, db: DbSession, _rl: RateLimited) -> FeedbackRead:
     record = Feedback(
@@ -900,9 +941,12 @@ def feedback(payload: FeedbackCreate, db: DbSession, _rl: RateLimited) -> Feedba
         comment=payload.comment,
     )
     db.add(record)
-    db.commit()
+    _commit_or_404_unknown_query_log(db)
     logger.info("feedback %s rating=%s comment=%s", record.id, record.rating, bool(record.comment))
     return FeedbackRead(id=record.id, created_at=record.created_at)
+
+
+FEEDBACK_EDIT_WINDOW = timedelta(minutes=15)
 
 
 @router.patch("/feedback/{feedback_id}", response_model=FeedbackRead)
@@ -911,10 +955,19 @@ def feedback_comment(
 ) -> FeedbackRead:
     """Attach the optional report text to a rating row the widget created a
     moment earlier: the rating goes out on the click, the comment follows.
-    The id is a random UUID known only to the submitting page."""
-    record = db.get(Feedback, feedback_id)
+    The id is a random UUID known only to the submitting page. One-shot:
+    only a fresh row (FEEDBACK_EDIT_WINDOW) whose comment is still unset
+    accepts the text, so a leaked id can't be used to rewrite reports."""
+    record = db.get(Feedback, feedback_id, with_for_update=True)
     if record is None:
         raise HTTPException(status_code=404, detail="feedback not found")
+    if record.comment is not None:
+        raise HTTPException(status_code=409, detail="feedback comment already set")
+    created = record.created_at
+    if created is not None and created.tzinfo is None:
+        created = created.replace(tzinfo=UTC)
+    if created is None or datetime.now(UTC) - created > FEEDBACK_EDIT_WINDOW:
+        raise HTTPException(status_code=409, detail="feedback too old to edit")
     record.comment = payload.comment
     db.commit()
     logger.info("feedback %s comment attached", record.id)
@@ -926,7 +979,7 @@ def citation_click(payload: CitationClickCreate, db: DbSession, _rl: RateLimited
     """Widget telemetry: which citation a user opened for a given answer."""
     record = CitationClick(query_log_id=payload.query_log_id, chunk_id=payload.chunk_id)
     db.add(record)
-    db.commit()
+    _commit_or_404_unknown_query_log(db)
     logger.info("citation click %s chunk=%s", record.id, record.chunk_id)
     return FeedbackRead(id=record.id, created_at=record.created_at)
 

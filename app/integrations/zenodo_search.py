@@ -36,13 +36,17 @@ _WS_RE = re.compile(r"\s+")
 _ES_SPECIAL_RE = re.compile(r'[/:^~*?\[\]{}()"\\!|&<>=]')
 # Leading -/+ on a token are must-not / must operators.
 _ES_PREFIX_OP_RE = re.compile(r"(^|\s)[-+]+")
+# Uppercase boolean operators dangling at either edge ("AND dRICH", "TDR OR",
+# or a query of only operators) are ES syntax errors.
+_EDGE_BOOL_RE = re.compile(r"^(?:(?:AND|OR|NOT)(?:\s+|$))+|(?:(?:^|\s+)(?:AND|OR|NOT))+$")
 
 
 def sanitize_query(query: str) -> str:
     """Strip ES query-string operators: "J/psi photoproduction" -> "J psi photoproduction"."""
     query = _ES_SPECIAL_RE.sub(" ", query or "")
     query = _ES_PREFIX_OP_RE.sub(r"\1", query)
-    return _WS_RE.sub(" ", query).strip()
+    query = _WS_RE.sub(" ", query).strip()
+    return _EDGE_BOOL_RE.sub("", query).strip()
 
 
 def _strip_html(raw: str | None, max_len: int = 400) -> str:
@@ -150,6 +154,9 @@ class ZenodoSearchClient:
             if cached and cached.expires_at > now:
                 return list(cached.hits)
         hits = self._fetch(query, size=size, sort=sort)
+        if hits is None:
+            # Failed request: don't pin an empty result for the whole TTL.
+            return []
         if self.cache_ttl_s > 0:
             with self._lock:
                 self._cache[cache_key] = _CacheEntry(hits=hits, expires_at=now + self.cache_ttl_s)
@@ -159,16 +166,18 @@ class ZenodoSearchClient:
     # queries hit Zenodo's flaky search backend far less often.
     RETRY_TERMS = 4
 
-    def _fetch(self, query: str, *, size: int, sort: str) -> list[ZenodoHit]:
+    def _fetch(self, query: str, *, size: int, sort: str) -> list[ZenodoHit] | None:
+        """Hits, or ``None`` when the request (and any retry) failed."""
         hits, server_error = self._fetch_once(query, size=size, sort=sort)
         if server_error:
-            short = " ".join(query.split()[: self.RETRY_TERMS])
+            short = sanitize_query(" ".join(query.split()[: self.RETRY_TERMS]))
             if short and short != query:
                 hits, _ = self._fetch_once(short, size=size, sort=sort)
         return hits
 
-    def _fetch_once(self, query: str, *, size: int, sort: str) -> tuple[list[ZenodoHit], bool]:
-        """One request; returns (hits, server_error) where server_error is a 5xx."""
+    def _fetch_once(self, query: str, *, size: int, sort: str) -> tuple[list[ZenodoHit] | None, bool]:
+        """One request; returns (hits, server_error) where hits is ``None``
+        on failure and server_error flags a 5xx."""
         params = {
             "q": query,
             "communities": self.community,
@@ -182,12 +191,12 @@ class ZenodoSearchClient:
         except Exception as exc:
             logger.warning("zenodo_search_failed", extra={"query": query, "error": str(exc)[:200]})
             status = getattr(getattr(exc, "response", None), "status_code", None)
-            return [], isinstance(status, int) and status >= 500
+            return None, isinstance(status, int) and status >= 500
         try:
             payload = response.json()
         except ValueError:
             logger.warning("zenodo_search_non_json", extra={"query": query})
-            return [], False
+            return None, False
         raw_hits = (payload.get("hits") or {}).get("hits") or []
         if not isinstance(raw_hits, list):
             return [], False

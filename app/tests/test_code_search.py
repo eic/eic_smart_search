@@ -86,3 +86,50 @@ def test_fetch_windows_lines(monkeypatch: pytest.MonkeyPatch) -> None:
     # Unbounded request clips to the 400-line window.
     result = client.fetch_code_file("eic/EICrecon", "src/big.cc")
     assert result["end_line"] == 400
+
+
+def test_strip_search_qualifiers_keeps_plain_words() -> None:
+    from app.integrations.code_search import strip_search_qualifiers
+
+    assert strip_search_qualifiers("repo:aprozo/private StPicoEvent") == "StPicoEvent"
+    assert strip_search_qualifiers("a org:x user:y -repo:z b") == "a b"
+    assert strip_search_qualifiers("std::vector push_back") == "std::vector push_back"
+    assert strip_search_qualifiers("org:other") == ""
+
+
+def test_search_strips_injected_qualifiers(monkeypatch: pytest.MonkeyPatch) -> None:
+    captured: dict = {}
+
+    def fake_get(url, params=None, headers=None, timeout=None):
+        captured["q"] = params["q"]
+        return httpx.Response(200, json={"items": []}, request=httpx.Request("GET", url))
+
+    monkeypatch.setattr(httpx, "get", fake_get)
+    _client().search_code("secret repo:aprozo/private-repo user:aprozo org:other")
+    assert captured["q"] == "secret org:eic"
+    # Qualifier-only query collapses to empty and never reaches GitHub.
+    captured.clear()
+    assert _client().search_code("repo:aprozo/private-repo") == {"error": "empty query"}
+    assert captured == {}
+
+
+def test_search_repo_must_match_org_pattern(monkeypatch: pytest.MonkeyPatch) -> None:
+    captured: dict = {}
+
+    def fake_get(url, params=None, headers=None, timeout=None):
+        captured["q"] = params["q"]
+        return httpx.Response(200, json={"items": []}, request=httpx.Request("GET", url))
+
+    monkeypatch.setattr(httpx, "get", fake_get)
+    _client().search_code("x", repo="eic/EICrecon")
+    assert captured["q"] == "x repo:eic/EICrecon"
+    for bad in ("eic/x repo:aprozo/private", "eic/a/b", "eic/", "eic/..", "eicx/repo"):
+        _client().search_code("x", repo=bad)
+        assert captured["q"] == "x org:eic", bad
+
+
+def test_fetch_rejects_encoded_traversal() -> None:
+    client = _client()
+    for bad in ("%2e%2e/secret", "src/%2E%2E/x", "a\\..\\b", "a?x=1", "a#b", "a\nb"):
+        assert client.fetch_code_file("eic/EICrecon", bad) == {"error": "invalid path"}, bad
+    assert "error" in client.fetch_code_file("eic/..", "x.h")

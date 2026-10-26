@@ -1,7 +1,20 @@
 from datetime import datetime
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, BeforeValidator, Field, model_validator
+
+
+def _strip_nul(value: Any) -> Any:
+    return value.replace("\x00", "") if isinstance(value, str) else value
+
+
+# Postgres text columns reject NUL; strip it (a pasted string still works)
+# before the length checks run, so an all-NUL value fails min_length -> 422.
+NoNul = BeforeValidator(_strip_nul)
+
+
+def _clean_feedback_text(value: Any) -> Any:
+    return value.replace("\x00", "").strip() if isinstance(value, str) else value
 
 
 Scope = Literal["public", "internal", "all"]
@@ -9,11 +22,11 @@ Scope = Literal["public", "internal", "all"]
 
 class HistoryTurn(BaseModel):
     role: Literal["user", "assistant"]
-    content: str = Field(min_length=1, max_length=4000)
+    content: Annotated[str, NoNul] = Field(min_length=1, max_length=4000)
 
 
 class QueryRequest(BaseModel):
-    query: str = Field(min_length=1, max_length=2000)
+    query: Annotated[str, NoNul] = Field(min_length=1, max_length=2000)
     scope: Scope = "public"
     # Previous turns of this conversation (oldest first), so follow-up
     # questions ("what about the other one?") carry their context. Capped
@@ -69,21 +82,27 @@ class IngestRunResponse(BaseModel):
     stats: dict[str, Any] = Field(default_factory=dict)
 
 
+# Feedback text is stored stripped (NUL + edge whitespace); length limits
+# apply to the stripped value.
+FeedbackText = Annotated[str, BeforeValidator(_clean_feedback_text)]
+
+
 class FeedbackCreate(BaseModel):
     query_log_id: str | None = None
-    query: str | None = None
+    query: Annotated[str, NoNul] | None = Field(default=None, max_length=2000)
     rating: int | None = Field(default=None, ge=1, le=5)
-    comment: str | None = Field(default=None, max_length=4000)
+    comment: FeedbackText | None = Field(default=None, max_length=4000)
 
     @model_validator(mode="after")
     def _rating_or_comment(self) -> "FeedbackCreate":
+        self.comment = self.comment or None
         if self.rating is None and not self.comment:
             raise ValueError("rating or comment required")
         return self
 
 
 class FeedbackUpdate(BaseModel):
-    comment: str = Field(min_length=1, max_length=4000)
+    comment: FeedbackText = Field(min_length=1, max_length=4000)
 
 
 class FeedbackRead(BaseModel):

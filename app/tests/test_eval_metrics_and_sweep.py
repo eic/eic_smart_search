@@ -119,3 +119,28 @@ def test_nrp_arms_carry_thinking_switches_and_list_arms_filters() -> None:
     assert [a.key for a in chosen] == ["gen_gpt-5.4-nano", "gen_qwen3"]
     with pytest.raises(ValueError, match="unknown sweep arms"):
         list_arms(S(), ["generation"], ["gen_nope"])
+
+
+@pytest.mark.parametrize("warm", [True, False])
+def test_build_answer_generator_warm_indico_switch(warm: bool) -> None:
+    """Sweep arms build one generator each; warm_indico=False keeps them from
+    each starting an Indico prefetch thread. Production default warms."""
+    from unittest.mock import patch
+
+    from app.core.config import get_settings
+    from app.integrations.indico import IndicoClient
+    from app.llm.generation import build_answer_generator
+
+    settings = get_settings().model_copy(update={
+        "GENERATION_PROVIDER": "openai",
+        "OPENAI_API_KEY": "test-key",
+        "INDICO_ENABLED": True,
+        "INDICO_CATEGORY_URL": "https://indico.bnl.gov/category/402/",
+        "INDICO_CACHE_TTL_S": 300.0,
+    })
+    spawned: list = []
+    with patch.object(IndicoClient, "_spawn", lambda self, target, *args: spawned.append(target)):
+        kwargs = {} if warm else {"warm_indico": False}
+        generator = build_answer_generator(settings, **kwargs)
+    assert generator._indico is not None
+    assert len(spawned) == (1 if warm else 0)

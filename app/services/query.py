@@ -1,6 +1,7 @@
 import json
 import re
 import time
+from collections.abc import Callable
 from urllib.parse import urlparse
 from typing import Any
 
@@ -20,6 +21,30 @@ from app.services.probes import classify_probe
 def _sse(event: str, data: dict[str, Any]) -> str:
     """Format one Server-Sent Event frame."""
     return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False, default=str)}\n\n"
+
+
+_PUBLIC_DEBUG_KEYS = (
+    "cache_hit", "cache_age_s", "latency_ms", "timings_ms", "expert_hint", "history_turns",
+)
+_PUBLIC_GENERATION_KEYS = (
+    "mode", "model", "latency_ms", "tool_time_ms", "finish_reason", "skipped",
+)
+
+
+def public_debug(debug: dict[str, Any] | None) -> dict[str, Any]:
+    """Allowlisted subset of ``retrieval_debug`` safe for anonymous callers.
+
+    The full blob carries tool-call arguments, raw provider error strings,
+    people cards (email / ORCID), Zenodo / Indico payloads, vector-store
+    errors and the applied filters — admin-only diagnostics. Pure function.
+    """
+    if not isinstance(debug, dict):
+        return {}
+    out = {k: debug[k] for k in _PUBLIC_DEBUG_KEYS if k in debug}
+    gen = debug.get("generation")
+    if isinstance(gen, dict):
+        out["generation"] = {k: gen[k] for k in _PUBLIC_GENERATION_KEYS if k in gen}
+    return out
 
 
 def _host_of(url: str | None) -> str:
@@ -72,7 +97,13 @@ class QueryService:
             db, request, chunks, answer, generation_debug, retrieval_debug, started
         )
 
-    def query_stream(self, db: Session, request: QueryRequest):
+    def query_stream(
+        self,
+        db: Session,
+        request: QueryRequest,
+        *,
+        debug_filter: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
+    ):
         """SSE variant of query(). Yields pre-formatted `text/event-stream` strings.
 
         Event order:
@@ -84,6 +115,8 @@ class QueryService:
 
         The `done` citations replace the provisional ones — after generation
         the LLM-cited sources are reordered to the front, same as query().
+        ``debug_filter`` (e.g. ``public_debug`` for anonymous callers) is
+        applied to the `done` payload's retrieval_debug.
         """
         started = time.perf_counter()
         probe = self._screen(request)
@@ -94,7 +127,7 @@ class QueryService:
             yield _sse("citations", {"citations": [c.model_dump() for c in response.citations]})
             if response.answer:
                 yield _sse("delta", {"text": response.answer})
-            yield _sse("done", self._done_payload(response))
+            yield _sse("done", self._done_payload(response, debug_filter))
             return
 
         chunks, retrieval_debug = self._retrieve(db, request)
@@ -134,7 +167,7 @@ class QueryService:
         response = self._finalize(
             db, request, chunks, answer, generation_debug, retrieval_debug, started
         )
-        yield _sse("done", self._done_payload(response))
+        yield _sse("done", self._done_payload(response, debug_filter))
 
     # ---- shared prologue -----------------------------------------------------
 
@@ -212,13 +245,17 @@ class QueryService:
         )
 
     @staticmethod
-    def _done_payload(response: QueryResponse) -> dict[str, Any]:
+    def _done_payload(
+        response: QueryResponse,
+        debug_filter: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
+        debug = response.retrieval_debug
         return {
             "answer": response.answer,
             "citations": [c.model_dump() for c in response.citations],
             "query_log_id": response.query_log_id,
             "expert_hint": response.expert_hint,
-            "retrieval_debug": response.retrieval_debug,
+            "retrieval_debug": debug_filter(debug) if debug_filter else debug,
         }
 
     # Markdown image  ![alt](url)  and link  [text](url)
@@ -375,6 +412,8 @@ class QueryService:
                     "citations": [c.model_dump() for c in citations],
                     "top_score": top_score,
                     "confidence_score": confidence_score,
+                    # The label itself, so a tool-grounded "high" survives replay.
+                    "confidence": confidence,
                     "top_k": request.top_k,
                 },
             )
@@ -542,7 +581,8 @@ class QueryService:
             prompt_tokens=0,
             completion_tokens=0,
             cost_usd=0.0,
-            confidence=self._confidence(confidence_score),
+            # Older entries carry only the score: recompute the label from it.
+            confidence=payload.get("confidence") or self._confidence(confidence_score),
             top_score=top_score,
             answer=answer,
         )

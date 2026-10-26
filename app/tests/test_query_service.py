@@ -143,6 +143,31 @@ def test_query_service_cache_hit_skips_retriever_and_generator() -> None:
     assert len(db2.added) == 1
 
 
+def test_cache_replays_stored_confidence_label() -> None:
+    """The cached payload carries the confidence label; replay prefers it
+    over recomputing from the score (old entries still recompute)."""
+    from app.services.query_cache import QueryCache
+
+    cache = QueryCache(max_size=10, ttl_s=60)
+    service = QueryService(FakeSettings(), FakeRetriever(), FakeGenerator(), query_cache=cache)
+    req = QueryRequest(query="what are rucio tags?", scope="public", top_k=5, generate_answer=True)
+    db1 = FakeDb()
+    service.query(db1, req)
+    (entry,) = cache._store.values()
+    assert entry.payload["confidence"] == db1.added[0].confidence
+
+    # e.g. a tool-grounded answer: "high" with no vector evidence.
+    entry.payload.update(confidence="high", confidence_score=None)
+    db2 = FakeDb()
+    service.query(db2, req)
+    assert db2.added[0].confidence == "high"
+
+    del entry.payload["confidence"]
+    db3 = FakeDb()
+    service.query(db3, req)
+    assert db3.added[0].confidence == service._confidence(None)
+
+
 class _MultiChunkRetriever:
     """Stub retriever that returns N stub chunks, tracking call count."""
 

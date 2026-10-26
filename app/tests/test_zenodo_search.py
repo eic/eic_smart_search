@@ -212,3 +212,36 @@ def test_search_no_retry_on_4xx_or_short_query():
     with patch("app.integrations.zenodo_search.httpx.get", return_value=_status_error(503)) as mocked:
         assert client.search("TDR") == []
     assert mocked.call_count == 1
+
+
+def test_failed_search_is_not_cached():
+    client = ZenodoSearchClient(community="epic", cache_ttl_s=60.0)
+    with patch("app.integrations.zenodo_search.httpx.get", return_value=_status_error(503)):
+        assert client.search("TDR") == []
+    with patch("app.integrations.zenodo_search.httpx.get", return_value=_mock_response(FAKE_PAYLOAD)) as mocked:
+        assert len(client.search("TDR")) == 2
+    assert mocked.call_count == 1
+
+
+def test_failed_5xx_retry_is_not_cached():
+    client = ZenodoSearchClient(community="epic", cache_ttl_s=60.0)
+    with patch(
+        "app.integrations.zenodo_search.httpx.get",
+        side_effect=[_status_error(500), _status_error(500)],
+    ):
+        assert client.search("one two three four five") == []
+    with patch("app.integrations.zenodo_search.httpx.get", return_value=_mock_response(FAKE_PAYLOAD)) as mocked:
+        assert len(client.search("one two three four five")) == 2
+    assert mocked.call_count == 1
+
+
+def test_sanitize_query_strips_edge_boolean_operators():
+    from app.integrations.zenodo_search import sanitize_query
+
+    assert sanitize_query("AND dRICH OR") == "dRICH"
+    assert sanitize_query("NOT OR calorimeter AND NOT") == "calorimeter"
+    assert sanitize_query("AND OR NOT") == ""
+    assert sanitize_query("(AND) TDR") == "TDR"
+    # Inner operators, lowercase words and words merely starting with one stay.
+    assert sanitize_query("tracking AND pid") == "tracking AND pid"
+    assert sanitize_query("and ANDROID NOTE or") == "and ANDROID NOTE or"

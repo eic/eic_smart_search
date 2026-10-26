@@ -6,6 +6,7 @@ from app.ingestion.podio_datamodel import (
     PodioDatamodelConnector,
     _doxygen_class_url,
     _parse_member,
+    _type_line_numbers,
     _yaml_blob_url,
 )
 
@@ -111,7 +112,7 @@ links:
 _ANNOTATED = """<html><body><table>
 <tr><td><a class="el" href="classedm4eic_1_1_track.html" target="_self">Track</a></td></tr>
 <tr><td><a class="el" href="classedm4eic_1_1_trajectory.html">Trajectory</a></td></tr>
-<tr><td><a class="el" href="classedm4eic_1_1_cov2f.html">Cov2f</a></td></tr>
+<tr><td><a class="el" href="structedm4eic_1_1_cov2f.html">Cov2f</a></td></tr>
 </table></body></html>"""
 
 
@@ -177,3 +178,25 @@ def test_yaml_blob_url_shapes() -> None:
         == "https://github.com/eic/EDM4eic/blob/v8.10.0/edm4eic.yaml"
     )
     assert _yaml_blob_url("https://example.com/edm4eic.yaml") == "https://example.com/edm4eic.yaml"
+
+
+def test_struct_page_cited_for_component() -> None:
+    docs, _ = _docs_with(lambda request: httpx.Response(200, text=_ANNOTATED))
+    cov = docs["datamodel:edm4eic::Cov2f"]
+    assert cov.url == "https://eic.github.io/EDM4eic/structedm4eic_1_1_cov2f.html"
+    assert cov.metadata["doc_page"] == "doxygen"
+    # Class page still preferred when published.
+    assert docs["datamodel:edm4eic::Trajectory"].url.endswith("/classedm4eic_1_1_trajectory.html")
+
+
+def test_type_line_numbers_ignore_qualified_member_lines() -> None:
+    text = (
+        "datatypes:\n"
+        "  edm4eic::Track:\n"
+        "    ExtraCode:\n"
+        "      declaration: \"\n"
+        "        edm4eic::Track::size_type n;\n"
+        "        edm4eic::Cluster::begin() const\n"
+        "  'edm4eic::Cluster':  # quoted, with comment\n"
+    )
+    assert _type_line_numbers(text) == {"edm4eic::Track": 2, "edm4eic::Cluster": 7}

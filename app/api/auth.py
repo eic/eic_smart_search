@@ -24,7 +24,6 @@ import hashlib
 import hmac
 import json
 import logging
-import secrets
 import threading
 import time
 from typing import Annotated, Any
@@ -46,6 +45,23 @@ _membership_cache: dict[str, tuple[str, float]] = {}
 
 def _settings_dep() -> Settings:
     return get_settings()
+
+
+def _consteq(a: str, b: str) -> bool:
+    """Constant-time compare that never raises.
+
+    ``hmac.compare_digest`` on ``str`` raises TypeError for non-ASCII input
+    (a 500 for an attacker-supplied cookie/header), so compare UTF-8 bytes.
+    """
+    try:
+        return hmac.compare_digest(a.encode("utf-8"), b.encode("utf-8"))
+    except (AttributeError, UnicodeError, TypeError):
+        return False
+
+
+def _well_formed_token(token: str) -> bool:
+    """Bearer tokens/PATs are printable ASCII with no whitespace."""
+    return bool(token) and all(0x21 <= ord(c) <= 0x7E for c in token)
 
 
 def _bearer_token(request: Request) -> str:
@@ -154,16 +170,20 @@ def sign_payload(payload: dict[str, Any], secret: str) -> str:
 
 def verify_payload(token: str, secret: str) -> dict[str, Any] | None:
     """Verify signature + expiry (`exp`, unix seconds). None on any failure."""
+    if not isinstance(token, str) or not _well_formed_token(token):
+        return None
     try:
         body, sig = token.split(".", 1)
     except ValueError:
         return None
     expected = _b64(hmac.new(secret.encode(), body.encode(), hashlib.sha256).digest())
-    if not hmac.compare_digest(sig, expected):
+    if not _consteq(sig, expected):
         return None
     try:
         payload = json.loads(_unb64(body))
     except (ValueError, json.JSONDecodeError):
+        return None
+    if not isinstance(payload, dict):
         return None
     exp = payload.get("exp")
     if not isinstance(exp, (int, float)) or exp < time.time():
@@ -208,9 +228,17 @@ def require_admin(
             ),
             headers={"WWW-Authenticate": "Bearer"},
         )
+    if not _well_formed_token(token):
+        # Non-ASCII / whitespace / control chars: can't be a valid secret or
+        # GitHub PAT (and would blow up header encoding downstream).
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="malformed bearer token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     if mode == "token":
         expected = settings.ADMIN_TOKEN or ""
-        if expected and secrets.compare_digest(token, expected):
+        if expected and _consteq(token, expected):
             return "admin-token"
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="invalid admin token")
     if mode == "github_sso":
@@ -218,7 +246,7 @@ def require_admin(
         # (CI, cron, Make) sends the shared ADMIN_TOKEN as a service token so
         # it doesn't need a per-user GitHub PAT. Both, or an org PAT below.
         expected = settings.ADMIN_TOKEN or ""
-        if expected and secrets.compare_digest(token, expected):
+        if expected and _consteq(token, expected):
             return "service-token"
     if mode in ("github_org", "github_sso"):
         login = verify_admin_login(token, settings)

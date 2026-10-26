@@ -13,6 +13,7 @@ an error message the model can relay honestly.
 from __future__ import annotations
 
 import logging
+import re
 import threading
 import time
 from typing import Any
@@ -29,6 +30,19 @@ _RAW_BASE = "https://raw.githubusercontent.com"
 _MAX_FILE_LINES = 400
 _MAX_FILE_CHARS = 15_000
 _MAX_FRAGMENTS = 3
+
+# GitHub search qualifiers (``repo:x``, ``org:x``, ``user:x``, ``-repo:x``,
+# ``path:x`` …). The query comes from the LLM, which can be steered by an
+# injected document into widening the search beyond the configured org with
+# the server's token — so every ``word:value`` token is dropped and scope is
+# set only by us. ``(?!:)`` keeps C++ scoped names (``std::vector``) intact.
+_QUALIFIER_RE = re.compile(r"(?<![\w:])-?\w+:(?!:)\S*")
+_REPO_NAME_RE = re.compile(r"^[A-Za-z0-9._-]+$")
+
+
+def strip_search_qualifiers(query: str) -> str:
+    """Remove every GitHub ``qualifier:value`` token, keep plain words."""
+    return " ".join(_QUALIFIER_RE.sub(" ", query or "").split())
 
 
 class CodeSearchClient:
@@ -76,14 +90,25 @@ class CodeSearchClient:
             headers["Authorization"] = f"Bearer {self.token}"
         return headers
 
+    def _valid_repo(self, repo: str) -> bool:
+        """True for exactly ``<org>/<name>`` with a plain repo name."""
+        org, sep, name = (repo or "").partition("/")
+        return (
+            sep == "/"
+            and org == self.org
+            and bool(_REPO_NAME_RE.match(name))
+            and name.strip(".") != ""
+        )
+
     # ---- tools ----------------------------------------------------------
 
     def search_code(self, query: str, *, repo: str = "", limit: int = 6) -> dict[str, Any]:
-        query = " ".join((query or "").split())
+        query = strip_search_qualifiers(query)
         if not query:
             return {"error": "empty query"}
         limit = max(1, min(int(limit or 6), 10))
-        scope = f"repo:{repo}" if repo and repo.startswith(f"{self.org}/") else f"org:{self.org}"
+        repo = (repo or "").strip()
+        scope = f"repo:{repo}" if self._valid_repo(repo) else f"org:{self.org}"
         cache_key = ("search", query, scope, limit)
         cached = self._cached(cache_key)
         if cached is not None:
@@ -126,9 +151,18 @@ class CodeSearchClient:
     ) -> dict[str, Any]:
         repo = (repo or "").strip().strip("/")
         path = (path or "").strip().lstrip("/")
-        if not repo.startswith(f"{self.org}/") or repo.count("/") != 1:
+        if not self._valid_repo(repo):
             return {"error": f"repo must belong to the {self.org} org (got {repo!r})"}
-        if not path or ".." in path:
+        # Reject percent-encoding outright (``%2e%2e`` would bypass the
+        # ``..`` check once the URL is decoded), plus backslashes, ``?``/``#``
+        # (would rewrite the raw URL) and control characters.
+        if (
+            not path
+            or ".." in path
+            or "%" in path
+            or any(ch in path for ch in "\\?#")
+            or any(ord(c) < 32 or ord(c) == 127 for c in path)
+        ):
             return {"error": "invalid path"}
         cache_key = ("file", repo, path)
         text = self._cached(cache_key)
